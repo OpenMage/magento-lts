@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use phpseclib3\Net\SFTP;
+
 /**
  * Sftp client interface
  *
@@ -27,19 +29,15 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     public const SSH2_PORT = 22;
 
     /**
-     * @var \phpseclib3\Net\SFTP $_connection
+     * @var SFTP $_connection
      */
     protected $_connection = null;
 
     /**
      * Open a SFTP connection to a remote site.
      *
-     * @param array $args Connection arguments
-     * @param string $args[host] Remote hostname
-     * @param string $args[username] Remote username
-     * @param string $args[password] Connection password
-     * @param int $args[timeout] Connection timeout [=10]
-     *
+     * @param array{host?: mixed, username?: mixed, password?: mixed, timeout?: int} $args Connection arguments
+     * @throws Exception
      */
     public function open(array $args = [])
     {
@@ -52,19 +50,19 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $host = $args['host'];
             $port = self::SSH2_PORT;
         }
-        $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
+        $this->_connection = new SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
             throw new Exception(sprintf(__('Unable to open SFTP connection as %s@%s', $args['username'], $args['host'])));
         }
+        return true;
     }
 
     /**
      * Close a connection
-     *
      */
     public function close()
     {
-        return $this->_connection->disconnect();
+        $this->_connection->disconnect();
     }
 
     /**
@@ -224,6 +222,6 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function writeFile($filename, $src)
     {
-        return $this->_connection->put($filename, $src, \phpseclib3\Net\SFTP::SOURCE_LOCAL_FILE);
+        return $this->_connection->put($filename, $src, SFTP::SOURCE_LOCAL_FILE);
     }
 }

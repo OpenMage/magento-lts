@@ -17,59 +17,32 @@ parameters:
         - index.php
         - install.php
         - app/Mage.php
-        - app/code/core/Mage
+        - app/code/core/
         - app/design/
-        - errors
-        - lib/Mage
-        - lib/Magento
-        - lib/Varien
-        - shell
-        - tests/unit
+        - errors/
+        - lib/
+        - shell/
+        - tests/unit/
     excludePaths:
-        #incompatible interfaces
-        - app/code/core/Mage/Admin/Model/Acl/Assert/Ip.php
-        - app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
-        - app/code/core/Mage/Api/Model/Acl/Assert/Ip.php
-        - app/code/core/Mage/Api/Model/Acl/Assert/Time.php
-        - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+        # custom commands
+        - lib/_n98-magerun/ (?)
+
+        # libraries
+        - lib/3Dsecure/
+        - lib/Unserialize/
+
+        # others
         - lib/Varien/Directory/Collection.php
-        - lib/Varien/Directory/Factory.php
-        - lib/Varien/File/Object.php
-
-        # deprecated _getHelper()
-        - app/code/core/Mage/Adminhtml/Controller/Rss/Abstract.php
-        - app/code/core/Mage/Adminhtml/controllers/Rss/OrderController.php
-        - app/code/core/Mage/Adminhtml/controllers/Rss/CatalogController.php
-
-        # contains 1 abstract method and must therefore be declared abstract or implement the remaining methods
-        - app/code/core/Mage/Dataflow/Model/Session/Adapter/Http.php
-        - app/code/core/Mage/Dataflow/Model/Convert/Iterator/Http.php
-        - app/code/core/Mage/Dataflow/Model/Convert/Iterator/File/Csv.php
-        - lib/Varien/Convert/Validator/Column.php
-
-        # Cannot declare class Varien_Date, because the name is already in use
-        - app/code/core/Mage/Catalog/Model/Product/Option/Type/Date.php
-
-        # Cannot declare class XMLParser, because the name is already in use
-        - app/code/core/Mage/Centinel/Model/Api.php
-        - app/code/core/Mage/Centinel/Model/Api/Client.php
-
-        # Class phpseclib\Net\SSH2 not found.
-        - app/code/core/Mage/Paypal/Model/Report/Settlement.php
-        - lib/Varien/Io/Sftp.php
-
-        # Dataflow/Model/Convert/Iterator.php
-        - app/code/core/Mage/Dataflow/Model/Convert/Iterator.php
 
         # Too much noise from "Variable $this might not be defined"
         - app/code/core/*/*/data/*
         - app/code/core/*/*/sql/*
 
-        # requires Mycrypt
-        - lib/Magento/Crypt.php
-        - lib/Varien/Crypt/Mcrypt.php
+        # Class Mage_Centinel_Model_Api_Client extends unknown class CentinelClient.
+        - app/code/core/Mage/Centinel/Model/Api/Client.php
 
-        # Instantiated class not found
+        # Instantiated class Varien_Image_Adapter_Gd not found.
+        # Instantiated class Varien_Image_Adapter_Imagemagic not found.
         - lib/Varien/Image/Adapter.php
     ignoreErrors:
         -
