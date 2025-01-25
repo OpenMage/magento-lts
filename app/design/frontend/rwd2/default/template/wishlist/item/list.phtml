@@ -1,0 +1,67 @@
+<?php
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available at https://opensource.org/license/afl-3-0-php
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+    /* @var $this Mage_Wishlist_Block_Customer_Wishlist_Items */
+?>
+<?php
+    $columns = $this->getColumns();
+?>
+<table class="clean-table linearize-table" id="wishlist-table">
+    <thead>
+        <tr>
+            <?php
+                /* @var $column Mage_Wishlist_Block_Customer_Wishlist_Item_Column */
+                foreach ($columns as $column):
+                    $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
+            ?>
+                <th class="<?php echo $_blockName; ?>"><?php echo $column->getTitle();?></th>
+            <?php endforeach ?>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->getItems())): ?>
+            <?php foreach ($this->getItems() as $item): ?>
+                <tr id="item_<?php echo $item->getId();?>">
+                    <?php
+                        foreach ($columns as $key => $column):
+                            $_blockName = str_replace('.','-',strtolower($column->getNameInLayout()));
+
+                            /* Override default column title in layout, useful for certain cases like select all box */
+                            if ($column->getRwdTitle()) {
+                                $_rwdLabel = $column->getRwdTitle();
+                            } else {
+                                $_rwdLabel = ($column->getTitle()) ? $column->getTitle() : false;
+                            }
+                    ?>
+                        <td class="<?php echo 'wishlist-cell'.$key; ?> <?php echo $_blockName; ?>"<?php if($_rwdLabel): ?> data-rwd-label="<?php echo $_rwdLabel; ?>"<?php endif ?>><?php $column->setItem($item); echo $column->toHtml($item);?></td>
+                    <?php endforeach ?>
+                </tr>
+            <?php endforeach ?>
+        <?php else: ?>
+            <td colspan="<?php echo count($columns);?>" class="wishlist-empty"><?php echo $this->__('This Wishlist has no Items');?></td>
+        <?php endif ?>
+    </tbody>
+</table>
+<?php foreach ($columns as $column): ?>
+    <?php echo $column->getAdditionalHtml();?>
+<?php endforeach ?>
+<script type="text/javascript">
+//<![CDATA[
+<?php foreach ($columns as $column): ?>
+    <?php echo $column->getJs();?>
+<?php endforeach ?>
+//]]>
+</script>
