@@ -1718,23 +1718,51 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             endpoint: $this->getConfigFlag('sandbox_mode') ? Endpoint::SANDBOX : Endpoint::PROD
         );
     
-        try {
-            // Get the Rates and Transit Times API instance
-            $api = $connector->ratesTransitTimesV1();
-            
-            $this->_debug($this->_fedexRestRequestData);
+        // need to retry 10 times if the request is failed, each time, set shipDatestamp to the next day, format is YYYY-MM-DD
+        $shipDatestamp = date('Y-m-d');
+        $maxRetries = 10;
+        $attempt = 0;
+        while ($attempt < $maxRetries) {
+            try {
+                // Get the Rates and Transit Times API instance
+                $api = $connector->ratesTransitTimesV1();
 
-            // Perform the API call
-            $response = $api->rateAndTransitTimes($this->_fedexRestRequestData);
-    
-            // Process the response and convert it to Magento rate result format
-            $this->_prepareRestApiRateResponse($response);
-        } catch (Exception $e) {
-            $error = Mage::getModel('shipping/rate_result_error');
-            $error->setCarrier($this->_code);
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setErrorMessage($this->getConfigData('specificerrmsg'));
-            $this->_result->append($error);
+                // Create a FullSchemaQuoteRate request using the data prepared in setRequest
+                //$rateRequest = new FullSchemaQuoteRate();
+                
+                $this->_debug('Quote request:');
+                $this->_debug($this->_fedexRestRequestData);
+
+                if($attempt > 0){
+                    $shipDatestamp = date('Y-m-d', strtotime($shipDatestamp . ' +1 day'));
+                    $this->_fedexRestRequestData->requestedShipment->shipDateStamp = $shipDatestamp;
+                }
+
+                // Perform the API call
+                $response = $api->rateAndTransitTimes($this->_fedexRestRequestData);
+
+                // Process the response and convert it to Magento rate result format
+                $this->_prepareRestApiRateResponse($response);
+                break; // Exit loop on success
+            } catch (Exception $e) {
+                $attempt++;
+                if ($attempt >= $maxRetries) {
+                    if (method_exists($e, 'getResponse') && $e->getResponse()) {
+                        $this->_debug($e->getResponse()->body());
+                        Mage::logException(new Exception(print_r($this->_fedexRestRequestData, true) . ' returns ' . print_r($e->getResponse()->body(), true)));
+                    } else {
+                        Mage::logException($e);
+                    }
+                    $error = Mage::getModel('shipping/rate_result_error');
+                    $error->setCarrier($this->_code);
+                    $error->setCarrierTitle($this->getConfigData('title'));
+                    $error->setErrorMessage($this->getConfigData('specificerrmsg'));
+                    $this->_result->append($error);
+                } else {
+                    // Optional: wait before retrying
+                    sleep(1);
+                }
+            }
         }
     }
 
