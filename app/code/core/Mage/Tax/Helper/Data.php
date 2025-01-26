@@ -125,7 +125,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getPostCodeSubStringLength()
     {
-        $len = (int)$this->_postCodeSubStringLength;
+        $len = (int) $this->_postCodeSubStringLength;
         if ($len <= 0) {
             $len = 10;
         }
@@ -788,8 +788,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($shippingAddress && $shippingAddress->getQuote() && $shippingAddress->getQuote()->getBillingAddress()) {
             $billingAddress = $shippingAddress->getQuote()->getBillingAddress();
         }
-
-        $price = $this->getPrice(
+        return $this->getPrice(
             $pseudoProduct,
             $price,
             $includingTax,
@@ -797,9 +796,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             $billingAddress,
             $ctc,
             $store,
-            $this->shippingPriceIncludesTax($store)
+            $this->shippingPriceIncludesTax($store),
         );
-        return $price;
     }
 
     /**
@@ -873,24 +871,24 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             ->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id');
         $joinConditionD = implode(' AND ', [
             "tax_class_d.entity_id = {$priceTable}.entity_id",
-            $select->getAdapter()->quoteInto('tax_class_d.attribute_id = ?', (int)$taxClassAttribute->getId()),
-            'tax_class_d.store_id = 0'
+            $select->getAdapter()->quoteInto('tax_class_d.attribute_id = ?', (int) $taxClassAttribute->getId()),
+            'tax_class_d.store_id = 0',
         ]);
         $joinConditionC = implode(' AND ', [
             "tax_class_c.entity_id = {$priceTable}.entity_id",
-            $select->getAdapter()->quoteInto('tax_class_c.attribute_id = ?', (int)$taxClassAttribute->getId()),
-            $select->getAdapter()->quoteInto('tax_class_c.store_id = ?', (int)$storeId)
+            $select->getAdapter()->quoteInto('tax_class_c.attribute_id = ?', (int) $taxClassAttribute->getId()),
+            $select->getAdapter()->quoteInto('tax_class_c.store_id = ?', (int) $storeId),
         ]);
         $select
             ->joinLeft(
                 ['tax_class_d' => $taxClassAttribute->getBackend()->getTable()],
                 $joinConditionD,
-                []
+                [],
             )
             ->joinLeft(
                 ['tax_class_c' => $taxClassAttribute->getBackend()->getTable()],
                 $joinConditionC,
-                []
+                [],
             );
 
         return $this;
@@ -1016,7 +1014,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 foreach ($current->getItemsCollection() as $item) {
                     $taxCollection = Mage::getResourceModel('tax/sales_order_tax_item')
                         ->getTaxItemsByItemId(
-                            $item->getOrderItemId() ? $item->getOrderItemId() : $item->getItemId()
+                            $item->getOrderItemId() ? $item->getOrderItemId() : $item->getItemId(),
                         );
 
                     foreach ($taxCollection as $tax) {
@@ -1203,7 +1201,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isCrossBorderTradeEnabled($store = null)
     {
-        return (bool)$this->_config->crossBorderTradeEnabled($store);
+        return (bool) $this->_config->crossBorderTradeEnabled($store);
     }
 
     /**

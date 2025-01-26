@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -37,7 +37,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         'image/jpg'  => 'jpg',
         'image/jpeg' => 'jpg',
         'image/gif'  => 'gif',
-        'image/png'  => 'png'
+        'image/png'  => 'png',
     ];
 
     /**
@@ -49,7 +49,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
     protected function _retrieve()
     {
         $imageData = [];
-        $imageId = (int)$this->getRequest()->getParam('image');
+        $imageId = (int) $this->getRequest()->getParam('image');
         $galleryData = $this->_getProduct()->getData(self::GALLERY_ATTRIBUTE_CODE);
 
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
@@ -121,7 +121,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
             'position'  => $image['position'],
             'exclude'   => $image['disabled'],
             'url'       => $this->_getMediaConfig()->getMediaUrl($image['file']),
-            'types'     => $this->_getImageTypesAssignedToProduct($image['file'])
+            'types'     => $this->_getImageTypesAssignedToProduct($image['file']),
         ];
     }
 
@@ -164,8 +164,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Image_Rest extends Mage_Catalog_M
         if (isset($data['file_name']) && $data['file_name']) {
             $fileName = $data['file_name'];
         }
-        $fileName .= '.' . $this->_getExtensionByMimeType($data['file_mime_type']);
-        return $fileName;
+        return $fileName . ('.' . $this->_getExtensionByMimeType($data['file_mime_type']));
     }
 
     /**

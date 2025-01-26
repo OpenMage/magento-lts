@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,12 +70,12 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
             'html_name' => 'api2_roles[]',
             'values'    => $this->_getSelectedRoles(),
             'align'     => 'center',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
         ]);
 
         $this->addColumn('role_name', [
             'header'    => $this->__('Role Name'),
-            'index'     => 'role_name'
+            'index'     => 'role_name',
         ]);
 
         return parent::_prepareColumns();
@@ -180,7 +180,7 @@ class Mage_Api2_Block_Adminhtml_Permissions_User_Edit_Tab_Roles extends Mage_Adm
     {
         return $this->getUrl(
             '*/api2_role/rolesGrid',
-            ['user_id' => Mage::registry('permissions_user')->getUserId()]
+            ['user_id' => Mage::registry('permissions_user')->getUserId()],
         );
     }
 }

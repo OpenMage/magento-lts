@@ -108,7 +108,7 @@ class Varien_Debug
                     $className,
                     isset($data['type']) ? $data['type'] : '->',
                     $data['function'],
-                    implode(', ', $args)
+                    implode(', ', $args),
                 );
             } elseif (isset($data['function'])) {
                 $methodName = sprintf('%s(%s)', $data['function'], implode(', ', $args));

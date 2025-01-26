@@ -32,8 +32,8 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
     {
         $inputTypes = [
             'color' => [
-                'backend_model' => 'adminhtml/system_config_backend_color'
-            ]
+                'backend_model' => 'adminhtml/system_config_backend_color',
+            ],
         ];
 
         if (is_null($inputType)) {
@@ -62,10 +62,10 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
     public function getBackendModelByFieldConfig(Varien_Simplexml_Element $fieldConfig): ?string
     {
         if (isset($fieldConfig->backend_model)) {
-            return (string)$fieldConfig->backend_model;
+            return (string) $fieldConfig->backend_model;
         }
         if (isset($fieldConfig->frontend_type)) {
-            return $this->getBackendModelByInputType((string)$fieldConfig->frontend_type);
+            return $this->getBackendModelByInputType((string) $fieldConfig->frontend_type);
         }
         return null;
     }

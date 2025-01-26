@@ -143,7 +143,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                 if ($imageKeys[$swatchLabel] === false && isset($mapping[$label]['default_label'])) {
                     $imageKeys[$swatchLabel] = array_search(
                         $mapping[$label]['default_label'] . self::SWATCH_LABEL_SUFFIX,
-                        $imageHaystack
+                        $imageHaystack,
                     );
                 }
 
@@ -301,7 +301,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
 
         $newImage = imagecreatetruecolor($width, $height);
         list($r, $g, $b) = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
-        $backgroundColor = imagecolorallocate($newImage, (int)$r, (int)$g, (int)$b);
+        $backgroundColor = imagecolorallocate($newImage, (int) $r, (int) $g, (int) $b);
         imagefill($newImage, 0, 0, $backgroundColor);
         imagepng($newImage, Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
         imagedestroy($newImage);
@@ -393,7 +393,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
 
         return !in_array(
             Mage_ConfigurableSwatches_Helper_Data::normalizeKey($image->getLabel()),
-            $this->_productImageFilters[$product->getId()]
+            $this->_productImageFilters[$product->getId()],
         );
     }
 }

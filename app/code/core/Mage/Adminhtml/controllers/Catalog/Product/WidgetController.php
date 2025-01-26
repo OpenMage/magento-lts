@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
             'id'                => $uniqId,
             'use_massaction' => $massAction,
             'product_type_id' => $productTypeId,
-            'category_id'       => $this->getRequest()->getParam('category_id')
+            'category_id'       => $this->getRequest()->getParam('category_id'),
         ]);
 
         $html = $productsGrid->toHtml();
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Catalog_Product_WidgetController extends Mage_Adminhtml_Con
             $categoriesTree = $this->getLayout()->createBlock('adminhtml/catalog_category_widget_chooser', '', [
                 'id'                  => $uniqId . 'Tree',
                 'node_click_listener' => $productsGrid->getCategoryClickListenerJs(),
-                'with_empty_node'     => true
+                'with_empty_node'     => true,
             ]);
 
             $html = $this->getLayout()->createBlock('adminhtml/catalog_product_widget_chooser_container')

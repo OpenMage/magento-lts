@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
      */
     protected function _toHtml()
     {
-        $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool)$this->getTime());
+        $displayFormat = Varien_Date::convertZendToStrftime($this->getFormat(), true, (bool) $this->getTime());
 
         $html  = '<input type="text" name="' . $this->getName() . '" id="' . $this->getId() . '" ';
         $html .= 'value="' . $this->escapeHtml($this->getValue()) . '" class="' . $this->getClass() . '" ' . $this->getExtraParams() . '/> ';
@@ -72,12 +72,10 @@ class Mage_Core_Block_Html_Date extends Mage_Core_Block_Template
                 ';
         }
 
-        $html .= '
+        return $html . '
             Calendar.setup(calendarSetupObject);
         //]]>
         </script>';
-
-        return $html;
     }
 
     /**

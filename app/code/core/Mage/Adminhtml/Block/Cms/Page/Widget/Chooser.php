@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             ->setUniqId($uniqId);
 
         if ($element->getValue()) {
-            $page = Mage::getModel('cms/page')->load((int)$element->getValue());
+            $page = Mage::getModel('cms/page')->load((int) $element->getValue());
             if ($page->getId()) {
                 $chooser->setLabel($page->getTitle());
             }
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
             'header'    => Mage::helper('cms')->__('ID'),
             'align'     => 'right',
             'index'     => 'page_id',
-            'width'     => 50
+            'width'     => 50,
         ]);
 
         $this->addColumn('chooser_title', [
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_Cms_Page_Widget_Chooser extends Mage_Adminhtml_Block_
         $this->addColumn('chooser_identifier', [
             'header'    => Mage::helper('cms')->__('URL Key'),
             'align'     => 'left',
-            'index'     => 'identifier'
+            'index'     => 'identifier',
         ]);
 
         $this->addColumn('chooser_root_template', [

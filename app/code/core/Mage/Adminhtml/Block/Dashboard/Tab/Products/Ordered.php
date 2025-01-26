@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
             $storeIds = Mage::app()->getGroup($this->getParam('group'))->getStoreIds();
             $storeId = array_pop($storeIds);
         } else {
-            $storeId = (int)$this->getParam('store');
+            $storeId = (int) $this->getParam('store');
         }
 
         $collection = Mage::getResourceModel('sales/report_bestsellers_collection')
@@ -58,16 +58,16 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         $this->addColumn('name', [
             'header'    => Mage::helper('sales')->__('Product Name'),
             'sortable'  => false,
-            'index'     => 'product_name'
+            'index'     => 'product_name',
         ]);
 
         $this->addColumn('price', [
             'header'    => Mage::helper('sales')->__('Price'),
             'width'     => '120px',
             'type'      => 'currency',
-            'currency_code' => (string) Mage::app()->getStore((int)$this->getParam('store'))->getBaseCurrencyCode(),
+            'currency_code' => (string) Mage::app()->getStore((int) $this->getParam('store'))->getBaseCurrencyCode(),
             'sortable'  => false,
-            'index'     => 'product_price'
+            'index'     => 'product_price',
         ]);
 
         $this->addColumn('ordered_qty', [
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
             'width'     => '120px',
             'sortable'  => false,
             'index'     => 'qty_ordered',
-            'type'      => 'number'
+            'type'      => 'number',
         ]);
 
         $this->setFilterVisibility(false);

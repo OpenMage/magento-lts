@@ -69,14 +69,14 @@ class Mage_Sales_Model_Resource_Order_Address extends Mage_Sales_Model_Resource_
                 'sales/order' => 'entity_id',
                 'sales/order_invoice' => 'order_id',
                 'sales/order_shipment' => 'order_id',
-                'sales/order_creditmemo' => 'order_id'
+                'sales/order_creditmemo' => 'order_id',
             ];
 
             // update grid table after grid update
             foreach ($gridList as $gridResource => $field) {
                 Mage::getResourceModel($gridResource)->updateOnRelatedRecordChanged(
                     $field,
-                    $object->getParentId()
+                    $object->getParentId(),
                 );
             }
         }

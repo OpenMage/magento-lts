@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +44,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     'label'     => Mage::helper('adminhtml')->__('Save Cache Settings'),
                     'onclick'   => 'configForm.submit()',
                     'class' => 'save',
-                ])
+                ]),
         );
         return parent::_prepareLayout();
     }
@@ -111,7 +111,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     [
                         'name'      => 'refresh_catalog_rewrites',
                         'action'    => Mage::helper('adminhtml')->__('Refresh'),
-                    ]
+                    ],
                 ],
             ],
             'clear_images_cache'         => [
@@ -120,7 +120,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     [
                         'name'      => 'clear_images_cache',
                         'action'    => Mage::helper('adminhtml')->__('Clear'),
-                    ]
+                    ],
                 ],
             ],
             'refresh_layered_navigation' => [
@@ -136,7 +136,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                         'action'    => Mage::helper('adminhtml')->__('Refresh Now*'),
                         'comment'   => Mage::helper('adminhtml')->__('* - If indexing is in progress, it will be killed and new indexing process will start.'),
                         'warning'   => $warning,
-                    ]
+                    ],
                 ],
             ],
             'rebuild_search_index'      => [
@@ -145,7 +145,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     [
                         'name'      => 'rebuild_search_index',
                         'action'    => Mage::helper('adminhtml')->__('Rebuild'),
-                    ]
+                    ],
                 ],
             ],
             'rebuild_inventory_stock_status' => [
@@ -154,7 +154,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     [
                         'name'      => 'rebuild_inventory_stock_status',
                         'action'    => Mage::helper('adminhtml')->__('Refresh'),
-                    ]
+                    ],
                 ],
             ],
             'rebuild_catalog_index'         => [
@@ -163,7 +163,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     [
                         'name'      => 'rebuild_catalog_index',
                         'action'    => Mage::helper('adminhtml')->__('Rebuild'),
-                    ]
+                    ],
                 ],
             ],
             'rebuild_flat_catalog_category' => [
@@ -172,7 +172,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     [
                         'name'      => 'rebuild_flat_catalog_category',
                         'action'    => Mage::helper('adminhtml')->__('Rebuild'),
-                    ]
+                    ],
                 ],
             ],
             'rebuild_flat_catalog_product' => [
@@ -181,7 +181,7 @@ class Mage_Adminhtml_Block_System_Cache_Edit extends Mage_Adminhtml_Block_Widget
                     [
                         'name'      => 'rebuild_flat_catalog_product',
                         'action'    => Mage::helper('adminhtml')->__('Rebuild'),
-                    ]
+                    ],
                 ],
             ],
         ];

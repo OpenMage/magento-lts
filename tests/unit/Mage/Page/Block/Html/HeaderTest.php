@@ -37,10 +37,10 @@ class HeaderTest extends TestCase
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetIsHomePage(): void
-//    {
-//        $this->assertIsBool($this->subject->getIsHomePage());
-//    }
+    //    public function testGetIsHomePage(): void
+    //    {
+    //        $this->assertIsBool($this->subject->getIsHomePage());
+    //    }
 
     /**
      * @group Mage_Page

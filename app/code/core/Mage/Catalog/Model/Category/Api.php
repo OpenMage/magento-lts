@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 }
             } else { // load children of specified category id
                 $storeId = $this->_getStoreId($store);
-                $ids = (int)$categoryId;
+                $ids = (int) $categoryId;
             }
         } else { // load all root categories
             $ids = $categoryId ?? Mage_Catalog_Model_Category::TREE_ROOT_ID;
@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 'name'        => $category->getName(),
                 'is_active'   => $category->getIsActive(),
                 'position'    => $category->getPosition(),
-                'level'       => $category->getLevel()
+                'level'       => $category->getLevel(),
             ];
         }
 
@@ -308,7 +308,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             ) {
                 $category->setData(
                     $attribute->getAttributeCode(),
-                    $categoryData[$attribute->getAttributeCode()]
+                    $categoryData[$attribute->getAttributeCode()],
                 );
             }
         }
@@ -432,7 +432,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 'type'       => $product->getTypeId(),
                 'set'        => $product->getAttributeSetId(),
                 'sku'        => $product->getSku(),
-                'position'   => $product->getCatIndexPosition()
+                'position'   => $product->getCatIndexPosition(),
             ];
         }
 

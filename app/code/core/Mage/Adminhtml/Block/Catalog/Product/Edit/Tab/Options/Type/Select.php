@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,8 +41,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends 
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Add New Row'),
                     'class' => 'add add-select-row',
-                    'id'    => 'add_select_row_button_{{option_id}}'
-                ])
+                    'id'    => 'add_select_row_button_{{option_id}}',
+                ]),
         );
 
         $this->setChild(
@@ -51,8 +51,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Type_Select extends 
                 ->setData([
                     'label' => Mage::helper('catalog')->__('Delete Row'),
                     'class' => 'delete delete-select-row icon-btn',
-                    'id'    => 'delete_select_row_button'
-                ])
+                    'id'    => 'delete_select_row_button',
+                ]),
         );
 
         return parent::_prepareLayout();

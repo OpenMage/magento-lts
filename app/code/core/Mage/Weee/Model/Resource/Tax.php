@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Weee
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -87,15 +87,15 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
         $deleteCondition = '';
         if ($productCondition) {
             if ($productCondition instanceof Mage_Catalog_Model_Product) {
-                $select->where('product_id = ?', (int)$productCondition->getId());
-                $deleteCondition = $adapter->quoteInto('entity_id=?', (int)$productCondition->getId());
+                $select->where('product_id = ?', (int) $productCondition->getId());
+                $deleteCondition = $adapter->quoteInto('entity_id=?', (int) $productCondition->getId());
             } elseif ($productCondition instanceof Mage_Catalog_Model_Product_Condition_Interface) {
                 $productCondition = $productCondition->getIdsSelect($adapter)->__toString();
                 $select->where("product_id IN ({$productCondition})");
                 $deleteCondition = "entity_id IN ({$productCondition})";
             } else {
-                $select->where('product_id = ?', (int)$productCondition);
-                $deleteCondition = $adapter->quoteInto('entity_id = ?', (int)$productCondition);
+                $select->where('product_id = ?', (int) $productCondition);
+                $deleteCondition = $adapter->quoteInto('entity_id = ?', (int) $productCondition);
             }
         } else {
             $select->where('(from_time <= ? OR from_time = 0)', $now)
@@ -159,9 +159,9 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     {
         $select = $this->_getReadAdapter()->select();
         $select->from($this->getTable('weee/discount'), 'value')
-            ->where('website_id = ?', (int)$websiteId)
-            ->where('entity_id = ?', (int)$productId)
-            ->where('customer_group_id = ?', (int)$customerGroupId);
+            ->where('website_id = ?', (int) $websiteId)
+            ->where('entity_id = ?', (int) $productId)
+            ->where('customer_group_id = ?', (int) $customerGroupId);
 
         return $this->_getReadAdapter()->fetchOne($select);
     }

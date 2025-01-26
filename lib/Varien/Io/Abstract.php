@@ -38,7 +38,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function setAllowCreateFolders($flag)
     {
-        $this->_allowCreateFolders = (bool)$flag;
+        $this->_allowCreateFolders = (bool) $flag;
         return $this;
     }
 
@@ -63,7 +63,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
             return './';
         }
 
-        $path = trim(preg_replace('/\\\\/', '/', (string)$path));
+        $path = trim(preg_replace('/\\\\/', '/', (string) $path));
 
         if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match('/\\/$/', $path)) {
             $path .= '/';

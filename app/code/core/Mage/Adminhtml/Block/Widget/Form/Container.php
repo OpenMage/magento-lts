@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -53,7 +53,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
             $this->_addButton('delete', [
                 'label'     => Mage::helper('adminhtml')->__('Delete'),
                 'class'     => 'delete',
-                'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs($this->getDeleteUrl())
+                'onclick'   => Mage::helper('core/js')->getDeleteConfirmJs($this->getDeleteUrl()),
             ]);
         }
 
@@ -98,7 +98,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
     {
         return $this->getUrl('*/*/delete', [
             $this->_objectId => $this->getRequest()->getParam($this->_objectId),
-            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey()
+            Mage_Core_Model_Url::FORM_KEY => $this->getFormKey(),
         ]);
     }
 

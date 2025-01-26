@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sitemap
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -45,7 +45,7 @@ $table = $installer->getConnection()
     ], 'Store id')
     ->addIndex(
         $installer->getIdxName('sitemap/sitemap', ['store_id']),
-        ['store_id']
+        ['store_id'],
     )
     ->addForeignKey(
         $installer->getFkName('sitemap/sitemap', 'store_id', 'core/store', 'store_id'),
@@ -53,7 +53,7 @@ $table = $installer->getConnection()
         $installer->getTable('core/store'),
         'store_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->setComment('Google Sitemap');
 

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,12 +25,12 @@ $attributesToModify = [
     $installer->getAttribute($orderEntityTypeId, 'store_to_base_rate'),
     $installer->getAttribute($orderEntityTypeId, 'store_to_order_rate'),
     $installer->getAttribute($orderEntityTypeId, 'base_to_global_rate'),
-    $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate')
+    $installer->getAttribute($orderEntityTypeId, 'base_to_order_rate'),
 ];
 
 $attributesToMove = [
     $installer->getAttribute($orderEntityTypeId, 'status'),
-    $installer->getAttribute($orderEntityTypeId, 'state')
+    $installer->getAttribute($orderEntityTypeId, 'state'),
 ];
 
 // modify existing attributes in sales/order table
@@ -91,7 +91,7 @@ $installer->getConnection()->addConstraint(
     'store_id',
     $installer->getTable('core/store'),
     'store_id',
-    'SET NULL'
+    'SET NULL',
 );
 
 $this->endSetup();

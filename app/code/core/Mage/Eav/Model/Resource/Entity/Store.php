@@ -39,7 +39,7 @@ class Mage_Eav_Model_Resource_Entity_Store extends Mage_Core_Model_Resource_Db_A
         $adapter = $this->_getWriteAdapter();
         $bind    = [
             ':entity_type_id' => $entityTypeId,
-            ':store_id'       => $storeId
+            ':store_id'       => $storeId,
         ];
         $select = $adapter->select()
             ->from($this->getMainTable())

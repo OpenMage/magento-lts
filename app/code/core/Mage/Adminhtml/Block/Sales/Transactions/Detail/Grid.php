@@ -61,7 +61,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
             'index'     => 'key',
             'sortable'  => false,
             'type'      => 'text',
-            'width'     => '50%'
+            'width'     => '50%',
         ]);
 
         $this->addColumn('value', [
@@ -69,7 +69,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
             'index'     => 'value',
             'sortable'  => false,
             'type'      => 'text',
-            'escape'    => true
+            'escape'    => true,
         ]);
 
         return parent::_prepareColumns();
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail_Grid extends Mage_Adminhtml
     public function getTransactionAdditionalInfo()
     {
         $info = Mage::registry('current_transaction')->getAdditionalInformation(
-            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS
+            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
         );
         return (is_array($info)) ? $info : [];
     }

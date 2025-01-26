@@ -25,7 +25,7 @@
 class Mage_Core_Block_Text_Tag_Css_Admin extends Mage_Core_Block_Text_Tag_Css
 {
     /**
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _construct()
     {
@@ -41,7 +41,7 @@ class Mage_Core_Block_Text_Tag_Css_Admin extends Mage_Core_Block_Text_Tag_Css
      */
     public function setHref($href, $type = null)
     {
-        $type = (string)$type;
+        $type = (string) $type;
         if (empty($type)) {
             $type = 'skin';
         }

@@ -30,7 +30,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         $this->_attributesMap = [
             'order' => ['order_id' => 'entity_id'],
             'order_address' => ['address_id' => 'entity_id'],
-            'order_payment' => ['payment_id' => 'entity_id']
+            'order_payment' => ['payment_id' => 'entity_id'],
         ];
     }
 
@@ -79,32 +79,32 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
             ->addExpressionFieldToSelect(
                 'billing_firstname',
                 '{{billing_firstname}}',
-                ['billing_firstname' => $billingFirstnameField]
+                ['billing_firstname' => $billingFirstnameField],
             )
             ->addExpressionFieldToSelect(
                 'billing_lastname',
                 '{{billing_lastname}}',
-                ['billing_lastname' => $billingLastnameField]
+                ['billing_lastname' => $billingLastnameField],
             )
             ->addExpressionFieldToSelect(
                 'shipping_firstname',
                 '{{shipping_firstname}}',
-                ['shipping_firstname' => $shippingFirstnameField]
+                ['shipping_firstname' => $shippingFirstnameField],
             )
             ->addExpressionFieldToSelect(
                 'shipping_lastname',
                 '{{shipping_lastname}}',
-                ['shipping_lastname' => $shippingLastnameField]
+                ['shipping_lastname' => $shippingLastnameField],
             )
             ->addExpressionFieldToSelect(
                 'billing_name',
                 "CONCAT({{billing_firstname}}, ' ', {{billing_lastname}})",
-                ['billing_firstname' => $billingFirstnameField, 'billing_lastname' => $billingLastnameField]
+                ['billing_firstname' => $billingFirstnameField, 'billing_lastname' => $billingLastnameField],
             )
             ->addExpressionFieldToSelect(
                 'shipping_name',
                 'CONCAT({{shipping_firstname}}, " ", {{shipping_lastname}})',
-                ['shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField]
+                ['shipping_firstname' => $shippingFirstnameField, 'shipping_lastname' => $shippingLastnameField],
             );
 
         /** @var Mage_Api_Helper_Data $apiHelper */
@@ -135,7 +135,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
 
         if ($order->getGiftMessageId() > 0) {
             $order->setGiftMessage(
-                Mage::getSingleton('giftmessage/message')->load($order->getGiftMessageId())->getMessage()
+                Mage::getSingleton('giftmessage/message')->load($order->getGiftMessageId())->getMessage(),
             );
         }
 
@@ -148,7 +148,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         foreach ($order->getAllItems() as $item) {
             if ($item->getGiftMessageId() > 0) {
                 $item->setGiftMessage(
-                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage()
+                    Mage::getSingleton('giftmessage/message')->load($item->getGiftMessageId())->getMessage(),
                 );
             }
 

@@ -32,7 +32,7 @@ class CustomerTest extends TestCase
         $this->subject = Mage::getModel('customer/convert_adapter_customer');
     }
 
-//    /**
+    //    /**
     //     * @return void
     //     * @throws Throwable
     //     *

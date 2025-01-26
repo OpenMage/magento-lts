@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -46,7 +46,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         if (!Mage::getSingleton('adminhtml/url')->useSecretKey()) {
             return $this->getUrl('*/*/delete', [
                 $this->_objectId => $this->getRequest()->getParam($this->_objectId),
-                'form_key' => Mage::getSingleton('core/session')->getFormKey()
+                'form_key' => Mage::getSingleton('core/session')->getFormKey(),
             ]);
         } else {
             return parent::getDeleteUrl();

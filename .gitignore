@@ -23,10 +23,11 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
-# Add Gitpod online IDE config
-# https://github.com/OpenMage/magento-lts/pull/1836
-/dev/gitpod/docker-magento
-/dev/gitpod/.env
+# flow.js library
+/js/lib/uploader
+
+# TinyMCE library
+/js/lib/tinymce
 
 # Add development environment setup files and README
 # https://github.com/OpenMage/magento-lts/pull/1012

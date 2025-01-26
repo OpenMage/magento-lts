@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cron
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -23,12 +23,12 @@ $installer->startSetup();
  */
 $installer->getConnection()->dropIndex(
     $installer->getTable('cron/schedule'),
-    'TASK_NAME'
+    'TASK_NAME',
 );
 
 $installer->getConnection()->dropIndex(
     $installer->getTable('cron/schedule'),
-    'SCHEDULED_AT'
+    'SCHEDULED_AT',
 );
 
 /**
@@ -43,47 +43,47 @@ $tables = [
                 'unsigned'  => true,
                 'nullable'  => false,
                 'primary'   => true,
-                'comment'   => 'Schedule Id'
+                'comment'   => 'Schedule Id',
             ],
             'job_code' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 255,
                 'nullable'  => false,
                 'default'   => '0',
-                'comment'   => 'Job Code'
+                'comment'   => 'Job Code',
             ],
             'status' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => 7,
                 'nullable'  => false,
                 'default'   => 'pending',
-                'comment'   => 'Status'
+                'comment'   => 'Status',
             ],
             'messages' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TEXT,
                 'length'    => '64K',
-                'comment'   => 'Messages'
+                'comment'   => 'Messages',
             ],
             'created_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
                 'nullable'  => false,
-                'comment'   => 'Created At'
+                'comment'   => 'Created At',
             ],
             'scheduled_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Scheduled At'
+                'comment'   => 'Scheduled At',
             ],
             'executed_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Executed At'
+                'comment'   => 'Executed At',
             ],
             'finished_at' => [
                 'type'      => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
-                'comment'   => 'Finished At'
-            ]
+                'comment'   => 'Finished At',
+            ],
         ],
-        'comment' => 'Cron Schedule'
-    ]
+        'comment' => 'Cron Schedule',
+    ],
 ];
 
 $installer->getConnection()->modifyTables($tables);
@@ -94,13 +94,13 @@ $installer->getConnection()->modifyTables($tables);
 $installer->getConnection()->addIndex(
     $installer->getTable('cron/schedule'),
     $installer->getIdxName('cron/schedule', ['job_code']),
-    ['job_code']
+    ['job_code'],
 );
 
 $installer->getConnection()->addIndex(
     $installer->getTable('cron/schedule'),
     $installer->getIdxName('cron/schedule', ['scheduled_at', 'status']),
-    ['scheduled_at', 'status']
+    ['scheduled_at', 'status'],
 );
 
 $installer->endSetup();

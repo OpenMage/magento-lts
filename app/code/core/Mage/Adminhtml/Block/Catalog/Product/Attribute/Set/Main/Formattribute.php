@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -30,24 +30,24 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formattribute exte
             'new_attribute',
             'text',
             [
-                                'label' => Mage::helper('catalog')->__('Name'),
-                                'name' => 'new_attribute',
-                                'required' => true,
-                            ]
+                'label' => Mage::helper('catalog')->__('Name'),
+                'name' => 'new_attribute',
+                'required' => true,
+            ],
         );
 
         $fieldset->addField(
             'submit',
             'note',
             [
-                                'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
-                                            ->setData([
-                                                'label'     => Mage::helper('catalog')->__('Add Attribute'),
-                                                'onclick'   => 'this.form.submit();',
-                                                                                                'class' => 'add'
-                                            ])
-                                            ->toHtml(),
-                            ]
+                'text' => $this->getLayout()->createBlock('adminhtml/widget_button')
+                            ->setData([
+                                'label'     => Mage::helper('catalog')->__('Add Attribute'),
+                                'onclick'   => 'this.form.submit();',
+                                'class' => 'add',
+                            ])
+                            ->toHtml(),
+            ],
         );
 
         $form->setUseContainer(true);

@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
         } elseif ($this->getRequest()->getParam('group')) {
             $storeId = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
         } elseif ($this->getRequest()->getParam('store')) {
-            $storeId = (int)$this->getRequest()->getParam('store');
+            $storeId = (int) $this->getRequest()->getParam('store');
         } else {
             $storeId = '';
         }
@@ -52,14 +52,14 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
     {
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Tag Name'),
-            'index'     => 'name'
+            'index'     => 'name',
         ]);
 
         $this->addColumn('taged', [
             'header'    => Mage::helper('reports')->__('Popularity'),
             'width'     => '50px',
             'align'     => 'right',
-            'index'     => 'popularity'
+            'index'     => 'popularity',
         ]);
 
         $this->addColumn(
@@ -72,14 +72,14 @@ class Mage_Adminhtml_Block_Report_Tag_Popular_Grid extends Mage_Adminhtml_Block_
                     [
                         'caption' => Mage::helper('catalog')->__('Show Details'),
                         'url'     => [
-                            'base' => '*/*/tagDetail'
+                            'base' => '*/*/tagDetail',
                         ],
-                        'field'   => 'id'
-                    ]
+                        'field'   => 'id',
+                    ],
                 ],
                 'is_system' => true,
                 'index'     => 'stores',
-            ]
+            ],
         );
         $this->setFilterVisibility(false);
 

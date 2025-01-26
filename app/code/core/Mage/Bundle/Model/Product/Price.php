@@ -94,7 +94,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                                 $product,
                                 $selection,
                                 $qty,
-                                $selectionQty->getValue()
+                                $selectionQty->getValue(),
                             );
                         }
                     }
@@ -204,7 +204,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 null,
                 null,
                 null,
-                false
+                false,
             );
             $maximalPrice = $taxHelper->getPrice(
                 $product,
@@ -215,7 +215,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 null,
                 null,
                 null,
-                false
+                false,
             );
         } else {
             $isPriceFixedType = ($product->getPriceType() == self::PRICE_TYPE_FIXED);
@@ -233,7 +233,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     null,
                     null,
                     null,
-                    false
+                    false,
                 );
             } else { // PRICE_TYPE_DYNAMIC
                 $minimalPrice = $maximalPrice = 0;
@@ -248,12 +248,12 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     $minimalPrice += $taxHelper->getPrice(
                         $product,
                         $this->_getMinimalCustomOptionPrice($customOption),
-                        $includeTax
+                        $includeTax,
                     );
                     $maximalPrice += $taxHelper->getPrice(
                         $product,
                         $this->_getMaximalCustomOptionPrice($customOption),
-                        $includeTax
+                        $includeTax,
                     );
                 }
             }
@@ -330,7 +330,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             && ($minimalPriceWithTax > $minimalPrice)
         ) {
             //We convert the value to string to maintain the precision
-            $tax = (string)($minimalPriceWithTax - $minimalPrice);
+            $tax = (string) ($minimalPriceWithTax - $minimalPrice);
             $roundedTax = $this->_getApp()->getStore()->roundPrice($tax);
             $minimalPrice = $minimalPriceWithTax - $roundedTax;
         }
@@ -406,7 +406,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 1,
                 null,
                 false,
-                $takeTierPrice
+                $takeTierPrice,
             );
             $selectionQty = $selection->getSelectionQty();
             if ($isPriceFixedType || $taxCalcMethod == Mage_Tax_Model_Calculation::CALC_TOTAL_BASE) {
@@ -419,7 +419,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     null,
                     null,
                     null,
-                    false
+                    false,
                 );
                 $selectionPrices[] = $selectionPrice;
             } elseif ($taxCalcMethod == Mage_Tax_Model_Calculation::CALC_ROW_BASE) {
@@ -471,7 +471,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
 
         $selectionCollection = $productType->getSelectionsCollection(
             $productType->getOptionsIds($product),
-            $product
+            $product,
         );
 
         return $optionCollection->appendSelections($selectionCollection, false, false);
@@ -535,7 +535,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $selectionProduct,
             $bundleQty,
             $selectionQty,
-            $multiplyQty
+            $multiplyQty,
         );
     }
 
@@ -572,7 +572,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 $product->setFinalPrice($this->getPrice($product));
                 Mage::dispatchEvent(
                     'catalog_product_get_final_price',
-                    ['product' => $product, 'qty' => $bundleQty]
+                    ['product' => $product, 'qty' => $bundleQty],
                 );
                 $price = $product->getData('final_price') * ($selectionProduct->getSelectionPriceValue() / 100);
             } else { // fixed
@@ -605,7 +605,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $this->_getApp()->getStore()->roundPrice($price),
             $this->_applyGroupPrice($bundleProduct, $price),
             $this->_applyTierPrice($bundleProduct, $bundleQty, $price),
-            $this->_applySpecialPrice($bundleProduct, $price)
+            $this->_applySpecialPrice($bundleProduct, $price),
         );
     }
 
@@ -723,7 +723,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 'price' => 0,
                 'website_price' => 0,
                 'price_qty' => 1,
-                'cust_group' => $allGroups
+                'cust_group' => $allGroups,
             ]];
         }
 
@@ -809,7 +809,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $selectionResource = Mage::getResourceSingleton('bundle/selection');
         $productPriceTypeId = Mage::getSingleton('eav/entity_attribute')->getIdByCode(
             Mage_Catalog_Model_Product::ENTITY,
-            'price_type'
+            'price_type',
         );
 
         if ($wId instanceof Mage_Core_Model_Store) {
@@ -854,7 +854,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     $result['product_id'],
                     $qty,
                     $store,
-                    $gId
+                    $gId,
                 );
 
                 $selectionPrice = $result['final_price'] * $qty;
@@ -902,7 +902,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $specialPrice,
             $specialPriceFrom,
             $specialPriceTo,
-            $store
+            $store,
         );
 
         /**
@@ -938,9 +938,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $finalPrice = min($finalPrice, $rulePrice);
         }
 
-        $finalPrice = max($finalPrice, 0);
-
-        return $finalPrice;
+        return max($finalPrice, 0);
     }
 
     /**
@@ -1030,7 +1028,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
     protected function _getMinimalCustomOptionPrice($option)
     {
         $prices = $this->_getCustomOptionValuesPrices($option);
-        $minimalOptionPrice = ($prices) ? min($prices) : (float)$option->getPrice(true);
+        $minimalOptionPrice = ($prices) ? min($prices) : (float) $option->getPrice(true);
         return ($option->getIsRequire()) ? $minimalOptionPrice : 0;
     }
 
@@ -1046,7 +1044,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         if ($prices) {
             $maximalPrice = ($option->isMultipleType()) ? array_sum($prices) : max($prices);
         } else {
-            $maximalPrice = (float)($option->getPrice(true));
+            $maximalPrice = (float) ($option->getPrice(true));
         }
         return $maximalPrice;
     }

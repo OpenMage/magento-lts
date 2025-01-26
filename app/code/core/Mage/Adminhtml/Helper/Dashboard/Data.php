@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,7 +63,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
             '7d'  => $this->__('Last 7 Days'),
             '1m'  => $this->__('Current Month'),
             '1y'  => $this->__('YTD'),
-            '2y'  => $this->__('2YTD')
+            '2y'  => $this->__('2YTD'),
         ];
     }
 
@@ -76,7 +76,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      */
     public function getChartDataHash($data)
     {
-        $secret = (string)Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
+        $secret = (string) Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
         return md5($data . $secret);
     }
 }

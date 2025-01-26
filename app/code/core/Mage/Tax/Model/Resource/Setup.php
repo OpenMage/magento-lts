@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +93,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
                 'tax_customer_class'    => $customerTaxClasses,
                 'code'                  => $code,
                 'priority'              => 1,
-                'position'              => 1
+                'position'              => 1,
             ];
             Mage::getModel('tax/calculation_rule')->setData($ruleData)->save();
         }
@@ -132,7 +132,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
             $select->joinLeft(
                 ["data_{$id}" => $this->getTable('tax_rate_data')],
                 "data_{$id}.rate_type_id = {$id} AND data_{$id}.tax_rate_id = main_table.tax_rate_id",
-                ["data_{$id}" => 'rate_value']
+                ["data_{$id}" => 'rate_value'],
             );
         }
         return $this->_conn->fetchAll($select);

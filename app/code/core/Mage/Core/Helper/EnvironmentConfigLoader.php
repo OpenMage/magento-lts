@@ -105,9 +105,9 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $configKeyParts = array_filter(
             explode(
                 static::ENV_KEY_SEPARATOR,
-                $configKey
+                $configKey,
             ),
-            'trim'
+            'trim',
         );
         list($unused, $scope) = $configKeyParts;
         return [$configKeyParts, $scope];

@@ -213,13 +213,13 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $cellIndex = 0;
         foreach ($xmlElement->Row->children() as $cell) {
             if (is_null($this->_parseFieldNames)) {
-                $xmlData[(string)$cell->Data] = (string)$cell->Data;
+                $xmlData[(string) $cell->Data] = (string) $cell->Data;
             } else {
                 $attributes = $cell->attributes('urn:schemas-microsoft-com:office:spreadsheet');
                 if ($attributes && isset($attributes['Index'])) {
                     $cellIndex = $attributes['Index'] - 1;
                 }
-                $xmlData[$cellIndex] = (string)$cell->Data;
+                $xmlData[$cellIndex] = (string) $cell->Data;
                 $cellIndex++;
             }
         }

@@ -108,11 +108,18 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function getNewChildElement()
     {
-        return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
-           'name' => 'rule[actions][' . $this->getId() . '][new_child]',
-           'values' => $this->getNewChildSelectOptions(),
-           'value_name' => $this->getNewChildName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/newchild'));
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
+            'name' => 'rule[actions][' . $this->getId() . '][new_child]',
+            'values' => $this->getNewChildSelectOptions(),
+            'value_name' => $this->getNewChildName(),
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/newchild');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -124,8 +131,7 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
         foreach ($this->getActions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
-        $html .= '<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>';
-        return $html;
+        return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
     /**

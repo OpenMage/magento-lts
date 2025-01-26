@@ -68,7 +68,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
             . '</div></div>';
         $html .= '<input type="hidden" name="' . $this->_getHtmlName() . '[locale]"'
             . 'value="' . $this->getLocale()->getLocaleCode() . '"/>';
-        $html .= '<script type="text/javascript">
+        return $html . ('<script type="text/javascript">
             Calendar.setup({
                 inputField : "' . $htmlId . '_from",
                 ifFormat : "' . $format . '",
@@ -107,8 +107,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
                     };
                 });
             };
-        </script>';
-        return $html;
+        </script>');
     }
 
     public function getEscapedValue($index = null)
@@ -186,7 +185,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
 
             //set default timezone for store (admin)
             $dateObj->setTimezone(
-                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE)
+                Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE),
             );
 
             //set beginning of day

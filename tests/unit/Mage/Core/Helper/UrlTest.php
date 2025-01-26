@@ -150,39 +150,39 @@ class UrlTest extends TestCase
         yield 'remove #1' => [
             self::TEST_URL_BASE,
             self::TEST_URL_PARAM,
-            'foo'
+            'foo',
         ];
         yield 'remove #2' => [
             self::TEST_URL_PARAMS,
             self::TEST_URL_PARAMS,
-            'boo'
+            'boo',
         ];
         yield 'remove #1 case sensitive' => [
             self::TEST_URL_PARAM,
             self::TEST_URL_PARAM,
             'FOO',
-            true
+            true,
         ];
         yield 'remove #2 case sensitive' => [
             self::TEST_URL_PARAM,
             self::TEST_URL_PARAMS,
             'BOO',
-            true
+            true,
         ];
         yield 'not-exists' => [
             self::TEST_URL_PARAMS,
             self::TEST_URL_PARAMS,
-            'not-exists'
+            'not-exists',
         ];
         yield '___SID' => [
             self::TEST_URL_SID1,
             self::TEST_URL_SID_BOTH,
-            '___SID'
+            '___SID',
         ];
         yield 'SID' => [
             self::TEST_URL_SID2,
             self::TEST_URL_SID_BOTH,
-            'SID'
+            'SID',
         ];
     }
 

@@ -48,7 +48,7 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
             ->getSelect()
             ->join(
                 ['tax_table' => $this->getTable('sales/order_tax')],
-                'e.entity_id = tax_table.order_id'
+                'e.entity_id = tax_table.order_id',
             )
             ->group('tax_table.code')
             ->order(['process', 'priority']);
@@ -70,13 +70,13 @@ class Mage_Reports_Model_Resource_Tax_Collection extends Mage_Sales_Model_Entity
     {
         if ($storeIds) {
             $this->getSelect()
-                ->where('e.store_id IN(?)', (array)$storeIds)
+                ->where('e.store_id IN(?)', (array) $storeIds)
                 ->columns(['tax' => 'SUM(tax_table.base_real_amount)']);
         } else {
             $this->addExpressionAttributeToSelect(
                 'tax',
                 'SUM(tax_table.base_real_amount*{{base_to_global_rate}})',
-                ['base_to_global_rate']
+                ['base_to_global_rate'],
             );
         }
 

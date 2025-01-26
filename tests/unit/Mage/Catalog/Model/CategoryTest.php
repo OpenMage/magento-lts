@@ -107,12 +107,12 @@ class CategoryTest extends TestCase
      * @group Mage_Catalog_Model
      * @runInSeparateProcess
      */
-//    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
-//    {
-//        $this->subject->setName(self::TEST_STRING);
-//        $this->subject->setLocale($locale);
-//        $this->assertSame($expectedResult, $this->subject->getCategoryIdUrl());
-//    }
+    //    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
+    //    {
+    //        $this->subject->setName(self::TEST_STRING);
+    //        $this->subject->setLocale($locale);
+    //        $this->assertSame($expectedResult, $this->subject->getCategoryIdUrl());
+    //    }
 
     /**
      * @dataProvider provideFormatUrlKey
