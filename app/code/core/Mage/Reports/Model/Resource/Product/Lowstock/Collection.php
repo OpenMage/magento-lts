@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -125,7 +126,7 @@ class Mage_Reports_Model_Resource_Product_Lowstock_Collection extends Mage_Repor
     /**
      * Join catalog inventory stock item table for further stock_item values filters
      *
-     * @param array $fields
+     * @param array|string $fields
      * @return $this
      * @throws Mage_Core_Exception
      */

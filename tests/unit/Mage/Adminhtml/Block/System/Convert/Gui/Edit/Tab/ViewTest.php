@@ -43,7 +43,7 @@ class ViewTest extends TestCase
             ->setMethods(['getRegistryCurrentConvertProfile'])
             ->getMock();
 
-        $mock->expects($this->any())
+        $mock
             ->method('getRegistryCurrentConvertProfile')
             // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Dataflow_Model_Profile());

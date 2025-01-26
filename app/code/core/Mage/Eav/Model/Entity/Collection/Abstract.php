@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -1516,5 +1517,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         return (string)$select;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

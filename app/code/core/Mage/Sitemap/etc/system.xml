@@ -49,7 +49,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
                             <frontend_class>validate-number</frontend_class>
-                            <depends><changefreq separator=",">always,hourly,daily,weekly,monthly,yearly,never</changefreq></depends>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -59,7 +58,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><changefreq separator=",">always,hourly,daily,weekly,monthly,yearly,never</changefreq></depends>
                         </lastmod>
                     </fields>
                 </category>
@@ -88,7 +86,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
                             <frontend_class>validate-number</frontend_class>
-                            <depends><changefreq separator=",">always,hourly,daily,weekly,monthly,yearly,never</changefreq></depends>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -98,7 +95,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><changefreq separator=",">always,hourly,daily,weekly,monthly,yearly,never</changefreq></depends>
                         </lastmod>
                     </fields>
                 </product>
@@ -127,7 +123,6 @@
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
                             <frontend_class>validate-number</frontend_class>
-                            <depends><changefreq separator=",">always,hourly,daily,weekly,monthly,yearly,never</changefreq></depends>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -137,7 +132,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><changefreq separator=",">always,hourly,daily,weekly,monthly,yearly,never</changefreq></depends>
                         </lastmod>
                     </fields>
                 </page>

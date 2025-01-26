@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: OpenMage Docs
-site_url: https://OpenMage.github.io/magento-lts/
+site_url: https://docs.openmage.org/
 repo_url: https://github.com/OpenMage/magento-lts
 repo_name: OpenMage/magento-lts
-edit_uri: blob/main/docs/content
+edit_uri: edit/main/docs
 copyright: OpenMage contributors
 site_author: OpenMage contributors
 site_description: >-
@@ -33,6 +33,7 @@ theme:
     - content.action.view
     - content.code.copy
     - navigation.expand
+    - navigation.footer
     - navigation.indexes
     - navigation.instant
     - navigation.sections
@@ -60,7 +61,11 @@ theme:
 
 # Plugins
 plugins:
-  - blog
+  - blog:
+      archive_toc: true
+      categories_toc: true
+      pagination: true
+      pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
   - search
   - tags:
       tags_file: tags.md
@@ -79,8 +84,14 @@ extra:
       link: https://discord.gg/EV8aNbU
     - icon: fontawesome/brands/stack-overflow
       link: https://magento.stackexchange.com/tags/openmage
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/openmageproject
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/OpenMageProject
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/OpenMageProject
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/groups/13655485/
+    - icon: fontawesome/brands/mastodon
+      link: https://phpc.social/@OpenMageProject
   generator: false
   tags:
     Configuration: config
@@ -94,10 +105,12 @@ extra:
     Install: install
     JavaScript: js
     Modules: modules
+    PHP-7.4: php
     PHP-8.0: php
     PHP-8.1: php
     PHP-8.2: php
     PHP-8.3: php
+    PHP-8.4: php
     TinyMCE: tinymce
     Security: security
 
@@ -146,9 +159,9 @@ nav:
       - users/requirements.md
       - 'Installing':
           - users/install/index.md
-          - users/install/_use-composer.md
-          - users/install/_use-git.md
-          - users/install/_use-tarball.md
+          - users/install/use-composer.md
+          - users/install/use-git.md
+          - users/install/use-tarball.md
           - users/install/secure-install.md
       - 'Changelog':
           - developers/changelog/index.md
@@ -175,26 +188,36 @@ nav:
   - 'Development':
       - 'Events':
           - developers/events/list.md
-      - 'Guides':
-          - developers/guides/observer.md
       - 'Tools':
-          - developers/ddev.md
-          - developers/phpstorm.md
+          - developers/tools/ddev.md
+          - developers/tools/n98-magerun.md
+          - developers/tools/phpstorm.md
       - 'Multistore':
           - developers/error-pages.md
+      - 'Samples':
+          - developers/samples/php-ini.md
+          - developers/samples/robots-txt.md
+      - 'Guides':
+          - blog/posts/guides/2023-01-09-dynamic-blocks.md
+          - blog/posts/guides/2022-08-17-observer.md
+          - blog/posts/guides/2023-05-01-customize-your-openmage.md
       - 'Documentation':
           - developers/mkdocs.md
   - 'Modules':
       - users/modules/index.md
+      - users/modules/analytics.md
+      - users/modules/backend.md
+      - users/modules/cache.md
+      - users/modules/captcha.md
       - users/modules/cron.md
       - users/modules/email.md
+      - users/modules/frontend.md
       - users/modules/images.md
-      - users/modules/logging.md
-      - users/modules/products.md
-      - users/modules/social.md
-      - 'Payment':
-          - users/modules/payment/bitcoin.md
+      - users/modules/log-debug.md
+      - users/modules/payment.md
       - 'Themes':
           - users/modules/themes/frontend.md
-#  - 'Blog':
-#      - blog/index.md
+      - 'User Guides':
+          - users/modules/user-guides/swatches.md
+  - 'Blog':
+      - blog/index.md

@@ -39,7 +39,9 @@
         "symfony/polyfill-php81": "^1.31",
         "symfony/polyfill-php82": "^1.31",
         "symfony/polyfill-php83": "^1.31",
-        "symfony/polyfill-php84": "^1.31"
+        "symfony/polyfill-php84": "^1.31",
+        "symfony/string": "^5.4",
+        "symfony/translation-contracts": "^2.5"
     },
     "require-dev": {
         "ext-xmlreader": "*",
@@ -48,7 +50,7 @@
         "friendsofphp/php-cs-fixer": "^3.4",
         "macopedia/phpstan-magento1": "^1.0.5",
         "magento-ecg/coding-standard": "^4.5",
-        "openmage/dev-meta-package": "^1.0",
+        "openmage/dev-meta-package": "^1.0.5",
         "perftools/php-profiler": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.13",
