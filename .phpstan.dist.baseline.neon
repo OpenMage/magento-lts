@@ -211,12 +211,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php
 
 		-
-			message: '#^Parameter \#2 \$filter of method Mage_Reports_Model_Resource_Quote_Collection\:\:prepareForAbandonedReport\(\) expects string\|null, array\<int\|string, array\<mixed\>\|string\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
-
-		-
 			message: '#^Parameter \#1 \$statusCode of method Mage_Tag_Model_Resource_Popular_Collection\:\:addStatusFilter\(\) expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1255,12 +1249,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
 
 		-
-			message: '#^Method Mage_Api2_Model_Server\:\:_setAuthUser\(\) has Exception in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Server.php
-
-		-
 			message: '#^Call to an undefined method Varien_Object\:\:encrypt\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -1625,12 +1613,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
-
-		-
-			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Type/Composite.php
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Db_Collection_Abstract\:\:setStoreId\(\)\.$#'
@@ -2671,6 +2653,18 @@ parameters:
 			path: app/code/core/Mage/Centinel/Helper/Data.php
 
 		-
+			message: '#^Method Mage_Centinel_Model_Api\:\:callLookup\(\) should return \$this\(Mage_Centinel_Model_Api\) but returns Varien_Object\.$#'
+			identifier: return.type
+			count: 1
+			path: app/code/core/Mage/Centinel/Model/Api.php
+
+		-
+			message: '#^Property Mage_Centinel_Model_Api\:\:\$_clientInstance \(Mage_Centinel_Model_Api_Client\) in empty\(\) is not falsy\.$#'
+			identifier: empty.property
+			count: 1
+			path: app/code/core/Mage/Centinel/Model/Api.php
+
+		-
 			message: '#^Cannot call method setItem\(\) on array\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -3251,6 +3245,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Locale.php
+
+		-
+			message: '#^Method Mage_Core_Model_Mysql4_Design_Theme_Collection\:\:setData\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
+
+		-
+			message: '#^Parameter \#1 \$value of method Mage_Core_Model_Mysql4_Design_Theme_Collection\:\:setData\(\) expects array, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Type_Abstract\:\:getConnection\(\)\.$#'
@@ -4423,12 +4429,6 @@ parameters:
 			path: app/code/core/Mage/GiftMessage/controllers/IndexController.php
 
 		-
-			message: '#^Method Mage_GoogleAnalytics_Block_Ga\:\:_getOrdersTrackingCode\(\) has Mage_Core_Model_Store_Exception in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: app/code/core/Mage/GoogleAnalytics/Block/Ga.php
-
-		-
 			message: '#^Return type \(void\) of method Mage_GoogleCheckout_Model_Payment\:\:authorize\(\) should be compatible with return type \(\$this\(Mage_Payment_Model_Method_Abstract\)\) of method Mage_Payment_Model_Method_Abstract\:\:authorize\(\)$#'
 			identifier: method.childReturnType
 			count: 1
@@ -5005,6 +5005,12 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Pro.php
 
 		-
+			message: '#^Variable \$line in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: app/code/core/Mage/Paypal/Model/Report/Settlement.php
+
+		-
 			message: '#^Method Varien_Data_Collection\:\:toOptionArray\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -5189,18 +5195,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Product/Sold/Collection.php
-
-		-
-			message: '#^Parameter \#1 \$filter of method Mage_Reports_Model_Resource_Quote_Collection\:\:addCustomerData\(\) expects array\|null, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
-
-		-
-			message: '#^Parameter \#2 \$filter of method Mage_Reports_Model_Resource_Quote_Collection\:\:addSubtotal\(\) expects array\|null, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
 
 		-
 			message: '#^Parameter \#3 \$cols of method Zend_Db_Select\:\:joinInner\(\) expects array\|string, null given\.$#'
@@ -5683,12 +5677,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Quote.php
 
 		-
-			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<array\|string\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote.php
-
-		-
 			message: '#^Property Mage_Sales_Model_Quote\:\:\$_addresses \(Mage_Sales_Model_Resource_Order_Address_Collection\|null\) does not accept Mage_Sales_Model_Resource_Quote_Address_Collection\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -5783,18 +5771,6 @@ parameters:
 			identifier: method.notFound
 			count: 3
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
-
-		-
-			message: '#^Parameter \#2 \$attribute of method Mage_Sales_Model_Resource_Order_Abstract\:\:_afterSaveAttribute\(\) expects string, array\<mixed, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
-
-		-
-			message: '#^Parameter \#2 \$attribute of method Mage_Sales_Model_Resource_Order_Abstract\:\:_beforeSaveAttribute\(\) expects string, array\<mixed, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
 
 		-
 			message: '#^Cannot call method updateOnRelatedRecordChanged\(\) on Mage_Core_Model_Resource_Db_Collection_Abstract\|false\.$#'
@@ -8363,6 +8339,30 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: lib/Varien/Db/Statement/Pdo/Mysql.php
+
+		-
+			message: '#^Binary operation "\.\=" between array and non\-falsy\-string results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: '#^Method Varien_Directory_Collection\:\:lastDir\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: '#^Parameter &\$files by\-ref type of method Varien_File_Object\:\:getFilesName\(\) expects array, array\|null given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: lib/Varien/File/Object.php
+
+		-
+			message: '#^Static call to instance method Varien_Directory_Collection\:\:lastDir\(\)\.$#'
+			identifier: method.staticCall
+			count: 1
+			path: lib/Varien/File/Object.php
 
 		-
 			message: '#^Right side of && is always false\.$#'
