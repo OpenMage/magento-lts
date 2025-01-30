@@ -72,6 +72,17 @@ class GridTest extends TestCase
                 'type' => 'text',
             ],
         ];
+        yield 'index array - ref #4475' => [
+            [
+                'index' => ['firstname', 'lastname'],
+                'type' => 'concat',
+                'separator' => ' ',
+            ],
+            [
+                'index'     => ['firstname', 'lastname'],
+                'type'      => 'concat',
+            ],
+        ];
         yield 'type action' => [
             [
                 'type' => 'action',
