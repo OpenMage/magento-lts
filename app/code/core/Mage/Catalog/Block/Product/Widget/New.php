@@ -112,7 +112,6 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
             $this->getDisplayType(),
             $this->getProductsPerPage(),
             (int) $this->getRequest()->getParam(self::PAGE_VAR_NAME),
-            Mage::app()->getStore()->getCurrentCurrencyCode(),
         ]);
     }
 
