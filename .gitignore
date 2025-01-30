@@ -23,6 +23,9 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# flow.js library
+/js/lib/uploader
+
 # TinyMCE library
 /js/lib/tinymce
 
