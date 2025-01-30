@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_Catalog_Search_Edit_Form extends Mage_Adminhtml_Block
 
             $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
             if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-                $fieldset->setRenderer($renderer);
+                $field->setRenderer($renderer);
             }
         } else {
             $fieldset->addField('store_id', 'hidden', [

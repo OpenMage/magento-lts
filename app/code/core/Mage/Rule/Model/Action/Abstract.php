@@ -248,17 +248,19 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getAttributeElement()
     {
-        $renderer = Mage::getBlockSingleton('rule/editable');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            $this->getForm()::setFieldsetRenderer($renderer);
-        }
-
-        return $this->getForm()->addField('action:' . $this->getId() . ':attribute', 'select', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':attribute', 'select', [
             'name' => 'rule[actions][' . $this->getId() . '][attribute]',
             'values' => $this->getAttributeSelectOptions(),
             'value' => $this->getAttribute(),
             'value_name' => $this->getAttributeName(),
         ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -266,17 +268,19 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getOperatorElement()
     {
-        $renderer = Mage::getBlockSingleton('rule/editable');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            $this->getForm()::setFieldsetRenderer($renderer);
-        }
-
-        return $this->getForm()->addField('action:' . $this->getId() . ':operator', 'select', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':operator', 'select', [
             'name' => 'rule[actions][' . $this->getId() . '][operator]',
             'values' => $this->getOperatorSelectOptions(),
             'value' => $this->getOperator(),
             'value_name' => $this->getOperatorName(),
         ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -284,16 +288,18 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
      */
     public function getValueElement()
     {
-        $renderer = Mage::getBlockSingleton('rule/editable');
-        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
-            $this->getForm()::setFieldsetRenderer($renderer);
-        }
-
-        return $this->getForm()->addField('action:' . $this->getId() . ':value', 'text', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':value', 'text', [
             'name' => 'rule[actions][' . $this->getId() . '][value]',
             'value' => $this->getValue(),
             'value_name' => $this->getValueName(),
         ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**

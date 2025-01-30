@@ -339,7 +339,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $config = $this->getConfigDefaultColumnSettings();
         $columnHasIndex = array_key_exists('index', $column);
-        if ($columnHasIndex && array_key_exists($column['index'], $config['index'])) {
+        if ($columnHasIndex &&
+            !is_array($column['index']) &&
+            array_key_exists($column['index'], $config['index'])
+        ) {
             $column += $config['index'][$column['index']];
         }
 
