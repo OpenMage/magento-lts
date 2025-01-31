@@ -185,6 +185,9 @@ class Error_Processor
         if (!empty($_SERVER['SERVER_PORT'])
             && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
             && !in_array($_SERVER['SERVER_PORT'], [80, 433])
+            && (strlen($host) <= strlen(':' . $_SERVER['SERVER_PORT'])
+                || substr_compare($host, ':' . $_SERVER['SERVER_PORT'], -strlen(':' . $_SERVER['SERVER_PORT'])) !== 0
+            )
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
         }
