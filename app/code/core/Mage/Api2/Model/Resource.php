@@ -147,16 +147,12 @@ abstract class Mage_Api2_Model_Resource
     protected $_userType;
 
     /**
-     * One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
-     *
-     * @var string
+     * @var Mage_Api2_Model_Resource::ACTION_TYPE_*
      */
     protected $_actionType;
 
     /**
-     * One of Mage_Api2_Model_Resource::OPERATION_... constant
-     *
-     * @var string
+     * @var Mage_Api2_Model_Resource::OPERATION_*
      */
     protected $_operation;
 
@@ -942,7 +938,7 @@ abstract class Mage_Api2_Model_Resource
      * Retrieve list of included attributes
      *
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getIncludedAttributes($userType, $operationType)
@@ -954,7 +950,7 @@ abstract class Mage_Api2_Model_Resource
      * Retrieve list of entity only attributes
      *
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getEntityOnlyAttributes($userType, $operationType)
