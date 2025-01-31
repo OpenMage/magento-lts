@@ -29,6 +29,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
      */
     protected $_product;
 
+    protected ?array $allowedAttributes = null;
+
     /**
      * Retrieve product data
      *
@@ -100,24 +102,79 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
      */
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
-        /** @var Mage_Catalog_Helper_Product $productHelper */
-        $productHelper = Mage::helper('catalog/product');
         $productData = $product->getData();
         $product->setWebsiteId($this->_getStore()->getWebsiteId());
         // customer group is required in product for correct prices calculation
         $product->setCustomerGroupId($this->_getCustomerGroupId());
 
-        $allowedAttributes = Mage::helper('api2')->getAllowedAttributes(
-            $this->getUserType(),
-            'product',
-            Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
-        );
+        $this->addImageUrl($productData, $product);
+        $this->addIsSaleable($productData, $product);
+        $this->addPrices($productData, $product);
 
+        if ($this->getActionType() == self::ACTION_TYPE_ENTITY) {
+            $this->addBuyNowUrl($productData, $product);
+            $this->addHasCustomOptions($productData, $product);
+            $this->addIsInStock($productData, $product);
+            $this->addTierPrice($productData);
+            $this->addTotalReviewCount($productData, $product);
+            $this->addUrl($productData, $product);
+        } else {
+            // remove tier price from response
+            $product->unsetData('tier_price');
+            unset($productData['tier_price']);
+        }
+        $product->addData($productData);
+    }
+
+    protected function addBuyNowUrl(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
+        if ($this->isAllowedAttribute('buy_now_url')) {
+            /** @var Mage_Checkout_Helper_Cart $cartHelper */
+            $cartHelper = Mage::helper('checkout/cart');
+            $productData['buy_now_url'] = $cartHelper->getAddUrl($product);
+        }
+    }
+
+    protected function addHasCustomOptions(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
+        if ($this->isAllowedAttribute('has_custom_options')) {
+            $productData['has_custom_options'] = count($product->getOptions()) > 0;
+        }
+    }
+
+    protected function addImageUrl(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
+        if ($this->isAllowedAttribute('image_url')) {
+            $productData['image_url'] = (string) Mage::helper('catalog/image')->init($product, 'image');
+        }
+    }
+
+    protected function addIsInStock(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
+        if ($this->isAllowedAttribute('is_in_stock')) {
+            $stockItem = $product->getStockItem();
+            if (!$stockItem) {
+                $stockItem = Mage::getModel('cataloginventory/stock_item');
+                $stockItem->loadByProduct($product);
+            }
+            $productData['is_in_stock'] = $stockItem->getIsInStock();
+        }
+    }
+
+    protected function addIsSaleable(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
+        if ($this->isAllowedAttribute('is_saleable')) {
+            $productData['is_saleable'] = $product->getIsSalable();
+        }
+    }
+
+    protected function addPrices(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
         $isPriceRequired = false;
-        if (in_array('regular_price_with_tax', $allowedAttributes) ||
-            in_array('regular_price_without_tax', $allowedAttributes) ||
-            in_array('final_price_with_tax', $allowedAttributes) ||
-            in_array('final_price_without_tax', $allowedAttributes)
+        if (in_array('regular_price_with_tax', $this->getAllowedAttributes()) ||
+            in_array('regular_price_without_tax', $this->getAllowedAttributes()) ||
+            in_array('final_price_with_tax', $this->getAllowedAttributes()) ||
+            in_array('final_price_without_tax', $this->getAllowedAttributes())
         ) {
             $isPriceRequired = true;
         }
@@ -125,72 +182,66 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         // calculate prices
         if ($isPriceRequired) {
             $finalPrice = $product->getFinalPrice();
-            if (in_array('regular_price_with_tax', $allowedAttributes)) {
+            if ($this->isAllowedAttribute('regular_price_with_tax')) {
                 $productData['regular_price_with_tax'] = $this->_applyTaxToPrice($product->getPrice(), true);
             }
-            if (in_array('regular_price_without_tax', $allowedAttributes)) {
+            if ($this->isAllowedAttribute('regular_price_without_tax')) {
                 $productData['regular_price_without_tax'] = $this->_applyTaxToPrice($product->getPrice(), false);
             }
-            if (in_array('final_price_with_tax', $allowedAttributes)) {
+            if ($this->isAllowedAttribute('final_price_with_tax')) {
                 $productData['final_price_with_tax'] = $this->_applyTaxToPrice($finalPrice, true);
             }
-            if (in_array('final_price_without_tax', $allowedAttributes)) {
+            if ($this->isAllowedAttribute('final_price_without_tax')) {
                 $productData['final_price_without_tax'] = $this->_applyTaxToPrice($finalPrice, false);
             }
         }
+    }
 
-        if (in_array('is_saleable', $allowedAttributes)) {
-            $productData['is_saleable'] = $product->getIsSalable();
+    protected function addTierPrice(array &$productData): void
+    {
+        if ($this->isAllowedAttribute('tier_price')) {
+            $productData['tier_price'] = $this->_getTierPrices();
         }
+    }
 
-        if (in_array('image_url', $allowedAttributes)) {
-            $productData['image_url'] = (string) Mage::helper('catalog/image')->init($product, 'image');
+    protected function addTotalReviewCount(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
+        if ($this->isAllowedAttribute('total_reviews_count')) {
+            /** @var Mage_Review_Model_Review $reviewModel */
+            $reviewModel = Mage::getModel('review/review');
+            $productData['total_reviews_count'] = $reviewModel->getTotalReviews(
+                $product->getId(),
+                true,
+                $this->_getStore()->getId(),
+            );
         }
+    }
 
-        if ($this->getActionType() == self::ACTION_TYPE_ENTITY) {
-            // define URLs
-            if (in_array('url', $allowedAttributes)) {
-                $productData['url'] = $productHelper->getProductUrl($product->getId());
-            }
-
-            if (in_array('buy_now_url', $allowedAttributes)) {
-                /** @var Mage_Checkout_Helper_Cart $cartHelper */
-                $cartHelper = Mage::helper('checkout/cart');
-                $productData['buy_now_url'] = $cartHelper->getAddUrl($product);
-            }
-
-            if (in_array('is_in_stock', $allowedAttributes)) {
-                $stockItem = $product->getStockItem();
-                if (!$stockItem) {
-                    $stockItem = Mage::getModel('cataloginventory/stock_item');
-                    $stockItem->loadByProduct($product);
-                }
-                $productData['is_in_stock'] = $stockItem->getIsInStock();
-            }
-
-            if (in_array('total_reviews_count', $allowedAttributes)) {
-                /** @var Mage_Review_Model_Review $reviewModel */
-                $reviewModel = Mage::getModel('review/review');
-                $productData['total_reviews_count'] = $reviewModel->getTotalReviews(
-                    $product->getId(),
-                    true,
-                    $this->_getStore()->getId(),
-                );
-            }
-
-            if (in_array('tier_price', $allowedAttributes)) {
-                $productData['tier_price'] = $this->_getTierPrices();
-            }
-
-            if (in_array('has_custom_options', $allowedAttributes)) {
-                $productData['has_custom_options'] = count($product->getOptions()) > 0;
-            }
-        } else {
-            // remove tier price from response
-            $product->unsetData('tier_price');
-            unset($productData['tier_price']);
+    protected function addUrl(array &$productData, Mage_Catalog_Model_Product $product): void
+    {
+        if ($this->isAllowedAttribute('url')) {
+            /** @var Mage_Catalog_Helper_Product $productHelper */
+            $productHelper = Mage::helper('catalog/product');
+            $productData['url'] = $productHelper->getProductUrl($product->getId());
         }
-        $product->addData($productData);
+    }
+
+    protected function getAllowedAttributes(): array
+    {
+        if (is_null($this->allowedAttributes)) {
+            $attributes = Mage::helper('api2')->getAllowedAttributes(
+                $this->getUserType(),
+                'product',
+                Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_READ,
+            );
+            $this->allowedAttributes = $attributes;
+        }
+        return $this->allowedAttributes;
+    }
+
+    protected function isAllowedAttribute(string $attribute): bool
+    {
+        return in_array($attribute, $this->getAllowedAttributes());
     }
 
     /**
