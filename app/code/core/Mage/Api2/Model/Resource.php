@@ -524,7 +524,7 @@ abstract class Mage_Api2_Model_Resource
      * Get action type
      * If not exists get from Request
      *
-     * @return string One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
+     * @return self::ACTION_TYPE_*
      */
     public function getActionType()
     {
@@ -537,7 +537,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set route type
      *
-     * @param string $actionType One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
+     * @param self::ACTION_TYPE_* $actionType
      * @return $this
      */
     public function setActionType($actionType)
@@ -550,7 +550,7 @@ abstract class Mage_Api2_Model_Resource
      * Get operation
      * If not exists get from Request
      *
-     * @return string One of Mage_Api2_Model_Resource::OPERATION_... constant
+     * @return self::OPERATION_*
      */
     public function getOperation()
     {
@@ -563,7 +563,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set operation
      *
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
+     * @param self::OPERATION_* $operation
      * @return $this
      */
     public function setOperation($operation)
