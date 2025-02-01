@@ -293,6 +293,7 @@
             </restrict>
             <debug>
                 <profiler>0</profiler>
+                <show_version>1</show_version>
             </debug>
             <translate_inline>
                 <active>0</active>

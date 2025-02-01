@@ -22,7 +22,7 @@
     <a href="<?php echo $this->getOpenMageProjectUrl() ?>" target="_blank"><?php echo $this->__('OpenMage Project') ?></a> |
     <a href="<?php echo $this->getReportIssuesUrl() ?>" target="_blank"><?php echo $this->__('Report Issues') ?></a>
 </p>
-<?php if (Mage::getIsDeveloperMode()): ?>
+<?php if ($this->canShowVersion()): ?>
     <?php echo $this->__('OpenMage %s', Mage::getOpenMageVersion(true)) ?>
 <?php endif ?>
 <script type="text/javascript">

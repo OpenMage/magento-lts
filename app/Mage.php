@@ -230,7 +230,11 @@ final class Mage
             return null;
         }
 
-        $commitTag  = trim(exec('git describe --tags --abbrev=0'));
+        $commitTag = trim(exec('git describe --tags --abbrev=0'));
+        if (!$commitTag) {
+            return null;
+        }
+
         if (!$withHas) {
             return $commitTag;
         }
