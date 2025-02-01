@@ -168,9 +168,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 );
                 break;
             case 'url':
-                /** @var Mage_Catalog_Helper_Product $productHelper */
-                $productHelper = Mage::helper('catalog/product');
-                $productData[$attribute] = $productHelper->getProductUrl($product->getId());
+                $productData[$attribute] = $product->getProductUrl();
                 break;
         }
     }
