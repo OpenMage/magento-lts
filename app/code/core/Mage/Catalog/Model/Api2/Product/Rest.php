@@ -107,17 +107,17 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         // customer group is required in product for correct prices calculation
         $product->setCustomerGroupId($this->_getCustomerGroupId());
 
-        $this->addImageUrl($productData, $product);
-        $this->addIsSaleable($productData, $product);
+        $this->addAttribute('image_url', $productData, $product);
+        $this->addAttribute('is_saleable', $productData, $product);
         $this->addPrices($productData, $product);
 
         if ($this->getActionType() == self::ACTION_TYPE_ENTITY) {
-            $this->addBuyNowUrl($productData, $product);
-            $this->addHasCustomOptions($productData, $product);
-            $this->addIsInStock($productData, $product);
-            $this->addTierPrice($productData);
-            $this->addTotalReviewCount($productData, $product);
-            $this->addUrl($productData, $product);
+            $this->addAttribute('buy_now_url', $productData, $product);
+            $this->addAttribute('has_custom_options', $productData, $product);
+            $this->addAttribute('is_in_stock', $productData, $product);
+            $this->addAttribute('tier_price', $productData, $product);
+            $this->addAttribute('total_reviews_count', $productData, $product);
+            $this->addAttribute('url', $productData, $product);
         } else {
             // remove tier price from response
             $product->unsetData('tier_price');
@@ -126,45 +126,52 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $product->addData($productData);
     }
 
-    protected function addBuyNowUrl(array &$productData, Mage_Catalog_Model_Product $product): void
+    protected function addAttribute(string $attribute, array &$productData, Mage_Catalog_Model_Product $product): void
     {
-        if ($this->isAllowedAttribute('buy_now_url')) {
-            /** @var Mage_Checkout_Helper_Cart $cartHelper */
-            $cartHelper = Mage::helper('checkout/cart');
-            $productData['buy_now_url'] = $cartHelper->getAddUrl($product);
+        if (!$this->isAllowedAttribute($attribute)) {
+            return;
         }
-    }
 
-    protected function addHasCustomOptions(array &$productData, Mage_Catalog_Model_Product $product): void
-    {
-        if ($this->isAllowedAttribute('has_custom_options')) {
-            $productData['has_custom_options'] = count($product->getOptions()) > 0;
-        }
-    }
-
-    protected function addImageUrl(array &$productData, Mage_Catalog_Model_Product $product): void
-    {
-        if ($this->isAllowedAttribute('image_url')) {
-            $productData['image_url'] = (string) Mage::helper('catalog/image')->init($product, 'image');
-        }
-    }
-
-    protected function addIsInStock(array &$productData, Mage_Catalog_Model_Product $product): void
-    {
-        if ($this->isAllowedAttribute('is_in_stock')) {
-            $stockItem = $product->getStockItem();
-            if (!$stockItem) {
-                $stockItem = Mage::getModel('cataloginventory/stock_item');
-                $stockItem->loadByProduct($product);
-            }
-            $productData['is_in_stock'] = $stockItem->getIsInStock();
-        }
-    }
-
-    protected function addIsSaleable(array &$productData, Mage_Catalog_Model_Product $product): void
-    {
-        if ($this->isAllowedAttribute('is_saleable')) {
-            $productData['is_saleable'] = $product->getIsSalable();
+        switch ($attribute) {
+            case 'buy_now_url':
+                /** @var Mage_Checkout_Helper_Cart $cartHelper */
+                $cartHelper = Mage::helper('checkout/cart');
+                $productData[$attribute] = $cartHelper->getAddUrl($product);
+                break;
+            case 'has_custom_options':
+                $productData[$attribute] = count($product->getOptions()) > 0;
+                break;
+            case 'image_url':
+                $productData[$attribute] = (string) Mage::helper('catalog/image')->init($product, 'image');
+                break;
+            case 'is_in_stock':
+                $stockItem = $product->getStockItem();
+                if (!$stockItem) {
+                    $stockItem = Mage::getModel('cataloginventory/stock_item');
+                    $stockItem->loadByProduct($product);
+                }
+                $productData[$attribute] = $stockItem->getIsInStock();
+                break;
+            case 'is_saleable':
+                $productData[$attribute] = $product->getIsSalable();
+                break;
+            case 'tier_price':
+                $productData[$attribute] = $this->_getTierPrices();
+                break;
+            case 'total_reviews_count':
+                /** @var Mage_Review_Model_Review $reviewModel */
+                $reviewModel = Mage::getModel('review/review');
+                $productData[$attribute] = $reviewModel->getTotalReviews(
+                    $product->getId(),
+                    true,
+                    $this->_getStore()->getId(),
+                );
+                break;
+            case 'url':
+                /** @var Mage_Catalog_Helper_Product $productHelper */
+                $productHelper = Mage::helper('catalog/product');
+                $productData[$attribute] = $productHelper->getProductUrl($product->getId());
+                break;
         }
     }
 
@@ -194,35 +201,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if ($this->isAllowedAttribute('final_price_without_tax')) {
                 $productData['final_price_without_tax'] = $this->_applyTaxToPrice($finalPrice, false);
             }
-        }
-    }
-
-    protected function addTierPrice(array &$productData): void
-    {
-        if ($this->isAllowedAttribute('tier_price')) {
-            $productData['tier_price'] = $this->_getTierPrices();
-        }
-    }
-
-    protected function addTotalReviewCount(array &$productData, Mage_Catalog_Model_Product $product): void
-    {
-        if ($this->isAllowedAttribute('total_reviews_count')) {
-            /** @var Mage_Review_Model_Review $reviewModel */
-            $reviewModel = Mage::getModel('review/review');
-            $productData['total_reviews_count'] = $reviewModel->getTotalReviews(
-                $product->getId(),
-                true,
-                $this->_getStore()->getId(),
-            );
-        }
-    }
-
-    protected function addUrl(array &$productData, Mage_Catalog_Model_Product $product): void
-    {
-        if ($this->isAllowedAttribute('url')) {
-            /** @var Mage_Catalog_Helper_Product $productHelper */
-            $productHelper = Mage::helper('catalog/product');
-            $productData['url'] = $productHelper->getProductUrl($product->getId());
         }
     }
 
