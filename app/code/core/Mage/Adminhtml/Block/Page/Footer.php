@@ -139,4 +139,9 @@ class Mage_Adminhtml_Block_Page_Footer extends Mage_Adminhtml_Block_Template
     {
         return (string) $this->_getData('openmage_project_url');
     }
+
+    public function canShowVersion(): bool
+    {
+        return Mage::getStoreConfigFlag('dev/debug/show_version');
+    }
 }
