@@ -221,7 +221,7 @@ final class Mage
             return null;
         }
 
-        return InstalledVersions::getVersion('openmage/magento-lts');
+        return InstalledVersions::getPrettyVersion('openmage/magento-lts');
     }
 
     public static function getVersionFromGit(bool $withHas = true): ?string
