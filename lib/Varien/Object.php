@@ -589,7 +589,7 @@ class Varien_Object implements ArrayAccess
         } else {
             preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
             foreach ($matches[1] as $var) {
-                $format = str_replace('{{' . $var . '}}', $this->getData($var), $format);
+                $format = str_replace('{{' . $var . '}}', $this->getData($var) ?: '', $format);
             }
             $str = $format;
         }
