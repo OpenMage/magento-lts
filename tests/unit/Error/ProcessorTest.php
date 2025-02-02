@@ -24,10 +24,17 @@ use PHPUnit\Framework\TestCase;
 class ProcessorTest extends TestCase
 {
     public Subject $subject;
+    public array $server;
 
     public function setUp(): void
     {
         $this->subject = new Subject();
+        $this->server  = $_SERVER;
+    }
+
+    public function tearDown(): void
+    {
+        $_SERVER = $this->server;
     }
 
     /**
