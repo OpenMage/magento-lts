@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,14 +60,14 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
             ->joinLeft(
                 ['option_value_default' => $this->getTable('bundle/option_value')],
                 'main_table.option_id = option_value_default.option_id and option_value_default.store_id = 0',
-                []
+                [],
             )
             ->columns(['default_title' => 'option_value_default.title']);
 
         $title = $this->getConnection()->getCheckSql(
             'option_value.title IS NOT NULL',
             'option_value.title',
-            'option_value_default.title'
+            'option_value_default.title',
         );
         if ($storeId !== null) {
             $this->getSelect()
@@ -75,9 +76,9 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     ['option_value' => $this->getTable('bundle/option_value')],
                     $this->getConnection()->quoteInto(
                         'main_table.option_id = option_value.option_id and option_value.store_id = ?',
-                        $storeId
+                        $storeId,
                     ),
-                    []
+                    [],
                 );
         }
         return $this;
@@ -124,11 +125,11 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         }
 
         if (!$this->_selectionsAppended) {
-            foreach ($selectionsCollection->getItems() as $key => $_selection) {
-                if ($_option = $this->getItemById($_selection->getOptionId())) {
-                    if ($appendAll || ($_selection->isSalable() && !$_selection->getRequiredOptions())) {
-                        $_selection->setOption($_option);
-                        $_option->addSelection($_selection);
+            foreach ($selectionsCollection->getItems() as $key => $selection) {
+                if ($option = $this->getItemById($selection->getOptionId())) {
+                    if ($appendAll || ($selection->isSalable() && !$selection->getRequiredOptions())) {
+                        $selection->setOption($option);
+                        $option->addSelection($selection);
                     } else {
                         $selectionsCollection->removeItemByKey($key);
                     }

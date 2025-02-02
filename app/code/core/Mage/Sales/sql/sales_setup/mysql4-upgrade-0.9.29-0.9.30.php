@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -29,7 +30,7 @@ $cleanTables = [
     $tableOrderEntity . '_datetime',
     $tableOrderEntity . '_int',
     $tableOrderEntity . '_text',
-    $tableOrderEntity . '_varchar'
+    $tableOrderEntity . '_varchar',
 ];
 foreach ($cleanTables as $tableName) {
     $select = $installer->getConnection()->select()
@@ -49,7 +50,7 @@ foreach ($cleanTables as $tableName) {
         $installer->getConnection()->query($sql, [
             $row['entity_id'],
             $row['attribute_id'],
-            $row['entity_type_id']
+            $row['entity_type_id'],
         ]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -128,7 +129,7 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
             'title'       => $title,
             'description' => $description,
             'url'         => $url,
-            'internal'    => $isInternal
+            'internal'    => $isInternal,
         ]]);
         return $this;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -96,9 +97,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     protected $_debugReplacePrivateDataKeys = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Check order availability
@@ -370,12 +369,13 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     /**
      * Retrieve payment information model object
      *
-     * @return Mage_Payment_Model_Info
+     * @return Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment
      */
     public function getInfoInstance()
     {
+        /** @var Mage_Sales_Model_Order_Payment|Mage_Sales_Model_Quote_Payment $instance */
         $instance = $this->getData('info_instance');
-        if (!($instance instanceof Mage_Payment_Model_Info)) {
+        if (!$instance instanceof Mage_Payment_Model_Info) {
             Mage::throwException(Mage::helper('payment')->__('Cannot retrieve the payment information object instance.'));
         }
         return $instance;
@@ -641,7 +641,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
     public function isAvailable($quote = null)
     {
         $checkResult = new stdClass();
-        $isActive = (bool)(int)$this->getConfigData('active', $quote ? $quote->getStoreId() : null);
+        $isActive = (bool) (int) $this->getConfigData('active', $quote ? $quote->getStoreId() : null);
         $checkResult->isAvailable = $isActive;
         $checkResult->isDeniedInConfig = !$isActive; // for future use in observers
         Mage::dispatchEvent('payment_method_is_active', [

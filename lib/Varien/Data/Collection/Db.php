@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -121,7 +122,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_cacheConf = [
             'object'    => $object,
             'prefix'    => $idPrefix,
-            'tags'      => $tags
+            'tags'      => $tags,
         ];
         return $this;
     }
@@ -208,7 +209,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_totalRecords)) {
             $sql = $this->getSelectCountSql();
-            $this->_totalRecords = (int)$this->getConnection()->fetchOne($sql, $this->_bindParams);
+            $this->_totalRecords = (int) $this->getConnection()->fetchOne($sql, $this->_bindParams);
         }
         return (int) $this->_totalRecords;
     }
@@ -230,13 +231,11 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
 
         if (count($this->getSelect()->getPart(Zend_Db_Select::GROUP)) > 0) {
             $countSelect->reset(Zend_Db_Select::GROUP);
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
             $countSelect->distinct(true);
             $group = $this->getSelect()->getPart(Zend_Db_Select::GROUP);
             $group = array_map(function ($token) {
                 return $this->getSelect()->getAdapter()->quoteIdentifier($token, true);
             }, $group);
-            // phpcs:ignore Ecg.Sql.SlowQuery.SlowRawSql
             $countSelect->columns('COUNT(DISTINCT ' . implode(', ', $group) . ')');
         } else {
             $countSelect->columns('COUNT(*)');
@@ -342,7 +341,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     private function _setOrder($field, $direction, $unshift = false)
     {
         $this->_isOrdersRendered = false;
-        $field = (string)$this->_getMappedField($field);
+        $field = (string) $this->_getMappedField($field);
         $direction = (strtoupper($direction) == self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
@@ -386,7 +385,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $this->_select->where(
                         $this->_getConditionSql($field, $condition),
                         null,
-                        Varien_Db_Select::TYPE_CONDITION
+                        Varien_Db_Select::TYPE_CONDITION,
                     );
                     break;
                 default:
@@ -403,9 +402,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return void
      */
-    protected function _renderFiltersBefore()
-    {
-    }
+    protected function _renderFiltersBefore() {}
 
     /**
      * Add field filter to collection
@@ -425,7 +422,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
                     $currField,
-                    isset($condition[$key]) ? $condition[$key] : null
+                    isset($condition[$key]) ? $condition[$key] : null,
                 );
             }
 
@@ -575,7 +572,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     public function distinct($flag)
     {
-        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         $this->_select->distinct($flag);
         return $this;
     }
@@ -748,7 +744,6 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
     {
         if ($printQuery) {
-            // phpcs:ignore Ecg.Security.LanguageConstruct.DirectOutput
             echo is_null($sql) ? $this->getSelect()->__toString() : $sql;
         }
 
@@ -786,12 +781,10 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             if ($data) {
                 $data = unserialize($data);
             } else {
-                // phpcs:ignore Ecg.Performance.FetchAll.Found
                 $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
                 $this->_saveCache($data, $select);
             }
         } else {
-            // phpcs:ignore Ecg.Performance.FetchAll.Found
             $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
         }
         return $data;
@@ -845,7 +838,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getSelectCacheId($select)
     {
-        $id = md5((string)$select);
+        $id = md5((string) $select);
         if (isset($this->_cacheConf['prefix'])) {
             $id = $this->_cacheConf['prefix'] . '_' . $id;
         }

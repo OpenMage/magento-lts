@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +36,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         if ($port) {
             $defaultPorts = [
                 Mage_Core_Controller_Request_Http::DEFAULT_HTTP_PORT,
-                Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT
+                Mage_Core_Controller_Request_Http::DEFAULT_HTTPS_PORT,
             ];
             $port = (in_array($port, $defaultPorts)) ? '' : ':' . $port;
         }
@@ -87,9 +88,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     {
         $string = preg_replace('#[^0-9a-z]+#i', '-', $string);
         $string = strtolower($string);
-        $string = trim($string, '-');
 
-        return $string;
+        return trim($string, '-');
     }
 
     /**
@@ -117,9 +117,8 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
                 $arrQueryParams[] = $key . '=' . $value;
             }
         }
-        $url .= $startDelimiter . implode('&', $arrQueryParams);
 
-        return $url;
+        return $url . ($startDelimiter . implode('&', $arrQueryParams));
     }
 
     /**
@@ -137,7 +136,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
         }
 
         list($baseUrl, $query) = explode('?', $url, 2);
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         parse_str($query, $params);
 
         if (!$caseSensitive) {
@@ -176,7 +174,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function encodePunycode($url)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $parsedUrl = parse_url($url);
         if (!$this->_isPunycode($parsedUrl['host'])) {
             $host = idn_to_ascii($parsedUrl['host']);
@@ -195,7 +192,6 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function decodePunycode($url)
     {
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $parsedUrl = parse_url($url);
         if ($this->_isPunycode($parsedUrl['host'])) {
             $host = idn_to_utf8($parsedUrl['host']);

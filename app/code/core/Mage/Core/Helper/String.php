@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -156,6 +157,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
      * @param bool $trim
      * @param string $wordSeparatorRegex
      * @return array
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function str_split($str, $length = 1, $keepWords = false, $trim = false, $wordSeparatorRegex = '\s')
@@ -514,7 +516,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
     /**
      * UnSerialize string
      * @param string|null $str
-     * @return mixed|null
+     * @return null|void
      * @throws Exception
      */
     public function unserialize($str)
@@ -524,7 +526,9 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         $reader = new Unserialize_Reader_ArrValue('data');
         $prevChar = null;
-        for ($i = 0; $i < strlen($str); $i++) {
+
+        $strLen = strlen($str);
+        for ($i = 0; $i < $strLen; $i++) {
             $char = $str[$i];
             $result = $reader->read($char, $prevChar);
             if (!is_null($result)) {

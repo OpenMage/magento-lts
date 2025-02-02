@@ -35,7 +35,6 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
         $this->assertSame($expectedResult, $this->subject->__toString());
     }
@@ -48,7 +47,6 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
         $this->assertSame($expectedResult, $this->subject->getUnescapedValue());
     }
@@ -58,12 +56,12 @@ class HtmlEscapedStringTest extends TestCase
         yield 'tags null' => [
             'This is a bold &lt;b&gt;string&lt;/b&gt;',
             self::TEST_STRING,
-            null
+            null,
         ];
         yield 'tags array' => [
             self::TEST_STRING,
             self::TEST_STRING,
-            ['b']
+            ['b'],
         ];
     }
 
@@ -72,12 +70,12 @@ class HtmlEscapedStringTest extends TestCase
         yield 'tags null' => [
             self::TEST_STRING,
             self::TEST_STRING,
-            null
+            null,
         ];
         yield 'tags array' => [
             self::TEST_STRING,
             self::TEST_STRING,
-            ['some-invalid-value']
+            ['some-invalid-value'],
         ];
     }
 }

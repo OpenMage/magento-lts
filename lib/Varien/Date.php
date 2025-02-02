@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Date
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +51,7 @@ class Varien_Date
         'd'    => '%e',
         'yyyy' => '%Y',
         'yy'   => '%Y',
-        'y'    => '%Y'
+        'y'    => '%Y',
     ];
     /**
      * Zend Date To local time according Map array
@@ -66,7 +67,7 @@ class Varien_Date
         'mm' => '%M',
         'ss' => '%S',
         'z'  => '%Z',
-        'v'  => '%Z'
+        'v'  => '%Z',
     ];
 
     /**

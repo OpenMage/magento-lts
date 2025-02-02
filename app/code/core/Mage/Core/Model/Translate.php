@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,9 +95,7 @@ class Mage_Core_Model_Translate
      */
     protected $_canUseInline = true;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Initialization translation data
@@ -297,8 +296,7 @@ class Mage_Core_Model_Translate
     {
         //$file = Mage::getConfig()->getModuleDir('locale', $module);
         $file = Mage::getBaseDir('locale');
-        $file .= DS . $this->getLocale() . DS . $fileName;
-        return $file;
+        return $file . (DS . $this->getLocale() . DS . $fileName);
     }
 
     /**
@@ -383,6 +381,7 @@ class Mage_Core_Model_Translate
      *
      * @param   array $args
      * @return  string
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function translate($args)
     {
@@ -468,13 +467,15 @@ class Mage_Core_Model_Translate
         $filePath = Mage::getBaseDir('locale') . DS
                   . $localeCode . DS . 'template' . DS . $type . DS . $file;
 
-        if (!file_exists($filePath)) { // If no template specified for this locale, use store default
+        // If no template specified for this locale, use store default
+        if (!file_exists($filePath)) {
             $filePath = Mage::getBaseDir('locale') . DS
                       . Mage::app()->getLocale()->getDefaultLocale()
                       . DS . 'template' . DS . $type . DS . $file;
         }
 
-        if (!file_exists($filePath)) {  // If no template specified as  store default locale, use en_US
+        // If no template specified as  store default locale, use en_US
+        if (!file_exists($filePath)) {
             $filePath = Mage::getBaseDir('locale') . DS
                       . Mage_Core_Model_Locale::DEFAULT_LOCALE
                       . DS . 'template' . DS . $type . DS . $file;
@@ -528,8 +529,7 @@ class Mage_Core_Model_Translate
         if (!$data) {
             return false;
         }
-        $data = unserialize($data, ['allowed_classes' => false]);
-        return $data;
+        return unserialize($data, ['allowed_classes' => false]);
     }
 
     /**

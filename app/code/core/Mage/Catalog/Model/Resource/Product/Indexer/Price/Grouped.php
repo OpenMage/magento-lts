@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -70,22 +71,22 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
             ->join(
                 ['l' => $this->getTable('catalog/product_link')],
                 'e.entity_id = l.product_id AND l.link_type_id=' . Mage_Catalog_Model_Product_Link::LINK_TYPE_GROUPED,
-                []
+                [],
             )
             ->join(
                 ['cg' => $this->getTable('customer/customer_group')],
                 '',
-                ['customer_group_id']
+                ['customer_group_id'],
             );
         $this->_addWebsiteJoinToSelect($select, true);
         $this->_addProductWebsiteJoinToSelect($select, 'cw.website_id', 'e.entity_id');
-        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', 0);
-        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', 0);
+        $minCheckSql = $write->getCheckSql('le.required_options = 0', 'i.min_price', '0');
+        $maxCheckSql = $write->getCheckSql('le.required_options = 0', 'i.max_price', '0');
         $select->columns('website_id', 'cw')
             ->join(
                 ['le' => $this->getTable('catalog/product')],
                 'le.entity_id = l.linked_product_id',
-                []
+                [],
             )
             ->join(
                 ['i' => $table],
@@ -100,7 +101,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
                     'max_price'    => new Zend_Db_Expr('MAX(' . $maxCheckSql . ')'),
                     'tier_price'   => new Zend_Db_Expr('NULL'),
                     'group_price'  => new Zend_Db_Expr('NULL'),
-                ]
+                ],
             )
             ->group(['e.entity_id', 'cg.customer_group_id', 'cw.website_id'])
             ->where('e.type_id=?', $this->getTypeId());
@@ -119,7 +120,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
             'select'        => $select,
             'entity_field'  => new Zend_Db_Expr('e.entity_id'),
             'website_field' => new Zend_Db_Expr('cw.website_id'),
-            'store_field'   => new Zend_Db_Expr('cs.store_id')
+            'store_field'   => new Zend_Db_Expr('cs.store_id'),
         ]);
 
         $query = $select->insertFromSelect($table);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,13 +37,13 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main_Formset extends Ma
             'name' => 'attribute_set_name',
             'required' => true,
             'class' => 'required-entry validate-no-html-tags',
-            'value' => $data->getAttributeSetName()
+            'value' => $data->getAttributeSetName(),
         ]);
 
         if (!$this->getRequest()->getParam('id', false)) {
             $fieldset->addField('gotoEdit', 'hidden', [
                 'name' => 'gotoEdit',
-                'value' => '1'
+                'value' => '1',
             ]);
 
             $sets = Mage::getModel('eav/entity_attribute_set')

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -418,7 +419,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($flag !== null) {
             $this->_isObjectNew = $flag;
         }
-        return $this->_isObjectNew ?? !(bool)$this->getId();
+        return $this->_isObjectNew ?? !(bool) $this->getId();
     }
 
     /**
@@ -440,7 +441,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Get list of cache tags applied to model object.
      * Return false if cache tags are not supported by model
      *
-     * @return array | false
+     * @return array|false
      */
     public function getCacheTags()
     {
@@ -466,7 +467,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     /**
      * Get cache tags associated with object id
      *
-     * @return array|bool
+     * @return array|false
      */
     public function getCacheIdTags()
     {
@@ -474,8 +475,8 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($this->getId() && $this->_cacheTag) {
             $tags = [];
             if (is_array($this->_cacheTag)) {
-                foreach ($this->_cacheTag as $_tag) {
-                    $tags[] = $_tag . '_' . $this->getId();
+                foreach ($this->_cacheTag as $tag) {
+                    $tags[] = $tag . '_' . $this->getId();
                 }
             } else {
                 $tags[] = $this->_cacheTag . '_' . $this->getId();
@@ -634,5 +635,10 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
     protected function _clearData()
     {
         return $this;
+    }
+
+    public function isModuleEnabled(string $moduleName, string $helperAlias = 'core'): bool
+    {
+        return Mage::helper($helperAlias)->isModuleEnabled($moduleName);
     }
 }

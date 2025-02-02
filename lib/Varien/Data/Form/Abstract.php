@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -184,7 +185,6 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * @return array
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function __toArray(array $arrAttributes = [])
     {
         $res = [];

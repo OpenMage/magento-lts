@@ -13,7 +13,7 @@ jobs:
         php-versions: ['8.1']
     steps:
     - name: Checkout repository
-      uses: actions/checkout@master
+      uses: actions/checkout@4
 
     - name: Get composer cache directory
       id: composer-cache

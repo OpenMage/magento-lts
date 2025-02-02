@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,7 +45,7 @@ Varien_Autoload::register();
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname($bp) . $ds .  'vendor';
+    $autoloaderPath = dirname($bp) . $ds . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
@@ -104,7 +105,7 @@ if (empty($mediaDirectory)) {
         $mageRunCode,
         $mageRunType,
         ['cache' => ['disallow_save' => true]],
-        $config['loaded_modules'] ?? ['Mage_Core']
+        $config['loaded_modules'] ?? ['Mage_Core'],
     );
 }
 
@@ -173,7 +174,6 @@ function sendNotFoundPage()
  * Check resource by whitelist
  *
  * @param string $resource
- * @param array $allowedResources
  */
 function checkResource($resource, array $allowedResources)
 {

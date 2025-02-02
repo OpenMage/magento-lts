@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_System
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,12 +48,11 @@ class Mage_System_Ftp
      * @param string $name
      * @return string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mdkir($name)
     {
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_mkdir($this->_conn, $name);
     }
 
@@ -63,7 +63,7 @@ class Mage_System_Ftp
      * @param int $mode
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mkdirRecursive($path, $mode = 0777)
     {
@@ -71,19 +71,14 @@ class Mage_System_Ftp
         $dir = explode('/', $path);
         $path = '';
         $ret = true;
-        // phpcs:ignore Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed,Ecg.Performance.Loop.ArraySize
         for ($i = 0; $i < count($dir); $i++) {
             $path .= '/' . $dir[$i];
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             if (!@ftp_chdir($this->_conn, $path)) {
-                // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                 @ftp_chdir($this->_conn, '/');
-                // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                 if (!@ftp_mkdir($this->_conn, $path)) {
                     $ret = false;
                     break;
                 } else {
-                    // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                     @ftp_chmod($this->_conn, $mode, $path);
                 }
             }
@@ -99,12 +94,14 @@ class Mage_System_Ftp
      * @throws Exception on invalid login credentials
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function login($login = 'anonymous', $password = 'test@gmail.com')
     {
+        $login = new Mage_Core_Model_Security_Obfuscated($login);
+        $password = new Mage_Core_Model_Security_Obfuscated($password);
+
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         $res = @ftp_login($this->_conn, $login, $password);
         if (!$res) {
             throw new Exception('Invalid login credentials');
@@ -119,11 +116,10 @@ class Mage_System_Ftp
      * @throws Exception
      * @return array
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function validateConnectionString($string)
     {
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         $data = @parse_url($string);
         if (false === $data) {
             throw new Exception("Connection string invalid: '{$string}'");
@@ -147,7 +143,6 @@ class Mage_System_Ftp
         $params = $this->validateConnectionString($string);
         $port = isset($params['port']) ? (int) $params['port'] : 21;
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $this->_conn = ftp_connect($params['host'], $port, $timeout);
 
         if (!$this->_conn) {
@@ -174,12 +169,11 @@ class Mage_System_Ftp
      * @param int $startPos
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function fput($remoteFile, $handle, $mode = FTP_BINARY, $startPos = 0)
     {
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_fput($this->_conn, $remoteFile, $handle, $mode, $startPos);
     }
 
@@ -195,7 +189,6 @@ class Mage_System_Ftp
     public function put($remoteFile, $localFile, $mode = FTP_BINARY, $startPos = 0)
     {
         $this->checkConnected();
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return ftp_put($this->_conn, $remoteFile, $localFile, $mode, $startPos);
     }
 
@@ -227,12 +220,11 @@ class Mage_System_Ftp
      * @param string $cmd
      * @return mixed
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function raw($cmd)
     {
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_raw($this->_conn, $cmd);
     }
 
@@ -252,21 +244,17 @@ class Mage_System_Ftp
     {
         $this->checkConnected();
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (!file_exists($local)) {
             throw new Exception("Local file doesn't exist: {$local}");
         }
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         if (!is_readable($local)) {
             throw new Exception("Local file is not readable: {$local}");
         }
-        // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
         if (is_dir($local)) {
             throw new Exception("Directory given instead of file: {$local}");
         }
 
         $globalPathMode = substr($remote, 0, 1) == '/';
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $dirname = dirname($remote);
         $cwd = $this->getcwd();
         if (false === $cwd) {
@@ -306,12 +294,11 @@ class Mage_System_Ftp
      * @param bool $pasv
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function pasv($pasv)
     {
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_pasv($this->_conn, (bool) $pasv);
     }
 
@@ -320,12 +307,11 @@ class Mage_System_Ftp
      *
      * @return void
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function close()
     {
         if ($this->_conn) {
-            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
             @ftp_close($this->_conn);
         }
     }
@@ -337,12 +323,11 @@ class Mage_System_Ftp
      * @param $remoteFile
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function chmod($mode, $remoteFile)
     {
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_chmod($this->_conn, $mode, $remoteFile);
     }
 
@@ -352,12 +337,11 @@ class Mage_System_Ftp
      * @param string $dir
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function chdir($dir)
     {
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_chdir($this->_conn, $dir);
     }
 
@@ -366,12 +350,11 @@ class Mage_System_Ftp
      *
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function cdup()
     {
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_cdup($this->_conn);
     }
 
@@ -384,13 +367,12 @@ class Mage_System_Ftp
      * @param int $resumeOffset
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function get($localFile, $remoteFile, $fileMode = FTP_BINARY, $resumeOffset = 0)
     {
         $remoteFile = $this->correctFilePath($remoteFile);
         $this->checkConnected();
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_get($this->_conn, $localFile, $remoteFile, $fileMode, $resumeOffset);
     }
 
@@ -400,13 +382,12 @@ class Mage_System_Ftp
      * @param string $dir
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function nlist($dir = '/')
     {
         $this->checkConnected();
         $dir = $this->correctFilePath($dir);
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_nlist($this->_conn, $dir);
     }
 
@@ -417,13 +398,12 @@ class Mage_System_Ftp
      * @param bool $recursive
      * @return mixed
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function rawlist($dir = '/', $recursive = false)
     {
         $this->checkConnected();
         $dir = $this->correctFilePath($dir);
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_rawlist($this->_conn, $dir, $recursive);
     }
 
@@ -466,9 +446,7 @@ class Mage_System_Ftp
         $path = $this->correctFilePath($path);
         $globalPathMode = substr($path, 0, 1) == '/';
 
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $file = basename($path);
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         $dir = $globalPathMode ? dirname($path) : $this->getcwd() . '/' . $path;
         $data = $this->ls($dir);
         foreach ($data as $row) {
@@ -515,7 +493,7 @@ class Mage_System_Ftp
                     'size'   => (int) $info[4],
                     'chmod'  => self::chmodnum($info[0]),
                     'rawdata' => $info,
-                    'raw'     => $rawfile
+                    'raw'     => $rawfile,
                 ];
             }
         }
@@ -531,8 +509,7 @@ class Mage_System_Ftp
     public function correctFilePath($str)
     {
         $str = str_replace('\\', '/', $str);
-        $str = preg_replace("/^.\//", '', $str);
-        return $str;
+        return preg_replace("/^.\//", '', $str);
     }
 
     /**
@@ -541,13 +518,12 @@ class Mage_System_Ftp
      * @param string $file
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function delete($file)
     {
         $this->checkConnected();
         $file = $this->correctFilePath($file);
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
         return @ftp_delete($this->_conn, $file);
     }
 }

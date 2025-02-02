@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +39,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $hash = explode(':', Mage::helper('core')->urlDecode($hash));
         if (count($hash) === 3 && in_array($hash[0], $this->_allowedHashKeys)) {
-            return ['key' => $hash[0], 'id' => (int)$hash[1], 'hash' => $hash[2]];
+            return ['key' => $hash[0], 'id' => (int) $hash[1], 'hash' => $hash[2]];
         }
         return [];
     }
@@ -61,7 +62,7 @@ class Mage_Shipping_Helper_Data extends Mage_Core_Helper_Abstract
             $param = [$key => $model]; // @deprecated after 1.4.0.0-alpha3
         } else {
             $param = [
-                'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}")
+                'hash' => Mage::helper('core')->urlEncode("{$key}:{$model->$method()}:{$model->getProtectCode()}"),
             ];
         }
         $storeId = is_object($model) ? $model->getStoreId() : null;

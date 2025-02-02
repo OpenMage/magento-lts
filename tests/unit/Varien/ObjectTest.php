@@ -53,25 +53,25 @@ class ObjectTest extends TestCase
             ['empty_key' => ['empty_value']],
             'empty_key',
             ['empty_value'],
-            ''
+            '',
         ];
         yield 'string' => [
             'value',
             'string',
             'value',
-            'string'
+            'string',
         ];
         yield 'int' => [
             1,
             'int',
             1,
-            'int'
+            'int',
         ];
         yield 'numeric' => [
             '1',
             'numeric',
             '1',
-            'numeric'
+            'numeric',
         ];
         yield 'array' => [
             ['string', 1],
@@ -244,7 +244,7 @@ class ObjectTest extends TestCase
         $this->subject->offsetSet('off', 'set');
         $this->assertTrue($this->subject->offsetExists('off'));
         $this->assertSame('set', $this->subject->offsetGet('off'));
-        $this->assertSame(null, $this->subject->offsetGet('not-exists'));
+        $this->assertNull($this->subject->offsetGet('not-exists'));
 
         $this->subject->offsetUnset('off');
         $this->assertFalse($this->subject->offsetExists('off'));

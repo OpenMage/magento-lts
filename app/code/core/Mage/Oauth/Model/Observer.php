@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,6 +34,8 @@ class Mage_Oauth_Model_Observer
 
     /**
      * Redirect customer to callback page after login
+     *
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function afterCustomerLogin(Varien_Event_Observer $observer)
     {
@@ -49,6 +52,8 @@ class Mage_Oauth_Model_Observer
 
     /**
      * Redirect admin to authorize controller after login success
+     *
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function afterAdminLogin(Varien_Event_Observer $observer)
     {
@@ -65,6 +70,8 @@ class Mage_Oauth_Model_Observer
 
     /**
      * Redirect admin to authorize controller after login fail
+     *
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function afterAdminLoginFailed(Varien_Event_Observer $observer)
     {

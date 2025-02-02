@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -97,7 +98,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
 
         $api->callSetCustomerBillingAgreement();
         $agreement->setRedirectUrl(
-            $this->_pro->getConfig()->getStartBillingAgreementUrl($api->getToken())
+            $this->_pro->getConfig()->getStartBillingAgreementUrl($api->getToken()),
         );
         return $this;
     }
@@ -116,7 +117,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             'token'         => $api->getData('token'),
             'email'         => $api->getData('email'),
             'payer_id'      => $api->getData('payer_id'),
-            'payer_status'  => $api->getData('payer_status')
+            'payer_status'  => $api->getData('payer_status'),
         ];
         $agreement->addData($responseData);
         return $responseData;
@@ -280,8 +281,8 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $order = $payment->getOrder();
         $billingAgreement = Mage::getModel('sales/billing_agreement')->load(
             $payment->getAdditionalInformation(
-                Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract::TRANSPORT_BILLING_AGREEMENT_ID
-            )
+                Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract::TRANSPORT_BILLING_AGREEMENT_ID,
+            ),
         );
 
         $proConfig = $this->_pro->getConfig();

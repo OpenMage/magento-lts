@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rating
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +104,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
             'option_id'     => $option->getId(),
             'review_id'     => $option->getReviewId(),
             'percent'       => (($optionData['value'] / 5) * 100),
-            'value'         => $optionData['value']
+            'value'         => $optionData['value'],
         ];
 
         if (!$option->getDoUpdate()) {
@@ -119,7 +120,7 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
             if ($option->getDoUpdate()) {
                 $condition = [
                     'vote_id = ?'   => $option->getVoteId(),
-                    'review_id = ?' => $option->getReviewId()
+                    'review_id = ?' => $option->getReviewId(),
                 ];
                 $adapter->update($this->_ratingVoteTable, $data, $condition);
                 $this->aggregate($option);
@@ -175,29 +176,29 @@ class Mage_Rating_Model_Resource_Rating_Option extends Mage_Core_Model_Resource_
                     'vote_count'         => new Zend_Db_Expr('COUNT(vote.vote_id)'),
                     'vote_value_sum'     => new Zend_Db_Expr('SUM(vote.value)'),
                     'app_vote_count'     => new Zend_Db_Expr("COUNT({$appVoteCountCond})"),
-                'app_vote_value_sum' => new Zend_Db_Expr("SUM({$appVoteValueSumCond})")]
+                    'app_vote_value_sum' => new Zend_Db_Expr("SUM({$appVoteValueSumCond})")],
             )
             ->join(
                 ['review'   => $this->_reviewTable],
                 'vote.review_id=review.review_id',
-                []
+                [],
             )
             ->joinLeft(
                 ['store' => $this->_reviewStoreTable],
                 'vote.review_id=store.review_id',
-                'store_id'
+                'store_id',
             )
             ->join(
                 ['rstore'   => $this->_ratingStoreTable],
                 'vote.rating_id=rstore.rating_id AND rstore.store_id=store.store_id',
-                []
+                [],
             )
             ->where('vote.rating_id = :rating_id')
             ->where('vote.entity_pk_value = :pk_value')
             ->group([
                 'vote.rating_id',
                 'vote.entity_pk_value',
-                'store.store_id'
+                'store.store_id',
             ]);
 
         $perStoreInfo = $readAdapter->fetchAll($select, $bind);

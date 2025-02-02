@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -42,7 +43,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         $isMultiple = $element->getExtType() === 'multiple';
 
         // replace [value] with [inherit]
-        $namePrefix = preg_replace('#\[value\](\[\])?$#', '', $element->getName());
+        $namePrefix = preg_replace('#\[value\](\[\])?$#', '', (string) $element->getName());
 
         $options = $element->getValues();
 
@@ -76,7 +77,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         $html .= '</td>';
 
         if ($addInheritCheckbox) {
-            $defText = (string)$element->getDefaultValue();
+            $defText = (string) $element->getDefaultValue();
             if ($options) {
                 $defTextArr = [];
                 foreach ($options as $k => $v) {

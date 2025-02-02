@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,6 +29,7 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
      * @param   string $method
      * @param   array $args
      * @return  mixed
+     * @SuppressWarnings("PHPMD.DevelopmentCodeFragment")
      */
     public function __call($method, $args)
     {
@@ -48,7 +50,6 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
             case 'has':
                 return isset($this->_data[$key]);
         }
-        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')');
     }
 }

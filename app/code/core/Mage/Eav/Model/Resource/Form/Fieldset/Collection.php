@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -100,7 +101,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
         $select->join(
             ['default_label' => $this->getTable('eav/form_fieldset_label')],
             'main_table.fieldset_id = default_label.fieldset_id AND default_label.store_id = 0',
-            []
+            [],
         );
         if ($this->getStoreId() == 0) {
             $select->columns('label', 'default_label');
@@ -110,12 +111,12 @@ class Mage_Eav_Model_Resource_Form_Fieldset_Collection extends Mage_Core_Model_R
             $joinCondition = $this->getConnection()
                 ->quoteInto(
                     'main_table.fieldset_id = store_label.fieldset_id AND store_label.store_id = ?',
-                    (int)$this->getStoreId()
+                    (int) $this->getStoreId(),
                 );
             $select->joinLeft(
                 ['store_label' => $this->getTable('eav/form_fieldset_label')],
                 $joinCondition,
-                ['label' => $labelExpr]
+                ['label' => $labelExpr],
             );
         }
 
