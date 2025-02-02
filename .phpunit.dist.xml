@@ -21,6 +21,9 @@
         <testsuite name="Base">
             <directory>tests/unit/Base</directory>
         </testsuite>
+        <testsuite name="Error">
+            <directory>tests/unit/Error</directory>
+        </testsuite>
         <testsuite name="Mage">
             <directory>tests/unit/Mage</directory>
         </testsuite>
