@@ -28,6 +28,7 @@
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
+        "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^24.11",
         "nnnick/chartjs": "^4.4.7",

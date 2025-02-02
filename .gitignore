@@ -29,6 +29,9 @@
 # TinyMCE library
 /js/lib/tinymce
 
+# flow.js library
+/js/lib/uploader
+
 # Add development environment setup files and README
 # https://github.com/OpenMage/magento-lts/pull/1012
 /dev/openmage/docker-magento
