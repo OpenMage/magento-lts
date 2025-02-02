@@ -141,7 +141,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             $cond = null;
         }
 
-        if ($type === 'skin_css' && empty($params)) {
+        if (in_array($type, ['skin_css', 'lib_css']) && empty($params)) {
             $params = 'media="all"';
         }
         $this->_data['items'][$type . '/' . $name] = [
@@ -196,6 +196,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 case 'skin_js':   // skin/*/*.js
                 case 'js_css':    // js/*.css
                 case 'skin_css':  // skin/*/*.css
+                case 'lib_css':   // lib/*/*.css
                     $lines[$if][$item['type']][$params][$item['name']] = $item['name'];
                     break;
                 default:
@@ -223,6 +224,11 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
                 empty($items['js_css']) ? [] : $items['js_css'],
                 empty($items['skin_css']) ? [] : $items['skin_css'],
                 $shouldMergeCss ? [Mage::getDesign(), 'getMergedCssUrl'] : null,
+            );
+
+            $html .= $this->_prepareStaticLibElements(
+                '<link rel="stylesheet" href="%s"%s >' . PHP_EOL,
+                empty($items['lib_css']) ? [] : $items['lib_css'],
             );
 
             // static and skin javascripts
@@ -257,7 +263,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems, $mergeCallback = null)
     {
         $designPackage = Mage::getDesign();
-        $baseJsUrl = Mage::getBaseUrl('js');
+        $baseJsUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS);
         $items = [];
         if ($mergeCallback && !is_callable($mergeCallback)) {
             $mergeCallback = null;
@@ -278,6 +284,26 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
             }
         }
 
+        $html = $this->getItemsHtml($format, $items, $mergeCallback);
+        return $html;
+    }
+
+    protected function &_prepareStaticLibElements(string $format, array $libItems, ?callable $mergeCallback = null): string
+    {
+        $baseLibUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_DIRECT_LINK) . 'lib/';
+        $items = [];
+        foreach ($libItems as $params => $rows) {
+            foreach ($rows as $name) {
+                $items[$params][] = $baseLibUrl . $name;
+            }
+        }
+
+        $html = $this->getItemsHtml($format, $items, $mergeCallback);
+        return $html;
+    }
+
+    protected function getItemsHtml(string $format, array $items, ?callable $mergeCallback = null): string
+    {
         $html = '';
         foreach ($items as $params => $rows) {
             // attempt to merge

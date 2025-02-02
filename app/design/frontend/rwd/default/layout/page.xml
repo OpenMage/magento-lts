@@ -49,7 +49,7 @@
                 <action method="addItem"><type>skin_js</type><name>js/lib/jquery.cycle2.swipe.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/slideshow.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/lib/imagesloaded.js</name></action>
-                <action method="addLinkRel"><rel>stylesheet</rel><href><![CDATA[//fonts.googleapis.com/css?family=Raleway:300,400,500,700,600&display=swap]]></href></action>
+                <action method="addItem"><type>lib_css</type><name>fonts/raleway/raleway.css</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/minicart.js</name></action>
 
                 <!-- Add stylesheets with media queries for use by modern browsers -->
