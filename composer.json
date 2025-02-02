@@ -29,8 +29,10 @@
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
+        "fonts-asset/raleway": "^1.0",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^24.11",
+        "oomphinc/composer-installers-extender": "^2.0",
         "openmage/composer-plugin": "^3.0",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
@@ -106,6 +108,14 @@
         }
     },
     "extra": {
+        "installer-types": [
+            "fonts-asset"
+        ],
+        "installer-paths": {
+            "lib/fonts/{$name}": [
+                "type:fonts-asset"
+            ]
+        },
         "patches": {
             "magento-ecg/coding-standard": {
                 "PR-72 - Fix LoopSniff": "https://patch-diff.githubusercontent.com/raw/magento-ecg/coding-standard/pull/72.patch"
@@ -132,9 +142,11 @@
     },
     "config": {
         "allow-plugins": {
+            "composer/installers": true,
             "cweagans/composer-patches": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "magento-hackathon/magento-composer-installer": true,
+            "oomphinc/composer-installers-extender": true,
             "openmage/composer-plugin": true
         },
         "platform": {
