@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d1749d4ce17be3ef71c37303bee881d",
+    "content-hash": "19f3b48a973611a6e5e8f8b79279c094",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -604,16 +604,16 @@
         },
         {
             "name": "mklkj/tinymce-i18n",
-            "version": "24.12.30",
+            "version": "25.1.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mklkj/tinymce-i18n.git",
-                "reference": "5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9"
+                "reference": "1b154a7e91c9d926e2656e749b5a5dc89ff7d348"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9",
-                "reference": "5bb5d9b172b5dbfe05607a6d4c7988d2844fa8c9",
+                "url": "https://api.github.com/repos/mklkj/tinymce-i18n/zipball/1b154a7e91c9d926e2656e749b5a5dc89ff7d348",
+                "reference": "1b154a7e91c9d926e2656e749b5a5dc89ff7d348",
                 "shasum": ""
             },
             "type": "library",
@@ -635,9 +635,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mklkj/tinymce-i18n/issues",
-                "source": "https://github.com/mklkj/tinymce-i18n/tree/24.12.30"
+                "source": "https://github.com/mklkj/tinymce-i18n/tree/25.1.27"
             },
-            "time": "2024-12-30T10:42:10+00:00"
+            "time": "2025-01-27T11:28:24+00:00"
         },
         {
             "name": "openmage/composer-plugin",
