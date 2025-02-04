@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "iamniels",
+      "name": "iamniels",
+      "avatar_url": "https://avatars.githubusercontent.com/u/717126?v=4",
+      "profile": "http://i.amniels.com",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
