@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jandolejs",
+      "name": "Jan Dolejš",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16374521?v=4",
+      "profile": "https://www.jandolejs.cz",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
