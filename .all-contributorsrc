@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "PapaDragonov",
+      "name": "PapaDragonov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17141028?v=4",
+      "profile": "https://github.com/PapaDragonov",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
