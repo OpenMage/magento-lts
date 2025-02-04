@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "alexh-swdev",
+      "name": "Alex",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18015530?v=4",
+      "profile": "https://github.com/alexh-swdev",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
