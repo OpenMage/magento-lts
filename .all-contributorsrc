@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nprovoost",
+      "name": "Nicky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25850269?v=4",
+      "profile": "http://twopointzero.eu",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
