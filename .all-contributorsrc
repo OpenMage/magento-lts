@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "nihadrekany",
+      "name": "nihadrekany",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30975802?v=4",
+      "profile": "https://github.com/nihadrekany",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
