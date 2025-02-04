@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kyrena",
+      "name": "kyrena",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78410399?v=4",
+      "profile": "https://github.com/kyrena",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
