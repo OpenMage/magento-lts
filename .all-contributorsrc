@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "MateusM3",
+      "name": "Mateus Monteiro",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20692202?v=4",
+      "profile": "https://github.com/MateusM3",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
