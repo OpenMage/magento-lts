@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "matteorossi-thespacesm",
+      "name": "matteorossi-thespacesm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61690145?v=4",
+      "profile": "https://www.thespacesm.com/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
