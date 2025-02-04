@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "pauldpauld",
+      "name": "pauldpauld",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1549372?v=4",
+      "profile": "https://alond.com.au/",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
