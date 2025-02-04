@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "TangLiang",
+      "name": "TangLiang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/486703?v=4",
+      "profile": "https://github.com/TangLiang",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
