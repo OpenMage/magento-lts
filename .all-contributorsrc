@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "masmrlar",
+      "name": "Thomas Neumann",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1188299?v=4",
+      "profile": "https://github.com/masmrlar",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
