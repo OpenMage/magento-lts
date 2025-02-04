@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "felipegomesdev",
+      "name": "Felipe Gomes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6062121?v=4",
+      "profile": "https://github.com/felipegomesdev",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
