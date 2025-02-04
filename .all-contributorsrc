@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "git-seb",
+      "name": "git-seb",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78160594?v=4",
+      "profile": "https://github.com/git-seb",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
