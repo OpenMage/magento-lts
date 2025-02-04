@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gstdp",
+      "name": "James",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1748022?v=4",
+      "profile": "https://github.com/gstdp",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
