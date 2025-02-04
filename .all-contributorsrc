@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "S0FTWEX",
+      "name": "S0FTWEX",
+      "avatar_url": "https://avatars.githubusercontent.com/u/35923501?v=4",
+      "profile": "https://github.com/S0FTWEX",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
