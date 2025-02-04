@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "imaphpdev",
+      "name": "I'm a PHP developer!",
+      "avatar_url": "https://avatars.githubusercontent.com/u/772136?v=4",
+      "profile": "https://github.com/imaphpdev",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
