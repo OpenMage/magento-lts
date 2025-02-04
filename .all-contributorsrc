@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tim-breitenstein-it",
+      "name": "Tim Steinbrecher",
+      "avatar_url": "https://avatars.githubusercontent.com/u/65597245?v=4",
+      "profile": "https://github.com/tim-breitenstein-it",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "commitType": "docs"
