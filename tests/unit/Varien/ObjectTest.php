@@ -171,6 +171,7 @@ class ObjectTest extends TestCase
      */
     public function testToString(string $expectedResult, string $format): void
     {
+        $this->subject->setString0('0');
         $this->subject->setString1('one');
         $this->subject->setString2('two');
         $this->subject->setString3('three');
@@ -181,16 +182,16 @@ class ObjectTest extends TestCase
     public function provideToString(): Generator
     {
         yield 'no format' => [
-            'one, two, three',
+            '0, one, two, three',
             '',
         ];
         yield 'valid' => [
-            'one two',
-            '{{string1}} {{string2}}',
+            '0 one two',
+            '{{string0}} {{string1}} {{string2}}',
         ];
         yield 'invalid' => [
-            'three  one',
-            '{{string3}} {{string_not_exists}} {{string1}}',
+            'three  0',
+            '{{string3}} {{string_not_exists}} {{string0}}',
         ];
     }
 
