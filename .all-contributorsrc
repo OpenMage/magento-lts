@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "djixas",
+      "name": "djixas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12409425?v=4",
+      "profile": "https://github.com/djixas",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
