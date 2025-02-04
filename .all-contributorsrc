@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "dev-venkatesh",
+      "name": "Venkatesh CH",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50407866?v=4",
+      "profile": "https://github.com/dev-venkatesh",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
