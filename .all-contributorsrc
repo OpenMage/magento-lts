@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mmh2025",
+      "name": "mmh2025",
+      "avatar_url": "https://avatars.githubusercontent.com/u/194311263?v=4",
+      "profile": "https://github.com/mmh2025",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
