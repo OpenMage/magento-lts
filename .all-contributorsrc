@@ -1484,6 +1484,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "matteotestoni",
+      "name": "matteotestoni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34275189?v=4",
+      "profile": "https://github.com/matteotestoni",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
