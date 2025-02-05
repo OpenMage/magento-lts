@@ -62,14 +62,15 @@ $dc run --rm --no-deps cli chmod -R g+ws media var/cache var/log var/locks var/s
 
 echo "Starting services..."
 $dc up -d mysql redis php-fpm
-sleep 4
-for i in $(seq 1 20); do
-  sleep 1
-  $dc exec mysql mysql -e 'show databases;' 2>/dev/null | grep -qF "$MYSQL_DATABASE" && break
-done
 
 echo "Installing Composer dependencies..."
 $dc run --rm -u "$(id -u):$(id -g)" cli composer install --no-progress
+
+for i in $(seq 1 30); do
+  sleep 1
+  $dc exec mysql mysql -e 'show databases;' 2>/dev/null | grep -qF "$MYSQL_DATABASE" && break
+  echo "Waiting for MySQL to be ready..."
+done
 
 if [[ -n "${SAMPLE_DATA:-}" ]]; then
   echo "Installing Sample Data..."
