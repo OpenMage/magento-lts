@@ -16,7 +16,7 @@ For a more robust development environment that supports https, please consider u
 
 ## Installation
 
-Run `dev/openmage/install.sh`. That's it!
+Run `SAMPLE_DATA=1 dev/openmage/install.sh`. That's it!
 
 Visit [http://openmage-7f000001.nip.io/](http://openmage-7f000001.nip.io/) and start coding!
 
