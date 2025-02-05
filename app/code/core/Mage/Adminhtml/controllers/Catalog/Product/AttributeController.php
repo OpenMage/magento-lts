@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Respect\Validation\Validator as v;
+
 /**
  * Catalog product attribute controller
  *
@@ -207,8 +209,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
             //validate attribute_code
             if (isset($data['attribute_code'])) {
-                $validatorAttrCode = new Zend_Validate_Regex(['pattern' => '/^(?!event$)[a-z][a-z_0-9]{1,254}$/']);
-                if (!$validatorAttrCode->isValid($data['attribute_code'])) {
+                if (!v::regex('/^(?!event$)[a-z][a-z_0-9]{1,254}$/')->validate($data['attribute_code'])) {
                     $session->addError(
                         Mage::helper('catalog')->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter. Do not use "event" for an attribute code.'),
                     );

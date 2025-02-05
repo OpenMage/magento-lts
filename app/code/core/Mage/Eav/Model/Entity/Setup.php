@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Respect\Validation\Validator as v;
+
 /**
  * EAV Entity Setup Model
  *
@@ -639,15 +641,16 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Validate attribute data before insert into table
      *
      * @param  array $data
-     * @throws Mage_Eav_Exception
      * @return true
+     * @throws Mage_Core_Exception
+     * @throws Mage_Eav_Exception
      */
     protected function _validateAttributeData($data)
     {
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
 
         if (isset($data['attribute_code']) &&
-            !Zend_Validate::is($data['attribute_code'], 'StringLength', ['max' => $attributeCodeMaxLength])
+            !v::stringType()->length(null, $attributeCodeMaxLength)->validate($data['attribute_code'])
         ) {
             throw Mage::exception(
                 'Mage_Eav',

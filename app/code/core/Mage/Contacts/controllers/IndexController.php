@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Respect\Validation\Validator as v;
+
 /**
  * Contacts index controller
  *
@@ -66,11 +68,11 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
                 // check data
                 $error = false;
-                if (!Zend_Validate::is(trim($post['name']), 'NotEmpty')) {
+                if (!v::stringType()->notEmpty()->validate(trim($post['name']))) {
                     $error = true;
-                } elseif (!Zend_Validate::is(trim($post['comment']), 'NotEmpty')) {
+                } elseif (!v::stringType()->notEmpty()->validate(trim($post['comment']))) {
                     $error = true;
-                } elseif (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
+                } elseif (!v::email()->validate(trim($post['email']))) {
                     $error = true;
                 }
 

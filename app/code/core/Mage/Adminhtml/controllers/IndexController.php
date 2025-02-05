@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Respect\Validation\Validator as v;
+
 /**
  * Index admin controller
  *
@@ -220,7 +222,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             if ($this->_validateFormKey()) {
                 if (!empty($email)) {
                     // Validate received data to be an email address
-                    if (Zend_Validate::is($email, 'EmailAddress')) {
+                    if (v::email()->validate($email)) {
                         $collection = Mage::getResourceModel('admin/user_collection');
                         /** @var Mage_Admin_Model_Resource_User_Collection $collection */
                         $collection->addFieldToFilter('email', $email);

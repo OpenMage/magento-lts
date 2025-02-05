@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Respect\Validation\Validator as v;
+
 /**
  * API2 catalog_product Validator
  *
@@ -122,18 +124,19 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      *
      * @param array $data
      * @param Mage_Eav_Model_Entity_Type $productEntity
+     * @throws Mage_Api2_Exception
      */
     protected function _validateAttributes($data, $productEntity)
     {
-        if (!isset($data['attribute_set_id']) || empty($data['attribute_set_id'])) {
+        if (empty($data['attribute_set_id'])) {
             $this->_critical('Missing "attribute_set_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
-        if (!isset($data['type_id']) || empty($data['type_id'])) {
+        if (empty($data['type_id'])) {
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Validate weight
-        if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
-            && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])
+        if (!empty($data['weight']) && $data['weight'] > 0
+            && !v::floatVal()->between(0, self::MAX_DECIMAL_VALUE)->validate($data['weight'])
         ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
@@ -278,8 +281,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if ($this->_isUpdate() && !isset($data['sku'])) {
             return true;
         }
-        if (!Zend_Validate::is((string) $data['sku'], 'StringLength', ['min' => 0, 'max' => 64])) {
-            $this->_addError('SKU length should be 64 characters maximum.');
+
+        $skuMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
+
+        if (!v::stringType()->length(0, $skuMaxLength)->validate((string) $data['sku'])) {
+            $this->_addError(sprintf('SKU length should be %d characters maximum.', $skuMaxLength));
         }
     }
 

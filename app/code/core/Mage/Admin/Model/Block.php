@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Respect\Validation\Validator as v;
+
 /**
  * Class Mage_Admin_Model_Block
  *
@@ -40,20 +42,19 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     /**
      * @return array|true
      * @throws Exception
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
         $errors = [];
 
-        if (!Zend_Validate::is($this->getBlockName(), 'NotEmpty')) {
+        if (!v::stringType()->notEmpty()->validate($this->getBlockName())) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is required field.');
         }
         $disallowedBlockNames = Mage::helper('admin/block')->getDisallowedBlockNames();
         if (in_array($this->getBlockName(), $disallowedBlockNames)) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is disallowed.');
         }
-        if (!Zend_Validate::is($this->getBlockName(), 'Regex', ['/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/'])) {
+        if (!v::regex('/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/')->validate($this->getBlockName())) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is incorrect.');
         }
 
