@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Composer\InstalledVersions;
+
 /**
  * Data helper for dashboard
  *
@@ -28,10 +30,23 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     public const PERIOD_1_YEAR      = '1y';
     public const PERIOD_2_YEARS     = '2y';
 
+    /**
+     * Location of the "Enable Chart" config param
+     */
+    public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
+
     protected $_moduleName = 'Mage_Adminhtml';
 
     protected $_locale = null;
     protected $_stores = null;
+
+    public function isChartEnabled(): bool
+    {
+        if (!InstalledVersions::isInstalled('nnnick/chartjs')) {
+            return false;
+        }
+        return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_CHARTS);
+    }
 
     /**
      * Retrieve stores configured in system.

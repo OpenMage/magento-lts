@@ -24,6 +24,9 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
 
     /**
      * Location of the "Enable Chart" config param
+     *
+     * @deprecated
+     * @see Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS
      */
     public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
 
@@ -60,7 +63,9 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/dashboard_searches_top'),
         );
 
-        if (Mage::getStoreConfig(self::XML_PATH_ENABLE_CHARTS)) {
+        /** @var Mage_Adminhtml_Helper_Dashboard_Data $helper */
+        $helper = Mage::helper('adminhtml/dashboard');
+        if ($helper->isChartEnabled()) {
             $block = $this->getLayout()->createBlock('adminhtml/dashboard_diagrams');
         } else {
             $block = $this->getLayout()->createBlock('adminhtml/template')
