@@ -64,7 +64,7 @@ class Mage_Adminhtml_Block_Dashboard extends Mage_Adminhtml_Block_Template
         );
 
         /** @var Mage_Adminhtml_Helper_Dashboard_Data $helper */
-        $helper = Mage::helper('adminhtml/dashboard');
+        $helper = Mage::helper('adminhtml/dashboard_data');
         if ($helper->isChartEnabled()) {
             $block = $this->getLayout()->createBlock('adminhtml/dashboard_diagrams');
         } else {
