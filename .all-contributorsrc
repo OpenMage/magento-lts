@@ -1516,6 +1516,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mbattistini",
+      "name": "mbattistini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/276468?v=4",
+      "profile": "https://github.com/mbattistini",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
