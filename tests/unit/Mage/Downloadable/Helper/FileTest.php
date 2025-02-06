@@ -1,10 +1,11 @@
 <?php
 
 /**
+ * This file is part of OpenMage.
+ * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+ *
  * @category   OpenMage
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
