@@ -13,17 +13,20 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
 use Generator;
 use Mage;
-use Mage_Catalog_Model_Url;
+use Mage_Catalog_Model_Url as Subject;
 use Mage_Core_Exception;
+use OpenMage\Tests\Unit\Traits\DataProvider\Base\IntOrNullTrait;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Varien_Object;
 
 class UrlTest extends TestCase
 {
-    public const TEST_STRING = '--a & B, x% @ ä ö ü ™--';
+    use CatalogTrait;
+    use IntOrNullTrait;
 
-    public Mage_Catalog_Model_Url $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -41,27 +44,13 @@ class UrlTest extends TestCase
     }
 
     /**
-     * @dataProvider provideRefreshRewrites
-     *
+     * @dataProvider provideIntOrNull
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
     public function testRefreshRewrites(?int $storeId): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->refreshRewrites($storeId));
-    }
-
-    public function provideRefreshRewrites(): Generator
-    {
-        yield 'w/o storeId' => [
-            null,
-        ];
-        yield 'w/ valid storeId' => [
-            1,
-        ];
-        yield 'w/ invalid storeId' => [
-            999,
-        ];
+        $this->assertInstanceOf(Subject::class, $this->subject->refreshRewrites($storeId));
     }
 
     /**
@@ -134,43 +123,20 @@ class UrlTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testFormatUrlKey($expectedResult, string $locale): void
+    public function testFormatUrlKey($expectedResult, ?string $locale): void
     {
         $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
-    }
-
-    public function provideFormatUrlKey(): Generator
-    {
-        yield 'de_DE' => [
-            'a-und-b-x-prozent-at-ae-oe-ue-tm',
-            'de_DE',
-        ];
-        yield 'en_US' => [
-            'a-and-b-x-percent-at-a-o-u-tm',
-            'en_US',
-        ];
-        yield 'es_ES' => [
-            'a-et-b-x-por-ciento-at-a-o-u-tm',
-            'es_ES',
-        ];
-        yield 'fr_FR' => [
-            'a-et-b-x-pour-cent-at-a-o-u-tm',
-            'fr_FR',
-        ];
-        yield 'it_IT' => [
-            'a-e-b-x-per-cento-at-a-o-u-tm',
-            'it_IT',
-        ];
+        $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));
     }
 
     /**
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
+     * @doesNotPerformAssertions
      */
     public function testGetSlugger(): void
     {
-        $this->assertInstanceOf(AsciiSlugger::class, $this->subject->getSlugger());
+        $this->subject->getSlugger();
     }
 
     /**

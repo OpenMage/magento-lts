@@ -12,12 +12,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
-use Mage_Log_Model_Log;
+use Mage_Log_Model_Log as Subject;
 use PHPUnit\Framework\TestCase;
 
 class LogTest extends TestCase
 {
-    public Mage_Log_Model_Log $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -31,6 +31,6 @@ class LogTest extends TestCase
      */
     public function testClean(): void
     {
-        $this->assertInstanceOf(Mage_Log_Model_Log::class, $this->subject->clean());
+        $this->assertInstanceOf(Subject::class, $this->subject->clean());
     }
 }

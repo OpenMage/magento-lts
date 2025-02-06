@@ -14,13 +14,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 use Exception;
 use Generator;
 use Mage;
-use Mage_Core_Helper_UnserializeArray;
+use Mage_Core_Helper_UnserializeArray as Subject;
 use PHPUnit\Framework\TestCase;
-use Varien_Object;
 
 class UnserializeArrayTest extends TestCase
 {
-    public Mage_Core_Helper_UnserializeArray $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

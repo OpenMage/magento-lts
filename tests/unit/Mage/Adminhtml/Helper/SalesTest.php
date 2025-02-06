@@ -13,12 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Generator;
 use Mage;
-use Mage_Adminhtml_Helper_Sales;
+use Mage_Adminhtml_Helper_Sales as Subject;
 use PHPUnit\Framework\TestCase;
 
 class SalesTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Sales $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

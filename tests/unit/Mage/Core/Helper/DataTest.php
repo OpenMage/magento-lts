@@ -13,18 +13,17 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Generator;
 use Mage;
-use Mage_Core_Helper_Data;
+use Mage_Core_Helper_Data as Subject;
 use Mage_Core_Model_Encryption;
 use Mage_Core_Model_Locale;
 use PHPUnit\Framework\TestCase;
 use Varien_Crypt_Mcrypt;
-use Varien_Date;
 
 class DataTest extends TestCase
 {
     public const TEST_STRING = '1234567890';
 
-    public Mage_Core_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

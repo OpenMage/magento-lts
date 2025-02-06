@@ -13,12 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Generator;
 use Mage;
-use Mage_Admin_Model_Block;
+use Mage_Admin_Model_Block as Subject;
 use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
 {
-    public Mage_Admin_Model_Block $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -35,7 +35,7 @@ class BlockTest extends TestCase
      */
     public function testValidate(array $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_Block::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
                 'getBlockName',
                 'getIsAllowed',

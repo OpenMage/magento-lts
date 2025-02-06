@@ -14,14 +14,14 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Mage;
 use Mage_Core_Model_Resource_Store_Collection;
 use Mage_Core_Model_Resource_Store_Group_Collection;
-use Mage_Core_Model_Website;
+use Mage_Core_Model_Website as Subject;
 use Mage_Directory_Model_Currency;
 use PHPUnit\Framework\TestCase;
 use Varien_Db_Select;
 
 class WebsiteTest extends TestCase
 {
-    public Mage_Core_Model_Website $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -35,8 +35,8 @@ class WebsiteTest extends TestCase
      */
     public function testLoad(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->load(1));
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->load('default'));
+        $this->assertInstanceOf(Subject::class, $this->subject->load(1));
+        $this->assertInstanceOf(Subject::class, $this->subject->load('default'));
     }
 
     /**
@@ -45,8 +45,8 @@ class WebsiteTest extends TestCase
      */
     public function testLoadConfig(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->loadConfig('1'));
-        $this->assertInstanceOf(Mage_Core_Model_Website::class, $this->subject->loadConfig('default'));
+        $this->assertInstanceOf(Subject::class, $this->subject->loadConfig('1'));
+        $this->assertInstanceOf(Subject::class, $this->subject->loadConfig('default'));
     }
 
     /**

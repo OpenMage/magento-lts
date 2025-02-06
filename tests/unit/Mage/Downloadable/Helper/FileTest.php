@@ -11,14 +11,16 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 
-use Generator;
 use Mage;
-use Mage_Downloadable_Helper_File;
+use Mage_Downloadable_Helper_File as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\DownloadableTrait;
 use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    public Mage_Downloadable_Helper_File $subject;
+    use DownloadableTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -36,34 +38,5 @@ class FileTest extends TestCase
     {
         $result = $this->subject->getFilePath($path, $file);
         $this->assertSame($expectedResult, $result);
-    }
-
-    public function provideGetFilePathData(): Generator
-    {
-        yield 'strings path and strings file' => [
-            'path' . DS . 'file',
-            'path',
-            'file',
-        ];
-        yield 'strings path and strings file with slash' => [
-            'path' . DS . 'file',
-            'path',
-            '/file',
-        ];
-        yield 'string path and null file' => [
-            'path' . DS,
-            'path',
-            null,
-        ];
-        yield 'string path and empty file' => [
-            'path' . DS,
-            'path',
-            '',
-        ];
-        yield 'strings path and strings file named 0' => [
-            'path' . DS . '0',
-            'path',
-            '0',
-        ];
     }
 }

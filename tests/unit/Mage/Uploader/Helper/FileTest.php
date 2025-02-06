@@ -11,15 +11,17 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
-use Generator;
 use Mage;
 use Mage_Core_Model_Config;
-use Mage_Uploader_Helper_File;
+use Mage_Uploader_Helper_File as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\UploaderTrait;
 use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
 {
-    public Mage_Uploader_Helper_File $subject;
+    use UploaderTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -42,34 +44,6 @@ class FileTest extends TestCase
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
         $this->assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
-    }
-
-    public function provideGetMimeTypeFromExtensionListData(): Generator
-    {
-        yield 'string exists' => [
-            [
-                0 => 'application/vnd.lotus-1-2-3',
-            ],
-            '123',
-        ];
-        yield 'string not exists' => [
-            [
-                0 => 'application/octet-stream',
-            ],
-            'not-exists',
-        ];
-        yield 'array' => [
-            [
-                0 => 'application/vnd.lotus-1-2-3',
-                1 => 'application/octet-stream',
-                2 => 'application/octet-stream',
-            ],
-            [
-                '123',
-                'not-exists',
-                'test-new-node',
-            ],
-        ];
     }
 
     /**
@@ -96,7 +70,7 @@ class FileTest extends TestCase
      */
     public function testGetDataMaxSize(): void
     {
-        $mock = $this->getMockBuilder(Mage_Uploader_Helper_File::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getPostMaxSize', 'getUploadMaxSize'])
             ->getMock();
 
@@ -112,31 +86,11 @@ class FileTest extends TestCase
      */
     public function testGetDataMaxSizeInBytes(int $expectedResult, string $maxSize): void
     {
-        $mock = $this->getMockBuilder(Mage_Uploader_Helper_File::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getDataMaxSize'])
             ->getMock();
 
         $mock->expects($this->once())->method('getDataMaxSize')->willReturn($maxSize);
         $this->assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
-    }
-
-    public function provideGetDataMaxSizeInBytesData(): Generator
-    {
-        yield 'no unit' => [
-            1024,
-            '1024',
-        ];
-        yield 'kilobyte' => [
-            1024,
-            '1K',
-        ];
-        yield 'megabyte' => [
-            1048576,
-            '1M',
-        ];
-        yield 'gigabyte' => [
-            1073741824,
-            '1G',
-        ];
     }
 }

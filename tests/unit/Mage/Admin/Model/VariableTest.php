@@ -13,12 +13,12 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Generator;
 use Mage;
-use Mage_Admin_Model_Variable;
+use Mage_Admin_Model_Variable as Subject;
 use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    public Mage_Admin_Model_Variable $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -35,7 +35,7 @@ class VariableTest extends TestCase
      */
     public function testValidate($expectedResult, string $variableName, string $isAllowed): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_Variable::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getVariableName', 'getIsAllowed'])
             ->getMock();
 

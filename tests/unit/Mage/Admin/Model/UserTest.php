@@ -13,13 +13,13 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Generator;
 use Mage;
-use Mage_Admin_Model_User;
+use Mage_Admin_Model_User as Subject;
 use Mage_Core_Exception;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public Mage_Admin_Model_User $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -38,7 +38,7 @@ class UserTest extends TestCase
      */
     public function testAuthenticate($expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
                 'loadByUsername',
                 'getId',
@@ -60,8 +60,8 @@ class UserTest extends TestCase
 
         try {
             $this->assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
-        } catch (Mage_Core_Exception $e) {
-            $this->assertSame($expectedResult, $e->getMessage());
+        } catch (Mage_Core_Exception $exception) {
+            $this->assertSame($expectedResult, $exception->getMessage());
         }
     }
 
@@ -121,7 +121,7 @@ class UserTest extends TestCase
      */
     public function testValidate($expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
                 'hasNewPassword',
                 'getNewPassword',
@@ -189,7 +189,7 @@ class UserTest extends TestCase
      */
     public function testLoadByUsername(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->loadByUsername('invalid-user'));
+        $this->assertInstanceOf(Subject::class, $this->subject->loadByUsername('invalid-user'));
     }
 
     /**
@@ -208,7 +208,7 @@ class UserTest extends TestCase
      */
     public function testChangeResetPasswordLinkToken(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->changeResetPasswordLinkToken('123'));
+        $this->assertInstanceOf(Subject::class, $this->subject->changeResetPasswordLinkToken('123'));
     }
 
     /**
@@ -218,7 +218,7 @@ class UserTest extends TestCase
      */
     public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
                 'getRpToken',
                 'getRpTokenCreatedAt',
@@ -254,6 +254,6 @@ class UserTest extends TestCase
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->sendPasswordResetConfirmationEmail());
+        $this->assertInstanceOf(Subject::class, $this->subject->sendPasswordResetConfirmationEmail());
     }
 }
