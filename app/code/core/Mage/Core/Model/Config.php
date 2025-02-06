@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -526,6 +526,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
         $waitTime = $waitTime ?: (getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3));
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        if (!$connection) {
+            return;
+        }
         if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
             if ($ignoreFailure) {
                 return;
@@ -550,6 +553,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return;
         }
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        if (!$connection) {
+            return;
+        }
         $connection->fetchOne("SELECT RELEASE_LOCK('core_config_cache_save_lock')");
     }
 

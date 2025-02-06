@@ -17,23 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Block;
 
-use Generator;
 use Mage;
-use Mage_Directory_Block_Data;
+use Mage_Directory_Block_Data as Subject;
 use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public const TEST_STRING = '1234567890';
-
-    public Mage_Directory_Block_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        $this->subject = new Mage_Directory_Block_Data();
+        $this->subject = new Subject();
     }
 
     /**

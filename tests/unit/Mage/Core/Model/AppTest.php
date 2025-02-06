@@ -7,16 +7,19 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Generator;
 use Mage;
 use Mage_Core_Exception;
-use Mage_Core_Model_App;
+use Mage_Core_Model_App as Subject;
 use Mage_Core_Model_Store;
 use Mage_Core_Model_Store_Exception;
 use Mage_Core_Model_Store_Group;
 use Mage_Core_Model_Website;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use PHPUnit\Framework\TestCase;
 
 class AppTest extends TestCase
 {
-    public Mage_Core_Model_App $subject;
+    use CoreTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -24,6 +27,7 @@ class AppTest extends TestCase
     }
 
     /**
+     * @dataProvider provideGetStoreConfig
      * @dataProvider provideGetStore
      * @group Mage_Core
      * @group Mage_Core_Model
@@ -42,31 +46,13 @@ class AppTest extends TestCase
 
     public function provideGetStore(): Generator
     {
-        yield 'null' => [
-            null,
-        ];
-        yield 'true' => [
-            true,
-        ];
-        yield 'false' => [
-            false,
-        ];
-        yield 'int valid' => [
-            1,
-        ];
-        yield 'int invalid (exception)' => [
-            999,
-        ];
-        yield 'string' => [
-            '1',
-        ];
         yield 'Mage_Core_Model_Store' => [
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             new Mage_Core_Model_Store(),
         ];
     }
 
     /**
+     * @dataProvider provideGetStoreConfig
      * @dataProvider provideGetWebsite
      * @group Mage_Core
      * @group Mage_Core_Model
@@ -85,31 +71,13 @@ class AppTest extends TestCase
 
     public function provideGetWebsite(): Generator
     {
-        yield 'null' => [
-            null,
-        ];
-        yield 'true' => [
-            true,
-        ];
-        yield 'false' => [
-            false,
-        ];
-        yield 'int valid' => [
-            1,
-        ];
-        yield 'int invalid (exception)' => [
-            999,
-        ];
-        yield 'string' => [
-            '1',
-        ];
         yield 'Mage_Core_Model_Website' => [
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             new Mage_Core_Model_Website(),
         ];
     }
 
     /**
+     * @dataProvider provideGetStoreConfig
      * @dataProvider provideGetGroup
      * @group Mage_Core
      * @group Mage_Core_Model
@@ -128,26 +96,7 @@ class AppTest extends TestCase
 
     public function provideGetGroup(): Generator
     {
-        yield 'null' => [
-            null,
-        ];
-        yield 'true' => [
-            true,
-        ];
-        yield 'false' => [
-            false,
-        ];
-        yield 'int valid' => [
-            1,
-        ];
-        yield 'int invalid (exception)' => [
-            999,
-        ];
-        yield 'string' => [
-            '1',
-        ];
         yield 'Mage_Core_Model_Store_Group' => [
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             new Mage_Core_Model_Store_Group(),
         ];
     }
