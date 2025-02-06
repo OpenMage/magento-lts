@@ -1,5 +1,4 @@
 #!/bin/bash
-#ddev-generated
 
 ## Description: Open an interactive Cypress window
 ##              https://docs.cypress.io/guides/guides/command-line#cypress-open
