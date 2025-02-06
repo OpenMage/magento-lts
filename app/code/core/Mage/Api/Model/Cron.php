@@ -6,8 +6,6 @@
  *
  * @category   Mage
  * @package    Mage_Api
- * @copyright  Copyright (c) The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
 class Mage_Api_Model_Cron
