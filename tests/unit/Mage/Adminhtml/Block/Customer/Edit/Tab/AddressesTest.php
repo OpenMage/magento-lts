@@ -18,19 +18,18 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Edit\Tab;
 
 use Mage;
-use Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses;
+use Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses as Subject;
 use Mage_Customer_Model_Customer;
 use PHPUnit\Framework\TestCase;
 
 class AddressesTest extends TestCase
 {
-    public Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses();
+        $this->subject = new Subject();
     }
 
     /**
@@ -39,19 +38,18 @@ class AddressesTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getRegistryCurrentCustomer', 'isReadonly'])
             ->getMock();
 
         $mock
             ->method('getRegistryCurrentCustomer')
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Customer_Model_Customer());
 
         $mock
             ->method('isReadonly')
             ->willReturn(true);
 
-        $this->assertInstanceOf(Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses::class, $mock->initForm());
+        $this->assertInstanceOf(Subject::class, $mock->initForm());
     }
 }
