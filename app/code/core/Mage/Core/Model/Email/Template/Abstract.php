@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Respect\Validation\Validator as v;
+
 /**
  * Template model
  *
@@ -228,14 +230,18 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 '_theme' => $theme,
             ],
         );
-        $validator = new Zend_Validate_File_Extension('css');
 
-        if ($validator->isValid($filePath) && is_readable($filePath)) {
+        if ($this->validateFileExension('css', $filePath) && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }
 
         // If file can't be found, return empty string
         return '';
+    }
+
+    public function validateFileExension(string $extension, string $filePath): bool
+    {
+        return v::extension($extension)->validate($filePath);
     }
 
     /**
