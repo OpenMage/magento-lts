@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Mage;
-use Mage_Catalog_Helper_Map;
+use Mage_Catalog_Helper_Map as Subject;
 use PHPUnit\Framework\TestCase;
 
 class MapTest extends TestCase
 {
-    public Mage_Catalog_Helper_Map $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
