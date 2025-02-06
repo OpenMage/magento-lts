@@ -1,11 +1,11 @@
 <?php
 
 /**
+ * This file is part of OpenMage.
+ * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+ *
  * @category   Mage
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
 $installFile = __DIR__ . DS . 'upgrade-1.6.0.0.1-1.6.0.0.2.php';
