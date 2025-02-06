@@ -28,7 +28,7 @@
  * @method $this setQuoteItem(Mage_Sales_Model_Quote_Item $value)
  * @method array|int getUserValue()
  * @method $this setRequest(Varien_Object $value)
- * @method $this setUserValue(array|int $value)
+ * @method $this setUserValue(array|int|null $value)
  */
 class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
 {
