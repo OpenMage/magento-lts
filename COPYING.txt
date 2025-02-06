@@ -3,7 +3,7 @@ COPYRIGHT
     OpenMage - an eCommerce platform
 
     Copyright © 2006-2020 Magento, Inc. (https://magento.com)
-    Copyright © 2017-2025 The OpenMage Contributors (https://openmage.org)
+    Copyright © 2016-2025 The OpenMage Contributors (https://openmage.org)
 
 SOFTWARE LICENSE
 
