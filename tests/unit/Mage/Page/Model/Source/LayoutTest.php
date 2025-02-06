@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Model\Source;
 
 use Mage;
-use Mage_Page_Model_Source_Layout;
+use Mage_Page_Model_Source_Layout as Subject;
 use PHPUnit\Framework\TestCase;
 
 class LayoutTest extends TestCase
 {
-    public Mage_Page_Model_Source_Layout $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

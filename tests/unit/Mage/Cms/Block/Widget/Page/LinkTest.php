@@ -18,18 +18,17 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget\Page;
 
 use Mage;
-use Mage_Cms_Block_Widget_Page_Link;
+use Mage_Cms_Block_Widget_Page_Link as Subject;
 use PHPUnit\Framework\TestCase;
 
 class LinkTest extends TestCase
 {
-    public Mage_Cms_Block_Widget_Page_Link $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Cms_Block_Widget_Page_Link();
+        $this->subject = new Subject();
     }
 
     /**
