@@ -126,6 +126,11 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $product->addData($productData);
     }
 
+    /**
+     * Add custom attributes to product data
+     *
+     * Apply custom logig before add data to product.
+     */
     protected function addAttribute(string $attribute, array &$productData, Mage_Catalog_Model_Product $product): void
     {
         if (!$this->isAllowedAttribute($attribute)) {
@@ -173,6 +178,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         }
     }
 
+    /**
+     * Add price attributes to product data
+     */
     protected function addPrices(array &$productData, Mage_Catalog_Model_Product $product): void
     {
         $isPriceRequired = false;
@@ -202,6 +210,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         }
     }
 
+    /**
+     * Get allowed attributes for output
+     */
     protected function getAllowedAttributes(): array
     {
         if (is_null($this->allowedAttributes)) {
