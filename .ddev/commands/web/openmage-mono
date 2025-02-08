@@ -76,6 +76,7 @@ COMMIT_FLAG=''
 DOWNLOAD_FLAG=''
 GENERAT_FLAG=''
 PUSH_FLAG=''
+REVERT_FLAG=''
 TAG_FLAG=''
 
 while :; do
@@ -88,6 +89,8 @@ while :; do
             GENERAT_FLAG='true' ;;
          -p|--push)
             PUSH_FLAG='true' ;;
+         -r|--revert)
+            REVERT_FLAG='true' ;;
          -t|--tag)
             TAG_FLAG='true' ;;
          --)              # End of all options.
@@ -144,6 +147,14 @@ for class in ${!modules[@]}; do
     if [[ "${PUSH_FLAG}" ]]; then
         echo "Push ${modules[${class}]}."
         git push
+    fi
+
+    if [[ "${REVERT_FLAG}" ]]; then
+        echo "Revert last commit in ${modules[${class}]}."
+        git commit -m "Revert last commit"
+        git reset HEAD~
+        git add .
+        git commit -c ORIG_HEAD
     fi
 
     cd ..
