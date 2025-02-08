@@ -355,6 +355,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
             }
         }
 
+        if (!$full) {
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $envConfig = $environmentConfigLoaderHelper->getAsArray($scope = $this->getScope());
+            $config = array_merge($config, $envConfig);
+        }
         return $config;
     }
 

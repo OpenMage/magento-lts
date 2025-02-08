@@ -105,6 +105,42 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         }
     }
 
+    public function getAsArray(string $wantedScope): array
+    {
+        $env = $this->getEnv();
+        $config = [];
+
+        foreach ($env as $configKey => $value) {
+            if (!$this->isConfigKeyValid($configKey)) {
+                continue;
+            }
+
+            list($configKeyParts, $scope) = $this->getConfigKey($configKey);
+            if (strtolower($scope) !== strtolower($wantedScope)) {
+                continue;
+            }
+
+            switch ($scope) {
+                case static::CONFIG_KEY_DEFAULT:
+                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $config[$path] = $value;
+                    break;
+
+                case static::CONFIG_KEY_WEBSITES:
+                case static::CONFIG_KEY_STORES:
+                    list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $storeCode = strtolower($storeCode);
+                    $scope = strtolower($scope);
+                    $config[$path] = $value;
+                    break;
+            }
+        }
+
+        return $config;
+    }
+
     /**
      * @internal method mostly for mocking
      */
