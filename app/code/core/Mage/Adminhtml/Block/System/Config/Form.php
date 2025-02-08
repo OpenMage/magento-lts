@@ -384,6 +384,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'name'                  => $name,
                     'label'                 => $label,
                     'comment'               => $comment,
+                    'disabled'              => $this->isDisabled($path),
                     'tooltip'               => $tooltip,
                     'hint'                  => $hint,
                     'value'                 => $data,
@@ -643,6 +644,20 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         }
 
         return $scope;
+    }
+
+    /**
+     * Render element as disabled, if overwritten by ENV variable
+     *
+     * @param string $data
+     * @return bool
+     */
+    public function isDisabled($path): bool
+    {
+        /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+        $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+        $path = $this->getScope() . '/' . $path;
+        return $environmentConfigLoaderHelper->hasPath($path);
     }
 
     /**
