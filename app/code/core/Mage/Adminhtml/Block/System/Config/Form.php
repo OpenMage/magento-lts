@@ -648,11 +648,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * Render element as disabled, if overwritten by ENV variable
-     *
-     * @param string $data
-     * @return bool
      */
-    public function isDisabled($path): bool
+    public function isDisabled(string $path): bool
     {
         /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
         $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
