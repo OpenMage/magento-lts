@@ -73,8 +73,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     $nodePath = $this->buildNodePath($scope, $path);
                     $xmlConfig->setNode($nodePath, $value);
                     try {
-                        $store = Mage::app()->getStore(0);
-                        $this->setCache($store, $value, $path);
+                        foreach (['0', 'admin'] as $store) {
+                            $store = Mage::app()->getStore($store);
+                            $this->setCache($store, $value, $path);
+                        }
                     } catch (Throwable $exception) {
                         Mage::logException($exception);
                     }
@@ -90,8 +92,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     $xmlConfig->setNode($nodePath, $value);
                     try {
                         if (!str_contains($nodePath, 'websites')) {
-                            $store = Mage::app()->getStore($storeCode);
-                            $this->setCache($store, $value, $path);
+                            foreach ([$storeCode, 'admin'] as $store) {
+                                $store = Mage::app()->getStore($store);
+                                $this->setCache($store, $value, $path);
+                            }
                         }
                     } catch (Throwable $exception) {
                         Mage::logException($exception);
