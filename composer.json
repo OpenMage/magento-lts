@@ -35,7 +35,6 @@
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
-        "respect/validation": "^2.2",
         "shardj/zf1-future": "^1.24.1",
         "symfony/polyfill-php74": "^1.31",
         "symfony/polyfill-php80": "^1.31",
@@ -45,6 +44,7 @@
         "symfony/polyfill-php84": "^1.31",
         "symfony/string": "^5.4",
         "symfony/translation-contracts": "^2.5",
+        "symfony/validator": "^5.4",
         "tinymce/tinymce": "^7.5"
     },
     "require-dev": {

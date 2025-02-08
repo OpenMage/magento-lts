@@ -14,7 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Class Mage_Admin_Model_Block
@@ -31,6 +33,8 @@ use Respect\Validation\Validator as v;
  */
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {
+    public const BLOCK_NAME_REGEX = '/[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/';
+
     /**
      * Initialize variable model
      */
@@ -47,15 +51,19 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     {
         $errors = [];
 
-        if (!v::stringType()->notEmpty()->validate($this->getBlockName())) {
-            $errors[] = Mage::helper('adminhtml')->__('Block Name is required field.');
+        $validator = Validation::createValidator();
+        $violations = $validator->validate($this->getBlockName(), [
+            new NotBlank(null, Mage::helper('adminhtml')->__('Block Name is required field.')),
+            new Regex(self::BLOCK_NAME_REGEX, Mage::helper('adminhtml')->__('Block Name is incorrect.')),
+        ]);
+
+        foreach ($violations as $violation) {
+            $errors[] = $violation->getMessage();
         }
+
         $disallowedBlockNames = Mage::helper('admin/block')->getDisallowedBlockNames();
         if (in_array($this->getBlockName(), $disallowedBlockNames)) {
             $errors[] = Mage::helper('adminhtml')->__('Block Name is disallowed.');
-        }
-        if (!v::regex('/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/')->validate($this->getBlockName())) {
-            $errors[] = Mage::helper('adminhtml')->__('Block Name is incorrect.');
         }
 
         if (!in_array($this->getIsAllowed(), ['0', '1'])) {

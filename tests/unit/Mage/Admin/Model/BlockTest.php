@@ -38,8 +38,9 @@ class BlockTest extends TestCase
      *
      * @group Mage_Admin
      * @group Mage_Admin_Model
+     * @group Mage_Admin_Model_Test
      */
-    public function testValidate(array $expectedResult, array $methods): void
+    public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Mage_Admin_Model_Block::class)
             ->setMethods([
@@ -55,15 +56,39 @@ class BlockTest extends TestCase
 
     public function provideValidateData(): Generator
     {
-        yield 'errors' => [
+        yield 'valid' => [
+            true,
+            [
+                'getBlockName' => 'Mage_Block',
+                'getIsAllowed' => '1',
+            ],
+        ];
+        yield 'errors: blank blockname' => [
             [
                 0 => 'Block Name is required field.',
-                1 => 'Block Name is incorrect.',
-                2 => 'Is Allowed is required field.',
+                1 => 'Is Allowed is required field.',
             ],
             [
                 'getBlockName' => '',
                 'getIsAllowed' => '',
+            ],
+        ];
+        yield 'errors: invalid char blockname' => [
+            [
+                0 => 'Block Name is incorrect.',
+            ],
+            [
+                'getBlockName' => '~',
+                'getIsAllowed' => '0',
+            ],
+        ];
+        yield 'errors: invalid blockname' => [
+            [
+                0 => 'Block Name is incorrect.',
+            ],
+            [
+                'getBlockName' => 'test',
+                'getIsAllowed' => '0',
             ],
         ];
     }
