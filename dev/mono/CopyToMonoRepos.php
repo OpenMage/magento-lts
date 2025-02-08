@@ -27,10 +27,10 @@ class CopyToMonoRepos
 
     public static function process(): void
     {
-        foreach (self::getModules() as $module => $slug) {
+        foreach (self::getModules() as $module) {
             $modman = new CopyToMonoRepos(
-                sprintf('.localdev/%s', $slug),
-                sprintf('.localdev/%s/src', $slug),
+                sprintf('.localdev/%s', $module),
+                sprintf('.localdev/%s/src', $module),
             );
             $modman->copyMappedFiles();
         }
@@ -168,7 +168,6 @@ class CopyToMonoRepos
         $modules['Mage_Wee'] = 'module-weee';
         $modules['Mage_Widget'] = 'module-widget';
         $modules['Mage_Wishlist'] = 'module-wishlist';
-        #$modules['Dev_Test'] = 'dev-module';
 
         return $modules;
     }
