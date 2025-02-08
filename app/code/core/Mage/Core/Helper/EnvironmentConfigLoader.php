@@ -105,6 +105,39 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         }
     }
 
+    public function hasPath(string $wantedPath): bool
+    {
+        $env = $this->getEnv();
+        $config = [];
+
+        foreach ($env as $configKey => $value) {
+            if (!$this->isConfigKeyValid($configKey)) {
+                continue;
+            }
+
+            list($configKeyParts, $scope) = $this->getConfigKey($configKey);
+
+            switch ($scope) {
+                case static::CONFIG_KEY_DEFAULT:
+                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $nodePath = $this->buildNodePath($scope, $path);
+                    $config[$nodePath] = $value;
+                    break;
+
+                case static::CONFIG_KEY_WEBSITES:
+                case static::CONFIG_KEY_STORES:
+                    list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $nodePath = $this->buildNodePath($scope, $path);
+                    $config[$nodePath] = $value;
+                    break;
+            }
+        }
+        $hasConfig = array_key_exists($wantedPath, $config);
+        return $hasConfig;
+    }
+
     public function getAsArray(string $wantedScope): array
     {
         $env = $this->getEnv();
@@ -131,8 +164,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 case static::CONFIG_KEY_STORES:
                     list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $storeCode = strtolower($storeCode);
-                    $scope = strtolower($scope);
                     $config[$path] = $value;
                     break;
             }
