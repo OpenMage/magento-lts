@@ -134,8 +134,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
             }
         }
-        $hasConfig = array_key_exists($wantedPath, $config);
-        return $hasConfig;
+        return array_key_exists($wantedPath, $config);
     }
 
     public function getAsArray(string $wantedScope): array
