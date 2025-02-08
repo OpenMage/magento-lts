@@ -85,6 +85,9 @@ tests/logging
 phpunit.xml
 !.phpunit.dist.xml
 
+# phpdocumentor
+phpdoc.xml
+
 # build
 /build
 
