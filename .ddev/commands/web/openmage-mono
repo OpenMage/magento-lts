@@ -1,0 +1,213 @@
+#!/bin/bash
+
+## ProjectTypes: magento
+## Description: downloads all modules from openmage-strict to .localdev
+## Usage: openmage-mono [-c|--commit] [-d|--download] [-g|--generate]
+## Example: ddev ddev openmage-mono -c -d -g -p -t
+## Flags: [{"Name":"commit","Shorthand":"c","Usage":"commit changes"},{"Name":"download","Shorthand":"d","Usage":"download modules"},{"Name":"generate","Shorthand":"g","Usage":"generate modules"}
+
+declare -A modules
+
+modules["Mage_Admin"]="module-admin"
+modules["Mage_AdminNotification"]="module-admin-notification"
+modules["Mage_Adminhtml"]="module-adminhtml"
+modules["Mage_Api"]="module-api"
+modules["Mage_Api2"]="module-api2"
+modules["Mage_Authorizenet"]="module-authorizenet"
+modules["Mage_Bundle"]="module-bundle"
+modules["Mage_Captcha"]="module-captcha"
+modules["Mage_Catalog"]="module-catalog"
+modules["Mage_CatalogIndex"]="module-catalog-index"
+modules["Mage_CatalogInventory"]="module-catalog-inventory"
+modules["Mage_CatalogRule"]="module-catalog-rule"
+modules["Mage_CatalogSearch"]="module-catalog-search"
+modules["Mage_Centinel"]="module-centinel"
+modules["Mage_Checkout"]="module-checkout"
+modules["Mage_Cms"]="module-cms"
+modules["Mage_ConfigurableWwatches"]="module-configurable-swatches"
+modules["Mage_Contacts"]="module-contacts"
+modules["Mage_Core"]="module-core"
+modules["Mage_Cron"]="module-cron"
+modules["Mage_CurrencySymbol"]="module-currency-symbol"
+modules["Mage_Customer"]="module-customer"
+modules["Mage_Dataflow"]="module-dataflow"
+modules["Mage_Directory"]="module-directory"
+modules["Mage_Downloadable"]="module-downloadable"
+modules["Mage_Eav"]="module-eav"
+modules["Mage_GiftMessage"]="module-gift-message"
+modules["Mage_GoogleAnalytics"]="module-google-analytics"
+modules["Mage_GoogleCheckout"]="module-google-checkout"
+modules["Mage_ImportExport"]="module-import-export"
+modules["Mage_Index"]="module-index"
+modules["Mage_Install"]="module-install"
+modules["Mage_Log"]="module-log"
+modules["Mage_Media"]="module-media"
+modules["Mage_Newsletter"]="module-newsletter"
+modules["Mage_Oauth"]="module-oauth"
+modules["Mage_Page"]="module-page"
+modules["Mage_Paygate"]="module-paygate"
+modules["Mage_Payment"]="module-payment"
+modules["Mage_Paypal"]="module-paypal"
+modules["Mage_PaypalUk"]="module-paypal-uk"
+modules["Mage_Persistent"]="module-persistent"
+modules["Mage_ProductAlert"]="module-product-alert"
+modules["Mage_Rating"]="module-rating"
+modules["Mage_Report"]="module-reports"
+modules["Mage_Review"]="module-review"
+modules["Mage_Rss"]="module-rss"
+modules["Mage_Rule"]="module-rule"
+modules["Mage_Sales"]="module-sales"
+modules["Mage_SalesRule"]="module-sales-rule"
+modules["Mage_Sendfriend"]="module-sendfriend"
+modules["Mage_Shipping"]="module-shipping"
+modules["Mage_Sitemap"]="module-sitemap"
+modules["Mage_Tag"]="module-tag"
+modules["Mage_Tax"]="module-tax"
+modules["Mage_Uploader"]="module-uploader"
+modules["Mage_Usa"]="module-usa"
+modules["Mage_Wee"]="module-weee"
+modules["Mage_Widget"]="module-widget"
+modules["Mage_Wishlist"]="module-wishlist"
+#modules["Dev_Test"]="dev-module"
+
+ROOT="${PWD}"
+
+COMMIT_FLAG=''
+DOWNLOAD_FLAG=''
+GENERAT_FLAG=''
+PUSH_FLAG=''
+TAG_FLAG=''
+
+while :; do
+     case ${1:-} in
+         -c|--commit)
+            COMMIT_FLAG='true' ;;
+         -d|--download)
+            DOWNLOAD_FLAG='true' ;;
+         -g|--generate)
+            GENERAT_FLAG='true' ;;
+         -p|--push)
+            PUSH_FLAG='true' ;;
+         -t|--tag)
+            TAG_FLAG='true' ;;
+         --)              # End of all options.
+             shift
+             break
+             ;;
+         -?*)
+             printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+             ;;
+         *)               # Default case: No more options, so break out of the loop.
+             break
+     esac
+
+     shift
+ done
+
+if [ ! -d ".localdev/" ]
+then
+     mkdir ".localdev/"
+     echo "Directory created."
+fi
+
+if ! grep -q "./.localdev/*" composer.json; then
+    php vendor/bin/composer config repositories.local '{"type": "path", "url": "./.localdev/*", "canonical": false}'
+    echo "Patched composer.json."
+fi
+
+cd ".localdev/" || exit
+
+if [[ "${COMMIT_FLAG}" || "${TAG_FLAG}" ]]; then
+    read -r -p "Commit message[update]: " MESSAGE
+    MESSAGE=${MESSAGE:-update}
+fi
+
+if [[ "${TAG_FLAG}" ]]; then
+    read -r -p "Tag: " TAG
+    TAG=${TAG}
+fi
+
+for class in ${!modules[@]}; do
+    cd "${modules[${class}]}" || exit
+
+    if [[ "${COMMIT_FLAG}" ]]; then
+      echo "Add commit message to ${modules[${class}]}."
+      git add .
+      git commit -m "${MESSAGE}"
+
+      if [[ "${TAG_FLAG}" ]]; then
+        echo "Add tag to ${modules[${class}]}."
+        git tag "${TAG}" HEAD -m "${TAG}"
+      fi
+    fi
+
+    if [[ "${PUSH_FLAG}" ]]; then
+        echo "Push ${modules[${class}]}."
+        git push
+    fi
+
+    cd ..
+
+    if [[ "${DOWNLOAD_FLAG}" ]]; then
+      # create directory
+      if ! [ -d "${modules[${class}]}" ]; then
+          echo "Create ${modules[${class}]} directoy."
+          mkdir -p "${modules[${class}]}"
+      fi
+
+      # clone repo
+      if ! [ -d "${modules[${class}]}/.git" ]; then
+          echo "Clone ${modules[${class}]} repo."
+          cd "${modules[${class}]}" || exit
+          git clone "https://github.com/openmage-strict/${modules[${class}]}.git" .
+          cd ..
+      fi
+    fi
+
+    if [[ "${GENERAT_FLAG}" ]]; then
+        # add basic files (if needed)
+        if ! [ -d "${modules[${class}]}/src" ]; then
+            echo "Copy blueprint to ${modules[${class}]}."
+            cp -r dev-module-template/* "${modules[${class}]}/"
+        fi
+
+        # add FUNDING.yml
+        if ! [ -d "${modules[${class}]}/.github" ]; then
+            mkdir -p "${modules[${class}]}/.github"
+
+            if ! [ -f "${modules[${class}]}/github/FUNDING.yml" ]; then
+                echo "Copy blueprint FUNDING.yml to ${modules[${class}]}."
+                cp -f dev-module-template/.github/FUNDING.yml "${modules[${class}]}/.github/FUNDING.yml"
+            fi
+        fi
+
+        # require PHPMD
+        if ! [ -f "${modules[${class}]}/.phpmd.dist.xml" ]; then
+            echo "Add PHPMD to ${modules[${class}]} repo."
+            cd "${modules[${class}]}" || exit
+            composer require --dev phpmd/phpmd
+            cp -f dev-module-template/.phpmd.dist.xml "${modules[${class}]}/.phpmd.dist.xml"
+            cd ..
+        fi
+
+        # add README.md
+        if ! [ -f "${modules[${class}]}/README.md" ]; then
+            echo "Add README.md to ${modules[${class}]}."
+            #rm -f "${modules[${class}]}/README.md"
+            cat <<EOT >> "${modules[${class}]}/README.md"
+# Module \`${class}\`
+
+An [OpenMage][1] core module.
+
+## Install
+
+\`\`\` bash
+composer require openmage-strict/${modules[${class}]}
+\`\`\`
+
+[1]: https://github.com/OpenMage/magento-lts
+EOT
+
+        fi
+    fi
+done
