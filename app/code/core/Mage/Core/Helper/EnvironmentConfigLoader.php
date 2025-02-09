@@ -57,6 +57,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      */
     public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig)
     {
+        $data = Mage::registry('current_env_config');
+        if ($data) {
+            return;
+        }
         $env = $this->getEnv();
 
         foreach ($env as $configKey => $value) {
@@ -78,7 +82,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                             $this->setCache($store, $value, $path);
                         }
                     } catch (Throwable $exception) {
-                        Mage::logException($exception);
+                        // invalid store, intentionally empty
                     }
                     break;
 
@@ -98,15 +102,20 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                             }
                         }
                     } catch (Throwable $exception) {
-                        Mage::logException($exception);
+                        // invalid store, intentionally empty
                     }
                     break;
             }
         }
+        Mage::register("current_env_config", true, true);
     }
 
     public function hasPath(string $wantedPath): bool
     {
+        $data = Mage::registry("config_env_has_path_$wantedPath");
+        if ($data !== null) {
+            return $data;
+        }
         $env = $this->getEnv();
         $config = [];
 
@@ -134,11 +143,17 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
             }
         }
-        return array_key_exists($wantedPath, $config);
+        $hasConfig = array_key_exists($wantedPath, $config);
+        Mage::register("config_env_has_path_$wantedPath", $hasConfig);
+        return $hasConfig;
     }
 
     public function getAsArray(string $wantedScope): array
     {
+        $data = Mage::registry("config_env_array_$wantedScope");
+        if ($data !== null) {
+            return $data;
+        }
         $env = $this->getEnv();
         $config = [];
 
@@ -167,7 +182,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
             }
         }
-
+        Mage::register("config_env_array_$wantedScope", $config);
         return $config;
     }
 
