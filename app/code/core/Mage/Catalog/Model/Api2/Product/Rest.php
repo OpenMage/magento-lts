@@ -213,6 +213,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
     /**
      * Get allowed attributes for output
      */
+    /**
+     * @return string[]
+     */
     protected function getAllowedAttributes(): array
     {
         if (is_null($this->allowedAttributes)) {
