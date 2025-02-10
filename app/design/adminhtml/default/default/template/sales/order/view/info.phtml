@@ -19,7 +19,7 @@
 <?php
 $orderAdminDate = $this->formatDate($_order->getCreatedAtDate(), 'medium', true);
 $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', true);
-$emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Email sent') : Mage::helper('sales')->__('Email not sent');
+$emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : Mage::helper('sales')->__('Not sent');
 ?>
 <div class="box-left">
     <!--Order Information-->
@@ -48,7 +48,7 @@ $emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Email sen
                 <td class="value"><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
             </tr>
             <tr>
-                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Confirmation') ?></label></td>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Confirmation Email') ?></label></td>
                 <td class="value"><strong><?php echo $emailSentInfo ?></strong></td>
             </tr>
             <tr>
