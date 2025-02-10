@@ -40,7 +40,7 @@ return $config
                 __DIR__,
             ])
             ->exclude([
-                __DIR__ . '/shell/translations.php',
+                'shell/translations.php',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)
