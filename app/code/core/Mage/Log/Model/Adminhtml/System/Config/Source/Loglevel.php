@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Log
  */
 class Mage_Log_Model_Adminhtml_System_Config_Source_Loglevel

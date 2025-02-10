@@ -5,6 +5,7 @@ For copyright and license information, please view the COPYING.txt file that was
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Shipping
  * @method $this setOrderShipment(Mage_Sales_Model_Order_Shipment $orderShipment)
  * @method Mage_Sales_Model_Order_Shipment getOrderShipment()

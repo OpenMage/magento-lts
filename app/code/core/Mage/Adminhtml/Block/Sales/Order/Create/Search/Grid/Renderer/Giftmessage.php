@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @deprecated after 1.4.2.0 - gift column has been removed from search grid
  */

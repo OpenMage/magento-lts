@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  * @method $this setCollection(array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection $value)
  */

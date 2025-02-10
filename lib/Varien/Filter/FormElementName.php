@@ -5,6 +5,7 @@ Returns the string $value, removing all but alphabetic (including -_;) and digit
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @param  string $value
  * @return string
  */

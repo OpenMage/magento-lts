@@ -5,6 +5,7 @@ For copyright and license information, please view the COPYING.txt file that was
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Directory
  */
 class Mage_Directory_Block_Adminhtml_Frontend_Region_Updater extends Mage_Adminhtml_Block_System_Config_Form_Field

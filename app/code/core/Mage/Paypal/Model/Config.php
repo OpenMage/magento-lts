@@ -5,6 +5,7 @@ Works with PayPal-specific system configuration
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Paypal
  * @property mixed $allow_ba_signup;
  * @property mixed $api_cert;

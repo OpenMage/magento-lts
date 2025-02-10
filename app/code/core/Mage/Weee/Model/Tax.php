@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Weee
  * @method Mage_Weee_Model_Resource_Tax _getResource()
  * @method Mage_Weee_Model_Resource_Tax getResource()

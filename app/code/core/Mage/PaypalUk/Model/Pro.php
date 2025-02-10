@@ -6,6 +6,7 @@ This model was created because right now PayPal Direct and PayPal Express paymen
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_PaypalUk
  */
 class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro

@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @deprecated after 1.4.0.0-rc1
  * @file       Image.php
  * @property mixed $uploader

@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_ProductAlert
  */
 class Mage_ProductAlert_Block_Email_Price extends Mage_ProductAlert_Block_Email_Abstract

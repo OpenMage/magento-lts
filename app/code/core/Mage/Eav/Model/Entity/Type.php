@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Eav
  * @method Mage_Eav_Model_Resource_Entity_Type _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Type getResource()

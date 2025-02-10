@@ -6,6 +6,7 @@ to use product collection in wishlist
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
  * @deprecated after 1.4.2.0
  */

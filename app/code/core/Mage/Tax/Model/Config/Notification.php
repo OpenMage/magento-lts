@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Tax
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item _getResource()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item getResource()

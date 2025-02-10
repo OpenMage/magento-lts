@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
  */

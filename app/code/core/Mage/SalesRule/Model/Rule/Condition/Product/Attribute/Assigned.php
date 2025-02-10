@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_Rule_Condition_Product_Attribute_Assigned extends Mage_Rule_Model_Condition_Product_Abstract

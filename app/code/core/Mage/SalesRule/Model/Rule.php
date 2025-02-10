@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule getResource()

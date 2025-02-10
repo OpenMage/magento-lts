@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getItems()
  * @method $this setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)

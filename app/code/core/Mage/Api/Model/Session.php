@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Api
  * @method Mage_Api_Model_User getUser()
  * @method $this setUser(Mage_Api_Model_User $user)

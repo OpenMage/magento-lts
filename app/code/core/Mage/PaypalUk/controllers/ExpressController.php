@@ -5,6 +5,7 @@ For copyright and license information, please view the COPYING.txt file that was
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_PaypalUk
  */
 class Mage_PaypalUk_ExpressController extends Mage_Paypal_Controller_Express_Abstract

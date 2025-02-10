@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  * @method $this setCollection(Mage_Catalog_Model_Resource_Product_Collection $value)
  */

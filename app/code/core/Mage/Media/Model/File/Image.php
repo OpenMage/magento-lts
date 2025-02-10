@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Media
  */
 class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract

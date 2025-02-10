@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Persistent
  * @method Mage_Persistent_Model_Resource_Session getResource()
  * @method int getCustomerId()

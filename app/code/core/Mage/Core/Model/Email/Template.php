@@ -13,6 +13,7 @@ $emailTemplate->send('some
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @method Mage_Core_Model_Resource_Email_Template _getResource()
  * @method Mage_Core_Model_Resource_Email_Template getResource()

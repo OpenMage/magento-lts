@@ -4,6 +4,7 @@
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @see mysql4-upgrade-0.7.2-0.7.3.php
  */
 /** @var Mage_Customer_Model_Entity_Setup $installer */

@@ -5,6 +5,7 @@ Validator checked XML validation and protected expressions
  *
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
+ * @license Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Model_LayoutUpdate_Validator extends Zend_Validate_Abstract
