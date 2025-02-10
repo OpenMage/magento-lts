@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- */
-
 /**
  * Billing Agreement abstract model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Billing_Agreement _getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement getResource()
  * @method Mage_Sales_Model_Resource_Billing_Agreement_Collection getCollection()
- *
  * @method int getAgreementId()
  * @method string getAgreementLabel()
  * @method $this setAgreementLabel(string $value)
@@ -37,7 +27,6 @@
  * @method $this setStoreId(int $value)
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
  * @method $this setCancelUrl(string $value)
  * @method string getRedirectUrl()
  * @method $this setReturnUrl(string $value)

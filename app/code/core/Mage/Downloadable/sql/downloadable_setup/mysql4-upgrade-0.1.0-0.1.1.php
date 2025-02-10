@@ -1,14 +1,9 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Downloadable
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var Mage_Catalog_Model_Resource_Setup  $this
  */
-
-/** @var Mage_Catalog_Model_Resource_Setup  $this */
 $installer = $this;
 $installer->startSetup();
 

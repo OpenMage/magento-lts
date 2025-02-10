@@ -1,30 +1,19 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- */
-
 /**
  * Order model
+Supported events:
+sales_order_load_after
+sales_order_save_before
+sales_order_save_after
+sales_order_delete_before
+sales_order_delete_after
  *
- * Supported events:
- *  sales_order_load_after
- *  sales_order_save_before
- *  sales_order_save_after
- *  sales_order_delete_before
- *  sales_order_delete_after
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method Mage_Sales_Model_Resource_Order getResource()
  * @method Mage_Sales_Model_Resource_Order_Collection getCollection()
- *
  * @method float getAdjustmentNegative()
  * @method $this setAdjustmentNegative(float $value)
  * @method float getAdjustmentPositive()
@@ -35,7 +24,6 @@
  * @method $this setAppliedTaxes(array $value)
  * @method bool getAppliedTaxIsSaved()
  * @method $this setAppliedTaxIsSaved(bool $value)
- *
  * @method string getBackUrl()
  * @method float getBaseAdjustmentNegative()
  * @method $this setBaseAdjustmentNegative(float $value)
@@ -126,7 +114,6 @@
  * @method $this unsBillingAddressId()
  * @method int getBillingFirstname()
  * @method int getBillingLastname()
- *
  * @method bool hasCanReturnToStock()
  * @method bool getCanReturnToStock()
  * @method $this setCanReturnToStock()
@@ -172,7 +159,6 @@
  * @method $this setCustomerSuffix(string $value)
  * @method string getCustomerTaxvat()
  * @method $this setCustomerTaxvat(string $value)
- *
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
  * @method float getDiscountCanceled()
@@ -183,7 +169,6 @@
  * @method $this setDiscountInvoiced(float $value)
  * @method float getDiscountRefunded()
  * @method $this setDiscountRefunded(float $value)
- *
  * @method int getEditIncrement()
  * @method $this setEditIncrement(int $value)
  * @method int getEmailSent()
@@ -192,13 +177,11 @@
  * @method $this setExtCustomerId(string $value)
  * @method string getExtOrderId()
  * @method $this setExtOrderId(string $value)
- *
  * @method bool hasForcedCanCreditmemo()
  * @method bool getForcedCanCreditmemo()
  * @method $this setForcedCanCreditmemo(bool $value)
  * @method int getForcedDoShipmentWithInvoice()
  * @method $this setForcedDoShipmentWithInvoice(int $value)
- *
  * @method $this setGiftMessage(string $value)
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
@@ -206,7 +189,6 @@
  * @method $this setGlobalCurrencyCode(string $value)
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
  * @method float getHiddenTaxInvoiced()
@@ -217,18 +199,15 @@
  * @method $this setHoldBeforeState(string $value)
  * @method string getHoldBeforeStatus()
  * @method $this setHoldBeforeStatus(string $value)
- *
  * @method string getIncrementId()
  * @method $this setIncrementId(string $value)
  * @method bool getIsInProcess()
  * @method $this setIsInProcess(bool $value)
  * @method bool getIsMultiPayment()
- *
  * @method string getOrderCurrencyCode()
  * @method $this setOrderCurrencyCode(string $value)
  * @method string getOriginalIncrementId()
  * @method $this setOriginalIncrementId(string $value)
- *
  * @method float getPaymentAuthorizationAmount()
  * @method $this setPaymentAuthorizationAmount(float $value)
  * @method int getPaymentAuthorizationExpiration()
@@ -237,7 +216,6 @@
  * @method $this setPaypalIpnCustomerNotified(int $value)
  * @method string getProtectCode()
  * @method $this setProtectCode(string $value)
- *
  * @method float getQuantity()
  * @method Mage_Sales_Model_Quote getQuote()
  * @method int getQuoteAddressId()
@@ -246,7 +224,6 @@
  * @method int getQuoteId()
  * @method $this setQuoteId(int $value)
  * @method $this setQuote(Mage_Sales_Model_Quote $value)
- *
  * @method string getRelationChildId()
  * @method $this setRelationChildId(string $value)
  * @method string getRelationChildRealId()
@@ -260,7 +237,6 @@
  * @method bool getReordered()
  * @method float getRevenue()
  * @method int getRowTaxDisplayPrecision()
- *
  * @method float getShipping()
  * @method bool hasShippingAddressId()
  * @method int getShippingAddressId()
@@ -314,7 +290,6 @@
  * @method $this setSubtotalInvoiced(float $value)
  * @method float getSubtotalRefunded()
  * @method $this setSubtotalRefunded(float $value)
- *
  * @method float getTax()
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
@@ -341,16 +316,12 @@
  * @method $this setTotalQtyOrdered(float $value)
  * @method float getTotalRefunded()
  * @method $this setTotalRefunded(float $value)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
  * @method int getIsVirtual()
  * @method $this setIsVirtual(int $value)
- *
  * @method float getWeight()
  * @method $this setWeight(float $value)
- *
  * @method string getXForwardedFor()
  * @method $this setXForwardedFor(string $value)
  */

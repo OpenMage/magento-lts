@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Filter
- */
-
 /**
  * Template constructions filter
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Filter
  */
+/**
+ * @package    Varien_Filter
+ */
+
+
 
 class Varien_Filter_Template implements Zend_Filter_Interface
 {

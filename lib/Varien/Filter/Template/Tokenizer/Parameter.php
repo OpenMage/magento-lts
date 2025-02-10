@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Filter
- */
-
 /**
  * Template constructions parameters tokenizer
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Filter
  */
+/**
+ * @package    Varien_Filter
+ */
+
+
 
 class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_Tokenizer_Abstract
 {

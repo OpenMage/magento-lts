@@ -1,90 +1,14 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
- */
-
 /**
  * Filter data collector
+Model for multi-filtering all data which set to models
+Example:
+<code>
  *
- * Model for multi-filtering all data which set to models
- * Example:
- * <code>
- * /** @var Mage_Core_Model_Input_Filter $filter {@*}
- * $filter = Mage::getModel('core/input_filter');
- * $filter->setFilters(array(
- *      'list_values' => array(
- *          'children_filters' => array( //filters will applied to all children
- *              array(
- *                  'zend' => 'StringToUpper',
- *                  'args' => array('encoding' => 'utf-8')),
- *              array('zend' => 'StripTags')
- *          )
- *      ),
- *      'list_values_with_name' => array(
- *          'children_filters' => array(
- *              'item1' => array(
- *                  array(
- *                      'zend' => 'StringToUpper',
- *                      'args' => array('encoding' => 'utf-8'))),
- *              'item2' => array(
- *                  array('model' => 'core/input_filter_maliciousCode')
- *              ),
- *              'item3' => array(
- *                  array(
- *                      'helper' => 'core',
- *                      'method' => 'stripTags',
- *                      'args' => array('<p> <div>', true))
- *              )
- *          )
- *      )
- *  ));
- *  $filter->addFilter('name2', new Zend_Filter_Alnum());
- *  $filter->addFilter('name1',
- *      array(
- *          'zend' => 'StringToUpper',
- *          'args' => array('encoding' => 'utf-8')));
- *  $filter->addFilter('name1', array('zend' => 'StripTags'), Zend_Filter::CHAIN_PREPEND);
- *  $filter->addFilters(protected $_filtersToAdd = array(
- *      'list_values_with_name' => array(
- *          'children_filters' => array(
- *              'deep_list' => array(
- *                  'children_filters' => array(
- *                      'sub1' => array(
- *                          array(
- *                              'zend' => 'StringToLower',
- *                              'args' => array('encoding' => 'utf-8'))),
- *                      'sub2' => array(array('zend' => 'Int'))
- *                  )
- *              )
- *          )
- *      )
- *  ));
- *  $filter->filter(array(
- *      'name1' => 'some <b>string</b>',
- *      'name2' => '888 555',
- *      'list_values' => array(
- *          'some <b>string2</b>',
- *          'some <p>string3</p>',
- *      ),
- *      'list_values_with_name' => array(
- *          'item1' => 'some <b onclick="alert(\'2\')">string4</b>',
- *         'item2' => 'some <b onclick="alert(\'1\')">string5</b>',
- *          'item3' => 'some <p>string5</p> <b>bold</b> <div>div</div>',
- *          'deep_list' => array(
- *              'sub1' => 'toLowString',
- *              'sub2' => '5 TO INT',
- *          )
- *      )
- *  ));
- * </code>
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Core
+ * @var Mage_Core_Model_Input_Filter $filter {@*}
  * @see Mage_Core_Model_Input_FilterTest See this class for manual
  */
 class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface

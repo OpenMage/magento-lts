@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Magento
- * @package    Magento_Db
- */
-
 /**
  * Magento PDO MySQL DB adapter
  *
- * @category   Magento
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Magento_Db
  */
+/**
+ * @package    Magento_Db
+ */
+
+
 class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
 {
     /**

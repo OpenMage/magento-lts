@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Catalog
- */
-
 /**
  * Catalog product random items block
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Catalog
- *
  * @method int getNumProducts()
  */
 class Mage_Catalog_Block_Product_List_Random extends Mage_Catalog_Block_Product_List

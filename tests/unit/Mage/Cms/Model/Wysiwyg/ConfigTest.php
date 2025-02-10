@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Cms
+ * @group Mage_Cms_Model
+ * @group runInSeparateProcess
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg;
@@ -29,12 +27,7 @@ class ConfigTest extends TestCase
         $this->subject = Mage::getModel('cms/wysiwyg_config');
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
-     */
+    
     public function testGetConfig(): void
     {
         $this->assertInstanceOf(Varien_Object::class, $this->subject->getConfig());

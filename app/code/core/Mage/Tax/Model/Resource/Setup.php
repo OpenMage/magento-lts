@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Tax
- */
-
 /**
  * Tax Setup Resource Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup

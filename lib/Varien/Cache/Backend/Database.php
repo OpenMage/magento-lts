@@ -1,12 +1,6 @@
 <?php
-
 /**
- * @category   Varien
- * @package    Varien_Cache
- */
-
-/**
-Tables declaration:
+ * Tables declaration:
 
 CREATE TABLE IF NOT EXISTS `core_cache` (
         `id` VARCHAR(255) NOT NULL,
@@ -26,7 +20,15 @@ CREATE TABLE IF NOT EXISTS `core_cache_tag` (
     CONSTRAINT `FK_CORE_CACHE_TAG` FOREIGN KEY (`cache_id`)
     REFERENCES `core_cache` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-*/
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
+ * @package    Varien_Cache
+ */
+
+
 
 /**
  * Database cache backend

@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Catalog
- */
-
 /**
  * Catalog session model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Catalog
- *
  * @method $this setBeforeCompareUrl(string $value)
  * @method array getFormData()
  * @method $this setFormData(array $value)

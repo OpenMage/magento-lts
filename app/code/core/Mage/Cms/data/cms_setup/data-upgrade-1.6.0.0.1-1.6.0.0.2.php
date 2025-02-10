@@ -1,13 +1,8 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Cms
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
-
 $content = '<p>This website requires cookies to provide all of its features. For more ' .
     'information on what data is contained in the cookies, please see our ' .
     '<a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">Privacy Policy page</a>. ' .

@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Paypal
- */
-
 /**
  * PayPal-specific model for shopping cart items and totals
- * The main idea is to accommodate all possible totals into PayPal-compatible 4 totals and line items
+The main idea is to accommodate all possible totals into PayPal-compatible 4 totals and line items
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Cart

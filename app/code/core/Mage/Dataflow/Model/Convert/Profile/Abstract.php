@@ -1,18 +1,8 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Dataflow
- */
-
-/**
- *
- * @category   Mage
- * @package    Mage_Dataflow
- * @SuppressWarnings("PHPMD.CamelCasePropertyName")
  */
 abstract class Mage_Dataflow_Model_Convert_Profile_Abstract implements Mage_Dataflow_Model_Convert_Profile_Interface
 {

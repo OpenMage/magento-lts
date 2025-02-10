@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Crypt
- */
-
 /**
  * Crypt factory
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Crypt
  */
+/**
+ * @package    Varien_Crypt
+ */
+
+
 class Varien_Crypt
 {
     /**

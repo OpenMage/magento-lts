@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Class Mage_Eav_Model_Observer
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @package    Mage_Eav
+ */
 /**
  * OpenMage
  *
@@ -13,16 +19,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 
-/**
- * Class Mage_Eav_Model_Observer
- *
- * @category   Mage
- * @package    Mage_Eav
- */
+
 class Mage_Eav_Model_Observer
 {
     /**

@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- */
-
 /**
  * Order item render block for grouped product type
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Order_Item_Renderer_Grouped extends Mage_Sales_Block_Order_Item_Renderer_Default

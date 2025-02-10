@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Image
- */
-
 /**
  * Image handler library
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Image
  */
+/**
+ * @package    Varien_Image
+ */
+
+
 class Varien_Image
 {
     /**

@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideCreateBlock
+ * @group Mage_Core
+ * @group Mage_Core_Model
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
@@ -31,11 +29,7 @@ class LayoutTest extends TestCase
         $this->subject = Mage::getModel('core/layout');
     }
 
-    /**
-     * @dataProvider provideCreateBlock
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     */
+    
     public function testCreateBlock($expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
         $result = $this->subject->createBlock($type, $name, $attributes);

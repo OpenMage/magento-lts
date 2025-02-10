@@ -1,15 +1,16 @@
 <?php
 /**
- * @category   Varien
+ * Convert HTTP adapter
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @package    Varien_Convert
+ */
+/**
  * @package    Varien_Convert
  */
 
-/**
- * Convert HTTP adapter
- *
- * @category   Varien
- * @package    Varien_Convert
- */
+
 class Varien_Convert_Adapter_Http extends Varien_Convert_Adapter_Abstract
 {
     public function load()

@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Tax
- */
-
 /**
  * Tax Rate Title Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Tax
- *
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getCollection()
- *
  * @method int getTaxCalculationRateId()
  * @method $this setTaxCalculationRateId(int $value)
  * @method int getStoreId()

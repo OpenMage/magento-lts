@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Cms
+ * @group Mage_Cms_Model
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg\Images;
@@ -28,10 +25,7 @@ class StorageTest extends TestCase
         $this->subject = Mage::getModel('cms/wysiwyg_images_storage');
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
-     */
+    
     public function testGetThumbsPath(): void
     {
         $this->assertIsString($this->subject->getThumbsPath());
@@ -48,10 +42,7 @@ class StorageTest extends TestCase
         $this->assertFalse($this->subject->resizeOnTheFly('not-existing.jpeg'));
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
-     */
+    
     public function testGetHelper(): void
     {
         $this->assertInstanceOf(Mage_Cms_Helper_Wysiwyg_Images::class, $this->subject->getHelper());
@@ -68,19 +59,13 @@ class StorageTest extends TestCase
         $this->assertInstanceOf(Mage_Adminhtml_Model_Session::class, $this->subject->getSession());
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
-     */
+    
     public function testGetThumbnailRoot(): void
     {
         $this->assertIsString($this->subject->getThumbnailRoot());
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
-     */
+    
     public function testIsImage(): void
     {
         $this->assertIsBool($this->subject->isImage('test.jpeg'));

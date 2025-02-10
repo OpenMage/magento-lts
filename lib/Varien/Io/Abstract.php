@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Io
- */
-
 /**
  * Install and upgrade client abstract class
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Io
  */
+/**
+ * @package    Varien_Io
+ */
+
+
 abstract class Varien_Io_Abstract implements Varien_Io_Interface
 {
     /**

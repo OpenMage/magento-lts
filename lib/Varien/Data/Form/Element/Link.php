@@ -1,18 +1,17 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Varien Form element renderer to display link element
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
- *
  * @method string getBeforeElementHtml()
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Form_Element_Link extends Varien_Data_Form_Element_Abstract
 {
     /**

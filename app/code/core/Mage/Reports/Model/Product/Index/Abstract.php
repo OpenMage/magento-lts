@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Reports
- */
-
 /**
  * Reports Product Index Abstract Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Reports
- *
  * @method Mage_Reports_Model_Resource_Product_Index_Abstract _getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getCollection()
  * @method bool hasAddedAt()

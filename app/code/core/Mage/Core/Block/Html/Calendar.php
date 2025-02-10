@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
- */
-
 /**
  * Calendar block for page header
- * Prepares localization data for calendar
+Prepares localization data for calendar
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Core
  */
 class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template

@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Simplexml
- */
-
 /**
  * Abstract class for configuration cache
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Simplexml
  */
+/**
+ * @package    Varien_Simplexml
+ */
+
+
 abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
 {
     /**

@@ -1,21 +1,12 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Catalog
- */
-
 /**
  * Catalog Compare Item Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Catalog
- *
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item _getResource()
  * @method Mage_Catalog_Model_Resource_Product_Compare_Item getResource()
- *
  * @method $this setVisitorId(int $value)
  * @method $this setCustomerId(int $value)
  * @method int getProductId()

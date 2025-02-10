@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Object
- */
-
 /**
  * Varien Object
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Object
  */
+/**
+ * @package    Varien_Object
+ */
+
+
 class Varien_Object implements ArrayAccess
 {
     /**

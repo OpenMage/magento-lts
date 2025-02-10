@@ -1,13 +1,14 @@
 <?php
-
 /**
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @file       Abstract.php
+ */
+/**
  * @package    Varien_Image
  */
 
-/**
- * @file       Abstract.php
- */
+
 
 abstract class Varien_Image_Adapter_Abstract
 {

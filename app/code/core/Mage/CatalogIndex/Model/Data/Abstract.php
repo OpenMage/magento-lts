@@ -1,21 +1,11 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_CatalogIndex
- */
-
 /**
  * CatalogIndex Data Retriever Abstract Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_CatalogIndex
- *
  * @method Mage_CatalogIndex_Model_Resource_Data_Abstract getResource()
- *
  * @method array getMinimalPriceData()
  * @method $this setMinimalPriceData(array $data)
  */

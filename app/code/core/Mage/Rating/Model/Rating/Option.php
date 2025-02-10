@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Rating
- */
-
 /**
  * Rating option model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Rating
- *
  * @method Mage_Rating_Model_Resource_Rating_Option_Collection getResourceCollection()
  * @method Mage_Rating_Model_Resource_Rating_Option _getResource()
  * @method Mage_Rating_Model_Resource_Rating_Option getResource()

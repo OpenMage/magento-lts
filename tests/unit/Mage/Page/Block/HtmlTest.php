@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Page
+ * @group Mage_Page_Block
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
@@ -26,37 +23,25 @@ class HtmlTest extends TestCase
         $this->subject = new Subject();
     }
 
-    /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
-     */
+    
     public function testGetBaseUrl(): void
     {
         $this->assertIsString($this->subject->getBaseUrl());
     }
 
-    /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
-     */
+    
     public function testGetBaseSecureUrl(): void
     {
         $this->assertIsString($this->subject->getBaseSecureUrl());
     }
 
-    /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
-     */
+    
     //    public function testGetCurrentUrl(): void
     //    {
     //        $this->assertIsString($this->subject->getCurrentUrl());
     //    }
 
-    /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
-     */
+    
     public function testGetPrintLogoUrl(): void
     {
         $this->assertIsString($this->subject->getPrintLogoUrl());

@@ -1,19 +1,18 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Data DB tree
+Data model:
+id  |  pid  |  level | order
  *
- * Data model:
- * id  |  pid  |  level | order
- *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Tree_Db extends Varien_Data_Tree
 {
     public const ID_FIELD      = 'id';

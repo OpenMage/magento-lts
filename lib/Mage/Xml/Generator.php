@@ -1,11 +1,8 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Xml
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @return DOMDocument|null
  */
 class Mage_Xml_Generator
 {
@@ -19,9 +16,7 @@ class Mage_Xml_Generator
         $this->_currentDom = $this->_dom;
     }
 
-    /**
-     * @return DOMDocument|null
-     */
+    
     public function getDom()
     {
         return $this->_dom;

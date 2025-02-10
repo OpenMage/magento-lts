@@ -1,21 +1,14 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Downloadable
- */
-
-require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
-
 /**
  * Adminhtml downloadable product edit
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Downloadable
  */
+require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
+
+
 class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Mage_Adminhtml_Catalog_ProductController
 {
     protected function _construct()

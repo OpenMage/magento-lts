@@ -1,13 +1,13 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+ * //
  *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @return void
+ * @throws Throwable
+ * @group Mage_Customer
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Convert\Adapter;
@@ -27,12 +27,7 @@ class CustomerTest extends TestCase
         $this->subject = Mage::getModel('customer/convert_adapter_customer');
     }
 
-    //    /**
-    //     * @return void
-    //     * @throws Throwable
-    //     *
-    //     * @group Mage_Customer
-    //     */
+    //    
     //    public function testSaveRowNoWebsite(): void
     //    {
     //        $data = [];
@@ -44,12 +39,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    /**
-    //     * @return void
-    //     * @throws Throwable
-    //     *
-    //     * @group Mage_Customer
-    //     */
+    //    
     //    public function testSaveRowNoEmail(): void
     //    {
     //        $data = [
@@ -63,12 +53,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    /**
-    //     * @return void
-    //     * @throws Throwable
-    //     *
-    //     * @group Mage_Customer
-    //     */
+    //    
     //    public function testSaveRowNoGroup(): void
     //    {
     //        $data = [
@@ -83,12 +68,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    /**
-    //     * @return void
-    //     * @throws Throwable
-    //     *
-    //     * @group Mage_Customer
-    //     */
+    //    
     //    public function testSaveRowNoFirstname(): void
     //    {
     //        $data = [
@@ -104,12 +84,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    /**
-    //     * @return void
-    //     * @throws Throwable
-    //     *
-    //     * @group Mage_Customer
-    //     */
+    //    
     //    public function testSaveRowNoLastname(): void
     //    {
     //        $data = [

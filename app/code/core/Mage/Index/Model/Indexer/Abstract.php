@@ -1,20 +1,11 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Index
- */
-
 /**
  * Abstract index process class
- * Predefine list of methods required by indexer
+Predefine list of methods required by indexer
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Index
- *
  * @method Mage_Index_Model_Resource_Abstract _getResource()
  */
 abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstract

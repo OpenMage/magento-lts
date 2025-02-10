@@ -1,15 +1,9 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Tax
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var Mage_Tax_Model_Resource_Setup $this
  */
-
-/** @var Mage_Tax_Model_Resource_Setup $this */
-
 $this->startSetup();
 
 $taxTable = $this->getTable('tax/sales_order_tax');

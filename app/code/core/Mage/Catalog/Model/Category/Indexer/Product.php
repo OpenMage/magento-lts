@@ -1,23 +1,15 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Catalog
- */
-
 /**
  * Category products indexer model.
- * Responsibility for system actions:
- *  - Product save (changed assigned categories list)
- *  - Category save (changed assigned products list or category move)
- *  - Store save (new store creation, changed store group) - require reindex all data
- *  - Store group save (changed root category or group website) - require reindex all data
+Responsibility for system actions:
+- Product save (changed assigned categories list)
+- Category save (changed assigned products list or category move)
+- Store save (new store creation, changed store group) - require reindex all data
+- Store group save (changed root category or group website) - require reindex all data
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Catalog
- *
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()
  * @method int getCategoryId()

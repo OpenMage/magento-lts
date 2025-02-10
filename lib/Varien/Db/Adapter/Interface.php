@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Db
- */
-
 /**
  * Varien Database Adapter Interface
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Db
  */
+/**
+ * @package    Varien_Db
+ */
+
+
 interface Varien_Db_Adapter_Interface
 {
     public const INDEX_TYPE_PRIMARY    = 'primary';

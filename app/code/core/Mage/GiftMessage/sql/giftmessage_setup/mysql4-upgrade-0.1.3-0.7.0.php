@@ -1,13 +1,8 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_GiftMessage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
-
 $this->startSetup()
     ->addAttribute('quote', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])
     ->addAttribute('quote_address', 'gift_message_id', ['type' => 'int', 'visible' => false, 'required' => false])

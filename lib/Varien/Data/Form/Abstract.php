@@ -1,13 +1,10 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Abstract class for form, coumn and fieldset
  *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @package    Varien_Data
  * @method Varien_Data_Form getForm()
  * @method bool getUseContainer()
  * @method $this setAction(string $value)
@@ -17,10 +14,12 @@
  * @method $this setUseContainer(bool $value)
  * @method $this setDisabled(bool $value)
  * @method $this setRequired(bool $value)
- *
- * @category   Varien
+ */
+/**
  * @package    Varien_Data
  */
+
+
 class Varien_Data_Form_Abstract extends Varien_Object
 {
     /**

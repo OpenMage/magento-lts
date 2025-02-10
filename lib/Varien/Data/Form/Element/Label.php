@@ -1,18 +1,17 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Data form abstract class
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
- *
  * @method bool getBold()
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Form_Element_Label extends Varien_Data_Form_Element_Abstract
 {
     /**

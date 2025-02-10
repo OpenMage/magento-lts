@@ -1,22 +1,12 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_CatalogIndex
- */
-
 /**
  * Tier Price indexer
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_CatalogIndex
- *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Price getResource()
- *
  * @method $this setEntityId(int $value)
  * @method int getCustomerGroupId()
  * @method $this setCustomerGroupId(int $value)

@@ -1,20 +1,11 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Paypal
- */
-
 /**
  * Config model that is aware of all Mage_Paypal payment methods
- * Works with PayPal-specific system configuration
+Works with PayPal-specific system configuration
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Paypal
- *
  * @property mixed $allow_ba_signup;
  * @property mixed $api_cert;
  * @property mixed $api_password;

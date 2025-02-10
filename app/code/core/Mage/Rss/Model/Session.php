@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Rss
- */
-
 /**
  * Auth session model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Rss
- *
  * @method Mage_Admin_Model_User getAdmin()
  * @method $this setAdmin(Mage_Admin_Model_User $value)
  * @method Mage_Customer_Model_Customer getCustomer()

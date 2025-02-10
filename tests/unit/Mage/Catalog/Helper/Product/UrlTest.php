@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Catalog_Helper_Product_Url::getConvertTable()
+ * @group Mage_Catalog
+ * @group Mage_Catalog_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product;
@@ -27,11 +25,7 @@ class UrlTest extends TestCase
         $this->subject = Mage::helper('catalog/product_url');
     }
 
-    /**
-     * @covers Mage_Catalog_Helper_Product_Url::getConvertTable()
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
-     */
+    
     public function testGetConvertTable(): void
     {
         $result = $this->subject->getConvertTable();

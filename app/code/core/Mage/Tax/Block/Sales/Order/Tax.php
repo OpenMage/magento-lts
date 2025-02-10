@@ -1,15 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Tax
- */
-
 /**
  * Tax totals modification block. Can be used just as subblock of Mage_Sales_Block_Order_Totals
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
 class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
 {

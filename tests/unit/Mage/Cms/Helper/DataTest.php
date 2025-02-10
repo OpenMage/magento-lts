@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Cms
+ * @group Mage_Cms_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
@@ -29,37 +26,25 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('cms/data');
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
-     */
+    
     public function testGetAllowedStreamWrappers(): void
     {
         $this->assertIsArray($this->subject->getAllowedStreamWrappers());
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
-     */
+    
     public function testGetBlockTemplateProcessor(): void
     {
         $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getBlockTemplateProcessor());
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
-     */
+    
     public function testGetPageTemplateProcessor(): void
     {
         $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getPageTemplateProcessor());
     }
 
-    /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
-     */
+    
     public function testIsSwfDisabled(): void
     {
         $this->assertTrue($this->subject->isSwfDisabled());

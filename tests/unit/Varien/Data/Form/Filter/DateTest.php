@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideFilterDateData
+ * @group Varien_Data
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien\Data\Form\Filter;
@@ -26,11 +23,7 @@ class DateTest extends TestCase
         $this->subject = new Varien_Data_Form_Filter_Date(null, 'en_US');
     }
 
-    /**
-     * @dataProvider provideFilterDateData
-     *
-     * @group Varien_Data
-     */
+    
     public function testInputFilter(?string $expectedResult, ?string $value): void
     {
         try {

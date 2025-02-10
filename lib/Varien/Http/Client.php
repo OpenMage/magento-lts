@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Http
- */
-
 /**
  * Varien HTTP Client
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Http
  */
+/**
+ * @package    Varien_Http
+ */
+
+
 class Varien_Http_Client extends Zend_Http_Client
 {
     /**

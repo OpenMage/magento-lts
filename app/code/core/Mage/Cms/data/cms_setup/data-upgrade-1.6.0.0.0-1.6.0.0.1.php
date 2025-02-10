@@ -1,13 +1,8 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Cms
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
-
 $pageContent = <<<EOD
 <p style="color: #ff0000; font-weight: bold; font-size: 13px">
     Please replace this text with you Privacy Policy.

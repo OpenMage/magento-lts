@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Varien
+ * Classes source autoload
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Varien_Autoload
  */
 
-/**
- * Classes source autoload
- */
+
 class Varien_Autoload
 {
     /**

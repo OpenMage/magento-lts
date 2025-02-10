@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- */
-
 /**
  * Creditmemo entity resource model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Entity_Order_Creditmemo extends Mage_Eav_Model_Entity_Abstract

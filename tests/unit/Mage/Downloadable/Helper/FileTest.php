@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideGetFilePathData
+ * @group Mage_Downloadable
+ * @group Mage_Downloadable_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
@@ -29,12 +27,7 @@ class FileTest extends TestCase
         $this->subject = Mage::helper('downloadable/file');
     }
 
-    /**
-     * @dataProvider provideGetFilePathData
-     *
-     * @group Mage_Downloadable
-     * @group Mage_Downloadable_Helper
-     */
+    
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = $this->subject->getFilePath($path, $file);

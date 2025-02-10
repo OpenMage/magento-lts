@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- */
-
 /**
  * Adminhtml sales create order product search grid giftmessage column renderer
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Adminhtml
  * @deprecated after 1.4.2.0 - gift column has been removed from search grid
  */

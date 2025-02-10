@@ -1,16 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Centinel
- */
-
 /**
  * Abstract Validation State Model for Mastercard
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Centinel
  */
 class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbstract

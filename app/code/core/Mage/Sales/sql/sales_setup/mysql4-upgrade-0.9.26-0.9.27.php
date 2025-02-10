@@ -1,17 +1,13 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var Mage_Sales_Model_Resource_Setup $installer
  */
-
 // very long update :)
 set_time_limit(0);
 
-/** @var Mage_Sales_Model_Resource_Setup $installer */
+
 $installer = $this;
 
 $installer->getConnection()->addColumn(

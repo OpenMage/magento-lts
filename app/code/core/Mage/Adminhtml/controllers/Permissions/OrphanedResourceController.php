@@ -1,20 +1,17 @@
 <?php
-
+/**
+ * ACL resource
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+ */
 declare(strict_types=1);
 
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- */
+
 class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * ACL resource
-     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
-     */
+    
     public const ADMIN_RESOURCE = 'system/acl/orphaned_resources';
 
     /**

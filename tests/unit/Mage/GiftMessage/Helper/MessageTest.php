@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideIsMessagesAvailable
+ * @group Mage_GiftMessage
+ * @group Mage_GiftMessage_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
@@ -29,12 +27,7 @@ class MessageTest extends TestCase
         $this->subject = Mage::helper('giftmessage/message');
     }
 
-    /**
-     * @dataProvider provideIsMessagesAvailable
-     *
-     * @group Mage_GiftMessage
-     * @group Mage_GiftMessage_Helper
-     */
+    
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, $store = null): void
     {
         $this->assertIsBool($this->subject->isMessagesAvailable($type, $entity, $store));

@@ -1,22 +1,15 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Catalog
- */
-
 /**
  * Catalog url rewrites index model.
- * Responsibility for system actions:
- *  - Product save (changed assigned categories list, assigned websites or url key)
- *  - Category save (changed assigned products list, category move, changed url key)
- *  - Store save (new store creation, changed store group) - require reindex all data
- *  - Store group save (changed root category or group website) - require reindex all data
- *  - Seo config settings change - require reindex all data
+Responsibility for system actions:
+- Product save (changed assigned categories list, assigned websites or url key)
+- Category save (changed assigned products list, category move, changed url key)
+- Store save (new store creation, changed store group) - require reindex all data
+- Store group save (changed root category or group website) - require reindex all data
+- Seo config settings change - require reindex all data
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract

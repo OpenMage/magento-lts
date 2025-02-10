@@ -1,18 +1,17 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Form select element
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
- *
  * @method array getOptions()
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
 {
     /**

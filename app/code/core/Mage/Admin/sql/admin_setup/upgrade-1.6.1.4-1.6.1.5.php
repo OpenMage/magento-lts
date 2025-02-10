@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var Mage_Core_Model_Resource_Setup $installer
+ */
 /**
  * OpenMage
  *
@@ -13,11 +17,10 @@
  * obtain it through the world-wide-web, please send an email
  * to license@magento.com so we can send you a copy immediately.
  *
- * @category   Mage
  * @package    Mage_Admin
  */
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+
 $installer = $this;
 $installer->startSetup();
 

@@ -1,17 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Io
- */
-
 /**
  * Sftp client interface
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Io
- * @link        http://www.php.net/manual/en/function.ssh2-connect.php
  */
+/**
+ * @package    Varien_Io
+ */
+
+
 class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 {
     public const REMOTE_TIMEOUT = 10;

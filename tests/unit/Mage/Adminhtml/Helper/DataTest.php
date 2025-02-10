@@ -1,13 +1,12 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Adminhtml_Helper_Data::getUrl()
+ * @group Mage_Adminhtml
+ * @group Mage_Adminhtml_Helper
+ * @group runInSeparateProcess
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
@@ -26,13 +25,7 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('adminhtml/data');
     }
 
-    /**
-     * @covers Mage_Adminhtml_Helper_Data::getUrl()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
-     * @group runInSeparateProcess
-     * @runInSeparateProcess
-     */
+    
     public function testGetUrl(): void
     {
         $this->assertIsString($this->subject->getUrl());

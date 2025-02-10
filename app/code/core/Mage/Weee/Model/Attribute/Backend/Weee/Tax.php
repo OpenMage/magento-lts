@@ -1,17 +1,12 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Weee
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @return string
  */
 class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Product_Attribute_Backend_Price
 {
-    /**
-     * @return string
-     */
+    
     public static function getBackendModelName()
     {
         return 'weee/attribute_backend_weee_tax';
@@ -138,9 +133,7 @@ class Mage_Weee_Model_Attribute_Backend_Weee_Tax extends Mage_Catalog_Model_Prod
         return $this;
     }
 
-    /**
-     * @return string
-     */
+    
     public function getTable()
     {
         return $this->_getResource()->getTable('weee/tax');

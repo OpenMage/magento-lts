@@ -1,23 +1,14 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Customer
- */
-
 /**
  * Customer group model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Customer
- *
  * @method Mage_Customer_Model_Resource_Group _getResource()
  * @method Mage_Customer_Model_Resource_Group getResource()
  * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
  * @method Mage_Customer_Model_Resource_Group_Collection getResourceCollection()
- *
  * @method string getCustomerGroupCode()
  * @method $this setCustomerGroupCode(string $value)
  * @method $this setTaxClassId(int $value)

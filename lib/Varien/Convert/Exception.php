@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Convert
- */
-
 /**
  * Convert exception
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Convert
  */
+/**
+ * @package    Varien_Convert
+ */
+
+
 class Varien_Convert_Exception extends Varien_Exception
 {
     public const NOTICE = 'NOTICE';

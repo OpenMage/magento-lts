@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Downloadable
- */
-
 /**
  * Block to display downloadable links bought by customer
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Downloadable
- *
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection getItems()
  * @method $this setItems(Mage_Downloadable_Model_Resource_Link_Purchased_Item_Collection $value)
  * @method Mage_Downloadable_Model_Resource_Link_Purchased_Collection getPurchased()

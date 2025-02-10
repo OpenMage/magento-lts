@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_CatalogRule
- */
-
 /**
  * Catalog Rule data model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_CatalogRule
- *
  * @method Mage_CatalogRule_Model_Resource_Rule _getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Collection getCollection()
- *
  * @method int getIsActive()
  * @method $this setIsActive(int $value)
  * @method array getCollectedAttributes()

@@ -1,17 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_System
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
 class Mage_System_Dirs
 {
-    /**
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
+    
     public static function rm($dirname)
     {
         if (is_array($dirname)) {
@@ -62,9 +56,7 @@ class Mage_System_Dirs
         return true;
     }
 
-    /**
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
+    
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {
         $exists = file_exists($path);

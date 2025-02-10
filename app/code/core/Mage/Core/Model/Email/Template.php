@@ -1,30 +1,19 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
- */
-
 /**
  * Template model
+Example:
+// Loading of template
+$emailTemplate  = Mage::getModel('core/email_template')
+->load(Mage::getStoreConfig('path_to_email_template_id_config'));
+$variables = array(
+'someObject' => Mage::getSingleton('some_model')
+'someString' => 'Some string value'
+);
+$emailTemplate->send('some
  *
- * Example:
- *
- * // Loading of template
- * $emailTemplate  = Mage::getModel('core/email_template')
- *    ->load(Mage::getStoreConfig('path_to_email_template_id_config'));
- * $variables = array(
- *    'someObject' => Mage::getSingleton('some_model')
- *    'someString' => 'Some string value'
- * );
- * $emailTemplate->send('some@domain.com', 'Name Of User', $variables);
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Adminhtml
- *
  * @method Mage_Core_Model_Resource_Email_Template _getResource()
  * @method Mage_Core_Model_Resource_Email_Template getResource()
  * @method string getTemplateCode()

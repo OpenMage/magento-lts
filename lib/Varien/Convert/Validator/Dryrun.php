@@ -1,18 +1,17 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Convert
- */
-
 /**
  * Convert dry run validator
+Insert where you want to step profile execution if dry run flag is set
  *
- * Insert where you want to step profile execution if dry run flag is set
- *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Convert
  */
+/**
+ * @package    Varien_Convert
+ */
+
+
 class Varien_Convert_Validator_Dryrun extends Varien_Convert_Validator_Abstract
 {
     public function validate()

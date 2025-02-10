@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Db
- */
-
 /**
  * Varien Db Helper
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Db
  */
+/**
+ * @package    Varien_Db
+ */
+
+
 class Varien_Db_Helper
 {
     /**

@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Admin
- */
-
 /**
  * Class Mage_Admin_Model_Block
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Adminhtml
- *
  * @method Mage_Admin_Model_Resource_Block _getResource()
  * @method Mage_Admin_Model_Resource_Block getResource()
  * @method Mage_Admin_Model_Resource_Block_Collection getCollection()
- *
  * @method string getBlockName()
  * @method string getIsAllowed()
  */

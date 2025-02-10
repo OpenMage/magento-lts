@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Catalog
- */
-
 /**
  * Catalog product option default type
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Catalog
- *
  * @method $this setConfigurationItemOption(Varien_Object $value)
  * @method bool getIsValid()
  * @method $this setIsValid(bool $value)

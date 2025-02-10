@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Varien
+ * Class Varien_Filter_Template_Simple
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Varien_Filter
  */
 
-/**
- * Class Varien_Filter_Template_Simple
- */
+
 class Varien_Filter_Template_Simple extends Varien_Object implements Zend_Filter_Interface
 {
     /**

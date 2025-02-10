@@ -1,19 +1,11 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Usa
- */
-
 /**
  * DHL International (API v1.4) Label Creation
  *
- * @deprecated now the process of creating the label is on DHL side
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Usa
+ * @deprecated now the process of creating the label is on DHL side
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
 {

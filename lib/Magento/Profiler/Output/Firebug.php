@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Magento
+ * Class that outputs profiling results to Firebug
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Magento_Profiler
  */
 
-/**
- * Class that outputs profiling results to Firebug
- */
+
 class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
 {
     /**

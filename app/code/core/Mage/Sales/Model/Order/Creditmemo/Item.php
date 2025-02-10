@@ -1,27 +1,16 @@
 <?php
-
 /**
  * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Sales
- */
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection getCollection()
- *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- *
  * @method bool hasBackToStock()
  * @method bool getBackToStock()
  * @method $this setBackToStock(bool $value)
@@ -49,25 +38,19 @@
  * @method $this setBaseWeeeTaxDisposition(float $value)
  * @method float getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(float $value)
- *
  * @method bool hasCanReturnToStock()
  * @method bool getCanReturnToStock()
  * @method $this setCanReturnToStock(bool $value)
- *
  * @method string getDescription()
  * @method $this setDescription(string $value)
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
- *
  * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
- *
  * @method string getName()
  * @method $this setName(string $value)
- *
  * @method int getOrderItemId()
  * @method $this setOrderItemId(int $value)
- *
  * @method int getParentId()
  * @method $this setParentId(int $value)
  * @method float getPrice()
@@ -76,21 +59,16 @@
  * @method $this setPriceInclTax(float $value)
  * @method int getProductId()
  * @method $this setProductId(int $value)
- *
  * @method float getQty()
- *
  * @method float getRowTotal()
  * @method $this setRowTotal(float $value)
  * @method float getRowTotalInclTax()
  * @method $this setRowTotalInclTax(float $value)
- *
  * @method string getSku()
  * @method $this setSku(string $value)
  * @method $this setStoreId(int $value)
- *
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
- *
  * @method float getWeeeTaxAppliedAmount()
  * @method $this setWeeeTaxAppliedAmount(float $value)
  * @method float getWeeeTaxAppliedRowAmount()

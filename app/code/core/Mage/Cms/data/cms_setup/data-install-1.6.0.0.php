@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+ * Insert default blocks
  *
- * @category   Mage
- * @package    Mage_Cms
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
-
 $cmsBlocks = [
     [
         'title'         => 'Footer Links',
@@ -321,9 +318,7 @@ faucibus et, tempus at, dui. Nunc risus. Proin scelerisque augue. Nam ullamcorpe
     ],
 ];
 
-/**
- * Insert default blocks
- */
+
 foreach ($cmsBlocks as $data) {
     Mage::getModel('cms/block')->setData($data)->save();
 }

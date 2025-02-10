@@ -1,16 +1,10 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Data form
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
- *
  * @method string getHtmlIdPrefix()
  * @method $this setHtmlIdPrefix(string $value)
  * @method string getHtmlIdSuffix()
@@ -18,6 +12,11 @@
  * @method setDataObject(Mage_Core_Model_Abstract $value)
  * @method $this setFieldNameSuffix(string $value)
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Form extends Varien_Data_Form_Abstract
 {
     /**

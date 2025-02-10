@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Magento
+ * Class that represents profiler output in Html format
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Magento_Profiler
  */
 
-/**
- * Class that represents profiler output in Html format
- */
+
 class Magento_Profiler_Output_Html extends Magento_Profiler_OutputAbstract
 {
     /**

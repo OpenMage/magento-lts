@@ -1,20 +1,11 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Usa
- */
-
 /**
  * DHL International (API v1.4) Label Creation
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Usa
  * @deprecated now the process of creating the label is on DHL side
- *
  * @property Zend_Pdf_Resource_Font $_fontBold
  * @property Zend_Pdf_Resource_Font $_fontNormal
  */

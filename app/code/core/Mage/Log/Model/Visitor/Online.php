@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Log
- */
-
 /**
  * Prepare Log Online Visitors Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Log
- *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
  * @method string getVisitorType()
@@ -28,7 +19,6 @@
  * @method $this setCustomerId(int $value)
  * @method string getLastUrl()
  * @method $this setLastUrl(string $value)
- *
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {

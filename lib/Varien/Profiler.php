@@ -1,17 +1,18 @@
 <?php
-
 /**
- * @category   Varien
+ * Timers for code profiling
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var array
+ */
+/**
  * @package    Varien_Profiler
  */
 
 class Varien_Profiler
 {
-    /**
-     * Timers for code profiling
-     *
-     * @var array
-     */
+    
     private static $_timers = [];
     private static $_enabled = false;
     private static $_memory_get_usage = false;

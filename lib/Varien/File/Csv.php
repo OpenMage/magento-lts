@@ -1,14 +1,15 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_File
- */
-
 /**
  * Csv parse
  *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
+/**
+ * @package    Varien_File
+ */
+
+
 class Varien_File_Csv
 {
     protected $_lineLength = 0;

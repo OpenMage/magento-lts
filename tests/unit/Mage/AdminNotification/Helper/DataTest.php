@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_AdminNotification
+ * @group Mage_AdminNotification_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Helper;
@@ -27,19 +24,13 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('adminnotification/data');
     }
 
-    /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Helper
-     */
+    
     public function testGetLatestNotice(): void
     {
         $this->assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, $this->subject->getLatestNotice());
     }
 
-    /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Helper
-     */
+    
     public function testGetUnreadNoticeCount(): void
     {
         $this->assertIsInt($this->subject->getUnreadNoticeCount(99));

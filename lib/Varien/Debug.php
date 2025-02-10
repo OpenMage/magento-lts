@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Debug
- */
-
 /**
  * Varien Debug methods
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Debug
  */
+/**
+ * @package    Varien_Debug
+ */
+
+
 class Varien_Debug
 {
     public static $argLength = 16;

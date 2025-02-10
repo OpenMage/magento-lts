@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Tax_Helper_Data::getPostCodeSubStringLength()
+ * @group Mage_Tax
+ * @group Mage_Tax_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Helper;
@@ -31,11 +29,7 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('tax/data');
     }
 
-    /**
-     * @covers Mage_Tax_Helper_Data::getPostCodeSubStringLength()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
-     */
+    
     public function testGetPostCodeSubStringLength(): void
     {
         $this->assertSame(10, $this->subject->getPostCodeSubStringLength());

@@ -1,19 +1,18 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Form textarea element
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
- *
  * @method $this setCols(int $int)
  * @method $this setRows(int $int)
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Form_Element_Textarea extends Varien_Data_Form_Element_Abstract
 {
     /**

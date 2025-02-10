@@ -1,24 +1,14 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Api2
- */
-
 /**
  * API2 Abstarct Validator
+This is an object to which we encapsulate all business logic of validation and different invariants.
+But instead of different validators, we group all logic in one class but in different methods.
+If fails validation, then validation method returns false, and
+getErrors() will return an array of errors that explain why the
+validation failed.
  *
- * This is an object to which we encapsulate all business logic of validation and different invariants.
- * But instead of different validators, we group all logic in one class but in different methods.
- *
- * If fails validation, then validation method returns false, and
- * getErrors() will return an array of errors that explain why the
- * validation failed.
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Api2
  */
 abstract class Mage_Api2_Model_Resource_Validator

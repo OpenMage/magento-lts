@@ -1,13 +1,12 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Adminhtml_Helper_Addresses::processStreetAttribute()
+ * @dataProvider provideProcessStreetAttribute
+ * @group Mage_Adminhtml
+ * @group Mage_Adminhtml_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
@@ -28,12 +27,7 @@ class AddressesTest extends TestCase
         $this->subject = Mage::helper('adminhtml/addresses');
     }
 
-    /**
-     * @covers Mage_Adminhtml_Helper_Addresses::processStreetAttribute()
-     * @dataProvider provideProcessStreetAttribute
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
-     */
+    
     public function testProcessStreetAttribute(int $expectedResult, int $lines): void
     {
         $attribute = new Mage_Customer_Model_Attribute();

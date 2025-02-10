@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
- */
-
 /**
  * Store group model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Core
- *
  * @method Mage_Core_Model_Resource_Store_Group _getResource()
  * @method Mage_Core_Model_Resource_Store_Group getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
- *
  * @method $this setWebsiteId(int $value)
  * @method string getName()
  * @method $this setName(string $value)

@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Oauth
- */
-
 /**
  * Customer My Applications list block
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Block_Customer_Token_List extends Mage_Customer_Block_Account_Dashboard

@@ -1,20 +1,19 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Event
- */
-
 /**
  * Event cron observer object
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Event
- *
  * @method string getCronExpr()
  * @method bool hasNow()
  * @method $this setNow(int $time)
  */
+/**
+ * @package    Varien_Event
+ */
+
+
 class Varien_Event_Observer_Cron extends Varien_Event_Observer
 {
     /**

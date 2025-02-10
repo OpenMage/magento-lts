@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Io
- */
-
 /**
  * Filesystem client
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Io
  */
+/**
+ * @package    Varien_Io
+ */
+
+
 class Varien_Io_File extends Varien_Io_Abstract
 {
     /**

@@ -1,17 +1,18 @@
 <?php
-
 /**
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @param Varien_Object|array $grid
+ * @return array
+ * @throws Exception
+ */
+/**
  * @package    Varien_Filter
  */
 
 class Varien_Filter_Object_Grid extends Varien_Filter_Object
 {
-    /**
-     * @param Varien_Object|array $grid
-     * @return array
-     * @throws Exception
-     */
+    
     public function filter($grid)
     {
         $out = [];

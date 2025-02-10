@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Downloadable
- */
-
 /**
  * Downloadable Sales Order Email items renderer
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Downloadable
- *
  * @method Mage_Downloadable_Model_Link_Purchased_Item getItem()
  */
 class Mage_Downloadable_Block_Sales_Order_Email_Items_Order_Downloadable extends Mage_Sales_Block_Order_Email_Items_Order_Default

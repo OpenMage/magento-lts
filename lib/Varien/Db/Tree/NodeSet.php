@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Varien
+ * TODO implements iterators
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Varien_Db
  */
 
-/**
- * TODO implements iterators
- */
+
 class Varien_Db_Tree_NodeSet implements Iterator
 {
     private $_nodes = [];

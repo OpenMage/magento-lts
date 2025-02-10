@@ -1,22 +1,12 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Paypal
- */
-
 /**
  * Paypal Settlement Report model
+Perform fetching reports from remote servers with following saving them to database
+Prepare report rows for Mage_Paypal_Model_Report_Settlement_Row model
  *
- * Perform fetching reports from remote servers with following saving them to database
- * Prepare report rows for Mage_Paypal_Model_Report_Settlement_Row model
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Paypal
- *
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()
  * @method string getReportDate()

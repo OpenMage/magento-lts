@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Tax
- */
-
 /**
  * Tax Rule Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Tax
- *
  * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
- *
  * @method $this setCalculateSubtotal(float $value)
  * @method string getCode()
  * @method $this setCode(string $value)

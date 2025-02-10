@@ -1,22 +1,12 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_CatalogSearch
- */
-
 /**
  * Catalog advanced search model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_CatalogSearch
- *
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
- *
  * @method int getEntityTypeId()
  * @method $this setEntityTypeId(int $value)
  * @method int getAttributeSetId()

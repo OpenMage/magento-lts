@@ -1,17 +1,17 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Form multiline text elements
  *
- *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @method int getLineCount()
  * @method $this setLineCount(int $value)
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstract
 {
     /**

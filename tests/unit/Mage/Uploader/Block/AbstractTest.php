@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Uploader
+ * @group Mage_Uploader_Block
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
@@ -29,10 +26,7 @@ class AbstractTest extends TestCase
         $this->subject = $this->getMockForAbstractClass(Subject::class);
     }
 
-    /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
-     */
+    
     public function testGetMiscConfig(): void
     {
         $this->assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, $this->subject->getMiscConfig());
@@ -49,19 +43,13 @@ class AbstractTest extends TestCase
         $this->assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, $this->subject->getUploaderConfig());
     }
 
-    /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
-     */
+    
     public function testGetButtonConfig(): void
     {
         $this->assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, $this->subject->getButtonConfig());
     }
 
-    /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
-     */
+    
     public function testGetElementId(): void
     {
         $suffix = 'test';

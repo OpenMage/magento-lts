@@ -1,21 +1,11 @@
 <?php
-
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
+ * @group Mage_Reports
+ * @group Mage_Reports_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Reports\Helper;
@@ -40,11 +30,7 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('reports/data');
     }
 
-    /**
-     * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
-     */
+    
     public function testIsModuleEnabled(): void
     {
         $this->assertTrue($this->subject->isModuleEnabled());

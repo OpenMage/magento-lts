@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Admin
- */
-
 /**
  * Class Mage_Admin_Model_Variable
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Admin
- *
  * @method Mage_Admin_Model_Resource_Variable _getResource()
  * @method Mage_Admin_Model_Resource_Variable getResource()
  * @method Mage_Admin_Model_Resource_Variable_Collection getCollection()
- *
  * @method string getIsAllowed()
  * @method string getVariableName()
  */

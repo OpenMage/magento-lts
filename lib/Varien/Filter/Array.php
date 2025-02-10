@@ -1,15 +1,16 @@
 <?php
-
 /**
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var array
+ */
+/**
  * @package    Varien_Filter
  */
 
 class Varien_Filter_Array extends Zend_Filter
 {
-    /**
-     * @var array
-     */
+    
     protected $_columnFilters = [];
 
     /**

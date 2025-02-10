@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Form Input/Output Filter Interface
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 interface Varien_Data_Form_Filter_Interface
 {
     /**

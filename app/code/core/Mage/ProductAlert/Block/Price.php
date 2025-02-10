@@ -1,21 +1,12 @@
 <?php
-
 /**
  * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
- * @category   Mage
- * @package    Mage_ProductAlert
- */
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_ProductAlert
  * @deprecated after 1.4.1.0
- *
  * @see Mage_ProductAlert_Block_Product_View
  */
 class Mage_ProductAlert_Block_Price extends Mage_Core_Block_Template

@@ -1,16 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Tax
- */
-
 /**
  * Tax Total Row Renderer
  *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
 class Mage_Tax_Block_Checkout_Tax extends Mage_Checkout_Block_Total_Default
 {

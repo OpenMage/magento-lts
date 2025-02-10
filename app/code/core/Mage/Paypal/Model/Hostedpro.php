@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Paypal
- */
-
 /**
  * Website Payments Pro Hosted Solution payment gateway model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct

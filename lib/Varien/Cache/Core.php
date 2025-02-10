@@ -1,17 +1,18 @@
 <?php
-
 /**
- * @category   Varien
+ * Specific slab size = 1Mb minus overhead
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var array $_specificOptions
+ */
+/**
  * @package    Varien_Cache
  */
 
 class Varien_Cache_Core extends Zend_Cache_Core
 {
-    /**
-     * Specific slab size = 1Mb minus overhead
-     *
-     * @var array $_specificOptions
-     */
+    
     protected $_specificOptions = ['slab_size' => 0];
 
     /**

@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideAddColumnDefaultData
+ * @group Mage_Adminhtml
+ * @group Mage_Adminhtml_Block
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget;
@@ -27,11 +25,7 @@ class GridTest extends TestCase
         $this->subject = new Subject();
     }
 
-    /**
-     * @dataProvider provideAddColumnDefaultData
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
-     */
+    
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
         $this->assertSame($expectedResult, $this->subject->addColumnDefaultData($column));

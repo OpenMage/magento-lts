@@ -1,7 +1,12 @@
 <?php
-
 /**
- * @category   Varien
+ * Whether image was resized or not
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var bool
+ */
+/**
  * @package    Varien_Image
  */
 
@@ -17,11 +22,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         IMAGETYPE_WBMP => ['output' => 'imagewbmp', 'create' => 'imagecreatefromwbmp'],
     ];
 
-    /**
-     * Whether image was resized or not
-     *
-     * @var bool
-     */
+    
     protected $_resized = false;
 
     public function __construct()

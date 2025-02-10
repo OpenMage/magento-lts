@@ -1,16 +1,16 @@
 <?php
-
 /**
- * @category   Varien
+ * Object Cache
+Stores objects for reuse, cleanup and to avoid circular references
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Varien_Object
  */
 
-/**
- * Object Cache
- *
- * Stores objects for reuse, cleanup and to avoid circular references
- *
- */
+
 class Varien_Object_Cache
 {
     /**

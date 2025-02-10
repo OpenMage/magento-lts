@@ -1,19 +1,18 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_File
- */
-
 /**
  * File upload class
+ATTENTION! This class must be used like abstract class and must added
+validation by protected file extension list to extended class
  *
- * ATTENTION! This class must be used like abstract class and must added
- * validation by protected file extension list to extended class
- *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_File
  */
+/**
+ * @package    Varien_File
+ */
+
+
 
 class Varien_File_Uploader
 {

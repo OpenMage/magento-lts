@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Io
- */
-
 /**
  * Input/output client interface
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Io
  */
+/**
+ * @package    Varien_Io
+ */
+
+
 interface Varien_Io_Interface
 {
     /**

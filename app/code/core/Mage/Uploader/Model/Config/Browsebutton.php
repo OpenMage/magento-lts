@@ -1,30 +1,16 @@
 <?php
-
 /**
  * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Uploader
- */
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Uploader
- *
  * @method $this setDomNodes(array $domNodesIds)
- *      Array of element browse buttons ids
  * @method $this setIsDirectory(bool $isDirectory)
- *      Pass in true to allow directories to be selected (Google Chrome only)
  * @method $this setSingleFile(bool $isSingleFile)
- *      To prevent multiple file uploads set this to true.
- *      Also look at config parameter singleFile (Mage_Uploader_Model_Config_Uploader setSingleFile())
  * @method $this setAttributes(array $attributes)
- *      Pass object of keys and values to set custom attributes on input fields.
- *      @see http://www.w3.org/TR/html-markup/input.file.html#input.file-attributes
+ * @see http://www.w3.org/TR/html-markup/input.file.html#input.file-attributes
  */
 class Mage_Uploader_Model_Config_Browsebutton extends Mage_Uploader_Model_Config_Abstract
 {

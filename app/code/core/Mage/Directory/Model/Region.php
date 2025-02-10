@@ -1,25 +1,15 @@
 <?php
-
 /**
  * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Directory
- */
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Directory
- *
  * @method Mage_Directory_Model_Resource_Region _getResource()
  * @method Mage_Directory_Model_Resource_Region getResource()
  * @method Mage_Directory_Model_Resource_Region_Collection getCollection()
  * @method Mage_Directory_Model_Resource_Region_Collection getResourceCollection()
- *
  * @method string getCode()
  * @method $this setCode(string $value)
  * @method string getCountryId()

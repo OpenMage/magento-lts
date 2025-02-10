@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_File
- */
-
 /**
  * File Object
- * *
- * @category   Varien
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_File
  */
+/**
+ * @package    Varien_File
+ */
+
+
 
 require_once('Varien/Object.php');
 require_once('Varien/Directory/IFactory.php');

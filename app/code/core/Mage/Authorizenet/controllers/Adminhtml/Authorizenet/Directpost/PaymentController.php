@@ -1,20 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Authorizenet
- */
-
-require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
 /**
  * Admihtml DirtectPost Payment Controller
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Authorizenet
  */
+require_once 'Mage/Adminhtml/controllers/Sales/Order/CreateController.php';
+
 class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController extends Mage_Adminhtml_Sales_Order_CreateController
 {
     /**

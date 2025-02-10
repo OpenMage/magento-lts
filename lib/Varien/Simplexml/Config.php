@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Simplexml
- */
-
 /**
  * Base class for simplexml based configurations
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Simplexml
  */
+/**
+ * @package    Varien_Simplexml
+ */
+
+
 class Varien_Simplexml_Config
 {
     /**

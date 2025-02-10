@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Api2
- */
-
 /**
  * API2 filter ACL attribute resources permissions model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Acl_Filter_Attribute_ResourcePermission implements Mage_Api2_Model_Acl_PermissionInterface

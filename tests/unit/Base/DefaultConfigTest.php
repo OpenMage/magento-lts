@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideGetStoreConfig
+ * @group Base
+ * @group Default_Config
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
@@ -19,11 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultConfigTest extends TestCase
 {
-    /**
-     * @dataProvider provideGetStoreConfig
-     * @group Base
-     * @group Default_Config
-     */
+    
     public function testGetStoreConfig(string $expectedResult, string $path, $store = null): void
     {
         $this->assertSame($expectedResult, Mage::getStoreConfig($path, $store));

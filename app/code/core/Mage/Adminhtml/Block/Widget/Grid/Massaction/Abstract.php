@@ -1,25 +1,17 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- */
-
-use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 /**
  * Grid widget massaction block
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Adminhtml
- *
  * @method $this setFormFieldName(string $value)
  * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors
  * @method bool getHideFormElement()
  */
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
+
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {
     /**

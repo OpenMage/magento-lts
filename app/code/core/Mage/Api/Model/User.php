@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Api
- */
-
 /**
  * Api model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Api
- *
  * @method Mage_Api_Model_Resource_User _getResource()
  * @method Mage_Api_Model_Resource_User getResource()
  * @method string getFirstname()
@@ -48,7 +39,6 @@
  * @method int getRoleId()
  * @method array getRoleIds()
  * @method $this setLogdate(string $value)
- *
  * @method $this setRoleIds(array $value)
  * @method $this setRoleUserId(int $value)
  */

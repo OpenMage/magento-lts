@@ -1,17 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Db
- */
-
 /**
  * Varien Library
  *
- *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Db
  */
+/**
+ * @package    Varien_Db
+ */
+
+
 
 require_once 'Varien/Db/Tree/Exception.php';
 Zend_Loader::loadClass('Zend_Db_Select');

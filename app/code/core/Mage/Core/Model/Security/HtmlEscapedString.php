@@ -1,21 +1,16 @@
 <?php
-
-declare(strict_types=1);
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
- */
-
 /**
  * Wrapper to escape a string value with a method to get the original string value
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Core
  */
+declare(strict_types=1);
+
+
+
+
 class Mage_Core_Model_Security_HtmlEscapedString implements Stringable
 {
     protected string $originalValue;

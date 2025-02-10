@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Magento
- * @package    Magento_Db
- */
-
 /**
  * Magento_Db_Object_Trigger
  *
- * @category   Magento
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Magento_Db
  */
+/**
+ * @package    Magento_Db
+ */
+
+
 class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_Object_Interface
 {
     /**

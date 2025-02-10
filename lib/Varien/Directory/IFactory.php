@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Directory
- */
-
 /**
  * Factory Interface for Directory
- * *
- * @category   Varien
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Directory
  */
+/**
+ * @package    Varien_Directory
+ */
+
+
 
 interface IFactory
 {

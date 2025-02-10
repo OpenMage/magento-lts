@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Event
- */
-
 /**
  * Event observer collection
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Event
  */
+/**
+ * @package    Varien_Event
+ */
+
+
 class Varien_Event_Observer_Collection
 {
     /**

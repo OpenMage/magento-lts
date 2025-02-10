@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Catalog
- */
-
 /**
  * Catalog product model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Catalog
- *
  * @method Mage_Catalog_Model_Resource_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Product getResource()
  * @method Mage_Catalog_Model_Resource_Product_Collection getCollection()
- *
  * @method $this setAddToCartUrl(string $value)
  * @method bool getAllowedInRss()
  * @method $this setAllowedInRss(bool $value)
@@ -29,13 +19,11 @@
  * @method bool getAttributesConfigurationReadonly()
  * @method int getAttributeSetId()
  * @method $this setAttributeSetId(int $value)
- *
  * @method float getBaseRowTotal()
  * @method array getBundleOptionsData()
  * @method $this setBundleOptionsData(array $value)
  * @method array getBundleSelectionsData()
  * @method $this setBundleSelectionsData(array $value)
- *
  * @method bool getCanSaveBundleSelections()
  * @method $this setCanSaveBundleSelections(bool $value)
  * @method bool getCanSaveCustomOptions()
@@ -71,10 +59,8 @@
  * @method bool hasCrossSellProductIds()
  * @method $this setCrossSellProductIds(array $value)
  * @method $this setCustomerGroupId(int $value)
- *
  * @method int getEntityTypeId()
  * @method $this setExcludeUrlRewrite(bool $value)
- *
  * @method string getDescription()
  * @method bool getDisableAddToCart()
  * @method $this setDisableAddToCart(bool $value)
@@ -85,17 +71,13 @@
  * @method bool getDownloadableReadonly()
  * @method Mage_Downloadable_Model_Resource_Sample_Collection getDownloadableSamples()
  * @method $this setDownloadableSamples(Mage_Downloadable_Model_Resource_Sample_Collection $value)
- *
  * @method bool getForceReindexRequired()
- *
  * @method array getGroupedLinkData()
  * @method $this setGroupedLinkData(array $value)
- *
  * @method $this setHasError(bool $value)
  * @method null|bool getHasError()
  * @method bool getHasOptions()
  * @method $this setHasOptions(bool $value)
- *
  * @method string getImage()
  * @method bool getInventoryReadonly()
  * @method bool getIsChangedCategories()
@@ -118,12 +100,10 @@
  * @method $this unsRecurringProfile()
  * @method $this setIsSalable(bool $value)
  * @method $this setIsSuperMode(bool $value)
- *
  * @method $this setLinksExist(bool $value)
  * @method bool getLinksPurchasedSeparately()
  * @method $this setLinksPurchasedSeparately(bool $value)
  * @method array getListSwatchAttrValues()
- *
  * @method array getMatchedRules()
  * @method bool hasMediaAttributes()
  * @method $this setMediaAttributes(array $value)
@@ -136,9 +116,7 @@
  * @method $this hasMsrpEnabled()
  * @method bool getMsrpEnabled()
  * @method string getMsrpDisplayActualPriceType()
- *
  * @method $this setNeedStoreForReindex(bool $value)
- *
  * @method Mage_Bundle_Model_Option getOption()
  * @method $this setOption(Mage_Bundle_Model_Option $value)
  * @method int getOptionId()
@@ -147,7 +125,6 @@
  * @method $this setOptionsValidationFail(bool $value)
  * @method int getOriginalId()
  * @method $this setOriginalId(int $value)
- *
  * @method string getPageLayout()
  * @method bool getParentId()
  * @method $this setParentId(bool $value)
@@ -164,14 +141,12 @@
  * @method $this setProductOptions(array $value)
  * @method $this setProductTags(Mage_Tag_Model_Resource_Tag_Collection $value)
  * @method $this setProductUrl(string $value)
- *
  * @method $this setQuoteItemPrice(float $value)
  * @method $this setQuoteItemRowTotal(float $value)
  * @method $this setQuoteItemQty(int $value)
  * @method $this setQuoteQty(float $value)
  * @method float getQty()
  * @method $this setQty(float $value)
- *
  * @method $this setRatingSummary(Varien_Object $summary)
  * @method $this setRatingVotes(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection $value)
  * @method string getRealPriceHtml()
@@ -187,7 +162,6 @@
  * @method bool getRequiredOptions()
  * @method $this setRequiredOptions(bool $value)
  * @method string getReviewId()
- *
  * @method string getSamplesTitle()
  * @method bool getSelectionCanChangeQty()
  * @method string getSelectionId()
@@ -211,7 +185,6 @@
  * @method bool hasStoreIds()
  * @method $this setStoreIds(array $storeIds)
  * @method array getSwatchPrices()
- *
  * @method int getTaxClassId()
  * @method string getThumbnail()
  * @method float|null getTaxPercent()
@@ -221,7 +194,6 @@
  * @method $this setTypeHasOptions(bool $value)
  * @method bool getTypeHasRequiredOptions()
  * @method $this setTypeHasRequiredOptions(bool $value)
- *
  * @method bool getUpsellReadonly()
  * @method array getUpSellLinkData()
  * @method $this setUpSellLinkData(array $value)
@@ -234,11 +206,9 @@
  * @method $this setUrlDataObject(Varien_Object $value)
  * @method string getUrlKey()
  * @method $this setUrlKey(string $value)
- *
  * @method $this setUrlPath(string $value)
  * @method int getVisibility()
  * @method $this setVisibility(int $value)
- *
  * @method $this setWebsiteId(int $getWebsiteId)
  * @method bool hasWebsiteIds()
  * @method $this setWebsiteIds(array $value)

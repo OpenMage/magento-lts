@@ -1,29 +1,18 @@
 <?php
-
 /**
  * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
+For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Sales
- */
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Quote_Address_Item _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Item getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Item_Collection getCollection()
- *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
  * @method string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
- *
  * @method float getBaseCost()
  * @method $this setBaseCost(float $value)
  * @method float getBaseDiscountAmount()
@@ -33,7 +22,6 @@
  * @method $this setBaseHiddenTaxAmount(float $value)
  * @method float getBasePrice()
  * @method $this setBasePrice(float $value)
- *
  * @method $this setCustomerAddressId(int $value)
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)

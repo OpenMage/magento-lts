@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Widget
- */
-
 /**
  * WYSIWYG widget options form
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Adminhtml
- *
  * @method $this setConfig(Varien_Object $value)
  * @method $this setElement(Varien_Data_Form_Element_Abstract $value)
  * @method $this setFieldsetId(string $value)

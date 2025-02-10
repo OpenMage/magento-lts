@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Paypal
- */
-
 /**
  * PayPal Website Payments Pro implementation for payment method instances
- * This model was created because right now PayPal Direct and PayPal Express payment methods cannot have same abstract
+This model was created because right now PayPal Direct and PayPal Express payment methods cannot have same abstract
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Pro

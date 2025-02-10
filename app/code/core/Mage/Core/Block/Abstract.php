@@ -1,22 +1,12 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
- */
-
 /**
  * Base Content Block class
+For block generation you must define Data source class, data source class method,
+parameters array and block template
  *
- * For block generation you must define Data source class, data source class method,
- * parameters array and block template
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Core
- *
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)
  * @method $this setCacheLifetime(int|false $value)

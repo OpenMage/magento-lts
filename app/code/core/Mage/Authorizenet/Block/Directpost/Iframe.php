@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Authorizenet
- */
-
 /**
  * DirectPost iframe block
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Authorizenet
  */
 class Mage_Authorizenet_Block_Directpost_Iframe extends Mage_Core_Block_Template

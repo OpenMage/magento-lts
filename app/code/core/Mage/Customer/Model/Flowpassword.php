@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Customer
- */
-
 /**
  * Customer flow password info Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Customer
- *
  * @method Mage_Customer_Model_Resource_Flowpassword_Collection getCollection()
  * @method $this setEmail(string $value)
  * @method $this setIp(string $value)

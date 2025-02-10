@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_AdminNotification
+ * @group Mage_AdminNotification_Model
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
@@ -27,37 +24,25 @@ class FeedTest extends TestCase
         $this->subject = Mage::getModel('adminnotification/feed');
     }
 
-    /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
-     */
+    
     public function testGetFeedUrl(): void
     {
         $this->assertIsString($this->subject->getFeedUrl());
     }
 
-    /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
-     */
+    
     public function testCheckUpdate(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->checkUpdate());
     }
 
-    /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
-     */
+    
     public function testGetFeedData(): void
     {
         $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedData());
     }
 
-    /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
-     */
+    
     public function testGetFeedXml(): void
     {
         $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedXml());

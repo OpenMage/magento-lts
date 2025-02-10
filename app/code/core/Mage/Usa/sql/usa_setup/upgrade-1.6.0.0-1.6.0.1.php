@@ -1,13 +1,9 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Usa
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var Mage_Core_Model_Resource_Setup $installer
  */
-
 $codes = [
     'method' => [
         'EUROPEFIRSTINTERNATIONALPRIORITY'  => 'EUROPE_FIRST_INTERNATIONAL_PRIORITY',
@@ -49,7 +45,7 @@ $codes = [
     ],
 ];
 
-/** @var Mage_Core_Model_Resource_Setup $installer */
+
 $installer = $this;
 $configDataTable = $installer->getTable('core/config_data');
 $conn = $installer->getConnection();

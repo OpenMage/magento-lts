@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Reports
- */
-
 /**
  * Catalog Compared Product Index Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Reports
- *
  * @method Mage_Reports_Model_Resource_Product_Index_Compared _getResource()
  * @method Mage_Reports_Model_Resource_Product_Index_Compared getResource()
  * @method $this setVisitorId(int $value)

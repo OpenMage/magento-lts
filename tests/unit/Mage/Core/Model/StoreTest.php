@@ -1,13 +1,13 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Core_Model_Store::getId()
+ * @dataProvider provideGetStoreId
+ * @param string|int|null $withStore
+ * @group Mage_Core
+ * @group Mage_Core_Model
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
@@ -29,13 +29,7 @@ class StoreTest extends TestCase
         $this->subject = Mage::getModel('core/store');
     }
 
-    /**
-     * @covers Mage_Core_Model_Store::getId()
-     * @dataProvider provideGetStoreId
-     * @param string|int|null $withStore
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     */
+    
     public function testGetId(?int $expectedResult, $withStore): void
     {
         if ($withStore) {

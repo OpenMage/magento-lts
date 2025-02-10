@@ -1,25 +1,22 @@
 <?php
-
 /**
- * @category   Varien
+ * Filesystem items collection
+Can scan a folder for files and/or folders recursively.
+Creates Varien_Object instance for each item, with its filename and base name
+Supports regexp masks that are applied to files and folders base names.
+These masks apply before adding items to collection, during filesystem scanning
+Supports dirsFirst feature, that will make directories be before files, regardless of sorting column.
+Supports some fancy filters.
+At least one target directory must be set
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Varien_Data
  */
 
-/**
- * Filesystem items collection
- *
- * Can scan a folder for files and/or folders recursively.
- * Creates Varien_Object instance for each item, with its filename and base name
- *
- * Supports regexp masks that are applied to files and folders base names.
- * These masks apply before adding items to collection, during filesystem scanning
- *
- * Supports dirsFirst feature, that will make directories be before files, regardless of sorting column.
- *
- * Supports some fancy filters.
- *
- * At least one target directory must be set
- */
+
 class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
 {
     /**

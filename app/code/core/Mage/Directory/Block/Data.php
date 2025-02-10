@@ -1,20 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Directory
- */
-
 /**
  * Directory data block
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Directory
- * @phpstan-type Option array{label: string, value: non-falsy-string}
- *
  * @method int getRegionId()
  */
 class Mage_Directory_Block_Data extends Mage_Core_Block_Template

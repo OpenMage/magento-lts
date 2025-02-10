@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
 // Set up autoloading
 require_once __DIR__ . '/../vendor/autoload.php';
 

@@ -1,13 +1,9 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Customer
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @var Mage_Customer_Model_Entity_Setup $this
  */
-
-/** @var Mage_Customer_Model_Entity_Setup $this */
 $installer = $this;
 $installer->startSetup();
 $connection = $installer->getConnection();

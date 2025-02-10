@@ -1,13 +1,10 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Db
- */
-
 /**
  * Class for SQL SELECT generation and results.
  *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @package    Varien_Db
  * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
  * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()
  * @method $this from($name, $cols = '*', $schema = null)
@@ -26,10 +23,12 @@
  * @method $this distinct($flag = true)
  * @method $this reset($part = null)
  * @method $this columns($cols = '*', $correlationName = null)
- *
- * @category   Varien
+ */
+/**
  * @package    Varien_Db
  */
+
+
 class Varien_Db_Select extends Zend_Db_Select
 {
     public const TYPE_CONDITION    = 'TYPE_CONDITION';

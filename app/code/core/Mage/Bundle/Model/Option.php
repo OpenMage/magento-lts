@@ -1,24 +1,14 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Bundle
- */
-
 /**
  * Bundle Option Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Bundle
- *
  * @method Mage_Bundle_Model_Resource_Option _getResource()
  * @method Mage_Bundle_Model_Resource_Option getResource()
  * @method Mage_Bundle_Model_Resource_Option_Collection getCollection()
  * @method Mage_Bundle_Model_Resource_Option_Collection getResourceCollection()
- *
  * @method string getDefaultTitle()
  * @method int getOptionId()
  * @method int getParentId()

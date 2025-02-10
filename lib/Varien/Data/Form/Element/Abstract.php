@@ -1,16 +1,10 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Data form abstract class
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
- *
  * @method $this setAfterElementHtml(string $value)
  * @method string getClass()
  * @method $this setClass(string $value)
@@ -28,6 +22,11 @@
  * @method $this unsCanUseWebsiteValue()
  * @method $this unsScope()
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstract
 {
     protected $_id;

@@ -1,18 +1,18 @@
 <?php
-
 /**
- * @category   Varien
+ * Form text element
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @package    Varien_Data
+ */
+/**
  * @package    Varien_Data
  * @copyright  Copyright (c) The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-/**
- * Form text element
- *
- * @category   Varien
- * @package    Varien_Data
- */
+
 class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
 {
     public const VALIDATION_REGEX_WITH_HASH = '/^#[a-f0-9]{6}$/i';

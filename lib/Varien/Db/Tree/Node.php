@@ -1,7 +1,14 @@
 <?php
-
 /**
- * @category   Varien
+ * Varien_Db_Tree_Node constructor.
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @param array $nodeData
+ * @param array $keys
+ * @throws Varien_Db_Tree_Node_Exception
+ */
+/**
  * @package    Varien_Db
  */
 
@@ -19,12 +26,7 @@ class Varien_Db_Tree_Node
     public $hasChild = false;
     public $numChild = 0;
 
-    /**
-     * Varien_Db_Tree_Node constructor.
-     * @param array $nodeData
-     * @param array $keys
-     * @throws Varien_Db_Tree_Node_Exception
-     */
+    
     public function __construct($nodeData, $keys)
     {
         if (empty($nodeData)) {

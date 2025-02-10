@@ -1,17 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Checkout
- */
-
 /**
  * Cart Item Configure block
- * Updates templates and blocks to show 'Update Cart' button and set right form submit url
+Updates templates and blocks to show 'Update Cart' button and set right form submit url
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Checkout
  * @module     Checkout
  */

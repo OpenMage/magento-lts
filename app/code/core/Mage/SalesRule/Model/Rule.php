@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_SalesRule
- */
-
 /**
  * Shopping Cart Rule data model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_SalesRule
- *
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Collection getCollection()
- *
  * @method string getCouponCode()
  * @method $this setCouponCode(string $value)
  * @method string getName()

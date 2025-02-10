@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Directory
- */
-
 /**
  * Directory Factory
- * *
- * @category   Varien
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Directory
  */
+/**
+ * @package    Varien_Directory
+ */
+
+
 
 require_once('Varien/Directory/Collection.php');
 require_once('Varien/File/Object.php');

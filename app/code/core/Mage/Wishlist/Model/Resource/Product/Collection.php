@@ -1,19 +1,11 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Wishlist
- */
-
 /**
  * Wishlist Product collection
- * Deprecated because after Magento 1.4.2.0 it's impossible
- * to use product collection in wishlist
+Deprecated because after Magento 1.4.2.0 it's impossible
+to use product collection in wishlist
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Wishlist
  * @deprecated after 1.4.2.0
  */

@@ -1,13 +1,11 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Admin_Helper_Block::isTypeAllowed()
+ * @group Mage_Admin
+ * @group Mage_Admin_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
@@ -26,11 +24,7 @@ class BlockTest extends TestCase
         $this->subject = Mage::helper('admin/block');
     }
 
-    /**
-     * @covers Mage_Admin_Helper_Block::isTypeAllowed()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
-     */
+    
     public function testIsTypeAllowed(): void
     {
         $this->assertFalse($this->subject->isTypeAllowed('some-type'));

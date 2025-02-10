@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Varien
+ * Utility class for mapping data between objects or arrays
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Varien_Object
  */
 
-/**
- * Utility class for mapping data between objects or arrays
- */
+
 class Varien_Object_Mapper
 {
     /**

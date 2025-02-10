@@ -1,18 +1,18 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_File
- */
-
 /**
  * This class is invalid. Avoid using it
  *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @deprecated after 1.4.0.0-rc1
  * @file       Image.php
- *
  * @property mixed $uploader
  */
+/**
+ * @package    Varien_File
+ */
+
+
 class Varien_File_Uploader_Image extends Varien_File_Uploader
 {
     public function __construct()

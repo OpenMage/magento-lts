@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Core
+ * @group Mage_Core_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
@@ -26,19 +23,13 @@ class CookieTest extends TestCase
         $this->subject = Mage::helper('core/cookie');
     }
 
-    /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
-     */
+    
     public function testIsUserNotAllowSaveCookie(): void
     {
         $this->assertIsBool($this->subject->isUserNotAllowSaveCookie());
     }
 
-    /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
-     */
+    
     public function testGetAcceptedSaveCookiesWebsiteIds(): void
     {
         $this->assertSame('{"1":1}', $this->subject->getAcceptedSaveCookiesWebsiteIds());

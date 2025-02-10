@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Admin
+ * @group Mage_Admin_Model
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
@@ -28,37 +25,25 @@ class ConfigTest extends TestCase
         $this->subject = Mage::getModel('admin/config');
     }
 
-    /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     */
+    
     public function testGetAclAssert(): void
     {
         $this->assertFalse($this->subject->getAclAssert(''));
     }
 
-    /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     */
+    
     public function testGetAclPrivilegeSet(): void
     {
         $this->assertFalse($this->subject->getAclPrivilegeSet());
     }
 
-    /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     */
+    
     public function testLoadAclResources(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
-    /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     */
+    
     public function testGetAdminhtmlConfig(): void
     {
         $this->assertInstanceOf(Varien_Simplexml_Config::class, $this->subject->getAdminhtmlConfig());

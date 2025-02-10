@@ -1,21 +1,20 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Form editor element
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Data
- *
  * @method string getTitle()
  * @method string getForceLoad()
  * @method $this setConfig(Varien_Object $value)
  * @method bool getWysiwyg()
  */
+/**
+ * @package    Varien_Data
+ */
+
+
 class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
 {
     /**

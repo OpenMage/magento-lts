@@ -1,13 +1,10 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Base
+ * @dataProvider provideXmlFiles
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Base;
@@ -19,10 +16,7 @@ use XMLReader;
 
 class XmlFileLoadingTest extends TestCase
 {
-    /**
-     * @group Base
-     * @dataProvider provideXmlFiles
-     */
+    
     public function testFileLoading(string $filepath): void
     {
         /** @var SimpleXMLElement $simplexml */
@@ -34,10 +28,7 @@ class XmlFileLoadingTest extends TestCase
         $this->assertNotEmpty($simplexml->asXML());
     }
 
-    /**
-     * @group Base
-     * @dataProvider provideXmlFiles
-     */
+    
     public function testXmlReaderIsValid(string $filepath): void
     {
         /** @var XMLReader $xml */

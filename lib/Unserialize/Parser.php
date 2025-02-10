@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Unserialize
+ * Class Unserialize_Parser
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Unserialize_Parser
  */
 
-/**
- * Class Unserialize_Parser
- */
+
 class Unserialize_Parser
 {
     public const TYPE_STRING = 's';

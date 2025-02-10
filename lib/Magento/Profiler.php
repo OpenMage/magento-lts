@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Magento
+ * Static class that represents profiling tool
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Magento_Profiler
  */
 
-/**
- * Static class that represents profiling tool
- */
+
 class Magento_Profiler
 {
     /**

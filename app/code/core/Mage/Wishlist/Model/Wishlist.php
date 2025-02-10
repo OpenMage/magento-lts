@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Wishlist
- */
-
 /**
  * Wishlist model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Wishlist
- *
  * @method Mage_Wishlist_Model_Resource_Wishlist _getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist getResource()
  * @method Mage_Wishlist_Model_Resource_Wishlist_Collection getCollection()
- *
  * @method int getShared()
  * @method $this setShared(int $value)
  * @method string getSharingCode()

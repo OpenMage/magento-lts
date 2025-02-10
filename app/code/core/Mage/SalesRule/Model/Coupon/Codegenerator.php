@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_SalesRule
- */
-
 /**
  * Class Mage_SalesRule_Model_Coupon_Codegenerator
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_SalesRule
- *
  * @method string getAlphabet()
  * @method int getLength()
  * @method int  getLengthMax()

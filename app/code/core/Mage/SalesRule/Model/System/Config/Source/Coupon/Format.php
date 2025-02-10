@@ -1,17 +1,9 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_SalesRule
- */
-
 /**
  * Options for Code Format Field in Auto Generated Specific Coupon Codes configuration section
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_SalesRule
  */
 class Mage_SalesRule_Model_System_Config_Source_Coupon_Format

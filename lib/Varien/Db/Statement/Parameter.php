@@ -1,21 +1,20 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Db
- */
-
 /**
  * Varien DB Statement Parameter
+Used to transmit specific information about parameter value binding to be bound the right
+way to the query.
+Most used properties and methods are defined in interface. Specific things for concrete DB adapter can be
+transmitted using 'additional' property (Varien_Object) as a container.
  *
- * Used to transmit specific information about parameter value binding to be bound the right
- * way to the query.
- * Most used properties and methods are defined in interface. Specific things for concrete DB adapter can be
- * transmitted using 'additional' property (Varien_Object) as a container.
- *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Db
  */
+/**
+ * @package    Varien_Db
+ */
+
+
 class Varien_Db_Statement_Parameter
 {
     /**

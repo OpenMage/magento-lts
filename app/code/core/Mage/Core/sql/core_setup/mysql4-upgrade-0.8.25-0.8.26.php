@@ -1,13 +1,8 @@
 <?php
-
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  */
-
 $currentVersion = Mage::getVersion();
 if (version_compare($currentVersion, '1.3.9') < 0) {
     echo 'Exiting ...';

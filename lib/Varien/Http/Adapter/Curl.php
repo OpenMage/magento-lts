@@ -1,16 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Http
- */
-
 /**
  * HTTP CURL Adapter
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Http
  */
+/**
+ * @package    Varien_Http
+ */
+
+
 class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
 {
     /**

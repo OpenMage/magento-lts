@@ -1,22 +1,11 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Shipping
- */
-
 /**
  * Class Mage_Shipping_Block_Tracking_Popup
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Shipping
- *
  * @method string getProtectCode()
- *
- * @SuppressWarnings("PHPMD.CamelCasePropertyName")
  */
 class Mage_Shipping_Block_Tracking_Popup extends Mage_Core_Block_Template
 {

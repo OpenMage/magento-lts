@@ -1,18 +1,17 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Event
- */
-
 /**
  * Event regex observer object
  *
- * @category   Varien
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Varien_Event
- *
  * @method string getEventRegex()
  */
+/**
+ * @package    Varien_Event
+ */
+
+
 class Varien_Event_Observer_Regex extends Varien_Event_Observer
 {
     /**

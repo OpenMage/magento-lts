@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- */
-
 /**
  * Item option model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Quote_Item_Option _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item_Option_Collection getCollection()
- *
  * @method $this setBackorders(float $value)
  * @method $this setHasError(bool $value)
  * @method $this setHasQtyOptionUpdate(bool $value)

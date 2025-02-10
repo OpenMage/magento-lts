@@ -1,17 +1,17 @@
 <?php
-
 /**
- * @category   Varien
+ * Converter of date formats
+Internal dates
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @package  Varien_Date
+ */
+/**
  * @package    Varien_Date
  */
 
-/**
- * Converter of date formats
- * Internal dates
- *
- * @category Varien
- * @package  Varien_Date
- */
+
 class Varien_Date
 {
     /**

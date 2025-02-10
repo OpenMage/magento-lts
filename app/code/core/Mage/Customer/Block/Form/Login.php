@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- * @category   Mage
- * @package    Mage_Customer
- */
-
 /**
  * Customer login form block
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Customer
- *
  * @method $this setCreateAccountUrl(string $value)
  */
 class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template

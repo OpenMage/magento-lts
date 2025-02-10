@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Unserialize
+ * Class Unserialize_Reader_Int
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Unserialize_Reader
  */
 
-/**
- * Class Unserialize_Reader_Int
- */
+
 class Unserialize_Reader_Bool
 {
     /**

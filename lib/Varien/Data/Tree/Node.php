@@ -1,13 +1,10 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Data
- */
-
 /**
  * Data tree node
  *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @package    Varien_Data
  * @method int getLevel()
  * @method string getClass()
  * @method string getPositionClass()
@@ -16,10 +13,12 @@
  * @method $this setChildrenWrapClass(string $class)
  * @method bool getIsFirst()
  * @method bool getIsLast()
- *
- * @category   Varien
+ */
+/**
  * @package    Varien_Data
  */
+
+
 class Varien_Data_Tree_Node extends Varien_Object
 {
     /**

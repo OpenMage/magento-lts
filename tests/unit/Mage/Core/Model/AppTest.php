@@ -1,5 +1,13 @@
 <?php
-
+/**
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideGetStoreConfig
+ * @dataProvider provideGetWebsite
+ * @group Mage_Core
+ * @group Mage_Core_Model
+ * @param int|Mage_Core_Model_Website|null|string|true $id
+ */
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
@@ -51,14 +59,7 @@ class AppTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideGetStoreConfig
-     * @dataProvider provideGetWebsite
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     *
-     * @param int|Mage_Core_Model_Website|null|string|true $id
-     */
+    
     public function testGetWebsite($id): void
     {
         try {

@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Api2
- */
-
 /**
  * API2 Abstract Resource
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Api2
- *
  * @method string _create() _create(array $filteredData) creation of an entity
  * @method void _multiCreate() _multiCreate(array $filteredData) processing and creation of a collection
  * @method array _retrieve() retrieving an entity

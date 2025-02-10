@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Magento
+ * Class encapsulates cryptographic algorithm
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Magento_Crypt
  */
 
-/**
- * Class encapsulates cryptographic algorithm
- */
+
 class Magento_Crypt
 {
     /**

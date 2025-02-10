@@ -1,32 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Core
- */
-
 /**
  * Validator for check not protected/available path
+Mask symbols from path:
+"?" - something directory with any name
+"" - something directory structure, which can not exist
+Note: For set directory structure which must be exist, need to set mask "/?/{
  *
- * Mask symbols from path:
- * "?" - something directory with any name
- * "*" - something directory structure, which can not exist
- * Note: For set directory structure which must be exist, need to set mask "/?/{@*}"
- * Mask symbols from filename:
- * "*" - something symbols in file name
- * Example:
- * <code>
- * //set available path
- * $validator->setAvailablePath(array('/path/to/?/*fileMask.xml'));
- * $validator->isValid('/path/to/MyDir/Some-fileMask.xml'); //return true
- * $validator->setAvailablePath(array('/path/to/{@*}*.xml'));
- * $validator->isValid('/path/to/my.xml'); //return true, because directory structure can't exist
- * </code>
- *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Core
  */
 class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract

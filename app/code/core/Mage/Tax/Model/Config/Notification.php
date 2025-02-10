@@ -1,19 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Tax
- */
-
 /**
  * Tax Config Notification
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Tax
- *
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item _getResource()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item getResource()
  * @method Mage_Tax_Model_Resource_Sales_Order_Tax_Item_Collection getCollection()

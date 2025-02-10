@@ -1,25 +1,16 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Shipping
- */
-
 /**
  * Fields:
- * - carrier: ups
- * - carrierTitle: United Parcel Service
- * - method: 2day
- * - methodTitle: UPS 2nd Day Priority
- * - price: $9.40 (cost+handling)
- * - cost: $8.00
+- carrier: ups
+- carrierTitle: United Parcel Service
+- method: 2day
+- methodTitle: UPS 2nd Day Priority
+- price: $9.40 (cost+handling)
+- cost: $8.00
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Shipping
- *
  * @method $this setCarrier(string $value)
  * @method $this setCarrierTitle(string $value)
  * @method string getMethod()

@@ -1,24 +1,14 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_CatalogSearch
- */
-
 /**
  * Catalog search query model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_CatalogSearch
- *
  * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
- *
  * @method int getDisplayInTerms()
  * @method $this setDisplayInTerms(int $value)
  * @method int getIsActive()

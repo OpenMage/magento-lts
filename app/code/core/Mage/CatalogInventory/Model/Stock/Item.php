@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_CatalogInventory
- */
-
 /**
  * Catalog Inventory Stock Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_CatalogInventory
- *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Item_Collection getCollection()
- *
  * @method $this setProductId(int $value)
  * @method $this setStockId(int $value)
  * @method float getQty()

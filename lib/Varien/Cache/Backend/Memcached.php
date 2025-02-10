@@ -1,15 +1,16 @@
 <?php
-
-/**
- * @category   Varien
- * @package    Varien_Cache
- */
-
 /**
  * Class Varien_Cache_Backend_Memcached
  *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @deprecated after 1.7.0.2
  */
+/**
+ * @package    Varien_Cache
+ */
+
+
 class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implements Zend_Cache_Backend_ExtendedInterface
 {
     /**

@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Magento
+ * Abstract class that represents profiler output
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Magento_Profiler
  */
 
-/**
- * Abstract class that represents profiler output
- */
+
 abstract class Magento_Profiler_OutputAbstract
 {
     /**

@@ -1,13 +1,15 @@
 <?php
-
 /**
- * @category   Varien
+ * Mysql PDO DB adapter
+ *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ */
+/**
  * @package    Varien_Db
  */
 
-/**
- * Mysql PDO DB adapter
- */
+
 class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements Varien_Db_Adapter_Interface
 {
     public const DEBUG_CONNECT         = 0;

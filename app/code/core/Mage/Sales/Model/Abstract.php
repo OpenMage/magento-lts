@@ -1,18 +1,10 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Sales
- */
-
 /**
  * Sales abstract model
- * Provide date processing functionality
+Provide date processing functionality
  *
- *
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
  * @method $this setTransactionId(int $value)
  * @method bool getForceUpdateGridRecords()

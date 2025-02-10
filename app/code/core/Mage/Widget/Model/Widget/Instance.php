@@ -1,23 +1,13 @@
 <?php
-
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Widget
- */
-
 /**
  * Widget Instance Model
  *
- * @category   Mage
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
  * @package    Mage_Widget
- *
  * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
- *
  * @method array getPageGroups()
  * @method $this setPageGroups(array $value)
  * @method $this setStoreIds(string $value)
