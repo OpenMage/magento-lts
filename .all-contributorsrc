@@ -244,7 +244,8 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/2094614?v=4",
       "profile": "https://netalico.com/",
       "contributions": [
-        "code"
+        "code",
+        "bug"
       ]
     },
     {
@@ -1515,6 +1516,15 @@
       "profile": "http://www.cartware.de",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "mbattistini",
+      "name": "mbattistini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/276468?v=4",
+      "profile": "https://github.com/mbattistini",
+      "contributions": [
+        "bug"
       ]
     }
   ],
