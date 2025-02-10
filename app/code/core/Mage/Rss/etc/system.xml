@@ -1,13 +1,9 @@
 <?xml version="1.0"?>
 <!--
-/**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
- * @package    Mage_Rss
- */
+This file is part of OpenMage.
+For copyright and license information, read the COPYING.txt file.
 -->
+
 <config>
     <sections>
         <rss translate="label" module="rss">

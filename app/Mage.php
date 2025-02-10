@@ -1,13 +1,11 @@
 <?php
 
 /**
- * This file is part of OpenMage.
- * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage
  */
-
 define('DS', DIRECTORY_SEPARATOR);
 define('PS', PATH_SEPARATOR);
 define('BP', dirname(__DIR__));
