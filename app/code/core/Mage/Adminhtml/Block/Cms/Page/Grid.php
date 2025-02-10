@@ -133,10 +133,8 @@ class Mage_Adminhtml_Block_Cms_Page_Grid extends Mage_Adminhtml_Block_Widget_Gri
     }
 
     /**
-     * Row click url
-     *
      * @return string
-     * @param  mixed  $row
+     * @param  Mage_Cms_Model_Page $row
      */
     public function getRowUrl($row)
     {
