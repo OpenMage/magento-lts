@@ -403,11 +403,11 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
     }
 
     /**
-    * Retrieve Default Quantity Increments data wrapper
-    *
-    * @deprecated since 1.7.0.0
+     * Retrieve Default Quantity Increments data wrapper
+     *
+     * @deprecated since 1.7.0.0
      * @return int|false
-    */
+     */
     public function getDefaultQtyIncrements()
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_QTY_INCREMENTS)
@@ -566,8 +566,8 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $qty = (int) $qty;
 
             /**
-              * Adding stock data to quote item
-              */
+             * Adding stock data to quote item
+             */
             $result->setItemQty($qty);
 
             if (!is_numeric($qty)) {

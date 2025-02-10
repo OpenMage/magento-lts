@@ -51,8 +51,8 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
     }
 
     /**
-    * Implementation of IteratorAggregate::getIterator()
-    */
+     * Implementation of IteratorAggregate::getIterator()
+     */
     public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->_nodes);

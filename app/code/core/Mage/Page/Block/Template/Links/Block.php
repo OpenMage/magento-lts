@@ -207,20 +207,20 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
     }
 
     /**
-    * Return Li Params
-    *
+     * Return Li Params
+     *
      * @return string
-    */
+     */
     public function getLiParams()
     {
         return $this->_prepareParams($this->_liParams);
     }
 
     /**
-    * Return Link Tag Params
-    *
+     * Return Link Tag Params
+     *
      * @return string
-    */
+     */
     public function getAParams()
     {
         return $this->_prepareParams($this->_aParams);

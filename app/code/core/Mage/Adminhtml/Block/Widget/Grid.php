@@ -182,10 +182,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     protected $_massactionBlockName = 'adminhtml/widget_grid_massaction';
 
     /**
-    * RSS list
-    *
+     * RSS list
+     *
      * @var array
-    */
+     */
     protected $_rssLists = [];
 
     /**
@@ -1029,10 +1029,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     }
 
     /**
-    * Retrieve rss lists types
-    *
+     * Retrieve rss lists types
+     *
      * @return array|false
-    */
+     */
     public function getRssLists()
     {
         return empty($this->_rssLists) ? false : $this->_rssLists;

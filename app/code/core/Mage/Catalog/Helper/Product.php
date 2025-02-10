@@ -244,8 +244,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     public function getAttributeInputTypes($inputType = null)
     {
         /**
-        * @todo specify there all relations for properties depending on input type
-        */
+         * @todo specify there all relations for properties depending on input type
+         */
         $inputTypes = [
             'multiselect'   => [
                 'backend_model'     => 'eav/entity_attribute_backend_array',

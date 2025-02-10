@@ -30,10 +30,10 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     protected $_tracks = [];
 
     /**
-    * Order shipments collection
-    *
+     * Order shipments collection
+     *
      * @var array|Mage_Sales_Model_Resource_Order_Shipment_Collection
-    */
+     */
     protected $_shipmentsCollection;
 
     /**
@@ -132,10 +132,10 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     }
 
     /**
-    * Retrieve order shipments collection
-    *
+     * Retrieve order shipments collection
+     *
      * @return array|Mage_Sales_Model_Resource_Order_Shipment_Collection
-    */
+     */
     public function getShipmentsCollection()
     {
         return $this->_shipmentsCollection;

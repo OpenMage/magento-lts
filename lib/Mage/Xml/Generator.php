@@ -53,7 +53,7 @@ class Mage_Xml_Generator
 
     /**
      * @param array|array[] $content
-    */
+     */
     public function arrayToXml($content)
     {
         $parentNode = $this->_getCurrentDom();

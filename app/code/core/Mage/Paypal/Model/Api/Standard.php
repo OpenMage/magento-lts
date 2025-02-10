@@ -69,10 +69,10 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     ];
 
     /**
-      * Fields that should be replaced in debug with '***'
-      *
-       * @var array
-      */
+     * Fields that should be replaced in debug with '***'
+     *
+     * @var array
+     */
     protected $_debugReplacePrivateDataKeys = ['business'];
 
     /**

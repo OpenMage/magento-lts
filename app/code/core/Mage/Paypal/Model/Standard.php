@@ -48,10 +48,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-    * Get paypal session namespace
-    *
+     * Get paypal session namespace
+     *
      * @return Mage_Paypal_Model_Session
-    */
+     */
     public function getSession()
     {
         return Mage::getSingleton('paypal/session');

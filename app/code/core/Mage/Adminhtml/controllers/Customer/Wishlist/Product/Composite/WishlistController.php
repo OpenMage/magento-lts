@@ -29,10 +29,10 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     public const ADMIN_RESOURCE = 'customer/manage';
 
     /**
-    * Wishlist we're working with
-    *
+     * Wishlist we're working with
+     *
      * @var Mage_Wishlist_Model_Wishlist
-    */
+     */
     protected $_wishlist = null;
 
     /**

@@ -467,10 +467,10 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     }
 
     /**
-      * Get payment action code
-      *
-       * @return string
-      */
+     * Get payment action code
+     *
+     * @return string
+     */
     protected function _getTrxTokenType()
     {
         switch ($this->getConfigData('payment_action')) {
@@ -483,10 +483,10 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     }
 
     /**
-      * Return unique value for secure token id
-      *
-       * @return string
-      */
+     * Return unique value for secure token id
+     *
+     * @return string
+     */
     protected function _generateSecureTokenId()
     {
         return Mage::helper('core')->uniqHash();
@@ -505,13 +505,13 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
     }
 
     /**
-      * If response is failed throw exception
-      * Set token data in payment object
-      *
-       * @param  Varien_Object                                          $response
-       * @param  Mage_Payment_Model_Info|Mage_Sales_Model_Order_Payment $payment
-       * @throws Mage_Core_Exception
-      */
+     * If response is failed throw exception
+     * Set token data in payment object
+     *
+     * @param  Varien_Object                                          $response
+     * @param  Mage_Payment_Model_Info|Mage_Sales_Model_Order_Payment $payment
+     * @throws Mage_Core_Exception
+     */
     protected function _processTokenErrors($response, $payment)
     {
         if (!$response->getSecuretoken() &&

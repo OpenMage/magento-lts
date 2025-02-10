@@ -464,8 +464,8 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
     }
 
     /**
-    * Build response for refresh input element 'path' in form
-    */
+     * Build response for refresh input element 'path' in form
+     */
     public function refreshPathAction()
     {
         if ($id = (int) $this->getRequest()->getParam('id')) {

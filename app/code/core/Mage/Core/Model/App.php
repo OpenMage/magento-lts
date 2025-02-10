@@ -141,10 +141,10 @@ class Mage_Core_Model_App
     protected $_cache;
 
     /**
-    * Use Cache
-    *
+     * Use Cache
+     *
      * @var array
-    */
+     */
     protected $_useCache;
 
     /**

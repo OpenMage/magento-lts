@@ -266,7 +266,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 
         /**
          * Setting affected category ids for third party engine index refresh
-        */
+         */
         $this->setMovedCategoryId($this->getId());
 
         $eventParams = [

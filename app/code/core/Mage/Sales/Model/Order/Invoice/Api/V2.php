@@ -38,8 +38,8 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
         $itemsQty = $this->_prepareItemQtyData($itemsQty);
         /** @var Mage_Sales_Model_Order $order */
         /**
-          * Check order existing
-          */
+         * Check order existing
+         */
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }

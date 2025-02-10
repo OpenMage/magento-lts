@@ -246,11 +246,11 @@ class Mage_Catalog_Model_Product_Attribute_Set_Api extends Mage_Api_Model_Resour
     }
 
     /**
-        * Remove group from existing attribute set
-        *
-         * @param  string|int $attributeGroupId
-         * @return bool
-        */
+     * Remove group from existing attribute set
+     *
+     * @param  string|int $attributeGroupId
+     * @return bool
+     */
     public function groupRemove($attributeGroupId)
     {
         /** @var Mage_Catalog_Model_Product_Attribute_Group $group */

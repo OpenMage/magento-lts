@@ -25,6 +25,8 @@ return $config
         'phpdoc_align' => true,
         // PHPDoc should contain @param for all params.
         'phpdoc_add_missing_param_annotation' => true,
+        // Docblocks should have the same indentation as the documented subject.
+        'phpdoc_indent' => true,
         // Convert double quotes to single quotes for simple strings.
         'single_quote' => true,
         // Arguments lists, array destructuring lists, arrays that are multi-line, match-lines and parameters lists must have a trailing comma.

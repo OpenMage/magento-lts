@@ -15,9 +15,9 @@
  */
 
 /**
-* Error processor
-*
-*/
+ * Error processor
+ *
+ */
 class Error_Processor
 {
     public const MAGE_ERRORS_LOCAL_XML = 'local.xml';
@@ -57,7 +57,7 @@ class Error_Processor
      * Show message after sending email
      *
      * @var bool
-    */
+     */
     public $showSentMsg;
 
     /** @var bool */
@@ -67,7 +67,7 @@ class Error_Processor
      * Server script name
      *
      * @var string
-    */
+     */
     protected $_scriptName;
 
     /** @var bool */
@@ -86,7 +86,7 @@ class Error_Processor
      * Internal config object
      *
      * @var stdClass
-    */
+     */
     protected $_config;
 
     public function __construct()
@@ -118,7 +118,7 @@ class Error_Processor
 
     /**
      * Process 404 error
-    */
+     */
     public function process404()
     {
         $this->pageTitle = 'Error 404: Not Found';
@@ -128,7 +128,7 @@ class Error_Processor
 
     /**
      * Process 503 error
-    */
+     */
     public function process503()
     {
         $this->pageTitle = 'Error 503: Service Unavailable';
@@ -138,7 +138,7 @@ class Error_Processor
 
     /**
      * Process report
-    */
+     */
     public function processReport()
     {
         $this->pageTitle = 'There has been an error processing your request';

@@ -183,7 +183,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
     /**
      * @return Mage_Admin_Model_Session
-*/
+     */
     protected function getSession()
     {
         return  Mage::getSingleton('admin/session');

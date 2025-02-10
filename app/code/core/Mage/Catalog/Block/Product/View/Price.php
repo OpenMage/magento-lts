@@ -23,8 +23,8 @@
 class Mage_Catalog_Block_Product_View_Price extends Mage_Core_Block_Template
 {
     /**
-       * @return mixed
-      */
+     * @return mixed
+     */
     public function getPrice()
     {
         $product = Mage::registry('product');

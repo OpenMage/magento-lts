@@ -23,8 +23,8 @@
 class Mage_Reports_Model_Config extends Varien_Object
 {
     /**
-       * @return string
-      */
+     * @return string
+     */
     public function getGlobalConfig()
     {
         $dom = new DOMDocument();
@@ -39,16 +39,16 @@ class Mage_Reports_Model_Config extends Varien_Object
     }
 
     /**
-       * @return false|string
-      */
+     * @return false|string
+     */
     public function getLanguage()
     {
         return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexLanguage.xml');
     }
 
     /**
-       * @return false|string
-      */
+     * @return false|string
+     */
     public function getDashboard()
     {
         return file_get_contents(Mage::getModuleDir('etc', 'Mage_Reports') . DS . 'flexDashboard.xml');

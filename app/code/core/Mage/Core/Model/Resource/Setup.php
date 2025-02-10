@@ -732,15 +732,15 @@ class Mage_Core_Model_Resource_Setup
     }
 
     /**
-    * Delete table row
-    *
+     * Delete table row
+     *
      * @param  string      $table
      * @param  string      $idField
      * @param  int|string  $id
      * @param  null|string $parentField
      * @param  int|string  $parentId
      * @return $this
-    */
+     */
     public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
     {
         if (str_contains($table, '/')) {

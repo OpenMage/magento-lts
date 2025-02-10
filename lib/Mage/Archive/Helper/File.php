@@ -15,11 +15,11 @@
  */
 
 /**
-* Helper class that simplifies files stream reading and writing
-*
-* @category    Mage
-* @package     Mage_Archive
-*/
+ * Helper class that simplifies files stream reading and writing
+ *
+ * @category    Mage
+ * @package     Mage_Archive
+ */
 class Mage_Archive_Helper_File
 {
     /**
@@ -247,10 +247,10 @@ class Mage_Archive_Helper_File
     }
 
     /**
-    * Check whether requested mode is readable mode
-    *
+     * Check whether requested mode is readable mode
+     *
      * @param string $mode
-    */
+     */
     protected function _isReadableMode($mode)
     {
         return !$this->_isWritableMode($mode);

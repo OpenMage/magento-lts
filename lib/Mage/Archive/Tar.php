@@ -52,24 +52,24 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     protected $_skipRoot;
 
     /**
-    * Tarball data writer
-    *
+     * Tarball data writer
+     *
      * @var Mage_Archive_Helper_File|null
-    */
+     */
     protected $_writer;
 
     /**
-    * Tarball data reader
-    *
+     * Tarball data reader
+     *
      * @var Mage_Archive_Helper_File|null
-    */
+     */
     protected $_reader;
 
     /**
-    * Path to file where tarball should be placed
-    *
+     * Path to file where tarball should be placed
+     *
      * @var string
-    */
+     */
     protected $_destinationFilePath;
 
     /**
@@ -192,11 +192,11 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     }
 
     /**
-    * Set path to file where tarball should be placed
-    *
+     * Set path to file where tarball should be placed
+     *
      * @param  string           $destinationFilePath
      * @return Mage_Archive_Tar
-    */
+     */
     protected function _setDestinationFilePath($destinationFilePath)
     {
         $this->_destinationFilePath = $destinationFilePath;

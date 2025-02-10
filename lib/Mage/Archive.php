@@ -23,27 +23,27 @@
 class Mage_Archive
 {
     /**
-    * Archiver is used for compress.
-    */
+     * Archiver is used for compress.
+     */
     public const DEFAULT_ARCHIVER   = 'gz';
 
     /**
-    * Default packer for directory.
-    */
+     * Default packer for directory.
+     */
     public const TAPE_ARCHIVER      = 'tar';
 
     /**
-    * Current archiver is used for compress.
-    *
+     * Current archiver is used for compress.
+     *
      * @var Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
-    */
+     */
     protected $_archiver = null;
 
     /**
-    * Accessible formats for compress.
-    *
+     * Accessible formats for compress.
+     *
      * @var array
-    */
+     */
     protected $_formats = [
         'tar'        => 'tar',
         'gz'         => 'gz',
@@ -60,11 +60,11 @@ class Mage_Archive
         'tbzip2'     => 'tar.bz'];
 
     /**
-    * Create object of current archiver by $extension.
-    *
+     * Create object of current archiver by $extension.
+     *
      * @param  string                                           $extension
      * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
-    */
+     */
     protected function _getArchiver($extension)
     {
         if (array_key_exists(strtolower($extension), $this->_formats)) {
@@ -78,11 +78,11 @@ class Mage_Archive
     }
 
     /**
-    * Split current format to list of archivers.
-    *
+     * Split current format to list of archivers.
+     *
      * @param  string $source
      * @return array
-    */
+     */
     protected function _getArchivers($source)
     {
         $ext = pathinfo($source, PATHINFO_EXTENSION);
@@ -97,13 +97,13 @@ class Mage_Archive
     }
 
     /**
-    * Pack file or directory to archivers are parsed from extension.
-    *
+     * Pack file or directory to archivers are parsed from extension.
+     *
      * @param  string  $source
      * @param  string  $destination
      * @param  boolean $skipRoot    skip first level parent
      * @return string  Path to file
-    */
+     */
     public function pack($source, $destination = 'packed.tgz', $skipRoot = false)
     {
         $archivers = $this->_getArchivers($destination);
@@ -124,16 +124,16 @@ class Mage_Archive
     }
 
     /**
-    * Unpack file from archivers are parsed from extension.
-    * If $tillTar == true unpack file from archivers till
-    * meet TAR archiver.
-    *
+     * Unpack file from archivers are parsed from extension.
+     * If $tillTar == true unpack file from archivers till
+     * meet TAR archiver.
+     *
      * @param  string $source
      * @param  string $destination
      * @param  bool   $tillTar
      * @param  bool   $clearInterm
      * @return string Path to file
-    */
+     */
     public function unpack($source, $destination = '.', $tillTar = false, $clearInterm = true)
     {
         $archivers = $this->_getArchivers($source);
@@ -158,13 +158,13 @@ class Mage_Archive
     }
 
     /**
-    * Extract one file from TAR (Tape Archiver).
-    *
+     * Extract one file from TAR (Tape Archiver).
+     *
      * @param  string $file
      * @param  string $source
      * @param  string $destination
      * @return string Path to file
-    */
+     */
     public function extract($file, $source, $destination = '.')
     {
         $tarFile = $this->unpack($source, $destination, true);
@@ -176,11 +176,11 @@ class Mage_Archive
     }
 
     /**
-    * Check file is archive.
-    *
+     * Check file is archive.
+     *
      * @param  string  $file
      * @return boolean
-    */
+     */
     public function isArchive($file)
     {
         $archivers = $this->_getArchivers($file);
@@ -191,11 +191,11 @@ class Mage_Archive
     }
 
     /**
-    * Check file is TAR.
-    *
+     * Check file is TAR.
+     *
      * @param  mixed   $file
      * @return boolean
-    */
+     */
     public function isTar($file)
     {
         $archivers = $this->_getArchivers($file);

@@ -336,7 +336,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     $this->__("'%value%' appears to be a local network name but local network names are not allowed")
                     $this->__("'%value%' appears to be a DNS hostname but cannot extract TLD part")
                     $this->__("'%value%' appears to be a DNS hostname but cannot match TLD against known list")
-                    */
+                     */
                     $validator = new Zend_Validate_EmailAddress();
                     $validator->setMessage(
                         Mage::helper('eav')->__('"%s" invalid type entered.', $label),

@@ -43,7 +43,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
      * If product out of stock, its item will be removed after load
      *
      * @var bool
-      */
+     */
     protected $_productInStock = false;
 
     /**
