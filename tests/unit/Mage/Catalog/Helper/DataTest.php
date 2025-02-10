@@ -37,6 +37,7 @@ class DataTest extends TestCase
      * @dataProvider provideSplitSku
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
+     * @param mixed $expectedResult
      */
     public function testSplitSku($expectedResult, string $sku, int $length = 30): void
     {

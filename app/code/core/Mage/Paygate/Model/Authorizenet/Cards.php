@@ -186,6 +186,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
      *
      * $param string $key
      * @return float
+     * @param  mixed $key
      */
     public function _getAmount($key)
     {

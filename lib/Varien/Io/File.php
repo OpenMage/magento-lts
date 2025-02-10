@@ -119,6 +119,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param  string $fileName
      * @param  string $mode
+     * @param  mixed  $chmod
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -154,6 +155,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Lock file
      *
      * @return bool
+     * @param  mixed $exclusive
      */
     public function streamLock($exclusive = true)
     {
@@ -204,6 +206,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @return array|false|null
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param mixed $delimiter
+     * @param mixed $enclosure
      */
     public function streamReadCsv($delimiter = ',', $enclosure = '"')
     {
@@ -374,6 +378,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Delete a directory
      *
      * @param  string  $dir
+     * @param  mixed   $recursive
      * @return boolean
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -615,6 +620,8 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param mixed $file
+     * @param mixed $onlyFile
      */
     public function fileExists($file, $onlyFile = true)
     {
@@ -633,6 +640,7 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param mixed $path
      */
     public function isWriteable($path)
     {

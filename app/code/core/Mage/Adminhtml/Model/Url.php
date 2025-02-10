@@ -45,6 +45,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      * Force strip secret key param if _nosecret param specified
      *
      * @return Mage_Core_Model_Url
+     * @param  mixed               $unsetOldParams
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
     {

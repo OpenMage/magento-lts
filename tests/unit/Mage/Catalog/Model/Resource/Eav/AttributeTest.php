@@ -39,6 +39,8 @@ class AttributeTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      * @group Mage_Catalog_Model_Resource
+     * @param mixed $expectedResult
+     * @param mixed $withStoreId
      */
     public function testGetStoreId($expectedResult, $withStoreId): void
     {

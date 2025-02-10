@@ -81,9 +81,10 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
     /**
      * Add column renderer
      *
-     * @param  string $column
-     * @param  string $block
-     * @param  string $template
+     * @param  string     $column
+     * @param  string     $block
+     * @param  string     $template
+     * @param  null|mixed $type
      * @return $this
      */
     public function addColumnRender($column, $block, $template, $type = null)
@@ -423,6 +424,7 @@ class Mage_Adminhtml_Block_Sales_Items_Abstract extends Mage_Adminhtml_Block_Tem
      * @return $this
      * @see self::_canEditQty
      * @see self::canEditQty
+     * @param mixed $value
      */
     public function setCanEditQty($value)
     {

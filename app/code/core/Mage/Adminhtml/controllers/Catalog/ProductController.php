@@ -826,6 +826,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
 
     /**
      * @deprecated since 1.4.0.0-alpha2
+     * @param mixed $encoded
      */
     protected function _decodeInput($encoded)
     {

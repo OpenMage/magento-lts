@@ -76,6 +76,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Note: if $recursive is true and an error occurs mid-execution,
      * false is returned and some part of the hierarchy might be created.
      * No rollback is performed.
+     * @param mixed $dir
      */
     public function mkdir($dir, $mode = 0777, $recursive = true)
     {
@@ -97,6 +98,8 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Delete a directory
      *
+     * @param mixed $dir
+     * @param mixed $recursive
      */
     public function rmdir($dir, $recursive = false)
     {
@@ -139,6 +142,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Change current working directory
      *
+     * @param mixed $dir
      */
     public function cd($dir)
     {
@@ -148,6 +152,8 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Read a file
      *
+     * @param mixed      $filename
+     * @param null|mixed $dest
      */
     public function read($filename, $dest = null)
     {
@@ -159,7 +165,9 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     /**
      * Write a file
-     * @param $src Must be a local file name
+     * @param            $src      Must be a local file name
+     * @param mixed      $filename
+     * @param null|mixed $mode
      */
     public function write($filename, $src, $mode = null)
     {
@@ -169,6 +177,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Delete a file
      *
+     * @param mixed $filename
      */
     public function rm($filename)
     {
@@ -178,6 +187,8 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Rename or move a directory or a file
      *
+     * @param mixed $src
+     * @param mixed $dest
      */
     public function mv($src, $dest)
     {
@@ -187,6 +198,8 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Chamge mode of a directory or a file
      *
+     * @param mixed $filename
+     * @param mixed $mode
      */
     public function chmod($filename, $mode)
     {
@@ -196,6 +209,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Get list of cwd subdirectories and files
      *
+     * @param null|mixed $grep
      */
     public function ls($grep = null)
     {

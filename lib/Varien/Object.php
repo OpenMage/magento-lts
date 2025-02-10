@@ -566,6 +566,7 @@ class Varien_Object implements ArrayAccess
      *
      * @param  array  $arrAttributes  array of required attributes
      * @param  string $valueSeparator
+     * @param  mixed  $format
      * @return string
      */
     //    public function __toString(array $arrAttributes = array(), $valueSeparator=',')

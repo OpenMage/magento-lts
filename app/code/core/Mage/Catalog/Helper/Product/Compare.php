@@ -382,6 +382,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
      *
      * @param  Mage_Catalog_Model_Product $product
      * @param  bool                       $addFormKey
+     * @param  null|mixed                 $url
      * @return array
      */
     protected function _getUrlCustomParams($product, $addFormKey = true, $url = null)

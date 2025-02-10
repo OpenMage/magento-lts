@@ -140,6 +140,7 @@ class Mage_Eav_Model_Config
 
     /**
      * @throws Exception
+     * @param  null|mixed $storeId
      */
     protected function _initializeStore($storeId = null)
     {

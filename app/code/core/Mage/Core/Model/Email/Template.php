@@ -330,6 +330,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Makes additional text preparations for HTML templates
      *
      * @return string
+     * @param  null|mixed $html
      */
     /**
      * @param  string|null $html

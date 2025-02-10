@@ -162,6 +162,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Authorize payment
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  mixed                          $amount
      * @return $this
      */
     public function authorize(Varien_Object $payment, $amount)
@@ -185,6 +186,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Capture payment
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  mixed                          $amount
      * @return $this
      */
     public function capture(Varien_Object $payment, $amount)
@@ -199,6 +201,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      * Refund capture
      *
      * @param  Mage_Sales_Model_Order_Payment $payment
+     * @param  mixed                          $amount
      * @return $this
      */
     public function refund(Varien_Object $payment, $amount)

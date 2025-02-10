@@ -98,6 +98,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Customer_Grid extends Mage_Adminht
 
     /**
      * @deprecated since 1.1.7
+     * @param mixed $row
      */
     public function getRowId($row)
     {

@@ -785,6 +785,7 @@ class Mage_Paypal_Model_Express_Checkout
      * If there are shipping rates obtained, the method must return one of them as default.
      *
      * @param  bool  $mayReturnEmpty
+     * @param  mixed $calculateTax
      * @return array
      */
     protected function _prepareShippingOptions(

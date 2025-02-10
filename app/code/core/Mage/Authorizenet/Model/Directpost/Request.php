@@ -63,6 +63,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * @param  string $amount
      * @param  string $fpSequence             An invoice number or random number.
      * @param  string $fpTimestamp
+     * @param  mixed  $currencyCode
      * @return string The fingerprint.
      */
     public function generateRequestSign($merchantApiLoginId, $merchantTransactionKey, $amount, $currencyCode, $fpSequence, $fpTimestamp)

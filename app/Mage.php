@@ -970,6 +970,7 @@ final class Mage
 
     /**
      * Display exception
+     * @param mixed $extra
      */
     public static function printException(Throwable $e, $extra = '')
     {

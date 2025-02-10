@@ -696,6 +696,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param  string                      $tableCacheKey
      * @param  int                         $ddlType
+     * @param  mixed                       $data
      * @return Varien_Db_Adapter_Interface
      */
     public function saveDdlCache($tableCacheKey, $ddlType, $data);
@@ -1037,6 +1038,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @mixed $value
      * @return mixed
+     * @param  mixed $value
      */
     public function decodeVarbinary($value);
 

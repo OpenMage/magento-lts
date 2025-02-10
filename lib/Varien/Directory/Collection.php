@@ -35,8 +35,10 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     /**
      * Constructor
      *
-     * @param  string $path         - path to directory
-     * @param  bool   $is_recursion - use or not recursion
+     * @param  string $path           - path to directory
+     * @param  bool   $is_recursion   - use or not recursion
+     * @param  mixed  $isRecursion
+     * @param  mixed  $recursionLevel
      * @return none
      */
     public function __construct($path, $isRecursion = true, $recursionLevel = 0)
@@ -223,6 +225,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * get files paths of current collection
      *
      * @param  array $files - array of files paths
+     * @param  mixed $paths
      * @return none
      */
     public function getFilesPaths(&$paths)
@@ -323,9 +326,10 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     }
     /**
      * get this collection as xml
-     * @param  string &$xml       - xml
-     * @param  bool   $addOpenTag - add or not header of xml
-     * @param  string $rootName   - root element name
+     * @param  string &$xml           - xml
+     * @param  bool   $addOpenTag     - add or not header of xml
+     * @param  string $rootName       - root element name
+     * @param  mixed  $recursionLevel
      * @return none
      */
     public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
@@ -406,6 +410,8 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     /**
      * add filter
      * @return none
+     * @param  mixed $field
+     * @param  mixed $value
      */
     public function addFilter($field, $value)
     {

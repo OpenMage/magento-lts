@@ -240,6 +240,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
      * Retrieve Row click URL
      *
      * @return string
+     * @param  mixed  $row
      */
     public function getRowUrl($row)
     {

@@ -41,6 +41,7 @@ class InboxTest extends TestCase
      * @dataProvider provideGetSeverities
      * @group Mage_AdminNotification
      * @group Mage_AdminNotification_Model
+     * @param mixed $expectedResult
      */
     public function testGetSeverities($expectedResult, ?int $severity): void
     {

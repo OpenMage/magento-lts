@@ -909,6 +909,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param  Mage_Sales_Model_Order_Payment             $payment
      * @param  Varien_Object                              $card
+     * @param  mixed                                      $amount
      * @return Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _refundCardTransaction($payment, $amount, $card)
@@ -1449,6 +1450,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
      *
      * @param  string                                          $transactionId
      * @param  string                                          $transactionType
+     * @param  mixed                                           $message
      * @return null|Mage_Sales_Model_Order_Payment_Transaction
      */
     protected function _addTransaction(

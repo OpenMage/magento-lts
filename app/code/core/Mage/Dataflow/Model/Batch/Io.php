@@ -89,6 +89,7 @@ class Mage_Dataflow_Model_Batch_Io
      * Retrieve tmp filename
      *
      * @return string
+     * @param  mixed  $withPath
      */
     public function getFile($withPath = false)
     {
@@ -118,6 +119,7 @@ class Mage_Dataflow_Model_Batch_Io
      * Open file in stream mode
      *
      * @return $this
+     * @param  mixed $write
      */
     public function open($write = true)
     {
@@ -153,6 +155,9 @@ class Mage_Dataflow_Model_Batch_Io
      * # EOF (end of file) is reached
      *
      * @return array|false|null|string
+     * @param  mixed                   $csv
+     * @param  mixed                   $delimiter
+     * @param  mixed                   $enclosure
      */
     public function read($csv = false, $delimiter = ',', $enclosure = '"')
     {

@@ -536,6 +536,7 @@ class Varien_File_Uploader
 
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param mixed $destinationFolder
      */
     private function _createDestinationFolder($destinationFolder)
     {

@@ -76,6 +76,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      * Retrieve remove url
      *
      * @return string
+     * @param  mixed  $track
      */
     public function getRemoveUrl($track)
     {
@@ -89,6 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
      * Retrieve remove url
      *
      * @return string
+     * @param  mixed  $track
      */
     public function getTrackInfoUrl($track)
     {

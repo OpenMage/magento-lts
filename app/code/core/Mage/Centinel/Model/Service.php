@@ -89,6 +89,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * @param  string $cardExpYear
      * @param  double $amount
      * @param  string $currencyCode
+     * @param  mixed  $paymentMethodCode
      * @return string
      */
     protected function _generateChecksum($paymentMethodCode, $cardType, $cardNumber, $cardExpMonth, $cardExpYear, $amount, $currencyCode)

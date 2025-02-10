@@ -261,6 +261,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Make POST request
+     * @param mixed $uri
+     * @param mixed $params
      */
     public function post($uri, $params)
     {
@@ -500,6 +502,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * TODO
+     * @param mixed $arr
      */
     public function setOptions($arr)
     {
@@ -508,6 +511,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * TODO
+     * @param mixed $name
+     * @param mixed $value
      */
     public function setOption($name, $value)
     {

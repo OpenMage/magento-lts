@@ -138,6 +138,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
      * Retrieve row url
      *
      * @return string
+     * @param  mixed  $row
      */
     public function getRowUrl($row)
     {

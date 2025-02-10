@@ -456,6 +456,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      *
      * @params bool $cacheReload pass cached wishlist object and get new one
      * @return Mage_Wishlist_Model_Wishlist
+     * @param  mixed                        $cacheReload
      */
     public function getCustomerWishlist($cacheReload = false)
     {

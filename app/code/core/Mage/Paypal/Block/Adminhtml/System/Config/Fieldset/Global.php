@@ -138,6 +138,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
      * Getter for element comment
      *
      * @return string
+     * @param  mixed  $key
      */
     public function getElementOriginalData(Varien_Data_Form_Element_Abstract $element, $key)
     {

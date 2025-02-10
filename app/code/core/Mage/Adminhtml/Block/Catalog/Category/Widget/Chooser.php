@@ -179,6 +179,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
      * Tree JSON source URL
      *
      * @return string
+     * @param  null|mixed $expanded
      */
     public function getLoadTreeUrl($expanded = null)
     {

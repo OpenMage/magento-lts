@@ -80,6 +80,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
      * Create main block for standard form
      *
+     * @param mixed $name
      */
     public function createFormBlock($name)
     {

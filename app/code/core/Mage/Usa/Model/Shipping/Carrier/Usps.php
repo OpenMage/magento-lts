@@ -1914,6 +1914,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * @deprecated
+     * @param mixed $method
+     * @param mixed $valuesToLabels
      */
     protected function _methodsMapper($method, $valuesToLabels = true)
     {
@@ -1922,6 +1924,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * @deprecated
+     * @param mixed $value
      */
     public function getMethodLabel($value)
     {
@@ -1931,6 +1934,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get value of method by its label
      * @deprecated
+     * @param mixed $label
      */
     public function getMethodValue($label)
     {

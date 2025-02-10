@@ -37,6 +37,8 @@ class SalesTest extends TestCase
      * @dataProvider provideDecodeGridSerializedInput
      * @group Mage_Adminhtml
      * @group Mage_Adminhtml_Helper
+     * @param mixed $expectedResult
+     * @param mixed $data
      */
     public function testEscapeHtmlWithLinks($expectedResult, $data): void
     {

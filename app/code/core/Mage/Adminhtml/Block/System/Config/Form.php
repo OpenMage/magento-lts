@@ -483,6 +483,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      *
      * @param  Mage_Core_Model_Config_Element $element
      * @param  string                         $helper
+     * @param  mixed                          $currentValue
      * @return string
      */
     protected function _prepareFieldComment($element, $helper, $currentValue)
@@ -537,6 +538,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Append dependence block at then end of form block
      *
      *
+     * @param mixed $html
      */
     protected function _afterToHtml($html)
     {

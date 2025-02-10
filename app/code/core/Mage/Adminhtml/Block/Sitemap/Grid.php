@@ -86,6 +86,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Row click url
      *
      * @return string
+     * @param  mixed  $row
      */
     public function getRowUrl($row)
     {

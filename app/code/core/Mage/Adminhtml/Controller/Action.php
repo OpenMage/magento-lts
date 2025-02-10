@@ -105,6 +105,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Define active menu item in menu block
      *
      * @return $this
+     * @param  mixed $menuPath
      */
     protected function _setActiveMenu($menuPath)
     {
@@ -114,6 +115,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
     /**
      * @return $this
+     * @param  mixed      $label
+     * @param  mixed      $title
+     * @param  null|mixed $link
      */
     protected function _addBreadcrumb($label, $title, $link = null)
     {

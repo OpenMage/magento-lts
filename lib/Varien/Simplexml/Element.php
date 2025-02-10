@@ -82,6 +82,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Returns attribute value by attribute name
      *
      * @return string
+     * @param  mixed  $name
      */
     public function getAttribute($name)
     {

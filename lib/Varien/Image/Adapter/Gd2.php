@@ -219,6 +219,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      *
      * @param  string    $callbackType
      * @param  int       $fileType
+     * @param  mixed     $unsupportedText
      * @return string
      * @throws Exception
      */

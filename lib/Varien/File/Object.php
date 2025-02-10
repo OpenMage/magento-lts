@@ -84,7 +84,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add file path to array
      *
-     * @param  array &$paths - array of paths
+     * @param  array      &$paths - array of paths
+     * @param  null|mixed $path
      * @return none
      */
     public function getFilePath(&$path = null)

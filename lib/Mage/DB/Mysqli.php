@@ -349,7 +349,8 @@ class Mage_DB_Mysqli
     /**
      * Insert several records to table
      * @param  string $table
-     * @param  bool   $replace use REPLACE INTO instead of INSERT INTO
+     * @param  bool   $replace       use REPLACE INTO instead of INSERT INTO
+     * @param  mixed  $excludeFields
      * @return array
      */
     public function insertAssocMultiple($table, array $data, $replace = false, $excludeFields = [])

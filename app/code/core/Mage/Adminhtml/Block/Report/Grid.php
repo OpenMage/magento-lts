@@ -503,6 +503,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Retrieve grid as Excel Xml
      *
      * @return mixed
+     * @param  mixed $filename
      */
     public function getExcel($filename = '')
     {

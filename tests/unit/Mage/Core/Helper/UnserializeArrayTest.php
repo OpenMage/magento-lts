@@ -37,6 +37,8 @@ class UnserializeArrayTest extends TestCase
      * @dataProvider provideUnserialize
      * @group Mage_Core
      * @group Mage_Core_Helper
+     * @param mixed $expectedTesult
+     * @param mixed $string
      */
     public function testUnserialize($expectedTesult, $string): void
     {

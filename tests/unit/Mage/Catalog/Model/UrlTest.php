@@ -128,6 +128,7 @@ class UrlTest extends TestCase
      * @dataProvider provideFormatUrlKey
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
+     * @param mixed $expectedResult
      */
     public function testFormatUrlKey($expectedResult, ?string $locale): void
     {
@@ -149,6 +150,7 @@ class UrlTest extends TestCase
      * @dataProvider provideGetSluggerConfig
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
+     * @param mixed $expectedResult
      */
     public function testGetSluggerConfig($expectedResult, string $locale): void
     {

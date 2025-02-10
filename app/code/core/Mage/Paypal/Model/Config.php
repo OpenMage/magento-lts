@@ -856,6 +856,8 @@ class Mage_Paypal_Model_Config
      * Use $_methodCode and merchant country by default
      *
      * @return bool
+     * @param  null|mixed $method
+     * @param  null|mixed $countryCode
      */
     public function isMethodSupportedForCountry($method = null, $countryCode = null)
     {

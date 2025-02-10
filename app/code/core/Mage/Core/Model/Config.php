@@ -518,6 +518,8 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @return void
      * @throws Exception
      * @SuppressWarnings("PHPMD.ExitExpression")
+     * @param null|mixed $waitTime
+     * @param mixed      $ignoreFailure
      */
     public function getCacheSaveLock($waitTime = null, $ignoreFailure = false)
     {

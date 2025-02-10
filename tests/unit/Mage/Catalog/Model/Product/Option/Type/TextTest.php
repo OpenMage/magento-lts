@@ -50,6 +50,8 @@ class TextTest extends TestCase
      * @dataProvider providePrepareForCart
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
+     * @param mixed      $expectedResult
+     * @param null|mixed $setUserValue
      */
     public function testPrepareForCart($expectedResult, bool $setIsValid = true, $setUserValue = null): void
     {

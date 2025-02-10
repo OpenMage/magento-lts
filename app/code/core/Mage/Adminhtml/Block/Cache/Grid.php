@@ -102,6 +102,10 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Decorate status column values
      *
      * @return string
+     * @param  mixed  $value
+     * @param  mixed  $row
+     * @param  mixed  $column
+     * @param  mixed  $isExport
      */
     public function decorateStatus($value, $row, $column, $isExport)
     {
@@ -122,6 +126,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * Get row edit url
      *
      * @return string
+     * @param  mixed  $row
      */
     public function getRowUrl($row)
     {

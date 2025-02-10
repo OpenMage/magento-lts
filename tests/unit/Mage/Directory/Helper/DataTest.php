@@ -77,6 +77,7 @@ class DataTest extends TestCase
      * @dataProvider provideGetCountriesWithOptionalZip
      * @group Mage_Directory
      * @group Mage_Directory_Helper
+     * @param mixed $expectedResult
      */
     public function testGetCountriesWithOptionalZip($expectedResult, bool $asJson): void
     {
@@ -115,6 +116,7 @@ class DataTest extends TestCase
      * @dataProvider provideGetCountriesWithStatesRequired
      * @group Mage_Directory
      * @group Mage_Directory_Helper
+     * @param mixed $expectedResult
      */
     public function testGetCountriesWithStatesRequired($expectedResult, bool $asJson): void
     {

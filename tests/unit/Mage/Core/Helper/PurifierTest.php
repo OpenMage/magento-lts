@@ -36,6 +36,8 @@ class PurifierTest extends TestCase
      * @dataProvider providePurify
      * @group Mage_Core
      * @group Mage_Core_Helper
+     * @param mixed $expectedResult
+     * @param mixed $content
      */
     public function testPurify($expectedResult, $content): void
     {

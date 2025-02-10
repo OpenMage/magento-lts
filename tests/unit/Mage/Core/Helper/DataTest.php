@@ -78,6 +78,7 @@ class DataTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Helper
      * @group Dates
+     * @param mixed $data
      */
     public function testFormatTimezoneDate(
         string $expectedResult,

@@ -167,6 +167,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a directory
      *
      * @param  string  $dir
+     * @param  mixed   $recursive
      * @return boolean
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -239,6 +240,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param  string          $filename
      * @param  string|resource $src      filename, string data or source stream
+     * @param  null|mixed      $mode
      * @return int|boolean
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -310,6 +312,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
 
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param null|mixed $grep
      */
     public function ls($grep = null)
     {

@@ -207,6 +207,7 @@ class Varien_Db_Tree
     /**
      * Clear table and add root element
      *
+     * @param mixed $data
      */
     public function clear($data = [])
     {

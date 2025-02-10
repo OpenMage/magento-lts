@@ -34,6 +34,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * @param  int    $errorCode
      * @param  string $errorMessage
      * @param  string $errorFile
+     * @param  mixed  $errLine
      * @return bool
      */
     public function handlePhpError($errorCode, $errorMessage, $errorFile, $errLine)

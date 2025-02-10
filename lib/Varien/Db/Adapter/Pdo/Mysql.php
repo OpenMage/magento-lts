@@ -1224,6 +1224,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * engine  => string; table engine
      *
      * @return $this
+     * @param  mixed $tables
      */
     public function modifyTables($tables)
     {
@@ -1602,6 +1603,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param  string $tableCacheKey
      * @param  int    $ddlType
+     * @param  mixed  $data
      * @return $this
      */
     public function saveDdlCache($tableCacheKey, $ddlType, $data)
@@ -4017,6 +4019,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @mixed $value
      * @return mixed
+     * @param  mixed $value
      */
     public function decodeVarbinary($value)
     {

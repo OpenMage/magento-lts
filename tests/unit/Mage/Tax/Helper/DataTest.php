@@ -224,6 +224,7 @@ class DataTest extends TestCase
      * @dataProvider provideGetIncExcTaxLabel
      * @group Mage_Tax
      * @group Mage_Tax_Helper
+     * @param mixed $expectedResult
      */
     public function testGetIncExcTaxLabel($expectedResult, bool $flag): void
     {

@@ -262,6 +262,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
      * Look for encrypted node entries in all system.xml files and return them
      *
      * @return array $paths
+     * @param  mixed $explodePathToEntities
      */
     public function getEncryptedNodeEntriesPaths($explodePathToEntities = false)
     {

@@ -37,12 +37,17 @@ interface Varien_Io_Interface
     /**
      * Create a directory
      *
+     * @param mixed $dir
+     * @param mixed $mode
+     * @param mixed $recursive
      */
     public function mkdir($dir, $mode = 0777, $recursive = true);
 
     /**
      * Delete a directory
      *
+     * @param mixed $dir
+     * @param mixed $recursive
      */
     public function rmdir($dir, $recursive = false);
 
@@ -55,42 +60,54 @@ interface Varien_Io_Interface
     /**
      * Change current working directory
      *
+     * @param mixed $dir
      */
     public function cd($dir);
 
     /**
      * Read a file
      *
+     * @param mixed      $filename
+     * @param null|mixed $dest
      */
     public function read($filename, $dest = null);
 
     /**
      * Write a file
      *
+     * @param mixed      $filename
+     * @param mixed      $src
+     * @param null|mixed $mode
      */
     public function write($filename, $src, $mode = null);
 
     /**
      * Delete a file
      *
+     * @param mixed $filename
      */
     public function rm($filename);
 
     /**
      * Rename or move a directory or a file
      *
+     * @param mixed $src
+     * @param mixed $dest
      */
     public function mv($src, $dest);
 
     /**
      * Chamge mode of a directory or a file
      *
+     * @param mixed $filename
+     * @param mixed $mode
      */
     public function chmod($filename, $mode);
 
     /**
      * Get list of cwd subdirectories and files
      *
+     * @param null|mixed $grep
      */
     public function ls($grep = null);
 

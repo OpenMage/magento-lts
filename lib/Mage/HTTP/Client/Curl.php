@@ -220,6 +220,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Make POST request
      * @see lib/Mage/HTTP/Mage_HTTP_Client#post($uri, $params)
+     * @param mixed $uri
+     * @param mixed $params
      */
     public function post($uri, $params)
     {
@@ -464,6 +466,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Set CURL options ovverides array  *
+     * @param mixed $arr
      */
     public function setOptions($arr)
     {
@@ -472,6 +475,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Set curl option
+     * @param mixed $name
+     * @param mixed $value
      */
     public function setOption($name, $value)
     {

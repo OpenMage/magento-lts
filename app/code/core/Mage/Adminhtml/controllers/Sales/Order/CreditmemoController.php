@@ -83,6 +83,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
      *
      * @return Mage_Sales_Model_Order_Creditmemo|false
      * @throws Mage_Core_Exception
+     * @param  mixed                                   $update
      */
     protected function _initCreditmemo($update = false)
     {

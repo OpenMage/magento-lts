@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Transactions extends Mage_Adminh
      * Retrieve grid row url
      *
      * @return string
+     * @param  mixed  $item
      */
     public function getRowUrl($item)
     {
