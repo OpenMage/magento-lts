@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
      */
     protected function _getScriptHtml(Varien_Data_Form_Element_Abstract $element)
     {
-        return <<<SCRIPT
+        return <<<EOD
 <script type="text/javascript">
 //<![CDATA[
     $$('#_accountnew_password,#account-send-pass').each(function(elem) {
@@ -78,6 +78,6 @@ class Mage_Adminhtml_Block_Customer_Edit_Renderer_Adminpass extends Mage_Adminht
         });
     });
 //]]></script>
-SCRIPT;
+EOD;
     }
 }

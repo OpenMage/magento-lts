@@ -79,7 +79,7 @@ class Mage_Checkout_Block_Onepage_Progress extends Mage_Checkout_Block_Onepage_A
     /**
      * Get is step completed. if is set 'toStep' then all steps after him is not completed.
      *
-     * @param  string $currentStep
+     * @param string $currentStep
      * @see: Mage_Checkout_Block_Onepage_Abstract::_getStepCodes() for allowed values
      * @return bool
      */

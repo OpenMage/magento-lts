@@ -185,7 +185,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
      */
     public function usageHelp()
     {
-        return <<<USAGE
+        return <<<EOD
 Usage:  php -f indexer.php -- [options]
 
   --status <indexer>            Show Indexer(s) Status
@@ -200,7 +200,7 @@ Usage:  php -f indexer.php -- [options]
 
   <indexer>     Comma separated indexer codes or value "all" for all indexers
 
-USAGE;
+EOD;
     }
 }
 

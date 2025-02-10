@@ -98,7 +98,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         $name = $this->getName();
         $parentName = parent::getName();
 
-        $html .= <<<EndSCRIPT
+        $html .= <<<EOD
 
         <script language="javascript">
         id = 0;
@@ -166,7 +166,7 @@ class Varien_Data_Form_Element_Gallery extends Varien_Data_Form_Element_Abstract
         }
         </script>
 
-EndSCRIPT;
+EOD;
         return $html . $this->getAfterElementHtml();
     }
 

@@ -170,7 +170,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
      */
     public function usageHelp()
     {
-        return <<<USAGE
+        return <<<EOD
 Usage:  php -f log.php -- [options]
         php -f log.php -- clean --days 1
 
@@ -179,7 +179,7 @@ Usage:  php -f log.php -- [options]
   status            Display statistics per log tables
   help              This help
 
-USAGE;
+EOD;
     }
 }
 

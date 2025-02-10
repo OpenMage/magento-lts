@@ -690,7 +690,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         $r = $this->_rawRequest;
         $params = $this->setQuoteRequestData($r);
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
 <?xml version="1.0"?>
 <RatingServiceSelectionRequest xml:lang="en-US">
   <Request>
@@ -707,7 +707,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
   </PickupType>
 
   <Shipment>
-XMLRequest;
+EOD;
 
         if ($params['serviceCode'] !== null) {
             $xmlRequest .= '<Service>' .
@@ -716,9 +716,9 @@ XMLRequest;
                 '</Service>';
         }
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
       <Shipper>
-XMLRequest;
+EOD;
 
         if ($this->getConfigFlag('negotiated_active') && ($shipper = $this->getConfigData('shipper_number'))) {
             $xmlRequest .= "<ShipperNumber>{$shipper}</ShipperNumber>";
@@ -736,7 +736,7 @@ XMLRequest;
             $shipperStateProvince = $params['origRegionCode'];
         }
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
       <Address>
           <City>{$shipperCity}</City>
           <PostalCode>{$shipperPostalCode}</PostalCode>
@@ -750,7 +750,7 @@ XMLRequest;
           <CountryCode>{$params['22_destCountry']}</CountryCode>
           <ResidentialAddress>{$params['49_residential']}</ResidentialAddress>
           <StateProvinceCode>{$params['destRegionCode']}</StateProvinceCode>
-XMLRequest;
+EOD;
 
         $xmlRequest .= (
             $params['49_residential'] === '01'
@@ -758,7 +758,7 @@ XMLRequest;
                 : ''
         );
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
       </Address>
     </ShipTo>
 
@@ -778,15 +778,15 @@ XMLRequest;
         <Weight>{$params['23_weight']}</Weight>
       </PackageWeight>
     </Package>
-XMLRequest;
+EOD;
         if ($this->getConfigFlag('negotiated_active')) {
             $xmlRequest .= '<RateInformation><NegotiatedRatesIndicator/></RateInformation>';
         }
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
   </Shipment>
 </RatingServiceSelectionRequest>
-XMLRequest;
+EOD;
 
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
         if ($xmlResponse === null) {
@@ -959,14 +959,14 @@ XMLRequest;
         $userIdPass = $this->getConfigData('password');
         $accessKey  = $this->getConfigData('access_license_number');
 
-        $this->_xmlAccessRequest =  <<<XMLAuth
+        $this->_xmlAccessRequest =  <<<EOD
 <?xml version="1.0"?>
 <AccessRequest xml:lang="en-US">
   <AccessLicenseNumber>$accessKey</AccessLicenseNumber>
   <UserId>$userId</UserId>
   <Password>$userIdPass</Password>
 </AccessRequest>
-XMLAuth;
+EOD;
     }
 
     /**
@@ -992,7 +992,7 @@ XMLAuth;
             /*
             * RequestOption==>'activity' or '1' to request all activities
             */
-            $xmlRequest .=  <<<XMLAuth
+            $xmlRequest .=  <<<EOD
 <?xml version="1.0" ?>
 <TrackRequest xml:lang="en-US">
     <Request>
@@ -1002,7 +1002,7 @@ XMLAuth;
     <TrackingNumber>$tracking</TrackingNumber>
     <IncludeFreight>01</IncludeFreight>
 </TrackRequest>
-XMLAuth;
+EOD;
             $debugData = ['request' => $xmlRequest];
 
             $ch = curl_init();
