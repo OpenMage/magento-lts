@@ -36,7 +36,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     public const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
     /**
-     * @param int $customerId
+     * @param  int                          $customerId
      * @return Mage_Customer_Model_Customer
      * @throws Mage_Api_Exception
      */
@@ -55,8 +55,8 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
     /**
      * Get customer address by identifier
      *
-     * @param   int $addressId
-     * @return  Mage_Customer_Model_Address
+     * @param  int                         $addressId
+     * @return Mage_Customer_Model_Address
      */
     protected function _getCustomerAddress($addressId)
     {

@@ -57,7 +57,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
     /**
       * Return form html
       *
-      * @return string
+       * @return string
       */
     public function getFormHtml()
     {

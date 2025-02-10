@@ -59,7 +59,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Add based on $cardInfo card to payment and return Id of new item
      *
-     * @param mixed $cardInfo
+     * @param  mixed         $cardInfo
      * @return Varien_Object
      */
     public function registerCard($cardInfo = [])
@@ -75,7 +75,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Save data from card object in cards storage
      *
-     * @param Varien_Object $card
+     * @param  Varien_Object $card
      * @return $this
      */
     public function updateCard($card)
@@ -91,7 +91,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
     /**
      * Retrieve card by ID
      *
-     * @param string $cardId
+     * @param  string              $cardId
      * @return Varien_Object|false
      */
     public function getCard($cardId)

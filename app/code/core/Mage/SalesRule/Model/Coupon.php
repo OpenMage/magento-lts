@@ -20,26 +20,26 @@
  * @category   Mage
  * @package    Mage_SalesRule
  *
- * @method Mage_SalesRule_Model_Resource_Coupon _getResource()
- * @method Mage_SalesRule_Model_Resource_Coupon getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon            _getResource()
+ * @method Mage_SalesRule_Model_Resource_Coupon            getResource()
  * @method Mage_SalesRule_Model_Resource_Coupon_Collection getCollection()
  *
- * @method int getRuleId()
- * @method $this setRuleId(int $value)
- * @method string getCode()
- * @method $this setCode(string $value)
- * @method int getUsageLimit()
- * @method $this setUsageLimit(int $value)
- * @method int getUsagePerCustomer()
- * @method $this setUsagePerCustomer(int $value)
- * @method int getTimesUsed()
- * @method $this setTimesUsed(int $value)
+ * @method int       getRuleId()
+ * @method $this     setRuleId(int $value)
+ * @method string    getCode()
+ * @method $this     setCode(string $value)
+ * @method int       getUsageLimit()
+ * @method $this     setUsageLimit(int $value)
+ * @method int       getUsagePerCustomer()
+ * @method $this     setUsagePerCustomer(int $value)
+ * @method int       getTimesUsed()
+ * @method $this     setTimesUsed(int $value)
  * @method Zend_Date getExpirationDate()
- * @method $this setExpirationDate(Zend_Date $value)
- * @method int getIsPrimary()
- * @method $this setIsPrimary(int $value)
- * @method int getType()
- * @method $this setType(int $value)
+ * @method $this     setExpirationDate(Zend_Date $value)
+ * @method int       getIsPrimary()
+ * @method $this     setIsPrimary(int $value)
+ * @method int       getType()
+ * @method $this     setType(int $value)
  */
 class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
 {
@@ -83,7 +83,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     /**
      * Load primary coupon for specified rule
      *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param  Mage_SalesRule_Model_Rule|int $rule
      * @return $this
      */
     public function loadPrimaryByRule($rule)
@@ -95,7 +95,7 @@ class Mage_SalesRule_Model_Coupon extends Mage_Core_Model_Abstract
     /**
      * Load Shopping Cart Price Rule by coupon code
      *
-     * @param string $couponCode
+     * @param  string $couponCode
      * @return $this
      */
     public function loadByCode($couponCode)

@@ -231,7 +231,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                                $code
      * @return Mage_Eav_Model_Entity_Attribute|false
      */
     public function getAttribute($code)
@@ -321,7 +321,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve store object by code
      *
-     * @param string $store
+     * @param  string                      $store
      * @return Mage_Core_Model_Store|false
      */
     public function getStoreByCode($store)
@@ -340,7 +340,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve store object by code
      *
-     * @param string $id
+     * @param  string                      $id
      * @return Mage_Core_Model_Store|false
      */
     public function getStoreById($id)
@@ -428,7 +428,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     /**
      * Retrieve not loaded collection
      *
-     * @param string $entityType
+     * @param  string                                         $entityType
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _getCollectionForLoad($entityType)
@@ -598,7 +598,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
      * Save data row with gallery image info only
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $importData
+     * @param array                      $importData
      *
      * @return $this
      */

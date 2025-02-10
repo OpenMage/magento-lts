@@ -163,8 +163,8 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Settings extends Mage
     /**
      * User-defined widgets sorting by Name
      *
-     * @param array $a
-     * @param array $b
+     * @param  array      $a
+     * @param  array      $b
      * @return int<-1, 1>
      */
     protected function _sortWidgets($a, $b)

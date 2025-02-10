@@ -132,8 +132,8 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Returns ids from queue_link table
      *
-     * @param string $field
-     * @param mixed $condition
+     * @param  string $field
+     * @param  mixed  $condition
      * @return array
      */
     protected function _getIdsFromLink($field, $condition)
@@ -162,7 +162,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Set filter for queue by subscriber.
      *
-     * @param int $subscriberId
+     * @param  int   $subscriberId
      * @return $this
      */
     public function addSubscriberFilter($subscriberId)
@@ -218,7 +218,7 @@ class Mage_Newsletter_Model_Resource_Queue_Collection extends Mage_Core_Model_Re
     /**
      * Filter collection by specified store ids
      *
-     * @param array|int $storeIds
+     * @param  array|int $storeIds
      * @return $this
      */
     public function addStoreFilter($storeIds)

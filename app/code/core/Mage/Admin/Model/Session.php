@@ -20,30 +20,30 @@
  * @category   Mage
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Acl getAcl()
- * @method $this setAcl(Mage_Admin_Model_Acl $acl)
- * @method int getActiveTabId()
- * @method $this setActiveTabId(int $value)
- * @method $this unsActiveTabId()
- * @method $this setAttributeData(array|false $data)
- * @method string getDeletedPath()
- * @method $this setDeletedPath(string $value)
- * @method bool getIndirectLogin()
- * @method $this setIndirectLogin(bool $value)
- * @method $this setIsFirstVisit(bool $value)
- * @method bool getIsTreeWasExpanded()
- * @method $this setIsTreeWasExpanded(bool $value)
- * @method int getLastEditedCategory()
- * @method $this setLastEditedCategory(int $value)
- * @method string getLastViewedStore()
- * @method $this setLastViewedStore(string $value)
- * @method bool getUserPasswordChanged()
- * @method $this setUserPasswordChanged(bool $value)
- * @method bool hasSyncProcessStopWatch()
- * @method bool getSyncProcessStopWatch()
- * @method $this setSyncProcessStopWatch(bool $value)
+ * @method Mage_Admin_Model_Acl  getAcl()
+ * @method $this                 setAcl(Mage_Admin_Model_Acl $acl)
+ * @method int                   getActiveTabId()
+ * @method $this                 setActiveTabId(int $value)
+ * @method $this                 unsActiveTabId()
+ * @method $this                 setAttributeData(array|false $data)
+ * @method string                getDeletedPath()
+ * @method $this                 setDeletedPath(string $value)
+ * @method bool                  getIndirectLogin()
+ * @method $this                 setIndirectLogin(bool $value)
+ * @method $this                 setIsFirstVisit(bool $value)
+ * @method bool                  getIsTreeWasExpanded()
+ * @method $this                 setIsTreeWasExpanded(bool $value)
+ * @method int                   getLastEditedCategory()
+ * @method $this                 setLastEditedCategory(int $value)
+ * @method string                getLastViewedStore()
+ * @method $this                 setLastViewedStore(string $value)
+ * @method bool                  getUserPasswordChanged()
+ * @method $this                 setUserPasswordChanged(bool $value)
+ * @method bool                  hasSyncProcessStopWatch()
+ * @method bool                  getSyncProcessStopWatch()
+ * @method $this                 setSyncProcessStopWatch(bool $value)
  * @method Mage_Admin_Model_User getUser()
- * @method $this setUser(Mage_Admin_Model_User $user)
+ * @method $this                 setUser(Mage_Admin_Model_User $user)
  */
 class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 {
@@ -103,8 +103,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Since the session is used as a singleton, the value will be in $_isFirstPageAfterLogin until the end of request,
      * unless it is reset intentionally from somewhere
      *
-     * @param string $namespace
-     * @param string $sessionName
+     * @param  string $namespace
+     * @param  string $sessionName
      * @return $this
      * @see self::login()
      */
@@ -137,8 +137,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Try to login user in admin
      *
-     * @param  string $username
-     * @param  string $password
+     * @param  string                            $username
+     * @param  string                            $password
      * @param  Mage_Core_Controller_Request_Http $request
      * @return Mage_Admin_Model_User|null
      */
@@ -221,8 +221,8 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
      * Mage::getSingleton('admin/session')->isAllowed('admin/catalog')
      * Mage::getSingleton('admin/session')->isAllowed('catalog')
      *
-     * @param   string $resource
-     * @param   string $privilege
+     * @param  string $resource
+     * @param  string $privilege
      * @return bool
      */
     public function isAllowed($resource, $privilege = null)
@@ -275,7 +275,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Setter whether the current/next page should be treated as first page after login
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsFirstPageAfterLogin($value)
@@ -287,7 +287,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Custom REQUEST_URI logic
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Core_Controller_Request_Http $request
      * @return string|null
      */
     protected function _getRequestUri($request = null)
@@ -304,9 +304,9 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Login failed process
      *
-     * @param Exception $e
-     * @param string $username
-     * @param string $message
+     * @param Exception                              $e
+     * @param string                                 $username
+     * @param string                                 $message
      * @param Mage_Core_Controller_Request_Http|null $request
      */
     protected function _loginFailed($e, $request, $username, $message)

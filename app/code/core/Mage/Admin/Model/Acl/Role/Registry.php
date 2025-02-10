@@ -25,8 +25,8 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
     /**
      * Add parent to the $role node
      *
-     * @param Zend_Acl_Role_Interface|string $role
-     * @param array|Zend_Acl_Role_Interface|string $parents
+     * @param  Zend_Acl_Role_Interface|string       $role
+     * @param  array|Zend_Acl_Role_Interface|string $parents
      * @return $this
      */
     public function addParent($role, $parents)

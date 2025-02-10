@@ -40,7 +40,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
     /**
      * Add configuration component to stats
      *
-     * @param string $component Filename of the configuration component file
+     * @param  string                                 $component Filename of the configuration component file
      * @return Varien_Simplexml_Config_Cache_Abstract
      */
     public function addComponent($component)
@@ -57,7 +57,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
     /**
      * Validate components in the stats
      *
-     * @param array $data
+     * @param  array   $data
      * @return boolean
      */
     public function validateComponents($data)

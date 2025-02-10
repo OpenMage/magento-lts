@@ -37,7 +37,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
     /**
      * Detect serialization of data
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return bool
      */
     protected function isSerialized($data)
@@ -114,7 +114,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
     /**
      * Validate serialized data
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return bool
      */
     public function validateDataSerialized($data = null)

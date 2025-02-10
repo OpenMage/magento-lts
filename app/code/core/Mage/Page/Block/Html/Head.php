@@ -39,10 +39,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add CSS file to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      */
     public function addCss($name, $params = '', $referenceName = '*', $before = null)
@@ -54,10 +54,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add JavaScript file to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      */
     public function addJs($name, $params = '', $referenceName = '*', $before = null)
@@ -69,10 +69,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add CSS file for Internet Explorer only to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      * @deprecated
      */
@@ -84,10 +84,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add JavaScript file for Internet Explorer only to HEAD entity
      *
-     * @param string $name
-     * @param string $params
-     * @param string $referenceName
-     * @param bool $before
+     * @param  string $name
+     * @param  string $params
+     * @param  string $referenceName
+     * @param  bool   $before
      * @return $this
      * @deprecated
      */
@@ -99,8 +99,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Add Link element to HEAD entity
      *
-     * @param string $rel forward link types
-     * @param string $href URI for linked resource
+     * @param  string $rel  forward link types
+     * @param  string $href URI for linked resource
      * @return $this
      */
     public function addLinkRel($rel, $href)
@@ -119,13 +119,13 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      *  - skin_css
      *  - rss
      *
-     * @param string $type
-     * @param string $name
-     * @param string $params
-     * @param string $if
-     * @param string $cond
-     * @param string $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
-     * @param string|bool $before If true insert before the $referenceName instead of after
+     * @param  string      $type
+     * @param  string      $name
+     * @param  string      $params
+     * @param  string      $if
+     * @param  string      $cond
+     * @param  string      $referenceName name of the item to insert the element before. If name is not found, insert at the end, * has special meaning (before all / before all)
+     * @param  string|bool $before        If true insert before the $referenceName instead of after
      * @return $this
      */
     public function addItem($type, $name, $params = null, $if = null, $cond = null, $referenceName = '*', $before = false)
@@ -165,8 +165,8 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Remove Item from HEAD entity
      *
-     * @param string $type
-     * @param string $name
+     * @param  string $type
+     * @param  string $name
      * @return $this
      */
     public function removeItem($type, $name)
@@ -248,10 +248,10 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * filenames, rather than render urls.
      * The merger callback is responsible for checking whether files exist, merging them and giving result URL
      *
-     * @param string $format - HTML element format for sprintf('<element src="%s"%s>', $src, $params)
-     * @param array $staticItems - array of relative names of static items to be grabbed from js/ folder
-     * @param array $skinItems - array of relative names of skin items to be found in skins according to design config
-     * @param callable $mergeCallback
+     * @param  string   $format        - HTML element format for sprintf('<element src="%s"%s>', $src, $params)
+     * @param  array    $staticItems   - array of relative names of static items to be grabbed from js/ folder
+     * @param  array    $skinItems     - array of relative names of skin items to be found in skins according to design config
+     * @param  callable $mergeCallback
      * @return string
      */
     protected function &_prepareStaticAndSkinElements($format, array $staticItems, array $skinItems, $mergeCallback = null)
@@ -303,12 +303,12 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * Classify HTML head item and queue it into "lines" array
      *
      * @see self::getCssJsHtml()
-     * @param array $lines
+     * @param array  $lines
      * @param string $itemIf
      * @param string $itemType
      * @param string $itemParams
      * @param string $itemName
-     * @param array $itemThe
+     * @param array  $itemThe
      */
     protected function _separateOtherHtmlHeadElements(&$lines, $itemIf, $itemType, $itemParams, $itemName, $itemThe)
     {
@@ -332,7 +332,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
      * Render arbitrary HTML head items
      *
      * @see self::getCssJsHtml()
-     * @param array $items
+     * @param  array  $items
      * @return string
      */
     protected function _prepareOtherHtmlHeadElements($items)
@@ -343,9 +343,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Retrieve Chunked Items
      *
-     * @param array $items
-     * @param string $prefix
-     * @param int $maxLen
+     * @param  array  $items
+     * @param  string $prefix
+     * @param  int    $maxLen
      * @return array
      */
     public function getChunkedItems($items, $prefix = '', $maxLen = 450)
@@ -405,7 +405,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * Set title element text
      *
-     * @param string $title
+     * @param  string $title
      * @return $this
      */
     public function setTitle($title)
@@ -526,7 +526,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     /**
      * If DB file storage is on - find there, otherwise - just file_exists
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      */
     protected function _isFile($filename)
@@ -538,9 +538,9 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $referenceName
+     * @param string      $referenceName
      * @param string|bool $before
-     * @param string $type
+     * @param string      $type
      */
     protected function _sortItems($referenceName, $before, $type)
     {

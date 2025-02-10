@@ -205,7 +205,7 @@ USAGE;
     /**
      * Retrieve argument value by name or false
      *
-     * @param string $name the argument name
+     * @param  string $name the argument name
      * @return mixed
      */
     public function getArg($name)

@@ -44,7 +44,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Delete calculation settings by rule id
      *
-     * @param int $ruleId
+     * @param  int   $ruleId
      * @return $this
      */
     public function deleteByRuleId($ruleId)
@@ -60,7 +60,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Retrieve distinct calculation
      *
      * @param  string $field
-     * @param  int $ruleId
+     * @param  int    $ruleId
      * @return array
      */
     public function getDistinct($field, $ruleId)
@@ -75,7 +75,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get tax rate information: calculation process data and tax rate
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     public function getRateInfo($request)
@@ -90,7 +90,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get tax rate for specific tax rate request
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return int
      */
     public function getRate($request)
@@ -101,8 +101,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve Calculation Process
      *
-     * @param Varien_Object $request
-     * @param array $rates
+     * @param  Varien_Object $request
+     * @param  array         $rates
      * @return array
      */
     public function getCalculationProcess($request, $rates = null)
@@ -188,8 +188,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Return combined percent value
      *
-     * @param float|int $percent
-     * @param float|int $rate
+     * @param  float|int $percent
+     * @param  float|int $rate
      * @return int
      */
     protected function _collectPercent($percent, $rate)
@@ -200,7 +200,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Create search templates for postcode
      *
-     * @param string $postcode
+     * @param  string $postcode
      * @return array  $strArr
      */
     protected function _createSearchPostCodeTemplates($postcode)
@@ -226,7 +226,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
      * Returns tax rates for request - either pereforms SELECT from DB, or returns already cached result
      * Notice that productClassId due to optimization can be array of ids
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     protected function _getRates($request)
@@ -360,7 +360,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Get rate ids applicable for some address
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     public function getApplicableRateIds($request)
@@ -390,7 +390,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Calculate rate
      *
-     * @param array $rates
+     * @param  array $rates
      * @return int
      */
     protected function _calculateRate($rates)
@@ -426,7 +426,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve rate ids
      *
-     * @param Varien_Object $request
+     * @param  Varien_Object $request
      * @return array
      */
     public function getRateIds($request)
@@ -449,8 +449,8 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve rates by customer tax class
      *
-     * @param int $customerTaxClass
-     * @param int|null $productTaxClass
+     * @param  int      $customerTaxClass
+     * @param  int|null $productTaxClass
      * @return array
      */
     public function getRatesByCustomerTaxClass($customerTaxClass, $productTaxClass = null)

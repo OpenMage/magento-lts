@@ -109,8 +109,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Recursive Build Menu array
      *
-     * @param string $path
-     * @param int $level
+     * @param  string $path
+     * @param  int    $level
      * @return array
      */
     protected function _buildMenuArray(Varien_Simplexml_Element $parent, $path = '', $level = 0)
@@ -174,8 +174,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Sort menu comparison function
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortMenu($a, $b)
@@ -213,7 +213,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Check is Allow menu item for admin user
      *
-     * @param string $resource
+     * @param  string $resource
      * @return bool
      */
     protected function _checkAcl($resource)
@@ -229,8 +229,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Processing block html after rendering
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
     protected function _afterToHtml($html)
     {
@@ -240,7 +240,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Replace Callback Secret Key
      *
-     * @param array $match
+     * @param  array  $match
      * @return string
      */
     protected function _callbackSecretKey($match)
@@ -252,8 +252,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
     /**
      * Get menu level HTML code
      *
-     * @param array $menu
-     * @param int $level
+     * @param  array  $menu
+     * @param  int    $level
      * @return string
      */
     public function getMenuLevel($menu, $level = 0)

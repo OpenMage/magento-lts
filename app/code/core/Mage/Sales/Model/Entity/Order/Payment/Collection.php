@@ -28,7 +28,7 @@ class Mage_Sales_Model_Entity_Order_Payment_Collection extends Mage_Eav_Model_En
     }
 
     /**
-     * @param int $orderId
+     * @param  int   $orderId
      * @return $this
      */
     public function setOrderFilter($orderId)

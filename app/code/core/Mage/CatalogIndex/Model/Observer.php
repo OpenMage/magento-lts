@@ -77,7 +77,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Process product after save
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function processAfterSaveEvent(Varien_Event_Observer $observer)
     {
@@ -107,7 +107,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Reindex price data after attribute scope change
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function processPriceScopeChange(Varien_Event_Observer $observer)
     {
@@ -125,7 +125,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Process catalog index after price rules were applied
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function processPriceRuleApplication(Varien_Event_Observer $observer)
     {
@@ -146,7 +146,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Cleanup product index after product delete
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function processAfterDeleteEvent(Varien_Event_Observer $observer)
     {
@@ -165,7 +165,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Process index data after attribute information was changed
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function processAttributeChangeEvent(Varien_Event_Observer $observer)
     {
@@ -193,7 +193,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Create index for new store
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function processStoreAdd(Varien_Event_Observer $observer)
     {
@@ -205,7 +205,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Rebuild index after catalog import
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
@@ -232,7 +232,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Clear aggregated layered navigation data
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function cleanCache(Varien_Event_Observer $observer)
     {
@@ -248,7 +248,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Process index data after category save
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function catalogCategorySaveAfter(Varien_Event_Observer $observer)
     {
@@ -293,7 +293,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Load parent ids for products before deleting
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function registerParentIds(Varien_Event_Observer $observer)
     {
@@ -309,7 +309,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Reindex producs after change websites associations
      *
-     * @return  Mage_CatalogIndex_Model_Observer
+     * @return Mage_CatalogIndex_Model_Observer
      */
     public function processProductsWebsitesChange(Varien_Event_Observer $observer)
     {

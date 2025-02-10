@@ -34,8 +34,8 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
     /**
      * Load product data
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Catalog_Model_Product               $product
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return array
      */
     public function loadProductData($product, $attribute)
@@ -63,8 +63,8 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
     /**
      * Delete product data
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Catalog_Model_Product               $product
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      */
     public function deleteProductData($product, $attribute)
@@ -88,8 +88,8 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
     /**
      * Insert product data
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $data
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $data
      * @return $this
      */
     public function insertProductData($product, $data)

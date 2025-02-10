@@ -101,8 +101,8 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order for each customer
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function joinOrders($from = '', $to = '')
@@ -142,7 +142,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
      * Order summary info for each customer
      * such as orders_count, orders_avg_amount, orders_total_amount
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addSumAvgTotals($storeId = 0)
@@ -168,7 +168,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order by total amount
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByTotalAmount($dir = self::SORT_ORDER_DESC)
@@ -181,7 +181,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Add order statistics
      *
-     * @param int|bool $isFilter
+     * @param  int|bool $isFilter
      * @return $this
      */
     public function addOrdersStatistics($isFilter = false)
@@ -249,7 +249,7 @@ class Mage_Reports_Model_Resource_Customer_Collection extends Mage_Customer_Mode
     /**
      * Order by customer registration
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)

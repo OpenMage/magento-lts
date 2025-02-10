@@ -46,9 +46,9 @@ function __()
  *
  * Will capitalize first letters and convert separators if needed
  *
- * @param string $str
- * @param string $destSep
- * @param string $srcSep
+ * @param  string $str
+ * @param  string $destSep
+ * @param  string $srcSep
  * @return string
  */
 function uc_words($str, $destSep = '_', $srcSep = '_')
@@ -59,7 +59,7 @@ function uc_words($str, $destSep = '_', $srcSep = '_')
 /**
  * Simple sql format date
  *
- * @param bool $dayOnly
+ * @param  bool   $dayOnly
  * @return string
  * @deprecated use equivalent Varien method directly
  * @see Varien_Date::now()
@@ -72,7 +72,7 @@ function now($dayOnly = false)
 /**
  * Check whether sql date is empty
  *
- * @param string $date
+ * @param  string $date
  * @return bool
  */
 function is_empty_date($date)
@@ -81,7 +81,7 @@ function is_empty_date($date)
 }
 
 /**
- * @param string $class
+ * @param  string      $class
  * @return bool|string
  */
 function mageFindClassFile($class)
@@ -101,10 +101,10 @@ function mageFindClassFile($class)
 /**
  * Custom error handler
  *
- * @param int $errno
- * @param string $errstr
- * @param string $errfile
- * @param int $errline
+ * @param  int       $errno
+ * @param  string    $errstr
+ * @param  string    $errfile
+ * @param  int       $errline
  * @return bool|null
  */
 function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
@@ -191,9 +191,9 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 }
 
 /**
- * @param bool $return
- * @param bool $html
- * @param bool $showFirst
+ * @param  bool        $return
+ * @param  bool        $html
+ * @param  bool        $showFirst
  * @return string|null
  *
  * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -254,10 +254,10 @@ function mageDelTree($path)
 }
 
 /**
- * @param string $string
- * @param string $delimiter
- * @param string $enclosure
- * @param string $escape
+ * @param  string $string
+ * @param  string $delimiter
+ * @param  string $enclosure
+ * @param  string $escape
  * @return array
  */
 function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
@@ -291,7 +291,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
 }
 
 /**
- * @param string $dir
+ * @param  string $dir
  * @return bool
  *
  * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -319,7 +319,7 @@ function isDirWriteable($dir)
 
 
 /**
- * @param string $dir
+ * @param  string $dir
  * @return bool
  * @deprecated avoid php_codesniffer error
  *

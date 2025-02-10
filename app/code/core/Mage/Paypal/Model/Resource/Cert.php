@@ -41,8 +41,8 @@ class Mage_Paypal_Model_Resource_Cert extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Load model by website id
      *
-     * @param Mage_Paypal_Model_Cert $object
-     * @param bool $strictLoad
+     * @param  Mage_Paypal_Model_Cert $object
+     * @param  bool                   $strictLoad
      * @return Mage_Paypal_Model_Cert
      */
     public function loadByWebsite($object, $strictLoad = true)

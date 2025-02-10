@@ -35,7 +35,7 @@ class Mage_Admin_Helper_Variable
     }
 
     /**
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function isPathAllowed($path)

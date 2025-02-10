@@ -20,23 +20,23 @@
  * @category   Mage
  * @package    Mage_Rule
  *
- * @method $this unsActions()
- * @method bool hasActionsSerialized()
- * @method $this unsActionsSerialized()
+ * @method $this  unsActions()
+ * @method bool   hasActionsSerialized()
+ * @method $this  unsActionsSerialized()
  * @method string getActionsSerialized()
- * @method $this setActionsSerialized(string $value)
- * @method $this unsConditions()
- * @method bool hasConditionsSerialized()
- * @method $this unsConditionsSerialized()
+ * @method $this  setActionsSerialized(string $value)
+ * @method $this  unsConditions()
+ * @method bool   hasConditionsSerialized()
+ * @method $this  unsConditionsSerialized()
  * @method string getConditionsSerialized()
- * @method $this setConditionsSerialized(string $value)
- * @method bool hasCustomerGroupIds()
- * @method array getCustomerGroupIds()
- * @method $this setCustomerGroupIds(array $value)
- * @method bool hasDiscountAmount()
- * @method float getDiscountAmount()
- * @method bool hasWebsiteIds()
- * @method $this setWebsiteIds(array $value)
+ * @method $this  setConditionsSerialized(string $value)
+ * @method bool   hasCustomerGroupIds()
+ * @method array  getCustomerGroupIds()
+ * @method $this  setCustomerGroupIds(array $value)
+ * @method bool   hasDiscountAmount()
+ * @method float  getDiscountAmount()
+ * @method bool   hasWebsiteIds()
+ * @method $this  setWebsiteIds(array $value)
  */
 abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
 {
@@ -92,7 +92,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Prepare select for condition
      *
-     * @param int $storeId
+     * @param  int              $storeId
      * @return Varien_Db_Select
      */
     public function getProductFlatSelect($storeId)

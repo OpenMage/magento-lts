@@ -37,7 +37,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Set entity
      *
-     * @param mixed $entity
+     * @param  mixed $entity
      * @return $this
      */
     public function setEntity($entity)
@@ -59,7 +59,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -132,7 +132,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Retrieve message
      *
-     * @param mixed $entity
+     * @param  mixed  $entity
      * @return string
      */
     public function getMessage($entity = null)
@@ -237,8 +237,8 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Return escaped value
      *
-     * @param string $value
-     * @param string $defaultValue
+     * @param  string $value
+     * @param  string $defaultValue
      * @return string
      */
     public function getEscaped($value, $defaultValue = '')
@@ -264,7 +264,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
     /**
      * Check availability of giftmessages for specified entity item
      *
-     * @param Mage_Sales_Model_Quote_Item $item
+     * @param  Mage_Sales_Model_Quote_Item $item
      * @return bool|int
      */
     public function isItemMessagesAvailable($item)

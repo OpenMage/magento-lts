@@ -44,7 +44,7 @@ class Mage_Core_Model_Resource_Language_Collection extends Mage_Core_Model_Resou
     /**
      * Convert items array to hash for select options
      *
-     * @return  array
+     * @return array
      */
     public function toOptionHash()
     {

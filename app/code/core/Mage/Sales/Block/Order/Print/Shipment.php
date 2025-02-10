@@ -32,7 +32,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
     * Order shipments collection
     *
-    * @var array|Mage_Sales_Model_Resource_Order_Shipment_Collection
+     * @var array|Mage_Sales_Model_Resource_Order_Shipment_Collection
     */
     protected $_shipmentsCollection;
 
@@ -134,7 +134,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
     * Retrieve order shipments collection
     *
-    * @return array|Mage_Sales_Model_Resource_Order_Shipment_Collection
+     * @return array|Mage_Sales_Model_Resource_Order_Shipment_Collection
     */
     public function getShipmentsCollection()
     {
@@ -144,7 +144,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for order tracking numbers collection per shipment
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return array
      */
     public function getShipmentTracks($shipment)
@@ -159,7 +159,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for shipment address by format
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return string
      */
     public function getShipmentAddressFormattedHtml($shipment)
@@ -174,7 +174,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for billing address of order by format
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getBillingAddressFormattedHtml($order)
@@ -189,7 +189,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
     /**
      * Getter for billing address of order by format
      *
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return array
      */
     public function getShipmentItems($shipment)

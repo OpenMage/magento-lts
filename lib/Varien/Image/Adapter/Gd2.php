@@ -54,7 +54,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Opens image file.
      *
-     * @param string $filename
+     * @param  string           $filename
      * @throws Varien_Exception
      */
     public function open($filename)
@@ -92,7 +92,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Shorthand byte options are case insensitive
      *
      * @deprecated
-     * @param string $memoryValue
+     * @param  string           $memoryValue
      * @throws Varien_Exception
      * @see http://php.net/manual/en/faq.using.php#faq.using.shorthandbytes
      * @return int
@@ -217,8 +217,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Obtain function name, basing on image type and callback type
      *
-     * @param string $callbackType
-     * @param int $fileType
+     * @param  string    $callbackType
+     * @param  int       $fileType
      * @return string
      * @throws Exception
      */
@@ -291,7 +291,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Gives true for a PNG with alpha, false otherwise
      *
-     * @param string $fileName
+     * @param  string  $fileName
      * @return boolean
      */
     public function checkAlpha($fileName)

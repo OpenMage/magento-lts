@@ -47,9 +47,9 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve count of visitors, customers
      *
-     * @param string $from
-     * @param string $to
-     * @param int $store
+     * @param  string $from
+     * @param  string $to
+     * @param  int    $store
      * @return array
      */
     public function getCounts($from, $to, $store)
@@ -88,7 +88,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
      * Save log
      *
      * @param array $data
-     * @param int $id
+     * @param int   $id
      */
     public function saveLog($data, $id = null)
     {
@@ -120,8 +120,8 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
     /**
      * Retrieve log id
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return string
      */
     public function getLogId($from, $to)

@@ -20,13 +20,13 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  *
- * @method bool hasLimit()
- * @method int getLimit()
- * @method bool hasQuery()
+ * @method bool   hasLimit()
+ * @method int    getLimit()
+ * @method bool   hasQuery()
  * @method string getQuery()
- * @method bool setResults(array $value)
- * @method bool hasStart()
- * @method int getStart()
+ * @method bool   setResults(array $value)
+ * @method bool   hasStart()
+ * @method int    getStart()
  */
 class Mage_Adminhtml_Model_Search_Catalog extends Varien_Object
 {

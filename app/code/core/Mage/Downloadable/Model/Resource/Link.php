@@ -30,7 +30,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
     /**
      * Save title and price of link item
      *
-     * @param Mage_Downloadable_Model_Link $linkObject
+     * @param  Mage_Downloadable_Model_Link $linkObject
      * @return $this
      */
     public function saveItemTitleAndPrice($linkObject)
@@ -143,7 +143,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
     /**
      * Delete data by item(s)
      *
-     * @param Mage_Downloadable_Model_Link|array|int $items
+     * @param  Mage_Downloadable_Model_Link|array|int $items
      * @return $this
      */
     public function deleteItems($items)
@@ -177,8 +177,8 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
     /**
      * Retrieve links searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)

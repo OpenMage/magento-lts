@@ -54,7 +54,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
      * Load primary coupon (is_primary = 1) for specified rule
      *
      *
-     * @param Mage_SalesRule_Model_Rule|int $rule
+     * @param  Mage_SalesRule_Model_Rule|int $rule
      * @return bool
      */
     public function loadPrimaryByRule(Mage_SalesRule_Model_Coupon $object, $rule)
@@ -86,7 +86,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
     /**
      * Check if code exists
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public function exists($code)

@@ -20,27 +20,27 @@
  * @category   Mage
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute            _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute            getResource()
  * @method Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection getCollection()
  *
- * @method string getAttributeCode()
- * @method int getAttributeId()
- * @method $this setAttributeId(int $value)
- * @method $this setLabel(string $value)
- * @method int getPosition()
- * @method $this setPosition(int $value)
- * @method array getPrices()
- * @method $this setPrices(array $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
+ * @method string                                    getAttributeCode()
+ * @method int                                       getAttributeId()
+ * @method $this                                     setAttributeId(int $value)
+ * @method $this                                     setLabel(string $value)
+ * @method int                                       getPosition()
+ * @method $this                                     setPosition(int $value)
+ * @method array                                     getPrices()
+ * @method $this                                     setPrices(array $value)
+ * @method int                                       getProductId()
+ * @method $this                                     setProductId(int $value)
  * @method Mage_Catalog_Model_Resource_Eav_Attribute getProductAttribute()
- * @method $this setProductAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method int getUseDefault()
- * @method $this setUseDefault(int $value)
- * @method array getValues()
+ * @method $this                                     setProductAttribute(Mage_Catalog_Model_Resource_Eav_Attribute $value)
+ * @method int                                       getStoreId()
+ * @method $this                                     setStoreId(int $value)
+ * @method int                                       getUseDefault()
+ * @method $this                                     setUseDefault(int $value)
+ * @method array                                     getValues()
  */
 class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_Model_Abstract
 {
@@ -52,7 +52,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Attribute extends Mage_Core_M
     /**
      * Add price data to attribute
      *
-     * @param array $priceData
+     * @param  array $priceData
      * @return $this
      */
     public function addPrice($priceData)

@@ -20,21 +20,21 @@
  * @category   Mage
  * @package    Mage_Reports
  *
- * @method Mage_Reports_Model_Resource_Event _getResource()
- * @method Mage_Reports_Model_Resource_Event getResource()
+ * @method Mage_Reports_Model_Resource_Event            _getResource()
+ * @method Mage_Reports_Model_Resource_Event            getResource()
  * @method Mage_Reports_Model_Resource_Event_Collection getCollection()
- * @method string getLoggedAt()
- * @method $this setLoggedAt(string $value)
- * @method int getEventTypeId()
- * @method $this setEventTypeId(int $value)
- * @method int getObjectId()
- * @method $this setObjectId(int $value)
- * @method int getSubjectId()
- * @method $this setSubjectId(int $value)
- * @method int getSubtype()
- * @method $this setSubtype(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
+ * @method string                                       getLoggedAt()
+ * @method $this                                        setLoggedAt(string $value)
+ * @method int                                          getEventTypeId()
+ * @method $this                                        setEventTypeId(int $value)
+ * @method int                                          getObjectId()
+ * @method $this                                        setObjectId(int $value)
+ * @method int                                          getSubjectId()
+ * @method $this                                        setSubjectId(int $value)
+ * @method int                                          getSubtype()
+ * @method $this                                        setSubtype(int $value)
+ * @method int                                          getStoreId()
+ * @method $this                                        setStoreId(int $value)
  */
 class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
 {
@@ -68,9 +68,9 @@ class Mage_Reports_Model_Event extends Mage_Core_Model_Abstract
     /**
      * Update customer type after customer login
      *
-     * @param int $visitorId
-     * @param int $customerId
-     * @param array $types
+     * @param  int   $visitorId
+     * @param  int   $customerId
+     * @param  array $types
      * @return $this
      */
     public function updateCustomerType($visitorId, $customerId, $types = null)

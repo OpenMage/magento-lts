@@ -21,9 +21,9 @@
  * @package    Mage_Widget
  *
  * @method string getMainFieldsetHtmlId()
- * @method $this setMainFieldsetHtmlId(string $value)
+ * @method $this  setMainFieldsetHtmlId(string $value)
  * @method string getWidgetType()
- * @method array getWidgetValues()
+ * @method array  getWidgetValues()
  */
 class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Widget_Form
 {
@@ -121,7 +121,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
     /**
      * Add field to Options form based on parameter configuration
      *
-     * @param Varien_Object $parameter
+     * @param  Varien_Object                     $parameter
      * @return Varien_Data_Form_Element_Abstract
      */
     protected function _addField($parameter)

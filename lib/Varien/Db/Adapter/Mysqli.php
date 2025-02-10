@@ -77,7 +77,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     /**
      * Run RAW Query
      *
-     * @param string $sql
+     * @param  string        $sql
      * @return mysqli_result
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps

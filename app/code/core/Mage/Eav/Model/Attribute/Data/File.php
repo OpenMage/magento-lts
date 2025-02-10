@@ -90,7 +90,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
      * Validate file by attribute validate rules
      * Return array of errors
      *
-     * @param array $value
+     * @param  array $value
      * @return array
      */
     protected function _validateByRules($value)
@@ -139,7 +139,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Validate data
      *
-     * @param array|string $value
+     * @param  array|string        $value
      * @throws Mage_Core_Exception
      * @return true|array
      */
@@ -186,7 +186,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Export attribute value to entity model
      *
-     * @param array|string $value
+     * @param  array|string        $value
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -244,7 +244,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Restore attribute value from SESSION to entity model
      *
-     * @param array|string $value
+     * @param  array|string $value
      * @return $this
      */
     public function restoreValue($value)
@@ -255,7 +255,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     /**
      * Return formatted attribute value from entity model
      *
-     * @param string $format
+     * @param  string              $format
      * @return string|array
      * @throws Mage_Core_Exception
      */

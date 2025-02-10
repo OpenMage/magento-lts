@@ -138,7 +138,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Return name of container type by its code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getContainerTypeByCode($code)
@@ -154,7 +154,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Return name of delivery confirmation type by its code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getDeliveryConfirmationTypeByCode($code)
@@ -172,7 +172,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Return name of content type by its code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getContentTypeByCode($code)
@@ -203,8 +203,8 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Get item of shipment by its id
      *
-     * @param int $itemId
-     * @param string $itemsOf
+     * @param  int           $itemId
+     * @param  string        $itemsOf
      * @return Varien_Object
      */
     public function getShipmentItem($itemId, $itemsOf)
@@ -326,7 +326,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Display formatted price
      *
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function displayPrice($price)
@@ -337,7 +337,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Display formatted customs price
      *
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function displayCustomsPrice($price)
@@ -349,7 +349,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
     /**
      * Get ordered qty of item
      *
-     * @param int $itemId
+     * @param  int      $itemId
      * @return int|null
      */
     public function getQtyOrderedItem($itemId)

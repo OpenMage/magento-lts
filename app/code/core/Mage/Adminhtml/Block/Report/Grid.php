@@ -203,7 +203,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     }
 
     /**
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     protected function _setFilterValues($data)
@@ -365,9 +365,9 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Add new export type to grid
      *
-     * @param   string $url
-     * @param   string $label
-     * @return  Mage_Adminhtml_Block_Widget_Grid
+     * @param  string                           $url
+     * @param  string                           $label
+     * @return Mage_Adminhtml_Block_Widget_Grid
      */
     public function addExportType($url, $label)
     {
@@ -643,7 +643,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
     /**
      * Get currency rate (base to given currency)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @param  string|Mage_Directory_Model_Currency $toCurrency
      * @return double
      */
     public function getRate($toCurrency)

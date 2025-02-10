@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
      * Load attribute labels
      * @deprecated
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      */
     public function loadLabel($attribute)
@@ -73,7 +73,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
      * Load prices
      * @deprecated
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      */
     public function loadPrices($attribute)
@@ -84,7 +84,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Save Custom labels for Attribute name
      *
-     * @param Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
+     * @param  Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
      * @return $this
      */
     public function saveLabel($attribute)
@@ -126,7 +126,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Save Options prices (Depends from price save scope)
      *
-     * @param Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
+     * @param  Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
      * @return $this
      */
     public function savePrices($attribute)
@@ -264,7 +264,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
     /**
      * Retrieve Used in Configurable Products Attributes
      *
-     * @param int $setId The specific attribute set
+     * @param  int   $setId The specific attribute set
      * @return array
      */
     public function getUsedAttributes($setId)

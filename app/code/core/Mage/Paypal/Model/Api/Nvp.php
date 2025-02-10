@@ -903,8 +903,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Add method to request array
      *
-     * @param string $methodName
-     * @param array $request
+     * @param  string $methodName
+     * @param  array  $request
      * @return array
      */
     protected function _addMethodToRequest($methodName, $request)
@@ -916,7 +916,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Do the API call
      *
-     * @param string $methodName
+     * @param  string              $methodName
      * @return array
      * @throws Mage_Core_Exception
      */
@@ -1002,7 +1002,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Setter for 'raw response needed' flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setRawResponseNeeded($flag)
@@ -1014,7 +1014,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Handle logical errors
      *
-     * @param array $response
+     * @param  array               $response
      * @throws Mage_Core_Exception
      */
     protected function _handleCallErrors($response)
@@ -1061,9 +1061,9 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Format error message from error code, short error message and long error message
      *
-     * @param string $errorCode
-     * @param string $shortErrorMessage
-     * @param string $longErrorMessage
+     * @param  string $errorCode
+     * @param  string $shortErrorMessage
+     * @param  string $longErrorMessage
      * @return string
      */
     protected function _formatErrorMessage($errorCode, $shortErrorMessage, $longErrorMessage)
@@ -1078,7 +1078,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Check whether PayPal error can be processed
      *
-     * @param int $errorCode
+     * @param  int  $errorCode
      * @return bool
      */
     protected function _isProcessableError($errorCode)
@@ -1095,7 +1095,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Extract errors from PayPal's response and return them in array
      *
-     * @param array $response
+     * @param  array $response
      * @return array
      */
     protected function _extractErrorsFromResponse($response)
@@ -1121,8 +1121,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Catch success calls and collect warnings
      *
-     * @param array $response
-     * @return bool success flag
+     * @param  array $response
+     * @return bool  success flag
      */
     protected function _isCallSuccessful($response)
     {
@@ -1147,8 +1147,8 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Validate response array.
      *
-     * @param string $method
-     * @param array $response
+     * @param  string $method
+     * @param  array  $response
      * @return bool
      */
     protected function _validateResponse($method, $response)
@@ -1166,7 +1166,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
     /**
      * Parse an NVP response string into an associative array
-     * @param string $nvpstr
+     * @param  string $nvpstr
      * @return array
      */
     protected function _deformatNVP($nvpstr)
@@ -1195,7 +1195,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * NVP doesn't support passing discount total as a separate amount - add it as a line item
      *
-     * @param int $i
+     * @param  int       $i
      * @return bool|void
      */
     protected function _exportLineItems(array &$request, $i = 0)
@@ -1315,7 +1315,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter for credit card type
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected function _filterCcType($value)
@@ -1326,7 +1326,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter for true/false values (converts to boolean)
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     protected function _filterToBool($value)
@@ -1342,7 +1342,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter for 'AUTOBILLAMT'
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected function _filterBillFailedLater($value)
@@ -1353,7 +1353,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter for 'BILLINGPERIOD' and 'TRIALBILLINGPERIOD'
      *
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     protected function _filterPeriodUnit($value)
@@ -1375,7 +1375,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter for 'FAILEDINITAMTACTION'
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     protected function _filterInitialAmountMayFail($value)
@@ -1386,7 +1386,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Filter for billing agreement status
      *
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     protected function _filterBillingAgreementStatus($value)
@@ -1402,7 +1402,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Convert payment status from NVP format to paypal/info model format
      *
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     protected function _filterPaymentStatusFromNvpToInfo($value)
@@ -1440,7 +1440,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Convert payment review action to NVP-compatible value
      *
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     protected function _filterPaymentReviewAction($value)
@@ -1456,7 +1456,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Convert RP management action to NVP format
      *
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     protected function _filterRecurringProfileActionToNvp($value)
@@ -1516,7 +1516,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
     /**
      * Return each call request without unused fields in case of Express Checkout Unilateral payments
      *
-     * @param string $methodName Current method name
+     * @param  string $methodName Current method name
      * @return array
      */
     protected function _prepareEachCallRequest($methodName)

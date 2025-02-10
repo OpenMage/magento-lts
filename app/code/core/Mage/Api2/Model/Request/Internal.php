@@ -52,7 +52,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
     /**
      * Set request body data
      *
-     * @param array $data
+     * @param  array                   $data
      * @return Mage_Api2_Model_Request
      */
     public function setBodyParams($data)
@@ -64,7 +64,7 @@ class Mage_Api2_Model_Request_Internal extends Mage_Api2_Model_Request
     /**
      * Set HTTP request method for request emulation during internal call
      *
-     * @param string $method
+     * @param  string $method
      * @return $this
      */
     public function setMethod($method)

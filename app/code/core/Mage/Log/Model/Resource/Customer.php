@@ -79,9 +79,9 @@ class Mage_Log_Model_Resource_Customer extends Mage_Core_Model_Resource_Db_Abstr
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Log_Model_Customer $object
+     * @param  string                  $field
+     * @param  mixed                   $value
+     * @param  Mage_Log_Model_Customer $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)

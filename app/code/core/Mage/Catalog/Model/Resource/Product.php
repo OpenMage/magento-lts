@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product website identifiers
      *
-     * @param Mage_Catalog_Model_Product|int $product
+     * @param  Mage_Catalog_Model_Product|int $product
      * @return array
      */
     public function getWebsiteIds($product)
@@ -84,8 +84,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product website identifiers by product identifiers
      *
-     * @param array $productIds
-     * @return  array
+     * @param  array $productIds
+     * @return array
      */
     public function getWebsiteIdsByProductIds($productIds)
     {
@@ -107,7 +107,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product category identifiers
      *
-     * @param Mage_Catalog_Model_Product|Varien_Object $product
+     * @param  Mage_Catalog_Model_Product|Varien_Object $product
      * @return array
      */
     public function getCategoryIds($product)
@@ -124,7 +124,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Get product identifier by sku
      *
-     * @param string $sku
+     * @param  string $sku
      * @return string
      */
     public function getIdBySku($sku)
@@ -185,7 +185,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Save product website relations
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     protected function _saveWebsiteIds($product)
@@ -294,7 +294,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Refresh Product Enabled Index
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function refreshIndex($product)
@@ -360,8 +360,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
      * if store parameter is null - index will refreshed for all stores
      * if product parameter is null - idex will be refreshed for all products
      *
-     * @param Mage_Core_Model_Store $store
-     * @param Mage_Catalog_Model_Product|array $product
+     * @param  Mage_Core_Model_Store            $store
+     * @param  Mage_Catalog_Model_Product|array $product
      * @throws Mage_Core_Exception
      * @return $this
      */
@@ -490,7 +490,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Get collection of product categories
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product                      $product
      * @return Mage_Catalog_Model_Resource_Category_Collection
      */
     public function getCategoryCollection($product)
@@ -509,7 +509,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve category ids where product is available
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return array
      */
     public function getAvailableInCategories($object)
@@ -536,8 +536,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Check availability display product in category
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int $categoryId
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  int                        $categoryId
      * @return string
      */
     public function canBeShowInCategory($product, $categoryId)
@@ -553,8 +553,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Duplicate product store values
      *
-     * @param int $oldId
-     * @param int $newId
+     * @param  int   $oldId
+     * @param  int   $newId
      * @return $this
      */
     public function duplicate($oldId, $newId)
@@ -623,7 +623,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return array
      * @deprecated after 1.4.2.0
      */
@@ -657,8 +657,8 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Return assigned images for specific stores
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param int|array $storeIds
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  int|array                  $storeIds
      * @return array
      *
      */
@@ -692,7 +692,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
     /**
      * Retrieve product categories
      *
-     * @param Mage_Catalog_Model_Product $object
+     * @param  Mage_Catalog_Model_Product $object
      * @return array
      */
     public function getCategoryIdsWithAnchors($object)

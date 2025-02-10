@@ -25,7 +25,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Prepare catalog attribute values to save
      *
-     * @param array $attr
+     * @param  array $attr
      * @return array
      */
     protected function _prepareValues($attr)
@@ -873,7 +873,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Returns category entity row by category id
      *
-     * @param int $entityId
+     * @param  int   $entityId
      * @return array
      */
     protected function _getCategoryEntityRow($entityId)
@@ -889,8 +889,8 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
     /**
      * Returns category path as array
      *
-     * @param array $category
-     * @param array $path
+     * @param  array $category
+     * @param  array $path
      * @return array
      */
     protected function _getCategoryPath($category, $path = [])

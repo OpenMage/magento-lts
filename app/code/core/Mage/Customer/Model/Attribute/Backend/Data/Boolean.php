@@ -25,7 +25,7 @@ class Mage_Customer_Model_Attribute_Backend_Data_Boolean extends Mage_Eav_Model_
     /**
      * Prepare data before attribute save
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function beforeSave($customer)

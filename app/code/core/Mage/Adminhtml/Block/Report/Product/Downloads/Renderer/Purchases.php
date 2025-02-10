@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Report_Product_Downloads_Renderer_Purchases extends M
     /**
      * Renders Purchases value
      *
-     * @return  string
+     * @return string
      */
     public function render(Varien_Object $row)
     {

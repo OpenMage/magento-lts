@@ -27,7 +27,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Assign data to info model instance
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function assignData($data)
@@ -198,8 +198,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @param string $expYear
-     * @param string $expMonth
+     * @param  string              $expYear
+     * @param  string              $expMonth
      * @return bool
      * @throws Zend_Date_Exception
      */
@@ -215,7 +215,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function otherCcType($type)
@@ -226,8 +226,8 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate credit card number
      *
-     * @param string $ccNumber
-     * @return  bool
+     * @param  string $ccNumber
+     * @return bool
      */
     public function validateCcNum($ccNumber)
     {
@@ -265,7 +265,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Other credit cart type number validation
      *
-     * @param string $ccNumber
+     * @param  string $ccNumber
      * @return bool
      */
     public function validateCcNumOther($ccNumber)
@@ -276,7 +276,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
     /**
      * Check whether there are CC types set in configuration
      *
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param  Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)

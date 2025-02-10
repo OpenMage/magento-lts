@@ -84,7 +84,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Check whether URL for corresponding path should use https protocol
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     protected function _shouldBeSecure($path)
@@ -97,7 +97,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Retrieve current secure url
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Core_Controller_Request_Http $request
      * @return string
      */
     protected function _getCurrentSecureUrl($request)
@@ -110,7 +110,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      * Emulate custom admin url
      *
      * @param string $configArea
-     * @param bool $useRouterName
+     * @param bool   $useRouterName
      */
     public function collectRoutes($configArea, $useRouterName)
     {
@@ -147,7 +147,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     /**
      * Check if current controller instance is allowed in current router.
      *
-     * @param Mage_Core_Controller_Varien_Action $controllerInstance
+     * @param  Mage_Core_Controller_Varien_Action $controllerInstance
      * @return true
      */
     protected function _validateControllerInstance($controllerInstance)

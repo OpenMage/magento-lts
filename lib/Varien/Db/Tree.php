@@ -124,7 +124,7 @@ class Varien_Db_Tree
     /**
      * set name of id field
      *
-     * @param string $name
+     * @param  string         $name
      * @return Varien_Db_Tree
      */
     public function setIdField($name)
@@ -136,7 +136,7 @@ class Varien_Db_Tree
     /**
      * set name of left field
      *
-     * @param string $name
+     * @param  string         $name
      * @return Varien_Db_Tree
      */
     public function setLeftField($name)
@@ -148,7 +148,7 @@ class Varien_Db_Tree
     /**
      * set name of right field
      *
-     * @param string $name
+     * @param  string         $name
      * @return Varien_Db_Tree
      */
     public function setRightField($name)
@@ -160,7 +160,7 @@ class Varien_Db_Tree
     /**
      * set name of level field
      *
-     * @param string $name
+     * @param  string         $name
      * @return Varien_Db_Tree
      */
     public function setLevelField($name)
@@ -172,7 +172,7 @@ class Varien_Db_Tree
     /**
      * set name of pid Field
      *
-     * @param string $name
+     * @param  string         $name
      * @return Varien_Db_Tree
      */
     public function setPidField($name)
@@ -184,7 +184,7 @@ class Varien_Db_Tree
     /**
      * set table name
      *
-     * @param string $name
+     * @param  string         $name
      * @return Varien_Db_Tree
      */
     public function setTable($name)

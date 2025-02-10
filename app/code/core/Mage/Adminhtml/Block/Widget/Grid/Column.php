@@ -20,18 +20,18 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  *
- * @method array getActions()
- * @method $this setActions(array $value)
- * @method bool getCopyable()
- * @method $this setCopyable(bool $value)
+ * @method array  getActions()
+ * @method $this  setActions(array $value)
+ * @method bool   getCopyable()
+ * @method $this  setCopyable(bool $value)
  * @method string getDir()
- * @method array getFilterConditionCallback()
+ * @method array  getFilterConditionCallback()
  * @method string getFilterIndex()
- * @method $this setFormat(string $value)
+ * @method $this  setFormat(string $value)
  * @method string getIndex()
- * @method bool getNoLink()
- * @method array getSelected()
- * @method $this setSelected(array $value)
+ * @method bool   getNoLink()
+ * @method array  getSelected()
+ * @method $this  setSelected(array $value)
  */
 class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widget
 {
@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     protected $_cssClass = null;
 
     /**
-     * @param Mage_Adminhtml_Block_Widget_Grid $grid
+     * @param  Mage_Adminhtml_Block_Widget_Grid $grid
      * @return $this
      */
     public function setGrid($grid)
@@ -152,7 +152,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row column field value for display
      *
-     * @return  string
+     * @return string
      */
     public function getRowField(Varien_Object $row)
     {
@@ -183,7 +183,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve row column field value for export
      *
-     * @return  string
+     * @return string
      */
     public function getRowFieldExport(Varien_Object $row)
     {
@@ -207,8 +207,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     /**
      * Decorate rendered cell value
      *
-     * @param string $value
-     * @param array|string $decorators
+     * @param  string       $value
+     * @param  array|string $decorators
      * @return string
      */
     protected function &_applyDecorators($value, $decorators)
@@ -233,7 +233,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param string $renderer
+     * @param  string $renderer
      * @return $this
      */
     public function setRenderer($renderer)
@@ -335,7 +335,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param string $filterClass
+     * @param  string $filterClass
      * @return void
      */
     public function setFilter($filterClass)

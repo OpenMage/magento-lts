@@ -30,7 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Groupprice extends M
     /**
      * Add is_percent column
      *
-     * @param array $columns
+     * @param  array $columns
      * @return array
      */
     protected function _loadPriceDataColumns($columns)

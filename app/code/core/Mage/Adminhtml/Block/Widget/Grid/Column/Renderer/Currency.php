@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
     /**
      * Returns currency code, false on error
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return string|false
      */
     protected function _getCurrencyCode($row)
@@ -72,7 +72,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
     /**
      * Get rate for current row, 1 by default
      *
-     * @param Varien_Object $row
+     * @param  Varien_Object $row
      * @return float|int
      */
     protected function _getRate($row)

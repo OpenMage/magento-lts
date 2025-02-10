@@ -25,7 +25,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Attribute_Backend_Parent extends M
     /**
      * Save items collection and shipping rates collection
      *
-     * @param Varien_Object|Mage_Sales_Model_Quote_Address $object
+     * @param  Varien_Object|Mage_Sales_Model_Quote_Address $object
      * @return $this
      */
     public function afterSave($object)

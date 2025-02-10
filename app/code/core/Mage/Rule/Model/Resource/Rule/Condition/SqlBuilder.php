@@ -34,9 +34,9 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
     /**
      * Convert operator for sql where
      *
-     * @param string $field
-     * @param string $operator
-     * @param string|array $value
+     * @param  string       $field
+     * @param  string       $operator
+     * @param  string|array $value
      * @return string
      */
     public function getOperatorCondition($field, $operator, $value)

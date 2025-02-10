@@ -18,15 +18,15 @@
  * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item _getResource()
- * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item getResource()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item            _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item            getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection getCollection()
  *
  * @method string getAdditionalData()
- * @method $this setAdditionalData(string $value)
+ * @method $this  setAdditionalData(string $value)
  *
- * @method bool hasBackToStock()
- * @method bool getBackToStock()
+ * @method bool  hasBackToStock()
+ * @method bool  getBackToStock()
  * @method $this setBackToStock(bool $value)
  * @method float getBaseCost()
  * @method $this setBaseCost(float $value)
@@ -53,31 +53,31 @@
  * @method float getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(float $value)
  *
- * @method bool hasCanReturnToStock()
- * @method bool getCanReturnToStock()
+ * @method bool  hasCanReturnToStock()
+ * @method bool  getCanReturnToStock()
  * @method $this setCanReturnToStock(bool $value)
  *
  * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method float getDiscountAmount()
- * @method $this setDiscountAmount(float $value)
+ * @method $this  setDescription(string $value)
+ * @method float  getDiscountAmount()
+ * @method $this  setDiscountAmount(float $value)
  *
  * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
  *
  * @method string getName()
- * @method $this setName(string $value)
+ * @method $this  setName(string $value)
  *
- * @method int getOrderItemId()
+ * @method int   getOrderItemId()
  * @method $this setOrderItemId(int $value)
  *
- * @method int getParentId()
+ * @method int   getParentId()
  * @method $this setParentId(int $value)
  * @method float getPrice()
  * @method $this setPrice(float $value)
  * @method float getPriceInclTax()
  * @method $this setPriceInclTax(float $value)
- * @method int getProductId()
+ * @method int   getProductId()
  * @method $this setProductId(int $value)
  *
  * @method float getQty()
@@ -88,22 +88,22 @@
  * @method $this setRowTotalInclTax(float $value)
  *
  * @method string getSku()
- * @method $this setSku(string $value)
- * @method $this setStoreId(int $value)
+ * @method $this  setSku(string $value)
+ * @method $this  setStoreId(int $value)
  *
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
  *
- * @method float getWeeeTaxAppliedAmount()
- * @method $this setWeeeTaxAppliedAmount(float $value)
- * @method float getWeeeTaxAppliedRowAmount()
- * @method $this setWeeeTaxAppliedRowAmount(float $value)
+ * @method float  getWeeeTaxAppliedAmount()
+ * @method $this  setWeeeTaxAppliedAmount(float $value)
+ * @method float  getWeeeTaxAppliedRowAmount()
+ * @method $this  setWeeeTaxAppliedRowAmount(float $value)
  * @method string getWeeeTaxApplied()
- * @method $this setWeeeTaxApplied(string $value)
- * @method float getWeeeTaxDisposition()
- * @method $this setWeeeTaxDisposition(float $value)
- * @method float getWeeeTaxRowDisposition()
- * @method $this setWeeeTaxRowDisposition(float $value)
+ * @method $this  setWeeeTaxApplied(string $value)
+ * @method float  getWeeeTaxDisposition()
+ * @method $this  setWeeeTaxDisposition(float $value)
+ * @method float  getWeeeTaxRowDisposition()
+ * @method $this  setWeeeTaxRowDisposition(float $value)
  */
 class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
 {
@@ -120,7 +120,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     /**
      * Declare creditmemo instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setCreditmemo(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {
@@ -156,7 +156,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     /**
      * Declare order item instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -188,8 +188,8 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
     /**
      * Declare qty
      *
-     * @param   float $qty
-     * @return  $this
+     * @param  float $qty
+     * @return $this
      */
     public function setQty($qty)
     {

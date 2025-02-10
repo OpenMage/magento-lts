@@ -46,7 +46,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      * Set merchant transaction key.
      * Needed to generate MD5 sign.
      *
-     * @param string $transKey
+     * @param  string $transKey
      * @return $this
      */
     protected function _setTransactionKey($transKey)
@@ -58,11 +58,11 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     /**
      * Generates the MD5 fingerprint for request.
      *
-     * @param string $merchantApiLoginId
-     * @param string $merchantTransactionKey
-     * @param string $amount
-     * @param string $fpSequence An invoice number or random number.
-     * @param string $fpTimestamp
+     * @param  string $merchantApiLoginId
+     * @param  string $merchantTransactionKey
+     * @param  string $amount
+     * @param  string $fpSequence             An invoice number or random number.
+     * @param  string $fpTimestamp
      * @return string The fingerprint.
      */
     public function generateRequestSign($merchantApiLoginId, $merchantTransactionKey, $amount, $currencyCode, $fpSequence, $fpTimestamp)
@@ -192,12 +192,12 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
     /**
      * Generates the SHA2 fingerprint for request.
      *
-     * @param string $merchantApiLoginId
-     * @param string $merchantSignatureKey
-     * @param string $amount
-     * @param string $currencyCode
-     * @param string $fpSequence An invoice number or random number.
-     * @param string $fpTimestamp
+     * @param  string $merchantApiLoginId
+     * @param  string $merchantSignatureKey
+     * @param  string $amount
+     * @param  string $currencyCode
+     * @param  string $fpSequence           An invoice number or random number.
+     * @param  string $fpTimestamp
      * @return string The fingerprint.
      */
     protected function _generateSha2RequestSign(

@@ -22,12 +22,12 @@
  *
  * @method Mage_SalesRule_Model_Resource_Rule_Customer _getResource()
  * @method Mage_SalesRule_Model_Resource_Rule_Customer getResource()
- * @method int getRuleId()
- * @method $this setRuleId(int $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getTimesUsed()
- * @method $this setTimesUsed(int $value)
+ * @method int                                         getRuleId()
+ * @method $this                                       setRuleId(int $value)
+ * @method int                                         getCustomerId()
+ * @method $this                                       setCustomerId(int $value)
+ * @method int                                         getTimesUsed()
+ * @method $this                                       setTimesUsed(int $value)
  */
 class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
 {
@@ -38,8 +38,8 @@ class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $customerId
-     * @param int $ruleId
+     * @param  int   $customerId
+     * @param  int   $ruleId
      * @return $this
      */
     public function loadByCustomerRule($customerId, $ruleId)

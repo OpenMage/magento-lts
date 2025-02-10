@@ -35,8 +35,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * Constructor
      *
-     * @param   string $path - path to directory
-     * @return  none
+     * @param  string $path - path to directory
+     * @return none
      */
     public function __construct($path)
     {
@@ -47,8 +47,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add file name to array
      *
-     * @param   array &$files - array of files
-     * @return  none
+     * @param  array &$files - array of files
+     * @return none
      */
     public function getFilesName(&$files)
     {
@@ -57,8 +57,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add file name to array
      *
-     * @param   array &$files - array of files
-     * @return  none
+     * @param  array &$files - array of files
+     * @return none
      */
     public function getFileName(&$files = null)
     {
@@ -72,8 +72,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add file path to array
      *
-     * @param   array &$paths - array of paths
-     * @return  none
+     * @param  array &$paths - array of paths
+     * @return none
      */
     public function getFilesPaths(&$paths)
     {
@@ -84,8 +84,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add file path to array
      *
-     * @param   array &$paths - array of paths
-     * @return  none
+     * @param  array &$paths - array of paths
+     * @return none
      */
     public function getFilePath(&$path = null)
     {
@@ -99,8 +99,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * use filter
      *
-     * @param   bool $useFilter - use or not filter
-     * @return  none
+     * @param  bool $useFilter - use or not filter
+     * @return none
      */
     public function useFilter($useFilter)
     {
@@ -114,8 +114,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add file object to array
      *
-     * @param   array &$objs - array of gile objects
-     * @return  none
+     * @param  array &$objs - array of gile objects
+     * @return none
      */
     public function getFilesObj(&$objs)
     {
@@ -126,8 +126,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * nothing
      *
-     * @param   array &$dirs - array of dirs
-     * @return  none
+     * @param  array &$dirs - array of dirs
+     * @return none
      */
     public function getDirsName(&$dirs)
     {
@@ -136,8 +136,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * nothing
      *
-     * @param   array &$dirs - array of dirs
-     * @return  none
+     * @param  array &$dirs - array of dirs
+     * @return none
      */
     public function getDirName()
     {
@@ -146,8 +146,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * set file filter
      *
-     * @param   array $filter - array of filter
-     * @return  none
+     * @param  array $filter - array of filter
+     * @return none
      */
     public function setFilesFilter($filter)
     {
@@ -156,8 +156,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * set file filter
      *
-     * @param   array $filter - array of filter
-     * @return  none
+     * @param  array $filter - array of filter
+     * @return none
      */
     public function addFilter($filter)
     {
@@ -166,7 +166,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * get extension of file
      *
-     * @return  string - extension of file
+     * @return string - extension of file
      */
     public function getExtension()
     {
@@ -175,8 +175,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * get extension of file
      *
-     * @param   string $fileName - name of file
-     * @return  string - extension of file
+     * @param  string $fileName - name of file
+     * @return string - extension of file
      */
     public static function getExt($fileName)
     {
@@ -190,7 +190,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * get name of file
      *
-     * @return  string - name of file
+     * @return string - name of file
      */
     public function getName()
     {
@@ -199,7 +199,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * render filters
      *
-     * @return  none
+     * @return none
      */
     public function renderFilter()
     {
@@ -250,8 +250,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add to array file name
      *
-     * @param   array &$arr -export array
-     * @return  none
+     * @param  array &$arr -export array
+     * @return none
      */
     public function toArray(&$arr)
     {
@@ -262,11 +262,11 @@ class Varien_File_Object extends SplFileObject implements IFactory
     /**
      * add to xml file name
      *
-     * @param   array &$xml -export xml
-     * @param   int $recursionLevel - level of recursion
-     * @param   bool $addOpenTag - nothing
-     * @param   string $rootName - nothing
-     * @return  none
+     * @param  array  &$xml           -export xml
+     * @param  int    $recursionLevel - level of recursion
+     * @param  bool   $addOpenTag     - nothing
+     * @param  string $rootName       - nothing
+     * @return none
      */
     public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {

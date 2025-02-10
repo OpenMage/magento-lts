@@ -101,9 +101,9 @@ class Mage_Index_Model_Lock
     /**
      * Set named lock
      *
-     * @param string $lockName
-     * @param bool $file
-     * @param bool $block
+     * @param  string $lockName
+     * @param  bool   $file
+     * @param  bool   $block
      * @return bool
      */
     public function setLock($lockName, $file = false, $block = false)
@@ -118,8 +118,8 @@ class Mage_Index_Model_Lock
     /**
      * Set named file lock
      *
-     * @param string $lockName
-     * @param bool $block
+     * @param  string $lockName
+     * @param  bool   $block
      * @return bool
      */
     protected function _setLockFile($lockName, $block = false)
@@ -149,8 +149,8 @@ class Mage_Index_Model_Lock
     /**
      * Set named DB lock
      *
-     * @param string $lockName
-     * @param bool $block
+     * @param  string $lockName
+     * @param  bool   $block
      * @return bool
      */
     protected function _setLockDb($lockName, $block = false)
@@ -165,8 +165,8 @@ class Mage_Index_Model_Lock
     /**
      * Release named lock by name
      *
-     * @param string $lockName
-     * @param bool $file
+     * @param  string $lockName
+     * @param  bool   $file
      * @return bool
      */
     public function releaseLock($lockName, $file = false)
@@ -181,7 +181,7 @@ class Mage_Index_Model_Lock
     /**
      * Release named file lock by name
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     protected function _releaseLockFile($lockName)
@@ -196,7 +196,7 @@ class Mage_Index_Model_Lock
     /**
      * Release named DB lock by name
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     protected function _releaseLockDb($lockName)
@@ -211,8 +211,8 @@ class Mage_Index_Model_Lock
     /**
      * Check whether the named lock exists
      *
-     * @param string $lockName
-     * @param bool $file
+     * @param  string $lockName
+     * @param  bool   $file
      * @return bool
      */
     public function isLockExists($lockName, $file = false)
@@ -227,7 +227,7 @@ class Mage_Index_Model_Lock
     /**
      * Check whether the named file lock exists
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     protected function _isLockExistsFile($lockName)
@@ -250,7 +250,7 @@ class Mage_Index_Model_Lock
     /**
      * Check whether the named DB lock exists
      *
-     * @param string $lockName
+     * @param  string $lockName
      * @return bool
      */
     protected function _isLockExistsDb($lockName)
@@ -275,7 +275,7 @@ class Mage_Index_Model_Lock
     /**
      * Get lock file resource
      *
-     * @param string $lockName
+     * @param  string    $lockName
      * @return resource
      * @throws Exception
      */

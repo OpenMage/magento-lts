@@ -22,18 +22,18 @@
  *
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()
- * @method string getVisitorType()
- * @method $this setVisitorType(string $value)
- * @method int getRemoteAddr()
- * @method $this setRemoteAddr(int $value)
- * @method string getFirstVisitAt()
- * @method $this setFirstVisitAt(string $value)
- * @method string getLastVisitAt()
- * @method $this setLastVisitAt(string $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method string getLastUrl()
- * @method $this setLastUrl(string $value)
+ * @method string                                 getVisitorType()
+ * @method $this                                  setVisitorType(string $value)
+ * @method int                                    getRemoteAddr()
+ * @method $this                                  setRemoteAddr(int $value)
+ * @method string                                 getFirstVisitAt()
+ * @method $this                                  setFirstVisitAt(string $value)
+ * @method string                                 getLastVisitAt()
+ * @method $this                                  setLastVisitAt(string $value)
+ * @method int                                    getCustomerId()
+ * @method $this                                  setCustomerId(int $value)
+ * @method string                                 getLastUrl()
+ * @method $this                                  setLastUrl(string $value)
  *
  */
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
@@ -70,7 +70,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     /**
      * Set Prepare at timestamp (if time is null, set current timestamp)
      *
-     * @param int $time
+     * @param  int   $time
      * @return $this
      */
     public function setPrepareAt($time = null)

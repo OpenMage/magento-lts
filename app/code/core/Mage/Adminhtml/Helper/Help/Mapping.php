@@ -208,9 +208,9 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
     /**
      * Compose reconstructed URL using mapping
      *
-     * @param string $frontModule
-     * @param string $controllerName
-     * @param string $actionName
+     * @param  string      $frontModule
+     * @param  string      $controllerName
+     * @param  string      $actionName
      * @return string|bool
      */
     protected function findInMapping($frontModule, $controllerName, $actionName)

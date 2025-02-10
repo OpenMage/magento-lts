@@ -26,7 +26,7 @@ class Mage_ImportExport_Model_Config
      * Get data about models from specified config key.
      *
      * @static
-     * @param string $configKey
+     * @param  string              $configKey
      * @throws Mage_Core_Exception
      * @return array
      */
@@ -50,8 +50,8 @@ class Mage_ImportExport_Model_Config
      * Get model params as combo-box options.
      *
      * @static
-     * @param string $configKey
-     * @param bool $withEmpty OPTIONAL Include 'Please Select' option or not
+     * @param  string $configKey
+     * @param  bool   $withEmpty OPTIONAL Include 'Please Select' option or not
      * @return array
      */
     public static function getModelsComboOptions($configKey, $withEmpty = false)
@@ -71,8 +71,8 @@ class Mage_ImportExport_Model_Config
      * Get model params as array of options.
      *
      * @static
-     * @param string $configKey
-     * @param bool $withEmpty OPTIONAL Include 'Please Select' option or not
+     * @param  string $configKey
+     * @param  bool   $withEmpty OPTIONAL Include 'Please Select' option or not
      * @return array
      */
     public static function getModelsArrayOptions($configKey, $withEmpty = false)

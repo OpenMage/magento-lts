@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Permissions_Variable_Grid extends Mage_Adminhtml_Bloc
     }
 
     /**
-     * @param Mage_Admin_Model_Variable $row
+     * @param  Mage_Admin_Model_Variable $row
      * @return string
      */
     public function getRowUrl($row)

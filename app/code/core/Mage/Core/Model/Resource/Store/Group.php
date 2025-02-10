@@ -45,8 +45,8 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
     /**
      * Update default store group for website
      *
-     * @param int $websiteId
-     * @param int $groupId
+     * @param  int   $websiteId
+     * @param  int   $groupId
      * @return $this
      */
     protected function _updateWebsiteDefaultGroup($websiteId, $groupId)
@@ -89,8 +89,8 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
     /**
      * Update website for stores that assigned to store group
      *
-     * @param int $groupId
-     * @param int $websiteId
+     * @param  int   $groupId
+     * @param  int   $websiteId
      * @return $this
      */
     protected function _updateStoreWebsite($groupId, $websiteId)
@@ -104,8 +104,8 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
     /**
      * Save default store for store group
      *
-     * @param int $groupId
-     * @param int $storeId
+     * @param  int   $groupId
+     * @param  int   $storeId
      * @return $this
      */
     protected function _saveDefaultStore($groupId, $storeId)

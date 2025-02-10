@@ -41,7 +41,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
     /**
      * CreatedAt filter setter
      *
-     * @param string $date
+     * @param  string $date
      * @return $this
      */
     public function addCreatedBeforeFilter($date)

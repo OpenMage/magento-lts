@@ -58,9 +58,9 @@ abstract class Mage_Eav_Model_Resource_Attribute extends Mage_Eav_Model_Resource
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
+     * @param  string                                            $field
+     * @param  mixed                                             $value
+     * @param  Mage_Core_Model_Abstract|Mage_Eav_Model_Attribute $object
      * @return Varien_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)

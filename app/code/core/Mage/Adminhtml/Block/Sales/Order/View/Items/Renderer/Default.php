@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Retrieve real html id for field
      *
-     * @param string $id
+     * @param  string $id
      * @return string
      */
     public function getFieldId($id)
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
      * Retrieve real name for field
      *
      * @deprecated after 1.4.2.0
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     public function getFieldName($name)
@@ -220,7 +220,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default extends Mage_
     /**
      * Display susbtotal price including tax
      *
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return string
      */
     public function displaySubtotalInclTax($item)

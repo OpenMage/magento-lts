@@ -20,14 +20,14 @@
  * @category   Mage
  * @package    Mage_Sales
  *
- * @method string getAmountPrefix()
- * @method bool getDisplayZero()
- * @method int getFontSize()
+ * @method string                 getAmountPrefix()
+ * @method bool                   getDisplayZero()
+ * @method int                    getFontSize()
  * @method Mage_Sales_Model_Order getOrder()
- * @method Varien_Object getSource()
- * @method string getSourceField()
- * @method string getTitle()
- * @method string getTitleSourceField()
+ * @method Varien_Object          getSource()
+ * @method string                 getSourceField()
+ * @method string                 getTitle()
+ * @method string                 getTitleSourceField()
  */
 class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
 {

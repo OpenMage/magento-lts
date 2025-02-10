@@ -25,7 +25,7 @@ class Mage_Widget_Model_Template_Filter extends Mage_Cms_Model_Template_Filter
     /**
      * Generate widget
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      */
     public function widgetDirective($construction)

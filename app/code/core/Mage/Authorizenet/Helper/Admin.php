@@ -24,7 +24,7 @@ class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
 {
     /**
      * Retrieve place order url
-     * @param array $params
+     * @param  array  $params
      * @return string
      */
     public function getSuccessOrderUrl($params)
@@ -47,7 +47,7 @@ class Mage_Authorizenet_Helper_Admin extends Mage_Authorizenet_Helper_Data
     /**
      * Retrieve save order url params
      *
-     * @param string $controller
+     * @param  string $controller
      * @return array
      */
     public function getSaveOrderUrlParams($controller)

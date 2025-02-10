@@ -86,7 +86,7 @@ class Mage_Core_Block_Html_Calendar extends Mage_Core_Block_Template
     /**
      * Getter for store timestamp based on store timezone settings
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return int
      */
     public function getStoreTimestamp($store = null)

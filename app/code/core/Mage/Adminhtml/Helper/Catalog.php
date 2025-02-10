@@ -53,7 +53,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Set Custom Attribute Tab Block Name for Product Edit
      *
-     * @param string $attributeTabBlock
+     * @param  string $attributeTabBlock
      * @return $this
      */
     public function setAttributeTabBlock($attributeTabBlock)
@@ -75,7 +75,7 @@ class Mage_Adminhtml_Helper_Catalog extends Mage_Core_Helper_Abstract
     /**
      * Set Custom Attribute Tab Block Name for Category Edit
      *
-     * @param string $attributeTabBlock
+     * @param  string $attributeTabBlock
      * @return $this
      */
     public function setCategoryAttributeTabBlock($attributeTabBlock)

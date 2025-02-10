@@ -44,8 +44,8 @@ class Mage_Dataflow_Model_Resource_Profile extends Mage_Core_Model_Resource_Db_A
     /**
      * Returns true if profile with name exists
      *
-     * @param string $name
-     * @param int $id
+     * @param  string $name
+     * @param  int    $id
      * @return bool
      */
     public function isProfileExists($name, $id = null)

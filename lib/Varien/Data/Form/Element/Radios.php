@@ -60,8 +60,8 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * @param array|Varien_Object $option
-     * @param $selected
+     * @param  array|Varien_Object $option
+     * @param                      $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)

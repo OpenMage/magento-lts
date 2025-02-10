@@ -21,7 +21,7 @@
  * @package    Mage_Downloadable
  *
  * @method $this setCanEditPrice(bool $value)
- * @method bool getCanReadPrice()
+ * @method bool  getCanReadPrice()
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Links extends Mage_Uploader_Block_Single
@@ -223,7 +223,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Return formatted price with two digits after decimal point
      *
-     * @param float $value
+     * @param  float  $value
      * @return string
      */
     public function getPriceValue($value)
@@ -277,7 +277,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     /**
      * Retrieve config json
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getConfigJson($type = 'links')
@@ -295,7 +295,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getBrowseButtonHtml($type = '')
@@ -311,7 +311,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getDeleteButtonHtml($type = '')

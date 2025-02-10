@@ -22,22 +22,22 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer getResource()
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
- * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getTypeId()
- * @method $this setTypeId(string $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method int                                      getEntityTypeId()
+ * @method $this                                    setEntityTypeId(int $value)
+ * @method int                                      getAttributeSetId()
+ * @method $this                                    setAttributeSetId(int $value)
+ * @method string                                   getTypeId()
+ * @method $this                                    setTypeId(string $value)
+ * @method string                                   getSku()
+ * @method $this                                    setSku(string $value)
+ * @method int                                      getHasOptions()
+ * @method $this                                    setHasOptions(int $value)
+ * @method int                                      getRequiredOptions()
+ * @method $this                                    setRequiredOptions(int $value)
+ * @method string                                   getCreatedAt()
+ * @method $this                                    setCreatedAt(string $value)
+ * @method string                                   getUpdatedAt()
+ * @method $this                                    setUpdatedAt(string $value)
  */
 class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 {
@@ -170,8 +170,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Remove index data for specifuc product
      *
-     * @param   mixed $product
-     * @return  Mage_CatalogIndex_Model_Indexer
+     * @param  mixed                           $product
+     * @return Mage_CatalogIndex_Model_Indexer
      */
     public function cleanup($product)
     {
@@ -184,10 +184,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Reindex catalog product data which used in layered navigation and in product list
      *
-     * @param   mixed $products
-     * @param   mixed $attributes
-     * @param   mixed $stores
-     * @return  Mage_CatalogIndex_Model_Indexer
+     * @param  mixed                           $products
+     * @param  mixed                           $attributes
+     * @param  mixed                           $stores
+     * @return Mage_CatalogIndex_Model_Indexer
      */
     public function plainReindex($products = null, $attributes = null, $stores = null)
     {
@@ -341,8 +341,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * After plain reindex process
      *
-     * @param Mage_Core_Model_Store|array|int|Mage_Core_Model_Website $store
-     * @param int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
+     * @param  Mage_Core_Model_Store|array|int|Mage_Core_Model_Website                             $store
+     * @param  int|array|Mage_Catalog_Model_Product_Condition_Interface|Mage_Catalog_Model_Product $products
      * @return $this
      */
     protected function _afterPlainReindex($store, $products = null)
@@ -380,8 +380,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Return collection with product and store filters
      *
-     * @param Mage_Core_Model_Store $store
-     * @param mixed $products
+     * @param  Mage_Core_Model_Store                          $store
+     * @param  mixed                                          $products
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     protected function _getProductCollection($store, $products)
@@ -404,10 +404,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Walk Product Collection for Relation Parent products
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param Mage_Core_Model_Store|Mage_Core_Model_Website $store
-     * @param array $attributes
-     * @param array $prices
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Core_Model_Store|Mage_Core_Model_Website  $store
+     * @param  array                                          $attributes
+     * @param  array                                          $prices
      * @return $this
      */
     public function _walkCollectionRelation($collection, $store, $attributes = [], $prices = [])
@@ -452,11 +452,11 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Run indexing process for product collection
      *
-     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param   mixed $store
-     * @param   array $attributes
-     * @param   array $prices
-     * @return  Mage_CatalogIndex_Model_Indexer
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  mixed                                          $store
+     * @param  array                                          $attributes
+     * @param  array                                          $prices
+     * @return Mage_CatalogIndex_Model_Indexer
      */
     protected function _walkCollection($collection, $store, $attributes = [], $prices = [])
     {
@@ -513,7 +513,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Retrieve Data retriever
      *
-     * @param string $type
+     * @param  string                                $type
      * @return Mage_CatalogIndex_Model_Data_Abstract
      */
     public function getRetreiver($type)
@@ -563,7 +563,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Retrieve Base to Specified Currency Rate
      *
-     * @param string $code
+     * @param  string $code
      * @return double
      */
     protected function _getBaseToSpecifiedCurrencyRate($code)
@@ -574,10 +574,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Build Entity price filter
      *
-     * @param array $attributes
-     * @param array $values
-     * @param array $filteredAttributes
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  array                                          $attributes
+     * @param  array                                          $values
+     * @param  array                                          $filteredAttributes
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
      */
     public function buildEntityPriceFilter($attributes, $values, &$filteredAttributes, $productCollection)
@@ -674,10 +674,10 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Build Entity filter
      *
-     * @param array $attributes
-     * @param array $values
-     * @param array $filteredAttributes
-     * @param Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  array                                          $attributes
+     * @param  array                                          $values
+     * @param  array                                          $filteredAttributes
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
      * @return array
      */
     public function buildEntityFilter($attributes, $values, &$filteredAttributes, $productCollection)
@@ -754,8 +754,8 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
      * Add indexable attributes to product collection select
      *
      * @deprecated
-     * @param   Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @return  Mage_CatalogIndex_Model_Indexer
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @return Mage_CatalogIndex_Model_Indexer
      */
     protected function _addFilterableAttributesToCollection($collection)
     {
@@ -794,9 +794,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
     /**
      * Update price process for catalog product flat
      *
-     * @param Mage_Core_Model_Store|int $store
-     * @param Mage_Catalog_Model_Product|int|array|null $products
-     * @param string $resourceTable
+     * @param  Mage_Core_Model_Store|int                 $store
+     * @param  Mage_Catalog_Model_Product|int|array|null $products
+     * @param  string                                    $resourceTable
      * @return $this
      */
     public function updateCatalogProductFlat($store, $products = null, $resourceTable = null)

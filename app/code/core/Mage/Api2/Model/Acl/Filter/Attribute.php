@@ -22,16 +22,16 @@
  *
  * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection getCollection()
  * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute_Collection getResourceCollection()
- * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute getResource()
- * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute _getResource()
- * @method string getUserType()
- * @method $this setUserType() setUserType(string $type)
- * @method string getResourceId()
- * @method $this setResourceId() setResourceId(string $resource)
- * @method string getOperation()
- * @method $this setOperation() setOperation(string $operation)
- * @method string getAllowedAttributes()
- * @method $this setAllowedAttributes() setAllowedAttributes(string $attributes)
+ * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute            getResource()
+ * @method Mage_Api2_Model_Resource_Acl_Filter_Attribute            _getResource()
+ * @method string                                                   getUserType()
+ * @method $this                                                    setUserType() setUserType(string $type)
+ * @method string                                                   getResourceId()
+ * @method $this                                                    setResourceId() setResourceId(string $resource)
+ * @method string                                                   getOperation()
+ * @method $this                                                    setOperation() setOperation(string $operation)
+ * @method string                                                   getAllowedAttributes()
+ * @method $this                                                    setAllowedAttributes() setAllowedAttributes(string $attributes)
  */
 class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
 {

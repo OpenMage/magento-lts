@@ -65,7 +65,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
     /**
      * Getter/Setter for _skipDbProcessing flag
      *
-     * @param null|bool $flag
+     * @param  null|bool                          $flag
      * @return bool|Mage_Core_Model_File_Uploader
      */
     public function skipDbProcessing($flag = null)
@@ -80,7 +80,7 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
     /**
      * Check protected/allowed extension
      *
-     * @param string $extension
+     * @param  string $extension
      * @return bool
      */
     public function checkAllowedExtension($extension)
@@ -100,8 +100,8 @@ class Mage_Core_Model_File_Uploader extends Varien_File_Uploader
      * original or new file name (if specified).
      * Added file name length validation.
      *
-     * @param string $destinationFolder
-     * @param string|null $newFileName
+     * @param  string      $destinationFolder
+     * @param  string|null $newFileName
      * @return array|bool
      * @throws Exception
      */

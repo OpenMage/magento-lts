@@ -51,8 +51,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product view page url
      *
-     * @param   Mage_Catalog_Model_Product|string|int $product
-     * @return  string|false
+     * @param  Mage_Catalog_Model_Product|string|int $product
+     * @return string|false
      */
     public function getProductUrl($product)
     {
@@ -67,9 +67,9 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product view page url including provided category Id
      *
-     * @param   int $productId
-     * @param   int $categoryId
-     * @return  string
+     * @param  int    $productId
+     * @param  int    $categoryId
+     * @return string
      */
     public function getFullProductUrl($productId, $categoryId = null)
     {
@@ -84,8 +84,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product price
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  float
+     * @param  Mage_Catalog_Model_Product $product
+     * @return float
      */
     public function getPrice($product)
     {
@@ -95,8 +95,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product final price
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  float
+     * @param  Mage_Catalog_Model_Product $product
+     * @return float
      */
     public function getFinalPrice($product)
     {
@@ -155,7 +155,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     }
 
     /**
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return string
      */
     public function getEmailToFriendUrl($product)
@@ -185,8 +185,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Check if a product can be shown
      *
-     * @param Mage_Catalog_Model_Product|int $product
-     * @param string $where
+     * @param  Mage_Catalog_Model_Product|int $product
+     * @param  string                         $where
      * @return bool
      */
     public function canShow($product, $where = 'catalog')
@@ -207,7 +207,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Retrieve product rewrite sufix for store
      *
-     * @param int $storeId
+     * @param  int    $storeId
      * @return string
      */
     public function getProductUrlSuffix($storeId = null)
@@ -225,7 +225,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Check if <link rel="canonical"> can be used for product
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public function canUseCanonicalTag($store = null)
@@ -238,7 +238,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Only a small number of settings returned, so we won't break anything in current dataflow
      * As soon as development process goes on we need to add there all possible settings
      *
-     * @param string $inputType
+     * @param  string $inputType
      * @return array
      */
     public function getAttributeInputTypes($inputType = null)
@@ -266,7 +266,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Return default attribute backend model by input type
      *
-     * @param string $inputType
+     * @param  string      $inputType
      * @return string|null
      */
     public function getAttributeBackendModelByInputType($inputType)
@@ -281,7 +281,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Return default attribute source model by input type
      *
-     * @param string $inputType
+     * @param  string      $inputType
      * @return string|null
      */
     public function getAttributeSourceModelByInputType($inputType)
@@ -299,9 +299,9 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *   'category_id' - id of category to check and append to product as current.
      *     If empty (except FALSE) - will be guessed (e.g. from last visited) to load as current.
      *
-     * @param int $productId
+     * @param int                               $productId
      * @param Mage_Core_Controller_Front_Action $controller
-     * @param Varien_Object $params
+     * @param Varien_Object                     $params
      *
      * @return false|Mage_Catalog_Model_Product
      */
@@ -377,7 +377,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Also parses and adds product management related values - e.g. qty
      *
      * @param  Mage_Catalog_Model_Product $product
-     * @param  Varien_Object $buyRequest
+     * @param  Varien_Object              $buyRequest
      * @return $this
      */
     public function prepareProductOptions($product, $buyRequest)
@@ -399,8 +399,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * - 'files_prefix': string[a-z0-9_] - prefix that was added at frontend to names of file inputs,
      *   so they won't intersect with other submitted options
      *
-     * @param Varien_Object|array $buyRequest
-     * @param Varien_Object|array $params
+     * @param  Varien_Object|array $buyRequest
+     * @param  Varien_Object|array $params
      * @return Varien_Object
      */
     public function addParamsToBuyRequest($buyRequest, $params)
@@ -439,9 +439,9 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Return loaded product instance
      *
-     * @param  int|string $productId (SKU or ID)
-     * @param  int|null $store
-     * @param  string $identifierType
+     * @param  int|string                 $productId      (SKU or ID)
+     * @param  int|null                   $store
+     * @param  string                     $identifierType
      * @return Mage_Catalog_Model_Product
      */
     public function getProduct($productId, $store, $identifierType = null)
@@ -478,7 +478,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      *
      * For instance, during order creation in the backend admin has ability to add any products to order
      *
-     * @param bool $skipSaleableCheck
+     * @param  bool  $skipSaleableCheck
      * @return $this
      */
     public function setSkipSaleableCheck($skipSaleableCheck = false)
@@ -500,7 +500,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Gets minimal sales quantity
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return float|null
      */
     public function getMinimalQty($product)
@@ -516,7 +516,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
      * Get default qty - either as preconfigured, or as 1.
      * Also restricts it by minimal qty.
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return int|float
      */
     public function getDefaultQty($product)
@@ -538,8 +538,8 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Get default product value by field name
      *
-     * @param string $fieldName
-     * @param string $productType
+     * @param  string $fieldName
+     * @param  string $productType
      * @return int
      */
     public function getDefaultProductValue($fieldName, $productType)
@@ -557,9 +557,9 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     /**
      * Return array from config by fieldset name and area
      *
-     * @param null|string $field
-     * @param string $fieldset
-     * @param string $area
+     * @param  null|string $field
+     * @param  string      $fieldset
+     * @param  string      $area
      * @return array|null
      */
     public function getFieldset($field = null, $fieldset = 'catalog_product_dataflow', $area = 'admin')

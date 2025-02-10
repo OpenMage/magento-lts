@@ -25,11 +25,11 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Display price attribute value in base order currency and in place order currency
      *
-     * @param   Varien_Object $dataObject
-     * @param   string $code
-     * @param   bool $strong
-     * @param   string $separator
-     * @return  string
+     * @param  Varien_Object $dataObject
+     * @param  string        $code
+     * @param  bool          $strong
+     * @param  string        $separator
+     * @return string
      */
     public function displayPriceAttribute($dataObject, $code, $strong = false, $separator = '<br/>')
     {
@@ -45,12 +45,12 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Get "double" prices html (block with base and place currency)
      *
-     * @param   Varien_Object $dataObject
-     * @param   float $basePrice
-     * @param   float $price
-     * @param   bool $strong
-     * @param   string $separator
-     * @return  string
+     * @param  Varien_Object $dataObject
+     * @param  float         $basePrice
+     * @param  float         $price
+     * @param  bool          $strong
+     * @param  string        $separator
+     * @return string
      */
     public function displayPrices($dataObject, $basePrice, $price, $strong = false, $separator = '<br/>')
     {
@@ -83,7 +83,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Filter collection by removing not available product types
      *
-     * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
+     * @param  Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
     public function applySalableProductTypesFilter($collection)
@@ -110,8 +110,8 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
     /**
      * Escape string preserving links
      *
-     * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param  string|string[]      $data
+     * @param  array|null           $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtmlWithLinks($data, $allowedTags = null)

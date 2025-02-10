@@ -20,21 +20,21 @@
  *
  * @method Mage_Api_Model_Resource_Roles _getResource()
  * @method Mage_Api_Model_Resource_Roles getResource()
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method int getTreeLevel()
- * @method $this setTreeLevel(int $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method string getRoleType()
- * @method $this setRoleType(string $value)
- * @method int getUserId()
- * @method $this setUserId(int $value)
- * @method string getRoleName()
- * @method $this setRoleName(string $value)
- * @method string getName()
- * @method $this setName(string $name)
- * @method int getPid()
+ * @method int                           getParentId()
+ * @method $this                         setParentId(int $value)
+ * @method int                           getTreeLevel()
+ * @method $this                         setTreeLevel(int $value)
+ * @method int                           getSortOrder()
+ * @method $this                         setSortOrder(int $value)
+ * @method string                        getRoleType()
+ * @method $this                         setRoleType(string $value)
+ * @method int                           getUserId()
+ * @method $this                         setUserId(int $value)
+ * @method string                        getRoleName()
+ * @method $this                         setRoleName(string $value)
+ * @method string                        getName()
+ * @method $this                         setName(string $name)
+ * @method int                           getPid()
  */
 class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
 {
@@ -100,11 +100,11 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string|null $parentName
-     * @param int $level
-     * @param bool|null $represent2Darray
-     * @param bool $rawNodes
-     * @param string $module
+     * @param  string|null                          $parentName
+     * @param  int                                  $level
+     * @param  bool|null                            $represent2Darray
+     * @param  bool                                 $rawNodes
+     * @param  string                               $module
      * @return array|false|Varien_Simplexml_Element
      */
     protected function _buildResourcesArray(

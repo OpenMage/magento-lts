@@ -22,7 +22,7 @@
  *
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
- * @method Mage_Catalog_Model_Resource_Category_Collection getCollection()
+ * @method Mage_Catalog_Model_Resource_Category_Collection                                getCollection()
  *
  * @method array getAffectedCategoryIds()
  * @method $this setAffectedCategoryIds(array $categoryIds)
@@ -32,50 +32,50 @@
  *
  * @method string getCategoryPath()
  * @method string getCategoryUrl()
- * @method $this setChildrenCount(int $value)
- * @method int getChildrenCount()
- * @method bool getCustomUseParentSettings()
+ * @method $this  setChildrenCount(int $value)
+ * @method int    getChildrenCount()
+ * @method bool   getCustomUseParentSettings()
  *
- * @method $this setDeletedChildrenIds(array $value)
- * @method bool getDisableFlat()
+ * @method $this  setDeletedChildrenIds(array $value)
+ * @method bool   getDisableFlat()
  * @method string getDisplayMode()
- * @method $this setDisplayMode(string $value)
+ * @method $this  setDisplayMode(string $value)
  *
  * @method string getImage()
- * @method $this setIncludeInMenu(int $value)
- * @method bool getInitialSetupFlag()
- * @method $this setInitialSetupFlag(bool $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method int getIsAnchor()
- * @method $this setIsAnchor(int $value)
- * @method $this setIsChangedProductList(bool $bool)
+ * @method $this  setIncludeInMenu(int $value)
+ * @method bool   getInitialSetupFlag()
+ * @method $this  setInitialSetupFlag(bool $value)
+ * @method int    getIsActive()
+ * @method $this  setIsActive(int $value)
+ * @method int    getIsAnchor()
+ * @method $this  setIsAnchor(int $value)
+ * @method $this  setIsChangedProductList(bool $bool)
  *
- * @method int getLandingPage()
- * @method bool hasLevel()
+ * @method int   getLandingPage()
+ * @method bool  hasLevel()
  * @method $this setLevel(int $value)
  *
  * @method string getMetaDescription()
  * @method string getMetaKeywords()
  * @method string getMetaTitle()
- * @method int getMovedCategoryId()
+ * @method int    getMovedCategoryId()
  *
  * @method $this setMovedCategoryId(int $value)
  * @method $this setName(string $value)
  *
- * @method bool hasProductCount()
- * @method $this setParentId(int $value)
+ * @method bool   hasProductCount()
+ * @method $this  setParentId(int $value)
  * @method string getPath()
- * @method $this setPath(string|int $value)
- * @method bool getProductsReadonly()
- * @method int getPosition()
- * @method $this setPosition(int $value)
- * @method array getPostedProducts()
- * @method $this setPostedProducts(array $value)
+ * @method $this  setPath(string|int $value)
+ * @method bool   getProductsReadonly()
+ * @method int    getPosition()
+ * @method $this  setPosition(int $value)
+ * @method array  getPostedProducts()
+ * @method $this  setPostedProducts(array $value)
  *
  * @method string getUrlKey()
- * @method $this setUrlKey(string $value)
- * @method $this setUrlPath(string $value)
+ * @method $this  setUrlKey(string $value)
+ * @method $this  setUrlPath(string $value)
  */
 class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
 {
@@ -234,9 +234,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Move category
      *
-     * @param   int $parentId new parent category id
-     * @param   int $afterCategoryId category id after which we have put current category
-     * @return  Mage_Catalog_Model_Category
+     * @param  int                         $parentId        new parent category id
+     * @param  int                         $afterCategoryId category id after which we have put current category
+     * @return Mage_Catalog_Model_Category
      */
     public function move($parentId, $afterCategoryId)
     {
@@ -340,7 +340,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve all customer attributes
      *
-     * @param bool $noDesignAttributes
+     * @param  bool  $noDesignAttributes
      * @return array
      * @todo Use with Flat Resource
      */
@@ -460,7 +460,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Set store id
      *
-     * @param string|int|Mage_Core_Model_Store $storeId
+     * @param  string|int|Mage_Core_Model_Store $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -517,7 +517,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Format URL key from name or defined key
      *
-     * @param string $str
+     * @param  string $str
      * @return string
      */
     public function formatUrlKey($str)
@@ -639,7 +639,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve attribute by code
      *
-     * @param string $attributeCode
+     * @param  string                                   $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     // phpcs:ignore Ecg.PHP.PrivateClassMember.PrivateClassMemberError
@@ -657,7 +657,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Get all children categories IDs
      *
-     * @param bool $asArray return result as array instead of comma-separated list of IDs
+     * @param  bool         $asArray return result as array instead of comma-separated list of IDs
      * @return array|string
      */
     public function getAllChildren($asArray = false)
@@ -703,8 +703,8 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Check category id existing
      *
-     * @param   int $id
-     * @return  bool
+     * @param  int  $id
+     * @return bool
      */
     public function checkId($id)
     {
@@ -843,11 +843,11 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
     /**
      * Retrieve categories by parent
      *
-     * @param int $parent
-     * @param int $recursionLevel
-     * @param bool $sorted
-     * @param bool $asCollection
-     * @param bool $toLoad
+     * @param  int                                                                                                           $parent
+     * @param  int                                                                                                           $recursionLevel
+     * @param  bool                                                                                                          $sorted
+     * @param  bool                                                                                                          $asCollection
+     * @param  bool                                                                                                          $toLoad
      * @return array|Mage_Catalog_Model_Resource_Category_Collection|Varien_Data_Collection|Varien_Data_Tree_Node_Collection
      */
     public function getCategories($parent, $recursionLevel = 0, $sorted = false, $asCollection = false, $toLoad = true)

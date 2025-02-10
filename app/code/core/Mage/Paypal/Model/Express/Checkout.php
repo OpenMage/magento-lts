@@ -199,9 +199,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter that enables giropay redirects flow
      *
-     * @param string $successUrl - payment success result
-     * @param string $cancelUrl  - payment cancellation result
-     * @param string $pendingUrl - pending payment result
+     * @param  string $successUrl - payment success result
+     * @param  string $cancelUrl  - payment cancellation result
+     * @param  string $pendingUrl - pending payment result
      * @return $this
      */
     public function prepareGiropayUrls($successUrl, $cancelUrl, $pendingUrl)
@@ -213,7 +213,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Set create billing agreement flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setIsBillingAgreementRequested($flag)
@@ -225,7 +225,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter for customer Id
      *
-     * @param int $id
+     * @param  int   $id
      * @return $this
      * @deprecated please use self::setCustomer
      */
@@ -248,7 +248,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Setter for customer
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function setCustomer($customer)
@@ -276,9 +276,9 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Reserve order ID for specified quote and start checkout on PayPal
      *
-     * @param string $returnUrl
-     * @param string $cancelUrl
-     * @param bool|null $button
+     * @param  string    $returnUrl
+     * @param  string    $cancelUrl
+     * @param  bool|null $button
      * @return mixed
      */
     public function start($returnUrl, $cancelUrl, $button = null)
@@ -487,7 +487,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check whether order review has enough data to initialize
      *
-     * @param string $token
+     * @param  string              $token
      * @throws Mage_Core_Exception
      */
     public function prepareOrderReview($token = null)
@@ -708,7 +708,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Sets address data from exported address
      *
      * @param Mage_Sales_Model_Quote_Address $address
-     * @param array $exportedAddress
+     * @param array                          $exportedAddress
      */
     protected function _setExportedAddressData($address, $exportedAddress)
     {
@@ -784,7 +784,7 @@ class Mage_Paypal_Model_Express_Checkout
      * Returns empty array if it was impossible to obtain any shipping rate
      * If there are shipping rates obtained, the method must return one of them as default.
      *
-     * @param bool $mayReturnEmpty
+     * @param  bool  $mayReturnEmpty
      * @return array
      */
     protected function _prepareShippingOptions(
@@ -880,7 +880,7 @@ class Mage_Paypal_Model_Express_Checkout
      * If in future the issue is fixed, we don't need to attempt to match it. It would be enough to set the method code
      * before collecting shipping rates
      *
-     * @param string $selectedCode
+     * @param  string $selectedCode
      * @return string
      */
     protected function _matchShippingMethodCode(Mage_Sales_Model_Quote_Address $address, $selectedCode)
@@ -1062,7 +1062,7 @@ class Mage_Paypal_Model_Express_Checkout
     /**
      * Check if customer email exists
      *
-     * @param string $email
+     * @param  string $email
      * @return bool
      */
     protected function _customerEmailExists($email)

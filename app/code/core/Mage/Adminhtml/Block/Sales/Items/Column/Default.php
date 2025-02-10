@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Default extends Mage_Adminhtml_Blo
     /**
      * Return custom option html
      *
-     * @param array $optionInfo
+     * @param  array  $optionInfo
      * @return string
      */
     public function getCustomizedOptionValue($optionInfo)

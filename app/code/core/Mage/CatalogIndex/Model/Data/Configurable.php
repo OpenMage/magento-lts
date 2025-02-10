@@ -48,7 +48,7 @@ class Mage_CatalogIndex_Model_Data_Configurable extends Mage_CatalogIndex_Model_
     /**
       * Retrieve product type code
       *
-      * @return string
+       * @return string
       */
     public function getTypeCode()
     {

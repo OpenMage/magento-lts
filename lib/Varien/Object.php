@@ -138,7 +138,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Set _isDeleted flag value (if $isDeleted param is defined) and return current flag value
      *
-     * @param boolean $isDeleted
+     * @param  boolean $isDeleted
      * @return boolean
      */
     public function isDeleted($isDeleted = null)
@@ -163,8 +163,8 @@ class Varien_Object implements ArrayAccess
     /**
      * set name of object id field
      *
-     * @param   string $name
-     * @return  $this
+     * @param  string $name
+     * @return $this
      */
     public function setIdFieldName($name)
     {
@@ -198,8 +198,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Set object id field value
      *
-     * @param   mixed $value
-     * @return  $this
+     * @param  mixed $value
+     * @return $this
      */
     public function setId($value)
     {
@@ -234,8 +234,8 @@ class Varien_Object implements ArrayAccess
      *
      * If $key is an array, it will overwrite all the data in the object.
      *
-     * @param string|array $key
-     * @param mixed $value
+     * @param  string|array $key
+     * @param  mixed        $value
      * @return $this
      */
     public function setData($key, $value = null)
@@ -259,7 +259,7 @@ class Varien_Object implements ArrayAccess
      *
      * $key can be a string only. Array will be ignored.
      *
-     * @param string $key
+     * @param  string $key
      * @return $this
      */
     public function unsetData($key = null)
@@ -282,7 +282,7 @@ class Varien_Object implements ArrayAccess
      *
      * $key can be a string only. Array will be ignored.
      *
-     * @param string $key
+     * @param  string $key
      * @return $this
      */
     public function unsetOldData($key = null)
@@ -308,8 +308,8 @@ class Varien_Object implements ArrayAccess
      * and retrieve corresponding member. If data is the string - it will be explode
      * by new line character and converted to array.
      *
-     * @param string $key
-     * @param string|int $index
+     * @param  string     $key
+     * @param  string|int $index
      * @return mixed
      */
     public function getData($key = '', $index = null)
@@ -344,7 +344,7 @@ class Varien_Object implements ArrayAccess
      *
      * Method consider the path as chain of keys: a/b/c => ['a']['b']['c']
      *
-     * @param string $path
+     * @param  string $path
      * @return mixed
      */
     public function getDataByPath($path)
@@ -367,7 +367,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Get object data by particular key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getDataByKey($key)
@@ -378,8 +378,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Get value from _data array without parse key
      *
-     * @param   string $key
-     * @return  mixed
+     * @param  string $key
+     * @return mixed
      */
     protected function _getData($key)
     {
@@ -389,8 +389,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Set object data with calling setter method
      *
-     * @param string $key
-     * @param mixed $args
+     * @param  string $key
+     * @param  mixed  $args
      * @return $this
      */
     public function setDataUsingMethod($key, $args = [])
@@ -403,8 +403,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Get object data by key with calling getter method
      *
-     * @param string $key
-     * @param mixed $args
+     * @param  string $key
+     * @param  mixed  $args
      * @return mixed
      */
     public function getDataUsingMethod($key, $args = null)
@@ -416,8 +416,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Fast get data or set default if value is not available
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  string $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function getDataSetDefault($key, $default)
@@ -432,7 +432,7 @@ class Varien_Object implements ArrayAccess
      * If $key is empty, checks whether there's any data in the object
      * Otherwise checks if the specified attribute is set.
      *
-     * @param string $key
+     * @param  string  $key
      * @return boolean
      */
     public function hasData($key = '')
@@ -479,8 +479,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Set required array elements
      *
-     * @param   array $arr
-     * @return  array
+     * @param  array $arr
+     * @return array
      */
     protected function _prepareArray(&$arr, array $elements = [])
     {
@@ -495,10 +495,10 @@ class Varien_Object implements ArrayAccess
     /**
      * Convert object attributes to XML
      *
-     * @param array $arrAttributes array of required attributes
-     * @param string $rootName name of the root element
-     * @param bool $addOpenTag
-     * @param bool $addCdata
+     * @param  array  $arrAttributes array of required attributes
+     * @param  string $rootName      name of the root element
+     * @param  bool   $addOpenTag
+     * @param  bool   $addCdata
      * @return string
      */
     protected function __toXml(array $arrAttributes = [], $rootName = 'item', $addOpenTag = false, $addCdata = true)
@@ -529,9 +529,9 @@ class Varien_Object implements ArrayAccess
     /**
      * Public wrapper for __toXml
      *
-     * @param string $rootName
-     * @param bool $addOpenTag
-     * @param bool $addCdata
+     * @param  string $rootName
+     * @param  bool   $addOpenTag
+     * @param  bool   $addCdata
      * @return string
      */
     public function toXml(array $arrAttributes = [], $rootName = 'item', $addOpenTag = false, $addCdata = true)
@@ -542,7 +542,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Convert object attributes to JSON
      *
-     * @param  array $arrAttributes array of required attributes
+     * @param  array  $arrAttributes array of required attributes
      * @return string
      */
     protected function __toJson(array $arrAttributes = [])
@@ -564,7 +564,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Convert object attributes to string
      *
-     * @param  array  $arrAttributes array of required attributes
+     * @param  array  $arrAttributes  array of required attributes
      * @param  string $valueSeparator
      * @return string
      */
@@ -579,7 +579,7 @@ class Varien_Object implements ArrayAccess
      *
      * Will use $format as an template and substitute {{key}} for attributes
      *
-     * @param string $format
+     * @param  string $format
      * @return string
      */
     public function toString($format = '')
@@ -599,9 +599,9 @@ class Varien_Object implements ArrayAccess
     /**
      * Set/Get attribute wrapper
      *
-     * @param   string $method
-     * @param   array $args
-     * @return  mixed
+     * @param  string $method
+     * @param  array  $args
+     * @return mixed
      */
     public function __call($method, $args)
     {
@@ -630,7 +630,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Attribute getter (deprecated)
      *
-     * @param string $var
+     * @param  string $var
      * @return mixed
      */
     public function __get($var)
@@ -643,7 +643,7 @@ class Varien_Object implements ArrayAccess
      * Attribute setter (deprecated)
      *
      * @param string $var
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($var, $value)
     {
@@ -670,7 +670,7 @@ class Varien_Object implements ArrayAccess
      * $this->setMyField($value) === $this->setData('my_field', $value)
      * Uses cache to eliminate unnecessary preg_replace
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     protected function _underscore($name)
@@ -686,7 +686,7 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     protected function _camelize($name)
@@ -697,11 +697,11 @@ class Varien_Object implements ArrayAccess
     /**
      * serialize object attributes
      *
-     * @param   array $attributes
-     * @param   string $valueSeparator
-     * @param   string $fieldSeparator
-     * @param   string $quote
-     * @return  string
+     * @param  array  $attributes
+     * @param  string $valueSeparator
+     * @param  string $fieldSeparator
+     * @param  string $quote
+     * @return string
      */
     public function serialize($attributes = [], $valueSeparator = '=', $fieldSeparator = ' ', $quote = '"')
     {
@@ -721,7 +721,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Clears data changes status
      *
-     * @param boolean $value
+     * @param  boolean $value
      * @return $this
      */
     public function setDataChanges($value)
@@ -733,8 +733,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Present object data as string in debug mode
      *
-     * @param mixed $data
-     * @param array $objects
+     * @param  mixed        $data
+     * @param  array        $objects
      * @return string|array
      */
     public function debug($data = null, &$objects = [])
@@ -765,7 +765,7 @@ class Varien_Object implements ArrayAccess
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetset.php
      * @param string $offset
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function offsetSet($offset, $value): void
     {
@@ -798,7 +798,7 @@ class Varien_Object implements ArrayAccess
      * Implementation of ArrayAccess::offsetGet()
      *
      * @link http://www.php.net/manual/en/arrayaccess.offsetget.php
-     * @param string $offset
+     * @param  string $offset
      * @return mixed
      */
     #[\ReturnTypeWillChange]
@@ -808,7 +808,7 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * @param string $field
+     * @param  string  $field
      * @return boolean
      */
     public function isDirty($field = null)
@@ -823,8 +823,8 @@ class Varien_Object implements ArrayAccess
     }
 
     /**
-     * @param string $field
-     * @param boolean $flag
+     * @param  string  $field
+     * @param  boolean $flag
      * @return $this
      */
     public function flagDirty($field, $flag = true)

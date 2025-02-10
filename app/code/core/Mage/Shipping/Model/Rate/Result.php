@@ -68,7 +68,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Add a rate to the result
      *
-     * @param Mage_Shipping_Model_Rate_Result_Error|Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     * @param  Mage_Shipping_Model_Rate_Result_Error|Mage_Shipping_Model_Rate_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
      * @return $this
      */
     public function append($result)
@@ -100,7 +100,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Return rate by id in array
      *
-     * @param int $id
+     * @param  int                                         $id
      * @return Mage_Shipping_Model_Rate_Result_Method|null
      */
     public function getRateById($id)
@@ -111,7 +111,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Return quotes for specified type
      *
-     * @param string $carrier
+     * @param  string $carrier
      * @return array
      */
     public function getRatesByCarrier($carrier)
@@ -193,7 +193,7 @@ class Mage_Shipping_Model_Rate_Result
     /**
      * Set price for each rate according to count of packages
      *
-     * @param int $packageCount
+     * @param  int   $packageCount
      * @return $this
      */
     public function updateRatePrice($packageCount)

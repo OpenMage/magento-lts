@@ -85,19 +85,19 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
      * Accept option value and return its formatted view
      *
      * @param mixed $optionValue
-     * Method works well with these $optionValue format:
-     *      1. String
-     *      2. Indexed array e.g. array(val1, val2, ...)
-     *      3. Associative array, containing additional option info, including option value, e.g.
-     *          array
-     *          (
-     *              [label] => ...,
-     *              [value] => ...,
-     *              [print_value] => ...,
-     *              [option_id] => ...,
-     *              [option_type] => ...,
-     *              [custom_view] =>...,
-     *          )
+     *                           Method works well with these $optionValue format:
+     *                           1. String
+     *                           2. Indexed array e.g. array(val1, val2, ...)
+     *                           3. Associative array, containing additional option info, including option value, e.g.
+     *                           array
+     *                           (
+     *                           [label] => ...,
+     *                           [value] => ...,
+     *                           [print_value] => ...,
+     *                           [option_id] => ...,
+     *                           [option_type] => ...,
+     *                           [custom_view] =>...,
+     *                           )
      *
      * @return array
      */

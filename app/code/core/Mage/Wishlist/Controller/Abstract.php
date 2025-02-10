@@ -37,7 +37,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
     /**
      * Processes localized qty (entered by user at frontend) into internal php format
      *
-     * @param string $qty
+     * @param  string         $qty
      * @return float|int|null
      * @deprecated
      */

@@ -25,7 +25,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Forgot Password Page
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function checkForgotpassword($observer)
@@ -46,7 +46,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On User Login Page
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function checkUserLogin($observer)
@@ -118,7 +118,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Checkout Register Page
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function checkRegisterCheckout($observer)
@@ -142,7 +142,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On User Login Backend Page
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function checkUserLoginBackend($observer)
@@ -174,7 +174,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On User Login Backend Page
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function checkUserForgotPasswordBackend($observer)
@@ -201,7 +201,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Reset Attempts For Frontend
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function resetAttemptForFrontend($observer)
@@ -212,7 +212,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Reset Attempts For Backend
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function resetAttemptForBackend($observer)
@@ -255,7 +255,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Reset Attempts
      *
-     * @param string $login
+     * @param  string $login
      * @return $this
      */
     protected function _resetAttempt($login)
@@ -267,8 +267,8 @@ class Mage_Captcha_Model_Observer
     /**
      * Get Captcha String
      *
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param string $formId
+     * @param  Mage_Core_Controller_Request_Http $request
+     * @param  string                            $formId
      * @return string
      */
     protected function _getCaptchaString($request, $formId)
@@ -280,7 +280,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Share Wishlist Page
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function checkWishlistSharing($observer)
@@ -305,7 +305,7 @@ class Mage_Captcha_Model_Observer
     /**
      * Check Captcha On Email Product To A Friend Page
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return $this
      */
     public function checkSendfriendSend($observer)

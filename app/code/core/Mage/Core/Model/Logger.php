@@ -26,9 +26,9 @@ class Mage_Core_Model_Logger
      * Log wrapper
      *
      * @param string $message
-     * @param int $level
+     * @param int    $level
      * @param string $file
-     * @param bool $forceLog
+     * @param bool   $forceLog
      */
     public function log($message, $level = null, $file = '', $forceLog = false)
     {

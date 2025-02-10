@@ -54,9 +54,9 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * Filter collection to use only active rules.
      * Involved sorting by sort_order column.
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param string $couponCode
+     * @param int         $websiteId
+     * @param int         $customerGroupId
+     * @param string      $couponCode
      * @param string|null $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteGroupDateFilter()
      *
@@ -122,8 +122,8 @@ class Mage_SalesRule_Model_Resource_Rule_Collection extends Mage_Rule_Model_Reso
      * Filter collection to only active rules.
      * Sorting is not involved
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
+     * @param int         $websiteId
+     * @param int         $customerGroupId
      * @param string|null $now
      * @uses Mage_SalesRule_Model_Resource_Rule_Collection::addWebsiteFilter()
      *

@@ -20,24 +20,24 @@
  * @category   Mage
  * @package    Mage_Wishlist
  *
- * @method Mage_Wishlist_Model_Resource_Item _getResource()
- * @method Mage_Wishlist_Model_Resource_Item getResource()
+ * @method Mage_Wishlist_Model_Resource_Item            _getResource()
+ * @method Mage_Wishlist_Model_Resource_Item            getResource()
  * @method Mage_Wishlist_Model_Resource_Item_Collection getCollection()
  *
  * @method string getAddedAt()
- * @method $this setAddedAt(string $value)
+ * @method $this  setAddedAt(string $value)
  * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method bool getHasError()
+ * @method $this  setDescription(string $value)
+ * @method bool   getHasError()
  * @method string getMessage()
- * @method $this setProduct(Mage_Catalog_Model_Product $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method $this unsProduct()
- * @method float getQty()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method int getWishlistId()
+ * @method $this  setProduct(Mage_Catalog_Model_Product $value)
+ * @method int    getProductId()
+ * @method $this  setProductId(int $value)
+ * @method $this  unsProduct()
+ * @method float  getQty()
+ * @method int    getStoreId()
+ * @method $this  setStoreId(int $value)
+ * @method int    getWishlistId()
  * @method $this setWishlistId(int $value)Mage_Wishlist_Model_Resource_Item
  * @method $this setWishlist(Mage_Wishlist_Model_Wishlist $param)
  */
@@ -113,7 +113,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Set quantity. If quantity is less than 0 - set it to 1
      *
-     * @param int $qty
+     * @param  int   $qty
      * @return $this
      */
     public function setQty($qty)
@@ -125,8 +125,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Check if two options array are identical
      *
-     * @param array $options1
-     * @param array $options2
+     * @param  array $options1
+     * @param  array $options2
      * @return bool
      */
     protected function _compareOptions($options1, $options2)
@@ -146,8 +146,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Register option code
      *
-     * @param   Mage_Wishlist_Model_Item_Option $option
-     * @return  $this
+     * @param  Mage_Wishlist_Model_Item_Option $option
+     * @return $this
      */
     protected function _addOptionCode($option)
     {
@@ -291,9 +291,9 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Load item by product, wishlist and shared stores
      *
-     * @param int $wishlistId
-     * @param int $productId
-     * @param array $sharedStores
+     * @param  int   $wishlistId
+     * @param  int   $productId
+     * @param  array $sharedStores
      * @return $this
      */
     public function loadByProductWishlist($wishlistId, $productId, $sharedStores)
@@ -344,7 +344,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Return false for disabled or unvisible products
      *
      * @throws Mage_Core_Exception
-     * @param bool $delete  delete the item after successful add to cart
+     * @param  bool                $delete delete the item after successful add to cart
      * @return bool
      */
     public function addToCart(Mage_Checkout_Model_Cart $cart, $delete = false)
@@ -424,7 +424,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Merge data to item info_buyRequest option
      *
-     * @param array|Varien_Object $buyRequest
+     * @param  array|Varien_Object $buyRequest
      * @return $this
      */
     public function mergeBuyRequest($buyRequest)
@@ -457,7 +457,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Set buy request - object, holding request received from
      * product view page with keys and options for configured product
-     * @param Varien_Object $buyRequest
+     * @param  Varien_Object $buyRequest
      * @return $this
      */
     public function setBuyRequest($buyRequest)
@@ -471,9 +471,9 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Check product representation in item
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @param   Varien_Object $buyRequest
-     * @return  bool
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  Varien_Object              $buyRequest
+     * @return bool
      */
     public function isRepresent($product, $buyRequest)
     {
@@ -508,8 +508,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Check product representation in item
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  bool
+     * @param  Mage_Catalog_Model_Product $product
+     * @return bool
      */
     public function representProduct($product)
     {
@@ -535,8 +535,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * First options array is prerogative
      * Second options array checked against first one
      *
-     * @param array $options1
-     * @param array $options2
+     * @param  array $options1
+     * @param  array $options2
      * @return bool
      */
     public function compareOptions($options1, $options2)
@@ -559,8 +559,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Initialize item options
      *
-     * @param   array $options
-     * @return  $this
+     * @param  array $options
+     * @return $this
      */
     public function setOptions($options)
     {
@@ -593,8 +593,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Add option to item
      *
-     * @param   array|Mage_Wishlist_Model_Item_Option $option
-     * @return  $this
+     * @param  array|Mage_Wishlist_Model_Item_Option $option
+     * @return $this
      */
     public function addOption($option)
     {
@@ -624,7 +624,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      *Remove option from item options
      *
-     * @param string $code
+     * @param  string $code
      * @return $this
      */
     public function removeOption($code)
@@ -639,8 +639,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Get item option by code
      *
-     * @param   string $code
-     * @return  Mage_Wishlist_Model_Item_Option|null
+     * @param  string                               $code
+     * @return Mage_Wishlist_Model_Item_Option|null
      */
     public function getOptionByCode($code)
     {
@@ -698,7 +698,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * If we need to load only some of options, then option code or array of option codes
      * can be provided in $optionsFilter.
      *
-     * @param int $id
+     * @param int               $id
      * @param null|string|array $optionsFilter
      *
      * @return $this

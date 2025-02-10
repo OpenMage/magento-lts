@@ -47,7 +47,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     /**
      * Get a text for option value
      *
-     * @param string|int $value
+     * @param  string|int   $value
      * @return string|false
      */
     public function getOptionText($value)
@@ -90,8 +90,8 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
     /**
      * Retrieve Select for update Attribute value in flat table
      *
-     * @param   int $store
-     * @return  Varien_Db_Select|null
+     * @param  int                   $store
+     * @return Varien_Db_Select|null
      */
     public function getFlatUpdateSelect($store)
     {

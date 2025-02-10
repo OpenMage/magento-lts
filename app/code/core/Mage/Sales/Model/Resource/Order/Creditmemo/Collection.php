@@ -58,7 +58,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
     /**
      * Add filtration conditions
      *
-     * @param array|null $filter
+     * @param  array|null $filter
      * @return $this
      */
     public function getFiltered($filter = null)

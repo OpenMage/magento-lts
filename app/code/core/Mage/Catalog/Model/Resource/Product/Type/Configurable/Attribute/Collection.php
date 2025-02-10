@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * Set Product filter (Configurable)
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProductFilter($product)
@@ -77,7 +77,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
     /**
      * Set order collection by Position
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByPosition($dir = self::SORT_ORDER_ASC)

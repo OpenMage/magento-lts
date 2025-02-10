@@ -31,9 +31,9 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
      * Increment times_used counter
      *
      *
-     * @param int $customerId
-     * @param int $couponId
-     * @param bool $decrement   Decrement instead of increment times_used
+     * @param int  $customerId
+     * @param int  $couponId
+     * @param bool $decrement  Decrement instead of increment times_used
      */
     public function updateCustomerCouponTimesUsed($customerId, $couponId, $decrement = false)
     {
@@ -75,8 +75,8 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
      * Load an object by customer_id & coupon_id
      *
      *
-     * @param int $customerId
-     * @param int $couponId
+     * @param  int   $customerId
+     * @param  int   $couponId
      * @return $this
      */
     public function loadByCustomerCoupon(Varien_Object $object, $customerId, $couponId)

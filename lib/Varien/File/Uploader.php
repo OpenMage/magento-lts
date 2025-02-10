@@ -149,8 +149,8 @@ class Varien_File_Uploader
     /**
      * Resulting of uploaded file
      *
-     * @var array|bool      Array with file info keys: path, file. Result is
-     *                      FALSE when file not uploaded
+     * @var array|bool Array with file info keys: path, file. Result is
+     *                 FALSE when file not uploaded
      */
     protected $_result;
 
@@ -170,7 +170,7 @@ class Varien_File_Uploader
     /**
      * After save logic
      *
-     * @param  array $result
+     * @param  array                $result
      * @return Varien_File_Uploader
      */
     protected function _afterSave($result)
@@ -244,8 +244,8 @@ class Varien_File_Uploader
     /**
      * Move files from TMP folder into destination folder
      *
-     * @param string $tmpPath
-     * @param string $destPath
+     * @param  string $tmpPath
+     * @param  string $destPath
      * @return bool
      */
     protected function _moveFile($tmpPath, $destPath)
@@ -297,10 +297,10 @@ class Varien_File_Uploader
     /**
      * Add validation callback model for us in self::_validateFile()
      *
-     * @param string $callbackName
-     * @param object $callbackObject
-     * @param string $callbackMethod    Method name of $callbackObject. It must
-     *                                  have interface (string $tmpFilePath)
+     * @param  string               $callbackName
+     * @param  object               $callbackObject
+     * @param  string               $callbackMethod Method name of $callbackObject. It must
+     *                                              have interface (string $tmpFilePath)
      * @return Varien_File_Uploader
      */
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
@@ -330,7 +330,7 @@ class Varien_File_Uploader
     /**
      * Correct filename with special chars and spaces
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     public static function getCorrectFileName($fileName)
@@ -347,7 +347,7 @@ class Varien_File_Uploader
     /**
      * Convert filename to lowercase in case of case-insensitive file names
      *
-     * @param string $fileName
+     * @param  string $fileName
      * @return string
      */
     public function correctFileNameCase($fileName)
@@ -439,7 +439,7 @@ class Varien_File_Uploader
     /**
      * Filenames Case-sensitivity  setter
      *
-     * @param mixed $flag
+     * @param  mixed                $flag
      * @return Varien_File_Uploader
      */
     public function setFilenamesCaseSensitivity($flag)
@@ -459,7 +459,7 @@ class Varien_File_Uploader
     /**
      * Set valid MIME-types.
      *
-     * @param array $mimeTypes
+     * @param  array                $mimeTypes
      * @return Varien_File_Uploader
      */
     public function setValidMimeTypes($mimeTypes = [])
@@ -474,7 +474,7 @@ class Varien_File_Uploader
     /**
      * Check if specified extension is allowed
      *
-     * @param string $extension
+     * @param  string  $extension
      * @return boolean
      */
     public function checkAllowedExtension($extension)
@@ -489,7 +489,7 @@ class Varien_File_Uploader
     /**
      * @deprecated after 1.5.0.0-beta2
      *
-     * @param string $extension
+     * @param  string  $extension
      * @return boolean
      */
     public function chechAllowedExtension($extension)

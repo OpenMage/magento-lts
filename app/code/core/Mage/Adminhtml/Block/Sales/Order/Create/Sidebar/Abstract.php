@@ -70,8 +70,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve identifier of block item
      *
-     * @param   Varien_Object $item
-     * @return  int
+     * @param  Varien_Object $item
+     * @return int
      */
     public function getIdentifierId($item)
     {
@@ -81,8 +81,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve item identifier of block item
      *
-     * @param   mixed $item
-     * @return  int
+     * @param  mixed $item
+     * @return int
      */
     public function getItemId($item)
     {
@@ -92,8 +92,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
     /**
      * Retrieve product identifier linked with item
      *
-     * @param   mixed $item
-     * @return  int
+     * @param  mixed $item
+     * @return int
      */
     public function getProductId($item)
     {

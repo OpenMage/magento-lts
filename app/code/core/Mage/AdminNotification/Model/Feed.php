@@ -91,7 +91,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
     /**
      * Retrieve DB date from RSS date
      *
-     * @param string $rssDate
+     * @param  string $rssDate
      * @return string YYYY-MM-DD YY:HH:SS
      */
     public function getDate($rssDate)

@@ -22,26 +22,26 @@
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
  * @method Mage_Dataflow_Model_Resource_Profile getResource()
- * @method string getName()
- * @method $this setName(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- * @method string getActionsXml()
- * @method $this setActionsXml(string $value)
- * @method array|string getGuiData()
- * @method $this setGuiData(array|string $value)
- * @method string getDirection()
- * @method $this setDirection(string $value)
- * @method string getEntityType()
- * @method $this setEntityType(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getDataTransfer()
- * @method $this setDataTransfer(string $value)
- * @method int getAdminUserId()
- * @method $this setAdminUserId(int $value)
+ * @method string                               getName()
+ * @method $this                                setName(string $value)
+ * @method string                               getCreatedAt()
+ * @method $this                                setCreatedAt(string $value)
+ * @method string                               getUpdatedAt()
+ * @method $this                                setUpdatedAt(string $value)
+ * @method string                               getActionsXml()
+ * @method $this                                setActionsXml(string $value)
+ * @method array|string                         getGuiData()
+ * @method $this                                setGuiData(array|string $value)
+ * @method string                               getDirection()
+ * @method $this                                setDirection(string $value)
+ * @method string                               getEntityType()
+ * @method $this                                setEntityType(string $value)
+ * @method int                                  getStoreId()
+ * @method $this                                setStoreId(int $value)
+ * @method string                               getDataTransfer()
+ * @method $this                                setDataTransfer(string $value)
+ * @method int                                  getAdminUserId()
+ * @method $this                                setAdminUserId(int $value)
  */
 class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
 {
@@ -488,8 +488,8 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
     /**
      * Get node from xml object
      *
-     * @param object $xmlObject
-     * @param string $nodeName
+     * @param  object    $xmlObject
+     * @param  string    $nodeName
      * @return object
      * @throws Exception
      */

@@ -21,8 +21,8 @@
  * @package    Mage_Bundle
  *
  * @method Mage_Catalog_Model_Product getFormatProduct()
- * @method $this setFormatProduct(Mage_Catalog_Model_Product $value)
- * @method Mage_Bundle_Model_Option getOption()
+ * @method $this                      setFormatProduct(Mage_Catalog_Model_Product $value)
+ * @method Mage_Bundle_Model_Option   getOption()
  */
 class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bundle_Block_Catalog_Product_Price
 {
@@ -176,8 +176,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Returns the formatted string for the quantity chosen for the given selection
      *
-     * @param Mage_Catalog_Model_Product $selection
-     * @param bool $includeContainer
+     * @param  Mage_Catalog_Model_Product      $selection
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -195,7 +195,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Get price for selection product
      *
-     * @param Mage_Catalog_Model_Product $selection
+     * @param  Mage_Catalog_Model_Product $selection
      * @return int|float
      */
     public function getSelectionPrice($selection)
@@ -216,8 +216,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Get title price for selection product
      *
-     * @param Mage_Catalog_Model_Product $selection
-     * @param bool $includeContainer
+     * @param  Mage_Catalog_Model_Product      $selection
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -234,8 +234,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Set JS validation container for element
      *
-     * @param string $elementId
-     * @param string $containerId
+     * @param  string $elementId
+     * @param  string $containerId
      * @return string
      */
     public function setValidationContainer($elementId, $containerId)
@@ -249,8 +249,8 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
     /**
      * Format price string
      *
-     * @param float $price
-     * @param bool $includeContainer
+     * @param  float                           $price
+     * @param  bool                            $includeContainer
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */

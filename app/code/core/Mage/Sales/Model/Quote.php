@@ -30,96 +30,96 @@
  * @method Mage_Sales_Model_Resource_Quote _getResource()
  * @method Mage_Sales_Model_Resource_Quote getResource()
  *
- * @method bool hasCanApplyMsrp()
- * @method bool getCanApplyMsrp()
+ * @method bool         hasCanApplyMsrp()
+ * @method bool         getCanApplyMsrp()
  * @method string|array getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string|array $value)
+ * @method $this        setAppliedRuleIds(string|array $value)
  *
  * @method string getBaseCurrencyCode()
- * @method $this setBaseCurrencyCode(string $value)
- * @method float getBaseGrandTotal()
- * @method $this setBaseGrandTotal(float $value)
- * @method float getBaseSubtotal()
- * @method $this setBaseSubtotal(float $value)
- * @method float getBaseSubtotalWithDiscount()
- * @method $this setBaseSubtotalWithDiscount(float $value)
- * @method float getBaseToGlobalRate()
- * @method $this setBaseToGlobalRate(float $value)
- * @method float getBaseToQuoteRate()
- * @method $this setBaseToQuoteRate(float $value)
+ * @method $this  setBaseCurrencyCode(string $value)
+ * @method float  getBaseGrandTotal()
+ * @method $this  setBaseGrandTotal(float $value)
+ * @method float  getBaseSubtotal()
+ * @method $this  setBaseSubtotal(float $value)
+ * @method float  getBaseSubtotalWithDiscount()
+ * @method $this  setBaseSubtotalWithDiscount(float $value)
+ * @method float  getBaseToGlobalRate()
+ * @method $this  setBaseToGlobalRate(float $value)
+ * @method float  getBaseToQuoteRate()
+ * @method $this  setBaseToQuoteRate(float $value)
  *
- * @method bool hasChangedFlag()
- * @method bool getChangedFlag()
- * @method $this setCheckoutMethod(string $value)
+ * @method bool   hasChangedFlag()
+ * @method bool   getChangedFlag()
+ * @method $this  setCheckoutMethod(string $value)
  * @method string getConvertedAt()
- * @method $this setConvertedAt(string $value)
+ * @method $this  setConvertedAt(string $value)
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method $this  setCreatedAt(string $value)
  * @method string getCustomerDob()
- * @method $this setCustomerDob(string $value)
+ * @method $this  setCustomerDob(string $value)
  * @method string getCustomerEmail()
- * @method $this setCustomerEmail(string $value)
+ * @method $this  setCustomerEmail(string $value)
  * @method string getCustomerFirstname()
- * @method $this setCustomerFirstname(string $value)
+ * @method $this  setCustomerFirstname(string $value)
  * @method string getCustomerGender()
- * @method $this setCustomerGender(string $value)
- * @method $this setCustomerGroupId(int $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getCustomerIsGuest()
- * @method $this setCustomerIsGuest(int $value)
+ * @method $this  setCustomerGender(string $value)
+ * @method $this  setCustomerGroupId(int $value)
+ * @method int    getCustomerId()
+ * @method $this  setCustomerId(int $value)
+ * @method int    getCustomerIsGuest()
+ * @method $this  setCustomerIsGuest(int $value)
  * @method string getCustomerLastname()
- * @method $this setCustomerLastname(string $value)
+ * @method $this  setCustomerLastname(string $value)
  * @method string getCustomerMiddlename()
- * @method $this setCustomerMiddlename(string $value)
+ * @method $this  setCustomerMiddlename(string $value)
  * @method string getCustomerNote()
- * @method $this setCustomerNote(string $value)
- * @method int getCustomerNoteNotify()
- * @method $this setCustomerNoteNotify(int $value)
+ * @method $this  setCustomerNote(string $value)
+ * @method int    getCustomerNoteNotify()
+ * @method $this  setCustomerNoteNotify(int $value)
  * @method string getCustomerPrefix()
- * @method $this setCustomerPrefix(string $value)
+ * @method $this  setCustomerPrefix(string $value)
  * @method string getCustomerSuffix()
- * @method $this setCustomerSuffix(string $value)
- * @method $this setCustomerTaxClassId(int $value)
+ * @method $this  setCustomerSuffix(string $value)
+ * @method $this  setCustomerTaxClassId(int $value)
  * @method string getCustomerTaxvat()
- * @method $this setCustomerTaxvat(string $value)
+ * @method $this  setCustomerTaxvat(string $value)
  *
  * @method string getExtShippingInfo()
- * @method $this setExtShippingInfo(string $value)
+ * @method $this  setExtShippingInfo(string $value)
  *
- * @method bool hasForcedCurrency()
+ * @method bool   hasForcedCurrency()
  * @method string getForcedCurrency()
  *
- * @method $this setGiftMessage(string $value)
- * @method int getGiftMessageId()
- * @method $this setGiftMessageId(int $value)
+ * @method $this  setGiftMessage(string $value)
+ * @method int    getGiftMessageId()
+ * @method $this  setGiftMessageId(int $value)
  * @method string getGlobalCurrencyCode()
- * @method $this setGlobalCurrencyCode(string $value)
- * @method float getGrandTotal()
- * @method $this setGrandTotal(float $value)
+ * @method $this  setGlobalCurrencyCode(string $value)
+ * @method float  getGrandTotal()
+ * @method $this  setGrandTotal(float $value)
  *
  * @method bool getHasError()
  *
- * @method bool getIgnoreOldQty()
+ * @method bool  getIgnoreOldQty()
  * @method $this setIgnoreOldQty(bool $value)
- * @method bool getInventoryProcessed()
+ * @method bool  getInventoryProcessed()
  * @method $this setInventoryProcessed(bool $value)
- * @method int getIsActive()
+ * @method int   getIsActive()
  * @method $this setIsActive(int $value)
- * @method int getIsChanged()
+ * @method int   getIsChanged()
  * @method $this setIsChanged(int $value)
  * @method $this setIsCheckoutCart(bool $value)
- * @method bool getIsCheckoutCart()
- * @method bool getIsMultiPayment()
- * @method int getIsMultiShipping()
+ * @method bool  getIsCheckoutCart()
+ * @method bool  getIsMultiPayment()
+ * @method int   getIsMultiShipping()
  * @method $this setIsMultiShipping(int $value)
- * @method bool getIsPersistent()
+ * @method bool  getIsPersistent()
  * @method $this setIsPersistent(bool $value)
- * @method bool getIsSuperMode()
+ * @method bool  getIsSuperMode()
  * @method $this setIsSuperMode(bool $value)
  * @method $this setIsVirtual(int $value)
- * @method bool hasItemsCollection()
- * @method int getItemsCount()
+ * @method bool  hasItemsCollection()
+ * @method int   getItemsCount()
  * @method $this setItemsCount(int $value)
  * @method float getItemsQty()
  * @method $this setItemsQty(float $value)
@@ -127,53 +127,53 @@
  * @method string getMethod()
  *
  * @method $this setOrderId(int $value)
- * @method int getOrigOrderId()
+ * @method int   getOrigOrderId()
  * @method $this setOrigOrderId(int $value)
  *
  * @method string getPasswordHash()
- * @method $this setPasswordHash(string $value)
+ * @method $this  setPasswordHash(string $value)
  *
  * @method string getQuoteCurrencyCode()
- * @method $this setQuoteCurrencyCode(string $value)
+ * @method $this  setQuoteCurrencyCode(string $value)
  *
  * @method string getRemoteIp()
- * @method $this setRemoteIp(string $value)
+ * @method $this  setRemoteIp(string $value)
  * @method string getReservedOrderId()
- * @method $this setReservedOrderId(string $value)
+ * @method $this  setReservedOrderId(string $value)
  *
- * @method $this setSharedStoreIds(array $value)
+ * @method $this  setSharedStoreIds(array $value)
  * @method string getStoreCurrencyCode()
- * @method $this setStoreCurrencyCode(string $value)
- * @method bool hasStoreId()
- * @method $this setStoreId(int $value)
- * @method float getStoreToBaseRate()
- * @method $this setStoreToBaseRate(float $value)
- * @method float getStoreToQuoteRate()
- * @method $this setStoreToQuoteRate(float $value)
- * @method float getSubtotal()
- * @method $this setSubtotal(float $value)
- * @method float getSubtotalWithDiscount()
- * @method $this setSubtotalWithDiscount(float $value)
+ * @method $this  setStoreCurrencyCode(string $value)
+ * @method bool   hasStoreId()
+ * @method $this  setStoreId(int $value)
+ * @method float  getStoreToBaseRate()
+ * @method $this  setStoreToBaseRate(float $value)
+ * @method float  getStoreToQuoteRate()
+ * @method $this  setStoreToQuoteRate(float $value)
+ * @method float  getSubtotal()
+ * @method $this  setSubtotal(float $value)
+ * @method float  getSubtotalWithDiscount()
+ * @method $this  setSubtotalWithDiscount(float $value)
  *
  * @method array getTaxesForItems()
  * @method $this setTaxesForItems(array $itemTaxGroups)
- * @method bool getTotalsCollectedFlag()
+ * @method bool  getTotalsCollectedFlag()
  * @method $this setTotalsCollectedFlag(bool $value)
- * @method int getTriggerRecollect()
+ * @method int   getTriggerRecollect()
  * @method $this setTriggerRecollect(int $value)
  *
  * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- * @method bool getUseCustomerBalance()
- * @method $this setUseCustomerBalance(bool $value)
- * @method bool getUseRewardPoints()
- * @method $this setUseRewardPoints(bool $value)
+ * @method $this  setUpdatedAt(string $value)
+ * @method bool   getUseCustomerBalance()
+ * @method $this  setUseCustomerBalance(bool $value)
+ * @method bool   getUseRewardPoints()
+ * @method $this  setUseRewardPoints(bool $value)
  *
  * @method float getVirtualItemsQty()
  * @method $this setVirtualItemsQty(float $value)
  *
  * @method Mage_Core_Model_Website getWebsite()
- * @method $this setWebsite(Mage_Core_Model_Website $value)
+ * @method $this                   setWebsite(Mage_Core_Model_Website $value)
  *
  * @method $this setXForwardedFor(string $value)
  */
@@ -268,7 +268,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Get quote store model object
      *
-     * @return  Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store
      */
     public function getStore()
     {
@@ -278,7 +278,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Declare quote store model
      *
-     * @return  $this
+     * @return $this
      */
     public function setStore(Mage_Core_Model_Store $store)
     {
@@ -389,7 +389,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Loading quote data by customer
      *
-     * @param int|Mage_Customer_Model_Customer $customer
+     * @param  int|Mage_Customer_Model_Customer $customer
      * @return $this
      */
     public function loadByCustomer($customer)
@@ -409,7 +409,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Loading only active quote
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return $this
      */
     public function loadActive($quoteId)
@@ -424,7 +424,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Loading quote by identifier
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return $this
      */
     public function loadByIdWithoutStore($quoteId)
@@ -439,7 +439,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Assign customer model object data to quote
      *
-     * @return  $this
+     * @return $this
      */
     public function assignCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -489,7 +489,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Define customer object
      *
-     * @return  $this
+     * @return $this
      */
     public function setCustomer(Mage_Customer_Model_Customer $customer)
     {
@@ -574,8 +574,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote address by type
      *
-     * @param   string $type
-     * @return  Mage_Sales_Model_Quote_Address
+     * @param  string                         $type
+     * @return Mage_Sales_Model_Quote_Address
      */
     protected function _getAddressByType($type)
     {
@@ -642,7 +642,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     /**
      *
-     * @param int $addressId
+     * @param  int                                  $addressId
      * @return Mage_Sales_Model_Quote_Address|false
      */
     public function getAddressById($addressId)
@@ -656,7 +656,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $addressId
+     * @param  int                                  $addressId
      * @return Mage_Sales_Model_Quote_Address|false
      */
     public function getAddressByCustomerAddressId($addressId)
@@ -670,7 +670,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $addressId
+     * @param  int                                  $addressId
      * @return Mage_Sales_Model_Quote_Address|false
      */
     public function getShippingAddressByCustomerAddressId($addressId)
@@ -686,7 +686,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $addressId
+     * @param  int   $addressId
      * @return $this
      */
     public function removeAddress($addressId)
@@ -796,7 +796,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote items collection
      *
-     * @param bool $useCache
+     * @param  bool                                            $useCache
      * @return Mage_Sales_Model_Resource_Quote_Item_Collection
      */
     public function getItemsCollection($useCache = true)
@@ -873,7 +873,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Checking product exist in Quote
      *
-     * @param int $productId
+     * @param  int  $productId
      * @return bool
      */
     public function hasProductId($productId)
@@ -890,8 +890,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve item model object by item identifier
      *
-     * @param   int $itemId
-     * @return  Mage_Sales_Model_Quote_Item
+     * @param  int                         $itemId
+     * @return Mage_Sales_Model_Quote_Item
      */
     public function getItemById($itemId)
     {
@@ -911,7 +911,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Delete quote item. If it does not have identifier then it will be only removed from collection
      *
-     * @return  $this
+     * @return $this
      */
     public function deleteItem(Mage_Sales_Model_Quote_Item $item)
     {
@@ -940,8 +940,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Remove quote item by item identifier
      *
-     * @param   int $itemId
-     * @return  $this
+     * @param  int   $itemId
+     * @return $this
      */
     public function removeItem($itemId)
     {
@@ -991,7 +991,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Adding new item to quote
      *
-     * @return  $this
+     * @return $this
      */
     public function addItem(Mage_Sales_Model_Quote_Item $item)
     {
@@ -1021,8 +1021,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Advanced func to add product to quote - processing mode can be specified there.
      * Returns error message if product type instance can't prepare product.
      *
-     * @param null|float|Varien_Object $request
-     * @param null|string $processMode
+     * @param  null|float|Varien_Object           $request
+     * @param  null|string                        $processMode
      * @return Mage_Sales_Model_Quote_Item|string
      */
     public function addProductAdvanced(Mage_Catalog_Model_Product $product, $request = null, $processMode = null)
@@ -1104,7 +1104,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * return error message if product type instance can't prepare product
      *
-     * @param null|float|Varien_Object $request
+     * @param  null|float|Varien_Object           $request
      * @return Mage_Sales_Model_Quote_Item|string
      */
     public function addProduct(Mage_Catalog_Model_Product $product, $request = null)
@@ -1119,8 +1119,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Adding catalog product object data to quote
      *
-     * @param int $qty
-     * @return  Mage_Sales_Model_Quote_Item
+     * @param  int                             $qty
+     * @return Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Model_Store_Exception
      */
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
@@ -1170,9 +1170,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      *
      * For more options see Mage_Catalog_Helper_Product->addParamsToBuyRequest()
      *
-     * @param int $itemId
-     * @param Varien_Object $buyRequest
-     * @param null|array|Varien_Object $params
+     * @param  int                         $itemId
+     * @param  Varien_Object               $buyRequest
+     * @param  null|array|Varien_Object    $params
      * @return Mage_Sales_Model_Quote_Item
      *
      * @see Mage_Catalog_Helper_Product::addParamsToBuyRequest()
@@ -1238,8 +1238,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote item by product id
      *
-     * @param   Mage_Catalog_Model_Product $product
-     * @return  Mage_Sales_Model_Quote_Item|false
+     * @param  Mage_Catalog_Model_Product        $product
+     * @return Mage_Sales_Model_Quote_Item|false
      */
     public function getItemByProduct($product)
     {
@@ -1343,7 +1343,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $paymentId
+     * @param  int                                  $paymentId
      * @return false|Mage_Sales_Model_Quote_Payment
      */
     public function getPaymentById($paymentId)
@@ -1518,8 +1518,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $message
-     * @param string $index
+     * @param  string $message
+     * @param  string $index
      * @return $this
      */
     public function addMessage($message, $index = 'error')
@@ -1576,7 +1576,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Sets flag, whether this quote has some error associated with it.
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     protected function _setHasError($flag)
@@ -1590,7 +1590,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * When FALSE - clears whole list of quote errors.
      * It's recommended to use addErrorInfo() instead - to be able to remove error statuses later.
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      * @see addErrorInfo()
      */
@@ -1621,11 +1621,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Adds error information to the quote.
      * Automatically sets error flag.
      *
-     * @param string $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
-     * @param string|null $origin Usually a name of module, that embeds error
-     * @param int|null $code Error code, unique for origin, that sets it
-     * @param string|null $message Error message
-     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @param  string             $type           An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param  string|null        $origin         Usually a name of module, that embeds error
+     * @param  int|null           $code           Error code, unique for origin, that sets it
+     * @param  string|null        $message        Error message
+     * @param  Varien_Object|null $additionalData Any additional data, that caller would like to store
      * @return $this
      */
     public function addErrorInfo($type = 'error', $origin = null, $code = null, $message = null, $additionalData = null)
@@ -1649,8 +1649,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * $params can have the following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param string|null $type An internal error type ('error', 'qty', etc.), passed then to adding messages routine
-     * @param array $params
+     * @param  string|null $type   An internal error type ('error', 'qty', etc.), passed then to adding messages routine
+     * @param  array       $params
      * @return $this
      */
     public function removeErrorInfosByParams($type, $params)
@@ -1692,8 +1692,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Removes message by text
      *
-     * @param string $type
-     * @param string $text
+     * @param  string $type
+     * @param  string $text
      * @return $this
      */
     public function removeMessageByText($type, $text)
@@ -1740,7 +1740,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $multishipping
+     * @param  bool $multishipping
      * @return bool
      */
     public function validateMinimumAmount($multishipping = false)
@@ -1840,7 +1840,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Merge quotes
      *
-     * @return  $this
+     * @return $this
      */
     public function merge(Mage_Sales_Model_Quote $quote)
     {
@@ -1917,7 +1917,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Getter whether quote has nominal items
      * Can bypass treating virtual items as nominal
      *
-     * @param bool $countVirtual
+     * @param  bool $countVirtual
      * @return bool
      */
     public function hasNominalItems($countVirtual = true)
@@ -2023,7 +2023,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * Return quote checkout method code
      *
      * @deprecated after 1.4 beta1 it is checkout module responsibility
-     * @param bool $originalMethod if true return defined method from beginning
+     * @param  bool   $originalMethod if true return defined method from beginning
      * @return string
      */
     public function getCheckoutMethod($originalMethod = false)

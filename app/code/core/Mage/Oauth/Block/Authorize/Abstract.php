@@ -20,15 +20,15 @@
  * @category   Mage
  * @package    Mage_Oauth
  *
- * @method string getToken()
+ * @method string                                 getToken()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setToken(string $token)
- * @method bool getIsSimple()
- * @method Mage_Oauth_Block_Authorize_Button setIsSimple(bool $flag)
- * @method bool getHasException()
+ * @method bool                                   getIsSimple()
+ * @method Mage_Oauth_Block_Authorize_Button      setIsSimple(bool $flag)
+ * @method bool                                   getHasException()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setHasException(bool $flag)
- * @method null|string getVerifier()
+ * @method null|string                            getVerifier()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setVerifier(string $verifier)
- * @method bool getIsLogged()
+ * @method bool                                   getIsLogged()
  * @method Mage_Oauth_Block_AuthorizeBaseAbstract setIsLogged(bool $flag)
  */
 abstract class Mage_Oauth_Block_Authorize_Abstract extends Mage_Core_Block_Template

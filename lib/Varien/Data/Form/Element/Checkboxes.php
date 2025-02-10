@@ -108,7 +108,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     }
 
     /**
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     public function getChecked($value)
@@ -132,7 +132,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     }
 
     /**
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     public function getDisabled($value)
@@ -153,7 +153,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     }
 
     /**
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     public function getOnclick($value)
@@ -165,7 +165,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     }
 
     /**
-     * @param string $value
+     * @param  string      $value
      * @return string|void
      */
     public function getOnchange($value)
@@ -185,7 +185,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
     //    }
 
     /**
-     * @param array $option
+     * @param  array  $option
      * @return string
      */
     protected function _optionToHtml($option)

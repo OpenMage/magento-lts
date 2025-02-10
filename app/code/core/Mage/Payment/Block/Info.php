@@ -102,8 +102,8 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Render the value as an array
      *
-     * @param mixed $value
-     * @param bool $escapeHtml
+     * @param  mixed $value
+     * @param  bool  $escapeHtml
      * @return array $array
      */
     public function getValueAsArray($value, $escapeHtml = false)
@@ -146,7 +146,7 @@ class Mage_Payment_Block_Info extends Mage_Core_Block_Template
     /**
      * Prepare information specific to current payment method
      *
-     * @param Varien_Object|array $transport
+     * @param  Varien_Object|array $transport
      * @return Varien_Object
      */
     protected function _prepareSpecificInformation($transport = null)

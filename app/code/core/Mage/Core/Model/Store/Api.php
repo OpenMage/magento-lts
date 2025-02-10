@@ -52,7 +52,7 @@ class Mage_Core_Model_Store_Api extends Mage_Api_Model_Resource_Abstract
     /**
      * Retrieve store data
      *
-     * @param string|int $storeId
+     * @param  string|int $storeId
      * @return array
      */
     public function info($storeId)

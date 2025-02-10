@@ -25,7 +25,7 @@ abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract exten
     /**
      * Set filter on comments by their parent item
      *
-     * @param Mage_Core_Model_Abstract|int $parent
+     * @param  Mage_Core_Model_Abstract|int $parent
      * @return $this
      */
     public function setParentFilter($parent)
@@ -39,7 +39,7 @@ abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract exten
     /**
      * Adds filter to get only 'visible on front' comments
      *
-     * @param int $flag
+     * @param  int   $flag
      * @return $this
      */
     public function addVisibleOnFrontFilter($flag = 1)
@@ -50,7 +50,7 @@ abstract class Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract exten
     /**
      * Set created_at sort order
      *
-     * @param string $direction
+     * @param  string $direction
      * @return $this
      */
     public function setCreatedAtOrder($direction = 'desc')

@@ -49,7 +49,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     ];
 
     /**
-     * @param string|array|null $value
+     * @param  string|array|null $value
      * @return string|array
      */
     public function filter($value)
@@ -68,7 +68,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     /**
      * Add expression
      *
-     * @param string $expression
+     * @param  string $expression
      * @return $this
      */
     public function addExpression($expression)
@@ -93,8 +93,8 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
     /**
      * The filter adds safe attributes to the link
      *
-     * @param string $html
-     * @param bool $removeWrapper flag for remove wrapper tags: Doctype, html, body
+     * @param  string              $html
+     * @param  bool                $removeWrapper flag for remove wrapper tags: Doctype, html, body
      * @return string
      * @throws Mage_Core_Exception
      */

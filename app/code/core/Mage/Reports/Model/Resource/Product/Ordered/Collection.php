@@ -25,8 +25,8 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     /**
      * Join fields
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     protected function _joinFields($from = '', $to = '')
@@ -39,8 +39,8 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     }
 
     /**
-     * @param int $from
-     * @param int $to
+     * @param  int   $from
+     * @param  int   $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -53,7 +53,7 @@ class Mage_Reports_Model_Resource_Product_Ordered_Collection extends Mage_Report
     /**
      * Set store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

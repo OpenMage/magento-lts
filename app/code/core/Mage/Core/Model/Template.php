@@ -109,7 +109,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
     /**
      * Initialize design information for template processing
      *
-     * @return  $this
+     * @return $this
      */
     public function setDesignConfig(array $config)
     {
@@ -122,7 +122,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Event is not dispatched.
      *
      * @param int|string $storeId
-     * @param string $area
+     * @param string     $area
      */
     public function emulateDesign($storeId, $area = self::DEFAULT_DESIGN_AREA)
     {

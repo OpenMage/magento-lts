@@ -19,7 +19,7 @@
  * @package    Mage_Customer
  *
  * @method DateTime getTime()
- * @method $this setTime(string $value)
+ * @method $this    setTime(string $value)
  */
 class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
 {
@@ -55,7 +55,7 @@ class Mage_Customer_Block_Widget_Dob extends Mage_Customer_Block_Widget_Abstract
     }
 
     /**
-     * @param string $date
+     * @param  string $date
      * @return $this
      */
     public function setDate($date)

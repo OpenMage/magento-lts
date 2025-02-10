@@ -25,7 +25,7 @@ class Mage_CatalogInventory_Model_Api2_Stock_Item extends Mage_Api2_Model_Resour
     /**
      * Load stock item by id
      *
-     * @param int $id
+     * @param  int                                    $id
      * @throws Mage_Api2_Exception
      * @return Mage_CatalogInventory_Model_Stock_Item
      */

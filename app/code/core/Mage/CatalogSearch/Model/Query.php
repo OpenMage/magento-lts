@@ -20,31 +20,31 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  *
- * @method Mage_CatalogSearch_Model_Resource_Query _getResource()
- * @method Mage_CatalogSearch_Model_Resource_Query getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Query            _getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Query            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getCollection()
  * @method Mage_CatalogSearch_Model_Resource_Query_Collection getResourceCollection()
  *
- * @method int getDisplayInTerms()
- * @method $this setDisplayInTerms(int $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method int getIsProcessed()
- * @method $this setIsProcessed(int $value)
+ * @method int    getDisplayInTerms()
+ * @method $this  setDisplayInTerms(int $value)
+ * @method int    getIsActive()
+ * @method $this  setIsActive(int $value)
+ * @method int    getIsProcessed()
+ * @method $this  setIsProcessed(int $value)
  * @method string getName()
- * @method int getNumResults()
- * @method $this setNumResults(int $value)
- * @method int getPopularity()
- * @method $this setPopularity(int $value)
+ * @method int    getNumResults()
+ * @method $this  setNumResults(int $value)
+ * @method int    getPopularity()
+ * @method $this  setPopularity(int $value)
  * @method string getQueryText()
- * @method $this setQueryText(string $value)
- * @method $this setRatio(float $value)
+ * @method $this  setQueryText(string $value)
+ * @method $this  setRatio(float $value)
  * @method string getRedirect()
- * @method $this setRedirect(string $value)
+ * @method $this  setRedirect(string $value)
  * @method string getSynonymFor()
- * @method $this setSynonymFor(string $value)
+ * @method $this  setSynonymFor(string $value)
  * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method $this  setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
 {
@@ -125,7 +125,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Load Query object by query string
      *
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function loadByQuery($text)
@@ -139,7 +139,7 @@ class Mage_CatalogSearch_Model_Query extends Mage_Core_Model_Abstract
     /**
      * Load Query object only by query text (skip 'synonym For')
      *
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function loadByQueryText($text)

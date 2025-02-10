@@ -66,7 +66,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Load roles
      *
-     * @param array[] $rolesArr
+     * @param  array[] $rolesArr
      * @return $this
      */
     public function loadRoles(Mage_Api_Model_Acl $acl, array $rolesArr)

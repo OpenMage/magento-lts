@@ -153,7 +153,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve full customer name from provided object
      *
-     * @param Mage_Newsletter_Model_Subscriber|Mage_Sales_Model_Order|Mage_Sales_Model_Quote $object
+     * @param  Mage_Newsletter_Model_Subscriber|Mage_Sales_Model_Order|Mage_Sales_Model_Quote $object
      * @return string
      */
     public function getFullCustomerName($object = null)
@@ -357,7 +357,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve confirmation URL for Email
      *
-     * @param string $email
+     * @param  string $email
      * @return string
      */
     public function getEmailConfirmationUrl($email = null)
@@ -380,7 +380,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name prefix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param  Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNamePrefixOptions($store = null)
@@ -393,7 +393,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve name suffix dropdown options
      *
-     * @param Mage_Core_Model_Store|int|string|null $store
+     * @param  Mage_Core_Model_Store|int|string|null $store
      * @return array|bool
      */
     public function getNameSuffixOptions($store = null)
@@ -406,7 +406,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Unserialize and clear name prefix or suffix options
      *
-     * @param string $options
+     * @param  string     $options
      * @return array|bool
      */
     protected function _prepareNamePrefixSuffixOptions($options)
@@ -437,7 +437,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Generate unique token based on customer Id for reset password confirmation link
      *
-     * @param int $customerId
+     * @param  int    $customerId
      * @return string
      */
     public function generateResetPasswordLinkCustomerId($customerId)
@@ -468,7 +468,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get default customer group id
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  Mage_Core_Model_Store|string|int $store
      * @return int
      */
     public function getDefaultCustomerGroupId($store = null)
@@ -509,9 +509,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer group ID based on his VAT number
      *
-     * @param string $customerCountryCode
-     * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  string                           $customerCountryCode
+     * @param  Varien_Object                    $vatValidationResult
+     * @param  Mage_Core_Model_Store|string|int $store
      * @return null|int
      */
     public function getCustomerGroupIdBasedOnVatNumber($customerCountryCode, $vatValidationResult, $store = null)
@@ -630,9 +630,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get VAT class
      *
-     * @param string $customerCountryCode
-     * @param Varien_Object $vatValidationResult
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param  string                                $customerCountryCode
+     * @param  Varien_Object                         $vatValidationResult
+     * @param  Mage_Core_Model_Store|string|int|null $store
      * @return null|string
      */
     public function getCustomerVatClass($customerCountryCode, $vatValidationResult, $store = null)
@@ -663,9 +663,9 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get validation message that will be displayed to user by VAT validation result object
      *
-     * @param Mage_Customer_Model_Address $customerAddress
-     * @param bool $customerGroupAutoAssignDisabled
-     * @param Varien_Object $validationResult
+     * @param  Mage_Customer_Model_Address $customerAddress
+     * @param  bool                        $customerGroupAutoAssignDisabled
+     * @param  Varien_Object               $validationResult
      * @return Varien_Object
      */
     public function getVatValidationUserMessage($customerAddress, $customerGroupAutoAssignDisabled, $validationResult)
@@ -717,7 +717,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get customer password creation timestamp or customer account creation timestamp
      *
-     * @param int $customerId
+     * @param  int $customerId
      * @return int
      */
     public function getPasswordTimestamp($customerId)
@@ -728,7 +728,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Create SOAP client based on VAT validation service WSDL
      *
-     * @param bool $trace
+     * @param  bool       $trace
      * @return SoapClient
      */
     protected function _createVatNumberValidationSoapClient($trace = false)

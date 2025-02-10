@@ -79,9 +79,9 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * Init model class by configuration
      *
      * @abstract
-     * @param string $class
-     * @param string $totalCode
-     * @param array $totalConfig
+     * @param  string $class
+     * @param  string $totalCode
+     * @param  array  $totalConfig
      * @return mixed
      */
     abstract protected function _initModelInstance($class, $totalCode, $totalConfig);
@@ -89,9 +89,9 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Prepare configuration array for total model
      *
-     * @param   string $code
-     * @param   Mage_Core_Model_Config_Element $totalConfig
-     * @return  array
+     * @param  string                         $code
+     * @param  Mage_Core_Model_Config_Element $totalConfig
+     * @return array
      */
     protected function _prepareConfigArray($code, $totalConfig)
     {
@@ -177,7 +177,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
      * Initialize collectors array.
      * Collectors array is array of total models ordered based on configuration settings
      *
-     * @return  $this
+     * @return $this
      */
     protected function _initCollectors()
     {
@@ -192,9 +192,9 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Callback that uses after/before for comparison
      *
-     * @param   array $a
-     * @param   array $b
-     * @return  int
+     * @param  array $a
+     * @param  array $b
+     * @return int
      */
     protected function _compareTotals($a, $b)
     {
@@ -213,8 +213,8 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
     /**
      * Callback that uses sort_order for comparison
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _compareSortOrder($a, $b)

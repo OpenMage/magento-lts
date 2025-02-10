@@ -286,7 +286,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      * Checks the current weight to comply with the minimum weight standards set by the carrier.
      * Then strictly rounds the weight up until the first significant digit after the decimal point.
      *
-     * @param float|int $weight
+     * @param  float|int $weight
      * @return float
      */
     protected function _getCorrectWeight($weight)
@@ -332,7 +332,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Set free method request
      *
-     * @param string $freeMethod
+     * @param  string $freeMethod
      * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
@@ -349,8 +349,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get shipment by code
      *
-     * @param string $code
-     * @param string $origin
+     * @param  string      $code
+     * @param  string      $origin
      * @return array|false
      */
     public function getShipmentByCode($code, $origin = null)
@@ -369,8 +369,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get configuration data of carrier
      *
-     * @param string $type
-     * @param string $code
+     * @param  string      $type
+     * @param  string      $code
      * @return array|false
      */
     public function getCode($type, $code = '')
@@ -817,7 +817,7 @@ XMLRequest;
     /**
      * Get base currency rate
      *
-     * @param string $code
+     * @param  string $code
      * @return double
      */
     protected function _getBaseCurrencyRate($code)
@@ -834,7 +834,7 @@ XMLRequest;
     /**
      * Prepare shipping rate result based on response
      *
-     * @param mixed $xmlResponse
+     * @param  mixed                           $xmlResponse
      * @return Mage_Shipping_Model_Rate_Result
      */
     protected function _parseXmlResponse($xmlResponse)
@@ -929,7 +929,7 @@ XMLRequest;
     /**
      * Get tracking
      *
-     * @param mixed $trackings
+     * @param  mixed                                    $trackings
      * @return Mage_Shipping_Model_Tracking_Result|null
      */
     public function getTracking($trackings)
@@ -972,7 +972,7 @@ XMLAuth;
     /**
      * Get xml tracking
      *
-     * @param array $trackings
+     * @param  array                                    $trackings
      * @return Mage_Shipping_Model_Tracking_Result|null
      */
     protected function _getXmlTracking($trackings)
@@ -1031,8 +1031,8 @@ XMLAuth;
     /**
      * Parse xml tracking response
      *
-     * @param string $trackingvalue
-     * @param string $xmlResponse
+     * @param  string $trackingvalue
+     * @param  string $xmlResponse
      * @return void
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $xmlResponse)
@@ -1123,7 +1123,7 @@ XMLAuth;
     /**
      * Get REST tracking
      *
-     * @param string[] $trackings
+     * @param  string[]                                 $trackings
      * @return Mage_Shipping_Model_Tracking_Result|null
      */
     protected function _getRestTracking($trackings)
@@ -1191,8 +1191,8 @@ XMLAuth;
     /**
      * Parse REST tracking response
      *
-     * @param string $trackingValue
-     * @param string $jsonResponse
+     * @param  string $trackingValue
+     * @param  string $jsonResponse
      * @return void
      */
     protected function _parseRestTrackingResponse($trackingValue, $jsonResponse)
@@ -1263,7 +1263,7 @@ XMLAuth;
     /**
      * Set Tracking Response Data
      *
-     * @param array $resultArr
+     * @param array  $resultArr
      * @param string $trackingValue
      * @param string $errorTitle
      */
@@ -1722,9 +1722,9 @@ XMLAuth;
     /**
      * Return country code according to UPS
      *
-     * @param string $countryCode
-     * @param string $regionCode
-     * @param string $postCode
+     * @param  string $countryCode
+     * @param  string $regionCode
+     * @param  string $postCode
      * @return string
      */
     private function getNormalizedCountryCode($countryCode, $regionCode, $postCode)
@@ -2135,7 +2135,7 @@ XMLAuth;
      * Get delivery confirmation level based on origin/destination
      * Return null if delivery confirmation is not acceptable
      *
-     * @param string $countyDest
+     * @param  string   $countyDest
      * @return int|null
      */
     protected function _getDeliveryConfirmationLevel($countyDest = null)

@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Setter
      *
-     * @param array $selectedCategories
+     * @param  array $selectedCategories
      * @return $this
      */
     public function setSelectedCategories($selectedCategories)
@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Prepare chooser element HTML
      *
-     * @param Varien_Data_Form_Element_Abstract $element Form Element
+     * @param  Varien_Data_Form_Element_Abstract $element Form Element
      * @return Varien_Data_Form_Element_Abstract
      */
     public function prepareElementHtml(Varien_Data_Form_Element_Abstract $element)
@@ -98,9 +98,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Retrieve model attribute value
      *
-     * @param string $modelType Model Type
-     * @param string $attributeName Attribute Name
-     * @param string $entityId Form Entity ID
+     * @param  string $modelType     Model Type
+     * @param  string $attributeName Attribute Name
+     * @param  string $entityId      Form Entity ID
      * @return string
      */
     protected function _getModelAttributeByEntityId($modelType, $attributeName, $entityId)
@@ -150,8 +150,8 @@ class Mage_Adminhtml_Block_Catalog_Category_Widget_Chooser extends Mage_Adminhtm
     /**
      * Get JSON of a tree node or an associative array
      *
-     * @param Varien_Data_Tree_Node|array $node
-     * @param int $level
+     * @param  Varien_Data_Tree_Node|array $node
+     * @param  int                         $level
      * @return array
      */
     protected function _getNodeJson($node, $level = 0)

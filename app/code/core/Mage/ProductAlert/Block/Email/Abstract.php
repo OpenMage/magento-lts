@@ -39,7 +39,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Set Store scope
      *
-     * @param int|string|Mage_Core_Model_Website|Mage_Core_Model_Store $store
+     * @param  int|string|Mage_Core_Model_Website|Mage_Core_Model_Store $store
      * @return Mage_ProductAlert_Block_Email_Abstract
      */
     public function setStore($store)
@@ -72,9 +72,9 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
     /**
      * Convert price from default currency to current currency
      *
-     * @param double $price
-     * @param bool $format             Format price to currency format
-     * @param bool $includeContainer   Enclose into <span class="price"><span>
+     * @param  double $price
+     * @param  bool   $format           Format price to currency format
+     * @param  bool   $includeContainer Enclose into <span class="price"><span>
      * @return double
      */
     public function formatPrice($price, $format = true, $includeContainer = true)

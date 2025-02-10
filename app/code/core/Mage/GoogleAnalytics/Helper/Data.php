@@ -47,7 +47,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GTM is ready to use
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isGoogleTagManagerAvailable($store = null)
@@ -59,7 +59,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA is ready to use
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isGoogleAnalyticsAvailable($store = null)
@@ -71,7 +71,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store $store
      * @return bool
      * @deprecated
      */
@@ -83,7 +83,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get GA account id
      *
-     * @param string $store
+     * @param  string $store
      * @return string
      */
     public function getAccountId($store = null)
@@ -94,7 +94,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get GTM account id
      *
-     * @param string $store
+     * @param  string $store
      * @return string
      */
     public function getGoogleTagManagerContainerId($store = null)
@@ -105,7 +105,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns true if should use Google Universal Analytics
      *
-     * @param string $store
+     * @param  string $store
      * @return bool
      * @deprecated
      */
@@ -117,7 +117,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns true if should use Google Tag Manager
      *
-     * @param string $store
+     * @param  string $store
      * @return bool
      */
     public function isUseGoogleTagManager($store = null)
@@ -128,7 +128,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns true if should use Google Universal Analytics 4
      *
-     * @param string $store
+     * @param  string $store
      * @return bool
      */
     public function isUseAnalytics4($store = null)
@@ -139,7 +139,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA Debug Mode is enabled (only for development IP)
      *
-     * @param null $store
+     * @param  null $store
      * @return bool
      */
     public function isDebugModeEnabled($store = null)
@@ -161,7 +161,7 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Whether GA IP Anonymization is enabled
      *
-     * @param null $store
+     * @param  null $store
      * @return bool
      */
     public function isUserIdEnabled($store = null)

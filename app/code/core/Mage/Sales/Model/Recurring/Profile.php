@@ -23,72 +23,72 @@
  *
  * @method Mage_Sales_Model_Resource_Recurring_Profile _getResource()
  * @method Mage_Sales_Model_Resource_Recurring_Profile getResource()
- * @method string getState()
- * @method $this setState(string $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getMethodCode()
- * @method $this setMethodCode(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- * @method string getReferenceId()
- * @method $this setReferenceId(string $value)
- * @method string getSubscriberName()
- * @method $this setSubscriberName(string $value)
- * @method string getStartDatetime()
- * @method $this setStartDatetime(string $value)
- * @method string getInternalReferenceId()
- * @method $this setInternalReferenceId(string $value)
- * @method string getScheduleDescription()
- * @method $this setScheduleDescription(string $value)
- * @method int getSuspensionThreshold()
- * @method $this setSuspensionThreshold(int $value)
- * @method int getBillFailedLater()
- * @method $this setBillFailedLater(int $value)
- * @method string getPeriodUnit()
- * @method $this setPeriodUnit(string $value)
- * @method int getPeriodFrequency()
- * @method $this setPeriodFrequency(int $value)
- * @method int getPeriodMaxCycles()
- * @method $this setPeriodMaxCycles(int $value)
- * @method float getBillingAmount()
- * @method $this setBillingAmount(float $value)
- * @method string getTrialPeriodUnit()
- * @method $this setTrialPeriodUnit(string $value)
- * @method int getTrialPeriodFrequency()
- * @method $this setTrialPeriodFrequency(int $value)
- * @method int getTrialPeriodMaxCycles()
- * @method $this setTrialPeriodMaxCycles(int $value)
- * @method float getTrialBillingAmount()
- * @method $this setTrialBillingAmount(float $value)
- * @method string getCurrencyCode()
- * @method $this setCurrencyCode(string $value)
- * @method float getShippingAmount()
- * @method $this setShippingAmount(float $value)
- * @method float getTaxAmount()
- * @method $this setTaxAmount(float $value)
- * @method float getInitAmount()
- * @method $this setInitAmount(float $value)
- * @method int getInitMayFail()
- * @method $this setInitMayFail(int $value)
- * @method string getOrderInfo()
- * @method $this setOrderInfo(string $value)
- * @method string getOrderItemInfo()
- * @method $this setOrderItemInfo(string $value)
- * @method string getBillingAddressInfo()
- * @method $this setBillingAddressInfo(string $value)
- * @method string getShippingAddressInfo()
- * @method $this setShippingAddressInfo(string $value)
- * @method string getProfileVendorInfo()
- * @method $this setProfileVendorInfo(string $value)
- * @method string getAdditionalInfo()
- * @method $this setAdditionalInfo(string $value)
- * @method Mage_Sales_Model_Quote getQuote()
- * @method $this setNewState(string $value)
+ * @method string                                      getState()
+ * @method $this                                       setState(string $value)
+ * @method int                                         getCustomerId()
+ * @method $this                                       setCustomerId(int $value)
+ * @method int                                         getStoreId()
+ * @method $this                                       setStoreId(int $value)
+ * @method string                                      getMethodCode()
+ * @method $this                                       setMethodCode(string $value)
+ * @method string                                      getCreatedAt()
+ * @method $this                                       setCreatedAt(string $value)
+ * @method string                                      getUpdatedAt()
+ * @method $this                                       setUpdatedAt(string $value)
+ * @method string                                      getReferenceId()
+ * @method $this                                       setReferenceId(string $value)
+ * @method string                                      getSubscriberName()
+ * @method $this                                       setSubscriberName(string $value)
+ * @method string                                      getStartDatetime()
+ * @method $this                                       setStartDatetime(string $value)
+ * @method string                                      getInternalReferenceId()
+ * @method $this                                       setInternalReferenceId(string $value)
+ * @method string                                      getScheduleDescription()
+ * @method $this                                       setScheduleDescription(string $value)
+ * @method int                                         getSuspensionThreshold()
+ * @method $this                                       setSuspensionThreshold(int $value)
+ * @method int                                         getBillFailedLater()
+ * @method $this                                       setBillFailedLater(int $value)
+ * @method string                                      getPeriodUnit()
+ * @method $this                                       setPeriodUnit(string $value)
+ * @method int                                         getPeriodFrequency()
+ * @method $this                                       setPeriodFrequency(int $value)
+ * @method int                                         getPeriodMaxCycles()
+ * @method $this                                       setPeriodMaxCycles(int $value)
+ * @method float                                       getBillingAmount()
+ * @method $this                                       setBillingAmount(float $value)
+ * @method string                                      getTrialPeriodUnit()
+ * @method $this                                       setTrialPeriodUnit(string $value)
+ * @method int                                         getTrialPeriodFrequency()
+ * @method $this                                       setTrialPeriodFrequency(int $value)
+ * @method int                                         getTrialPeriodMaxCycles()
+ * @method $this                                       setTrialPeriodMaxCycles(int $value)
+ * @method float                                       getTrialBillingAmount()
+ * @method $this                                       setTrialBillingAmount(float $value)
+ * @method string                                      getCurrencyCode()
+ * @method $this                                       setCurrencyCode(string $value)
+ * @method float                                       getShippingAmount()
+ * @method $this                                       setShippingAmount(float $value)
+ * @method float                                       getTaxAmount()
+ * @method $this                                       setTaxAmount(float $value)
+ * @method float                                       getInitAmount()
+ * @method $this                                       setInitAmount(float $value)
+ * @method int                                         getInitMayFail()
+ * @method $this                                       setInitMayFail(int $value)
+ * @method string                                      getOrderInfo()
+ * @method $this                                       setOrderInfo(string $value)
+ * @method string                                      getOrderItemInfo()
+ * @method $this                                       setOrderItemInfo(string $value)
+ * @method string                                      getBillingAddressInfo()
+ * @method $this                                       setBillingAddressInfo(string $value)
+ * @method string                                      getShippingAddressInfo()
+ * @method $this                                       setShippingAddressInfo(string $value)
+ * @method string                                      getProfileVendorInfo()
+ * @method $this                                       setProfileVendorInfo(string $value)
+ * @method string                                      getAdditionalInfo()
+ * @method $this                                       setAdditionalInfo(string $value)
+ * @method Mage_Sales_Model_Quote                      getQuote()
+ * @method $this                                       setNewState(string $value)
  */
 class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Profile
 {
@@ -123,7 +123,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Load order by system increment identifier
      *
-     * @param int $internalReferenceId
+     * @param  int   $internalReferenceId
      * @return $this
      */
     public function loadByInternalReferenceId($internalReferenceId)
@@ -418,7 +418,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Getter for sales-related field labels
      *
-     * @param string $field
+     * @param  string      $field
      * @return string|null
      */
     public function getFieldLabel($field)
@@ -440,7 +440,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Getter for sales-related field comments
      *
-     * @param string $field
+     * @param  string      $field
      * @return string|null
      */
     public function getFieldComment($field)
@@ -456,7 +456,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Getter for all available states
      *
-     * @param bool $withLabels
+     * @param  bool  $withLabels
      * @return array
      */
     public function getAllStates($withLabels = true)
@@ -477,7 +477,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Get state label based on the code
      *
-     * @param string $state
+     * @param  string $state
      * @return string
      */
     public function getStateLabel($state)
@@ -503,7 +503,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Render state as label
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function renderData($key)
@@ -520,8 +520,8 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Getter for additional information value
      * It is assumed that the specified additional info is an object or associative array
      *
-     * @param string $infoKey
-     * @param string $infoValueKey
+     * @param  string     $infoKey
+     * @param  string     $infoValueKey
      * @return mixed|null
      */
     public function getInfoValue($infoKey, $infoValueKey)
@@ -584,8 +584,8 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Check whether profile can be changed to specified state
      *
-     * @param string $againstState
-     * @param bool $soft
+     * @param  string              $againstState
+     * @param  bool                $soft
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -619,7 +619,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Add order relation to recurring profile
      *
-     * @param int $orderId
+     * @param  int   $orderId
      * @return $this
      */
     public function addOrderRelation($orderId)
@@ -631,7 +631,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     /**
      * Create and return new order item based on profile item data and $itemInfo
      *
-     * @param Varien_Object $itemInfo
+     * @param  Varien_Object                    $itemInfo
      * @return Mage_Sales_Model_Order_Item|void
      */
     protected function _getItem($itemInfo)
@@ -657,7 +657,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Create and return new order item based on profile item data and $itemInfo
      * for regular payment
      *
-     * @param Varien_Object $itemInfo
+     * @param  Varien_Object               $itemInfo
      * @return Mage_Sales_Model_Order_Item
      */
     protected function _getRegularItem($itemInfo)
@@ -683,7 +683,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Create and return new order item based on profile item data and $itemInfo
      * for trial payment
      *
-     * @param Varien_Object $itemInfo
+     * @param  Varien_Object               $itemInfo
      * @return Mage_Sales_Model_Order_Item
      */
     protected function _getTrialItem($itemInfo)
@@ -708,7 +708,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Create and return new order item based on profile item data and $itemInfo
      * for initial payment
      *
-     * @param Varien_Object $itemInfo
+     * @param  Varien_Object               $itemInfo
      * @return Mage_Sales_Model_Order_Item
      */
     protected function _getInitialItem($itemInfo)
@@ -747,7 +747,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * Add additional options suboption into itev
      *
      * @param Mage_Sales_Model_Order_Item $item
-     * @param array $option
+     * @param array                       $option
      */
     protected function _addAdditionalOptionToItem($item, $option)
     {

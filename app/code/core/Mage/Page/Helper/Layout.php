@@ -27,7 +27,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
     /**
      * Apply page layout handle
      *
-     * @param string $pageLayout
+     * @param  string $pageLayout
      * @return $this
      */
     public function applyHandle($pageLayout)
@@ -49,7 +49,7 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      * Apply page layout template
      * (for old design packages)
      *
-     * @param string $pageLayout
+     * @param  string $pageLayout
      * @return $this
      */
     public function applyTemplate($pageLayout = null)

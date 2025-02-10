@@ -133,7 +133,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Process request data with additional logic for saving quote and creating order
      *
-     * @param string $action
+     * @param  string $action
      * @return $this
      */
     protected function _processActionData($action = null)
@@ -315,7 +315,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
     /**
      * Process buyRequest file options of items
      *
-     * @param array $items
+     * @param  array $items
      * @return array
      */
     protected function _processFiles($items)

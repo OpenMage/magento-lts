@@ -79,8 +79,8 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Lock product items
      *
-     * @param Mage_CatalogInventory_Model_Stock $stock
-     * @param int|array $productIds
+     * @param  Mage_CatalogInventory_Model_Stock $stock
+     * @param  int|array                         $productIds
      * @return $this
      */
     public function lockProductItems($stock, $productIds)
@@ -101,9 +101,9 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Get stock items data for requested products
      *
-     * @param Mage_CatalogInventory_Model_Stock $stock
-     * @param array $productIds
-     * @param bool $lockRows
+     * @param  Mage_CatalogInventory_Model_Stock $stock
+     * @param  array                             $productIds
+     * @param  bool                              $lockRows
      * @return array
      */
     public function getProductsStock($stock, $productIds, $lockRows = false)
@@ -138,9 +138,9 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Correct particular stock products qty based on operator
      *
-     * @param Mage_CatalogInventory_Model_Stock $stock
-     * @param array $productQtys
-     * @param string $operator +/-
+     * @param  Mage_CatalogInventory_Model_Stock $stock
+     * @param  array                             $productQtys
+     * @param  string                            $operator    +/-
      * @return $this
      */
     public function correctItemsQty($stock, $productQtys, $operator = '-')
@@ -179,7 +179,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * add join to select only in stock products
      *
-     * @param Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Link_Product_Collection $collection
      * @return $this
      */
     public function setInStockFilterToCollection($collection)
@@ -336,7 +336,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
     /**
      * Add low stock filter to product collection
      *
-     * @param array $fields
+     * @param  array $fields
      * @return $this
      */
     public function addLowStockFilter(Mage_Catalog_Model_Resource_Product_Collection $collection, $fields)

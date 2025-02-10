@@ -62,7 +62,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @param string $type
+     * @param  string              $type
      * @return mixed
      * @throws Mage_Core_Exception
      */
@@ -255,7 +255,7 @@ class Mage_Core_Model_Config_Options extends Varien_Object
     }
 
     /**
-     * @param string $dir
+     * @param  string $dir
      * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")

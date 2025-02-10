@@ -20,69 +20,69 @@
  * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Quote_Payment _getResource()
- * @method Mage_Sales_Model_Resource_Quote_Payment getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Payment            _getResource()
+ * @method Mage_Sales_Model_Resource_Quote_Payment            getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getCollection()
  *
  * @method string getAdditionalData()
- * @method $this setAdditionalData(string $value)
+ * @method $this  setAdditionalData(string $value)
  *
- * @method $this setCcCid(string $value)
+ * @method $this  setCcCid(string $value)
  * @method string getCcCidEnc()
- * @method $this setCcCidEnc(string $value)
- * @method int getCcExpMonth()
- * @method $this setCcExpMonth(int $value)
- * @method int getCcExpYear()
- * @method $this setCcExpYear(int $value)
+ * @method $this  setCcCidEnc(string $value)
+ * @method int    getCcExpMonth()
+ * @method $this  setCcExpMonth(int $value)
+ * @method int    getCcExpYear()
+ * @method $this  setCcExpYear(int $value)
  * @method string getCcLast4()
- * @method $this setCcLast4(string $value)
- * @method $this setCcNumber(string $value)
+ * @method $this  setCcLast4(string $value)
+ * @method $this  setCcNumber(string $value)
  * @method string getCcNumberEnc()
- * @method $this setCcNumberEnc(string $value)
+ * @method $this  setCcNumberEnc(string $value)
  * @method string getCcOwner()
- * @method $this setCcOwner(string $value)
+ * @method $this  setCcOwner(string $value)
  * @method string getCcSsIssue()
- * @method $this setCcSsIssue(string $value)
+ * @method $this  setCcSsIssue(string $value)
  * @method string getCcSsOwner()
- * @method $this setCcSsOwner(string $value)
- * @method int getCcSsStartMonth()
- * @method $this setCcSsStartMonth(int $value)
- * @method int getCcSsStartYear()
- * @method $this setCcSsStartYear(int $value)
+ * @method $this  setCcSsOwner(string $value)
+ * @method int    getCcSsStartMonth()
+ * @method $this  setCcSsStartMonth(int $value)
+ * @method int    getCcSsStartYear()
+ * @method $this  setCcSsStartYear(int $value)
  * @method string getCcType()
- * @method $this setCcType(string $value)
+ * @method $this  setCcType(string $value)
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method int getCustomerPaymentId()
- * @method $this setCustomerPaymentId(int $value)
+ * @method $this  setCreatedAt(string $value)
+ * @method int    getCustomerPaymentId()
+ * @method $this  setCustomerPaymentId(int $value)
  * @method string getCybersourceToken()
- * @method $this setCybersourceToken(string $value)
+ * @method $this  setCybersourceToken(string $value)
  *
  * @method string getIdealIssuerId()
- * @method $this setIdealIssuerId(string $value)
+ * @method $this  setIdealIssuerId(string $value)
  * @method string getIdealIssuerList()
- * @method $this setIdealIssuerList(string $value)
+ * @method $this  setIdealIssuerList(string $value)
  *
  * @method string getMethod()
- * @method $this setMethod(string $value)
+ * @method $this  setMethod(string $value)
  *
  * @method string getPaypalCorrelationId()
- * @method $this setPaypalCorrelationId(string $value)
+ * @method $this  setPaypalCorrelationId(string $value)
  * @method string getPaypalPayerId()
- * @method $this setPaypalPayerId(string $value)
+ * @method $this  setPaypalPayerId(string $value)
  * @method string getPaypalPayerStatus()
- * @method $this setPaypalPayerStatus(string $value)
+ * @method $this  setPaypalPayerStatus(string $value)
  * @method string getPoNumber()
- * @method $this setPoNumber(string $value)
+ * @method $this  setPoNumber(string $value)
  *
- * @method int getQuoteId()
+ * @method int   getQuoteId()
  * @method $this setQuoteId(int $value)
  *
- * @method int getStoreId()
+ * @method int   getStoreId()
  * @method $this setStoreId(int $value)
  *
  * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method $this  setUpdatedAt(string $value)
  */
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {
@@ -99,7 +99,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
     /**
      * Declare quote model instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setQuote(Mage_Sales_Model_Quote $quote)
     {
@@ -125,8 +125,8 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
      * Method calls quote totals collect because payment method availability
      * can be related to quote totals
      *
-     * @throws  Mage_Core_Exception
-     * @return  $this
+     * @throws Mage_Core_Exception
+     * @return $this
      */
     public function importData(array $data)
     {

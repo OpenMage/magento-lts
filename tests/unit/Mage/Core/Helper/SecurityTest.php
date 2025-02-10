@@ -61,7 +61,7 @@ class SecurityTest extends TestCase
     /**
      * @dataProvider validateAgainstBlockMethodBlacklistDataProvider
      * @doesNotPerformAssertions if data is correct, then NO exception is thrown, so we don't need an assertion
-     * @param string[] $args
+     * @param  string[]            $args
      * @throws Mage_Core_Exception
      *
      * @group Mage_Core
@@ -118,7 +118,7 @@ class SecurityTest extends TestCase
 
     /**
      * @dataProvider forbiddenBlockMethodsDataProvider
-     * @param string[] $args
+     * @param  string[]            $args
      * @throws Mage_Core_Exception
      *
      * @group Mage_Core

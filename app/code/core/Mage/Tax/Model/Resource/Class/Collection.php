@@ -32,7 +32,7 @@ class Mage_Tax_Model_Resource_Class_Collection extends Mage_Core_Model_Resource_
     /**
      * Add class type filter to result
      *
-     * @param int $classTypeId
+     * @param  int   $classTypeId
      * @return $this
      */
     public function setClassTypeFilter($classTypeId)

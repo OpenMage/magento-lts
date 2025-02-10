@@ -51,10 +51,10 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string|null $defValue
-     * @param string $name
-     * @param string $id
-     * @param string $title
+     * @param  string|null                     $defValue
+     * @param  string                          $name
+     * @param  string                          $id
+     * @param  string                          $title
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -176,7 +176,7 @@ class Mage_Directory_Block_Data extends Mage_Core_Block_Template
 
     /**
      * @template T of Option[]
-     * @param T $countryOptions
+     * @param  T                                                                                           $countryOptions
      * @return array{0: array{label: string, value: Option[]}, 1: array{label: string, value: Option[]}}|T
      */
     private function sortCountryOptions(array $countryOptions): array

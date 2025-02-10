@@ -20,21 +20,21 @@
  * @category   Mage
  * @package    Mage_Sitemap
  *
- * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
- * @method Mage_Sitemap_Model_Resource_Sitemap getResource()
+ * @method Mage_Sitemap_Model_Resource_Sitemap            _getResource()
+ * @method Mage_Sitemap_Model_Resource_Sitemap            getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap_Collection getCollection()
  *
- * @method int getSitemapId()
+ * @method int    getSitemapId()
  * @method string getSitemapType()
- * @method $this setSitemapType(string $value)
+ * @method $this  setSitemapType(string $value)
  * @method string getSitemapFilename()
- * @method $this setSitemapFilename(string $value)
+ * @method $this  setSitemapFilename(string $value)
  * @method string getSitemapPath()
- * @method $this setSitemapPath(string $value)
+ * @method $this  setSitemapPath(string $value)
  * @method string getSitemapTime()
- * @method $this setSitemapTime(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
+ * @method $this  setSitemapTime(string $value)
+ * @method int    getStoreId()
+ * @method $this  setStoreId(int $value)
  */
 class Mage_Sitemap_Model_Sitemap extends Mage_Core_Model_Abstract
 {

@@ -25,10 +25,10 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Add custom option to product
      *
-     * @param string $productId
-     * @param array $data
-     * @param int|string|null $store
-     * @return bool $isAdded
+     * @param  string          $productId
+     * @param  array           $data
+     * @param  int|string|null $store
+     * @return bool            $isAdded
      */
     public function add($productId, $data, $store = null)
     {
@@ -50,9 +50,9 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Update product custom option data
      *
-     * @param string $optionId
-     * @param array $data
-     * @param int|string|null $store
+     * @param  string          $optionId
+     * @param  array           $data
+     * @param  int|string|null $store
      * @return bool
      */
     public function update($optionId, $data, $store = null)
@@ -86,7 +86,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Prepare custom option data for saving by model. Used for custom option add and update
      *
-     * @param array $data
+     * @param array  $data
      * @param string $groupType
      */
     protected function _prepareAdditionalFields(&$data, $groupType)
@@ -131,7 +131,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
      * Save product custom option data. Used for custom option add and update.
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param array $data
+     * @param array                      $data
      */
     protected function _saveProductCustomOption($product, $data)
     {
@@ -189,7 +189,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Get full information about custom option in product
      *
-     * @param int|string $optionId
+     * @param  int|string      $optionId
      * @param  int|string|null $store
      * @return array
      */
@@ -249,7 +249,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Retrieve list of product custom options
      *
-     * @param  string $productId
+     * @param  string          $productId
      * @param  int|string|null $store
      * @return array
      */
@@ -273,7 +273,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Remove product custom option
      *
-     * @param string $optionId
+     * @param  string $optionId
      * @return bool
      */
     public function remove($optionId)
@@ -297,7 +297,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
     /**
      * Check is type in allowed set
      *
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     protected function _isTypeAllowed($type)

@@ -23,7 +23,7 @@
 class Mage_Reports_Model_Config extends Varien_Object
 {
     /**
-      * @return string
+       * @return string
       */
     public function getGlobalConfig()
     {
@@ -39,7 +39,7 @@ class Mage_Reports_Model_Config extends Varien_Object
     }
 
     /**
-      * @return false|string
+       * @return false|string
       */
     public function getLanguage()
     {
@@ -47,7 +47,7 @@ class Mage_Reports_Model_Config extends Varien_Object
     }
 
     /**
-      * @return false|string
+       * @return false|string
       */
     public function getDashboard()
     {

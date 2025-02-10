@@ -25,7 +25,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
     /**
      * Check feed enabled in config
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     protected function isFeedEnable($code)
@@ -37,7 +37,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
     /**
      * Do check feed enabled and prepare response
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     protected function checkFeedEnable($code)
@@ -56,7 +56,7 @@ class Mage_Adminhtml_Controller_Rss_Abstract extends Mage_Adminhtml_Controller_A
     /**
      * Retrieve helper instance
      *
-     * @param string $name
+     * @param  string                    $name
      * @return Mage_Core_Helper_Abstract
      * @deprecated this method is incompatible with parent class. Use Mage::helper instead
      */

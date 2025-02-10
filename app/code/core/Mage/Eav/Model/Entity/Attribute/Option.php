@@ -20,13 +20,13 @@
  * @category   Mage
  * @package    Mage_Eav
  *
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Option _getResource()
- * @method Mage_Eav_Model_Resource_Entity_Attribute_Option getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option            _getResource()
+ * @method Mage_Eav_Model_Resource_Entity_Attribute_Option            getResource()
  * @method Mage_Eav_Model_Resource_Entity_Attribute_Option_Collection getCollection()
  *
- * @method int getAttributeId()
+ * @method int   getAttributeId()
  * @method $this setAttributeId(int $value)
- * @method int getSortOrder()
+ * @method int   getSortOrder()
  * @method $this setSortOrder(int $value)
  */
 class Mage_Eav_Model_Entity_Attribute_Option extends Mage_Core_Model_Abstract

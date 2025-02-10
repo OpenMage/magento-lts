@@ -21,7 +21,7 @@
  * @package    Mage_Customer
  *
  * @method string getRefererUrl()
- * @method $this setRefererUrl(string $url)
+ * @method $this  setRefererUrl(string $url)
  */
 class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
 {
@@ -67,7 +67,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return string
      */
     public function getAddressEditUrl($address)
@@ -109,7 +109,7 @@ class Mage_Customer_Block_Address_Book extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Customer_Model_Address $address
+     * @param  Mage_Customer_Model_Address $address
      * @return string|null
      */
     public function getAddressHtml($address)

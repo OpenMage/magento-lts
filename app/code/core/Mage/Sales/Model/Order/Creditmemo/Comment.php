@@ -20,17 +20,17 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Comment getResource()
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method int getIsCustomerNotified()
- * @method $this setIsCustomerNotified(int $value)
- * @method int getIsVisibleOnFront()
- * @method $this setIsVisibleOnFront(int $value)
- * @method string getComment()
- * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method $this setStoreId(int $value)
+ * @method int                                                getParentId()
+ * @method $this                                              setParentId(int $value)
+ * @method int                                                getIsCustomerNotified()
+ * @method $this                                              setIsCustomerNotified(int $value)
+ * @method int                                                getIsVisibleOnFront()
+ * @method $this                                              setIsVisibleOnFront(int $value)
+ * @method string                                             getComment()
+ * @method $this                                              setComment(string $value)
+ * @method string                                             getCreatedAt()
+ * @method $this                                              setCreatedAt(string $value)
+ * @method $this                                              setStoreId(int $value)
  */
 class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstract
 {
@@ -49,7 +49,7 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
     /**
      * Declare Creditmemo instance
      *
-     * @return  Mage_Sales_Model_Order_Creditmemo_Comment
+     * @return Mage_Sales_Model_Order_Creditmemo_Comment
      */
     public function setCreditmemo(Mage_Sales_Model_Order_Creditmemo $creditmemo)
     {

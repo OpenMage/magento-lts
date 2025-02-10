@@ -93,7 +93,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load product model with data by passed id.
      * Return false if product was not loaded or has incorrect status.
      *
-     * @param int $productId
+     * @param  int                             $productId
      * @return bool|Mage_Catalog_Model_Product
      */
     protected function _loadProduct($productId)
@@ -120,7 +120,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
      * Load review model with data by passed id.
      * Return false if review was not loaded or review is not approved.
      *
-     * @param int $reviewId
+     * @param  int                           $reviewId
      * @return bool|Mage_Review_Model_Review
      */
     protected function _loadReview($reviewId)

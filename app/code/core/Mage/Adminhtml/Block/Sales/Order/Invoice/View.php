@@ -209,7 +209,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     }
 
     /**
-     * @param string $flag
+     * @param  string $flag
      * @return $this
      */
     public function updateBackButtonUrl($flag)
@@ -234,7 +234,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
     /**
      * Check whether is allowed action
      *
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     protected function _isAllowedAction($action)

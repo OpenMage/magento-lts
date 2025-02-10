@@ -199,7 +199,7 @@ class Mage_Authorizenet_Adminhtml_Authorizenet_Directpost_PaymentController exte
     /**
      * Return quote
      *
-     * @param bool $cancelOrder
+     * @param bool   $cancelOrder
      * @param string $errorMsg
      */
     protected function _returnQuote($cancelOrder = false, $errorMsg = '')

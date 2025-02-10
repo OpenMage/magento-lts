@@ -33,7 +33,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve shipments by filters
      *
-     * @param null|object|array $filters
+     * @param  null|object|array $filters
      * @return array
      */
     public function items($filters = null)
@@ -68,7 +68,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve shipment information
      *
-     * @param string $shipmentIncrementId
+     * @param  string             $shipmentIncrementId
      * @return array
      * @throws Mage_Api_Exception
      */
@@ -103,11 +103,11 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Create new shipment for order
      *
-     * @param string $orderIncrementId
-     * @param array $itemsQty
-     * @param string $comment
-     * @param bool $email
-     * @param bool $includeComment
+     * @param  string $orderIncrementId
+     * @param  array  $itemsQty
+     * @param  string $comment
+     * @param  bool   $email
+     * @param  bool   $includeComment
      * @return string
      */
     public function create(
@@ -158,11 +158,11 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Add tracking number to order
      *
-     * @param string $shipmentIncrementId
-     * @param string $carrier
-     * @param string $title
-     * @param string $trackNumber
-     * @param null|float $weight
+     * @param  string     $shipmentIncrementId
+     * @param  string     $carrier
+     * @param  string     $title
+     * @param  string     $trackNumber
+     * @param  null|float $weight
      * @return int
      */
     public function addTrack($shipmentIncrementId, $carrier, $title, $trackNumber, $weight = null)
@@ -203,8 +203,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Remove tracking number
      *
-     * @param string $shipmentIncrementId
-     * @param int $trackId
+     * @param  string $shipmentIncrementId
+     * @param  int    $trackId
      * @return bool
      */
     public function removeTrack($shipmentIncrementId, $trackId)
@@ -231,8 +231,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Send email with shipment data to customer
      *
-     * @param string $shipmentIncrementId
-     * @param string $comment
+     * @param  string $shipmentIncrementId
+     * @param  string $comment
      * @return bool
      */
     public function sendInfo($shipmentIncrementId, $comment = '')
@@ -263,8 +263,8 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve tracking number info
      *
-     * @param string $shipmentIncrementId
-     * @param int $trackId
+     * @param  string $shipmentIncrementId
+     * @param  int    $trackId
      * @return mixed
      */
     public function infoTrack($shipmentIncrementId, $trackId)
@@ -291,10 +291,10 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Add comment to shipment
      *
-     * @param string $shipmentIncrementId
-     * @param string $comment
-     * @param bool $email
-     * @param bool $includeInEmail
+     * @param  string $shipmentIncrementId
+     * @param  string $comment
+     * @param  bool   $email
+     * @param  bool   $includeInEmail
      * @return bool
      */
     public function addComment($shipmentIncrementId, $comment, $email = false, $includeInEmail = false)
@@ -319,7 +319,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve allowed shipping carriers for specified order
      *
-     * @param string $orderIncrementId
+     * @param  string $orderIncrementId
      * @return array
      */
     public function getCarriers($orderIncrementId)
@@ -339,7 +339,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Retrieve shipping carriers for specified order
      *
-     * @param Mage_Eav_Model_Entity_Abstract $object
+     * @param  Mage_Eav_Model_Entity_Abstract $object
      * @return array
      */
     protected function _getCarriers($object)

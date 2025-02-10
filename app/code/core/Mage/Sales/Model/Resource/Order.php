@@ -96,9 +96,9 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     /**
      * Count existent products of order items by specified product types
      *
-     * @param int $orderId
-     * @param array $productTypeIds
-     * @param bool $isProductTypeIn
+     * @param  int   $orderId
+     * @param  array $productTypeIds
+     * @param  bool  $isProductTypeIn
      * @return array
      */
     public function aggregateProductsByTypes($orderId, $productTypeIds = [], $isProductTypeIn = false)
@@ -129,7 +129,7 @@ class Mage_Sales_Model_Resource_Order extends Mage_Sales_Model_Resource_Order_Ab
     /**
      * Retrieve order_increment_id by order_id
      *
-     * @param int $orderId
+     * @param  int    $orderId
      * @return string
      */
     public function getIncrementId($orderId)

@@ -30,7 +30,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Fetch items summary
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return array
      */
     public function fetchItemsSummary($quoteId)
@@ -47,7 +47,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Fetch items
      *
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return array
      */
     public function fetchItems($quoteId)
@@ -66,8 +66,8 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Make collection not to load products that are in specified quote
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param int $quoteId
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  int                                            $quoteId
      * @return $this
      */
     public function addExcludeProductFilter($collection, $quoteId)

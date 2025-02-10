@@ -149,9 +149,9 @@ class Mage_Cron_Model_Observer
     /**
      * Generate jobs for config information
      *
-     * @param   SimpleXMLElement $jobs
-     * @param   array $exists
-     * @return  $this
+     * @param  SimpleXMLElement $jobs
+     * @param  array            $exists
+     * @return $this
      */
     protected function _generateJobs($jobs, $exists)
     {
@@ -237,8 +237,8 @@ class Mage_Cron_Model_Observer
     /**
      * Processing cron task which is marked as always
      *
-     * @param string $jobCode
-     * @param SimpleXMLElement $jobConfig
+     * @param  string           $jobCode
+     * @param  SimpleXMLElement $jobConfig
      * @return $this|void
      */
     protected function _processAlwaysTask($jobCode, $jobConfig)
@@ -263,9 +263,9 @@ class Mage_Cron_Model_Observer
     /**
      * Process cron task
      *
-     * @param Mage_Cron_Model_Schedule $schedule
-     * @param SimpleXMLElement $jobConfig
-     * @param bool $isAlways
+     * @param  Mage_Cron_Model_Schedule $schedule
+     * @param  SimpleXMLElement         $jobConfig
+     * @param  bool                     $isAlways
      * @return $this|void
      */
     protected function _processJob($schedule, $jobConfig, $isAlways = false)
@@ -340,7 +340,7 @@ class Mage_Cron_Model_Observer
     /**
      * Get job for task marked as always
      *
-     * @param string $jobCode
+     * @param  string                   $jobCode
      * @return Mage_Cron_Model_Schedule
      */
     protected function _getAlwaysJobSchedule($jobCode)

@@ -191,7 +191,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     }
 
     /**
-     * @param array $args
+     * @param  array  $args
      * @return string
      */
     public function unparseRow($args)
@@ -220,7 +220,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
     /**
      * Retrieve csv string from array
      *
-     * @param array $fields
+     * @param  array  $fields
      * @return string
      */
     public function getCsvString($fields = [])

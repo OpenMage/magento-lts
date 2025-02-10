@@ -35,7 +35,7 @@ class Mage_Admin_Helper_Block
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function isTypeAllowed($type)

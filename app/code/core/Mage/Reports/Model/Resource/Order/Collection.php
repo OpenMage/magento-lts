@@ -41,7 +41,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Check range for live mode
      *
-     * @param mixed $range
+     * @param  mixed $range
      * @return $this
      */
     public function checkIsLive($range)
@@ -63,10 +63,10 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Prepare report summary
      *
-     * @param string $range
-     * @param mixed $customStart
-     * @param mixed $customEnd
-     * @param int $isFilter
+     * @param  string $range
+     * @param  mixed  $customStart
+     * @param  mixed  $customEnd
+     * @param  int    $isFilter
      * @return $this
      */
     public function prepareSummary($range, $customStart, $customEnd, $isFilter = 0)
@@ -118,10 +118,10 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Prepare report summary from live data
      *
-     * @param string $range
-     * @param mixed $customStart
-     * @param mixed $customEnd
-     * @param int $isFilter
+     * @param  string $range
+     * @param  mixed  $customStart
+     * @param  mixed  $customEnd
+     * @param  int    $isFilter
      * @return $this
      */
     protected function _prepareSummaryLive($range, $customStart, $customEnd, $isFilter = 0)
@@ -179,9 +179,9 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Prepare report summary from aggregated data
      *
-     * @param string $range
-     * @param mixed $customStart
-     * @param mixed $customEnd
+     * @param  string $range
+     * @param  mixed  $customStart
+     * @param  mixed  $customEnd
      * @return $this
      */
     protected function _prepareSummaryAggregated($range, $customStart, $customEnd)
@@ -222,7 +222,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Get range expression
      *
-     * @param string $range
+     * @param  string       $range
      * @return Zend_Db_Expr
      */
     protected function _getRangeExpression($range)
@@ -252,8 +252,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Retrieve range expression adapted for attribute
      *
-     * @param string $range
-     * @param string $attribute
+     * @param  string $range
+     * @param  string $attribute
      * @return string
      */
     protected function _getRangeExpressionForAttribute($range, $attribute)
@@ -265,10 +265,10 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Retrieve query for attribute with timezone conversion
      *
-     * @param string $range
-     * @param string $attribute
-     * @param mixed $from
-     * @param mixed $to
+     * @param  string $range
+     * @param  string $attribute
+     * @param  mixed  $from
+     * @param  mixed  $to
      * @return string
      */
     protected function _getTZRangeOffsetExpression($range, $attribute, $from = null, $to = null)
@@ -284,10 +284,10 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Retrieve range expression with timezone conversion adapted for attribute
      *
-     * @param string $range
-     * @param string $attribute
-     * @param string $tzFrom
-     * @param string $tzTo
+     * @param  string $range
+     * @param  string $attribute
+     * @param  string $tzFrom
+     * @param  string $tzTo
      * @return string
      */
     protected function _getTZRangeExpressionForAttribute($range, $attribute, $tzFrom = '+00:00', $tzTo = null)
@@ -306,10 +306,10 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate From and To dates (or times) by given period
      *
-     * @param string $range
-     * @param string $customStart
-     * @param string $customEnd
-     * @param bool $returnObjects
+     * @param  string $range
+     * @param  string $customStart
+     * @param  string $customEnd
+     * @param  bool   $returnObjects
      * @return array
      */
     public function getDateRange($range, $customStart, $customEnd, $returnObjects = false)
@@ -386,7 +386,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate totals report
      *
-     * @param int|bool $isFilter
+     * @param  int|bool $isFilter
      * @return $this
      */
     public function calculateTotals($isFilter = 0)
@@ -403,7 +403,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate totals live report
      *
-     * @param int $isFilter
+     * @param  int   $isFilter
      * @return $this
      */
     protected function _calculateTotalsLive($isFilter = 0)
@@ -454,7 +454,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate totals aggregated report
      *
-     * @param int $isFilter
+     * @param  int   $isFilter
      * @return $this
      */
     protected function _calculateTotalsAggregated($isFilter = 0)
@@ -484,7 +484,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate lifitime sales
      *
-     * @param bool|int $isFilter
+     * @param  bool|int $isFilter
      * @return $this
      */
     public function calculateSales($isFilter = 0)
@@ -543,8 +543,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Set date range
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -565,7 +565,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Set store filter collection
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)
@@ -631,7 +631,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Join Customer Name (concat)
      *
-     * @param string $alias
+     * @param  string $alias
      * @return $this
      */
     public function joinCustomerName($alias = 'name')
@@ -663,7 +663,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Add revenue
      *
-     * @param bool $convertCurrency
+     * @param  bool  $convertCurrency
      * @return $this
      */
     public function addRevenueToSelect($convertCurrency = false)
@@ -684,7 +684,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Add summary average totals
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addSumAvgTotals($storeId = 0)
@@ -714,7 +714,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Sort order by total amount
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByTotalAmount($dir = self::SORT_ORDER_DESC)
@@ -726,7 +726,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Order by orders count
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByOrdersCount($dir = self::SORT_ORDER_DESC)
@@ -738,7 +738,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Order by customer registration
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByCustomerRegistration($dir = self::SORT_ORDER_DESC)
@@ -750,7 +750,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Sort order by order created_at date
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByCreatedAt($dir = self::SORT_ORDER_DESC)
@@ -792,7 +792,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Add period filter by created_at attribute
      *
-     * @param string $period
+     * @param  string $period
      * @return $this
      */
     public function addCreateAtPeriodFilter($period)

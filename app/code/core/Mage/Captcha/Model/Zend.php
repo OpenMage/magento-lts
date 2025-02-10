@@ -51,7 +51,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
 
     /**
     * Override default value to prevent a captcha cut off
-    * @var int
+     * @var int
     * @see Zend_Captcha_Image::$_fsize
     */
     protected $_fsize = 22;
@@ -86,7 +86,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Returns key with respect of current form ID
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     protected function _getFormIdKey($key)
@@ -107,7 +107,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Whether captcha is required to be inserted to this form
      *
-     * @param null|string $login
+     * @param  null|string $login
      * @return bool
      */
     public function isRequired($login = null)
@@ -128,7 +128,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Check is overlimit attempts
      *
-     * @param string $login
+     * @param  string $login
      * @return bool
      */
     protected function _isOverLimitAttempts($login)
@@ -170,7 +170,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Is Over Limit Login Attempts
      *
-     * @param string $login
+     * @param  string $login
      * @return bool
      */
     protected function _isOverLimitLoginAttempts($login)
@@ -254,7 +254,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Checks whether captcha was guessed correctly by user
      *
-     * @param string $word
+     * @param  string $word
      * @return bool
      */
     public function isCorrect($word)
@@ -286,7 +286,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
     * Return full URL to captcha image
     *
-    * @return string
+     * @return string
     */
     public function getImgSrc()
     {
@@ -296,7 +296,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * log Attempt
      *
-     * @param string $login
+     * @param  string $login
      * @return $this
      */
     public function logAttempt($login)
@@ -463,7 +463,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     /**
      * Set captcha word
      *
-     * @param  string $word
+     * @param  string            $word
      * @return Zend_Captcha_Word
      */
     protected function _setWord($word)
@@ -492,7 +492,7 @@ class Mage_Captcha_Model_Zend extends Zend_Captcha_Image implements Mage_Captcha
     * Override function to generate less curly captcha that will not cut off
     *
     * @see Zend_Captcha_Image::_randomSize()
-    * @return int
+     * @return int
     */
     protected function _randomSize()
     {

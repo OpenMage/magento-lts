@@ -25,7 +25,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
     /**
      * Validate process
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return bool
      */
     public function validate($object)
@@ -81,7 +81,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
     /**
      * Before Attribute Save Process
      *
-     * @param Varien_Object $object
+     * @param  Varien_Object $object
      * @return $this
      */
     public function beforeSave($object)
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
     }
 
     /**
-     * @param Varien_Object $object
+     * @param  Varien_Object                                          $object
      * @return $this|Mage_Eav_Model_Entity_Attribute_Backend_Abstract
      */
     public function afterLoad($object)

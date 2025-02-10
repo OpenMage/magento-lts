@@ -22,18 +22,18 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Status_History _getResource()
  * @method Mage_Sales_Model_Resource_Order_Status_History getResource()
- * @method string getComment()
- * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method int getIsCustomerNotified()
- * @method $this setEntityName(string $value)
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method string getStatus()
- * @method $this setStatus(string $value)
- * @method int getIsVisibleOnFront()
- * @method $this setIsVisibleOnFront(int $value)
+ * @method string                                         getComment()
+ * @method $this                                          setComment(string $value)
+ * @method string                                         getCreatedAt()
+ * @method $this                                          setCreatedAt(string $value)
+ * @method int                                            getIsCustomerNotified()
+ * @method $this                                          setEntityName(string $value)
+ * @method int                                            getParentId()
+ * @method $this                                          setParentId(int $value)
+ * @method string                                         getStatus()
+ * @method $this                                          setStatus(string $value)
+ * @method int                                            getIsVisibleOnFront()
+ * @method $this                                          setIsVisibleOnFront(int $value)
  */
 class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
 {
@@ -57,7 +57,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     /**
      * Set order object
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {

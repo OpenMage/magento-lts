@@ -32,7 +32,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
      * Initialize requested category and put it into registry.
      * Root category can be returned, if inappropriate store/category is specified
      *
-     * @param bool $getRootInstead
+     * @param  bool                              $getRootInstead
      * @return Mage_Catalog_Model_Category|false
      */
     protected function _initCategory($getRootInstead = false)

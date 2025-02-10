@@ -35,14 +35,14 @@ class Mage_Archive
     /**
     * Current archiver is used for compress.
     *
-    * @var Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
+     * @var Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected $_archiver = null;
 
     /**
     * Accessible formats for compress.
     *
-    * @var array
+     * @var array
     */
     protected $_formats = [
         'tar'        => 'tar',
@@ -62,8 +62,8 @@ class Mage_Archive
     /**
     * Create object of current archiver by $extension.
     *
-    * @param string $extension
-    * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
+     * @param  string                                           $extension
+     * @return Mage_Archive_Tar|Mage_Archive_Gz|Mage_Archive_Bz
     */
     protected function _getArchiver($extension)
     {
@@ -80,8 +80,8 @@ class Mage_Archive
     /**
     * Split current format to list of archivers.
     *
-    * @param string $source
-    * @return array
+     * @param  string $source
+     * @return array
     */
     protected function _getArchivers($source)
     {
@@ -99,10 +99,10 @@ class Mage_Archive
     /**
     * Pack file or directory to archivers are parsed from extension.
     *
-    * @param string $source
-    * @param string $destination
-    * @param boolean $skipRoot skip first level parent
-    * @return string Path to file
+     * @param  string  $source
+     * @param  string  $destination
+     * @param  boolean $skipRoot    skip first level parent
+     * @return string  Path to file
     */
     public function pack($source, $destination = 'packed.tgz', $skipRoot = false)
     {
@@ -128,11 +128,11 @@ class Mage_Archive
     * If $tillTar == true unpack file from archivers till
     * meet TAR archiver.
     *
-    * @param string $source
-    * @param string $destination
-    * @param bool $tillTar
-    * @param bool $clearInterm
-    * @return string Path to file
+     * @param  string $source
+     * @param  string $destination
+     * @param  bool   $tillTar
+     * @param  bool   $clearInterm
+     * @return string Path to file
     */
     public function unpack($source, $destination = '.', $tillTar = false, $clearInterm = true)
     {
@@ -160,10 +160,10 @@ class Mage_Archive
     /**
     * Extract one file from TAR (Tape Archiver).
     *
-    * @param string $file
-    * @param string $source
-    * @param string $destination
-    * @return string Path to file
+     * @param  string $file
+     * @param  string $source
+     * @param  string $destination
+     * @return string Path to file
     */
     public function extract($file, $source, $destination = '.')
     {
@@ -178,8 +178,8 @@ class Mage_Archive
     /**
     * Check file is archive.
     *
-    * @param string $file
-    * @return boolean
+     * @param  string  $file
+     * @return boolean
     */
     public function isArchive($file)
     {
@@ -193,8 +193,8 @@ class Mage_Archive
     /**
     * Check file is TAR.
     *
-    * @param mixed $file
-    * @return boolean
+     * @param  mixed   $file
+     * @return boolean
     */
     public function isTar($file)
     {

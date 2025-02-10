@@ -30,7 +30,7 @@ class Mage_Sales_Model_Resource_Order_Tax_Collection extends Mage_Core_Model_Res
     /**
      * Load by order
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return $this
      */
     public function loadByOrder($order)

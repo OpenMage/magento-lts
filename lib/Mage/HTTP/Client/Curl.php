@@ -137,7 +137,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
+     * @param $name  name, ex. "Location"
      * @param $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
@@ -160,7 +160,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      * Login credentials support
      *
      * @param string $login username
-     * @param string $pass password
+     * @param string $pass  password
      */
     public function setCredentials($login, $pass)
     {
@@ -318,8 +318,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Make request
-     * @param string $method
-     * @param string $uri
+     * @param string       $method
+     * @param string       $uri
      * @param array|string $params pass an array to form post, pass a json encoded string to directly post json
      */
     protected function makeRequest($method, $uri, $params = [])
@@ -381,7 +381,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Throw error exception
-     * @param $string
+     * @param            $string
      * @throws Exception
      * @return never
      */
@@ -393,7 +393,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Parse headers - CURL callback function
      *
-     * @param resource $ch curl handle, not needed
+     * @param resource $ch   curl handle, not needed
      * @param string   $data
      */
     protected function parseHeaders($ch, $data): int
@@ -445,7 +445,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Set curl option directly
      *
-     * @param int $name
+     * @param int              $name
      * @param int|array|string $value
      */
     protected function curlOption($name, $value)

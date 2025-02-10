@@ -79,7 +79,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Set filter by item id
      *
-     * @param mixed $item
+     * @param  mixed $item
      * @return $this
      */
     public function addIdFilter($item)
@@ -97,7 +97,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter collection by specified product types
      *
-     * @param array $typeIds
+     * @param  array $typeIds
      * @return $this
      */
     public function filterByTypes($typeIds)
@@ -109,7 +109,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter collection by parent_item_id
      *
-     * @param int $parentId
+     * @param  int   $parentId
      * @return $this
      */
     public function filterByParent($parentId = null)
@@ -138,7 +138,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
     /**
      * Filter by customerId
      *
-     * @param int|array $customerId
+     * @param  int|array $customerId
      * @return $this
      */
     public function addFilterByCustomerId($customerId)

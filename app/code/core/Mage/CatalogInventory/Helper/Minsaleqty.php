@@ -27,7 +27,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Retrieve fixed qty value
      *
-     * @param mixed $qty
+     * @param  mixed      $qty
      * @return float|null
      */
     protected function _fixQty($qty)
@@ -38,7 +38,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Generate a storable representation of a value
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _serializeValue($value)
@@ -65,7 +65,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Create a value from a storable representation
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return array
      */
     protected function _unserializeValue($value)
@@ -88,7 +88,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Check whether value is in form retrieved by _encodeArrayFieldValue()
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return bool
      */
     protected function _isEncodedArrayFieldValue($value)
@@ -146,8 +146,8 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Retrieve min_sale_qty value from config
      *
-     * @param int $customerGroupId
-     * @param mixed $store
+     * @param  int        $customerGroupId
+     * @param  mixed      $store
      * @return float|null
      */
     public function getConfigValue($customerGroupId, $store = null)
@@ -172,7 +172,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Make value readable by Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return array
      */
     public function makeArrayFieldValue($value)
@@ -187,7 +187,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     /**
      * Make value ready for store
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     public function makeStorableArrayFieldValue($value)

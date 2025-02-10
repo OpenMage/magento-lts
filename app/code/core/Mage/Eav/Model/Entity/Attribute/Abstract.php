@@ -20,37 +20,37 @@
  * @category   Mage
  * @package    Mage_Eav
  *
- * @method bool hasAttributeSetInfo()
- * @method array getAttributeSetInfo()
- * @method $this setAttributeSetInfo(array $value)
- * @method $this setAttributeGroupId(int $value)
- * @method bool getFlatAddChildData()
- * @method array getFlatAddFilterableAttributes()
- * @method string getFrontendClass()
- * @method string getFrontendInput()
- * @method string getFrontendLabel()
- * @method string getFrontendModel()
- * @method $this setFrontendModel(string $value)
- * @method bool getIsConfigurable()
- * @method bool getIsFilterable()
- * @method bool getIsFilterableInSearch()
- * @method $this setIsGlobal(int $value)
- * @method bool getIsRequired()
- * @method bool getIsSearchable()
- * @method bool getIsUnique()
- * @method bool getIsUserDefined()
- * @method bool hasIsVisible()
- * @method bool getIsVisible()
- * @method bool getIsVisibleInAdvancedSearch()
- * @method string getSourceModel()
- * @method $this setSourceModel(string $value)
- * @method string getSortOrder()
- * @method $this setSortOrder(string $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getStoreLabel()
- * @method string getUsedForSortBy()
- * @method array getValidateRules()
+ * @method bool                                     hasAttributeSetInfo()
+ * @method array                                    getAttributeSetInfo()
+ * @method $this                                    setAttributeSetInfo(array $value)
+ * @method $this                                    setAttributeGroupId(int $value)
+ * @method bool                                     getFlatAddChildData()
+ * @method array                                    getFlatAddFilterableAttributes()
+ * @method string                                   getFrontendClass()
+ * @method string                                   getFrontendInput()
+ * @method string                                   getFrontendLabel()
+ * @method string                                   getFrontendModel()
+ * @method $this                                    setFrontendModel(string $value)
+ * @method bool                                     getIsConfigurable()
+ * @method bool                                     getIsFilterable()
+ * @method bool                                     getIsFilterableInSearch()
+ * @method $this                                    setIsGlobal(int $value)
+ * @method bool                                     getIsRequired()
+ * @method bool                                     getIsSearchable()
+ * @method bool                                     getIsUnique()
+ * @method bool                                     getIsUserDefined()
+ * @method bool                                     hasIsVisible()
+ * @method bool                                     getIsVisible()
+ * @method bool                                     getIsVisibleInAdvancedSearch()
+ * @method string                                   getSourceModel()
+ * @method $this                                    setSourceModel(string $value)
+ * @method string                                   getSortOrder()
+ * @method $this                                    setSortOrder(string $value)
+ * @method int                                      getStoreId()
+ * @method $this                                    setStoreId(int $value)
+ * @method string                                   getStoreLabel()
+ * @method string                                   getUsedForSortBy()
+ * @method array                                    getValidateRules()
  * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
  */
 abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_Abstract implements Mage_Eav_Model_Entity_Attribute_Interface
@@ -121,9 +121,9 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Load attribute data by code
      *
-     * @param   mixed $entityType
-     * @param   string $code
-     * @return  $this
+     * @param  mixed  $entityType
+     * @param  string $code
+     * @return $this
      */
     public function loadByCode($entityType, $code)
     {
@@ -183,8 +183,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Specify attribute identifier
      *
-     * @param   int $data
-     * @return  $this
+     * @param  int   $data
+     * @return $this
      */
     public function setAttributeId($data)
     {
@@ -203,7 +203,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setAttributeCode($data)
@@ -220,7 +220,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setAttributeModel($data)
@@ -237,7 +237,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setBackendType($data)
@@ -254,7 +254,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setBackendModel($data)
@@ -271,7 +271,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setBackendTable($data)
@@ -304,7 +304,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $id
+     * @param  mixed $id
      * @return $this
      */
     public function setAttributeSetId($id)
@@ -322,7 +322,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $id
+     * @param  mixed $id
      * @return $this
      */
     public function setEntityTypeId($id)
@@ -332,7 +332,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $type
+     * @param  mixed $type
      * @return $this
      */
     public function setEntityType($type)
@@ -355,7 +355,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Get attribute alias as "entity_type/attribute_code"
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity exclude this entity
+     * @param  Mage_Eav_Model_Entity_Abstract $entity exclude this entity
      * @return string
      */
     public function getAlias($entity = null)
@@ -371,8 +371,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Set attribute name
      *
-     * @param   string $name
-     * @return  $this
+     * @param  string $name
+     * @return $this
      */
     public function setName($name)
     {
@@ -392,7 +392,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Set attribute entity instance
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity
+     * @param  Mage_Eav_Model_Entity_Abstract $entity
      * @return $this
      */
     public function setEntity($entity)
@@ -524,7 +524,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $value
+     * @param  mixed               $value
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -550,7 +550,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Check if attribute in specified set
      *
-     * @param int|array $setId
+     * @param  int|array $setId
      * @return bool
      */
     public function isInSet($setId)
@@ -577,8 +577,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Check if attribute in specified group
      *
-     * @param int $setId
-     * @param int $groupId
+     * @param  int  $setId
+     * @param  int  $groupId
      * @return bool
      */
     public function isInGroup($setId, $groupId)
@@ -594,8 +594,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Return attribute id
      *
-     * @param string $entityType
-     * @param string $code
+     * @param  string $entityType
+     * @param  string $code
      * @return int
      */
     public function getIdByCode($entityType, $code)
@@ -901,7 +901,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
+     * @param  int                         $store
      * @return $this|Varien_Db_Select|null
      */
     public function getFlatUpdateSelect($store = null)

@@ -61,8 +61,8 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
     /**
      * Validate attribute set name
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Set $object
-     * @param string $attributeSetName
+     * @param  Mage_Eav_Model_Entity_Attribute_Set $object
+     * @param  string                              $attributeSetName
      * @return bool
      */
     public function validate($object, $attributeSetName)
@@ -88,7 +88,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
     /**
      * Retrieve Set info by attributes
      *
-     * @param int|null $setId
+     * @param  int|null $setId
      * @return array
      */
     public function getSetInfo(array $attributeIds = [], $setId = null)
@@ -140,7 +140,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
     /**
      * Retrurn default attribute group id for attribute set id
      *
-     * @param int $setId
+     * @param  int      $setId
      * @return int|null
      */
     public function getDefaultGroupId($setId)

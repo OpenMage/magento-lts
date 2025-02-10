@@ -109,7 +109,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Set website id
      *
-     * @param int $websiteId
+     * @param  int   $websiteId
      * @return $this
      */
     public function setWebsiteId($websiteId)
@@ -121,7 +121,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
     /**
      * Set customer by id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function setCustomerId($customerId)

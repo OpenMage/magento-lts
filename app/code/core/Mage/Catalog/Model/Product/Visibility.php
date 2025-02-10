@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
     * Retrieve all options
     *
-    * @return array
+     * @return array
     */
     public static function getAllOption()
     {
@@ -166,7 +166,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve option text
      *
-     * @param int $optionId
+     * @param  int    $optionId
      * @return string
      */
     public static function getOptionText($optionId)
@@ -214,7 +214,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
+     * @param  int                   $store
      * @return Varien_Db_Select|null
      */
     public function getFlatUpdateSelect($store)
@@ -226,7 +226,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Set attribute instance
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return Mage_Catalog_Model_Product_Visibility
      */
     public function setAttribute($attribute)
@@ -248,8 +248,8 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
     /**
      * Add Value Sort To Collection Select
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
-     * @param string $dir direction
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  string                                         $dir        direction
      * @return Mage_Catalog_Model_Product_Visibility
      * @throws Mage_Core_Exception
      */

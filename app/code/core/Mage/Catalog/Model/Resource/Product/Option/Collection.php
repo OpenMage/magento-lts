@@ -32,7 +32,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Adds title, price & price_type attributes to result
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function getOptions($storeId)
@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Add title to result
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addTitleToResult($storeId)
@@ -82,7 +82,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Add price to result
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addPriceToResult($storeId)
@@ -131,7 +131,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Add value to result
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addValuesToResult($storeId = null)
@@ -168,7 +168,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Add product_id filter to select
      *
-     * @param array|Mage_Catalog_Model_Product|int $product
+     * @param  array|Mage_Catalog_Model_Product|int $product
      * @return $this
      */
     public function addProductToFilter($product)
@@ -189,7 +189,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Add is_required filter to select
      *
-     * @param bool $required
+     * @param  bool  $required
      * @return $this
      */
     public function addRequiredFilter($required = true)
@@ -201,7 +201,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
     /**
      * Add filtering by option ids
      *
-     * @param mixed $optionIds
+     * @param  mixed $optionIds
      * @return $this
      */
     public function addIdsToFilter($optionIds)

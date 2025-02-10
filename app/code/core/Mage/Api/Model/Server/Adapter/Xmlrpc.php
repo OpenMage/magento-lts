@@ -32,7 +32,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     /**
      * Set handler class name for webservice
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -103,8 +103,8 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
     /**
      * Dispatch webservice fault
      *
-     * @param int $code
-     * @param string $message
+     * @param  int    $code
+     * @param  string $message
      * @return never
      */
     public function fault($code, $message)

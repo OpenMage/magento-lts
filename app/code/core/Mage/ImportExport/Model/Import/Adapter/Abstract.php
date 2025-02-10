@@ -60,7 +60,7 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
     /**
      * Adapter object constructor.
      *
-     * @param string $source Source file path.
+     * @param  string              $source Source file path.
      * @throws Mage_Core_Exception
      */
     final public function __construct($source)

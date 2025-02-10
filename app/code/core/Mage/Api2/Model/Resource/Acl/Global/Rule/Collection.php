@@ -33,7 +33,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Rule_Collection extends Mage_Core_Mode
     /**
      * Add filtering by role ID
      *
-     * @param int $roleId
+     * @param  int   $roleId
      * @return $this
      */
     public function addFilterByRoleId($roleId)

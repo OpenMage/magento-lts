@@ -36,9 +36,9 @@ class Mage_Cron_Model_Resource_Schedule extends Mage_Core_Model_Resource_Db_Abst
      * and return true. Otherwise, return false and do not change the job.
      * This method is used to implement locking for cron jobs.
      *
-     * @param int $scheduleId
-     * @param String $newStatus
-     * @param String $currentStatus
+     * @param  int    $scheduleId
+     * @param  String $newStatus
+     * @param  String $currentStatus
      * @return bool
      */
     public function trySetJobStatusAtomic($scheduleId, $newStatus, $currentStatus)

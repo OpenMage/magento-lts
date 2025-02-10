@@ -49,9 +49,9 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      *
      * Function returns information about initial store environment and emulates environment of another store
      *
-     * @param int $storeId
+     * @param int    $storeId
      * @param string $area
-     * @param bool $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
+     * @param bool   $emulateStoreInlineTranslation emulate inline translation of the specified store or just disable it
      *
      * @return Varien_Object information about environment of the initial store
      */
@@ -109,7 +109,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      * Function disables inline translation if $storeId is null
      *
      * @param int|null $storeId
-     * @param string $area
+     * @param string   $area
      *
      * @return bool initial inline translation state
      */
@@ -133,7 +133,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Apply design of the specified store
      *
-     * @param int $storeId
+     * @param int    $storeId
      * @param string $area
      *
      * @return array initial design parameters(package, store, area)
@@ -154,7 +154,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
      * Apply locale of the specified store
      *
      * @param null|string|bool|int|Mage_Core_Model_Store $storeId
-     * @param string $area
+     * @param string                                     $area
      *
      * @return string initial locale code
      */
@@ -172,8 +172,8 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     /**
      * Retrieve config value for store by path
      *
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  string                                     $path
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     protected function _getStoreConfig($path, $store = null)

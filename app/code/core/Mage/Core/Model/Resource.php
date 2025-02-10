@@ -69,7 +69,7 @@ class Mage_Core_Model_Resource
     /**
      * Creates a connection to resource whenever needed
      *
-     * @param string $name
+     * @param  string                            $name
      * @return Varien_Db_Adapter_Interface|false
      */
     public function getConnection($name)
@@ -129,7 +129,7 @@ class Mage_Core_Model_Resource
     /**
      * Retrieve connection adapter class name by connection type
      *
-     * @param string $type  the connection type
+     * @param  string       $type the connection type
      * @return string|false
      */
     protected function _getConnectionAdapterClassName($type)
@@ -144,8 +144,8 @@ class Mage_Core_Model_Resource
     /**
      * Create new connection adapter instance by connection type and config
      *
-     * @param string $type the connection type
-     * @param Mage_Core_Model_Config_Element|array $config the connection configuration
+     * @param  string                               $type   the connection type
+     * @param  Mage_Core_Model_Config_Element|array $config the connection configuration
      * @return Varien_Db_Adapter_Interface|false
      */
     protected function _newConnection($type, $config)
@@ -190,7 +190,7 @@ class Mage_Core_Model_Resource
     /**
      * Retrieve default connection name by required connection name
      *
-     * @param string $requiredConnectionName
+     * @param  string $requiredConnectionName
      * @return string
      */
     protected function _getDefaultConnection($requiredConnectionName)
@@ -206,7 +206,7 @@ class Mage_Core_Model_Resource
      *
      * Creates new if doesn't exist
      *
-     * @param string $type
+     * @param  string                                 $type
      * @return Mage_Core_Model_Resource_Type_Abstract
      */
     public function getConnectionTypeInstance($type)
@@ -222,8 +222,8 @@ class Mage_Core_Model_Resource
     /**
      * Get resource entity
      *
-     * @param string $model
-     * @param string $entity
+     * @param  string                                   $model
+     * @param  string                                   $entity
      * @return SimpleXMLElement|Varien_Simplexml_Config
      */
     public function getEntity($model, $entity)
@@ -249,8 +249,8 @@ class Mage_Core_Model_Resource
     /**
      * Get resource table name, validated by db adapter
      *
-     * @param   string|array $modelEntity
-     * @return  string
+     * @param  string|array $modelEntity
+     * @return string
      */
     public function getTableName($modelEntity)
     {
@@ -301,8 +301,8 @@ class Mage_Core_Model_Resource
     /**
      * Set mapped table name
      *
-     * @param string $tableName
-     * @param string $mappedName
+     * @param  string $tableName
+     * @param  string $mappedName
      * @return $this
      */
     public function setMappedTableName($tableName, $mappedName)
@@ -314,7 +314,7 @@ class Mage_Core_Model_Resource
     /**
      * Get mapped table name
      *
-     * @param string $tableName
+     * @param  string      $tableName
      * @return bool|string
      */
     public function getMappedTableName($tableName)
@@ -325,7 +325,7 @@ class Mage_Core_Model_Resource
     /**
      * Clean db row
      *
-     * @param array $row
+     * @param  array $row
      * @return $this
      */
     public function cleanDbRow(&$row)
@@ -344,9 +344,9 @@ class Mage_Core_Model_Resource
     /**
      * Create new connection with custom config
      *
-     * @param string $name
-     * @param string $type
-     * @param array $config
+     * @param  string                      $name
+     * @param  string                      $type
+     * @param  array                       $config
      * @return Varien_Db_Adapter_Interface
      */
     public function createConnection($name, $type, $config)
@@ -376,7 +376,7 @@ class Mage_Core_Model_Resource
     }
 
     /**
-     * @param mixed $value
+     * @param  mixed $value
      * @return $this
      */
     public function setAutoUpdate($value)
@@ -387,9 +387,9 @@ class Mage_Core_Model_Resource
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *
-     * @param string $tableName
-     * @param array|string $fields
-     * @param string $indexType
+     * @param  string       $tableName
+     * @param  array|string $fields
+     * @param  string       $indexType
      * @return string
      */
     public function getIdxName($tableName, $fields, $indexType = Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX)
@@ -401,10 +401,10 @@ class Mage_Core_Model_Resource
     /**
      * Retrieve 32bit UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
-     * @param string $priColumnName the target table column name
-     * @param string $refTableName  the reference table name
-     * @param string $refColumnName the reference table column name
+     * @param  string $priTableName  the target table name
+     * @param  string $priColumnName the target table column name
+     * @param  string $refTableName  the reference table name
+     * @param  string $refColumnName the reference table column name
      * @return string
      */
     public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)

@@ -91,7 +91,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Ma
     /**
      * Add field to Options form based on option configuration
      *
-     * @param Varien_Object $parameter
+     * @param  Varien_Object                           $parameter
      * @return Varien_Data_Form_Element_Abstract|false
      */
     protected function _addField($parameter)

@@ -49,7 +49,7 @@ class Mage_Core_Model_Domainpolicy
 
     /**
      * Mage_Core_Model_Domainpolicy constructor.
-     * @param array $options
+     * @param  array                           $options
      * @throws Mage_Core_Model_Store_Exception
      */
     public function __construct($options = [])
@@ -104,7 +104,7 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Return string representation for policy code
      *
-     * @param string $policyCode
+     * @param  string      $policyCode
      * @return string|null
      */
     protected function _getDomainPolicyByCode($policyCode)

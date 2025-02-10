@@ -20,54 +20,54 @@
  * @category   Mage
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Resource_User _getResource()
- * @method Mage_Admin_Model_Resource_User getResource()
+ * @method Mage_Admin_Model_Resource_User            _getResource()
+ * @method Mage_Admin_Model_Resource_User            getResource()
  * @method Mage_Admin_Model_Resource_User_Collection getResourceCollection()
  *
  * @method string getFirstname()
- * @method $this setFirstname(string $value)
+ * @method $this  setFirstname(string $value)
  * @method string getLastname()
- * @method $this setLastname(string $value)
+ * @method $this  setLastname(string $value)
  * @method string getEmail()
- * @method $this setEmail(string $value)
+ * @method $this  setEmail(string $value)
  * @method string getUsername()
- * @method $this setUsername(string $value)
+ * @method $this  setUsername(string $value)
  * @method string getPassword()
- * @method $this setPassword(string $value)
+ * @method $this  setPassword(string $value)
  * @method string getCreated()
- * @method $this setCreated(string $value)
+ * @method $this  setCreated(string $value)
  * @method string getModified()
- * @method $this setModified(string $value)
+ * @method $this  setModified(string $value)
  * @method string getLogdate()
- * @method $this setLogdate(string $value)
- * @method int getLognum()
- * @method $this setLognum(int $value)
- * @method int getReloadAclFlag()
- * @method $this setReloadAclFlag(int $value)
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method array getExtra()
- * @method $this setExtra(string $value)
- * @method int getUserId()
- * @method int getRoleId()
- * @method bool hasNewPassword()
+ * @method $this  setLogdate(string $value)
+ * @method int    getLognum()
+ * @method $this  setLognum(int $value)
+ * @method int    getReloadAclFlag()
+ * @method $this  setReloadAclFlag(int $value)
+ * @method int    getIsActive()
+ * @method $this  setIsActive(int $value)
+ * @method array  getExtra()
+ * @method $this  setExtra(string $value)
+ * @method int    getUserId()
+ * @method int    getRoleId()
+ * @method bool   hasNewPassword()
  * @method string getNewPassword()
- * @method $this setNewPassword(string $value)
- * @method $this unsNewPassword()
- * @method bool hasPassword()
- * @method bool hasPasswordConfirmation()
+ * @method $this  setNewPassword(string $value)
+ * @method $this  unsNewPassword()
+ * @method bool   hasPassword()
+ * @method bool   hasPasswordConfirmation()
  * @method string getPasswordConfirmation()
- * @method $this setPasswordConfirmation(string $value)
- * @method $this unsPasswordConfirmation()
- * @method $this setRoleId(int $value)
- * @method array getRoleIds()
- * @method $this setRoleIds(array $value)
- * @method $this setRoleUserId(int $value)
+ * @method $this  setPasswordConfirmation(string $value)
+ * @method $this  unsPasswordConfirmation()
+ * @method $this  setRoleId(int $value)
+ * @method array  getRoleIds()
+ * @method $this  setRoleIds(array $value)
+ * @method $this  setRoleUserId(int $value)
  * @method string getRpToken()
- * @method $this setRpToken(string $value)
+ * @method $this  setRpToken(string $value)
  * @method string getRpTokenCreatedAt()
- * @method $this setRpTokenCreatedAt(string $value)
- * @method $this setUserId(int $value)
+ * @method $this  setRpTokenCreatedAt(string $value)
+ * @method $this  setUserId(int $value)
  */
 class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 {
@@ -192,8 +192,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Save admin user extra data (like configuration sections state)
      *
-     * @param   array|string $data
-     * @return  $this
+     * @param  array|string $data
+     * @return $this
      */
     public function saveExtra($data)
     {
@@ -336,7 +336,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Retrieve user name
      *
-     * @param string $separator
+     * @param  string $separator
      * @return string
      */
     public function getName($separator = ' ')
@@ -367,8 +367,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Authenticate username and password and save loaded record
      *
-     * @param string $username
-     * @param string $password
+     * @param  string              $username
+     * @param  string              $password
      * @return bool
      * @throws Mage_Core_Exception
      */
@@ -423,9 +423,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Login user
      *
-     * @param string $username
-     * @param string $password
-     * @return  $this
+     * @param  string              $username
+     * @param  string              $password
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function login($username, $password)
@@ -463,7 +463,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Load user by its username
      *
-     * @param string $username
+     * @param  string $username
      * @return $this
      */
     public function loadByUsername($username)
@@ -475,7 +475,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Check if user is assigned to any role
      *
-     * @param int|Mage_Admin_Model_User $user
+     * @param  int|Mage_Admin_Model_User $user
      * @return array|null
      */
     public function hasAssigned2Role($user)
@@ -486,7 +486,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Retrieve encoded password
      *
-     * @param string $password
+     * @param  string $password
      * @return string
      */
     protected function _getEncodedPassword($password)
@@ -497,7 +497,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Returns helper instance
      *
-     * @param string $helperName
+     * @param  string                    $helperName
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelper($helperName)
@@ -508,9 +508,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Find first menu item that user is able to access
      *
-     * @param Mage_Core_Model_Config_Element|Varien_Simplexml_Element $parent
-     * @param string $path
-     * @param int $level
+     * @param  Mage_Core_Model_Config_Element|Varien_Simplexml_Element $parent
+     * @param  string                                                  $path
+     * @param  int                                                     $level
      * @return string
      */
     public function findFirstAvailableMenu($parent = null, $path = '', $level = 0)
@@ -643,7 +643,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Validate password against current user password
      * Returns true or array of errors.
      *
-     * @param string $password
+     * @param  string                  $password
      * @return array|true
      * @throws Zend_Validate_Exception
      */
@@ -668,7 +668,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      *
      * Stores new reset password link token and its creation time
      *
-     * @param string $newResetPasswordLinkToken
+     * @param  string              $newResetPasswordLinkToken
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -732,7 +732,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     /**
      * Simple sql format date
      *
-     * @param string|bool $dayOnly
+     * @param  string|bool $dayOnly
      * @return string
      */
     protected function _getDateNow($dayOnly = false)
@@ -744,7 +744,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Send notification to general Contact and additional emails when new admin user created.
      * You can declare additional emails in Mage_Core general/additional_notification_emails/admin_user_create node.
      *
-     * @param Mage_Admin_Model_User $user
+     * @param  Mage_Admin_Model_User $user
      * @return $this
      */
     public function sendAdminNotification($user)

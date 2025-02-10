@@ -22,14 +22,14 @@
  *
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getCollection()
  * @method Mage_Api2_Model_Resource_Acl_Global_Role_Collection getResourceCollection()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role getResource()
- * @method Mage_Api2_Model_Resource_Acl_Global_Role _getResource()
- * @method string getCreatedAt()
- * @method $this setCreatedAt() setCreatedAt(string $createdAt)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt() setUpdatedAt(string $updatedAt)
- * @method string getRoleName()
- * @method $this setRoleName() setRoleName(string $roleName)
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role            getResource()
+ * @method Mage_Api2_Model_Resource_Acl_Global_Role            _getResource()
+ * @method string                                              getCreatedAt()
+ * @method $this                                               setCreatedAt() setCreatedAt(string $createdAt)
+ * @method string                                              getUpdatedAt()
+ * @method $this                                               setUpdatedAt() setUpdatedAt(string $updatedAt)
+ * @method string                                              getRoleName()
+ * @method $this                                               setRoleName() setRoleName(string $roleName)
  */
 class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
 {
@@ -135,7 +135,7 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     /**
      * Get role system belonging
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @param  Mage_Api2_Model_Acl_Global_Role $role
      * @return bool
      */
     public static function isSystemRole($role)

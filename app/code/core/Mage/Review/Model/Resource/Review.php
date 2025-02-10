@@ -89,9 +89,9 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param  string                   $field
+     * @param  mixed                    $value
+     * @param  Mage_Core_Model_Abstract $object
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -265,9 +265,9 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Retrieves total reviews
      *
-     * @param int $entityPkValue
-     * @param bool $approvedOnly
-     * @param int $storeId
+     * @param  int  $entityPkValue
+     * @param  bool $approvedOnly
+     * @param  int  $storeId
      * @return int
      */
     public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
@@ -364,7 +364,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Get rating IDs from review votes
      *
-     * @param int $reviewId
+     * @param  int   $reviewId
      * @return array
      */
     protected function _loadVotedRatingIds($reviewId)
@@ -384,8 +384,8 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Aggregate this review's ratings.
      * Useful, when changing the review.
      *
-     * @param array $ratingIds
-     * @param int $entityPkValue
+     * @param  array $ratingIds
+     * @param  int   $entityPkValue
      * @return $this
      */
     protected function _aggregateRatings($ratingIds, $entityPkValue)
@@ -420,7 +420,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
     /**
      * Get review entity type id by code
      *
-     * @param string $entityCode
+     * @param  string   $entityCode
      * @return int|bool
      */
     public function getEntityIdByCode($entityCode)
@@ -436,7 +436,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * Delete reviews by product id.
      * Better to call this method in transaction, because operation performed on two separated tables
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function deleteReviewsByProductId($productId)

@@ -40,7 +40,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
     /**
      * Set use absolute links flag
      *
-     * @param bool $flag
+     * @param  bool                               $flag
      * @return Mage_Catalog_Model_Template_Filter
      */
     public function setUseAbsoluteLinks($flag)
@@ -53,7 +53,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
      * Setter whether SID is allowed in store directive
      * Doesn't set anything intentionally, since SID is not allowed in any kind of emails
      *
-     * @param bool $flag
+     * @param  bool                               $flag
      * @return Mage_Catalog_Model_Template_Filter
      */
     public function setUseSessionInUrl($flag)
@@ -65,7 +65,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
     /**
      * Retrieve Skin URL directive
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      * @see Mage_Core_Model_Email_Template_Filter::skinDirective() method has been copypasted
      */
@@ -80,7 +80,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
     /**
      * Retrieve media file URL directive
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      * @see Mage_Core_Model_Email_Template_Filter::mediaDirective() method has been copypasted
      */
@@ -94,7 +94,7 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
      * Retrieve store URL directive
      * Support url and direct_url properties
      *
-     * @param array $construction
+     * @param  array  $construction
      * @return string
      * @see Mage_Core_Model_Email_Template_Filter::storeDirective() method has been copypasted
      */

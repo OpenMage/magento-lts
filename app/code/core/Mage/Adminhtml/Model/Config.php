@@ -45,9 +45,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     protected $_tabs;
 
     /**
-     * @param string $sectionCode
-     * @param string $websiteCode
-     * @param string $storeCode
+     * @param  string                   $sectionCode
+     * @param  string                   $websiteCode
+     * @param  string                   $storeCode
      * @return Varien_Simplexml_Element
      */
     public function getSections($sectionCode = null, $websiteCode = null, $storeCode = null)
@@ -89,7 +89,7 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param array|null $tags
+     * @param  array|null                        $tags
      * @return $this|Mage_Adminhtml_Model_Config
      */
     public function saveCache($tags = null)
@@ -134,9 +134,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $sectionCode
-     * @param string $websiteCode
-     * @param string $storeCode
+     * @param  string                        $sectionCode
+     * @param  string                        $websiteCode
+     * @param  string                        $storeCode
      * @return Varien_Simplexml_Element|void
      */
     public function getSection($sectionCode = null, $websiteCode = null, $storeCode = null)
@@ -151,10 +151,10 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param Varien_Simplexml_Element $node
-     * @param string $websiteCode
-     * @param string $storeCode
-     * @param bool $isField
+     * @param  Varien_Simplexml_Element $node
+     * @param  string                   $websiteCode
+     * @param  string                   $storeCode
+     * @param  bool                     $isField
      * @return bool
      */
     public function hasChildren($node, $websiteCode = null, $storeCode = null, $isField = false)
@@ -200,9 +200,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * Get translate module name
      *
-     * @param Varien_Simplexml_Element|false|null $sectionNode
-     * @param Varien_Simplexml_Element|false|null $groupNode
-     * @param Varien_Simplexml_Element|false|null $fieldNode
+     * @param  Varien_Simplexml_Element|false|null $sectionNode
+     * @param  Varien_Simplexml_Element|false|null $groupNode
+     * @param  Varien_Simplexml_Element|false|null $fieldNode
      * @return string
      */
     public function getAttributeModule($sectionNode = null, $groupNode = null, $fieldNode = null)
@@ -227,9 +227,9 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     /**
      * System configuration section, fieldset or field label getter
      *
-     * @param string $sectionName
-     * @param string $groupName
-     * @param string $fieldName
+     * @param  string $sectionName
+     * @param  string $groupName
+     * @param  string $fieldName
      * @return string
      */
     public function getSystemConfigNodeLabel($sectionName, $groupName = null, $fieldName = null)

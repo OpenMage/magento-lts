@@ -22,20 +22,20 @@
  *
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price _getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Product_Price getResource()
- * @method string getRuleDate()
- * @method $this setRuleDate(string $value)
- * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method float getRulePrice()
- * @method $this setRulePrice(float $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method string getLatestStartDate()
- * @method $this setLatestStartDate(string $value)
- * @method string getEarliestEndDate()
- * @method $this setEarliestEndDate(string $value)
+ * @method string                                             getRuleDate()
+ * @method $this                                              setRuleDate(string $value)
+ * @method int                                                getCustomerGroupId()
+ * @method $this                                              setCustomerGroupId(int $value)
+ * @method int                                                getProductId()
+ * @method $this                                              setProductId(int $value)
+ * @method float                                              getRulePrice()
+ * @method $this                                              setRulePrice(float $value)
+ * @method int                                                getWebsiteId()
+ * @method $this                                              setWebsiteId(int $value)
+ * @method string                                             getLatestStartDate()
+ * @method $this                                              setLatestStartDate(string $value)
+ * @method string                                             getEarliestEndDate()
+ * @method $this                                              setEarliestEndDate(string $value)
  */
 class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
 {
@@ -47,12 +47,12 @@ class Mage_CatalogRule_Model_Rule_Product_Price extends Mage_Core_Model_Abstract
     /**
      * Apply price rule price to price index table
      *
-     * @param array|string $indexTable
-     * @param string $entityId
-     * @param string $customerGroupId
-     * @param string $websiteId
-     * @param array $updateFields       the array fields for compare with rule price and update
-     * @param string $websiteDate
+     * @param  array|string $indexTable
+     * @param  string       $entityId
+     * @param  string       $customerGroupId
+     * @param  string       $websiteId
+     * @param  array        $updateFields    the array fields for compare with rule price and update
+     * @param  string       $websiteDate
      * @return $this
      */
     public function applyPriceRuleToIndexTable(

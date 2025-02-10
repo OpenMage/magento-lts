@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Set store for resource model
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return $this
      */
     public function setStoreId($store)
@@ -75,7 +75,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Retrieve Flat Table name
      *
-     * @param mixed $store
+     * @param  mixed  $store
      * @return string
      */
     public function getFlatTableName($store = null)
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Retrieve attribute columns for collection select
      *
-     * @param string $attributeCode
+     * @param  string     $attributeCode
      * @return array|null
      */
     public function getAttributeForSelect($attributeCode)
@@ -123,7 +123,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Retrieve Attribute Sort column name
      *
-     * @param string $attributeCode
+     * @param  string      $attributeCode
      * @return string|null
      */
     public function getAttributeSortColumn($attributeCode)
@@ -154,7 +154,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Check whether the attribute is a real field in entity table
      * Rewritten for EAV Collection
      *
-     * @param int|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  int|string|Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return bool
      */
     public function isAttributeStatic($attribute)
@@ -194,7 +194,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
      * Retrieve attribute instance
      * Special for non static flat table
      *
-     * @param mixed $attribute
+     * @param  mixed                                    $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttribute($attribute)
@@ -216,7 +216,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
     /**
      * Check if Catalog Product Flat Data has been initialized
      *
-     * @param bool|int|\Mage_Core_Model_Store|null $storeView Store(id) for which the value is checked
+     * @param  bool|int|\Mage_Core_Model_Store|null $storeView Store(id) for which the value is checked
      * @return bool
      */
     public function isBuilt($storeView = null)

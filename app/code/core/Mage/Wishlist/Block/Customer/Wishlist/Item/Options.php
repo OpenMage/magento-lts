@@ -21,7 +21,7 @@
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Item getItem()
- * @method $this setOptionList(array $value)
+ * @method $this                    setOptionList(array $value)
  */
 class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_Block_Abstract
 {
@@ -47,9 +47,9 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
     /**
      * Adds config for rendering product type options
      *
-     * @param string $productType
-     * @param string $helperName
-     * @param null|string $template
+     * @param  string      $productType
+     * @param  string      $helperName
+     * @param  null|string $template
      * @return $this
      */
     public function addOptionsRenderCfg($productType, $helperName, $template = null)
@@ -61,7 +61,7 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Options extends Mage_Wishlist_B
     /**
      * Get item options renderer config
      *
-     * @param string $productType
+     * @param  string     $productType
      * @return array|null
      */
     public function getOptionsRenderCfg($productType)

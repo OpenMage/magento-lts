@@ -25,8 +25,8 @@ class Mage_ImportExport_Model_Import_Adapter
     /**
      * Adapter factory. Checks for availability, loads and create instance of import adapter object.
      *
-     * @param string $type Adapter type ('csv', 'xml' etc.)
-     * @param mixed $options OPTIONAL Adapter constructor options
+     * @param  string                                          $type    Adapter type ('csv', 'xml' etc.)
+     * @param  mixed                                           $options OPTIONAL Adapter constructor options
      * @throws Exception
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
      */
@@ -53,7 +53,7 @@ class Mage_ImportExport_Model_Import_Adapter
     /**
      * Create adapter instance for specified source file.
      *
-     * @param string $source Source file path.
+     * @param  string                                          $source Source file path.
      * @return Mage_ImportExport_Model_Import_Adapter_Abstract
      */
     public static function findAdapterFor($source)

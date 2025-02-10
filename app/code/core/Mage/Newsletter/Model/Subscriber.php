@@ -22,28 +22,28 @@
  *
  * @method Mage_Newsletter_Model_Resource_Subscriber _getResource()
  * @method Mage_Newsletter_Model_Resource_Subscriber getResource()
- * @method string getChangeStatusAt()
- * @method $this setChangeStatusAt(string $value)
- * @method bool hasCheckCode()
- * @method string getCheckCode()
- * @method $this setCheckCode(string $value)
- * @method int getCustomerId()
- * @method $this setCustomerId(int $value)
+ * @method string                                    getChangeStatusAt()
+ * @method $this                                     setChangeStatusAt(string $value)
+ * @method bool                                      hasCheckCode()
+ * @method string                                    getCheckCode()
+ * @method $this                                     setCheckCode(string $value)
+ * @method int                                       getCustomerId()
+ * @method $this                                     setCustomerId(int $value)
  * @method setImportMode(bool $value)
  * @method string getName()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
+ * @method int    getStoreId()
+ * @method $this  setStoreId(int $value)
  * @method string getSubscriberConfirmCode()
- * @method $this setSubscriberConfirmCode(string $value)
+ * @method $this  setSubscriberConfirmCode(string $value)
  * @method string getSubscriberEmail()
- * @method $this setSubscriberEmail(string $value)
- * @method int getSubscriberId()
- * @method $this setSubscriberId(int $value)
- * @method int getSubscriberStatus()
- * @method $this setSubscriberStatus(int $value)
- * @method bool getImportMode()
- * @method bool hasCustomerFirstname()
- * @method bool hasCustomerLastname()
+ * @method $this  setSubscriberEmail(string $value)
+ * @method int    getSubscriberId()
+ * @method $this  setSubscriberId(int $value)
+ * @method int    getSubscriberStatus()
+ * @method $this  setSubscriberStatus(int $value)
+ * @method bool   getImportMode()
+ * @method bool   hasCustomerFirstname()
+ * @method bool   hasCustomerLastname()
  */
 class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
 {
@@ -107,7 +107,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Alias for setSubscriberId()
      *
-     * @param int $value
+     * @param  int   $value
      * @return $this
      */
     public function setId($value)
@@ -148,7 +148,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Alias for setSubscriberConfirmCode()
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setCode($value)
@@ -169,7 +169,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Alias for setSubscriberStatus()
      *
-     * @param int $value
+     * @param  int   $value
      * @return $this
      */
     public function setStatus($value)
@@ -180,7 +180,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Set the error messages scope for subscription
      *
-     * @param string $scope
+     * @param  string $scope
      * @return $this
      */
 
@@ -203,7 +203,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Alias for setSubscriberEmail()
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setEmail($value)
@@ -214,7 +214,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Set for status change flag
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsStatusChanged($value)
@@ -250,7 +250,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Load subscriber data from resource model by email
      *
-     * @param string $subscriberEmail
+     * @param  string $subscriberEmail
      * @return $this
      */
     public function loadByEmail($subscriberEmail)
@@ -282,7 +282,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Returns sting of random chars
      *
-     * @param int $length
+     * @param  int    $length
      * @return string
      */
     public function randomSequence($length = 32)
@@ -302,7 +302,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Subscribes by email
      *
-     * @param string $email
+     * @param  string    $email
      * @throws Exception
      * @return int
      */
@@ -383,8 +383,8 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Saving customer subscription status
      *
-     * @param   Mage_Customer_Model_Customer $customer
-     * @return  $this
+     * @param  Mage_Customer_Model_Customer $customer
+     * @return $this
      */
     public function subscribeCustomer($customer)
     {
@@ -464,7 +464,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
     /**
      * Confirms subscriber newsletter
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     public function confirm($code)

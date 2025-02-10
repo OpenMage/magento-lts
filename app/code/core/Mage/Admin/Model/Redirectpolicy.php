@@ -39,7 +39,7 @@ class Mage_Admin_Model_Redirectpolicy
     /**
      * Redirect to startup page after logging in if request contains any params (except security key)
      *
-     * @param string|null $alternativeUrl
+     * @param  string|null $alternativeUrl
      * @return null|string
      */
     public function getRedirectUrl(

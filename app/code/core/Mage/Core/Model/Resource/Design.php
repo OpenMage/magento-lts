@@ -64,10 +64,10 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Check intersections
      *
-     * @param int $storeId
-     * @param string $dateFrom
-     * @param string $dateTo
-     * @param int $currentId
+     * @param  int    $storeId
+     * @param  string $dateFrom
+     * @param  string $dateTo
+     * @param  int    $currentId
      * @return string
      */
     protected function _checkIntersection($storeId, $dateFrom, $dateTo, $currentId)
@@ -135,8 +135,8 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Load changes for specific store and date
      *
-     * @param int $storeId
-     * @param string $date
+     * @param  int    $storeId
+     * @param  string $date
      * @return array
      */
     public function loadChange($storeId, $date = null)

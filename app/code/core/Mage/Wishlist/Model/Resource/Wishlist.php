@@ -47,9 +47,9 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Prepare wishlist load select query
      *
-     * @param string $field
-     * @param mixed $value
-     * @param mixed $object
+     * @param  string         $field
+     * @param  mixed          $value
+     * @param  mixed          $object
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -75,7 +75,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
     /**
      * Setter for customer ID field name
      *
-     * @param string $fieldName
+     * @param  string $fieldName
      * @return $this
      */
     public function setCustomerIdFieldName($fieldName)

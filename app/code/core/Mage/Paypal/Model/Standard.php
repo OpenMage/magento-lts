@@ -39,7 +39,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
      * Whether method is available for specified currency
      *
-     * @param string $currencyCode
+     * @param  string $currencyCode
      * @return bool
      */
     public function canUseForCurrency($currencyCode)
@@ -50,7 +50,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
     * Get paypal session namespace
     *
-    * @return Mage_Paypal_Model_Session
+     * @return Mage_Paypal_Model_Session
     */
     public function getSession()
     {
@@ -138,7 +138,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Instantiate state and set it to state object
-     * @param string $paymentAction
+     * @param string        $paymentAction
      * @param Varien_Object $stateObject
      */
     public function initialize($paymentAction, $stateObject)
@@ -169,7 +169,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Check whether payment method can be used
-     * @param Mage_Sales_Model_Quote|null $quote
+     * @param  Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
     public function isAvailable($quote = null)
@@ -183,8 +183,8 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
     /**
      * Custom getter for payment configuration
      *
-     * @param string $field
-     * @param int $storeId
+     * @param  string $field
+     * @param  int    $storeId
      * @return mixed
      */
     public function getConfigData($field, $storeId = null)

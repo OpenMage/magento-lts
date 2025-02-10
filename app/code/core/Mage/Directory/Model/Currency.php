@@ -21,7 +21,7 @@
  * @package    Mage_Directory
  *
  * @method Mage_Directory_Model_Resource_Currency _getResource()
- * @method $this unsRate()
+ * @method $this                                  unsRate()
  */
 class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
 {
@@ -91,7 +91,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Currency Rates setter
      *
-     * @param array $rates Currency Rates
+     * @param  array $rates Currency Rates
      * @return $this
      */
     public function setRates(array $rates)
@@ -103,9 +103,9 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Loading currency data
      *
-     * @param   string $id
-     * @param   string $field
-     * @return  $this
+     * @param  string $id
+     * @param  string $field
+     * @return $this
      */
     public function load($id, $field = null)
     {
@@ -117,7 +117,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Get currency rate (only base=>allowed)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @param  string|Mage_Directory_Model_Currency $toCurrency
      * @return float|int
      * @throws Mage_Core_Exception
      */
@@ -141,7 +141,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Get currency rate (base=>allowed or allowed=>base)
      *
-     * @param string|Mage_Directory_Model_Currency $toCurrency
+     * @param  string|Mage_Directory_Model_Currency $toCurrency
      * @return string
      * @throws Mage_Core_Exception
      */
@@ -165,8 +165,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Convert price to currency format
      *
-     * @param float $price
-     * @param null|string|Mage_Directory_Model_Currency $toCurrency
+     * @param  float                                     $price
+     * @param  null|string|Mage_Directory_Model_Currency $toCurrency
      * @return float
      * @throws Exception
      */
@@ -205,10 +205,10 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Format price to currency format
      *
-     * @param float $price
-     * @param array $options
-     * @param bool $includeContainer
-     * @param bool $addBrackets
+     * @param  float  $price
+     * @param  array  $options
+     * @param  bool   $includeContainer
+     * @param  bool   $addBrackets
      * @return string
      */
     public function format($price, $options = [], $includeContainer = true, $addBrackets = false)
@@ -219,12 +219,12 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Apply currency format to number with specific rounding precision
      *
-     * @param   float $price
-     * @param   int $precision
-     * @param   array $options
-     * @param   bool $includeContainer
-     * @param   bool $addBrackets
-     * @return  string
+     * @param  float  $price
+     * @param  int    $precision
+     * @param  array  $options
+     * @param  bool   $includeContainer
+     * @param  bool   $addBrackets
+     * @return string
      */
     public function formatPrecision(
         $price,
@@ -246,8 +246,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Returns the formatted price
      *
-     * @param float $price
-     * @param null|array $options
+     * @param  float      $price
+     * @param  null|array $options
      * @return string
      */
     public function formatTxt($price, $options = [])
@@ -325,8 +325,8 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Retrieve currency rates to other currencies
      *
-     * @param array|string|Mage_Directory_Model_Currency $currency
-     * @param array $toCurrencies
+     * @param  array|string|Mage_Directory_Model_Currency $currency
+     * @param  array                                      $toCurrencies
      * @return array
      */
     public function getCurrencyRates($currency, $toCurrencies = null)
@@ -340,7 +340,7 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
     /**
      * Save currency rates
      *
-     * @param array $rates
+     * @param  array  $rates
      * @return object
      */
     public function saveRates($rates)

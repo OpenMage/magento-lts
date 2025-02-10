@@ -25,8 +25,8 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Retrieve list of tags for specified product as array of objects
      *
-     * @param int $productId
-     * @param string|int $store
+     * @param  int        $productId
+     * @param  string|int $store
      * @return array
      */
     public function items($productId, $store = null)
@@ -42,7 +42,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
      * Add tag(s) to product.
      * Return array of objects
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     public function add($data)
@@ -58,8 +58,8 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Retrieve tag info as object
      *
-     * @param int $tagId
-     * @param string|int $store
+     * @param  int          $tagId
+     * @param  string|int   $store
      * @return object|array
      */
     public function info($tagId, $store)
@@ -75,7 +75,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Convert data from object to array before add
      *
-     * @param array|object $data
+     * @param  array|object $data
      * @return array
      */
     protected function _prepareDataForAdd($data)
@@ -87,7 +87,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
     /**
      * Convert data from object to array before update
      *
-     * @param array|object $data
+     * @param  array|object $data
      * @return array
      */
     protected function _prepareDataForUpdate($data)

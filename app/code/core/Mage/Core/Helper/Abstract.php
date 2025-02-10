@@ -61,8 +61,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Loading cache data
      *
-     * @param   string $id
-     * @return  mixed
+     * @param  string $id
+     * @return mixed
      */
     protected function _loadCache($id)
     {
@@ -72,11 +72,11 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Saving cache
      *
-     * @param mixed $data
-     * @param string $id
-     * @param array $tags
-     * @param null|false|int $lifeTime
-     * @return  Mage_Core_Helper_Abstract
+     * @param  mixed                     $data
+     * @param  string                    $id
+     * @param  array                     $tags
+     * @param  null|false|int            $lifeTime
+     * @return Mage_Core_Helper_Abstract
      */
     protected function _saveCache($data, $id, $tags = [], $lifeTime = false)
     {
@@ -87,8 +87,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Removing cache
      *
-     * @param   string $id
-     * @return  Mage_Core_Helper_Abstract
+     * @param  string                    $id
+     * @return Mage_Core_Helper_Abstract
      */
     protected function _removeCache($id)
     {
@@ -99,8 +99,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Cleaning cache
      *
-     * @param   array $tags
-     * @return  Mage_Core_Helper_Abstract
+     * @param  array                     $tags
+     * @return Mage_Core_Helper_Abstract
      */
     protected function _cleanCache($tags = [])
     {
@@ -125,7 +125,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Check whether the module output is enabled in Configuration
      *
-     * @param string $moduleName Full module name
+     * @param  string $moduleName Full module name
      * @return bool
      */
     public function isModuleOutputEnabled($moduleName = null)
@@ -144,7 +144,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Check is module exists and enabled in global config.
      *
-     * @param string $moduleName the full module name, example Mage_Core
+     * @param  string $moduleName the full module name, example Mage_Core
      * @return bool
      */
     public function isModuleEnabled($moduleName = null)
@@ -184,8 +184,8 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param  string|string[]      $data
+     * @param  array|null           $allowedTags
      * @return null|string|string[]
      *
      * @see self::escapeHtml()
@@ -199,8 +199,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities
      *
-     * @param string|string[] $data
-     * @param array|null $allowedTags
+     * @param  string|string[]      $data
+     * @param  array|null           $allowedTags
      * @return null|string|string[]
      */
     public function escapeHtml($data, $allowedTags = null)
@@ -231,8 +231,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Remove html tags, but leave "<" and ">" signs
      *
-     * @param   string $html
-     * @return  string
+     * @param  string $html
+     * @return string
      */
     public function removeTags($html)
     {
@@ -250,9 +250,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Wrapper for standard strip_tags() function with extra functionality for html entities
      *
-     * @param string $data
-     * @param null|string|string[] $allowableTags
-     * @param bool $escape
+     * @param  string               $data
+     * @param  null|string|string[] $allowableTags
+     * @param  bool                 $escape
      * @return string
      */
     public function stripTags($data, $allowableTags = null, $escape = false)
@@ -265,7 +265,7 @@ abstract class Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $data
+     * @param  string $data
      * @return string
      * @deprecated after 1.4.0.0-rc1
      * @see self::escapeHtml()
@@ -278,7 +278,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape html entities in url
      *
-     * @param string $data
+     * @param  string $data
      * @return string
      */
     public function escapeUrl($data)
@@ -293,7 +293,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Remove `\t`,`\n`,`\r`,`\0`,`\x0B:` symbols from the string.
      *
-     * @param string $data
+     * @param  string $data
      * @return string
      */
     public function escapeSpecial($data)
@@ -306,7 +306,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Remove `javascript:`, `vbscript:`, `data:` words from the string.
      *
-     * @param string $data
+     * @param  string $data
      * @return string
      */
     public function escapeScriptIdentifiers($data)
@@ -327,8 +327,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Escape quotes in java script
      *
-     * @param string|string[] $data
-     * @param string $quote
+     * @param  string|string[] $data
+     * @param  string          $quote
      * @return string|string[]
      */
     public function jsQuoteEscape($data, $quote = '\'')
@@ -347,8 +347,8 @@ abstract class Mage_Core_Helper_Abstract
      * Escape quotes inside html attributes
      * Use $addSlashes = false for escaping js that inside html attribute (onClick, onSubmit etc)
      *
-     * @param string $data
-     * @param bool $addSlashes
+     * @param  string $data
+     * @param  bool   $addSlashes
      * @return string
      */
     public function quoteEscape($data, $addSlashes = false)
@@ -365,9 +365,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Retrieve url
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
     protected function _getUrl($route, $params = [])
     {
@@ -377,8 +377,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Declare layout
      *
-     * @param   Mage_Core_Model_Layout $layout
-     * @return  Mage_Core_Helper_Abstract
+     * @param  Mage_Core_Model_Layout    $layout
+     * @return Mage_Core_Helper_Abstract
      */
     public function setLayout($layout)
     {
@@ -399,8 +399,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      *  base64_encode() for URLs encoding
      *
-     *  @param    string $url
-     *  @return   string
+     * @param  string $url
+     * @return string
      */
     public function urlEncode($url)
     {
@@ -410,8 +410,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      *  base64_decode() for URLs decoding
      *
-     *  @param    string $url
-     *  @return   string
+     * @param  string $url
+     * @return string
      */
     public function urlDecode($url)
     {
@@ -422,8 +422,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      *  base64_decode() and escape quotes in url
      *
-     *  @param    string $url
-     *  @return   string
+     * @param  string $url
+     * @return string
      */
     public function urlDecodeAndEscape($url)
     {
@@ -436,8 +436,8 @@ abstract class Mage_Core_Helper_Abstract
     /**
      *   Translate array
      *
-     *  @param    array $arr
-     *  @return   array
+     * @param  array $arr
+     * @return array
      */
     public function translateArray($arr = [])
     {
@@ -455,9 +455,9 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Check for tags in multidimensional arrays
      *
-     * @param string|array $data
-     * @param array $arrayKeys keys of the array being checked that are excluded and included in the check
-     * @param bool $skipTags skip transferred array keys, if false then check only them
+     * @param  string|array $data
+     * @param  array        $arrayKeys keys of the array being checked that are excluded and included in the check
+     * @param  bool         $skipTags  skip transferred array keys, if false then check only them
      * @return bool
      */
     public function hasTags($data, array $arrayKeys = [], $skipTags = true)

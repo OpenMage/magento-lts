@@ -20,9 +20,9 @@
  * @category   Mage
  * @package    Mage_Bundle
  *
- * @method bool getCanEditPrice()
+ * @method bool  getCanEditPrice()
  * @method $this setCanEditPrice(bool $value)
- * @method bool getCanReadPrice()
+ * @method bool  getCanReadPrice()
  * @method $this setCanReadPrice(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection extends Mage_Adminhtml_Block_Widget

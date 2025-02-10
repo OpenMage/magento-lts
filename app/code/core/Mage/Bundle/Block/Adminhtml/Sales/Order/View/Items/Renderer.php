@@ -23,7 +23,7 @@
 class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default
 {
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -63,7 +63,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -103,7 +103,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Varien_Object|Mage_Sales_Model_Order_Item $item
+     * @param  Varien_Object|Mage_Sales_Model_Order_Item $item
      * @return mixed|null
      */
     public function getSelectionAttributes($item)
@@ -140,7 +140,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -160,7 +160,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)

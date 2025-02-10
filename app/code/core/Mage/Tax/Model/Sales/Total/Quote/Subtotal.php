@@ -117,7 +117,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Determine discount price if needed
      *
      *
-     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     public function collect(Mage_Sales_Model_Quote_Address $address)
     {
@@ -185,7 +185,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Calculate item price and row total with configured rounding level
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param Varien_Object $taxRequest
+     * @param Varien_Object                        $taxRequest
      *
      * @return $this
      */
@@ -211,7 +211,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Calculate item price and row total including/excluding tax based on unit price rounding level
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param Varien_Object $request
+     * @param Varien_Object                        $request
      *
      * @return $this
      */
@@ -347,7 +347,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Calculate item price and row total including/excluding tax based on row total price rounding level
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param Varien_Object $request
+     * @param Varien_Object                        $request
      *
      * @return $this
      */
@@ -492,7 +492,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Calculate item price and row total including/excluding tax based on total price rounding level
      *
      * @param Mage_Sales_Model_Quote_Item_Abstract $item
-     * @param Varien_Object $request
+     * @param Varien_Object                        $request
      *
      * @return $this
      */
@@ -693,9 +693,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Round price based on previous rounding operation delta
      *
-     * @param float $price
+     * @param float  $price
      * @param string $rate
-     * @param bool $direction
+     * @param bool   $direction
      * @param string $type
      *
      * @return float
@@ -718,7 +718,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      * Recalculate row information for item based on children calculation
      *
      *
-     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _recalculateParent(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -756,9 +756,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Get request for fetching store tax rate
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address $address
      *
-     * @return  Varien_Object
+     * @return Varien_Object
      */
     protected function _getStoreTaxRequest($address)
     {
@@ -771,9 +771,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Get request for fetching address tax rate
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address $address
      *
-     * @return  Varien_Object
+     * @return Varien_Object
      */
     protected function _getAddressTaxRequest($address)
     {
@@ -788,8 +788,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     /**
      * Add row total item amount to subtotal
      *
-     * @param   Mage_Sales_Model_Quote_Item_Abstract $item
-     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @param  Mage_Sales_Model_Quote_Item_Abstract      $item
+     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _addSubtotalAmount(Mage_Sales_Model_Quote_Address $address, $item)
     {
@@ -819,7 +819,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @deprecated after 1.4.1
      *
-     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _resetItemPriceInclTax(Mage_Sales_Model_Quote_Item_Abstract $item)
     {
@@ -830,8 +830,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @deprecated after 1.4.0.1
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
-     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @param  Mage_Sales_Model_Quote_Address            $address
+     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _processShippingAmount($address)
     {
@@ -844,9 +844,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
      *
      * @deprecated after 1.4.1
      *
-     * @param   Mage_Sales_Model_Quote_Address $address
+     * @param Mage_Sales_Model_Quote_Address $address
      *
-     * @return  Mage_Tax_Model_Sales_Total_Quote_Subtotal
+     * @return Mage_Tax_Model_Sales_Total_Quote_Subtotal
      */
     protected function _recollectItem($address, Mage_Sales_Model_Quote_Item_Abstract $item)
     {

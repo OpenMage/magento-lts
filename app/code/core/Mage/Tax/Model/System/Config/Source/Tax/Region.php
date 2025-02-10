@@ -37,8 +37,8 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
     /**
      * Return list of country's regions as array
      *
-     * @param bool $noEmpty
-     * @param null|string $country
+     * @param  bool        $noEmpty
+     * @param  null|string $country
      * @return array
      */
     public function toOptionArray($noEmpty = false, $country = null)

@@ -84,8 +84,8 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
     /**
      * Make select object for date boundary
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed          $from
+     * @param  mixed          $to
      * @return Zend_Db_Select
      */
     protected function _makeBoundarySelect($from, $to)

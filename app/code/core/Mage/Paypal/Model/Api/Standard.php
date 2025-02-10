@@ -71,7 +71,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
     /**
       * Fields that should be replaced in debug with '***'
       *
-      * @var array
+       * @var array
       */
     protected $_debugReplacePrivateDataKeys = ['business'];
 
@@ -177,7 +177,7 @@ class Mage_Paypal_Model_Api_Standard extends Mage_Paypal_Model_Api_Abstract
      * For some reason PayPal ignores shipping total variables exactly when line items is enabled
      * Note that $i = 1
      *
-     * @param int $i
+     * @param  int  $i
      * @return bool
      */
     protected function _exportLineItems(array &$request, $i = 1)

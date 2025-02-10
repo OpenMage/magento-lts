@@ -20,14 +20,14 @@
  * @category   Mage
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Resource_Class _getResource()
- * @method Mage_Tax_Model_Resource_Class getResource()
+ * @method Mage_Tax_Model_Resource_Class            _getResource()
+ * @method Mage_Tax_Model_Resource_Class            getResource()
  * @method Mage_Tax_Model_Resource_Class_Collection getCollection()
  *
  * @method string getClassName()
- * @method $this setClassName(string $value)
+ * @method $this  setClassName(string $value)
  * @method string getClassType()
- * @method $this setClassType(string $value)
+ * @method $this  setClassType(string $value)
  */
 class Mage_Tax_Model_Class extends Mage_Core_Model_Abstract
 {

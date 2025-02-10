@@ -53,8 +53,8 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Tax extends Mage_Tax_Block_Sales_O
     /**
      * Display tax amount
      *
-     * @param float $amount
-     * @param float $baseAmount
+     * @param  float  $amount
+     * @param  float  $baseAmount
      * @return string
      */
     public function displayAmount($amount, $baseAmount)

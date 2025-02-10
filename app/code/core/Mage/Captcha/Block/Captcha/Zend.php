@@ -21,7 +21,7 @@
  * @package    Mage_Captcha
  *
  * @method string getFormId()
- * @method bool getIsAjax()
+ * @method bool   getIsAjax()
  */
 class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
 {

@@ -42,9 +42,9 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve array of intervals
      *
-     * @param string $from
-     * @param string $to
-     * @param self::REPORT_PERIOD_TYPE_* $period
+     * @param  string                     $from
+     * @param  string                     $to
+     * @param  self::REPORT_PERIOD_TYPE_* $period
      * @return array
      * @throws Zend_Date_Exception
      */
@@ -100,9 +100,9 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * @param Varien_Data_Collection $collection
-     * @param string $from
-     * @param string $to
-     * @param string $periodType
+     * @param string                 $from
+     * @param string                 $to
+     * @param string                 $periodType
      */
     public function prepareIntervalsCollection($collection, $from, $to, $periodType = self::REPORT_PERIOD_TYPE_DAY)
     {

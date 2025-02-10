@@ -80,8 +80,8 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
      *  init        => bool     - force initialization process for storage model
      * )
      *
-     * @param  int|null $storage
-     * @param  array $params
+     * @param  int|null                                                                      $storage
+     * @param  array                                                                         $params
      * @return Mage_Core_Model_File_Storage_File|Mage_Core_Model_File_Storage_Database|false
      */
     public function getStorageModel($storage = null, $params = [])

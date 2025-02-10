@@ -25,7 +25,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog ata related with store data changes
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return Mage_Catalog_Model_Observer
      */
     public function storeEdit(Varien_Event_Observer $observer)
     {
@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data related with new store
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return Mage_Catalog_Model_Observer
      */
     public function storeAdd(Varien_Event_Observer $observer)
     {
@@ -66,7 +66,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data related with store group root category
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return Mage_Catalog_Model_Observer
      */
     public function storeGroupSave(Varien_Event_Observer $observer)
     {
@@ -104,7 +104,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data after category move
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return Mage_Catalog_Model_Observer
      */
     public function categoryMove(Varien_Event_Observer $observer)
     {
@@ -122,7 +122,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Process catalog data after products import
      *
-     * @return  Mage_Catalog_Model_Observer
+     * @return Mage_Catalog_Model_Observer
      */
     public function catalogProductImportAfter(Varien_Event_Observer $observer)
     {
@@ -197,9 +197,9 @@ class Mage_Catalog_Model_Observer
      * Recursively adds categories to top menu
      *
      * @param Varien_Data_Tree_Node_Collection|array $categories
-     * @param Varien_Data_Tree_Node $parentCategoryNode
-     * @param Mage_Page_Block_Html_Topmenu $menuBlock
-     * @param bool $addTags
+     * @param Varien_Data_Tree_Node                  $parentCategoryNode
+     * @param Mage_Page_Block_Html_Topmenu           $menuBlock
+     * @param bool                                   $addTags
      */
     protected function _addCategoriesToMenu($categories, $parentCategoryNode, $menuBlock, $addTags = false)
     {
@@ -240,7 +240,7 @@ class Mage_Catalog_Model_Observer
     /**
      * Checks whether category belongs to active category's path
      *
-     * @param Varien_Data_Tree_Node $category
+     * @param  Varien_Data_Tree_Node $category
      * @return bool
      */
     protected function _isActiveMenuCategory($category)

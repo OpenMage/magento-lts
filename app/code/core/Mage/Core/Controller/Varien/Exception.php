@@ -33,9 +33,9 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     /**
      * Prepare data for forwarding action
      *
-     * @param string $actionName
-     * @param string $controllerName
-     * @param string $moduleName
+     * @param  string $actionName
+     * @param  string $controllerName
+     * @param  string $moduleName
      * @return $this
      */
     public function prepareForward($actionName = null, $controllerName = null, $moduleName = null, array $params = [])
@@ -51,8 +51,8 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     /**
      * Prepare data for redirecting
      *
-     * @param string $path
-     * @param array $arguments
+     * @param  string $path
+     * @param  array  $arguments
      * @return $this
      */
     public function prepareRedirect($path, $arguments = [])
@@ -65,7 +65,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     /**
      * Prepare data for running a custom action
      *
-     * @param string $actionName
+     * @param  string $actionName
      * @return $this
      */
     public function prepareFork($actionName = null)
@@ -80,9 +80,9 @@ class Mage_Core_Controller_Varien_Exception extends Exception
     /**
      * Prepare a flag data
      *
-     * @param string $action
-     * @param string $flag
-     * @param bool $value
+     * @param  string $action
+     * @param  string $flag
+     * @param  bool   $value
      * @return $this
      */
     public function prepareFlag($action, $flag, $value)

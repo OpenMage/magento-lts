@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  *
- * @method int getFreeBoxes()
+ * @method int   getFreeBoxes()
  * @method $this setFreeBoxes(int $value)
  */
 class Mage_Shipping_Model_Carrier_Flatrate extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface

@@ -30,7 +30,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve the class name of the payment method's model
      *
-     * @param $code
+     * @param              $code
      * @return string|null
      */
     public function getMethodModelClassName($code)
@@ -42,8 +42,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve method model object
      *
-     * @param   string $code
-     * @return  Mage_Payment_Model_Method_Abstract|false
+     * @param  string                                   $code
+     * @return Mage_Payment_Model_Method_Abstract|false
      */
     public function getMethodInstance($code)
     {
@@ -61,8 +61,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      * array structure:
      *  $index => Varien_Simplexml_Element
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  Mage_Sales_Model_Quote                     $quote
      * @return Mage_Payment_Model_Method_Abstract[]
      */
     public function getStoreMethods($store = null, $quote = null)
@@ -93,8 +93,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param object $a
-     * @param object $b
+     * @param  object $a
+     * @param  object $b
      * @return int
      */
     protected function _sortMethods($a, $b)
@@ -108,7 +108,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment method form html
      *
-     * @return  Mage_Payment_Block_Form|Mage_Core_Block_Abstract
+     * @return Mage_Payment_Block_Form|Mage_Core_Block_Abstract
      */
     public function getMethodFormBlock(Mage_Payment_Model_Method_Abstract $method)
     {
@@ -124,7 +124,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve payment information block
      *
-     * @return  Mage_Core_Block_Template|Mage_Core_Block_Abstract
+     * @return Mage_Core_Block_Template|Mage_Core_Block_Abstract
      */
     public function getInfoBlock(Mage_Payment_Model_Info $info)
     {
@@ -142,8 +142,8 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve available billing agreement methods
      *
-     * @param mixed $store
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  mixed                  $store
+     * @param  Mage_Sales_Model_Quote $quote
      * @return array
      */
     public function getBillingAgreementMethods($store = null, $quote = null)
@@ -160,7 +160,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get payment methods that implement recurring profilez management
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return array
      */
     public function getRecurringProfileMethods($store = null)
@@ -184,7 +184,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve all payment methods
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
     public function getPaymentMethods($store = null)
@@ -208,10 +208,10 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
      *                 ...
      *             )
      *
-     * @param bool $sorted
-     * @param bool $asLabelValue
-     * @param bool $withGroups
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  bool                                       $sorted
+     * @param  bool                                       $asLabelValue
+     * @param  bool                                       $withGroups
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
     public function getPaymentMethodList($sorted = true, $asLabelValue = false, $withGroups = false, $store = null)
@@ -287,7 +287,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns value of Zero Subtotal Checkout / Enabled
      *
-     * @param mixed $store
+     * @param  mixed $store
      * @return bool
      */
     public function isZeroSubTotal($store = null)
@@ -298,7 +298,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns value of Zero Subtotal Checkout / New Order Status
      *
-     * @param mixed $store
+     * @param  mixed  $store
      * @return string
      */
     public function getZeroSubTotalOrderStatus($store = null)
@@ -309,7 +309,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns value of Zero Subtotal Checkout / Automatically Invoice All Items
      *
-     * @param mixed $store
+     * @param  mixed  $store
      * @return string
      */
     public function getZeroSubTotalPaymentAutomaticInvoice($store = null)

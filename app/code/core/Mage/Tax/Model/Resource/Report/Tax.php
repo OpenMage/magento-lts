@@ -30,8 +30,8 @@ class Mage_Tax_Model_Resource_Report_Tax extends Mage_Reports_Model_Resource_Rep
     /**
      * Aggregate Tax data
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed $from
+     * @param  mixed $to
      * @return $this
      */
     public function aggregate($from = null, $to = null)

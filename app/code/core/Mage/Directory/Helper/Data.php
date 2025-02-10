@@ -96,7 +96,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Retrieve region collection
-     * @param string|array|null $countryFilter If string, accepts iso2_code; if array, accepts iso2_code[].
+     * @param  string|array|null                               $countryFilter If string, accepts iso2_code; if array, accepts iso2_code[].
      * @return Mage_Directory_Model_Resource_Region_Collection
      * @throws Mage_Core_Exception
      */
@@ -141,7 +141,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve regions data json
      *
-     * @param int|null $storeId
+     * @param  int|null                        $storeId
      * @return string
      * @throws Mage_Core_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -174,7 +174,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
 
     /**
      * Get Regions for specific Countries
-     * @param string|int|null $storeId
+     * @param  string|int|null     $storeId
      * @return array|null
      * @throws Mage_Core_Exception
      */
@@ -215,9 +215,9 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Convert currency
      *
-     * @param float $amount
-     * @param string $from
-     * @param string $to
+     * @param  float                           $amount
+     * @param  string                          $from
+     * @param  string                          $to
      * @return float
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -235,7 +235,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Return ISO2 country codes, which have optional Zip/Postal pre-configured
      *
-     * @param bool $asJson
+     * @param  bool         $asJson
      * @return array|string
      */
     public function getCountriesWithOptionalZip($asJson = false)
@@ -257,7 +257,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check whether zip code is optional for specified country code
      *
-     * @param string $countryCode
+     * @param  string $countryCode
      * @return bool
      */
     public function isZipCodeOptional($countryCode)
@@ -269,7 +269,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns the list of countries, for which region is required
      *
-     * @param bool $asJson
+     * @param  bool         $asJson
      * @return array|string
      */
     public function getCountriesWithStatesRequired($asJson = false)
@@ -294,7 +294,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns flag, which indicates whether region is required for specified country
      *
-     * @param string $countryId
+     * @param  string $countryId
      * @return bool
      */
     public function isRegionRequired($countryId)

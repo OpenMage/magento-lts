@@ -48,7 +48,7 @@ class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
     /**
      * Validate value
      *
-     * @param string $value
+     * @param  string $value
      * @return bool
      */
     public function isValid($value)

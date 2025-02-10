@@ -90,7 +90,7 @@ class Mage_Core_Model_Source_Email_Variables
     /**
      * Retrieve option array of store contact variables
      *
-     * @param bool $withGroup
+     * @param  bool  $withGroup
      * @return array
      */
     public function toOptionArray($withGroup = false)

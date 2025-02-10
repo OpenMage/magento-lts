@@ -25,16 +25,16 @@
  * @method string getDash()
  * @method string getFormat()
  * @method string getLength()
- * @method $this setLength(int $value)
- * @method int getMaxAttempts()
- * @method int getMaxProbability()
+ * @method $this  setLength(int $value)
+ * @method int    getMaxAttempts()
+ * @method int    getMaxProbability()
  * @method string getPrefix()
- * @method int getQty()
- * @method int getRuleId()
+ * @method int    getQty()
+ * @method int    getRuleId()
  * @method string getSuffix()
  * @method string getToDate()
- * @method int getUsesPerCoupon()
- * @method int getUsesPerCustomer()
+ * @method int    getUsesPerCoupon()
+ * @method int    getUsesPerCustomer()
  */
 class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract implements Mage_SalesRule_Model_Coupon_CodegeneratorInterface
 {
@@ -170,7 +170,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
     /**
      * Validate input
      *
-     * @param array $data
+     * @param  array $data
      * @return bool
      */
     public function validateData($data)

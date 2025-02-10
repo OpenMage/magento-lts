@@ -67,8 +67,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return all children ids
      *
-     * @param Mage_Core_Model_Store $store
-     * @param int|array $parentIds
+     * @param  Mage_Core_Model_Store $store
+     * @param  int|array             $parentIds
      * @return array|false
      */
     public function getChildProductIds($store, $parentIds)
@@ -87,8 +87,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return all parent ids
      *
-     * @param Mage_Core_Model_Store $store
-     * @param int|array $childIds
+     * @param  Mage_Core_Model_Store $store
+     * @param  int|array             $childIds
      * @return array|false
      */
     public function getParentProductIds($store, $childIds)
@@ -107,10 +107,10 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns an array of product children/parents
      *
-     * @param Mage_Core_Model_Store $store
-     * @param array $settings
-     * @param int $type
-     * @param int|array $suppliedId
+     * @param  Mage_Core_Model_Store $store
+     * @param  array                 $settings
+     * @param  int                   $type
+     * @param  int|array             $suppliedId
      * @return array
      */
     protected function fetchLinkInformation($store, $settings, $type, $suppliedId)
@@ -138,9 +138,9 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Fetch final price for product
      *
-     * @param array $product
-     * @param Mage_Core_Model_Store $store
-     * @param Mage_Customer_Model_Group $group
+     * @param  array                     $product
+     * @param  Mage_Core_Model_Store     $store
+     * @param  Mage_Customer_Model_Group $group
      * @return float
      */
     public function getFinalPrice($product, $store, $group)
@@ -179,8 +179,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return minimal prices for specified products
      *
-     * @param array $products
-     * @param Mage_Core_Model_Store $store
+     * @param  array                 $products
+     * @param  Mage_Core_Model_Store $store
      * @return array
      */
     public function getMinimalPrice($products, $store)
@@ -201,8 +201,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Get tax class id for a product
      *
-     * @param int $productId
-     * @param Mage_Core_Model_Store $store
+     * @param  int                   $productId
+     * @param  Mage_Core_Model_Store $store
      * @return int
      */
     public function getTaxClassId($productId, $store)
@@ -220,8 +220,8 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Return tier data for specified products in specified store
      *
-     * @param array $products
-     * @param Mage_Core_Model_Store $store
+     * @param  array                 $products
+     * @param  Mage_Core_Model_Store $store
      * @return mixed
      */
     public function getTierPrices($products, $store)
@@ -232,9 +232,9 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve specified attribute data for specified products from specified store
      *
-     * @param array|string $products
-     * @param array $attributes
-     * @param Mage_Core_Model_Store $store
+     * @param  array|string          $products
+     * @param  array                 $attributes
+     * @param  Mage_Core_Model_Store $store
      * @return array
      */
     public function getAttributeData($products, $attributes, $store)
@@ -265,7 +265,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     /**
      * Returns if type supports children of the specified type
      *
-     * @param int $type
+     * @param  int  $type
      * @return bool
      */
     public function areChildrenIndexable($type)

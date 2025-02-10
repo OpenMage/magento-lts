@@ -22,16 +22,16 @@
  *
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status _getResource()
  * @method Mage_CatalogInventory_Model_Resource_Stock_Status getResource()
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method int getStockId()
- * @method $this setStockId(int $value)
- * @method float getQty()
- * @method $this setQty(float $value)
- * @method int getStockStatus()
- * @method $this setStockStatus(int $value)
+ * @method int                                               getProductId()
+ * @method $this                                             setProductId(int $value)
+ * @method int                                               getWebsiteId()
+ * @method $this                                             setWebsiteId(int $value)
+ * @method int                                               getStockId()
+ * @method $this                                             setStockId(int $value)
+ * @method float                                             getQty()
+ * @method $this                                             setQty(float $value)
+ * @method int                                               getStockStatus()
+ * @method $this                                             setStockStatus(int $value)
  */
 class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 {
@@ -85,7 +85,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product Type Instance By Product Type
      *
-     * @param string $productType
+     * @param  string                                         $productType
      * @return Mage_Catalog_Model_Product_Type_Abstract|false
      */
     public function getProductTypeInstance($productType)
@@ -97,7 +97,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve website models
      *
-     * @param string|int|null $websiteId
+     * @param  string|int|null $websiteId
      * @return array
      */
     public function getWebsites($websiteId = null)
@@ -117,7 +117,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Default website store Id
      *
-     * @param int $websiteId
+     * @param  int $websiteId
      * @return int
      */
     public function getWebsiteDefaultStoreId($websiteId)
@@ -180,8 +180,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Assign Stock Status to Product
      *
-     * @param int $stockId
-     * @param int $stockStatus
+     * @param  int   $stockId
+     * @param  int   $stockStatus
      * @return $this
      */
     public function assignProduct(Mage_Catalog_Model_Product $product, $stockId = 1, $stockStatus = null)
@@ -200,7 +200,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Rebuild stock status for all products
      *
-     * @param int $websiteId
+     * @param  int   $websiteId
      * @return $this
      */
     public function rebuild($websiteId = null)
@@ -224,9 +224,9 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Update product status from stock item
      *
-     * @param int $productId
-     * @param string $productType
-     * @param int $websiteId
+     * @param  int    $productId
+     * @param  string $productType
+     * @param  int    $websiteId
      * @return $this
      */
     public function updateStatus($productId, $productType = null, $websiteId = null)
@@ -253,12 +253,12 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Process children stock status
      *
-     * @param int $productId
-     * @param string $productType
+     * @param int       $productId
+     * @param string    $productType
      * @param int|float $qty
-     * @param int $status
-     * @param int $stockId
-     * @param int $websiteId
+     * @param int       $status
+     * @param int       $stockId
+     * @param int       $websiteId
      *
      * @return $this
      */
@@ -329,9 +329,9 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Process Parents by child
      *
-     * @param int $productId
-     * @param int $stockId
-     * @param int $websiteId
+     * @param  int   $productId
+     * @param  int   $stockId
+     * @param  int   $websiteId
      * @return $this
      */
     protected function _processParents($productId, $stockId = 1, $websiteId = null)
@@ -371,11 +371,11 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * Save product status per website
      * if website is null, saved for all websites
      *
-     * @param int $productId
-     * @param int $status
-     * @param int|float $qty
-     * @param int $stockId
-     * @param int|null $websiteId
+     * @param  int       $productId
+     * @param  int       $status
+     * @param  int|float $qty
+     * @param  int       $stockId
+     * @param  int|null  $websiteId
      * @return $this
      */
     public function saveProductStatus($productId, $status, $qty = 0, $stockId = 1, $websiteId = null)
@@ -387,9 +387,9 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product(s) status
      *
-     * @param int|array $productIds
-     * @param int $websiteId
-     * @param int $stockId
+     * @param  int|array $productIds
+     * @param  int       $websiteId
+     * @param  int       $stockId
      * @return array
      */
     public function getProductStatus($productIds, $websiteId, $stockId = 1)
@@ -400,9 +400,9 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product(s) Data array
      *
-     * @param int|array $productIds
-     * @param int $websiteId
-     * @param int $stockId
+     * @param  int|array $productIds
+     * @param  int       $websiteId
+     * @param  int       $stockId
      * @return array
      */
     public function getProductData($productIds, $websiteId, $stockId = 1)
@@ -413,7 +413,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Retrieve Product Type
      *
-     * @param int $productId
+     * @param  int          $productId
      * @return string|false
      */
     public function getProductType($productId)
@@ -426,7 +426,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
      * Retrieve Products Type as array
      * Return array as key product_id, value type
      *
-     * @param array|int $productIds
+     * @param  array|int $productIds
      * @return array
      */
     public function getProductsType($productIds)
@@ -437,10 +437,10 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Add information about stock status to product collection
      *
-     * @param   Mage_Catalog_Model_Resource_Product_Collection $productCollection
-     * @param   int|null $websiteId
-     * @param   int|null $stockId
-     * @return  Mage_CatalogInventory_Model_Stock_Status
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $productCollection
+     * @param  int|null                                       $websiteId
+     * @param  int|null                                       $stockId
+     * @return Mage_CatalogInventory_Model_Stock_Status
      */
     public function addStockStatusToProducts($productCollection, $websiteId = null, $stockId = null)
     {
@@ -491,8 +491,8 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Add stock status limitation to catalog product price index select object
      *
-     * @param string|Zend_Db_Expr $entityField
-     * @param string|Zend_Db_Expr $websiteField
+     * @param  string|Zend_Db_Expr $entityField
+     * @param  string|Zend_Db_Expr $websiteField
      * @return $this
      */
     public function prepareCatalogProductIndexSelect(Varien_Db_Select $select, $entityField, $websiteField)
@@ -509,7 +509,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
     /**
      * Add only is in stock products filter to product collection
      *
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function addIsInStockFilterToCollection($collection)

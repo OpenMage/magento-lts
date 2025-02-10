@@ -108,8 +108,8 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger part
      *
-     * @param $part
-     * @param $value
+     * @param                           $part
+     * @param                           $value
      * @return Magento_Db_Sql_Trigger
      * @throws InvalidArgumentException
      */
@@ -126,7 +126,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger part
      *
-     * @param $part
+     * @param               $part
      * @return string|array
      * @throws Exception
      */
@@ -142,8 +142,8 @@ class Magento_Db_Sql_Trigger
     /**
      * Set body part to trigger
      *
-     * @param $part
-     * @param $value
+     * @param                           $part
+     * @param                           $value
      * @return Magento_Db_Sql_Trigger
      * @throws InvalidArgumentException
      */
@@ -160,7 +160,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Set body part to trigger
      *
-     * @param string $part
+     * @param  string    $part
      * @return string
      * @throws Exception
      */
@@ -187,7 +187,7 @@ class Magento_Db_Sql_Trigger
 
     /**
      * Set trigger time {BEFORE/AFTER}
-     * @param $time
+     * @param                           $time
      * @return Magento_Db_Sql_Trigger
      * @throws InvalidArgumentException
      */
@@ -204,7 +204,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger event {INSERT/UPDATE/DELETE}
      *
-     * @param $event
+     * @param                           $event
      * @return Magento_Db_Sql_Trigger
      * @throws InvalidArgumentException
      */
@@ -221,7 +221,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger target, table name
      *
-     * @param $target
+     * @param                         $target
      * @return Magento_Db_Sql_Trigger
      */
     public function setTarget($target)
@@ -233,7 +233,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger name
      *
-     * @param $name
+     * @param                         $name
      * @return Magento_Db_Sql_Trigger
      */
     public function setName($name)
@@ -259,7 +259,7 @@ class Magento_Db_Sql_Trigger
     /**
      * Set trigger body
      *
-     * @param array|string $body
+     * @param  array|string           $body
      * @return Magento_Db_Sql_Trigger
      */
     public function setBody($body)

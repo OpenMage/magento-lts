@@ -27,8 +27,8 @@ class Mage_Sales_Model_Resource_Report extends Mage_Core_Model_Resource_Db_Abstr
     /**
      * Set main table and idField
      *
-     * @param string $table
-     * @param string $field
+     * @param  string $table
+     * @param  string $field
      * @return $this
      */
     public function init($table, $field = 'id')

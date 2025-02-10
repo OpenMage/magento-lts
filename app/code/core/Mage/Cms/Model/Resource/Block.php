@@ -126,9 +126,9 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Cms_Model_Block $object
+     * @param  string               $field
+     * @param  mixed                $value
+     * @param  Mage_Cms_Model_Block $object
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -190,7 +190,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Get store ids to which specified item is assigned
      *
-     * @param int $id
+     * @param  int   $id
      * @return array
      */
     public function lookupStoreIds($id)

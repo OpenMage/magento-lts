@@ -59,7 +59,7 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
     /**
      * Formatting value specific for this store
      *
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function format($price)

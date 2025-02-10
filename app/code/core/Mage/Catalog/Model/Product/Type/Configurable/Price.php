@@ -25,9 +25,9 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * Get product final price
      *
-     * @param float|null $qty
-     * @param Mage_Catalog_Model_Product $product
-     * @return  double
+     * @param  float|null                 $qty
+     * @param  Mage_Catalog_Model_Product $product
+     * @return double
      */
     public function getFinalPrice($qty, $product)
     {
@@ -52,8 +52,8 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * Get Total price for configurable items
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param float $finalPrice
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  float                      $finalPrice
      * @return float
      */
     public function getTotalConfigurableItemsPrice($product, $finalPrice)
@@ -95,9 +95,9 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     /**
      * Calculate configurable product selection price
      *
-     * @param   array $priceInfo
-     * @param   float $productPrice
-     * @return  float
+     * @param  array $priceInfo
+     * @param  float $productPrice
+     * @return float
      */
     protected function _calcSelectionPrice($priceInfo, $productPrice)
     {
@@ -111,8 +111,8 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
     }
 
     /**
-     * @param array $values
-     * @param string $index
+     * @param  array       $values
+     * @param  string      $index
      * @return array|false
      */
     protected function _getValueByIndex($values, $index)

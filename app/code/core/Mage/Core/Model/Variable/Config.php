@@ -25,7 +25,7 @@ class Mage_Core_Model_Variable_Config
     /**
      * Prepare variable wysiwyg config
      *
-     * @param Varien_Object $config
+     * @param  Varien_Object $config
      * @return array
      */
     public function getWysiwygPluginSettings($config)

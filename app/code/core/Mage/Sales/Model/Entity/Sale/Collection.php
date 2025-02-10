@@ -66,8 +66,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool                $printQuery
+     * @param  bool                $logQuery
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -126,9 +126,9 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     /**
      * Print and/or log query
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
-     * @param null|string $sql
+     * @param  bool                                    $printQuery
+     * @param  bool                                    $logQuery
+     * @param  null|string                             $sql
      * @return Mage_Sales_Model_Entity_Sale_Collection
      */
     public function printLogQuery($printQuery = false, $logQuery = false, $sql = null)
@@ -154,7 +154,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
     }
 
     /**
-     * @param string $attr
+     * @param  string                                   $attr
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getAttribute($attr)

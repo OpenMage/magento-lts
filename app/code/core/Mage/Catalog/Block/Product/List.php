@@ -20,18 +20,18 @@
  * @category   Mage
  * @package    Mage_Catalog
  *
- * @method array getAvailableOrders()
- * @method $this setAvailableOrders(array $value)
- * @method int getCategoryId()
- * @method $this setCategoryId(int $value)
+ * @method array  getAvailableOrders()
+ * @method $this  setAvailableOrders(array $value)
+ * @method int    getCategoryId()
+ * @method $this  setCategoryId(int $value)
  * @method string getDefaultDirection()
- * @method $this setDefaultDirection(string $value)
- * @method array getModes()
- * @method $this setModes(array $value)
+ * @method $this  setDefaultDirection(string $value)
+ * @method array  getModes()
+ * @method $this  setModes(array $value)
  * @method string getToolbarBlockName()
  * @method string getSortBy()
- * @method $this setSortBy(string $value)
- * @method bool getShowRootCategory()
+ * @method $this  setSortBy(string $value)
+ * @method bool   getShowRootCategory()
  */
 class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstract
 {
@@ -202,7 +202,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @param Mage_Catalog_Model_Resource_Product_Collection $collection
+     * @param  Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
      */
     public function setCollection($collection)
@@ -212,7 +212,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @param array|string|integer|Mage_Core_Model_Config_Element $code
+     * @param  array|string|integer|Mage_Core_Model_Config_Element $code
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -243,7 +243,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     /**
      * Prepare Sort By fields from Category Data
      *
-     * @param Mage_Catalog_Model_Category $category
+     * @param  Mage_Catalog_Model_Category $category
      * @return $this
      */
     public function prepareSortableFieldsByCategory($category)

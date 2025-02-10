@@ -22,23 +22,23 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Price _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Price getResource()
- * @method $this setEntityId(int $value)
- * @method int getCustomerGroupId()
- * @method $this setCustomerGroupId(int $value)
- * @method int getWebsiteId()
- * @method $this setWebsiteId(int $value)
- * @method int getTaxClassId()
- * @method $this setTaxClassId(int $value)
- * @method float getPrice()
- * @method $this setPrice(float $value)
- * @method float getFinalPrice()
- * @method $this setFinalPrice(float $value)
- * @method float getMinPrice()
- * @method $this setMinPrice(float $value)
- * @method float getMaxPrice()
- * @method $this setMaxPrice(float $value)
- * @method float getTierPrice()
- * @method $this setTierPrice(float $value)
+ * @method $this                                  setEntityId(int $value)
+ * @method int                                    getCustomerGroupId()
+ * @method $this                                  setCustomerGroupId(int $value)
+ * @method int                                    getWebsiteId()
+ * @method $this                                  setWebsiteId(int $value)
+ * @method int                                    getTaxClassId()
+ * @method $this                                  setTaxClassId(int $value)
+ * @method float                                  getPrice()
+ * @method $this                                  setPrice(float $value)
+ * @method float                                  getFinalPrice()
+ * @method $this                                  setFinalPrice(float $value)
+ * @method float                                  getMinPrice()
+ * @method $this                                  setMinPrice(float $value)
+ * @method float                                  getMaxPrice()
+ * @method $this                                  setMaxPrice(float $value)
+ * @method float                                  getTierPrice()
+ * @method $this                                  setTierPrice(float $value)
  */
 class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
 {
@@ -51,8 +51,8 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param Zend_Db_Select $entityIdsFilter
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  Zend_Db_Select                  $entityIdsFilter
      * @return float|int
      */
     public function getMaxValue($attribute, $entityIdsFilter)
@@ -61,9 +61,9 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param int $range
-     * @param Zend_Db_Select $entitySelect
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  int                             $range
+     * @param  Zend_Db_Select                  $entitySelect
      * @return array
      */
     public function getCount($attribute, $range, $entitySelect)
@@ -72,10 +72,10 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param int $range
-     * @param int $index
-     * @param array $entityIdsFilter
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  int                             $range
+     * @param  int                             $index
+     * @param  array                           $entityIdsFilter
      * @return array
      */
     public function getFilteredEntities($attribute, $range, $index, $entityIdsFilter)
@@ -84,10 +84,10 @@ class Mage_CatalogIndex_Model_Price extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
-     * @param Mage_Eav_Model_Entity_Attribute $attribute
-     * @param int $range
-     * @param int $index
+     * @param  Mage_Eav_Model_Resource_Entity_Attribute_Collection $collection
+     * @param  Mage_Eav_Model_Entity_Attribute                     $attribute
+     * @param  int                                                 $range
+     * @param  int                                                 $index
      * @return Mage_CatalogIndex_Model_Resource_Price
      */
     public function applyFilterToCollection($collection, $attribute, $range, $index)

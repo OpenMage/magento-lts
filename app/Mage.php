@@ -267,9 +267,9 @@ final class Mage
     /**
      * Register a new variable
      *
-     * @param string $key
-     * @param mixed $value
-     * @param bool $graceful
+     * @param  string              $key
+     * @param  mixed               $value
+     * @param  bool                $graceful
      * @throws Mage_Core_Exception
      */
     public static function register($key, $value, $graceful = false)
@@ -301,7 +301,7 @@ final class Mage
     /**
      * Retrieve a value from registry by a key
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public static function registry($key)
@@ -312,7 +312,7 @@ final class Mage
     /**
      * Set application root absolute path
      *
-     * @param string $appRoot
+     * @param  string              $appRoot
      * @throws Mage_Core_Exception
      */
     public static function setRoot($appRoot = '')
@@ -358,7 +358,7 @@ final class Mage
     /**
      * Varien Objects Cache
      *
-     * @param string $key optional, if specified will load this key
+     * @param  string              $key optional, if specified will load this key
      * @return Varien_Object_Cache
      */
     public static function objects($key = null)
@@ -376,7 +376,7 @@ final class Mage
     /**
      * Retrieve application root absolute path
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public static function getBaseDir($type = 'base')
@@ -387,8 +387,8 @@ final class Mage
     /**
      * Retrieve module absolute path by directory type
      *
-     * @param string $type
-     * @param string $moduleName
+     * @param  string $type
+     * @param  string $moduleName
      * @return string
      */
     public static function getModuleDir($type, $moduleName)
@@ -399,8 +399,8 @@ final class Mage
     /**
      * Retrieve config value for store by path
      *
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  string                                     $path
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return mixed
      */
     public static function getStoreConfig($path, $store = null)
@@ -427,8 +427,8 @@ final class Mage
     /**
      * Retrieve config flag for store by path
      *
-     * @param string $path
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  string                                     $path
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return bool
      */
     public static function getStoreConfigFlag($path, $store = null)
@@ -445,8 +445,8 @@ final class Mage
     /**
      * Get base URL path by type
      *
-     * @param Mage_Core_Model_Store::URL_TYPE_* $type
-     * @param null|bool $secure
+     * @param  Mage_Core_Model_Store::URL_TYPE_* $type
+     * @param  null|bool                         $secure
      * @return string
      */
     public static function getBaseUrl($type = Mage_Core_Model_Store::URL_TYPE_LINK, $secure = null)
@@ -457,9 +457,9 @@ final class Mage
     /**
      * Generate url by route and parameters
      *
-     * @param   null|string $route
-     * @param   array $params
-     * @return  string
+     * @param  null|string $route
+     * @param  array       $params
+     * @return string
      */
     public static function getUrl($route = '', $params = [])
     {
@@ -489,11 +489,11 @@ final class Mage
     /**
      * Add observer to events object
      *
-     * @param string $eventName
-     * @param callback $callback
-     * @param array $data
-     * @param string $observerName
-     * @param string $observerClass
+     * @param  string                  $eventName
+     * @param  callback                $callback
+     * @param  array                   $data
+     * @param  string                  $observerName
+     * @param  string                  $observerClass
      * @return Varien_Event_Collection
      */
     public static function addObserver($eventName, $callback, $data = [], $observerName = '', $observerClass = '')
@@ -512,7 +512,7 @@ final class Mage
      * Calls all observer callbacks registered for this event
      * and multiple observers matching event name pattern
      *
-     * @param string $name
+     * @param  string              $name
      * @return Mage_Core_Model_App
      */
     public static function dispatchEvent($name, array $data = [])
@@ -527,9 +527,9 @@ final class Mage
      * Retrieve model object
      *
      * @link    Mage_Core_Model_Config::getModelInstance
-     * @param   string $modelClass
-     * @param   array|string|object $arguments
-     * @return  Mage_Core_Model_Abstract|false
+     * @param  string                         $modelClass
+     * @param  array|string|object            $arguments
+     * @return Mage_Core_Model_Abstract|false
      */
     public static function getModel($modelClass = '', $arguments = [])
     {
@@ -539,8 +539,8 @@ final class Mage
     /**
      * Retrieve model object singleton
      *
-     * @param   string $modelClass
-     * @return  Mage_Core_Model_Abstract|false
+     * @param  string                         $modelClass
+     * @return Mage_Core_Model_Abstract|false
      */
     public static function getSingleton($modelClass = '', array $arguments = [])
     {
@@ -554,9 +554,9 @@ final class Mage
     /**
      * Retrieve object of resource model
      *
-     * @param   string $modelClass
-     * @param   array $arguments
-     * @return  Mage_Core_Model_Resource_Db_Collection_Abstract|false
+     * @param  string                                                $modelClass
+     * @param  array                                                 $arguments
+     * @return Mage_Core_Model_Resource_Db_Collection_Abstract|false
      */
     public static function getResourceModel($modelClass, $arguments = [])
     {
@@ -566,9 +566,9 @@ final class Mage
     /**
      * Retrieve Controller instance by ClassName
      *
-     * @param string $class
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param Mage_Core_Controller_Response_Http $response
+     * @param  string                             $class
+     * @param  Mage_Core_Controller_Request_Http  $request
+     * @param  Mage_Core_Controller_Response_Http $response
      * @return Mage_Core_Controller_Front_Action
      */
     public static function getControllerInstance($class, $request, $response, array $invokeArgs = [])
@@ -579,8 +579,8 @@ final class Mage
     /**
      * Retrieve resource model object singleton
      *
-     * @param   string $modelClass
-     * @return  object
+     * @param  string $modelClass
+     * @return object
      */
     public static function getResourceSingleton($modelClass = '', array $arguments = [])
     {
@@ -594,7 +594,7 @@ final class Mage
     /**
      * Retrieve block object
      *
-     * @param string $type
+     * @param  string                         $type
      * @return Mage_Core_Block_Abstract|false
      */
     public static function getBlockSingleton($type)
@@ -606,7 +606,7 @@ final class Mage
     /**
      * Retrieve helper object
      *
-     * @param string $name the helper name
+     * @param  string                    $name the helper name
      * @return Mage_Core_Helper_Abstract
      */
     public static function helper($name)
@@ -622,7 +622,7 @@ final class Mage
     /**
      * Retrieve resource helper object
      *
-     * @param string $moduleName
+     * @param  string                                   $moduleName
      * @return Mage_Core_Model_Resource_Helper_Abstract
      */
     public static function getResourceHelper($moduleName)
@@ -638,9 +638,9 @@ final class Mage
     /**
      * Return new exception by module to be thrown
      *
-     * @param string $module
-     * @param string $message
-     * @param integer $code
+     * @param  string              $module
+     * @param  string              $message
+     * @param  integer             $code
      * @return Mage_Core_Exception
      */
     public static function exception($module = 'Mage_Core', $message = '', $code = 0)
@@ -652,8 +652,8 @@ final class Mage
     /**
      * Throw Exception
      *
-     * @param string $message
-     * @param string $messageStorage
+     * @param  string              $message
+     * @param  string              $messageStorage
      * @throws Mage_Core_Exception
      */
     public static function throwException($message, $messageStorage = null)
@@ -667,9 +667,9 @@ final class Mage
     /**
      * Get initialized application object.
      *
-     * @param string $code
-     * @param string $type
-     * @param string|array $options
+     * @param  string              $code
+     * @param  string              $type
+     * @param  string|array        $options
      * @return Mage_Core_Model_App
      */
     public static function app($code = '', $type = 'store', $options = [])
@@ -691,9 +691,9 @@ final class Mage
 
     /**
      * @static
-     * @param string $code
-     * @param string $type
-     * @param array $options
+     * @param string       $code
+     * @param string       $type
+     * @param array        $options
      * @param string|array $modules
      */
     public static function init($code = '', $type = 'store', $options = [], $modules = [])
@@ -724,8 +724,8 @@ final class Mage
     /**
      * Front end main entry point
      *
-     * @param string $code
-     * @param string $type
+     * @param string       $code
+     * @param string       $type
      * @param string|array $options
      */
     public static function run($code = '', $type = 'store', $options = [])
@@ -814,7 +814,7 @@ final class Mage
     /**
      * Retrieve application installation flag
      *
-     * @param string|array $options
+     * @param  string|array $options
      * @return bool
      */
     public static function isInstalled($options = [])
@@ -848,9 +848,9 @@ final class Mage
      * log facility (??)
      *
      * @param array|object|string $message
-     * @param int $level
-     * @param string|null $file
-     * @param bool $forceLog
+     * @param int                 $level
+     * @param string|null         $file
+     * @param bool                $forceLog
      */
     public static function log($message, $level = null, $file = '', $forceLog = false)
     {
@@ -949,7 +949,7 @@ final class Mage
     /**
      * Set enabled developer mode
      *
-     * @param bool $mode
+     * @param  bool $mode
      * @return bool
      */
     public static function setIsDeveloperMode($mode)
@@ -1014,9 +1014,9 @@ final class Mage
      * Define system folder directory url by virtue of running script directory name
      * Try to find requested folder by shifting to domain root directory
      *
-     * @param   string  $folder
-     * @param   boolean $exitIfNot
-     * @return  string
+     * @param  string  $folder
+     * @param  boolean $exitIfNot
+     * @return string
      */
     public static function getScriptSystemUrl($folder, $exitIfNot = false)
     {

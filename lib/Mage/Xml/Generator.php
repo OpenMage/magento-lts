@@ -42,7 +42,7 @@ class Mage_Xml_Generator
     }
 
     /**
-     * @param DOMElement $node
+     * @param  DOMElement $node
      * @return $this
      */
     protected function _setCurrentDom($node)
@@ -52,7 +52,7 @@ class Mage_Xml_Generator
     }
 
     /**
-    * @param array|array[] $content
+     * @param array|array[] $content
     */
     public function arrayToXml($content)
     {
@@ -108,7 +108,7 @@ class Mage_Xml_Generator
     }
 
     /**
-     * @param string $file
+     * @param  string $file
      * @return $this
      */
     public function save($file)

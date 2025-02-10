@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Theme extends Mage_Adminhtm
     /**
      * Render SELECT options
      *
-     * @param array $options
+     * @param  array  $options
      * @return string
      */
     protected function _drawOptions($options)

@@ -150,8 +150,8 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Add table placeholder/table name relation
      *
-     * @param string $tableName
-     * @param string $realTableName
+     * @param  string $tableName
+     * @param  string $realTableName
      * @return $this
      */
     public function setTable($tableName, $realTableName)
@@ -163,7 +163,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get table name (validated by db adapter) by table placeholder
      *
-     * @param string|array $tableName
+     * @param  string|array $tableName
      * @return string
      */
     public function getTable($tableName)
@@ -178,7 +178,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve table name for cache
      *
-     * @param string|array $tableName
+     * @param  string|array $tableName
      * @return string
      */
     protected function _getTableCacheName($tableName)
@@ -357,8 +357,8 @@ class Mage_Core_Model_Resource_Setup
      * Callback function, called on every query adapter processes.
      * Modifies SQL or tables, so that foreign keys will be set successfully
      *
-     * @param string $sql
-     * @param array $bind
+     * @param  string $sql
+     * @param  array  $bind
      * @return $this
      */
     public function callbackQueryHook(&$sql, &$bind)
@@ -371,7 +371,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Run data install scripts
      *
-     * @param string $newVersion
+     * @param  string $newVersion
      * @return $this
      */
     protected function _installData($newVersion)
@@ -386,8 +386,8 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Run data upgrade scripts
      *
-     * @param string $oldVersion
-     * @param string $newVersion
+     * @param  string $oldVersion
+     * @param  string $newVersion
      * @return $this
      */
     protected function _upgradeData($oldVersion, $newVersion)
@@ -401,7 +401,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Run resource installation file
      *
-     * @param string $newVersion
+     * @param  string $newVersion
      * @return $this
      */
     protected function _installResourceDb($newVersion)
@@ -416,8 +416,8 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Run resource upgrade files from $oldVersion to $newVersion
      *
-     * @param string $oldVersion
-     * @param string $newVersion
+     * @param  string $oldVersion
+     * @param  string $newVersion
      * @return $this
      */
     protected function _upgradeResourceDb($oldVersion, $newVersion)
@@ -431,8 +431,8 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Roll back resource
      *
-     * @param string $newVersion
-     * @param string $oldVersion
+     * @param  string $newVersion
+     * @param  string $oldVersion
      * @return $this
      */
     protected function _rollbackResourceDb($newVersion, $oldVersion)
@@ -444,7 +444,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Uninstall resource
      *
-     * @param string $version existing resource version
+     * @param  string $version existing resource version
      * @return $this
      */
     protected function _uninstallResourceDb($version)
@@ -456,9 +456,9 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve available Database install/upgrade files for current module
      *
-     * @param string $actionType
-     * @param string $fromVersion
-     * @param string $toVersion
+     * @param  string $actionType
+     * @param  string $fromVersion
+     * @param  string $toVersion
      * @return array
      */
     protected function _getAvailableDbFiles($actionType, $fromVersion, $toVersion)
@@ -500,9 +500,9 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve available Data install/upgrade files for current module
      *
-     * @param string $actionType
-     * @param string $fromVersion
-     * @param string $toVersion
+     * @param  string $actionType
+     * @param  string $fromVersion
+     * @param  string $toVersion
      * @return array
      */
     protected function _getAvailableDataFiles($actionType, $fromVersion, $toVersion)
@@ -548,8 +548,8 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Save resource version
      *
-     * @param string $actionType
-     * @param string $version
+     * @param  string $actionType
+     * @param  string $version
      * @return $this
      */
     protected function _setResourceVersion($actionType, $version)
@@ -571,9 +571,9 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Run module modification files. Return version of last applied upgrade (false if no upgrades applied)
      *
-     * @param string $actionType self::TYPE_*
-     * @param string $fromVersion
-     * @param string $toVersion
+     * @param  string              $actionType  self::TYPE_*
+     * @param  string              $fromVersion
+     * @param  string              $toVersion
      * @return string|false
      * @throws Mage_Core_Exception
      */
@@ -638,10 +638,10 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get data files for modifications
      *
-     * @param string $actionType
-     * @param string $fromVersion
-     * @param string $toVersion
-     * @param array $arrFiles
+     * @param  string $actionType
+     * @param  string $fromVersion
+     * @param  string $toVersion
+     * @param  array  $arrFiles
      * @return array
      */
     protected function _getModifySqlFiles($actionType, $fromVersion, $toVersion, $arrFiles)
@@ -698,12 +698,12 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve row or field from table by id or string and parent id
      *
-     * @param string $table
-     * @param string $idField
-     * @param string|int $id
-     * @param string $field
-     * @param string $parentField
-     * @param string|int $parentId
+     * @param  string        $table
+     * @param  string        $idField
+     * @param  string|int    $id
+     * @param  string        $field
+     * @param  string        $parentField
+     * @param  string|int    $parentId
      * @return mixed|boolean
      */
     public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
@@ -734,12 +734,12 @@ class Mage_Core_Model_Resource_Setup
     /**
     * Delete table row
     *
-    * @param string $table
-    * @param string $idField
-    * @param int|string $id
-    * @param null|string $parentField
-    * @param int|string $parentId
-    * @return $this
+     * @param  string      $table
+     * @param  string      $idField
+     * @param  int|string  $id
+     * @param  null|string $parentField
+     * @param  int|string  $parentId
+     * @return $this
     */
     public function deleteTableRow($table, $idField, $id, $parentField = null, $parentId = 0)
     {
@@ -765,13 +765,13 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Update one or more fields of table row
      *
-     * @param string $table
-     * @param string $idField
-     * @param string|int $id
-     * @param string|array $field
-     * @param mixed|null $value
-     * @param string $parentField
-     * @param string|int $parentId
+     * @param  string       $table
+     * @param  string       $idField
+     * @param  string|int   $id
+     * @param  string|array $field
+     * @param  mixed|null   $value
+     * @param  string       $parentField
+     * @param  string|int   $parentId
      * @return $this
      */
     public function updateTableRow($table, $idField, $id, $field, $value = null, $parentField = null, $parentId = 0)
@@ -805,9 +805,9 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Update table data
      *
-     * @param string $table
-     * @param Zend_Db_Expr $conditionExpr
-     * @param Zend_Db_Expr $valueExpr
+     * @param  string       $table
+     * @param  Zend_Db_Expr $conditionExpr
+     * @param  Zend_Db_Expr $valueExpr
      * @return $this
      *
      * @deprecated since 1.4.0.1
@@ -832,7 +832,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Check is table exists
      *
-     * @param string $table
+     * @param  string $table
      * @return bool
      */
     public function tableExists($table)
@@ -848,9 +848,9 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Undefined
      *
-     * @param string $path
-     * @param string $label
-     * @param string $default
+     * @param  string $path
+     * @param  string $label
+     * @param  string $default
      * @return $this
      * @deprecated since 1.4.0.1
      */
@@ -862,11 +862,11 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Save configuration data
      *
-     * @param string $path
-     * @param string $value
-     * @param int|string $scope
-     * @param int $scopeId
-     * @param int $inherit
+     * @param  string     $path
+     * @param  string     $value
+     * @param  int|string $scope
+     * @param  int        $scopeId
+     * @param  int        $inherit
      * @return $this
      */
     public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
@@ -888,8 +888,8 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Delete config field values
      *
-     * @param string $path
-     * @param string $scope (default|stores|websites|config)
+     * @param  string $path
+     * @param  string $scope (default|stores|websites|config)
      * @return $this
      */
     public function deleteConfigData($path, $scope = null)
@@ -905,7 +905,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Run plain SQL query(ies)
      *
-     * @param string $sql
+     * @param  string $sql
      * @return $this
      */
     public function run($sql)
@@ -939,9 +939,9 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *
-     * @param string $tableName
-     * @param array|string $fields
-     * @param string $indexType
+     * @param  string       $tableName
+     * @param  array|string $fields
+     * @param  string       $indexType
      * @return string
      */
     public function getIdxName($tableName, $fields, $indexType = '')
@@ -952,10 +952,10 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve 32bit UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
-     * @param string $priColumnName the target table column name
-     * @param string $refTableName  the reference table name
-     * @param string $refColumnName the reference table column name
+     * @param  string $priTableName  the target table name
+     * @param  string $priColumnName the target table column name
+     * @param  string $refTableName  the reference table name
+     * @param  string $refColumnName the reference table column name
      * @return string
      */
     public function getFkName($priTableName, $priColumnName, $refTableName, $refColumnName)
