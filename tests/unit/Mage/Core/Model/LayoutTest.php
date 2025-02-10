@@ -1,18 +1,12 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideCreateBlock
+ * @group Mage_Core
+ * @group Mage_Core_Model
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
@@ -36,11 +30,7 @@ class LayoutTest extends TestCase
         $this->subject = Mage::getModel('core/layout');
     }
 
-    /**
-     * @dataProvider provideCreateBlock
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     */
+
     public function testCreateBlock($expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
         $result = $this->subject->createBlock($type, $name, $attributes);

@@ -1,46 +1,29 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Catalog category
  *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- *
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat _getResource()
  * @method Mage_Catalog_Model_Resource_Category|Mage_Catalog_Model_Resource_Category_Flat getResource()
  * @method Mage_Catalog_Model_Resource_Category_Collection getCollection()
- *
  * @method array getAffectedCategoryIds()
  * @method $this setAffectedCategoryIds(array $categoryIds)
  * @method array getAffectedProductIds()
  * @method $this setAffectedProductIds(array $productIds)
  * @method $this setAttributeSetId(int $value)
- *
  * @method string getCategoryPath()
  * @method string getCategoryUrl()
  * @method $this setChildrenCount(int $value)
  * @method int getChildrenCount()
  * @method bool getCustomUseParentSettings()
- *
  * @method $this setDeletedChildrenIds(array $value)
  * @method bool getDisableFlat()
  * @method string getDisplayMode()
  * @method $this setDisplayMode(string $value)
- *
  * @method string getImage()
  * @method $this setIncludeInMenu(int $value)
  * @method bool getInitialSetupFlag()
@@ -50,19 +33,15 @@
  * @method int getIsAnchor()
  * @method $this setIsAnchor(int $value)
  * @method $this setIsChangedProductList(bool $bool)
- *
  * @method int getLandingPage()
  * @method bool hasLevel()
  * @method $this setLevel(int $value)
- *
  * @method string getMetaDescription()
  * @method string getMetaKeywords()
  * @method string getMetaTitle()
  * @method int getMovedCategoryId()
- *
  * @method $this setMovedCategoryId(int $value)
  * @method $this setName(string $value)
- *
  * @method bool hasProductCount()
  * @method $this setParentId(int $value)
  * @method string getPath()
@@ -72,7 +51,6 @@
  * @method $this setPosition(int $value)
  * @method array getPostedProducts()
  * @method $this setPostedProducts(array $value)
- *
  * @method string getUrlKey()
  * @method $this setUrlKey(string $value)
  * @method $this setUrlPath(string $value)

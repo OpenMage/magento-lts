@@ -1,35 +1,20 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Order creditmemo model
  *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Order_Creditmemo _getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo getResource()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Collection getCollection()
  * @method Mage_Sales_Model_Resource_Order_Creditmemo_Collection getResourceCollection()
- *
  * @method float getAdjustment()
  * @method $this setAdjustment(float $value)
  * @method float getAdjustmentNegative()
  * @method float getAdjustmentPositive()
- *
  * @method float getBaseAdjustment()
  * @method $this setBaseAdjustment(float $value)
  * @method float getBaseAdjustmentNegative()
@@ -50,22 +35,17 @@
  * @method $this setBaseToOrderRate(float $value)
  * @method int getBillingAddressId()
  * @method $this setBillingAddressId(int $value)
- *
  * @method $this setCommentText(string $value)
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
  * @method int getCreditmemoStatus()
  * @method $this setCreditmemoStatus(int $value)
- *
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
- *
  * @method int getEmailSent()
  * @method $this setEmailSent(int $value)
- *
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method $this setStoreId(int $value)
  * @method float getStoreToOrderRate()
  * @method $this setStoreToOrderRate(float $value)
@@ -82,12 +62,10 @@
  * @method $this setState(int $value)
  * @method float getStoreToBaseRate()
  * @method $this setStoreToBaseRate(float $value)
- *
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
  * @method string getTransactionId()
  * @method $this setTransactionId(string $value)
- *
  * @method float getBaseToGlobalRate()
  * @method $this setBaseToGlobalRate(float $value)
  * @method float getBaseSubtotal()

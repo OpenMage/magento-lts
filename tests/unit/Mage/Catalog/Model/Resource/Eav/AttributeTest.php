@@ -1,18 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideGetStoreId
+ * @group Mage_Catalog
+ * @group Mage_Catalog_Model
+ * @group Mage_Catalog_Model_Resource
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Eav;
@@ -34,12 +29,7 @@ class AttributeTest extends TestCase
         $this->subject = Mage::getModel('catalog/resource_eav_attribute');
     }
 
-    /**
-     * @dataProvider provideGetStoreId
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
-     * @group Mage_Catalog_Model_Resource
-     */
+
     public function testGetStoreId($expectedResult, $withStoreId): void
     {
         if ($withStoreId) {

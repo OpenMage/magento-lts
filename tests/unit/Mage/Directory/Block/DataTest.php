@@ -1,18 +1,11 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @group Mage_Directory
+ * @group Mage_Directory_Block
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Block;
@@ -33,19 +26,13 @@ class DataTest extends TestCase
         $this->subject = new Subject();
     }
 
-    /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Block
-     */
+
     public function testGetCountryCollection(): void
     {
         $this->assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, $this->subject->getCountryCollection());
     }
 
-    /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Block
-     */
+
     public function testGetRegionCollection(): void
     {
         $this->assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, $this->subject->getRegionCollection());

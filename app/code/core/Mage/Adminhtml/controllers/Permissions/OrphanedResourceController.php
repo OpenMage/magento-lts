@@ -1,25 +1,18 @@
 <?php
 
+/**
+ * ACL resource
+ *
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @see Mage_Adminhtml_Controller_Action::_isAllowed()
+ */
 declare(strict_types=1);
 
-/**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
+
 class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminhtml_Controller_Action
 {
-    /**
-     * ACL resource
-     * @see Mage_Adminhtml_Controller_Action::_isAllowed()
-     */
     public const ADMIN_RESOURCE = 'system/acl/orphaned_resources';
 
     /**

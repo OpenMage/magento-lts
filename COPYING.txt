@@ -1,0 +1,20 @@
+COPYRIGHT
+
+    OpenMage - an eCommerce platform
+
+    Copyright © 2006-2020 Magento, Inc. (https://magento.com)
+    Copyright © 2016-2025 The OpenMage Contributors (https://openmage.org)
+
+SOFTWARE LICENSE
+
+    The free software license of OpenMage themes (located in app/design/) and skins (located in skin/) is the
+    Academic Free License (AFL 3.0) that is bundled with this package in the file LICENSE_AFL.txt.
+    It is also available at https://opensource.org/license/afl-3-0-php
+
+    The free software license of TinyMCE that may be bundled and used exclusively with this project is a proprietary license
+    that is bundled with this package in the file LICENSE_TINYMCE.txt.
+    It is also available at https://github.com/OpenMage/magento-lts/blob/main/LICENSE_TINYMCE.txt
+
+    The free software license of all other OpenMage code included with this package unless otherwise noted in the source file
+    or source file directory is The Open Software License 3.0 (OSL 3.0) that is bundled with this package in the file LICENSE.txt.
+    It is also available at https://opensource.org/license/osl-3.0.php
