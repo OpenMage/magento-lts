@@ -20,27 +20,27 @@
  * @category   Mage
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Store _getResource()
- * @method Mage_Core_Model_Resource_Store getResource()
+ * @method Mage_Core_Model_Resource_Store            _getResource()
+ * @method Mage_Core_Model_Resource_Store            getResource()
  * @method Mage_Core_Model_Resource_Store_Collection getCollection()
  * @method Mage_Core_Model_Resource_Store_Collection getResourceCollection()
  *
- * @method $this setCode(string $value)
- * @method $this setGroupId(int $value)
+ * @method $this  setCode(string $value)
+ * @method $this  setGroupId(int $value)
  * @method string getHomeUrl()
- * @method $this setHomeUrl(string $value)
- * @method $this setIsActive(int $value)
- * @method $this setLocaleCode(string $value)
+ * @method $this  setHomeUrl(string $value)
+ * @method $this  setIsActive(int $value)
+ * @method $this  setLocaleCode(string $value)
  * @method string getLanguageCode()
  * @method string getLocaleCode()
- * @method $this setName(string $value)
- * @method $this setRootCategory(Mage_Catalog_Model_Category $value)
- * @method $this setRootCategoryPath(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method $this setWebsiteId(int $value)
+ * @method $this  setName(string $value)
+ * @method $this  setRootCategory(Mage_Catalog_Model_Category $value)
+ * @method $this  setRootCategoryPath(string $value)
+ * @method int    getSortOrder()
+ * @method $this  setSortOrder(int $value)
+ * @method int    getStoreId()
+ * @method $this  setStoreId(int $value)
+ * @method $this  setWebsiteId(int $value)
  * @method string getRootCategoryPath()
  */
 class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
@@ -297,8 +297,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Loading store configuration data
      *
-     * @param   string $code
-     * @return  $this
+     * @param  string $code
+     * @return $this
      */
     public function loadConfig($code)
     {
@@ -334,8 +334,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve store configuration data
      *
-     * @param   string $path
-     * @return  string|null
+     * @param  string      $path
+     * @return string|null
      */
     public function getConfig($path)
     {
@@ -410,7 +410,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
 
     /**
      * Sets the internal configuration cache for this store view
-     * @param array $data
+     * @param  array $data
      * @return $this
      */
     public function setConfigCache($data)
@@ -424,8 +424,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      *
      * This value don't save in config
      *
-     * @param string $path
-     * @param mixed $value
+     * @param  string $path
+     * @param  mixed  $value
      * @return $this
      */
     public function setConfig($path, $value)
@@ -466,9 +466,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Process config value
      *
-     * @param string $fullPath
-     * @param string $path
-     * @param Varien_Simplexml_Element $node
+     * @param  string                   $fullPath
+     * @param  string                   $path
+     * @param  Varien_Simplexml_Element $node
      * @return array|string
      */
     protected function _processConfigValue($fullPath, $path, $node)
@@ -514,7 +514,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * Convert config values for url paths
      *
      * @deprecated after 1.4.2.0
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function processSubst($value)
@@ -553,9 +553,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve url using store configuration specific
      *
-     * @param   string $route
-     * @param   array $params
-     * @return  string
+     * @param  string $route
+     * @param  array  $params
+     * @return string
      */
     public function getUrl($route = '', $params = [])
     {
@@ -572,8 +572,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve base URL
      *
-     * @param self::URL_TYPE_* $type
-     * @param bool|null $secure
+     * @param  self::URL_TYPE_* $type
+     * @param  bool|null        $secure
      * @return string
      */
     public function getBaseUrl($type = self::URL_TYPE_LINK, $secure = null)
@@ -627,8 +627,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Remove script file name from url in case when server rewrites are enabled
      *
-     * @param   string $url
-     * @return  string
+     * @param  string $url
+     * @return string
      * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _updatePathUseRewrites($url)
@@ -657,8 +657,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * If we use Database file storage and server doesn't support rewrites (.htaccess in media folder)
      * we have to put name of fetching media script exactly into URL
      *
-     * @param null|bool $secure
-     * @param string $type
+     * @param  null|bool $secure
+     * @param  string    $type
      * @return string
      */
     protected function _updateMediaPathUseRewrites($secure = null, $type = self::URL_TYPE_MEDIA)
@@ -678,8 +678,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Add store code to url in case if it is enabled in configuration
      *
-     * @param   string $url
-     * @return  string
+     * @param  string $url
+     * @return string
      */
     protected function _updatePathUseStoreView($url)
     {
@@ -823,8 +823,8 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Set current store currency code
      *
-     * @param   string $code
-     * @return  $this
+     * @param  string $code
+     * @return $this
      */
     public function setCurrentCurrencyCode($code)
     {
@@ -871,7 +871,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      * If base currency is not allowed in current website config scope,
      * then it can be disabled with $skipBaseNotAllowed
      *
-     * @param bool $skipBaseNotAllowed
+     * @param  bool  $skipBaseNotAllowed
      * @return array
      */
     public function getAvailableCurrencyCodes($skipBaseNotAllowed = false)
@@ -939,10 +939,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Convert price from default currency to current currency
      *
-     * @param   float $price
-     * @param   bool $format             Format price to currency format
-     * @param   bool $includeContainer   Enclose into <span class="price"><span>
-     * @return  float
+     * @param  float $price
+     * @param  bool  $format           Format price to currency format
+     * @param  bool  $includeContainer Enclose into <span class="price"><span>
+     * @return float
      */
     public function convertPrice($price, $format = false, $includeContainer = true)
     {
@@ -961,7 +961,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Round price
      *
-     * @param mixed $price
+     * @param  mixed  $price
      * @return double
      */
     public function roundPrice($price)
@@ -972,9 +972,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Format price with currency filter (taking rate into consideration)
      *
-     * @param   float $price
-     * @param   bool $includeContainer
-     * @return  string|float
+     * @param  float        $price
+     * @param  bool         $includeContainer
+     * @return string|float
      */
     public function formatPrice($price, $includeContainer = true)
     {
@@ -1090,7 +1090,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Retrieve current url for store
      *
-     * @param bool|string $fromStore
+     * @param  bool|string $fromStore
      * @return string
      */
     public function getCurrentUrl($fromStore = true)
@@ -1213,7 +1213,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get/Set isReadOnly flag
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function isReadOnly($value = null)

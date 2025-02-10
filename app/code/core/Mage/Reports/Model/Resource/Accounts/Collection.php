@@ -25,8 +25,8 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     /**
      * Join created_at and accounts fields
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     protected function _joinFields($from = '', $to = '')
@@ -43,8 +43,8 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     /**
      * Set date range
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -57,7 +57,7 @@ class Mage_Reports_Model_Resource_Accounts_Collection extends Mage_Reports_Model
     /**
      * Set store ids to final result
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

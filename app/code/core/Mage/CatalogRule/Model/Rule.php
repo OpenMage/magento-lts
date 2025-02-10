@@ -20,33 +20,33 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  *
- * @method Mage_CatalogRule_Model_Resource_Rule _getResource()
- * @method Mage_CatalogRule_Model_Resource_Rule getResource()
+ * @method Mage_CatalogRule_Model_Resource_Rule            _getResource()
+ * @method Mage_CatalogRule_Model_Resource_Rule            getResource()
  * @method Mage_CatalogRule_Model_Resource_Rule_Collection getCollection()
  *
- * @method int getIsActive()
- * @method $this setIsActive(int $value)
- * @method array getCollectedAttributes()
- * @method $this setCollectedAttributes(array $value)
+ * @method int    getIsActive()
+ * @method $this  setIsActive(int $value)
+ * @method array  getCollectedAttributes()
+ * @method $this  setCollectedAttributes(array $value)
  * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method $this setDiscountAmount(float $value)
+ * @method $this  setDescription(string $value)
+ * @method $this  setDiscountAmount(float $value)
  * @method string getFromDate()
- * @method $this setFromDate(string $value)
+ * @method $this  setFromDate(string $value)
  * @method string getName()
- * @method $this setName(string $value)
- * @method int getRuleId()
+ * @method $this  setName(string $value)
+ * @method int    getRuleId()
  * @method string getSimpleAction()
- * @method $this setSimpleAction(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method int getStopRulesProcessing()
- * @method $this setStopRulesProcessing(int $value)
- * @method bool getSubIsEnable()
+ * @method $this  setSimpleAction(string $value)
+ * @method int    getSortOrder()
+ * @method $this  setSortOrder(int $value)
+ * @method int    getStopRulesProcessing()
+ * @method $this  setStopRulesProcessing(int $value)
+ * @method bool   getSubIsEnable()
  * @method string getSubSimpleAction()
- * @method float getSubDiscountAmount()
+ * @method float  getSubDiscountAmount()
  * @method string getToDate()
- * @method $this setToDate(string $value)
+ * @method $this  setToDate(string $value)
  */
 class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 {
@@ -274,7 +274,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
      * Apply rule to product
      *
      * @param int|Mage_Catalog_Model_Product $product
-     * @param array|null $websiteIds
+     * @param array|null                     $websiteIds
      */
     public function applyToProduct($product, $websiteIds = null)
     {
@@ -347,7 +347,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Calculate price using catalog price rule of product
      *
-     * @param float $price
+     * @param  float      $price
      * @return float|null
      */
     public function calcProductPriceRule(Mage_Catalog_Model_Product $product, $price)
@@ -405,7 +405,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
     /**
      * Filtering products that must be checked for matching with rule
      *
-     * @param  int|array $productIds
+     * @param int|array $productIds
      */
     public function setProductsFilter($productIds)
     {

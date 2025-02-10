@@ -42,7 +42,7 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sal
      * Parameter instance may be one of the following types: Mage_Sales_Model_Order,
      * Mage_Sales_Model_Order_Creditmemo, Mage_Sales_Model_Order_Invoice, Mage_Sales_Model_Order_Shipment
      *
-     * @param mixed $instance
+     * @param mixed  $instance
      * @param string $historyEntityName
      *
      * @return Mage_Sales_Model_Order_Status_History|null

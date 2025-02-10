@@ -25,7 +25,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
     /**
      * Check feed enabled in config
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     protected function isFeedEnable($code)
@@ -38,7 +38,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
     /**
      * Do check feed enabled and prepare response
      *
-     * @param string $code
+     * @param  string $code
      * @return bool
      */
     protected function checkFeedEnable($code)
@@ -57,7 +57,7 @@ class Mage_Rss_Controller_Abstract extends Mage_Core_Controller_Front_Action
     /**
      * Retrieve helper instance
      *
-     * @param string $name
+     * @param  string                    $name
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelper($name)

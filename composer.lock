@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95341d0b9cd8235df7d71680b3c7a87e",
+    "content-hash": "49335ce2676295d4b031207cf3b99c76",
     "packages": [
         {
             "name": "colinmollenhour/cache-backend-redis",
@@ -4035,114 +4035,6 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.4.0"
             },
             "time": "2024-12-30T11:07:19+00:00"
-        },
-        {
-            "name": "openmage/dev-copyright",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OpenMage/dev-copyright.git",
-                "reference": "46f78294b262fc0fd08435107587a6a8c4c4ff18"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-copyright/zipball/46f78294b262fc0fd08435107587a6a8c4c4ff18",
-                "reference": "46f78294b262fc0fd08435107587a6a8c4c4ff18",
-                "shasum": ""
-            },
-            "require": {
-                "magento-hackathon/magento-composer-installer": "*"
-            },
-            "default-branch": true,
-            "type": "magento-module",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "OSL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Beaty",
-                    "homepage": "https://github.com/justinbeaty"
-                }
-            ],
-            "description": "Updated copyright blocks.",
-            "support": {
-                "issues": "https://github.com/OpenMage/dev-copyright/issues",
-                "source": "https://github.com/OpenMage/dev-copyright/tree/main"
-            },
-            "time": "2024-11-25T12:51:17+00:00"
-        },
-        {
-            "name": "openmage/dev-meta-package",
-            "version": "1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OpenMage/dev-meta-package.git",
-                "reference": "0f40938e7fdce04fbed5dadae29d8a62c314c2c4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-meta-package/zipball/0f40938e7fdce04fbed5dadae29d8a62c314c2c4",
-                "reference": "0f40938e7fdce04fbed5dadae29d8a62c314c2c4",
-                "shasum": ""
-            },
-            "require": {
-                "openmage/dev-copyright": "dev-main",
-                "openmage/dev-translations": "dev-main"
-            },
-            "type": "metapackage",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "OSL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Sven Reichel",
-                    "email": "github-sr@hotmail.com"
-                }
-            ],
-            "description": "OpenMage tools that are only needed for development.",
-            "support": {
-                "issues": "https://github.com/OpenMage/dev-meta-package/issues",
-                "source": "https://github.com/OpenMage/dev-meta-package/tree/v1.0.5"
-            },
-            "time": "2024-11-25T12:52:37+00:00"
-        },
-        {
-            "name": "openmage/dev-translations",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OpenMage/dev-translations.git",
-                "reference": "609f0aca73d32883d128400b8b2763c13b95ad6a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/dev-translations/zipball/609f0aca73d32883d128400b8b2763c13b95ad6a",
-                "reference": "609f0aca73d32883d128400b8b2763c13b95ad6a",
-                "shasum": ""
-            },
-            "require": {
-                "magento-hackathon/magento-composer-installer": "*"
-            },
-            "default-branch": true,
-            "type": "magento-module",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "OSL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Beaty",
-                    "homepage": "https://github.com/justinbeaty"
-                }
-            ],
-            "description": "Finds missing and unused translations.",
-            "support": {
-                "issues": "https://github.com/OpenMage/dev-translations/issues",
-                "source": "https://github.com/OpenMage/dev-translations/tree/main"
-            },
-            "time": "2024-12-07T17:45:49+00:00"
         },
         {
             "name": "pdepend/pdepend",

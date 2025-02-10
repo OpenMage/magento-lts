@@ -20,8 +20,8 @@
  * @category   Mage
  * @package    Mage_Admin
  *
- * @method Mage_Admin_Model_Resource_Variable _getResource()
- * @method Mage_Admin_Model_Resource_Variable getResource()
+ * @method Mage_Admin_Model_Resource_Variable            _getResource()
+ * @method Mage_Admin_Model_Resource_Variable            getResource()
  * @method Mage_Admin_Model_Resource_Variable_Collection getCollection()
  *
  * @method string getIsAllowed()
@@ -66,7 +66,7 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     /**
      * Check is config directive with given path can be parsed via configDirective method
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     public function isPathAllowed($path)

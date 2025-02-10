@@ -19,8 +19,8 @@
  * @package    Mage_Core
  *
  * @method Mage_Core_Controller_Varien_Action getAction()
- * @method $this setAction(Mage_Core_Controller_Varien_Action $value)
- * @method bool getNoRender()
+ * @method $this                              setAction(Mage_Core_Controller_Varien_Action $value)
+ * @method bool                               getNoRender()
  */
 class Mage_Core_Controller_Varien_Front extends Varien_Object
 {
@@ -38,8 +38,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     public const XML_STORE_ROUTERS_PATH = 'web/routers';
 
     /**
-     * @param array|string $key
-     * @param string|null $value
+     * @param  array|string $key
+     * @param  string|null  $value
      * @return $this
      */
     public function setDefault($key, $value = null)
@@ -53,7 +53,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * @param string|null $key
+     * @param  string|null $key
      * @return array|false
      */
     public function getDefault($key = null)
@@ -89,8 +89,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Adding new router
      *
-     * @param   string $name
-     * @return  Mage_Core_Controller_Varien_Front
+     * @param  string                            $name
+     * @return Mage_Core_Controller_Varien_Front
      */
     public function addRouter($name, Mage_Core_Controller_Varien_Router_Abstract $router)
     {
@@ -102,8 +102,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Retrieve router by name
      *
-     * @param   string $name
-     * @return  Mage_Core_Controller_Varien_Router_Abstract|false
+     * @param  string                                            $name
+     * @return Mage_Core_Controller_Varien_Router_Abstract|false
      */
     public function getRouter($name)
     {
@@ -214,7 +214,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Returns router instance by route name
      *
-     * @param string $routeName
+     * @param  string                                      $routeName
      * @return Mage_Core_Controller_Varien_Router_Abstract
      */
     public function getRouterByRoute($routeName)
@@ -239,7 +239,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     }
 
     /**
-     * @param string $frontName
+     * @param  string                                            $frontName
      * @return false|Mage_Core_Controller_Varien_Router_Standard
      */
     public function getRouterByFrontName($frontName)
@@ -297,8 +297,8 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Replace route name placeholders in url to front name
      *
-     * @param   string $url
-     * @return  string
+     * @param  string $url
+     * @return string
      * @deprecated since 1.7.0.2. Refactored and moved to Mage_Core_Controller_Request_Rewrite
      */
     protected function _processRewriteUrl($url)
@@ -366,7 +366,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     /**
      * Check if requested path starts with one of the admin front names
      *
-     * @param Zend_Controller_Request_Http $request
+     * @param  Zend_Controller_Request_Http $request
      * @return bool
      */
     protected function _isAdminFrontNameMatched($request)

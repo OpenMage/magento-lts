@@ -106,6 +106,7 @@ class CategoryTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      * @runInSeparateProcess
+     * @param mixed $expectedResult
      */
     //    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
     //    {

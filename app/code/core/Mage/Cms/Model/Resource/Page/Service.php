@@ -39,9 +39,9 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
      *
      * Resolved $byLinkTable can be provided when restoring links from some backup table
      *
-     * @param int $fromStoreId
-     * @param int $byStoreId
-     * @param string $byLinkTable
+     * @param  int    $fromStoreId
+     * @param  int    $byStoreId
+     * @param  string $byLinkTable
      * @return $this
      */
     public function unlinkConflicts($fromStoreId, $byStoreId, $byLinkTable = null)

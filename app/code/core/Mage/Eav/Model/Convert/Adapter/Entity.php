@@ -69,10 +69,10 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @param array $attrFilterArray
-     * @param array $attrToDb
-     * @param string $bind
-     * @param string $joinType
+     * @param  array     $attrFilterArray
+     * @param  array     $attrToDb
+     * @param  string    $bind
+     * @param  string    $joinType
      * @return $this
      * @throws Exception
      */
@@ -186,8 +186,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @param array $fields
-     * @param string $name
+     * @param  array      $fields
+     * @param  string     $name
      * @return array|bool
      */
     protected function getFieldValue($fields = [], $name = '')
@@ -208,7 +208,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     }
 
     /**
-     * @param array $joinAttr
+     * @param  array     $joinAttr
      * @throws Exception
      */
     public function setJoinAttr($joinAttr)
@@ -227,21 +227,21 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     /**
      * Add join field
      *
-     * @param array $joinField   Variable should be have view:
-     *     Example:
-     *         array(
-     *            'alias'     => 'alias_table',
-     *            'attribute' => 'table_name', //table name, must be used path of table like 'module/table_name'
-     *            'field'     => 'field_name', //selected field name (optional)
-     *            //bind main condition
-     *            //left field use for joined table
-     *            //and right field use for main table of collection
-     *            //NOTE: around '=' cannot be used ' ' (space) because on the exploding not use space trimming
-     *            'bind'      => 'self_item_id=other_id',
-     *            'cond'      => 'alias_table.entity_id = e.entity_id', //additional condition (optional)
-     *            'joinType'  => 'LEFT'
-     *         )
-     *     NOTE: Optional key must be have NULL at least
+     * @param array $joinField Variable should be have view:
+     *                         Example:
+     *                         array(
+     *                         'alias'     => 'alias_table',
+     *                         'attribute' => 'table_name', //table name, must be used path of table like 'module/table_name'
+     *                         'field'     => 'field_name', //selected field name (optional)
+     *                         //bind main condition
+     *                         //left field use for joined table
+     *                         //and right field use for main table of collection
+     *                         //NOTE: around '=' cannot be used ' ' (space) because on the exploding not use space trimming
+     *                         'bind'      => 'self_item_id=other_id',
+     *                         'cond'      => 'alias_table.entity_id = e.entity_id', //additional condition (optional)
+     *                         'joinType'  => 'LEFT'
+     *                         )
+     *                         NOTE: Optional key must be have NULL at least
      */
     public function setJoinField($joinField)
     {
@@ -322,7 +322,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     /**
      * Retrieve collection for load
      *
-     * @param string $entityType
+     * @param  string                                 $entityType
      * @return Mage_Eav_Model_Entity_Collection|false
      */
     protected function _getCollectionForLoad($entityType)

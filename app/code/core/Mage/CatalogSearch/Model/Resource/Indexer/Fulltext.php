@@ -30,7 +30,7 @@ class Mage_CatalogSearch_Model_Resource_Indexer_Fulltext extends Mage_Core_Model
     /**
      * Retrieve product relations by children
      *
-     * @param int|array $childIds
+     * @param  int|array $childIds
      * @return array
      */
     public function getRelationsByChild($childIds)

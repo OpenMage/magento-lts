@@ -132,7 +132,7 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _construct() {}
 
     /**
-     * @param string $action
+     * @param  string $action
      * @return bool
      */
     public function hasAction($action)
@@ -163,8 +163,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Retrieve flag value
      *
-     * @param   string $action
-     * @param   string $flag
+     * @param  string     $action
+     * @param  string     $flag
      * @return array|bool
      */
     public function getFlag($action, $flag = '')
@@ -184,10 +184,10 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Setting flag value
      *
-     * @param   string $action
-     * @param   string $flag
-     * @param   string|int|bool $value
-     * @return  $this
+     * @param  string          $action
+     * @param  string          $flag
+     * @param  string|int|bool $value
+     * @return $this
      */
     public function setFlag($action, $flag, $value)
     {
@@ -202,8 +202,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * Retrieve full bane of current action current controller and
      * current module
      *
-     * @param   string $delimiter
-     * @return  string
+     * @param  string $delimiter
+     * @return string
      */
     public function getFullActionName($delimiter = '_')
     {
@@ -225,10 +225,10 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Load layout by handles(s)
      *
-     * @param   array|string|null|bool $handles
-     * @param   bool $generateBlocks
-     * @param   bool $generateXml
-     * @return  $this
+     * @param  array|string|null|bool $handles
+     * @param  bool                   $generateBlocks
+     * @param  bool                   $generateXml
+     * @return $this
      */
     public function loadLayout($handles = null, $generateBlocks = true, $generateXml = true)
     {
@@ -355,8 +355,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Rendering layout
      *
-     * @param   string $output
-     * @return  $this|void
+     * @param  string     $output
+     * @return $this|void
      */
     public function renderLayout($output = '')
     {
@@ -452,7 +452,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Retrieve action method name
      *
-     * @param string $action
+     * @param  string $action
      * @return string
      */
     public function getActionMethodName($action)
@@ -603,7 +603,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Throw control to different action (control and module if was specified).
      *
-     * @param string $action
+     * @param string      $action
      * @param string|null $controller
      * @param string|null $module
      */
@@ -633,7 +633,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param string|array $messagesStorage
+     * @param  string|array $messagesStorage
      * @return $this
      */
     protected function _initLayoutMessages($messagesStorage)
@@ -660,7 +660,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Initializing layout messages by message storage(s), loading and adding messages to layout messages block
      *
-     * @param string|array $messagesStorage
+     * @param  string|array $messagesStorage
      * @return $this
      */
     public function initLayoutMessages($messagesStorage)
@@ -671,8 +671,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Set redirect url into response
      *
-     * @param   string $url
-     * @return  $this
+     * @param  string $url
+     * @return $this
      */
     protected function _redirectUrl($url)
     {
@@ -683,9 +683,9 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Set redirect into response
      *
-     * @param   string $path
-     * @param   array $arguments
-     * @return  $this
+     * @param  string $path
+     * @param  array  $arguments
+     * @return $this
      */
     protected function _redirect($path, $arguments = [])
     {
@@ -696,8 +696,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * Set redirect into response with session id in URL if it is enabled.
      * It allows to distinguish primordial request from browser with cookies disabled.
      *
-     * @param   string $path
-     * @return  $this
+     * @param  string $path
+     * @return $this
      */
     public function setRedirectWithCookieCheck($path, array $arguments = [])
     {
@@ -717,7 +717,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Redirect to success page
      *
-     * @param string $defaultUrl
+     * @param  string $defaultUrl
      * @return $this
      */
     protected function _redirectSuccess($defaultUrl)
@@ -736,8 +736,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Redirect to error page
      *
-     * @param string $defaultUrl
-     * @return  $this
+     * @param  string $defaultUrl
+     * @return $this
      */
     protected function _redirectError($defaultUrl)
     {
@@ -755,8 +755,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Set referer url for redirect in response
      *
-     * @param   string $defaultUrl
-     * @return  $this
+     * @param  string $defaultUrl
+     * @return $this
      */
     protected function _redirectReferer($defaultUrl = null)
     {
@@ -795,8 +795,8 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Check url to be used as internal
      *
-     * @param   string $url
-     * @return  bool
+     * @param  string $url
+     * @return bool
      */
     protected function _isUrlInternal($url)
     {
@@ -816,7 +816,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Get real module name (like 'Mage_Module')
      *
-     * @return  string
+     * @return string
      */
     protected function _getRealModuleName()
     {
@@ -919,8 +919,8 @@ abstract class Mage_Core_Controller_Varien_Action
      * bar / <default title>
      *
      * @see self::_renderTitles()
-     * @param string|false|int|null $text
-     * @param bool $resetIfExists
+     * @param  string|false|int|null $text
+     * @param  bool                  $resetIfExists
      * @return $this
      */
     protected function _title($text = null, $resetIfExists = true)
@@ -972,9 +972,9 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Convert dates in array from localized to internal format
      *
-     * @param   array $array
-     * @param   array $dateFields
-     * @return  array
+     * @param  array $array
+     * @param  array $dateFields
+     * @return array
      */
     protected function _filterDates($array, $dateFields)
     {
@@ -1000,9 +1000,9 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Convert dates with time in array from localized to internal format
      *
-     * @param   array $array
-     * @param   array $dateFields
-     * @return  array
+     * @param  array $array
+     * @param  array $dateFields
+     * @return array
      */
     protected function _filterDateTime($array, $dateFields)
     {
@@ -1028,11 +1028,11 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Declare headers and content file in response for file download
      *
-     * @param string $fileName
-     * @param string|array $content set to null to avoid starting output, $contentLength should be set explicitly in
-     *                              that case
-     * @param string $contentType
-     * @param int $contentLength    explicit content length, if strlen($content) isn't applicable
+     * @param  string       $fileName
+     * @param  string|array $content       set to null to avoid starting output, $contentLength should be set explicitly in
+     *                                     that case
+     * @param  string       $contentType
+     * @param  int          $contentLength explicit content length, if strlen($content) isn't applicable
      * @return $this
      * @SuppressWarnings("PHPMD.ExitExpression")
      */

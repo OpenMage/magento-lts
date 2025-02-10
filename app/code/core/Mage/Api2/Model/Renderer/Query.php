@@ -30,7 +30,7 @@ class Mage_Api2_Model_Renderer_Query implements Mage_Api2_Model_Renderer_Interfa
     /**
      * Convert Array to URL-encoded query string
      *
-     * @param array|object $data
+     * @param  array|object $data
      * @return string
      */
     public function render($data)

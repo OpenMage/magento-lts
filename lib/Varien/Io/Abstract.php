@@ -33,7 +33,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Allow automatically create non-existent directories
      *
-     * @param bool $flag
+     * @param  bool               $flag
      * @return Varien_Io_Abstract
      */
     public function setAllowCreateFolders($flag)
@@ -105,7 +105,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
     /**
      * Replace full path to relative
      *
-     * @param $path
+     * @param         $path
      * @return string
      */
     public function getFilteredPath($path)

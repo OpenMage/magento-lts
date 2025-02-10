@@ -165,6 +165,7 @@ class ProductTest extends TestCase
      * @dataProvider provideFormatUrlKey
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
+     * @param mixed $expectedResult
      */
     public function testFormatUrlKey($expectedResult, ?string $locale): void
     {

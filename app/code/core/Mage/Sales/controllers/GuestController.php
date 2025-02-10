@@ -25,7 +25,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
     /**
      * Try to load valid order and register it
      *
-     * @param int $orderId
+     * @param  int  $orderId
      * @return bool
      */
     protected function _loadValidOrder($orderId = null)
@@ -36,8 +36,8 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
     /**
      * Check order view availability
      *
-     * @param   Mage_Sales_Model_Order $order
-     * @return  bool
+     * @param  Mage_Sales_Model_Order $order
+     * @return bool
      */
     protected function _canViewOrder($order)
     {

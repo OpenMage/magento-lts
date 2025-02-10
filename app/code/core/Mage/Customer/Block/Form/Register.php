@@ -132,7 +132,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      *  Newsletter module availability
      *
-     *  @return bool
+     * @return bool
      */
     public function isNewsletterEnabled()
     {
@@ -157,7 +157,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
      * Restore entity data from session
      * Entity and form code must be defined for the form
      *
-     * @param string|null $scope
+     * @param  string|null $scope
      * @return $this
      */
     public function restoreSessionData(Mage_Customer_Model_Form $form, $scope = null)

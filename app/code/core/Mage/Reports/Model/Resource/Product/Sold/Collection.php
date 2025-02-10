@@ -36,8 +36,8 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Set Date range to collection
      *
-     * @param int $from
-     * @param int $to
+     * @param  int   $from
+     * @param  int   $to
      * @return $this
      */
     public function setDateRange($from, $to)
@@ -51,7 +51,7 @@ class Mage_Reports_Model_Resource_Product_Sold_Collection extends Mage_Reports_M
     /**
      * Set store filter to collection
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return $this
      */
     public function setStoreIds($storeIds)

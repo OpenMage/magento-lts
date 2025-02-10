@@ -70,9 +70,9 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     /**
      * Add option renderer to renderers array
      *
-     * @param string $type
-     * @param string $block
-     * @param string $template
+     * @param  string $type
+     * @param  string $block
+     * @param  string $template
      * @return $this
      */
     public function addOptionRenderer($type, $block, $template)
@@ -88,7 +88,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     /**
      * Get option render by given type
      *
-     * @param string $type
+     * @param  string $type
      * @return array
      */
     public function getOptionRender($type)
@@ -97,7 +97,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getGroupOfOption($type)
@@ -131,7 +131,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
     /**
      * Get price configuration
      *
-     * @param Mage_Catalog_Model_Product_Option_Value|Mage_Catalog_Model_Product_Option $option
+     * @param  Mage_Catalog_Model_Product_Option_Value|Mage_Catalog_Model_Product_Option $option
      * @return array
      */
     protected function _getPriceConfiguration($option)

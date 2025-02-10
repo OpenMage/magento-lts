@@ -398,8 +398,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Add method to request array
      *
-     * @param string $methodName
-     * @param array $request
+     * @param  string $methodName
+     * @param  array  $request
      * @return array
      */
     protected function _addMethodToRequest($methodName, $request)
@@ -414,7 +414,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Return Payflow Edition
      *
-     * @param string $methodName
+     * @param  string      $methodName
      * @return string|null
      */
     protected function _getPaypalUkActionName($methodName)
@@ -433,7 +433,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Map paypal method names
      *
-     * @param string $methodName
+     * @param  string      $methodName
      * @return string|void
      */
     protected function _mapPaypalMethodName($methodName)
@@ -458,8 +458,8 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Catch success calls and collect warnings
      *
-     * @param array $response
-     * @return bool success flag
+     * @param  array $response
+     * @return bool  success flag
      */
     protected function _isCallSuccessful($response)
     {
@@ -494,7 +494,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Build query string without urlencoding from request
      *
-     * @param array $request
+     * @param  array  $request
      * @return string
      */
     protected function _buildQuery($request)
@@ -536,7 +536,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * Return each call request fields
      * (PayFlow edition doesn't support Unilateral payments)
      *
-     * @param string $methodName Current method name
+     * @param  string $methodName Current method name
      * @return array
      */
     protected function _prepareEachCallRequest($methodName)
@@ -548,7 +548,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * Overwrite parent logic, simply return input data
      * (PayFlow edition doesn't support Unilateral payments)
      *
-     * @param array $requestFields Standard set of values
+     * @param  array $requestFields Standard set of values
      * @return array
      */
     protected function _prepareExpressCheckoutCallRequest(&$requestFields)
@@ -573,7 +573,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     /**
      * Checking negative line items
      *
-     * @param int $i
+     * @param  int       $i
      * @return bool|void
      */
     protected function _exportLineItems(array &$request, $i = 0)

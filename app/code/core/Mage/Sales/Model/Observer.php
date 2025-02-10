@@ -32,7 +32,7 @@ class Mage_Sales_Model_Observer
     /**
      * Clean expired quotes (cron process)
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -165,7 +165,7 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales order report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
     public function aggregateSalesReportOrderData($schedule)
@@ -181,7 +181,7 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales shipment report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
@@ -198,7 +198,7 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales invoiced report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
@@ -215,7 +215,7 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales refunded report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
@@ -232,7 +232,7 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh bestsellers report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @param  Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
@@ -377,8 +377,8 @@ class Mage_Sales_Model_Observer
     /**
      * Retrieve sales address (order or quote) on which tax calculation must be based
      *
-     * @param Mage_Core_Model_Abstract $salesModel
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param  Mage_Core_Model_Abstract                  $salesModel
+     * @param  Mage_Core_Model_Store|string|int|null     $store
      * @return Mage_Customer_Model_Address_Abstract|null
      */
     protected function _getVatRequiredSalesAddress($salesModel, $store = null)
@@ -398,7 +398,7 @@ class Mage_Sales_Model_Observer
     /**
      * Retrieve customer address (default billing or default shipping) ID on which tax calculation must be based
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param  Mage_Core_Model_Store|string|int|null $store
      * @return int|string
      */
     protected function _getVatRequiredCustomerAddress(Mage_Customer_Model_Customer $customer, $store = null)

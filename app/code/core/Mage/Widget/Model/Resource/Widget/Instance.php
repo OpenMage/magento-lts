@@ -114,9 +114,9 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Prepare and save layout updates data
      *
-     * @param Mage_Widget_Model_Widget_Instance $widgetInstance
-     * @param array $pageGroupData
-     * @return array of inserted layout updates ids
+     * @param  Mage_Widget_Model_Widget_Instance $widgetInstance
+     * @param  array                             $pageGroupData
+     * @return array                             of inserted layout updates ids
      */
     protected function _saveLayoutUpdates($widgetInstance, $pageGroupData)
     {
@@ -161,7 +161,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Prepare store ids.
      * If one of store id is default (0) return all store ids
      *
-     * @param array $storeIds
+     * @param  array $storeIds
      * @return array
      */
     protected function _prepareStoreIds($storeIds)
@@ -209,7 +209,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Delete widget instance pages by given ids
      *
-     * @param array $pageIds
+     * @param  array $pageIds
      * @return $this
      */
     protected function _deleteWidgetInstancePages($pageIds)
@@ -230,7 +230,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Delete layout updates by given ids
      *
-     * @param array $layoutUpdateIds
+     * @param  array $layoutUpdateIds
      * @return $this
      */
     protected function _deleteLayoutUpdates($layoutUpdateIds)
@@ -251,7 +251,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
     /**
      * Get store ids to which specified item is assigned
      *
-     * @param int $id
+     * @param  int   $id
      * @return array
      */
     public function lookupStoreIds($id)

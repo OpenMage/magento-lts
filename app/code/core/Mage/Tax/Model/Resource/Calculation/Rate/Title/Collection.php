@@ -32,7 +32,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection extends Mage_Cor
     /**
      * Add rate id filter
      *
-     * @param int $rateId
+     * @param  int   $rateId
      * @return $this
      */
     public function loadByRateId($rateId)

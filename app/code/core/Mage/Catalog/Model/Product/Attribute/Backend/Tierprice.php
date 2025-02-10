@@ -46,7 +46,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     /**
      * Add price qty to unique fields
      *
-     * @param array $objectArray
+     * @param  array $objectArray
      * @return array
      */
     protected function _getAdditionalUniqueFields($objectArray)
@@ -69,7 +69,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Tierprice extends Mage_Catalo
     /**
      * Whether tier price value fixed or percent of original price
      *
-     * @param Mage_Catalog_Model_Product_Type_Price $priceObject
+     * @param  Mage_Catalog_Model_Product_Type_Price $priceObject
      * @return bool
      */
     protected function _isPriceFixed($priceObject)

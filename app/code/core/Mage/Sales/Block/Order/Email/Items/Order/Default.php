@@ -55,7 +55,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     }
 
     /**
-     * @param array|string $value
+     * @param  array|string $value
      * @return string
      */
     public function getValueHtml($value)
@@ -69,7 +69,7 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Item $item
+     * @param  Mage_Sales_Model_Order_Item $item
      * @return array|string
      */
     public function getSku($item)

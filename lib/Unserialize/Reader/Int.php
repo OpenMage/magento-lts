@@ -32,8 +32,8 @@ class Unserialize_Reader_Int
     public const READING_VALUE = 1;
 
     /**
-     * @param string $char
-     * @param string $prevChar
+     * @param  string   $char
+     * @param  string   $prevChar
      * @return int|null
      */
     public function read($char, $prevChar)
@@ -48,7 +48,7 @@ class Unserialize_Reader_Int
             if ($char !== Unserialize_Parser::SYMBOL_SEMICOLON) {
                 $this->_value .= $char;
             } else {
-                return (int)$this->_value;
+                return (int) $this->_value;
             }
         }
         return null;

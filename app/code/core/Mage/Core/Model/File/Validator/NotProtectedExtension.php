@@ -88,7 +88,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
      * getMessages() will return an array of messages that explain why the
      * validation failed.
      *
-     * @param string $value         Extension of file
+     * @param  string $value Extension of file
      * @return bool
      */
     public function isValid($value)

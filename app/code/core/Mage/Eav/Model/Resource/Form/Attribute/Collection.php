@@ -79,7 +79,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     /**
      * Set current store to collection
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  Mage_Core_Model_Store|string|int $store
      * @return $this
      */
     public function setStore($store)
@@ -104,7 +104,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     /**
      * Set entity type instance to collection
      *
-     * @param Mage_Eav_Model_Entity_Type|string|int $entityType
+     * @param  Mage_Eav_Model_Entity_Type|string|int $entityType
      * @return $this
      */
     public function setEntityType($entityType)
@@ -129,7 +129,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     /**
      * Add Form Code filter to collection
      *
-     * @param string $code
+     * @param  string $code
      * @return $this
      */
     public function addFormCodeFilter($code)
@@ -140,7 +140,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
     /**
      * Set order by attribute sort order
      *
-     * @param string $direction
+     * @param  string $direction
      * @return $this
      */
     public function setSortOrder($direction = self::SORT_ORDER_ASC)

@@ -21,15 +21,15 @@
  * @method $this setAdditionalMessages(array|null $value)
  *
  * @method string getCartCouponCode()
- * @method $this setCartCouponCode(string $value)
- * @method bool getCartWasUpdated()
- * @method $this setCartWasUpdated(bool $value)
+ * @method $this  setCartCouponCode(string $value)
+ * @method bool   getCartWasUpdated()
+ * @method $this  setCartWasUpdated(bool $value)
  * @method string getCheckoutState()
- * @method $this setCheckoutState(string $value)
+ * @method $this  setCheckoutState(string $value)
  * @method string getContinueShoppingUrl()
- * @method $this setContinueShoppingUrl(string $value)
+ * @method $this  setContinueShoppingUrl(string $value)
  *
- * @method bool getDisplaySuccess()
+ * @method bool  getDisplaySuccess()
  * @method $this setDisplaySuccess(bool $value)
  *
  * @method array getEstimatedShippingAddressData()
@@ -38,53 +38,53 @@
  * @method bool getHasDownloadableProducts()
  *
  * @method string getGotoSection()
- * @method $this setGotoSection(string $value)
+ * @method $this  setGotoSection(string $value)
  *
  * @method $this setHasDownloadableProducts(bool $value)
  *
- * @method int getLastAddedProductId()
- * @method $this setLastAddedProductId(int $value)
- * @method int getLastBillingAgreementId()
- * @method $this setLastBillingAgreementId(int|null $value)
- * @method int getLastOrderId()
- * @method $this setLastOrderId(int|null $value)
- * @method $this unsLastOrderId()
- * @method int getLastQuoteId()
- * @method $this setLastQuoteId(int $value)
- * @method $this unsLastQuoteId()
+ * @method int    getLastAddedProductId()
+ * @method $this  setLastAddedProductId(int $value)
+ * @method int    getLastBillingAgreementId()
+ * @method $this  setLastBillingAgreementId(int|null $value)
+ * @method int    getLastOrderId()
+ * @method $this  setLastOrderId(int|null $value)
+ * @method $this  unsLastOrderId()
+ * @method int    getLastQuoteId()
+ * @method $this  setLastQuoteId(int $value)
+ * @method $this  unsLastQuoteId()
  * @method string getLastRealOrderId()
- * @method $this setLastRealOrderId(string $value)
- * @method $this unsLastRealOrderId()
- * @method int getLastRecurringProfileIds()
- * @method $this setLastRecurringProfileIds(array|null $value)
- * @method int getLastSuccessQuoteId()
- * @method $this setLastSuccessQuoteId(int|null $value)
- * @method $this unsLastSuccessQuoteId()
+ * @method $this  setLastRealOrderId(string $value)
+ * @method $this  unsLastRealOrderId()
+ * @method int    getLastRecurringProfileIds()
+ * @method $this  setLastRecurringProfileIds(array|null $value)
+ * @method int    getLastSuccessQuoteId()
+ * @method $this  setLastSuccessQuoteId(int|null $value)
+ * @method $this  unsLastSuccessQuoteId()
  *
  * @method array getMethodData()
  *
- * @method bool getNoCartRedirect()
+ * @method bool  getNoCartRedirect()
  * @method $this setNoCartRedirect(bool $value)
  *
  * @method array getPaypalTransactionData()
  *
  * @method string getRedirectUrl()
- * @method $this setRedirectUrl(string $value)
- * @method bool getRememberMeChecked()
- * @method $this setRememberMeChecked(bool $value)
- * @method $this unsRememberMeChecked()
+ * @method $this  setRedirectUrl(string $value)
+ * @method bool   getRememberMeChecked()
+ * @method $this  setRememberMeChecked(bool $value)
+ * @method $this  unsRememberMeChecked()
  *
  * @method string getSharedWishlist()
- * @method $this setSharedWishlist(string $value)
- * @method int getSingleWishlistId()
- * @method $this setSingleWishlistId(int $value)
- * @method array getSteps()
- * @method $this setSteps(array $value)
+ * @method $this  setSharedWishlist(string $value)
+ * @method int    getSingleWishlistId()
+ * @method $this  setSingleWishlistId(int $value)
+ * @method array  getSteps()
+ * @method $this  setSteps(array $value)
  *
  * @method string getUpdateSection()
- * @method $this setUpdateSection(string $value)
- * @method bool getUseNotice()
- * @method $this setUseNotice(bool $value)
+ * @method $this  setUpdateSection(string $value)
+ * @method bool   getUseNotice()
+ * @method $this  setUseNotice(bool $value)
  *
  * @method array getWishlistIds()
  * @method $this setWishlistIds(array $value)
@@ -146,7 +146,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set customer instance
      *
-     * @param Mage_Customer_Model_Customer|null $customer
+     * @param  Mage_Customer_Model_Customer|null $customer
      * @return $this
      */
     public function setCustomer($customer)
@@ -168,7 +168,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Set quote to be loaded even if inactive
      *
-     * @param bool $load
+     * @param  bool  $load
      * @return $this
      */
     public function setLoadInactive($load = true)
@@ -319,9 +319,9 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * By providing the two parameters data and value, the data will be added to existing step data.
      * By providing an associative array [data => value, ...] the existing step data will be replaced.
      *
-     * @param string $step
-     * @param array|string $data
-     * @param mixed|null $value
+     * @param  string       $step
+     * @param  array|string $data
+     * @param  mixed|null   $value
      * @return $this
      */
     public function setStepData($step, $data, $value = null)
@@ -348,8 +348,8 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * Returns existing step data for all steps ($step = null) or the provided checkout step.
      * By providing $data only this data of the given step will be returned, or false if not set.
      *
-     * @param string|null $step
-     * @param string|null $data
+     * @param  string|null       $step
+     * @param  string|null       $data
      * @return array|mixed|false
      */
     public function getStepData($step = null, $data = null)
@@ -396,7 +396,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * itemKey is a unique hash (e.g 'quote_item17') to distinguish item messages among message collections
      *
      * @param string $itemKey
-     * @param bool $clear
+     * @param bool   $clear
      *
      * @return null|Mage_Core_Model_Message_Collection
      */
@@ -419,7 +419,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      * Adds new message in this session to a list of additional messages for some item
      * itemKey is a unique hash (e.g 'quote_item17') to distinguish item messages among message collections
      *
-     * @param string $itemKey
+     * @param string                  $itemKey
      * @param Mage_Core_Model_Message $message
      *
      * @return $this
@@ -438,7 +438,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
     /**
      * Retrieves list of quote item messages
-     * @param int $itemId
+     * @param int  $itemId
      * @param bool $clear
      *
      * @return null|Mage_Core_Model_Message_Collection
@@ -451,7 +451,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * Adds new message to a list of quote item messages, saved in this session
      *
-     * @param int $itemId
+     * @param int                     $itemId
      * @param Mage_Core_Model_Message $message
      *
      * @return $this
@@ -497,7 +497,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
     }
 
     /**
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function replaceQuote($quote)

@@ -20,31 +20,31 @@
  * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Shipment_Item _getResource()
- * @method Mage_Sales_Model_Resource_Order_Shipment_Item getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Item            _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Item            getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Item_Collection getCollection()
- * @method string getAdditionalData()
- * @method $this setAdditionalData(string $value)
- * @method string getDescription()
- * @method $this setDescription(string $value)
- * @method string getName()
- * @method $this setName(string $value)
- * @method int getOrderItemId()
- * @method $this setOrderItemId(int $value)
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method float getPrice()
- * @method $this setPrice(float $value)
- * @method int getProductId()
- * @method $this setProductId(int $value)
- * @method float getQty()
- * @method float getRowTotal()
- * @method $this setRowTotal(float $value)
- * @method string getSku()
- * @method $this setStoreId(int $value)
- * @method $this setSku(string $value)
- * @method float getWeight()
- * @method $this setWeight(float $value)
+ * @method string                                                   getAdditionalData()
+ * @method $this                                                    setAdditionalData(string $value)
+ * @method string                                                   getDescription()
+ * @method $this                                                    setDescription(string $value)
+ * @method string                                                   getName()
+ * @method $this                                                    setName(string $value)
+ * @method int                                                      getOrderItemId()
+ * @method $this                                                    setOrderItemId(int $value)
+ * @method int                                                      getParentId()
+ * @method $this                                                    setParentId(int $value)
+ * @method float                                                    getPrice()
+ * @method $this                                                    setPrice(float $value)
+ * @method int                                                      getProductId()
+ * @method $this                                                    setProductId(int $value)
+ * @method float                                                    getQty()
+ * @method float                                                    getRowTotal()
+ * @method $this                                                    setRowTotal(float $value)
+ * @method string                                                   getSku()
+ * @method $this                                                    setStoreId(int $value)
+ * @method $this                                                    setSku(string $value)
+ * @method float                                                    getWeight()
+ * @method $this                                                    setWeight(float $value)
  */
 class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 {
@@ -62,7 +62,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Declare Shipment instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setShipment(Mage_Sales_Model_Order_Shipment $shipment)
     {
@@ -83,7 +83,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Declare order item instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrderItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -115,7 +115,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
     /**
      * Declare qty
      *
-     * @param float $qty
+     * @param  float               $qty
      * @return $this
      * @throws Mage_Core_Exception
      */

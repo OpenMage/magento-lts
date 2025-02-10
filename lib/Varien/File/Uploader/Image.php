@@ -40,6 +40,8 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
     /**
      * Resizes an image
      * Set parameters to the wanted (or maximum/minimum) width for the processed image, in pixels
+     * @param null|mixed $width
+     * @param null|mixed $height
      */
     public function resize($width = null, $height = null)
     {
@@ -59,6 +61,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Default value is NULL (no rotation)
      *
+     * @param null|mixed $degrees
      */
     public function rotate($degrees = null)
     {
@@ -102,6 +105,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * If a value is negative, the image will be expanded, and the extra parts will be filled with black
      *
      * Default value is NULL (no cropping)
+     * @param mixed $crop
      */
     public function crop($crop = 0)
     {
@@ -115,6 +119,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Default value is 'jpeg'
      *
+     * @param mixed $format
      */
     public function convert($format = 'jpeg')
     {
@@ -147,6 +152,10 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Value is in pixels, representing the distance between the left of the image and the watermark
      * If a negative value is used, it will represent the distance between the right of the image and the watermark
      *
+     * @param null|mixed $fileName
+     * @param mixed      $position
+     * @param null|mixed $absoluteX
+     * @param null|mixed $absoluteY
      */
     public function addWatermark($fileName = null, $position = 'BL', $absoluteX = null, $absoluteY = null)
     {
@@ -178,6 +187,10 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Value is an integer between 0 (no opacity) and 100 (full opacity).
      *
+     * @param mixed $height
+     * @param mixed $space
+     * @param mixed $color
+     * @param mixed $opacity
      */
     public function addReflection($height = '10%', $space = 0, $color = '#FFFFFF', $opacity = 60)
     {
@@ -195,6 +208,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      * Adds a text label on the image
      *
      * Value is a string, any text. Text will not word-wrap, although you can use breaklines in your text "\n"
+     * @param mixed $string
      */
     public function addText($string = '')
     {
@@ -299,6 +313,8 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * $percent value is a percentage, as an integer between 0 and 100
      *
+     * @param mixed $color
+     * @param mixed $percent
      */
     public function colorOverlay($color = '#FFFFFF', $percent = 50)
     {
@@ -311,6 +327,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Value can range between -127 and 127
      *
+     * @param mixed $value
      */
     public function setContrast($value = 0)
     {
@@ -322,6 +339,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Value can range between -127 and 127
      *
+     * @param mixed $value
      */
     public function setBrightness($value = 0)
     {
@@ -333,6 +351,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Default value is 85
      *
+     * @param mixed $value
      */
     public function setJpegQuality($value = 85)
     {
@@ -345,6 +364,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Is generally used when cropping an image with negative margins
      *
+     * @param mixed $color
      */
     public function setBgColor($color = '#000000')
     {

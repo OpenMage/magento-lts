@@ -28,7 +28,7 @@ class Mage_Sales_Model_Entity_Order_Creditmemo_Item_Collection extends Mage_Eav_
     }
 
     /**
-     * @param int $creditmemoId
+     * @param  int   $creditmemoId
      * @return $this
      */
     public function setCreditmemoFilter($creditmemoId)

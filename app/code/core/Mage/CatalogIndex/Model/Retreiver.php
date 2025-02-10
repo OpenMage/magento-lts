@@ -22,22 +22,22 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Retreiver _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Retreiver getResource()
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
- * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
- * @method string getTypeId()
- * @method $this setTypeId(string $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method int                                        getEntityTypeId()
+ * @method $this                                      setEntityTypeId(int $value)
+ * @method int                                        getAttributeSetId()
+ * @method $this                                      setAttributeSetId(int $value)
+ * @method string                                     getTypeId()
+ * @method $this                                      setTypeId(string $value)
+ * @method string                                     getSku()
+ * @method $this                                      setSku(string $value)
+ * @method int                                        getHasOptions()
+ * @method $this                                      setHasOptions(int $value)
+ * @method int                                        getRequiredOptions()
+ * @method $this                                      setRequiredOptions(int $value)
+ * @method string                                     getCreatedAt()
+ * @method $this                                      setCreatedAt(string $value)
+ * @method string                                     getUpdatedAt()
+ * @method $this                                      setUpdatedAt(string $value)
  */
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
@@ -80,7 +80,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Returns data retriever model by specified product type
      *
-     * @param string $type
+     * @param  string                                      $type
      * @return Mage_CatalogIndex_Model_Data_Abstract|false
      * @throws Mage_Core_Exception
      */
@@ -109,7 +109,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
     /**
      * Return product ids sorted by type
      *
-     * @param array $products
+     * @param  array $products
      * @return array
      */
     public function assignProductTypes($products)

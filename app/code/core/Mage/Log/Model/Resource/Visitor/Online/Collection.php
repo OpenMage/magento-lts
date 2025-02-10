@@ -93,7 +93,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
     /**
      * Filter collection by specified website(s)
      *
-     * @param int|array $websiteIds
+     * @param  int|array $websiteIds
      * @return $this
      */
     public function addWebsiteFilter($websiteIds)
@@ -113,8 +113,8 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
      *     array('attribute'=>'lastname', 'like'=>'test%'),
      * )
      *
-     * @param string $field
-     * @param null|string|array $condition
+     * @param  string                                          $field
+     * @param  null|string|array                               $condition
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      * @see self::_getConditionSql for $condition
      *

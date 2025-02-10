@@ -100,10 +100,10 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     }
 
     /**
-     * @param string $elementId
-     * @param string $type
-     * @param array $config
-     * @param string|false $after
+     * @param  string                            $elementId
+     * @param  string                            $type
+     * @param  array                             $config
+     * @param  string|false                      $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function addField($elementId, $type, $config, $after = false)
@@ -118,8 +118,8 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
     /**
      * Commence sorting elements by values by specified data key
      *
-     * @param string $key
-     * @param int $direction
+     * @param  string                            $key
+     * @param  int                               $direction
      * @return Varien_Data_Form_Element_Fieldset
      */
     public function setSortElementsByAttribute($key, $direction = SORT_ASC)

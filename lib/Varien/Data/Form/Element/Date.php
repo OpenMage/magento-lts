@@ -25,7 +25,7 @@
  * @method string getLocale()
  * @method string getImage()
  * @method string getTime()
- * @method bool getDisabled()
+ * @method bool   getDisabled()
  */
 class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
 {
@@ -52,7 +52,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      * If script executes on x64 system, converts large
      * numeric values to timestamp limit
      *
-     * @param string $value
+     * @param  string $value
      * @return int
      */
     protected function _toTimestamp($value)
@@ -70,9 +70,9 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      * If Zend_Date instance is provided instead of value, other params will be ignored.
      * Format and locale must be compatible with Zend_Date
      *
-     * @param mixed $value
-     * @param string $format
-     * @param string $locale
+     * @param  mixed  $value
+     * @param  string $format
+     * @param  string $locale
      * @return $this
      */
     public function setValue($value, $format = null, $locale = null)
@@ -115,7 +115,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
      * Get date value as string.
      * Format can be specified, or it will be taken from $this->getFormat()
      *
-     * @param string $format (compatible with Zend_Date)
+     * @param  string $format (compatible with Zend_Date)
      * @return string
      */
     public function getValue($format = null)

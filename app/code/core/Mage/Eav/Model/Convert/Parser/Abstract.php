@@ -25,7 +25,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     protected $_attributeSetsByName;
 
     /**
-     * @param array $stores
+     * @param  array       $stores
      * @return array|false
      */
     public function getStoreIds($stores)
@@ -50,7 +50,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     }
 
     /**
-     * @param int $storeId
+     * @param  int                             $storeId
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -60,7 +60,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     }
 
     /**
-     * @param int $entityTypeId
+     * @param  int   $entityTypeId
      * @return $this
      */
     public function loadAttributeSets($entityTypeId)
@@ -71,7 +71,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         $this->_attributeSetsById = [];
         $this->_attributeSetsByName = [];
         /**
-         * @var int $id
+         * @var int                                 $id
          * @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet
          */
         foreach ($attributeSetCollection as $id => $attributeSet) {
@@ -83,8 +83,8 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     }
 
     /**
-     * @param int $entityTypeId
-     * @param int $id
+     * @param  int  $entityTypeId
+     * @param  int  $id
      * @return bool
      */
     public function getAttributeSetName($entityTypeId, $id)
@@ -96,8 +96,8 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     }
 
     /**
-     * @param int $entityTypeId
-     * @param string $name
+     * @param  int    $entityTypeId
+     * @param  string $name
      * @return bool
      */
     public function getAttributeSetId($entityTypeId, $name)
@@ -109,7 +109,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     }
 
     /**
-     * @param string $value
+     * @param  string      $value
      * @return string|null
      */
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)

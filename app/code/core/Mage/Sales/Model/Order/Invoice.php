@@ -20,99 +20,99 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice getResource()
- * @method string getBackUrl()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method float getBaseGrandTotal()
- * @method $this setBaseGrandTotal(float $value)
- * @method float getShippingTaxAmount()
- * @method $this setShippingTaxAmount(float $value)
- * @method float getTaxAmount()
- * @method $this setTaxAmount(float $value)
- * @method float getBaseTaxAmount()
- * @method $this setBaseTaxAmount(float $value)
- * @method float getStoreToOrderRate()
- * @method $this setStoreToOrderRate(float $value)
- * @method float getBaseShippingTaxAmount()
- * @method $this setBaseShippingTaxAmount(float $value)
- * @method float getBaseDiscountAmount()
- * @method $this setBaseDiscountAmount(float $value)
- * @method float getBaseToOrderRate()
- * @method $this setBaseToOrderRate(float $value)
- * @method float getGrandTotal()
- * @method $this setGrandTotal(float $value)
- * @method float getShippingAmount()
- * @method $this setShippingAmount(float $value)
- * @method float getSubtotalInclTax()
- * @method $this setSubtotalInclTax(float $value)
- * @method float getBaseSubtotalInclTax()
- * @method $this setBaseSubtotalInclTax(float $value)
- * @method float getStoreToBaseRate()
- * @method $this setStoreToBaseRate(float $value)
- * @method float getBaseShippingAmount()
- * @method $this setBaseShippingAmount(float $value)
- * @method float getTotalQty()
- * @method $this setTotalQty(float $value)
- * @method float getBaseToGlobalRate()
- * @method $this setBaseToGlobalRate(float $value)
- * @method float getSubtotal()
- * @method $this setSubtotal(float $value)
- * @method float getBaseSubtotal()
- * @method $this setBaseSubtotal(float $value)
- * @method float getDiscountAmount()
- * @method $this setDiscountAmount(float $value)
- * @method int getBillingAddressId()
- * @method $this setBillingAddressId(int $value)
- * @method int getIsUsedForRefund()
- * @method $this setIsUsedForRefund(int $value)
- * @method int getOrderId()
- * @method $this setOrderId(int $value)
- * @method int getEmailSent()
- * @method $this setEmailSent(int $value)
- * @method int getCanVoidFlag()
- * @method $this setCanVoidFlag(int $value)
- * @method int getState()
- * @method $this setState(int $value)
- * @method int getShippingAddressId()
- * @method $this setShippingAddressId(int $value)
- * @method string getCybersourceToken()
- * @method $this setCybersourceToken(string $value)
- * @method string getStoreCurrencyCode()
- * @method $this setStoreCurrencyCode(string $value)
- * @method string getTransactionId()
- * @method $this setTransactionId(string $value)
- * @method string getOrderCurrencyCode()
- * @method $this setOrderCurrencyCode(string $value)
- * @method string getBaseCurrencyCode()
- * @method $this setBaseCurrencyCode(string $value)
- * @method string getGlobalCurrencyCode()
- * @method $this setGlobalCurrencyCode(string $value)
- * @method string getIncrementId()
- * @method $this setIncrementId(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
- * @method float getHiddenTaxAmount()
- * @method $this setHiddenTaxAmount(float $value)
- * @method float getBaseHiddenTaxAmount()
- * @method $this setBaseHiddenTaxAmount(float $value)
- * @method float getShippingHiddenTaxAmount()
- * @method $this setShippingHiddenTaxAmount(float $value)
- * @method float getBaseShippingHiddenTaxAmount()
- * @method $this setBaseShippingHiddenTaxAmount(float $value)
- * @method float getShippingInclTax()
- * @method $this setShippingInclTax(float $value)
- * @method float getBaseShippingInclTax()
- * @method $this setBaseShippingInclTax(float $value)
- * @method float getBaseTotalRefunded()
- * @method bool getIsPaid()
- * @method $this setBaseTotalRefunded(float $value)
- * @method $this setCustomerId(int $value)
- * @method $this setIsPaid(bool $value)
- * @method float getBaseCost()
- * @method string getRequestedCaptureCase()
- * @method $this setBaseCost(float $value)
+ * @method string                                  getBackUrl()
+ * @method int                                     getStoreId()
+ * @method $this                                   setStoreId(int $value)
+ * @method float                                   getBaseGrandTotal()
+ * @method $this                                   setBaseGrandTotal(float $value)
+ * @method float                                   getShippingTaxAmount()
+ * @method $this                                   setShippingTaxAmount(float $value)
+ * @method float                                   getTaxAmount()
+ * @method $this                                   setTaxAmount(float $value)
+ * @method float                                   getBaseTaxAmount()
+ * @method $this                                   setBaseTaxAmount(float $value)
+ * @method float                                   getStoreToOrderRate()
+ * @method $this                                   setStoreToOrderRate(float $value)
+ * @method float                                   getBaseShippingTaxAmount()
+ * @method $this                                   setBaseShippingTaxAmount(float $value)
+ * @method float                                   getBaseDiscountAmount()
+ * @method $this                                   setBaseDiscountAmount(float $value)
+ * @method float                                   getBaseToOrderRate()
+ * @method $this                                   setBaseToOrderRate(float $value)
+ * @method float                                   getGrandTotal()
+ * @method $this                                   setGrandTotal(float $value)
+ * @method float                                   getShippingAmount()
+ * @method $this                                   setShippingAmount(float $value)
+ * @method float                                   getSubtotalInclTax()
+ * @method $this                                   setSubtotalInclTax(float $value)
+ * @method float                                   getBaseSubtotalInclTax()
+ * @method $this                                   setBaseSubtotalInclTax(float $value)
+ * @method float                                   getStoreToBaseRate()
+ * @method $this                                   setStoreToBaseRate(float $value)
+ * @method float                                   getBaseShippingAmount()
+ * @method $this                                   setBaseShippingAmount(float $value)
+ * @method float                                   getTotalQty()
+ * @method $this                                   setTotalQty(float $value)
+ * @method float                                   getBaseToGlobalRate()
+ * @method $this                                   setBaseToGlobalRate(float $value)
+ * @method float                                   getSubtotal()
+ * @method $this                                   setSubtotal(float $value)
+ * @method float                                   getBaseSubtotal()
+ * @method $this                                   setBaseSubtotal(float $value)
+ * @method float                                   getDiscountAmount()
+ * @method $this                                   setDiscountAmount(float $value)
+ * @method int                                     getBillingAddressId()
+ * @method $this                                   setBillingAddressId(int $value)
+ * @method int                                     getIsUsedForRefund()
+ * @method $this                                   setIsUsedForRefund(int $value)
+ * @method int                                     getOrderId()
+ * @method $this                                   setOrderId(int $value)
+ * @method int                                     getEmailSent()
+ * @method $this                                   setEmailSent(int $value)
+ * @method int                                     getCanVoidFlag()
+ * @method $this                                   setCanVoidFlag(int $value)
+ * @method int                                     getState()
+ * @method $this                                   setState(int $value)
+ * @method int                                     getShippingAddressId()
+ * @method $this                                   setShippingAddressId(int $value)
+ * @method string                                  getCybersourceToken()
+ * @method $this                                   setCybersourceToken(string $value)
+ * @method string                                  getStoreCurrencyCode()
+ * @method $this                                   setStoreCurrencyCode(string $value)
+ * @method string                                  getTransactionId()
+ * @method $this                                   setTransactionId(string $value)
+ * @method string                                  getOrderCurrencyCode()
+ * @method $this                                   setOrderCurrencyCode(string $value)
+ * @method string                                  getBaseCurrencyCode()
+ * @method $this                                   setBaseCurrencyCode(string $value)
+ * @method string                                  getGlobalCurrencyCode()
+ * @method $this                                   setGlobalCurrencyCode(string $value)
+ * @method string                                  getIncrementId()
+ * @method $this                                   setIncrementId(string $value)
+ * @method string                                  getCreatedAt()
+ * @method $this                                   setCreatedAt(string $value)
+ * @method string                                  getUpdatedAt()
+ * @method $this                                   setUpdatedAt(string $value)
+ * @method float                                   getHiddenTaxAmount()
+ * @method $this                                   setHiddenTaxAmount(float $value)
+ * @method float                                   getBaseHiddenTaxAmount()
+ * @method $this                                   setBaseHiddenTaxAmount(float $value)
+ * @method float                                   getShippingHiddenTaxAmount()
+ * @method $this                                   setShippingHiddenTaxAmount(float $value)
+ * @method float                                   getBaseShippingHiddenTaxAmount()
+ * @method $this                                   setBaseShippingHiddenTaxAmount(float $value)
+ * @method float                                   getShippingInclTax()
+ * @method $this                                   setShippingInclTax(float $value)
+ * @method float                                   getBaseShippingInclTax()
+ * @method $this                                   setBaseShippingInclTax(float $value)
+ * @method float                                   getBaseTotalRefunded()
+ * @method bool                                    getIsPaid()
+ * @method $this                                   setBaseTotalRefunded(float $value)
+ * @method $this                                   setCustomerId(int $value)
+ * @method $this                                   setIsPaid(bool $value)
+ * @method float                                   getBaseCost()
+ * @method string                                  getRequestedCaptureCase()
+ * @method $this                                   setBaseCost(float $value)
  */
 class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
 {
@@ -215,7 +215,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Load invoice by increment id
      *
-     * @param string $incrementId
+     * @param  string $incrementId
      * @return $this
      */
     public function loadByIncrementId($incrementId)
@@ -254,7 +254,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Declare order for invoice
      *
-     * @return  $this
+     * @return $this
      */
     public function setOrder(Mage_Sales_Model_Order $order)
     {
@@ -511,9 +511,9 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Round price considering delta
      *
-     * @param float $price
-     * @param string $type
-     * @param bool $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
+     * @param  float  $price
+     * @param  string $type
+     * @param  bool   $negative Indicates if we perform addition (true) or subtraction (false) of rounded value
      * @return float
      */
     public function roundPrice($price, $type = 'regular', $negative = false)
@@ -562,7 +562,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param int|string $itemId
+     * @param  int|string                                $itemId
      * @return false|Mage_Sales_Model_Order_Invoice_Item
      */
     public function getItemById($itemId)
@@ -611,8 +611,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Retrieve invoice state name by state identifier
      *
-     * @param   int $stateId
-     * @return  string
+     * @param  int    $stateId
+     * @return string
      */
     public function getStateName($stateId = null)
     {
@@ -721,8 +721,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
      * and show it in customer account
      *
      * @param Mage_Sales_Model_Order_Invoice_Comment|string $comment
-     * @param bool $notify
-     * @param bool $visibleOnFront
+     * @param bool                                          $notify
+     * @param bool                                          $visibleOnFront
      *
      * @return $this
      */
@@ -745,7 +745,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param bool $reload
+     * @param  bool                                                        $reload
      * @return Mage_Sales_Model_Resource_Order_Comment_Collection_Abstract
      */
     public function getCommentsCollection($reload = false)
@@ -772,8 +772,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Send email with invoice data
      *
-     * @param bool $notifyCustomer
-     * @param string $comment
+     * @param  bool   $notifyCustomer
+     * @param  string $comment
      * @return $this
      */
     public function sendEmail($notifyCustomer = true, $comment = '')
@@ -872,8 +872,8 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Send email with invoice update information
      *
-     * @param bool $notifyCustomer
-     * @param string $comment
+     * @param  bool   $notifyCustomer
+     * @param  string $comment
      * @return $this
      */
     public function sendUpdateEmail($notifyCustomer = true, $comment = '')
@@ -939,7 +939,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     }
 
     /**
-     * @param string $configPath
+     * @param  string     $configPath
      * @return array|bool
      */
     protected function _getEmails($configPath)

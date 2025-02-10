@@ -25,7 +25,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     /**
      * Getting all available children for Invoice, Shipmen or Credit memo item
      *
-     * @param Varien_Object $item
+     * @param  Varien_Object $item
      * @return array
      */
     public function getChilds($item)
@@ -55,7 +55,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function isShipmentSeparately($item = null)
@@ -98,7 +98,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function isChildCalculated($item = null)
@@ -141,7 +141,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Varien_Object|Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Varien_Object|Mage_Sales_Model_Order_Invoice_Item $item
      * @return mixed|null
      */
     public function getSelectionAttributes($item)
@@ -158,7 +158,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param null $item deprecated
+     * @param  null  $item deprecated
      * @return array
      */
     public function getOrderOptions($item = null)
@@ -190,7 +190,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return string
      */
     public function getValueHtml($item)
@@ -210,7 +210,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_Items_Renderer extends Mage_Adminh
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Invoice_Item $item
+     * @param  Mage_Sales_Model_Order_Invoice_Item $item
      * @return bool
      */
     public function canShowPriceInfo($item)

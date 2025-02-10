@@ -92,8 +92,8 @@ class Mage_Core_Model_Locale
     /**
      * Set default locale code
      *
-     * @param   string $locale
-     * @return  Mage_Core_Model_Locale
+     * @param  string                 $locale
+     * @return Mage_Core_Model_Locale
      */
     public function setDefaultLocale($locale)
     {
@@ -121,8 +121,8 @@ class Mage_Core_Model_Locale
     /**
      * Set locale
      *
-     * @param   string $locale
-     * @return  Mage_Core_Model_Locale
+     * @param  string                 $locale
+     * @return Mage_Core_Model_Locale
      */
     public function setLocale($locale = null)
     {
@@ -188,8 +188,8 @@ class Mage_Core_Model_Locale
     /**
      * Specify current locale code
      *
-     * @param   string $code
-     * @return  Mage_Core_Model_Locale
+     * @param  string                 $code
+     * @return Mage_Core_Model_Locale
      */
     public function setLocaleCode($code)
     {
@@ -221,8 +221,8 @@ class Mage_Core_Model_Locale
     /**
      * Get options array for locale dropdown
      *
-     * @param   bool $translatedName translation flag
-     * @return  array
+     * @param  bool  $translatedName translation flag
+     * @return array
      */
     protected function _getOptionLocales($translatedName = false)
     {
@@ -387,7 +387,7 @@ class Mage_Core_Model_Locale
     }
 
     /**
-     * @param array $option
+     * @param  array $option
      * @return array
      */
     protected function _sortOptionArray($option)
@@ -438,8 +438,8 @@ class Mage_Core_Model_Locale
      * Retrieve ISO date format
      * and filter for 2 digit year format, it must be 4 digits
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getDateFormat($type = null)
     {
@@ -449,7 +449,7 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve short date format with 4-digit year
      *
-     * @return  string
+     * @return string
      */
     public function getDateFormatWithLongYear()
     {
@@ -463,8 +463,8 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve ISO time format
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getTimeFormat($type = null)
     {
@@ -474,8 +474,8 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve ISO datetime format
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getDateTimeFormat($type)
     {
@@ -485,8 +485,8 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve date format by strftime function
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getDateStrFormat($type)
     {
@@ -496,8 +496,8 @@ class Mage_Core_Model_Locale
     /**
      * Retrieve time format by strftime function
      *
-     * @param   string $type
-     * @return  string
+     * @param  string $type
+     * @return string
      */
     public function getTimeStrFormat($type)
     {
@@ -507,10 +507,10 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Date object for current locale
      *
-     * @param mixed              $date
-     * @param string             $part
-     * @param string|Zend_Locale $locale
-     * @param bool               $useTimezone
+     * @param  mixed              $date
+     * @param  string             $part
+     * @param  string|Zend_Locale $locale
+     * @param  bool               $useTimezone
      * @return Zend_Date
      */
     public function date($date = null, $part = null, $locale = null, $useTimezone = true)
@@ -536,11 +536,11 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Date object with date converted to store timezone and store Locale
      *
-     * @param   null|string|bool|int|Mage_Core_Model_Store $store Information about store
-     * @param   string|int|Zend_Date|array|null $date date in UTC
-     * @param   bool $includeTime flag for including time to date
-     * @param   string|null $format
-     * @return  Zend_Date
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store       Information about store
+     * @param  string|int|Zend_Date|array|null            $date        date in UTC
+     * @param  bool                                       $includeTime flag for including time to date
+     * @param  string|null                                $format
+     * @return Zend_Date
      */
     public function storeDate($store = null, $date = null, $includeTime = false, $format = null)
     {
@@ -560,10 +560,10 @@ class Mage_Core_Model_Locale
      * to UTC time zone. Date can be passed in format of store's locale
      * or in format which was passed as parameter.
      *
-     * @param mixed $store Information about store
-     * @param string|int|Zend_Date|array|null $date date in store's timezone
-     * @param bool $includeTime flag for including time to date
-     * @param null|string $format
+     * @param  mixed                           $store       Information about store
+     * @param  string|int|Zend_Date|array|null $date        date in store's timezone
+     * @param  bool                            $includeTime flag for including time to date
+     * @param  null|string                     $format
      * @return Zend_Date
      */
     public function utcDate($store, $date, $includeTime = false, $format = null)
@@ -579,8 +579,8 @@ class Mage_Core_Model_Locale
      *
      * Timestamp will be built with store timezone settings
      *
-     * @param   mixed $store
-     * @return  int
+     * @param  mixed $store
+     * @return int
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -597,8 +597,8 @@ class Mage_Core_Model_Locale
     /**
      * Create Zend_Currency object for current locale
      *
-     * @param   string $currency
-     * @return  Zend_Currency
+     * @param  string        $currency
+     * @return Zend_Currency
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function currency($currency)
@@ -650,7 +650,7 @@ class Mage_Core_Model_Locale
      * '2'054.52' = 2054.52
      * '2,46 GB' = 2.46
      *
-     * @param string|float|int $value
+     * @param  string|float|int $value
      * @return float|null
      */
     public function getNumber($value)
@@ -767,9 +767,9 @@ class Mage_Core_Model_Locale
      * types of information.
      * For detailed information about the types look into the documentation
      *
-     * @param  string             $path   (Optional) Type of information to return
-     * @param  string             $value  (Optional) Value for detail list
-     * @return array Array with the wished information in the given language
+     * @param  string $path  (Optional) Type of information to return
+     * @param  string $value (Optional) Value for detail list
+     * @return array  Array with the wished information in the given language
      */
     public function getTranslationList($path = null, $value = null)
     {
@@ -780,8 +780,8 @@ class Mage_Core_Model_Locale
      * Returns a localized information string, supported are several types of information.
      * For detailed information about the types look into the documentation
      *
-     * @param  string             $value  Name to get detailed information about
-     * @param  string             $path   (Optional) Type of information to return
+     * @param  string       $value Name to get detailed information about
+     * @param  string       $path  (Optional) Type of information to return
      * @return string|false The wished information in the given language
      */
     public function getTranslation($value = null, $path = null)
@@ -792,7 +792,7 @@ class Mage_Core_Model_Locale
     /**
      * Replace all yy date format to yyyy
      *
-     * @param string $currentFormat
+     * @param  string               $currentFormat
      * @return string|string[]|null
      */
     protected function _convertYearTwoDigitTo4($currentFormat)
@@ -803,7 +803,7 @@ class Mage_Core_Model_Locale
     /**
      * Returns the localized country name
      *
-     * @param string $value Name to get detailed information about
+     * @param  string       $value Name to get detailed information about
      * @return false|string
      */
     public function getCountryTranslation($value)
@@ -824,9 +824,9 @@ class Mage_Core_Model_Locale
     /**
      * Checks if current date of the given store (in the store timezone) is within the range
      *
-     * @param int|string|Mage_Core_Model_Store|null $store
-     * @param string|null $dateFrom
-     * @param string|null $dateTo
+     * @param  int|string|Mage_Core_Model_Store|null $store
+     * @param  string|null                           $dateFrom
+     * @param  string|null                           $dateTo
      * @return bool
      */
     public function isStoreDateInInterval($store, $dateFrom = null, $dateTo = null)

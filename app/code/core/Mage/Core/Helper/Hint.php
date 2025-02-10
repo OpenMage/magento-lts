@@ -56,7 +56,7 @@ class Mage_Core_Helper_Hint extends Mage_Core_Helper_Abstract
     /**
      * Get Hint Url by Its Code
      *
-     * @param string $code
+     * @param  string      $code
      * @return null|string
      */
     public function getHintByCode($code)

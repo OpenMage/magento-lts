@@ -75,6 +75,7 @@ class ProductTest extends TestCase
      * @dataProvider provideGetAttributeBackendModelByInputType
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
+     * @param mixed $expectedResult
      */
     public function testGetAttributeBackendModelByInputType($expectedResult, string $inputType): void
     {
@@ -93,6 +94,7 @@ class ProductTest extends TestCase
      * @dataProvider provideGetAttributeSourceModelByInputType
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
+     * @param mixed $expectedResult
      */
     public function testGetAttributeSourceModelByInputType($expectedResult, string $inputType): void
     {

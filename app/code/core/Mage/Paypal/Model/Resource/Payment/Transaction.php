@@ -43,6 +43,8 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
 
     /**
      * @see Mage_Core_Model_Resource_Abstract::_unserializeField()
+     * @param mixed      $field
+     * @param null|mixed $defaultValue
      */
     protected function _unserializeField(Varien_Object $object, $field, $defaultValue = null)
     {
@@ -78,7 +80,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
     /**
      * Serialize additional information, if any
      *
-     * @param Mage_Paypal_Model_Payment_Transaction $transaction
+     * @param  Mage_Paypal_Model_Payment_Transaction $transaction
      * @return $this
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $transaction)
@@ -100,9 +102,9 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
     /**
      * Load cell/row by specified unique key parts
      *
-     * @param string $txnId
-     * @param array|string|object $columns
-     * @param bool $isRow
+     * @param  string              $txnId
+     * @param  array|string|object $columns
+     * @param  bool                $isRow
      * @return array|string
      */
     private function _lookupByTxnId($txnId, $columns, $isRow = false)
@@ -117,8 +119,8 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
     /**
      * Get select object for loading transaction by the unique key of order_id, payment_id, txn_id
      *
-     * @param string $txnId
-     * @param string|array|Zend_Db_Expr $columns
+     * @param  string                    $txnId
+     * @param  string|array|Zend_Db_Expr $columns
      * @return Varien_Db_Select
      */
     private function _getLoadByUniqueKeySelect($txnId, $columns = '*')

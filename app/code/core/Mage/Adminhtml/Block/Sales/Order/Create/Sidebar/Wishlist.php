@@ -82,8 +82,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     /**
      * Retrieve product identifier linked with item
      *
-     * @param   Mage_Wishlist_Model_Item $item
-     * @return  int
+     * @param  Mage_Wishlist_Model_Item $item
+     * @return int
      */
     public function getProductId($item)
     {
@@ -93,8 +93,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
     /**
      * Retrieve identifier of block item
      *
-     * @param   Varien_Object $item
-     * @return  int
+     * @param  Varien_Object $item
+     * @return int
      */
     public function getIdentifierId($item)
     {

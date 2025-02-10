@@ -36,8 +36,8 @@ class Mage_Customer_Model_Entity_Address_Attribute_Source_Country extends Mage_C
     /**
      * Retrieve all options
      *
-     * @param bool $withEmpty       Argument has no effect, included for PHP 7.2 method signature compatibility
-     * @param bool $defaultValues   Argument has no effect, included for PHP 7.2 method signature compatibility
+     * @param  bool  $withEmpty     Argument has no effect, included for PHP 7.2 method signature compatibility
+     * @param  bool  $defaultValues Argument has no effect, included for PHP 7.2 method signature compatibility
      * @return array
      */
     public function getAllOptions($withEmpty = true, $defaultValues = false)

@@ -27,10 +27,10 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Calculation real price
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param float $price
-     * @param bool $isPercent
-     * @param null|int $storeId
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  float                      $price
+     * @param  bool                       $isPercent
+     * @param  null|int                   $storeId
      * @return mixed
      */
     public function preparePrice($product, $price, $isPercent = false, $storeId = null)
@@ -45,10 +45,10 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Calculation price before special price
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param float $price
-     * @param bool $isPercent
-     * @param null|int $storeId
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  float                      $price
+     * @param  bool                       $isPercent
+     * @param  null|int                   $storeId
      * @return mixed
      */
     public function prepareOldPrice($product, $price, $isPercent = false, $storeId = null)
@@ -63,7 +63,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Replace ',' on '.' for js
      *
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     public function registerJsPrice($price)
@@ -74,9 +74,9 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Convert price from default currency to current currency
      *
-     * @param float $price
-     * @param bool $round
-     * @param null|int $storeId
+     * @param  float     $price
+     * @param  bool      $round
+     * @param  null|int  $storeId
      * @return int|float
      */
     public function convertPrice($price, $round = false, $storeId = null)
@@ -96,7 +96,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     /**
      * Retrieve current store
      *
-     * @param null $storeId
+     * @param  null                  $storeId
      * @return Mage_Core_Model_Store
      */
     public function getCurrentStore($storeId = null)
@@ -132,7 +132,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
      * @see Mage_Catalog_Block_Product_View::getJsonConfig()
      * @see Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price::getJsonConfig()
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return array
      */
     public function prepareJsonProductConfig($product)

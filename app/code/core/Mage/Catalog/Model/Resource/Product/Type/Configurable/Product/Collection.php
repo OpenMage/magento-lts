@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Product_Collection e
     /**
      * Set Product filter to result
      *
-     * @param Mage_Catalog_Model_Product $product
+     * @param  Mage_Catalog_Model_Product $product
      * @return $this
      */
     public function setProductFilter($product)

@@ -30,7 +30,7 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve cms page collection array
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return array
      */
     public function getCollection($storeId)

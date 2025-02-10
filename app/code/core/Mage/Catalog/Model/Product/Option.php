@@ -20,36 +20,36 @@
  * @category   Mage
  * @package    Mage_Catalog
  *
- * @method Mage_Catalog_Model_Resource_Product_Option _getResource()
- * @method Mage_Catalog_Model_Resource_Product_Option getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Option            _getResource()
+ * @method Mage_Catalog_Model_Resource_Product_Option            getResource()
  * @method Mage_Catalog_Model_Resource_Product_Option_Collection getCollection()
- * @method bool getAddRequiredFilter()
- * @method bool getAddRequiredFilterValue()
- * @method string getFileExtension()
- * @method $this setFileExtension(string $value)
- * @method int getImageSizeX()
- * @method $this setImageSizeX(int $value)
- * @method int getImageSizeY()
- * @method $this setImageSizeY(int $value)
- * @method int getIsRequire()
- * @method $this setIsRequire(int $value)
- * @method int getMaxCharacters()
- * @method $this setMaxCharacters(int $value)
- * @method int|null getOptionId()
- * @method $this setOptionId(int|null $value)
- * @method string getPriceType()
- * @method string|null getProductId()
- * @method $this setProductId(string|null $value)
- * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
- * @method int getStoreId()
- * @method float getStorePrice()
- * @method string getStoreTitle()
- * @method string getTitle()
- * @method string getType()
- * @method $this setType(string $value)
+ * @method bool                                                  getAddRequiredFilter()
+ * @method bool                                                  getAddRequiredFilterValue()
+ * @method string                                                getFileExtension()
+ * @method $this                                                 setFileExtension(string $value)
+ * @method int                                                   getImageSizeX()
+ * @method $this                                                 setImageSizeX(int $value)
+ * @method int                                                   getImageSizeY()
+ * @method $this                                                 setImageSizeY(int $value)
+ * @method int                                                   getIsRequire()
+ * @method $this                                                 setIsRequire(int $value)
+ * @method int                                                   getMaxCharacters()
+ * @method $this                                                 setMaxCharacters(int $value)
+ * @method int|null                                              getOptionId()
+ * @method $this                                                 setOptionId(int|null $value)
+ * @method string                                                getPriceType()
+ * @method string|null                                           getProductId()
+ * @method $this                                                 setProductId(string|null $value)
+ * @method string                                                getSku()
+ * @method $this                                                 setSku(string $value)
+ * @method int                                                   getSortOrder()
+ * @method $this                                                 setSortOrder(int $value)
+ * @method int                                                   getStoreId()
+ * @method float                                                 getStorePrice()
+ * @method string                                                getStoreTitle()
+ * @method string                                                getTitle()
+ * @method string                                                getType()
+ * @method $this                                                 setType(string $value)
  */
 class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
 {
@@ -170,7 +170,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get value by given id
      *
-     * @param int|string $valueId
+     * @param  int|string                              $valueId
      * @return Mage_Catalog_Model_Product_Option_Value
      */
     public function getValueById($valueId)
@@ -204,7 +204,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Add option for save it
      *
-     * @param array $option
+     * @param  array $option
      * @return $this
      */
     public function addOption($option)
@@ -226,7 +226,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Set options for array
      *
-     * @param array $options
+     * @param  array $options
      * @return $this
      */
     public function setOptions($options)
@@ -270,7 +270,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get group name of option by given option type
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getGroupByType($type = null)
@@ -297,7 +297,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Group model factory
      *
-     * @param string $type Option type
+     * @param  string                                         $type Option type
      * @return Mage_Catalog_Model_Product_Option_Type_Default
      */
     public function groupFactory($type)
@@ -408,7 +408,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      * Return price. If $flag is true and price is percent
      *  return converted percent to price
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return float
      */
     public function getPrice($flag = false)
@@ -423,7 +423,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Delete prices of option
      *
-     * @param int|string $optionId
+     * @param  int|string $optionId
      * @return $this
      */
     public function deletePrices($optionId)
@@ -435,7 +435,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Delete titles of option
      *
-     * @param int|string $optionId
+     * @param  int|string $optionId
      * @return $this
      */
     public function deleteTitles($optionId)
@@ -480,8 +480,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Get collection of values by given option ids
      *
-     * @param array $optionIds
-     * @param int $storeId
+     * @param  array                                                       $optionIds
+     * @param  int                                                         $storeId
      * @return Mage_Catalog_Model_Resource_Product_Option_Value_Collection
      */
     public function getOptionValuesByOptionId($optionIds, $storeId)
@@ -515,8 +515,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Duplicate options for product
      *
-     * @param int $oldProductId
-     * @param int $newProductId
+     * @param  int   $oldProductId
+     * @param  int   $newProductId
      * @return $this
      */
     public function duplicate($oldProductId, $newProductId)
@@ -529,8 +529,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
     /**
      * Retrieve option searchable data
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return array
      */
     public function getSearchableData($productId, $storeId)

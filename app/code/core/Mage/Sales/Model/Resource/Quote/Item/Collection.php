@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Quote_Item getItemById(int $value)
+ * @method Mage_Sales_Model_Quote_Item   getItemById(int $value)
  * @method Mage_Sales_Model_Quote_Item[] getItems()
  */
 class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -57,7 +57,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
     /**
      * Set Quote object to Collection
      *
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote $quote
      * @return $this
      */
     public function setQuote($quote)
@@ -77,8 +77,8 @@ class Mage_Sales_Model_Resource_Quote_Item_Collection extends Mage_Core_Model_Re
      * Reset the collection and inner join it to quotes table
      * Optionally can select items with specified product id only
      *
-     * @param string $quotesTableName
-     * @param int $productId
+     * @param  string $quotesTableName
+     * @param  int    $productId
      * @return $this
      */
     public function resetJoinQuotes($quotesTableName, $productId = null)

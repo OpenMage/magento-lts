@@ -118,7 +118,7 @@ class Mage_Review_Block_Customer_List extends Mage_Customer_Block_Account_Dashbo
     /**
      * Format date in short format
      *
-     * @param string|Zend_Date|null $date
+     * @param  string|Zend_Date|null $date
      * @return string
      */
     public function dateFormat($date)

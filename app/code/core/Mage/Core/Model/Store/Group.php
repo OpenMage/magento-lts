@@ -20,21 +20,21 @@
  * @category   Mage
  * @package    Mage_Core
  *
- * @method Mage_Core_Model_Resource_Store_Group _getResource()
- * @method Mage_Core_Model_Resource_Store_Group getResource()
+ * @method Mage_Core_Model_Resource_Store_Group            _getResource()
+ * @method Mage_Core_Model_Resource_Store_Group            getResource()
  * @method Mage_Core_Model_Resource_Store_Group_Collection getCollection()
  *
- * @method $this setWebsiteId(int $value)
+ * @method $this  setWebsiteId(int $value)
  * @method string getName()
- * @method $this setName(string $value)
- * @method $this setRootCategoryId(int $value)
- * @method $this setDefaultStoreId(int $value)
- * @method $this setHomeUrl(string $value)
- * @method bool hasDefaultStoreId()
- * @method bool hasGroupId()
- * @method int getGroupId()
- * @method int getOriginalGroupId()
- * @method int getOriginalWebsiteId()
+ * @method $this  setName(string $value)
+ * @method $this  setRootCategoryId(int $value)
+ * @method $this  setDefaultStoreId(int $value)
+ * @method $this  setHomeUrl(string $value)
+ * @method bool   hasDefaultStoreId()
+ * @method bool   hasGroupId()
+ * @method int    getGroupId()
+ * @method int    getOriginalGroupId()
+ * @method int    getOriginalWebsiteId()
  */
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
@@ -234,7 +234,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
      * If no store with given locale is found - default store is returned
      * If group has no stores - null is returned
      *
-     * @param string $locale
+     * @param  string                     $locale
      * @return Mage_Core_Model_Store|null
      */
     public function getDefaultStoreByLocale($locale)
@@ -254,7 +254,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Retrieve list of stores with given locale
      *
-     * @param string $locale
+     * @param  string $locale
      * @return array
      */
     public function getStoresByLocale($locale)
@@ -342,7 +342,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
     /**
      * Get/Set isReadOnly flag
      *
-     * @param bool $value
+     * @param  bool $value
      * @return bool
      */
     public function isReadOnly($value = null)

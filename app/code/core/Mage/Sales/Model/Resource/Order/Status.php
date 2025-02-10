@@ -50,10 +50,10 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Varien_Object $object
-     * @return  Zend_Db_Select
+     * @param  string         $field
+     * @param  mixed          $value
+     * @param  Varien_Object  $object
+     * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
     {
@@ -122,9 +122,9 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Assign order status to order state
      *
-     * @param string $status
-     * @param string $state
-     * @param bool $isDefault
+     * @param  string $status
+     * @param  string $state
+     * @param  bool   $isDefault
      * @return $this
      */
     public function assignState($status, $state, $isDefault)
@@ -150,8 +150,8 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
     /**
      * Unassign order status from order state
      *
-     * @param string $status
-     * @param string $state
+     * @param  string $status
+     * @param  string $state
      * @return $this
      */
     public function unassignState($status, $state)

@@ -64,7 +64,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
      * Specify attribute entity type filter.
      * Entity type is defined.
      *
-     * @param  int $typeId
+     * @param  int   $typeId
      * @return $this
      */
     public function setEntityTypeFilter($typeId)
@@ -152,7 +152,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
     /**
      * Specify filter for attributes that have to be indexed
      *
-     * @param bool $addRequiredCodes
+     * @param  bool  $addRequiredCodes
      * @return $this
      */
     public function addToIndexFilter($addRequiredCodes = false)

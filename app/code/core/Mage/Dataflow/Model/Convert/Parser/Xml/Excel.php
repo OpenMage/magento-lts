@@ -153,7 +153,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
     /**
      * Parse MS Excel XML string
      *
-     * @param string $xmlString
+     * @param  string $xmlString
      * @return string
      */
     protected function _parseXmlRow($xmlString)

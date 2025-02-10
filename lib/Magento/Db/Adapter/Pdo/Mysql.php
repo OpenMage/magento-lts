@@ -35,9 +35,9 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Batched insert of specified select
      *
-     * @param string $table
-     * @param bool $mode
-     * @param int $step
+     * @param  string $table
+     * @param  bool   $mode
+     * @param  int    $step
      * @return int
      */
     public function insertBatchFromSelect(
@@ -67,8 +67,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Retrieve bunch of queries for specified select split by specified step
      *
-     * @param string $entityIdField
-     * @param int $step
+     * @param  string $entityIdField
+     * @param  int    $step
      * @return array
      */
     public function splitSelect(Varien_Db_Select $select, $entityIdField = '*', $step = 10000)
@@ -95,8 +95,8 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
     /**
      * Quote a raw string.
      *
-     * @param string|float $value   Raw string
-     * @return string|float         Quoted string
+     * @param  string|float $value Raw string
+     * @return string|float Quoted string
      */
     protected function _quote($value)
     {
@@ -116,9 +116,9 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * If an array is passed as the value, the array values are quote
      * and then returned as a comma-separated string.
      *
-     * @param Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
-     * @param null|string|int $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
-     * @return string An SQL-safe quoted value (or string of separated values).
+     * @param  Zend_Db_Select|Zend_Db_Expr|array|null|int|string|float $value OPTIONAL A single value to quote into the condition.
+     * @param  null|string|int                                         $type  OPTIONAL The type of the given value e.g. Zend_Db::INT_TYPE, "INT"
+     * @return string                                                  An SQL-safe quoted value (or string of separated values).
      */
     public function quote($value, $type = null)
     {
@@ -141,7 +141,7 @@ class Magento_Db_Adapter_Pdo_Mysql extends Varien_Db_Adapter_Pdo_Mysql
      * Convert float values that are not supported by MySQL to alternative representation value.
      * Value 99999999.9999 is a maximum value that may be stored in Magento decimal columns in DB.
      *
-     * @param float $value
+     * @param  float $value
      * @return float
      */
     protected function _convertFloat($value)

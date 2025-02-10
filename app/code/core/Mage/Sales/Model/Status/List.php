@@ -34,10 +34,10 @@ class Mage_Sales_Model_Status_List
     /**
      * Adds status information to the list of items.
      *
-     * @param string|null $origin Usually a name of module, that adds this status
-     * @param int|null $code Code of status, unique for origin, that sets it
-     * @param string|null $message Status message
-     * @param Varien_Object|null $additionalData Any additional data, that caller would like to store
+     * @param  string|null        $origin         Usually a name of module, that adds this status
+     * @param  int|null           $code           Code of status, unique for origin, that sets it
+     * @param  string|null        $message        Status message
+     * @param  Varien_Object|null $additionalData Any additional data, that caller would like to store
      * @return $this
      */
     public function addItem($origin = null, $code = null, $message = null, $additionalData = null)
@@ -67,7 +67,7 @@ class Mage_Sales_Model_Status_List
      * $params can have following keys (if not set - then any item is good for this key):
      *   'origin', 'code', 'message'
      *
-     * @param array $params
+     * @param  array $params
      * @return array
      */
     public function removeItemsByParams($params)
@@ -102,7 +102,7 @@ class Mage_Sales_Model_Status_List
      * Removes items at mentioned index/indexes.
      * Returns items removed.
      *
-     * @param int|array $indexes
+     * @param  int|array $indexes
      * @return array
      */
     public function removeItems($indexes)

@@ -62,7 +62,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @deprecated after 1.3.2.3
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      */
     public function setJoinFlag($table)
@@ -77,7 +77,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @deprecated after 1.3.2.3
      *
-     * @param string $table
+     * @param  string $table
      * @return bool
      */
     public function getJoinFlag($table)
@@ -91,7 +91,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
      *
      * @deprecated after 1.3.2.3
      *
-     * @param string $table
+     * @param  string $table
      * @return $this
      */
     public function unsetJoinFlag($table = null)
@@ -103,7 +103,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by tag is
      *
-     * @param int $tagId
+     * @param  int   $tagId
      * @return $this
      */
     public function addTagFilter($tagId)
@@ -116,7 +116,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * adds filter by product id
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function addProductFilter($productId)
@@ -129,7 +129,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Apply filter by store id(s).
      *
-     * @param int|array $storeId
+     * @param  int|array $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)
@@ -141,7 +141,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by status
      *
-     * @param int $status
+     * @param  int   $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -211,7 +211,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Adds filter by customer id
      *
-     * @param int $customerId
+     * @param  int   $customerId
      * @return $this
      */
     public function addCustomerFilter($customerId)
@@ -334,7 +334,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
     /**
      * Sets attribute for count
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setCountAttribute($value)

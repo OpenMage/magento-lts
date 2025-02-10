@@ -44,10 +44,10 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     /**
      * Add renderer for item product type
      *
-     * @param   string $type
-     * @param   string $block
-     * @param   string $template
-     * @return  $this
+     * @param  string $type
+     * @param  string $block
+     * @param  string $template
+     * @return $this
      */
     public function addItemRender($type, $block, $template)
     {
@@ -63,7 +63,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     /**
      * Retrieve item renderer block
      *
-     * @param string $type
+     * @param  string                   $type
      * @return Mage_Core_Block_Abstract
      */
     public function getItemRenderer($type)
@@ -111,7 +111,7 @@ class Mage_Sales_Block_Items_Abstract extends Mage_Core_Block_Template
     /**
      * Get item row html
      *
-     * @return  string
+     * @return string
      */
     public function getItemHtml(Varien_Object $item)
     {

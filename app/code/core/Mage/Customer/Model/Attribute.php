@@ -20,13 +20,13 @@
  * @category   Mage
  * @package    Mage_Customer
  *
- * @method Mage_Customer_Model_Resource_Attribute _getResource()
- * @method Mage_Customer_Model_Resource_Attribute getResource()
+ * @method Mage_Customer_Model_Resource_Attribute            _getResource()
+ * @method Mage_Customer_Model_Resource_Attribute            getResource()
  * @method Mage_Customer_Model_Resource_Attribute_Collection getCollection()
  *
  * @method $this setScopeIsVisible(string $value)
  * @method $this setScopeIsRequired(string $value)
- * @method int getScopeMultilineCount()
+ * @method int   getScopeMultilineCount()
  * @method $this setScopeMultilineCount(int $value)
  */
 class Mage_Customer_Model_Attribute extends Mage_Eav_Model_Attribute

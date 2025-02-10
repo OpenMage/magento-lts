@@ -51,7 +51,7 @@ class Mage_Shipping_Model_Tracking_Result
 
     /**
      * Add a tracking to the result
-     * @param Mage_Shipping_Model_Tracking_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
+     * @param  Mage_Shipping_Model_Tracking_Result_Abstract|Mage_Shipping_Model_Rate_Result $result
      * @return $this
      */
     public function append($result)

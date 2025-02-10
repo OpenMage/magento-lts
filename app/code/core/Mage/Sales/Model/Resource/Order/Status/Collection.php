@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Order_Status getItemById(int $value)
+ * @method Mage_Sales_Model_Order_Status   getItemById(int $value)
  * @method Mage_Sales_Model_Order_Status[] getItems()
  */
 class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
@@ -73,7 +73,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
     /**
      * add state code filter to collection
      *
-     * @param string $state
+     * @param  string $state
      * @return $this
      */
     public function addStateFilter($state)
@@ -86,7 +86,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
     /**
      * add status code filter to collection
      *
-     * @param string $status
+     * @param  string $status
      * @return $this
      */
     public function addStatusFilter($status)
@@ -99,7 +99,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
     /**
      * Define label order
      *
-     * @param string $dir
+     * @param  string $dir
      * @return $this
      */
     public function orderByLabel($dir = 'ASC')

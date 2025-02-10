@@ -141,6 +141,7 @@ class Varien_Profiler
     /**
      * Output SQl Zend_Db_Profiler
      *
+     * @param mixed $res
      */
     public static function getSqlProfiler($res)
     {

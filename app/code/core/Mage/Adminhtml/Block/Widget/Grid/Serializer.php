@@ -60,7 +60,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
     /**
      * Get grid column input names to serialize
      *
-     * @param bool $asJSON
+     * @param  bool         $asJSON
      * @return array|string
      */
     public function getColumnInputNames($asJSON = false)
@@ -95,10 +95,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
      * Also use reload param name for saving grid checked boxes states
      *
      *
-     * @param Mage_Adminhtml_Block_Widget_Grid | string $grid grid object or grid block name
-     * @param string $callback block method  to retrieve data to serialize
-     * @param string $hiddenInputName hidden input name where serialized data will be store
-     * @param string $reloadParamName name of request parameter that will be used to save set data while reload grid
+     * @param Mage_Adminhtml_Block_Widget_Grid | string $grid            grid object or grid block name
+     * @param string                                    $callback        block method  to retrieve data to serialize
+     * @param string                                    $hiddenInputName hidden input name where serialized data will be store
+     * @param string                                    $reloadParamName name of request parameter that will be used to save set data while reload grid
      */
     public function initSerializerBlock($grid, $callback, $hiddenInputName, $reloadParamName = 'entityCollection')
     {

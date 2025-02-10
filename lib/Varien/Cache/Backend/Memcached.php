@@ -35,7 +35,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
      * Constructor
      *
      * @throws Varien_Exception
-     * @param array $options @see Zend_Cache_Backend_Memcached::__construct()
+     * @param  array            $options @see Zend_Cache_Backend_Memcached::__construct()
      */
     public function __construct(array $options = [])
     {
@@ -55,8 +55,8 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Returns ID of a specific chunk on the basis of data's ID
      *
-     * @param string $id    Main data's ID
-     * @param int    $index Particular chunk number to return ID for
+     * @param  string $id    Main data's ID
+     * @param  int    $index Particular chunk number to return ID for
      * @return string
      */
     protected function _getChunkId($id, $index)
@@ -82,10 +82,10 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Save data to memcached, split it into chunks if data size is bigger than memcached slab size.
      *
-     * @param string $data             @see Zend_Cache_Backend_Memcached::save()
-     * @param string $id               @see Zend_Cache_Backend_Memcached::save()
-     * @param array  $tags             @see Zend_Cache_Backend_Memcached::save()
-     * @param bool   $specificLifetime @see Zend_Cache_Backend_Memcached::save()
+     * @param  string $data             @see Zend_Cache_Backend_Memcached::save()
+     * @param  string $id               @see Zend_Cache_Backend_Memcached::save()
+     * @param  array  $tags             @see Zend_Cache_Backend_Memcached::save()
+     * @param  bool   $specificLifetime @see Zend_Cache_Backend_Memcached::save()
      * @return bool
      */
     public function save($data, $id, $tags = [], $specificLifetime = false)
@@ -111,8 +111,8 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     /**
      * Load data from memcached, glue from several chunks if it was split upon save.
      *
-     * @param string $id                     @see Zend_Cache_Backend_Memcached::load()
-     * @param bool   $doNotTestCacheValidity @see Zend_Cache_Backend_Memcached::load()
+     * @param  string            $id                     @see Zend_Cache_Backend_Memcached::load()
+     * @param  bool              $doNotTestCacheValidity @see Zend_Cache_Backend_Memcached::load()
      * @return bool|false|string
      */
     public function load($id, $doNotTestCacheValidity = false)

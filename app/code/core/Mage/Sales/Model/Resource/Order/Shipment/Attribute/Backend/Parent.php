@@ -25,7 +25,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Parent extends 
     /**
      * Performed after data is saved
      *
-     * @param Varien_Object|Mage_Sales_Model_Order_Shipment $object
+     * @param  Varien_Object|Mage_Sales_Model_Order_Shipment $object
      * @return $this
      */
     public function afterSave($object)

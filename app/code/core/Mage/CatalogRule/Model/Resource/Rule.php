@@ -150,7 +150,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Return whether the product fits the rule
      *
-     * @param array $websiteIds
+     * @param  array $websiteIds
      * @return bool
      */
     public function validateProduct(Mage_CatalogRule_Model_Rule $rule, Varien_Object $product, $websiteIds = [])
@@ -368,7 +368,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int|string $fromDate
      * @param int|string $toDate
-     * @param int|null $productId
+     * @param int|null   $productId
      *
      * @return $this
      */
@@ -406,7 +406,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Delete old price rules data
      *
-     * @param string $date
+     * @param string   $date
      * @param int|null $productId
      *
      * @return $this
@@ -426,8 +426,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Get DB resource statement for processing query result
      *
-     * @param int $fromDate
-     * @param int $toDate
+     * @param int      $fromDate
+     * @param int      $toDate
      * @param int|null $productId
      * @param int|null $websiteId
      *
@@ -542,7 +542,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      *
      * @param int|string|null $fromDate
      * @param int|string|null $toDate
-     * @param int $productId
+     * @param int             $productId
      *
      * @deprecated after 1.7.0.2 use method applyAllRules
      *
@@ -584,7 +584,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Calculate product price based on price rule data and previous information
      *
-     * @param array $ruleData
+     * @param array      $ruleData
      * @param null|array $productData
      *
      * @return float
@@ -647,9 +647,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * customer group
      *
      * @param int|string $date
-     * @param int $wId
-     * @param int $gId
-     * @param int $pId
+     * @param int        $wId
+     * @param int        $gId
+     * @param int        $pId
      *
      * @return float|bool
      */
@@ -664,9 +664,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Collect data with  product Id => price pairs
      *
      * @param int|string $date
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param array $productIds
+     * @param int        $websiteId
+     * @param int        $customerGroupId
+     * @param array      $productIds
      *
      * @return array
      */
@@ -685,10 +685,10 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Get active rule data based on few filters
      *
-     * @param int|string $date
-     * @param int $websiteId
-     * @param int $customerGroupId
-     * @param int $productId
+     * @param  int|string $date
+     * @param  int        $websiteId
+     * @param  int        $customerGroupId
+     * @param  int        $productId
      * @return array
      */
     public function getRulesFromProduct($date, $websiteId, $customerGroupId, $productId)
@@ -713,8 +713,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Retrieve product price data for all customer groups
      *
      * @param int|string $date
-     * @param int $wId
-     * @param int $pId
+     * @param int        $wId
+     * @param int        $pId
      *
      * @return array
      */
@@ -734,8 +734,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      * Apply catalog rule to product
      *
      * @param Mage_CatalogRule_Model_Rule $rule
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $websiteIds
+     * @param Mage_Catalog_Model_Product  $product
+     * @param array                       $websiteIds
      *
      * @throws Exception
      * @return $this
@@ -775,7 +775,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Get ids of matched rules for specific product
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return array
      */
     public function getProductRuleIds($productId)
@@ -789,8 +789,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
     /**
      * Is product has been matched the rule
      *
-     * @param int $ruleId
-     * @param Mage_Catalog_Model_Product $product
+     * @param  int                        $ruleId
+     * @param  Mage_Catalog_Model_Product $product
      * @return bool
      */
     protected function _isProductMatchedRule($ruleId, $product)

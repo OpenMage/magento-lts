@@ -20,18 +20,18 @@
  * @category   Mage
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Resource_Calculation_Rule _getResource()
- * @method Mage_Tax_Model_Resource_Calculation_Rule getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule            _getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rule            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rule_Collection getCollection()
  *
- * @method $this setCalculateSubtotal(float $value)
+ * @method $this  setCalculateSubtotal(float $value)
  * @method string getCode()
- * @method $this setCode(string $value)
- * @method int getPriority()
- * @method $this setPriority(int $value)
- * @method int getPosition()
- * @method $this setPosition(int $value)
- * @method float getTaxRate()
+ * @method $this  setCode(string $value)
+ * @method int    getPriority()
+ * @method $this  setPriority(int $value)
+ * @method int    getPosition()
+ * @method $this  setPosition(int $value)
+ * @method float  getTaxRate()
  * @method string getTaxCustomerClass()
  * @method string getTaxProductClass()
  */
@@ -184,9 +184,9 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
      * Fetches rules by rate, customer tax class and product tax class
      * and product tax class combination
      *
-     * @param array $rateId
-     * @param array $customerTaxClassId
-     * @param array $productTaxClassId
+     * @param  array $rateId
+     * @param  array $customerTaxClassId
+     * @param  array $productTaxClassId
      * @return array
      */
     public function fetchRuleCodes($rateId, $customerTaxClassId, $productTaxClassId)

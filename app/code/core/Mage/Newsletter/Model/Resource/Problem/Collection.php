@@ -22,8 +22,8 @@
  *
  * @method Mage_Newsletter_Model_Problem[] getItems()
  * @method Mage_Newsletter_Model_Problem[] getItemsByColumnValue(string $column, string $value)
- * @method $this setCustomerFirstName(string $value)
- * @method $this setCustomerLastName(string $value)
+ * @method $this                           setCustomerFirstName(string $value)
+ * @method $this                           setCustomerLastName(string $value)
  */
 class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -125,8 +125,8 @@ class Mage_Newsletter_Model_Resource_Problem_Collection extends Mage_Core_Model_
     /**
      * Loads collection and adds customers info
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)

@@ -95,7 +95,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     /**
      * Batch import of currency rates
      *
-     * @param string $currencyFrom
+     * @param  string $currencyFrom
      * @return array
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -151,8 +151,8 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     /**
      * Get response from external service
      *
-     * @param string $url
-     * @param int $retry
+     * @param  string $url
+     * @param  int    $retry
      * @return array
      */
     protected function _getServiceResponse($url, $retry = 0)
@@ -178,7 +178,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
     /**
      * Validate response from external service
      *
-     * @param string $baseCurrency
+     * @param  string $baseCurrency
      * @return bool
      */
     protected function _validateResponse(array $response, $baseCurrency)

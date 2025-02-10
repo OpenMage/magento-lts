@@ -19,7 +19,7 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
-*/
+ */
 class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Uploader_Block_Multiple
 {
     public function __construct()

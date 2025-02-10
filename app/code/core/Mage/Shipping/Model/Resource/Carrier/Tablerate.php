@@ -319,7 +319,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
     /**
      * Return import condition full name by condition name code
      *
-     * @param string $conditionName
+     * @param  string $conditionName
      * @return string
      */
     protected function _getConditionFullName($conditionName)
@@ -336,8 +336,8 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Validate row for import and return table rate array or false
      * Error will be add to _importErrors array
      *
-     * @param array $row
-     * @param int $rowNumber
+     * @param  array       $row
+     * @param  int         $rowNumber
      * @return array|false
      */
     protected function _getImportRow($row, $rowNumber = 0)
@@ -436,7 +436,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      * Parse and validate positive decimal value
      * Return false if value is not decimal or is not positive
      *
-     * @param string $value
+     * @param  string     $value
      * @return bool|float
      */
     protected function _parseDecimalValue($value)
@@ -456,7 +456,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
      *
      * @see self::_parseDecimalValue()
      * @deprecated since 1.4.1.0
-     * @param string $value
+     * @param  string     $value
      * @return bool|float
      */
     protected function _isPositiveDecimalNumber($value)

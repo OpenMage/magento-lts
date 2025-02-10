@@ -33,7 +33,7 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
     }
 
     /**
-     * @param Mage_Sales_Model_Order_Shipment $shipment
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
      * @return string
      */
     public function getPrintShipmentUrl($shipment)
@@ -42,7 +42,7 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getPrintAllShipmentsUrl($order)
@@ -53,8 +53,8 @@ class Mage_Sales_Block_Order_Shipment_Items extends Mage_Sales_Block_Items_Abstr
     /**
      * Get html of shipment comments block
      *
-     * @param   Mage_Sales_Model_Order_Shipment $shipment
-     * @return  string
+     * @param  Mage_Sales_Model_Order_Shipment $shipment
+     * @return string
      */
     public function getCommentsHtml($shipment)
     {

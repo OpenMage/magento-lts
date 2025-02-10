@@ -62,6 +62,10 @@ class DataTest extends TestCase
      * @dataProvider provideReportsDateIntervals
      * @group Mage_Reports
      * @group Mage_Reports_Helper
+     * @param mixed $expectedResult
+     * @param mixed $from
+     * @param mixed $to
+     * @param mixed $period
      */
     public function testGetIntervals($expectedResult, $from, $to, $period): void
     {
@@ -82,6 +86,10 @@ class DataTest extends TestCase
      * @doesNotPerformAssertions
      * @group Mage_Reports
      * @group Mage_Reports_Helper
+     * @param mixed $expectedResult
+     * @param mixed $from
+     * @param mixed $to
+     * @param mixed $period
      */
     public function testPrepareIntervalsCollection($expectedResult, $from, $to, $period): void
     {

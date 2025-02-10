@@ -101,7 +101,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Constructor
      * @param string $host
-     * @param int $port
+     * @param int    $port
      */
     public function __construct($host = null, $port = 80)
     {
@@ -114,7 +114,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Set connection params
      *
      * @param string $host
-     * @param int $port
+     * @param int    $port
      */
     public function connect($host, $port = 80)
     {
@@ -145,7 +145,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
+     * @param $name  name, ex. "Location"
      * @param $value value ex. "http://google.com"
      */
     public function addHeader($name, $value)
@@ -168,7 +168,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Login credentials support
      *
      * @param string $login username
-     * @param string $pass password
+     * @param string $pass  password
      */
     public function setCredentials($login, $pass)
     {
@@ -229,7 +229,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Set host, port from full url
      * and return relative url
      *
-     * @param string $uri ex. http://google.com/index.php?a=b
+     * @param  string $uri ex. http://google.com/index.php?a=b
      * @return string ex. /index.php?a=b
      */
     protected function parseUrl($uri)
@@ -261,6 +261,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Make POST request
+     * @param mixed $uri
+     * @param mixed $params
      */
     public function post($uri, $params)
     {
@@ -434,7 +436,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * Make request
      * @param string $method
      * @param string $uri
-     * @param array $params
+     * @param array  $params
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -470,7 +472,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Throw error exception
-     * @param $string
+     * @param            $string
      * @throws Exception
      * @return never
      */
@@ -481,8 +483,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * Convert headers hash to string
-     * @param $delimiter
-     * @param $append
+     * @param         $delimiter
+     * @param         $append
      * @return string
      */
     protected function headersToString($append = [])
@@ -500,6 +502,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * TODO
+     * @param mixed $arr
      */
     public function setOptions($arr)
     {
@@ -508,6 +511,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
 
     /**
      * TODO
+     * @param mixed $name
+     * @param mixed $value
      */
     public function setOption($name, $value)
     {

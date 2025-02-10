@@ -37,7 +37,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
     /**
      * Set wishlist table name
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setWishlistTable($value)

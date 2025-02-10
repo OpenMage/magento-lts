@@ -35,8 +35,8 @@ class Mage_Api2_Model_Multicall
     /**
      * Multicall to subresources of specified resource
      *
-     * @param string $parentResourceId
-     * @param string $parentResourceName
+     * @param  string                   $parentResourceId
+     * @param  string                   $parentResourceName
      * @return Mage_Api2_Model_Response
      */
     public function call($parentResourceId, $parentResourceName, Mage_Api2_Model_Request $parentCallRequest)
@@ -54,7 +54,7 @@ class Mage_Api2_Model_Multicall
     /**
      * Make call to specified subresource with data from request
      *
-     * @param Mage_Core_Model_Config_Element $subresource
+     * @param  Mage_Core_Model_Config_Element $subresource
      * @return $this
      */
     protected function _callSubresource($subresource)
@@ -87,8 +87,8 @@ class Mage_Api2_Model_Multicall
     /**
      * Make internal call to specified subresource on with specified data via API2 server
      *
-     * @param Mage_Core_Model_Config_Element $subresource
-     * @param array $requestData
+     * @param  Mage_Core_Model_Config_Element $subresource
+     * @param  array                          $requestData
      * @return $this
      */
     protected function _internalCall($subresource, $requestData)
@@ -147,9 +147,9 @@ class Mage_Api2_Model_Multicall
     /**
      * Prepare internal request
      *
-     * @param string $subresourceName
-     * @param array $data
-     * @param string|null $parentResourceIdFieldName
+     * @param  string                           $subresourceName
+     * @param  array                            $data
+     * @param  string|null                      $parentResourceIdFieldName
      * @return Mage_Api2_Model_Request_Internal
      */
     protected function _prepareRequest($subresourceName, $data, $parentResourceIdFieldName = null)
@@ -166,8 +166,8 @@ class Mage_Api2_Model_Multicall
     /**
      * Generate subresource uri
      *
-     * @param string $subresourceName
-     * @param string $parentResourceIdFieldName
+     * @param  string $subresourceName
+     * @param  string $parentResourceIdFieldName
      * @return string
      */
     protected function _createSubresourceUri($subresourceName, $parentResourceIdFieldName = null)
@@ -191,7 +191,7 @@ class Mage_Api2_Model_Multicall
     /**
      * Retrieve list of subresources declared in configuration
      *
-     * @param string $parentResourceName
+     * @param  string $parentResourceName
      * @return array
      */
     protected function _getDeclaredSubresources($parentResourceName)
@@ -246,7 +246,7 @@ class Mage_Api2_Model_Multicall
     /**
      * Retrieve created resource id from response
      *
-     * @param Mage_Api2_Model_Response $response
+     * @param  Mage_Api2_Model_Response $response
      * @return string|int
      */
     protected function _getCreatedResourceId($response)

@@ -81,7 +81,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Initialization session namespace
      *
-     * @param string $namespace
+     * @param  string $namespace
      * @return $this
      */
     public function init($namespace)
@@ -99,9 +99,9 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Redeclaration object setter
      *
-     * @param string $key
-     * @param mixed $value
-     * @param bool $isChanged
+     * @param  string $key
+     * @param  mixed  $value
+     * @param  bool   $isChanged
      * @return $this
      */
     public function setData($key, $value = '', $isChanged = false)
@@ -116,9 +116,9 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     /**
      * Redeclaration object getter
      *
-     * @param   string $var
-     * @param   bool $clear
-     * @return  mixed
+     * @param  string $var
+     * @param  bool   $clear
+     * @return mixed
      */
     public function getData($var = null, $clear = false)
     {
@@ -157,7 +157,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
     }
 
     /**
-     * @param string|null $id
+     * @param  string|null $id
      * @return $this
      */
     public function setSessionId($id = null)

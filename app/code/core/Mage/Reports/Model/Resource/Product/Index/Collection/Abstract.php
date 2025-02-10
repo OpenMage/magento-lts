@@ -83,7 +83,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add filter by product ids
      *
-     * @param array $ids
+     * @param  array                                                         $ids
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function addFilterByIds($ids)
@@ -119,7 +119,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Set customer id, that will be used in 'whereCondition'
      *
-     * @param int $id
+     * @param  int                                                           $id
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function setCustomerId($id)
@@ -131,7 +131,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add order by "added at"
      *
-     * @param string $dir
+     * @param  string                                                        $dir
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function setAddedAtOrder($dir = self::SORT_ORDER_DESC)
@@ -187,7 +187,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
     /**
      * Add exclude Product Ids
      *
-     * @param int|array $productIds
+     * @param  int|array                                                     $productIds
      * @return Mage_Reports_Model_Resource_Product_Index_Collection_Abstract
      */
     public function excludeProductIds($productIds)

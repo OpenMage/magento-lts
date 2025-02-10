@@ -26,7 +26,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * Render specified template
      *
      * @param string $tplName
-     * @param array $data parameters required by template
+     * @param array  $data    parameters required by template
      */
     protected function _outTemplate($tplName, $data = [])
     {
@@ -360,8 +360,8 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
     /**
      * Check if password reset token is valid
      *
-     * @param int $userId
-     * @param string $resetPasswordLinkToken
+     * @param  int                 $userId
+     * @param  string              $resetPasswordLinkToken
      * @throws Mage_Core_Exception
      */
     protected function _validateResetPasswordLinkToken($userId, $resetPasswordLinkToken)
@@ -401,9 +401,9 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
      * Retrieve model object
      *
      * @link    Mage_Core_Model_Config::getModelInstance
-     * @param   string $modelClass
-     * @param   array|object $arguments
-     * @return  Mage_Core_Model_Abstract|false
+     * @param  string                         $modelClass
+     * @param  array|object                   $arguments
+     * @return Mage_Core_Model_Abstract|false
      */
     protected function _getModel($modelClass = '', $arguments = [])
     {

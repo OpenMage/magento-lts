@@ -50,12 +50,12 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
     /**
      * Add link
      *
-     * @param string|array $liParams
-     * @param string|array $aParams
-     * @param string $innerText
-     * @param string|int $position
-     * @param string $beforeText
-     * @param string $afterText
+     * @param  string|array $liParams
+     * @param  string|array $aParams
+     * @param  string       $innerText
+     * @param  string|int   $position
+     * @param  string       $beforeText
+     * @param  string       $afterText
      * @return $this
      */
     public function addLink($liParams, $aParams, $innerText, $position = '', $beforeText = '', $afterText = '')

@@ -63,6 +63,10 @@ class CollectionTest extends TestCase
      * @dataProvider provideReportsDateIntervals
      * @group Mage_Reports
      * @group Mage_Reports_Model
+     * @param mixed $expectedResult
+     * @param mixed $from
+     * @param mixed $to
+     * @param mixed $period
      */
     public function testGetIntervals($expectedResult, $from, $to, $period): void
     {
@@ -130,6 +134,7 @@ class CollectionTest extends TestCase
     /**
      * @group Mage_Reports
      * @group Mage_Reports_Model
+     * @param mixed $modelClass
      */
     public function testInitReport($modelClass = ''): void
     {

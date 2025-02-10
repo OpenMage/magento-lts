@@ -20,10 +20,10 @@
  * @category   Mage
  * @package    Mage_Bundle
  *
- * @method bool getFirstShow()
- * @method $this setFirstShow(bool $value)
+ * @method bool   getFirstShow()
+ * @method $this  setFirstShow(bool $value)
  * @method string getIndex()
- * @method $this setIndex(string $value)
+ * @method $this  setIndex(string $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Search extends Mage_Adminhtml_Block_Widget
 {

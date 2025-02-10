@@ -19,7 +19,7 @@
  * @package    Mage_Core
  *
  * @method string getContentType()
- * @method $this setContentType(string $value)
+ * @method $this  setContentType(string $value)
  * @method string getTitle()
  * @method string getDescription()
  * @method string getKeywords()

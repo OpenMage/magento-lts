@@ -23,7 +23,7 @@
 class Mage_Core_Model_Config_System extends Mage_Core_Model_Config_Base
 {
     /**
-     * @param string $module
+     * @param  string $module
      * @return $this
      */
     public function load($module)

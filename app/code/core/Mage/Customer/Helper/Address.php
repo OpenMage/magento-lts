@@ -67,7 +67,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     public function getCreateUrl() {}
 
     /**
-     * @param mixed $renderer
+     * @param  mixed $renderer
      * @return mixed
      */
     public function getRenderer($renderer)
@@ -82,8 +82,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Return customer address config value by key and store
      *
-     * @param string $key
-     * @param Mage_Core_Model_Store|int|string $store
+     * @param  string                           $key
+     * @param  Mage_Core_Model_Store|int|string $store
      * @return string|null
      */
     public function getConfig($key, $store = null)
@@ -99,7 +99,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Return Number of Lines in a Street Address for store
      *
-     * @param Mage_Core_Model_Store|int|string $store
+     * @param  Mage_Core_Model_Store|int|string $store
      * @return int
      */
     public function getStreetLines($store = null)
@@ -119,7 +119,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getFormat($code)
@@ -131,7 +131,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Determine if specified address config value can be shown
      *
-     * @param string $key
+     * @param  string $key
      * @return bool
      */
     public function canShowConfig($key)
@@ -160,7 +160,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Get string with frontend validation classes for attribute
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return string
      */
     public function getAttributeValidationClass($attributeCode)
@@ -195,8 +195,8 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      *  Result:
      *   array('street1 street2', 'street3 street4')
      *
-     * @param array $origStreets
-     * @param int   $toCount
+     * @param  array $origStreets
+     * @param  int   $toCount
      * @return array
      */
     public function convertStreetLines($origStreets, $toCount)
@@ -225,7 +225,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Check whether VAT ID validation is enabled
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  Mage_Core_Model_Store|string|int $store
      * @return bool
      */
     public function isVatValidationEnabled($store = null)
@@ -246,7 +246,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Retrieve 'validate on each transaction' value
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  Mage_Core_Model_Store|string|int $store
      * @return bool
      */
     public function getValidateOnEachTransaction($store = null)
@@ -257,7 +257,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
     /**
      * Retrieve customer address type on which tax calculation must be based
      *
-     * @param Mage_Core_Model_Store|string|int|null $store
+     * @param  Mage_Core_Model_Store|string|int|null $store
      * @return string
      */
     public function getTaxCalculationAddressType($store = null)
