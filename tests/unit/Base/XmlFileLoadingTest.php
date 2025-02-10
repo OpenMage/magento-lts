@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -16,7 +17,6 @@ use XMLReader;
 
 class XmlFileLoadingTest extends TestCase
 {
-    
     public function testFileLoading(string $filepath): void
     {
         /** @var SimpleXMLElement $simplexml */
@@ -28,7 +28,7 @@ class XmlFileLoadingTest extends TestCase
         $this->assertNotEmpty($simplexml->asXML());
     }
 
-    
+
     public function testXmlReaderIsValid(string $filepath): void
     {
         /** @var XMLReader $xml */

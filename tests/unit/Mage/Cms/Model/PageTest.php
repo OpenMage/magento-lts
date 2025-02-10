@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,20 +27,20 @@ class PageTest extends TestCase
         $this->subject = Mage::getModel('cms/page');
     }
 
-    
+
     public function testLoad(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->load(null));
         $this->assertInstanceOf(Subject::class, $this->subject->load(2));
     }
 
-    
+
     public function testCheckIdentifier(): void
     {
         $this->assertIsString($this->subject->checkIdentifier('home', 1));
     }
 
-    
+
     public function testGetCmsPageTitleByIdentifier(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
@@ -48,7 +49,7 @@ class PageTest extends TestCase
         $this->assertSame('Home page', $this->subject->getCmsPageTitleByIdentifier('home'));
     }
 
-    
+
     public function testGetCmsPageTitleById(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
@@ -57,13 +58,13 @@ class PageTest extends TestCase
         $this->assertSame('Home page', $this->subject->getCmsPageTitleById(2));
     }
 
-    
+
     public function testGetCmsPageIdentifierById(): void
     {
         $this->assertSame('home', $this->subject->getCmsPageIdentifierById(2));
     }
 
-    
+
     public function testGetAvailableStatuses(): void
     {
         $this->assertIsArray($this->subject->getAvailableStatuses());
@@ -79,7 +80,7 @@ class PageTest extends TestCase
         $this->subject->getUsedInStoreConfigCollection();
     }
 
-    
+
     public function testIsUsedInStoreConfig(): void
     {
         $this->assertFalse($this->subject->isUsedInStoreConfig());

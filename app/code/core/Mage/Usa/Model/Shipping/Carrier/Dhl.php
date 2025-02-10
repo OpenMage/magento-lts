@@ -1,10 +1,11 @@
 <?php
+
 /**
  * DHL shipping implementation
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract implements Mage_Shipping_Model_Carrier_Interface

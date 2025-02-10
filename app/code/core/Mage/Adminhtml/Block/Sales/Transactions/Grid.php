@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Adminhtml transactions grid
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction_Collection getCollection()
  */

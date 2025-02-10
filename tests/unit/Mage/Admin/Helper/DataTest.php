@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,7 +25,7 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('admin/data');
     }
 
-    
+
     public function testGenerateResetPasswordLinkToken(): void
     {
         $this->assertIsString($this->subject->generateResetPasswordLinkToken());

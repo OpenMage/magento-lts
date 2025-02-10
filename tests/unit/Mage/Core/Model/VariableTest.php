@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class VariableTest extends TestCase
         $this->subject = Mage::getModel('core/variable');
     }
 
-    
+
     public function testGetVariablesOptionArray(): void
     {
         $this->assertIsArray($this->subject->getVariablesOptionArray());

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -28,7 +29,7 @@ class TemplateTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testGetFormKey(): void
     {
         $this->assertIsString($this->subject->getFormKey());

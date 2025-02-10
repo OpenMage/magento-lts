@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Extended Attributes Source Model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Model_Source_Option_Selection_Price_Type

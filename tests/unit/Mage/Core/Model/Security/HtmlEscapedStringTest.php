@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -20,7 +21,7 @@ class HtmlEscapedStringTest extends TestCase
 
     public Subject $subject;
 
-    
+
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
         $this->subject = new Subject($string, $allowedTags);

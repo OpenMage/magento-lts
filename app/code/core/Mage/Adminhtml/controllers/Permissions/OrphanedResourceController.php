@@ -1,10 +1,11 @@
 <?php
+
 /**
  * ACL resource
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @see Mage_Adminhtml_Controller_Action::_isAllowed()
  */
 declare(strict_types=1);
@@ -12,7 +13,6 @@ declare(strict_types=1);
 
 class Mage_Adminhtml_Permissions_OrphanedResourceController extends Mage_Adminhtml_Controller_Action
 {
-    
     public const ADMIN_RESOURCE = 'system/acl/orphaned_resources';
 
     /**

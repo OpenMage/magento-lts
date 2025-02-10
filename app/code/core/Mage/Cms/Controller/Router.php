@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Cms Controller Router
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
  */
 class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abstract

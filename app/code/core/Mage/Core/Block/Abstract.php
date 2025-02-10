@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Base Content Block class
 For block generation you must define Data source class, data source class method,
 parameters array and block template
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  * @method $this setAdditionalHtml(string $value)
  * @method $this setBlockParams(array $value)

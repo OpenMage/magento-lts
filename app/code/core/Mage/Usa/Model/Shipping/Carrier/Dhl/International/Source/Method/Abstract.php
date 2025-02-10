@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Source model for DHL shipping methods
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
 abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_International_Source_Method_Abstract

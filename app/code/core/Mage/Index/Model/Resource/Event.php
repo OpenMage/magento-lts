@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Index Event Resource Model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
  */
 class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstract

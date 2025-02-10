@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Wishlist Product Items abstract Block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
  */
 abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_Abstract

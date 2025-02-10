@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -29,7 +30,7 @@ class UserTest extends TestCase
         $this->subject = Mage::getModel('admin/user');
     }
 
-    
+
     public function testAuthenticate($expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)

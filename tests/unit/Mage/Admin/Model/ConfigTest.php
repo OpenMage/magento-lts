@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,25 +26,25 @@ class ConfigTest extends TestCase
         $this->subject = Mage::getModel('admin/config');
     }
 
-    
+
     public function testGetAclAssert(): void
     {
         $this->assertFalse($this->subject->getAclAssert(''));
     }
 
-    
+
     public function testGetAclPrivilegeSet(): void
     {
         $this->assertFalse($this->subject->getAclPrivilegeSet());
     }
 
-    
+
     public function testLoadAclResources(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
-    
+
     public function testGetAdminhtmlConfig(): void
     {
         $this->assertInstanceOf(Varien_Simplexml_Config::class, $this->subject->getAdminhtmlConfig());

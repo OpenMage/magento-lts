@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,55 +24,55 @@ class SwitchTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testGetCurrentWebsiteId(): void
     {
         $this->assertIsInt($this->subject->getCurrentWebsiteId());
     }
 
-    
+
     public function testGetCurrentGroupId(): void
     {
         $this->assertIsInt($this->subject->getCurrentGroupId());
     }
 
-    
+
     public function testGetCurrentStoreId(): void
     {
         $this->assertIsInt($this->subject->getCurrentStoreId());
     }
 
-    
+
     public function testGetCurrentStoreCode(): void
     {
         $this->assertIsString($this->subject->getCurrentStoreCode());
     }
 
-    
+
     public function testGetRawGroups(): void
     {
         $this->assertIsArray($this->subject->getRawGroups());
     }
 
-    
+
     //    public function testGetRawStores(): void
     //    {
     //        $this->assertIsArray($this->subject->getRawStores());
     //    }
 
-    
+
     //    public function testGetGroups(): void
     //    {
     //        $this->assertIsArray($this->subject->getGroups());
     //    }
 
-    
+
     //    public function testGetStores(): void
     //    {
     //        $this->assertIsArray($this->subject->getStores());
     //    }
 
-    
+
     public function testIsStoreInUrl(): void
     {
         $this->assertIsBool($this->subject->isStoreInUrl());

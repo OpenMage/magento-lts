@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,31 +25,31 @@ class HeaderTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     //    public function testGetIsHomePage(): void
     //    {
     //        $this->assertIsBool($this->subject->getIsHomePage());
     //    }
 
-    
+
     public function testSetLogo(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->setLogo('src', 'alt'));
     }
 
-    
+
     public function testGetLogoSrc(): void
     {
         $this->assertIsString($this->subject->getLogoSrc());
     }
 
-    
+
     public function testGetLogoSrcSmall(): void
     {
         $this->assertIsString($this->subject->getLogoSrcSmall());
     }
 
-    
+
     public function testGetLogoAlt(): void
     {
         $this->assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, $this->subject->getLogoAlt());

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,31 +28,31 @@ class ImagesTest extends TestCase
         $this->subject = Mage::helper('cms/wysiwyg_images');
     }
 
-    
+
     public function testGetCurrentPath(): void
     {
         $this->assertIsString($this->subject->getCurrentPath());
     }
 
-    
+
     public function testGetCurrentUrl(): void
     {
         $this->assertIsString($this->subject->getCurrentUrl());
     }
 
-    
+
     public function testGetStorage(): void
     {
         $this->assertInstanceOf(Mage_Cms_Model_Wysiwyg_Images_Storage::class, $this->subject->getStorage());
     }
 
-    
+
     public function testIdEncode(): void
     {
         $this->assertIsString($this->subject->idEncode($this->getTestString()));
     }
 
-    
+
     public function testIdDecode(): void
     {
         $this->assertIsString($this->subject->idDecode($this->getTestString()));

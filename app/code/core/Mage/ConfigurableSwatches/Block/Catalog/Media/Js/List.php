@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ConfigurableSwatches
  */
 class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_List extends Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class Mage_Tax_Model_Class_Source_Customer
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Class_Source_Customer extends Mage_Eav_Model_Entity_Attribute_Source_Abstract

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -17,7 +18,6 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultConfigTest extends TestCase
 {
-    
     public function testGetStoreConfig(string $expectedResult, string $path, $store = null): void
     {
         $this->assertSame($expectedResult, Mage::getStoreConfig($path, $store));

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class ConfigTest extends TestCase
         $this->subject = Mage::getModel('core/config');
     }
 
-    
+
     public function testSaveDeleteGetConfig(): void
     {
         $path = 'test/config';

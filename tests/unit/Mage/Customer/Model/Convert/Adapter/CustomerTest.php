@@ -1,4 +1,5 @@
 <?php
+
 /**
  * //
  *
@@ -27,7 +28,7 @@ class CustomerTest extends TestCase
         $this->subject = Mage::getModel('customer/convert_adapter_customer');
     }
 
-    //    
+    //
     //    public function testSaveRowNoWebsite(): void
     //    {
     //        $data = [];
@@ -39,7 +40,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    
+    //
     //    public function testSaveRowNoEmail(): void
     //    {
     //        $data = [
@@ -53,7 +54,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    
+    //
     //    public function testSaveRowNoGroup(): void
     //    {
     //        $data = [
@@ -68,7 +69,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    
+    //
     //    public function testSaveRowNoFirstname(): void
     //    {
     //        $data = [
@@ -84,7 +85,7 @@ class CustomerTest extends TestCase
     //        }
     //    }
     //
-    //    
+    //
     //    public function testSaveRowNoLastname(): void
     //    {
     //        $data = [

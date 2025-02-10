@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -38,7 +39,7 @@ class AbstractTest extends TestCase
         $this->subject = $this->getMockForAbstractClass(Subject::class);
     }
 
-    
+
     public function testGetProductFlatSelect(): void
     {
         try {
@@ -84,13 +85,13 @@ class AbstractTest extends TestCase
         }
     }
 
-    
+
     public function testGetForm(): void
     {
         $this->assertInstanceOf(Varien_Data_Form::class, $this->subject->getForm());
     }
 
-    
+
     public function testLoadPost(array $data = []): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->loadPost($data));
@@ -169,7 +170,7 @@ class AbstractTest extends TestCase
         $this->assertInstanceOf(Subject::class, $this->subject->setIsReadonly($value));
     }
 
-    
+
     public function testGetWebsiteIds(): void
     {
         try {

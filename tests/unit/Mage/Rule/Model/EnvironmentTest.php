@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,7 +25,7 @@ class EnvironmentTest extends TestCase
         $this->subject = Mage::getModel('rule/environment');
     }
 
-    
+
     public function testGetConditionsInstance(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->collect());

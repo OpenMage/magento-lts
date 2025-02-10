@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,7 +25,7 @@ class FileTest extends TestCase
     {
         Mage::app();
 
-        
+
         $config = Mage::getConfig();
         $config->setNode('global/mime/types/test-new-node', 'application/octet-stream');
         $this->subject = Mage::helper('uploader/file');

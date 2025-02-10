@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Abstract class for Paypal API wrappers
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
  */
 abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object

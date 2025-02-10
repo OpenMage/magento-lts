@@ -1,10 +1,11 @@
 <?php
+
 /**
  * oAuth nonce model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
  * @method Mage_Oauth_Model_Resource_Nonce getResource()
  * @method Mage_Oauth_Model_Resource_Nonce _getResource()

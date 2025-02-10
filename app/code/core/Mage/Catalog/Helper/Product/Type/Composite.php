@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Helper for preparing properties for configurable product
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstract

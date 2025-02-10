@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Synchronize process status flag class
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
 class Mage_Core_Model_File_Storage_Flag extends Mage_Core_Model_Flag

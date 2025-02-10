@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Cache cleaner backend model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Contacts
  */
 class Mage_Contacts_Model_System_Config_Backend_Links extends Mage_Adminhtml_Model_System_Config_Backend_Cache

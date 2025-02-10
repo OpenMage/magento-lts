@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -29,7 +30,7 @@ class StoreTest extends TestCase
         $this->subject = Mage::getModel('core/store');
     }
 
-    
+
     public function testGetId(?int $expectedResult, $withStore): void
     {
         if ($withStore) {

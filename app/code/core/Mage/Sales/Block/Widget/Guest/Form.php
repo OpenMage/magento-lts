@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Sales widget search form for orders and returns block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Widget_Guest_Form extends Mage_Core_Block_Template implements Mage_Widget_Block_Interface

@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Service model for managing statuses information. Statuses are just records with code, message and any
 additional data. The model helps to keep track and manipulate statuses, that different modules want to set
 to owner object of this model.
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Status_List

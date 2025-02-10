@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Downloadable links purchased model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
  * @method Mage_Downloadable_Model_Resource_Link_Purchased _getResource()
  * @method Mage_Downloadable_Model_Resource_Link_Purchased getResource()

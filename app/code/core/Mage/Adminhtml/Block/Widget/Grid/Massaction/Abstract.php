@@ -1,17 +1,17 @@
 <?php
+
 /**
  * Grid widget massaction block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @method $this setFormFieldName(string $value)
  * @method $this setHideFormElement(bool $value) Hide Form element to prevent IE errors
  * @method bool getHideFormElement()
  */
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 
 abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage_Adminhtml_Block_Widget
 {

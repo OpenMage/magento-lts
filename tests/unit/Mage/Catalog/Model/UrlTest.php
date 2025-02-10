@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -32,7 +33,7 @@ class UrlTest extends TestCase
         $this->subject = Mage::getModel('catalog/url');
     }
 
-    
+
     public function testGetStoreRootCategory(): void
     {
         $this->assertInstanceOf(Varien_Object::class, $this->subject->getStoreRootCategory(1));

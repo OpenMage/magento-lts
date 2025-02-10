@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class JsTest extends TestCase
         $this->subject = Mage::helper('adminhtml/media_js');
     }
 
-    
+
     public function testDecodeGridSerializedInput(): void
     {
         $this->assertIsString($this->subject->getTranslatorScript());

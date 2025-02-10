@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class CategoryTest extends TestCase
         $this->subject = Mage::helper('catalog/category');
     }
 
-    
+
     public function testCanUseCanonicalTag(): void
     {
         $this->assertIsBool($this->subject->canUseCanonicalTag());

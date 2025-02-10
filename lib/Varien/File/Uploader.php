@@ -1,12 +1,13 @@
 <?php
+
 /**
  * File upload class
 ATTENTION! This class must be used like abstract class and must added
 validation by protected file extension list to extended class
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
  */
 /**

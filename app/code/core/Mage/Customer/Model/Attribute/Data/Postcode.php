@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Customer Address Postal/Zip Code Attribute Data Model
 This Data Model Has to Be Set Up in additional EAV attribute table
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
  */
 class Mage_Customer_Model_Attribute_Data_Postcode extends Mage_Eav_Model_Attribute_Data_Text

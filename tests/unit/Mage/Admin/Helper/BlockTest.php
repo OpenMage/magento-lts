@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,7 +25,7 @@ class BlockTest extends TestCase
         $this->subject = Mage::helper('admin/block');
     }
 
-    
+
     public function testIsTypeAllowed(): void
     {
         $this->assertFalse($this->subject->isTypeAllowed('some-type'));

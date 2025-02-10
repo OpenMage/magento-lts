@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,13 +25,13 @@ class CacheTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testGetFlushStorageUrl(): void
     {
         $this->assertStringStartsWith('http', $this->subject->getFlushStorageUrl());
     }
 
-    
+
     public function testGetFlushSystemUrl(): void
     {
         $this->assertStringStartsWith('http', $this->subject->getFlushSystemUrl());

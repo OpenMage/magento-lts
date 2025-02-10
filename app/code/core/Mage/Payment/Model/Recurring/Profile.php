@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Recurring payment profile
 Extends from Mage_Core_Abstract for a reason: to make descendants have its own resource
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
  * @method float getBillingAmount()
  * @method string getCurrencyCode()

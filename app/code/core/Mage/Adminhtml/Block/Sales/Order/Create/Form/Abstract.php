@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Sales Order Create Form Abstract Block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  */
 abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract

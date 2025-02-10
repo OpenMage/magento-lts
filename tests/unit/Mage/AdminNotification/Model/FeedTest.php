@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,25 +25,25 @@ class FeedTest extends TestCase
         $this->subject = Mage::getModel('adminnotification/feed');
     }
 
-    
+
     public function testGetFeedUrl(): void
     {
         $this->assertIsString($this->subject->getFeedUrl());
     }
 
-    
+
     public function testCheckUpdate(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->checkUpdate());
     }
 
-    
+
     public function testGetFeedData(): void
     {
         $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedData());
     }
 
-    
+
     public function testGetFeedXml(): void
     {
         $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedXml());

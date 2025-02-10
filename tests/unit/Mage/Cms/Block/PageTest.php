@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -19,7 +20,7 @@ class PageTest extends TestCase
 {
     use NumericStringTrait;
 
-    
+
     public function testGetPage(string $pageId): void
     {
         $mock = $this->getMockBuilder(Subject::class)

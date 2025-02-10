@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Block for rendering users list tab
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
  * @method Mage_Admin_Model_Resource_User_Collection getCollection()
  * @method Mage_Api2_Model_Acl_Global_Role getRole()

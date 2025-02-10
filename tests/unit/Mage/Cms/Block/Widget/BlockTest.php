@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,7 +28,7 @@ class BlockTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testGetCacheKeyInfo(string $blockId): void
     {
         $mock = $this->getMockBuilder(Subject::class)

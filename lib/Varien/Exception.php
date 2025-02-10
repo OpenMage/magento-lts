@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Check PCRE PREG error and throw exception
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @throws Varien_Exception
  */
 /**
@@ -13,7 +14,6 @@
 
 class Varien_Exception extends Exception
 {
-    
     public static function processPcreError()
     {
         if (preg_last_error() != PREG_NO_ERROR) {

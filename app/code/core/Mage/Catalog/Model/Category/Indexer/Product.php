@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Category products indexer model.
 Responsibility for system actions:
@@ -7,9 +8,9 @@ Responsibility for system actions:
 - Store save (new store creation, changed store group) - require reindex all data
 - Store group save (changed root category or group website) - require reindex all data
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product _getResource()
  * @method Mage_Catalog_Model_Resource_Category_Indexer_Product getResource()

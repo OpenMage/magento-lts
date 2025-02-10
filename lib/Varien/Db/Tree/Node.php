@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Varien_Db_Tree_Node constructor.
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @param array $nodeData
  * @param array $keys
  * @throws Varien_Db_Tree_Node_Exception
@@ -27,7 +28,7 @@ class Varien_Db_Tree_Node
     public $hasChild = false;
     public $numChild = 0;
 
-    
+
     public function __construct($nodeData, $keys)
     {
         if (empty($nodeData)) {

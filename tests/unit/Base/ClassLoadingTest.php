@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -14,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 class ClassLoadingTest extends TestCase
 {
-    
     public function testClassExists(bool $expectedResult, string $class): void
     {
         $this->assertSame($expectedResult, class_exists($class));

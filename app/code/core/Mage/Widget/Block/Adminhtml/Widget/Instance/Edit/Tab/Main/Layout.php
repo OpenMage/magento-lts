@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Widget Instance page groups (predefined layouts group) to display on
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
  * @method Mage_Widget_Model_Widget_Instance getWidgetInstance()
  * @method $this setWidgetInstance(Mage_Widget_Model_Widget_Instance $value)

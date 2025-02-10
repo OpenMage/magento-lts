@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class Mage_Uploader_Block_Abstract
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Uploader
  */
 abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget

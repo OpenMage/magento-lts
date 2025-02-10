@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Block, that can get data from layout or from registry.
 Can compare its data values by specified keys
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
 class Mage_Core_Block_Template_Facade extends Mage_Core_Block_Template

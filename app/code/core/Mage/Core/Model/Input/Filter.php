@@ -1,13 +1,14 @@
 <?php
+
 /**
  * Filter data collector
 Model for multi-filtering all data which set to models
 Example:
 <code>
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  * @var Mage_Core_Model_Input_Filter $filter {@*}
  * @see Mage_Core_Model_Input_FilterTest See this class for manual

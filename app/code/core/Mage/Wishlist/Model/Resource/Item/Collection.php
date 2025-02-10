@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Wishlist item collection
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
  * @method Mage_Wishlist_Model_Item getItemById(int|string $value)
  * @method Mage_Wishlist_Model_Item[] getItems()

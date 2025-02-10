@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -21,7 +22,7 @@ class ColumnTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testGetType(): void
     {
         $this->assertSame('', $this->subject->getType());

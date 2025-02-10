@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 $content = '<p>This website requires cookies to provide all of its features. For more ' .
     'information on what data is contained in the cookies, please see our ' .

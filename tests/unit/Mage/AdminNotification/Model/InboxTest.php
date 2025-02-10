@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -30,7 +31,7 @@ class InboxTest extends TestCase
         $this->subject = Mage::getModel('adminnotification/inbox');
     }
 
-    
+
     public function testGetSeverities($expectedResult, ?int $severity): void
     {
         $this->assertSame($expectedResult, $this->subject->getSeverities($severity));

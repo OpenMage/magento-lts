@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tables declaration:
 
@@ -21,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `core_cache_tag` (
     REFERENCES `core_cache` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 /**
  * @package    Varien_Cache

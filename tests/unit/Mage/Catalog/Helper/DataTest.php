@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('catalog');
     }
 
-    
+
     public function testSplitSku($expectedResult, string $sku, int $length = 30): void
     {
         $this->assertSame($expectedResult, $this->subject->splitSku($sku, $length));

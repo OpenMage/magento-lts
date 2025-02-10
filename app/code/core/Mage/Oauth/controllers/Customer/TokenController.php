@@ -1,11 +1,12 @@
 <?php
+
 /**
  * oAuth My Applications controller
 Tab "My Applications" in the Customer Account
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Oauth
  */
 class Mage_Oauth_Customer_TokenController extends Mage_Core_Controller_Front_Action

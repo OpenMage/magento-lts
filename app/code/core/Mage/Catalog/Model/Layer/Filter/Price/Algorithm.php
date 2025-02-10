@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Algorithm for layer price filter
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Layer_Filter_Price_Algorithm

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Bundle Options Resource Collection
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
  * @method Mage_Bundle_Model_Option[] getItems()
  * @method Mage_Bundle_Model_Option getItemById($idValue)

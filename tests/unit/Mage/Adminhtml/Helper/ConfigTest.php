@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class ConfigTest extends TestCase
         $this->subject = Mage::helper('adminhtml/config');
     }
 
-    
+
     public function testGetInputTypes(array $expectedResult, ?string $inputType): void
     {
         $this->assertSame($expectedResult, $this->subject->getInputTypes($inputType));

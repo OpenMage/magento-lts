@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Whether image was resized or not
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @var bool
  */
 /**
@@ -23,7 +24,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         IMAGETYPE_WBMP => ['output' => 'imagewbmp', 'create' => 'imagecreatefromwbmp'],
     ];
 
-    
+
     protected $_resized = false;
 
     public function __construct()

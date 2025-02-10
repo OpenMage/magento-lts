@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Fields:
 - carrier: fedex
@@ -18,9 +19,9 @@ Fields:
 -carrier: usps
 -tracksummary: Your item was delivered at 6:50 am on February 6 in Los Angeles CA 90064
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shipping
  */
 class Mage_Shipping_Model_Tracking_Result_Status extends Mage_Shipping_Model_Tracking_Result_Abstract

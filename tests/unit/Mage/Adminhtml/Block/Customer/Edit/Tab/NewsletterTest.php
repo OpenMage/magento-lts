@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,7 +25,7 @@ class NewsletterTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testInitForm(): void
     {
         $mock = $this->getMockBuilder(Subject::class)

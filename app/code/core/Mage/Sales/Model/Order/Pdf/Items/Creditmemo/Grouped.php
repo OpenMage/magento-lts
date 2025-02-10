@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Sales Order Creditmemo Pdf grouped items renderer
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Grouped extends Mage_Sales_Model_Order_Pdf_Items_Creditmemo_Default

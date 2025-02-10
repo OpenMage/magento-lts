@@ -1,10 +1,11 @@
 <?php
+
 /**
  * API XML Renderer Writer
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Renderer_Xml_Writer extends Zend_Config_Writer_Xml

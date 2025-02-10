@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class to work with tar archives
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Archive
  */
 class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Interface

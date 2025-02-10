@@ -1,14 +1,14 @@
 <?php
+
 /**
  * Customer account controller
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
  */
 use Mage_Customer_Helper_Data as Helper;
-
 
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 {

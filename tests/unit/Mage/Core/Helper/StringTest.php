@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -28,7 +29,7 @@ class StringTest extends TestCase
         $this->subject = Mage::helper('core/string');
     }
 
-    
+
     public function testTruncate(): void
     {
         $this->assertSame('', $this->subject->truncate(null));
@@ -43,14 +44,14 @@ class StringTest extends TestCase
         $this->assertSame('12...', $resultString);
     }
 
-    
+
     public function testSubstr(): void
     {
         $resultString = $this->subject->substr(self::TEST_STRING, 2, 2);
         $this->assertSame('34', $resultString);
     }
 
-    
+
     public function testSplitInjection(): void
     {
         $resultString = $this->subject->splitInjection(self::TEST_STRING, 1, '-', ' ');
@@ -58,13 +59,13 @@ class StringTest extends TestCase
         $this->assertIsString($resultString);
     }
 
-    
+
     public function testStrlen(): void
     {
         $this->assertSame(10, $this->subject->strlen(self::TEST_STRING));
     }
 
-    
+
     public function testStrSplit(): void
     {
         $this->assertIsArray($this->subject->str_split(''));
@@ -73,7 +74,7 @@ class StringTest extends TestCase
         $this->assertIsArray($this->subject->str_split(self::TEST_STRING, 3, true, true));
     }
 
-    
+
     public function testSplitWords(): void
     {
         $this->assertIsArray($this->subject->splitWords(null));
@@ -83,25 +84,25 @@ class StringTest extends TestCase
         $this->assertIsArray($this->subject->splitWords(self::TEST_STRING, true, 1));
     }
 
-    
+
     public function testParseQueryStr(): void
     {
         $this->assertIsArray($this->subject->parseQueryStr(self::TEST_STRING));
     }
 
-    
+
     public function testGetArrayHelper(): void
     {
         $this->assertInstanceOf(Mage_Core_Helper_Array::class, $this->subject->getArrayHelper());
     }
 
-    
+
     public function testUnserialize(): void
     {
         $this->assertNull($this->subject->unserialize(null));
     }
 
-    
+
     public function testValidateSerializedObject(): void
     {
         $this->assertIsBool($this->subject->validateSerializedObject(self::TEST_STRING));

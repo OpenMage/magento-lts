@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Rating option model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rating
  * @method Mage_Rating_Model_Resource_Rating_Option_Collection getResourceCollection()
  * @method Mage_Rating_Model_Resource_Rating_Option _getResource()

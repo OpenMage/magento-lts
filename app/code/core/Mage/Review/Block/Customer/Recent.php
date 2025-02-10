@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Recent Customer Reviews Block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
  */
 class Mage_Review_Block_Customer_Recent extends Mage_Core_Block_Template

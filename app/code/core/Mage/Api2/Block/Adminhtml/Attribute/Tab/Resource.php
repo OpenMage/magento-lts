@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Block for rendering attributes tree list tab
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
  * @method Mage_Api2_Model_Acl_Global_Role getRole()
  * @method $this setRole(Mage_Api2_Model_Acl_Global_Role $role)

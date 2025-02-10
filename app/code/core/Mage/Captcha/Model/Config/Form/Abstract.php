@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Data source to fill "Forms" field
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Captcha
  */
 abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_Config_Data

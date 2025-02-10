@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Sales abstract model
 Provide date processing functionality
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
  * @method $this setTransactionId(int $value)
  * @method bool getForceUpdateGridRecords()

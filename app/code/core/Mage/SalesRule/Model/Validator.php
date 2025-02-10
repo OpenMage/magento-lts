@@ -1,11 +1,12 @@
 <?php
+
 /**
  * SalesRule Validator Model
 Allows dispatching before and after events for each controller action
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
  * @method string getCouponCode()
  * @method $this setCouponCode(string $value)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,7 +28,7 @@ class PageTest extends TestCase
         $this->subject = Mage::helper('cms/page');
     }
 
-    
+
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
         $this->assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));

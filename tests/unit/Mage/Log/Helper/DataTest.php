@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('log/data');
     }
 
-    
+
     public function testIsVisitorLogEnabled(): void
     {
         $this->assertTrue($this->subject->isVisitorLogEnabled());

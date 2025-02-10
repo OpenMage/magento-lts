@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,31 +24,31 @@ class HeadTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testAddCss(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->addCss('test'));
     }
 
-    
+
     public function testAddJs(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->addJs('test'));
     }
 
-    
+
     public function testAddCssIe(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->addCssIe('test'));
     }
 
-    
+
     public function testAddJsIe(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->addJsIe('test'));
     }
 
-    
+
     public function testAddLinkRel(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->addLinkRel('test', 'ref'));

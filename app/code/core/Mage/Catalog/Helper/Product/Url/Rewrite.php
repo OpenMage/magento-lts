@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Product url rewrite helper
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Helper_Product_Url_Rewrite implements Mage_Catalog_Helper_Product_Url_Rewrite_Interface

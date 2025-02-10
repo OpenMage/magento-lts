@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,13 +25,13 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('adminnotification/data');
     }
 
-    
+
     public function testGetLatestNotice(): void
     {
         $this->assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, $this->subject->getLatestNotice());
     }
 
-    
+
     public function testGetUnreadNoticeCount(): void
     {
         $this->assertIsInt($this->subject->getUnreadNoticeCount(99));

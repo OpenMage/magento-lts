@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class to work with HTTP protocol using sockets
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_HTTP
  */
 class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient

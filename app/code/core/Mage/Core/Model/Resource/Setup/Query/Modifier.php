@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Modifier of queries, developed for backwards compatibility on MySQL,
 while creating foreign keys
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Setup_Query_Modifier

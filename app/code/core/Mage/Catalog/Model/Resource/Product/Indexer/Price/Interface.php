@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Catalog Product Type Price Indexer interface
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
 interface Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface

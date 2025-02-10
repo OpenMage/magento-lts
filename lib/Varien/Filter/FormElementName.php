@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Defined by Zend_Filter_Interface
 Returns the string $value, removing all but alphabetic (including -_;) and digit characters
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @param  string $value
  * @return string
  */
@@ -15,7 +16,6 @@ Returns the string $value, removing all but alphabetic (including -_;) and digit
 
 class Varien_Filter_FormElementName extends Zend_Filter_Alnum
 {
-    
     public function filter($value)
     {
         $whiteSpace = $this->allowWhiteSpace ? '\s' : '';

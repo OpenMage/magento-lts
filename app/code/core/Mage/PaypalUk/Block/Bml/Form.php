@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Bill Me Later payment form
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_PaypalUk
  */
 class Mage_PaypalUk_Block_Bml_Form extends Mage_Paypal_Block_Bml_Form

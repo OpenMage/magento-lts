@@ -1,10 +1,11 @@
 <?php
+
 /**
  * UPS (UPS XML) mode source model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  * @deprecated  since 1.7.0.0
  */

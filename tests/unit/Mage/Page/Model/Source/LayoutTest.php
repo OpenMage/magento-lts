@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class LayoutTest extends TestCase
         $this->subject = Mage::getModel('page/source_layout');
     }
 
-    
+
     public function testToOptionArray(): void
     {
         $this->assertIsArray($this->subject->toOptionArray(true));

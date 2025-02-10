@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,13 +25,13 @@ class MapTest extends TestCase
         $this->subject = Mage::helper('catalog/map');
     }
 
-    
+
     public function testGetCategoryUrl(): void
     {
         $this->assertStringEndsWith('/catalog/seo_sitemap/category/', $this->subject->getCategoryUrl());
     }
 
-    
+
     public function testGetProductUrl(): void
     {
         $this->assertStringEndsWith('/catalog/seo_sitemap/product/', $this->subject->getProductUrl());

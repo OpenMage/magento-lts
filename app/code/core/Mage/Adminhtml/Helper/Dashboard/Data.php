@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Data helper for dashboard
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data

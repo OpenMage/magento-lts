@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Varien DB Statement Parameter
 Used to transmit specific information about parameter value binding to be bound the right
@@ -6,9 +7,9 @@ way to the query.
 Most used properties and methods are defined in interface. Specific things for concrete DB adapter can be
 transmitted using 'additional' property (Varien_Object) as a container.
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
  */
 /**

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Prepare Log Online Visitors Model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Log
  * @method Mage_Log_Model_Resource_Visitor_Online _getResource()
  * @method Mage_Log_Model_Resource_Visitor_Online getResource()

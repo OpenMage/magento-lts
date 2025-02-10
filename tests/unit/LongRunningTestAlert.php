@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class LongRunningTestAlert
  *
@@ -10,7 +11,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit;
 
 use PHPUnit\Runner\AfterTestHook;
-
 
 class LongRunningTestAlert implements AfterTestHook
 {

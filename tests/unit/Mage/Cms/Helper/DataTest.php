@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,25 +27,25 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('cms/data');
     }
 
-    
+
     public function testGetAllowedStreamWrappers(): void
     {
         $this->assertIsArray($this->subject->getAllowedStreamWrappers());
     }
 
-    
+
     public function testGetBlockTemplateProcessor(): void
     {
         $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getBlockTemplateProcessor());
     }
 
-    
+
     public function testGetPageTemplateProcessor(): void
     {
         $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getPageTemplateProcessor());
     }
 
-    
+
     public function testIsSwfDisabled(): void
     {
         $this->assertTrue($this->subject->isSwfDisabled());

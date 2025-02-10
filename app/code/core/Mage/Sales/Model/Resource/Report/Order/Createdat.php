@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Order entity resource model with aggregation by created at
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
 class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_Resource_Report_Abstract

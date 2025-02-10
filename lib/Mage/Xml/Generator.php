@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @return DOMDocument|null
  */
 class Mage_Xml_Generator
@@ -17,7 +18,7 @@ class Mage_Xml_Generator
         $this->_currentDom = $this->_dom;
     }
 
-    
+
     public function getDom()
     {
         return $this->_dom;

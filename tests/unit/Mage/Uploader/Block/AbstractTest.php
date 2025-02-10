@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class AbstractTest extends TestCase
         $this->subject = $this->getMockForAbstractClass(Subject::class);
     }
 
-    
+
     public function testGetMiscConfig(): void
     {
         $this->assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, $this->subject->getMiscConfig());
@@ -43,13 +44,13 @@ class AbstractTest extends TestCase
         $this->assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, $this->subject->getUploaderConfig());
     }
 
-    
+
     public function testGetButtonConfig(): void
     {
         $this->assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, $this->subject->getButtonConfig());
     }
 
-    
+
     public function testGetElementId(): void
     {
         $suffix = 'test';

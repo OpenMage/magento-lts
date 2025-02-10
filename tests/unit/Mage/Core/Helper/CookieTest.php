@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,13 +24,13 @@ class CookieTest extends TestCase
         $this->subject = Mage::helper('core/cookie');
     }
 
-    
+
     public function testIsUserNotAllowSaveCookie(): void
     {
         $this->assertIsBool($this->subject->isUserNotAllowSaveCookie());
     }
 
-    
+
     public function testGetAcceptedSaveCookiesWebsiteIds(): void
     {
         $this->assertSame('{"1":1}', $this->subject->getAcceptedSaveCookiesWebsiteIds());

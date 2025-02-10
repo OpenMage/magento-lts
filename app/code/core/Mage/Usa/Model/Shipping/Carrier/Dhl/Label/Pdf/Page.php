@@ -1,10 +1,11 @@
 <?php
+
 /**
  * DHL International (API v1.4) Label Creation
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  * @deprecated now the process of creating the label is on DHL side
  */

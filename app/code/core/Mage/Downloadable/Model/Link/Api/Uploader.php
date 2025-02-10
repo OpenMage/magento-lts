@@ -1,10 +1,11 @@
 <?php
+
 /**
  * File uploader for API
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Uploader

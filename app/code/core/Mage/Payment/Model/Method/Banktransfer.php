@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Bank Transfer payment method model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Payment
  */
 class Mage_Payment_Model_Method_Banktransfer extends Mage_Payment_Model_Method_Abstract

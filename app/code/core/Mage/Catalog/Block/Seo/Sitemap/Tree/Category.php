@@ -1,10 +1,11 @@
 <?php
+
 /**
  * SEO tree Categories Sitemap block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Seo_Sitemap_Category

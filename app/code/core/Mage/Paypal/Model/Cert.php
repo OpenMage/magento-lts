@@ -1,10 +1,11 @@
 <?php
+
 /**
  * PayPal specific model for certificate based authentication
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract

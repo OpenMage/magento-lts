@@ -1,15 +1,15 @@
 <?php
+
 /**
  * Adminhtml pending tags grid
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @method Mage_Tag_Model_Resource_Tag_Collection getCollection()
  */
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 
 class Mage_Adminhtml_Block_Tag_Grid_Pending extends Mage_Adminhtml_Block_Widget_Grid
 {

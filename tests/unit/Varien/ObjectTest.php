@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -28,7 +29,7 @@ class ObjectTest extends TestCase
         $this->subject = new Varien_Object();
     }
 
-    
+
     public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
         $this->subject->setData($setKey, $setValue);

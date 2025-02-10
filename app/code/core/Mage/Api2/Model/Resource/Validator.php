@@ -1,4 +1,5 @@
 <?php
+
 /**
  * API2 Abstarct Validator
 This is an object to which we encapsulate all business logic of validation and different invariants.
@@ -7,9 +8,9 @@ If fails validation, then validation method returns false, and
 getErrors() will return an array of errors that explain why the
 validation failed.
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
  */
 abstract class Mage_Api2_Model_Resource_Validator

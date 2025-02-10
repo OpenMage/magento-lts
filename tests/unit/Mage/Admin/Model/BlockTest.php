@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class BlockTest extends TestCase
         $this->subject = Mage::getModel('admin/block');
     }
 
-    
+
     public function testValidate(array $expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)

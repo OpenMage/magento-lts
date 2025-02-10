@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     public const XML_PATH_STORE = 'stores/german/general/store_information/name';
 
-    
+
     public function setup(): void
     {
         Mage::setRoot();

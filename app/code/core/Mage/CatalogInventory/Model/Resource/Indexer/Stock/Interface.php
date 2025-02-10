@@ -1,10 +1,11 @@
 <?php
+
 /**
  * CatalogInventory Stock Indexer Interface
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogInventory
  */
 interface Mage_CatalogInventory_Model_Resource_Indexer_Stock_Interface

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,7 +28,7 @@ class FileTest extends TestCase
         $this->subject = Mage::helper('downloadable/file');
     }
 
-    
+
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = $this->subject->getFilePath($path, $file);

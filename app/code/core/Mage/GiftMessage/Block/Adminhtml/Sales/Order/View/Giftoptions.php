@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Adminhtml sales order view gift options block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
  */
 class Mage_GiftMessage_Block_Adminhtml_Sales_Order_View_Giftoptions extends Mage_Adminhtml_Block_Template

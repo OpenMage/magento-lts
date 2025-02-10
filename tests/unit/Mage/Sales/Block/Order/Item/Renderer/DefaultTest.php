@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class DefaultTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testSetItem(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->setItem(new Varien_Object()));

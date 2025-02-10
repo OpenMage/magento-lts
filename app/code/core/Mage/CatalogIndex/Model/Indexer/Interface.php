@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Catalog indexer interface
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 interface Mage_CatalogIndex_Model_Indexer_Interface
 {

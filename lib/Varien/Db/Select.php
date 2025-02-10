@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class for SQL SELECT generation and results.
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
  * @property Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract $_adapter
  * @method Varien_Db_Adapter_Interface|Zend_Db_Adapter_Abstract getAdapter()

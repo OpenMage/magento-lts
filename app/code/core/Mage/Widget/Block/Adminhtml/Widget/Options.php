@@ -1,10 +1,11 @@
 <?php
+
 /**
  * WYSIWYG widget options form
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
  * @method string getMainFieldsetHtmlId()
  * @method $this setMainFieldsetHtmlId(string $value)

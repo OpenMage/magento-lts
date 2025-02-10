@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Abstract lock storage
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
  */
 interface Mage_Index_Model_Lock_Storage_Interface

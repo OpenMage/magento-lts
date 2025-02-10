@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Save administrators group role and rules
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 $admGroupRole = Mage::getModel('admin/role')->setData([
     'parent_id'     => 0,

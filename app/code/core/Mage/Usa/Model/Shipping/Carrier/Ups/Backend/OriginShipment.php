@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Backend model for validate origin of the shipment field
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
  */
 class Mage_Usa_Model_Shipping_Carrier_Ups_Backend_OriginShipment extends Mage_Usa_Model_Shipping_Carrier_Abstract_Backend_Abstract

@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Cart Item Configure block
 Updates templates and blocks to show 'Update Cart' button and set right form submit url
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
  * @module     Checkout
  */

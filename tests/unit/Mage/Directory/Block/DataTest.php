@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,13 +26,13 @@ class DataTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testGetCountryCollection(): void
     {
         $this->assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, $this->subject->getCountryCollection());
     }
 
-    
+
     public function testGetRegionCollection(): void
     {
         $this->assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, $this->subject->getRegionCollection());

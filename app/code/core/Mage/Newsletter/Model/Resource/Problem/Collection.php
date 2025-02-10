@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Newsletter problems collection
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Newsletter
  * @method Mage_Newsletter_Model_Problem[] getItems()
  * @method Mage_Newsletter_Model_Problem[] getItemsByColumnValue(string $column, string $value)

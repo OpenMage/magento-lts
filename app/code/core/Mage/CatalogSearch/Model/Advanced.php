@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Catalog advanced search model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogSearch
  * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()

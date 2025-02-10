@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,7 +28,7 @@ class LocaleTest extends TestCase
         $this->subject = Mage::getModel('core/locale');
     }
 
-    
+
     public function testGetNumber(?float $expectedResult, $value): void
     {
         $this->assertSame($expectedResult, $this->subject->getNumber($value));

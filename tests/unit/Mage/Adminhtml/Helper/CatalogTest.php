@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,7 +25,7 @@ class CatalogTest extends TestCase
         $this->subject = Mage::helper('adminhtml/catalog');
     }
 
-    
+
     public function testSetAttributeTabBlock(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->setAttributeTabBlock(''));

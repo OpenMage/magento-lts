@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Adminhtml downloadable product edit
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
  */
 require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';

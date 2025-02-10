@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class UrlTest extends TestCase
         $this->subject = Mage::helper('catalog/product_url');
     }
 
-    
+
     public function testGetConvertTable(): void
     {
         $result = $this->subject->getConvertTable();

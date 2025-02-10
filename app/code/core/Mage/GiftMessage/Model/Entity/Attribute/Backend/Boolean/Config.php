@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Product attribute for allowing of gift messages per item
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
  * @deprecated after 1.4.2.0
  */

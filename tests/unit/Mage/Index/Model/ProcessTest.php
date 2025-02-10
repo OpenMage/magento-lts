@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,7 +28,7 @@ class ProcessTest extends TestCase
         $this->subject = Mage::getModel('index/process');
     }
 
-    
+
     public function testReindexEverything(): void
     {
         $this->subject->setIndexerCode('html');
@@ -39,7 +40,7 @@ class ProcessTest extends TestCase
         }
     }
 
-    
+
     public function testDisableIndexerKeys(): void
     {
         $this->subject->setIndexerCode('html');
@@ -52,7 +53,7 @@ class ProcessTest extends TestCase
 
     }
 
-    
+
     public function testEnableIndexerKeys(): void
     {
         $this->subject->setIndexerCode('html');
@@ -64,7 +65,7 @@ class ProcessTest extends TestCase
         }
     }
 
-    
+
     public function testGetUnprocessedEventsCollection(): void
     {
         $this->subject->setIndexerCode('html');

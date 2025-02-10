@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class VariableTest extends TestCase
         $this->subject = Mage::getModel('admin/variable');
     }
 
-    
+
     public function testValidate($expectedResult, string $variableName, string $isAllowed): void
     {
         $mock = $this->getMockBuilder(Subject::class)

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Catalog Rule Product Condition data model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogRule
  */
 class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Condition_Product_Abstract

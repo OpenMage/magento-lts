@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class Mage_Customer_Block_Widget_Taxvat
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
  * @method $this setFieldIdFormat(string $value)
  * @method $this setFieldNameFormat(string $value)

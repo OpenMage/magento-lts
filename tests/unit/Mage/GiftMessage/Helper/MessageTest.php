@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,7 +28,7 @@ class MessageTest extends TestCase
         $this->subject = Mage::helper('giftmessage/message');
     }
 
-    
+
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, $store = null): void
     {
         $this->assertIsBool($this->subject->isMessagesAvailable($type, $entity, $store));

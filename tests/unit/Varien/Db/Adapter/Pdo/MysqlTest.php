@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -33,7 +34,7 @@ class MysqlTest extends TestCase
 
         // Call the constructor manually with our config
         $reflectedAdapter = new \ReflectionClass(Varien_Db_Adapter_Pdo_Mysql::class);
-        
+
         $constructor = $reflectedAdapter->getConstructor();
         $constructor->invoke($this->adapter, $config);
     }

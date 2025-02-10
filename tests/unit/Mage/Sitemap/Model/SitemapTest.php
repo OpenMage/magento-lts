@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class SitemapTest extends TestCase
         $this->subject = Mage::getModel('sitemap/sitemap');
     }
 
-    
+
     public function testGetPreparedFilename(): void
     {
         $mock = $this->getMockBuilder(Subject::class)

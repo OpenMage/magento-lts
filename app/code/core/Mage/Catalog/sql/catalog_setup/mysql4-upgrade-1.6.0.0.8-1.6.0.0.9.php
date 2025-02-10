@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @var Mage_Catalog_Model_Resource_Setup $installer
  */
 $installFile = __DIR__ . DS . 'upgrade-1.6.0.0.8-1.6.0.0.9.php';

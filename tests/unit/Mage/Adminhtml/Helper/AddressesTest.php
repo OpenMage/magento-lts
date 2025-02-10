@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -27,7 +28,7 @@ class AddressesTest extends TestCase
         $this->subject = Mage::helper('adminhtml/addresses');
     }
 
-    
+
     public function testProcessStreetAttribute(int $expectedResult, int $lines): void
     {
         $attribute = new Mage_Customer_Model_Attribute();

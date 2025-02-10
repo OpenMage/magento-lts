@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Gift message inline edit form
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
  * @method $this setDontDisplayContainer(bool $value)
  */

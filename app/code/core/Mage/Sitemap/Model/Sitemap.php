@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Sitemap model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sitemap
  * @method Mage_Sitemap_Model_Resource_Sitemap _getResource()
  * @method Mage_Sitemap_Model_Resource_Sitemap getResource()

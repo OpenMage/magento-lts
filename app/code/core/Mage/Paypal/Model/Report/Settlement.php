@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Paypal Settlement Report model
 Perform fetching reports from remote servers with following saving them to database
 Prepare report rows for Mage_Paypal_Model_Report_Settlement_Row model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
  * @method Mage_Paypal_Model_Resource_Report_Settlement _getResource()
  * @method Mage_Paypal_Model_Resource_Report_Settlement getResource()

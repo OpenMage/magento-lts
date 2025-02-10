@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -28,7 +29,7 @@ class AttributeTest extends TestCase
         $this->subject = Mage::getModel('catalog/resource_eav_attribute');
     }
 
-    
+
     public function testGetStoreId($expectedResult, $withStoreId): void
     {
         if ($withStoreId) {

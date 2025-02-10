@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Catalog url rewrites index model.
 Responsibility for system actions:
@@ -8,9 +9,9 @@ Responsibility for system actions:
 - Store group save (changed root category or group website) - require reindex all data
 - Seo config settings change - require reindex all data
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract

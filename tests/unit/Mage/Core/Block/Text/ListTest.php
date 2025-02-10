@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -19,7 +20,7 @@ class ListTest extends TestCase
         Mage::app();
     }
 
-    
+
     public function testDuplicateBlockName(): void
     {
         $layout = Mage::getModel('core/layout');
@@ -35,7 +36,7 @@ class ListTest extends TestCase
         $this->assertSame('A2', $parentBlock->toHtml());
     }
 
-    
+
     public function testDuplicateBlockNameOrdering(): void
     {
         $layout = Mage::getModel('core/layout');
@@ -59,7 +60,7 @@ class ListTest extends TestCase
         $this->assertSame('ABC', $parentBlock->toHtml());
     }
 
-    
+
     public function testUniqueBlockNameOrdering(): void
     {
         $layout = Mage::getModel('core/layout');

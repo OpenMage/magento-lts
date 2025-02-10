@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Tax totals modification block. Can be used just as subblock of Mage_Sales_Block_Order_Totals
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 class Mage_Tax_Block_Sales_Order_Tax extends Mage_Core_Block_Template
 {

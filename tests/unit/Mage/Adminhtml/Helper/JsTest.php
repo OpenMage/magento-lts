@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class JsTest extends TestCase
         $this->subject = Mage::helper('adminhtml/js');
     }
 
-    
+
     public function testDecodeGridSerializedInput(array $expectedResult, string $encoded): void
     {
         $this->assertSame($expectedResult, $this->subject->decodeGridSerializedInput($encoded));

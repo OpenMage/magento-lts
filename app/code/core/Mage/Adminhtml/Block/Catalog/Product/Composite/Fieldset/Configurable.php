@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Adminhtml block for fieldset of configurable product
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Configurable extends Mage_Catalog_Block_Product_View_Type_Configurable

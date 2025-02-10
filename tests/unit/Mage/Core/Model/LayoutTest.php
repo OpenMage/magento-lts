@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -29,7 +30,7 @@ class LayoutTest extends TestCase
         $this->subject = Mage::getModel('core/layout');
     }
 
-    
+
     public function testCreateBlock($expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
         $result = $this->subject->createBlock($type, $name, $attributes);

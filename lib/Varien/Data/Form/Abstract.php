@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Abstract class for form, coumn and fieldset
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Data
  * @method Varien_Data_Form getForm()
  * @method bool getUseContainer()

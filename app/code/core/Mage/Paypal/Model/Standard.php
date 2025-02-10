@@ -1,10 +1,11 @@
 <?php
+
 /**
  * PayPal Standard Checkout Module
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract

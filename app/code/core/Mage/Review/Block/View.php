@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Review detailed view block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Review
  * @method Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false getRatingCollection()
  * @method $this setRatingCollection(Mage_Rating_Model_Resource_Rating_Option_Vote_Collection|false $value)

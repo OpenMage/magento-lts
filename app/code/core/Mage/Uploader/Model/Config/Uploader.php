@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Uploader Config Instance Abstract Model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Uploader
  * @method $this setTarget(string $url)
  * @method $this setSingleFile(bool $isSingleFile)

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class GridTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
         $this->assertSame($expectedResult, $this->subject->addColumnDefaultData($column));

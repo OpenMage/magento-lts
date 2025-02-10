@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Catalog indexer eav processor
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogIndex
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav getResource()

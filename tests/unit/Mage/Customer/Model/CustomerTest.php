@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class CustomerTest extends TestCase
         $this->subject = Mage::getModel('customer/customer');
     }
 
-    
+
     public function testValidateAddress(): void
     {
         $data = [];

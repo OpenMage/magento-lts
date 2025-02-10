@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Specific slab size = 1Mb minus overhead
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @var array $_specificOptions
  */
 /**
@@ -13,7 +14,6 @@
 
 class Varien_Cache_Core extends Zend_Cache_Core
 {
-    
     protected $_specificOptions = ['slab_size' => 0];
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Possible data fields:
 - subject
@@ -8,9 +9,9 @@
 - template (file name)
 - module (for template)
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @method getFromEmail()
  * @method $this setFromEmail(string $string)

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Report Flag Model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Flag extends Mage_Core_Model_Flag

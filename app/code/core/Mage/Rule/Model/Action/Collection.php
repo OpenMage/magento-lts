@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Class Mage_Rule_Model_Action_Collection
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
  * @method array getActions()
  * @method $this setActions(array $value)

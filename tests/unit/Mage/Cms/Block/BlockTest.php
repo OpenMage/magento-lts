@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -18,7 +19,7 @@ class BlockTest extends TestCase
 {
     use NumericStringTrait;
 
-    
+
     public function testGetCacheKeyInfo(string $blockId): void
     {
         $mock = $this->getMockBuilder(Subject::class)

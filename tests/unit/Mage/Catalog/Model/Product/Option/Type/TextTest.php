@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class TextTest extends TestCase
         $this->subject = Mage::getModel('catalog/product_option_type_text');
     }
 
-    
+
     public function testValidateUserValue(): void
     {
         $this->subject->setOption(new Mage_Catalog_Model_Product_Option());

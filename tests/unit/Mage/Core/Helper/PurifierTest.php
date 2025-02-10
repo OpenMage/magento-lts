@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class PurifierTest extends TestCase
         $this->subject = Mage::helper('core/purifier');
     }
 
-    
+
     public function testPurify($expectedResult, $content): void
     {
         $this->assertSame($expectedResult, $this->subject->purify($content));

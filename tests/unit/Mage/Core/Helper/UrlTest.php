@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -39,7 +40,7 @@ class UrlTest extends TestCase
         $this->subject = Mage::helper('core/url');
     }
 
-    
+
     public function testGetCurrentBase64Url(): void
     {
         $this->assertIsString($this->subject->getCurrentBase64Url());

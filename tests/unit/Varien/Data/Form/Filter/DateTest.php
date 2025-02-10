@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class DateTest extends TestCase
         $this->subject = new Varien_Data_Form_Filter_Date(null, 'en_US');
     }
 
-    
+
     public function testInputFilter(?string $expectedResult, ?string $value): void
     {
         try {

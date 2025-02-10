@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -30,7 +31,7 @@ class SecurityTest extends TestCase
         $this->subject = Mage::helper('core/security');
     }
 
-    
+
     public function validateAgainstBlockMethodBlacklistDataProvider(): Generator
     {
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();

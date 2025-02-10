@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Wishlist block for rendering price of item with product
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
  * @method Mage_Catalog_Model_Product getProduct()
  * @method string getDisplayMinimalPrice()

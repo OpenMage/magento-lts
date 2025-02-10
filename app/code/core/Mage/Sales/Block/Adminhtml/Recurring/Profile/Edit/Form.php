@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Recurring profile editing form
 Can work in scope of product edit form
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminhtml_Block_Abstract

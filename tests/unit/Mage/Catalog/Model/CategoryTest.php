@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -29,43 +30,43 @@ class CategoryTest extends TestCase
         $this->subject = Mage::getModel('catalog/category');
     }
 
-    
+
     public function testGetDefaultAttributeSetId(): void
     {
         $this->assertIsInt($this->subject->getDefaultAttributeSetId());
     }
 
-    
+
     public function testGetProductCollection(): void
     {
         $this->assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getProductCollection());
     }
 
-    
+
     public function testGetAvailableSortByOptions(): void
     {
         $this->assertIsArray($this->subject->getAvailableSortByOptions());
     }
 
-    
+
     public function testGetDefaultSortBy(): void
     {
         $this->assertSame('position', $this->subject->getDefaultSortBy());
     }
 
-    
+
     public function testValidate(): void
     {
         $this->assertIsArray($this->subject->validate());
     }
 
-    
+
     public function testAfterCommitCallback(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->afterCommitCallback());
     }
 
-    
+
     public function testGetUrlModel(): void
     {
         $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());

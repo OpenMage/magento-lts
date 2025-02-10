@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -24,7 +25,7 @@ class HintTest extends TestCase
         $this->subject = Mage::helper('core/hint');
     }
 
-    
+
     public function testGetAvailableHints(): void
     {
         $this->assertSame([], $this->subject->getAvailableHints());

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * WYSIWYG widget options form
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
  * @method $this setConfig(Varien_Object $value)
  * @method $this setElement(Varien_Data_Form_Element_Abstract $value)

@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Creates a real connection to the database with multi-query capability.
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @return void
  * @throws Zend_Db_Adapter_Mysqli_Exception
  */
@@ -17,7 +18,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
     public const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
 
-    
+
     protected function _connect()
     {
         if ($this->_connection) {

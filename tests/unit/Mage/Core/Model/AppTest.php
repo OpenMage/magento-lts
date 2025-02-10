@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -59,7 +60,7 @@ class AppTest extends TestCase
         ];
     }
 
-    
+
     public function testGetWebsite($id): void
     {
         try {

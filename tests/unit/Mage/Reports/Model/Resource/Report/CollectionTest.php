@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -32,7 +33,7 @@ class CollectionTest extends TestCase
         $this->subject = Mage::getModel('reports/resource_report_collection');
     }
 
-    
+
     public function testSetPeriod(): void
     {
         $this->assertInstanceOf(Subject::class, $this->subject->setPeriod(1));

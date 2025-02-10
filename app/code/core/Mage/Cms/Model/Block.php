@@ -1,10 +1,11 @@
 <?php
+
 /**
  * CMS block model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
  * @method Mage_Cms_Model_Resource_Block _getResource()
  * @method Mage_Cms_Model_Resource_Block getResource()

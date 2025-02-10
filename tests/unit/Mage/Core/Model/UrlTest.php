@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,13 +24,13 @@ class UrlTest extends TestCase
         $this->subject = Mage::getModel('core/url');
     }
 
-    
+
     public function testEscape(): void
     {
         $this->assertSame('%22%27%3E%3C', $this->subject->escape('"\'><'));
     }
 
-    
+
     public function testGetSecure(): void
     {
         $this->assertIsBool($this->subject->getSecure());

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Filesystem items collection
 Can scan a folder for files and/or folders recursively.
@@ -9,9 +10,9 @@ Supports dirsFirst feature, that will make directories be before files, regardle
 Supports some fancy filters.
 At least one target directory must be set
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 /**
  * @package    Varien_Data

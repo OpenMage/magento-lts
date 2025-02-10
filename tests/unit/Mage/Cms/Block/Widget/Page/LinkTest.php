@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,19 +24,19 @@ class LinkTest extends TestCase
         $this->subject = new Subject();
     }
 
-    
+
     public function testGetHref(): void
     {
         $this->assertIsString($this->subject->getHref());
     }
 
-    
+
     public function testGetTitle(): void
     {
         $this->assertIsString($this->subject->getTitle());
     }
 
-    
+
     //    public function testGetAnchorText(): void
     //    {
     //        $this->assertIsString($this->subject->getAnchorText());

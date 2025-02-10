@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Order model
 Supported events:
@@ -8,9 +9,9 @@ sales_order_save_after
 sales_order_delete_before
 sales_order_delete_after
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  * @method Mage_Sales_Model_Resource_Order _getResource()
  * @method Mage_Sales_Model_Resource_Order getResource()

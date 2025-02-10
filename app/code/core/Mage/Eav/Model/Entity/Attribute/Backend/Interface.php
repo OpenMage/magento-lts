@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Entity attribute backend interface
 Backend is responsible for saving the values of the attribute
 and performing pre and post actions
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
  */
 interface Mage_Eav_Model_Entity_Attribute_Backend_Interface

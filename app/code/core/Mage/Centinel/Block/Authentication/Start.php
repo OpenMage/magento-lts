@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Authentication start/redirect form
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Centinel
  */
 class Mage_Centinel_Block_Authentication_Start extends Mage_Core_Block_Template

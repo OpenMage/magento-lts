@@ -1,10 +1,11 @@
 <?php
+
 /**
  * One page checkout status
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
  */
 class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_Form_Container

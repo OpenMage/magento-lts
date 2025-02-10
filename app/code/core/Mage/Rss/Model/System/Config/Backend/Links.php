@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Cache cleaner backend model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
  */
 class Mage_Rss_Model_System_Config_Backend_Links extends Mage_Core_Model_Config_Data

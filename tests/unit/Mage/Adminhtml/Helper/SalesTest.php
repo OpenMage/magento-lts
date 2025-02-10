@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -26,7 +27,7 @@ class SalesTest extends TestCase
         $this->subject = Mage::helper('adminhtml/sales');
     }
 
-    
+
     public function testEscapeHtmlWithLinks($expectedResult, $data): void
     {
         $this->assertSame($expectedResult, $this->subject->escapeHtmlWithLinks($data, ['a']));

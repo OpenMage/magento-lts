@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Payment transaction model
 Tracks transaction history, allows to build transactions hierarchy
 By default transactions are saved as closed.
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Transaction getResource()

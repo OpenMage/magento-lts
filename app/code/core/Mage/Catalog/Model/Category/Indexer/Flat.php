@@ -1,17 +1,17 @@
 <?php
+
 /**
  * Catalog Category Flat Indexer Model
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
  */
 use Mage_Catalog_Model_Category as Category;
 use Mage_Core_Model_Store as Store;
 use Mage_Core_Model_Store_Group as StoreGroup;
 use Mage_Index_Model_Event as Event;
-
 
 class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_Abstract
 {

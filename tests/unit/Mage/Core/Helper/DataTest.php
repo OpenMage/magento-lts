@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -29,25 +30,25 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('core/data');
     }
 
-    
+
     public function testGetEncryptor(): void
     {
         $this->assertInstanceOf(Mage_Core_Model_Encryption::class, $this->subject->getEncryptor());
     }
 
-    
+
     public function testEncrypt(): void
     {
         $this->assertIsString($this->subject->encrypt('test'));
     }
 
-    
+
     public function testDecrypt(): void
     {
         $this->assertIsString($this->subject->decrypt('test'));
     }
 
-    
+
     public function testValidateKey(): void
     {
         $this->assertInstanceOf(Varien_Crypt_Mcrypt::class, $this->subject->validateKey('test'));
@@ -118,31 +119,31 @@ class DataTest extends TestCase
         //        ];
     }
 
-    
+
     public function testGetRandomString(): void
     {
         $this->assertIsString($this->subject->getRandomString(5));
     }
 
-    
+
     public function testGetHash(): void
     {
         $this->assertIsString($this->subject->getHash('test'));
     }
 
-    
+
     public function testGetHashPassword(): void
     {
         $this->assertIsString($this->subject->getHashPassword('test', 1));
     }
 
-    
+
     public function testValidateHash(): void
     {
         $this->assertIsBool($this->subject->validateHash('test', '1'));
     }
 
-    
+
     public function testGetStoreId(): void
     {
         $this->assertIsInt($this->subject->getStoreId());

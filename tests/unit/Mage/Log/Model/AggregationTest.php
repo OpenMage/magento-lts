@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -23,7 +24,7 @@ class AggregationTest extends TestCase
         $this->subject = Mage::getModel('log/aggregation');
     }
 
-    
+
     public function testRun(): void
     {
         $this->subject->run();

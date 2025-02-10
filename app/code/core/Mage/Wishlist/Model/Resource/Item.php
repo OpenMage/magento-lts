@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Wishlist item model resource
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
  */
 class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abstract

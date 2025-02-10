@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Review form block
  *
- * @copyright For copyright and license information, read the COPYING.txt file.
- * @link /COPYING.txt
- * @license Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rss
  */
 class Mage_Rss_Block_List extends Mage_Core_Block_Template

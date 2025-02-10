@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright For copyright and license information, read the COPYING.txt file.
  * @link /COPYING.txt
@@ -25,7 +26,7 @@ class DataTest extends TestCase
         $this->subject = Mage::helper('adminhtml/dashboard_data');
     }
 
-    
+
     public function testGetStores(): void
     {
         $this->assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, $this->subject->getStores());
