@@ -186,12 +186,14 @@ nav:
           - api/rest/response_formats.md
           - api/rest/testing_rest_resources.md
   - 'Development':
+      - 'Installation':
+          - developers/tools/ddev.md
+          - developers/tools/oneline.md
       - 'Coding Style':
           - developers/coding-style/per-2.0.md
       - 'Events':
           - developers/events/list.md
       - 'Tools':
-          - developers/tools/ddev.md
           - developers/tools/n98-magerun.md
           - developers/tools/phpstorm.md
       - 'Multistore':
