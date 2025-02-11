@@ -193,20 +193,20 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                 foreach ($this->_axisLabels[$idx] as $_index => $_label) {
                     $this->_axisLabels[$idx][$_index] = '';
                     switch ($this->getDataHelper()->getParam('period')) {
-                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_24_HOURS:
+                        case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
                             $this->_axisLabels[$idx][$_index] = $this->formatTime(
                                 new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
                                 'short',
                             );
                             break;
-                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_7_DAYS:
-                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_MONTH:
+                        case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
+                        case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
                             $this->_axisLabels[$idx][$_index] = $this->formatDate(
                                 new Zend_Date($_label, 'yyyy-MM-dd'),
                             );
                             break;
-                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_YEAR:
-                        case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_2_YEARS:
+                        case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+                        case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
                             $formats = Mage::app()->getLocale()->getTranslationList('datetime');
                             $format = $formats['yyMM'] ?? 'MM/yyyy';
                             $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
@@ -246,17 +246,17 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         while ($dateStart->compare($dateEnd) < 0) {
             switch ($this->getDataHelper()->getParam('period')) {
-                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_24_HOURS:
+                case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
                     $date = $dateStart->toString('yyyy-MM-dd HH:00');
                     $dateStart->addHour(1);
                     break;
-                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_7_DAYS:
-                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_MONTH:
+                case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
+                case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
                     $date = $dateStart->toString('yyyy-MM-dd');
                     $dateStart->addDay(1);
                     break;
-                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_1_YEAR:
-                case Mage_Adminhtml_Helper_Dashboard_Data::PERIOD_2_YEARS:
+                case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+                case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
                     $date = $dateStart->toString('yyyy-MM');
                     $dateStart->addMonth(1);
                     break;

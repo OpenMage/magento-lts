@@ -228,19 +228,19 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     protected function _getRangeExpression($range)
     {
         switch ($range) {
-            case '24h':
+            case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
                 $expression = $this->getConnection()->getConcatSql([
                     $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
                     $this->getConnection()->quote('00'),
                 ]);
                 break;
-            case '7d':
-            case '1m':
+            case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
+            case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
                 $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d');
                 break;
-            case '1y':
-            case '2y':
-            case 'custom':
+            case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+            case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
+            case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
             default:
                 $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m');
                 break;
@@ -327,30 +327,30 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         $dateStart->setSecond(0);
 
         switch ($range) {
-            case '24h':
+            case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
                 $dateEnd = Mage::app()->getLocale()->date();
                 $dateEnd->addHour(1);
                 $dateStart = clone $dateEnd;
                 $dateStart->subDay(1);
                 break;
 
-            case '7d':
+            case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
                 // subtract 6 days we need to include
                 // only today and not the last one from range
                 $dateStart->subDay(6);
                 break;
 
-            case '1m':
+            case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
                 $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
                 break;
 
-            case 'custom':
-                $dateStart = $customStart ? $customStart : $dateEnd;
-                $dateEnd   = $customEnd ? $customEnd : $dateEnd;
+            case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
+                $dateStart = $customStart ?: $dateEnd;
+                $dateEnd   = $customEnd ?: $dateEnd;
                 break;
 
-            case '1y':
-            case '2y':
+            case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+            case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
                 $startMonthDay = explode(',', Mage::getStoreConfig('reports/dashboard/ytd_start'));
                 $startMonth = isset($startMonthDay[0]) ? (int) $startMonthDay[0] : 1;
                 $startDay = isset($startMonthDay[1]) ? (int) $startMonthDay[1] : 1;
