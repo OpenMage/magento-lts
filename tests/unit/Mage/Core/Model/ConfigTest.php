@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
-use Mage_Core_Model_Config;
+use Mage_Core_Model_Config as Subject;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public Mage_Core_Model_Config $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

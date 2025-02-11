@@ -152,6 +152,8 @@ parameters:
                 - app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_grid.phtml
                 - app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_list.phtml
                 - app/design/install/default/default/template/page.phtml
+        -
+            identifier: phpunit.coversMethod
     tmpDir: .phpstan.cache
     level: 5
     checkFunctionNameCase: true

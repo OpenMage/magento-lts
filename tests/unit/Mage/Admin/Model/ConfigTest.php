@@ -19,13 +19,13 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Mage;
 use Mage_Admin_Model_Acl;
-use Mage_Admin_Model_Config;
+use Mage_Admin_Model_Config as Subject;
 use PHPUnit\Framework\TestCase;
 use Varien_Simplexml_Config;
 
 class ConfigTest extends TestCase
 {
-    public Mage_Admin_Model_Config $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -57,8 +57,7 @@ class ConfigTest extends TestCase
      */
     public function testLoadAclResources(): void
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->assertInstanceOf(Mage_Admin_Model_Config::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
+        $this->assertInstanceOf(Subject::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
     /**
