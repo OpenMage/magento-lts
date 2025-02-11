@@ -222,7 +222,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Get range expression
      *
-     * @param string $range
+     * @param Mage_Reports_Helper_Data::PERIOD_* $range
      * @return Zend_Db_Expr
      */
     protected function _getRangeExpression($range)
@@ -306,7 +306,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate From and To dates (or times) by given period
      *
-     * @param string $range
+     * @param Mage_Reports_Helper_Data::PERIOD_* $range
      * @param string $customStart
      * @param string $customEnd
      * @param bool $returnObjects

@@ -69,7 +69,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     /**
      * Prepare array with periods for dashboard graphs
      *
-     * @return array
+     * @return string[]
      */
     public function getDatePeriods()
     {
