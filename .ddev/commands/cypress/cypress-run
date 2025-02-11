@@ -1,8 +1,0 @@
-#!/bin/bash
-
-## Description: Use Cypress in "runner" mode.
-##
-## Usage: cypress-run [arguments]
-## Example: "ddev cypress-run --browser chrome"
-
-cypress run --config .cypress.config.js "$@"
