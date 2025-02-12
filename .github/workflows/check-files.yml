@@ -36,6 +36,9 @@ on:
       phpunit-test:
         description: "Count changed PhpUnit test files"
         value: ${{ jobs.check.outputs.phpunit-test }}
+      phpunit:
+        description: "Count changed PhpUnit files"
+        value: ${{ jobs.check.outputs.phpunit }}
       markdown:
         description: "Count changed markdown files"
         value: ${{ jobs.check.outputs.markdown }}
