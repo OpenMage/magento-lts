@@ -9,6 +9,7 @@ on:
       - '**.php'
       - '**.phtml'
       - '**.js'
+      - '**.md'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
       - '.phpcs.dist.xml'
@@ -25,6 +26,7 @@ on:
       - '**.php'
       - '**.phtml'
       - '**.js'
+      - '**.md'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
       - '.phpcs.dist.xml'
@@ -138,3 +140,11 @@ jobs:
       needs.check.outputs.phpunit > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml
+
+  spellcheck:
+    name: Docomentation spell check
+    needs: [check]
+    if: |
+      needs.check.outputs.markdown > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/spellcheck.yml
