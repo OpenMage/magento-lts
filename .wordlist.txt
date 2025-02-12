@@ -1,5 +1,8 @@
 CVE
+DDEV
 LTS
-OpenMage
 Magento
+OpenMage
+SCSS
+SSL
 toc
