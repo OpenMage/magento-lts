@@ -142,7 +142,7 @@ jobs:
     uses: ./.github/workflows/phpunit.yml
 
   spellcheck:
-    name: Docomentation spell check
+    name: Markdown spell check
     needs: [check]
     if: |
       needs.check.outputs.markdown > 0 ||
