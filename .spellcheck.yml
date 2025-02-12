@@ -16,9 +16,9 @@ matrix:
           comments: false
           attributes:
             - alt
-            - href
           ignores:
             - ':matches(code, pre)'
+            - 'a'
             - 'code'
             - 'pre'
             - 'blockquote'
