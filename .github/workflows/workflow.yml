@@ -142,7 +142,7 @@ jobs:
     uses: ./.github/workflows/phpunit.yml
 
   spellcheck:
-    name: Documentation spell check - trigger1
+    name: Documentation spell check - trigger2
     needs: [check]
     if: |
       needs.check.outputs.markdown > 0 ||
