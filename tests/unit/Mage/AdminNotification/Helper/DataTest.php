@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Helper;
 
 use Mage;
-use Mage_AdminNotification_Helper_Data;
+use Mage_AdminNotification_Helper_Data as Subject;
 use Mage_AdminNotification_Model_Inbox;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_AdminNotification_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
