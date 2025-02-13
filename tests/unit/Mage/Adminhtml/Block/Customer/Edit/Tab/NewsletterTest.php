@@ -18,19 +18,18 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Edit\Tab;
 
 use Mage;
-use Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter;
+use Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter as Subject;
 use Mage_Customer_Model_Customer;
 use PHPUnit\Framework\TestCase;
 
 class NewsletterTest extends TestCase
 {
-    public Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter();
+        $this->subject = new Subject();
     }
 
     /**
@@ -40,7 +39,7 @@ class NewsletterTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getRegistryCurrentCustomer'])
             ->getMock();
 
@@ -49,6 +48,6 @@ class NewsletterTest extends TestCase
             // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Customer_Model_Customer());
 
-        $this->assertInstanceOf(Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter::class, $mock->initForm());
+        $this->assertInstanceOf(Subject::class, $mock->initForm());
     }
 }
