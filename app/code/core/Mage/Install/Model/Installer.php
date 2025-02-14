@@ -141,9 +141,9 @@ class Mage_Install_Model_Installer extends Varien_Object
         }
 
         if (!empty($data['enable_charts'])) {
-            $setupModel->setConfigData(Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS, 1);
+            $setupModel->setConfigData(Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS, 1);
         } else {
-            $setupModel->setConfigData(Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS, 0);
+            $setupModel->setConfigData(Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS, 0);
         }
 
         $unsecureBaseUrl = Mage::getBaseUrl('web');
