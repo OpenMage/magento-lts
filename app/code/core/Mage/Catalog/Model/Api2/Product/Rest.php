@@ -100,8 +100,6 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
      */
     protected function _prepareProductForResponse(Mage_Catalog_Model_Product $product)
     {
-        /** @var Mage_Catalog_Helper_Product $productHelper */
-        $productHelper = Mage::helper('catalog/product');
         $productData = $product->getData();
         $product->setWebsiteId($this->_getStore()->getWebsiteId());
         // customer group is required in product for correct prices calculation
@@ -118,7 +116,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
 
         if ($this->getActionType() == self::ACTION_TYPE_ENTITY) {
             // define URLs
-            $productData['url'] = $productHelper->getProductUrl($product->getId());
+            $productData['url'] = $product->getProductUrl();
             /** @var Mage_Checkout_Helper_Cart $cartHelper */
             $cartHelper = Mage::helper('checkout/cart');
             $productData['buy_now_url'] = $cartHelper->getAddUrl($product);
