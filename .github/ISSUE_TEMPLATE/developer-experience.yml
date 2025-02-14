@@ -1,0 +1,32 @@
+name: 👀 Developer experience
+description: Issues related to customization, extensibility, modularity
+title: "<title>"
+labels: ["review needed"]
+body:
+  - type: textarea
+    attributes:
+      label: Summary
+      description: Describe the issue you are experiencing. Include general information, error messages, environments, and so on.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Examples
+      description: Provide code examples or a patch with a test (recommended) to clearly indicate the problem.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed solution
+      description: Suggest your potential solutions for this issue.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: |
+        Links? References? Anything that will give us more context about the issue you are encountering!
+        
+        Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
