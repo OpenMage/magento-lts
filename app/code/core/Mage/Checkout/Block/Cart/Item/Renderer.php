@@ -241,7 +241,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
             Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $helper->getEncodedUrl(),
         ];
         if ($addFormKey) {
-            $params[Mage_Core_Model_Url::FORM_KEY] = Mage::getSingleton('core/session')->getFormKey();
+            $params[Mage_Core_Model_Url::FORM_KEY] = $this->getCoreSession()->getFormKey();
         }
 
         return $this->getUrl('checkout/cart/delete', $params);
@@ -320,10 +320,10 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
      *
      * @return Mage_Checkout_Model_Session
      */
-    public function getCheckoutSession()
+    public function getCheckout()
     {
         if ($this->_checkoutSession === null) {
-            $this->_checkoutSession = Mage::getSingleton('checkout/session');
+            $this->_checkoutSession = $this->getCheckoutSession();
         }
         return $this->_checkoutSession;
     }
@@ -354,7 +354,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer extends Mage_Core_Block_Template
         }
 
         // Add messages saved previously in checkout session
-        $checkoutSession = $this->getCheckoutSession();
+        $checkoutSession = $this->getCheckout();
         if ($checkoutSession) {
             /** @var Mage_Core_Model_Message_Collection $collection */
             $collection = $checkoutSession->getQuoteItemMessages($quoteItem->getId(), true);

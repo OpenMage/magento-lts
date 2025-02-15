@@ -22,6 +22,8 @@
  */
 abstract class Mage_Core_Model_Resource_Abstract
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Main constructor
      */

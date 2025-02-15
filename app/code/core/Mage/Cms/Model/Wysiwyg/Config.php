@@ -27,6 +27,8 @@ use Composer\InstalledVersions;
  */
 class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Wysiwyg store config path
      */
@@ -86,8 +88,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'hidden'                        => $this->isHidden(),
             'skin'                          => Mage::getStoreConfig('cms/wysiwyg/skin'),
             'use_container'                 => false,
-            'add_variables'                 => Mage::getSingleton('admin/session')->isAllowed('system/variable'),
-            'add_widgets'                   => Mage::getSingleton('admin/session')->isAllowed('cms/widget_instance'),
+            'add_variables'                 => $this->getAdminSession()->isAllowed('system/variable'),
+            'add_widgets'                   => $this->getAdminSession()->isAllowed('cms/widget_instance'),
             'no_display'                    => false,
             'translator'                    => Mage::helper('cms'),
             'encode_directives'             => true,
@@ -98,7 +100,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
         ]);
         $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
 
-        if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {
+        if ($this->getAdminSession()->isAllowed('cms/media_gallery')) {
             $config->addData([
                 'add_images'               => true,
                 'files_browser_window_url' => Mage::getSingleton('adminhtml/url')->getUrl('*/cms_wysiwyg_images/index'),

@@ -56,10 +56,12 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      * Retrieve checkout session
      *
      * @return Mage_Checkout_Model_Session
+     * @deprecated
+     * @see getCheckoutSession()
      */
     protected function _getCheckoutSession()
     {
-        return Mage::getSingleton('checkout/session');
+        return $this->getCheckoutSession();
     }
 
     /**
@@ -100,7 +102,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
 
         if (!in_array($action, ['login', 'register'])) {
-            if (!Mage::getSingleton('customer/session')->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
+            if (!$this->getCustomerSession()->authenticate($this, $this->_getHelper()->getMSLoginUrl())) {
                 $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             }
 
@@ -152,13 +154,13 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function loginAction()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             $this->_redirect('*/*/');
             return;
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
 
         // set account create url
         if ($loginForm = $this->getLayout()->getBlock('customer_form_login')) {
@@ -172,13 +174,13 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
      */
     public function registerAction()
     {
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        if ($this->getCustomerSession()->isLoggedIn()) {
             $this->_redirectUrl($this->_getHelper()->getMSCheckoutUrl());
             return;
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
 
         if ($registerForm = $this->getLayout()->getBlock('customer_form_register')) {
             $registerForm->setShowAddressFields(true)
@@ -213,8 +215,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             $this->_getCheckout()->getCheckoutSession()->addNotice($message);
         }
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
-        $this->_initLayoutMessages('checkout/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
         $this->renderLayout();
     }
 
@@ -325,8 +327,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             Mage_Checkout_Model_Type_Multishipping_State::STEP_SHIPPING,
         );
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
-        $this->_initLayoutMessages('checkout/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
         $this->renderLayout();
     }
 
@@ -420,8 +422,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         );
 
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
-        $this->_initLayoutMessages('checkout/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
         $this->renderLayout();
     }
 
@@ -483,8 +485,8 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
             );
 
             $this->loadLayout();
-            $this->_initLayoutMessages('checkout/session');
-            $this->_initLayoutMessages('customer/session');
+            $this->_initLayoutMessages($this->getCustomerSessionStorage());
+            $this->_initLayoutMessages($this->getCheckoutSessionStorage());
             $this->renderLayout();
         } catch (Mage_Core_Exception $e) {
             $this->_getCheckoutSession()->addError($e->getMessage());
@@ -575,7 +577,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
         }
 
         $this->loadLayout();
-        $this->_initLayoutMessages('checkout/session');
+        $this->_initLayoutMessages($this->getCheckoutSessionStorage());
         $ids = $this->_getCheckout()->getOrderIds();
         Mage::dispatchEvent('checkout_multishipping_controller_success_action', ['order_ids' => $ids]);
         $this->renderLayout();
@@ -587,7 +589,7 @@ class Mage_Checkout_MultishippingController extends Mage_Checkout_Controller_Act
     public function redirectLogin()
     {
         $this->setFlag('', 'no-dispatch', true);
-        Mage::getSingleton('customer/session')->setBeforeAuthUrl(Mage::getUrl('*/*', ['_secure' => true]));
+        $this->getCustomerSession()->setBeforeAuthUrl(Mage::getUrl('*/*', ['_secure' => true]));
 
         $this->getResponse()->setRedirect(
             Mage::helper('core/url')->addRequestParam(

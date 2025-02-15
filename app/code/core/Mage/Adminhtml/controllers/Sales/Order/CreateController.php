@@ -413,7 +413,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $this->loadLayoutUpdates()->generateLayoutXml()->generateLayoutBlocks();
         $result = $this->getLayout()->getBlock('content')->toHtml();
         if ($request->getParam('as_js_varname')) {
-            Mage::getSingleton('adminhtml/session')->setUpdateResult($result);
+            $this->getAdminhtmlSession()->setUpdateResult($result);
             $this->_redirect('*/*/showUpdateResult');
         } else {
             $this->getResponse()->setBody($result);
@@ -444,7 +444,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         }
 
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
-        Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
+        $this->getAdminhtmlSession()->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');
     }
 
@@ -504,8 +504,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
                 ->createOrder();
 
             $this->_getSession()->clear();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The order has been created.'));
-            if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
+            $this->getAdminhtmlSession()->addSuccess($this->__('The order has been created.'));
+            if ($this->getAdminSession()->isAllowed('sales/order/actions/view')) {
                 $this->_redirect('*/sales_order/view', ['order_id' => $order->getId()]);
             } else {
                 $this->_redirect('*/sales_order/index');
@@ -534,7 +534,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed($this->_getAclResourse());
+        return $this->getAdminSession()->isAllowed($this->_getAclResourse());
     }
 
     /**
@@ -641,7 +641,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      */
     public function showUpdateResultAction()
     {
-        $session = Mage::getSingleton('adminhtml/session');
+        $session = $this->getAdminhtmlSession();
         if ($session->hasUpdateResult() && is_scalar($session->getUpdateResult())) {
             $this->getResponse()->setBody($session->getUpdateResult());
             $session->unsUpdateResult();

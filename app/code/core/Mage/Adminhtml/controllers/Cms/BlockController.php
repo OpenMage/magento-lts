@@ -90,7 +90,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('This block no longer exists.'));
+                $this->getAdminhtmlSession()->addError(Mage::helper('cms')->__('This block no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -99,7 +99,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
         $this->_title($model->getId() ? $model->getTitle() : $this->__('New Block'));
 
         // 3. Set entered data if was error when we do save
-        $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
+        $data = $this->getAdminhtmlSession()->getFormData(true);
         if (!empty($data)) {
             $model->setData($data);
         }
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
             $id = $this->getRequest()->getParam('block_id');
             $model = Mage::getModel('cms/block')->load($id);
             if (!$model->getId() && $id) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('This block no longer exists.'));
+                $this->getAdminhtmlSession()->addError(Mage::helper('cms')->__('This block no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -137,9 +137,9 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 // save the data
                 $model->save();
                 // display success message
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('cms')->__('The block has been saved.'));
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('cms')->__('The block has been saved.'));
                 // clear previously saved data from session
-                Mage::getSingleton('adminhtml/session')->setFormData(false);
+                $this->getAdminhtmlSession()->setFormData(false);
 
                 // check if 'Save and Continue'
                 if ($this->getRequest()->getParam('back')) {
@@ -151,9 +151,9 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 return;
             } catch (Exception $e) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
                 // save data in session
-                Mage::getSingleton('adminhtml/session')->setFormData($data);
+                $this->getAdminhtmlSession()->setFormData($data);
                 // redirect to edit form
                 $this->_redirect('*/*/edit', ['block_id' => $this->getRequest()->getParam('block_id')]);
                 return;
@@ -177,20 +177,20 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 $title = $model->getTitle();
                 $model->delete();
                 // display success message
-                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('cms')->__('The block has been deleted.'));
+                $this->getAdminhtmlSession()->addSuccess(Mage::helper('cms')->__('The block has been deleted.'));
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
             } catch (Exception $e) {
                 // display error message
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->getAdminhtmlSession()->addError($e->getMessage());
                 // go back to edit form
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return;
             }
         }
         // display error message
-        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a block to delete.'));
+        $this->getAdminhtmlSession()->addError(Mage::helper('cms')->__('Unable to find a block to delete.'));
         // go to grid
         $this->_redirect('*/*/');
     }

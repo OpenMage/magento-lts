@@ -26,20 +26,24 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
      * Return core session object
      *
      * @return Mage_Core_Model_Session
+     * @deprecated
+     * @see getCoreSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('core/session');
+        return $this->getCoreSession();
     }
 
     /**
      * Return customer session object
      *
      * @return Mage_Customer_Model_Session
+     * @deprecated
+     * @see getCustomerSession()
      */
     protected function _getCustomerSession()
     {
-        return Mage::getSingleton('customer/session');
+        return $this->getCustomerSession();
     }
 
     /**

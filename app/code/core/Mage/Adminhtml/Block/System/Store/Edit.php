@@ -26,7 +26,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
     public function __construct()
     {
         $backupAvailable =
-            Mage::getSingleton('admin/session')->isAllowed('system/tools/backup')
+            $this->getAdminSession()->isAllowed('system/tools/backup')
             && $this->isModuleEnabled('Mage_Backup')
             && !Mage::getStoreConfigFlag('advanced/modules_disable_output/Mage_Backup');
 
@@ -115,7 +115,7 @@ class Mage_Adminhtml_Block_System_Store_Edit extends Mage_Adminhtml_Block_Widget
                 '*/*/delete' . $storeType . 'Post',
                 [
                     'item_id' => Mage::registry('store_data')->getId(),
-                    'form_key' => Mage::getSingleton('core/session')->getFormKey(),
+                    'form_key' => $this->getCoreSession()->getFormKey(),
                 ],
             );
         }

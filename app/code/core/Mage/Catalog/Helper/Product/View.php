@@ -121,7 +121,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
         }
 
         /** @see Mage_Checkout_CartController::_setProductBuyRequest() */
-        $checkoutBuyRequest = Mage::getSingleton('checkout/session')->getProductBuyRequest(true);
+        $checkoutBuyRequest = $this->getCheckoutSession()->getProductBuyRequest(true);
         $buyRequest = $params->getBuyRequest() ?: $checkoutBuyRequest;
         if ($buyRequest) {
             $productHelper->prepareProductOptions($product, $buyRequest);
@@ -135,10 +135,10 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 
         if ($params->getSpecifyOptions()) {
             $notice = $product->getTypeInstance(true)->getSpecifyOptionMessage();
-            Mage::getSingleton('catalog/session')->addNotice($notice);
+            $this->getCatalogSession()->addNotice($notice);
         }
 
-        Mage::getSingleton('catalog/session')->setLastViewedProductId($product->getId());
+        $this->getCatalogSession()->setLastViewedProductId($product->getId());
 
         $this->initProductLayout($product, $controller);
 

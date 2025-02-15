@@ -22,6 +22,8 @@
  */
 class Mage_Api_Model_Resource_Abstract
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Resource configuration
      *
@@ -33,10 +35,12 @@ class Mage_Api_Model_Resource_Abstract
      * Retrieve webservice session
      *
      * @return Mage_Api_Model_Session
+     * @deprecated
+     * @see getApiSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('api/session');
+        return $this->getApiSession();
     }
 
     /**

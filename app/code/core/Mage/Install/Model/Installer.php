@@ -22,6 +22,8 @@
  */
 class Mage_Install_Model_Installer extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Installer host response used to check urls
      *
@@ -31,7 +33,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Installer data model used to store data between installation steps
      *
-     * @var Mage_Install_Model_Installer_Data|null
+     * @var Mage_Install_Model_Session|null
      */
     protected $_dataModel;
 
@@ -53,7 +55,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     public function getDataModel()
     {
         if (is_null($this->_dataModel)) {
-            $this->setDataModel(Mage::getSingleton('install/session'));
+            $this->setDataModel($this->getInstallSession());
         }
         return $this->_dataModel;
     }
@@ -61,7 +63,7 @@ class Mage_Install_Model_Installer extends Varien_Object
     /**
      * Set data model to store data between installation steps
      *
-     * @param Mage_Install_Model_Installer_Data $model
+     * @param Mage_Install_Model_Installer_Data|Mage_Install_Model_Session $model
      * @return $this
      */
     public function setDataModel(Varien_Object $model)

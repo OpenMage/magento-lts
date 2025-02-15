@@ -75,6 +75,8 @@
  */
 class Mage_Core_Model_Url extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Default controller name
      */
@@ -769,7 +771,7 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         $hostArr = explode(':', $this->getRequest()->getServer('HTTP_HOST'));
         if ($hostArr[0] !== $this->getHost()) {
-            $session = Mage::getSingleton('core/session');
+            $session = $this->getCoreSession();
             if (!$session->isValidForHost($this->getHost())) {
                 if (!self::$_encryptedSessionId) {
                     $helper = Mage::helper('core');
@@ -791,7 +793,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function addSessionParam()
     {
-        $session = Mage::getSingleton('core/session');
+        $session = $this->getCoreSession();
 
         if (!self::$_encryptedSessionId) {
             $helper = Mage::helper('core');
@@ -1180,7 +1182,7 @@ class Mage_Core_Model_Url extends Varien_Object
     public function sessionVarCallback($match)
     {
         if ($this->useSessionIdForUrl($match[2] == 'S')) {
-            $session = Mage::getSingleton('core/session');
+            $session = $this->getCoreSession();
             /** @var Mage_Core_Model_Session $session */
             return $match[1]
                 . $session->getSessionIdQueryParam()

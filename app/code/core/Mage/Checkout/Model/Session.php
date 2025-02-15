@@ -216,7 +216,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 }
             }
 
-            $customerSession = Mage::getSingleton('customer/session');
+            $customerSession = $this->getCustomerSession();
 
             if (!$this->getQuoteId()) {
                 if ($customerSession->isLoggedIn() || $this->_customer) {
@@ -280,7 +280,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function loadCustomerQuote()
     {
-        if (!Mage::getSingleton('customer/session')->getCustomerId()) {
+        if (!$this->getCustomerSession()->getCustomerId()) {
             return $this;
         }
 
@@ -288,7 +288,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
 
         $customerQuote = Mage::getModel('sales/quote')
             ->setStoreId(Mage::app()->getStore()->getId())
-            ->loadByCustomer(Mage::getSingleton('customer/session')->getCustomerId());
+            ->loadByCustomer($this->getCustomerSession()->getCustomerId());
 
         if ($customerQuote->getId() && $this->getQuoteId() != $customerQuote->getId()) {
             if ($this->getQuoteId()) {
@@ -306,7 +306,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         } else {
             $this->getQuote()->getBillingAddress();
             $this->getQuote()->getShippingAddress();
-            $this->getQuote()->setCustomer(Mage::getSingleton('customer/session')->getCustomer())
+            $this->getQuote()->setCustomer($this->getCustomerSession()->getCustomer())
                 ->setTotalsCollectedFlag(false)
                 ->collectTotals()
                 ->save();
