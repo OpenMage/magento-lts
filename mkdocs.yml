@@ -161,7 +161,6 @@ nav:
           - users/install/index.md
           - users/install/use-composer.md
           - users/install/use-git.md
-          - users/install/use-tarball.md
           - users/install/secure-install.md
       - 'Changelog':
           - developers/changelog/index.md
