@@ -63,8 +63,8 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $this->assertIsArray($env);
         $this->assertEmpty($env);
         $environmentConfigLoaderHelper->setEnvStore([
-            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => "some_value",
-            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1 // enable feature
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1, // enable feature
         ]);
         // flag is set => feature is enabled
         $env = $environmentConfigLoaderHelper->getEnv();
