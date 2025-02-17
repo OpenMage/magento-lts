@@ -18,7 +18,10 @@ use Mage_Core_Helper_EnvironmentConfigLoader;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-final class EnvironmentConfigLoaderTest extends OpenMageTest
+/**
+ * @group Mage_Core_EnvLoader
+ */
+class EnvironmentConfigLoaderTest extends OpenMageTest
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
 
@@ -48,6 +51,30 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @group Helper
+     */
+    public function testEnvFilter(): void
+    {
+        $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => "some_value"
+        ]);
+        // empty because env flag is not set
+        $env = $environmentConfigLoaderHelper->getEnv();
+        $this->assertIsArray($env);
+        $this->assertEmpty($env);
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => "some_value",
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1 // enable feature
+        ]);
+        // flag is set => feature is enabled
+        $env = $environmentConfigLoaderHelper->getEnv();
+        $this->assertIsArray($env);
+        $this->assertNotEmpty($env);
+    }
+
+    /**
+     * @group Mage_Core
+     * @group Mage_Core_Helper
      */
     public function testBuildNodePath(): void
     {

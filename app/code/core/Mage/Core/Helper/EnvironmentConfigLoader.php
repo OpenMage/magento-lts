@@ -15,7 +15,7 @@
 class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 {
     protected const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
-
+    protected const ENV_FEATURE_ENABLED = 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED';
     protected const ENV_KEY_SEPARATOR = '__';
 
     protected const CONFIG_KEY_DEFAULT = 'DEFAULT';
@@ -203,7 +203,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             }, ARRAY_FILTER_USE_KEY);
             $this->envStore = $env;
         }
-
+        if (!isset($this->envStore[static::ENV_FEATURE_ENABLED])) {
+            $this->envStore = [];
+            return $this->envStore;
+        }
         return $this->envStore;
     }
 
