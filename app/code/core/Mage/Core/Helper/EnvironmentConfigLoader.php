@@ -107,7 +107,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                     break;
             }
         }
-        Mage::register("current_env_config", true, true);
+        Mage::register('current_env_config', true, true);
     }
 
     public function hasPath(string $wantedPath): bool
