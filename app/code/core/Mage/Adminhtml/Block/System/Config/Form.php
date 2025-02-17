@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     public const SCOPE_DEFAULT = 'default';
     public const SCOPE_WEBSITES = 'websites';
     public const SCOPE_STORES   = 'stores';
+    public const SCOPE_ENV   = 'env';
 
     /**
      * Config data array
@@ -79,6 +80,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             self::SCOPE_DEFAULT  => Mage::helper('adminhtml')->__('[GLOBAL]'),
             self::SCOPE_WEBSITES => Mage::helper('adminhtml')->__('[WEBSITE]'),
             self::SCOPE_STORES   => Mage::helper('adminhtml')->__('[STORE VIEW]'),
+            self::SCOPE_ENV      => Mage::helper('adminhtml')->__('[ENV]'),
         ];
     }
 
@@ -376,11 +378,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     }
                 }
 
-                $field = $fieldset->addField($id, $fieldType, [
+                $elementFieldData = [
                     'name'                  => $name,
                     'label'                 => $label,
                     'comment'               => $comment,
-                    'disabled'              => $this->isDisabled($path),
                     'tooltip'               => $tooltip,
                     'hint'                  => $hint,
                     'value'                 => $data,
@@ -390,9 +391,14 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
                     'scope_label'           => $this->getScopeLabel($element),
-                    'can_use_default_value' => $this->canUseDefaultValue((int) $element->show_in_default),
-                    'can_use_website_value' => $this->canUseWebsiteValue((int) $element->show_in_website),
-                ]);
+                    'can_use_default_value' => $this->canUseDefaultValue((int)$element->show_in_default),
+                    'can_use_website_value' => $this->canUseWebsiteValue((int)$element->show_in_website),
+                ];
+                if ($this->isOverwrittenByEnvVariable($path)) {
+                    $elementFieldData['scope_label'] = $this->_scopeLabels[static::SCOPE_ENV];
+                    $elementFieldData['disabled'] = 1;
+                }
+                $field = $fieldset->addField($id, $fieldType, $elementFieldData);
                 $this->_prepareFieldOriginalData($field, $element);
 
                 if (isset($element->validate)) {
@@ -631,9 +637,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * Render element as disabled, if overwritten by ENV variable
+     * Returns true if element was overwritten by ENV variable
+     * @return bool
      */
-    public function isDisabled(string $path): bool
+    public function isOverwrittenByEnvVariable(string $path): bool
     {
         /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
         $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
