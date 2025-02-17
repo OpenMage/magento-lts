@@ -396,8 +396,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
                     'scope_label'           => $this->getScopeLabel($element),
-                    'can_use_default_value' => $this->canUseDefaultValue((int)$element->show_in_default),
-                    'can_use_website_value' => $this->canUseWebsiteValue((int)$element->show_in_website),
+                    'can_use_default_value' => $this->canUseDefaultValue((int) $element->show_in_default),
+                    'can_use_website_value' => $this->canUseWebsiteValue((int) $element->show_in_website),
                 ];
                 if ($this->isOverwrittenByEnvVariable($path)) {
                     $elementFieldData['scope_label'] = $this->_scopeLabels[static::SCOPE_ENV];
