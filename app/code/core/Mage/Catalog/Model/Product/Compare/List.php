@@ -22,6 +22,8 @@
  */
 class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
 {
+    use Mage_Core_Trait_Session;
+
     /**
      * Add product to Compare List
      *
@@ -98,8 +100,8 @@ class Mage_Catalog_Model_Product_Compare_List extends Varien_Object
     protected function _addVisitorToItem($item)
     {
         $item->addVisitorId(Mage::getSingleton('log/visitor')->getId());
-        if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-            $item->addCustomerData(Mage::getSingleton('customer/session')->getCustomer());
+        if ($this->getCustomerSession()->isLoggedIn()) {
+            $item->addCustomerData($this->getCustomerSession()->getCustomer());
         }
 
         return $this;

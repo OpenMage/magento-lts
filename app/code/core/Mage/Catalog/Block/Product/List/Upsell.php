@@ -51,7 +51,7 @@ class Mage_Catalog_Block_Product_List_Upsell extends Mage_Catalog_Block_Product_
         if ($this->isModuleEnabled('Mage_Checkout', 'catalog')) {
             Mage::getResourceSingleton('checkout/cart')->addExcludeProductFilter(
                 $this->_itemCollection,
-                Mage::getSingleton('checkout/session')->getQuoteId(),
+                $this->getCheckoutSession()->getQuoteId(),
             );
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);

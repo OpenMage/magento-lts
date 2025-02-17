@@ -30,6 +30,8 @@
  */
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
+    use Mage_Core_Trait_Session;
+
     public const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
     public const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
     public const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';

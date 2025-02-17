@@ -138,7 +138,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     {
         $role = $this->_initRole('role_id');
         if (!$role->getId()) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists.'));
+            $this->getAdminhtmlSession()->addError($this->__('This Role no longer exists.'));
             $this->_redirect('*/*/');
             return;
         }
@@ -156,20 +156,20 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             return;
         }
 
-        $currentUser = Mage::getModel('admin/user')->setId(Mage::getSingleton('admin/session')->getUser()->getId());
+        $currentUser = Mage::getModel('admin/user')->setId($this->getAdminSession()->getUser()->getId());
 
         if (in_array($role->getId(), $currentUser->getRoles())) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('Self-assigned roles cannot be deleted.'));
+            $this->getAdminhtmlSession()->addError($this->__('Self-assigned roles cannot be deleted.'));
             $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
         }
 
         try {
             $role->delete();
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
+            $this->getAdminhtmlSession()->addSuccess($this->__('The role has been deleted.'));
         } catch (Exception $e) {
             Mage::logException($e);
-            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
+            $this->getAdminhtmlSession()->addError($this->__('An error occurred while deleting this role.'));
         }
 
         $this->_redirect('*/*/');
@@ -197,7 +197,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $role = $this->_initRole('role_id');
         if (!$role->getId() && $rid) {
-            Mage::getSingleton('adminhtml/session')->addError($this->__('This Role no longer exists.'));
+            $this->getAdminhtmlSession()->addError($this->__('This Role no longer exists.'));
             $this->_redirect('*/*/');
             return;
         }
@@ -240,12 +240,12 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                 $this->_addUserToRole($nRuid, $role->getId());
             }
 
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been successfully saved.'));
+            $this->getAdminhtmlSession()->addSuccess($this->__('The role has been successfully saved.'));
         } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->getAdminhtmlSession()->addError($e->getMessage());
         } catch (Exception $e) {
             Mage::logException($e);
-            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
+            $this->getAdminhtmlSession()->addError($this->__('An error occurred while saving this role.'));
         }
 
         $this->_redirect('*/*/');
@@ -335,12 +335,12 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
                 $user->getResource()->saveReloadAclFlag($user, 1);
             }
 
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The roles have been refreshed.'));
+            $this->getAdminhtmlSession()->addSuccess($this->__('The roles have been refreshed.'));
         } catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            $this->getAdminhtmlSession()->addError($e->getMessage());
         } catch (Exception $e) {
             Mage::logException($e);
-            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while refreshing roles.'));
+            $this->getAdminhtmlSession()->addError($this->__('An error occurred while refreshing roles.'));
         }
 
         $this->_redirect('*/*/');

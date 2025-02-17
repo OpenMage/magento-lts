@@ -26,10 +26,12 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
      * Retrieve catalog session
      *
      * @return Mage_Catalog_Model_Session
+     * @deprecated
+     * @see getCatalogSession()
      */
     protected function _getSession()
     {
-        return Mage::getSingleton('catalog/session');
+        return $this->getCatalogSession();
     }
     /**
      * Display search result
@@ -65,8 +67,8 @@ class Mage_CatalogSearch_ResultController extends Mage_Core_Controller_Front_Act
             Mage::helper('catalogsearch')->checkNotes();
 
             $this->loadLayout();
-            $this->_initLayoutMessages('catalog/session');
-            $this->_initLayoutMessages('checkout/session');
+            $this->_initLayoutMessages($this->getCatalogSessionStorage());
+            $this->_initLayoutMessages($this->getCheckoutSessionStorage());
             $this->renderLayout();
 
             if (!Mage::helper('catalogsearch')->isMinQueryLength()) {

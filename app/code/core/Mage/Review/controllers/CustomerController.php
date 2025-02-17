@@ -30,7 +30,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
     public function preDispatch()
     {
         parent::preDispatch();
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+        if (!$this->getCustomerSession()->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
         return $this;
@@ -51,7 +51,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
 
         /** @var Mage_Review_Model_Review $review */
         $review = Mage::getModel('review/review')->load($reviewId);
-        if (!$review->getId() || $review->getCustomerId() != Mage::getSingleton('customer/session')->getCustomerId()) {
+        if (!$review->getId() || $review->getCustomerId() != $this->getCustomerSession()->getCustomerId()) {
             return false;
         }
 
@@ -61,7 +61,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
     public function indexAction()
     {
         $this->loadLayout();
-        $this->_initLayoutMessages('catalog/session');
+        $this->_initLayoutMessages($this->getCatalogSessionStorage());
 
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');

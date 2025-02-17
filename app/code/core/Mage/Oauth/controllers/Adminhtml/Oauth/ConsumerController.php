@@ -241,8 +241,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             }
             $action = '/' . $action;
         }
-        /** @var Mage_Admin_Model_Session $session */
-        $session = Mage::getSingleton('admin/session');
+        $session = $this->getAdminSession();
         return $session->isAllowed('system/api/oauth_consumer' . $action);
     }
 

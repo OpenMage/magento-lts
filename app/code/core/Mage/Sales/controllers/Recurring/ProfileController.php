@@ -39,7 +39,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
         if (!$this->getRequest()->isDispatched()) {
             return;
         }
-        $this->_session = Mage::getSingleton('customer/session');
+        $this->_session = $this->getCustomerSession();
         if (!$this->_session->authenticate($this)) {
             $this->setFlag('', 'no-dispatch', true);
         }
@@ -54,7 +54,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
     {
         $this->_title($this->__('Recurring Profiles'));
         $this->loadLayout();
-        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages($this->getCustomerSessionStorage());
         $this->renderLayout();
     }
 
@@ -145,7 +145,7 @@ class Mage_Sales_Recurring_ProfileController extends Mage_Core_Controller_Front_
             $profile = $this->_initProfile();
             $this->_title($this->__('Recurring Profiles'))->_title($this->__('Profile #%s', $profile->getReferenceId()));
             $this->loadLayout();
-            $this->_initLayoutMessages('customer/session');
+            $this->_initLayoutMessages($this->getCustomerSessionStorage());
             $navigationBlock = $this->getLayout()->getBlock('customer_account_navigation');
             if ($navigationBlock) {
                 $navigationBlock->setActive('sales/recurring_profile/');
