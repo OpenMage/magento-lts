@@ -402,6 +402,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 if ($this->isOverwrittenByEnvVariable($path)) {
                     $elementFieldData['scope_label'] = $this->_scopeLabels[static::SCOPE_ENV];
                     $elementFieldData['disabled'] = 1;
+                    $elementFieldData['can_use_default_value'] = 0;
+                    $elementFieldData['can_use_website_value'] = 0;
                 }
                 $field = $fieldset->addField($id, $fieldType, $elementFieldData);
                 $this->_prepareFieldOriginalData($field, $element);
