@@ -197,7 +197,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function getEnv(): array
     {
         if (empty($this->envStore)) {
-            $this->envStore = getenv();
+            $env = getenv();
+            $env = array_filter($env, function ($key) {
+                return str_starts_with($key, static::ENV_STARTS_WITH);
+            }, ARRAY_FILTER_USE_KEY);
+            $this->envStore = $env;
         }
 
         return $this->envStore;
@@ -228,10 +232,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     protected function isConfigKeyValid(string $configKey): bool
     {
-        if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
-            return false;
-        }
-
         $sectionGroupFieldRegexp = sprintf('([%s]*)', implode('', static::ALLOWED_CHARS));
         $allowedChars = sprintf('[%s]', implode('', static::ALLOWED_CHARS));
         $regexp = '/' . static::ENV_STARTS_WITH . static::ENV_KEY_SEPARATOR . '(WEBSITES' . static::ENV_KEY_SEPARATOR
