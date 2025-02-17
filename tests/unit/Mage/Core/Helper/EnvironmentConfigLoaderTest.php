@@ -24,6 +24,9 @@ use Mage_Core_Helper_EnvironmentConfigLoader;
 use PHPUnit\Framework\TestCase;
 use Varien_Simplexml_Config;
 
+/**
+ * @group Mage_Core_EnvLoader
+ */
 class EnvironmentConfigLoaderTest extends TestCase
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
@@ -51,6 +54,30 @@ class EnvironmentConfigLoaderTest extends TestCase
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $path = $environmentConfigLoaderHelper->exposedBuildPath('GENERAL', 'STORE_INFORMATION', 'NAME');
         $this->assertSame(self::XML_PATH_GENERAL, $path);
+    }
+
+    /**
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testEnvFilter(): void
+    {
+        $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => "some_value"
+        ]);
+        // empty because env flag is not set
+        $env = $environmentConfigLoaderHelper->getEnv();
+        $this->assertIsArray($env);
+        $this->assertEmpty($env);
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => "some_value",
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1 // enable feature
+        ]);
+        // flag is set => feature is enabled
+        $env = $environmentConfigLoaderHelper->getEnv();
+        $this->assertIsArray($env);
+        $this->assertNotEmpty($env);
     }
 
     /**
