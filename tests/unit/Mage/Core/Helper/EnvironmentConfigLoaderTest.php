@@ -56,7 +56,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $environmentConfigLoaderHelper->setEnvStore([
-            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => "some_value"
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value'
         ]);
         // empty because env flag is not set
         $env = $environmentConfigLoaderHelper->getEnv();
