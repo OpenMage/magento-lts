@@ -97,6 +97,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
+     * @runInSeparateProcess
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
      * @group Helper
      *
@@ -115,6 +116,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => $config['value'],
         ]);
         $loader->overrideEnvironment($xml);
@@ -198,6 +200,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
+     * @runInSeparateProcess
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Helper
      *
@@ -223,6 +226,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['path'] => $config['value'],
         ]);
         $loader->overrideEnvironment($xml);
