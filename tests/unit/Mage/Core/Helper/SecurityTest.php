@@ -22,7 +22,7 @@ use Mage;
 use Mage_Core_Block_Abstract;
 use Mage_Core_Block_Template;
 use Mage_Core_Exception;
-use Mage_Core_Helper_Security;
+use Mage_Core_Helper_Security as Subject;
 use Mage_Page_Block_Html_Topmenu_Renderer;
 use PHPUnit\Framework\TestCase;
 
@@ -30,7 +30,7 @@ use function sprintf;
 
 class SecurityTest extends TestCase
 {
-    public Mage_Core_Helper_Security $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -77,9 +77,7 @@ class SecurityTest extends TestCase
 
     public function forbiddenBlockMethodsDataProvider(): Generator
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $topmenu = new Mage_Page_Block_Html_Topmenu_Renderer();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $template = new Mage_Core_Block_Template();
         yield [
             $template,

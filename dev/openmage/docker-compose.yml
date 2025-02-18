@@ -1,12 +1,9 @@
-version: "3.7"
-
 services:
   php-fpm:
     image: ghcr.io/colinmollenhour/docker-openmage:8.2-fpm
     volumes:
       - ../..:/var/www/html
     environment:
-      - ENABLE_SENDMAIL=${ENABLE_SENDMAIL:-false}
       - XDEBUG_CONFIG=${XDEBUG_CONFIG:-client_host=host.docker.internal mode=debug force_display_errors=1 start_with_request=yes}
       - MAGE_IS_DEVELOPER_MODE=${MAGE_IS_DEVELOPER_MODE:-1}
       - PM_MAX_CHILDREN=${PM_MAX_CHILDREN:-5}
