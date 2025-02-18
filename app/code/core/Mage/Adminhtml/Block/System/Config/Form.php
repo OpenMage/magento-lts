@@ -656,7 +656,6 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
 
     /**
      * Returns true if element was overwritten by ENV variable
-     * @return bool
      */
     public function isOverwrittenByEnvVariable(string $path): bool
     {
