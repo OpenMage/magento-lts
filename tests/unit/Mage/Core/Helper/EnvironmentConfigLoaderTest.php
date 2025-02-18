@@ -239,6 +239,15 @@ class EnvironmentConfigLoaderTest extends TestCase
                 ],
             ]
         ];
+        yield 'storeScope' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
+                'scope'  => 'stores',
+                'expected'  => [
+                    'general/store_information/name' => 1,
+                ],
+            ]
+        ];
         yield 'invalidScope' => [
             [
                 'env_path'  => '',
@@ -270,11 +279,18 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     public function envHasPathDataProvider(): Generator
     {
-        yield 'hasPath' => [
+        yield 'hasPath default' => [
             [
               'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
               'xml_path'  => 'default/general/store_information/name',
               'expected'  => true,
+            ]
+        ];
+        yield 'hasPath store' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'stores/general/store_information/name',
+                'expected'  => true,
             ]
         ];
         yield 'hasNotPath' => [
