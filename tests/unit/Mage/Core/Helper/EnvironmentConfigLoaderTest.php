@@ -201,6 +201,44 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
+     * @dataProvider envHasPathDataProvider
+     * @group Mage_Core
+     *
+     * @param array<string, string> $config
+     */
+    public function testHasPath(array $config): void
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
+            $config['env_path'] => 1,
+        ]);
+        $actual = $loader->hasPath($config['xml_path']);
+        $expected = $config['expected'];
+        $this->assertSame($expected, $actual);
+    }
+
+    public function envHasPathDataProvider(): Generator
+    {
+        yield 'hasPath' => [
+            [
+              'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+              'xml_path'  => 'default/general/store_information/name',
+              'expected'  => true,
+            ]
+        ];
+        yield 'hasNotPath' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'foo/foo/foo',
+                'expected'  => false,
+            ]
+        ];
+    }
+
+    /**
+     * @runInSeparateProcess
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Helper
      *
