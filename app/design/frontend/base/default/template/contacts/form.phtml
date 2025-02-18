@@ -20,6 +20,7 @@
     <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
 </div>
 <form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+    <?php echo $this->getBlockHtml('formkey') ?>
     <div class="fieldset">
         <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
         <ul class="form-list">
