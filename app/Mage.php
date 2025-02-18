@@ -14,8 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-define('DS', DIRECTORY_SEPARATOR);
-define('PS', PATH_SEPARATOR);
+defined('DS') || define('DS', DIRECTORY_SEPARATOR);
+defined('PS') || define('PS', PATH_SEPARATOR);
+
 define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
@@ -278,7 +279,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "' . $key . '" already exists');
+            self::throwException("Mage registry key $key already exists");
         }
         self::$_registry[$key] = $value;
     }
@@ -331,7 +332,7 @@ final class Mage
         if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
-            self::throwException($appRoot . ' is not a directory or not readable by this user');
+            self::throwException("$appRoot is not a directory or not readable by this user");
         }
     }
 
