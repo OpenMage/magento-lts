@@ -17,9 +17,16 @@
         <env name="NO_XHGUI" value="1"/>
     </php>
 
+    <extensions>
+        <extension class="OpenMage\Tests\Unit\LongRunningTestAlert" />
+    </extensions>
+
     <testsuites>
         <testsuite name="Base">
             <directory>tests/unit/Base</directory>
+        </testsuite>
+        <testsuite name="Error">
+            <directory>tests/unit/Error</directory>
         </testsuite>
         <testsuite name="Mage">
             <directory>tests/unit/Mage</directory>
