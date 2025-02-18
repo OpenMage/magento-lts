@@ -201,6 +201,46 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @runInSeparateProcess
+     * @dataProvider envAsArrayDataProvider
+     * @group Mage_Core
+     *
+     * @param array<string, string> $config
+     */
+    public function testAsArray(array $config): void
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
+            $config['env_path'] => 1,
+        ]);
+        $actual = $loader->getAsArray($config['scope']);
+        $expected = $config['expected'];
+        $this->assertSame($expected, $actual);
+    }
+
+    public function envAsArrayDataProvider(): Generator
+    {
+        yield 'defaultScope' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'scope'  => 'default',
+                'expected'  => [
+                    'general/store_information/name' => 1,
+                ],
+            ]
+        ];
+        yield 'invalidScope' => [
+            [
+                'env_path'  => '',
+                'scope'  => 'foo',
+                'expected'  => [],
+            ]
+        ];
+    }
+
+    /**
+     * @runInSeparateProcess
      * @dataProvider envHasPathDataProvider
      * @group Mage_Core
      *
