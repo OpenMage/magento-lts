@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Media;
 
 use Mage;
-use Mage_Adminhtml_Helper_Media_Js;
+use Mage_Adminhtml_Helper_Media_Js as Subject;
 use PHPUnit\Framework\TestCase;
 
 class JsTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Media_Js $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
