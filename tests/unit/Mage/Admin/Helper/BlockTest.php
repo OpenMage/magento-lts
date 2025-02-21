@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
 
 use Mage;
-use Mage_Admin_Helper_Block;
+use Mage_Admin_Helper_Block as Subject;
 use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
 {
-    public Mage_Admin_Helper_Block $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

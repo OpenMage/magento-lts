@@ -85,6 +85,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Inventory extends Mage_Admin
         return Mage::getStoreConfig(Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . $field);
     }
 
+    public function getFieldValueAsFloat(string $field): float
+    {
+        return (float) $this->getFieldValue($field);
+    }
+
     public function getConfigFieldValue($field)
     {
         if ($this->getStockItem()) {
