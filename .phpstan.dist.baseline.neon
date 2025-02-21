@@ -5200,7 +5200,7 @@ parameters:
 			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
 			identifier: notEqual.invalid
 			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
+			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection/Abstract.php
 
 		-
 			message: '#^Parameter \#1 \$select of method Mage_Core_Model_Resource_Helper_Mysql4\:\:getQueryUsingAnalyticFunction\(\) expects Varien_Db_Select, Zend_Db_Select given\.$#'
@@ -5807,12 +5807,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Tax/Collection.php
-
-		-
-			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
-			identifier: notEqual.invalid
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
 
 		-
 			message: '#^Parameter \#1 \$select of method Mage_Core_Model_Resource_Helper_Mysql4\:\:getQueryUsingAnalyticFunction\(\) expects Varien_Db_Select, Zend_Db_Select given\.$#'
