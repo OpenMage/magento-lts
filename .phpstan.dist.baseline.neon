@@ -517,12 +517,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Currency.php
 
 		-
-			message: '#^Binary operation "\*" between string and 1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
-
-		-
 			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<array\<string\>\|string\|null\> given\.$#'
 			identifier: argument.type
 			count: 1
