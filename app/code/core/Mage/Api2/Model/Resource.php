@@ -623,7 +623,7 @@ abstract class Mage_Api2_Model_Resource
             if (!isset($errors[$message])) {
                 throw new Exception(
                     sprintf('Invalid error "%s" or error code missed.', $message),
-                    Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR
+                    Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
                 );
             }
             $code = $errors[$message];
