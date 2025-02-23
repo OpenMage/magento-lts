@@ -1,0 +1,95 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Header - Account
+ * ============================================ */
+
+/* -------------------------------------------- *
+ * Skip Link - Account
+ */
+
+.skip-account {
+
+    &:not(.skip-active):hover {
+        .icon {
+            background-position: -50px+4px (-50px + ($toolbar-icon-padding-offset/2) + 2px);
+        }
+    }
+
+    .icon {
+        @extend .icon-sprite;
+        background-position: -0px+4px (-50px + ($toolbar-icon-padding-offset/2) + 2px);
+    }
+}
+
+// ---------------------------------------------
+
+@include bp(min-width, $bp-medium + 1) {
+
+    .skip-account {
+        float: none;
+        width: auto;
+        vertical-align: top;
+        display: inline-block;
+        padding: 0 10px;
+        text-transform: uppercase;
+    }
+
+    .skip-account:hover {
+    }
+
+    #header-account.skip-active {
+        @include menu;
+        display: block;
+        position: absolute;
+        z-index: 200;
+        top: 40px;
+        right: 115px;
+        width: 200px;
+    }
+
+    #header-account a {
+        display: block;
+        padding: 5px 10px;
+        color: $c-text;
+        line-height: 2;
+    }
+
+    #header-account a:hover {
+        color: $c-action;
+    }
+
+}
+
+/* -------------------------------------------- *
+ * Account Links
+ */
+
+#header-account {
+    padding: 5px 0;
+}
+
+#header-account a {
+    position: relative;
+    display: block;
+    padding: 5px 10px;
+    line-height:23px;
+    text-align: center;
+}
+
+#header-account a:hover {
+    color: $c-action;
+}
+
