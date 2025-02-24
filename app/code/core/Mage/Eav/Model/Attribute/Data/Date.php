@@ -93,12 +93,11 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
      */
     public function compactValue($value)
     {
-        if ($value !== false) {
-            if (empty($value)) {
-                $value = null;
-            }
-            $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
+        if (empty($value)) {
+            $value = null;
         }
+        $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
+
         return $this;
     }
 
