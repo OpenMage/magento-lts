@@ -219,7 +219,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                 }
             }
         }
-        usort($attributes, function ($a, $b) {
+        uasort($attributes, function ($a, $b) {
             return $a->getPosition() - $b->getPosition();
         });
 
