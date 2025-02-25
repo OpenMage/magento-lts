@@ -1,6 +1,9 @@
 name-template: 'v$RESOLVED_VERSION 🌈'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
+  - title: '🚨 Security'
+    labels:
+      - 'security'
   - title: '🚀 Features'
     labels:
       - 'enhancement'
@@ -12,7 +15,7 @@ categories:
       - 'bug'
   - title: '📖 Documentation'
     labels:
-      - 'Documentation'
+      - 'documentation'
   - title: '🔨 Maintenance'
     labels:
       - 'chore'
