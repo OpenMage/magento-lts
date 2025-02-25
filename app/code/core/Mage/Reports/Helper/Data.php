@@ -28,8 +28,8 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     public const PERIOD_24_HOURS    = '24h';
     public const PERIOD_7_DAYS      = '7d';
     public const PERIOD_1_MONTH     = '1m';
-    public const PERIOD_3_MONTH     = '3m';
-    public const PERIOD_6_MONTH     = '6m';
+    public const PERIOD_3_MONTHS    = '3m';
+    public const PERIOD_6_MONTHS    = '6m';
     public const PERIOD_1_YEAR      = '1y';
     public const PERIOD_2_YEARS     = '2y';
 
