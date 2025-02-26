@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,8 +51,8 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $sessionName
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.Superglobals")
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function start($sessionName = null)
     {
@@ -270,7 +270,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * @param string $namespace
      * @param string $sessionName
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function init($namespace, $sessionName = null)
     {
@@ -468,7 +468,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      *
      * @throws Mage_Core_Model_Session_Exception
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function validate()
     {
@@ -502,7 +502,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      *
      * @param int $timestamp
      * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function setValidatorSessionRenewTimestamp($timestamp)
     {
@@ -513,7 +513,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Validate data
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _validate()
     {
@@ -573,7 +573,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
      * Retrieve unique user data for validator
      *
      * @return array
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getValidatorData()
     {
@@ -611,7 +611,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
     /**
      * @return array
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getSessionValidatorData()
     {

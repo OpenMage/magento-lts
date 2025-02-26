@@ -19,18 +19,17 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Generator;
 use Mage;
-use Mage_Core_Helper_Data;
+use Mage_Core_Helper_Data as Subject;
 use Mage_Core_Model_Encryption;
 use Mage_Core_Model_Locale;
 use PHPUnit\Framework\TestCase;
 use Varien_Crypt_Mcrypt;
-use Varien_Date;
 
 class DataTest extends TestCase
 {
     public const TEST_STRING = '1234567890';
 
-    public Mage_Core_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -93,9 +92,9 @@ class DataTest extends TestCase
     public function provideFormatTimezoneDate(): Generator
     {
         $date           = date_create()->getTimestamp();
-        $dateShort      = date('m/j/Y', $date);
+        $dateShort      = date('n/j/Y', $date);
         $dateLong       = date('F j, Y', $date);
-        $dateShortTime  = date('m/j/Y g:i A', $date);
+        $dateShortTime  = date('n/j/Y g:i A', $date);
 
         yield 'null' => [
             $dateShort,

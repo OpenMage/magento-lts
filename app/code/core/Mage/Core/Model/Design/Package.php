@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -611,8 +611,8 @@ class Mage_Core_Model_Design_Package
      * @param string $regexpsConfigPath
      * @return false|string
      *
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName))
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName"))
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _checkUserAgentAgainstRegexps($regexpsConfigPath)
     {
@@ -650,9 +650,9 @@ class Mage_Core_Model_Design_Package
      * @param string $regexpsConfigPath
      * @return bool|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {

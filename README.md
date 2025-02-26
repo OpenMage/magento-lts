@@ -3,7 +3,7 @@
 ![https://packagist.org/packages/openmage/magento-lts](https://poser.pugx.org/openmage/magento-lts/d/total.svg)
 ![https://github.com/openmage/magento-lts/actions/workflows/security-php.yml](https://github.com/openmage/magento-lts/actions/workflows/security-php.yml/badge.svg)
 ![https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml](https://github.com/OpenMage/magento-lts/actions/workflows/workflow.yml/badge.svg)
-![https://www.php-fig.org/per/coding-style/](https://img.shields.io/badge/Coding%20standard-PER2.0-white.svg)
+![https://www.php-fig.org/per/coding-style/](https://img.shields.io/badge/Code-PER2.0-white.svg)
 
 # Magento - Long Term Support
 
@@ -21,19 +21,9 @@ See: https://docs.openmage.org/
 
 ---
 
-## Public Communication
+## Sponsorship
 
-* [Discord](https://discord.gg/EV8aNbU) (maintained by Flyingmana)
-
-## Maintainers
-
-* [Daniel Fahlke](https://github.com/Flyingmana)
-* [David Robinson](https://github.com/drobinson)
-* [Fabrizio Balliano](https://github.com/fballiano)
-* [Lee Saferite](https://github.com/LeeSaferite)
-* [Mohamed Elidrissi](https://github.com/elidrissidev)
-* [Ng Kiat Siong](https://github.com/kiatng)
-* [Tymoteusz Motylewski](https://github.com/tmotyl)
+* [opencollective](https://opencollective.com/openmage) (maintained by [Daniel Fahlke](https://github.com/Flyingmana) and [Colin Mollenhour](https://github.com/colinmollenhour))
 
 ## License
 
@@ -258,6 +248,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ragnese"><img src="https://avatars.githubusercontent.com/u/7927565?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rob Agnese</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.cartware.de"><img src="https://avatars.githubusercontent.com/u/1931120?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Buch</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mbattistini"><img src="https://avatars.githubusercontent.com/u/276468?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>mbattistini</b></sub></a></td>
     </tr>
   </tbody>
 </table>

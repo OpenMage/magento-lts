@@ -9,8 +9,13 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Permissions_Tab_Userroles
+ * @var Mage_Adminhtml_Block_Permissions_Tab_Userroles $this
  */
 ?>
 <div class="entry-edit">
@@ -21,14 +26,13 @@
     <?php foreach ($roles as $role): ?>
     <?php
         $checked = false;
-        foreach( $user_roles->getItems() as $user_role )
-        {
-            if( $user_role->getParentId() == $role->getRoleId() ) {
+        foreach($user_roles->getItems() as $user_role) {
+            if($user_role->getParentId() == $role->getRoleId()) {
                 $checked = true;
             }
         }
-    ?>
-        <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo ($checked ? "checked" : ""); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
+        ?>
+        <input type="checkbox" value="<?php echo $role->getRoleId(); ?>" <?php echo($checked ? 'checked' : ''); ?> name="roles[]" id="_<?php echo $role->getRoleId(); ?>" /> <label for="_<?php echo $role->getRoleId(); ?>" class="normal"><?php echo $role->getRoleName(); ?></label><br />
     <?php endforeach ?>
     </fieldset>
 </div>

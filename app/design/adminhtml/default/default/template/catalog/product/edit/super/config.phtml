@@ -9,8 +9,13 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config
+ * @var Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config $this
  */
 ?>
 <?php if (!$this->isReadonly()):?>
@@ -127,7 +132,7 @@
 </div>
 <?php echo $this->getGridHtml() ?>
 <script type="text/javascript">
-var superProduct = new Product.Configurable(<?php echo $this->getAttributesJson() ?>,<?php echo $this->getLinksJson() ?>,'<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>, <?php echo ( $this->isReadonly() ? 'true' : 'false'); ?>);
+var superProduct = new Product.Configurable(<?php echo $this->getAttributesJson() ?>,<?php echo $this->getLinksJson() ?>,'<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>, <?php echo($this->isReadonly() ? 'true' : 'false'); ?>);
 superProduct.createEmptyUrl = '<?php echo $this->getNewEmptyProductUrl() ?>';
 superProduct.createNormalUrl = '<?php echo $this->getNewProductUrl() ?>';
 superProduct.createQuickUrl = '<?php echo $this->getQuickCreationUrl() ?>';

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_HTTP
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -125,7 +125,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Disconnect
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function disconnect()
     {
@@ -382,7 +382,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
     /**
      * Process response body
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function processResponseBody()
     {
@@ -436,7 +436,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
      * @param string $uri
      * @param array $params
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function makeRequest($method, $uri, $params = [])
     {

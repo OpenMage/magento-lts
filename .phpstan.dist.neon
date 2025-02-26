@@ -3,6 +3,9 @@ includes:
     - .phpstan.dist.baseline.neon
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
+    phpVersion:
+        min: 70433
+        max: 80499
     magentoRootPath: %currentWorkingDirectory%
     fileExtensions:
       - php
@@ -28,7 +31,6 @@ parameters:
         - app/code/core/Mage/Admin/Model/Acl/Assert/Time.php
         - app/code/core/Mage/Api/Model/Acl/Assert/Ip.php
         - app/code/core/Mage/Api/Model/Acl/Assert/Time.php
-        - app/code/core/Mage/Adminhtml/Block/Widget/Grid/Block.php
         - app/code/core/Mage/Core/Model/Mysql4/Design/Theme/Collection.php
         - lib/Varien/Directory/Collection.php
         - lib/Varien/Directory/Factory.php
@@ -69,6 +71,89 @@ parameters:
 
         # Instantiated class not found
         - lib/Varien/Image/Adapter.php
+    ignoreErrors:
+        -
+            # @todo remove unused classes/template
+            # @todo add classes to widgets
+            message: '#^Variable \$this might not be defined\.$#'
+            paths:
+                - app/design/adminhtml/default/default/template/api/usernroles.phtml
+                - app/design/adminhtml/default/default/template/dashboard/searches.phtml
+                - app/design/adminhtml/default/default/template/dashboard/store/switcher.phtml
+                - app/design/adminhtml/default/default/template/empty.phtml
+                - app/design/adminhtml/default/default/template/overlay_popup.phtml
+                - app/design/adminhtml/default/default/template/popup.phtml
+                - app/design/adminhtml/default/default/template/promo/form.phtml
+                - app/design/adminhtml/default/default/template/rating/stars/detailed.phtml
+                - app/design/adminhtml/default/default/template/review/add.phtml
+                - app/design/adminhtml/default/default/template/sales/billing/agreement/form.phtml
+                - app/design/adminhtml/default/default/template/sales/items/renderer/default.phtml
+                - app/design/adminhtml/default/default/template/sales/order/shipment/create/items/renderer/configurable.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/discount.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/due.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/footer.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/grand.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/item.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/main.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/paid.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/refunded.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/shipping.phtml
+                - app/design/adminhtml/default/default/template/sales/order/totals/subtotal.phtml
+                - app/design/adminhtml/default/default/template/sales/order/view/tracking.phtml
+                - app/design/adminhtml/default/default/template/system/info.phtml
+                - app/design/adminhtml/default/default/template/tax/class/page/edit.phtml
+                - app/design/adminhtml/default/default/template/tax/toolbar/class/save.phtml
+                - app/design/adminhtml/default/default/template/tax/toolbar/rule/save.phtml
+                - app/design/frontend/base/default/template/bundle/catalog/product/list/partof.phtml
+                - app/design/frontend/base/default/template/bundle/catalog/product/view/options/notice.phtml
+                - app/design/frontend/base/default/template/catalog/category/page.phtml
+                - app/design/frontend/base/default/template/catalog/category/widget/link/link_block.phtml
+                - app/design/frontend/base/default/template/catalog/category/widget/link/link_inline.phtml
+                - app/design/frontend/base/default/template/catalog/product/view/price.phtml
+                - app/design/frontend/base/default/template/catalog/product/widget/link/link_block.phtml
+                - app/design/frontend/base/default/template/catalog/product/widget/link/link_inline.phtml
+                - app/design/frontend/base/default/template/catalog/product/widget/new/column/new_default_list.phtml
+                - app/design/frontend/base/default/template/catalog/product/widget/new/column/new_images_list.phtml
+                - app/design/frontend/base/default/template/catalog/product/widget/new/column/new_names_list.phtml
+                - app/design/frontend/base/default/template/catalog/product/widget/new/content/new_grid.phtml
+                - app/design/frontend/base/default/template/catalog/product/widget/new/content/new_list.phtml
+                - app/design/frontend/base/default/template/checkout/cart/render/default.phtml
+                - app/design/frontend/base/default/template/checkout/cart/render/simple.phtml
+                - app/design/frontend/base/default/template/cms/widget/link/link_block.phtml
+                - app/design/frontend/base/default/template/cms/widget/link/link_inline.phtml
+                - app/design/frontend/base/default/template/cms/widget/static_block/default.phtml
+                - app/design/frontend/base/default/template/core/messages.phtml
+                - app/design/frontend/base/default/template/customer/address.phtml
+                - app/design/frontend/base/default/template/customer/balance.phtml
+                - app/design/frontend/base/default/template/customer/form/address.phtml
+                - app/design/frontend/base/default/template/customer/form/changepassword.phtml
+                - app/design/frontend/base/default/template/customer/orders.phtml
+                - app/design/frontend/base/default/template/customer/wishlist.phtml
+                - app/design/frontend/base/default/template/directory/currency/switch.phtml
+                - app/design/frontend/base/default/template/page/redirect.phtml
+                - app/design/frontend/base/default/template/paypal/hss/review/button.phtml
+                - app/design/frontend/base/default/template/reports/widget/compared/column/compared_default_list.phtml
+                - app/design/frontend/base/default/template/reports/widget/compared/column/compared_images_list.phtml
+                - app/design/frontend/base/default/template/reports/widget/compared/column/compared_names_list.phtml
+                - app/design/frontend/base/default/template/reports/widget/compared/content/compared_grid.phtml
+                - app/design/frontend/base/default/template/reports/widget/compared/content/compared_list.phtml
+                - app/design/frontend/rwd/default/template/catalog/product/widget/new/column/new_default_list.phtml
+                - app/design/frontend/rwd/default/template/catalog/product/widget/new/column/new_images_list.phtml
+                - app/design/frontend/rwd/default/template/catalog/product/widget/new/column/new_names_list.phtml
+                - app/design/frontend/rwd/default/template/catalog/product/widget/new/content/new_list.phtml
+                - app/design/frontend/rwd/default/template/checkout/cart/render/default.phtml
+                - app/design/frontend/rwd/default/template/checkout/cart/render/simple.phtml
+                - app/design/frontend/rwd/default/template/customer/form/address.phtml
+                - app/design/frontend/rwd/default/template/customer/form/changepassword.phtml
+                - app/design/frontend/rwd/default/template/paypal/express/review/address.phtml
+                - app/design/frontend/rwd/default/template/reports/widget/compared/column/compared_default_list.phtml
+                - app/design/frontend/rwd/default/template/reports/widget/compared/column/compared_images_list.phtml
+                - app/design/frontend/rwd/default/template/reports/widget/compared/column/compared_names_list.phtml
+                - app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_grid.phtml
+                - app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_list.phtml
+                - app/design/install/default/default/template/page.phtml
+        -
+            identifier: phpunit.coversMethod
     tmpDir: .phpstan.cache
     level: 5
     checkFunctionNameCase: true

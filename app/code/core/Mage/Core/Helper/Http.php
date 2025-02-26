@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -36,7 +36,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Validate and retrieve user and password from HTTP
      * @param array|null $headers
      * @return array
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function authValidate($headers = null)
     {
@@ -81,7 +81,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      * Send auth failed Headers and exit
      *
      * @return void
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function authFailed()
     {
@@ -116,7 +116,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
      *
      * @param bool $ipToLong converting IP to long format
      * @return false|string IPv4|long
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function getRemoteAddr($ipToLong = false)
     {

@@ -9,17 +9,15 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
-<?php
+
 /**
  * @see Mage_Adminhtml_Block_Sales_Items_Column_Name
- * @var Mage_Adminhtml_Block_Sales_Items_Column_Name $this 
+ * @var Mage_Adminhtml_Block_Sales_Items_Column_Name $this
  */
 ?>
-
 <?php if ($_item = $this->getItem()): ?>
     <h5 class="title"><span id="order_item_<?php echo $_item->getId() ?>_title"><?php echo $this->escapeHtml($_item->getName()) ?></span></h5>
     <div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getSku()))); ?></div>

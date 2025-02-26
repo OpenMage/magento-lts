@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -343,7 +343,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         } else {
             $nonManageStockFields = ['manage_stock', 'use_config_manage_stock', 'min_sale_qty',
                 'use_config_min_sale_qty', 'max_sale_qty', 'use_config_max_sale_qty'];
-            foreach ($stockData as $field => $value) {
+            foreach (array_keys($stockData) as $field) {
                 if (!in_array($field, $nonManageStockFields)) {
                     unset($stockData[$field]);
                 }

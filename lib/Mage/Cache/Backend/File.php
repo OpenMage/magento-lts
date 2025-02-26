@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cache
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -255,7 +255,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @return array Array of stored tags (string)
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getTags()
     {
@@ -369,7 +369,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  bool $withData
      * @return array|bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _getCache($file, $withData)
     {
@@ -475,7 +475,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @throws Zend_Cache_Exception
      * @return boolean In case of success returns true
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _clean($dir, $mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -644,7 +644,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @return string Complete directory path
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _tagPath()
     {
@@ -669,7 +669,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @return array
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _getTagIds($tag)
     {
@@ -744,7 +744,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @return boolean In case of success returns true
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _filePutContents($file, $string)
     {
@@ -762,7 +762,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param string $id cache id
      * @return boolean true
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _recursiveMkdirAndChmod($id)
     {

@@ -10,13 +10,13 @@
  * @category   Mage
  * @package    Mage_System
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 class Mage_System_Dirs
 {
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public static function rm($dirname)
     {
@@ -69,7 +69,7 @@ class Mage_System_Dirs
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {

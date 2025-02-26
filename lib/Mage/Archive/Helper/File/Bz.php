@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Archive
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -28,7 +28,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
      * @throws Mage_Exception
      * @param string $mode
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _open($mode)
     {
@@ -45,7 +45,7 @@ class Mage_Archive_Helper_File_Bz extends Mage_Archive_Helper_File
      * @throws Mage_Exception
      * @param $data
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _write($data)
     {
