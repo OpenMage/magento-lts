@@ -19,13 +19,13 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Generator;
 use Mage;
-use Mage_Adminhtml_Helper_Addresses;
+use Mage_Adminhtml_Helper_Addresses as Subject;
 use Mage_Customer_Model_Attribute;
 use PHPUnit\Framework\TestCase;
 
 class AddressesTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Addresses $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -51,7 +51,7 @@ class AddressesTest extends TestCase
     public function provideProcessStreetAttribute(): Generator
     {
         yield 'default' => [
-            Mage_Adminhtml_Helper_Addresses::DEFAULT_STREET_LINES_COUNT,
+            Subject::DEFAULT_STREET_LINES_COUNT,
             0,
         ];
         yield 'custom' => [

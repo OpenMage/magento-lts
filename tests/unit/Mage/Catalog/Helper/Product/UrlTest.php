@@ -19,12 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product;
 
 use Generator;
 use Mage;
-use Mage_Catalog_Helper_Product_Url;
+use Mage_Catalog_Helper_Product_Url as Subject;
 use PHPUnit\Framework\TestCase;
 
 class UrlTest extends TestCase
 {
-    public Mage_Catalog_Helper_Product_Url $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

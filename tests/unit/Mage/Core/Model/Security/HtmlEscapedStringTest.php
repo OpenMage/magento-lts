@@ -18,14 +18,14 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Security;
 
 use Generator;
-use Mage_Core_Model_Security_HtmlEscapedString;
+use Mage_Core_Model_Security_HtmlEscapedString as Subject;
 use PHPUnit\Framework\TestCase;
 
 class HtmlEscapedStringTest extends TestCase
 {
     public const TEST_STRING = 'This is a bold <b>string</b>';
 
-    public Mage_Core_Model_Security_HtmlEscapedString $subject;
+    public Subject $subject;
 
     /**
      * @dataProvider provideHtmlEscapedStringAsStringData
@@ -35,7 +35,7 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
+        $this->subject = new Subject($string, $allowedTags);
         $this->assertSame($expectedResult, $this->subject->__toString());
     }
 
@@ -47,7 +47,7 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
+        $this->subject = new Subject($string, $allowedTags);
         $this->assertSame($expectedResult, $this->subject->getUnescapedValue());
     }
 
