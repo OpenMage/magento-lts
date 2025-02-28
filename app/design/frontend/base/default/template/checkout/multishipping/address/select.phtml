@@ -9,8 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Checkout_Block_Multishipping_Address_Select
+ * @var Mage_Checkout_Block_Multishipping_Address_Select $this
  */
 ?>
 <div class="multiple-checkout">
@@ -19,10 +24,10 @@
         <button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add New Address')) ?>" class="button" onclick="setLocation('<?php echo $this->getAddNewUrl() ?>')"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
     </div>
     <?php echo $this->getMessagesBlock()->toHtml() ?>
-    <?php $_index=0 ?>
+    <?php $_index = 0 ?>
     <?php foreach ($this->getAddressCollection() as $_address): ?>
-        <?php if($_index%3==0): ?><div class="col3-set"><?php endif ?>
-        <div class="col-<?php echo ($_index%3+1) ?>">
+        <?php if($_index % 3 == 0): ?><div class="col3-set"><?php endif ?>
+        <div class="col-<?php echo ($_index % 3 + 1) ?>">
                 <p class="actions">
                     <a href="<?php echo $this->getEditAddressUrl($_address) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span>
                     <a href="<?php echo $this->getSetAddressUrl($_address) ?>"><strong><?php echo $this->__('Select Address') ?></strong></a>
@@ -38,9 +43,9 @@
                 <?php endif ?>
         </div>
         <?php $_index++ ?>
-        <?php if($_index && $_index%3==0): ?></div><?php endif ?>
+        <?php if($_index && $_index % 3 == 0): ?></div><?php endif ?>
     <?php endforeach ?>
-    <?php if(!$_index || $_index%3!=0): ?></div><?php endif ?>
+    <?php if(!$_index || $_index % 3 != 0): ?></div><?php endif ?>
     <div class="buttons-set">
         <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back to Billing Information') ?></a></p>
     </div>

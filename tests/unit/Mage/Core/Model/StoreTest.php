@@ -17,14 +17,16 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
-use Generator;
 use Mage;
-use Mage_Core_Model_Store;
+use Mage_Core_Model_Store as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use PHPUnit\Framework\TestCase;
 
 class StoreTest extends TestCase
 {
-    public Mage_Core_Model_Store $subject;
+    use CoreTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -34,27 +36,16 @@ class StoreTest extends TestCase
 
     /**
      * @covers Mage_Core_Model_Store::getId()
-     * @dataProvider provideGetId
+     * @dataProvider provideGetStoreId
+     * @param string|int|null $withStore
      * @group Mage_Core
      * @group Mage_Core_Model
      */
-    public function testGetId(?int $expectedResult, ?string $withStore): void
+    public function testGetId(?int $expectedResult, $withStore): void
     {
         if ($withStore) {
             $this->subject->setData('store_id', $withStore);
         }
         $this->assertSame($expectedResult, $this->subject->getId());
-    }
-
-    public function provideGetId(): Generator
-    {
-        yield 'store id' => [
-            1,
-            '1',
-        ];
-        yield 'no store id' => [
-            null,
-            null,
-        ];
     }
 }

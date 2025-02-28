@@ -23,6 +23,9 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# flow.js library
+/js/lib/uploader
+
 # TinyMCE library
 /js/lib/tinymce
 
@@ -94,10 +97,13 @@ phpunit.xml
 
 # DDEV
 .ddev/.sampleData
+.ddev/addon-metadata
 .ddev/config.yaml
 .ddev/config.*.yaml
 .ddev/xhgui
 .ddev/xhprof
-.ddev/docker-compose.xhgui.yaml
-.ddev/docker-compose.xhgui_norouter.yaml
+.ddev/docker-compose.*.yaml
 app/etc/includes/ddev.xhgui.php
+
+# local development
+.localdev

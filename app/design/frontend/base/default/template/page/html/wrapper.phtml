@@ -9,11 +9,10 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
-<?php
+
 /**
  * @deprecated  after 1.4.0.0-alpha3
  */
@@ -31,9 +30,12 @@
  *
  *    <!-- insert wrapped blocks here -->
  * </block>
+ *
+ * @see Mage_Core_Block_Template
+ * @var Mage_Core_Block_Template $this
  */
 ?>
-<?php $_tag = $this->hasTag() ? $this->getTag() : "div" ?>
+<?php $_tag = $this->hasTag() ? $this->getTag() : 'div' ?>
 <<?php echo $_tag?> id="<?php echo $this->getId()?>" <?php echo $this->getParams()?>>
 <?php echo $this->getChildHtml()?>
 </<?php echo $_tag?>>

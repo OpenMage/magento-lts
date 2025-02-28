@@ -9,19 +9,16 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
 
-<?php
 /**
  * @see Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource
+ * @var Mage_Api2_Block_Adminhtml_Attribute_Tab_Resource $this
  */
 ?>
-
 <?php echo $this->getChildHtml(); ?>
-
 <div class="entry-edit">
     <div class="entry-edit-head">
         <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('User Type Resources') ?></h4>
@@ -32,8 +29,8 @@
         <span class="field-row">
             <label for="all"><?php echo $this->__('Resource Access') ?></label>
             <select id="all" name="all" onchange="$('resources_container').toggle()" class="select">
-                <option value="0" <?php echo ($this->getEverythingAllowed()?'':'selected'); ?>><?php echo $this->__('Custom') ?></option>
-                <option value="1" <?php echo ($this->getEverythingAllowed()?'selected':''); ?>><?php echo $this->__('All') ?></option>
+                <option value="0" <?php echo($this->getEverythingAllowed() ? '' : 'selected'); ?>><?php echo $this->__('Custom') ?></option>
+                <option value="1" <?php echo($this->getEverythingAllowed() ? 'selected' : ''); ?>><?php echo $this->__('All') ?></option>
             </select>
         </span>
 

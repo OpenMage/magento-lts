@@ -9,12 +9,17 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Core_Block_Template
+ * @var Mage_Core_Block_Template $this
+ */
 ?>
-<?php $_shipment=$this->getShipment() ?>
-<?php $_order=$this->getOrder() ?>
+<?php $_shipment = $this->getShipment() ?>
+<?php $_order = $this->getOrder() ?>
 <?php if ($_shipment && $_order && $_shipment->getAllTracks()): ?>
 <table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
     <thead>
@@ -24,7 +29,8 @@
         </tr>
     </thead>
     <tbody>
-    <?php $i=0; foreach ($_shipment->getAllTracks() as $_item): $i++ ?>
+    <?php $i = 0;
+    foreach ($_shipment->getAllTracks() as $_item): $i++ ?>
     <tbody>
             <td align="left" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getTitle()) ?></td>
             <td align="center" valign="top" style="padding:3px 9px"><?php echo $this->escapeHtml($_item->getNumber()) ?></td>

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -225,7 +225,7 @@ abstract class Mage_Core_Controller_Varien_Action
     /**
      * Load layout by handles(s)
      *
-     * @param   string|null|bool $handles
+     * @param   array|string|null|bool $handles
      * @param   bool $generateBlocks
      * @param   bool $generateXml
      * @return  $this

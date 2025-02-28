@@ -9,14 +9,19 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Weee_Block_Renderer_Weee_Tax
+ * @var Mage_Weee_Block_Renderer_Weee_Tax $this
  */
 ?>
 <?php $_htmlId      = $this->getElement()->getHtmlId() ?>
 <?php $_htmlClass   = $this->getElement()->getClass() ?>
 <?php $_htmlName    = $this->getElement()->getName() ?>
-<?php $_multiWebsite= $this->isMultiWebsites(); ?>
+<?php $_multiWebsite = $this->isMultiWebsites(); ?>
 <tr>
     <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
     <td colspan="10" class="grid weee">

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Unserialize
  * @package    Unserialize_Reader
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,11 +39,11 @@ class Unserialize_Reader_Arr
      */
     protected $_reader = null;
 
-    const READING_LENGTH = 1;
-    const FINISHED_LENGTH = 2;
-    const READING_KEY = 3;
-    const READING_VALUE = 4;
-    const FINISHED_ARR = 5;
+    public const READING_LENGTH = 1;
+    public const FINISHED_LENGTH = 2;
+    public const READING_KEY = 3;
+    public const READING_VALUE = 4;
+    public const FINISHED_ARR = 5;
 
     /**
      * @param $char
@@ -52,7 +53,7 @@ class Unserialize_Reader_Arr
      */
     public function read($char, $prevChar)
     {
-        $this->_result = !is_null($this->_result) ? $this->_result : array();
+        $this->_result = !is_null($this->_result) ? $this->_result : [];
 
         if (is_null($this->_status) && $prevChar == Unserialize_Parser::SYMBOL_COLON) {
             $this->_length .= $char;

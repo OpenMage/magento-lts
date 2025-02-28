@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -465,7 +465,6 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
 
         $block->setParentBlock($this);
         $block->setBlockAlias($alias);
-        $this->unsetChild($alias);
         $this->_children[$alias] = $block;
         return $this;
     }
@@ -703,6 +702,11 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
         } else {
             $name = $block->getNameInLayout();
             $this->setChild($name, $block);
+        }
+
+        $existingKey = array_search($name, $this->_sortedChildren);
+        if ($existingKey !== false) {
+            array_splice($this->_sortedChildren, $existingKey, 1);
         }
 
         if ($siblingName === '') {
