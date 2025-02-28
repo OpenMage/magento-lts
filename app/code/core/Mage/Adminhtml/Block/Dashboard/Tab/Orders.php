@@ -22,6 +22,11 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Tab_Orders extends Mage_Adminhtml_Block_Dashboard_Graph
 {
+    protected $_axisMaps = [
+        'x' => 'range',
+        'y' => 'quantity',
+    ];
+
     public function __construct()
     {
         $this->setHtmlId('orders');
@@ -35,17 +40,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Orders extends Mage_Adminhtml_Block_Das
      */
     protected function _prepareData()
     {
-        $this->setDataHelperName('adminhtml/dashboard_order');
-        $this->getDataHelper()->setParam('store', $this->getRequest()->getParam('store'));
-        $this->getDataHelper()->setParam('website', $this->getRequest()->getParam('website'));
-        $this->getDataHelper()->setParam('group', $this->getRequest()->getParam('group'));
-
         $this->setDataRows('quantity');
-        $this->_axisMaps = [
-            'x' => 'range',
-            'y' => 'quantity',
-        ];
-
         parent::_prepareData();
     }
 }

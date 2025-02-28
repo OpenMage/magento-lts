@@ -14,6 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Composer\InstalledVersions;
+
 /**
  * Data helper for dashboard
  *
@@ -22,10 +24,23 @@
  */
 class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
 {
+    /**
+     * Location of the "Enable Chart" config param
+     */
+    public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
+
     protected $_moduleName = 'Mage_Adminhtml';
 
     protected $_locale = null;
     protected $_stores = null;
+
+    public function isChartEnabled(): bool
+    {
+        if (!InstalledVersions::isInstalled('nnnick/chartjs')) {
+            return false;
+        }
+        return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_CHARTS);
+    }
 
     /**
      * Retrieve stores configured in system.
@@ -54,16 +69,16 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     /**
      * Prepare array with periods for dashboard graphs
      *
-     * @return array
+     * @return string[]
      */
     public function getDatePeriods()
     {
         return [
-            '24h' => $this->__('Last 24 Hours'),
-            '7d'  => $this->__('Last 7 Days'),
-            '1m'  => $this->__('Current Month'),
-            '1y'  => $this->__('YTD'),
-            '2y'  => $this->__('2YTD'),
+            Mage_Reports_Helper_Data::PERIOD_24_HOURS   => $this->__('Last 24 Hours'),
+            Mage_Reports_Helper_Data::PERIOD_7_DAYS     => $this->__('Last 7 Days'),
+            Mage_Reports_Helper_Data::PERIOD_1_MONTH    => $this->__('Current Month'),
+            Mage_Reports_Helper_Data::PERIOD_1_YEAR     => $this->__('YTD'),
+            Mage_Reports_Helper_Data::PERIOD_2_YEARS    => $this->__('2YTD'),
         ];
     }
 
@@ -73,6 +88,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      *
      * @param string $data
      * @return string
+     * @deprecated
      */
     public function getChartDataHash($data)
     {
