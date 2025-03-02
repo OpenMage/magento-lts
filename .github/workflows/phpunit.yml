@@ -1,9 +1,6 @@
 name: PHPUnit
 
 on:
-  # Run automatically every Monday on midnight.
-  schedule:
-    - cron: '0 0 * * 1'
   workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
@@ -105,12 +102,12 @@ jobs:
           head ./tests/coverage/clover.xml
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@master
         continue-on-error: true
         if: ${{ (matrix.php-versions == '7.4') && (matrix.mysql-version == '5.7') }} && SONAR_TOKEN
         with:
           args: >
             -Dproject.settings=tests/sonar-project.properties
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
