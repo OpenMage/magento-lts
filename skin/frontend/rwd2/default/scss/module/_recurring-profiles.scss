@@ -1,0 +1,75 @@
+//
+// OpenMage
+//
+// This source file is subject to the Academic Free License (AFL 3.0)
+// that is bundled with this package in the file LICENSE_AFL.txt.
+// It is also available at https://opensource.org/license/afl-3-0-php
+//
+// @category    design
+// @package     rwd_default
+// @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+// @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+// @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+//
+
+/* ============================================ *
+ * Recurring Profiles
+ * ============================================ */
+
+#recurring_profile_list_view {
+
+    th {
+        white-space: normal;
+
+        span {
+            white-space: inherit;
+        }
+    }
+
+    @include bp (max-width, $bp-xsmall) {
+        font-size: $f-size-xs;
+
+        a {
+            font-size: inherit;
+        }
+
+        th,
+        td {
+            padding: 2px;
+        }
+    } //end bp-xsmall breakpoint
+
+} //end #recurring_profile_list_view
+
+.recurring-profiles-title {
+    float: left;
+
+    h1 {
+        margin-bottom: $element-spacing;
+    }
+}
+
+body.customer-account .my-account .title-buttons.recurring-profiles-title-buttons {
+    float:right;
+    text-align: right;
+    margin-bottom: $trim;
+
+    @include bp(max-width, $bp-xsmall) {
+        text-align: center;
+        float: none;
+    }
+
+    .button {
+        position: static;
+    }
+}
+
+.recurring-profiles-messages {
+    &:after {
+        @include clearfix;
+    }
+}
+
+#recurring_start_date_trig {
+    display: inline;
+}
