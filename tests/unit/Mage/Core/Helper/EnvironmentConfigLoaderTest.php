@@ -24,6 +24,9 @@ use Mage_Core_Helper_EnvironmentConfigLoader;
 use PHPUnit\Framework\TestCase;
 use Varien_Simplexml_Config;
 
+/**
+ * @group Mage_Core_EnvLoader
+ */
 class EnvironmentConfigLoaderTest extends TestCase
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
@@ -57,6 +60,30 @@ class EnvironmentConfigLoaderTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
+    public function testEnvFilter(): void
+    {
+        $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
+        ]);
+        // empty because env flag is not set
+        $env = $environmentConfigLoaderHelper->getEnv();
+        $this->assertIsArray($env);
+        $this->assertEmpty($env);
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1, // enable feature
+        ]);
+        // flag is set => feature is enabled
+        $env = $environmentConfigLoaderHelper->getEnv();
+        $this->assertIsArray($env);
+        $this->assertNotEmpty($env);
+    }
+
+    /**
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
     public function testBuildNodePath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
@@ -79,6 +106,7 @@ class EnvironmentConfigLoaderTest extends TestCase
     }
 
     /**
+     * @runInSeparateProcess
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -97,6 +125,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => $config['value'],
         ]);
         $loader->overrideEnvironment($xml);
@@ -180,6 +209,101 @@ class EnvironmentConfigLoaderTest extends TestCase
     }
 
     /**
+     * @runInSeparateProcess
+     * @dataProvider envAsArrayDataProvider
+     * @group Mage_Core
+     *
+     * @param array<string, string> $config
+     */
+    public function testAsArray(array $config): void
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
+            $config['env_path'] => 1,
+        ]);
+        $actual = $loader->getAsArray($config['scope']);
+        $expected = $config['expected'];
+        $this->assertSame($expected, $actual);
+    }
+
+    public function envAsArrayDataProvider(): Generator
+    {
+        yield 'defaultScope' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'scope'  => 'default',
+                'expected'  => [
+                    'general/store_information/name' => 1,
+                ],
+            ]
+        ];
+        yield 'storeScope' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
+                'scope'  => 'stores',
+                'expected'  => [
+                    'general/store_information/name' => 1,
+                ],
+            ]
+        ];
+        yield 'invalidScope' => [
+            [
+                'env_path'  => '',
+                'scope'  => 'foo',
+                'expected'  => [],
+            ]
+        ];
+    }
+
+    /**
+     * @runInSeparateProcess
+     * @dataProvider envHasPathDataProvider
+     * @group Mage_Core
+     *
+     * @param array<string, string> $config
+     */
+    public function testHasPath(array $config): void
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
+            $config['env_path'] => 1,
+        ]);
+        $actual = $loader->hasPath($config['xml_path']);
+        $expected = $config['expected'];
+        $this->assertSame($expected, $actual);
+    }
+
+    public function envHasPathDataProvider(): Generator
+    {
+        yield 'hasPath default' => [
+            [
+              'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+              'xml_path'  => 'default/general/store_information/name',
+              'expected'  => true,
+            ]
+        ];
+        yield 'hasPath store' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'stores/general/store_information/name',
+                'expected'  => true,
+            ]
+        ];
+        yield 'hasNotPath' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'foo/foo/foo',
+                'expected'  => false,
+            ]
+        ];
+    }
+
+    /**
+     * @runInSeparateProcess
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Mage_Core
      *
@@ -204,6 +328,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['path'] => $config['value'],
         ]);
         $loader->overrideEnvironment($xml);
