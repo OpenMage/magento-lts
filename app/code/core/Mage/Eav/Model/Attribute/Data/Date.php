@@ -46,13 +46,13 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
         $attribute  = $this->getAttribute();
         $label      = $attribute->getStoreLabel();
 
+        if ($attribute->getIsRequired() && empty($value)) {
+            $errors[] = Mage::helper('eav')->__('"%s" is a required value.', $label);
+        }
+
         if ($value === false) {
             // try to load original value and validate it
             $value = $this->getEntity()->getDataUsingMethod($attribute->getAttributeCode());
-        }
-
-        if ($attribute->getIsRequired() && empty($value)) {
-            $errors[] = Mage::helper('eav')->__('"%s" is a required value.', $label);
         }
 
         if (!$errors && !$attribute->getIsRequired() && empty($value)) {
