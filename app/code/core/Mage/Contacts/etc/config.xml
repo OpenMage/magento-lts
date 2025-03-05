@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Contacts
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -91,6 +91,9 @@
                 <sender_email_identity>custom2</sender_email_identity>
                 <email_template>contacts_email_email_template</email_template>
             </email>
+            <security>
+                <enable_form_key>0</enable_form_key>
+            </security>
         </contacts>
     </default>
 </config>

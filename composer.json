@@ -25,6 +25,7 @@
         "ext-simplexml": "*",
         "ext-soap": "*",
         "ext-zlib": "*",
+        "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
@@ -32,6 +33,7 @@
         "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^25.2",
+        "nnnick/chartjs": "^4.4",
         "openmage/composer-plugin": "^3.0",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
@@ -46,7 +48,6 @@
     },
     "require-dev": {
         "ext-xmlreader": "*",
-        "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
