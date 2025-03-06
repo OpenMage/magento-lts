@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Errors
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -185,9 +185,11 @@ class Error_Processor
         if (!empty($_SERVER['SERVER_PORT'])
             && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
             && !in_array($_SERVER['SERVER_PORT'], [80, 433])
+            && !str_ends_with($host, ':' . $_SERVER['SERVER_PORT'])
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
         }
+
         return  $url;
     }
 

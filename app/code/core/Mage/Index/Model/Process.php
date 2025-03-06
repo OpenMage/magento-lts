@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -219,6 +219,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Check and using depends processes
      *
      * @return $this
+     * @throws Exception
      */
     public function reindexEverything()
     {
@@ -282,6 +283,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Get Indexer strategy object
      *
      * @return Mage_Index_Model_Indexer_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getIndexer()
     {
@@ -561,6 +563,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Disable keys in index table
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function disableIndexerKeys()
     {
@@ -575,6 +578,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Enable keys in index table
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function enableIndexerKeys()
     {

@@ -517,12 +517,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Currency.php
 
 		-
-			message: '#^Binary operation "\*" between string and 1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
-
-		-
 			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<array\<string\>\|string\|null\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5071,18 +5065,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
 
 		-
-			message: '#^Variable \$dateStart might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: app/code/core/Mage/Reports/Helper/Data.php
-
-		-
-			message: '#^Variable \$t might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Reports/Helper/Data.php
-
-		-
 			message: '#^Property Mage_Reports_Model_Grouped_Collection\:\:\$_resourceCollection \(Mage_Core_Model_Resource_Db_Collection_Abstract\) does not accept Varien_Data_Collection_Db\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -5218,7 +5200,7 @@ parameters:
 			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
 			identifier: notEqual.invalid
 			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
+			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection/Abstract.php
 
 		-
 			message: '#^Parameter \#1 \$select of method Mage_Core_Model_Resource_Helper_Mysql4\:\:getQueryUsingAnalyticFunction\(\) expects Varien_Db_Select, Zend_Db_Select given\.$#'
@@ -5825,12 +5807,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Tax/Collection.php
-
-		-
-			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
-			identifier: notEqual.invalid
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
 
 		-
 			message: '#^Parameter \#1 \$select of method Mage_Core_Model_Resource_Helper_Mysql4\:\:getQueryUsingAnalyticFunction\(\) expects Varien_Db_Select, Zend_Db_Select given\.$#'
