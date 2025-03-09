@@ -22,6 +22,7 @@
 class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 {
     protected const ENV_STARTS_WITH = 'OPENMAGE_CONFIG';
+    protected const ENV_FEATURE_ENABLED = 'OPENMAGE_CONFIG_OVERRIDE_ALLOWED';
     protected const ENV_KEY_SEPARATOR = '__';
     protected const CONFIG_KEY_DEFAULT = 'DEFAULT';
     protected const CONFIG_KEY_WEBSITES = 'WEBSITES';
@@ -57,6 +58,10 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
      */
     public function overrideEnvironment(Varien_Simplexml_Config $xmlConfig)
     {
+        $data = Mage::registry('current_env_config');
+        if ($data) {
+            return;
+        }
         $env = $this->getEnv();
 
         foreach ($env as $configKey => $value) {
@@ -70,18 +75,116 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 case static::CONFIG_KEY_DEFAULT:
                     list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $xmlConfig->setNode($this->buildNodePath($scope, $path), $value);
+                    $nodePath = $this->buildNodePath($scope, $path);
+                    $xmlConfig->setNode($nodePath, $value);
+                    try {
+                        foreach (['0', 'admin'] as $store) {
+                            $store = Mage::app()->getStore($store);
+                            $this->setCache($store, $value, $path);
+                        }
+                    } catch (Throwable $exception) {
+                        // invalid store, intentionally empty
+                    }
                     break;
 
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
-                    list($unused1, $unused2, $code, $section, $group, $field) = $configKeyParts;
+                    list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $nodePath = sprintf('%s/%s/%s', strtolower($scope), strtolower($code), $path);
+                    $storeCode = strtolower($storeCode);
+                    $scope = strtolower($scope);
+                    $nodePath = sprintf('%s/%s/%s', $scope, $storeCode, $path);
                     $xmlConfig->setNode($nodePath, $value);
+                    try {
+                        if (!str_contains($nodePath, 'websites')) {
+                            foreach ([$storeCode, 'admin'] as $store) {
+                                $store = Mage::app()->getStore($store);
+                                $this->setCache($store, $value, $path);
+                            }
+                        }
+                    } catch (Throwable $exception) {
+                        // invalid store, intentionally empty
+                    }
                     break;
             }
         }
+        Mage::register('current_env_config', true, true);
+    }
+
+    public function hasPath(string $wantedPath): bool
+    {
+        $data = Mage::registry("config_env_has_path_$wantedPath");
+        if ($data !== null) {
+            return $data;
+        }
+        $env = $this->getEnv();
+        $config = [];
+
+        foreach ($env as $configKey => $value) {
+            if (!$this->isConfigKeyValid($configKey)) {
+                continue;
+            }
+
+            list($configKeyParts, $scope) = $this->getConfigKey($configKey);
+
+            switch ($scope) {
+                case static::CONFIG_KEY_DEFAULT:
+                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $nodePath = $this->buildNodePath($scope, $path);
+                    $config[$nodePath] = $value;
+                    break;
+
+                case static::CONFIG_KEY_WEBSITES:
+                case static::CONFIG_KEY_STORES:
+                    list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $nodePath = $this->buildNodePath($scope, $path);
+                    $config[$nodePath] = $value;
+                    break;
+            }
+        }
+        $hasConfig = array_key_exists($wantedPath, $config);
+        Mage::register("config_env_has_path_$wantedPath", $hasConfig);
+        return $hasConfig;
+    }
+
+    public function getAsArray(string $wantedScope): array
+    {
+        $data = Mage::registry("config_env_array_$wantedScope");
+        if ($data !== null) {
+            return $data;
+        }
+        $env = $this->getEnv();
+        $config = [];
+
+        foreach ($env as $configKey => $value) {
+            if (!$this->isConfigKeyValid($configKey)) {
+                continue;
+            }
+
+            list($configKeyParts, $scope) = $this->getConfigKey($configKey);
+            if (strtolower($scope) !== strtolower($wantedScope)) {
+                continue;
+            }
+
+            switch ($scope) {
+                case static::CONFIG_KEY_DEFAULT:
+                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $config[$path] = $value;
+                    break;
+
+                case static::CONFIG_KEY_WEBSITES:
+                case static::CONFIG_KEY_STORES:
+                    list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $config[$path] = $value;
+                    break;
+            }
+        }
+        Mage::register("config_env_array_$wantedScope", $config);
+        return $config;
     }
 
     /**
@@ -95,9 +198,29 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     public function getEnv(): array
     {
         if (empty($this->envStore)) {
-            $this->envStore = getenv();
+            $env = getenv();
+            $env = array_filter($env, function ($key) {
+                return str_starts_with($key, static::ENV_STARTS_WITH);
+            }, ARRAY_FILTER_USE_KEY);
+            $this->envStore = $env;
+        }
+        if (!isset($this->envStore[static::ENV_FEATURE_ENABLED]) ||
+            (bool) $this->envStore[static::ENV_FEATURE_ENABLED] === false
+        ) {
+            $this->envStore = [];
+            return $this->envStore;
         }
         return $this->envStore;
+    }
+
+    protected function setCache(Mage_Core_Model_Store $store, $value, string $path): void
+    {
+        $refObject = new ReflectionObject($store);
+        $refProperty = $refObject->getProperty('_configCache');
+        $refProperty->setAccessible(true);
+        $configCache = $refProperty->getValue($store);
+        $configCache[$path] = $value;
+        $refProperty->setValue($store, $configCache);
     }
 
     protected function getConfigKey(string $configKey): array
@@ -115,10 +238,6 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     protected function isConfigKeyValid(string $configKey): bool
     {
-        if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
-            return false;
-        }
-
         $sectionGroupFieldRegexp = sprintf('([%s]*)', implode('', static::ALLOWED_CHARS));
         $allowedChars = sprintf('[%s]', implode('', static::ALLOWED_CHARS));
         $regexp = '/' . static::ENV_STARTS_WITH . static::ENV_KEY_SEPARATOR . '(WEBSITES' . static::ENV_KEY_SEPARATOR
