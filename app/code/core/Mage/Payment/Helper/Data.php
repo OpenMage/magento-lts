@@ -100,7 +100,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
     protected function _sortMethods($a, $b)
     {
         if (is_object($a)) {
-            return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
+            return (int) $a->sort_order <=> (int) $b->sort_order;
         }
         return 0;
     }

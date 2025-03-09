@@ -461,7 +461,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      */
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**

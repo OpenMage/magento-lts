@@ -200,6 +200,6 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
      */
     public function sortByStartDate($a, $b)
     {
-        return $a['start_date'] > $b['start_date'] ? -1 : ($a['start_date'] < $b['start_date'] ? 1 : 0);
+        return $b['start_date'] <=> $a['start_date'];
     }
 }

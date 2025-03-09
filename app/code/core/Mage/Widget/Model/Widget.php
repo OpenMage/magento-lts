@@ -302,6 +302,6 @@ class Mage_Widget_Model_Widget extends Varien_Object
     {
         $aOrder = (int) $a->getData('sort_order');
         $bOrder = (int) $b->getData('sort_order');
-        return $aOrder < $bOrder ? -1 : ($aOrder > $bOrder ? 1 : 0);
+        return $aOrder <=> $bOrder;
     }
 }

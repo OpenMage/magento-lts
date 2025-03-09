@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Api_Tab_Rolesedit extends Mage_Adminhtml_Block_Widget
 
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     protected function _getNodeJson($node, $level = 0)
