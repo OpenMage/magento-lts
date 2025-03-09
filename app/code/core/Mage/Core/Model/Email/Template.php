@@ -354,7 +354,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function getInclude($template, array $variables)
     {
-        $thisClass = __CLASS__;
+        $thisClass = self::class;
         /** @var Mage_Core_Model_Email_Template $includeTemplate */
         $includeTemplate = new $thisClass();
         $includeTemplate->loadByCode($template);

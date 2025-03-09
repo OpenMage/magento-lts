@@ -38,7 +38,7 @@ class Mage_System_Ftp
     protected function checkConnected()
     {
         if (!$this->_conn) {
-            throw new Exception(__CLASS__ . ' - no connection established with server');
+            throw new Exception(self::class . ' - no connection established with server');
         }
     }
 
