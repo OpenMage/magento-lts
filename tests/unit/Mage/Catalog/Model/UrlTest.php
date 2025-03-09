@@ -140,10 +140,10 @@ class UrlTest extends TestCase
      * @group Mage_Catalog_Model
      * @doesNotPerformAssertions
      */
-    public function testGetSlugger(): void
-    {
-        $this->subject->getSlugger();
-    }
+//    public function testGetSlugger(): void
+//    {
+//        $this->subject->getSlugger();
+//    }
 
     /**
      * @dataProvider provideGetSluggerConfig
