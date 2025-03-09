@@ -229,7 +229,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             } else {
                 return ['date_internal' => $optionValue];
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ['date_internal' => $optionValue];
         }
     }

@@ -60,7 +60,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         try {
             $quote = $this->_getQuote($quoteId);
-        } catch (Mage_Api_Exception $e) {
+        } catch (Mage_Api_Exception) {
             return false;
         }
 
@@ -87,7 +87,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
 
         try {
             $storeId = Mage::app()->getStore($store)->getId();
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             $this->_fault('store_not_exists');
         }
 

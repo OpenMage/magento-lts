@@ -740,7 +740,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     if (!in_array($website->getId(), $websiteIds)) {
                         $websiteIds[] = $website->getId();
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
             $product->setWebsiteIds($websiteIds);
@@ -880,7 +880,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         try {
             return $this->saveRow($importData);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }

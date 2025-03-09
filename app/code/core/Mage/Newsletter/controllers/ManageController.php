@@ -64,7 +64,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
             } else {
                 Mage::getSingleton('customer/session')->addSuccess($this->__('The subscription has been removed.'));
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('customer/session')->addError($this->__('An error occurred while saving your subscription.'));
         }
         $this->_redirect('customer/account/');

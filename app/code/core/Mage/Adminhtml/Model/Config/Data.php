@@ -266,7 +266,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $session->getData('acl')->get($resourceLookup)->getResourceId(),
                 );
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
         return false;

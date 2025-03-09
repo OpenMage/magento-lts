@@ -164,7 +164,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                             throw new Exception();
                         }
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                     unset($result->{$code});
                     continue;
                 }

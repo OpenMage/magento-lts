@@ -118,7 +118,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                             $giftMessage->delete();
                             $entity->setGiftMessageId(0)
                                 ->save();
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                         }
                     }
                     continue;
@@ -132,7 +132,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
 
                     $entity->setGiftMessageId($giftMessage->getId())
                         ->save();
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
         }

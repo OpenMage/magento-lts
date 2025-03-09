@@ -1633,7 +1633,7 @@ XMLAuth;
         $rawJsonRequest = $this->_formShipmentRestRequest($request);
         try {
             $accessToken = $this->setAPIAccessRequest();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $result->setErrors(Mage::helper('usa')->__('Authentication error'));
             return $result;
         }

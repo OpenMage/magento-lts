@@ -132,7 +132,7 @@ abstract class Mage_CatalogInventory_Model_Api2_Stock_Item_Rest extends Mage_Cat
                         'item_id' => $itemData['item_id'] ?? null,
                     ]);
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,

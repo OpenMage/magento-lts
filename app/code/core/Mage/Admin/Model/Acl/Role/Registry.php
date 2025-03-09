@@ -38,7 +38,7 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
                 $roleId = $role;
                 $role = $this->get($role);
             }
-        } catch (Zend_Acl_Role_Registry_Exception $e) {
+        } catch (Zend_Acl_Role_Registry_Exception) {
             throw new Zend_Acl_Role_Registry_Exception("Child Role id '$roleId' does not exist");
         }
 
@@ -53,7 +53,7 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
                     $roleParentId = $parent;
                 }
                 $roleParent = $this->get($roleParentId);
-            } catch (Zend_Acl_Role_Registry_Exception $e) {
+            } catch (Zend_Acl_Role_Registry_Exception) {
                 throw new Zend_Acl_Role_Registry_Exception("Parent Role id '$roleParentId' does not exist");
             }
             $this->_roles[$roleId]['parents'][$roleParentId] = $roleParent;
