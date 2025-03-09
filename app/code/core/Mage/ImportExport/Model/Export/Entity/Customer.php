@@ -294,8 +294,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     protected function _getNextAddressRow(&$customerAddress)
     {
         if (!empty($customerAddress)) {
-            reset($customerAddress);
-            $addressId  = key($customerAddress);
+            $addressId  = array_key_first($customerAddress);
             $addressRow = current($customerAddress);
             unset($customerAddress[$addressId]);
 

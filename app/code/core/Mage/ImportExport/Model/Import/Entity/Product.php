@@ -1000,8 +1000,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         $flagNewOption = true;
                         if ($lastStoreId != $storeId) {
                             if (!$firstKeyOption) {
-                                reset($customOptions[$typeTitleTable]);
-                                $firstKeyOption = key($customOptions[$typeTitleTable]);
+                                $firstKeyOption = array_key_first($customOptions[$typeTitleTable]);
                             }
                             $currentValueId = $firstKeyOption;
                             $lastStoreId    = $storeId;

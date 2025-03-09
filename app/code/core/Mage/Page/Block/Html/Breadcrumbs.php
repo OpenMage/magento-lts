@@ -127,10 +127,8 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         if (is_array($this->_crumbs)) {
-            reset($this->_crumbs);
-            $this->_crumbs[key($this->_crumbs)]['first'] = true;
-            end($this->_crumbs);
-            $this->_crumbs[key($this->_crumbs)]['last'] = true;
+            $this->_crumbs[array_key_first($this->_crumbs)]['first'] = true;
+            $this->_crumbs[array_key_last($this->_crumbs)]['last'] = true;
         }
         $this->assign('crumbs', $this->_crumbs);
         return parent::_toHtml();

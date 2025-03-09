@@ -96,10 +96,8 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         if (is_array($this->_toplinks) && $this->_toplinks) {
-            reset($this->_toplinks);
-            $this->_toplinks[key($this->_toplinks)]['first'] = true;
-            end($this->_toplinks);
-            $this->_toplinks[key($this->_toplinks)]['last'] = true;
+            $this->_toplinks[array_key_first($this->_toplinks)]['first'] = true;
+            $this->_toplinks[array_key_last($this->_toplinks)]['last'] = true;
         }
         $this->assign('toplinks', $this->_toplinks);
         return parent::_toHtml();
