@@ -212,7 +212,7 @@ class Mage_Paypal_Model_Info
         Varien_Object_Mapper::accumulateByMap(
             [$payment, 'getAdditionalInformation'],
             $to,
-            $map ? $map : array_flip($fullMap),
+            $map ?: array_flip($fullMap),
         );
         return $to;
     }

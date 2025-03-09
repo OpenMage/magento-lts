@@ -54,7 +54,7 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
             'session_id'        => $visitor->getSessionId(),
             'first_visit_at'    => $visitor->getFirstVisitAt(),
             'last_visit_at'     => $visitor->getLastVisitAt(),
-            'last_url_id'       => $visitor->getLastUrlId() ? $visitor->getLastUrlId() : 0,
+            'last_url_id'       => $visitor->getLastUrlId() ?: 0,
             'store_id'          => Mage::app()->getStore()->getId(),
         ];
     }

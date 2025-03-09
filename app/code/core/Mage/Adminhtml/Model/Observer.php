@@ -48,7 +48,7 @@ class Mage_Adminhtml_Model_Observer
         $request = Mage::app()->getFrontController()->getRequest();
         if ($key = $request->getPost('massaction_prepare_key')) {
             $value = is_array($request->getPost($key)) ? $request->getPost($key) : explode(',', $request->getPost($key));
-            $request->setPost($key, $value ? $value : null);
+            $request->setPost($key, $value ?: null);
         }
         return $this;
     }

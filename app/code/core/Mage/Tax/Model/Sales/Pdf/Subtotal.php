@@ -47,7 +47,7 @@ class Mage_Tax_Model_Sales_Pdf_Subtotal extends Mage_Sales_Model_Order_Pdf_Total
         }
 
         $amountInclTax = $this->getOrder()->formatPriceTxt($amountInclTax);
-        $fontSize = $this->getFontSize() ? $this->getFontSize() : 7;
+        $fontSize = $this->getFontSize() ?: 7;
 
         if ($helper->displaySalesSubtotalBoth($store)) {
             $totals = [

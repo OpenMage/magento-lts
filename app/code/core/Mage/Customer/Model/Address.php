@@ -44,7 +44,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
      */
     public function getCustomerId()
     {
-        return $this->_getData('customer_id') ? $this->_getData('customer_id') : $this->getParentId();
+        return $this->_getData('customer_id') ?: $this->getParentId();
     }
 
     /**

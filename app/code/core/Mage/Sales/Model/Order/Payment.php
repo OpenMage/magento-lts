@@ -806,7 +806,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (Mage::helper('core')->getExactDivision($amount, $baseGrandTotal) != 0) {
             $transaction = new Varien_Object(['txn_id' => $this->getTransactionId()]);
             Mage::dispatchEvent('sales_html_txn_id', ['transaction' => $transaction, 'payment' => $this]);
-            $transactionId = $transaction->getHtmlTxnId() ? $transaction->getHtmlTxnId() : $transaction->getTxnId();
+            $transactionId = $transaction->getHtmlTxnId() ?: $transaction->getTxnId();
             $order->addStatusHistoryComment(Mage::helper('sales')->__(
                 'IPN "Refunded". Refund issued by merchant. Registered notification about refunded amount of %s. Transaction ID: "%s". Credit Memo has not been created. Please create offline Credit Memo.',
                 $this->_formatPrice($notificationAmount),

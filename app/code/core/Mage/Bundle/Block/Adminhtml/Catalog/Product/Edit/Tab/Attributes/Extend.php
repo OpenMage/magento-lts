@@ -92,7 +92,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
                 && $this->getCanReadPrice() === true
                 && $this->getProduct()->isObjectNew()
             ) {
-                $defaultProductPrice = ($this->getDefaultProductPrice()) ? $this->getDefaultProductPrice() : "''";
+                $defaultProductPrice = $this->getDefaultProductPrice() ?: "''";
                 $html .= "$('" . $this->getAttribute()->getAttributeCode() . "').value = " . $defaultProductPrice . ';';
             } else {
                 $html .= "$('" . $this->getAttribute()->getAttributeCode() . "').disabled = false;

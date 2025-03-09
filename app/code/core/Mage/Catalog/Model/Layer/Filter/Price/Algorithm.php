@@ -515,7 +515,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             }
         }
 
-        return $result ? $result : false;
+        return $result ?: false;
     }
 
     /**
@@ -590,8 +590,8 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         if ($this->_lastPriceLimiter[0] < $this->_count) {
             $isEqualPrice = ($intervalFirstPrice == $this->_maxPrice) ? $intervalFirstPrice : false;
             $result[$this->getIntervalsNumber()] = [
-                'from'  => $isEqualPrice ? $isEqualPrice : $lastSeparator,
-                'to'    => $isEqualPrice ? $isEqualPrice : (is_null($this->_upperLimit) ? '' : $this->_upperLimit),
+                'from'  => $isEqualPrice ?: $lastSeparator,
+                'to'    => $isEqualPrice ?: is_null($this->_upperLimit) ? '' : $this->_upperLimit,
                 'count' => $this->_count - $lastCount,
             ];
         }

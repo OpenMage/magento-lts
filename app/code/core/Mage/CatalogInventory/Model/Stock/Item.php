@@ -341,7 +341,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
             $this->_minSaleQtyCache[$customerGroupId] = empty($minSaleQty) ? 0 : (float) $minSaleQty;
         }
 
-        return $this->_minSaleQtyCache[$customerGroupId] ? $this->_minSaleQtyCache[$customerGroupId] : null;
+        return $this->_minSaleQtyCache[$customerGroupId] ?: null;
     }
 
     /**
@@ -854,7 +854,7 @@ class Mage_CatalogInventory_Model_Stock_Item extends Mage_Core_Model_Abstract
      */
     public function getProduct()
     {
-        return $this->_productInstance ? $this->_productInstance : $this->_getData('product');
+        return $this->_productInstance ?: $this->_getData('product');
     }
 
     /**

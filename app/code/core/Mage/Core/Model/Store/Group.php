@@ -246,7 +246,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             if (count($stores)) {
                 return $stores[0];
             } else {
-                return $this->getDefaultStore() ? $this->getDefaultStore() : null;
+                return $this->getDefaultStore() ?: null;
             }
         }
     }

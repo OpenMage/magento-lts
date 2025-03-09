@@ -70,7 +70,7 @@ class Mage_Page_Block_Html_Wrapper extends Mage_Core_Block_Abstract
     public function getElementTagName()
     {
         $tagName = $this->_getData('html_tag_name');
-        return $tagName ? $tagName : 'div';
+        return $tagName ?: 'div';
     }
 
     /**

@@ -1301,7 +1301,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
         $client = new Varien_Http_Client();
 
         $uri = $this->getConfigData('cgi_url');
-        $client->setUri($uri ? $uri : self::CGI_URL);
+        $client->setUri($uri ?: self::CGI_URL);
         $client->setConfig([
             'maxredirects' => 0,
             'timeout' => 30,
@@ -1572,7 +1572,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         $client = new Varien_Http_Client();
         $uri = $this->getConfigData('cgi_url_td');
-        $uri = $uri ? $uri : self::CGI_URL_TD;
+        $uri = $uri ?: self::CGI_URL_TD;
         $client->setUri($uri);
         $client->setConfig([
             'timeout' => 45,

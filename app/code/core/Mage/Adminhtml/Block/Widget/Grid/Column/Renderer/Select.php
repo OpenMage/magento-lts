@@ -29,7 +29,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select extends Mage_Admin
      */
     public function render(Varien_Object $row)
     {
-        $name = $this->getColumn()->getName() ? $this->getColumn()->getName() : $this->getColumn()->getId();
+        $name = $this->getColumn()->getName() ?: $this->getColumn()->getId();
         $html = '<select name="' . $this->escapeHtml($name) . '" ' . $this->getColumn()->getValidateClass() . '>';
         $value = $row->getData($this->getColumn()->getIndex());
         foreach ($this->getColumn()->getOptions() as $val => $label) {

@@ -50,7 +50,7 @@ class Mage_Cms_Model_Resource_Page_Service extends Mage_Core_Model_Resource_Db_A
 
         $linkTable = $this->getTable('cms/page_store');
         $mainTable = $this->getMainTable();
-        $byLinkTable = $byLinkTable ? $byLinkTable : $linkTable;
+        $byLinkTable = $byLinkTable ?: $linkTable;
 
         // Select all page ids of $fromStoreId that have identifiers as some pages in $byStoreId
         $select = $readAdapter->select()

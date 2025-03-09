@@ -186,7 +186,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             $result = [];
             /** @var Varien_Simplexml_Element $widget */
             foreach ($this->getWidgetsXml($filters) as $widget) {
-                $helper = $widget->getAttribute('module') ? $widget->getAttribute('module') : 'widget';
+                $helper = $widget->getAttribute('module') ?: 'widget';
                 $helper = Mage::helper($helper);
                 $widgetName = $widget->getName();
                 $result[$widgetName] = [

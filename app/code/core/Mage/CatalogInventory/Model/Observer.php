@@ -383,7 +383,7 @@ class Mage_CatalogInventory_Model_Observer
                 /** @var Mage_Sales_Model_Quote_Item_Option $option */
                 $optionValue = $option->getValue();
                 $optionQty = $qty * $optionValue;
-                $increaseOptionQty = ($quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty) * $optionValue;
+                $increaseOptionQty = ($quoteItem->getQtyToAdd() ?: $qty) * $optionValue;
 
                 $stockItem = $option->getProduct()->getStockItem();
 
@@ -480,7 +480,7 @@ class Mage_CatalogInventory_Model_Observer
                     0,
                 );
             } else {
-                $increaseQty = $quoteItem->getQtyToAdd() ? $quoteItem->getQtyToAdd() : $qty;
+                $increaseQty = $quoteItem->getQtyToAdd() ?: $qty;
                 $rowQty = $qty;
                 $qtyForCheck = $this->_getQuoteItemQtyForCheck(
                     $quoteItem->getProduct()->getId(),

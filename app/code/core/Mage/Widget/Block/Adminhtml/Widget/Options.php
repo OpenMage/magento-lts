@@ -110,7 +110,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
             return $this;
         }
         $module = $config->getModule();
-        $this->_translationHelper = Mage::helper($module ? $module : 'widget');
+        $this->_translationHelper = Mage::helper($module ?: 'widget');
         foreach ($config->getParameters() as $parameter) {
             $this->_addField($parameter);
         }

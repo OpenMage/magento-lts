@@ -313,7 +313,7 @@ class Mage_Paypal_Model_Pro
         $api->callGetTransactionDetails();
         $this->importPaymentInfo($api, $payment);
         $data = $api->getRawSuccessResponseData();
-        return ($data) ? $data : [];
+        return $data ?: [];
     }
 
     /**
@@ -449,6 +449,6 @@ class Mage_Paypal_Model_Pro
      */
     protected function _getParentTransactionId(Varien_Object $payment)
     {
-        return $payment->getParentTransactionId() ? $payment->getParentTransactionId() : $payment->getLastTransId();
+        return $payment->getParentTransactionId() ?: $payment->getLastTransId();
     }
 }

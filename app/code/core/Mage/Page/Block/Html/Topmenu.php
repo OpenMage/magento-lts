@@ -242,8 +242,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
     public function getCurrentEntityKey()
     {
         if ($this->_currentEntityKey === null) {
-            $this->_currentEntityKey = Mage::registry('current_entity_key')
-                ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
+            $this->_currentEntityKey = Mage::registry('current_entity_key') ?: Mage::app()->getStore()->getRootCategoryId();
         }
         return $this->_currentEntityKey;
     }

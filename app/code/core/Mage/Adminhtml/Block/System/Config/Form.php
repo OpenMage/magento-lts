@@ -284,7 +284,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $fieldRenderer->setConfigData($this->_configData);
 
                 $helperName = $this->_configFields->getAttributeModule($section, $group, $element);
-                $fieldType  = (string) $element->frontend_type ? (string) $element->frontend_type : 'text';
+                $fieldType  = (string) $element->frontend_type ?: 'text';
                 $name  = 'groups[' . $group->getName() . '][fields][' . $fieldPrefix . $element->getName() . '][value]';
                 $label =  Mage::helper($helperName)->__($labelPrefix) . ' '
                     . Mage::helper($helperName)->__((string) $element->label);

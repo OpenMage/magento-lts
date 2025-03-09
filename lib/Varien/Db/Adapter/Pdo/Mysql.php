@@ -1266,8 +1266,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                         $options['COLUMN_NAME'],
                         $options['REF_TABLE_NAME'],
                         $options['REF_COLUMN_NAME'],
-                        ($onDelete) ? $onDelete : Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
-                        ($onUpdate) ? $onUpdate : Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
+                        $onDelete ?: Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
+                        $onUpdate ?: Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
                     );
                 }
             }

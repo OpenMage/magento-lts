@@ -1289,7 +1289,7 @@ class Mage_Paypal_Model_Config
         if (!$configType) {
             return false;
         }
-        $type = $type ? $type : $configType;
+        $type = $type ?: $configType;
         $locale = $this->_getSupportedLocaleCode($localeCode);
         if (!array_key_exists($type, $this->getAdditionalOptionsLogoTypes())) {
             $type = self::DEFAULT_LOGO_TYPE;

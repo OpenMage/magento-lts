@@ -1936,7 +1936,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function addCustomOption($code, $value, $product = null)
     {
-        $product = $product ? $product : $this;
+        $product = $product ?: $this;
         $option = Mage::getModel('catalog/product_configuration_item_option')
             ->addData([
                 'product_id' => $product->getId(),

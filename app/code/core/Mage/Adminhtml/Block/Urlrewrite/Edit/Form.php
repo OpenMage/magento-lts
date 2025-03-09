@@ -95,19 +95,19 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
 
             //showing websites that only associated to products
             if ($product && $product->getId()) {
-                $entityStores = $product->getStoreIds() ? $product->getStoreIds() : [];
+                $entityStores = $product->getStoreIds() ?: [];
                 if (!$entityStores) {
                     $stores = []; //reset the stores
                     $noStoreError = $this->__('Chosen product does not associated with any website, so url rewrite is not possible.');
                 }
                 //if category is chosen, reset stores which are not related with this category
                 if ($category && $category->getId()) {
-                    $categoryStores = $category->getStoreIds() ? $category->getStoreIds() : [];
+                    $categoryStores = $category->getStoreIds() ?: [];
                     $entityStores = array_intersect($entityStores, $categoryStores);
                 }
                 $isFilterAllowed = true;
             } elseif ($category && $category->getId()) {
-                $entityStores = $category->getStoreIds() ? $category->getStoreIds() : [];
+                $entityStores = $category->getStoreIds() ?: [];
                 if (!$entityStores) {
                     $stores = []; //reset the stores
                     $noStoreError = $this->__('Chosen category does not associated with any website, so url rewrite is not possible.');

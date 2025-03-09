@@ -346,6 +346,6 @@ class Mage_Adminhtml_Promo_CatalogController extends Mage_Adminhtml_Controller_A
     public function getDirtyRulesNoticeMessage()
     {
         $defaultMessage = Mage::helper('catalogrule')->__('There are rules that have been changed but were not applied. Please, click Apply Rules in order to see immediate effect in the catalog.');
-        return $this->_dirtyRulesNoticeMessage ? $this->_dirtyRulesNoticeMessage : $defaultMessage;
+        return $this->_dirtyRulesNoticeMessage ?: $defaultMessage;
     }
 }

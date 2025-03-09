@@ -146,7 +146,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                 }
             }
         }
-        return $errors ? $errors : true;
+        return $errors ?: true;
     }
 
     /**

@@ -115,7 +115,7 @@ class Mage_Sales_Model_Service_Order
             }
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
             if ($orderItem->isDummy()) {
-                $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
+                $qty = $orderItem->getQtyOrdered() ?: 1;
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];

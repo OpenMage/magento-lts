@@ -51,7 +51,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
                 }
 
                 $region     = Mage::getModel('directory/region')->load($rate['tax_region_id']);
-                $regionName = $region->getCode() ? $region->getCode() : '*';
+                $regionName = $region->getCode() ?: '*';
                 $code       = "{$rate['tax_country_id']}-{$regionName}-{$rate['tax_postcode']}-{$type['type_name']}";
 
                 if ($rateValue > 0) {

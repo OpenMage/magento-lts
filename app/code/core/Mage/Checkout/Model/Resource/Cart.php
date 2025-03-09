@@ -41,7 +41,7 @@ class Mage_Checkout_Model_Resource_Cart extends Mage_Core_Model_Resource_Db_Abst
             ->where('q.entity_id = :quote_id');
 
         $result = $read->fetchRow($select, [':quote_id' => $quoteId]);
-        return $result ? $result : ['items_qty' => 0, 'items_count' => 0];
+        return $result ?: ['items_qty' => 0, 'items_count' => 0];
     }
 
     /**

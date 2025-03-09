@@ -188,7 +188,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 }
 
                 if ($doValidation && $weight > $maxAllowedWeight) {
-                    $errorMsg = ($configErrorMsg) ? $configErrorMsg : $defaultErrorMsg;
+                    $errorMsg = $configErrorMsg ?: $defaultErrorMsg;
                     break;
                 }
             }

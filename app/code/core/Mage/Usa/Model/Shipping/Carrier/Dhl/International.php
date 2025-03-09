@@ -325,7 +325,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             $requestObject->getStoreId(),
         );
 
-        $requestObject->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
+        $requestObject->setOrigStreet($request->getOrigStreet() ?: $originStreet2);
 
         if (is_numeric($request->getOrigState())) {
             $requestObject->setOrigState(Mage::getModel('directory/region')->load($request->getOrigState())->getCode());
@@ -1046,7 +1046,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if (isset($shipmentDetails->GlobalProductCode)) {
                 $dhlProductDescription  = $this->getDhlProductTitle((string) $shipmentDetails->GlobalProductCode);
             }
-            $dhlProductDescription = $dhlProductDescription ? $dhlProductDescription : Mage::helper('usa')->__('DHL');
+            $dhlProductDescription = $dhlProductDescription ?: Mage::helper('usa')->__('DHL');
             $this->_errors[] = Mage::helper('usa')->__("Zero shipping charge for '%s'", $dhlProductDescription);
         }
         return $this;
@@ -1289,9 +1289,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         /* Receiver */
         $nodeConsignee = $xml->addChild('Consignee', '', '');
 
-        $companyName = ($rawRequest->getRecipientContactCompanyName())
-            ? $rawRequest->getRecipientContactCompanyName()
-            : $rawRequest->getRecipientContactPersonName();
+        $companyName = $rawRequest->getRecipientContactCompanyName() ?: $rawRequest->getRecipientContactPersonName();
 
         $nodeConsignee->addChild('CompanyName', substr($companyName, 0, 35));
 

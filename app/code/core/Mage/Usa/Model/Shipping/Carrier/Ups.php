@@ -1404,9 +1404,7 @@ XMLAuth;
 
         $shipToPart = $shipmentPart->addChild('ShipTo');
         $shipToPart->addChild('AttentionName', $request->getRecipientContactPersonName());
-        $shipToPart->addChild('CompanyName', $request->getRecipientContactCompanyName()
-            ? $request->getRecipientContactCompanyName()
-            : 'N/A');
+        $shipToPart->addChild('CompanyName', $request->getRecipientContactCompanyName() ?: 'N/A');
         $shipToPart->addChild('PhoneNumber', $request->getRecipientContactPhoneNumber());
 
         $addressPart = $shipToPart->addChild('Address');
@@ -1425,9 +1423,7 @@ XMLAuth;
         if ($request->getIsReturn()) {
             $shipFromPart = $shipmentPart->addChild('ShipFrom');
             $shipFromPart->addChild('AttentionName', $request->getShipperContactPersonName());
-            $shipFromPart->addChild('CompanyName', $request->getShipperContactCompanyName()
-                ? $request->getShipperContactCompanyName()
-                : $request->getShipperContactPersonName());
+            $shipFromPart->addChild('CompanyName', $request->getShipperContactCompanyName() ?: $request->getShipperContactPersonName());
             $shipFromAddress = $shipFromPart->addChild('Address');
             $shipFromAddress->addChild('AddressLine1', $request->getShipperAddressStreet1());
             $shipFromAddress->addChild('AddressLine2', $request->getShipperAddressStreet2());
@@ -2513,7 +2509,7 @@ XMLAuth;
             $params['serviceCode'] = null;
         } else {
             $params['10_action'] = 'Rate';
-            $params['serviceCode'] = $rowRequest->getProduct() ? $rowRequest->getProduct() : null;
+            $params['serviceCode'] = $rowRequest->getProduct() ?: null;
         }
         $params['serviceDescription'] = $params['serviceCode'] ? $this->getShipmentByCode($params['serviceCode']) : '';
         return $params;

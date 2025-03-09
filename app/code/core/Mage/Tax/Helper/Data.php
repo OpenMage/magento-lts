@@ -1014,7 +1014,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 foreach ($current->getItemsCollection() as $item) {
                     $taxCollection = Mage::getResourceModel('tax/sales_order_tax_item')
                         ->getTaxItemsByItemId(
-                            $item->getOrderItemId() ? $item->getOrderItemId() : $item->getItemId(),
+                            $item->getOrderItemId() ?: $item->getItemId(),
                         );
 
                     foreach ($taxCollection as $tax) {

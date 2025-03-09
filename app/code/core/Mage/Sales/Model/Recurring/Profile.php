@@ -647,9 +647,9 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     protected function _getRegularItem($itemInfo)
     {
-        $price = $itemInfo->getPrice() ? $itemInfo->getPrice() : $this->getBillingAmount();
-        $shippingAmount = $itemInfo->getShippingAmount() ? $itemInfo->getShippingAmount() : $this->getShippingAmount();
-        $taxAmount = $itemInfo->getTaxAmount() ? $itemInfo->getTaxAmount() : $this->getTaxAmount();
+        $price = $itemInfo->getPrice() ?: $this->getBillingAmount();
+        $shippingAmount = $itemInfo->getShippingAmount() ?: $this->getShippingAmount();
+        $taxAmount = $itemInfo->getTaxAmount() ?: $this->getTaxAmount();
 
         return Mage::getModel('sales/order_item')
             ->setData($this->getOrderItemInfo())
@@ -698,9 +698,9 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      */
     protected function _getInitialItem($itemInfo)
     {
-        $price = $itemInfo->getPrice() ? $itemInfo->getPrice() : $this->getInitAmount();
-        $shippingAmount = $itemInfo->getShippingAmount() ? $itemInfo->getShippingAmount() : 0;
-        $taxAmount = $itemInfo->getTaxAmount() ? $itemInfo->getTaxAmount() : 0;
+        $price = $itemInfo->getPrice() ?: $this->getInitAmount();
+        $shippingAmount = $itemInfo->getShippingAmount() ?: 0;
+        $taxAmount = $itemInfo->getTaxAmount() ?: 0;
         $item = Mage::getModel('sales/order_item')
             ->setStoreId($this->getStoreId())
             ->setProductType(Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL)

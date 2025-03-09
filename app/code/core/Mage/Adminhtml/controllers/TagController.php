@@ -321,7 +321,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
-        $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
+        $ret = $this->getRequest()->getParam('ret') ?: 'index';
         $this->_redirect('*/*/' . $ret);
     }
 

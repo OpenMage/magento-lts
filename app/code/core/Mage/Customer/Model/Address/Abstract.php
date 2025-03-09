@@ -327,7 +327,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         }
         return $this->getData('country');*/
         $country = $this->getCountryId();
-        return $country ? $country : $this->getData('country');
+        return $country ?: $this->getData('country');
     }
 
     /**

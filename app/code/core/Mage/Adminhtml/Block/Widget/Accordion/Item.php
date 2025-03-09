@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
     public function getTitle()
     {
         $title  = $this->getData('title');
-        $url    = $this->getContentUrl() ? $this->getContentUrl() : '#';
+        $url    = $this->getContentUrl() ?: '#';
 
         return '<a href="' . $url . '" class="' . $this->getTarget() . '">' . $title . '</a>';
     }

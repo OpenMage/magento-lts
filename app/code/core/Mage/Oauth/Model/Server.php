@@ -678,7 +678,7 @@ class Mage_Oauth_Model_Server
                 $errorMsg .= '&message=' . $eMsg;
             }
         } else {
-            $errorMsg = 'internal_error&message=' . ($eMsg ? $eMsg : 'empty_message');
+            $errorMsg = 'internal_error&message=' . ($eMsg ?: 'empty_message');
             $responseCode = self::HTTP_INTERNAL_ERROR;
         }
         if (!$response) {

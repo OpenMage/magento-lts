@@ -62,7 +62,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      */
     public function __construct($uri = null)
     {
-        parent::__construct($uri ? $uri : null);
+        parent::__construct($uri ?: null);
     }
 
     /**

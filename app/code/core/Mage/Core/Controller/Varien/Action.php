@@ -234,7 +234,7 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         // if handles were specified in arguments load them first
         if ($handles !== false && $handles !== '') {
-            $this->getLayout()->getUpdate()->addHandle($handles ? $handles : 'default');
+            $this->getLayout()->getUpdate()->addHandle($handles ?: 'default');
         }
 
         // add default layout handles for this action
@@ -558,9 +558,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function norouteAction($coreRoute = null)
     {
-        $status = ($this->getRequest()->getParam('__status__'))
-            ? $this->getRequest()->getParam('__status__')
-            : new Varien_Object();
+        $status = $this->getRequest()->getParam('__status__') ?: new Varien_Object();
 
         Mage::dispatchEvent('controller_action_noroute', ['action' => $this, 'status' => $status]);
         if ($status->getLoaded() !== true

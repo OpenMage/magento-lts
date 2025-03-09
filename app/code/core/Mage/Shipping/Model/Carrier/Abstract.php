@@ -269,7 +269,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
                 $error->setCarrier($this->_code);
                 $error->setCarrierTitle($this->getConfigData('title'));
                 $errorMsg = $this->getConfigData('specificerrmsg');
-                $error->setErrorMessage($errorMsg ? $errorMsg : Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
+                $error->setErrorMessage($errorMsg ?: Mage::helper('shipping')->__('The shipping module is not available for selected delivery country.'));
                 return $error;
             } else {
                 /*

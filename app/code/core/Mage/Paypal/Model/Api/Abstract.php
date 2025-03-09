@@ -480,7 +480,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         if ($this->hasData($key)) {
             return $this->getData($key);
         }
-        return $this->_config->$key ? $this->_config->$key : $default;
+        return $this->_config->$key ?: $default;
     }
 
     /**

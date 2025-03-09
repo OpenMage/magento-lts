@@ -225,7 +225,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         $data = $this->_getResource()->loadPriceData($object->getId(), $websiteId);
         foreach ($data as $k => $v) {
             $data[$k]['website_price'] = $v['price'];
-            $data[$k]['is_percent']    = isset($v['is_percent']) ? isset($v['is_percent']) : 0;
+            $data[$k]['is_percent']    = isset($v['is_percent']) ?: 0;
             if ($v['all_groups']) {
                 $data[$k]['cust_group'] = Mage_Customer_Model_Group::CUST_GROUP_ALL;
             }

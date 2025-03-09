@@ -186,7 +186,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_AuthorizedTokens_Grid extends Mage_Adminh
      */
     public function decorateUserId($value, $row, $column, $isExport)
     {
-        return $row->getCustomerId() ? $row->getCustomerId() : $row->getAdminId();
+        return $row->getCustomerId() ?: $row->getAdminId();
     }
 
     /**

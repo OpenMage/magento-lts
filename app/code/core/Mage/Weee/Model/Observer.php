@@ -285,7 +285,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
 
         $eventProduct = $observer->getEvent()->getProduct();
 
-        $_product = $eventProduct ? $eventProduct : Mage::registry('current_product');
+        $_product = $eventProduct ?: Mage::registry('current_product');
 
         if (!$_product) {
             return $this;

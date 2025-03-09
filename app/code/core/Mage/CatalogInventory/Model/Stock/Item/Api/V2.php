@@ -34,7 +34,7 @@ class Mage_CatalogInventory_Model_Stock_Item_Api_V2 extends Mage_CatalogInventor
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
         $idBySku = $product->getIdBySku($productId);
-        $productId = $idBySku ? $idBySku : $productId;
+        $productId = $idBySku ?: $productId;
 
         /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
         $stockItem = Mage::getModel('cataloginventory/stock_item')

@@ -172,7 +172,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function setConnection($read, $write = null)
     {
         $this->_read  = $read;
-        $this->_write = $write ? $write : $read;
+        $this->_write = $write ?: $read;
 
         return $this;
     }

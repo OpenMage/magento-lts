@@ -73,7 +73,7 @@ class Mage_Persistent_Model_Observer
         /** @var Mage_Persistent_Model_Persistent_Config $persistentConfig */
         $persistentConfig = Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(
-                $configFilePath ? $configFilePath : Mage::helper('persistent')->getPersistentConfigFilePath(),
+                $configFilePath ?: Mage::helper('persistent')->getPersistentConfigFilePath(),
             );
 
         /** @var Varien_Simplexml_Element $persistentConfigInfo */

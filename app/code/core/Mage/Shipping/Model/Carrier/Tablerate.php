@@ -117,7 +117,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         }
         if (!$request->getConditionName()) {
             $conditionName = $this->getConfigData('condition_name');
-            $request->setConditionName($conditionName ? $conditionName : $this->_default_condition_name);
+            $request->setConditionName($conditionName ?: $this->_default_condition_name);
         }
 
         // Package weight and qty free shipping
