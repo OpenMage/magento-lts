@@ -559,9 +559,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             } else {
                 $cond = $column->getFilter()->getCondition();
                 if ($field && $cond !== null) {
-                    $filtered = array_map(static function ($value) {
-                        return is_object($value) ? $value->__toString() : $value;
-                    }, is_array($cond) ? array_values($cond) : [$cond]);
+                    $filtered = array_map(static fn($value) => is_object($value) ? $value->__toString() : $value, is_array($cond) ? array_values($cond) : [$cond]);
                     if (in_array('\'%NULL%\'', $filtered, true) || in_array('NULL', $filtered, true)) {
                         $this->getCollection()->addFieldToFilter($field, ['null' => true]);
                     } else {

@@ -238,9 +238,7 @@ abstract class Mage_Core_Helper_Abstract
     {
         $html = preg_replace_callback(
             "# <(?![/a-z]) | (?<=\s)>(?![a-z]) #xi",
-            function ($matches) {
-                return htmlentities($matches[0]);
-            },
+            fn($matches) => htmlentities($matches[0]),
             $html,
         );
         $html =  strip_tags($html);
