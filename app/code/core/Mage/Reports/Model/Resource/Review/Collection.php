@@ -45,7 +45,6 @@ class Mage_Reports_Model_Resource_Review_Collection extends Mage_Review_Model_Re
      */
     public function resetSelect()
     {
-        parent::resetSelect();
         $this->_joinFields();
         return $this;
     }
