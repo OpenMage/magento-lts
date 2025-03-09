@@ -187,7 +187,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 /**
                  * Looking for column expression in the having clause
                  */
-                if (str_contains($having, $correlationName)) {
+                if (str_contains((string) $having, $correlationName)) {
                     if (is_string($column)) {
                         /**
                          * Replace column expression to column alias in having clause
@@ -273,7 +273,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                     }
                 } else {
                     $columnKey = is_null($alias) ? $column : $alias;
-                    $preparedColumns[strtoupper($columnKey)] = [$correlationName, $column, $alias];
+                    $preparedColumns[strtoupper((string) $columnKey)] = [$correlationName, $column, $alias];
                 }
             }
         }

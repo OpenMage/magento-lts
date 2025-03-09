@@ -359,7 +359,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 $innerOptions = is_array($option['value']) ? $option['value'] : [$option];
                 foreach ($innerOptions as $innerOption) {
                     // skip ' -- Please Select -- ' option
-                    if (strlen($innerOption['value'])) {
+                    if (strlen((string) $innerOption['value'])) {
                         $options[$innerOption['value']] = $innerOption['label'];
                     }
                 }

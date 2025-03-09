@@ -38,7 +38,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
     public function getAddressCollection()
     {
         $addresses = [];
-        $countries = explode(',', Mage::getStoreConfig('general/country/allow', Mage::getSingleton('adminhtml/session_quote')->getStoreId()));
+        $countries = explode(',', (string) Mage::getStoreConfig('general/country/allow', Mage::getSingleton('adminhtml/session_quote')->getStoreId()));
 
         foreach ($this->getCustomer()->getAddresses() as $address) {
             if (in_array($address->getData('country_id'), $countries)) {

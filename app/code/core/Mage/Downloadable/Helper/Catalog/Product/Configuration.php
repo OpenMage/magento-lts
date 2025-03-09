@@ -38,7 +38,7 @@ class Mage_Downloadable_Helper_Catalog_Product_Configuration extends Mage_Core_H
             /** @var Mage_Downloadable_Model_Product_Type $productType */
             $productType = $product->getTypeInstance(true);
             $productLinks = $productType->getLinks($product);
-            foreach (explode(',', $linkIds->getValue()) as $linkId) {
+            foreach (explode(',', (string) $linkIds->getValue()) as $linkId) {
                 if (isset($productLinks[$linkId])) {
                     $itemLinks[] = $productLinks[$linkId];
                 }

@@ -47,7 +47,7 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
                 $productType = $product->getTypeInstance(true);
                 /** @var Mage_Downloadable_Model_Link[] $links */
                 $links = $productType->getLinks($product);
-                foreach (explode(',', $linksIds->getValue()) as $linkId) {
+                foreach (explode(',', (string) $linksIds->getValue()) as $linkId) {
                     if (isset($links[$linkId])) {
                         $linkPrice += $links[$linkId]->getPrice();
                     }

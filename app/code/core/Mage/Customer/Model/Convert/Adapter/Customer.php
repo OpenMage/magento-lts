@@ -502,7 +502,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
             $setValue = $value;
 
             if ($attribute->getFrontendInput() == 'multiselect') {
-                $value = explode(self::MULTI_DELIMITER, $value);
+                $value = explode(self::MULTI_DELIMITER, (string) $value);
                 $isArray = true;
                 $setValue = [];
             }

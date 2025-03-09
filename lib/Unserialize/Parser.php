@@ -39,7 +39,7 @@ class Unserialize_Parser
     {
         $reader = new Unserialize_Reader_Arr();
         $prevChar = null;
-        for ($i = 0; $i < strlen($str); $i++) {
+        for ($i = 0; $i < strlen((string) $str); $i++) {
             $char = $str[$i];
             $arr = $reader->read($char, $prevChar);
             if (!is_null($arr)) {

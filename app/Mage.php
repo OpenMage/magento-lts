@@ -887,7 +887,7 @@ final class Mage
         }
 
         $file = empty($file) ?
-            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename($file);
+            (string) self::getConfig()->getNode('dev/log/file', Mage_Core_Model_Store::DEFAULT_CODE) : basename((string) $file);
 
         try {
             if (!isset($loggers[$file])) {
@@ -1021,8 +1021,8 @@ final class Mage
      */
     public static function getScriptSystemUrl($folder, $exitIfNot = false)
     {
-        $runDirUrl  = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/');
-        $runDir     = rtrim(dirname($_SERVER['SCRIPT_FILENAME']), DS);
+        $runDirUrl  = rtrim(dirname((string) $_SERVER['SCRIPT_NAME']), '/');
+        $runDir     = rtrim(dirname((string) $_SERVER['SCRIPT_FILENAME']), DS);
 
         $baseUrl    = null;
         if (is_dir($runDir . '/' . $folder)) {

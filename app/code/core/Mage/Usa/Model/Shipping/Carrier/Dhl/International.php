@@ -929,7 +929,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                                     break;
                                 }
                             }
-                            Mage::throwException(Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data)));
+                            Mage::throwException(Mage::helper('usa')->__('Error #%s : %s', trim($code), trim((string) $data)));
                         }
 
                         $code = isset($nodeCondition->ConditionCode) ? (string) $nodeCondition->ConditionCode : 0;
@@ -1291,7 +1291,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         $companyName = $rawRequest->getRecipientContactCompanyName() ?: $rawRequest->getRecipientContactPersonName();
 
-        $nodeConsignee->addChild('CompanyName', substr($companyName, 0, 35));
+        $nodeConsignee->addChild('CompanyName', substr((string) $companyName, 0, 35));
 
         $address = $rawRequest->getRecipientAddressStreet1() . ' ' . $rawRequest->getRecipientAddressStreet2();
         $address = Mage::helper('core/string')->str_split($address, 35, false, true);
@@ -1312,8 +1312,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             (string) $this->getCountryParams($rawRequest->getRecipientAddressCountryCode())->name,
         );
         $nodeContact = $nodeConsignee->addChild('Contact');
-        $nodeContact->addChild('PersonName', substr($rawRequest->getRecipientContactPersonName(), 0, 34));
-        $nodeContact->addChild('PhoneNumber', substr($rawRequest->getRecipientContactPhoneNumber(), 0, 24));
+        $nodeContact->addChild('PersonName', substr((string) $rawRequest->getRecipientContactPersonName(), 0, 34));
+        $nodeContact->addChild('PhoneNumber', substr((string) $rawRequest->getRecipientContactPhoneNumber(), 0, 24));
 
         /* Commodity
          * The CommodityCode element contains commodity code for shipment contents. Its
@@ -1374,8 +1374,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             (string) $this->getCountryParams($rawRequest->getShipperAddressCountryCode())->name,
         );
         $nodeContact = $nodeShipper->addChild('Contact', '', '');
-        $nodeContact->addChild('PersonName', substr($rawRequest->getShipperContactPersonName(), 0, 34));
-        $nodeContact->addChild('PhoneNumber', substr($rawRequest->getShipperContactPhoneNumber(), 0, 24));
+        $nodeContact->addChild('PersonName', substr((string) $rawRequest->getShipperContactPersonName(), 0, 34));
+        $nodeContact->addChild('PhoneNumber', substr((string) $rawRequest->getShipperContactPhoneNumber(), 0, 24));
 
         $xml->addChild('LabelImageFormat', 'PDF', '');
 

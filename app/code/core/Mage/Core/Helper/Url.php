@@ -87,7 +87,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
     protected function _prepareString($string)
     {
         $string = preg_replace('#[^0-9a-z]+#i', '-', $string);
-        $string = strtolower($string);
+        $string = strtolower((string) $string);
 
         return trim($string, '-');
     }

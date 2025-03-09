@@ -112,7 +112,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                     $giftMessage->load($entity->getGiftMessageId());
                 }
 
-                if (trim($message['message']) == '') {
+                if (trim((string) $message['message']) == '') {
                     if ($giftMessage->getId()) {
                         try {
                             $giftMessage->delete();

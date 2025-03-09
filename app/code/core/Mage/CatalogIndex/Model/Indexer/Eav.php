@@ -54,7 +54,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
             $origData = $data;
             $data = [];
 
-            $value = explode(',', $origData['value']);
+            $value = explode(',', (string) $origData['value']);
             foreach ($value as $item) {
                 $row = $origData;
                 $row['value'] = $item;

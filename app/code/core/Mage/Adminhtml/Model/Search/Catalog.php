@@ -53,7 +53,7 @@ class Mage_Adminhtml_Model_Search_Catalog extends Varien_Object
             ->load();
 
         foreach ($collection as $product) {
-            $description = strip_tags($product->getDescription());
+            $description = strip_tags((string) $product->getDescription());
             $arr[] = [
                 'id'            => 'product/1/' . $product->getId(),
                 'type'          => Mage::helper('adminhtml')->__('Product'),

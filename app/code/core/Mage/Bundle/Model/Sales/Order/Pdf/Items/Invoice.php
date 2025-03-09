@@ -159,14 +159,14 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 foreach ($options['options'] as $option) {
                     $lines = [];
                     $lines[][] = [
-                        'text'  => $stringHelper->str_split(strip_tags($option['label']), 40, true, true),
+                        'text'  => $stringHelper->str_split(strip_tags((string) $option['label']), 40, true, true),
                         'font'  => 'italic',
                         'feed'  => 35,
                     ];
 
                     if ($option['value']) {
                         $text = [];
-                        $printValue = $option['print_value'] ?? strip_tags($option['value']);
+                        $printValue = $option['print_value'] ?? strip_tags((string) $option['value']);
                         $values = explode(', ', $printValue);
                         foreach ($values as $value) {
                             foreach ($stringHelper->str_split($value, 30, true, true) as $str) {

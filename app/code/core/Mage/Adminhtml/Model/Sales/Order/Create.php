@@ -959,7 +959,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _assignOptionsToItem(Mage_Sales_Model_Quote_Item $item, $options)
     {
         if ($optionIds = $item->getOptionByCode('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 $item->removeOption('option_' . $optionId);
             }
             $item->removeOption('option_ids');
@@ -1010,7 +1010,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         $newInfoOptions = [];
         if ($optionIds = $item->getOptionByCode('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 $option = $item->getProduct()->getOptionById($optionId);
                 $optionValue = $item->getOptionByCode('option_' . $optionId)->getValue();
 

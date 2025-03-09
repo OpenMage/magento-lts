@@ -1111,7 +1111,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $secure = (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] != 'off')) || $_SERVER['SERVER_PORT'] == '443';
                 $scheme = ($secure ? 'https' : 'http') . '://' ;
 
-                $hostArr = explode(':', $_SERVER['HTTP_HOST']);
+                $hostArr = explode(':', (string) $_SERVER['HTTP_HOST']);
                 $host = $hostArr[0];
                 $port = isset(
                     $hostArr[1],
@@ -1608,7 +1608,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         // If unsecure base url is https, then all urls should be secure
-        if (str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://')) {
+        if (str_starts_with((string) Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://')) {
             return true;
         }
 

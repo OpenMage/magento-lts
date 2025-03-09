@@ -218,7 +218,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
             // Retrieve default option value if pre-configured
             if (is_array($value)) {
                 $value = implode(',', $value);
-            } elseif (trim($value) == '') {
+            } elseif (trim((string) $value) == '') {
                 $widget = $this->getConfigAsObject($type);
                 $parameters = $widget->getParameters();
                 if (isset($parameters[$name]) && is_object($parameters[$name])) {
@@ -288,7 +288,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     protected function _sortWidgets($a, $b)
     {
-        return strcmp($a['name'], $b['name']);
+        return strcmp((string) $a['name'], (string) $b['name']);
     }
 
     /**

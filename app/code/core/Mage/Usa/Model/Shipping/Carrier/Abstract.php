@@ -269,7 +269,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     protected function _prepareServiceName($name)
     {
         $name = html_entity_decode((string) $name);
-        $name = strip_tags(preg_replace('#&\w+;#', '', $name));
+        $name = strip_tags((string) preg_replace('#&\w+;#', '', $name));
         return trim($name);
     }
 

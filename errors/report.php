@@ -14,7 +14,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-if ($_SERVER['SCRIPT_FILENAME'] == __FILE__ && (!isset($_GET['id']) || strlen($_GET['id']) == 0)) {
+if ($_SERVER['SCRIPT_FILENAME'] == __FILE__ && (!isset($_GET['id']) || strlen((string) $_GET['id']) == 0)) {
     die('Missing parameter: id');
 }
 

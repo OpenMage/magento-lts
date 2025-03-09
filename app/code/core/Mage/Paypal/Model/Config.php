@@ -785,7 +785,7 @@ class Mage_Paypal_Model_Config
             return $this->_config[$key];
         }
 
-        $underscored = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $key));
+        $underscored = strtolower((string) preg_replace('/(.)([A-Z])/', '$1_$2', $key));
         if (array_key_exists($underscored, $this->_config)) {
             return $this->_config[$underscored];
         }

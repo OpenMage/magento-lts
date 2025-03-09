@@ -414,7 +414,7 @@ abstract class Mage_ImportExport_Model_Export_Entity_Abstract
                 foreach ($attribute->getSource()->getAllOptions(false) as $option) {
                     $innerOptions = is_array($option['value']) ? $option['value'] : [$option];
                     foreach ($innerOptions as $innerOption) {
-                        if (strlen($innerOption['value'])) { // skip ' -- Please Select -- ' option
+                        if (strlen((string) $innerOption['value'])) { // skip ' -- Please Select -- ' option
                             $options[$innerOption['value']] = $innerOption[$index];
                         }
                     }

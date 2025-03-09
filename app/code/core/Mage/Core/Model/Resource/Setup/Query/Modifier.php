@@ -230,7 +230,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
     {
         $rows = $this->_adapter->fetchAll('SHOW TABLES');
         foreach ($rows as $row) {
-            $tableFound = strtolower(current($row));
+            $tableFound = strtolower((string) current($row));
             if ($table == $tableFound) {
                 return true;
             }

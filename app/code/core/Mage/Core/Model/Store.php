@@ -613,12 +613,12 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid base url type'));
             }
 
-            if (str_contains($url, '{{base_url}}')) {
+            if (str_contains((string) $url, '{{base_url}}')) {
                 $baseUrl = Mage::getConfig()->substDistroServerVars('{{base_url}}');
                 $url = str_replace('{{base_url}}', $baseUrl, $url);
             }
 
-            $this->_baseUrlCache[$cacheKey] = rtrim($url, '/') . '/';
+            $this->_baseUrlCache[$cacheKey] = rtrim((string) $url, '/') . '/';
         }
 
         return $this->_baseUrlCache[$cacheKey];
@@ -635,7 +635,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         if ($this->isAdmin() || !$this->getConfig(self::XML_PATH_USE_REWRITES) || !Mage::isInstalled()) {
             // phpcs:ignore Ecg.Security.ForbiddenFunction.Found,Ecg.Security.Superglobal.SuperglobalUsageWarning
-            $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename($_SERVER['SCRIPT_FILENAME']);
+            $indexFileName = $this->_isCustomEntryPoint() ? 'index.php' : basename((string) $_SERVER['SCRIPT_FILENAME']);
             $url .= $indexFileName . '/';
         }
         return $url;
@@ -878,7 +878,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     {
         $codes = $this->getData('available_currency_codes');
         if (is_null($codes)) {
-            $codes = explode(',', $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_ALLOW));
+            $codes = explode(',', (string) $this->getConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_ALLOW));
             // add base currency, if it is not in allowed currencies
             $baseCurrencyCode = $this->getBaseCurrencyCode();
             if (!in_array($baseCurrencyCode, $codes)) {

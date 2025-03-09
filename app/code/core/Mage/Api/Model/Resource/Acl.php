@@ -103,7 +103,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
         foreach ($rulesArr as $rule) {
             $role = $rule['role_type'] . $rule['role_id'];
             $resource = $rule['resource_id'];
-            $privileges = !empty($rule['api_privileges']) ? explode(',', $rule['api_privileges']) : null;
+            $privileges = !empty($rule['api_privileges']) ? explode(',', (string) $rule['api_privileges']) : null;
 
             $assert = null;
             if ($rule['assert_id'] != 0) {

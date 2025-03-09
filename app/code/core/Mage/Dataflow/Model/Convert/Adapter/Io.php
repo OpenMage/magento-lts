@@ -31,16 +31,16 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
     {
         if (!$this->_resource) {
             $type = $this->getVar('type', 'file');
-            $className = 'Varien_Io_' . ucwords($type);
+            $className = 'Varien_Io_' . ucwords((string) $type);
             $this->_resource = new $className();
 
             $isError = false;
 
             $ioConfig = $this->getVars();
-            switch (strtolower($this->getVar('type', 'file'))) {
+            switch (strtolower((string) $this->getVar('type', 'file'))) {
                 case 'file':
                     //validate export/import path
-                    $path = rtrim($ioConfig['path'], '\\/')
+                    $path = rtrim((string) $ioConfig['path'], '\\/')
                           . DS . $ioConfig['filename'];
                     /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
                     $validator = Mage::getModel('core/file_validator_availablePath');
@@ -51,13 +51,13 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                         }
                     }
 
-                    if (preg_match('#^' . preg_quote(DS, '#') . '#', $this->getVar('path')) ||
-                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', $this->getVar('path'))
+                    if (preg_match('#^' . preg_quote(DS, '#') . '#', (string) $this->getVar('path')) ||
+                        preg_match('#^[a-z]:' . preg_quote(DS, '#') . '#i', (string) $this->getVar('path'))
                     ) {
                         $path = $this->_resource->getCleanPath($this->getVar('path'));
                     } else {
                         $baseDir = Mage::getBaseDir();
-                        $path = $this->_resource->getCleanPath($baseDir . DS . trim($this->getVar('path'), DS));
+                        $path = $this->_resource->getCleanPath($baseDir . DS . trim((string) $this->getVar('path'), DS));
                     }
 
                     $this->_resource->checkAndCreateFolder($path);
@@ -80,7 +80,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                     }
                     break;
                 default:
-                    $ioConfig['path'] = rtrim($this->getVar('path'), '/');
+                    $ioConfig['path'] = rtrim((string) $this->getVar('path'), '/');
                     break;
             }
 

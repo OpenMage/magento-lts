@@ -26,7 +26,7 @@ $sql    = $installer->getConnection()->quoteInto("SELECT * FROM `{$installer->ge
 $data   = $installer->getConnection()->fetchAll($sql);
 
 foreach ($data as $row) {
-    $row['apply_to'] = array_flip(explode(',', $row['apply_to']));
+    $row['apply_to'] = array_flip(explode(',', (string) $row['apply_to']));
     unset($row['apply_to']['configurable']);
     $row['apply_to'] = implode(',', array_flip($row['apply_to']));
 

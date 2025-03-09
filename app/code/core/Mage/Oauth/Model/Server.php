@@ -493,7 +493,7 @@ class Mage_Oauth_Model_Server
             }
         }
         // validate consumer key length
-        if (strlen($this->_protocolParams['oauth_consumer_key']) != Mage_Oauth_Model_Consumer::KEY_LENGTH) {
+        if (strlen((string) $this->_protocolParams['oauth_consumer_key']) != Mage_Oauth_Model_Consumer::KEY_LENGTH) {
             $this->_throwException('', self::ERR_CONSUMER_KEY_REJECTED);
         }
         // validate signature method

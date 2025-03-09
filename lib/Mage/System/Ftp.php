@@ -200,7 +200,7 @@ class Mage_System_Ftp
     public function getcwd()
     {
         $d = $this->raw('pwd');
-        $data = explode(' ', $d[0], 3);
+        $data = explode(' ', (string) $d[0], 3);
         if (empty($data[1])) {
             return false;
         }
@@ -486,7 +486,7 @@ class Mage_System_Ftp
                     }
                 }
             } elseif (!empty($rawfile)) {
-                $info = preg_split("/[\s]+/", $rawfile, 9);
+                $info = preg_split("/[\s]+/", (string) $rawfile, 9);
                 $arraypointer[] = [
                     'name'   => $info[8],
                     'dir'  => $info[0][0] == 'd',

@@ -37,7 +37,7 @@ foreach ($multiSelectAttributeCodes as $attributeCode) {
             foreach ($result as $row) {
                 if (isset($row['value']) && !empty($row['value'])) {
                     // 1,2,,,3,5 --> 1,2,3,5
-                    $row['value'] = preg_replace('/,{2,}/', ',', $row['value'], -1, $replaceCnt);
+                    $row['value'] = preg_replace('/,{2,}/', ',', (string) $row['value'], -1, $replaceCnt);
 
                     if ($replaceCnt) {
                         $installer->getConnection()

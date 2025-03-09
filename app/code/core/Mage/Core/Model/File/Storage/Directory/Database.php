@@ -177,7 +177,7 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
 
         $dateSingleton = Mage::getSingleton('core/date');
         foreach ($dirs as $dir) {
-            if (!is_array($dir) || !isset($dir['name']) || !strlen($dir['name'])) {
+            if (!is_array($dir) || !isset($dir['name']) || !strlen((string) $dir['name'])) {
                 continue;
             }
 
@@ -237,8 +237,8 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
     public function deleteDirectory($dirPath)
     {
         $dirPath = Mage::helper('core/file_storage_database')->getMediaRelativePath($dirPath);
-        $name = basename($dirPath);
-        $path = dirname($dirPath);
+        $name = basename((string) $dirPath);
+        $path = dirname((string) $dirPath);
 
         if ($path == '.') {
             $path = '';

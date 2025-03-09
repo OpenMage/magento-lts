@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             return $this;
         }
 
-        $filter = explode(',', $filter);
+        $filter = explode(',', (string) $filter);
         if (count($filter) != 2) {
             return $this;
         }

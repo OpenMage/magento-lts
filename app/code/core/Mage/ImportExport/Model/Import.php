@@ -366,7 +366,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
             foreach ($adapter as $row) {
                 foreach ($colReg as $colName => $regExpType) {
                     if (!empty($row[$colName])) {
-                        preg_match($regExps[$regExpType], $row[$colName], $m);
+                        preg_match($regExps[$regExpType], (string) $row[$colName], $m);
 
                         $row[$colName] = $m[1] . ((int) $m[2] + $size) . ($regExpType == 'middle' ? $m[3] : '');
                     }
@@ -393,7 +393,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         $uploader  = Mage::getModel('core/file_uploader', self::FIELD_NAME_SOURCE_FILE);
         $uploader->skipDbProcessing(true);
         $result    = $uploader->save(self::getWorkingDir());
-        $extension = pathinfo($result['file'], PATHINFO_EXTENSION);
+        $extension = pathinfo((string) $result['file'], PATHINFO_EXTENSION);
 
         $uploadedFile = $result['path'] . $result['file'];
         if (!$extension) {

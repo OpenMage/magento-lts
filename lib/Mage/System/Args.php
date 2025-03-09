@@ -59,8 +59,8 @@ class Mage_System_Args
             $str = $argv[$i];
 
             // --foo
-            if (strlen($str) > 2 && str_starts_with($str, '--')) {
-                $str = substr($str, 2);
+            if (strlen((string) $str) > 2 && str_starts_with((string) $str, '--')) {
+                $str = substr((string) $str, 2);
                 $parts = explode('=', $str);
                 $this->flags[$parts[0]] = true;
 
@@ -71,7 +71,7 @@ class Mage_System_Args
                 } elseif (count($parts) == 2) { // Has a =, so pick the second piece
                     $this->flags[$parts[0]] = $parts[1];
                 }
-            } elseif (strlen($str) == 2 && $str[0] == '-') { // -a
+            } elseif (strlen((string) $str) == 2 && $str[0] == '-') { // -a
                 $this->flags[$str[1]] = true;
                 if (isset($argv[$i + 1]) && preg_match('/^--?.+/', $argv[$i + 1]) == 0) {
                     $this->flags[$str[1]] = $argv[$i + 1];

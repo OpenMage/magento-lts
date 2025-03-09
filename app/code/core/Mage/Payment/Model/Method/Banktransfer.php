@@ -46,6 +46,6 @@ class Mage_Payment_Model_Method_Banktransfer extends Mage_Payment_Model_Method_A
      */
     public function getInstructions()
     {
-        return trim($this->getConfigData('instructions'));
+        return trim((string) $this->getConfigData('instructions'));
     }
 }

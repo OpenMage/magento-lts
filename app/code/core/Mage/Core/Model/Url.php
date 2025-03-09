@@ -767,7 +767,7 @@ class Mage_Core_Model_Url extends Varien_Object
      */
     public function checkCookieDomains()
     {
-        $hostArr = explode(':', $this->getRequest()->getServer('HTTP_HOST'));
+        $hostArr = explode(':', (string) $this->getRequest()->getServer('HTTP_HOST'));
         if ($hostArr[0] !== $this->getHost()) {
             $session = Mage::getSingleton('core/session');
             if (!$session->isValidForHost($this->getHost())) {
@@ -885,7 +885,7 @@ class Mage_Core_Model_Url extends Varien_Object
         if (!$this->hasData('query_params')) {
             $params = [];
             if ($this->_getData('query')) {
-                foreach (explode('&', $this->_getData('query')) as $param) {
+                foreach (explode('&', (string) $this->_getData('query')) as $param) {
                     $paramArr = explode('=', $param);
                     $params[$paramArr[0]] = urldecode($paramArr[1]);
                 }
@@ -1140,7 +1140,7 @@ class Mage_Core_Model_Url extends Varien_Object
         } else {
             return preg_replace_callback(
                 '#(\?|&amp;|&)___SID=([SU])(&amp;|&)?#',
-                [$this, 'sessionVarCallback'],
+                $this->sessionVarCallback(...),
                 $html,
             );
         }
@@ -1209,7 +1209,7 @@ class Mage_Core_Model_Url extends Varien_Object
     {
         $storeDomains = [];
         $httpReferer = Mage::app()->getFrontController()->getRequest()->getServer('HTTP_REFERER');
-        $referer = $httpReferer ? parse_url($httpReferer, PHP_URL_HOST) : '';
+        $referer = $httpReferer ? parse_url((string) $httpReferer, PHP_URL_HOST) : '';
         if (empty($referer)) {
             return true;
         }

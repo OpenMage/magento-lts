@@ -59,7 +59,7 @@ class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 
         if (!empty($result)) {
             if (!empty($result['design'])) {
-                $tmp = explode('/', $result['design']);
+                $tmp = explode('/', (string) $result['design']);
                 $result['package'] = $tmp[0];
                 $result['theme'] = $tmp[1];
             }

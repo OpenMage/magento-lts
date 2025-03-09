@@ -142,7 +142,7 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         }
 
         //validate attribute_code
-        if (!preg_match('/^[a-z][a-z_0-9]{0,254}$/', $data['attribute_code'])) {
+        if (!preg_match('/^[a-z][a-z_0-9]{0,254}$/', (string) $data['attribute_code'])) {
             $this->_fault('invalid_code');
         }
 

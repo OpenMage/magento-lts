@@ -254,7 +254,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             return $this->_tables[$cacheName];
         }
 
-        if (strpos($entityName, '/')) {
+        if (strpos((string) $entityName, '/')) {
             if (!is_null($entitySuffix)) {
                 $modelEntity = [$entityName, $entitySuffix];
             } else {

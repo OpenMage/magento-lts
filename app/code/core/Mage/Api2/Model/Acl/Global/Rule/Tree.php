@@ -175,7 +175,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             ];
         } else {
             $resources = [];
-            $checkedResources = explode(',', Mage::app()->getRequest()->getParam('resource'));
+            $checkedResources = explode(',', (string) Mage::app()->getRequest()->getParam('resource'));
             $prefixResource  = self::NAME_RESOURCE . self::ID_SEPARATOR;
             switch ($this->_type) {
                 case self::TYPE_PRIVILEGE:

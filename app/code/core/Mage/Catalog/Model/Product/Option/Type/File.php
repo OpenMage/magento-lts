@@ -235,7 +235,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         $this->_initFilesystem();
 
         if ($upload->isUploaded($file) && $upload->isValid($file)) {
-            $extension = pathinfo(strtolower($fileInfo['name']), PATHINFO_EXTENSION);
+            $extension = pathinfo(strtolower((string) $fileInfo['name']), PATHINFO_EXTENSION);
 
             $fileName = Mage_Core_Model_File_Uploader::getCorrectFileName($fileInfo['name']);
             $dispersion = Mage_Core_Model_File_Uploader::getDispretionPath($fileName);
@@ -767,7 +767,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         // Maybe array with file info came in
         if (is_array($fileInfo)) {
-            return strstr($fileInfo['type'], 'image/');
+            return strstr((string) $fileInfo['type'], 'image/');
         }
 
         // File path came in - check the physical file

@@ -38,7 +38,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
             foreach ($regionsCollection as $region) {
                 $countryRegions[$region->getCountryId()][$region->getId()] = $region->getDefaultName();
             }
-            uksort($countryRegions, [$this, 'sortRegionCountries']);
+            uksort($countryRegions, $this->sortRegionCountries(...));
 
             $this->_options = [];
             foreach ($countryRegions as $countryId => $regions) {
@@ -59,6 +59,6 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
 
     public function sortRegionCountries($a, $b)
     {
-        return strcmp($this->_countries[$a], $this->_countries[$b]);
+        return strcmp((string) $this->_countries[$a], (string) $this->_countries[$b]);
     }
 }

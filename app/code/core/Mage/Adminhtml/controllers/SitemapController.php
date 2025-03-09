@@ -143,11 +143,11 @@ class Mage_Adminhtml_SitemapController extends Mage_Adminhtml_Controller_Action
 
             //validate path to generate
             if (!empty($data['sitemap_filename']) && !empty($data['sitemap_path'])) {
-                $path = rtrim($data['sitemap_path'], '\\/')
+                $path = rtrim((string) $data['sitemap_path'], '\\/')
                       . DS . $data['sitemap_filename'];
 
                 // check filename length
-                if (strlen($data['sitemap_filename']) > self::MAXIMUM_SITEMAP_NAME_LENGTH) {
+                if (strlen((string) $data['sitemap_filename']) > self::MAXIMUM_SITEMAP_NAME_LENGTH) {
                     Mage::getSingleton('adminhtml/session')->addError(
                         Mage::helper('sitemap')->__(
                             'Please enter a sitemap name with at most %s characters.',

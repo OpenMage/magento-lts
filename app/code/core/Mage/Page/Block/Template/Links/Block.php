@@ -199,7 +199,7 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
         } elseif (is_array($params)) {
             $result = '';
             foreach ($params as $key => $value) {
-                $result .= ' ' . $key . '="' . addslashes($value) . '"';
+                $result .= ' ' . $key . '="' . addslashes((string) $value) . '"';
             }
             return $result;
         }

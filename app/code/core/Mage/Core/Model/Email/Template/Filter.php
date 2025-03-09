@@ -70,7 +70,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function __construct()
     {
-        $this->_modifiers['escape'] = [$this, 'modifierEscape'];
+        $this->_modifiers['escape'] = $this->modifierEscape(...);
         $this->_permissionVariable = Mage::getModel('admin/variable');
         $this->_permissionBlock = Mage::getModel('admin/block');
     }
@@ -363,7 +363,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
             return $construction[0];
         }
 
-        $parts = explode('|', $construction[2], 2);
+        $parts = explode('|', (string) $construction[2], 2);
         if (count($parts) === 2) {
             [$variableName, $modifiersString] = $parts;
             return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);

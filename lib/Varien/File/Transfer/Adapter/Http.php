@@ -114,7 +114,7 @@ class Varien_File_Transfer_Adapter_Http
             return null;
         }
 
-        $parts = explode('.', $file);
+        $parts = explode('.', (string) $file);
         $extention = strtolower(array_pop($parts));
         if (isset($this->_mimeTypes[$extention])) {
             $result = $this->_mimeTypes[$extention];

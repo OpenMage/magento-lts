@@ -26,7 +26,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
     public function __construct()
     {
-        set_error_handler([$this, 'handlePhpError'], E_ALL);
+        set_error_handler($this->handlePhpError(...), E_ALL);
         Mage::app()->loadAreaPart(Mage_Core_Model_App_Area::AREA_ADMINHTML, Mage_Core_Model_App_Area::PART_EVENTS);
     }
 
@@ -609,7 +609,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         return preg_replace_callback(
             '/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]/u',
             fn($matches) => '&#' . Mage::helper('core/string')->uniOrd($matches[0]) . ';',
-            $row,
+            (string) $row,
         );
     }
 }

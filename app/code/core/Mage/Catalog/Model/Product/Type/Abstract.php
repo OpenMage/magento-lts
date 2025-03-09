@@ -590,7 +590,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         }
 
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 if ($option = $this->getProduct($product)->getOptionById($optionId)) {
                     $confItemOption = $this->getProduct($product)
                         ->getCustomOption(self::OPTION_PREFIX . $option->getId());
@@ -728,7 +728,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
             $sku = $this->getProduct($product)->getData('sku');
         }
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 if ($option = $this->getProduct($product)->getOptionById($optionId)) {
                     $confItemOption = $this->getProduct($product)->getCustomOption(self::OPTION_PREFIX . $optionId);
 

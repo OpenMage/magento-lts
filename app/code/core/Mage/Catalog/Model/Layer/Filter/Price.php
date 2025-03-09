@@ -370,7 +370,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         }
 
         //validate filter
-        $filterParams = explode(',', $filter);
+        $filterParams = explode(',', (string) $filter);
         $filter = $this->_validateFilter($filterParams[0]);
         if (!$filter) {
             return $this;

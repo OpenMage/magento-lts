@@ -43,7 +43,7 @@ class Mage_Contacts_Helper_Data extends Mage_Core_Helper_Abstract
             return '';
         }
         $customer = Mage::getSingleton('customer/session')->getCustomer();
-        return trim($customer->getName());
+        return trim((string) $customer->getName());
     }
 
     /**

@@ -328,11 +328,11 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
         }
         $host = $_SERVER['HTTP_HOST'];
         if ($trimPort) {
-            $hostParts = explode(':', $_SERVER['HTTP_HOST']);
+            $hostParts = explode(':', (string) $_SERVER['HTTP_HOST']);
             $host =  $hostParts[0];
         }
 
-        if (str_contains($host, ',') || str_contains($host, ';')) {
+        if (str_contains((string) $host, ',') || str_contains((string) $host, ';')) {
             $response = new Zend_Controller_Response_Http();
             $response->setHttpResponseCode(400)->sendHeaders();
             exit();

@@ -259,7 +259,7 @@ class Mage_Core_Model_Resource
             [$modelEntity, $tableSuffix] = $modelEntity;
         }
 
-        $parts = explode('/', $modelEntity);
+        $parts = explode('/', (string) $modelEntity);
         if (isset($parts[1])) {
             [$model, $entity] = $parts;
             $entityConfig = false;

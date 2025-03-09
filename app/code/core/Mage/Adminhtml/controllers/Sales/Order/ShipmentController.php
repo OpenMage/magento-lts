@@ -686,7 +686,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
     {
         $outputPdf = new Zend_Pdf();
         foreach ($labelsContent as $content) {
-            if (stripos($content, '%PDF-') !== false) {
+            if (stripos((string) $content, '%PDF-') !== false) {
                 $pdfLabel = Zend_Pdf::parse($content);
                 foreach ($pdfLabel->pages as $page) {
                     $outputPdf->pages[] = clone $page;

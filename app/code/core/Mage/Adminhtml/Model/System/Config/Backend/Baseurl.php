@@ -35,7 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
 
         if (!preg_match('#^{{((un)?secure_)?base_url}}#', $value)) {
             $value = Mage::helper('core/url')->encodePunycode($value);
-            $parsedUrl = parse_url($value);
+            $parsedUrl = parse_url((string) $value);
             if (!isset($parsedUrl['scheme']) || !isset($parsedUrl['host'])) {
                 Mage::throwException(Mage::helper('core')->__('The %s you entered is invalid. Please make sure that it follows "http://domain.com/" format.', $this->getFieldConfig()->label));
             } elseif (($parsedUrl['scheme'] != 'https') && ($parsedUrl['scheme'] != 'http')) {
@@ -43,7 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
             }
         }
 
-        $value = rtrim($value, '/');
+        $value = rtrim((string) $value, '/');
         /**
          * If value is special ({{}}) we don't need add slash
          */

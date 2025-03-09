@@ -103,7 +103,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $charSingleList = ['\\', '/', '.', '!', '@', '#', '$', '%', '&', '*', '~', '^'];
             if (isset($guiData['file']['type']) && $guiData['file']['type'] == 'file') {
                 if (empty($guiData['file']['path'])
-                    || (strlen($guiData['file']['path']) == 1
+                    || (strlen((string) $guiData['file']['path']) == 1
                     && in_array($guiData['file']['path'], $charSingleList))
                 ) {
                     $guiData['file']['path'] = self::DEFAULT_EXPORT_PATH;
@@ -114,7 +114,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                 }
 
                 //validate export available path
-                $path = rtrim($guiData['file']['path'], '\\/')
+                $path = rtrim((string) $guiData['file']['path'], '\\/')
                       . DS . $guiData['file']['filename'];
                 /** @var Mage_Core_Model_File_Validator_AvailablePath $validator */
                 $validator = Mage::getModel('core/file_validator_availablePath');
@@ -318,7 +318,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $fileXml .= '    <var name="path">' . $p['file']['path'] . '</var>' . $nl;
             $fileXml .= '    <var name="filename"><![CDATA[' . $p['file']['filename'] . ']]></var>' . $nl;
             if ($p['file']['type'] === 'ftp') {
-                $hostArr = explode(':', $p['file']['host']);
+                $hostArr = explode(':', (string) $p['file']['host']);
                 $fileXml .= '    <var name="host"><![CDATA[' . $hostArr[0] . ']]></var>' . $nl;
                 if (isset($hostArr[1])) {
                     $fileXml .= '    <var name="port"><![CDATA[' . $hostArr[1] . ']]></var>' . $nl;
@@ -440,7 +440,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     $parseFileXmlInter .= '    <var name="filter/' . $f . '"><![CDATA[' . $v . ']]></var>' . $nl;
                 } elseif (is_array($v)) {
                     foreach ($v as $a => $b) {
-                        if (strlen($b) == 0) {
+                        if (strlen((string) $b) == 0) {
                             continue;
                         }
                         $entityXml .= '    <var name="filter/' . $f . '/' . $a

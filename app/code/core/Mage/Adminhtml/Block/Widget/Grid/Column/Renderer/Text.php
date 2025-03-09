@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Text extends Mage_Adminht
             $data = parent::_getValue($row);
             $string = $data ?? $defaultValue ?? '';
             return $this->escapeHtml($string);
-        } elseif (preg_match_all($this->_variablePattern, $format, $matches)) {
+        } elseif (preg_match_all($this->_variablePattern, (string) $format, $matches)) {
             // Parsing of format string
             $formattedString = $format;
             foreach ($matches[0] as $matchIndex => $match) {

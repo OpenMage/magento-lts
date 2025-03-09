@@ -223,7 +223,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
     protected function _parseDescription()
     {
         $description = $this->getItem()->getDescription();
-        if (preg_match_all('/<li.*?>(.*?)<\/li>/i', $description, $matches)) {
+        if (preg_match_all('/<li.*?>(.*?)<\/li>/i', (string) $description, $matches)) {
             return $matches[1];
         }
 

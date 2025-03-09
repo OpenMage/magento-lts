@@ -143,7 +143,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     preg_replace(
                         '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                         '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
-                        $template->filter($wsdlContent),
+                        (string) $template->filter($wsdlContent),
                     ),
                 );
         } else {
@@ -157,7 +157,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                         preg_replace(
                             '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                             '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
-                            $this->_soap->handle(),
+                            (string) $this->_soap->handle(),
                         ),
                     );
             } catch (Zend_Soap_Server_Exception|Exception $e) {
@@ -219,9 +219,9 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
             : Mage::helper('api')->getServiceUrl('*/*/*');
 
         if ($withAuth) {
-            $phpAuthUser = rawurlencode($this->getController()->getRequest()->getServer('PHP_AUTH_USER', false));
-            $phpAuthPw = rawurlencode($this->getController()->getRequest()->getServer('PHP_AUTH_PW', false));
-            $scheme = rawurlencode($this->getController()->getRequest()->getScheme());
+            $phpAuthUser = rawurlencode((string) $this->getController()->getRequest()->getServer('PHP_AUTH_USER', false));
+            $phpAuthPw = rawurlencode((string) $this->getController()->getRequest()->getServer('PHP_AUTH_PW', false));
+            $scheme = rawurlencode((string) $this->getController()->getRequest()->getScheme());
 
             if ($phpAuthUser && $phpAuthPw) {
                 $wsdlUrl = sprintf(

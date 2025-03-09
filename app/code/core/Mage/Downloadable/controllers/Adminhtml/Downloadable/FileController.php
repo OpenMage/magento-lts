@@ -56,7 +56,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
             $result['path'] = str_replace(DS, '/', $result['path']);
 
             if (isset($result['file'])) {
-                $fullPath = rtrim($tmpPath, DS) . DS . ltrim($result['file'], DS);
+                $fullPath = rtrim($tmpPath, DS) . DS . ltrim((string) $result['file'], DS);
                 Mage::helper('core/file_storage_database')->saveFile($fullPath);
             }
 

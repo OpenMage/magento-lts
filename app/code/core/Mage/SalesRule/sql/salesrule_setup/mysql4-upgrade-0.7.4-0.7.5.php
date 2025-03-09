@@ -29,7 +29,7 @@ $rows = $conn->fetchAll($select);
 
 foreach ($rows as $r) {
     $websiteIds = [];
-    foreach (explode(',', $r['store_ids']) as $storeId) {
+    foreach (explode(',', (string) $r['store_ids']) as $storeId) {
         if ($storeId !== '') {
             $websiteIds[$websites[$storeId]] = true;
         }

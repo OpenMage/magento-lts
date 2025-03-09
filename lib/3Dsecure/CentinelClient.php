@@ -80,7 +80,7 @@
 
             // verify that the URL uses a supported protocol.
 
-            if ((str_starts_with($url, "http://")) || (str_starts_with($url, "https://"))) {
+            if ((str_starts_with((string) $url, "http://")) || (str_starts_with((string) $url, "https://"))) {
 
                 //Construct the payload to POST to the url.
 
@@ -116,7 +116,7 @@
 
 				// Assert that we received an expected Centinel Message in response.
 
-				if (!str_contains($result, "<CardinalMPI>")) {
+				if (!str_contains((string) $result, "<CardinalMPI>")) {
 					$result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8010, CENTINEL_ERROR_CODE_8010_DESC);
 				}
 

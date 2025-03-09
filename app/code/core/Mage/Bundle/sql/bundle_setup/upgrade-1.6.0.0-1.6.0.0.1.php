@@ -67,7 +67,7 @@ foreach ($optionsPriceIndexerTables as $table) {
     ]);
 }
 
-$applyTo = explode(',', $installer->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'group_price', 'apply_to'));
+$applyTo = explode(',', (string) $installer->getAttribute(Mage_Catalog_Model_Product::ENTITY, 'group_price', 'apply_to'));
 if (!in_array('bundle', $applyTo)) {
     $applyTo[] = 'bundle';
     $installer->updateAttribute(Mage_Catalog_Model_Product::ENTITY, 'group_price', 'apply_to', implode(',', $applyTo));

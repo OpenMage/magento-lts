@@ -346,7 +346,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
             $package->addChild('ZipOrigination', $r->getOrigPostal());
             //only 5 chars available
-            $package->addChild('ZipDestination', substr($r->getDestPostal(), 0, 5));
+            $package->addChild('ZipDestination', substr((string) $r->getDestPostal(), 0, 5));
             $package->addChild('Pounds', $r->getWeightPounds());
             $package->addChild('Ounces', $r->getWeightOunces());
             // Because some methods don't accept VARIABLE and (NON)RECTANGULAR containers
@@ -394,7 +394,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
             if ($this->_isCanada($r->getDestCountryId())) {
                 //only 5 chars available
-                $package->addChild('OriginZip', substr($r->getOrigPostal(), 0, 5));
+                $package->addChild('OriginZip', substr((string) $r->getOrigPostal(), 0, 5));
             }
             $api = 'IntlRateV2';
         }

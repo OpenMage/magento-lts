@@ -62,7 +62,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     {
         $optionFile = Mage::getModel('catalog/product_option_type_file');
         $optionStoragePath = $optionFile->getOrderTargetDir(true);
-        if (!str_starts_with($info['order_path'], $optionStoragePath)) {
+        if (!str_starts_with((string) $info['order_path'], (string) $optionStoragePath)) {
             throw new Exception('Unexpected file path');
         }
     }

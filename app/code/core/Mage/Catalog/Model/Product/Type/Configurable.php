@@ -628,7 +628,7 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
                      * to be sure that it will be unique as its parent
                      */
                     if ($optionIds = $product->getCustomOption('option_ids')) {
-                        $optionIds = explode(',', $optionIds->getValue());
+                        $optionIds = explode(',', (string) $optionIds->getValue());
                         foreach ($optionIds as $optionId) {
                             if ($option = $product->getCustomOption('option_' . $optionId)) {
                                 $_result[0]->addCustomOption('option_' . $optionId, $option->getValue());

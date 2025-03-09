@@ -259,7 +259,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
 
         //transform comma-separated list
         if (!is_array($include)) {
-            $include = explode(',', $include);
+            $include = explode(',', (string) $include);
         }
         return array_map('trim', $include);
     }

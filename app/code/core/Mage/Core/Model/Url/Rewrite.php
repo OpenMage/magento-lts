@@ -318,7 +318,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     {
         if (!empty($_SERVER['QUERY_STRING'])) {
             $queryParams = [];
-            parse_str($_SERVER['QUERY_STRING'], $queryParams);
+            parse_str((string) $_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach (array_keys($queryParams) as $key) {
                 if (str_starts_with($key, '___')) {

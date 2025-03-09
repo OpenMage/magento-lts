@@ -108,7 +108,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         $currentArg = false;
         $match = false;
         foreach ($args as $arg) {
-            if (preg_match('/^--(.*)$/', $arg, $match)) {
+            if (preg_match('/^--(.*)$/', (string) $arg, $match)) {
                 // argument name
                 $currentArg = $match[1];
                 // in case if argument doesn't need a value
@@ -382,7 +382,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
              * Prepare encryption key and validate it
              */
             $encryptionKey = empty($this->_args['encryption_key'])
-                ? md5(Mage::helper('core')->getRandomString(10))
+                ? md5((string) Mage::helper('core')->getRandomString(10))
                 : $this->_args['encryption_key'];
             $this->_getDataModel()->setEncryptionKey($encryptionKey);
             $installer->validateEncryptionKey($encryptionKey);
@@ -460,7 +460,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         }
         if (is_null($url)) {
             $url = preg_replace('/install\.php/i', '', Mage::getBaseUrl());
-            $url = preg_replace('/\/\/$/', '/', $url);
+            $url = preg_replace('/\/\/$/', '/', (string) $url);
         }
         header('Location: ' . $url);
         return false;

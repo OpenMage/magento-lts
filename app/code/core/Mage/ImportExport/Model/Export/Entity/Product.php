@@ -142,7 +142,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
         $collection = Mage::getResourceModel('catalog/category_collection')->addNameToResult();
         /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
         foreach ($collection as $category) {
-            $structure = preg_split('#/+#', $category->getPath());
+            $structure = preg_split('#/+#', (string) $category->getPath());
             $pathSize  = count($structure);
             if ($pathSize > 1) {
                 $path = [];
@@ -647,7 +647,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
 
                         if (!empty($this->_attributeValues[$attrCode])) {
                             if ($this->_attributeTypes[$attrCode] == 'multiselect') {
-                                $attrValue = explode(',', $attrValue);
+                                $attrValue = explode(',', (string) $attrValue);
                                 $attrValue = array_intersect_key(
                                     $this->_attributeValues[$attrCode],
                                     array_flip($attrValue),

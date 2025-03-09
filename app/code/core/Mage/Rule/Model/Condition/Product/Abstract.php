@@ -499,13 +499,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
             if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
                 $this->setValue(strtotime($this->getValue()));
-                $value = strtotime($object->getData($attrCode));
+                $value = strtotime((string) $object->getData($attrCode));
                 return $this->validateAttribute($value);
             }
 
             if ($attr && $attr->getFrontendInput() == 'multiselect') {
                 $value = $object->getData($attrCode);
-                $value = strlen($value) ? explode(',', $value) : [];
+                $value = strlen((string) $value) ? explode(',', (string) $value) : [];
                 return $this->validateAttribute($value);
             }
 
@@ -518,9 +518,9 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             foreach ($this->_entityAttributeValues[$object->getId()] as $storeId => $value) {
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
-                    $value = strtotime($value);
+                    $value = strtotime((string) $value);
                 } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
-                    $value = strlen($value) ? explode(',', $value) : [];
+                    $value = strlen((string) $value) ? explode(',', (string) $value) : [];
                 }
 
                 $object->setData($attrCode, $value);

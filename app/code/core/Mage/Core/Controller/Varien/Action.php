@@ -957,7 +957,7 @@ abstract class Mage_Core_Controller_Varien_Action
             $titleBlock = $this->getLayout()->getBlock('head');
             if ($titleBlock) {
                 if (!$this->_removeDefaultTitle) {
-                    $title = trim($titleBlock->getTitle());
+                    $title = trim((string) $titleBlock->getTitle());
                     if ($title) {
                         array_unshift($this->_titles, $title);
                     }

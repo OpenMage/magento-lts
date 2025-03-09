@@ -211,7 +211,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         $metadatas = $this->_getCache($file, false);
         if ($metadatas) {
             $boolRemove = $this->_remove($file);
-            $boolTags   = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff');
+            $boolTags   = $this->_updateIdsTags([$id], explode(',', (string) $metadatas['tags']), 'diff');
 
             return $boolRemove && $boolTags;
         }
@@ -324,7 +324,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         $metadatas = $this->_getCache($this->_file($id), false);
         if ($metadatas) {
-            $metadatas['tags'] = explode(',', $metadatas['tags']);
+            $metadatas['tags'] = explode(',', (string) $metadatas['tags']);
         }
 
         return $metadatas;
@@ -505,7 +505,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
                     if (time() > $metadatas['expire']) {
                         $result = $this->_remove($file) && $result;
-                        $result = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff') && $result;
+                        $result = $this->_updateIdsTags([$id], explode(',', (string) $metadatas['tags']), 'diff') && $result;
                     }
                     continue;
                 } else {

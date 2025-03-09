@@ -129,10 +129,10 @@ abstract class Magento_Profiler_OutputAbstract
                 continue;
             }
             /* Loop over all timers that need to be closed under previous timer */
-            while (!str_starts_with($timerId, $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
+            while (!str_starts_with((string) $timerId, $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
                 /* Add to result all timers nested in the previous timer */
                 for ($j = $i + 1; $j < count($timerIds); $j++) {
-                    if (str_starts_with($timerIds[$j], $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
+                    if (str_starts_with((string) $timerIds[$j], $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
                         $result[] = $timerIds[$j];
                         /* Mark timer as already added */
                         $timerIds[$j] = null;
@@ -140,7 +140,7 @@ abstract class Magento_Profiler_OutputAbstract
                 }
                 /* Go to upper level timer */
                 $count = 0;
-                $prevTimerId = preg_replace($patternLastTimerName, '', $prevTimerId, -1, $count);
+                $prevTimerId = preg_replace($patternLastTimerName, '', (string) $prevTimerId, -1, $count);
                 /* Break the loop if no replacements was done. It is possible when we are */
                 /* working with top level (root) item */
                 if (!$count) {
@@ -166,7 +166,7 @@ abstract class Magento_Profiler_OutputAbstract
         $result = [];
         foreach ($timerIds as $timerId) {
             /* Filter by timer id pattern */
-            if ($pattern && !preg_match($pattern, $timerId)) {
+            if ($pattern && !preg_match($pattern, (string) $timerId)) {
                 continue;
             }
             /* Filter by column value thresholds */

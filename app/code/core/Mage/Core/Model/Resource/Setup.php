@@ -588,7 +588,7 @@ class Mage_Core_Model_Resource_Setup
 
         foreach ($files as $file) {
             $fileName = $file['fileName'];
-            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            $fileType = pathinfo((string) $fileName, PATHINFO_EXTENSION);
             $this->getConnection()->disallowDdlCache();
             try {
                 switch ($fileType) {

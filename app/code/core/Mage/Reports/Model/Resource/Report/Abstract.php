@@ -232,7 +232,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $whereCondition = [];
         $adapter = $this->_getReadAdapter();
         foreach ($selectResult as $date) {
-            $date = substr($date, 0, 10); // to fix differences in oracle
+            $date = substr((string) $date, 0, 10); // to fix differences in oracle
             $whereCondition[] = $adapter->prepareSqlCondition($periodColumn, ['like' => $date]);
         }
         $whereCondition = implode(' OR ', $whereCondition);

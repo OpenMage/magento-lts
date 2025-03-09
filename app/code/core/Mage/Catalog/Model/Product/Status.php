@@ -257,7 +257,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
     {
         $indexes = [];
 
-        $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
+        $index = 'IDX_' . strtoupper((string) $this->getAttribute()->getAttributeCode());
         $indexes[$index] = [
             'type'      => 'index',
             'fields'    => [$this->getAttribute()->getAttributeCode()],

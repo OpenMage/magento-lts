@@ -34,7 +34,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
                 $model->save();
                 $classId    = $model->getId();
                 $classType  = $model->getClassType();
-                $classUrl   = '*/tax_class_' . strtolower($classType);
+                $classUrl   = '*/tax_class_' . strtolower((string) $classType);
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('tax')->__('The tax class has been saved.'),
@@ -67,7 +67,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
      */
     protected function _initAction()
     {
-        $classType = strtolower($this->getRequest()->getParam('classType'));
+        $classType = strtolower((string) $this->getRequest()->getParam('classType'));
         $this->loadLayout()
             ->_setActiveMenu('sales/tax/classes_' . $classType)
             ->_addBreadcrumb(Mage::helper('tax')->__('Sales'), Mage::helper('tax')->__('Sales'))

@@ -124,7 +124,7 @@ class Mage_Index_Model_Indexer
         foreach ($codes as $code) {
             $process = $this->getProcessByCode($code);
             if (!$process) {
-                $this->_errors[] = sprintf('Warning: Unknown indexer with code %s', trim($code));
+                $this->_errors[] = sprintf('Warning: Unknown indexer with code %s', trim((string) $code));
                 continue;
             }
             $processes[$process->getIndexerCode()] = $process;

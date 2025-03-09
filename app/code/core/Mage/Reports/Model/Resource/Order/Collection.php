@@ -341,7 +341,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
 
             case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
             case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
-                $startMonthDay = explode(',', Mage::getStoreConfig('reports/dashboard/ytd_start'));
+                $startMonthDay = explode(',', (string) Mage::getStoreConfig('reports/dashboard/ytd_start'));
                 $startMonth = isset($startMonthDay[0]) ? (int) $startMonthDay[0] : 1;
                 $startDay = isset($startMonthDay[1]) ? (int) $startMonthDay[1] : 1;
                 $dateStart->setMonth($startMonth);

@@ -73,15 +73,15 @@ $select = $conn->select()
         );
 $mapsOld = $conn->fetchAll($select);
 foreach ($mapsOld as $mapOld) {
-    if (stripos($mapOld['path'], 'packaging') && isset($codes['packaging'][$mapOld['value']])) {
+    if (stripos((string) $mapOld['path'], 'packaging') && isset($codes['packaging'][$mapOld['value']])) {
         $mapNew = $codes['packaging'][$mapOld['value']];
-    } elseif (stripos($mapOld['path'], 'dropoff') && isset($codes['dropoff'][$mapOld['value']])) {
+    } elseif (stripos((string) $mapOld['path'], 'dropoff') && isset($codes['dropoff'][$mapOld['value']])) {
         $mapNew = $codes['dropoff'][$mapOld['value']];
-    } elseif (stripos($mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
+    } elseif (stripos((string) $mapOld['path'], 'free_method') && isset($codes['method'][$mapOld['value']])) {
         $mapNew = $codes['method'][$mapOld['value']];
-    } elseif (stripos($mapOld['path'], 'allowed_methods')) {
+    } elseif (stripos((string) $mapOld['path'], 'allowed_methods')) {
         $mapNew = [];
-        foreach (explode(',', $mapOld['value']) as $shippingMethod) {
+        foreach (explode(',', (string) $mapOld['value']) as $shippingMethod) {
             if (isset($codes['method'][$shippingMethod])) {
                 $mapNew[] = $codes['method'][$shippingMethod];
             } else {

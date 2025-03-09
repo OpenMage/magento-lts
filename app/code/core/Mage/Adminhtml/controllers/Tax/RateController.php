@@ -327,7 +327,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
                 //end of file has more then one empty lines
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                if (count($v) <= 1 && !strlen($v[0])) {
+                if (count($v) <= 1 && !strlen((string) $v[0])) {
                     continue;
                 }
                 if ($unset) {

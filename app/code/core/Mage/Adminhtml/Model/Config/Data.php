@@ -125,7 +125,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
             $helper = Mage::helper('adminhtml/config');
             foreach ($groupData['fields'] as $field => $fieldData) {
-                $field = ltrim($field, '/');
+                $field = ltrim((string) $field, '/');
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
                 if (!$fieldConfig && $clonedFields && isset($mappedFields[$field])) {
                     $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/'
@@ -421,8 +421,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         );
                     }
                     foreach ($cloneModel->getPrefixes() as $prefix) {
-                        if (str_starts_with($field, $prefix['field'])) {
-                            $field = substr($field, strlen($prefix['field']));
+                        if (str_starts_with((string) $field, (string) $prefix['field'])) {
+                            $field = substr((string) $field, strlen((string) $prefix['field']));
                         }
                     }
                 }

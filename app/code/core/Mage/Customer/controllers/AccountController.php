@@ -1003,7 +1003,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $newPass    = $this->getRequest()->getPost('password');
                     $confPass   = $this->getRequest()->getPost('confirmation');
 
-                    if (strlen($newPass)) {
+                    if (strlen((string) $newPass)) {
                         /**
                          * Set entered password and its confirmation - they
                          * will be validated later to match each other and be of right length

@@ -286,7 +286,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
 
                 if ($this->validateRow($rowData, $source->key())) { // add row to bunch for save
                     $rowData = $this->_prepareRowForDb($rowData);
-                    $rowSize = strlen(Mage::helper('core')->jsonEncode($rowData));
+                    $rowSize = strlen((string) Mage::helper('core')->jsonEncode($rowData));
 
                     // phpcs:ignore Ecg.Performance.Loop.ArraySize
                     $isBunchSizeExceeded = ($bunchSize > 0 && count($bunchRows) >= $bunchSize);
@@ -360,8 +360,8 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 foreach ($attribute->getSource()->getAllOptions(false) as $option) {
                     $value = is_array($option['value']) ? $option['value'] : [$option];
                     foreach ($value as $innerOption) {
-                        if (strlen($innerOption['value'])) { // skip ' -- Please Select -- ' option
-                            $options[strtolower($innerOption[$index])] = $innerOption['value'];
+                        if (strlen((string) $innerOption['value'])) { // skip ' -- Please Select -- ' option
+                            $options[strtolower((string) $innerOption[$index])] = $innerOption['value'];
                         }
                     }
                 }
@@ -541,19 +541,19 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $valid = Mage::helper('core/string')->strlen($val) < self::DB_MAX_VARCHAR_LENGTH;
                 break;
             case 'decimal':
-                $val   = trim($rowData[$attrCode]);
+                $val   = trim((string) $rowData[$attrCode]);
                 $valid = (float) $val == $val;
                 break;
             case 'select':
             case 'multiselect':
-                $valid = isset($attrParams['options'][strtolower($rowData[$attrCode])]);
+                $valid = isset($attrParams['options'][strtolower((string) $rowData[$attrCode])]);
                 break;
             case 'int':
-                $val   = trim($rowData[$attrCode]);
+                $val   = trim((string) $rowData[$attrCode]);
                 $valid = (int) $val == $val;
                 break;
             case 'datetime':
-                $val   = trim($rowData[$attrCode]);
+                $val   = trim((string) $rowData[$attrCode]);
                 $valid = strtotime($val) !== false
                     || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
@@ -667,7 +667,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             $invalidColumns = [];
 
             foreach ($this->_getSource()->getColNames() as $colName) {
-                if (!preg_match('/^[a-z][a-z0-9_]*$/', $colName) && !$this->isAttributeParticular($colName)) {
+                if (!preg_match('/^[a-z][a-z0-9_]*$/', (string) $colName) && !$this->isAttributeParticular($colName)) {
                     $invalidColumns[] = $colName;
                 }
             }

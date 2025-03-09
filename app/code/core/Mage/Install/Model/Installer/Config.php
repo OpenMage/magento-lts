@@ -102,7 +102,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function getFormData()
     {
         $baseUrl = Mage::helper('core/url')->decodePunycode(Mage::getBaseUrl('web'));
-        $uri    = explode(':', $baseUrl, 2);
+        $uri    = explode(':', (string) $baseUrl, 2);
         $scheme = strtolower($uri[0]);
         $baseSecureUrl = ($scheme !== 'https') ? str_replace('http://', 'https://', $baseUrl) : $baseUrl;
 
@@ -184,7 +184,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function replaceTmpEncryptKey($key = null)
     {
         if (!$key) {
-            $key = md5(Mage::helper('core')->getRandomString(10));
+            $key = md5((string) Mage::helper('core')->getRandomString(10));
         }
         $localXml = file_get_contents($this->_localConfigFile);
         $localXml = str_replace(self::TMP_ENCRYPT_KEY_VALUE, $key, $localXml);

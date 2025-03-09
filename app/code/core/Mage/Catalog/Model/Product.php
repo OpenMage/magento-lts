@@ -748,7 +748,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     if ((!isset($option['is_delete'])) || $option['is_delete'] != '1') {
                         if (!empty($option['file_extension'])) {
                             $fileExtension = $option['file_extension'];
-                            if (strcmp($fileExtension, Mage::helper('core')->removeTags($fileExtension)) !== 0) {
+                            if (strcmp((string) $fileExtension, Mage::helper('core')->removeTags($fileExtension)) !== 0) {
                                 Mage::throwException(Mage::helper('catalog')->__('Invalid custom option(s).'));
                             }
                         }
@@ -2084,7 +2084,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($methods as $method) {
                 if (preg_match('/^get([A-Z]{1}.+)/', $method, $matches)) {
                     $method = $matches[1];
-                    $tmp = strtolower(preg_replace('/(.)([A-Z])/', '$1_$2', $method));
+                    $tmp = strtolower((string) preg_replace('/(.)([A-Z])/', '$1_$2', $method));
                     $_reserved[] = $tmp;
                 }
             }
@@ -2175,7 +2175,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $products = $this->_getResource()->getProductsSku($productIds);
         if (count($products)) {
             foreach ($products as $product) {
-                if (!strlen($product['sku'])) {
+                if (!strlen((string) $product['sku'])) {
                     return false;
                 }
             }

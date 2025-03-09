@@ -246,7 +246,7 @@ class Mage_Paypal_Model_Ipn
             if (!$receiverEmail) {
                 $receiverEmail = $this->getRequestData('receiver_email');
             }
-            if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
+            if (strtolower((string) $merchantEmail) != strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
                         'Requested %s and configured %s merchant emails do not match.',
@@ -295,7 +295,7 @@ class Mage_Paypal_Model_Ipn
         /**
          *  Add IPN comment about registered dispute
          */
-        $message = Mage::helper('paypal')->__('IPN "%s". A dispute has been resolved and closed. %s Transaction amount %s.', ucfirst($reasonCode), $notificationAmount, $reasonComment);
+        $message = Mage::helper('paypal')->__('IPN "%s". A dispute has been resolved and closed. %s Transaction amount %s.', ucfirst((string) $reasonCode), $notificationAmount, $reasonComment);
         $this->_order->addStatusHistoryComment($message)
             ->setIsCustomerNotified(false)
             ->save();
@@ -314,7 +314,7 @@ class Mage_Paypal_Model_Ipn
         /**
          *  Add IPN comment about registered dispute
          */
-        $message = Mage::helper('paypal')->__('IPN "%s". Case type "%s". Case ID "%s" %s', ucfirst($caseType), $caseTypeLabel, $caseId, $reasonComment);
+        $message = Mage::helper('paypal')->__('IPN "%s". Case type "%s". Case ID "%s" %s', ucfirst((string) $caseType), $caseTypeLabel, $caseId, $reasonComment);
         $this->_order->addStatusHistoryComment($message)
             ->setIsCustomerNotified(false)
             ->save();

@@ -114,7 +114,7 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
 
         $allowedCurrencies = explode(
             self::ALLOWED_CURRENCIES_CONFIG_SEPARATOR,
-            Mage::getStoreConfig(self::XML_PATH_ALLOWED_CURRENCIES, null),
+            (string) Mage::getStoreConfig(self::XML_PATH_ALLOWED_CURRENCIES, null),
         );
 
         $storeModel = Mage::getSingleton('adminhtml/system_store');
@@ -133,13 +133,13 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
                         $websiteSymbols  = $website->getConfig(self::XML_PATH_ALLOWED_CURRENCIES);
                         $allowedCurrencies = array_merge($allowedCurrencies, explode(
                             self::ALLOWED_CURRENCIES_CONFIG_SEPARATOR,
-                            $websiteSymbols,
+                            (string) $websiteSymbols,
                         ));
                     }
                     $storeSymbols = Mage::getStoreConfig(self::XML_PATH_ALLOWED_CURRENCIES, $store);
                     $allowedCurrencies = array_merge($allowedCurrencies, explode(
                         self::ALLOWED_CURRENCIES_CONFIG_SEPARATOR,
-                        $storeSymbols,
+                        (string) $storeSymbols,
                     ));
                 }
             }

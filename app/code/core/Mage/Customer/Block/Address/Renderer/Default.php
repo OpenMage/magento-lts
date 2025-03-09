@@ -62,7 +62,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             $format = $countryFormat->getFormat();
         } else {
             $regExp = "/^[^()\n]*+(\((?>[^()\n]|(?1))*+\)[^()\n]*+)++$|^[^()]+?$/m";
-            preg_match_all($regExp, $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
+            preg_match_all($regExp, (string) $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
             $format = count($matches) ? $this->_prepareAddressTemplateData($this->getType()->getDefaultFormat()) : null;
         }
         return $format;

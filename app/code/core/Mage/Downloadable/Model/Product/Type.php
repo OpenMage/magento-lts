@@ -358,7 +358,7 @@ class Mage_Downloadable_Model_Product_Type extends Mage_Catalog_Model_Product_Ty
         if ($linkIds = $this->getProduct($product)->getCustomOption('downloadable_link_ids')) {
             $linkOptions = [];
             $links = $this->getLinks($product);
-            foreach (explode(',', $linkIds->getValue()) as $linkId) {
+            foreach (explode(',', (string) $linkIds->getValue()) as $linkId) {
                 if (isset($links[$linkId])) {
                     $linkOptions[] = $linkId;
                 }

@@ -35,7 +35,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
 
         $filter = $this->getParam($this->getVarNameFilter(), []);
         if ($filter) {
-            $filter = base64_decode($filter);
+            $filter = base64_decode((string) $filter);
             parse_str(urldecode($filter), $data);
         }
 

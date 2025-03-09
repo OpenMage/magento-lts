@@ -357,7 +357,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 }
 
                 if (!empty($data['account']['new_password'])) {
-                    $newPassword = trim($data['account']['new_password']);
+                    $newPassword = trim((string) $data['account']['new_password']);
                     if ($newPassword === 'auto') {
                         $newPassword = $customer->generatePassword();
                         $customer->sendPasswordLinkEmail($isNewCustomer);
@@ -808,7 +808,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $fileName   = $ioFile->getCleanPath($path . $file);
         $path       = $ioFile->getCleanPath($path);
 
-        if ((!$ioFile->fileExists($fileName) || !str_starts_with($fileName, $path))
+        if ((!$ioFile->fileExists($fileName) || !str_starts_with((string) $fileName, (string) $path))
             && !Mage::helper('core/file_storage')->processStorageFile(str_replace('/', DS, $fileName))
         ) {
             $this->norouteAction();
@@ -816,7 +816,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         }
 
         if ($plain) {
-            $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+            $extension = pathinfo((string) $fileName, PATHINFO_EXTENSION);
             $contentType = match (strtolower($extension)) {
                 'gif' => 'image/gif',
                 'jpg' => 'image/jpeg',
@@ -842,7 +842,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 echo $buffer;
             }
         } else {
-            $name = pathinfo($fileName, PATHINFO_BASENAME);
+            $name = pathinfo((string) $fileName, PATHINFO_BASENAME);
             $this->_prepareDownloadResponse($name, [
                 'type'  => 'filename',
                 'value' => $fileName,

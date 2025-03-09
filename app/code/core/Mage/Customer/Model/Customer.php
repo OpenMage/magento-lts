@@ -1301,7 +1301,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             // End handling shipping address
         }
         if (!empty($row['is_subscribed'])) {
-            $isSubscribed = (bool) strtolower($row['is_subscribed']) == self::SUBSCRIBED_YES;
+            $isSubscribed = (bool) strtolower((string) $row['is_subscribed']) == self::SUBSCRIBED_YES;
             $this->setIsSubscribed($isSubscribed);
         }
         unset($row);

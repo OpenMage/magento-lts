@@ -104,7 +104,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         }
         //make all table prefix to lower letter
         if ($data['db_prefix'] != '') {
-            $data['db_prefix'] = strtolower($data['db_prefix']);
+            $data['db_prefix'] = strtolower((string) $data['db_prefix']);
         }
         //check table prefix
         if ($data['db_prefix'] != '') {

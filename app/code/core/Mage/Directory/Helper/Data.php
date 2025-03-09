@@ -243,7 +243,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->_optionalZipCountries === null) {
             $this->_optionalZipCountries = preg_split(
                 '/\,/',
-                Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH),
+                (string) Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH),
                 0,
                 PREG_SPLIT_NO_EMPTY,
             );
@@ -274,7 +274,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCountriesWithStatesRequired($asJson = false)
     {
-        $countryList = explode(',', Mage::getStoreConfig(self::XML_PATH_STATES_REQUIRED));
+        $countryList = explode(',', (string) Mage::getStoreConfig(self::XML_PATH_STATES_REQUIRED));
         if ($asJson) {
             return Mage::helper('core')->jsonEncode($countryList);
         }

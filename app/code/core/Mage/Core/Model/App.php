@@ -1317,7 +1317,7 @@ class Mage_Core_Model_App
             $offloaderHeader = strtoupper(trim((string) Mage::getConfig()->getNode(Mage_Core_Model_Store::XML_PATH_OFFLOADER_HEADER, 'default')));
             if ($offloaderHeader) {
                 $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
-                $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
+                $offloaderHeader = str_starts_with((string) $offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
                 if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
                     return true;
                 }

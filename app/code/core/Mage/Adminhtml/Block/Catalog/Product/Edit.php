@@ -295,6 +295,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
      */
     public function getSelectedTabId()
     {
-        return addslashes(htmlspecialchars($this->getRequest()->getParam('tab', '')));
+        return addslashes(htmlspecialchars((string) $this->getRequest()->getParam('tab', '')));
     }
 }

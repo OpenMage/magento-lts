@@ -141,7 +141,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
                     ];
                     if ($pageGroupData['for'] == self::SPECIFIC_ENTITIES) {
                         $layoutHandleUpdates = [];
-                        foreach (explode(',', $pageGroupData['entities']) as $entity) {
+                        foreach (explode(',', (string) $pageGroupData['entities']) as $entity) {
                             $layoutHandleUpdates[] = str_replace(
                                 '{{ID}}',
                                 $entity,

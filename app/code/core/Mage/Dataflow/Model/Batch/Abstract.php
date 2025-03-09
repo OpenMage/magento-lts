@@ -33,7 +33,7 @@ abstract class Mage_Dataflow_Model_Batch_Abstract extends Mage_Core_Model_Abstra
     {
         if ('"libiconv"' == ICONV_IMPL) {
             foreach ($data as &$value) {
-                $value = iconv('utf-8', 'utf-8//IGNORE', $value);
+                $value = iconv('utf-8', 'utf-8//IGNORE', (string) $value);
             }
         }
 

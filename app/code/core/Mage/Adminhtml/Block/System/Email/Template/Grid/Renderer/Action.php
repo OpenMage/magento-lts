@@ -39,7 +39,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Grid_Renderer_Action extends Ma
 
     protected function _getEscapedValue($value)
     {
-        return addcslashes(htmlspecialchars($value), '\\\'');
+        return addcslashes(htmlspecialchars((string) $value), '\\\'');
     }
 
     protected function _actionsToHtml(array $actions)

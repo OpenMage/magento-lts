@@ -18,21 +18,21 @@
 $installer = $this;
 
 $msrpEnabled = $installer->getAttribute('catalog_product', 'msrp_enabled', 'apply_to');
-if ($msrpEnabled && !str_contains($msrpEnabled, Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)) {
+if ($msrpEnabled && !str_contains((string) $msrpEnabled, Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)) {
     $installer->updateAttribute('catalog_product', 'msrp_enabled', [
         'apply_to'      => $msrpEnabled . ',' . Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE,
     ]);
 }
 
 $msrpDisplay = $installer->getAttribute('catalog_product', 'msrp_display_actual_price_type', 'apply_to');
-if ($msrpDisplay && !str_contains($msrpEnabled, Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)) {
+if ($msrpDisplay && !str_contains((string) $msrpEnabled, Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)) {
     $installer->updateAttribute('catalog_product', 'msrp_display_actual_price_type', [
         'apply_to'      => $msrpDisplay . ',' . Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE,
     ]);
 }
 
 $msrp = $installer->getAttribute('catalog_product', 'msrp', 'apply_to');
-if ($msrp && !str_contains($msrpEnabled, Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)) {
+if ($msrp && !str_contains((string) $msrpEnabled, Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE)) {
     $installer->updateAttribute('catalog_product', 'msrp', [
         'apply_to'      => $msrp . ',' . Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE,
     ]);

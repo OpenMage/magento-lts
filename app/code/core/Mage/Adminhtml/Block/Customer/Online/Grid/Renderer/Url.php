@@ -30,6 +30,6 @@ class Mage_Adminhtml_Block_Customer_Online_Grid_Renderer_Url extends Mage_Adminh
     public function render(Varien_Object $row)
     {
         $value = $row->getData($this->getColumn()->getIndex());
-        return empty($value) ? '' : htmlspecialchars($value);
+        return empty($value) ? '' : htmlspecialchars((string) $value);
     }
 }

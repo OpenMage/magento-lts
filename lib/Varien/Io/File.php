@@ -648,7 +648,7 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     public function getDestinationFolder($filepath)
     {
-        preg_match('/^(.*[!\/])/', $filepath, $mathces);
+        preg_match('/^(.*[!\/])/', (string) $filepath, $mathces);
         return $mathces[0] ?? false;
     }
 
@@ -935,7 +935,7 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     public function dirname($file)
     {
-        return $this->getCleanPath(dirname($file));
+        return $this->getCleanPath(dirname((string) $file));
     }
 
     public function getStreamHandler()

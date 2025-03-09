@@ -252,13 +252,13 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $clauses = preg_split('/(^|\s+)(AND|OR)\s+/', $clause, -1, PREG_SPLIT_NO_EMPTY);
                     return array_filter($clauses, function ($clause) use ($pattern) {
                         $clause = preg_replace('/[()`\s]+/', '', $clause);
-                        return !preg_match($pattern, $clause);
+                        return !preg_match($pattern, (string) $clause);
                     });
                 });
                 if ($this->_bindParams) {
                     $bindParams = array_map(fn($token) => ltrim($token, ':'), array_keys($this->_bindParams));
                     $bindPattern = '/:(' . implode('|', $bindParams) . ')/';
-                    $joinUsingBind = array_filter($leftJoins, fn($table) => !empty($table['joinCondition']) && preg_match($bindPattern, $table['joinCondition']));
+                    $joinUsingBind = array_filter($leftJoins, fn($table) => !empty($table['joinCondition']) && preg_match($bindPattern, (string) $table['joinCondition']));
                 }
                 if (empty($whereUsingJoin) && empty($joinUsingBind)) {
                     $from = array_slice($leftJoins, 0, 1);

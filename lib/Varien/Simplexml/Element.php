@@ -154,8 +154,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
         $desc = $this;
         foreach ($pathArr as $nodeName) {
-            if (str_contains($nodeName, '@')) {
-                $a = explode('@', $nodeName);
+            if (str_contains((string) $nodeName, '@')) {
+                $a = explode('@', (string) $nodeName);
                 $b = explode('=', $a[1]);
                 $nodeName = $a[0];
                 $attributeName = $b[0];
@@ -431,7 +431,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
 
     public function setNode($path, $value, $overwrite = true)
     {
-        $arr1 = explode('/', $path);
+        $arr1 = explode('/', (string) $path);
         $arr = [];
         foreach ($arr1 as $v) {
             if (!empty($v)) {

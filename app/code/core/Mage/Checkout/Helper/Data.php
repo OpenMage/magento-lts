@@ -267,7 +267,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $data = Mage::getStoreConfig($configPath, $storeId);
         if (!empty($data)) {
-            return explode(',', $data);
+            return explode(',', (string) $data);
         }
         return false;
     }

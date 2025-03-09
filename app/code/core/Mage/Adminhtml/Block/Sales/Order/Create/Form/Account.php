@@ -126,8 +126,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
     {
         $data = $this->getCustomer()->getData();
         foreach ($this->getQuote()->getData() as $key => $value) {
-            if (str_starts_with($key, 'customer_')) {
-                $data[substr($key, 9)] = $value;
+            if (str_starts_with((string) $key, 'customer_')) {
+                $data[substr((string) $key, 9)] = $value;
             }
         }
 

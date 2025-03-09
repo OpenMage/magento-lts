@@ -263,7 +263,7 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
                     ->setIsVisibleOnFront($visible)
                     ->setIsCustomerNotified($notify);
 
-                $comment = trim(strip_tags($data['comment']));
+                $comment = trim(strip_tags((string) $data['comment']));
 
                 $order->save();
                 $order->sendOrderUpdateEmail($notify, $comment);

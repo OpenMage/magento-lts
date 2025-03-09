@@ -77,7 +77,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 case static::CONFIG_KEY_STORES:
                     [$unused1, $unused2, $code, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $nodePath = sprintf('%s/%s/%s', strtolower($scope), strtolower($code), $path);
+                    $nodePath = sprintf('%s/%s/%s', strtolower((string) $scope), strtolower((string) $code), $path);
                     $xmlConfig->setNode($nodePath, $value);
                     break;
             }
@@ -115,7 +115,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     protected function isConfigKeyValid(string $configKey): bool
     {
-        if (!str_starts_with($configKey, static::ENV_STARTS_WITH)) {
+        if (!str_starts_with($configKey, (string) static::ENV_STARTS_WITH)) {
             return false;
         }
 

@@ -49,11 +49,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
         $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
         // socket specified in host config
-        if (str_contains($this->_config['host'], '/')) {
+        if (str_contains((string) $this->_config['host'], '/')) {
             $socket = $this->_config['host'];
             $this->_config['host'] = null;
-        } elseif (str_contains($this->_config['host'], ':')) {
-            [$this->_config['host'], $port] = explode(':', $this->_config['host']);
+        } elseif (str_contains((string) $this->_config['host'], ':')) {
+            [$this->_config['host'], $port] = explode(':', (string) $this->_config['host']);
         }
 
         $connectionSuccessful = @$conn->real_connect(
@@ -111,7 +111,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($date instanceof Zend_Date) {
             return $date->toString(self::ISO_DATE_FORMAT);
         }
-        return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime($date));
+        return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime((string) $date));
     }
 
     public function convertDateTime($datetime)
@@ -119,7 +119,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($datetime instanceof Zend_Date) {
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
-        return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($datetime));
+        return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime((string) $datetime));
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -177,7 +177,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public function dropForeignKey($table, $fk)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
+        if (str_contains((string) $create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
         }
         return true;
@@ -186,7 +186,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public function dropKey($table, $key)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (str_contains($create, "KEY `$key` (")) {
+        if (str_contains((string) $create, "KEY `$key` (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
         }
         return true;
@@ -262,7 +262,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
          * find foreign keys for column
          */
         $matches = [];
-        preg_match_all('/CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\)/', $create, $matches, PREG_SET_ORDER);
+        preg_match_all('/CONSTRAINT `([^`]*)` FOREIGN KEY \(`([^`]*)`\)/', (string) $create, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
             if ($match[2] == $columnName) {
                 $alterDrop[] = 'DROP FOREIGN KEY `' . $match[1] . '`';

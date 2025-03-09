@@ -96,7 +96,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
             'plugins'                       => [],
             'lang'                          => $lang,
         ]);
-        $config->setData('directives_url_quoted', preg_quote($config->getData('directives_url')));
+        $config->setData('directives_url_quoted', preg_quote((string) $config->getData('directives_url')));
 
         if (Mage::getSingleton('admin/session')->isAllowed('cms/media_gallery')) {
             $config->addData([

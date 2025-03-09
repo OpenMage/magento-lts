@@ -918,7 +918,7 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             return [];
         }
         if ($available && !is_array($available)) {
-            $available = explode(',', $available);
+            $available = explode(',', (string) $available);
         }
         return $available;
     }

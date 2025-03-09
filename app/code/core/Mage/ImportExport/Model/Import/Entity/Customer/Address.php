@@ -239,8 +239,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                     }
                     // let's try to find region ID
                     if (!empty($rowData[$regionColName])) {
-                        $countryNormalized = strtolower($rowData[$countryColName]);
-                        $regionNormalized  = strtolower($rowData[$regionColName]);
+                        $countryNormalized = strtolower((string) $rowData[$countryColName]);
+                        $regionNormalized  = strtolower((string) $rowData[$regionColName]);
 
                         if (isset($this->_countryRegions[$countryNormalized][$regionNormalized])) {
                             $regionId = $this->_countryRegions[$countryNormalized][$regionNormalized];
@@ -307,9 +307,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
     protected function _initCountryRegions()
     {
         foreach (Mage::getResourceModel('directory/region_collection') as $regionRow) {
-            $countryNormalized = strtolower($regionRow['country_id']);
-            $regionCode = strtolower($regionRow['code']);
-            $regionName = strtolower($regionRow['default_name']);
+            $countryNormalized = strtolower((string) $regionRow['country_id']);
+            $regionCode = strtolower((string) $regionRow['code']);
+            $regionName = strtolower((string) $regionRow['default_name']);
             $this->_countryRegions[$countryNormalized][$regionCode] = $regionRow['region_id'];
             $this->_countryRegions[$countryNormalized][$regionName] = $regionRow['region_id'];
             $this->_regions[$regionRow['region_id']] = $regionRow['default_name'];
@@ -478,11 +478,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             if ($rowIsValid) {
                 $regionColName  = self::getColNameForAttrCode('region');
                 $countryColName = self::getColNameForAttrCode('country_id');
-                $countryRegions = $this->_countryRegions[strtolower($rowData[$countryColName])] ?? [];
+                $countryRegions = $this->_countryRegions[strtolower((string) $rowData[$countryColName])] ?? [];
 
                 if (!empty($rowData[$regionColName])
                     && !empty($countryRegions)
-                    && !isset($countryRegions[strtolower($rowData[$regionColName])])
+                    && !isset($countryRegions[strtolower((string) $rowData[$regionColName])])
                 ) {
                     $this->_customer->addRowError(self::ERROR_INVALID_REGION, $rowNum);
 
@@ -501,9 +501,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
      */
     protected function _getRowScope($rowData)
     {
-        if (strlen(trim($rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_EMAIL]))) {
+        if (strlen(trim((string) $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_EMAIL]))) {
             $scope = Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_DEFAULT;
-        } elseif (strlen(trim($rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_POSTCODE]))) {
+        } elseif (strlen(trim((string) $rowData[Mage_ImportExport_Model_Import_Entity_Customer::COL_POSTCODE]))) {
             $scope = Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_ADDRESS;
         } else {
             $scope = Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_OPTIONS;

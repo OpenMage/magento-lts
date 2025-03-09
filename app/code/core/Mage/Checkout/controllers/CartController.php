@@ -222,7 +222,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $cart->addProduct($product, $params);
             if (!empty($related)) {
-                $cart->addProductsByIds(explode(',', $related));
+                $cart->addProductsByIds(explode(',', (string) $related));
             }
 
             $cart->save();
@@ -381,7 +381,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $related = $this->getRequest()->getParam('related_product');
             if (!empty($related)) {
-                $cart->addProductsByIds(explode(',', $related));
+                $cart->addProductsByIds(explode(',', (string) $related));
             }
 
             $cart->save();
@@ -457,7 +457,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 );
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
-                        $cartData[$index]['qty'] = $filter->filter(trim($data['qty']));
+                        $cartData[$index]['qty'] = $filter->filter(trim((string) $data['qty']));
                     }
                 }
                 $cart = $this->_getCart();

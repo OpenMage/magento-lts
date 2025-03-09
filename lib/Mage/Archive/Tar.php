@@ -471,11 +471,11 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $header = unpack($fmt, $firstLine);
 
         $header['mode'] = $header['mode'] + 0;
-        $header['uid'] = octdec($header['uid']);
-        $header['gid'] = octdec($header['gid']);
-        $header['size'] = octdec($header['size']);
-        $header['mtime'] = octdec($header['mtime']);
-        $header['checksum'] = octdec($header['checksum']);
+        $header['uid'] = octdec((string) $header['uid']);
+        $header['gid'] = octdec((string) $header['gid']);
+        $header['size'] = octdec((string) $header['size']);
+        $header['mtime'] = octdec((string) $header['mtime']);
+        $header['checksum'] = octdec((string) $header['checksum']);
 
         if ($header['type'] == '5') {
             $header['size'] = 0;
@@ -487,7 +487,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $checksum += ord(substr($firstLine, $i, 1));
         }
 
-        $isUstar = 'ustar' == strtolower(substr($header['magic'], 0, 5));
+        $isUstar = 'ustar' == strtolower(substr((string) $header['magic'], 0, 5));
 
         $checksumOk = $header['checksum'] == $checksum;
         if (isset($header['name']) && $checksumOk) {
@@ -525,12 +525,12 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
 
         $header = unpack(self::_getFormatParseHeader(), $headerBlock);
 
-        $header['mode']     = octdec($header['mode']);
-        $header['uid']      = octdec($header['uid']);
-        $header['gid']      = octdec($header['gid']);
-        $header['size']     = octdec($header['size']);
-        $header['mtime']    = octdec($header['mtime']);
-        $header['checksum'] = octdec($header['checksum']);
+        $header['mode']     = octdec((string) $header['mode']);
+        $header['uid']      = octdec((string) $header['uid']);
+        $header['gid']      = octdec((string) $header['gid']);
+        $header['size']     = octdec((string) $header['size']);
+        $header['mtime']    = octdec((string) $header['mtime']);
+        $header['checksum'] = octdec((string) $header['checksum']);
 
         if ($header['type'] == '5') {
             $header['size'] = 0;
@@ -651,7 +651,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         while (!$archiveReader->eof()) {
             $header = $this->_extractFileHeader();
             if ($header['name'] == $file) {
-                $extractedFile = $destination . basename($header['name']);
+                $extractedFile = $destination . basename((string) $header['name']);
                 $this->_extractAndWriteFile($header, $extractedFile);
                 break;
             }

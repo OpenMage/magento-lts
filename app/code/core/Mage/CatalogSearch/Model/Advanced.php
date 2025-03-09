@@ -153,11 +153,11 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             }
             $value = $values[$attribute->getAttributeCode()];
             if (!is_array($value)) {
-                $value = trim($value);
+                $value = trim((string) $value);
             }
 
             if ($attribute->getAttributeCode() === 'price') {
-                $value['from'] = isset($value['from']) ? trim($value['from']) : '';
+                $value['from'] = isset($value['from']) ? trim((string) $value['from']) : '';
                 $value['to'] = isset($value['to']) ? trim($value['to']) : '';
                 if (is_numeric($value['from']) || is_numeric($value['to'])) {
                     if (!empty($value['currency'])) {
@@ -238,13 +238,13 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                         $currencyModel = null;
                     }
 
-                    if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
+                    if (strlen((string) $value['from']) > 0 && strlen($value['to']) > 0) {
                         $value = sprintf(
                             '%s - %s',
                             ($currencyModel ? $from : $value['from']),
                             ($currencyModel ? $to : $value['to']),
                         );
-                    } elseif (strlen($value['from']) > 0) {
+                    } elseif (strlen((string) $value['from']) > 0) {
                         // and more
                         $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
                     } elseif (strlen($value['to']) > 0) {

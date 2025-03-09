@@ -44,7 +44,7 @@ abstract class Mage_Adminhtml_Model_System_Config_Backend_Currency_Abstract exte
      */
     protected function _getInstalledCurrencies()
     {
-        return explode(',', Mage::getStoreConfig('system/currency/installed'));
+        return explode(',', (string) Mage::getStoreConfig('system/currency/installed'));
     }
 
     /**

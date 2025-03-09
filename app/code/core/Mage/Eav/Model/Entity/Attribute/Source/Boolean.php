@@ -125,7 +125,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
     {
         $indexes = [];
 
-        $index = 'IDX_' . strtoupper($this->getAttribute()->getAttributeCode());
+        $index = 'IDX_' . strtoupper((string) $this->getAttribute()->getAttributeCode());
         $indexes[$index] = [
             'type'      => 'index',
             'fields'    => [$this->getAttribute()->getAttributeCode()],

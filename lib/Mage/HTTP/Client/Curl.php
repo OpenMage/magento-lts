@@ -258,13 +258,13 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         }
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode('; ', $row);
+            $values = explode('; ', (string) $row);
             $c = count($values);
             if (!$c) {
                 continue;
             }
             [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val) || !strlen((string) $key)) {
                 continue;
             }
             $out[$key] = $val;
@@ -284,13 +284,13 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
         }
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode('; ', $row);
+            $values = explode('; ', (string) $row);
             $c = count($values);
             if (!$c) {
                 continue;
             }
             [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            if (is_null($val) || !strlen((string) $key)) {
                 continue;
             }
             $out[$key] = ['value' => $val];
@@ -301,7 +301,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             }
             for ($i = 0; $i < $c; $i++) {
                 [$subkey, $val] = explode('=', $values[$i]);
-                $out[trim($key)][trim($subkey)] = trim($val);
+                $out[trim((string) $key)][trim($subkey)] = trim($val);
             }
         }
         return $out;

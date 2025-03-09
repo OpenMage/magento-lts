@@ -54,7 +54,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
             // try to load original value and validate it
             $value = $this->getEntity()->getDataUsingMethod($attribute->getAttributeCode());
             if (!is_array($value)) {
-                $value = explode("\n", $value);
+                $value = explode("\n", (string) $value);
             }
         }
 

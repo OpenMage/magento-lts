@@ -71,7 +71,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         }
 
         $result['status'] = 'new';
-        $result['name'] = substr($result['file'], strrpos($result['file'], '/') + 1);
+        $result['name'] = substr((string) $result['file'], strrpos((string) $result['file'], '/') + 1);
         return Mage::helper('core')->jsonEncode([$result]);
     }
 

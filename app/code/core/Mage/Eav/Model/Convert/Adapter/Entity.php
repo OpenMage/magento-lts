@@ -60,8 +60,8 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         $varFilters = $this->getVars();
         $filters = [];
         foreach ($varFilters as $key => $val) {
-            if (str_starts_with($key, 'filter')) {
-                $keys = explode('/', $key, 2);
+            if (str_starts_with((string) $key, 'filter')) {
+                $keys = explode('/', (string) $key, 2);
                 $filters[$keys[1]] = $val;
             }
         }
@@ -271,7 +271,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                         $val['attribute'],
                         $val['bind'],
                         null,
-                        strtolower($val['joinType']),
+                        strtolower((string) $val['joinType']),
                         $val['storeId'],
                     );
                 }

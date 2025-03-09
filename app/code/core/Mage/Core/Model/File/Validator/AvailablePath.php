@@ -249,7 +249,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
     protected function _isValidByPaths($valuePathInfo, $paths, $protected)
     {
         foreach ($paths as $path) {
-            $path = ltrim($path, '\\/');
+            $path = ltrim((string) $path, '\\/');
             if (!isset($this->_pathsData[$path]['regFilename'])) {
                 $pathInfo = pathinfo($path);
                 $options['file_mask'] = $pathInfo['basename'];
@@ -265,7 +265,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
             }
 
             //file mask
-            if (str_contains($options['file_mask'], '*')) {
+            if (str_contains((string) $options['file_mask'], '*')) {
                 if (!isset($this->_pathsData[$path]['regFilename'])) {
                     //make regular
                     $reg = $options['file_mask'];
@@ -275,7 +275,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
                 } else {
                     $reg = $this->_pathsData[$path]['regFilename'];
                 }
-                $resultFile = preg_match($reg, $valuePathInfo['basename']);
+                $resultFile = preg_match($reg, (string) $valuePathInfo['basename']);
             } else {
                 $resultFile = ($options['file_mask'] == $valuePathInfo['basename']);
             }

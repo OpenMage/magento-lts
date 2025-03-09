@@ -95,13 +95,13 @@ class Mage_Downloadable_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Down
             foreach ($options as $option) {
                 // draw options label
                 $lines[][] = [
-                    'text' => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
+                    'text' => Mage::helper('core/string')->str_split(strip_tags((string) $option['label']), 40, true, true),
                     'font' => 'italic',
                     'feed' => 35,
                 ];
 
                 // draw options value
-                $printValue = $option['print_value'] ?? strip_tags($option['value']);
+                $printValue = $option['print_value'] ?? strip_tags((string) $option['value']);
                 $lines[][] = [
                     'text' => Mage::helper('core/string')->str_split($printValue, 30, true, true),
                     'feed' => 40,

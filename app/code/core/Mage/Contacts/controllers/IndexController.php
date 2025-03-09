@@ -74,11 +74,11 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
                 // check data
                 $error = false;
-                if (!Zend_Validate::is(trim($post['name']), 'NotEmpty')) {
+                if (!Zend_Validate::is(trim((string) $post['name']), 'NotEmpty')) {
                     $error = true;
-                } elseif (!Zend_Validate::is(trim($post['comment']), 'NotEmpty')) {
+                } elseif (!Zend_Validate::is(trim((string) $post['comment']), 'NotEmpty')) {
                     $error = true;
-                } elseif (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
+                } elseif (!Zend_Validate::is(trim((string) $post['email']), 'EmailAddress')) {
                     $error = true;
                 }
 

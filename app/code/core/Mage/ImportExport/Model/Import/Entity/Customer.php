@@ -386,11 +386,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                         'store_id'   => empty($rowData[self::COL_STORE])
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
-                                        ? $now : gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData['created_at'])),
+                                        ? $now : gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime((string) $rowData['created_at'])),
                         'updated_at' => $now,
                     ];
 
-                    $emailToLower = strtolower($rowData[self::COL_EMAIL]);
+                    $emailToLower = strtolower((string) $rowData[self::COL_EMAIL]);
                     if (isset($oldCustomersToLower[$emailToLower][$rowData[self::COL_WEBSITE]])) { // edit
                         $entityId = $oldCustomersToLower[$emailToLower][$rowData[self::COL_WEBSITE]];
                         $entityRow['entity_id'] = $entityId;
@@ -409,18 +409,18 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     }
                     // attribute values
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
-                        if (!$this->_attributes[$attrCode]['is_static'] && strlen($value)) {
+                        if (!$this->_attributes[$attrCode]['is_static'] && strlen((string) $value)) {
                             /** @var Mage_Customer_Model_Attribute $attribute */
                             $attribute  = $resource->getAttribute($attrCode);
                             $backModel  = $attribute->getBackendModel();
                             $attrParams = $this->_attributes[$attrCode];
 
                             if ($attrParams['type'] === 'select') {
-                                $value = $attrParams['options'][strtolower($value)];
+                                $value = $attrParams['options'][strtolower((string) $value)];
                             } elseif ($attrParams['type'] === 'datetime') {
-                                $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($value));
+                                $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime((string) $value));
                             } elseif ($attrParams['type'] === 'multiselect') {
-                                $value = (array) $attrParams['options'][strtolower($value)];
+                                $value = (array) $attrParams['options'][strtolower((string) $value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
                                 $multiSelect[$entityId][] = $value;
@@ -443,10 +443,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                         $attribute  = $resource->getAttribute($attrCode);
                         $attrParams = $this->_attributes[$attrCode];
                         if ($attrParams['type'] === 'multiselect') {
-                            if (!isset($attrParams['options'][strtolower($value)])) {
+                            if (!isset($attrParams['options'][strtolower((string) $value)])) {
                                 continue;
                             }
-                            $value = $attrParams['options'][strtolower($value)];
+                            $value = $attrParams['options'][strtolower((string) $value)];
                             if (isset($multiSelect[$entityId])) {
                                 $multiSelect[$entityId][] = $value;
                                 $value = $multiSelect[$entityId];
@@ -554,11 +554,11 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         }
 
         $scope = self::SCOPE_OPTIONS;
-        if (strlen(trim($rowData[self::COL_EMAIL]))) {
+        if (strlen(trim((string) $rowData[self::COL_EMAIL]))) {
             $scope = self::SCOPE_DEFAULT;
         } elseif ($foundOptions) {
             $scope = self::SCOPE_OPTIONS;
-        } elseif (strlen(trim($rowData[self::COL_POSTCODE]))) {
+        } elseif (strlen(trim((string) $rowData[self::COL_POSTCODE]))) {
             $scope = self::SCOPE_ADDRESS;
         }
         return $scope;
@@ -598,7 +598,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         }
 
         $email        = $rowData[self::COL_EMAIL];
-        $emailToLower = strtolower($rowData[self::COL_EMAIL]);
+        $emailToLower = strtolower((string) $rowData[self::COL_EMAIL]);
         $website      = $rowData[self::COL_WEBSITE];
 
         $oldCustomersToLower = array_change_key_case($this->_oldCustomers, CASE_LOWER);

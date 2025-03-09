@@ -201,8 +201,8 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 foreach ($message->getRecipients() as $recipient) {
                     [$email, $name, $type] = $recipient;
                     match ($type) {
-                        self::EMAIL_TYPE_BCC => $mailer->addBcc($email, '=?utf-8?B?' . base64_encode($name) . '?='),
-                        default => $mailer->addTo($email, '=?utf-8?B?' . base64_encode($name) . '?='),
+                        self::EMAIL_TYPE_BCC => $mailer->addBcc($email, '=?utf-8?B?' . base64_encode((string) $name) . '?='),
+                        default => $mailer->addTo($email, '=?utf-8?B?' . base64_encode((string) $name) . '?='),
                     };
                 }
 

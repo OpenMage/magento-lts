@@ -68,7 +68,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         if (Mage::app()->getRequest()->getParam('files')) {
             $file = Mage::app()->getConfig()->getTempVarDir() . '/import/'
-                . str_replace('../', '', urldecode(Mage::app()->getRequest()->getParam('files')));
+                . str_replace('../', '', urldecode((string) Mage::app()->getRequest()->getParam('files')));
             $this->_copy($file);
         }
 
@@ -112,7 +112,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $isWorksheet = true;
                     continue;
                 } else {
-                    if (preg_match('/ss:Name=\"' . preg_quote($worksheet, '/') . '\"/siU', substr($xmlTmpString, 0, $strposF))) {
+                    if (preg_match('/ss:Name=\"' . preg_quote((string) $worksheet, '/') . '\"/siU', substr($xmlTmpString, 0, $strposF))) {
                         $xmlString = substr($xmlTmpString, $strposF);
                         $isWorksheet = true;
                         continue;
@@ -277,7 +277,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             . '</ExcelWorkbook>';
         $io->write($xml);
 
-        $wsName = htmlspecialchars($this->getVar('single_sheet'));
+        $wsName = htmlspecialchars((string) $this->getVar('single_sheet'));
         $wsName = !empty($wsName) ? $wsName : Mage::helper('dataflow')->__('Sheet 1');
 
         $xml = '<Worksheet ss:Name="' . $wsName . '"><Table>';
@@ -325,7 +325,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $xmlData = [];
         $xmlData[] = '<Row>';
         foreach ($fields as $value) {
-            $this->_xmlElement->row = htmlspecialchars($value);
+            $this->_xmlElement->row = htmlspecialchars((string) $value);
             $value = str_replace($xmlHeader, '', $this->_xmlElement->asXML());
             $value = preg_replace($xmlRegexp, '\\1', $value);
             if (is_numeric($value)) {

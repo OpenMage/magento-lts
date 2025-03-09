@@ -469,10 +469,10 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         $where = [$levelField . '=0' => true];
 
         foreach ($this->_conn->fetchAll($select) as $item) {
-            if (!preg_match("#^[0-9\/]+$#", $item['path'])) {
+            if (!preg_match("#^[0-9\/]+$#", (string) $item['path'])) {
                 $item['path'] = '';
             }
-            $pathIds  = explode('/', $item['path']);
+            $pathIds  = explode('/', (string) $item['path']);
             $level = (int) $item['level'];
             while ($level > 0) {
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
@@ -504,7 +504,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
         $childrenItems = [];
         foreach ($arrNodes as $key => $nodeInfo) {
-            $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
+            $pathToParent = explode('/', (string) $nodeInfo[$this->_pathField]);
             array_pop($pathToParent);
             $pathToParent = implode('/', $pathToParent);
             $childrenItems[$pathToParent][] = $nodeInfo;

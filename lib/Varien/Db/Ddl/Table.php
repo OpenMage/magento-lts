@@ -509,7 +509,7 @@ class Varien_Db_Ddl_Table
                 continue;
             }
 
-            $columns[strtoupper($columnName)] = [
+            $columns[strtoupper((string) $columnName)] = [
                 'NAME'      => $columnName,
                 'SIZE'      => $columnSize,
                 'POSITION'  => $columnPos,
@@ -557,7 +557,7 @@ class Varien_Db_Ddl_Table
      */
     public function setColumn($column)
     {
-        $upperName = strtoupper($column['COLUMN_NAME']);
+        $upperName = strtoupper((string) $column['COLUMN_NAME']);
         $this->_columns[$upperName] = $column;
         return $this;
     }

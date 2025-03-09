@@ -43,7 +43,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      */
     public function next()
     {
-        if ($this->_currentIndex + 1 >= strlen($this->_string)) {
+        if ($this->_currentIndex + 1 >= strlen((string) $this->_string)) {
             return false;
         }
 

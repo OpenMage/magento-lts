@@ -216,7 +216,7 @@ abstract class Mage_Core_Helper_Abstract
                 if (is_array($allowedTags) && !empty($allowedTags)) {
                     $allowed = implode('|', $allowedTags);
                     $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
-                    $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
+                    $result = htmlspecialchars((string) $result, ENT_COMPAT, 'UTF-8', false);
                     $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
                 } else {
                     $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
@@ -241,7 +241,7 @@ abstract class Mage_Core_Helper_Abstract
             fn($matches) => htmlentities($matches[0]),
             $html,
         );
-        $html =  strip_tags($html);
+        $html =  strip_tags((string) $html);
         return htmlspecialchars_decode($html);
     }
 
@@ -469,7 +469,7 @@ abstract class Mage_Core_Helper_Abstract
                     if ($this->hasTags($item, $arrayKeys, $skipTags)) {
                         return true;
                     }
-                } elseif ((bool) strcmp($item, $this->removeTags($item))
+                } elseif ((bool) strcmp((string) $item, $this->removeTags($item))
                     || (bool) strcmp($key, $this->removeTags($key))
                 ) {
                     if (!$skipTags && !in_array($key, $arrayKeys)) {

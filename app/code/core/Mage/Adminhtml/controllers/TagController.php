@@ -144,7 +144,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 $data['tag_id'] = $postData['tag_id'];
             }
 
-            $data['name']               = trim($postData['tag_name']);
+            $data['name']               = trim((string) $postData['tag_name']);
             $data['status']             = $postData['tag_status'];
             $data['base_popularity']    = $postData['base_popularity'] ?? 0;
             $data['store']              = $postData['store_id'];
