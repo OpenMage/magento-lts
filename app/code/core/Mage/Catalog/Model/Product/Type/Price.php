@@ -245,7 +245,7 @@ class Mage_Catalog_Model_Product_Type_Price
             }
         }
 
-        return ($prices) ? $prices : [];
+        return $prices ?: [];
     }
 
     /**
@@ -338,7 +338,7 @@ class Mage_Catalog_Model_Product_Type_Price
     {
         if ($optionIds = $product->getCustomOption('option_ids')) {
             $basePrice = $finalPrice;
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 if ($option = $product->getOptionById($optionId)) {
                     $confItemOption = $product->getCustomOption('option_' . $option->getId());
 

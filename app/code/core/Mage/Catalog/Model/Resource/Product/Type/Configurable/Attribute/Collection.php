@@ -269,9 +269,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 }
             }
 
-            uasort($values, function ($a, $b) {
-                return $a['order'] - $b['order'];
-            });
+            uasort($values, fn($a, $b) => $a['order'] - $b['order']);
 
             foreach ($pricings[0] as $pricing) {
                 // Adding pricing to options

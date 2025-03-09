@@ -134,7 +134,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!$cache) {
             return false;
         }
-        list($metadatas, $data) = $cache;
+        [$metadatas, $data] = $cache;
         if (!$doNotTestCacheValidity && time() > $metadatas['expire']) {
             // ?? $this->remove($id);
             return false;
@@ -211,7 +211,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         $metadatas = $this->_getCache($file, false);
         if ($metadatas) {
             $boolRemove = $this->_remove($file);
-            $boolTags   = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff');
+            $boolTags   = $this->_updateIdsTags([$id], explode(',', (string) $metadatas['tags']), 'diff');
 
             return $boolRemove && $boolTags;
         }
@@ -241,13 +241,10 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         // We use this protected method to hide the recursive stuff
         clearstatcache();
-        switch ($mode) {
-            case Zend_Cache::CLEANING_MODE_ALL:
-            case Zend_Cache::CLEANING_MODE_OLD:
-                return $this->_clean($this->_options['cache_dir'], $mode);
-            default:
-                return $this->_cleanNew($mode, $tags);
-        }
+        return match ($mode) {
+            Zend_Cache::CLEANING_MODE_ALL, Zend_Cache::CLEANING_MODE_OLD => $this->_clean($this->_options['cache_dir'], $mode),
+            default => $this->_cleanNew($mode, $tags),
+        };
     }
 
     /**
@@ -327,7 +324,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         $metadatas = $this->_getCache($this->_file($id), false);
         if ($metadatas) {
-            $metadatas['tags'] = explode(',', $metadatas['tags']);
+            $metadatas['tags'] = explode(',', (string) $metadatas['tags']);
         }
 
         return $metadatas;
@@ -348,7 +345,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!$cache) {
             return false;
         }
-        list($metadatas, $data) = $cache;
+        [$metadatas, $data] = $cache;
         if (time() > $metadatas['expire']) {
             return false;
         }
@@ -508,7 +505,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
                 if ($mode == Zend_Cache::CLEANING_MODE_OLD) {
                     if (time() > $metadatas['expire']) {
                         $result = $this->_remove($file) && $result;
-                        $result = $this->_updateIdsTags([$id], explode(',', $metadatas['tags']), 'diff') && $result;
+                        $result = $this->_updateIdsTags([$id], explode(',', (string) $metadatas['tags']), 'diff') && $result;
                     }
                     continue;
                 } else {

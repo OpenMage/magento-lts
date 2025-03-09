@@ -73,7 +73,7 @@ class Mage_Rss_Block_Catalog_Review extends Mage_Rss_Block_Abstract
 
         Mage::getSingleton('core/resource_iterator')->walk(
             $collection->getSelect(),
-            [[$this, 'addReviewItemXmlCallback']],
+            [$this->addReviewItemXmlCallback(...)],
             ['rssObj' => $rssObj, 'reviewModel' => $reviewModel],
         );
         return $rssObj->createRssXml();

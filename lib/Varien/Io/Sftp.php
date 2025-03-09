@@ -46,8 +46,8 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         if (!isset($args['timeout'])) {
             $args['timeout'] = self::REMOTE_TIMEOUT;
         }
-        if (strpos($args['host'], ':') !== false) {
-            list($host, $port) = explode(':', $args['host'], 2);
+        if (str_contains((string) $args['host'], ':')) {
+            [$host, $port] = explode(':', (string) $args['host'], 2);
         } else {
             $host = $args['host'];
             $port = self::SSH2_PORT;
@@ -81,7 +81,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
     {
         if ($recursive) {
             $no_errors = true;
-            $dirlist = explode('/', $dir);
+            $dirlist = explode('/', (string) $dir);
             reset($dirlist);
             $cwd = $this->_connection->pwd();
             while ($no_errors && ($dir_item = next($dirlist))) {

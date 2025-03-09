@@ -137,7 +137,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      */
     protected function insertLogo(&$page, $store = null)
     {
-        $this->y = $this->y ? $this->y : 815;
+        $this->y = $this->y ?: 815;
         $image = Mage::getStoreConfig('sales/identity/logo', $store);
         if ($image) {
             $image = Mage::getBaseDir('media') . '/sales/store/logo/' . $image;
@@ -186,14 +186,14 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
         $font = $this->_setFontRegular($page, 10);
         $page->setLineWidth(0);
-        $this->y = $this->y ? $this->y : 815;
+        $this->y = $this->y ?: 815;
         $top = 815;
-        foreach (explode("\n", Mage::getStoreConfig('sales/identity/address', $store)) as $value) {
+        foreach (explode("\n", (string) Mage::getStoreConfig('sales/identity/address', $store)) as $value) {
             if ($value !== '') {
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
                     $page->drawText(
-                        trim(strip_tags($str)),
+                        trim(strip_tags((string) $str)),
                         $this->getAlignRight($str, 130, 440, $font, 10),
                         $top,
                         'UTF-8',
@@ -265,7 +265,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $order = $shipment->getOrder();
         }
 
-        $this->y = $this->y ? $this->y : 815;
+        $this->y = $this->y ?: 815;
         $top = $this->y;
 
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0.45));
@@ -310,7 +310,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         $paymentInfo = Mage::helper('payment')->getInfoBlock($order->getPayment())
             ->setIsSecureMode(true)
             ->toPdf();
-        $paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
+        $paymentInfo = htmlspecialchars_decode((string) $paymentInfo, ENT_QUOTES);
         $payment = explode('{{pdf_row_separator}}', $paymentInfo);
         foreach ($payment as $key => $value) {
             if (strip_tags(trim($value)) == '') {
@@ -355,7 +355,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                     $text[] = $str;
                 }
                 foreach ($text as $part) {
-                    $page->drawText(strip_tags(ltrim($part)), 35, $this->y, 'UTF-8');
+                    $page->drawText(strip_tags(ltrim((string) $part)), 35, $this->y, 'UTF-8');
                     $this->y -= 15;
                 }
             }
@@ -373,7 +373,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                             $text[] = $str;
                         }
                         foreach ($text as $part) {
-                            $page->drawText(strip_tags(ltrim($part)), 285, $this->y, 'UTF-8');
+                            $page->drawText(strip_tags(ltrim((string) $part)), 285, $this->y, 'UTF-8');
                             $this->y -= 15;
                         }
                     }
@@ -412,7 +412,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 //Printing "Payment Method" lines
                 $value = preg_replace('/<br[^>]*>/i', "\n", $value);
                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
-                    $page->drawText(strip_tags(trim($str)), $paymentLeft, $yPayments, 'UTF-8');
+                    $page->drawText(strip_tags(trim((string) $str)), $paymentLeft, $yPayments, 'UTF-8');
                     $yPayments -= 15;
                 }
             }
@@ -432,7 +432,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $this->y     -= 15;
 
             foreach (Mage::helper('core/string')->str_split($shippingMethod, 45, true, true) as $str) {
-                $page->drawText(strip_tags(trim($str)), 285, $this->y, 'UTF-8');
+                $page->drawText(strip_tags(trim((string) $str)), 285, $this->y, 'UTF-8');
                 $this->y -= 15;
             }
 
@@ -520,12 +520,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         if (!isset($a['sort_order']) || !isset($b['sort_order'])) {
             return 0;
         }
-
-        if ($a['sort_order'] == $b['sort_order']) {
-            return 0;
-        }
-
-        return ($a['sort_order'] > $b['sort_order']) ? 1 : -1;
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**
@@ -615,7 +610,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     {
         $matches = [];
         $description = $item->getDescription();
-        if (preg_match_all('/<li.*?>(.*?)<\/li>/i', $description, $matches)) {
+        if (preg_match_all('/<li.*?>(.*?)<\/li>/i', (string) $description, $matches)) {
             return $matches[1];
         }
 
@@ -917,17 +912,11 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                         $page->setFont($font, $fontSize);
                     } else {
                         $fontStyle = empty($column['font']) ? 'regular' : $column['font'];
-                        switch ($fontStyle) {
-                            case 'bold':
-                                $font = $this->_setFontBold($page, $fontSize);
-                                break;
-                            case 'italic':
-                                $font = $this->_setFontItalic($page, $fontSize);
-                                break;
-                            default:
-                                $font = $this->_setFontRegular($page, $fontSize);
-                                break;
-                        }
+                        $font = match ($fontStyle) {
+                            'bold' => $this->_setFontBold($page, $fontSize),
+                            'italic' => $this->_setFontItalic($page, $fontSize),
+                            default => $this->_setFontRegular($page, $fontSize),
+                        };
                     }
 
                     if (!is_array($column['text'])) {

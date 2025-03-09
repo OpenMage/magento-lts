@@ -192,7 +192,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 $adapter->delete($this->getTable('eav/attribute_label'), $condition);
             }
             foreach ($storeLabels as $storeId => $label) {
-                if ($storeId == 0 || !strlen($label)) {
+                if ($storeId == 0 || !strlen((string) $label)) {
                     continue;
                 }
                 $bind = [
@@ -249,7 +249,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $adapter = $this->_getWriteAdapter();
             $table   = $this->getTable('eav/entity_attribute');
 
-            $sortOrder = (($object->getSortOrder()) ? $object->getSortOrder() : $this->_getMaxSortOrder($object) + 1);
+            $sortOrder = ($object->getSortOrder() ?: $this->_getMaxSortOrder($object) + 1);
             $data = [
                 'entity_type_id'     => $object->getEntityTypeId(),
                 'attribute_set_id'   => $setId,

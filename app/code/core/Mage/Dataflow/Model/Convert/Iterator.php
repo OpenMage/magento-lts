@@ -33,7 +33,7 @@ class Mage_Dataflow_Model_Session_Adapter_Iterator extends Mage_Dataflow_Model_C
         if ($adapterCb = $this->_parseCallback($this->getVar('adapter'), 'saveRow')) {
             $callbacks[] = $adapterCb;
         }
-        $callbacks[] = [$this, 'updateProgress'];
+        $callbacks[] = $this->updateProgress(...);
 
         echo $this->_getProgressBarHtml($sessionId, $total['cnt']);
 
@@ -106,13 +106,13 @@ function updateProgress(sessionId, idx, time, memory) {
 
     protected function _parseCallback($callback, $defaultMethod = null)
     {
-        if (!preg_match('#^([a-z0-9_/]+)(::([a-z0-9_]+))?$#i', $callback, $match)) {
+        if (!preg_match('#^([a-z0-9_/]+)(::([a-z0-9_]+))?$#i', (string) $callback, $match)) {
             return false;
         }
         if (!($model = Mage::getModel($match[1]))) {
             return false;
         }
-        if (!($method = $match[3] ? $match[3] : $defaultMethod)) {
+        if (!($method = $match[3] ?: $defaultMethod)) {
             return false;
         }
         return [$model, $method];

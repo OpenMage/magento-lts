@@ -75,7 +75,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Form extends Mage_Adminhtml_Block_Wid
                 $fieldset->addField('option_code_' . $item->getId(), 'hidden', [
                     'required' => true,
                     'name' => 'option_title[' . $item->getId() . ']',
-                    'value' => ($item->getCode()) ? $item->getCode() : $i,
+                    'value' => $item->getCode() ?: $i,
                 ]);
 
                 $i++;

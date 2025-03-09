@@ -74,7 +74,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         foreach ($attributes as $attribute) {
             $attributeId = $attribute->getProductAttribute()->getId();
             $value = $this->_getValueByIndex(
-                $attribute->getPrices() ? $attribute->getPrices() : [],
+                $attribute->getPrices() ?: [],
                 $selectedAttributes[$attributeId] ?? null,
             );
             $product->setParentId(true);

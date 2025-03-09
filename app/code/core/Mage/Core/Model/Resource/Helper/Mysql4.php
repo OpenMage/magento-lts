@@ -187,7 +187,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 /**
                  * Looking for column expression in the having clause
                  */
-                if (str_contains($having, $correlationName)) {
+                if (str_contains((string) $having, $correlationName)) {
                     if (is_string($column)) {
                         /**
                          * Replace column expression to column alias in having clause
@@ -224,7 +224,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
             if ($limitOffset + $limitCount != $limitOffset + 1) {
                 $columns = [];
                 foreach ($columnList as $columnEntry) {
-                    $columns[] = $columnEntry[2] ? $columnEntry[2] : $columnEntry[1];
+                    $columns[] = $columnEntry[2] ?: $columnEntry[1];
                 }
 
                 $query = sprintf('%s LIMIT %s, %s', $query, $limitCount, $limitOffset);
@@ -252,7 +252,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         $preparedColumns  = [];
 
         foreach ($columns as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
+            [$correlationName, $column, $alias] = $columnEntry;
             if ($column instanceof Zend_Db_Expr) {
                 if ($alias !== null) {
                     if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string) $column, $matches)) {
@@ -273,7 +273,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                     }
                 } else {
                     $columnKey = is_null($alias) ? $column : $alias;
-                    $preparedColumns[strtoupper($columnKey)] = [$correlationName, $column, $alias];
+                    $preparedColumns[strtoupper((string) $columnKey)] = [$correlationName, $column, $alias];
                 }
             }
         }

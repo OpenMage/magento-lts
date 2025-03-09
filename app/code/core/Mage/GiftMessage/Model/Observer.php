@@ -100,35 +100,25 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             foreach ($giftMessages as $entityId => $message) {
                 $giftMessage = Mage::getModel('giftmessage/message');
 
-                switch ($message['type']) {
-                    case 'quote':
-                        $entity = $quote;
-                        break;
-                    case 'quote_item':
-                        $entity = $quote->getItemById($entityId);
-                        break;
-                    case 'quote_address':
-                        $entity = $quote->getAddressById($entityId);
-                        break;
-                    case 'quote_address_item':
-                        $entity = $quote->getAddressById($message['address'])->getItemById($entityId);
-                        break;
-                    default:
-                        $entity = $quote;
-                        break;
-                }
+                $entity = match ($message['type']) {
+                    'quote' => $quote,
+                    'quote_item' => $quote->getItemById($entityId),
+                    'quote_address' => $quote->getAddressById($entityId),
+                    'quote_address_item' => $quote->getAddressById($message['address'])->getItemById($entityId),
+                    default => $quote,
+                };
 
                 if ($entity->getGiftMessageId()) {
                     $giftMessage->load($entity->getGiftMessageId());
                 }
 
-                if (trim($message['message']) == '') {
+                if (trim((string) $message['message']) == '') {
                     if ($giftMessage->getId()) {
                         try {
                             $giftMessage->delete();
                             $entity->setGiftMessageId(0)
                                 ->save();
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                         }
                     }
                     continue;
@@ -142,7 +132,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
 
                     $entity->setGiftMessageId($giftMessage->getId())
                         ->save();
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
         }

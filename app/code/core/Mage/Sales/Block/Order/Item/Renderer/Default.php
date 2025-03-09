@@ -124,7 +124,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
                 try {
                     $group = Mage::getModel('catalog/product_option')->groupFactory($optionInfo['option_type']);
                     return ['value' => $group->getCustomizedView($optionInfo)];
-                } catch (Exception $e) {
+                } catch (Exception) {
                     return $_default;
                 }
             }
@@ -139,14 +139,14 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
             return ['value' => $truncatedValue];
         } else {
             $truncatedValue = Mage::helper('core/string')->truncate($optionValue, 55, '');
-            $truncatedValue = nl2br($truncatedValue);
+            $truncatedValue = nl2br((string) $truncatedValue);
         }
 
         $result = ['value' => $truncatedValue];
 
         if (Mage::helper('core/string')->strlen($optionValue) > 55) {
             $result['value'] = $result['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
-            $optionValue = nl2br($optionValue);
+            $optionValue = nl2br((string) $optionValue);
             $result = array_merge($result, ['full_view' => $optionValue]);
         }
 

@@ -702,7 +702,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             $select->where('main_table.entity_id IN(?)', $categoryIds);
         } else {
             // Ensure that path ends with '/', otherwise we can get wrong results - e.g. $path = '1/2' will get '1/20'
-            if (substr($path, -1) !== '/') {
+            if (!str_ends_with($path, '/')) {
                 $path .= '/';
             }
 
@@ -736,11 +736,11 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             if ($storeId !== null) {
                 // Check the category to be either store's root or its descendant
                 // First - check that category's start is the same as root category
-                if (substr($row['path'], 0, $rootCategoryPathLength) != $rootCategoryPath) {
+                if (substr((string) $row['path'], 0, $rootCategoryPathLength) != $rootCategoryPath) {
                     continue;
                 }
                 // Second - check non-root category - that it's really a descendant, not a simple string match
-                if ((strlen($row['path']) > $rootCategoryPathLength)
+                if ((strlen((string) $row['path']) > $rootCategoryPathLength)
                     && ($row['path'][$rootCategoryPathLength] !== '/')
                 ) {
                     continue;

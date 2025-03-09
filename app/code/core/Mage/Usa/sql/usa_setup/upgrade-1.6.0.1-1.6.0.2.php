@@ -76,11 +76,11 @@ $select = $connection->select()
 $oldConfigValues = $connection->fetchAll($select);
 
 foreach ($oldConfigValues as $oldValue) {
-    if (stripos($oldValue['path'], 'free_method') && isset($oldToNewMethodCodesMap[$oldValue['value']])) {
+    if (stripos((string) $oldValue['path'], 'free_method') && isset($oldToNewMethodCodesMap[$oldValue['value']])) {
         $newValue = $oldToNewMethodCodesMap[$oldValue['value']];
-    } elseif (stripos($oldValue['path'], 'allowed_methods')) {
+    } elseif (stripos((string) $oldValue['path'], 'allowed_methods')) {
         $newValue = [];
-        foreach (explode(',', $oldValue['value']) as $shippingMethod) {
+        foreach (explode(',', (string) $oldValue['value']) as $shippingMethod) {
             if (isset($oldToNewMethodCodesMap[$shippingMethod])) {
                 $newValue[] = $oldToNewMethodCodesMap[$shippingMethod];
             }

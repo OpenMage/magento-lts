@@ -60,7 +60,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
                 $adapter->insert($this->getTable('newsletter/queue_link'), $data);
             }
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $adapter->rollBack();
         }
     }
@@ -81,7 +81,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             );
 
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $adapter->rollBack();
         }
     }

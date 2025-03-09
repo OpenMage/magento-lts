@@ -60,7 +60,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Locale extends Mage_Core_Model_
             $match = false;
             $scopeName = Mage::helper('adminhtml')->__('Default scope');
 
-            if (preg_match('/(base|default)$/', $data->getPath(), $match)) {
+            if (preg_match('/(base|default)$/', (string) $data->getPath(), $match)) {
                 if (!in_array($data->getValue(), $values)) {
                     $currencyName = Mage::app()->getLocale()->currency($data->getValue())->getName();
                     if ($match[1] == 'base') {

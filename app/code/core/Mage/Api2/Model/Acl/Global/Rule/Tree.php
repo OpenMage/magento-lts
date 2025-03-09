@@ -175,7 +175,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             ];
         } else {
             $resources = [];
-            $checkedResources = explode(',', Mage::app()->getRequest()->getParam('resource'));
+            $checkedResources = explode(',', (string) Mage::app()->getRequest()->getParam('resource'));
             $prefixResource  = self::NAME_RESOURCE . self::ID_SEPARATOR;
             switch ($this->_type) {
                 case self::TYPE_PRIVILEGE:
@@ -371,7 +371,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                 continue;
             }
             $checked = !empty($this->_resourcesPermissions[$name]['privileges'][$roleConfigNodeName][$key]);
-            $item['checked'] = $checked ? $checked : $item['checked'];
+            $item['checked'] = $checked ?: $item['checked'];
             $subItem = [
                 'id' => self::NAME_PRIVILEGE . self::ID_SEPARATOR . $name . self::ID_SEPARATOR . $key,
                 'text' => $title,
@@ -439,7 +439,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             $status = $attribute['status'];
 
             $checked = $status == Mage_Api2_Model_Acl_Global_Rule_Permission::TYPE_ALLOW;
-            $item['checked'] = $checked ? $checked : $item['checked'];
+            $item['checked'] = $checked ?: $item['checked'];
             $item[self::NAME_CHILDREN][] = [
                 'id' => self::NAME_ATTRIBUTE . self::ID_SEPARATOR . $name . self::ID_SEPARATOR . $privilege
                     . self::ID_SEPARATOR . $key,
@@ -461,7 +461,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      */
     protected function _sortTree($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**

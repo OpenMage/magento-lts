@@ -81,9 +81,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
         }
 
         // normalize to all lower case before we start using them
-        $optionLabels = array_map(function ($value) {
-            return array_map('Mage_ConfigurableSwatches_Helper_Data::normalizeKey', $value);
-        }, $optionLabels);
+        $optionLabels = array_map(fn($value) => array_map('Mage_ConfigurableSwatches_Helper_Data::normalizeKey', $value), $optionLabels);
 
         foreach ($parentProducts as $parentProduct) {
             $mapping = [];
@@ -178,9 +176,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
             $imageTypes = array_intersect(['image', 'small_image'], $imageTypes);
 
             $imagesByLabel = [];
-            $imageHaystack = array_map(function ($value) {
-                return Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value['label']);
-            }, $mediaGallery['images']);
+            $imageHaystack = array_map(fn($value) => Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value['label']), $mediaGallery['images']);
 
             // load images from the configurable product for swapping
             if (is_array($mapping)) {

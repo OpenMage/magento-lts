@@ -196,7 +196,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         $this->_importedRows        = 0;
 
         $io     = new Varien_Io_File();
-        $info   = pathinfo($csvFile);
+        $info   = pathinfo((string) $csvFile);
         $io->open(['path' => $info['dirname']]);
         $io->streamOpen($info['basename'], 'r');
 
@@ -350,7 +350,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
 
         // strip whitespace from the beginning and end of each row
         foreach ($row as $k => $v) {
-            $row[$k] = trim($v);
+            $row[$k] = trim((string) $v);
         }
 
         // validate country

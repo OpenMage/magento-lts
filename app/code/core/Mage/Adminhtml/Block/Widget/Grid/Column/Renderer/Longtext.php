@@ -45,7 +45,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adm
             $text = $this->escapeHtml($text);
         }
         if ($this->getColumn()->getNl2br()) {
-            $text = nl2br($text);
+            $text = nl2br((string) $text);
         }
         return $text;
     }

@@ -207,7 +207,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Block extends Mag
     {
         foreach ($this->_layoutHandlesXml->{$handle} as $updateXml) {
             foreach ($updateXml->children() as $child) {
-                if (strtolower($child->getName()) == 'update' && isset($child['handle'])) {
+                if (strtolower((string) $child->getName()) == 'update' && isset($child['handle'])) {
                     $this->_mergeLayoutHandles((string) $child['handle']);
                 }
             }

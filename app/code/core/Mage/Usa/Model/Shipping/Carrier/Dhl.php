@@ -325,7 +325,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $r->setOrigPostal($request->getOrigPostal());
         $originStreet1 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS1, $r->getStoreId());
         $originStreet2 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS2, $r->getStoreId());
-        $r->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
+        $r->setOrigStreet($request->getOrigStreet() ?: $originStreet2);
         $r->setOrigStreetLine2($request->getOrigStreetLine2());
         $r->setDestPhoneNumber($request->getDestPhoneNumber());
         $r->setDestPersonName($request->getDestPersonName());
@@ -677,10 +677,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $sender->addChild('Email', $rawRequest->getOrigEmail());
 
         $senderAddress = $sender->addChild('Address');
-        $senderAddress->addChild('Street', htmlspecialchars($rawRequest->getOrigStreet() ? $rawRequest->getOrigStreet() : 'N/A'));
-        $senderAddress->addChild('City', htmlspecialchars($rawRequest->getOrigCity()));
-        $senderAddress->addChild('State', htmlspecialchars($rawRequest->getOrigState()));
-        $senderAddress->addChild('CompanyName', htmlspecialchars($rawRequest->getOrigCompanyName()));
+        $senderAddress->addChild('Street', htmlspecialchars((string) $rawRequest->getOrigStreet() ?: 'N/A'));
+        $senderAddress->addChild('City', htmlspecialchars((string) $rawRequest->getOrigCity()));
+        $senderAddress->addChild('State', htmlspecialchars((string) $rawRequest->getOrigState()));
+        $senderAddress->addChild('CompanyName', htmlspecialchars((string) $rawRequest->getOrigCompanyName()));
         /*
         * DHL xml service is using UK for united kingdom instead of GB which is a standard ISO country code
         */
@@ -692,16 +692,16 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $receiver->addChild('PhoneNbr', $rawRequest->getDestPhoneNumber());
 
         $receiverAddress = $receiver->addChild('Address');
-        $receiverAddress->addChild('Street', htmlspecialchars($rawRequest->getDestStreet() ? $rawRequest->getDestStreet() : 'N/A'));
+        $receiverAddress->addChild('Street', htmlspecialchars((string) $rawRequest->getDestStreet() ?: 'N/A'));
         $receiverAddress->addChild(
             'StreetLine2',
-            htmlspecialchars($rawRequest->getDestStreetLine2() ? $rawRequest->getDestStreetLine2() : 'N/A'),
+            htmlspecialchars((string) $rawRequest->getDestStreetLine2() ?: 'N/A'),
         );
-        $receiverAddress->addChild('City', htmlspecialchars($rawRequest->getDestCity()));
-        $receiverAddress->addChild('State', htmlspecialchars($rawRequest->getDestState()));
+        $receiverAddress->addChild('City', htmlspecialchars((string) $rawRequest->getDestCity()));
+        $receiverAddress->addChild('State', htmlspecialchars((string) $rawRequest->getDestState()));
         $receiverAddress->addChild(
             'CompanyName',
-            htmlspecialchars($rawRequest->getDestCompanyName() ? $rawRequest->getDestCompanyName() : 'N/A'),
+            htmlspecialchars((string) $rawRequest->getDestCompanyName() ?: 'N/A'),
         );
 
         /*
@@ -730,7 +730,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $errorTitle = 'Unable to retrieve quotes';
 
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (is_object($xml->Faults)
@@ -920,7 +920,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $description = (string) $shipXml->EstimateDetail->ServiceLevelCommitment->Desc;
             if ($service == 'E') {
                 foreach ($regexps as $expService => $exp) {
-                    if (preg_match('/' . preg_quote($exp, '/') . '/', $description)) {
+                    if (preg_match('/' . preg_quote((string) $exp, '/') . '/', $description)) {
                         $service = $expService;
                     }
                 }
@@ -1030,7 +1030,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $resultArr = [];
         $errorArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     $trackxml = $xml->Track;

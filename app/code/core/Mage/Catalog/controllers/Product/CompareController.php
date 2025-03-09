@@ -46,7 +46,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
         }
 
         if ($items) {
-            $items = explode(',', $items);
+            $items = explode(',', (string) $items);
             $list = Mage::getSingleton('catalog/product_compare_list');
             $list->addProducts($items);
             $this->_redirect('*/*/*');

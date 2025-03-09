@@ -133,7 +133,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                     ->setTargetPath($this->getRequest()->getParam('target_path'))
                     ->setOptions($this->getRequest()->getParam('options'))
                     ->setDescription($this->getRequest()->getParam('description'))
-                    ->setRequestPath(strtolower($requestPath));
+                    ->setRequestPath(strtolower((string) $requestPath));
 
                 if (!$model->getId()) {
                     $model->setIsSystem(0);

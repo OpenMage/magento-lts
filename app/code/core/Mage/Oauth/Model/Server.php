@@ -435,7 +435,7 @@ class Mage_Oauth_Model_Server
         }
         // Is the callback URL whitelisted?
         $callbackUrl = $this->_consumer->getCallbackUrl();
-        if ($callbackUrl && strpos($this->_protocolParams['oauth_callback'], $callbackUrl) === 0) {
+        if ($callbackUrl && str_starts_with($this->_protocolParams['oauth_callback'], $callbackUrl)) {
             return;
         }
         if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']
@@ -493,7 +493,7 @@ class Mage_Oauth_Model_Server
             }
         }
         // validate consumer key length
-        if (strlen($this->_protocolParams['oauth_consumer_key']) != Mage_Oauth_Model_Consumer::KEY_LENGTH) {
+        if (strlen((string) $this->_protocolParams['oauth_consumer_key']) != Mage_Oauth_Model_Consumer::KEY_LENGTH) {
             $this->_throwException('', self::ERR_CONSUMER_KEY_REJECTED);
         }
         // validate signature method
@@ -678,7 +678,7 @@ class Mage_Oauth_Model_Server
                 $errorMsg .= '&message=' . $eMsg;
             }
         } else {
-            $errorMsg = 'internal_error&message=' . ($eMsg ? $eMsg : 'empty_message');
+            $errorMsg = 'internal_error&message=' . ($eMsg ?: 'empty_message');
             $responseCode = self::HTTP_INTERNAL_ERROR;
         }
         if (!$response) {

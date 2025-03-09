@@ -283,7 +283,7 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
         for specific country, the flag will set up as 1
         */
         if ($this->getConfigData('allowspecific') == 1) {
-            $availableCountries = explode(',', $this->getConfigData('specificcountry'));
+            $availableCountries = explode(',', (string) $this->getConfigData('specificcountry'));
             if (!in_array($country, $availableCountries)) {
                 return false;
             }

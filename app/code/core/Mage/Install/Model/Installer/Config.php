@@ -62,8 +62,8 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
         }
 
         if (isset($data['unsecure_base_url'])) {
-            $data['unsecure_base_url'] .= substr($data['unsecure_base_url'], -1) != '/' ? '/' : '';
-            if (strpos($data['unsecure_base_url'], 'http') !== 0) {
+            $data['unsecure_base_url'] .= !str_ends_with($data['unsecure_base_url'], '/') ? '/' : '';
+            if (!str_starts_with($data['unsecure_base_url'], 'http')) {
                 $data['unsecure_base_url'] = 'http://' . $data['unsecure_base_url'];
             }
             if (!$this->_getInstaller()->getDataModel()->getSkipBaseUrlValidation()) {
@@ -71,8 +71,8 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
             }
         }
         if (isset($data['secure_base_url'])) {
-            $data['secure_base_url'] .= substr($data['secure_base_url'], -1) != '/' ? '/' : '';
-            if (strpos($data['secure_base_url'], 'http') !== 0) {
+            $data['secure_base_url'] .= !str_ends_with($data['secure_base_url'], '/') ? '/' : '';
+            if (!str_starts_with($data['secure_base_url'], 'http')) {
                 $data['secure_base_url'] = 'https://' . $data['secure_base_url'];
             }
 
@@ -102,7 +102,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function getFormData()
     {
         $baseUrl = Mage::helper('core/url')->decodePunycode(Mage::getBaseUrl('web'));
-        $uri    = explode(':', $baseUrl, 2);
+        $uri    = explode(':', (string) $baseUrl, 2);
         $scheme = strtolower($uri[0]);
         $baseSecureUrl = ($scheme !== 'https') ? str_replace('http://', 'https://', $baseUrl) : $baseUrl;
 
@@ -171,7 +171,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     {
         $stamp    = strtotime((string) $date);
         $localXml = file_get_contents($this->_localConfigFile);
-        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ? $stamp : time()), $localXml);
+        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ?: time()), $localXml);
         file_put_contents($this->_localConfigFile, $localXml);
 
         return $this;
@@ -184,7 +184,7 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
     public function replaceTmpEncryptKey($key = null)
     {
         if (!$key) {
-            $key = md5(Mage::helper('core')->getRandomString(10));
+            $key = md5((string) Mage::helper('core')->getRandomString(10));
         }
         $localXml = file_get_contents($this->_localConfigFile);
         $localXml = str_replace(self::TMP_ENCRYPT_KEY_VALUE, $key, $localXml);

@@ -97,7 +97,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Created extends Mage_Adminhtml_Block_
 
         $attributesIds = $this->getRequest()->getParam('required');
         if ($attributesIds) {
-            $attributesIds = explode(',', $attributesIds);
+            $attributesIds = explode(',', (string) $attributesIds);
             foreach ($attributesIds as $attributeId) {
                 $attribute = $this->getProduct()->getTypeInstance(true)->getAttributeById($attributeId, $this->getProduct());
                 if (!$attribute) {

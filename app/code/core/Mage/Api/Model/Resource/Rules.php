@@ -47,7 +47,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
                         $permission = (in_array($resName, $postedResources)) ? 'allow' : 'deny';
                         $adapter->insert($this->getMainTable(), [
                             'role_type'     => 'G',
-                            'resource_id'   => trim($resName, '/'),
+                            'resource_id'   => trim((string) $resName, '/'),
                             'api_privileges'    => null,
                             'assert_id'     => 0,
                             'role_id'       => $roleId,
@@ -64,7 +64,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e) {
+        } catch (Exception) {
             $adapter->rollBack();
         }
     }

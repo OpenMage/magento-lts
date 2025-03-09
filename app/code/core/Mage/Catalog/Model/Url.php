@@ -606,7 +606,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $this->_refreshProductRewrite($product, $this->_categories[$storeRootCategoryId]);
                 foreach ($product->getCategoryIds() as $categoryId) {
                     if ($categoryId != $storeRootCategoryId && isset($this->_categories[$categoryId])) {
-                        if (strpos($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/') !== 0) {
+                        if (!str_starts_with((string) $this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/')) {
                             continue;
                         }
                         $this->_refreshProductRewrite($product, $this->_categories[$categoryId]);
@@ -711,7 +711,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 return $this->getUnusedPathByUrlKey($storeId, '-', $idPath, $urlKey);
             }
             $match['prefix'] = $match['prefix'] . '-';
-            $match['suffix'] = $match['suffix'] ?? '';
+            $match['suffix'] ??= '';
 
             $lastRequestPath = $this->getResource()
                 ->getLastUsedRewriteRequestIncrement($match['prefix'], $match['suffix'], $storeId);
@@ -842,8 +842,8 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $requestPath = $urlKey;
         }
 
-        if (strlen($requestPath) > self::MAX_REQUEST_PATH_LENGTH + self::ALLOWED_REQUEST_PATH_OVERFLOW) {
-            $requestPath = substr($requestPath, 0, self::MAX_REQUEST_PATH_LENGTH);
+        if (strlen((string) $requestPath) > self::MAX_REQUEST_PATH_LENGTH + self::ALLOWED_REQUEST_PATH_OVERFLOW) {
+            $requestPath = substr((string) $requestPath, 0, self::MAX_REQUEST_PATH_LENGTH);
         }
 
         $this->_rewrite = null;
@@ -854,20 +854,20 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $this->_rewrite = $this->_rewrites[$idPath];
             $existingRequestPath = $this->_rewrites[$idPath]->getRequestPath();
 
-            $regexp = '/^' . preg_quote($requestPath, '/') . '(\-[0-9]+)?' . preg_quote($suffix, '/') . '$/i';
-            if (preg_match($regexp, $existingRequestPath)) {
+            $regexp = '/^' . preg_quote((string) $requestPath, '/') . '(\-[0-9]+)?' . preg_quote($suffix, '/') . '$/i';
+            if (preg_match($regexp, (string) $existingRequestPath)) {
                 return $existingRequestPath;
             }
 
-            $existingRequestPath = preg_replace('/' . preg_quote($suffix, '/') . '$/', '', $existingRequestPath);
+            $existingRequestPath = preg_replace('/' . preg_quote($suffix, '/') . '$/', '', (string) $existingRequestPath);
             /**
              * Check if existing request past can be used
              */
             if ($product->getUrlKey() == '' && !empty($requestPath)
-                && str_starts_with($existingRequestPath, $requestPath)
+                && str_starts_with($existingRequestPath, (string) $requestPath)
             ) {
                 $existingRequestPath = preg_replace(
-                    '/^' . preg_quote($requestPath, '/') . '/',
+                    '/^' . preg_quote((string) $requestPath, '/') . '/',
                     '',
                     $existingRequestPath,
                 );

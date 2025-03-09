@@ -306,22 +306,22 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $hostInfo = new Varien_Object();
         $matches = [];
-        if (str_contains($hostName, '/')) {
+        if (str_contains((string) $hostName, '/')) {
             $hostInfo->setAddressType(self::ADDRESS_TYPE_UNIX_SOCKET)
                 ->setUnixSocket($hostName);
-        } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', $hostName, $matches)) {
+        } elseif (preg_match('/^\[(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?\](:([0-9]+))?$/i', (string) $hostName, $matches)) {
             $hostName = $matches[1];
             $hostName .= $matches[6] ?? '';
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName)
                 ->setPort($matches[8] ?? null);
-        } elseif (preg_match('/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i', $hostName, $matches)) {
+        } elseif (preg_match('/^(([0-9a-f]{1,4})?(:([0-9a-f]{1,4})?){1,}:([0-9a-f]{1,4}))(%[0-9a-z]+)?$/i', (string) $hostName, $matches)) {
             $hostName = $matches[1];
             $hostName .= $matches[6] ?? '';
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
-        } elseif (str_contains($hostName, ':')) {
-            list($hostAddress, $hostPort) = explode(':', $hostName);
+        } elseif (str_contains((string) $hostName, ':')) {
+            [$hostAddress, $hostPort] = explode(':', (string) $hostName);
             $hostInfo->setAddressType(
                 filter_var($hostAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
                     ? self::ADDRESS_TYPE_IPV4_ADDRESS
@@ -560,9 +560,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         if (isset($matches[6])
             && (
-                strpos($matches[6], "'") !== false
-                || strpos($matches[6], ':') !== false
-                || strpos($matches[6], '?') !== false
+                str_contains($matches[6], "'")
+                || str_contains($matches[6], ':')
+                || str_contains($matches[6], '?')
             )
         ) {
             $bindName = ':_mage_bind_var_' . (++$this->_bindIncrement);
@@ -776,7 +776,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $foreignKeys = $this->getForeignKeys($tableName, $schemaName);
         $fkName = strtoupper($fkName);
-        if (substr($fkName, 0, 3) == 'FK_') {
+        if (str_starts_with($fkName, 'FK_')) {
             $fkName = substr($fkName, 3);
         }
         foreach ([$fkName, 'FK_' . $fkName] as $key) {
@@ -1266,8 +1266,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                         $options['COLUMN_NAME'],
                         $options['REF_TABLE_NAME'],
                         $options['REF_COLUMN_NAME'],
-                        ($onDelete) ? $onDelete : Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
-                        ($onUpdate) ? $onUpdate : Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
+                        $onDelete ?: Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
+                        $onUpdate ?: Varien_Db_Adapter_Interface::FK_ACTION_NO_ACTION,
                     );
                 }
             }
@@ -1321,17 +1321,17 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $fieldColumn    = 'Column_name';
                 $fieldIndexType = 'Index_type';
 
-                if (strtolower($row[$fieldKeyName]) == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
+                if (strtolower((string) $row[$fieldKeyName]) == Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY) {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY;
                 } elseif ($row[$fieldNonUnique] == 0) {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE;
-                } elseif (strtolower($row[$fieldIndexType]) == Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT) {
+                } elseif (strtolower((string) $row[$fieldIndexType]) == Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT) {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT;
                 } else {
                     $indexType  = Varien_Db_Adapter_Interface::INDEX_TYPE_INDEX;
                 }
 
-                $upperKeyName = strtoupper($row[$fieldKeyName]);
+                $upperKeyName = strtoupper((string) $row[$fieldKeyName]);
                 if (isset($ddl[$upperKeyName])) {
                     $ddl[$upperKeyName]['fields'][] = $row[$fieldColumn]; // for compatible
                     $ddl[$upperKeyName]['COLUMNS_LIST'][] = $row[$fieldColumn];
@@ -1686,8 +1686,8 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     public function decorateTableInfo($tableColumnInfo)
     {
         $matches = [];
-        if (preg_match('/^((?:var)?binary)\((\d+)\)/', $tableColumnInfo['DATA_TYPE'], $matches)) {
-            list($fieldFullDescription, $fieldType, $fieldLength) = $matches;
+        if (preg_match('/^((?:var)?binary)\((\d+)\)/', (string) $tableColumnInfo['DATA_TYPE'], $matches)) {
+            [$fieldFullDescription, $fieldType, $fieldLength] = $matches;
             $tableColumnInfo['DATA_TYPE'] = $fieldType;
             $tableColumnInfo['LENGTH'] = $fieldLength;
         }
@@ -1728,10 +1728,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $ddl = $this->loadDdlCache($cacheKey, self::DDL_DESCRIBE);
         if ($ddl === false) {
             $ddl = array_map(
-                [
-                    $this,
-                    'decorateTableInfo',
-                ],
+                $this->decorateTableInfo(...),
                 parent::describeTable($tableName, $schemaName),
             );
             /**
@@ -2179,7 +2176,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                         /** @see Zend_Db_Adapter_Exception */
                         #require_once 'Zend/Db/Adapter/Exception.php';
                         throw new Zend_Db_Adapter_Exception(
-                            get_class($this) . " doesn't support positional or named binding",
+                            static::class . " doesn't support positional or named binding",
                         );
                     }
                 }
@@ -2318,7 +2315,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // PRIMARY KEY
         if (!empty($primary)) {
             asort($primary, SORT_NUMERIC);
-            $primary      = array_map([$this, 'quoteIdentifier'], array_keys($primary));
+            $primary      = array_map($this->quoteIdentifier(...), array_keys($primary));
             $definition[] = sprintf('  PRIMARY KEY (%s)', implode(', ', $primary));
         }
 
@@ -2343,7 +2340,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                             unset($indexData['INDEX_NAME']);
                             break;
                         default:
-                            $indexType = strtoupper($indexData['TYPE']);
+                            $indexType = strtoupper((string) $indexData['TYPE']);
                             break;
                     }
                 } else {
@@ -2497,7 +2494,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $precision  = 10;
                 $scale      = 0;
                 $match      = [];
-                if (!empty($options['LENGTH']) && preg_match('#^\(?(\d+),(\d+)\)?$#', $options['LENGTH'], $match)) {
+                if (!empty($options['LENGTH']) && preg_match('#^\(?(\d+),(\d+)\)?$#', (string) $options['LENGTH'], $match)) {
                     $precision  = $match[1];
                     $scale      = $match[2];
                 } else {
@@ -2784,20 +2781,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
         $fieldSql = implode(',', $fieldSql);
 
-        switch (strtolower($indexType)) {
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY:
-                $condition = 'PRIMARY KEY';
-                break;
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE:
-                $condition = 'UNIQUE ' . $this->quoteIdentifier($indexName);
-                break;
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT:
-                $condition = 'FULLTEXT ' . $this->quoteIdentifier($indexName);
-                break;
-            default:
-                $condition = 'INDEX ' . $this->quoteIdentifier($indexName);
-                break;
-        }
+        $condition = match (strtolower($indexType)) {
+            Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY => 'PRIMARY KEY',
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE => 'UNIQUE ' . $this->quoteIdentifier($indexName),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT => 'FULLTEXT ' . $this->quoteIdentifier($indexName),
+            default => 'INDEX ' . $this->quoteIdentifier($indexName),
+        };
 
         $query .= sprintf(' ADD %s (%s)', $condition, $fieldSql);
 
@@ -3413,10 +3402,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _minusSuperfluous($hash, $prefix, $maxCharacters)
     {
-        $diff        = strlen($hash) + strlen($prefix) -  $maxCharacters;
+        $diff        = strlen((string) $hash) + strlen((string) $prefix) -  $maxCharacters;
         $superfluous = $diff / 2;
         $odd         = $diff % 2;
-        return substr($hash, $superfluous, - ($superfluous + $odd));
+        return substr((string) $hash, $superfluous, - ($superfluous + $odd));
     }
 
     /**
@@ -3575,7 +3564,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
         $query = sprintf('%s INTO %s', $query, $this->quoteIdentifier($table));
         if ($fields) {
-            $columns = array_map([$this, 'quoteIdentifier'], $fields);
+            $columns = array_map($this->quoteIdentifier(...), $fields);
             $query = sprintf('%s (%s)', $query, implode(', ', $columns));
         }
 
@@ -3727,7 +3716,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             if ($joinProp['joinType'] == Zend_Db_Select::FROM) {
                 $joinType = strtoupper(Zend_Db_Select::INNER_JOIN);
             } else {
-                $joinType = strtoupper($joinProp['joinType']);
+                $joinType = strtoupper((string) $joinProp['joinType']);
             }
             $joinTable = '';
             if ($joinProp['schema'] !== null) {
@@ -3751,7 +3740,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // render UPDATE SET
         $columns = [];
         foreach ($select->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
+            [$correlationName, $column, $alias] = $columnEntry;
             if (empty($alias)) {
                 $alias = $column;
             }
@@ -3893,7 +3882,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     protected function _getInsertSqlQuery($tableName, array $columns, array $values)
     {
         $tableName = $this->quoteIdentifier($tableName, true);
-        $columns   = array_map([$this, 'quoteIdentifier'], $columns);
+        $columns   = array_map($this->quoteIdentifier(...), $columns);
         $columns   = implode(',', $columns);
         $values    = implode(', ', $values);
 
@@ -3926,16 +3915,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _getDdlAction($action)
     {
-        switch ($action) {
-            case Varien_Db_Adapter_Interface::FK_ACTION_CASCADE:
-                return Varien_Db_Ddl_Table::ACTION_CASCADE;
-            case Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL:
-                return Varien_Db_Ddl_Table::ACTION_SET_NULL;
-            case Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT:
-                return Varien_Db_Ddl_Table::ACTION_RESTRICT;
-            default:
-                return Varien_Db_Ddl_Table::ACTION_NO_ACTION;
-        }
+        return match ($action) {
+            Varien_Db_Adapter_Interface::FK_ACTION_CASCADE => Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL => Varien_Db_Ddl_Table::ACTION_SET_NULL,
+            Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT => Varien_Db_Ddl_Table::ACTION_RESTRICT,
+            default => Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        };
     }
 
     /**
@@ -4048,7 +4033,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _getForeignKeyName($fkName)
     {
-        if (substr($fkName, 0, 3) != 'FK_') {
+        if (!str_starts_with($fkName, 'FK_')) {
             $fkName = 'FK_' . $fkName;
         }
 

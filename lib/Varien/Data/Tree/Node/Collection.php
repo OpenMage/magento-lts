@@ -150,9 +150,6 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
      */
     public function searchById($nodeId)
     {
-        if (isset($this->_nodes[$nodeId])) {
-            return $this->_nodes[$nodeId];
-        }
-        return null;
+        return $this->_nodes[$nodeId] ?? null;
     }
 }

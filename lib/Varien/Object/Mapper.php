@@ -48,14 +48,14 @@ class Varien_Object_Mapper
     {
         $get = 'getData';
         if (is_array($from) && isset($from[0]) && is_object($from[0]) && isset($from[1]) && is_string($from[1]) && is_callable($from)) {
-            list($from, $get) = $from;
+            [$from, $get] = $from;
         }
         $fromIsArray = is_array($from);
         $fromIsVO    = $from instanceof Varien_Object;
 
         $set = 'setData';
         if (is_array($to) && isset($to[0]) && is_object($to[0]) && isset($to[1]) && is_string($to[1]) && is_callable($to)) {
-            list($to, $set) = $to;
+            [$to, $set] = $to;
         }
         $toIsArray = is_array($to);
         $toIsVO    = $to instanceof Varien_Object;

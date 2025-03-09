@@ -181,13 +181,13 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     public function saveRoleAction()
     {
         $rid        = $this->getRequest()->getParam('role_id', false);
-        $resource   = explode(',', $this->getRequest()->getParam('resource', false));
+        $resource   = explode(',', (string) $this->getRequest()->getParam('resource', false));
         $roleUsers  = $this->getRequest()->getParam('in_role_user', null);
-        parse_str($roleUsers, $roleUsers);
+        parse_str((string) $roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
         $oldRoleUsers = $this->getRequest()->getParam('in_role_user_old');
-        parse_str($oldRoleUsers, $oldRoleUsers);
+        parse_str((string) $oldRoleUsers, $oldRoleUsers);
         $oldRoleUsers = array_keys($oldRoleUsers);
 
         $isAll = $this->getRequest()->getParam('all');

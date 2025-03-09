@@ -42,7 +42,7 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
      */
     protected function _getAllowedTags()
     {
-        return explode(',', Mage::getStoreConfig(self::XML_PATH_ALLOWED_TAGS));
+        return explode(',', (string) Mage::getStoreConfig(self::XML_PATH_ALLOWED_TAGS));
     }
 
     public function preDispatch()

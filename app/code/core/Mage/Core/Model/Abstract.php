@@ -120,7 +120,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (is_null($key)) {
             return $this->_origData;
         }
-        return isset($this->_origData[$key]) ? $this->_origData[$key] : null;
+        return $this->_origData[$key] ?? null;
     }
 
     /**
@@ -380,7 +380,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 $this->_getResource()->save($this);
                 $this->_afterSave();
             }
-            $this->_getResource()->addCommitCallback([$this, 'afterCommitCallback'])
+            $this->_getResource()->addCommitCallback($this->afterCommitCallback(...))
                 ->commit();
             $this->_hasDataChanges = false;
         } catch (Throwable $e) {

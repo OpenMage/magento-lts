@@ -270,7 +270,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $this->_page->drawText($cityInfo, $this->_x(25), $pageY);
 
         $this->_page->setFont($this->_fontBold, 6);
-        $countryInfo = (string) (($sender->CountryName) ? $sender->CountryName : $sender->CountryCode);
+        $countryInfo = (string) ($sender->CountryName ?: $sender->CountryCode);
         if (!strlen($countryInfo)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender country info is missing'));
         }
@@ -535,7 +535,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         $i = 0;
         foreach ($package['items'] as $item) {
             $i++;
-            $this->_page->drawText(substr($item['name'], 0, 20), $this->_x($x), $this->_y($y += 6));
+            $this->_page->drawText(substr((string) $item['name'], 0, 20), $this->_x($x), $this->_y($y += 6));
             if ($i == 12) {
                 break;
             }

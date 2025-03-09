@@ -946,7 +946,7 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     {
         $data = Mage::getStoreConfig($configPath, $this->getStoreId());
         if (!empty($data)) {
-            return explode(',', $data);
+            return explode(',', (string) $data);
         }
         return false;
     }

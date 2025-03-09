@@ -67,13 +67,13 @@ class Mage_Persistent_Model_Observer
             return $this;
         }
 
-        $xPath = '//instances/blocks/*[block_type="' . get_class($block) . '"]';
+        $xPath = '//instances/blocks/*[block_type="' . $block::class . '"]';
         $configFilePath = $observer->getEvent()->getConfigFilePath();
 
         /** @var Mage_Persistent_Model_Persistent_Config $persistentConfig */
         $persistentConfig = Mage::getModel('persistent/persistent_config')
             ->setConfigFilePath(
-                $configFilePath ? $configFilePath : Mage::helper('persistent')->getPersistentConfigFilePath(),
+                $configFilePath ?: Mage::helper('persistent')->getPersistentConfigFilePath(),
             );
 
         /** @var Varien_Simplexml_Element $persistentConfigInfo */

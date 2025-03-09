@@ -110,7 +110,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
             return $this;
         }
         $module = $config->getModule();
-        $this->_translationHelper = Mage::helper($module ? $module : 'widget');
+        $this->_translationHelper = Mage::helper($module ?: 'widget');
         foreach ($config->getParameters() as $parameter) {
             $this->_addField($parameter);
         }
@@ -169,7 +169,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         // hidden element
         if (!$parameter->getVisible()) {
             $fieldType = 'hidden';
-        } elseif (str_contains($fieldType, '/')) { // just an element renderer
+        } elseif (str_contains((string) $fieldType, '/')) { // just an element renderer
             $fieldRenderer = $this->getLayout()->createBlock($fieldType);
             $fieldType = $this->_defaultElementType;
         }

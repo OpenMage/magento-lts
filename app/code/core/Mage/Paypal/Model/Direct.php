@@ -114,7 +114,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      */
     public function getAllowedCcTypes()
     {
-        $ccTypes = explode(',', $this->_pro->getConfig()->cctypes);
+        $ccTypes = explode(',', (string) $this->_pro->getConfig()->cctypes);
         $country = $this->_pro->getConfig()->getMerchantCountry();
 
         if ($country == 'GB') {
@@ -148,13 +148,10 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     public function getConfigData($field, $storeId = null)
     {
         $value = null;
-        switch ($field) {
-            case 'cctypes':
-                $value = $this->getAllowedCcTypes();
-                break;
-            default:
-                $value = $this->_pro->getConfig()->$field;
-        }
+        $value = match ($field) {
+            'cctypes' => $this->getAllowedCcTypes(),
+            default => $this->_pro->getConfig()->$field,
+        };
         return $value;
     }
 
@@ -334,7 +331,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
 
         try {
             $api->callGetTransactionDetails();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception) {
             // if we receive errors, but DoDirectPayment response is Success, then set Pending status for transaction
             $payment->setIsTransactionPending(true);
         }

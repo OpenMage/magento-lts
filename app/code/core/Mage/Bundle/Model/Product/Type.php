@@ -628,7 +628,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $selectionIds = [];
 
             // Shuffle selection array by option position
-            usort($selections, [$this, 'shakeSelections']);
+            usort($selections, $this->shakeSelections(...));
 
             foreach ($selections as $selection) {
                 if ($selection->getSelectionCanChangeQty() && isset($qtys[$selection->getOptionId()])) {
@@ -852,11 +852,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $b->getPosition(),
             $b->getSelectionId(),
         ];
-        if ($aPosition == $bPosition) {
-            return 0;
-        } else {
-            return $aPosition < $bPosition ? -1 : 1;
-        }
+        return $aPosition <=> $bPosition;
     }
 
     /**

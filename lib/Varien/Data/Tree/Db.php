@@ -238,7 +238,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_updateChildLevels($node->getId(), $data[$this->_levelField]);
             $this->_conn->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_conn->rollBack();
             throw new Exception('Can\'t move tree node');
         }
@@ -311,7 +311,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             // Update old node branch
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_conn->commit();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_conn->rollBack();
             throw new Exception('Can\'t remove tree node');
         }

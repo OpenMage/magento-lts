@@ -128,7 +128,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         try {
             Mage::getModel('api/roles')->load($rid)->delete();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been deleted.'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while deleting this role.'));
         }
 
@@ -158,13 +158,13 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             return;
         }
 
-        $resource   = explode(',', $this->getRequest()->getParam('resource', false));
+        $resource   = explode(',', (string) $this->getRequest()->getParam('resource', false));
         $roleUsers  = $this->getRequest()->getParam('in_role_user', null);
-        parse_str($roleUsers, $roleUsers);
+        parse_str((string) $roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
         $oldRoleUsers = $this->getRequest()->getParam('in_role_user_old');
-        parse_str($oldRoleUsers, $oldRoleUsers);
+        parse_str((string) $oldRoleUsers, $oldRoleUsers);
         $oldRoleUsers = array_keys($oldRoleUsers);
 
         $isAll = $this->getRequest()->getParam('all');
@@ -194,7 +194,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
             $rid = $role->getId();
             Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The role has been saved.'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this role.'));
         }
 

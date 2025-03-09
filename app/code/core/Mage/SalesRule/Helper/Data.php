@@ -49,8 +49,8 @@ class Mage_SalesRule_Helper_Data extends Mage_Core_Helper_Abstract
         $baseDiscountPrice  = $item->getBaseDiscountCalculationPrice();
 
         if ($discountPrice || $baseDiscountPrice || $basePrice || $price) {
-            $discountPrice      = $discountPrice ? $discountPrice : $item->getCalculationPrice();
-            $baseDiscountPrice  = $baseDiscountPrice ? $baseDiscountPrice : $item->getBaseCalculationPrice();
+            $discountPrice      = $discountPrice ?: $item->getCalculationPrice();
+            $baseDiscountPrice  = $baseDiscountPrice ?: $item->getBaseCalculationPrice();
             $this->setItemDiscountPrices($item, $baseDiscountPrice + $basePrice, $discountPrice + $price);
         }
         return $this;

@@ -61,7 +61,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
         if ($attributeCode == 'default_sort_by') {
             if ($available = $object->getData('available_sort_by')) {
                 if (!is_array($available)) {
-                    $available = explode(',', $available);
+                    $available = explode(',', (string) $available);
                 }
                 $data = (!in_array('default_sort_by', $postDataConfig)) ? $object->getData($attributeCode) :
                        Mage::getStoreConfig('catalog/frontend/default_sort_by');
@@ -110,7 +110,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
         if ($attributeCode == 'available_sort_by') {
             $data = $object->getData($attributeCode);
             if ($data) {
-                $object->setData($attributeCode, explode(',', $data));
+                $object->setData($attributeCode, explode(',', (string) $data));
             }
         }
         return $this;

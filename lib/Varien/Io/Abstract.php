@@ -63,7 +63,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
             return './';
         }
 
-        $path = trim(preg_replace('/\\\\/', '/', (string) $path));
+        $path = trim((string) preg_replace('/\\\\/', '/', (string) $path));
 
         if (!preg_match("/(\.\w{1,4})$/", $path) && !preg_match("/\?[^\\/]+$/", $path) && !preg_match('/\\/$/', $path)) {
             $path .= '/';
@@ -78,7 +78,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
 
         $pathTokP = preg_replace(['/^\\/+/', '/\\/+/'], ['', '/'], $pathTokP);
 
-        $pathParts = explode('/', $pathTokP);
+        $pathParts = explode('/', (string) $pathTokP);
         $realPathParts = [];
 
         for ($i = 0, $realPathParts = []; $i < count($pathParts); $i++) {
@@ -99,7 +99,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
 
     public function allowedPath($haystackPath, $needlePath)
     {
-        return strpos($this->getCleanPath($haystackPath), $this->getCleanPath($needlePath)) === 0;
+        return str_starts_with((string) $this->getCleanPath($haystackPath), (string) $this->getCleanPath($needlePath));
     }
 
     /**
@@ -110,8 +110,8 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
      */
     public function getFilteredPath($path)
     {
-        $dir = pathinfo($_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME);
-        $position = strpos($path, $dir);
+        $dir = pathinfo((string) $_SERVER['SCRIPT_FILENAME'], PATHINFO_DIRNAME);
+        $position = strpos((string) $path, $dir);
         if ($position !== false && $position < 1) {
             $path = substr_replace($path, '.', 0, strlen($dir));
         }

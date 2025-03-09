@@ -155,9 +155,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $minimumAmount = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())
                     ->toCurrency(Mage::getStoreConfig('sales/minimum_order/amount'));
 
-                $warning = Mage::getStoreConfig('sales/minimum_order/description')
-                    ? Mage::getStoreConfig('sales/minimum_order/description')
-                    : Mage::helper('checkout')->__('Minimum order amount is %s', $minimumAmount);
+                $warning = Mage::getStoreConfig('sales/minimum_order/description') ?: Mage::helper('checkout')->__('Minimum order amount is %s', $minimumAmount);
 
                 $cart->getCheckoutSession()->addNotice($warning);
             }
@@ -224,7 +222,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $cart->addProduct($product, $params);
             if (!empty($related)) {
-                $cart->addProductsByIds(explode(',', $related));
+                $cart->addProductsByIds(explode(',', (string) $related));
             }
 
             $cart->save();
@@ -383,7 +381,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
             $related = $this->getRequest()->getParam('related_product');
             if (!empty($related)) {
-                $cart->addProductsByIds(explode(',', $related));
+                $cart->addProductsByIds(explode(',', (string) $related));
             }
 
             $cart->save();
@@ -437,16 +435,11 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
         $updateAction = (string) $this->getRequest()->getParam('update_cart_action');
 
-        switch ($updateAction) {
-            case 'empty_cart':
-                $this->_emptyShoppingCart();
-                break;
-            case 'update_qty':
-                $this->_updateShoppingCart();
-                break;
-            default:
-                $this->_updateShoppingCart();
-        }
+        match ($updateAction) {
+            'empty_cart' => $this->_emptyShoppingCart(),
+            'update_qty' => $this->_updateShoppingCart(),
+            default => $this->_updateShoppingCart(),
+        };
 
         $this->_goBack();
     }
@@ -464,7 +457,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 );
                 foreach ($cartData as $index => $data) {
                     if (isset($data['qty'])) {
-                        $cartData[$index]['qty'] = $filter->filter(trim($data['qty']));
+                        $cartData[$index]['qty'] = $filter->filter(trim((string) $data['qty']));
                     }
                 }
                 $cart = $this->_getCart();
@@ -651,7 +644,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $result['success'] = 1;
                 $result['message'] = $this->__('Item was removed successfully.');
                 Mage::dispatchEvent('ajax_cart_remove_item_success', ['id' => $id]);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not remove the item.');
             }
@@ -704,7 +697,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     $result['notice'] = $quoteItem->getMessage();
                 }
                 $result['success'] = 1;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not save item.');
             }

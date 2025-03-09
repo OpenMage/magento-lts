@@ -63,7 +63,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function extractTags($tagNamesInString)
     {
-        return explode("\n", preg_replace("/(\'(.*?)\')|(\s+)/i", "$1\n", $tagNamesInString));
+        return explode("\n", (string) preg_replace("/(\'(.*?)\')|(\s+)/i", "$1\n", $tagNamesInString));
     }
 
     /**
@@ -74,7 +74,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
     public function cleanTags(array $tagNamesArr)
     {
         foreach (array_keys($tagNamesArr) as $key) {
-            $tagNamesArr[$key] = trim($tagNamesArr[$key], '\'');
+            $tagNamesArr[$key] = trim((string) $tagNamesArr[$key], '\'');
             $tagNamesArr[$key] = trim($tagNamesArr[$key]);
             if ($tagNamesArr[$key] == '') {
                 unset($tagNamesArr[$key]);

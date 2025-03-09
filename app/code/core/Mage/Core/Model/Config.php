@@ -1111,7 +1111,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $secure = (!empty($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] != 'off')) || $_SERVER['SERVER_PORT'] == '443';
                 $scheme = ($secure ? 'https' : 'http') . '://' ;
 
-                $hostArr = explode(':', $_SERVER['HTTP_HOST']);
+                $hostArr = explode(':', (string) $_SERVER['HTTP_HOST']);
                 $host = $hostArr[0];
                 $port = isset(
                     $hostArr[1],
@@ -1248,26 +1248,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $codePool = (string) $this->getModuleConfig($moduleName)->codePool;
         $dir = $this->getOptions()->getCodeDir() . DS . $codePool . DS . uc_words($moduleName, DS);
 
-        switch ($type) {
-            case 'etc':
-                $dir .= DS . 'etc';
-                break;
-
-            case 'controllers':
-                $dir .= DS . 'controllers';
-                break;
-
-            case 'sql':
-                $dir .= DS . 'sql';
-                break;
-            case 'data':
-                $dir .= DS . 'data';
-                break;
-
-            case 'locale':
-                $dir .= DS . 'locale';
-                break;
-        }
+        match ($type) {
+            'etc' => $dir .= DS . 'etc',
+            'controllers' => $dir .= DS . 'controllers',
+            'sql' => $dir .= DS . 'sql',
+            'data' => $dir .= DS . 'data',
+            'locale' => $dir .= DS . 'locale',
+            default => str_replace('/', DS, $dir),
+        };
         return str_replace('/', DS, $dir);
     }
 
@@ -1290,24 +1278,17 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $eventName = strtolower($event->getName());
             $observers = $event->observers->children();
             foreach ($observers as $observer) {
-                switch ((string) $observer->type) {
-                    case 'singleton':
-                        $callback = [
-                            Mage::getSingleton((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    case 'object':
-                    case 'model':
-                        $callback = [
-                            Mage::getModel((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    default:
-                        $callback = [$observer->getClassName(), (string) $observer->method];
-                        break;
-                }
+                $callback = match ((string) $observer->type) {
+                    'singleton' => [
+                        Mage::getSingleton((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    'object', 'model' => [
+                        Mage::getModel((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    default => [$observer->getClassName(), (string) $observer->method],
+                };
 
                 $args = (array) $observer->args;
                 $observerClass = $observer->observer_class ? (string) $observer->observer_class : '';
@@ -1627,7 +1608,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
 
         // If unsecure base url is https, then all urls should be secure
-        if (str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://')) {
+        if (str_starts_with((string) Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https://')) {
             return true;
         }
 
@@ -1765,7 +1746,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return false;
         }
 
-        list($module, $model) = $classArray;
+        [$module, $model] = $classArray;
         if (!isset($this->_xml->global->models->{$module})) {
             return false;
         }

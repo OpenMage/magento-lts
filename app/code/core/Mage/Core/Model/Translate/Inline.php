@@ -303,7 +303,7 @@ class Mage_Core_Model_Translate_Inline
      */
     protected function _getTagLocation($matches, $options)
     {
-        $tagName = strtolower($options['tagName']);
+        $tagName = strtolower((string) $options['tagName']);
 
         return $options['tagList'][$tagName] ?? (ucfirst($tagName) . ' Text');
     }
@@ -457,7 +457,7 @@ class Mage_Core_Model_Translate_Inline
         $tagMatch = [];
         while (preg_match($tagRegExp, $content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
             $tagName  = strtolower($tagMatch[1][0]);
-            if (substr($tagMatch[0][0], -2) == '/>') {
+            if (str_ends_with($tagMatch[0][0], '/>')) {
                 $tagClosurePos = $tagMatch[0][1] + strlen($tagMatch[0][0]);
             } else {
                 $tagClosurePos = $this->findEndOfTag($content, $tagName, $tagMatch[0][1]);
@@ -489,7 +489,7 @@ class Mage_Core_Model_Translate_Inline
             if (!empty($trArr)) {
                 $trArr = array_unique($trArr);
                 $tagHtml = call_user_func([$this, $formatCallback], $tagHtml, $tagName, $trArr);
-                $tagClosurePos = $tagMatch[0][1] + strlen($tagHtml);
+                $tagClosurePos = $tagMatch[0][1] + strlen((string) $tagHtml);
                 $content = substr_replace($content, $tagHtml, $tagMatch[0][1], $tagLength);
             }
             $nextTag = $tagClosurePos;

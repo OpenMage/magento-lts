@@ -65,7 +65,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Data extends Mage_Adminhtml_Block_
     public function getCurrencySymbol($code)
     {
         $currency = Mage::app()->getLocale()->currency($code);
-        return $currency->getSymbol() ? $currency->getSymbol() : $currency->getShortName();
+        return $currency->getSymbol() ?: $currency->getShortName();
     }
 
     /**

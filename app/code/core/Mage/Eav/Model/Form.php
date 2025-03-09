@@ -269,10 +269,7 @@ abstract class Mage_Eav_Model_Form
     public function getAttribute($attributeCode)
     {
         $attributes = $this->getAttributes();
-        if (isset($attributes[$attributeCode])) {
-            return $attributes[$attributeCode];
-        }
-        return false;
+        return $attributes[$attributeCode] ?? false;
     }
 
     /**

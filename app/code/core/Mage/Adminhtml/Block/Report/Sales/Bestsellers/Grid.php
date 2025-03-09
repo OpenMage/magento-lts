@@ -56,7 +56,7 @@ class Mage_Adminhtml_Block_Report_Sales_Bestsellers_Grid extends Mage_Adminhtml_
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {
-            $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
+            $this->setStoreIds(explode(',', (string) $this->getFilterData()->getStoreIds()));
         }
         $currencyCode = $this->getCurrentCurrencyCode();
 

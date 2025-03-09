@@ -250,8 +250,8 @@ $footerLinksBlock = Mage::getModel('cms/block')->load('footer_links', 'identifie
 
 if ($footerLinksBlock->getId()) {
     $content = $footerLinksBlock->getContent();
-    if (preg_match('/<ul>(.*?)<\\/ul>/ims', $content, $matches)) {
-        $content = preg_replace('/<li class="last">/ims', '<li>', $content);
+    if (preg_match('/<ul>(.*?)<\\/ul>/ims', (string) $content, $matches)) {
+        $content = preg_replace('/<li class="last">/ims', '<li>', (string) $content);
         $replacment = '<li class="last privacy">'
             . '<a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}">'
             . "Privacy Policy</a></li>\r\n</ul>";

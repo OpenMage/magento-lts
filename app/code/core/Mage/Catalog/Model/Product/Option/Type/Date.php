@@ -120,7 +120,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             if ($this->_timeExists()) {
                 // 24hr hour conversion
                 if (!$this->is24hTimeFormat()) {
-                    $pmDayPart = (strtolower($value['day_part']) == 'pm');
+                    $pmDayPart = (strtolower((string) $value['day_part']) == 'pm');
                     if ($value['hour'] == 12) {
                         $value['hour'] = $pmDayPart ? 12 : 0;
                     } elseif ($pmDayPart) {
@@ -229,7 +229,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             } else {
                 return ['date_internal' => $optionValue];
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ['date_internal' => $optionValue];
         }
     }

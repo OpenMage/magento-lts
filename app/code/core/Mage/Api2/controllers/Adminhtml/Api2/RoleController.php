@@ -182,11 +182,11 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
         }
 
         $roleUsers  = $request->getParam('in_role_users', null);
-        parse_str($roleUsers, $roleUsers);
+        parse_str((string) $roleUsers, $roleUsers);
         $roleUsers = array_keys($roleUsers);
 
         $oldRoleUsers = $this->getRequest()->getParam('in_role_users_old');
-        parse_str($oldRoleUsers, $oldRoleUsers);
+        parse_str((string) $oldRoleUsers, $oldRoleUsers);
         $oldRoleUsers = array_keys($oldRoleUsers);
 
         $session = $this->_getSession();

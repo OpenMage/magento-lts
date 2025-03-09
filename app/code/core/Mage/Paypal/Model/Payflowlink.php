@@ -272,8 +272,8 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 ->setAdditionalInformation('paypal_fraud_filters', $fraudMessage);
         }
 
-        if ($response->getAvsdata() && strstr(substr($response->getAvsdata(), 0, 2), 'N')) {
-            $payment->setAdditionalInformation('paypal_avs_code', substr($response->getAvsdata(), 0, 2));
+        if ($response->getAvsdata() && strstr(substr((string) $response->getAvsdata(), 0, 2), 'N')) {
+            $payment->setAdditionalInformation('paypal_avs_code', substr((string) $response->getAvsdata(), 0, 2));
         }
         if ($response->getCvv2match() && $response->getCvv2match() != 'Y') {
             $payment->setAdditionalInformation('paypal_cvv2_match', $response->getCvv2match());
@@ -297,7 +297,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
                 ->load($order->getQuoteId())
                 ->setIsActive(false)
                 ->save();
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(Mage::helper('paypal')->__('Can not send new order email.'));
         }
     }
@@ -473,13 +473,11 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
       */
     protected function _getTrxTokenType()
     {
-        switch ($this->getConfigData('payment_action')) {
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH:
-                return self::TRXTYPE_AUTH_ONLY;
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
-                return self::TRXTYPE_SALE;
-        }
-        return '';
+        return match ($this->getConfigData('payment_action')) {
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH => self::TRXTYPE_AUTH_ONLY,
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE => self::TRXTYPE_SALE,
+            default => '',
+        };
     }
 
     /**
@@ -544,7 +542,7 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
      */
     protected function _generateSecureSilentPostHash($payment)
     {
-        $secureHash = md5(Mage::helper('core')->getRandomString(10));
+        $secureHash = md5((string) Mage::helper('core')->getRandomString(10));
         $payment->setAdditionalInformation($this->_secureSilentPostHashKey, $secureHash);
         return $secureHash;
     }

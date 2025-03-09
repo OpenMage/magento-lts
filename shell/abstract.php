@@ -136,13 +136,13 @@ abstract class Mage_Shell_Abstract
         $current = null;
         foreach ($_SERVER['argv'] as $arg) {
             $match = [];
-            if (preg_match('#^--([\w\d_-]{1,})$#', $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', $arg, $match)) {
+            if (preg_match('#^--([\w\d_-]{1,})$#', (string) $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', (string) $arg, $match)) {
                 $current = $match[1];
                 $this->_args[$current] = true;
             } else {
                 if ($current) {
                     $this->_args[$current] = $arg;
-                } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
+                } elseif (preg_match('#^([\w\d_]{1,})$#', (string) $arg, $match)) {
                     $this->_args[$match[1]] = true;
                 }
             }
@@ -210,9 +210,6 @@ USAGE;
      */
     public function getArg($name)
     {
-        if (isset($this->_args[$name])) {
-            return $this->_args[$name];
-        }
-        return false;
+        return $this->_args[$name] ?? false;
     }
 }

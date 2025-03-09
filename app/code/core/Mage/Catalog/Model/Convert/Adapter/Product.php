@@ -558,14 +558,14 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     if (in_array($field, $this->_configs)) {
                                         $stockItem->setData('use_config_' . $field, 0);
                                     }
-                                    $stockItem->setData($field, $value ? $value : 0);
+                                    $stockItem->setData($field, $value ?: 0);
                                 } else {
                                     if (in_array($field, $this->_configs)) {
                                         if ($data['use_config_' . $field] == 0) {
-                                            $stockItem->setData($field, $value ? $value : 0);
+                                            $stockItem->setData($field, $value ?: 0);
                                         }
                                     } else {
-                                        $stockItem->setData($field, $value ? $value : 0);
+                                        $stockItem->setData($field, $value ?: 0);
                                     }
                                 }
                             }
@@ -610,7 +610,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             'disabled'      => $importData['_media_is_disabled'],
         ];
 
-        $imageFile = trim($importData['_media_image']);
+        $imageFile = trim((string) $importData['_media_image']);
         $imageFile = ltrim($imageFile, DS);
         $imageFilePath = Mage::getBaseDir('media') . DS . 'import' . DS . $imageFile;
 
@@ -674,12 +674,12 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             /**
              * Check product define type
              */
-            if (empty($importData['type']) || !isset($productTypes[strtolower($importData['type'])])) {
+            if (empty($importData['type']) || !isset($productTypes[strtolower((string) $importData['type'])])) {
                 $value = $importData['type'] ?? '';
                 $message = Mage::helper('catalog')->__('Skip import row, is not valid value "%s" for field "%s"', $value, 'type');
                 Mage::throwException($message);
             }
-            $product->setTypeId($productTypes[strtolower($importData['type'])]);
+            $product->setTypeId($productTypes[strtolower((string) $importData['type'])]);
             /**
              * Check product define attribute set
              */
@@ -740,7 +740,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     if (!in_array($website->getId(), $websiteIds)) {
                         $websiteIds[] = $website->getId();
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
             $product->setWebsiteIds($websiteIds);
@@ -880,7 +880,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         try {
             return $this->saveRow($importData);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }

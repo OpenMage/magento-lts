@@ -299,13 +299,13 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         }
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode('; ', $row);
+            $values = explode('; ', (string) $row);
             $c = count($values);
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            if (is_null($val) || !strlen((string) $key)) {
                 continue;
             }
             $out[$key] = $val;
@@ -325,13 +325,13 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         }
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
-            $values = explode('; ', $row);
+            $values = explode('; ', (string) $row);
             $c = count($values);
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
-            if (is_null($val) || !strlen($key)) {
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            if (is_null($val) || !strlen((string) $key)) {
                 continue;
             }
             $out[$key] = ['value' => $val];
@@ -341,8 +341,8 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
                 continue;
             }
             for ($i = 0; $i < $c; $i++) {
-                list($subkey, $val) = explode('=', $values[$i]);
-                $out[trim($key)][trim($subkey)] = trim($val);
+                [$subkey, $val] = explode('=', $values[$i]);
+                $out[trim((string) $key)][trim($subkey)] = trim($val);
             }
         }
         return $out;
@@ -495,7 +495,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         foreach ($headers as $k => $v) {
             $str [] = "$k: $v\r\n";
         }
-        return implode($str);
+        return implode('', $str);
     }
 
     /**

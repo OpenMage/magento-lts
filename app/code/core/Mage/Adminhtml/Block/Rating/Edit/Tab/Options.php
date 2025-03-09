@@ -41,7 +41,7 @@ class Mage_Adminhtml_Block_Rating_Edit_Tab_Options extends Mage_Adminhtml_Block_
                         'label'     => Mage::helper('rating')->__('Option Label'),
                         'required'  => true,
                         'name'      => 'option_title[' . $item->getId() . ']',
-                        'value'     => ($item->getCode()) ? $item->getCode() : $i,
+                        'value'     => $item->getCode() ?: $i,
                     ],
                 );
                 $i++;

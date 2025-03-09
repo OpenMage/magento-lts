@@ -63,7 +63,7 @@ class Mage_Captcha_Model_Observer
                 $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
                 Mage::getSingleton('customer/session')->setUsername($login);
                 $beforeUrl = Mage::getSingleton('customer/session')->getBeforeAuthUrl();
-                $url =  $beforeUrl ? $beforeUrl : Mage::helper('customer')->getLoginUrl();
+                $url =  $beforeUrl ?: Mage::helper('customer')->getLoginUrl();
                 $controller->getResponse()->setRedirect($url);
             }
         }

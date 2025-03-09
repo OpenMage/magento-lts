@@ -152,7 +152,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 // but if no category, and it is deleted - prepare breadcrumbs from path, saved in session
                 $breadcrumbsPath = Mage::getSingleton('admin/session')->getDeletedPath(true);
                 if (!empty($breadcrumbsPath)) {
-                    $breadcrumbsPath = explode('/', $breadcrumbsPath);
+                    $breadcrumbsPath = explode('/', (string) $breadcrumbsPath);
                     // no need to get parent breadcrumbs if deleting category level 1
                     if (count($breadcrumbsPath) <= 1) {
                         $breadcrumbsPath = '';
@@ -403,7 +403,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while trying to delete the category.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;

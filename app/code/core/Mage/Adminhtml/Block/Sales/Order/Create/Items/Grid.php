@@ -312,7 +312,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items_Grid extends Mage_Adminhtml_
         $this->_moveToCustomerStorage = true;
         $optionIds = $item->getOptionByCode('option_ids');
         if ($optionIds) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 $option = $item->getProduct()->getOptionById($optionId);
                 if ($option) {
                     $optionValue = $item->getOptionByCode('option_' . $option->getId())->getValue();

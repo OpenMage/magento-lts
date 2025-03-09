@@ -191,7 +191,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
     {
         // Match type and size - e.g. varchar(100) or decimal(12,4) or int
         $matches    = [];
-        $definition = trim($column['type']);
+        $definition = trim((string) $column['type']);
         if (!preg_match('/([^(]*)(\\((.*)\\))?/', $definition, $matches)) {
             throw Mage::exception(
                 'Mage_Core',
@@ -300,7 +300,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
             'unsigned' => $column['unsigned'],
             'nullable' => $column['is_null'],
             'default'  => $column['default'],
-            'identity' => !empty($column['extra']) && (stripos($column['extra'], 'auto_increment') !== false),
+            'identity' => !empty($column['extra']) && (stripos((string) $column['extra'], 'auto_increment') !== false),
         ];
 
         /**

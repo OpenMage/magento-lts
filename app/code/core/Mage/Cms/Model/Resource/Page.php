@@ -273,7 +273,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^[0-9]+$/', $object->getData('identifier'));
+        return preg_match('/^[0-9]+$/', (string) $object->getData('identifier'));
     }
 
     /**
@@ -284,7 +284,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isValidPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
+        return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', (string) $object->getData('identifier'));
     }
 
     public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract

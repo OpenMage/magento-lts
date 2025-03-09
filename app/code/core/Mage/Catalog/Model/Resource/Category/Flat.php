@@ -366,7 +366,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 $nodes = $this->_loadNodes($parentNode, $recursionLevel, $storeId);
                 $childrenItems = [];
                 foreach ($nodes as $node) {
-                    $pathToParent = explode('/', $node->getPath());
+                    $pathToParent = explode('/', (string) $node->getPath());
                     array_pop($pathToParent);
                     $pathToParent = implode('/', $pathToParent);
                     $childrenItems[$pathToParent][] = $node;
@@ -461,7 +461,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 ->limit(1);
             try {
                 $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_isBuilt[$storeId] = false;
             }
         }
@@ -657,7 +657,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             }
             $isUnsigned = '';
             $ddlType = $helper->getDdlTypeByColumnType($column['DATA_TYPE']);
-            $column['DEFAULT'] = empty($column['DEFAULT']) ? $column['DEFAULT'] : trim($column['DEFAULT'], "' ");
+            $column['DEFAULT'] = empty($column['DEFAULT']) ? $column['DEFAULT'] : trim((string) $column['DEFAULT'], "' ");
             switch ($ddlType) {
                 case Varien_Db_Ddl_Table::TYPE_SMALLINT:
                 case Varien_Db_Ddl_Table::TYPE_INTEGER:
@@ -962,7 +962,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             }
 
             $stores = $this->getStoresRootCategories();
-            $path   = explode('/', $row['path']);
+            $path   = explode('/', (string) $row['path']);
             foreach ($stores as $storeId => $rootCategoryId) {
                 if (in_array($rootCategoryId, $path)) {
                     $attributeValues = $this->_getAttributeValues($category, $storeId);
@@ -1010,7 +1010,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
         foreach ($pairs as $path) {
             $pathCond[] = $write->quoteInto('path LIKE ?', $path . '/%');
-            $parentIds  = array_merge($parentIds, explode('/', $path));
+            $parentIds  = array_merge($parentIds, explode('/', (string) $path));
         }
 
         $stores = $this->getStoresRootCategories();
@@ -1034,7 +1034,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
 
             foreach ($rowSet as &$row) {
                 $lastId = $row['entity_id'];
-                $path = explode('/', $row['path']);
+                $path = explode('/', (string) $row['path']);
                 foreach ($stores as $storeId => $rootCategoryId) {
                     if (in_array($rootCategoryId, $path)) {
                         $addStores[$storeId][$row['entity_id']] = $row;

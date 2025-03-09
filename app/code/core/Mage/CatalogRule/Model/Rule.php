@@ -224,7 +224,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 
                 Mage::getSingleton('core/resource_iterator')->walk(
                     $productCollection->getSelect(),
-                    [[$this, 'callbackValidateProduct']],
+                    [$this->callbackValidateProduct(...)],
                     [
                         'attributes' => $this->getCollectedAttributes(),
                         'product'    => Mage::getModel('catalog/product'),
@@ -373,10 +373,10 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                             $priceRules = Mage::helper('catalogrule')->calcPriceRule(
                                 $ruleData['sub_simple_action'],
                                 $ruleData['sub_discount_amount'],
-                                $priceRules ? $priceRules : $price,
+                                $priceRules ?: $price,
                             );
                         } else {
-                            $priceRules = ($priceRules ? $priceRules : $price);
+                            $priceRules = ($priceRules ?: $price);
                         }
                         if ($ruleData['action_stop']) {
                             break;
@@ -385,7 +385,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                         $priceRules = Mage::helper('catalogrule')->calcPriceRule(
                             $ruleData['action_operator'],
                             $ruleData['action_amount'],
-                            $priceRules ? $priceRules : $price,
+                            $priceRules ?: $price,
                         );
                         if ($ruleData['action_stop']) {
                             break;

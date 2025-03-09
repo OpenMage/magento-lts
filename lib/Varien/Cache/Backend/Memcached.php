@@ -119,11 +119,11 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
     {
         $data = parent::load($id, $doNotTestCacheValidity);
 
-        if (is_string($data) && (substr($data, 0, strlen(self::CODE_WORD)) == self::CODE_WORD)) {
+        if (is_string($data) && (str_starts_with($data, self::CODE_WORD))) {
             // Seems we've got chunked data
 
             $arr = explode('|', $data);
-            $chunks = isset($arr[1]) ? $arr[1] : false;
+            $chunks = $arr[1] ?? false;
             $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {

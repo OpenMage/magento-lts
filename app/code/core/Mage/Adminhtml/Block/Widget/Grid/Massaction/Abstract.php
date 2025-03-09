@@ -182,7 +182,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract extends Mage
      */
     public function getFormFieldName()
     {
-        return ($this->getData('form_field_name') ? $this->getData('form_field_name') : 'massaction');
+        return ($this->getData('form_field_name') ?: 'massaction');
     }
 
     /**

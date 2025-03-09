@@ -350,7 +350,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
         }
 
         $directions = ['asc', 'desc'];
-        $dir = strtolower($this->getRequest()->getParam($this->getDirectionVarName(), ''));
+        $dir = strtolower((string) $this->getRequest()->getParam($this->getDirectionVarName(), ''));
         if ($dir && in_array($dir, $directions)) {
             if ($dir == $this->_direction) {
                 Mage::getSingleton('catalog/session')->unsSortDirection();
@@ -466,7 +466,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     public function getOrderUrl($order, $direction)
     {
         if (is_null($order)) {
-            $order = $this->getCurrentOrder() ? $this->getCurrentOrder() : $this->_availableOrder[0];
+            $order = $this->getCurrentOrder() ?: $this->_availableOrder[0];
         }
         return $this->getPagerUrl([
             $this->getOrderVarName() => $order,

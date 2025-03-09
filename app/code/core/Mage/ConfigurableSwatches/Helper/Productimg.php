@@ -126,9 +126,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                 return; //nothing to do here
             }
 
-            $imageHaystack = array_map(function ($value) {
-                return Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value['label']);
-            }, $mediaGallery['images']);
+            $imageHaystack = array_map(fn($value) => Mage_ConfigurableSwatches_Helper_Data::normalizeKey($value['label']), $mediaGallery['images']);
 
             foreach ($searchValues as $label) {
                 $imageKeys = [];
@@ -300,7 +298,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         }
 
         $newImage = imagecreatetruecolor($width, $height);
-        list($r, $g, $b) = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
+        [$r, $g, $b] = sscanf($optionSwatch->getValue(), '#%02x%02x%02x');
         $backgroundColor = imagecolorallocate($newImage, (int) $r, (int) $g, (int) $b);
         imagefill($newImage, 0, 0, $backgroundColor);
         imagepng($newImage, Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $destPath);
@@ -385,9 +383,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
         if (!isset($this->_productImageFilters[$product->getId()])) {
             $mapping = call_user_func_array('array_merge_recursive', array_values($product->getChildAttributeLabelMapping()));
             $filters = array_unique($mapping['labels']);
-            $filters = array_merge($filters, array_map(function ($label) {
-                return $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX;
-            }, $filters));
+            $filters = array_merge($filters, array_map(fn($label) => $label . Mage_ConfigurableSwatches_Helper_Productimg::SWATCH_LABEL_SUFFIX, $filters));
             $this->_productImageFilters[$product->getId()] = $filters;
         }
 

@@ -49,7 +49,7 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
     public function tagAction()
     {
         if ($this->isFeedEnable('catalog/tag')) {
-            $tagName = urldecode($this->getRequest()->getParam('tagName'));
+            $tagName = urldecode((string) $this->getRequest()->getParam('tagName'));
             $tagModel = Mage::getModel('tag/tag');
             $tagModel->loadByName($tagName);
             if ($tagModel->getId() && $tagModel->getStatus() == $tagModel->getApprovedStatus()) {

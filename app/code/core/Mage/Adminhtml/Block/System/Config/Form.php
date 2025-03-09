@@ -284,7 +284,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $fieldRenderer->setConfigData($this->_configData);
 
                 $helperName = $this->_configFields->getAttributeModule($section, $group, $element);
-                $fieldType  = (string) $element->frontend_type ? (string) $element->frontend_type : 'text';
+                $fieldType  = (string) $element->frontend_type ?: 'text';
                 $name  = 'groups[' . $group->getName() . '][fields][' . $fieldPrefix . $element->getName() . '][value]';
                 $label =  Mage::helper($helperName)->__($labelPrefix) . ' '
                     . Mage::helper($helperName)->__((string) $element->label);
@@ -332,7 +332,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                             . '_' . $fieldPrefix
                             . $dependentFieldNameValue;
                         $shouldBeAddedDependence = true;
-                        $dependentValue = (string) (isset($dependent->value) ? $dependent->value : $dependent);
+                        $dependentValue = (string) ($dependent->value ?? $dependent);
                         if (isset($dependent['separator'])) {
                             $dependentValue = explode((string) $dependent['separator'], $dependentValue);
                         }
@@ -413,7 +413,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $method = false;
                     if (preg_match('/^([^:]+?)::([^:]+?)$/', $factoryName, $matches)) {
                         array_shift($matches);
-                        list($factoryName, $method) = array_values($matches);
+                        [$factoryName, $method] = array_values($matches);
                     }
 
                     $sourceModel = Mage::getSingleton($factoryName);
@@ -553,7 +553,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _sortForm($a, $b)
     {
-        return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
+        return (int) $a->sort_order <=> (int) $b->sort_order;
     }
 
     /**
@@ -595,16 +595,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($ifModuleEnabled && !$this->isModuleEnabled($ifModuleEnabled)) {
             return false;
         }
-
-        switch ($this->getScope()) {
-            case self::SCOPE_DEFAULT:
-                return (bool) (int) $field->show_in_default;
-            case self::SCOPE_WEBSITES:
-                return (bool) (int) $field->show_in_website;
-            case self::SCOPE_STORES:
-                return (bool) (int) $field->show_in_store;
-        }
-        return true;
+        return match ($this->getScope()) {
+            self::SCOPE_DEFAULT => (bool) (int) $field->show_in_default,
+            self::SCOPE_WEBSITES => (bool) (int) $field->show_in_website,
+            self::SCOPE_STORES => (bool) (int) $field->show_in_store,
+            default => true,
+        };
     }
 
     /**

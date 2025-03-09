@@ -77,7 +77,7 @@ class Varien_File_Csv
         }
 
         $fh = fopen($file, 'r');
-        while ($rowData = fgetcsv($fh, $this->_lineLength, $this->_delimiter, $this->_enclosure, $this->_escape)) {
+        while ($rowData = fgetcsv($fh, $this->_lineLength, $this->_delimiter, $this->_enclosure, (string) $this->_escape)) {
             $data[] = $rowData;
         }
         fclose($fh);
@@ -98,7 +98,7 @@ class Varien_File_Csv
         $csvData = $this->getData($file);
         foreach ($csvData as $rowData) {
             if (isset($rowData[$keyIndex])) {
-                $data[$rowData[$keyIndex]] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
+                $data[$rowData[$keyIndex]] = $rowData[$valueIndex] ?? null;
             }
         }
         return $data;
@@ -126,16 +126,16 @@ class Varien_File_Csv
         $str = '';
         $escape_char = '\\';
         foreach ($fields as $value) {
-            if (str_contains($value, $delimiter) ||
-                str_contains($value, $enclosure) ||
-                strpos($value, "\n") !== false ||
-                strpos($value, "\r") !== false ||
-                strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false
+            if (str_contains((string) $value, (string) $delimiter) ||
+                str_contains((string) $value, (string) $enclosure) ||
+                str_contains((string) $value, "\n") ||
+                str_contains((string) $value, "\r") ||
+                str_contains((string) $value, "\t") ||
+                str_contains((string) $value, ' ')
             ) {
                 $str2 = $enclosure;
                 $escaped = 0;
-                $len = strlen($value);
+                $len = strlen((string) $value);
                 for ($i = 0; $i < $len; $i++) {
                     if ($value[$i] == $escape_char) {
                         $escaped = 1;

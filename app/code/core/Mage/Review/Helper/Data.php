@@ -32,7 +32,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getDetail($origDetail)
     {
-        return nl2br(Mage::helper('core/string')->truncate($origDetail, 50));
+        return nl2br((string) Mage::helper('core/string')->truncate($origDetail, 50));
     }
 
     /**
@@ -42,7 +42,7 @@ class Mage_Review_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getDetailHtml($origDetail)
     {
-        return nl2br(Mage::helper('core/string')->truncate($this->escapeHtml($origDetail), 50));
+        return nl2br((string) Mage::helper('core/string')->truncate($this->escapeHtml($origDetail), 50));
     }
 
     /**

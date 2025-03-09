@@ -318,7 +318,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
                 $shipping,
                 $billing,
                 $website,
-                $calculateTaxes ? $calculateTaxes : $this->typeOfDisplay($product, 1),
+                $calculateTaxes ?: $this->typeOfDisplay($product, 1),
             );
         }
         return [];

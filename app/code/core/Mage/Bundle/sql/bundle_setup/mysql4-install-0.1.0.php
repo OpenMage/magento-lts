@@ -148,7 +148,7 @@ $installer->addAttribute('catalog_product', 'price_view', [
 $fieldList = ['price','special_price','special_from_date','special_to_date',
     'minimal_price','cost','tier_price','weight','tax_class_id'];
 foreach ($fieldList as $field) {
-    $applyTo = explode(',', $installer->getAttribute('catalog_product', $field, 'apply_to'));
+    $applyTo = explode(',', (string) $installer->getAttribute('catalog_product', $field, 'apply_to'));
     if (!in_array('bundle', $applyTo)) {
         $applyTo[] = 'bundle';
         $installer->updateAttribute('catalog_product', $field, 'apply_to', implode(',', $applyTo));

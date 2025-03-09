@@ -108,7 +108,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $entityTypeId = $attributeSet->getEntityTypeId();
             $name = $attributeSet->getAttributeSetName();
             $this->_attributeSetsById[$entityTypeId][$id] = $name;
-            $this->_attributeSetsByName[$entityTypeId][strtolower($name)] = $id;
+            $this->_attributeSetsByName[$entityTypeId][strtolower((string) $name)] = $id;
         }
         return $this;
     }
@@ -168,7 +168,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $attributeSetId = $attributeGroup->getAttributeSetId();
             $name = $attributeGroup->getAttributeGroupName();
             $this->_attributeGroupsById[$attributeSetId][$id] = $name;
-            $this->_attributeGroupsByName[$attributeSetId][strtolower($name)] = $id;
+            $this->_attributeGroupsByName[$attributeSetId][strtolower((string) $name)] = $id;
         }
         return $this;
     }
@@ -234,7 +234,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             //$name = $type->getCode();
             $name = $type;
             $this->_productTypesById[$id] = $name;
-            $this->_productTypesByName[strtolower($name)] = $id;
+            $this->_productTypesByName[strtolower((string) $name)] = $id;
         }
         return $this;
     }
@@ -278,7 +278,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public function getSourceOptionId($source, $value)
     {
         foreach ($source->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value) == 0 || $option['value'] == $value) {
+            if (strcasecmp((string) $option['label'], $value) == 0 || $option['value'] == $value) {
                 return $option['value'];
             }
         }

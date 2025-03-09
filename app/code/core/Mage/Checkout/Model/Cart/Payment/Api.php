@@ -75,7 +75,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     protected function _getPaymentMethodAvailableCcTypes($method)
     {
         $ccTypes = Mage::getSingleton('payment/config')->getCcTypes();
-        $methodCcTypes = explode(',', $method->getConfigData('cctypes'));
+        $methodCcTypes = explode(',', (string) $method->getConfigData('cctypes'));
         foreach ($ccTypes as $code => $title) {
             if (!in_array($code, $methodCcTypes)) {
                 unset($ccTypes[$code]);

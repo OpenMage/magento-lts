@@ -198,7 +198,7 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      */
     public function addText($string = '')
     {
-        if (trim($string) == '') {
+        if (trim((string) $string) == '') {
             return;
         }
 

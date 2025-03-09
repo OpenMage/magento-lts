@@ -194,7 +194,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
      */
     public function getName()
     {
-        return basename($this->_filename, '.' . $this->getExtension());
+        return basename((string) $this->_filename, '.' . $this->getExtension());
     }
     /**
      * render filters

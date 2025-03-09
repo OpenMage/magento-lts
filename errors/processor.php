@@ -95,8 +95,8 @@ class Error_Processor
         $this->_reportDir = dirname($this->_errorDir) . '/var/report/';
 
         if (!empty($_SERVER['SCRIPT_NAME'])) {
-            if (in_array(basename($_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'])) {
-                $this->_scriptName = dirname($_SERVER['SCRIPT_NAME']);
+            if (in_array(basename((string) $_SERVER['SCRIPT_NAME'], '.php'), ['404','503','report'])) {
+                $this->_scriptName = dirname((string) $_SERVER['SCRIPT_NAME']);
             } else {
                 $this->_scriptName = $_SERVER['SCRIPT_NAME'];
             }
@@ -180,12 +180,12 @@ class Error_Processor
 
         $isSecure = (!empty($_SERVER['HTTPS'])) && ($_SERVER['HTTPS'] !== 'off');
         $url = ($isSecure ? 'https://' : 'http://')
-            . htmlspecialchars($host, ENT_COMPAT | ENT_HTML401, 'UTF-8');
+            . htmlspecialchars((string) $host, ENT_COMPAT | ENT_HTML401, 'UTF-8');
 
         if (!empty($_SERVER['SERVER_PORT'])
-            && preg_match('/\d+/', $_SERVER['SERVER_PORT'])
+            && preg_match('/\d+/', (string) $_SERVER['SERVER_PORT'])
             && !in_array($_SERVER['SERVER_PORT'], [80, 433])
-            && !str_ends_with($host, ':' . $_SERVER['SERVER_PORT'])
+            && !str_ends_with((string) $host, ':' . $_SERVER['SERVER_PORT'])
         ) {
             $url .= ':' . $_SERVER['SERVER_PORT'];
         }
@@ -217,7 +217,7 @@ class Error_Processor
     {
         $documentRoot = '';
         if (!empty($_SERVER['DOCUMENT_ROOT'])) {
-            $documentRoot = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
+            $documentRoot = rtrim((string) $_SERVER['DOCUMENT_ROOT'], '/');
         }
         return dirname($documentRoot . $this->_scriptName) . '/';
     }
@@ -284,17 +284,11 @@ class Error_Processor
     protected function _sendHeaders(int $statusCode)
     {
         $serverProtocol = !empty($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
-        switch ($statusCode) {
-            case 404:
-                $description = 'Not Found';
-                break;
-            case 503:
-                $description = 'Service Unavailable';
-                break;
-            default:
-                $description = '';
-                break;
-        }
+        $description = match ($statusCode) {
+            404 => 'Not Found',
+            503 => 'Service Unavailable',
+            default => '',
+        };
 
         header(sprintf('%s %s %s', $serverProtocol, $statusCode, $description), true, $statusCode);
         header(sprintf('Status: %s %s', $statusCode, $description), true, $statusCode);
@@ -438,12 +432,12 @@ class Error_Processor
     {
         $this->pageTitle = 'Error Submission Form';
 
-        $this->postData['firstName'] = (isset($_POST['firstname'])) ? trim(htmlspecialchars($_POST['firstname'])) : '';
-        $this->postData['lastName']  = (isset($_POST['lastname'])) ? trim(htmlspecialchars($_POST['lastname'])) : '';
-        $this->postData['email']     = (isset($_POST['email'])) ? trim(htmlspecialchars($_POST['email'])) : '';
-        $this->postData['telephone'] = (isset($_POST['telephone'])) ? trim(htmlspecialchars($_POST['telephone'])) : '';
-        $this->postData['comment']   = (isset($_POST['comment'])) ? trim(htmlspecialchars($_POST['comment'])) : '';
-        $url = htmlspecialchars($this->reportData['url'], ENT_COMPAT | ENT_HTML401);
+        $this->postData['firstName'] = (isset($_POST['firstname'])) ? trim(htmlspecialchars((string) $_POST['firstname'])) : '';
+        $this->postData['lastName']  = (isset($_POST['lastname'])) ? trim(htmlspecialchars((string) $_POST['lastname'])) : '';
+        $this->postData['email']     = (isset($_POST['email'])) ? trim(htmlspecialchars((string) $_POST['email'])) : '';
+        $this->postData['telephone'] = (isset($_POST['telephone'])) ? trim(htmlspecialchars((string) $_POST['telephone'])) : '';
+        $this->postData['comment']   = (isset($_POST['comment'])) ? trim(htmlspecialchars((string) $_POST['comment'])) : '';
+        $url = htmlspecialchars((string) $this->reportData['url'], ENT_COMPAT | ENT_HTML401);
 
         if (isset($_POST['submit'])) {
             if ($this->_validate()) {
@@ -460,7 +454,7 @@ class Error_Processor
                 }
 
                 $subject = sprintf('%s [%s]', $this->_config->subject, $this->reportId);
-                @mail($this->_config->email_address, $subject, $msg);
+                @mail((string) $this->_config->email_address, $subject, $msg);
 
                 $this->showSendForm = false;
                 $this->showSentMsg  = true;
@@ -477,7 +471,7 @@ class Error_Processor
                 . "Trace:\n{$this->reportData[1]}";
 
             $subject = sprintf('%s [%s]', $this->_config->subject, $this->reportId);
-            @mail($this->_config->email_address, $subject, $msg);
+            @mail((string) $this->_config->email_address, $subject, $msg);
 
             if ($this->_config->trash === 'delete') {
                 @unlink($this->_reportFile);
@@ -492,7 +486,7 @@ class Error_Processor
     {
         $email = preg_match(
             '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/',
-            $this->postData['email'],
+            (string) $this->postData['email'],
         );
         return ($this->postData['firstName'] && $this->postData['lastName'] && $email);
     }

@@ -234,7 +234,7 @@ class Mage_Sales_Block_Recurring_Profile_View extends Mage_Core_Block_Template
         $this->setIsAddress(true);
         $address = Mage::getModel('sales/order_address', $this->_profile->getData($key));
         $this->_addInfo([
-            'value' => preg_replace('/\\n{2,}/', "\n", $address->getFormated()),
+            'value' => preg_replace('/\\n{2,}/', "\n", (string) $address->getFormated()),
         ]);
     }
 

@@ -351,10 +351,10 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
         }
 
         $uri = @parse_url($baseUrl);
-        $requestUri = $request->getRequestUri() ? $request->getRequestUri() : '/';
+        $requestUri = $request->getRequestUri() ?: '/';
         if (isset($uri['scheme']) && $uri['scheme'] != $request->getScheme()
             || isset($uri['host']) && $uri['host'] != $request->getHttpHost()
-            || isset($uri['path']) && strpos($requestUri, $uri['path']) === false
+            || isset($uri['path']) && !str_contains($requestUri, $uri['path'])
         ) {
             Mage::app()->getFrontController()->getResponse()
                 ->setRedirect($baseUrl, $redirectCode)

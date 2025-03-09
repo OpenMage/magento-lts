@@ -60,7 +60,7 @@ class Mage_Eav_Model_Attribute_Data_Multiselect extends Mage_Eav_Model_Attribute
     {
         $values = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
         if (!is_array($values)) {
-            $values = explode(',', $values);
+            $values = explode(',', (string) $values);
         }
 
         switch ($format) {

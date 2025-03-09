@@ -215,7 +215,7 @@ class Mage_Core_Model_Resource_Setup
             if (!$resource->setup) {
                 continue;
             }
-            $className = __CLASS__;
+            $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
@@ -250,7 +250,7 @@ class Mage_Core_Model_Resource_Setup
             if (!$resource->setup) {
                 continue;
             }
-            $className = __CLASS__;
+            $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
@@ -554,16 +554,11 @@ class Mage_Core_Model_Resource_Setup
      */
     protected function _setResourceVersion($actionType, $version)
     {
-        switch ($actionType) {
-            case self::TYPE_DB_INSTALL:
-            case self::TYPE_DB_UPGRADE:
-                $this->_getResource()->setDbVersion($this->_resourceName, $version);
-                break;
-            case self::TYPE_DATA_INSTALL:
-            case self::TYPE_DATA_UPGRADE:
-                $this->_getResource()->setDataVersion($this->_resourceName, $version);
-                break;
-        }
+        match ($actionType) {
+            self::TYPE_DB_INSTALL, self::TYPE_DB_UPGRADE => $this->_getResource()->setDbVersion($this->_resourceName, $version),
+            self::TYPE_DATA_INSTALL, self::TYPE_DATA_UPGRADE => $this->_getResource()->setDataVersion($this->_resourceName, $version),
+            default => $this,
+        };
 
         return $this;
     }
@@ -580,19 +575,11 @@ class Mage_Core_Model_Resource_Setup
 
     protected function _modifyResourceDb($actionType, $fromVersion, $toVersion)
     {
-        switch ($actionType) {
-            case self::TYPE_DB_INSTALL:
-            case self::TYPE_DB_UPGRADE:
-                $files = $this->_getAvailableDbFiles($actionType, $fromVersion, $toVersion);
-                break;
-            case self::TYPE_DATA_INSTALL:
-            case self::TYPE_DATA_UPGRADE:
-                $files = $this->_getAvailableDataFiles($actionType, $fromVersion, $toVersion);
-                break;
-            default:
-                $files = [];
-                break;
-        }
+        $files = match ($actionType) {
+            self::TYPE_DB_INSTALL, self::TYPE_DB_UPGRADE => $this->_getAvailableDbFiles($actionType, $fromVersion, $toVersion),
+            self::TYPE_DATA_INSTALL, self::TYPE_DATA_UPGRADE => $this->_getAvailableDataFiles($actionType, $fromVersion, $toVersion),
+            default => [],
+        };
         if (empty($files) || !$this->getConnection()) {
             return false;
         }
@@ -601,7 +588,7 @@ class Mage_Core_Model_Resource_Setup
 
         foreach ($files as $file) {
             $fileName = $file['fileName'];
-            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            $fileType = pathinfo((string) $fileName, PATHINFO_EXTENSION);
             $this->getConnection()->disallowDdlCache();
             try {
                 switch ($fileType) {

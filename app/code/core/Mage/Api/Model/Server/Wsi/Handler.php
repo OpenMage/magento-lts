@@ -53,13 +53,13 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
         $nodes = Mage::getSingleton('api/config')->getNode('v2/resources_function_prefix')->children();
         foreach ($nodes as $resource => $prefix) {
             $prefix = $prefix->asArray();
-            if (str_contains($function, $prefix)) {
-                $method = substr($function, strlen($prefix));
+            if (str_contains($function, (string) $prefix)) {
+                $method = substr($function, strlen((string) $prefix));
                 $apiKey = $resource . '.' . strtolower($method[0]) . substr($method, 1);
             }
         }
 
-        list($modelName, $methodName) = $this->_getResourceName($apiKey);
+        [$modelName, $methodName] = $this->_getResourceName($apiKey);
         $methodParams = $this->getMethodParams($modelName, $methodName);
 
         $args = $this->prepareArgs($methodParams, $args);
@@ -103,7 +103,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     protected function _getResourceName($apiPath)
     {
-        list($resourceName, $methodName) = explode('.', $apiPath);
+        [$resourceName, $methodName] = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');

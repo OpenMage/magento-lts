@@ -29,7 +29,7 @@ $select = $this->getConnection()
     ->orWhere('path = ?', 'carriers/dhl/intl_shipment_days');
 
 foreach ($this->getConnection()->fetchAll($select) as $configRow) {
-    $row = ['value' => implode(',', array_intersect_key($days, array_flip(explode(',', $configRow['value']))))];
+    $row = ['value' => implode(',', array_intersect_key($days, array_flip(explode(',', (string) $configRow['value']))))];
     $this->getConnection()->update(
         $this->getTable('core/config_data'),
         $row,

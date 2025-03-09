@@ -49,7 +49,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 'value' => $filePath,
                 'type'  => 'filename',
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_forward('noRoute');
         }
     }
@@ -62,7 +62,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     {
         $optionFile = Mage::getModel('catalog/product_option_type_file');
         $optionStoragePath = $optionFile->getOrderTargetDir(true);
-        if (strpos($info['order_path'], $optionStoragePath) !== 0) {
+        if (!str_starts_with((string) $info['order_path'], (string) $optionStoragePath)) {
             throw new Exception('Unexpected file path');
         }
     }
@@ -141,7 +141,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
                 return;
             }
             $this->_downloadFileAction($request['options'][$this->getRequest()->getParam('option_id')]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_forward('noRoute');
         }
     }
@@ -184,7 +184,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
         try {
             $info = Mage::helper('core/unserializeArray')->unserialize($option->getValue());
             $this->_downloadFileAction($info);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_forward('noRoute');
         }
         exit(0);

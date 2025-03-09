@@ -54,7 +54,7 @@ class Varien_File_Csv_Multy extends Varien_File_Csv
                 } else {
                     $data[$rowData[$keyIndex]] = [];
                     $data[$rowData[$keyIndex]]['line'] = $line_number;
-                    $data[$rowData[$keyIndex]]['value'] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
+                    $data[$rowData[$keyIndex]]['value'] = $rowData[$valueIndex] ?? null;
                 }
             }
         }

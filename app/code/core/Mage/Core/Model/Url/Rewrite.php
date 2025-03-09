@@ -229,7 +229,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
          */
         $requestCases = [];
         $pathInfo = $request->getPathInfo();
-        $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
+        $origSlash = (str_ends_with($pathInfo, '/')) ? '/' : '';
         $requestPath = trim($pathInfo, '/');
 
         // If there were final slash - add nothing to less priority paths. And vice versa.
@@ -251,7 +251,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         if (!$this->getId() && isset($_GET['___from_store'])) {
             try {
                 $fromStoreId = Mage::app()->getStore($_GET['___from_store'])->getId();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
 
@@ -318,10 +318,10 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
     {
         if (!empty($_SERVER['QUERY_STRING'])) {
             $queryParams = [];
-            parse_str($_SERVER['QUERY_STRING'], $queryParams);
+            parse_str((string) $_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach (array_keys($queryParams) as $key) {
-                if (substr($key, 0, 3) === '___') {
+                if (str_starts_with($key, '___')) {
                     unset($queryParams[$key]);
                     $hasChanges = true;
                 }

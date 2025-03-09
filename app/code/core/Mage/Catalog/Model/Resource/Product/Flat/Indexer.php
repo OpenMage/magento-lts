@@ -560,20 +560,12 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         }
 
         $indexNameQuote = $this->_getReadAdapter()->quoteIdentifier($indexName);
-        switch (strtolower($indexProp['type'])) {
-            case 'primary':
-                $condition = 'PRIMARY KEY';
-                break;
-            case 'unique':
-                $condition = 'UNIQUE ' . $indexNameQuote;
-                break;
-            case 'fulltext':
-                $condition = 'FULLTEXT ' . $indexNameQuote;
-                break;
-            default:
-                $condition = 'INDEX ' . $indexNameQuote;
-                break;
-        }
+        $condition = match (strtolower((string) $indexProp['type'])) {
+            'primary' => 'PRIMARY KEY',
+            'unique' => 'UNIQUE ' . $indexNameQuote,
+            'fulltext' => 'FULLTEXT ' . $indexNameQuote,
+            default => 'INDEX ' . $indexNameQuote,
+        };
 
         return sprintf('%s (%s)', $condition, $fieldSql);
     }
@@ -633,7 +625,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         $upperPrimaryKey = strtoupper(Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY);
         foreach ($indexProps as $i => $indexProp) {
             $indexName = $adapter->getIndexName($tableName, $indexProp['fields'], $indexProp['type']);
-            $indexProp['type'] = strtoupper($indexProp['type']);
+            $indexProp['type'] = strtoupper((string) $indexProp['type']);
             if ($indexProp['type'] == $upperPrimaryKey) {
                 $indexKey = $upperPrimaryKey;
             } else {

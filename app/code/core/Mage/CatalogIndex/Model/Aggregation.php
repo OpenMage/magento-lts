@@ -153,7 +153,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $newTags = [];
         foreach ($tags as $tag) {
-            $tagInfo = explode(':', $tag);
+            $tagInfo = explode(':', (string) $tag);
             if (count($tagInfo) == 1) {
                 $newTags[] = $tagInfo[0];
             } else {

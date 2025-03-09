@@ -64,7 +64,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                 $this->getLayout()->createBlock('adminhtml/cms_wysiwyg_images_tree')
                     ->getTreeJson(),
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([]));
         }
     }

@@ -89,7 +89,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
 
         // Templates loaded via the {{template config_path=""}} syntax don't support the subject/vars/styles
         // comment blocks, so strip them out
-        $templateText = preg_replace('/<!--@(\w+)\s*(.*?)\s*@-->/us', '', $this->getTemplateText());
+        $templateText = preg_replace('/<!--@(\w+)\s*(.*?)\s*@-->/us', '', (string) $this->getTemplateText());
         // Remove comment lines
         $templateText = preg_replace('#\{\*.*\*\}#suU', '', $templateText);
 
@@ -252,7 +252,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             if (!$filesToLoad) {
                 return '';
             }
-            $files = array_map('trim', explode(',', $filesToLoad));
+            $files = array_map('trim', explode(',', (string) $filesToLoad));
 
             $css = '';
             foreach ($files as $fileName) {

@@ -168,6 +168,6 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
     public function getAddToCartQty(Mage_Wishlist_Model_Item $item)
     {
         $qty = $this->getQty($item);
-        return $qty ? $qty : 1;
+        return $qty ?: 1;
     }
 }

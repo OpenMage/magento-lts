@@ -325,7 +325,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             $requestObject->getStoreId(),
         );
 
-        $requestObject->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
+        $requestObject->setOrigStreet($request->getOrigStreet() ?: $originStreet2);
 
         if (is_numeric($request->getOrigState())) {
             $requestObject->setOrigState(Mage::getModel('directory/region')->load($request->getOrigState())->getCode());
@@ -911,7 +911,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $responseError =  Mage::helper('usa')->__('The response is in wrong format.');
 
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (in_array($xml->getName(), ['ErrorResponse', 'ShipmentValidateErrorResponse'])
@@ -929,7 +929,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                                     break;
                                 }
                             }
-                            Mage::throwException(Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data)));
+                            Mage::throwException(Mage::helper('usa')->__('Error #%s : %s', trim($code), trim((string) $data)));
                         }
 
                         $code = isset($nodeCondition->ConditionCode) ? (string) $nodeCondition->ConditionCode : 0;
@@ -1046,7 +1046,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if (isset($shipmentDetails->GlobalProductCode)) {
                 $dhlProductDescription  = $this->getDhlProductTitle((string) $shipmentDetails->GlobalProductCode);
             }
-            $dhlProductDescription = $dhlProductDescription ? $dhlProductDescription : Mage::helper('usa')->__('DHL');
+            $dhlProductDescription = $dhlProductDescription ?: Mage::helper('usa')->__('DHL');
             $this->_errors[] = Mage::helper('usa')->__("Zero shipping charge for '%s'", $dhlProductDescription);
         }
         return $this;
@@ -1289,11 +1289,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         /* Receiver */
         $nodeConsignee = $xml->addChild('Consignee', '', '');
 
-        $companyName = ($rawRequest->getRecipientContactCompanyName())
-            ? $rawRequest->getRecipientContactCompanyName()
-            : $rawRequest->getRecipientContactPersonName();
+        $companyName = $rawRequest->getRecipientContactCompanyName() ?: $rawRequest->getRecipientContactPersonName();
 
-        $nodeConsignee->addChild('CompanyName', substr($companyName, 0, 35));
+        $nodeConsignee->addChild('CompanyName', substr((string) $companyName, 0, 35));
 
         $address = $rawRequest->getRecipientAddressStreet1() . ' ' . $rawRequest->getRecipientAddressStreet2();
         $address = Mage::helper('core/string')->str_split($address, 35, false, true);
@@ -1314,8 +1312,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             (string) $this->getCountryParams($rawRequest->getRecipientAddressCountryCode())->name,
         );
         $nodeContact = $nodeConsignee->addChild('Contact');
-        $nodeContact->addChild('PersonName', substr($rawRequest->getRecipientContactPersonName(), 0, 34));
-        $nodeContact->addChild('PhoneNumber', substr($rawRequest->getRecipientContactPhoneNumber(), 0, 24));
+        $nodeContact->addChild('PersonName', substr((string) $rawRequest->getRecipientContactPersonName(), 0, 34));
+        $nodeContact->addChild('PhoneNumber', substr((string) $rawRequest->getRecipientContactPhoneNumber(), 0, 24));
 
         /* Commodity
          * The CommodityCode element contains commodity code for shipment contents. Its
@@ -1376,8 +1374,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             (string) $this->getCountryParams($rawRequest->getShipperAddressCountryCode())->name,
         );
         $nodeContact = $nodeShipper->addChild('Contact', '', '');
-        $nodeContact->addChild('PersonName', substr($rawRequest->getShipperContactPersonName(), 0, 34));
-        $nodeContact->addChild('PhoneNumber', substr($rawRequest->getShipperContactPhoneNumber(), 0, 24));
+        $nodeContact->addChild('PersonName', substr((string) $rawRequest->getShipperContactPersonName(), 0, 34));
+        $nodeContact->addChild('PhoneNumber', substr((string) $rawRequest->getShipperContactPhoneNumber(), 0, 24));
 
         $xml->addChild('LabelImageFormat', 'PDF', '');
 

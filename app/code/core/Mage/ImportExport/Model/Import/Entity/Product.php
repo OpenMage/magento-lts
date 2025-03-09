@@ -524,7 +524,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         $collection = Mage::getResourceModel('catalog/category_collection')->addNameToResult();
         /** @var Mage_Catalog_Model_Resource_Category_Collection $collection */
         foreach ($collection as $category) {
-            $structure = explode('/', $category->getPath());
+            $structure = explode('/', (string) $category->getPath());
             $pathSize  = count($structure);
             if ($pathSize > 1) {
                 $path = [];
@@ -755,7 +755,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         ) {
             if (!isset($rowData['_group_price_website']) || !isset($rowData['_group_price_customer_group'])
                 || !strlen($rowData['_group_price_website']) || !strlen($rowData['_group_price_customer_group'])
-                || !strlen($rowData['_group_price_price'])
+                || !strlen((string) $rowData['_group_price_price'])
             ) {
                 $this->addRowError(self::ERROR_GROUP_PRICE_DATA_INCOMPLETE, $rowNum);
                 return false;
@@ -940,7 +940,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                 if (array_key_exists($paramSuffix, $solidParams)) {
                                     $solidParams[$paramSuffix] = $data;
                                 } elseif ($paramSuffix === 'price') {
-                                    if (substr($data, -1) === '%') {
+                                    if (str_ends_with($data, '%')) {
                                         $priceTableRow['price_type'] = 'percent';
                                     }
                                     $priceTableRow['price'] = (float) rtrim($data, '%');
@@ -975,10 +975,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
                         if (!empty($rowData['_custom_option_row_price'])) {
                             $typePriceRow = [
-                                'price'      => (float) rtrim($rowData['_custom_option_row_price'], '%'),
+                                'price'      => (float) rtrim((string) $rowData['_custom_option_row_price'], '%'),
                                 'price_type' => 'fixed',
                             ];
-                            if (substr($rowData['_custom_option_row_price'], -1) === '%') {
+                            if (str_ends_with((string) $rowData['_custom_option_row_price'], '%')) {
                                 $typePriceRow['price_type'] = 'percent';
                             }
                             if ($priceIsGlobal) {
@@ -1000,8 +1000,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         $flagNewOption = true;
                         if ($lastStoreId != $storeId) {
                             if (!$firstKeyOption) {
-                                reset($customOptions[$typeTitleTable]);
-                                $firstKeyOption = key($customOptions[$typeTitleTable]);
+                                $firstKeyOption = array_key_first($customOptions[$typeTitleTable]);
                             }
                             $currentValueId = $firstKeyOption;
                             $lastStoreId    = $storeId;
@@ -1567,8 +1566,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $attrTable = $attribute->getBackend()->getTable();
             $storeIds = [0];
 
-            if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
-                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
+            if ($attribute->getBackendType() === 'datetime' && strtotime((string) $attrValue)) {
+                $attrValue = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime((string) $attrValue));
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());
@@ -1724,7 +1723,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         try {
             $res = $this->_getUploader()->move($fileName);
             return $res['file'];
-        } catch (Exception $e) {
+        } catch (Exception) {
             return '';
         }
     }
@@ -1798,7 +1797,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 try {
                     $this->_connection
                             ->insertOnDuplicate($mediaValueTableName, $valueArr, ['value_id']);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $this->_connection->delete(
                         $mediaGalleryTableName,
                         $this->_connection->quoteInto('value_id IN (?)', $newMediaValues),
@@ -1986,7 +1985,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         }
         // Remove null byte character
         if (!empty($rowData[self::COL_NAME])) {
-            $rowData[self::COL_NAME] = preg_replace(self::COL_NAME_FORMAT, '', $rowData[self::COL_NAME]);
+            $rowData[self::COL_NAME] = preg_replace(self::COL_NAME_FORMAT, '', (string) $rowData[self::COL_NAME]);
         }
     }
 

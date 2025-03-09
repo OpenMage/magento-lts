@@ -79,7 +79,7 @@ class XMLParser
         xml_set_element_handler($this->xml_parser, 'startElement', 'endElement');
         xml_set_character_data_handler($this->xml_parser, 'elementData');
 
-        if (!xml_parse($this->xml_parser, $responseString)) {
+        if (!xml_parse($this->xml_parser, (string) $responseString)) {
             $this->deserializedResponse['ErrorNo']= CENTINEL_ERROR_CODE_8020;
             $this->deserializedResponse['ErrorDesc']= CENTINEL_ERROR_CODE_8020_DESC;
         }

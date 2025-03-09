@@ -99,7 +99,7 @@ class Varien_Date
     protected static function _convert($value, $dictionary)
     {
         foreach ($dictionary as $search => $replace) {
-            $value = preg_replace('/(^|[^%])' . $search . '/', '$1' . $replace, $value);
+            $value = preg_replace('/(^|[^%])' . $search . '/', '$1' . $replace, (string) $value);
         }
         return $value;
     }

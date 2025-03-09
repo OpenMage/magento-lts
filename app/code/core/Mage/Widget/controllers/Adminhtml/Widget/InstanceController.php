@@ -227,7 +227,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setUseMassaction(true)
             ->setId(Mage::helper('core')->uniqHash('categories'))
             ->setIsAnchorOnly($isAnchorOnly)
-            ->setSelectedCategories(explode(',', $selected));
+            ->setSelectedCategories(explode(',', (string) $selected));
         $this->setBody($chooser->toHtml());
     }
 
@@ -243,7 +243,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             ->setName(Mage::helper('core')->uniqHash('products_grid_'))
             ->setUseMassaction(true)
             ->setProductTypeId($productTypeId)
-            ->setSelectedProducts(explode(',', $selected));
+            ->setSelectedProducts(explode(',', (string) $selected));
         /** @var Mage_Adminhtml_Block_Widget_Grid_Serializer $serializer */
         $serializer = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
         $serializer->initSerializerBlock($chooser, 'getSelectedProducts', 'selected_products', 'selected_products');

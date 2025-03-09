@@ -46,7 +46,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Collection extends Mage_Core_Model
      */
     public function setQuoteFilter($quoteId)
     {
-        $this->addFieldToFilter('quote_id', $quoteId ? $quoteId : ['null' => 1]);
+        $this->addFieldToFilter('quote_id', $quoteId ?: ['null' => 1]);
         return $this;
     }
 

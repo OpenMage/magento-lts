@@ -674,7 +674,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $costArr = [];
         $priceArr = [];
 
-        if (strlen(trim($response)) > 0) {
+        if (strlen(trim((string) $response)) > 0) {
             if ($xml = $this->_parseXml($response)) {
                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string) $xml->Error->Message;
@@ -1131,7 +1131,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $error->setCarrier('fedex');
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setTracking($trackingValue);
-            $error->setErrorMessage($errorTitle ? $errorTitle : Mage::helper('usa')->__('Unable to retrieve tracking'));
+            $error->setErrorMessage($errorTitle ?: Mage::helper('usa')->__('Unable to retrieve tracking'));
             $this->_result->append($error);
         }
     }
@@ -1215,7 +1215,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             $error->setCarrier('fedex');
             $error->setCarrierTitle($this->getConfigData('title'));
             $error->setTracking($trackingvalue);
-            $error->setErrorMessage($errorTitle ? $errorTitle : Mage::helper('usa')->__('Unable to retrieve tracking'));
+            $error->setErrorMessage($errorTitle ?: Mage::helper('usa')->__('Unable to retrieve tracking'));
             $this->_result->append($error);
         }
     }

@@ -139,15 +139,11 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected function _getGroupByDateFormat($type)
     {
-        switch ($type) {
-            case 'day':
-                $format = '%Y-%m-%d';
-                break;
-            default:
-            case 'hour':
-                $format = '%Y-%m-%d %H';
-                break;
-        }
+        $format = match ($type) {
+            'day' => '%Y-%m-%d',
+            'hour' => '%Y-%m-%d %H',
+            default => $format,
+        };
         return $format;
     }
 
@@ -160,18 +156,11 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected function _getRangeByType($typeCode)
     {
-        switch ($typeCode) {
-            case 'day':
-                $range = 'DAY';
-                break;
-            case 'hour':
-                $range = 'HOUR';
-                break;
-            case 'minute':
-            default:
-                $range = 'MINUTE';
-                break;
-        }
+        $range = match ($typeCode) {
+            'day' => 'DAY',
+            'hour' => 'HOUR',
+            default => 'MINUTE',
+        };
 
         return $range;
     }

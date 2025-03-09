@@ -87,8 +87,7 @@ class Mage_Downloadable_Model_Observer
                     $linkPurchased,
                 );
                 $linkSectionTitle = (
-                    $product->getLinksTitle() ?
-                    $product->getLinksTitle() : Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE)
+                    $product->getLinksTitle() ?: Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE)
                 );
                 $linkPurchased->setLinkSectionTitle($linkSectionTitle)
                     ->save();

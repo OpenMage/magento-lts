@@ -98,7 +98,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
 
         // processing FROM part
         $priceIndexJoinPart = $fromPart[Mage_Catalog_Model_Resource_Product_Collection::INDEX_TABLE_ALIAS];
-        $priceIndexJoinConditions = explode('AND', $priceIndexJoinPart['joinCondition']);
+        $priceIndexJoinConditions = explode('AND', (string) $priceIndexJoinPart['joinCondition']);
         $priceIndexJoinPart['joinType'] = Zend_Db_Select::FROM;
         $priceIndexJoinPart['joinCondition'] = null;
         $fromPart[Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS] = $priceIndexJoinPart;
@@ -113,7 +113,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         $wherePart = $select->getPart(Zend_Db_Select::WHERE);
         $excludedWherePart = Mage_Catalog_Model_Resource_Product_Collection::MAIN_TABLE_ALIAS . '.status';
         foreach ($wherePart as $key => $wherePartItem) {
-            if (str_contains($wherePartItem, $excludedWherePart)) {
+            if (str_contains((string) $wherePartItem, $excludedWherePart)) {
                 $wherePart[$key] = new Zend_Db_Expr('1=1');
                 continue;
             }
@@ -391,7 +391,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             return $this;
         }
 
-        list($from, $to) = $interval;
+        [$from, $to] = $interval;
         if ($from === '' && $to === '') {
             return $this;
         }

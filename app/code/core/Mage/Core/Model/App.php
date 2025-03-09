@@ -897,7 +897,7 @@ class Mage_Core_Model_App
     {
         try {
             return $this->getStore($id);
-        } catch (Exception $e) {
+        } catch (Exception) {
             if ($this->_currentStore) {
                 $this->getRequest()->setActionName('noRoute');
                 return new Varien_Object();
@@ -1317,7 +1317,7 @@ class Mage_Core_Model_App
             $offloaderHeader = strtoupper(trim((string) Mage::getConfig()->getNode(Mage_Core_Model_Store::XML_PATH_OFFLOADER_HEADER, 'default')));
             if ($offloaderHeader) {
                 $offloaderHeader = preg_replace('/[^A-Z]+/', '_', $offloaderHeader);
-                $offloaderHeader = str_starts_with($offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
+                $offloaderHeader = str_starts_with((string) $offloaderHeader, 'HTTP_') ? $offloaderHeader : 'HTTP_' . $offloaderHeader;
                 if (!empty($_SERVER[$offloaderHeader]) && $_SERVER[$offloaderHeader] !== 'http') {
                     return true;
                 }
@@ -1447,7 +1447,7 @@ class Mage_Core_Model_App
             $object->$method($observer);
         } elseif (Mage::getIsDeveloperMode()) {
             if (is_object($object)) {
-                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
+                $message = 'Method "' . $method . '" is not defined in "' . $object::class . '"';
             } else {
                 $message = 'Class from observer "' . $observerName . '" is not initialized';
             }

@@ -70,10 +70,10 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             return $this;
         }
 
-        $verifyPeer = isset($this->_config['verifypeer']) ? $this->_config['verifypeer'] : 0;
+        $verifyPeer = $this->_config['verifypeer'] ?? 0;
         curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, $verifyPeer);
 
-        $verifyHost = isset($this->_config['verifyhost']) ? $this->_config['verifyhost'] : 0;
+        $verifyHost = $this->_config['verifyhost'] ?? 0;
         curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
 
         foreach (array_keys($this->_config) as $param) {
@@ -163,7 +163,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         }
         $this->_applyConfig();
 
-        $header = isset($this->_config['header']) ? $this->_config['header'] : true;
+        $header = $this->_config['header'] ?? true;
         $options = [
             CURLOPT_URL                     => $url,
             CURLOPT_RETURNTRANSFER          => true,

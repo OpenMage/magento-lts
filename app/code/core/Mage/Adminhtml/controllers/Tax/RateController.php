@@ -174,7 +174,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     return true;
                 } catch (Mage_Core_Exception $e) {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                } catch (Exception $e) {
+                } catch (Exception) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
@@ -259,7 +259,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('tax')->__('The tax rate has been imported.'));
             } catch (Mage_Core_Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
             }
         } else {
@@ -327,7 +327,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
                 //end of file has more then one empty lines
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                if (count($v) <= 1 && !strlen($v[0])) {
+                if (count($v) <= 1 && !strlen((string) $v[0])) {
                     continue;
                 }
                 if ($unset) {
@@ -462,12 +462,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'importexport':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export');
-            case 'index':
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates');
-        }
+        return match ($action) {
+            'importexport' => Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export'),
+            default => Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates'),
+        };
     }
 }

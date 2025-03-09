@@ -145,7 +145,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         try {
             $obj = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $this->getAttribute());
-        } catch (Exception $e) {
+        } catch (Exception) {
             $obj = new Varien_Object();
             $obj->setEntity(Mage::getResourceSingleton('catalog/product'))
                 ->setFrontendInput('text');
@@ -351,22 +351,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if ($this->getAttributeObject()->getAttributeCode() == 'category_ids') {
             return 'category';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-                return 'select';
-
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            case 'boolean':
-                return 'boolean';
-
-            default:
-                return 'string';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            'boolean' => 'boolean',
+            default => 'string',
+        };
     }
 
     /**
@@ -382,20 +373,12 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if (!is_object($this->getAttributeObject())) {
             return 'text';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-            case 'boolean':
-                return 'select';
-
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            default:
-                return 'text';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select', 'boolean' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            default => 'text',
+        };
     }
 
     /**
@@ -474,7 +457,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], ['!()', '()'])
-                    && strpos($arr['value'], ',') !== false
+                    && str_contains($arr['value'], ',')
                 ) {
                     $tmp = [];
                     foreach (explode(',', $arr['value']) as $value) {
@@ -516,13 +499,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
 
             if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
                 $this->setValue(strtotime($this->getValue()));
-                $value = strtotime($object->getData($attrCode));
+                $value = strtotime((string) $object->getData($attrCode));
                 return $this->validateAttribute($value);
             }
 
             if ($attr && $attr->getFrontendInput() == 'multiselect') {
                 $value = $object->getData($attrCode);
-                $value = strlen($value) ? explode(',', $value) : [];
+                $value = strlen((string) $value) ? explode(',', (string) $value) : [];
                 return $this->validateAttribute($value);
             }
 
@@ -535,9 +518,9 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             foreach ($this->_entityAttributeValues[$object->getId()] as $storeId => $value) {
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
-                    $value = strtotime($value);
+                    $value = strtotime((string) $value);
                 } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
-                    $value = strlen($value) ? explode(',', $value) : [];
+                    $value = strlen((string) $value) ? explode(',', (string) $value) : [];
                 }
 
                 $object->setData($attrCode, $value);

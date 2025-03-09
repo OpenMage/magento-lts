@@ -210,8 +210,8 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
             }
 
             if (!is_null($row['percent'])) {
-                $row['percent'] = $row['percent'] ? $row['percent'] : 1;
-                $rate = $rate ? $rate : 1;
+                $row['percent'] = $row['percent'] ?: 1;
+                $rate = $rate ?: 1;
 
                 $appliedAmount = $amount / $rate * $row['percent'];
                 $baseAppliedAmount = $baseAmount / $rate * $row['percent'];
@@ -247,7 +247,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
             $address->addTotal([
                 'code' => $this->getCode(),
                 'title' => Mage::helper('sales')->__('Tax'),
-                'full_info' => $applied ? $applied : [],
+                'full_info' => $applied ?: [],
                 'value' => $amount,
             ]);
         }

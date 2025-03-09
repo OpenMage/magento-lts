@@ -156,7 +156,7 @@ class Mage_Core_Model_Cache
         }
 
         $backendType = false;
-        switch (strtolower($type)) {
+        switch (strtolower((string) $type)) {
             case 'sqlite':
                 if (extension_loaded('sqlite') && isset($options['cache_db_complete_path'])) {
                     $backendType = 'Sqlite';
@@ -206,7 +206,7 @@ class Mage_Core_Model_Cache
                                 }
                             }
                         }
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                     }
                 }
         }
@@ -238,7 +238,7 @@ class Mage_Core_Model_Cache
             $this->_dbConnection = $options['connection'];
         }
 
-        $options['adapter_callback'] = [$this, 'getDbAdapter'];
+        $options['adapter_callback'] = $this->getDbAdapter(...);
         $options['data_table'] = Mage::getSingleton('core/resource')->getTableName('core/cache');
         $options['tags_table'] = Mage::getSingleton('core/resource')->getTableName('core/cache_tag');
         return $options;

@@ -202,7 +202,7 @@ class Varien_File_Uploader
         $this->_result = false;
 
         $destinationFile = $destinationFolder;
-        $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
+        $fileName = $newFileName ?? $this->_file['name'];
         $fileName = self::getCorrectFileName($fileName);
         if ($this->_enableFilesDispersion) {
             $fileName = $this->correctFileNameCase($fileName);
@@ -291,7 +291,7 @@ class Varien_File_Uploader
      */
     public function getFileExtension()
     {
-        return $this->_fileExists ? pathinfo($this->_file['name'], PATHINFO_EXTENSION) : '';
+        return $this->_fileExists ? pathinfo((string) $this->_file['name'], PATHINFO_EXTENSION) : '';
     }
 
     /**
@@ -336,7 +336,7 @@ class Varien_File_Uploader
     public static function getCorrectFileName($fileName)
     {
         $fileName = preg_replace('/[^a-z0-9_\\-\\.]+/i', '_', $fileName);
-        $fileInfo = pathinfo($fileName);
+        $fileInfo = pathinfo((string) $fileName);
 
         if (preg_match('/^_+$/', $fileInfo['filename'])) {
             $fileName = 'file.' . $fileInfo['extension'];
@@ -360,7 +360,7 @@ class Varien_File_Uploader
 
     protected static function _addDirSeparator($dir)
     {
-        if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
+        if (substr((string) $dir, -1) != DIRECTORY_SEPARATOR) {
             $dir .= DIRECTORY_SEPARATOR;
         }
         return $dir;
@@ -381,7 +381,7 @@ class Varien_File_Uploader
                 return $validator->isValid($this->_file['tmp_name']);
             }
             return true;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -451,7 +451,7 @@ class Varien_File_Uploader
     public function setAllowedExtensions($extensions = [])
     {
         foreach ((array) $extensions as $extension) {
-            $this->_allowedExtensions[] = strtolower($extension);
+            $this->_allowedExtensions[] = strtolower((string) $extension);
         }
         return $this;
     }
@@ -512,7 +512,7 @@ class Varien_File_Uploader
             $this->_uploadType = self::MULTIPLE_STYLE;
             $this->_file = $fileId;
         } else {
-            if (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
+            if (preg_match('/^(\w+)\[(\w+)\]$/', (string) $fileId, $file)) {
                 array_shift($file);
                 $this->_uploadType = self::MULTIPLE_STYLE;
 
@@ -543,8 +543,8 @@ class Varien_File_Uploader
             return $this;
         }
 
-        if (substr($destinationFolder, -1) == DIRECTORY_SEPARATOR) {
-            $destinationFolder = substr($destinationFolder, 0, -1);
+        if (substr((string) $destinationFolder, -1) == DIRECTORY_SEPARATOR) {
+            $destinationFolder = substr((string) $destinationFolder, 0, -1);
         }
 
         if (!(@is_dir($destinationFolder) || @mkdir($destinationFolder, 0777, true))) {
@@ -555,7 +555,7 @@ class Varien_File_Uploader
 
     public static function getNewFileName($destFile)
     {
-        $fileInfo = pathinfo($destFile);
+        $fileInfo = pathinfo((string) $destFile);
         if (file_exists($destFile)) {
             $index = 1;
             $baseName = $fileInfo['filename'] . '.' . $fileInfo['extension'];
@@ -575,7 +575,7 @@ class Varien_File_Uploader
     {
         $char = 0;
         $dispretionPath = '';
-        while (($char < 2) && ($char < strlen($fileName))) {
+        while (($char < 2) && ($char < strlen((string) $fileName))) {
             if (empty($dispretionPath)) {
                 $dispretionPath = DIRECTORY_SEPARATOR
                     . ('.' == $fileName[$char] ? '_' : $fileName[$char]);

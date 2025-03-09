@@ -174,7 +174,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
     {
         foreach ($this->_getSelectedNodes() as $selected) {
             if ($selected) {
-                $pathIds = explode('/', $selected->getPathId());
+                $pathIds = explode('/', (string) $selected->getPathId());
                 if (in_array($node->getId(), $pathIds)) {
                     return true;
                 }

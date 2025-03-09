@@ -146,7 +146,7 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
                 }
             }
         }
-        return $errors ? $errors : true;
+        return $errors ?: true;
     }
 
     /**
@@ -224,14 +224,14 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
 
         // find all required attributes labels
         foreach ($this->_errors as $error) {
-            if (preg_match($isRequiredRE, $error, $matches)) {
+            if (preg_match($isRequiredRE, (string) $error, $matches)) {
                 $requiredAttrs[$matches[1]] = true;
             }
         }
         // exclude additional messages for required attributes been failed
         foreach ($this->_errors as $error) {
-            if (preg_match($isRequiredRE, $error)
-                || !preg_match($greaterThanRE, $error, $matches)
+            if (preg_match($isRequiredRE, (string) $error)
+                || !preg_match($greaterThanRE, (string) $error, $matches)
                 || !isset($requiredAttrs[$matches[1]])
             ) {
                 $errors[] = $error;

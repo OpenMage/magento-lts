@@ -907,8 +907,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.'),
                         );
                     }
-                    list($label, $value) = explode(':', $additionalOption, 2);
-                } catch (Exception $e) {
+                    [$label, $value] = explode(':', $additionalOption, 2);
+                } catch (Exception) {
                     Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
                 }
                 $label = trim($label);
@@ -959,7 +959,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     protected function _assignOptionsToItem(Mage_Sales_Model_Quote_Item $item, $options)
     {
         if ($optionIds = $item->getOptionByCode('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 $item->removeOption('option_' . $optionId);
             }
             $item->removeOption('option_ids');
@@ -1010,7 +1010,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
     {
         $newInfoOptions = [];
         if ($optionIds = $item->getOptionByCode('option_ids')) {
-            foreach (explode(',', $optionIds->getValue()) as $optionId) {
+            foreach (explode(',', (string) $optionIds->getValue()) as $optionId) {
                 $option = $item->getProduct()->getOptionById($optionId);
                 $optionValue = $item->getOptionByCode('option_' . $optionId)->getValue();
 
@@ -1653,7 +1653,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $host = $this->getSession()
                 ->getStore()
                 ->getConfig(Mage_Customer_Model_Customer::XML_PATH_DEFAULT_EMAIL_DOMAIN);
-            $account = $customer->getIncrementId() ? $customer->getIncrementId() : time();
+            $account = $customer->getIncrementId() ?: time();
             $email = $account . '@' . $host;
             $account = $this->getData('account');
             $account['email'] = $email;

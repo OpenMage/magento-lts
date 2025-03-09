@@ -111,7 +111,7 @@ try {
     foreach ($transactions as $transaction) {
         $transactionId = $transaction['transaction_id'];
 
-        $parts = explode('-', $transaction['txn_id']);
+        $parts = explode('-', (string) $transaction['txn_id']);
         $realTransactionId = array_shift($parts);
         $additionalInformation = unserialize($transaction['additional_information'], ['allowed_classes' => false]);
         $additionalInformation['real_transaction_id'] = $realTransactionId;

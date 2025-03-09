@@ -52,7 +52,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         try {
             $adapter = Mage::getModel($adapterName);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $message = Mage::helper('dataflow')
                 ->__('Declared adapter %s was not found.', $adapterName);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
@@ -72,7 +72,7 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
 
         if (Mage::app()->getRequest()->getParam('files')) {
             $file = Mage::app()->getConfig()->getTempVarDir() . '/import/'
-                . str_replace('../', '', urldecode(Mage::app()->getRequest()->getParam('files')));
+                . str_replace('../', '', urldecode((string) Mage::app()->getRequest()->getParam('files')));
             $this->_copy($file);
         }
 
@@ -238,17 +238,17 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             $escapedValue = Mage::helper('core')->getEscapedCSVData([$value]);
             $value = $escapedValue[0];
 
-            if (str_contains($value, $delimiter) ||
+            if (str_contains((string) $value, (string) $delimiter) ||
                 empty($enclosure) ||
-                str_contains($value, $enclosure) ||
-                strpos($value, "\n") !== false ||
-                strpos($value, "\r") !== false ||
-                strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false
+                str_contains((string) $value, (string) $enclosure) ||
+                str_contains((string) $value, "\n") ||
+                str_contains((string) $value, "\r") ||
+                str_contains((string) $value, "\t") ||
+                str_contains((string) $value, ' ')
             ) {
                 $str2 = $enclosure;
                 $escaped = 0;
-                $len = strlen($value);
+                $len = strlen((string) $value);
                 for ($i = 0; $i < $len; $i++) {
                     if ($value[$i] == $escapeChar) {
                         $escaped = 1;

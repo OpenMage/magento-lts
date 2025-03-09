@@ -207,7 +207,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         /**
          * Add identifier for new category
          */
-        if (substr($object->getPath(), -1) == '/') {
+        if (str_ends_with($object->getPath(), '/')) {
             $object->setPath($object->getPath() . $object->getId());
             $this->_savePath($object);
         }

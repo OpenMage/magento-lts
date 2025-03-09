@@ -175,7 +175,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $childrenItems = [];
 
             foreach ($arrNodes as $nodeInfo) {
-                $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
+                $pathToParent = explode('/', (string) $nodeInfo[$this->_pathField]);
                 array_pop($pathToParent);
                 $pathToParent = implode('/', $pathToParent);
                 $childrenItems[$pathToParent][] = $nodeInfo;
@@ -286,7 +286,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $newPath = $newParent->getData($this->_pathField);
 
         $newPath = $newPath . '/' . $node->getId();
-        $oldPathLength = strlen($oldPath);
+        $oldPathLength = strlen((string) $oldPath);
 
         $newLevel = $newParent->getLevel() + 1;
         $levelDisposition = $newLevel - $node->getLevel();
@@ -355,7 +355,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                     continue;
                 }
 
-                $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
+                $pathToParent = explode('/', (string) $nodeInfo[$this->_pathField]);
                 array_pop($pathToParent);
                 $pathToParent = implode('/', $pathToParent);
                 $childrenItems[$pathToParent][] = $nodeInfo;
@@ -376,7 +376,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $nodeId = isset($child[$this->_idField]) ? $child[$this->_idField] : false;
+                $nodeId = $child[$this->_idField] ?? false;
                 if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
                     $node->addData($child);
                 } else {

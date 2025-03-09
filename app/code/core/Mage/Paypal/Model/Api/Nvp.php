@@ -1174,13 +1174,13 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $intial = 0;
         $nvpArray = [];
 
-        $nvpstr = strpos($nvpstr, "\r\n\r\n") !== false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n") + 4) : $nvpstr;
+        $nvpstr = str_contains($nvpstr, "\r\n\r\n") ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n") + 4) : $nvpstr;
 
         while (strlen($nvpstr)) {
             //position of Key
             $keypos = strpos($nvpstr, '=');
             //position of value
-            $valuepos = strpos($nvpstr, '&') ? strpos($nvpstr, '&') : strlen($nvpstr);
+            $valuepos = strpos($nvpstr, '&') ?: strlen($nvpstr);
 
             /*getting the Key and Value values and storing in a Associative Array*/
             $keyval = substr($nvpstr, $intial, $keypos);
@@ -1288,7 +1288,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
      */
     protected function _importAddresses(array $to)
     {
-        $billingAddress  = ($this->getBillingAddress()) ? $this->getBillingAddress() : $this->getAddress();
+        $billingAddress  = $this->getBillingAddress() ?: $this->getAddress();
         $shippingAddress = $this->getAddress();
 
         $to = Varien_Object_Mapper::accumulateByMap(

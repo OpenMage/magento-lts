@@ -42,7 +42,7 @@ class Mage_HTTP_Client
             throw new Exception('Cannot find frontend automatically, set it manually');
         }
 
-        $class = __CLASS__ . '_' . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
+        $class = self::class . '_' . str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $frontend)));
         return new $class();
     }
 

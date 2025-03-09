@@ -203,7 +203,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
     {
         $indexes = [];
 
-        $index = sprintf('IDX_%s', strtoupper($this->getAttribute()->getAttributeCode()));
+        $index = sprintf('IDX_%s', strtoupper((string) $this->getAttribute()->getAttributeCode()));
         $indexes[$index] = [
             'type'      => 'index',
             'fields'    => [$this->getAttribute()->getAttributeCode()],
@@ -211,7 +211,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
 
         $sortable   = $this->getAttribute()->getUsedForSortBy();
         if ($sortable && $this->getAttribute()->getFrontend()->getInputType() != 'multiselect') {
-            $index = sprintf('IDX_%s_VALUE', strtoupper($this->getAttribute()->getAttributeCode()));
+            $index = sprintf('IDX_%s_VALUE', strtoupper((string) $this->getAttribute()->getAttributeCode()));
 
             $indexes[$index] = [
                 'type'      => 'index',

@@ -396,19 +396,11 @@ class Mage_Core_Model_Design_Package
      */
     protected function _renderFilename($file, array $params)
     {
-        switch ($params['_type']) {
-            case 'skin':
-                $dir = $this->getSkinBaseDir($params);
-                break;
-
-            case 'locale':
-                $dir = $this->getLocaleBaseDir($params);
-                break;
-
-            default:
-                $dir = $this->getBaseDir($params);
-                break;
-        }
+        $dir = match ($params['_type']) {
+            'skin' => $this->getSkinBaseDir($params),
+            'locale' => $this->getLocaleBaseDir($params),
+            default => $this->getBaseDir($params),
+        };
         return $dir . DS . $file;
     }
 
@@ -587,7 +579,7 @@ class Mage_Core_Model_Design_Package
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
+                if (str_starts_with($entry, '.') || !is_dir($path . DS . $entry)) {
                     continue;
                 }
                 if ($fullPath) {
@@ -663,9 +655,9 @@ class Mage_Core_Model_Design_Package
                 return $rule['value'];
             }
 
-            $regexp = '/' . trim($rule['regexp'], '/') . '/';
+            $regexp = '/' . trim((string) $rule['regexp'], '/') . '/';
 
-            if (@preg_match($regexp, $userAgent)) {
+            if (@preg_match($regexp, (string) $userAgent)) {
                 self::$_regexMatchCache[$rule['regexp']][$userAgent] = true;
                 self::$_customThemeTypeCache[$regexpsConfigPath] = $rule['value'];
                 return $rule['value'];
@@ -740,7 +732,7 @@ class Mage_Core_Model_Design_Package
             $files,
             $targetDir . DS . $targetFilename,
             false,
-            [$this, 'beforeMergeCss'],
+            $this->beforeMergeCss(...),
             'css',
         );
         if ($mergeFilesResult) {
@@ -851,7 +843,7 @@ class Mage_Core_Model_Design_Package
 
         $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
 
-        return preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
+        return preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], (string) $contents);
     }
 
     /**
@@ -888,7 +880,7 @@ class Mage_Core_Model_Design_Package
     protected function _cssMergerUrlCallback($match)
     {
         $quote = ($match[1][0] == "'" || $match[1][0] == '"') ? $match[1][0] : '';
-        $uri = ($quote == '') ? $match[1] : substr($match[1], 1, -1);
+        $uri = ($quote == '') ? $match[1] : substr((string) $match[1], 1, -1);
         $uri = $this->_prepareUrl($uri);
 
         return "url({$quote}{$uri}{$quote})";

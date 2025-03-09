@@ -323,7 +323,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
 
             $indexCategoryIds = [];
             foreach ($categoriesInfo as $categoryInfo) {
-                $ids = explode('/', $categoryInfo['path']);
+                $ids = explode('/', (string) $categoryInfo['path']);
                 $ids[] = $categoryInfo['entity_id'];
                 $indexCategoryIds = array_merge($indexCategoryIds, $ids);
             }

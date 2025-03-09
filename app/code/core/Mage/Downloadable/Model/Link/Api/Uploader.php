@@ -79,7 +79,7 @@ class Mage_Downloadable_Model_Link_Api_Uploader extends Mage_Core_Model_File_Upl
         $file = new Varien_Io_File();
         $file->open(['path' => sys_get_temp_dir()]);
         $file->streamOpen($tmpFileName);
-        $file->streamWrite(base64_decode($fileInfo['base64_content']));
+        $file->streamWrite(base64_decode((string) $fileInfo['base64_content']));
         $file->streamClose();
 
         return [

@@ -255,7 +255,7 @@ class Mage_Catalog_Model_Observer
             return false;
         }
 
-        $categoryPathIds = explode(',', $currentCategory->getPathInStore());
+        $categoryPathIds = explode(',', (string) $currentCategory->getPathInStore());
         return in_array($category->getId(), $categoryPathIds);
     }
 

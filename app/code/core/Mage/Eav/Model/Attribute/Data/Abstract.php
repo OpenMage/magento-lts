@@ -200,7 +200,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
     {
         $filterCode = $this->getAttribute()->getInputFilter();
         if ($filterCode) {
-            $filterClass = 'Varien_Data_Form_Filter_' . ucfirst($filterCode);
+            $filterClass = 'Varien_Data_Form_Filter_' . ucfirst((string) $filterCode);
             if ($filterCode == 'date') {
                 $filter = new $filterClass($this->_dateFilterFormat(), Mage::app()->getLocale()->getLocale());
             } else {

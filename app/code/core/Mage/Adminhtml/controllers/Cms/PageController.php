@@ -223,15 +223,11 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'new':
-            case 'save':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
-            case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page');
-        }
+        return match ($action) {
+            'new', 'save' => Mage::getSingleton('admin/session')->isAllowed('cms/page/save'),
+            'delete' => Mage::getSingleton('admin/session')->isAllowed('cms/page/delete'),
+            default => Mage::getSingleton('admin/session')->isAllowed('cms/page'),
+        };
     }
 
     /**

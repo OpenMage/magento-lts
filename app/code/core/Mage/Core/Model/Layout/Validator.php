@@ -143,7 +143,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
             $value = trim($value);
             try {
                 $value = new Varien_Simplexml_Element('<config>' . $value . '</config>');
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_error(self::XML_INVALID);
                 return false;
             }
@@ -158,7 +158,7 @@ class Mage_Core_Model_Layout_Validator extends Zend_Validate_Abstract
         if ($templatePaths = $value->xpath($this->getXpathValidationExpression())) {
             try {
                 $this->validateTemplatePath($templatePaths);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_error(self::INVALID_TEMPLATE_PATH);
                 return false;
             }

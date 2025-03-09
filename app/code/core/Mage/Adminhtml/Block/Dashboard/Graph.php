@@ -169,7 +169,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $this->setAxisLabels($axis, $this->getRowsData($attr, true));
         }
 
-        list($datas, $dates) = $this->getChartDatasAndDates();
+        [$datas, $dates] = $this->getChartDatasAndDates();
         $this->_axisLabels['x'] = $dates;
         $this->_allSeries = $datas;
 
@@ -210,7 +210,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                             $formats = Mage::app()->getLocale()->getTranslationList('datetime');
                             $format = $formats['yyMM'] ?? 'MM/yyyy';
                             $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
-                            $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
+                            $this->_axisLabels[$idx][$_index] = date($format, strtotime((string) $_label));
                             break;
                     }
                 }
@@ -234,7 +234,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         $timezoneLocal = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
 
-        list($dateStart, $dateEnd) = Mage::getResourceModel('reports/order_collection')
+        [$dateStart, $dateEnd] = Mage::getResourceModel('reports/order_collection')
             ->getDateRange($this->getDataHelper()->getParam('period'), '', '', true);
 
         $dateStart->setTimezone($timezoneLocal);

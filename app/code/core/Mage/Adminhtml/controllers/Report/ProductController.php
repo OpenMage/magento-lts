@@ -242,15 +242,11 @@ class Mage_Adminhtml_Report_ProductController extends Mage_Adminhtml_Controller_
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'viewed':
-                return Mage::getSingleton('admin/session')->isAllowed('report/products/viewed');
-            case 'sold':
-                return Mage::getSingleton('admin/session')->isAllowed('report/products/sold');
-            case 'lowstock':
-                return Mage::getSingleton('admin/session')->isAllowed('report/products/lowstock');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/products');
-        }
+        return match ($action) {
+            'viewed' => Mage::getSingleton('admin/session')->isAllowed('report/products/viewed'),
+            'sold' => Mage::getSingleton('admin/session')->isAllowed('report/products/sold'),
+            'lowstock' => Mage::getSingleton('admin/session')->isAllowed('report/products/lowstock'),
+            default => Mage::getSingleton('admin/session')->isAllowed('report/products'),
+        };
     }
 }

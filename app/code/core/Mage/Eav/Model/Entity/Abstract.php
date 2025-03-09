@@ -172,7 +172,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function setConnection($read, $write = null)
     {
         $this->_read  = $read;
-        $this->_write = $write ? $write : $read;
+        $this->_write = $write ?: $read;
 
         return $this;
     }
@@ -539,7 +539,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         }
 
         $this->_sortingSetId = $setId;
-        uasort($attributes, [$this, 'attributesCompare']);
+        uasort($attributes, $this->attributesCompare(...));
         return $attributes;
     }
 
@@ -853,7 +853,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $value = $object->getData($attribute->getAttributeCode());
             $bind = [
                 'entity_type_id' => $this->getTypeId(),
-                'attribute_code' => trim($value),
+                'attribute_code' => trim((string) $value),
             ];
 
             $select
@@ -869,7 +869,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $bind = [
                 'entity_type_id' => $this->getTypeId(),
                 'attribute_id'   => $attribute->getId(),
-                'value'          => trim($value),
+                'value'          => trim((string) $value),
             ];
             $select
                 ->from($attribute->getBackend()->getTable(), $attribute->getBackend()->getEntityIdField())
@@ -1095,7 +1095,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _getOrigObject($object)
     {
-        $className  = get_class($object);
+        $className  = $object::class;
         $origObject = new $className();
         $origObject->setData([]);
         $this->load($origObject, $object->getData($this->getEntityIdField()));

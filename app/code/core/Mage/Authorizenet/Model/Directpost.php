@@ -276,7 +276,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     public function getCgiUrl()
     {
         $uri = $this->getConfigData('cgi_url');
-        return $uri ? $uri : self::CGI_URL;
+        return $uri ?: self::CGI_URL;
     }
 
     /**
@@ -464,7 +464,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
         if ($response->getXMethod() == self::REQUEST_METHOD_CC) {
             $payment->setCcAvsStatus($response->getXAvsCode())
-                ->setCcLast4($payment->encrypt(substr($response->getXAccountNumber(), -4)));
+                ->setCcLast4($payment->encrypt(substr((string) $response->getXAccountNumber(), -4)));
         }
     }
 
@@ -551,7 +551,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $orderStatus = $order->getConfig()->getStateDefaultStatus($orderState);
         }
 
-        $order->setState($orderState, $orderStatus ? $orderStatus : true, $message, false)
+        $order->setState($orderState, $orderStatus ?: true, $message, false)
             ->save();
 
         //match amounts. should be equals for authorization.
@@ -591,7 +591,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $response = $this->getResponse();
             if ($voidPayment &&
                 $response->getXTransId() &&
-                strtoupper($response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
+                strtoupper((string) $response->getXType()) == self::REQUEST_TYPE_AUTH_ONLY
             ) {
                 $order->getPayment()
                     ->setTransactionId(null)

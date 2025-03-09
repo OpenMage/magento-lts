@@ -1303,7 +1303,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     public function getTrackingNumbers()
     {
         if ($this->getData('tracking_numbers')) {
-            return explode(',', $this->getData('tracking_numbers'));
+            return explode(',', (string) $this->getData('tracking_numbers'));
         }
         return [];
     }
@@ -1349,7 +1349,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if (!isset($segments[1])) {
                 $segments[1] = $segments[0];
             }
-            list($carrierCode, $method) = $segments;
+            [$carrierCode, $method] = $segments;
             return new Varien_Object([
                 'carrier_code' => $carrierCode,
                 'method'       => $method,
@@ -1594,7 +1594,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     {
         $data = Mage::getStoreConfig($configPath, $this->getStoreId());
         if (!empty($data)) {
-            return explode(',', $data);
+            return explode(',', (string) $data);
         }
         return false;
     }

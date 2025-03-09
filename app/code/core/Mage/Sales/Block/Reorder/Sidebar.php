@@ -44,8 +44,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
      */
     public function initOrders()
     {
-        $customerId = $this->getCustomerId() ? $this->getCustomerId()
-            : $this->_getCustomerSession()->getCustomer()->getId();
+        $customerId = $this->getCustomerId() ?: $this->_getCustomerSession()->getCustomer()->getId();
 
         $orders = Mage::getResourceModel('sales/order_collection')
             ->addAttributeToFilter('customer_id', $customerId)

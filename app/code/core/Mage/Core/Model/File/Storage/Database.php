@@ -193,13 +193,13 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
 
         $dateSingleton = Mage::getSingleton('core/date');
         foreach ($files as $file) {
-            if (!isset($file['filename']) || !strlen($file['filename']) || !isset($file['content'])) {
+            if (!isset($file['filename']) || !strlen((string) $file['filename']) || !isset($file['content'])) {
                 continue;
             }
 
             try {
                 $file['update_time'] = $dateSingleton->date();
-                $file['directory_id'] = (isset($file['directory']) && strlen($file['directory']))
+                $file['directory_id'] = (isset($file['directory']) && strlen((string) $file['directory']))
                     ? Mage::getModel(
                         'core/file_storage_directory_database',
                         ['connection' => $this->getConnectionName()],

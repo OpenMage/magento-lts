@@ -113,21 +113,21 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         $this->_generatedCount = 0;
         $size = $this->getQty();
 
-        $maxProbability = $this->getMaxProbability() ? $this->getMaxProbability() : self::MAX_PROBABILITY_OF_GUESSING;
-        $maxAttempts = $this->getMaxAttempts() ? $this->getMaxAttempts() : self::MAX_GENERATE_ATTEMPTS;
+        $maxProbability = $this->getMaxProbability() ?: self::MAX_PROBABILITY_OF_GUESSING;
+        $maxAttempts = $this->getMaxAttempts() ?: self::MAX_GENERATE_ATTEMPTS;
 
         /** @var Mage_SalesRule_Model_Coupon $coupon */
         $coupon = Mage::getModel('salesrule/coupon');
 
         $chars = count(Mage::helper('salesrule/coupon')->getCharset($this->getFormat()));
         $length = (int) $this->getLength();
-        $maxCodes = pow($chars, $length);
+        $maxCodes = $chars ** $length;
         $probability = $size / $maxCodes;
         //increase the length of Code if probability is low
         if ($probability > $maxProbability) {
             do {
                 $length++;
-                $maxCodes = pow($chars, $length);
+                $maxCodes = $chars ** $length;
                 $probability = $size / $maxCodes;
             } while ($probability > $maxProbability);
             $this->setLength($length);

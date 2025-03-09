@@ -188,7 +188,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 }
 
                 if ($doValidation && $weight > $maxAllowedWeight) {
-                    $errorMsg = ($configErrorMsg) ? $configErrorMsg : $defaultErrorMsg;
+                    $errorMsg = $configErrorMsg ?: $defaultErrorMsg;
                     break;
                 }
             }
@@ -269,7 +269,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
     protected function _prepareServiceName($name)
     {
         $name = html_entity_decode((string) $name);
-        $name = strip_tags(preg_replace('#&\w+;#', '', $name));
+        $name = strip_tags((string) preg_replace('#&\w+;#', '', $name));
         return trim($name);
     }
 
@@ -414,18 +414,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
      */
     protected function _isUSCountry($countyId)
     {
-        switch ($countyId) {
-            case 'AS': // Samoa American
-            case 'GU': // Guam
-            case 'MP': // Northern Mariana Islands
-            case 'PW': // Palau
-            case 'PR': // Puerto Rico
-            case 'VI': // Virgin Islands US
-            case 'US': // United States
-                return true;
-        }
-
-        return false;
+        return match ($countyId) {
+            // United States
+            'AS', 'GU', 'MP', 'PW', 'PR', 'VI', 'US' => true,
+            default => false,
+        };
     }
 
     /**

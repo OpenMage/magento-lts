@@ -482,9 +482,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 $this->_columns = array_combine($keys, $values);
             }
         }
-
-        end($this->_columns);
-        $this->_lastColumnId = key($this->_columns);
+        $this->_lastColumnId = array_key_last($this->_columns);
         return $this;
     }
 
@@ -535,7 +533,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         foreach (array_keys($data) as $columnId) {
             $column = $this->getColumn($columnId);
             if ($column instanceof Mage_Adminhtml_Block_Widget_Grid_Column
-                && (!empty($data[$columnId]) || strlen($data[$columnId]) > 0)
+                && (!empty($data[$columnId]) || strlen((string) $data[$columnId]) > 0)
                 && $column->getFilter()
             ) {
                 $column->getFilter()->setValue($data[$columnId]);
@@ -561,9 +559,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             } else {
                 $cond = $column->getFilter()->getCondition();
                 if ($field && $cond !== null) {
-                    $filtered = array_map(static function ($value) {
-                        return is_object($value) ? $value->__toString() : $value;
-                    }, is_array($cond) ? array_values($cond) : [$cond]);
+                    $filtered = array_map(static fn($value) => is_object($value) ? $value->__toString() : $value, is_array($cond) ? array_values($cond) : [$cond]);
                     if (in_array('\'%NULL%\'', $filtered, true) || in_array('NULL', $filtered, true)) {
                         $this->getCollection()->addFieldToFilter($field, ['null' => true]);
                     } else {
@@ -639,7 +635,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
             }
 
             if (isset($this->_columns[$columnId]) && $this->_columns[$columnId]->getIndex()) {
-                $dir = (strtolower($dir) === 'desc') ? 'desc' : 'asc';
+                $dir = (strtolower((string) $dir) === 'desc') ? 'desc' : 'asc';
                 $this->_columns[$columnId]->setDir($dir);
                 $this->_setCollectionOrder($this->_columns[$columnId]);
             }

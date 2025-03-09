@@ -72,7 +72,7 @@ class Mage_Archive
         } else {
             $format = self::DEFAULT_ARCHIVER;
         }
-        $class = 'Mage_Archive_' . ucfirst($format);
+        $class = 'Mage_Archive_' . ucfirst((string) $format);
         $this->_archiver = new $class();
         return $this->_archiver;
     }
@@ -91,7 +91,7 @@ class Mage_Archive
         }
         $format = $this->_formats[$ext];
         if ($format) {
-            return explode('.', $format);
+            return explode('.', (string) $format);
         }
         return [];
     }

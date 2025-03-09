@@ -105,9 +105,7 @@ class Mage_Install_Block_Locale extends Mage_Install_Block_Abstract
      */
     public function getTimezone()
     {
-        $timezone = Mage::getSingleton('install/session')->getTimezone()
-            ? Mage::getSingleton('install/session')->getTimezone()
-            : Mage::app()->getLocale()->getTimezone();
+        $timezone = Mage::getSingleton('install/session')->getTimezone() ?: Mage::app()->getLocale()->getTimezone();
         if ($timezone == Mage_Core_Model_Locale::DEFAULT_TIMEZONE) {
             $timezone = 'America/Los_Angeles';
         }
@@ -138,9 +136,7 @@ class Mage_Install_Block_Locale extends Mage_Install_Block_Abstract
      */
     public function getCurrency()
     {
-        return Mage::getSingleton('install/session')->getCurrency()
-            ? Mage::getSingleton('install/session')->getCurrency()
-            : Mage::app()->getLocale()->getCurrency();
+        return Mage::getSingleton('install/session')->getCurrency() ?: Mage::app()->getLocale()->getCurrency();
     }
 
     public function getFormData()

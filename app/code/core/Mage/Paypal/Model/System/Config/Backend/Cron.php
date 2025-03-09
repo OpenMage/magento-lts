@@ -31,7 +31,7 @@ class Mage_Paypal_Model_System_Config_Backend_Cron extends Mage_Core_Model_Confi
     protected function _afterSave()
     {
         $cronExprString = '';
-        $time = explode(',', Mage::getModel('core/config_data')->load('paypal/fetch_reports/time', 'path')->getValue());
+        $time = explode(',', (string) Mage::getModel('core/config_data')->load('paypal/fetch_reports/time', 'path')->getValue());
         if (Mage::getModel('core/config_data')->load('paypal/fetch_reports/active', 'path')->getValue()) {
             $interval = Mage::getModel('core/config_data')->load(self::CRON_MODEL_PATH_INTERVAL, 'path')->getValue();
             $cronExprString = "{$time[1]} {$time[0]} */{$interval} * *";

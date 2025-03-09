@@ -120,7 +120,7 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
 
         $pathBind = [];
         foreach ($path as $key => $url) {
-            $pathBind['path' . $key] = strtolower($url);
+            $pathBind['path' . $key] = strtolower((string) $url);
         }
         // Form select
         $adapter = $this->_getReadAdapter();

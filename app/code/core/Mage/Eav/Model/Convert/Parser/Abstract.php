@@ -56,7 +56,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
      */
     public function getStoreCode($storeId)
     {
-        return Mage::app()->getStore($storeId ? $storeId : 0)->getCode();
+        return Mage::app()->getStore($storeId ?: 0)->getCode();
     }
 
     /**
@@ -115,7 +115,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
     public function getSourceOptionId(Mage_Eav_Model_Entity_Attribute_Source_Interface $source, $value)
     {
         foreach ($source->getAllOptions() as $option) {
-            if (strcasecmp($option['label'], $value) == 0) {
+            if (strcasecmp((string) $option['label'], $value) == 0) {
                 return $option['value'];
             }
         }

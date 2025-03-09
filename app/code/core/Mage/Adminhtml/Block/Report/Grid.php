@@ -158,7 +158,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 $to   = $this->getLocale()->date($this->getFilter('report_to'), Zend_Date::DATE_SHORT, null, false);
 
                 $collection->setInterval($from, $to);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_errors[] = Mage::helper('reports')->__('Invalid date specified.');
             }
         }
@@ -335,7 +335,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
             return $this->_filters[$name];
         } else {
             return ($this->getRequest()->getParam($name))
-                    ? htmlspecialchars($this->getRequest()->getParam($name)) : '';
+                    ? htmlspecialchars((string) $this->getRequest()->getParam($name)) : '';
         }
     }
 
@@ -413,8 +413,8 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
          * recalculate totals if we have average
          */
         foreach ($this->getColumns() as $key => $_column) {
-            if ($_column->hasTotal() && str_contains($_column->getTotal(), '/')) {
-                list($t1, $t2) = explode('/', $_column->getTotal());
+            if ($_column->hasTotal() && str_contains((string) $_column->getTotal(), '/')) {
+                [$t1, $t2] = explode('/', (string) $_column->getTotal());
                 if ($this->getGrandTotals()->getData($t2) != 0) {
                     $this->getGrandTotals()->setData(
                         $key,

@@ -144,7 +144,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 $data['tag_id'] = $postData['tag_id'];
             }
 
-            $data['name']               = trim($postData['tag_name']);
+            $data['name']               = trim((string) $postData['tag_name']);
             $data['status']             = $postData['tag_status'];
             $data['base_popularity']    = $postData['base_popularity'] ?? 0;
             $data['store']              = $postData['store_id'];
@@ -321,7 +321,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
-        $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
+        $ret = $this->getRequest()->getParam('ret') ?: 'index';
         $this->_redirect('*/*/' . $ret);
     }
 
@@ -331,13 +331,10 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'pending':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending');
-            case 'all':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag');
-        }
+        return match ($action) {
+            'pending' => Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending'),
+            'all' => Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all'),
+            default => Mage::getSingleton('admin/session')->isAllowed('catalog/tag'),
+        };
     }
 }

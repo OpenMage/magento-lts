@@ -76,8 +76,8 @@ class Magento_Profiler_Output_Firebug extends Magento_Profiler_OutputAbstract
 
         // setup the wildfire channel
         $firebugChannel = Zend_Wildfire_Channel_HttpHeaders::getInstance();
-        $firebugChannel->setRequest($this->_request ? $this->_request : new Zend_Controller_Request_Http());
-        $firebugChannel->setResponse($this->_response ? $this->_response : new Zend_Controller_Response_Http());
+        $firebugChannel->setRequest($this->_request ?: new Zend_Controller_Request_Http());
+        $firebugChannel->setResponse($this->_response ?: new Zend_Controller_Response_Http());
 
         // flush the wildfire headers into the response object
         $firebugChannel->flush();

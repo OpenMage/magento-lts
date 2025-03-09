@@ -287,7 +287,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
         $stat = @fstat($this->_streamHandler);
         if (!is_null($part)) {
-            return isset($stat[$part]) ? $stat[$part] : $default;
+            return $stat[$part] ?? $default;
         }
         return $stat;
     }
@@ -648,11 +648,8 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     public function getDestinationFolder($filepath)
     {
-        preg_match('/^(.*[!\/])/', $filepath, $mathces);
-        if (isset($mathces[0])) {
-            return $mathces[0];
-        }
-        return false;
+        preg_match('/^(.*[!\/])/', (string) $filepath, $mathces);
+        return $mathces[0] ?? false;
     }
 
     /**
@@ -938,7 +935,7 @@ class Varien_Io_File extends Varien_Io_Abstract
 
     public function dirname($file)
     {
-        return $this->getCleanPath(dirname($file));
+        return $this->getCleanPath(dirname((string) $file));
     }
 
     public function getStreamHandler()

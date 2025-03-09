@@ -234,7 +234,7 @@ abstract class Mage_Core_Controller_Varien_Action
     {
         // if handles were specified in arguments load them first
         if ($handles !== false && $handles !== '') {
-            $this->getLayout()->getUpdate()->addHandle($handles ? $handles : 'default');
+            $this->getLayout()->getUpdate()->addHandle($handles ?: 'default');
         }
 
         // add default layout handles for this action
@@ -426,18 +426,18 @@ abstract class Mage_Core_Controller_Varien_Action
         } catch (Mage_Core_Controller_Varien_Exception $e) {
             // set prepared flags
             foreach ($e->getResultFlags() as $flagData) {
-                list($action, $flag, $value) = $flagData;
+                [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
             // call forward, redirect or an action
-            list($method, $parameters) = $e->getResultCallback();
+            [$method, $parameters] = $e->getResultCallback();
             switch ($method) {
                 case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
-                    list($path, $arguments) = $parameters;
+                    [$path, $arguments] = $parameters;
                     $this->_redirect($path, $arguments);
                     break;
                 case Mage_Core_Controller_Varien_Exception::RESULT_FORWARD:
-                    list($action, $controller, $module, $params) = $parameters;
+                    [$action, $controller, $module, $params] = $parameters;
                     $this->_forward($action, $controller, $module, $params);
                     break;
                 default:
@@ -558,9 +558,7 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function norouteAction($coreRoute = null)
     {
-        $status = ($this->getRequest()->getParam('__status__'))
-            ? $this->getRequest()->getParam('__status__')
-            : new Varien_Object();
+        $status = $this->getRequest()->getParam('__status__') ?: new Varien_Object();
 
         Mage::dispatchEvent('controller_action_noroute', ['action' => $this, 'status' => $status]);
         if ($status->getLoaded() !== true
@@ -821,7 +819,7 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _getRealModuleName()
     {
         if (empty($this->_realModuleName)) {
-            $class = get_class($this);
+            $class = static::class;
             $this->_realModuleName = substr(
                 $class,
                 0,
@@ -959,7 +957,7 @@ abstract class Mage_Core_Controller_Varien_Action
             $titleBlock = $this->getLayout()->getBlock('head');
             if ($titleBlock) {
                 if (!$this->_removeDefaultTitle) {
-                    $title = trim($titleBlock->getTitle());
+                    $title = trim((string) $titleBlock->getTitle());
                     if ($title) {
                         array_unshift($this->_titles, $title);
                     }

@@ -169,7 +169,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         }
         // trim
         if ($trim) {
-            $str = trim(preg_replace('/\s{2,}/siu', ' ', $str));
+            $str = trim((string) preg_replace('/\s{2,}/siu', ' ', $str));
             /**
              * In cases like:
              * Mage::helper('core/string')->str_split('0 1 2   ', 2, false, true);
@@ -368,7 +368,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         $preparedParam = [];
         $param = explode('=', $str);
         $preparedParam['key'] = urldecode(array_shift($param));
-        $preparedParam['value'] = urldecode(array_shift($param));
+        $preparedParam['value'] = urldecode((string) array_shift($param));
 
         return $preparedParam;
     }
@@ -562,7 +562,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if ($this->isSerializedArrayOrObject($str)) {
             try {
                 $this->unserialize($str);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }

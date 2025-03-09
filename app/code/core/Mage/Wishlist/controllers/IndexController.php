@@ -244,7 +244,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             $session->addSuccess($message);
         } catch (Mage_Core_Exception $e) {
             $session->addError($this->__('An error occurred while adding item to wishlist: %s', $e->getMessage()));
-        } catch (Exception $e) {
+        } catch (Exception) {
             $session->addError($this->__('An error occurred while adding item to wishlist.'));
         }
 
@@ -418,7 +418,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         ->save();
                     $updatedItems++;
-                } catch (Exception $e) {
+                } catch (Exception) {
                     Mage::getSingleton('customer/session')->addError(
                         $this->__('Can\'t save description %s', Mage::helper('core')->escapeHtml($description)),
                     );
@@ -430,7 +430,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 try {
                     $wishlist->save();
                     Mage::helper('wishlist')->calculate();
-                } catch (Exception $e) {
+                } catch (Exception) {
                     Mage::getSingleton('customer/session')->addError($this->__('Can\'t update wishlist'));
                 }
             }
@@ -471,7 +471,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             Mage::getSingleton('customer/session')->addError(
                 $this->__('An error occurred while deleting the item from wishlist: %s', $e->getMessage()),
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('customer/session')->addError(
                 $this->__('An error occurred while deleting the item from wishlist.'),
             );
@@ -648,7 +648,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
             return;
         }
 
-        $emails  = array_filter(explode(',', $this->getRequest()->getPost('emails', '')));
+        $emails  = array_filter(explode(',', (string) $this->getRequest()->getPost('emails', '')));
         $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
         $error   = false;
         if (empty($emails)) {
@@ -745,7 +745,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         }
 
         $optionId = null;
-        if (str_starts_with($option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX)) {
+        if (str_starts_with((string) $option->getCode(), Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX)) {
             $optionId = str_replace(Mage_Catalog_Model_Product_Type_Abstract::OPTION_PREFIX, '', $option->getCode());
             if (!is_numeric($optionId)) {
                 $this->_forward('noRoute');
@@ -774,7 +774,7 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                     'type'  => 'filename',
                 ]);
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_forward('noRoute');
         }
         exit(0);

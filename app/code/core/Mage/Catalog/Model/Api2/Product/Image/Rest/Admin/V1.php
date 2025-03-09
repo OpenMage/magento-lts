@@ -39,7 +39,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             }
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
-        $imageFileContent = @base64_decode($data['file_content'], true);
+        $imageFileContent = @base64_decode((string) $data['file_content'], true);
         if (!$imageFileContent) {
             $this->_critical(
                 'The image content must be valid base64 encoded data',

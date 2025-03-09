@@ -284,7 +284,7 @@ class Mage_Core_Model_Locale
         $zones  = $this->getTranslationList('windowstotimezone');
         ksort($zones);
         foreach ($zones as $code => $name) {
-            $name = trim($name);
+            $name = trim((string) $name);
             $zonesList = explode(' ', $code);
             if (count($zonesList) == 1) {
                 $options[] = [
@@ -319,7 +319,7 @@ class Mage_Core_Model_Locale
         foreach ($days as $code => $name) {
             $options[] = [
                 'label' => $name,
-                'value' => $ucFirstCode ? ucfirst($code) : $code,
+                'value' => $ucFirstCode ? ucfirst((string) $code) : $code,
             ];
         }
         return $options;
@@ -427,7 +427,7 @@ class Mage_Core_Model_Locale
         $data = [];
         if (Mage::isInstalled()) {
             $data = Mage::app()->getStore()->getConfig(self::XML_PATH_ALLOW_CURRENCIES_INSTALLED);
-            return explode(',', $data);
+            return explode(',', (string) $data);
         } else {
             $data = Mage::getSingleton('core/locale_config')->getAllowedCurrencies();
         }
@@ -608,7 +608,7 @@ class Mage_Core_Model_Locale
             $options = [];
             try {
                 $currencyObject = new Zend_Currency($currency, $this->getLocale());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 /**
                  * catch specific exceptions like "Currency 'USD' not found"
                  * - back end falls with specific locals as Malaysia and etc.
@@ -700,25 +700,25 @@ class Mage_Core_Model_Locale
         }
         $format = preg_replace("/[^0\#\.,]/", '', $format);
         $totalPrecision = 0;
-        $decimalPoint = strpos($format, '.');
+        $decimalPoint = strpos((string) $format, '.');
         if ($decimalPoint !== false) {
-            $totalPrecision = (strlen($format) - (strrpos($format, '.') + 1));
+            $totalPrecision = (strlen((string) $format) - (strrpos((string) $format, '.') + 1));
         } else {
-            $decimalPoint = strlen($format);
+            $decimalPoint = strlen((string) $format);
         }
         $requiredPrecision = $totalPrecision;
-        $t = substr($format, $decimalPoint);
+        $t = substr((string) $format, $decimalPoint);
         $pos = strpos($t, '#');
         if ($pos !== false) {
             $requiredPrecision = strlen($t) - $pos - $totalPrecision;
         }
         $group = 0;
-        if (strrpos($format, ',') !== false) {
-            $group = ($decimalPoint - strrpos($format, ',') - 1);
+        if (strrpos((string) $format, ',') !== false) {
+            $group = ($decimalPoint - strrpos((string) $format, ',') - 1);
         } else {
-            $group = strrpos($format, '.');
+            $group = strrpos((string) $format, '.');
         }
-        $integerRequired = (strpos($format, '.') - strpos($format, '0'));
+        $integerRequired = (strpos((string) $format, '.') - strpos((string) $format, '0'));
 
         return [
             'pattern' => Mage::app()->getStore()->getCurrentCurrency()->getOutputFormat(),

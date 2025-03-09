@@ -258,7 +258,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
     {
         if ($this->checkDbUsage()) {
             $path = rtrim(str_replace(['\\', '/'], DS, $result['path']), DS);
-            $file = '/' . ltrim($result['file'], '\\/');
+            $file = '/' . ltrim((string) $result['file'], '\\/');
 
             $uniqueResultFile = $this->getUniqueFilename($path, $file);
 

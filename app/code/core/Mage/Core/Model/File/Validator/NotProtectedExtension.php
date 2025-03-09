@@ -74,7 +74,7 @@ class Mage_Core_Model_File_Validator_NotProtectedExtension extends Zend_Validate
                 $extensions = explode(',', $extensions);
             }
             foreach ($extensions as &$ext) {
-                $ext = strtolower(trim($ext));
+                $ext = strtolower(trim((string) $ext));
             }
             $this->_protectedFileExtensions = (array) $extensions;
         }

@@ -125,7 +125,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
 
             $helper = Mage::helper('adminhtml/config');
             foreach ($groupData['fields'] as $field => $fieldData) {
-                $field = ltrim($field, '/');
+                $field = ltrim((string) $field, '/');
                 $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/' . $field);
                 if (!$fieldConfig && $clonedFields && isset($mappedFields[$field])) {
                     $fieldConfig = $sections->descend($section . '/groups/' . $group . '/fields/'
@@ -266,7 +266,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                     $session->getData('acl')->get($resourceLookup)->getResourceId(),
                 );
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
         return false;
@@ -421,8 +421,8 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         );
                     }
                     foreach ($cloneModel->getPrefixes() as $prefix) {
-                        if (strpos($field, $prefix['field']) === 0) {
-                            $field = substr($field, strlen($prefix['field']));
+                        if (str_starts_with((string) $field, (string) $prefix['field'])) {
+                            $field = substr((string) $field, strlen((string) $prefix['field']));
                         }
                     }
                 }
@@ -457,17 +457,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         if (!$field) {
             return false;
         }
-
-        switch ($this->getScope()) {
-            case self::SCOPE_DEFAULT:
-                return (bool) (int) $field->show_in_default;
-            case self::SCOPE_WEBSITES:
-                return (bool) (int) $field->show_in_website;
-            case self::SCOPE_STORES:
-                return (bool) (int) $field->show_in_store;
-        }
-
-        return true;
+        return match ($this->getScope()) {
+            self::SCOPE_DEFAULT => (bool) (int) $field->show_in_default,
+            self::SCOPE_WEBSITES => (bool) (int) $field->show_in_website,
+            self::SCOPE_STORES => (bool) (int) $field->show_in_store,
+            default => true,
+        };
     }
 
     /**

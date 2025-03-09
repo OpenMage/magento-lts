@@ -122,10 +122,7 @@ class Varien_Object_Cache
         if (isset($this->_references[$idx])) {
             $idx = $this->_references[$idx];
         }
-        if (isset($this->_objects[$idx])) {
-            return $this->_objects[$idx];
-        }
-        return $default;
+        return $this->_objects[$idx] ?? $default;
     }
 
     /**
@@ -160,7 +157,7 @@ class Varien_Object_Cache
         }
 
         if (isset($this->_objects[$idx])) {
-            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . get_class($this->_objects[$idx]) . ', new object class: ' . get_class($object));
+            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . $this->_objects[$idx]::class . ', new object class: ' . $object::class);
         }
 
         $this->_objects[$idx] = $object;
@@ -372,8 +369,8 @@ class Varien_Object_Cache
         $debug = [];
         foreach ($bt as $i => $step) {
             $debug[$i] = [
-                'file'     => isset($step['file']) ? $step['file'] : null,
-                'line'     => isset($step['line']) ? $step['line'] : null,
+                'file'     => $step['file'] ?? null,
+                'line'     => $step['line'] ?? null,
                 'function' => $step['function'],
             ];
         }

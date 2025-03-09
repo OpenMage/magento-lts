@@ -437,8 +437,8 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         $superAttributes['pricing'][] = [
                             'product_super_attribute_id' => $productSuperAttrId,
                             'value_index'   => $optionId,
-                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) === '%',
-                            'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
+                            'is_percent'    => str_ends_with((string) $rowData['_super_attribute_price_corr'], '%'),
+                            'pricing_value' => (float) rtrim((string) $rowData['_super_attribute_price_corr'], '%'),
                             'website_id'    => 0,
                         ];
                     }

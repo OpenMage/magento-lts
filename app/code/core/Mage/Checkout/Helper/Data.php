@@ -109,7 +109,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($item->getPriceInclTax()) {
             return $item->getPriceInclTax();
         }
-        $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
+        $qty = ($item->getQty() ?: ($item->getQtyOrdered() ?: 1));
 
         //Unit price is rowtotal/qty
         return $qty > 0 ? $this->getSubtotalInclTax($item) / $qty : 0;
@@ -151,7 +151,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getBasePriceInclTax($item)
     {
-        $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
+        $qty = ($item->getQty() ?: ($item->getQtyOrdered() ?: 1));
 
         return $qty > 0 ? $this->getBaseSubtotalInclTax($item) / $qty : 0;
     }
@@ -267,7 +267,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $data = Mage::getStoreConfig($configPath, $storeId);
         if (!empty($data)) {
-            return explode(',', $data);
+            return explode(',', (string) $data);
         }
         return false;
     }
