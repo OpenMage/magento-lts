@@ -217,7 +217,7 @@ class Varien_Db_Select extends Zend_Db_Select
         $cond  = (string) $cond;
         $quote = $this->_adapter->getQuoteIdentifierSymbol();
 
-        if (strpos($cond, $quote . $table . $quote . '.') !== false) {
+        if (str_contains($cond, $quote . $table . $quote . '.')) {
             return true;
         }
 

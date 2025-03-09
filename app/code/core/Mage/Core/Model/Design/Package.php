@@ -587,7 +587,7 @@ class Mage_Core_Model_Design_Package
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
+                if (str_starts_with($entry, '.') || !is_dir($path . DS . $entry)) {
                     continue;
                 }
                 if ($fullPath) {

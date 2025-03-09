@@ -1174,7 +1174,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $intial = 0;
         $nvpArray = [];
 
-        $nvpstr = strpos($nvpstr, "\r\n\r\n") !== false ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n") + 4) : $nvpstr;
+        $nvpstr = str_contains($nvpstr, "\r\n\r\n") ? substr($nvpstr, strpos($nvpstr, "\r\n\r\n") + 4) : $nvpstr;
 
         while (strlen($nvpstr)) {
             //position of Key

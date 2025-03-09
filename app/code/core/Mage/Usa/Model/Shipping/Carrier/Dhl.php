@@ -730,7 +730,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $errorTitle = 'Unable to retrieve quotes';
 
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (is_object($xml->Faults)
@@ -1030,7 +1030,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $resultArr = [];
         $errorArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     $trackxml = $xml->Track;

@@ -440,8 +440,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $costArr = [];
         $priceArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
-                if (strpos($response, '<?xml version="1.0"?>') !== false) {
+            if (str_starts_with(trim($response), '<?xml')) {
+                if (str_contains($response, '<?xml version="1.0"?>')) {
                     $response = str_replace(
                         '<?xml version="1.0"?>',
                         '<?xml version="1.0" encoding="ISO-8859-1"?>',
@@ -976,7 +976,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (isset($xml->Number) && isset($xml->Description) && (string) $xml->Description != '') {

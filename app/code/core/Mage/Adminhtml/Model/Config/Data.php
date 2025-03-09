@@ -421,7 +421,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                         );
                     }
                     foreach ($cloneModel->getPrefixes() as $prefix) {
-                        if (strpos($field, $prefix['field']) === 0) {
+                        if (str_starts_with($field, $prefix['field'])) {
                             $field = substr($field, strlen($prefix['field']));
                         }
                     }

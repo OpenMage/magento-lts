@@ -146,7 +146,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     {
         $data = parent::load($id, $doNotTestCacheValidity, $doNotUnserialize);
 
-        if (is_string($data) && (substr($data, 0, strlen(self::CODE_WORD)) == self::CODE_WORD)) {
+        if (is_string($data) && (str_starts_with($data, self::CODE_WORD))) {
             // Seems we've got chunked data
 
             $arr = explode('|', $data);

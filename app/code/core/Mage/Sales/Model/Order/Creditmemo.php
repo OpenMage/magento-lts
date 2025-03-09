@@ -647,7 +647,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public function setAdjustmentPositive($amount)
     {
         $amount = trim($amount);
-        if (substr($amount, -1) === '%') {
+        if (str_ends_with($amount, '%')) {
             $amount = (float) substr($amount, 0, -1);
             $amount = $this->getOrder()->getGrandTotal() * $amount / 100;
         }
@@ -669,7 +669,7 @@ class Mage_Sales_Model_Order_Creditmemo extends Mage_Sales_Model_Abstract
     public function setAdjustmentNegative($amount)
     {
         $amount = trim($amount);
-        if (substr($amount, -1) === '%') {
+        if (str_ends_with($amount, '%')) {
             $amount = (float) substr($amount, 0, -1);
             $amount = $this->getOrder()->getGrandTotal() * $amount / 100;
         }

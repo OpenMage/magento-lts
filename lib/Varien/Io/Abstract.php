@@ -99,7 +99,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
 
     public function allowedPath($haystackPath, $needlePath)
     {
-        return strpos($this->getCleanPath($haystackPath), $this->getCleanPath($needlePath)) === 0;
+        return str_starts_with($this->getCleanPath($haystackPath), $this->getCleanPath($needlePath));
     }
 
     /**

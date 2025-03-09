@@ -911,7 +911,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $responseError =  Mage::helper('usa')->__('The response is in wrong format.');
 
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (in_array($xml->getName(), ['ErrorResponse', 'ShipmentValidateErrorResponse'])

@@ -142,7 +142,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             // Simple exploding by / does not suffice,
             // as an attribute value may contain a / inside
             // Note that there are three matches for different kinds of attribute values specification
-            if (strpos($path, '@') === false) {
+            if (!str_contains($path, '@')) {
                 $pathArr = explode('/', $path);
             } else {
                 $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
@@ -154,7 +154,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
         $desc = $this;
         foreach ($pathArr as $nodeName) {
-            if (strpos($nodeName, '@') !== false) {
+            if (str_contains($nodeName, '@')) {
                 $a = explode('@', $nodeName);
                 $b = explode('=', $a[1]);
                 $nodeName = $a[0];

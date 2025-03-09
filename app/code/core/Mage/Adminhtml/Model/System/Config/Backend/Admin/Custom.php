@@ -39,7 +39,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
     {
         $value = $this->getValue();
 
-        if (!empty($value) && substr($value, -2) !== '}}') {
+        if (!empty($value) && !str_ends_with($value, '}}')) {
             $value = rtrim($value, '/') . '/';
         }
 

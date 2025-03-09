@@ -560,9 +560,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         if (isset($matches[6])
             && (
-                strpos($matches[6], "'") !== false
-                || strpos($matches[6], ':') !== false
-                || strpos($matches[6], '?') !== false
+                str_contains($matches[6], "'")
+                || str_contains($matches[6], ':')
+                || str_contains($matches[6], '?')
             )
         ) {
             $bindName = ':_mage_bind_var_' . (++$this->_bindIncrement);
@@ -776,7 +776,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $foreignKeys = $this->getForeignKeys($tableName, $schemaName);
         $fkName = strtoupper($fkName);
-        if (substr($fkName, 0, 3) == 'FK_') {
+        if (str_starts_with($fkName, 'FK_')) {
             $fkName = substr($fkName, 3);
         }
         foreach ([$fkName, 'FK_' . $fkName] as $key) {
@@ -4048,7 +4048,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _getForeignKeyName($fkName)
     {
-        if (substr($fkName, 0, 3) != 'FK_') {
+        if (!str_starts_with($fkName, 'FK_')) {
             $fkName = 'FK_' . $fkName;
         }
 

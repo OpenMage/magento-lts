@@ -505,7 +505,7 @@ class Mage_Core_Model_Url extends Varien_Object
                     $routePath .= $key . '/' . $value . '/';
                 }
             }
-            if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
+            if ($routePath != '' && !str_ends_with($routePath, '/')) {
                 $routePath .= '/';
             }
             $this->setData('route_path', $routePath);
@@ -1008,7 +1008,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery($escapeQuery);
         if ($query) {
-            $mark = (strpos($url, '?') === false) ? '?' : ($escapeQuery ? '&amp;' : '&');
+            $mark = (!str_contains($url, '?')) ? '?' : ($escapeQuery ? '&amp;' : '&');
             $url .= $mark . $query;
         }
 
@@ -1240,7 +1240,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery(false);
         if ($query) {
-            $url .= (strpos($url, '?') === false ? '?' : '&') . $query;
+            $url .= (!str_contains($url, '?') ? '?' : '&') . $query;
         }
 
         return $url;

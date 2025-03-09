@@ -493,14 +493,14 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             $sValue = $backend->getValue();
         }
 
-        if (is_string($sValue) && strpos($sValue, '{{') !== false) {
-            if (strpos($sValue, '{{unsecure_base_url}}') !== false) {
+        if (is_string($sValue) && str_contains($sValue, '{{')) {
+            if (str_contains($sValue, '{{unsecure_base_url}}')) {
                 $unsecureBaseUrl = $this->getConfig(self::XML_PATH_UNSECURE_BASE_URL);
                 $sValue = str_replace('{{unsecure_base_url}}', $unsecureBaseUrl, $sValue);
-            } elseif (strpos($sValue, '{{secure_base_url}}') !== false) {
+            } elseif (str_contains($sValue, '{{secure_base_url}}')) {
                 $secureBaseUrl = $this->getConfig(self::XML_PATH_SECURE_BASE_URL);
                 $sValue = str_replace('{{secure_base_url}}', $secureBaseUrl, $sValue);
-            } elseif (strpos($sValue, '{{base_url}}') !== false) {
+            } elseif (str_contains($sValue, '{{base_url}}')) {
                 $sValue = Mage::getConfig()->substDistroServerVars($sValue);
             }
         }
@@ -523,13 +523,13 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
             return $value;
         }
 
-        if (strpos($value, '{{unsecure_base_url}}') !== false) {
+        if (str_contains($value, '{{unsecure_base_url}}')) {
             $unsecureBaseUrl = $this->getConfig(self::XML_PATH_UNSECURE_BASE_URL);
             $value = str_replace('{{unsecure_base_url}}', $unsecureBaseUrl, $value);
-        } elseif (strpos($value, '{{secure_base_url}}') !== false) {
+        } elseif (str_contains($value, '{{secure_base_url}}')) {
             $secureBaseUrl = $this->getConfig(self::XML_PATH_SECURE_BASE_URL);
             $value = str_replace('{{secure_base_url}}', $secureBaseUrl, $value);
-        } elseif (strpos($value, '{{') !== false && strpos($value, '{{base_url}}') === false) {
+        } elseif (str_contains($value, '{{') && !str_contains($value, '{{base_url}}')) {
             $value = Mage::getConfig()->substDistroServerVars($value);
         }
         return $value;
@@ -613,7 +613,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                     throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid base url type'));
             }
 
-            if (strpos($url, '{{base_url}}') !== false) {
+            if (str_contains($url, '{{base_url}}')) {
                 $baseUrl = Mage::getConfig()->substDistroServerVars('{{base_url}}');
                 $url = str_replace('{{base_url}}', $baseUrl, $url);
             }

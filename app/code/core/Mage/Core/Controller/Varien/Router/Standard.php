@@ -520,9 +520,9 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
      */
     protected function _shouldBeSecure($path)
     {
-        return substr(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 0, 5) === 'https'
+        return str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL), 'https')
             || Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_FRONTEND)
-                && substr(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL), 0, 5) == 'https'
+                && str_starts_with(Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL), 'https')
                 && Mage::getConfig()->shouldUrlBeSecure($path);
     }
 }
