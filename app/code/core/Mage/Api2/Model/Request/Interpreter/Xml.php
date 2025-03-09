@@ -50,17 +50,9 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         }
         $body = strpos($body, '<?xml') !== false ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
 
-        // disable external entity loading to prevent possible vulnerability
-        if ((LIBXML_VERSION < 20900) && function_exists('libxml_disable_entity_loader')) {
-            libxml_disable_entity_loader(true);
-        }
         set_error_handler([$this, '_loadErrorHandler']); // Warnings and errors are suppressed
         $config = simplexml_load_string($body);
         restore_error_handler();
-        // restore default behavior to make possible to load external entities
-        if ((LIBXML_VERSION < 20900) && function_exists('libxml_disable_entity_loader')) {
-            libxml_disable_entity_loader(false);
-        }
 
         // Check if there was a error while loading file
         if ($this->_loadErrorStr !== null) {
