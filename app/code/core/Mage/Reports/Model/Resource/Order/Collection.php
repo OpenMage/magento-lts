@@ -227,24 +227,14 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      */
     protected function _getRangeExpression($range)
     {
-        switch ($range) {
-            case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
-                $expression = $this->getConnection()->getConcatSql([
-                    $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
-                    $this->getConnection()->quote('00'),
-                ]);
-                break;
-            case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
-            case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
-                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d');
-                break;
-            case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
-            case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
-            case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
-            default:
-                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m');
-                break;
-        }
+        $expression = match ($range) {
+            Mage_Reports_Helper_Data::PERIOD_24_HOURS => $this->getConnection()->getConcatSql([
+                $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
+                $this->getConnection()->quote('00'),
+            ]),
+            Mage_Reports_Helper_Data::PERIOD_7_DAYS, Mage_Reports_Helper_Data::PERIOD_1_MONTH => $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d'),
+            default => $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m'),
+        };
 
         return $expression;
     }

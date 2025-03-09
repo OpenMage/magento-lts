@@ -2784,20 +2784,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
         $fieldSql = implode(',', $fieldSql);
 
-        switch (strtolower($indexType)) {
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY:
-                $condition = 'PRIMARY KEY';
-                break;
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE:
-                $condition = 'UNIQUE ' . $this->quoteIdentifier($indexName);
-                break;
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT:
-                $condition = 'FULLTEXT ' . $this->quoteIdentifier($indexName);
-                break;
-            default:
-                $condition = 'INDEX ' . $this->quoteIdentifier($indexName);
-                break;
-        }
+        $condition = match (strtolower($indexType)) {
+            Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY => 'PRIMARY KEY',
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE => 'UNIQUE ' . $this->quoteIdentifier($indexName),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT => 'FULLTEXT ' . $this->quoteIdentifier($indexName),
+            default => 'INDEX ' . $this->quoteIdentifier($indexName),
+        };
 
         $query .= sprintf(' ADD %s (%s)', $condition, $fieldSql);
 
@@ -3926,16 +3918,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _getDdlAction($action)
     {
-        switch ($action) {
-            case Varien_Db_Adapter_Interface::FK_ACTION_CASCADE:
-                return Varien_Db_Ddl_Table::ACTION_CASCADE;
-            case Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL:
-                return Varien_Db_Ddl_Table::ACTION_SET_NULL;
-            case Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT:
-                return Varien_Db_Ddl_Table::ACTION_RESTRICT;
-            default:
-                return Varien_Db_Ddl_Table::ACTION_NO_ACTION;
-        }
+        return match ($action) {
+            Varien_Db_Adapter_Interface::FK_ACTION_CASCADE => Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL => Varien_Db_Ddl_Table::ACTION_SET_NULL,
+            Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT => Varien_Db_Ddl_Table::ACTION_RESTRICT,
+            default => Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        };
     }
 
     /**

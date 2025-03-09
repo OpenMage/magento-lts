@@ -109,13 +109,10 @@ class Mage_Core_Model_Domainpolicy
      */
     protected function _getDomainPolicyByCode($policyCode)
     {
-        switch ($policyCode) {
-            case self::FRAME_POLICY_ALLOW:
-                $policy = null;
-                break;
-            default:
-                $policy = 'SAMEORIGIN';
-        }
+        $policy = match ($policyCode) {
+            self::FRAME_POLICY_ALLOW => null,
+            default => 'SAMEORIGIN',
+        };
 
         return $policy;
     }

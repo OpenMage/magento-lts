@@ -702,14 +702,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $bindCond = $tableAlias . '.' . trim($pk) . '=' . $this->_getAttributeFieldName(trim($fk));
 
         // process join type
-        switch ($joinType) {
-            case 'left':
-                $joinMethod = 'joinLeft';
-                break;
-
-            default:
-                $joinMethod = 'join';
-        }
+        $joinMethod = match ($joinType) {
+            'left' => 'joinLeft',
+            default => 'join',
+        };
         $condArr = [$bindCond];
 
         // add where condition if needed
@@ -787,14 +783,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
 
         // process join type
-        switch ($joinType) {
-            case 'left':
-                $joinMethod = 'joinLeft';
-                break;
-
-            default:
-                $joinMethod = 'join';
-        }
+        $joinMethod = match ($joinType) {
+            'left' => 'joinLeft',
+            default => 'join',
+        };
         $condArr = [$bindCond];
 
         // add where condition if needed
