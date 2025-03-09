@@ -203,7 +203,9 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             }, ARRAY_FILTER_USE_KEY);
             $this->envStore = $env;
         }
-        if (!isset($this->envStore[static::ENV_FEATURE_ENABLED])) {
+        if (!isset($this->envStore[static::ENV_FEATURE_ENABLED]) ||
+            (bool) $this->envStore[static::ENV_FEATURE_ENABLED] === false
+        ) {
             $this->envStore = [];
             return $this->envStore;
         }
