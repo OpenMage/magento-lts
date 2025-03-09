@@ -122,10 +122,7 @@ class Varien_Object_Cache
         if (isset($this->_references[$idx])) {
             $idx = $this->_references[$idx];
         }
-        if (isset($this->_objects[$idx])) {
-            return $this->_objects[$idx];
-        }
-        return $default;
+        return $this->_objects[$idx] ?? $default;
     }
 
     /**
