@@ -711,7 +711,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 return $this->getUnusedPathByUrlKey($storeId, '-', $idPath, $urlKey);
             }
             $match['prefix'] = $match['prefix'] . '-';
-            $match['suffix'] = $match['suffix'] ?? '';
+            $match['suffix'] ??= '';
 
             $lastRequestPath = $this->getResource()
                 ->getLastUsedRewriteRequestIncrement($match['prefix'], $match['suffix'], $storeId);

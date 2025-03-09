@@ -2372,7 +2372,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getReviewSummary($storeId = null)
     {
-        $storeId = $storeId ?? Mage::app()->getStore()->getId();
+        $storeId ??= Mage::app()->getStore()->getId();
         if (empty($this->_reviewSummary[$storeId])) {
             $this->_reviewSummary[$storeId] = Mage::getModel('review/review_summary')
                 ->setStoreId($storeId)
