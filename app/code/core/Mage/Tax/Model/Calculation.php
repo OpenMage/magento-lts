@@ -670,7 +670,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      */
     public function truncate($price, $precision = 4)
     {
-        $exp = pow(10, $precision);
+        $exp = 10 ** $precision;
         return floor($price * $exp) / $exp;
     }
 
