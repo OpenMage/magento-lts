@@ -805,7 +805,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function getFlag($flag)
     {
-        return isset($this->_flags[$flag]) ? $this->_flags[$flag] : null;
+        return $this->_flags[$flag] ?? null;
     }
 
     /**

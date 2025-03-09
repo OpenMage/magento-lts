@@ -123,7 +123,7 @@ class Varien_Cache_Backend_Memcached extends Zend_Cache_Backend_Memcached implem
             // Seems we've got chunked data
 
             $arr = explode('|', $data);
-            $chunks = isset($arr[1]) ? $arr[1] : false;
+            $chunks = $arr[1] ?? false;
             $chunkData = [];
 
             if ($chunks && is_numeric($chunks)) {

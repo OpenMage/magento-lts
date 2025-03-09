@@ -422,7 +422,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
                     $currField,
-                    isset($condition[$key]) ? $condition[$key] : null,
+                    $condition[$key] ?? null,
                 );
             }
 

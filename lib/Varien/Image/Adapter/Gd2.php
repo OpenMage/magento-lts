@@ -141,7 +141,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
         }
 
-        $destinationDir = (isset($destination)) ? $destination : $this->_fileSrcPath;
+        $destinationDir = $destination ?? $this->_fileSrcPath;
 
         if (!is_writable($destinationDir)) {
             try {

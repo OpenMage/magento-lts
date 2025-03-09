@@ -287,7 +287,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
         $stat = @fstat($this->_streamHandler);
         if (!is_null($part)) {
-            return isset($stat[$part]) ? $stat[$part] : $default;
+            return $stat[$part] ?? $default;
         }
         return $stat;
     }

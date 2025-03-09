@@ -89,7 +89,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
     {
         $adapter = $this->getConnection();
         if (!is_array($storeId)) {
-            $storeId = [$storeId === null ? -1 : $storeId];
+            $storeId = [$storeId ?? -1];
         }
         if (empty($storeId)) {
             return $this;
