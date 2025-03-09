@@ -591,7 +591,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
             $isEqualPrice = ($intervalFirstPrice == $this->_maxPrice) ? $intervalFirstPrice : false;
             $result[$this->getIntervalsNumber()] = [
                 'from'  => $isEqualPrice ?: $lastSeparator,
-                'to'    => $isEqualPrice ?: is_null($this->_upperLimit) ? '' : $this->_upperLimit,
+                'to'    => ($isEqualPrice ?: is_null($this->_upperLimit)) ? '' : $this->_upperLimit,
                 'count' => $this->_count - $lastCount,
             ];
         }
