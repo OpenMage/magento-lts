@@ -328,7 +328,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * @param   string $rootName - root element name
      * @return  none
      */
-    public function toXml(&$xml, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
+    public function toXml(&$xml = null, $recursionLevel = 0, $addOpenTag = true, $rootName = 'Struct')
     {
         if ($recursionLevel == 0) {
             $xml = '';
@@ -407,7 +407,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
      * add filter
      * @return  none
      */
-    public function addFilter($field, $value)
+    public function addFilter($field, $value, $type = 'and')
     {
         $filter = [];
         $filter['field']   = $field;
