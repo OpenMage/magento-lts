@@ -1447,7 +1447,7 @@ class Mage_Core_Model_App
             $object->$method($observer);
         } elseif (Mage::getIsDeveloperMode()) {
             if (is_object($object)) {
-                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
+                $message = 'Method "' . $method . '" is not defined in "' . $object::class . '"';
             } else {
                 $message = 'Class from observer "' . $observerName . '" is not initialized';
             }
