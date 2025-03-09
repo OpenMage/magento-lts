@@ -624,7 +624,7 @@ class Varien_Object implements ArrayAccess
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception(
-            'Invalid method ' . $this::class . '::' . $method . '(' . print_r($args, true) . ')',
+            'Invalid method ' . static::class . '::' . $method . '(' . print_r($args, true) . ')',
         );
     }
 
