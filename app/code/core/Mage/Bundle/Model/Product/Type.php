@@ -852,11 +852,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $b->getPosition(),
             $b->getSelectionId(),
         ];
-        if ($aPosition == $bPosition) {
-            return 0;
-        } else {
-            return $aPosition < $bPosition ? -1 : 1;
-        }
+        return $aPosition <=> $bPosition;
     }
 
     /**

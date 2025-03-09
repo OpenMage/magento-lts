@@ -292,11 +292,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     {
         $createdAtA = $a['created_at'];
         $createdAtB = $b['created_at'];
-
-        /** @var Zend_Date $createdAtA */
-        if ($createdAtA->getTimestamp() == $createdAtB->getTimestamp()) {
-            return 0;
-        }
-        return ($createdAtA->getTimestamp() < $createdAtB->getTimestamp()) ? -1 : 1;
+        return $createdAtA->getTimestamp() <=> $createdAtB->getTimestamp();
     }
 }
