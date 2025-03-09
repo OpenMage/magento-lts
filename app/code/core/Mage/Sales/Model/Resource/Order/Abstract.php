@@ -205,7 +205,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     {
         $adapter = $this->_getWriteAdapter();
         foreach ($this->getVirtualGridColumns() as $alias => $expression) {
-            list($table, $joinCondition, $column) = $expression;
+            [$table, $joinCondition, $column] = $expression;
             $tableAlias = 'table_' . $alias;
 
             $joinConditionExpr = [];

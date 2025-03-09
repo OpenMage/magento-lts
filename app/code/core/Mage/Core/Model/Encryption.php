@@ -154,7 +154,7 @@ class Mage_Core_Model_Encryption
         if (count($hashArr) === 1) {
             return hash_equals($this->hash($password, $version), $hash);
         }
-        list($hash, $salt) = $hashArr;
+        [$hash, $salt] = $hashArr;
         return hash_equals($this->hash($salt . $password, $version), $hash);
     }
 

@@ -365,7 +365,7 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
 
         $parts = explode('|', $construction[2], 2);
         if (count($parts) === 2) {
-            list($variableName, $modifiersString) = $parts;
+            [$variableName, $modifiersString] = $parts;
             return $this->_amplifyModifiers($this->_getVariable($variableName, ''), $modifiersString);
         }
         return $this->_getVariable($construction[2], '');

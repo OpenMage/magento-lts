@@ -203,7 +203,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         $columns = $this->_select->getPart(Zend_Db_Select::COLUMNS);
         $columnsToSelect = [];
         foreach ($columns as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
+            [$correlationName, $column, $alias] = $columnEntry;
             if ($correlationName !== 'main_table') { // Add joined fields to select
                 if ($column instanceof Zend_Db_Expr) {
                     $column = $column->__toString();

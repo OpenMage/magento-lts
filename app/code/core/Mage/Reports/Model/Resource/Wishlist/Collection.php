@@ -78,7 +78,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
         $count = $collection->count();
         $resultSelect = $this->getConnection()->select()
             ->union([$customersSelect, $count], Zend_Db_Select::SQL_UNION_ALL);
-        list($customers, $count) = $this->getConnection()->fetchCol($resultSelect);
+        [$customers, $count] = $this->getConnection()->fetchCol($resultSelect);
 
         return [($count * 100) / $customers, $count];
     }

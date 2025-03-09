@@ -1226,7 +1226,7 @@ class Mage_Paypal_Model_Config
 
         $imageType = 'logo';
         $domain = 'paypal.com';
-        list(, $country) = explode('_', $locale);
+        [, $country] = explode('_', $locale);
         $countryPrefix = $country . '/';
 
         switch ($locale) {

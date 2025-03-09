@@ -47,7 +47,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
             $args['timeout'] = self::REMOTE_TIMEOUT;
         }
         if (str_contains($args['host'], ':')) {
-            list($host, $port) = explode(':', $args['host'], 2);
+            [$host, $port] = explode(':', $args['host'], 2);
         } else {
             $host = $args['host'];
             $port = self::SSH2_PORT;
