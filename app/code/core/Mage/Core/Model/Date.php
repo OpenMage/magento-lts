@@ -217,7 +217,7 @@ class Mage_Core_Model_Date
             return false;
         }
         foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
-            $value = (int) $$var;
+            $value = (int) ${$var};
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
