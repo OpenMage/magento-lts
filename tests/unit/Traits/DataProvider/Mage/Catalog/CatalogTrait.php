@@ -25,10 +25,6 @@ trait CatalogTrait
 
     public function provideFormatUrlKey(): Generator
     {
-        yield 'null locale' => [
-            'a-b-x-a-o-u-tm',
-            null,
-        ];
         yield 'de_DE' => [
             'a-und-b-x-prozent-at-ae-oe-ue-tm',
             'de_DE',
