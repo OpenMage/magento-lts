@@ -109,11 +109,10 @@ Create a new project in PhpStorm that has the location where you cloned the Open
 ![new_project](https://github.com/OpenMage/magento-lts/assets/8360474/b408b23c-0128-4887-abc8-30e7133e4fb3)
 
 ### (Linux) Installing DDEV
-https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/
 
-1. Open the `Terminal` application and choose a new tab with Ubuntu
-2. Bring all the packages up to date Ubuntu `sudo apt update && sudo apt upgrade -y`
-3. Install DDEV according to the instructions
+1. Open the `Terminal` application and choose a new tab with Ubuntu.
+2. Bring all the packages up to date Ubuntu `sudo apt update && sudo apt upgrade -y`.
+3. Install DDEV according to the [instructions](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/).
 
 ### (Linux) Copying mkcert Certificates from Windows to Linux
 

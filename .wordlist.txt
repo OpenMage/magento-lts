@@ -14,5 +14,6 @@ SMTP
 SSL
 toc
 WSDL
+WSL
 Xdebug
 Zend
