@@ -12,6 +12,7 @@ Magento
 Mailpit
 MkDocs
 npm
+OAuth
 OpenMage
 phpMyAdmin
 PhpStorm

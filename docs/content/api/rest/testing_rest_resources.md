@@ -74,12 +74,12 @@ The following parameters must be provided in the Authorization header for the ca
     ![](assets/images/rest_test010.png)
     *   **Consumer key**: Enter the **Key** value provided when you created the consumer in Magento Admin Panel.
     *   **Consumer secret**: Enter the **Secret** value provided when you created the consumer in Magento Admin Panel.
-    *   **Access Token**: Enter the oauth\_token value received when you authenticated the application.
-    *   **Access Token Secret**: Enter the oauth\_token\_secret value received when you authenticated the application.
+    *   **Access Token**: Enter the `oauth\_token` value received when you authenticated the application.
+    *   **Access Token Secret**: Enter the `oauth\_token\_secret` value received when you authenticated the application.
 9.  Click **OK**.  
     **NOTE**: Advanced REST Client does not save the **Consumer secret** and **Access Token Secret** values. You need to enter these values each time you make a request.
 10.  In the **URL** field, enter the URL to which the API call will be performed and select the required HTTP method.
-11.  In the **Headers** table, click **Add row** and add the Accept - application/json or Accept - text/xml header depending on which format you prefer for the returned data.
+11.  In the **Headers** table, click **Add row** and add the `Accept - application/json` or `Accept - text/xml` header depending on which format you prefer for the returned data.
 12.  Click **Send Request**.
 
 **Example: Retrieving the list of customers**
