@@ -2,6 +2,8 @@ CMS
 CVE
 DDEV
 DNS
+ImageMagick
+JS
 JSON
 LTS
 Magento

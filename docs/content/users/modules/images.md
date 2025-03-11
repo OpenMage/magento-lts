@@ -7,7 +7,7 @@ tags:
 # Image modules
 
 ## `anhuy1989/html5upload`
-HTML5 Upload Image product and cms.
+HTML5 Upload Image product and CMS.
 
 This Plugin enable the upload image width HTML5 it's possible upload multiple image.
 
