@@ -89,7 +89,7 @@ Note, you can also have the patch downloaded at runtime by defining it as a url 
 
 If it doesn't apply cleanly, apply the patch using `git apply` and fix the conflicts and then output the changes as a local patch file using one of the methods below.
 
-### symplify/vendor-patches
+### `symplify/vendor-patches`
 
 If you are using OpenMage as a project dependency, you can use `symplify/vendor-patches` to generate a patch file easily. This tool automatically
 updates your composer.json for you. Note, in the case of modifying OpenMage core code installed as a project dependency you will need to modify the

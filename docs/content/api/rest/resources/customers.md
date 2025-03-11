@@ -159,7 +159,7 @@ Allows you to manage existing customers.
 ### HTTP Method GET
 
 **Description**: Allows you to retrieve information on an existing customer.  
-**Notes:**: The list of attributes that will be returned for customers is configured in the Magento Admin Panel. The Customer user type has access only to his/her own information. Also, Admin can add additional non-system customer attributes by selecting **Customers** > **Attributes** > **Manage Customer Attributes**. If these attributes are set as visible on frontend, they will be returned in the response. Also, custom attributes will be returned in the response only after the customer information is updated in the Magento Admin Panel or the specified custom attribute is updated via API (see the PUT method below). Please note that managing customer attributes is available only in Magento Enterprise Edition.
+**Notes:**: The list of attributes that will be returned for customers is configured in the Magento Admin Panel. The Customer user type has access only to his/her own information. Also, Admin can add additional non-system customer attributes by selecting **Customers** > **Attributes** > **Manage Customer Attributes**. If these attributes are set as visible on front-end, they will be returned in the response. Also, custom attributes will be returned in the response only after the customer information is updated in the Magento Admin Panel or the specified custom attribute is updated via API (see the PUT method below). Please note that managing customer attributes is available only in Magento Enterprise Edition.
 
 **Authentication**: Admin, Customer<br>
 **Default Format**: XML<br>

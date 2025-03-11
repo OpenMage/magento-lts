@@ -49,7 +49,7 @@ _If you rely on those modules you can reinstall them with composer:_
   composer require openmage/module-mage-sendfriend
   ```
 
-- Legacy frontend themes
+- Legacy front-end themes
 
   ```bash
   composer require openmage/legacy-frontend-themes
@@ -60,7 +60,7 @@ _If you rely on those modules you can reinstall them with composer:_
 Do not use 20.x.x if you need IE support.
 
 - removed IE conditional comments, IE styles, IE scripts and IE eot files ([#1073](https://github.com/OpenMage/magento-lts/pull/1073))
-- removed frontend default themes (default, modern, iphone, german, french, blank, blue) ([#1600](https://github.com/OpenMage/magento-lts/pull/1600))
+- removed front-end default themes (default, modern, iphone, german, french, blank, blue) ([#1600](https://github.com/OpenMage/magento-lts/pull/1600))
 - fixed incorrect datetime in customer block (`$useTimezone` parameter) ([#1525](https://github.com/OpenMage/magento-lts/pull/1525))
 - added redis as a valid option for `global/session_save` ([#1513](https://github.com/OpenMage/magento-lts/pull/1513))
 - reduce needless saves by avoiding setting `_hasDataChanges` flag ([#2066](https://github.com/OpenMage/magento-lts/pull/2066))

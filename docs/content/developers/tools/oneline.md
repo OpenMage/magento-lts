@@ -65,7 +65,7 @@ You can override some defaults using environment variables defined in a file (th
 - `ADMIN_HOST_NAME`
     - `openmage-admin-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
 - `ADMIN_HOST_PORT`
-    - `81` is used by default to avoid conflicts with the frontend port
+    - `81` is used by default to avoid conflicts with the front-end port
 - `ADMIN_EMAIL`
 - `ADMIN_USERNAME`
 - `ADMIN_PASSWORD` (must be 14 characters or more)
@@ -101,7 +101,7 @@ You can easily have a multi-store SSL-protected environment using Docker with th
 Features included out of the box:
 
 - Free and automatic SSL provided by [Caddy](https://caddyserver.com/docs/caddyfile)
-- Separate domains for frontend and admin sites
+- Separate domains for front-end and admin sites
 - Examples included for redirects, Basic Auth, multi-store routing
 - Easily add routes to your other sites
 - Root static assets (e.g. robots.txt) in a separate directory for each store view

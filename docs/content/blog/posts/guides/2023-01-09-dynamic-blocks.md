@@ -23,7 +23,7 @@ If we want to render an HTML table in which its data are taken from the database
 ## Create custom block
 
 1. Create a custom block `mymodule/mytable` with template `mymodule/mytable.phtml`.
-2. Whitelist our block for rendering in the frontend: backend > System > Permissions > Blocks
+2. Whitelist our block for rendering in the front-end: Admin > System > Permissions > Blocks
 3. Create a CMS static block: backend > CMS > Static Blocks and set the _Content_ to render from our block with this directive:
 ```html
 {{block type="mymodule/mytable" template="mymodule/mytable.phtml"}}
