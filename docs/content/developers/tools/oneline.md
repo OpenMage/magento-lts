@@ -107,7 +107,7 @@ Features included out of the box:
 - Root static assets (e.g. robots.txt) in a separate directory for each store view
 
 !!! warning
-    **Do not try to run a dev environment and a production environment from the same working copy!**
+    **Do not try to run a development environment and a production environment from the same working copy!**
 
 If using OpenMage as a composer dependency, to avoid files being overwritten by composer upon updating OpenMage,
 it is recommended to copy the following files into your own project root and modify them as needed:
