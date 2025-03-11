@@ -104,7 +104,7 @@ From now on it appears in the `This PC` section under `Network locations`. If yo
 
 ### (Windows) PhpStorm
 
-Create a new project in PhpStorm that has the location where you cloned the OpenMage repository. If you log in to your GitHub account, you will see in the `Pull Request` tab on the left the open PRs from OpenMage. Open one and checkout to start testing. When you are done, at the bottom of the PhpStorm window you will see the `Git` tab. Click on it, then right click on `Local > main` and select `Checkout`. You can update the repositories, locals and remotes, from time to time and more.
+Create a new project in PhpStorm that has the location where you cloned the OpenMage repository. If you log in to your GitHub account, you will see in the `Pull Request` tab on the left the open pull-requests from OpenMage. Open one and checkout to start testing. When you are done, at the bottom of the PhpStorm window you will see the `Git` tab. Click on it, then right click on `Local > main` and select `Checkout`. You can update the repositories, locals and remotes, from time to time and more.
 
 ![new_project](https://github.com/OpenMage/magento-lts/assets/8360474/b408b23c-0128-4887-abc8-30e7133e4fb3)
 

@@ -11,7 +11,7 @@ tags:
   - Column
 ---
 
-# Overview
+# Brief Guide on Grid Column
 
 The Grid Column system in OpenMage provides a powerful way to create and customize admin grid interfaces. Grid columns are essential components of the admin panel that display data in a tabular format, allowing for sorting, filtering, copying, formatting, and other operations on the data. This guide explains how to work with grid columns using the `Mage_Adminhtml_Block_Widget_Grid_Column` class, see [source code](https://github.com/OpenMage/magento-lts/blob/main/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column.php).
 
@@ -19,7 +19,7 @@ The Grid Column system in OpenMage provides a powerful way to create and customi
 
 ## Understanding the `addColumn()` Method
 
-The `addColumn()` method is the primary way to add columns to a grid in OpenMage. See https://github.com/OpenMage/magento-lts/blob/71f38e9f9e1ec98bdea12d00a8e29622df594455/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php#L328-L328
+The `addColumn()` method is the primary way to add columns to a grid in OpenMage. See code [here](https://github.com/OpenMage/magento-lts/blob/71f38e9f9e1ec98bdea12d00a8e29622df594455/app/code/core/Mage/Adminhtml/Block/Widget/Grid.php#L328-L328).
 
 ### Parameters:
 
@@ -122,7 +122,7 @@ protected function _prepareColumns()
 }
 ```
 
-## Advanced Usage: Custom Renderers and Filters
+## Advanced Usage: Custom Render and Filter classes
 
 For more complex column requirements, you can create custom renderers and filters:
 
@@ -135,7 +135,7 @@ $this->addColumn('custom_field', [
 
 ```
 
-The renderer and filter classes are reusable for other grids. If there is no such need, you can use the callback attributes:
+The render and filter classes are reusable for other grids. If there is no such need, you can use the callback attributes:
 
 ```php
 // in addColumn()
