@@ -24,6 +24,7 @@ return RectorConfig::configure()
     ->withSets([
         PHPUnitSetList::PHPUNIT_90,
         SetList::PRIVATIZATION,
+        SetList::PHP_52,
     ])
     ->withRules([
         CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
