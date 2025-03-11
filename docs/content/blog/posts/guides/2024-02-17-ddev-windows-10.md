@@ -142,7 +142,7 @@ ddev composer install
 ddev openmage-install -s -k
 ```
 
-6. Edit the `.ddev/config.yaml` file to change the webserver and PHP version as you want. I am using Apache and PHP 8.3
+6. Edit the `.ddev/config.yaml` file to change the web-server and PHP version as you want. I am using Apache and PHP 8.3
 
 ```
 php_version: "8.3"
