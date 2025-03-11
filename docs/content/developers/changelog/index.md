@@ -67,7 +67,7 @@ Do not use 20.x.x if you need IE support.
 - removed support for `global/sales/old_fields_map` defined in XML ([#921](https://github.com/OpenMage/magento-lts/pull/921))
 - enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
 - made overrides of `Mage_Core_Model_Resource_Db_Abstract::delete` respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
-- rewrote `Mage_Eav_Model_Config` as cache for all eav entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
+- rewrote `Mage_Eav_Model_Config` as cache for all EAV entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
 

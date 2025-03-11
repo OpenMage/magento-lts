@@ -204,7 +204,7 @@ Run in the terminal window any of the following commands for different tasks.
 
 `ddev get --list`, `ddev get drud/ddev/cron`
 
-**Run MYSQL client in the database container / Run php inside the web container / Stars a shell session in a service container / Execute a shell command in the container**
+**Run MYSQL client in the database container / Run `php` inside the web container / Stars a shell session in a service container / Execute a shell command in the container**
 
 `ddev mysql`, `ddev php`, `ddev ssh`, `ddev exec`
 
