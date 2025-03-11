@@ -50,8 +50,8 @@ $ docker compose run --rm cli magerun db:console
 $ docker compose exec mysql mysql
 ```
 
-- *The cli container runs as `www-data` by default so use `-u $(id -u):$(id -g)` with composer so that the container will create/modify files with your user permissions to avoid file permission errors in your IDE.*
-- *Always use `run --rm` with the cli container to avoid creating lots of orphan containers.*
+- *The `cli` container runs as `www-data` by default so use `-u $(id -u):$(id -g)` with composer so that the container will create/modify files with your user permissions to avoid file permission errors in your IDE.*
+- *Always use `run --rm` with the `cli` container to avoid creating lots of orphan containers.*
 
 ## Environment Variables
 
