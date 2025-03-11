@@ -28,8 +28,10 @@ SSL
 TinyMCE
 toc
 URI
+WAMP
 WSDL
 WSL
+XAMPP
 Xdebug
 Zend
 colinmollenhour
