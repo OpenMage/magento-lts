@@ -14,6 +14,7 @@ SCSS
 SMTP
 SSL
 toc
+URI
 WSDL
 WSL
 Xdebug

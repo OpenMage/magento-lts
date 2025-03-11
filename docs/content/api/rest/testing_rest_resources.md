@@ -15,13 +15,13 @@ The following headers are required for the call:
 
 The following parameters must be provided in the Authorization header for the call:
 
-*   oauth\_signature\_method
-*   oauth\_version
-*   oauth\_nonce
-*   oauth\_timestamp
-*   oauth\_consumer\_key
-*   oauth\_token
-*   oauth\_signature
+*   `oauth\_signature\_method`
+*   `oauth\_version`
+*   `oauth\_nonce`
+*   `oauth\_timestamp`
+*   `oauth\_consumer\_key`
+*   `oauth\_token`
+*   `oauth\_signature`
 
 #### Testing REST resources with the [REST Client](https://addons.mozilla.org/en-US/firefox/addon/restclient/) plugin for the Mozilla Firefox browser.
 
