@@ -13,9 +13,8 @@ to visualize the timeline and to get some deeper insight on what's going on behi
 On top of that AOE Scheduler provides some more functionality like a cli and a web service interface,
 optimizing cron execution on your server and giving you everything you need to implement complex background tasks including for your Magento store.
 
-#### Install [^1]
+- GitHub [repository](https://github.com/AOEpeople/Aoe_Scheduler)
+
 ```bash
 composer require --dev aoepeople/aoe_scheduler
 ```
-
-[^1]: https://github.com/AOEpeople/Aoe_Scheduler

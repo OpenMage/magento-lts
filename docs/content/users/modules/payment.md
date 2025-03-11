@@ -9,7 +9,8 @@ tags:
 ## `empiricompany/openmage-paypal-pay-later-banner-info`
 Render Paypal Pay Later Messages in product page and cart page for Magento 1 / OpenMage
 
-#### Install [^1]
+- GitHub [repository](https://github.com/empiricompany/openmage-paypal-pay-later-banner-info)
+
 ```bash
 composer require empiricompany/openmage-paypal-pay-later-banner-info
 ```
@@ -51,7 +52,6 @@ The module was only tested with the default theme and Onepage Checkout.
 
     No composer install via packagist.org available. [^6]
 
-[^1]: https://github.com/empiricompany/openmage-paypal-pay-later-banner-info
 [^2]: https://github.com/justinbeaty/module-gene-braintree
 [^3]: https://github.com/braintree/braintree_php
 [^4]: https://github.com/hipay/hipay-fullservice-sdk-magento1
