@@ -5053,6 +5053,36 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
 
 		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_setExpressCheckoutResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Express/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_doCaptureResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_getTransactionDetailsResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_paymentInformationResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_refundTransactionResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
 			message: '#^Return type \(void\) of method Mage_PaypalUk_Model_Pro\:\:fetchTransactionInfo\(\) should be compatible with return type \(array\) of method Mage_Paypal_Model_Pro\:\:fetchTransactionInfo\(\)$#'
 			identifier: method.childReturnType
 			count: 1
@@ -5389,7 +5419,7 @@ parameters:
 			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
 
 		-
-			message: '#^Method Mage_Rule_Model_Condition_Product_Abstract\:\:getAttributeObject\(\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Varien_Object\|false\.$#'
+			message: '#^Method Mage_Rule_Model_Condition_Product_Abstract\:\:getAttributeObject\(\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract\|Varien_Object\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php

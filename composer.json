@@ -144,6 +144,9 @@
         },
         "sort-packages": true
     },
+    "suggest": {
+        "n98/magerun": "The n98 magerun cli tools provides some handy tools to work with Magento from command line."
+    },
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
