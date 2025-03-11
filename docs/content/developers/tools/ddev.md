@@ -121,7 +121,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -o Dpkg::Options::="--forc
 RUN gem install compass
 ```
 
-For more information, please visit https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container.
+For more information, please visit [How can I get SASS/Compass into the DDEV web container?](https://stackoverflow.com/q/61787926).
 
 ## Commands
     
