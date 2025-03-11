@@ -20,7 +20,7 @@ This guide will be updated frequently.
 ### IMPORTANT
 If you run Windows OS in a virtual machine, it is mandatory to activate the virtualization option. For example, in VMware with the virtual machine off, access `Edit virtual machine settings`. In the `Hardware` tab select `Processors` and in the `Virtualization engine` section check the `Virtualize Intel VT-x/EPT or AMD-V/RVI` option.
 
-You need at least 8 GB of memory to run (Docker + PHPStorm) decent. I recommend a machine with 16 GB.
+You need at least 8 GB of memory to run (Docker + PhpStorm) decent. I recommend a machine with 16 GB.
 
 ![windows_1909](https://github.com/OpenMage/magento-lts/assets/8360474/33c7605e-b9ff-46a5-b960-0e2aabb4dc77)
 
@@ -30,7 +30,7 @@ You need at least 8 GB of memory to run (Docker + PHPStorm) decent. I recommend 
 
 ![windows_terminal](https://github.com/OpenMage/magento-lts/assets/8360474/fbcb31fa-3582-4372-8acd-48f4956d6d30)
 
-If you use PHPStorm, at the bottom there is a tab called `Terminal`. Here you can run commands in the Linux distribution too.
+If you use PhpStorm, at the bottom there is a tab called `Terminal`. Here you can run commands in the Linux distribution too.
 
 ![phpstorm_terminal](https://github.com/OpenMage/magento-lts/assets/8360474/cca5b48d-dd5b-4d80-8664-a4f99ee9f960)
 
@@ -102,9 +102,9 @@ From now on it appears in the `This PC` section under `Network locations`. If yo
 
 ![windows_explorer](https://github.com/OpenMage/magento-lts/assets/8360474/97dacd28-a316-4312-8f5a-1eb67b796d07)
 
-### (Windows) PHPStorm
+### (Windows) PhpStorm
 
-Create a new project in PHPStorm that has the location where you cloned the OpenMage repository. If you log in to your GitHub account, you will see in the `Pull Request` tab on the left the open PRs from OpenMage. Open one and checkout to start testing. When you are done, at the bottom of the PHPStorm window you will see the `Git` tab. Click on it, then right click on `Local > main` and select `Checkout`. You can update the repositories, locals and remotes, from time to time and more.
+Create a new project in PhpStorm that has the location where you cloned the OpenMage repository. If you log in to your GitHub account, you will see in the `Pull Request` tab on the left the open PRs from OpenMage. Open one and checkout to start testing. When you are done, at the bottom of the PhpStorm window you will see the `Git` tab. Click on it, then right click on `Local > main` and select `Checkout`. You can update the repositories, locals and remotes, from time to time and more.
 
 ![new_project](https://github.com/OpenMage/magento-lts/assets/8360474/b408b23c-0128-4887-abc8-30e7133e4fb3)
 

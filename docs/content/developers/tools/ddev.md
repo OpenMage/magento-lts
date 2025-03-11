@@ -77,7 +77,7 @@ ddev xdebug on`
 ddev xdebug off
 ```
 
-If Xdebug does not work properly with PHPStorm edit the file `.ddev/php/xdebug.ini` and insert the following lines
+If Xdebug does not work properly with PhpStorm edit the file `.ddev/php/xdebug.ini` and insert the following lines
 
 ```ini
 [xdebug]
@@ -87,7 +87,7 @@ xdebug.start_with_request=trigger
 
 ### Accessing the database
 
-Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
+Please note that DDEV changes the port numbers on every restart. If you want to access the database in PhpStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
 
 ```yml
 host_db_port: 6000
@@ -148,8 +148,8 @@ Run in the terminal window `ddev phpstan`.
 You can use flags, for example `ddev openmage-install -d -s -k -q`
 
 - `-d` (default values for the administrator account)
-- `-s` (sampledata installation)
-- `-k` (keeps the downloaded archive in the .ddev/.sampleData directory)
+- `-s` (sample-data installation)
+- `-k` (keeps the downloaded archive in the `.ddev/.sampleData` directory)
 - `-q` (quiet mode)
 
 **2. By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window `ddev openmage-admin` and follow the steps.**
