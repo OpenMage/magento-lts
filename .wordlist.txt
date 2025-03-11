@@ -1,6 +1,7 @@
 CMS
 CVE
 DDEV
+DNS
 JSON
 LTS
 Magento

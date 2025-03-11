@@ -4,9 +4,7 @@ tags:
 - SCSS
 ---
 
-# PhpStorm
-
-See: https://www.jetbrains.com/phpstorm/
+# [PhpStorm](https://www.jetbrains.com/phpstorm/)
 
 ## Metadata Factory Helper
 

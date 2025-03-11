@@ -3,9 +3,7 @@ tags:
 - Development
 ---
 
-# N98-magerun
-
-See: https://github.com/netz98/n98-magerun
+# [N98-magerun](https://github.com/netz98/n98-magerun)
 
 ## Using n98-magerun
 
