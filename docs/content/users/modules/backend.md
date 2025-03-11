@@ -1,10 +1,10 @@
 ---
-title: Backend
+title: Back-end
 tags:
 - Modules
 ---
 
-# Backend modules
+# Back-end modules
 
 ## `empiricompany/openmage-mm_monacoeditor`
 OpenMage / Magento 1.9 module extension that integrate Monaco Editor with Emmet and Tailwindcss Intellisense in CMS Static Blocks / Pages

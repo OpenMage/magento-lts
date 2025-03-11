@@ -1,3 +1,4 @@
+Captcha
 CMS
 CVE
 DDEV
@@ -17,6 +18,7 @@ OpenMage
 phpMyAdmin
 PhpStorm
 PLAINTEXT
+reCaptcha
 RSS
 RWD
 SCSS
@@ -30,6 +32,9 @@ WSDL
 WSL
 Xdebug
 Zend
+colinmollenhour
+empiricompany
 fballiano
+Flyingmana
 kiatng
 sreichel
