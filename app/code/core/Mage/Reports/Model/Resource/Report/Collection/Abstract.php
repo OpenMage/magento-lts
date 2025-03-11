@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -267,5 +267,49 @@ class Mage_Reports_Model_Resource_Report_Collection_Abstract extends Mage_Core_M
             $this->_applyCustomFilter();
         }
         return parent::load($printQuery, $logQuery);
+    }
+
+
+    /**
+     * Get SQL for get record count
+     *
+     * @return Varien_Db_Select
+     * @see Mage_Reports_Model_Resource_Report_Product_Viewed_Collection
+     * @see Mage_Sales_Model_Resource_Report_Bestsellers_Collection
+     */
+    public function getSelectCountSql()
+    {
+        $this->_renderFilters();
+        $select = clone $this->getSelect();
+        $select->reset(Zend_Db_Select::ORDER);
+        return $this->getConnection()->select()->from($select, 'COUNT(*)');
+    }
+
+    /**
+     * Set ids for store restrictions
+     *
+     * @param  array $storeIds
+     * @return $this
+     * @see Mage_Reports_Model_Resource_Report_Product_Viewed_Collection
+     * @see Mage_Sales_Model_Resource_Report_Bestsellers_Collection
+     */
+    public function addStoreRestrictions($storeIds)
+    {
+        if (!is_array($storeIds)) {
+            $storeIds = [$storeIds];
+        }
+        $currentStoreIds = $this->_storesIds;
+        if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
+            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]
+        ) {
+            if (!is_array($currentStoreIds)) {
+                $currentStoreIds = [$currentStoreIds];
+            }
+            $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
+        } else {
+            $this->_storesIds = $storeIds;
+        }
+
+        return $this;
     }
 }
