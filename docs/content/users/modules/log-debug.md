@@ -15,8 +15,8 @@ composer require empiricompany/openmage_ignition
 ```
 
 ## `firegento/firegento-adminmonitoring`
-The admin monitoring logs nearly every save and delete call in the backend.
-The is to generate an overview of the changes in the backend to know who changed certain things.
+The admin monitoring logs nearly every save and delete call in the back-end.
+The is to generate an overview of the changes in the back-end to know who changed certain things.
 
 #### Install [^2]
 ```bash

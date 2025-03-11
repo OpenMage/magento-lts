@@ -9,13 +9,13 @@ tags:
 Add new default OpenMage admin theme and legacy Admin Theme config option. ([#1008](https://github.com/OpenMage/magento-lts/pull/1008))
 
 ## `admin/global_search/enable`
-Possibility to disable global search in backend. ([#1532](https://github.com/OpenMage/magento-lts/pull/1532))
+Possibility to disable global search in back-end. ([#1532](https://github.com/OpenMage/magento-lts/pull/1532))
 
 ## `catalog/product_image/progressive_threshold`
 Added progressive to image resize. ([#197](https://github.com/OpenMage/magento-lts/pull/197))
 
 ## `catalog/search/search_separator`
-Make fulltext search separator (`OR`/`AND`) configurable from backend. ([#1852](https://github.com/OpenMage/magento-lts/pull/1852))
+Make fulltext search separator (`OR`/`AND`) configurable from back-end. ([#1852](https://github.com/OpenMage/magento-lts/pull/1852))
 
 ## `dev/log/max_level`
 Set log level from config. ([#1727](https://github.com/OpenMage/magento-lts/pull/1727))
