@@ -18,6 +18,7 @@ matrix:
             - alt
           ignores:
             - ':matches(code, pre)'
+            - ':matches(.magiclink.magiclink-github.magiclink-mention)'
             - 'a'
             - 'code'
             - 'pre'
