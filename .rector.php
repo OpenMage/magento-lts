@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 use Rector\CodeQuality\Rector as CodeQuality;
-use Rector\DeadCode\Rector as DeadCode;
 use Rector\Config\RectorConfig;
+use Rector\DeadCode\Rector as DeadCode;
+use Rector\Php53\Rector as Php53;
+use Rector\Php56\Rector as Php56;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
@@ -17,6 +19,8 @@ return RectorConfig::configure()
     ->withSkip([
         CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
         CodeQuality\If_\SimplifyIfReturnBoolRector::class,
+        # may conflict with phpstan strict rules
+        Php53\Ternary\TernaryToElvisRector::class,
         __DIR__ . '/shell/translations.php',
         __DIR__ . '/shell/update-copyright.php.php',
         __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
@@ -24,7 +28,7 @@ return RectorConfig::configure()
     ->withSets([
         PHPUnitSetList::PHPUNIT_90,
         SetList::PRIVATIZATION,
-        SetList::PHP_52,
+        SetList::PHP_55,
     ])
     ->withRules([
         CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
