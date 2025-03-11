@@ -157,7 +157,7 @@
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testdox",
         "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
-        "rector:fix": "vendor/bin/rector --config .rector.php process",
+        "rector:fix": "vendor/bin/rector process --config .rector.php",
         "test": [
             "@php-cs-fixer:test",
             "@phpstan",

@@ -18,6 +18,12 @@ return RectorConfig::configure()
         TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
         __DIR__ . '/shell/translations.php',
         __DIR__ . '/shell/update-copyright.php.php',
+        __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
+    ])
+    ->withSets([
+        PHPUnitSetList::PHPUNIT_90,
+        SetList::PRIVATIZATION,
+        SetList::PHP_52,
     ])
     ->withRules([
         CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,

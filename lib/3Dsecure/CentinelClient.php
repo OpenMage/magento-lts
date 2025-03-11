@@ -17,9 +17,9 @@
 
     class CentinelClient {
 
-		var $request ;
-		var $response ;
-		var $parser;
+		public $request ;
+		public $response ;
+		public $parser;
 
 		/////////////////////////////////////////////////////////////////////////////////////////////
 		// Function Add(name, value)
