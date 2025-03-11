@@ -15,6 +15,7 @@ RSS
 SCSS
 SMTP
 SSL
+TinyMCE
 toc
 URI
 WSDL
