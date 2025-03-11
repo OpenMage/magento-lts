@@ -2,6 +2,7 @@ CMS
 CVE
 DDEV
 DNS
+HMAC
 ImageMagick
 jQuery
 JS
@@ -10,12 +11,15 @@ LTS
 Magento
 Mailpit
 MkDocs
+npm
 OpenMage
 phpMyAdmin
 PhpStorm
+PLAINTEXT
 RSS
 RWD
 SCSS
+SHA
 SMTP
 SSL
 TinyMCE

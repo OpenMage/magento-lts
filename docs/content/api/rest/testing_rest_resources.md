@@ -54,7 +54,7 @@ The following parameters must be provided in the Authorization header for the ca
 **Example: Retrieving the List of Products**
 
 1.  From the **Method** drop-down list, select the **GET** option.
-2.  In the **URL** field, enter the following URL: https://om.ddev.site/api/rest/products. You can limit the number of products returned in the response. To set the limit to 4, enter the following URL: https://om.ddev.site/api/rest/products?limit=4
+2.  In the **URL** field, enter the following URL: `https://om.ddev.site/api/rest/products`. You can limit the number of products returned in the response. To set the limit to 4, enter the following URL: https://om.ddev.site/api/rest/products?limit=4
 3.  Click **Send**. Information about all products will be displayed in the response body. Example is as follows:  
     ![](assets/images/rest_test006.png)
 
