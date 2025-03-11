@@ -1,10 +1,16 @@
 CMS
 CVE
 DDEV
+JSON
 LTS
 Magento
+Mailpit
 OpenMage
+phpMyAdmin
+PhpStorm
 SCSS
 SMTP
 SSL
 toc
+WSDL
+Xdebug
