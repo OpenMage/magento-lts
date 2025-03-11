@@ -26,7 +26,7 @@ composer require fballiano/openmage-cssjs-versioning
 Clean integration of Google reCaptcha to OpenMage.
 
 __Attention__:
-This is a mantained fork compatible with the latest versions of OpenMage LTS.
+This is a maintained fork compatible with the latest versions of OpenMage LTS.
 
 #### Install [^3]
 ```bash

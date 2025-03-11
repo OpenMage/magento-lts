@@ -126,14 +126,14 @@ Then perform the following steps:
 1. `cp Caddyfile-sample Caddyfile` and edit the `Caddyfile` to reflect your domain names and Magento store codes
 1. If you did not hard-code your admin domain name in `Caddyfile` edit `.env` and make sure it includes `ADMIN_HOST_NAME`
 1. Run `docker compose up -d` to launch your new production-ready environment!
-1. Load your existing database into the MySQL container volume and copy an existing `local.xml` file into the `app/etc/` subdirectory of your OpenMage root (e.g. `pub/app/etc/local.xml` for composer installations with default `magento-root-dir`).
+1. Load your existing database into the MySQL container volume and copy an existing `local.xml` file into the `app/etc/` sub-directory of your OpenMage root (e.g. `pub/app/etc/local.xml` for composer installations with default `magento-root-dir`).
     1. OR copy `dev/openmage/install.sh` into your root directory and run it to create a fresh installation.
 
 Environment variables supported by the `docker-compose-production.yml` file and `install.sh` which may be set in `.env`
 when installing a new production environment:
 
 - `SRC_DIR=./pub` - relative path to the OpenMage root - corresponds to the composer `magento-root-dir`
-- `STATIC_DIR=./static` - relative path to the directory which contains custom static files to be served from the root - must contain a subdirectory for `admin` and each store view.
+- `STATIC_DIR=./static` - relative path to the directory which contains custom static files to be served from the root - must contain a sub-directory for `admin` and each store view.
 - `BASE_URL=https://frontend.example.com/` (overrides `HOST_NAME` and `HOST_PORT`)
 - `ADMIN_URL=https://backend.exmaple.com/` (overrides `ADMIN_HOST_NAME` and `ADMIN_HOST_PORT`)
 

@@ -28,7 +28,7 @@ If we want to render an HTML table in which its data are taken from the database
 ```html
 {{block type="mymodule/mytable" template="mymodule/mytable.phtml"}}
 ```
-4. Create a subcategory: backend > Catalog > Manage Categories > Add a subcategory and in the _Display Setings_ tab, set the category attribute _Display Mode_ to _Static block only_ and _CMS Block_ pointing to our block.
+4. Create a subcategory: backend > Catalog > Manage Categories > Add a subcategory and in the _Display Settings_ tab, set the category attribute _Display Mode_ to _Static block only_ and _CMS Block_ pointing to our block.
 
 Voila, the HTML table is rendered under the menu we just created. However, every time the table in the database is updated, and because CMS blocks rendering are taken from the cache, we would need to refresh the cache.
 
@@ -40,7 +40,7 @@ What if the table is constantly being updated, or there is an expiry condition o
 ```html
 {{block type="mymodule/mytable" template="mymodule/mytable.phtml"}}
 ```
-2. Continue on to the _Display Setings_ tab and set the _CMS Block_ to _Please select a static block ..._.
+2. Continue on to the _Display Settings_ tab and set the _CMS Block_ to _Please select a static block ..._.
 3. In our config file, either in the module `etc/config.xml` or in the `local.xml`, insert the following:
 
 ```xml

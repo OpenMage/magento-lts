@@ -17,7 +17,7 @@ composer require empiricompany/openmage-mm_monacoeditor
 [^1]: https://github.com/empiricompany/openmage-mm_monacoeditor
 
 ## `flagbit/magento-changeattributeset`
-In Magento every product has a fixed attibute set. This module enables you to switch it.
+In Magento every product has a fixed attribute set. This module enables you to switch it.
 
 #### Install [^2]
 ```bash
