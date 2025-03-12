@@ -31,6 +31,7 @@ PHPStan
 PhpStorm
 PHPUnit
 PLAINTEXT
+RCE
 reCaptcha
 RSS
 RWD
@@ -49,6 +50,7 @@ Xdebug
 Zend
 ZF1-Future
 addison74
+allcontributors
 Caprico85
 colinmollenhour
 empiricompany
@@ -57,4 +59,5 @@ Flyingmana
 justinbeaty
 kiatng
 leissbua
+robertrogge
 sreichel
