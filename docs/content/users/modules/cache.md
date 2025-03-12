@@ -16,7 +16,7 @@ composer require colinmollenhour/cm_diehard
 ```
 
 ## `fballiano/openmage-lesti-fpc`
-Simple Magento Fullpagecache.
+Simple Magento Fullpage Cache.
 
 - GitHub [repository](https://github.com/fballiano/openmage-lesti-fpc)
 

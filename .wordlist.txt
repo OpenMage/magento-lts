@@ -14,6 +14,7 @@ LTS
 Magento
 Mailpit
 MkDocs
+Matomo
 nginx
 npm
 OAuth
@@ -40,6 +41,7 @@ WSL
 XAMPP
 Xdebug
 Zend
+ZF1-Future
 colinmollenhour
 empiricompany
 fballiano
