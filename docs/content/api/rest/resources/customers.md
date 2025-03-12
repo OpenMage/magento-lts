@@ -1,6 +1,6 @@
 # Customers
 
-## URI: /customers
+## URI: `/customers`
 
 Allows you to create and retrieve customers.
 
@@ -102,19 +102,19 @@ Allows you to create and retrieve customers.
 **Default Format**: XML<br>
 **Parameters**:
 
-| Name                      | Description                                                                  | Required | Type   | Example Value     |
-|---------------------------|------------------------------------------------------------------------------|----------|--------|-------------------|
-| firstname                 | The customer first name                                                      | required | string | John              |
-| lastname                  | The customer last name                                                       | required | string | Doe               |
-| email                     | The customer email address                                                   | required | string | johny@example.com |
-| password                  | The customer password. The password must contain minimum 7 characters        | required | string | 123123q           |
-| website_id                | Website ID                                                                   | required | int    | 1                 |
-| group_id                  | Customer group ID                                                            | required | int    | 1                 |
-| disable_auto_group_change | Defines whether the automatic group change for the customer will be disabled | optional | int    | 0                 |
-| prefix                    | Customer prefix                                                              | optional | string | Mr.               |
-| middlename                | Customer middle name or initial                                              | optional | string | R.                |
-| suffix                    | Customer suffix                                                              | optional | string | Sr.               |
-| taxvat                    | Customer Tax or VAT number                                                   | optional | string | GB999 9999 73     |
+| Name                         | Description                                                                  | Required | Type   | Example Value     |
+|------------------------------|------------------------------------------------------------------------------|----------|--------|-------------------|
+| `firstname`                  | The customer first name                                                      | required | string | John              |
+| `lastname`                   | The customer last name                                                       | required | string | Doe               |
+| `email`                      | The customer email address                                                   | required | string | johny@example.com |
+| `password`                   | The customer password. The password must contain minimum 7 characters        | required | string | 123123q           |
+| `website_id`                 | Website ID                                                                   | required | int    | 1                 |
+| `group_id`                   | Customer group ID                                                            | required | int    | 1                 |
+| `disable_auto_group_change`  | Defines whether the automatic group change for the customer will be disabled | optional | int    | 0                 |
+| `prefix`                     | Customer prefix                                                              | optional | string | Mr.               |
+| `middlename`                 | Customer middle name or initial                                              | optional | string | R.                |
+| `suffix`                     | Customer suffix                                                              | optional | string | Sr.               |
+| `taxvat`                     | Customer Tax or VAT number                                                   | optional | string | GB999 9999 73     |
 
 **Notes**: The list of parameters may change depending on the attributes settings in **Customers** > **Attributes** > **Manage Customer Attributes** page in Magento Admin Panel. For example, a required status of the **middlename** attribute (Middle Name/Initial) may be changed to 'YES". Please note that managing customer attributes is available only in Magento Enterprise Edition.
 
@@ -149,7 +149,7 @@ If the customer was created successfully, we receive **Response HTTP Code** = 20
 
 **Description**: Not allowed
 
-## URI: /customers/:customerId
+## URI: `/customers/:customerId`
 
 Allows you to manage existing customers.
 

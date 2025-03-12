@@ -1,6 +1,6 @@
 # Product Categories
 
-## URI: /products/productid/categories
+## URI: `/products/productid/categories`
 
 Allows you to retrieve information about assigned categories, assign, and unassign a category from/to a product.
 
@@ -56,7 +56,7 @@ Allows you to retrieve information about assigned categories, assign, and unassi
 
 As a result, the category with ID equal to 2 will be assigned to the specified product.
 
-## URI: /products/productid/categories/categoryid
+## URI: `/products/productid/categories/categoryid`
 
 ### HTTP Method: DELETE
 
