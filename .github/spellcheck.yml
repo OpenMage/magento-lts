@@ -5,7 +5,8 @@ matrix:
       mode: en
     dictionary:
       wordlists:
-        - .wordlist.txt
+        - .github/spellcheck-usernames.txt
+        - .github/spellcheck-wordlist.txt
       output: wordlist.dic
       encoding: utf-8
     pipeline:

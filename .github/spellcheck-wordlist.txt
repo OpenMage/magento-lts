@@ -74,11 +74,4 @@ Xdebug
 XSS
 Zend
 ZF
-addison
-bucha
-colinmollenhour
-fballiano
-Flyingmana
-kiatng
-robertrogge
-sreichel
+
