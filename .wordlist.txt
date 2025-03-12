@@ -18,11 +18,13 @@ Magento
 Mailpit
 MkDocs
 Matomo
+n98-magerun
 nginx
 npm
 OAuth
 OpenMage
 PageSpeed
+PHPCS
 PHPMD
 phpMyAdmin
 PHPStan
