@@ -83,8 +83,9 @@ https://docs.docker.com/desktop/install/windows-install/
 2. During installation check the option `Use WSL 2 instead of Hyper-V (recommended)`
 3. Reboot the system
 
-### (Windows) Installing mkcert for Secured Connections
-https://github.com/FiloSottile/mkcert
+### (Windows) Installing `mkcert` for Secured Connections
+
+- GitHub [repository](https://github.com/FiloSottile/mkcert)
 
 1. Download the latest Windows release
 2. Open the `Terminal` application as Administrator

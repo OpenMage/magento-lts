@@ -104,7 +104,7 @@ Features included out of the box:
 - Separate domains for front-end and admin sites
 - Examples included for redirects, Basic Auth, multi-store routing
 - Easily add routes to your other sites
-- Root static assets (e.g. robots.txt) in a separate directory for each store view
+- Root static assets (e.g. `robots.txt`) in a separate directory for each store view
 
 !!! warning
     **Do not try to run a development environment and a production environment from the same working copy!**
