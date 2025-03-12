@@ -33,6 +33,7 @@ PHPUnit
 PLAINTEXT
 RCE
 reCaptcha
+Redis
 RSS
 RWD
 SCSS

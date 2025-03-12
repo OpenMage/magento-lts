@@ -37,13 +37,13 @@ To launch Mailpit in the browser run in the terminal window.
 ddev mailpit
 ```
 
-## Setting up cronjobs
+## Setting up Cron tasks
 
-Run in the terminal window `ddev get ddev/ddev-cron` to install the cron add-on then restart DDEV.
+Run in the terminal window `ddev get ddev/ddev-cron` to install the Cron add-on then restart DDEV.
 
-By default the OpenMage cronjob runs every minute. If you want to change it edit the file `.ddev/web-build/openmage.cron`.
+By default the OpenMage Cron runs every minute. If you want to change it edit the file `.ddev/web-build/openmage.cron`.
 
-You can set the OpenMage cronjob using DDEV hooks, but you must comment all the lines in the file `.ddev/web-build/openmage.cron`. Edit the file `.ddev/config.yaml` and insert the following lines
+You can set the OpenMage Cron using DDEV hooks, but you must comment all the lines in the file `.ddev/web-build/openmage.cron`. Edit the file `.ddev/config.yaml` and insert the following lines
 
 ```yml
 hooks:

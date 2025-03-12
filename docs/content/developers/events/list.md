@@ -5,7 +5,7 @@ tags:
 
 # Events list
 
-<div class="special_table"></div>
+<div class="events-list-table"></div>
 
 | Event name                                                       | With Magento or since OpenMage |
 |------------------------------------------------------------------|--------------------------------|

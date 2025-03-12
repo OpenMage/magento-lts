@@ -59,14 +59,14 @@ _If you rely on those modules you can reinstall them with composer:_
 
 Do not use 20.x.x if you need IE support.
 
-- removed IE conditional comments, IE styles, IE scripts and IE eot files ([#1073](https://github.com/OpenMage/magento-lts/pull/1073))
-- removed front-end default themes (default, modern, iphone, german, french, blank, blue) ([#1600](https://github.com/OpenMage/magento-lts/pull/1600))
+- removed IE conditional comments, IE `styles`, IE `scripts` and IE `eot` files ([#1073](https://github.com/OpenMage/magento-lts/pull/1073))
+- removed front-end default themes (`default`, `modern`, `iphone`, `german`, `french`, `blank`, `blue`) ([#1600](https://github.com/OpenMage/magento-lts/pull/1600))
 - fixed incorrect date in customer block (`$useTimezone` parameter) ([#1525](https://github.com/OpenMage/magento-lts/pull/1525))
-- added redis as a valid option for `global/session_save` ([#1513](https://github.com/OpenMage/magento-lts/pull/1513))
+- added Redis as a valid option for `global/session_save` ([#1513](https://github.com/OpenMage/magento-lts/pull/1513))
 - reduce needless saves by avoiding setting `_hasDataChanges` flag ([#2066](https://github.com/OpenMage/magento-lts/pull/2066))
 - removed support for `global/sales/old_fields_map` defined in XML ([#921](https://github.com/OpenMage/magento-lts/pull/921))
-- enabled website level config cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
-- made overrides of `Mage_Core_Model_Resource_Db_Abstract::delete` respect parent api ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
+- enabled website level configuration cache ([#2355](https://github.com/OpenMage/magento-lts/pull/2355))
+- made overrides of `Mage_Core_Model_Resource_Db_Abstract::delete` respect parent API ([#1257](https://github.com/OpenMage/magento-lts/pull/1257))
 - rewrote `Mage_Eav_Model_Config` as cache for all EAV entity and attribute reads ([#2993](https://github.com/OpenMage/magento-lts/pull/2993))
 
 For full list of changes, you can [compare tags](https://github.com/OpenMage/magento-lts/compare/1.9.4.x...20.0).
@@ -103,7 +103,7 @@ not compatible with the new implementations made by ZF1-Future, which is much mo
 This may generate a problem with `Zend_Db_Select` statements that do not use `Zend_Db_Expr` to quote expressions.
 If you see SQL errors after upgrading please remember to check for this specific issue in your code.
 
-UPS shut down their old CGI APIs, so we removed the support for it from the `Mage_Usa` module.
+UPS shut down their old CGI API, so we removed the support for it from the `Mage_Usa` module.
 
 ## Between OpenMage 20.x and 21.x (unreleased, available on branch `next`)
 
