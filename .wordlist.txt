@@ -4,6 +4,7 @@ bool
 Braintree
 Browsersync
 Captcha
+CLI
 Cloudflare
 CMS
 Cron
@@ -14,12 +15,14 @@ DDEV
 DNS
 DocBlock
 EAV
+Emmet
 FireGento
 Gitpod
 HiPay
 Homebrew
 HMAC
 ImageMagick
+IntelliSense
 jQuery
 JS
 JSON

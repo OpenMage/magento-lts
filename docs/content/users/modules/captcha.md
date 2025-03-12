@@ -7,7 +7,7 @@ tags:
 # Captcha modules
 
 ## `fballiano/openmage-cloudflare-turnstile`
-Turnstile is Cloudflare's CAPTCHA alternative.
+Turnstile is a Cloudflare CAPTCHA alternative.
 
 - GitHub [repository](https://github.com/fballiano/openmage-cloudflare-turnstile)
 

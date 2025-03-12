@@ -46,7 +46,7 @@ composer require mollie/magento
 
 Magento 1.9 Plugin for OpenNode Bitcoin Payment Gateway
 
-The module was only tested with the default theme and Onepage Checkout.
+The module was only tested with the default theme and one-page checkout.
 
 !!! warning ""
 

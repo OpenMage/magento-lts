@@ -7,7 +7,7 @@ tags:
 # Front-end modules
 
 ## `customgento/CustomGento_ProductBadges`
-Product Badges for Magento 1 offers you the possibility to add highly customizable badges to your product images without having any performance impact.
+Product Badges for Magento 1 offers you the possibility to add highly individualized badges to your product images without having any performance impact.
 
 - GitHub [repository](https://github.com/customgento/CustomGento_ProductBadges)
 
