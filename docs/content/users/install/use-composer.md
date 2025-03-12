@@ -95,7 +95,7 @@ composer config platform.php 8.4
 
 ## Optimization
 
-When deploying to a production environment, it's recommended to optimize Composer's autoloader to speed up classes lookup time:
+When deploying to a production environment, it's recommended to optimize Composer's auto-loader to speed up classes lookup time:
 
 ```bash
 composer dump-autoload --optimize

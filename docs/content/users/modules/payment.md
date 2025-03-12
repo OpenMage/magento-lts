@@ -7,7 +7,7 @@ tags:
 # Payment modules
 
 ## `empiricompany/openmage-paypal-pay-later-banner-info`
-Render Paypal Pay Later Messages in product page and cart page for Magento 1 / OpenMage
+Render PayPal Pay Later Messages in product page and cart page for Magento 1 / OpenMage
 
 - GitHub [repository](https://github.com/empiricompany/openmage-paypal-pay-later-banner-info)
 

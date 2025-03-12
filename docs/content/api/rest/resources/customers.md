@@ -4,7 +4,7 @@
 
 Allows you to create and retrieve customers.
 
-**URL Structure**: http://om.ddev.site/api/rest/customers  
+**URL Structure**: `http://om.ddev.site/api/rest/customers`  
 **Version**: 1
 
 ### HTTP Method GET
@@ -153,7 +153,7 @@ If the customer was created successfully, we receive **Response HTTP Code** = 20
 
 Allows you to manage existing customers.
 
-**URL Structure**: http://om.ddev.site/api/rest/customers/:customerId  
+**URL Structure**: `http://om.ddev.site/api/rest/customers/:customerId`  
 **Version**: 1
 
 ### HTTP Method GET

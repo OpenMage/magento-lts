@@ -85,14 +85,14 @@ The following parameters must be provided in the Authorization header for the ca
 **Example: Retrieving the list of customers**
 
 1.  In the **Method** group of options, select the **GET** option.
-2.  In the URL field, enter the following URL: https://om.ddev.site/api/rest/customers.
+2.  In the URL field, enter the following URL: `https://om.ddev.site/api/rest/customers`.
 3.  Click **Send request**. Information about all customers will be displayed in the response body. Note that only Admin type of the user can retrieve the list of customers. Example is as follows:  
     ![](assets/images/rest_test011.png)
 
 **Example: Creating a customer address**
 
 1.  In the **Method** group of options, select the **POST** option.
-2.  In the URL field, enter the following URL: https://om.ddev.site/api/rest/customers/:id/addresses where the ":id" value is the customer ID in the system.
+2.  In the URL field, enter the following URL: `https://om.ddev.site/api/rest/customers/:id/addresses` where the ":id" value is the customer ID in the system.
 3.  In the **Body** table, on the **Raw input** tab, enter the data required for customer address creation.
 4.  Click **Send request**. If the address is created, the 200 OK HTTP status code will be returned. Example is as follows:  
     ![](assets/images/rest_test012.png)

@@ -4,7 +4,7 @@
 
 Allows you to retrieve information about assigned categories, assign, and unassign a category from/to a product.
 
-**URL Structure**: https://om.ddev.site/api/rest/products/productid/categories<br>
+**URL Structure**: `https://om.ddev.site/api/rest/products/productid/categories<br>`
 **Version**: 1
 
 ### HTTP Method: GET
