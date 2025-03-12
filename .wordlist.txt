@@ -1,3 +1,4 @@
+bool
 Browsersync
 Captcha
 CMS
@@ -15,10 +16,10 @@ JSON
 LTS
 macOS
 Magento
+magerun
 Mailpit
 MkDocs
 Matomo
-n98-magerun
 nginx
 npm
 OAuth
@@ -34,6 +35,7 @@ PLAINTEXT
 RCE
 reCaptcha
 Redis
+RPC
 RSS
 RWD
 SCSS
@@ -43,13 +45,14 @@ SSL
 TinyMCE
 toc
 URI
+VMware
 WAMP
 WSDL
 WSL
 XAMPP
 Xdebug
 Zend
-ZF1-Future
+ZF
 addison74
 allcontributors
 Caprico85

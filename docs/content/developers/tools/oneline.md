@@ -57,7 +57,7 @@ $ docker compose exec mysql mysql
 
 You can override some defaults using environment variables defined in a file (that you must create) at `dev/openmage/.env`.
 
-- `XDEBUG_CONFIG=...` - Override the default Xdebug config
+- `XDEBUG_CONFIG=...` - Override the default Xdebug configuration
 - `HOST_NAME=your-preferred-hostname`
     - `openmage-7f000001.nip.io` is used by default to resolve to `127.0.0.1`. See [nip.io](https://nip.io) for more info.
 - `HOST_PORT=8888`

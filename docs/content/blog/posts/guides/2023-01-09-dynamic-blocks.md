@@ -41,7 +41,7 @@ What if the table is constantly being updated, or there is an expiry condition o
 {{block type="mymodule/mytable" template="mymodule/mytable.phtml"}}
 ```
 2. Continue on to the _Display Settings_ tab and set the _CMS Block_ to _Please select a static block ..._.
-3. In our config file, either in the module `etc/config.xml` or in the `local.xml`, insert the following:
+3. In our configuration file, either in the module `etc/config.xml` or in the `local.xml`, insert the following:
 
 ```xml
 <config>

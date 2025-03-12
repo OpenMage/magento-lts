@@ -6,7 +6,7 @@ Most important changes will be listed here, all other changes since `19.4.0` can
 ## Between Magento 1.9.4.5 and OpenMage 19.x
 
 - bug fixes and PHP 7.x, 8.0, 8.1 and 8.2 compatibility
-- added config cache for system.xml ([#1916](https://github.com/OpenMage/magento-lts/pull/1916))
+- added configuration cache for `system.xml` ([#1916](https://github.com/OpenMage/magento-lts/pull/1916))
 - added `frontend_type` `color` ([#2945](https://github.com/OpenMage/magento-lts/pull/2945))
 - search for `null` ("NULL") in back-end grids ([#1203](https://github.com/OpenMage/magento-lts/pull/1203))
 - removed `lib/flex` containing unused ActionScript "file uploader" files ([#2271](https://github.com/OpenMage/magento-lts/pull/2271))
