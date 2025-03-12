@@ -7,7 +7,7 @@ tags:
 # Cache modules
 
 ## `colinmollenhour/Cm_Diehard`
-`Cm_Diehard`: Fullpage Cache
+`Cm_Diehard` FPC
 
 - GitHub [repository](https://github.com/colinmollenhour/Cm_Diehard)
 
@@ -16,7 +16,7 @@ composer require colinmollenhour/cm_diehard
 ```
 
 ## `fballiano/openmage-lesti-fpc`
-Simple Magento Fullpage Cache.
+Simple Magento FPC.
 
 - GitHub [repository](https://github.com/fballiano/openmage-lesti-fpc)
 

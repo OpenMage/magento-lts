@@ -17,6 +17,7 @@ DocBlock
 EAV
 Emmet
 FireGento
+FPC
 Gitpod
 HiPay
 Homebrew

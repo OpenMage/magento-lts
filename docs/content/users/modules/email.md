@@ -7,7 +7,7 @@ tags:
 # Email modules
 
 ## `aschroder/Magento-SMTP-Pro-Email-Extension`
-Magento 1 SMTP Pro Extension by Ashley Schroder (aschroder.com)
+Magento 1 SMTP Pro Extension by [Ashley Schroder](https://www.aschroder.com)
 
 Free and open-source email extension for Magento 1.x
 

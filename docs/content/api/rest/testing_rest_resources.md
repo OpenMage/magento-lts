@@ -47,7 +47,7 @@ The following parameters must be provided in the Authorization header for the ca
     **NOTE**: Click the header with authorization data and click **Auto refresh** in the opened pop-up in order to generate new values for `oauth\_nonce`, `oauth\_timestamp`, and `oauth\_signature` at each request.  
     ![](assets/images/rest_test003.png)11.  From the **Headers** drop-down, select **Custom Header**.  
     ![](assets/images/rest_test004.png)
-12.  In the **Request Header** window, enter "Content-Type" in the **Name** field and `text/xml` in the **Value** field (if you want to use the XML data format). To use the JSON request data format, enter `application/json` instead of the text/xml value.
+12.  In the **Request Header** window, enter "Content-Type" in the **Name** field and `text/xml` in the **Value** field (if you want to use the XML data format). To use the JSON request data format, enter `application/json` instead of the `text/xml` value.
 13.  Click **Okay**.  
      ![](assets/images/rest_test005.png)
 

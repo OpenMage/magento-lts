@@ -35,7 +35,7 @@ The HiPay Enterprise extension for Magento v1 is a library that allows you to ac
 
 ## `mollie/Magento`
 
-iDEAL, Creditcard, Bancontact/Mister Cash, SOFORT, Bank transfer, Bitcoin, PayPal & paysafecard for Magento https://www.mollie.com/.
+`iDEAL`, `Creditcard`, `Bancontact`/`Mister Cash`, `SOFORT`, `Bank transfer`, `Bitcoin`, `PayPal` & `paysafecard` for Magento [https://www.mollie.com/](https://www.mollie.com/).
 
 #### Install [^5]
 ```bash
