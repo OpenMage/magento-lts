@@ -1526,6 +1526,24 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "justlife4x4",
+      "name": "justlife4x4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59994040?v=4",
+      "profile": "https://github.com/justlife4x4",
+      "contributions": [
+        "security"
+      ]
+    },
+    {
+      "login": "fabianaromagnoli",
+      "name": "Fabiana Romagnoli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23638004?v=4",
+      "profile": "https://github.com/fabianaromagnoli",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"

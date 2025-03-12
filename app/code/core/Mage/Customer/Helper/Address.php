@@ -176,7 +176,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 
             /** @var Mage_Customer_Model_Attribute $customerAttribute */
             $customerAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
-            $class .= $customerAttribute && $customerAttribute->getIsVisible()
+            $class = $customerAttribute && $customerAttribute->getIsVisible()
                 ? $customerAttribute->getFrontend()->getClass() : '';
             $class = implode(' ', array_unique(array_filter(explode(' ', $class))));
         }

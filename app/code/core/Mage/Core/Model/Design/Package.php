@@ -359,8 +359,10 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null)
-            . $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        $urlPath = $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        // Prevent XSS through malformed configuration
+        $urlPath = htmlspecialchars($urlPath, ENT_HTML5 | ENT_QUOTES, 'UTF-8');
+        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null) . $urlPath;
     }
 
     /**
@@ -524,7 +526,8 @@ class Mage_Core_Model_Design_Package
         }
         $this->updateParamDefaults($params);
         if (!empty($file)) {
-            $result = $this->_fallback(
+            // This updates $params with the base package and default theme if the file is not found
+            $this->_fallback(
                 $file,
                 $params,
                 $this->_fallback->getFallbackScheme(
