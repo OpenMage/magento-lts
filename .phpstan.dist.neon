@@ -4,7 +4,7 @@ includes:
     - phar://phpstan.phar/conf/bleedingEdge.neon
 parameters:
     phpVersion:
-        min: 70433
+        min: 80100
         max: 80499
     magentoRootPath: %currentWorkingDirectory%
     fileExtensions:

@@ -51,7 +51,7 @@ class UrlTest extends TestCase
     public function testGetConvertTableCustom(): void
     {
         $result = $this->subject->getConvertTableCustom();
-        $this->assertCount(0, $result);
+        $this->assertEmpty($result);
     }
 
     /**
