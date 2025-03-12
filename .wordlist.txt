@@ -5,10 +5,12 @@ Captcha
 CMS
 Cron
 CVE
+CodeQL
 DDEV
 DNS
 EAV
 FireGento
+Gitpod
 HMAC
 ImageMagick
 jQuery
