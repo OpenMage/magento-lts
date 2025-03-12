@@ -420,7 +420,7 @@ class Mage_Core_Model_Translate
         }
 
         if ($this->_translateInline && $this->getTranslateInline()) {
-            if (strpos($result, '{{{') === false || strpos($result, '}}}') === false || strpos($result, '}}{{') === false) {
+            if (!str_contains($result, '{{{') || !str_contains($result, '}}}') || !str_contains($result, '}}{{')) {
                 $result = '{{{' . $result . '}}{{' . $translated . '}}{{' . $text . '}}{{' . $module . '}}}';
             }
         }

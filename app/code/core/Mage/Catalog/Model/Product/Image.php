@@ -327,7 +327,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $this->_isBaseFilePlaceholder = false;
 
-        if (($file) && (strpos($file, '/', 0) !== 0)) {
+        if (($file) && (!str_starts_with($file, '/'))) {
             $file = '/' . $file;
         }
 

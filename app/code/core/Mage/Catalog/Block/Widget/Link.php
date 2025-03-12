@@ -81,8 +81,8 @@ class Mage_Catalog_Block_Widget_Link extends Mage_Core_Block_Html_Link implement
         }
 
         if ($this->_href) {
-            if (strpos($this->_href, '___store') === false) {
-                $symbol = (strpos($this->_href, '?') === false) ? '?' : '&';
+            if (!str_contains($this->_href, '___store')) {
+                $symbol = (!str_contains($this->_href, '?')) ? '?' : '&';
                 $this->_href = $this->_href . $symbol . '___store=' . $store->getCode();
             }
         } else {
