@@ -66,7 +66,7 @@ web_environment: [
 
 ### Xdebug
 
-Every DDEV project is automatically configured with Xdebug so that popular IDEs can do step debugging of PHP code. Xdebug is a server-side tool and it is installed automatically in the container so you do not have to install or configure it on your workstation. Xdebug is disabled by default for performance reasons, so you will need to enable it and configure your IDE before can start debugging. For more information, please visit [Step Debugging with Xdebug](https://ddev.readthedocs.io/en/latest/users/debugging-profiling/step-debugging/).
+Every DDEV project is automatically configured with Xdebug so that popular IDE can do step debugging of PHP code. Xdebug is a server-side tool and it is installed automatically in the container so you do not have to install or configure it on your workstation. Xdebug is disabled by default for performance reasons, so you will need to enable it and configure your IDE before can start debugging. For more information, please visit [Step Debugging with Xdebug](https://ddev.readthedocs.io/en/latest/users/debugging-profiling/step-debugging/).
 
 Run the following commands in the terminal window to enable or disable Xdebug
 

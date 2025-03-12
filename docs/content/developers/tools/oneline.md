@@ -16,7 +16,7 @@ command to install OpenMage with Docker Compose.
 git clone https://github.com/OpenMage/magento-lts.git && cd magento-lts && dev/openmage/install.sh 
 ```
 
-This will clone the OpenMage repository, create a new Docker Compose product named "openmage" and run the installation.
+This will clone the OpenMage repository, create a new Docker Compose product named `openmage` and run the installation.
 Visit [http://openmage-7f000001.nip.io/](http://openmage-7f000001.nip.io/) and start coding!
 
 !!! info
@@ -102,7 +102,7 @@ Features included out of the box:
 
 - Free and automatic SSL provided by [Caddy](https://caddyserver.com/docs/caddyfile)
 - Separate domains for front-end and admin sites
-- Examples included for redirects, Basic Auth, multi-store routing
+- Examples included for redirects, `BasicAuth`, multi-store routing
 - Easily add routes to your other sites
 - Root static assets (e.g. `robots.txt`) in a separate directory for each store view
 
