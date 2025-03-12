@@ -106,7 +106,7 @@ Allows you to create and retrieve customers.
 |------------------------------|------------------------------------------------------------------------------|----------|--------|-------------------|
 | `firstname`                  | The customer first name                                                      | required | string | John              |
 | `lastname`                   | The customer last name                                                       | required | string | Doe               |
-| `email`                      | The customer email address                                                   | required | string | johny@example.com |
+| `email`                      | The customer email address                                                   | required | string | john@example.com  |
 | `password`                   | The customer password. The password must contain minimum 7 characters        | required | string | 123123q           |
 | `website_id`                 | Website ID                                                                   | required | int    | 1                 |
 | `group_id`                   | Customer group ID                                                            | required | int    | 1                 |
@@ -116,7 +116,7 @@ Allows you to create and retrieve customers.
 | `suffix`                     | Customer suffix                                                              | optional | string | Sr.               |
 | `taxvat`                     | Customer Tax or VAT number                                                   | optional | string | GB999 9999 73     |
 
-**Notes**: The list of parameters may change depending on the attributes settings in **Customers** > **Attributes** > **Manage Customer Attributes** page in Magento Admin Panel. For example, a required status of the **middlename** attribute (Middle Name/Initial) may be changed to 'YES". Please note that managing customer attributes is available only in Magento Enterprise Edition.
+**Notes**: The list of parameters may change depending on the attributes settings in **Customers** > **Attributes** > **Manage Customer Attributes** page in Magento Admin Panel. For example, a required status of the **middle-name** attribute (Middle Name/Initial) may be changed to 'YES". Please note that managing customer attributes is available only in Magento Enterprise Edition.
 
 !!! Example
     ```

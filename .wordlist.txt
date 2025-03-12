@@ -13,6 +13,7 @@ DocBlock
 EAV
 FireGento
 Gitpod
+Homebrew
 HMAC
 ImageMagick
 jQuery
