@@ -34,6 +34,7 @@ nginx
 npm
 OAuth
 OpenMage
+OpenNode
 PageSpeed
 PHPCompatibility
 PHPCS
@@ -70,6 +71,7 @@ ZF
 addison
 colinmollenhour
 fballiano
+Flyingmana
 kiatng
 robertrogge
 sreichel
