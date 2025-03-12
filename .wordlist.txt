@@ -46,9 +46,13 @@ XAMPP
 Xdebug
 Zend
 ZF1-Future
+addison74
+Caprico85
 colinmollenhour
 empiricompany
 fballiano
 Flyingmana
+justinbeaty
 kiatng
+leissbua
 sreichel
