@@ -1,3 +1,4 @@
+ACL
 ActionScript
 bool
 Browsersync
@@ -25,11 +26,13 @@ Mailpit
 mkcert
 MkDocs
 Matomo
+MTF
 nginx
 npm
 OAuth
 OpenMage
 PageSpeed
+PHPCompatibility
 PHPCS
 PHPMD
 phpMyAdmin
@@ -50,6 +53,7 @@ SSL
 TinyMCE
 toc
 URI
+Varien
 VMware
 WAMP
 WebP
