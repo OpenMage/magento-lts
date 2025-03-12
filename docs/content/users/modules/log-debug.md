@@ -7,7 +7,7 @@ tags:
 # Log & Debug modules
 
 ## `empiricompany/openmage_ignition`
-OpenMage spatie-ignition integration for OpenMage.
+OpenMage `spatie/ignition` integration for OpenMage.
 
 - GitHub [repository](https://github.com/empiricompany/openmage_ignition)
 

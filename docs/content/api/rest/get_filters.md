@@ -92,7 +92,7 @@ Specifies the range of attributes according to which items will be returned.
 
 ## Whitespaces
 
-If the attribute value consists of several words separated by a whitespace, the '%20' sign is used:
+If the attribute value consists of several words separated by a white-space, the '%20' sign is used:
 
 !!! example
     ```

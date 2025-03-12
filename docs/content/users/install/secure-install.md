@@ -12,7 +12,7 @@ Don't use common paths like `admin` for OpenMage back-end URL. Don't use the pat
 You can change it from back-end (1) or by editing `app/etc/local.xml`:
 { .annotate }
 
-1.  Admin / System / Configuration / Admin / Admin Base Url
+1.  Admin / System / Configuration / Admin / Admin Base URL
 
 ```xml
 <config>

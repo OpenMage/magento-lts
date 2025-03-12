@@ -31,12 +31,12 @@ The following parameters must be provided in the Authorization header for the ca
 3.  In the OAuth window, on the Signature for the request tab, fill in the following fields:
     *   **Consumer key**: Enter the **Key** value provided when you created the consumer in Magento Admin Panel.
     *   **Consumer secret**: Enter the **Secret** value provided when you created the consumer in Magento Admin Panel.
-    *   **Access token**: Enter the oauth\_token value received when you authenticated the application.
-    *   **Access token secret**: Enter the oauth\_token\_secret value received when you authenticated the application.
+    *   **Access token**: Enter the `oauth\_token` value received when you authenticated the application.
+    *   **Access token secret**: Enter the `oauth\_token\_secret` value received when you authenticated the application.
 4.  On the OAuth setting tab, define the following options: ![](assets/images/rest_test_oauth_tab.png)
     *   **Signature Methods**: From the drop-down list, select which method will be used for signatures (HMAC-SHA1 or PLAINTEXT).
-    *   **oAuth Version**: From the drop-down list, select the **1.0** option (REST API supports OAuth 1.0a).
-    *   Leave the **Realm**, **oAuth Nonce**, and **oAuth Timestamp** values set by default.
+    *   **OAuth Version**: From the drop-down list, select the **1.0** option (REST API supports OAuth 1.0a).
+    *   Leave the **Realm**, **OAuth Nonce**, and **OAuth Timestamp** values set by default.
 5.  Click **Save** and wait for the confirmation dialog to close.
 
 6.  Return to the Signature for the request tab and select **Insert > Insert as header**. ![](assets/images/rest_test_insert.png)

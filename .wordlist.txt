@@ -5,12 +5,14 @@ CVE
 DDEV
 DNS
 EAV
+FireGento
 HMAC
 ImageMagick
 jQuery
 JS
 JSON
 LTS
+macOS
 Magento
 Mailpit
 MkDocs
