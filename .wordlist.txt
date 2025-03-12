@@ -1,6 +1,7 @@
 Browsersync
 Captcha
 CMS
+Cron
 CVE
 DDEV
 DNS
