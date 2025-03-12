@@ -9,7 +9,7 @@ tags:
 
 ## Using n98-magerun
 
-You can use the Swiss army knife for Magento developers, SysAdmins and DevOps. The tool provides a huge set of well tested command line commands which save hours of work time.
+You can use the Swiss army knife for Magento developers, system-admins and DevOps. The tool provides a huge set of well tested command line commands which save hours of work time.
 
 Run any n98-magerun command in the terminal window by adding `ddev` in front of it. For example `ddev magerun sys:info` print information about the current OpenMage system.
 

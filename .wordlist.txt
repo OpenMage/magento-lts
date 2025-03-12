@@ -4,6 +4,7 @@ bool
 Braintree
 Browsersync
 Captcha
+Cloudflare
 CMS
 Cron
 CVE
