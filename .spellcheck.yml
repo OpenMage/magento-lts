@@ -19,7 +19,7 @@ matrix:
           ignores:
             - ':matches(code, pre)'
             - ':matches(.magiclink)'
-            - ':matches(h1#events-list + table)'
+            - ':matches(.events-list-table + table)'
             - 'a'
             - 'code'
             - 'pre'
