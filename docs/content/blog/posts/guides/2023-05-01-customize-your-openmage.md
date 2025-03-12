@@ -59,9 +59,9 @@ To apply the patch, simply run `composer update` and Composer will apply the pat
 
 There are many ways to do this, but here are a few common ones:
 
-### Github Pull Requests
+### GitHub Pull Requests
 
-If a Github PR already contains the code changes you need, simply download a patch file from Github by appending `.patch` to the PR url. You gotta love Github!
+If a GitHub PR already contains the code changes you need, simply download a patch file from GitHub by appending `.patch` to the PR url. You gotta love GitHub!
 
 For example, the patch URL for PR #3146 is: `https://github.com/OpenMage/magento-lts/pull/3146.patch`. This url will result in a redirect so download it with your
 browser or a client that follows redirects (Location header) such as `wget` or `curl -L`.

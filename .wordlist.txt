@@ -18,8 +18,10 @@ nginx
 npm
 OAuth
 OpenMage
+PHPMD
 phpMyAdmin
 PhpStorm
+PHPUnit
 PLAINTEXT
 reCaptcha
 RSS
