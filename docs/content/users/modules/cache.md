@@ -7,7 +7,7 @@ tags:
 # Cache modules
 
 ## `colinmollenhour/Cm_Diehard`
-Cm_Diehard: Full-Page Cache
+`Cm_Diehard`: Fullpage Cache
 
 - GitHub [repository](https://github.com/colinmollenhour/Cm_Diehard)
 

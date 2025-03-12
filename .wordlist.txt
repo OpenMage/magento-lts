@@ -21,6 +21,7 @@ nginx
 npm
 OAuth
 OpenMage
+PageSpeed
 PHPMD
 phpMyAdmin
 PHPStan

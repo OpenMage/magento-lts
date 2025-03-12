@@ -90,7 +90,7 @@ Specifies the range of attributes according to which items will be returned.
     https://om.ddev.site/api/rest/products?filter[1][attribute]=price&filter[1][from]=150&filter[1][to]=350
     ```
 
-## Whitespaces
+## White-spaces
 
 If the attribute value consists of several words separated by a white-space, the '%20' sign is used:
 

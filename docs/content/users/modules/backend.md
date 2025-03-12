@@ -7,7 +7,7 @@ tags:
 # Back-end modules
 
 ## `empiricompany/openmage-mm_monacoeditor`
-OpenMage / Magento 1.9 module extension that integrate Monaco Editor with Emmet and Tailwindcss Intellisense in CMS Static Blocks / Pages
+OpenMage / Magento 1.9 module extension that integrate Monaco Editor with Emmet and Tailwind CSS Intellisense in CMS Static Blocks / Pages
 
 - GitHub [repository](https://github.com/empiricompany/openmage-mm_monacoeditor)
 
