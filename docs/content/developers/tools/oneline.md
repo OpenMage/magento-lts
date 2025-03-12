@@ -147,6 +147,6 @@ when installing a new production environment:
 2. Create new root static asset directories in your static asset directory such as `static/store1`, `static/store2`, etc...
 3. Edit `Caddyfile` to map your domain name to the appropriate `runcode` and `runtype`.
 4. Configure the URLs in the System > Configuration.
-5. Set up your DNS and relaunch Caddy (`docker compose restart caddy`).
+5. Set up your DNS and relaunch `Caddy` (`docker compose restart caddy`).
 
 Mapping paths to different stores can be done using additional `reverse_proxy` declarations. See `@customfrontend` as an example.

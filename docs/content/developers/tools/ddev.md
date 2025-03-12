@@ -95,7 +95,7 @@ host_db_port: 6000
 
 ## Using Browsersync
 
-See: https://github.com/ddev/ddev-browsersync
+- GitHub [repository](https://github.com/ddev/ddev-browsersync)
 
 Browsersync features live reloads, click mirroring, network throttling. Run the following commands in the terminal window
 
@@ -107,7 +107,7 @@ ddev browsersync
 
 ## Installing Compass
 
-See: https://compass-style.org
+See: [https://compass-style.org](https://compass-style.org)
 
 Compass is required for editing SCSS files.
 

@@ -18,7 +18,7 @@ This Plugin enable the upload image width HTML5 it's possible upload multiple im
     No composer install available.
 
 ## `colinmollenhour/Perfect_Watermarks`
-Replacement for OpenMage's GD2 image adapter with ImageMagick.
+Replacement for OpenMage GD2 image adapter with ImageMagick.
 
 - GitHub [repository](https://github.com/colinmollenhour/Perfect_Watermarks)
 
