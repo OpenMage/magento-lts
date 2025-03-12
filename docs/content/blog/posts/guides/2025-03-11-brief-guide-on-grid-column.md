@@ -33,49 +33,49 @@ The `$column` parameter accepts various attributes that determine how the column
 
 ### Basic Attributes:
 
-- **header**: The text displayed in the column header
-- **index**: The field name from the collection that provides the data for this column, if missing, it is default to `$columnId`
-- **width**: The width of the column (in pixels or percentage), if missing, the width is auto adjusted
-- **type**: The column type (e.g., 'text', 'number', 'date', 'options', etc.), if missing, it is default to 'text'
+- `header`: The text displayed in the column header
+- `index`: The field name from the collection that provides the data for this column, if missing, it is default to `$columnId`
+- `width`: The width of the column (in pixels or percentage), if missing, the width is auto adjusted
+- `type`: The column type (e.g., 'text', 'number', 'date', 'options', etc.), if missing, it is default to 'text'
 
 #### Common Column Types
 
 The 'type' attribute defines the column type. Some common types are:
 
-- **text**: Simple text display
-- **number**: Numeric values with optional formatting
-- **price**: Price values with currency formatting
-- **date**: Date values
-- **datetime**: Date and time values
-- **options**: Dropdown selection with predefined options
-- **action**: Column with action buttons
-- **longtext**: Text that may be truncated with a "more" link
+- `text`: Simple text display
+- `number`: Numeric values with optional formatting
+- `price`: Price values with currency formatting
+- `date`: Date values
+- `datetime`: Date and time values
+- `options`: Dropdown selection with predefined options
+- `action`: Column with action buttons
+- `longtext`: Text that may be truncated with a "more" link
 
 For a complete list, see this [folder](https://github.com/OpenMage/magento-lts/tree/main/app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer).
 
 ### Functionality Attributes:
 
-- **sortable**: (bool) Whether the column can be sorted
-- **filter**: (bool) Whether the column can be filtered
-- **copyable**: (bool) Whether the column's content can be copied to clipboard
-- **filter_index**: The database field to use for filtering (useful when 'index' is a calculated field)
-- **renderer**: A custom renderer class for the column
-- **filter_condition_callback**: A callback function for custom filtering logic
-- **no_link**: (bool) Prevents rendering links in the column
+- `sortable`: (bool) Whether the column can be sorted
+- `filter`: (bool) Whether the column can be filtered
+- `copyable`: (bool) Whether the column's content can be copied to clipboard
+- `filter_index`: The database field to use for filtering (useful when 'index' is a calculated field)
+- `renderer`: A custom renderer class for the column
+- `filter_condition_callback`: A callback function for custom filtering logic
+- `no_link`: (bool) Prevents rendering links in the column
 
 ### Data Formatting Attributes:
 
-- **align**: Text alignment within the column ('left', 'center', 'right')
-- **frame_callback**: A callback function to format the column's data
-- **column_css_class**: Add additional CSS classes
+- `align`: Text alignment within the column ('left', 'center', 'right')
+- `frame_callback`: A callback function to format the column's data
+- `column_css_class`: Add additional CSS classes
 
 ### Attributes Specific to Column Types
 There are attributes that are applied to specific column types:
 
-- **actions**: Array of actions for an 'actions' column type
-- **options**: Array of options for an 'options' column type
-- **format**: Format for date/time column types
-- **nl2br**: (bool) Whether to convert newlines to `<br>` tags for a 'longtext' column type
+- `actions`: Array of actions for an 'actions' column type
+- `options`: Array of options for an 'options' column type
+- `format`: Format for date/time column types
+- `nl2br`: (bool) Whether to convert newlines to `<br>` tags for a 'longtext' column type
 
 ## Example Usage
 
