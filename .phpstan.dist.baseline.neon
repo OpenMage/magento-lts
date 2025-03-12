@@ -3889,12 +3889,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Observer.php
 
 		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
-
-		-
 			message: '#^Cannot call method streamRead\(\) on resource\.$#'
 			identifier: method.nonObject
 			count: 1
