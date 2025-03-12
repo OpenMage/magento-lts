@@ -78,7 +78,7 @@ processors=6
 
 Open the `Terminal` application then choose a new tab with Ubuntu. Follow the steps to complete the installation, setting the `username` and `password` (e.g. `admin` / `veryl0ngpassw0rd`).
 
-![terminal](https://github.com/OpenMage/magento-lts/assets/8360474/b88fe7ae-4d86-4cba-a239-01c06a685bec)
+![Terminal](https://github.com/OpenMage/magento-lts/assets/8360474/b88fe7ae-4d86-4cba-a239-01c06a685bec)
 
 ### (Windows) Installing Docker
 
@@ -162,7 +162,7 @@ ddev start
 ddev launch
 ```
 
-For more information about using DDEV please visit https://github.com/OpenMage/magento-lts/blob/main/docs/DDEV.md. It is a fantastic tool!
+For more information about using DDEV please visit [help](/developers/tools/ddev) page. It is a fantastic tool!
 
 ### CONCLUSION
 As you can see, the more complicated part is the initial configuration of WSL, Docker, DDEV. Once done, it doesn't take more than 3-5 minutes to get an instance of OpenMage ready for testing. Forget about XAMPP, WAMP in Windows.

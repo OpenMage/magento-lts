@@ -58,7 +58,7 @@ For a complete list, see this [folder](https://github.com/OpenMage/magento-lts/t
 - `filter`: (bool) Whether the column can be filtered
 - `copyable`: (bool) Whether the column's content can be copied to clipboard
 - `filter_index`: The database field to use for filtering (useful when 'index' is a calculated field)
-- `renderer`: A custom renderer class for the column
+- `renderer`: A custom render class for the column
 - `filter_condition_callback`: A callback function for custom filtering logic
 - `no_link`: (bool) Prevents rendering links in the column
 
@@ -123,7 +123,7 @@ protected function _prepareColumns()
 
 ## Advanced Usage: Custom Render and Filter classes
 
-For more complex column requirements, you can create custom renderers and filters:
+For more complex column requirements, you can create custom render and filter classes:
 
 ```php
 $this->addColumn('custom_field', [
