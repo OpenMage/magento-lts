@@ -35,7 +35,7 @@ git clone https://github.com/OpenMage/magento-lts.git && cd magento-lts && SAMPL
 See [colinmollenhour/docker-openmage](https://github.com/colinmollenhour/docker-openmage) for more information
 on the containers used in this setup, but here are some quick tips:
 
-- You can start the cron task using `docker compose up -d cron`.
+- You can start the Cron task using `docker compose up -d cron`.
 - The `cli` service contains many useful tools like `composer`, `magerun`, `modman`, `mageconfigsync` and more.
 - Xdebug is enabled using `remote_connect_back=1` with `idekey=phpstorm`. Customize this in `.env` if needed as described below.
 
