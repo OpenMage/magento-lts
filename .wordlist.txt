@@ -1,6 +1,7 @@
 ACL
 ActionScript
 bool
+Braintree
 Browsersync
 Captcha
 CMS
@@ -13,6 +14,7 @@ DocBlock
 EAV
 FireGento
 Gitpod
+HiPay
 Homebrew
 HMAC
 ImageMagick

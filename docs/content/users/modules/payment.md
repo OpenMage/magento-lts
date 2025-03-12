@@ -52,8 +52,8 @@ The module was only tested with the default theme and Onepage Checkout.
 
     No composer install via packagist.org available. [^6]
 
-[^2]: https://github.com/justinbeaty/module-gene-braintree
-[^3]: https://github.com/braintree/braintree_php
-[^4]: https://github.com/hipay/hipay-fullservice-sdk-magento1
-[^5]: https://github.com/mollie/Magento
-[^6]: https://github.com/rvelhote/opennode-magento
+[^2]: [https://github.com/justinbeaty/module-gene-braintree](https://github.com/justinbeaty/module-gene-braintree)
+[^3]: [https://github.com/braintree/braintree_php](https://github.com/braintree/braintree_php)
+[^4]: [https://github.com/hipay/hipay-fullservice-sdk-magento1](https://github.com/hipay/hipay-fullservice-sdk-magento1)
+[^5]: [https://github.com/mollie/Magento](https://github.com/mollie/Magento)
+[^6]: [https://github.com/rvelhote/opennode-magento](https://github.com/rvelhote/opennode-magento)

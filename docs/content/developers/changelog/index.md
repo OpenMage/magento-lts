@@ -76,7 +76,7 @@ For full list of changes, you can [compare tags](https://github.com/OpenMage/mag
 PHP 7.4 is now the minimum required version.
 
 Most of the 3rd party libraries/modules that were bundled in our repository were removed and migrated to composer dependencies.
-This allows for better maintenance and upgradability.
+This allows for better maintenance and easier upgrades.
 
 Specifically:
 

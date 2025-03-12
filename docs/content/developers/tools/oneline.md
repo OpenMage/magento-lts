@@ -94,7 +94,7 @@ If you want to start fresh, wipe out your installation with the following comman
 $ docker compose down --volumes && rm -f ../../app/etc/local.xml
 ```
 
-## HTTPS / Production
+## Production
 
 You can easily have a multi-store SSL-protected environment using Docker with the `docker-compose-production.yml` file.
 

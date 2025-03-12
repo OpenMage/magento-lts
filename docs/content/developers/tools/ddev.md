@@ -226,7 +226,7 @@ Run in the terminal window any of the following commands for different tasks.
 
 ## Using mkcert for secured connections
 
-See: https://github.com/FiloSottile/mkcert
+- GitHub [repsitory](https://github.com/FiloSottile/mkcert)
 
 mkcert is a simple tool for making locally-trusted development certificates. If you use (Windows 10/11 + WSL + Docker), first install the mkcert package in Windows then copy the certificates files associated to the current user into the Linux distribution.
 
