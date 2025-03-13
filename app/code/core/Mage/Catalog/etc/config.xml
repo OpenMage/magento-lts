@@ -713,18 +713,18 @@
             </sales_convert_quote_item_to_order_item>
             <controller_action_predispatch_catalogsearch_advanced_index>
                 <observers>
-                    <stackexchange_disable_advancedsearch_index>
+                    <disable_advancedsearch_index>
                         <class>catalog/observer_disableAdvancedSearch</class>
                         <method>execute</method>
-                    </stackexchange_disable_advancedsearch_index>
+                    </disable_advancedsearch_index>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_index>
             <controller_action_predispatch_catalogsearch_advanced_result>
                 <observers>
-                    <stackexchange_disable_advancedsearch_results>
+                    <disable_advancedsearch_results>
                         <class>catalog/observer_disableAdvancedSearch</class>
                         <method>execute</method>
-                    </stackexchange_disable_advancedsearch_results>
+                    </disable_advancedsearch_results>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_result>
         </events>
