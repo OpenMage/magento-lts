@@ -18,8 +18,8 @@ include_once 'CentinelErrors.php';
 
 class CentinelClient
 {
-    public $request ;
-    public $response ;
+    public $request;
+    public $response;
     public $parser;
 
     /////////////////////////////////////////////////////////////////////////////////////////////

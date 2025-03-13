@@ -167,7 +167,7 @@ class ProductTest extends TestCase
      * @group Mage_Catalog_Model
      * @param mixed $expectedResult
      */
-    public function testFormatUrlKey($expectedResult, ?string $locale): void
+    public function testFormatUrlKey($expectedResult, string $locale): void
     {
         $this->subject->setLocale($locale);
         $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));

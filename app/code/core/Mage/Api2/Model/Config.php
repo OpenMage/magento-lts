@@ -270,9 +270,9 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Get included attributes
      *
-     * @param  string $resource      API resource ID
-     * @param  string $userType      API user type
-     * @param  string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param  string                                          $resource      API resource ID
+     * @param  string                                          $userType      API user type
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getResourceIncludedAttributes($resource, $userType, $operationType)
@@ -293,9 +293,9 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
     /**
      * Get entity only attributes
      *
-     * @param  string $resource      API resource ID
-     * @param  string $userType      API user type
-     * @param  string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param  string                                          $resource      API resource ID
+     * @param  string                                          $userType      API user type
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getResourceEntityOnlyAttributes($resource, $userType, $operationType)
