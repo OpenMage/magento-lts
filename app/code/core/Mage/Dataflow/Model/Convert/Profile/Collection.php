@@ -92,6 +92,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
 
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param mixed $xml
      */
     public function importXml($xml)
     {

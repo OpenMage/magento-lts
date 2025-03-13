@@ -93,7 +93,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
     /**
      * Get product Id
      *
-     * @param Mage_Catalog_Model_Product $item
+     * @param  Mage_Catalog_Model_Product $item
      * @return int
      */
     public function getIdentifierId($item)
@@ -104,8 +104,8 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
     /**
      * Retrieve product identifier of block item
      *
-     * @param   mixed $item
-     * @return  int
+     * @param  mixed $item
+     * @return int
      */
     public function getProductId($item)
     {

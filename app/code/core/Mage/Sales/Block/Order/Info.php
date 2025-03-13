@@ -70,9 +70,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $name
-     * @param string $path
-     * @param string $label
+     * @param  string $name
+     * @param  string $path
+     * @param  string $label
      * @return $this
      */
     public function addLink($name, $path, $label)
@@ -88,7 +88,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
     /**
      * Remove a link
      *
-     * @param string $name of the link
+     * @param  string $name of the link
      * @return $this
      */
     public function removeLink($name)
@@ -126,7 +126,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      * Get url for reorder action
      *
      * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getReorderUrl($order)
@@ -141,7 +141,7 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      * Get url for printing order
      *
      * @deprecated after 1.6.0.0, logic moved to new block
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getPrintUrl($order)

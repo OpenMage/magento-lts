@@ -141,9 +141,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Init config group
      *
-     * @param Varien_Data_Form $form
-     * @param Varien_Simplexml_Element $group
-     * @param Varien_Simplexml_Element $section
+     * @param Varien_Data_Form                       $form
+     * @param Varien_Simplexml_Element               $group
+     * @param Varien_Simplexml_Element               $section
      * @param Varien_Data_Form_Element_Fieldset|null $parentElement
      */
     protected function _initGroup($form, $group, $section, $parentElement = null)
@@ -217,10 +217,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Init fieldset fields
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
-     * @param Varien_Simplexml_Element $group
-     * @param Varien_Simplexml_Element $section
-     * @param string $fieldPrefix
-     * @param string $labelPrefix
+     * @param Varien_Simplexml_Element          $group
+     * @param Varien_Simplexml_Element          $section
+     * @param string                            $fieldPrefix
+     * @param string                            $labelPrefix
      * @throw Mage_Core_Exception
      * @return $this
      */
@@ -465,7 +465,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Set "original_data" array to the element, composed from nodes with scalar values
      *
      * @param Varien_Data_Form_Element_Abstract $field
-     * @param Varien_Simplexml_Element $xmlElement
+     * @param Varien_Simplexml_Element          $xmlElement
      */
     protected function _prepareFieldOriginalData($field, $xmlElement)
     {
@@ -481,8 +481,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Support models "getCommentText" method for field note generation
      *
-     * @param Mage_Core_Model_Config_Element $element
-     * @param string $helper
+     * @param  Mage_Core_Model_Config_Element $element
+     * @param  string                         $helper
+     * @param  mixed                          $currentValue
      * @return string
      */
     protected function _prepareFieldComment($element, $helper, $currentValue)
@@ -507,8 +508,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Support models "getCommentText" method for group note generation
      *
-     * @param Mage_Core_Model_Config_Element $element
-     * @param string $helper
+     * @param  Mage_Core_Model_Config_Element $element
+     * @param  string                         $helper
      * @return string
      */
     protected function _prepareGroupComment($element, $helper)
@@ -519,8 +520,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Prepare additional comment for field like tooltip
      *
-     * @param Mage_Core_Model_Config_Element $element
-     * @param string $helper
+     * @param  Mage_Core_Model_Config_Element $element
+     * @param  string                         $helper
      * @return string
      */
     protected function _prepareFieldTooltip($element, $helper)
@@ -537,6 +538,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      * Append dependence block at then end of form block
      *
      *
+     * @param mixed $html
      */
     protected function _afterToHtml($html)
     {
@@ -547,8 +549,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $a
-     * @param Varien_Simplexml_Element $b
+     * @param  Varien_Simplexml_Element $a
+     * @param  Varien_Simplexml_Element $b
      * @return int
      */
     protected function _sortForm($a, $b)
@@ -557,7 +559,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $field
+     * @param  Varien_Simplexml_Element $field
      * @return bool
      */
     public function canUseDefaultValue($field)
@@ -572,7 +574,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     }
 
     /**
-     * @param Varien_Simplexml_Element $field
+     * @param  Varien_Simplexml_Element $field
      * @return bool
      */
     public function canUseWebsiteValue($field)
@@ -586,8 +588,8 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Checking field visibility
      *
-     * @param   Varien_Simplexml_Element $field
-     * @return  bool
+     * @param  Varien_Simplexml_Element $field
+     * @return bool
      */
     protected function _canShowField($field)
     {
@@ -632,7 +634,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
     /**
      * Retrieve label for scope
      *
-     * @param Mage_Core_Model_Config_Element $element
+     * @param  Mage_Core_Model_Config_Element $element
      * @return string
      */
     public function getScopeLabel($element)

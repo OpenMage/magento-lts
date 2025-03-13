@@ -20,16 +20,16 @@
  *
  * @method Mage_Core_Model_Resource_Design _getResource()
  * @method Mage_Core_Model_Resource_Design getResource()
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getDesign()
- * @method $this setDesign(string $value)
- * @method string getDateFrom()
- * @method $this setDateFrom(string $value)
- * @method string getDateTo()
- * @method $this setDateTo(string $value)
- * @method string getPackage()
- * @method string getTheme()
+ * @method int                             getStoreId()
+ * @method $this                           setStoreId(int $value)
+ * @method string                          getDesign()
+ * @method $this                           setDesign(string $value)
+ * @method string                          getDateFrom()
+ * @method $this                           setDateFrom(string $value)
+ * @method string                          getDateTo()
+ * @method $this                           setDateTo(string $value)
+ * @method string                          getPackage()
+ * @method string                          getTheme()
  */
 class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
 {
@@ -48,8 +48,8 @@ class Mage_Core_Model_Design extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $storeId
-     * @param string|null $date
+     * @param  int         $storeId
+     * @param  string|null $date
      * @return $this
      */
     public function loadChange($storeId, $date = null)

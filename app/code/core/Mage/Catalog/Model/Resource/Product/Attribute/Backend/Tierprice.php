@@ -30,7 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
     /**
      * Add qty column
      *
-     * @param array $columns
+     * @param  array $columns
      * @return array
      */
     protected function _loadPriceDataColumns($columns)
@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
     /**
      * Order by qty
      *
-     * @param Varien_Db_Select $select
+     * @param  Varien_Db_Select $select
      * @return Varien_Db_Select
      */
     protected function _loadPriceDataSelect($select)
@@ -57,8 +57,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      *
      * @deprecated since 1.3.2.3
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Product                $product
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return array
      */
     public function loadProductPrices($product, $attribute)
@@ -78,8 +78,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      *
      * @deprecated since 1.3.2.3
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  Mage_Catalog_Model_Product                $product
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @return $this
      */
     public function deleteProductPrices($product, $attribute)
@@ -102,8 +102,8 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Tierprice extends Ma
      *
      * @deprecated since 1.3.2.3
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $data
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $data
      * @return $this
      */
     public function insertProductPrice($product, $data)

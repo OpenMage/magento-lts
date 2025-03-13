@@ -58,9 +58,9 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Url_Rewrite $object
+     * @param  string                      $field
+     * @param  mixed                       $value
+     * @param  Mage_Core_Model_Url_Rewrite $object
      * @return Zend_Db_Select
      */
     protected function _getLoadSelect($field, $value, $object)
@@ -79,8 +79,8 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
     /**
      * Retrieve request_path using id_path and current store's id.
      *
-     * @param string $idPath
-     * @param int|Mage_Core_Model_Store $store
+     * @param  string                    $idPath
+     * @param  int|Mage_Core_Model_Store $store
      * @return string|false
      */
     public function getRequestPathByIdPath($idPath, $store)
@@ -109,8 +109,8 @@ class Mage_Core_Model_Resource_Url_Rewrite extends Mage_Core_Model_Resource_Db_A
      * Load rewrite information for request
      * If $path is array - we must load all possible records and choose one matching earlier record in array
      *
-     * @param   array|string $path
-     * @return  Mage_Core_Model_Resource_Url_Rewrite
+     * @param  array|string                         $path
+     * @return Mage_Core_Model_Resource_Url_Rewrite
      */
     public function loadByRequestPath(Mage_Core_Model_Url_Rewrite $object, $path)
     {

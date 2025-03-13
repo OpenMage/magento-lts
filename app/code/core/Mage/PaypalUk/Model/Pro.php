@@ -86,7 +86,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     /**
      * Import capture results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
      */
     protected function _importCaptureResultToPayment($api, $payment)
@@ -106,7 +106,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     /**
      * Fetch transaction details info method does not exists in PaypalUK
      *
-     * @param string $transactionId
+     * @param  string              $transactionId
      * @throws Mage_Core_Exception
      * @return void
      */
@@ -120,9 +120,9 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
     /**
      * Import refund results to payment
      *
-     * @param Mage_Paypal_Model_Api_Nvp $api
+     * @param Mage_Paypal_Model_Api_Nvp      $api
      * @param Mage_Sales_Model_Order_Payment $payment
-     * @param bool $canRefundMore
+     * @param bool                           $canRefundMore
      */
     protected function _importRefundResultToPayment($api, $payment, $canRefundMore)
     {

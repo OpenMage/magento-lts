@@ -62,8 +62,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Massaction extends Mage_A
     /**
      * Returns HTML of the checkbox
      *
-     * @param string $value
-     * @param bool   $checked
+     * @param  string $value
+     * @param  bool   $checked
      * @return string
      */
     protected function _getCheckboxHtml($value, $checked)

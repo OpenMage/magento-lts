@@ -28,7 +28,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
      * Returns array of options objects.
      * Each option object will contain array of selections objects
      *
-     * @param bool $useCache
+     * @param  bool  $useCache
      * @return array
      */
     protected function _getBundleOptions($useCache = true)
@@ -39,7 +39,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
     /**
      * Obtain final price of selection in a bundle product
      *
-     * @param Mage_Catalog_Model_Product $selectionProduct
+     * @param  Mage_Catalog_Model_Product $selectionProduct
      * @return float
      */
     protected function _getSelectionFinalPrice($selectionProduct)
@@ -51,7 +51,7 @@ class Mage_Bundle_Block_Checkout_Cart_Item_Renderer extends Mage_Checkout_Block_
     /**
      * Get selection quantity
      *
-     * @param int $selectionId
+     * @param  int   $selectionId
      * @return float
      */
     protected function _getSelectionQty($selectionId)

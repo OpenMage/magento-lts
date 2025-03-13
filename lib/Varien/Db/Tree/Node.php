@@ -30,8 +30,8 @@ class Varien_Db_Tree_Node
 
     /**
      * Varien_Db_Tree_Node constructor.
-     * @param array $nodeData
-     * @param array $keys
+     * @param  array                         $nodeData
+     * @param  array                         $keys
      * @throws Varien_Db_Tree_Node_Exception
      */
     public function __construct($nodeData, $keys)

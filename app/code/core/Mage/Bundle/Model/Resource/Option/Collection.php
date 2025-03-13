@@ -21,7 +21,7 @@
  * @package    Mage_Bundle
  *
  * @method Mage_Bundle_Model_Option[] getItems()
- * @method Mage_Bundle_Model_Option getItemById($idValue)
+ * @method Mage_Bundle_Model_Option   getItemById($idValue)
  */
 class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
@@ -51,7 +51,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Joins values to options
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function joinValues($storeId)
@@ -87,7 +87,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Sets product id filter
      *
-     * @param int $productId
+     * @param  int   $productId
      * @return $this
      */
     public function setProductIdFilter($productId)
@@ -113,9 +113,9 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
      * stripBefore - indicates to reload
      * appendAll - indicates do we need to filter by saleable and required custom options
      *
-     * @param Mage_Bundle_Model_Resource_Selection_Collection $selectionsCollection
-     * @param bool $stripBefore
-     * @param bool $appendAll
+     * @param  Mage_Bundle_Model_Resource_Selection_Collection $selectionsCollection
+     * @param  bool                                            $stripBefore
+     * @param  bool                                            $appendAll
      * @return array
      */
     public function appendSelections($selectionsCollection, $stripBefore = false, $appendAll = true)
@@ -158,7 +158,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
     /**
      * Sets filter by option id
      *
-     * @param array|int $ids
+     * @param  array|int $ids
      * @return $this
      */
     public function setIdFilter($ids)

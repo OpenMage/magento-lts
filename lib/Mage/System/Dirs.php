@@ -17,6 +17,7 @@ class Mage_System_Dirs
 {
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param mixed $dirname
      */
     public static function rm($dirname)
     {
@@ -70,6 +71,9 @@ class Mage_System_Dirs
 
     /**
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @param mixed $path
+     * @param mixed $recursive
+     * @param mixed $mode
      */
     public static function mkdirStrict($path, $recursive = true, $mode = 0777)
     {

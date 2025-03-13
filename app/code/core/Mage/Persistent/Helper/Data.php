@@ -44,7 +44,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Checks whether Persistence Functionality is enabled
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|string|Mage_Core_Model_Store $store
      * @return bool
      */
     public function isEnabled($store = null)
@@ -55,7 +55,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Checks whether "Remember Me" enabled
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|string|Mage_Core_Model_Store $store
      * @return bool
      */
     public function isRememberMeEnabled($store = null)
@@ -66,7 +66,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Is "Remember Me" checked by default
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|string|Mage_Core_Model_Store $store
      * @return bool
      */
     public function isRememberMeCheckedDefault($store = null)
@@ -77,7 +77,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Is shopping cart persist
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|string|Mage_Core_Model_Store $store
      * @return bool
      */
     public function isShoppingCartPersist($store = null)
@@ -88,7 +88,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Get Persistence Lifetime
      *
-     * @param int|string|Mage_Core_Model_Store $store
+     * @param  int|string|Mage_Core_Model_Store $store
      * @return int
      */
     public function getLifeTime($store = null)
@@ -140,7 +140,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Check whether specified action should be processed
      *
-     * @param Varien_Event_Observer $observer
+     * @param  Varien_Event_Observer $observer
      * @return bool
      */
     public function canProcess($observer)
@@ -160,7 +160,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     /**
      * Get create account url depends on checkout
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     public function getCreateAccountUrl($url)

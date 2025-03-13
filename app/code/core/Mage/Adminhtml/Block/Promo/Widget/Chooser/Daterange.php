@@ -83,7 +83,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     /**
      * Target element ID setter
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setTargetElementId($value)
@@ -95,8 +95,8 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     /**
      * Range values setter
      *
-     * @param string $from
-     * @param string $to
+     * @param  string $from
+     * @param  string $to
      * @return $this
      */
     public function setRangeValues($from, $to)
@@ -109,7 +109,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
      * Range values setter, string implementation.
      * Automatically attempts to split the string by delimiter
      *
-     * @param string $delimitedString
+     * @param  string $delimitedString
      * @return $this
      */
     public function setRangeValue($delimitedString)
@@ -123,7 +123,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Daterange extends Mage_Adminhtml
     /**
      * Range delimiter setter
      *
-     * @param string $value
+     * @param  string $value
      * @return $this
      */
     public function setRangeDelimiter($value)

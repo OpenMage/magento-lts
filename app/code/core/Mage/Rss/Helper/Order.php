@@ -40,7 +40,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
     /**
      * Retrieve order status history url
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getStatusHistoryRssUrl($order)
@@ -54,7 +54,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
     /**
      * Retrieve order status url key
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function getStatusUrlKey($order)
@@ -70,7 +70,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
     /**
      * Retrieve order instance by specified status url key
      *
-     * @param string $key
+     * @param  string                      $key
      * @return Mage_Sales_Model_Order|null
      */
     public function getOrderByStatusUrlKey($key)

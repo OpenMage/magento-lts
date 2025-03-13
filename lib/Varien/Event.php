@@ -64,7 +64,7 @@ class Varien_Event extends Varien_Object
     /**
      * Removes an observer by its name
      *
-     * @param string $observerName
+     * @param  string       $observerName
      * @return Varien_Event
      */
     public function removeObserverByName($observerName)

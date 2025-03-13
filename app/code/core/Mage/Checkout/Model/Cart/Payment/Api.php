@@ -23,7 +23,7 @@
 class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resource
 {
     /**
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _preparePaymentData($data)
@@ -37,7 +37,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
 
     /**
      * @param  Mage_Payment_Model_Method_Abstract $method
-     * @param  Mage_Sales_Model_Quote $quote
+     * @param  Mage_Sales_Model_Quote             $quote
      * @return bool
      */
     protected function _canUsePaymentMethod($method, $quote)
@@ -69,7 +69,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param Mage_Payment_Model_Method_Abstract $method
+     * @param  Mage_Payment_Model_Method_Abstract $method
      * @return array|null
      */
     protected function _getPaymentMethodAvailableCcTypes($method)
@@ -91,8 +91,8 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     /**
      * Retrieve available payment methods for a quote
      *
-     * @param int $quoteId
-     * @param int $store
+     * @param  int   $quoteId
+     * @param  int   $store
      * @return array
      */
     public function getPaymentMethodsList($quoteId, $store = null)
@@ -124,8 +124,8 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
     }
 
     /**
-     * @param  int $quoteId
-     * @param  array $paymentData
+     * @param  int        $quoteId
+     * @param  array      $paymentData
      * @param  string|int $store
      * @return bool
      */

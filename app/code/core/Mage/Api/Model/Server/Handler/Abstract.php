@@ -31,9 +31,10 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * @param int $errorCode
-     * @param string $errorMessage
-     * @param string $errorFile
+     * @param  int    $errorCode
+     * @param  string $errorMessage
+     * @param  string $errorFile
+     * @param  mixed  $errLine
      * @return bool
      */
     public function handlePhpError($errorCode, $errorMessage, $errorFile, $errLine)
@@ -78,7 +79,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Start webservice session
      *
-     * @param string $sessionId
+     * @param  string                                 $sessionId
      * @return Mage_Api_Model_Server_Handler_Abstract
      */
     protected function _startSession($sessionId = null)
@@ -91,7 +92,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Allow insta-login via HTTP Basic Auth
      *
-     * @param stdClass|string|null $sessionId
+     * @param  stdClass|string|null $sessionId
      * @return $this
      * @SuppressWarnings("PHPMD.Superglobals")
      */
@@ -108,9 +109,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Check current user permission on resource and privilege
      *
      *
-     * @param   string $resource
-     * @param   string $privilege
-     * @return  bool
+     * @param  string $resource
+     * @param  string $privilege
+     * @return bool
      */
     protected function _isAllowed($resource, $privilege = null)
     {
@@ -143,9 +144,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Retrieve webservice fault as array
      *
-     * @param string $faultName
-     * @param string $resourceName
-     * @param string $customMessage
+     * @param  string $faultName
+     * @param  string $resourceName
+     * @param  string $customMessage
      * @return array
      */
     protected function _faultAsArray($faultName, $resourceName = null, $customMessage = null)
@@ -178,7 +179,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * End web service session
      *
-     * @param string $sessionId
+     * @param  string $sessionId
      * @return true
      */
     public function endSession($sessionId)
@@ -189,7 +190,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     }
 
     /**
-     * @param string $resource
+     * @param  string $resource
      * @return string
      */
     protected function _prepareResourceModelName($resource)
@@ -203,8 +204,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Login user and Retrieve session id
      *
-     * @param string $username
-     * @param string $apiKey
+     * @param  string               $username
+     * @param  string               $apiKey
      * @return stdClass|string|void
      */
     public function login($username, $apiKey = null)
@@ -230,9 +231,9 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Call resource functionality
      *
-     * @param string $sessionId
-     * @param string $apiPath
-     * @param array  $args
+     * @param  string     $sessionId
+     * @param  string     $apiPath
+     * @param  array      $args
      * @return mixed|void
      */
     public function call($sessionId, $apiPath, $args = [])
@@ -324,8 +325,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * Multiple calls of resource functionality
      *
-     * @param string $sessionId
-     * @param array $options
+     * @param  string     $sessionId
+     * @param  array      $options
      * @return array|void
      */
     public function multiCall($sessionId, array $calls = [], $options = [])
@@ -458,7 +459,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * List of available resources
      *
-     * @param string $sessionId
+     * @param  string     $sessionId
      * @return array|void
      */
     public function resources($sessionId)
@@ -523,8 +524,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
     /**
      * List of resource faults
      *
-     * @param string $sessionId
-     * @param string $resourceName
+     * @param  string     $sessionId
+     * @param  string     $resourceName
      * @return array|void
      */
     public function resourceFaults($sessionId, $resourceName)
@@ -579,7 +580,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * See allowed characters in XML:
      * @link http://www.w3.org/TR/2000/REC-xml-20001006#NT-Char
      *
-     * @param mixed $result
+     * @param  mixed $result
      * @return mixed
      */
     public function processingMethodResult($result)
@@ -601,7 +602,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
      * Prepare Api row data for XML exporting
      * Convert not allowed symbol to numeric character reference
      *
-     * @param mixed $row
+     * @param  mixed $row
      * @return mixed
      */
     public function processingRow($row)

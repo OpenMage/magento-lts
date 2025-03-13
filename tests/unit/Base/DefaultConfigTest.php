@@ -28,6 +28,7 @@ class DefaultConfigTest extends TestCase
      * @dataProvider provideGetStoreConfig
      * @group Base
      * @group Default_Config
+     * @param null|mixed $store
      */
     public function testGetStoreConfig(string $expectedResult, string $path, $store = null): void
     {

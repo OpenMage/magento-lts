@@ -67,7 +67,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     }
 
     /**
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return $this
      */
     public function setOrder($order)
@@ -156,8 +156,8 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Add new total to totals array after specific total or before last total by default
      *
-     * @param   null|string $after accepted values: 'first', 'last'
-     * @return  Mage_Sales_Block_Order_Totals
+     * @param  null|string                   $after accepted values: 'first', 'last'
+     * @return Mage_Sales_Block_Order_Totals
      */
     public function addTotal(Varien_Object $total, $after = null)
     {
@@ -193,8 +193,8 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Add new total to totals array before specific total or after first total by default
      *
-     * @param null|array|string $before
-     * @return  Mage_Sales_Block_Order_Totals
+     * @param  null|array|string             $before
+     * @return Mage_Sales_Block_Order_Totals
      */
     public function addTotalBefore(Varien_Object $total, $before = null)
     {
@@ -230,7 +230,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Get Total object by code
      *
-     * @param string $code
+     * @param  string              $code
      * @return Varien_Object|false
      */
     public function getTotal($code)
@@ -241,8 +241,8 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Delete total by specific
      *
-     * @param   string $code
-     * @return  Mage_Sales_Block_Order_Totals
+     * @param  string                        $code
+     * @return Mage_Sales_Block_Order_Totals
      */
     public function removeTotal($code)
     {
@@ -258,8 +258,8 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
      * )
      *
      *
-     * @param   array $order
-     * @return  Mage_Sales_Block_Order_Totals
+     * @param  array                         $order
+     * @return Mage_Sales_Block_Order_Totals
      */
     public function applySortOrder($order)
     {
@@ -269,7 +269,7 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * get totals array for visualization
      *
-     * @param null|string $area
+     * @param  null|string $area
      * @return array
      */
     public function getTotals($area = null)
@@ -292,8 +292,8 @@ class Mage_Sales_Block_Order_Totals extends Mage_Core_Block_Template
     /**
      * Format total value based on order currency
      *
-     * @param   Varien_Object $total
-     * @return  string
+     * @param  Varien_Object $total
+     * @return string
      */
     public function formatValue($total)
     {

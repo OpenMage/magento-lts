@@ -48,7 +48,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     /**
      * Add date filter to collection
      *
-     * @param null|int|string|Zend_Date $date
+     * @param  null|int|string|Zend_Date $date
      * @return $this
      */
     public function addDateFilter($date = null)
@@ -67,7 +67,7 @@ class Mage_Core_Model_Resource_Design_Collection extends Mage_Core_Model_Resourc
     /**
      * Add store filter to collection
      *
-     * @param int|array $storeId
+     * @param  int|array $storeId
      * @return $this
      */
     public function addStoreFilter($storeId)

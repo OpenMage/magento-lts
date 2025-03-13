@@ -108,7 +108,7 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
 
     /**
      * @param Mage_Cms_Model_Resource_Block_Collection $collection
-     * @param Mage_Adminhtml_Block_Widget_Grid_Column $column
+     * @param Mage_Adminhtml_Block_Widget_Grid_Column  $column
      */
     protected function _filterStoreCondition($collection, $column)
     {
@@ -118,9 +118,8 @@ class Mage_Adminhtml_Block_Cms_Block_Grid extends Mage_Adminhtml_Block_Widget_Gr
     }
 
     /**
-     * Row click url
-     *
      * @return string
+     * @param  Mage_Cms_Model_Block $row
      */
     public function getRowUrl($row)
     {

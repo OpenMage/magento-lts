@@ -72,7 +72,7 @@ class Mage_Core_Model_File_Validator_Image
      * Validation callback for checking if file is image
      * Destroy malicious code in image by reprocessing
      *
-     * @param  string $filePath Path to temporary uploaded file
+     * @param  string              $filePath Path to temporary uploaded file
      * @return null
      * @throws Mage_Core_Exception
      */
@@ -149,7 +149,7 @@ class Mage_Core_Model_File_Validator_Image
 
     /**
      * Returns is image by image type
-     * @param int $nImageType
+     * @param  int  $nImageType
      * @return bool
      */
     protected function isImageType($nImageType)

@@ -55,7 +55,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     /**
      * Set handler
      *
-     * @param string $handler
+     * @param  string $handler
      * @return $this
      */
     public function setHandler($handler)
@@ -77,7 +77,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     /**
      * Processing file data
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     public function processFileData($text)
@@ -93,7 +93,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $file
+     * @param  string $file
      * @return $this
      */
     public function addLoadedFile($file)
@@ -105,7 +105,7 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     }
 
     /**
-     * @param string $file
+     * @param  string      $file
      * @return $this|false
      */
     public function loadFile($file)
@@ -123,8 +123,8 @@ class Mage_Api_Model_Wsdl_Config_Base extends Varien_Simplexml_Config
     /**
      * Set variable to be used in WSDL template processing
      *
-     * @param string $key Variable key
-     * @param string $value Variable value
+     * @param  string $key   Variable key
+     * @param  string $value Variable value
      * @return $this
      */
     public function setWsdlVariable($key, $value)

@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Customer_Grid_Renderer_Multiaction extends Mage_Admin
     /**
      * Render single action as link html
      *
-     * @param  array $action
+     * @param  array  $action
      * @return string
      */
     protected function _toLinkHtml($action, Varien_Object $row)

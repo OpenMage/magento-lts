@@ -74,9 +74,8 @@ class Mage_Adminhtml_Block_System_Variable_Grid extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * Row click url
-     *
      * @return string
+     * @param  Mage_Core_Model_Variable $row
      */
     public function getRowUrl($row)
     {

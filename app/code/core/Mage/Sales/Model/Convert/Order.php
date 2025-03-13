@@ -25,8 +25,8 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Converting order object to quote object
      *
-     * @param null|Mage_Sales_Model_Quote $quote
-     * @return  Mage_Sales_Model_Quote
+     * @param  null|Mage_Sales_Model_Quote $quote
+     * @return Mage_Sales_Model_Quote
      */
     public function toQuote(Mage_Sales_Model_Order $order, $quote = null)
     {
@@ -46,7 +46,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order to shipping address
      *
-     * @return  Mage_Sales_Model_Quote_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     public function toQuoteShippingAddress(Mage_Sales_Model_Order $order)
     {
@@ -59,7 +59,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order address to quote address
      *
-     * @return  Mage_Sales_Model_Quote_Address
+     * @return Mage_Sales_Model_Quote_Address
      */
     public function addressToQuoteAddress(Mage_Sales_Model_Order_Address $address)
     {
@@ -76,8 +76,8 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order payment to quote payment
      *
-     * @param null|Mage_Sales_Model_Quote_Payment  $quotePayment
-     * @return  Mage_Sales_Model_Quote_Payment
+     * @param  null|Mage_Sales_Model_Quote_Payment $quotePayment
+     * @return Mage_Sales_Model_Quote_Payment
      */
     public function paymentToQuotePayment(Mage_Sales_Model_Order_Payment $payment, $quotePayment = null)
     {
@@ -112,7 +112,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order object to invoice
      *
-     * @return  Mage_Sales_Model_Order_Invoice
+     * @return Mage_Sales_Model_Order_Invoice
      */
     public function toInvoice(Mage_Sales_Model_Order $order)
     {
@@ -130,7 +130,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order item object to invoice item
      *
-     * @return  Mage_Sales_Model_Order_Invoice_Item
+     * @return Mage_Sales_Model_Order_Invoice_Item
      */
     public function itemToInvoiceItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -145,7 +145,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order object to Shipment
      *
-     * @return  Mage_Sales_Model_Order_Shipment
+     * @return Mage_Sales_Model_Order_Shipment
      */
     public function toShipment(Mage_Sales_Model_Order $order)
     {
@@ -163,7 +163,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order item object to Shipment item
      *
-     * @return  Mage_Sales_Model_Order_Shipment_Item
+     * @return Mage_Sales_Model_Order_Shipment_Item
      */
     public function itemToShipmentItem(Mage_Sales_Model_Order_Item $item)
     {
@@ -178,7 +178,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order object to creditmemo
      *
-     * @return  Mage_Sales_Model_Order_Creditmemo
+     * @return Mage_Sales_Model_Order_Creditmemo
      */
     public function toCreditmemo(Mage_Sales_Model_Order $order)
     {
@@ -196,7 +196,7 @@ class Mage_Sales_Model_Convert_Order extends Varien_Object
     /**
      * Convert order item object to Creditmemo item
      *
-     * @return  Mage_Sales_Model_Order_Creditmemo_Item
+     * @return Mage_Sales_Model_Order_Creditmemo_Item
      */
     public function itemToCreditmemoItem(Mage_Sales_Model_Order_Item $item)
     {

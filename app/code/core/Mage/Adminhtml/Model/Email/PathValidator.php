@@ -39,7 +39,7 @@ class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
     /**
      * Return bool after checking the encrypted model in the path to config node
      *
-     * @param string $path
+     * @param  string $path
      * @return bool
      */
     protected function isEncryptedNodePath($path)

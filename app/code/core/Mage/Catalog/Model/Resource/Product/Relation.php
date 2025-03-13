@@ -30,8 +30,8 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
     /**
      * Save (rebuild) product relations
      *
-     * @param int $parentId
-     * @param array $childIds
+     * @param  int   $parentId
+     * @param  array $childIds
      * @return $this
      */
     public function processRelations($parentId, $childIds)

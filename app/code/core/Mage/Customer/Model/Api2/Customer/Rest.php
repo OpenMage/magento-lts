@@ -116,7 +116,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Rest extends Mage_Customer_Mode
     /**
      * Load customer by id
      *
-     * @param int $id
+     * @param  int                          $id
      * @throws Mage_Api2_Exception
      * @return Mage_Customer_Model_Customer
      */

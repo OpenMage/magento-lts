@@ -118,6 +118,7 @@ class AbstractTest extends TestCase
      * @dataProvider provideValidateData
      * @group Mage_Rule
      * @group Mage_Rule_Model
+     * @param mixed $expectedResul
      */
     public function testValidate($expectedResul, ?array $data = null): void
     {
@@ -134,6 +135,7 @@ class AbstractTest extends TestCase
      * @dataProvider provideValidateData
      * @group Mage_Rule
      * @group Mage_Rule_Model
+     * @param mixed $expectedResul
      */
     public function testValidateData($expectedResul, ?array $data = null): void
     {

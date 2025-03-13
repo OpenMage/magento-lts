@@ -25,8 +25,8 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     /**
      * Create new address for customer
      *
-     * @param int $customerId
-     * @param array $addressData
+     * @param  int   $customerId
+     * @param  array $addressData
      * @return int
      */
     public function create($customerId, $addressData)
@@ -75,7 +75,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     /**
      * Retrieve address data
      *
-     * @param int $addressId
+     * @param  int   $addressId
      * @return array
      */
     public function info($addressId)
@@ -108,8 +108,8 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     /**
      * Update address data
      *
-     * @param int $addressId
-     * @param array $addressData
+     * @param  int   $addressId
+     * @param  array $addressData
      * @return bool
      */
     public function update($addressId, $addressData)
@@ -152,7 +152,7 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
     /**
      * Delete address
      *
-     * @param int $addressId
+     * @param  int  $addressId
      * @return bool
      */
     public function delete($addressId)

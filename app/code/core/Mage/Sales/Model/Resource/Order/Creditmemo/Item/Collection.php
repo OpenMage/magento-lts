@@ -40,7 +40,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Item_Collection extends Mage_Sa
     /**
      * Set creditmemo filter
      *
-     * @param int $creditmemoId
+     * @param  int   $creditmemoId
      * @return $this
      */
     public function setCreditmemoFilter($creditmemoId)

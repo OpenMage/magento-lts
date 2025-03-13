@@ -25,7 +25,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Assign custom renderer for product create/edit form weee attribute element
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function setWeeeRendererInForm(Varien_Event_Observer $observer)
     {
@@ -50,7 +50,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Exclude WEEE attributes from standard form generation
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function updateExcludedFieldList(Varien_Event_Observer $observer)
     {
@@ -70,7 +70,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Add additional price calculation to select object which is using for select indexed data
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function prepareCatalogIndexSelect(Varien_Event_Observer $observer)
     {
@@ -173,7 +173,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Add new attribute type to manage attributes interface
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function addWeeeTaxAttributeType(Varien_Event_Observer $observer)
     {
@@ -207,7 +207,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Automatically assign backend model to weee attributes
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function assignBackendModelToAttribute(Varien_Event_Observer $observer)
     {
@@ -248,7 +248,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Update WEEE amounts discount percents
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function updateDiscountPercents(Varien_Event_Observer $observer)
     {
@@ -270,7 +270,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Update configurable options of the product view page
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function updateCofigurableProductOptions(Varien_Event_Observer $observer)
     {
@@ -321,7 +321,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Process bundle options selection for prepare view json
      *
-     * @return  Mage_Weee_Model_Observer
+     * @return Mage_Weee_Model_Observer
      */
     public function updateBundleProductOptions(Varien_Event_Observer $observer)
     {

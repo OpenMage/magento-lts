@@ -90,6 +90,10 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
      * Decorate status column values
      *
      * @return string
+     * @param  mixed  $value
+     * @param  mixed  $row
+     * @param  mixed  $column
+     * @param  mixed  $isExport
      */
     public function decorateState($value, $row, $column, $isExport)
     {

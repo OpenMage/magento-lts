@@ -53,7 +53,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Default options for the File cache adapter
      *
-     *  @var array
+     * @var array
      */
     protected $_options = [
         'cache_dir'              => null,    // Path to cache files
@@ -70,7 +70,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Prevents unnecessary checks
      *
-     *  @var boolean
+     * @var boolean
      */
     protected $_isTagDirChecked;
 
@@ -122,8 +122,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Trying to load cached value by id, in case of failure will return false, in other case will return cached string
      *
-     * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param string  $id                     Cache id
+     * @param boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
      *
      * @return string|bool Cached data or false
      */
@@ -161,11 +161,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Note : $data must be a "string" (serialization is done by the
      * core not by the backend)
      *
-     * @param  string   $data             Data to cache
-     * @param  string   $id               Cache id
-     * @param  array    $tags             Array of strings, the cache record will be tagged by each string entry
-     * @param  bool|int $specificLifetime If != false, set a specific lifetime for this cache record
-     *                                    (null => infinite lifetime)
+     * @param string   $data             Data to cache
+     * @param string   $id               Cache id
+     * @param array    $tags             Array of strings, the cache record will be tagged by each string entry
+     * @param bool|int $specificLifetime If != false, set a specific lifetime for this cache record
+     *                                   (null => infinite lifetime)
      *
      * @return boolean In case of success returns true
      */
@@ -201,7 +201,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Remove a cache record
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return boolean In case of success returns true
      */
@@ -232,8 +232,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * 'matchingAnyTag' => remove cache entries matching any given tags
      *                     ($tags can be an array of strings or a single string)
      *
-     * @param  string $mode
-     * @param  array $tags
+     * @param string $mode
+     * @param array  $tags
      *
      * @return boolean In case of success returns true
      */
@@ -274,7 +274,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * In case of multiple tags, a logical AND is made between tags
      *
-     * @param  array $tags Array of tags
+     * @param array $tags Array of tags
      *
      * @return array Array of matching cache ids (string)
      */
@@ -288,7 +288,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * In case of multiple tags, a logical OR is made between tags
      *
-     * @param  array $tags Array of tags
+     * @param array $tags Array of tags
      *
      * @return array Array of not matching cache ids (string)
      */
@@ -302,7 +302,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * In case of multiple tags, a logical OR is made between tags
      *
-     * @param  array $tags Array of tags
+     * @param array $tags Array of tags
      *
      * @return array Array of any matching cache ids (string)
      */
@@ -319,7 +319,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * - tags : a string array of tags
      * - mtime : timestamp of last modification time
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return array Array of metadatas (false if the cache id is not found)
      */
@@ -336,8 +336,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Give (if possible) an extra lifetime to the given cache id
      *
-     * @param  string $id Cache id
-     * @param  int $extraLifetime
+     * @param string $id            Cache id
+     * @param int    $extraLifetime
      *
      * @return boolean In case of success returns true
      */
@@ -365,8 +365,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Get a metadatas record and optionally the data as well
      *
-     * @param  string $file  Cache file
-     * @param  bool $withData
+     * @param  string     $file     Cache file
+     * @param  bool       $withData
      * @return array|bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -406,7 +406,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Get meta data from a cache record
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return array|bool Associative array of meta data
      */
@@ -418,9 +418,9 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Set a metadatas record
      *
-     * @param  string  $id        Cache id
-     * @param  array   $metadatas Associative array of metadatas
-     * @param  boolean $save      Optional pass false to disable saving to file
+     * @param string  $id        Cache id
+     * @param array   $metadatas Associative array of metadatas
+     * @param boolean $save      Optional pass false to disable saving to file
      *
      * @return boolean In case of success returns true
      */
@@ -435,8 +435,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * Uses multiple letters for a single-level hash rather than multiple levels
      *
-     * @param  string  $id    Cache id
-     * @param  boolean $parts If true, returns array of directory parts instead of single string
+     * @param string  $id    Cache id
+     * @param boolean $parts If true, returns array of directory parts instead of single string
      *
      * @return string|array Complete directory path
      */
@@ -473,7 +473,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param array  $tags
      *
      * @throws Zend_Cache_Exception
-     * @return boolean In case of success returns true
+     * @return boolean              In case of success returns true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -546,11 +546,11 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG => remove cache entries matching any given tags
      *                                               ($tags can be an array of strings or a single string)
      *
-     * @param  string $mode Clean mode
-     * @param  array  $tags Array of tags
+     * @param string $mode Clean mode
+     * @param array  $tags Array of tags
      *
      * @throws Zend_Cache_Exception
-     * @return boolean In case of success returns true
+     * @return boolean              In case of success returns true
      */
     protected function _cleanNew($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -630,7 +630,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Make and return a file name (with path)
      *
-     * @param  string $id Cache id
+     * @param string $id Cache id
      *
      * @return string File name (with path)
      */
@@ -739,8 +739,8 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Put the given string into the given file
      *
-     * @param  string $file   File complete path
-     * @param  string $string String to put in file
+     * @param string $file   File complete path
+     * @param string $string String to put in file
      *
      * @return boolean In case of success returns true
      *
@@ -759,7 +759,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Make the directory structure for the given id
      *
-     * @param string $id cache id
+     * @param  string  $id cache id
      * @return boolean true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")

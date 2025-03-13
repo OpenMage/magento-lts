@@ -47,7 +47,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
     /**
      * Reindex temporary (price result data) for defined product(s)
      *
-     * @param int|array $entityIds
+     * @param  int|array $entityIds
      * @return $this
      */
     public function reindexEntity($entityIds)

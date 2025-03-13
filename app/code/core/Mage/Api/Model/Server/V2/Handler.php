@@ -27,8 +27,8 @@ class Mage_Api_Model_Server_V2_Handler extends Mage_Api_Model_Server_Handler_Abs
     /**
      * Interceptor for all interfaces
      *
-     * @param string $function
-     * @param array $args
+     * @param  string $function
+     * @param  array  $args
      * @return mixed
      */
 

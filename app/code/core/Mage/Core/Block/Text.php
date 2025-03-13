@@ -20,19 +20,19 @@
  * @category   Mage
  * @package    Mage_Core
  *
- * @method array getLiParams()
- * @method $this setLiParams(array $value)
- * @method array getAParams()
- * @method $this setAParams(array $value)
+ * @method array  getLiParams()
+ * @method $this  setLiParams(array $value)
+ * @method array  getAParams()
+ * @method $this  setAParams(array $value)
  * @method string getInnerText()
- * @method $this setInnerText(string $value)
+ * @method $this  setInnerText(string $value)
  * @method string getAfterText()
- * @method $this setAfterText(string $value)
+ * @method $this  setAfterText(string $value)
  */
 class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
 {
     /**
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function setText($text)
@@ -51,7 +51,7 @@ class Mage_Core_Block_Text extends Mage_Core_Block_Abstract
 
     /**
      * @param string $text
-     * @param bool $before
+     * @param bool   $before
      */
     public function addText($text, $before = false)
     {

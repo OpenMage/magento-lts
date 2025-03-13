@@ -20,11 +20,11 @@
  * @category   Mage
  * @package    Mage_Widget
  *
- * @method $this setArea(string $value)
- * @method $this setPackage(string $value)
+ * @method $this  setArea(string $value)
+ * @method $this  setPackage(string $value)
  * @method string getSelectName()
- * @method $this setSelectName(string $value)
- * @method $this setTheme(string $value)
+ * @method $this  setSelectName(string $value)
+ * @method $this  setTheme(string $value)
  */
 class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Mage_Adminhtml_Block_Widget
 {
@@ -45,7 +45,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     /**
      * Add not allowed layout handle pattern
      *
-     * @param string $pattern
+     * @param  string $pattern
      * @return $this
      */
     public function addLayoutHandlePattern($pattern)
@@ -127,9 +127,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     /**
      * Retrieve layout handles
      *
-     * @param string $area
-     * @param string $package
-     * @param string $theme
+     * @param  string $area
+     * @param  string $package
+     * @param  string $theme
      * @return array
      */
     public function getLayoutHandles($area, $package, $theme)
@@ -166,7 +166,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
     /**
      * Check if given layout handle allowed (do not match not allowed patterns)
      *
-     * @param string $layoutHandle
+     * @param  string $layoutHandle
      * @return bool
      */
     protected function _filterLayoutHandle($layoutHandle)

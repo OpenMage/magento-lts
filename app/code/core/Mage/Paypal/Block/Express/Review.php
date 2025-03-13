@@ -83,7 +83,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Get HTML output for specified address
      *
-     * @param Mage_Sales_Model_Quote_Address $address
+     * @param  Mage_Sales_Model_Quote_Address $address
      * @return string
      */
     public function renderAddress($address)
@@ -94,7 +94,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Return carrier name from config, base on carrier code
      *
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return string
      */
     public function getCarrierName($carrierCode)
@@ -121,9 +121,9 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Get shipping rate code title and its price or error message
      *
-     * @param Varien_Object $rate
-     * @param string $format
-     * @param string $inclTaxFormat
+     * @param  Varien_Object $rate
+     * @param  string        $format
+     * @param  string        $inclTaxFormat
      * @return string
      */
     public function renderShippingRateOption($rate, $format = '%s - %s%s', $inclTaxFormat = ' (%s %s)')
@@ -167,7 +167,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      * Return formatted shipping price
      *
      * @param float $price
-     * @param bool $isInclTax
+     * @param bool  $isInclTax
      *
      * @return bool
      */
@@ -181,7 +181,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
     /**
      * Format price base on store convert price method
      *
-     * @param float $price
+     * @param  float  $price
      * @return string
      */
     protected function _formatPrice($price)

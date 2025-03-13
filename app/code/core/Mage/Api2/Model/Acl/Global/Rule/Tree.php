@@ -255,8 +255,8 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Get tree node
      *
-     * @param Varien_Simplexml_Element|array $node
-     * @param int $level
+     * @param  Varien_Simplexml_Element|array $node
+     * @param  int                            $level
      * @return array|null
      */
     protected function _getTreeNode($node, $level = 0)
@@ -345,9 +345,9 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Add privileges
      *
-     * @param array $item                       Tree node
-     * @param Varien_Simplexml_Element $node    XML node
-     * @param string $name                      Resource name
+     * @param  array                    $item Tree node
+     * @param  Varien_Simplexml_Element $node XML node
+     * @param  string                   $name Resource name
      * @return bool
      */
     protected function _addPrivileges(&$item, Varien_Simplexml_Element $node, $name)
@@ -386,9 +386,9 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Add operation
      *
-     * @param array $item                       Tree node
-     * @param Varien_Simplexml_Element $node    XML node
-     * @param string $name                      Resource name
+     * @param  array                    $item Tree node
+     * @param  Varien_Simplexml_Element $node XML node
+     * @param  string                   $name Resource name
      * @return bool
      */
     protected function _addOperations(&$item, Varien_Simplexml_Element $node, $name)
@@ -425,10 +425,10 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Add privileges
      *
-     * @param array $item Tree node
-     * @param Varien_Simplexml_Element $node XML node
-     * @param string $name Node name
-     * @param string $privilege Privilege name
+     * @param  array                    $item      Tree node
+     * @param  Varien_Simplexml_Element $node      XML node
+     * @param  string                   $name      Node name
+     * @param  string                   $privilege Privilege name
      * @return bool
      */
     protected function _addAttribute(&$item, Varien_Simplexml_Element $node, $name, $privilege)
@@ -455,8 +455,8 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Compare two nodes of the Resource Tree
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected function _sortTree($a, $b)
@@ -467,7 +467,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Set role
      *
-     * @param Mage_Api2_Model_Acl_Global_Role $role
+     * @param  Mage_Api2_Model_Acl_Global_Role $role
      * @return $this
      */
     public function setRole($role)
@@ -489,7 +489,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Set resources permissions
      *
-     * @param array $resourcesPermissions
+     * @param  array $resourcesPermissions
      * @return $this
      */
     public function setResourcesPermissions($resourcesPermissions)
@@ -511,7 +511,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
     /**
      * Set has entity only attributes flag
      *
-     * @param bool $hasEntityOnlyAttributes
+     * @param  bool  $hasEntityOnlyAttributes
      * @return $this
      */
     public function setHasEntityOnlyAttributes($hasEntityOnlyAttributes)

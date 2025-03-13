@@ -65,9 +65,9 @@
  * @category   Mage
  * @package    Mage_Core
  *
- * @method $this setType(string $value)
- * @method $this setSecure(bool $value)
- * @method $this setSecureIsForced(bool $value)
+ * @method $this  setType(string $value)
+ * @method $this  setSecure(bool $value)
+ * @method $this  setSecureIsForced(bool $value)
  * @method string getScheme()
  * @method string getHost()
  * @method string getPort()
@@ -160,8 +160,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Initialize object data from retrieved url
      *
-     * @param   string $url
-     * @return  Mage_Core_Model_Url
+     * @param  string              $url
+     * @return Mage_Core_Model_Url
      */
     public function parseUrl($url)
     {
@@ -197,7 +197,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set use_url_cache flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setUseUrlCache($flag)
@@ -209,7 +209,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set use session rule
      *
-     * @param bool $useSession
+     * @param  bool  $useSession
      * @return $this
      */
     public function setUseSession($useSession)
@@ -221,7 +221,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set route front name
      *
-     * @param string $name
+     * @param  string $name
      * @return $this
      */
     public function setRouteFrontName($name)
@@ -256,8 +256,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve configuration data
      *
-     * @param string $key
-     * @param string|null $prefix
+     * @param  string      $key
+     * @param  string|null $prefix
      * @return string
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -348,7 +348,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set store entity
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setStore($data)
@@ -373,7 +373,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve Base URL
      *
-     * @param array $params
+     * @param  array  $params
      * @return string
      */
     public function getBaseUrl($params = [])
@@ -403,7 +403,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set Route Parameters
      *
-     * @param array|string $data
+     * @param  array|string $data
      * @return $this
      */
     public function setRoutePath($data)
@@ -485,7 +485,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve route path
      *
-     * @param array $routeParams
+     * @param  array  $routeParams
      * @return string
      */
     public function getRoutePath($routeParams = [])
@@ -516,7 +516,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set route name
      *
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setRouteName($data)
@@ -565,7 +565,7 @@ class Mage_Core_Model_Url extends Varien_Object
      *
      * Reset action name and route path if has change
      *
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setControllerName($data)
@@ -591,7 +591,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Set Action name
      * Reset route path if action name has changed
      *
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setActionName($data)
@@ -616,7 +616,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set route params
      *
-     * @param bool $unsetOldParams
+     * @param  bool  $unsetOldParams
      * @return $this
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
@@ -705,8 +705,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set route param
      *
-     * @param string $key
-     * @param mixed $data
+     * @param  string $key
+     * @param  mixed  $data
      * @return $this
      */
     public function setRouteParam($key, $data)
@@ -723,7 +723,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve route params
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getRouteParam($key)
@@ -735,7 +735,7 @@ class Mage_Core_Model_Url extends Varien_Object
      * Retrieve route URL
      *
      * @param string $routePath
-     * @param array $routeParams
+     * @param array  $routeParams
      *
      * @return string
      */
@@ -807,7 +807,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set URL query param(s)
      *
-     * @param mixed $data
+     * @param  mixed $data
      * @return $this
      */
     public function setQuery($data)
@@ -822,7 +822,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Get query params part of url
      *
-     * @param bool $escape "&" escape flag
+     * @param  bool   $escape "&" escape flag
      * @return string
      */
     public function getQuery($escape = false)
@@ -898,8 +898,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set query param
      *
-     * @param string $key
-     * @param mixed $data
+     * @param  string $key
+     * @param  mixed  $data
      * @return $this
      */
     public function setQueryParam($key, $data)
@@ -916,7 +916,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Retrieve query param
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed
      */
     public function getQueryParam($key)
@@ -930,7 +930,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Set fragment to URL
      *
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setFragment($data)
@@ -951,8 +951,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Build url by requested path and parameters
      *
-     * @param string|null $routePath
-     * @param array|null $routeParams
+     * @param  string|null $routePath
+     * @param  array|null  $routeParams
      * @return string
      */
     public function getUrl($routePath = null, $routeParams = null)
@@ -1022,8 +1022,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Return singleton model instance
      *
-     * @param string $name
-     * @param array $arguments
+     * @param  string                   $name
+     * @param  array                    $arguments
      * @return Mage_Core_Model_Abstract
      */
     protected function _getSingletonModel($name, $arguments = [])
@@ -1071,7 +1071,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Rebuild URL to handle the case when session ID was changed
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     public function getRebuiltUrl($url)
@@ -1103,7 +1103,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Escape (enclosure) URL string
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function escape($value)
@@ -1117,8 +1117,8 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Build url by direct url and parameters
      *
-     * @param string $url
-     * @param array $params
+     * @param  string $url
+     * @param  array  $params
      * @return string
      */
     public function getDirectUrl($url, $params = [])
@@ -1130,7 +1130,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Replace Session ID value in URL
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     public function sessionUrlVar($html)
@@ -1149,7 +1149,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Check and return use SID for URL
      *
-     * @param bool $secure
+     * @param  bool $secure
      * @return bool
      */
     public function useSessionIdForUrl($secure = false)
@@ -1174,7 +1174,7 @@ class Mage_Core_Model_Url extends Varien_Object
     /**
      * Callback function for session replace
      *
-     * @param array $match
+     * @param  array  $match
      * @return string
      */
     public function sessionVarCallback($match)

@@ -64,8 +64,8 @@ class Mage_Catalog_Model_Category_Attribute_Api extends Mage_Catalog_Model_Api_R
     /**
      * Retrieve category attribute options
      *
-     * @param int|string $attributeId
-     * @param string|int $store
+     * @param  int|string $attributeId
+     * @param  string|int $store
      * @return array
      */
     public function options($attributeId, $store = null)

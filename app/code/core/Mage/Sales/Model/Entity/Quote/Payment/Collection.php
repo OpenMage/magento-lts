@@ -28,7 +28,7 @@ class Mage_Sales_Model_Entity_Quote_Payment_Collection extends Mage_Eav_Model_En
     }
 
     /**
-     * @param int $quoteId
+     * @param  int   $quoteId
      * @return $this
      */
     public function setQuoteFilter($quoteId)

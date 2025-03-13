@@ -53,7 +53,7 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
     }
 
     /**
-     * @param string $carrierCode
+     * @param  string $carrierCode
      * @return mixed
      */
     public function getCarrierName($carrierCode)
@@ -73,8 +73,8 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
     }
 
     /**
-     * @param float $price
-     * @param bool $flag
+     * @param  float $price
+     * @param  bool  $flag
      * @return float
      */
     public function getShippingPrice($price, $flag)

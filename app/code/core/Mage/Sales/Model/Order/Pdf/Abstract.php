@@ -76,9 +76,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Similar calculations exist inside the layout manager class, but widths are
      * generally calculated only after determining line fragments.
      *
-     * @param  string $string
+     * @param  string                 $string
      * @param  Zend_Pdf_Resource_Font $font
-     * @param  float $fontSize Font size in points
+     * @param  float                  $fontSize Font size in points
      * @return float
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -102,10 +102,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Calculate coordinates to draw something in a column aligned to the right
      *
      * @param  string $string
-     * @param  int $x
-     * @param  int $columnWidth
-     * @param  int $fontSize
-     * @param  int $padding
+     * @param  int    $x
+     * @param  int    $columnWidth
+     * @param  int    $fontSize
+     * @param  int    $padding
      * @return int
      */
     public function getAlignRight($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize, $padding = 5)
@@ -118,9 +118,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Calculate coordinates to draw something in a column aligned to the center
      *
      * @param  string $string
-     * @param  int $x
-     * @param  int $columnWidth
-     * @param  int $fontSize
+     * @param  int    $x
+     * @param  int    $columnWidth
+     * @param  int    $fontSize
      * @return int
      */
     public function getAlignCenter($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize)
@@ -132,7 +132,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert logo to pdf page
      *
-     * @param Zend_Pdf_Page $page
+     * @param Zend_Pdf_Page                              $page
      * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      */
     protected function insertLogo(&$page, $store = null)
@@ -178,7 +178,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert address to pdf page
      *
-     * @param Zend_Pdf_Page $page
+     * @param Zend_Pdf_Page                              $page
      * @param null|string|bool|int|Mage_Core_Model_Store $store $store
      */
     protected function insertAddress(&$page, $store = null)
@@ -229,7 +229,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Calculate address height
      *
      * @param  array $address
-     * @return int Height
+     * @return int   Height
      */
     protected function _calcAddressHeight($address)
     {
@@ -251,9 +251,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert order to pdf page
      *
-     * @param Zend_Pdf_Page $page
+     * @param Zend_Pdf_Page          $page
      * @param Mage_Sales_Model_Order $obj
-     * @param bool $putOrderId
+     * @param bool                   $putOrderId
      */
     protected function insertOrder(&$page, $obj, $putOrderId = true)
     {
@@ -498,7 +498,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert title and number for concrete document type
      *
-     * @param  string $text
+     * @param string $text
      */
     public function insertDocumentNumber(Zend_Pdf_Page $page, $text)
     {
@@ -562,7 +562,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Insert totals to pdf page
      *
-     * @param  Zend_Pdf_Page $page
+     * @param  Zend_Pdf_Page             $page
      * @param  Mage_Sales_Model_Abstract $source
      * @return Zend_Pdf_Page
      */
@@ -645,7 +645,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Format option value process
      *
-     * @param  array|string $value
+     * @param  array|string           $value
      * @param  Mage_Sales_Model_Order $order
      * @return string
      */
@@ -687,7 +687,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Retrieve renderer model
      *
-     * @param  string $type
+     * @param  string                                    $type
      * @throws Mage_Core_Exception
      * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
      */
@@ -713,7 +713,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      *
      * Retrieve renderer model
      *
-     * @param  string $type
+     * @param  string                                    $type
      * @return Mage_Sales_Model_Order_Pdf_Items_Abstract
      */
     public function getRenderer($type)
@@ -772,8 +772,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set font as regular
      *
-     * @param  Zend_Pdf_Page $object
-     * @param  int $size
+     * @param  Zend_Pdf_Page          $object
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
      */
     protected function _setFontRegular($object, $size = 7)
@@ -786,8 +786,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set font as bold
      *
-     * @param  Zend_Pdf_Page $object
-     * @param  int $size
+     * @param  Zend_Pdf_Page          $object
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
      */
     protected function _setFontBold($object, $size = 7)
@@ -800,8 +800,8 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set font as italic
      *
-     * @param  Zend_Pdf_Page $object
-     * @param  int $size
+     * @param  Zend_Pdf_Page          $object
+     * @param  int                    $size
      * @return Zend_Pdf_Resource_Font
      */
     protected function _setFontItalic($object, $size = 7)

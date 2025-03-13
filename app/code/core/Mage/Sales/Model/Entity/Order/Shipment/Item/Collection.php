@@ -28,7 +28,7 @@ class Mage_Sales_Model_Entity_Order_Shipment_Item_Collection extends Mage_Eav_Mo
     }
 
     /**
-     * @param int $shipmentId
+     * @param  int   $shipmentId
      * @return $this
      */
     public function setShipmentFilter($shipmentId)

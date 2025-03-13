@@ -47,7 +47,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Convert count to human view
      *
-     * @param int $number
+     * @param  int    $number
      * @return string
      */
     protected function _humanCount($number)
@@ -69,7 +69,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
     /**
      * Convert size to human view
      *
-     * @param int $number
+     * @param  int    $number
      * @return string
      */
     protected function _humanSize($number)
@@ -170,7 +170,7 @@ class Mage_Shell_Log extends Mage_Shell_Abstract
      */
     public function usageHelp()
     {
-        return <<<USAGE
+        return <<<EOD
 Usage:  php -f log.php -- [options]
         php -f log.php -- clean --days 1
 
@@ -179,7 +179,7 @@ Usage:  php -f log.php -- [options]
   status            Display statistics per log tables
   help              This help
 
-USAGE;
+EOD;
     }
 }
 

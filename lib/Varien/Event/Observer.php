@@ -63,7 +63,7 @@ class Varien_Event_Observer extends Varien_Object
     }
 
     /**
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setName($data)
@@ -80,7 +80,7 @@ class Varien_Event_Observer extends Varien_Object
     }
 
     /**
-     * @param string $data
+     * @param  string $data
      * @return $this
      */
     public function setEventName($data)
@@ -97,7 +97,7 @@ class Varien_Event_Observer extends Varien_Object
     }
 
     /**
-     * @param $data
+     * @param        $data
      * @return $this
      */
     public function setCallback($data)
@@ -116,7 +116,7 @@ class Varien_Event_Observer extends Varien_Object
     }
 
     /**
-     * @param Varien_Event $data
+     * @param  Varien_Event $data
      * @return $this
      */
     public function setEvent($data)

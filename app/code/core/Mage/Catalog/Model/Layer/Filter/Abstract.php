@@ -39,8 +39,8 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Set request variable name which is used for apply filter
      *
-     * @param   string $varName
-     * @return  $this
+     * @param  string $varName
+     * @return $this
      */
     public function setRequestVar($varName)
     {
@@ -81,7 +81,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Apply filter to collection
      *
-     * @param null $filterBlock deprecated
+     * @param  null  $filterBlock deprecated
      * @return $this
      */
     public function apply(Zend_Controller_Request_Abstract $request, $filterBlock)
@@ -134,7 +134,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Initialize filter items
      *
-     * @return  $this
+     * @return $this
      */
     protected function _initItems()
     {
@@ -169,10 +169,10 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Create filter item object
      *
-     * @param   string $label
-     * @param   mixed $value
-     * @param   int $count
-     * @return  Mage_Catalog_Model_Layer_Filter_Item
+     * @param  string                               $label
+     * @param  mixed                                $value
+     * @param  int                                  $count
+     * @return Mage_Catalog_Model_Layer_Filter_Item
      */
     protected function _createItem($label, $value, $count = 0)
     {
@@ -206,8 +206,8 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Set attribute model to filter
      *
-     * @param   Mage_Eav_Model_Entity_Attribute $attribute
-     * @return  $this
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @return $this
      */
     public function setAttributeModel($attribute)
     {
@@ -257,7 +257,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Set store id scope
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function setStoreId($storeId)
@@ -282,7 +282,7 @@ abstract class Mage_Catalog_Model_Layer_Filter_Abstract extends Varien_Object
     /**
      * Set Website ID scope
      *
-     * @param int $websiteId
+     * @param  int   $websiteId
      * @return $this
      */
     public function setWebsiteId($websiteId)

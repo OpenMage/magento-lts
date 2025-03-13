@@ -29,7 +29,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve active system payments
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
     public function getActiveMethods($store = null)
@@ -52,7 +52,7 @@ class Mage_Payment_Model_Config
     /**
      * Retrieve all system payments
      *
-     * @param null|string|bool|int|Mage_Core_Model_Store $store
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store
      * @return array
      */
     public function getAllMethods($store = null)
@@ -69,9 +69,9 @@ class Mage_Payment_Model_Config
     }
 
     /**
-     * @param string $code
-     * @param array $config
-     * @param null|string|bool|int|Mage_Core_Model_Store $store $store
+     * @param  string                                     $code
+     * @param  array                                      $config
+     * @param  null|string|bool|int|Mage_Core_Model_Store $store  $store
      * @return false|Mage_Payment_Model_Method_Abstract
      */
     protected function _getMethod($code, $config, $store = null)
@@ -147,8 +147,8 @@ class Mage_Payment_Model_Config
     /**
      * Statis Method for compare sort order of CC Types
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     public static function compareCcTypes($a, $b)

@@ -194,18 +194,18 @@ abstract class Mage_Shell_Abstract
      */
     public function usageHelp()
     {
-        return <<<USAGE
+        return <<<EOD
 Usage:  php -f script.php -- [options]
 
   -h            Short alias for help
   help          This help
-USAGE;
+EOD;
     }
 
     /**
      * Retrieve argument value by name or false
      *
-     * @param string $name the argument name
+     * @param  string $name the argument name
      * @return mixed
      */
     public function getArg($name)

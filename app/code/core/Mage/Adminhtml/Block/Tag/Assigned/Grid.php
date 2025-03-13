@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_Tag_Assigned_Grid extends Mage_Adminhtml_Block_Widget
     /**
      * Add filter to grid columns
      *
-     * @param mixed $column
+     * @param  mixed $column
      * @return $this
      */
     protected function _addColumnFilterToCollection($column)

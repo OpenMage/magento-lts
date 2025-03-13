@@ -22,14 +22,14 @@
  *
  * @method Mage_Dataflow_Model_Resource_Import _getResource()
  * @method Mage_Dataflow_Model_Resource_Import getResource()
- * @method int getSessionId()
- * @method $this setSessionId(int $value)
- * @method int getSerialNumber()
- * @method $this setSerialNumber(int $value)
- * @method string getValue()
- * @method $this setValue(string $value)
- * @method int getStatus()
- * @method $this setStatus(int $value)
+ * @method int                                 getSessionId()
+ * @method $this                               setSessionId(int $value)
+ * @method int                                 getSerialNumber()
+ * @method $this                               setSerialNumber(int $value)
+ * @method string                              getValue()
+ * @method $this                               setValue(string $value)
+ * @method int                                 getStatus()
+ * @method $this                               setStatus(int $value)
  */
 class Mage_Dataflow_Model_Import extends Mage_Core_Model_Abstract
 {

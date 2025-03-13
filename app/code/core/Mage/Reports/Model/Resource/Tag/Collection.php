@@ -37,7 +37,7 @@ class Mage_Reports_Model_Resource_Tag_Collection extends Mage_Tag_Model_Resource
     /**
      * Add tag popularity to select by specified store ids
      *
-     * @param int|array $storeIds
+     * @param  int|array $storeIds
      * @return $this
      */
     public function addPopularity($storeIds)

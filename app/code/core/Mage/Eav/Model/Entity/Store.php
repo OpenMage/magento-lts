@@ -20,14 +20,14 @@
  *
  * @method Mage_Eav_Model_Resource_Entity_Store _getResource()
  * @method Mage_Eav_Model_Resource_Entity_Store getResource()
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method string getIncrementPrefix()
- * @method $this setIncrementPrefix(string $value)
- * @method string getIncrementLastId()
- * @method $this setIncrementLastId(string $value)
+ * @method int                                  getEntityTypeId()
+ * @method $this                                setEntityTypeId(int $value)
+ * @method int                                  getStoreId()
+ * @method $this                                setStoreId(int $value)
+ * @method string                               getIncrementPrefix()
+ * @method $this                                setIncrementPrefix(string $value)
+ * @method string                               getIncrementLastId()
+ * @method $this                                setIncrementLastId(string $value)
  */
 class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
 {
@@ -39,8 +39,8 @@ class Mage_Eav_Model_Entity_Store extends Mage_Core_Model_Abstract
     /**
      * Load entity by store
      *
-     * @param int $entityTypeId
-     * @param int $storeId
+     * @param  int   $entityTypeId
+     * @param  int   $storeId
      * @return $this
      */
     public function loadByEntityStore($entityTypeId, $storeId)

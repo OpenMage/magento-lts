@@ -30,7 +30,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Fetch one
      *
-     * @param Varien_Db_Select|string $select
+     * @param  Varien_Db_Select|string $select
      * @return string
      */
     public function fetchOne($select)
@@ -41,7 +41,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Fetch column
      *
-     * @param Varien_Db_Select|string $select
+     * @param  Varien_Db_Select|string $select
      * @return array
      */
     public function fetchCol($select)
@@ -62,7 +62,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Update products discount persent
      *
-     * @param mixed $condition
+     * @param  mixed $condition
      * @return $this
      */
     public function updateProductsDiscountPercent($condition)
@@ -73,7 +73,7 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Update tax percents for WEEE based on products condition
      *
-     * @param mixed $productCondition
+     * @param  mixed $productCondition
      * @return $this
      */
     protected function _updateDiscountPercents($productCondition = null)
@@ -150,9 +150,9 @@ class Mage_Weee_Model_Resource_Tax extends Mage_Core_Model_Resource_Db_Abstract
     /**
      * Retrieve product discount percent
      *
-     * @param int $productId
-     * @param int $websiteId
-     * @param int $customerGroupId
+     * @param  int    $productId
+     * @param  int    $websiteId
+     * @param  int    $customerGroupId
      * @return string
      */
     public function getProductDiscountPercent($productId, $websiteId, $customerGroupId)

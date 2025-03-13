@@ -73,8 +73,8 @@ class Mage_Admin_Model_Acl extends Zend_Acl
     /**
      * Add parent to role object
      *
-     * @param Zend_Acl_Role|string $role
-     * @param Zend_Acl_Role|string $parent
+     * @param  Zend_Acl_Role|string $role
+     * @param  Zend_Acl_Role|string $parent
      * @return $this
      */
     public function addRoleParent($role, $parent)

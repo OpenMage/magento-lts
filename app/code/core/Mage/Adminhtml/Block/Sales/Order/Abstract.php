@@ -52,9 +52,9 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @param string $code
-     * @param false $strong
-     * @param string $separator
+     * @param  string $code
+     * @param  false  $strong
+     * @param  string $separator
      * @return string
      */
     public function displayPriceAttribute($code, $strong = false, $separator = '<br/>')
@@ -65,10 +65,10 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     }
 
     /**
-     * @param float $basePrice
-     * @param float $price
-     * @param false $strong
-     * @param string $separator
+     * @param  float  $basePrice
+     * @param  float  $price
+     * @param  false  $strong
+     * @param  string $separator
      * @return string
      */
     public function displayPrices($basePrice, $price, $strong = false, $separator = '<br/>')
@@ -101,7 +101,7 @@ class Mage_Adminhtml_Block_Sales_Order_Abstract extends Mage_Adminhtml_Block_Wid
     /**
      * Retrieve subtotal price include tax html formatted content
      *
-     * @param Mage_Sales_Model_Order $order
+     * @param  Mage_Sales_Model_Order $order
      * @return string
      */
     public function displayShippingPriceInclTax($order)

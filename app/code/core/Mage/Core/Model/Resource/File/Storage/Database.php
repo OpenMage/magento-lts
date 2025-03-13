@@ -161,8 +161,8 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Get files from storage at defined range
      *
-     * @param  int $offset
-     * @param  int $count
+     * @param  int   $offset
+     * @param  int   $count
      * @return array
      */
     public function getFiles($offset = 0, $count = 100)
@@ -184,7 +184,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Save file to storage
      *
-     * @param array|Mage_Core_Model_File_Storage_Database $file
+     * @param  array|Mage_Core_Model_File_Storage_Database $file
      * @return $this
      */
     public function saveFile($file)
@@ -266,8 +266,8 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Check whether file exists in DB
      *
-     * @param string $filename
-     * @param string $path
+     * @param  string $filename
+     * @param  string $path
      * @return bool
      */
     public function fileExists($filename, $path)
@@ -322,7 +322,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
     /**
      * Return directory file listing
      *
-     * @param string $directory
+     * @param  string $directory
      * @return mixed
      */
     public function getDirectoryFiles($directory)

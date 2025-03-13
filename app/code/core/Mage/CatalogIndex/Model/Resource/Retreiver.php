@@ -30,7 +30,7 @@ class Mage_CatalogIndex_Model_Resource_Retreiver extends Mage_Core_Model_Resourc
     /**
      * Return id-type pairs
      *
-     * @param array $ids
+     * @param  array $ids
      * @return array
      */
     public function getProductTypes($ids)

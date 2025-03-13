@@ -34,7 +34,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
     /**
      * Add customer filter
      *
-     * @param mixed $customer
+     * @param  mixed $customer
      * @return $this
      */
     public function addCustomerFilter($customer)
@@ -53,7 +53,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
     /**
      * Add website filter
      *
-     * @param mixed $website
+     * @param  mixed $website
      * @return $this
      */
     public function addWebsiteFilter($website)
@@ -75,7 +75,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
     /**
      * Set order by customer
      *
-     * @param string $sort
+     * @param  string $sort
      * @return $this
      */
     public function setCustomerOrder($sort = 'ASC')

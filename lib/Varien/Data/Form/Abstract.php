@@ -18,14 +18,14 @@
  * Abstract class for form, coumn and fieldset
  *
  * @method Varien_Data_Form getForm()
- * @method bool getUseContainer()
- * @method $this setAction(string $value)
- * @method $this setMethod(string $value)
- * @method $this setName(string $value)
- * @method $this setValue(mixed $value)
- * @method $this setUseContainer(bool $value)
- * @method $this setDisabled(bool $value)
- * @method $this setRequired(bool $value)
+ * @method bool             getUseContainer()
+ * @method $this            setAction(string $value)
+ * @method $this            setMethod(string $value)
+ * @method $this            setName(string $value)
+ * @method $this            setValue(mixed $value)
+ * @method $this            setUseContainer(bool $value)
+ * @method $this            setDisabled(bool $value)
+ * @method $this            setRequired(bool $value)
  *
  * @category   Varien
  * @package    Varien_Data
@@ -55,8 +55,8 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * @param string $type
-     * @param string $className
+     * @param  string $type
+     * @param  string $className
      * @return $this
      */
     public function addType($type, $className)
@@ -79,8 +79,8 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * Disable elements
      *
-     * @param boolean $readonly
-     * @param boolean $useDisabled
+     * @param  boolean $readonly
+     * @param  boolean $useDisabled
      * @return $this
      */
     public function setReadonly($readonly, $useDisabled = false)
@@ -101,7 +101,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * Add form element
      *
-     * @param string|false $after
+     * @param  string|false $after
      * @return $this
      */
     public function addElement(Varien_Data_Form_Element_Abstract $element, $after = null)
@@ -118,10 +118,10 @@ class Varien_Data_Form_Abstract extends Varien_Object
      * if $after parameter is null - then element adds to befin of collection
      * if $after parameter is string - then element adds after of the element with some id
      *
-     * @param   string $elementId
-     * @param   string $type
-     * @param   array  $config
-     * @param   mixed  $after
+     * @param  string                            $elementId
+     * @param  string                            $type
+     * @param  array                             $config
+     * @param  mixed                             $after
      * @return Varien_Data_Form_Element_Abstract
      */
     public function addField($elementId, $type, $config, $after = false)
@@ -144,7 +144,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * @param string $elementId
+     * @param  string $elementId
      * @return $this
      */
     public function removeField($elementId)
@@ -154,8 +154,8 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * @param string $elementId
-     * @param array $config
+     * @param string           $elementId
+     * @param array            $config
      * @param bool|string|null $after
      *
      * @return Varien_Data_Form_Element_Fieldset
@@ -169,8 +169,8 @@ class Varien_Data_Form_Abstract extends Varien_Object
     }
 
     /**
-     * @param string $elementId
-     * @param array $config
+     * @param  string                          $elementId
+     * @param  array                           $config
      * @return Varien_Data_Form_Element_Column
      */
     public function addColumn($elementId, $config)

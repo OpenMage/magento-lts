@@ -30,8 +30,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
     /**
      * Apply attribute filter to product collection
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Attribute $filter
-     * @param int $value
+     * @param  Mage_Catalog_Model_Layer_Filter_Attribute $filter
+     * @param  int                                       $value
      * @return $this
      */
     public function applyFilterToCollection($filter, $value)
@@ -59,7 +59,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
     /**
      * Retrieve array with products counts per attribute option
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Attribute $filter
+     * @param  Mage_Catalog_Model_Layer_Filter_Attribute $filter
      * @return array
      */
     public function getCount($filter)

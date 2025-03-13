@@ -25,7 +25,7 @@ interface Varien_Data_Form_Filter_Interface
     /**
      * Returns the result of filtering $value
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function inputFilter($value);
@@ -33,7 +33,7 @@ interface Varien_Data_Form_Filter_Interface
     /**
      * Returns the result of filtering $value
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function outputFilter($value);

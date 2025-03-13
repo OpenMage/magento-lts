@@ -117,7 +117,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
     /**
      * Aggregate tags by specified ids
      *
-     * @param null|int|array $tagIds
+     * @param  null|int|array $tagIds
      * @return $this
      */
     public function aggregate($tagIds = null)

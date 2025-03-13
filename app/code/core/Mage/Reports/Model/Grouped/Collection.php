@@ -37,7 +37,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
     /**
      * Set column to group by
      *
-     * @param string $column
+     * @param  string $column
      * @return $this
      */
     public function setColumnGroupBy($column)
@@ -49,8 +49,8 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
     /**
      * Load collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
@@ -73,7 +73,7 @@ class Mage_Reports_Model_Grouped_Collection extends Varien_Data_Collection //Mag
     /**
      * Setter for resource collection
      *
-     * @param Varien_Data_Collection_Db $collection
+     * @param  Varien_Data_Collection_Db $collection
      * @return $this
      */
     public function setResourceCollection($collection)

@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
 
         $html .= '<input id="time_condition" type="hidden" name="' . $this->getName() . '" value="' . time() . '" />';
 
-        $html .= <<<EndHTML
+        $html .= <<<EOD
         <script type="text/javascript">
         Event.observe($('carriers_tablerate_condition_name'), 'change', checkConditionName.bind(this));
         function checkConditionName(event)
@@ -51,7 +51,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
             }
         }
         </script>
-EndHTML;
+EOD;
 
         return $html . parent::getElementHtml();
     }

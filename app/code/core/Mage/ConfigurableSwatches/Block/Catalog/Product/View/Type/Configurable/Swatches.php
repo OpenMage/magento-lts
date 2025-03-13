@@ -33,8 +33,8 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swa
     /**
      * Determine if the renderer should be used
      *
-     * @param Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
-     * @param string $jsonConfig
+     * @param  Mage_Catalog_Model_Product_Type_Configurable_Attribute $attribute
+     * @param  string                                                 $jsonConfig
      * @return bool
      */
     public function shouldRender($attribute, $jsonConfig)

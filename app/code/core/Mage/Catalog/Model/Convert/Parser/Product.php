@@ -105,7 +105,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     }
 
     /**
-     * @param int $storeId
+     * @param  int                                            $storeId
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */
     public function getCollection($storeId)
@@ -134,7 +134,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve Product type name by code
      *
-     * @param string $code
+     * @param  string $code
      * @return string
      */
     public function getProductTypeName($code)
@@ -146,7 +146,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve product type code by name
      *
-     * @param string $name
+     * @param  string       $name
      * @return string|false
      */
     public function getProductTypeId($name)
@@ -242,7 +242,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                          $code
      * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)

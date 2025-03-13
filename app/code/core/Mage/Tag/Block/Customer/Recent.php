@@ -70,7 +70,7 @@ class Mage_Tag_Block_Customer_Recent extends Mage_Core_Block_Template
     }
 
     /**
-     * @param string $date
+     * @param  string $date
      * @return string
      */
     public function dateFormat($date)
