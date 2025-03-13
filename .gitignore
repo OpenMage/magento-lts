@@ -23,11 +23,17 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# ChartJs library
+/js/lib/chartjs
+
 # jQuery library
 /js/lib/jquery/jquery*
 
 # TinyMCE library
 /js/lib/tinymce
+
+# flow.js library
+/js/lib/uploader
 
 # Add development environment setup files and README
 # https://github.com/OpenMage/magento-lts/pull/1012
@@ -97,10 +103,13 @@ phpunit.xml
 
 # DDEV
 .ddev/.sampleData
+.ddev/addon-metadata
 .ddev/config.yaml
 .ddev/config.*.yaml
 .ddev/xhgui
 .ddev/xhprof
-.ddev/docker-compose.xhgui.yaml
-.ddev/docker-compose.xhgui_norouter.yaml
+.ddev/docker-compose.*.yaml
 app/etc/includes/ddev.xhgui.php
+
+# local development
+.localdev

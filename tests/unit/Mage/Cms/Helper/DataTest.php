@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
 use Mage;
-use Mage_Cms_Helper_Data;
+use Mage_Cms_Helper_Data as Subject;
 use PHPUnit\Framework\TestCase;
 use Varien_Filter_Template;
 
@@ -26,7 +26,7 @@ class DataTest extends TestCase
 {
     public const TEST_STRING = '1234567890';
 
-    public Mage_Cms_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

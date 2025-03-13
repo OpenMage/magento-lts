@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
-use Mage_Log_Model_Visitor;
+use Mage_Log_Model_Visitor as Subject;
 use PHPUnit\Framework\TestCase;
 
 class VisitorTest extends TestCase
 {
-    public Mage_Log_Model_Visitor $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -39,7 +39,7 @@ class VisitorTest extends TestCase
      */
     public function testInitServerData(): void
     {
-        $this->assertInstanceOf(Mage_Log_Model_Visitor::class, $this->subject->initServerData());
+        $this->assertInstanceOf(Subject::class, $this->subject->initServerData());
     }
 
     /**

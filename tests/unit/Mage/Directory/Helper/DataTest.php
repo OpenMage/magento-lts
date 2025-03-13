@@ -9,7 +9,7 @@
  *
  * @category   OpenMage
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -19,16 +19,14 @@ namespace OpenMage\Tests\Unit\Mage\Directory\Helper;
 
 use Generator;
 use Mage;
-use Mage_Directory_Helper_Data;
+use Mage_Directory_Helper_Data as Subject;
 use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public const TEST_STRING = '1234567890';
-
-    public Mage_Directory_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -121,7 +119,7 @@ class DataTest extends TestCase
     public function testGetCountriesWithStatesRequired($expectedResult, bool $asJson): void
     {
         $result = $this->subject->getCountriesWithStatesRequired($asJson);
-        if (defined('USES_SAMPLEDATA') && USES_SAMPLEDATA === true) {
+        if (defined('DATA_MAY_CHANGED')) {
             $asJson ? $this->assertIsString($result) : $this->assertIsArray($result);
         } else {
             $this->assertSame($expectedResult, $result);
