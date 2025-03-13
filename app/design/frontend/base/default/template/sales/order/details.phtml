@@ -9,11 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /**
+ * @see Mage_Sales_Block_Order_Details
+ * @var Mage_Sales_Block_Order_Details $this
  * @deprecated  after 1.4.0.0-beta1
  */
 ?>
@@ -37,7 +39,7 @@
         <?php echo $_shipping->getStreet() ?><br />
         <?php echo $_shipping->getCity() ?>, <?php echo $_shipping->getRegion() ?> <?php echo $_shipping->getPostcode() ?><br />
         <strong>T</strong> | <?php echo $_shipping->getTelephone();
-        if($_shipping->getFax()): ?>
+    if($_shipping->getFax()): ?>
             <br /><strong>F</strong> | <?php echo $_shipping->getFax() ?>
         <?php endif ?>
         </address>
@@ -50,7 +52,7 @@
         <?php echo $_billing->getStreet() ?><br />
         <?php echo $_billing->getCity() ?>, <?php echo $_billing->getRegion() ?> <?php echo $_billing->getPostcode() ?><br />
         <strong>T</strong> | <?php echo $_billing->getTelephone();
-        if($_billing->getFax()): ?>
+    if($_billing->getFax()): ?>
             <br /><strong>F</strong> | <?php echo $_billing->getFax() ?>
         <?php endif ?>
         </address>
@@ -87,10 +89,10 @@
         <?php foreach ($_items as $_item): ?>
         <tr<?php echo ($_index++ > $_count ? ' class="last"' : '') ?>>
             <td><?php echo $this->escapeHtml($_item->getProductName()) ?></td>
-            <td class="a-right"><?php echo $_order->formatPrice($_item->getPrice()*1) ?></td>
-            <td class="a-center"><?php echo $_item->getQty()*1 ?></td>
-            <td class="a-center"><?php echo $_item->getQty()*1 ?></td>
-            <td class="a-right"><?php echo $_order->formatPrice($_item->getRowTotal()*1) ?></td>
+            <td class="a-right"><?php echo $_order->formatPrice($_item->getPrice() * 1) ?></td>
+            <td class="a-center"><?php echo $_item->getQty() * 1 ?></td>
+            <td class="a-center"><?php echo $_item->getQty() * 1 ?></td>
+            <td class="a-right"><?php echo $_order->formatPrice($_item->getRowTotal() * 1) ?></td>
             <?php endforeach ?>
         </tr>
     </tbody>

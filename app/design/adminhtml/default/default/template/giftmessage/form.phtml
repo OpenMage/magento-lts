@@ -9,8 +9,13 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_GiftMessage_Block_Message_Form
+ * @var Mage_GiftMessage_Block_Message_Form $this
  */
 ?>
 <?php echo $this->helper('core/js')->includeScript('mage/adminhtml/giftmessage.js') ?>
@@ -24,7 +29,7 @@
     <?php echo $this->getRemoveButtonHtml() ?>
     <?php endif ?>
 </form>
-<?php elseif($this->getSaveMode()=='save'): ?>
+<?php elseif($this->getSaveMode() == 'save'): ?>
 <h3><?php echo Mage::helper('giftmessage')->__('The gift message has been saved') ?></h3>
 <br /><?php echo $this->getCloseButtonHtml() ?>
 <?php else: ?>

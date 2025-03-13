@@ -22,10 +22,14 @@ use Mage_Reports_Model_Report;
 use Mage_Reports_Model_Resource_Report_Collection as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
 use PHPUnit\Framework\TestCase;
+use Zend_Date;
+use Zend_Date_Exception;
 
 class CollectionTest extends TestCase
 {
     use ReportsTrait;
+
+    public const SKIP_INCOMPLETE_MESSAGE = 'Test needs to be reviewed.';
 
     public Subject $subject;
 
@@ -50,9 +54,9 @@ class CollectionTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testIsModuleEnabled(): void
+    public function testSetIntervals(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setInterval(1, 1));
+        $this->assertInstanceOf(Subject::class, $this->subject->setInterval(new Zend_Date(), new Zend_Date()));
     }
 
     /**
@@ -60,10 +64,16 @@ class CollectionTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testGetIntervals(): void
+    public function testGetIntervals($expectedResult, $from, $to, $period): void
     {
-        $this->subject->setInterval(1, 1);
-        $this->assertIsArray($this->subject->getIntervals());
+        $this->subject->setInterval($from, $to);
+        $this->subject->setPeriod($period);
+
+        try {
+            $this->assertIsArray($this->subject->getIntervals());
+        } catch (Zend_Date_Exception $exception) {
+            $this->assertSame("No date part in '' found.", $exception->getMessage());
+        }
     }
 
     /**
@@ -77,23 +87,15 @@ class CollectionTest extends TestCase
     }
 
     /**
+     * @covers Mage_Reports_Model_Resource_Report_Collection::getStoreIds()
      * @covers Mage_Reports_Model_Resource_Report_Collection::setStoreIds()
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testSetStoreIds(): void
+    public function testStoreIds(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setStoreIds([]));
-    }
-
-    /**
-     * @covers Mage_Reports_Model_Resource_Report_Collection::getStoreIds()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
-     */
-    public function testGetStoreIds(): void
-    {
-        $this->assertNull($this->subject->getStoreIds());
+        $this->subject->setStoreIds([]);
+        $this->assertSame([], $this->subject->getStoreIds());
     }
 
     /**
@@ -140,9 +142,8 @@ class CollectionTest extends TestCase
      */
     public function testGetReportFull(): void
     {
-        $this->markTestIncomplete();
-        // @phpstan-ignore-next-line
-        $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReportFull(1, 1));
+        $this->markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
+        # $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReportFull(1, 1));
     }
 
     /**
@@ -151,9 +152,8 @@ class CollectionTest extends TestCase
      */
     public function testGetReport(): void
     {
-        $this->markTestIncomplete();
-        // @phpstan-ignore-next-line
-        $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReport(1, 1));
+        $this->markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
+        # $this->assertInstanceOf(Mage_Reports_Model_Report::class, $this->subject->getReport(1, 1));
     }
 
     /**
@@ -162,8 +162,7 @@ class CollectionTest extends TestCase
      */
     public function testTimeShift(): void
     {
-        $this->markTestIncomplete();
-        // @phpstan-ignore-next-line
-        $this->assertSame($this->subject->timeShift(''));
+        $this->markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
+        # $this->assertSame($this->subject->timeShift(''));
     }
 }

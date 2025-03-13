@@ -49,8 +49,6 @@ class SitemapTest extends TestCase
 
     /**
      * @group Mage_Sitemap
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
      * @group Mage_Sitemap_Model
      * @todo  test content of xml
      * @todo  test validation

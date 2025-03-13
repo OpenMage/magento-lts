@@ -9,8 +9,13 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Widget_Form_Element_Gallery
+ * @var Mage_Adminhtml_Block_Widget_Form_Element_Gallery $this
  */
 ?>
 <tr>
@@ -34,7 +39,8 @@
 
 <tbody class="gallery">
 
-<?php $i = 0; if (!is_null($this->getValues())): ?>
+<?php $i = 0;
+if (!is_null($this->getValues())): ?>
     <?php foreach ($this->getValues() as $image): $i++; ?>
         <tr id="<?php echo $this->getElement()->getHtmlId() ?>_tr_<?php echo $image->getValueId() ?>" class="gallery">
         <?php foreach ($this->getValues()->getAttributeBackend()->getImageTypes() as $type): ?>
@@ -49,7 +55,7 @@
     <?php endforeach ?>
 <?php endif ?>
 
-<?php if ($i==0): ?>
+<?php if ($i == 0): ?>
     <script type="text/javascript">document.getElementById("gallery_thead").style.visibility="hidden";</script>
 <?php endif ?>
 
@@ -77,7 +83,7 @@ function addNewImage()
     new_row_input.value = '0';
 
     // Delete button
-    new_row_button = '<?php echo $this->getDeleteButtonHtml("this") ?>';
+    new_row_button = '<?php echo $this->getDeleteButtonHtml('this') ?>';
 
     table = document.getElementById( "gallery" );
 
@@ -106,9 +112,7 @@ function addNewImage()
         else {
             newCell.innerHTML = new_file_input.replace(/%j%/g, j).replace(/%id%/g, id);
         }
-
     }
-
 }
 
 function deleteImage(image)

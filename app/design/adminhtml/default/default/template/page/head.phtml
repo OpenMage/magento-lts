@@ -9,7 +9,7 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -21,13 +21,15 @@
 <link rel="icon" href="<?php echo $this->getSkinUrl('favicon.ico') ?>" type="image/x-icon"/>
 
 <script type="text/javascript">
+//<![CDATA[
     var BLANK_URL = '<?php echo $this->getJsUrl() ?>blank.html';
     var BLANK_IMG = '<?php echo $this->getJsUrl() ?>spacer.gif';
     var BASE_URL = '<?php echo $this->getUrl('*') ?>';
-    var SKIN_URL = '<?php echo $this->jsQuoteEscape($this->getSkinUrl()) ?>';
+    var SKIN_URL = '<?php echo $this->getSkinUrl() ?>';
     var FORM_KEY = '<?php echo $this->getFormKey() ?>';
     <?php # BC: cast to INT in case of non-existing method getLoadingTimeout() in 3rd-party code?>
     var LOADING_TIMEOUT = <?php echo (int)$this->getLoadingTimeout() ?>;
+//]]>
 </script>
 
 <?php echo $this->getCssJsHtml() ?>
@@ -41,7 +43,7 @@
 <?php endif ?>
 
 <?php if ($this->getCanLoadTinyMce()): // TinyMCE is broken when loaded through index.php?>
-<script type="text/javascript" src="<?php echo $this->getJsUrl() ?>tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('lib/tinymce/tinymce.min.js') ?>"></script>
 <?php endif ?>
 
 <script type="text/javascript">

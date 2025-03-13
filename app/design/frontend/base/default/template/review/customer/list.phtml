@@ -9,15 +9,20 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Review_Block_Customer_List
+ * @var Mage_Review_Block_Customer_List $this
  */
 ?>
 <?php echo $this->getMessagesBlock()->toHtml() ?>
 <div class="page-title">
     <h1><?php echo $this->__('My Product Reviews') ?></h1>
 </div>
-<?php if( $this->getCollection() && $this->count()): ?>
+<?php if($this->getCollection() && $this->count()): ?>
     <?php echo $this->getToolbarHtml() ?>
         <table class="data-table" id="my-reviews-table">
             <col width="1" />
@@ -33,7 +38,7 @@
                     <td>
                     <?php if($_review->getSum()): ?>
                         <div class="rating-box">
-                            <div class="rating" style="width:<?php echo ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
+                            <div class="rating" style="width:<?php echo ($_review->getSum() / $_review->getCount()) ?>%;"></div>
                         </div>
                     <?php endif ?>
                     </td>

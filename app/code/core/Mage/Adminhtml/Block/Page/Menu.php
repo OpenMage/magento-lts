@@ -133,6 +133,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
             $menuArr = [];
 
+            $menuArr['id'] = str_replace(['/'], ['-'], $aclResource);
+
             $menuArr['label'] = $this->_getHelperValue($child);
 
             $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
@@ -269,6 +271,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 . (!empty($item['children']) ? ' parent' : '')
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')
                 . ' level' . $level . '"> <a href="' . $item['url'] . '" '
+                . (!empty($item['id']) ? 'id="nav-' . $item['id'] . '"' : '') . ' '
                 . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
                 . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
                 . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'

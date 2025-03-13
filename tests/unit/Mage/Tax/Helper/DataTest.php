@@ -28,6 +28,8 @@ class DataTest extends TestCase
 {
     public Subject $subject;
 
+    public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
+
     public function setUp(): void
     {
         Mage::app();
@@ -159,7 +161,7 @@ class DataTest extends TestCase
     public function testGetTaxRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
         $this->assertSame('{"value_2":8.25,"value_4":0}', $this->subject->getTaxRatesByProductClass());
     }
@@ -172,7 +174,7 @@ class DataTest extends TestCase
     public function testGetAllRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
         $this->assertSame('{"value_2":8.25,"value_4":0}', $this->subject->getAllRatesByProductClass());
     }

@@ -9,12 +9,17 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Paygate_Block_Authorizenet_Form_Cc
+ * @var Mage_Paygate_Block_Authorizenet_Form_Cc $this
+ */
 ?>
-<?php $_formMessage=$this->getPartialAuthorizationFormMessage(); ?>
-<?php $_isPartialAuthorization=$this->isPartialAuthorization(); ?>
+<?php $_formMessage = $this->getPartialAuthorizationFormMessage(); ?>
+<?php $_isPartialAuthorization = $this->isPartialAuthorization(); ?>
 <?php if ($_isPartialAuthorization || $_formMessage): ?>
 <div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>_before" style="display:none;">
     <?php if ($_formMessage): ?>
@@ -65,7 +70,7 @@
             });
         }
 
-        <?php if ($_message=$this->getPartialAuthorizationConfirmationMessage()): ?>
+        <?php if ($_message = $this->getPartialAuthorizationConfirmationMessage()): ?>
             if (!confirm('<?php echo Mage::helper('core')->jsQuoteEscape($_message) ?>')) {
                 cancelPaymentAuthorizations(true, true);
             }

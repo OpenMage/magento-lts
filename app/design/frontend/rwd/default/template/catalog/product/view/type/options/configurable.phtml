@@ -9,11 +9,14 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-/** @var Mage_Catalog_Block_Product_View_Type_Configurable $this */
+/**
+ * @see Mage_Catalog_Block_Product_View_Type_Configurable
+ * @var Mage_Catalog_Block_Product_View_Type_Configurable $this
+ */
 ?>
 
 <?php
@@ -39,9 +42,9 @@ $_renderers = $this->getChild('attr_renderers')->getSortedChildren();
         endforeach;
 
         if (!$_rendered):
-        ?>
+            ?>
         <dt><label class="required"><em>*</em><?php echo $_attribute->getLabel() ?></label></dt>
-        <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
+        <dd<?php if ($_attribute->decoratedIsLast) {?> class="last"<?php }?>>
             <div class="input-box">
                 <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
                     <option><?php echo $this->__('Choose an Option...') ?></option>

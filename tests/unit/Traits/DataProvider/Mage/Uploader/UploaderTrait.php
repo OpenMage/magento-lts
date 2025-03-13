@@ -21,6 +21,8 @@ use Generator;
 
 trait UploaderTrait
 {
+    public static string $default = 'application/octet-stream';
+
     public function provideGetMimeTypeFromExtensionListData(): Generator
     {
         yield 'string exists' => [
@@ -31,15 +33,15 @@ trait UploaderTrait
         ];
         yield 'string not exists' => [
             [
-                0 => 'application/octet-stream',
+                0 => self::$default,
             ],
             'not-exists',
         ];
         yield 'array' => [
             [
                 0 => 'application/vnd.lotus-1-2-3',
-                1 => 'application/octet-stream',
-                2 => 'application/octet-stream',
+                1 => self::$default,
+                2 => self::$default,
             ],
             [
                 '123',

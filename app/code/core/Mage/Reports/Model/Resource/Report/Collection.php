@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Reports
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,14 +25,14 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * From value
      *
-     * @var string
+     * @var Zend_Date
      */
     protected $_from;
 
     /**
      * To value
      *
-     * @var string
+     * @var Zend_Date
      */
     protected $_to;
 
@@ -88,8 +88,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set interval
      *
-     * @param int $from
-     * @param int $to
+     * @param Zend_Date $from
+     * @param Zend_Date $to
      * @return $this
      */
     public function setInterval($from, $to)
@@ -127,7 +127,7 @@ class Mage_Reports_Model_Resource_Report_Collection
                         $dateStart->addDay(1);
                         break;
                     case Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_MONTH:
-                        $time['title'] =  $dateStart->toString('MM/yyyy');
+                        $time['title'] = $dateStart->toString('MM/yyyy');
                         $time['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00')
                             : $dateStart->toString('yyyy-MM-01 00:00:00');
 
@@ -145,9 +145,8 @@ class Mage_Reports_Model_Resource_Report_Collection
 
                         $firstInterval = false;
                         break;
-                    default:
                     case Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR:
-                        $time['title'] =  $dateStart->toString('yyyy');
+                        $time['title'] = $dateStart->toString('yyyy');
                         $time['start'] = ($firstInterval) ? $dateStart->toString('yyyy-MM-dd 00:00:00')
                             : $dateStart->toString('yyyy-01-01 00:00:00');
 

@@ -9,11 +9,15 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2019-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
 
+/**
+ * @see Mage_Paygate_Block_Authorizenet_Info_Cc
+ * @var Mage_Paygate_Block_Authorizenet_Info_Cc $this
+ */
+?>
 <div class="cards-list">
 
 <?php if (!$this->getHideTitle()): ?>
@@ -24,7 +28,6 @@
     $cards = $this->getCards();
     $showCount = count($cards) > 1;
 ?>
-
     <?php foreach ($cards as $key => $card): ?>
         <?php if ($showCount): ?>
             <span><?php echo sprintf($this->__('Credit Card %s'), $key + 1); ?></span>
@@ -41,5 +44,4 @@
             </tbody>
         </table>
     <?php endforeach ?>
-
 </div>

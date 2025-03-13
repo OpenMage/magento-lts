@@ -9,8 +9,13 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Review_Block_Form
+ * @var Mage_Review_Block_Form $this
  */
 ?>
 <div class="form-add">
@@ -24,7 +29,7 @@
         </h3>
 
         <div class="fieldset">
-            <?php if( $this->getRatings() && $this->getRatings()->getSize()): ?>
+            <?php if($this->getRatings() && $this->getRatings()->getSize()): ?>
                 <h4><?php echo $this->__('How do you rate this product?') ?> <em class="required">*</em></h4>
                 <span id="input-message-box"></span>
                 <table class="data-table review-summary-table ratings" id="product-review-table">

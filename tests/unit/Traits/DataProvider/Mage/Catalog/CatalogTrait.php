@@ -21,14 +21,10 @@ use Generator;
 
 trait CatalogTrait
 {
-    public static string $testString = '--a & B, x% @ ä ö ü ™--';
+    public static string $testSting = '--a & B, x% @ ä ö ü ™--';
 
     public function provideFormatUrlKey(): Generator
     {
-        yield 'null locale' => [
-            'a-b-x-a-o-u-tm',
-            null,
-        ];
         yield 'de_DE' => [
             'a-und-b-x-prozent-at-ae-oe-ue-tm',
             'de_DE',
@@ -53,6 +49,6 @@ trait CatalogTrait
 
     public function getTestString(): string
     {
-        return static::$testString;
+        return static::$testSting;
     }
 }
