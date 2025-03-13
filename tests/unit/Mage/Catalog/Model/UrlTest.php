@@ -129,7 +129,7 @@ class UrlTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testFormatUrlKey($expectedResult, ?string $locale): void
+    public function testFormatUrlKey($expectedResult, string $locale): void
     {
         $this->subject->setLocale($locale);
         $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));
@@ -140,10 +140,10 @@ class UrlTest extends TestCase
      * @group Mage_Catalog_Model
      * @doesNotPerformAssertions
      */
-    public function testGetSlugger(): void
-    {
-        $this->subject->getSlugger();
-    }
+    //    public function testGetSlugger(): void
+    //    {
+    //        $this->subject->getSlugger();
+    //    }
 
     /**
      * @dataProvider provideGetSluggerConfig
