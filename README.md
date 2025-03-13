@@ -255,6 +255,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://arnaudamant.fr"><img src="https://avatars.githubusercontent.com/u/393311?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Arnaud Amant</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/matteotestoni"><img src="https://avatars.githubusercontent.com/u/34275189?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>matteotestoni</b></sub></a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.webgriffe.com"><img src="https://avatars.githubusercontent.com/u/1199914?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Manuele Menozzi</b></sub></a></td>
+    </tr>
   </tbody>
 </table>
 
