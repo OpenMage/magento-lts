@@ -253,7 +253,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $tokenizer->setString($value);
         $params = $tokenizer->tokenize();
         foreach ($params as $key => $value) {
-            if (substr($value, 0, 1) === '$') {
+            if (str_starts_with($value, '$')) {
                 $params[$key] = $this->_getVariable(substr($value, 1), null);
             }
         }
@@ -291,7 +291,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 } elseif ($stackVars[$i]['type'] == 'method') {
                     // Calling of object method
                     if (method_exists($stackVars[$i - 1]['variable'], $stackVars[$i]['name'])
-                        || substr($stackVars[$i]['name'], 0, 3) == 'get'
+                        || str_starts_with($stackVars[$i]['name'], 'get')
                     ) {
                         $isEncrypted = false;
                         if ($stackVars[$i]['name'] == 'getConfig') {

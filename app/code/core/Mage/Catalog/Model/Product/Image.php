@@ -327,7 +327,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     {
         $this->_isBaseFilePlaceholder = false;
 
-        if (($file) && (strpos($file, '/', 0) !== 0)) {
+        if (($file) && (!str_starts_with($file, '/'))) {
             $file = '/' . $file;
         }
 
@@ -369,7 +369,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
 
         $baseFile = $baseDir . $file;
 
-        if ((!$file) || (!file_exists($baseFile))) {
+        if (!file_exists($baseFile)) {
             throw new Exception(Mage::helper('catalog')->__('Image file was not found.'));
         }
 

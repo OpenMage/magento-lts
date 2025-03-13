@@ -244,7 +244,8 @@
       "avatar_url": "https://avatars0.githubusercontent.com/u/2094614?v=4",
       "profile": "https://netalico.com/",
       "contributions": [
-        "code"
+        "code",
+        "bug"
       ]
     },
     {
@@ -1513,6 +1514,87 @@
       "name": "Alexander Buch",
       "avatar_url": "https://avatars.githubusercontent.com/u/1931120?v=4",
       "profile": "http://www.cartware.de",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mbattistini",
+      "name": "mbattistini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/276468?v=4",
+      "profile": "https://github.com/mbattistini",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "justlife4x4",
+      "name": "justlife4x4",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59994040?v=4",
+      "profile": "https://github.com/justlife4x4",
+      "contributions": [
+        "security"
+      ]
+    },
+    {
+      "login": "fabianaromagnoli",
+      "name": "Fabiana Romagnoli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/23638004?v=4",
+      "profile": "https://github.com/fabianaromagnoli",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "aamant",
+      "name": "Arnaud Amant",
+      "avatar_url": "https://avatars.githubusercontent.com/u/393311?v=4",
+      "profile": "http://arnaudamant.fr",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "matteotestoni",
+      "name": "matteotestoni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34275189?v=4",
+      "profile": "https://github.com/matteotestoni",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "mmenozzi",
+      "name": "Manuele Menozzi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1199914?v=4",
+      "profile": "https://www.webgriffe.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "darinda",
+      "name": "Rene Hrdina",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8490373?v=4",
+      "profile": "https://github.com/darinda",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Hanmac",
+      "name": "Hans Mackowiak",
+      "avatar_url": "https://avatars.githubusercontent.com/u/225553?v=4",
+      "profile": "https://github.com/Hanmac",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "tim-breitenstein-it",
+      "name": "Tim Steinbrecher",
+      "avatar_url": "https://avatars.githubusercontent.com/u/65597245?v=4",
+      "profile": "https://github.com/tim-breitenstein-it",
       "contributions": [
         "code"
       ]

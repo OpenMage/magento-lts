@@ -17,9 +17,9 @@
 
     class CentinelClient {
 
-		var $request ;
-		var $response ;
-		var $parser;
+		public $request ;
+		public $response ;
+		public $parser;
 
 		/////////////////////////////////////////////////////////////////////////////////////////////
 		// Function Add(name, value)
@@ -80,7 +80,7 @@
 
             // verify that the URL uses a supported protocol.
 
-            if ((strpos($url, "http://") === 0) || (strpos($url, "https://") === 0)) {
+            if ((str_starts_with($url, "http://")) || (str_starts_with($url, "https://"))) {
 
                 //Construct the payload to POST to the url.
 
@@ -116,7 +116,7 @@
 
 				// Assert that we received an expected Centinel Message in response.
 
-				if (strpos($result, "<CardinalMPI>") === false) {
+				if (!str_contains($result, "<CardinalMPI>")) {
 					$result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8010, CENTINEL_ERROR_CODE_8010_DESC);
 				}
 

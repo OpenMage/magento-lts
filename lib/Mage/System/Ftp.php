@@ -38,7 +38,7 @@ class Mage_System_Ftp
     protected function checkConnected()
     {
         if (!$this->_conn) {
-            throw new Exception(__CLASS__ . ' - no connection established with server');
+            throw new Exception(self::class . ' - no connection established with server');
         }
     }
 
@@ -254,7 +254,7 @@ class Mage_System_Ftp
             throw new Exception("Directory given instead of file: {$local}");
         }
 
-        $globalPathMode = substr($remote, 0, 1) == '/';
+        $globalPathMode = str_starts_with($remote, '/');
         $dirname = dirname($remote);
         $cwd = $this->getcwd();
         if (false === $cwd) {
@@ -444,7 +444,7 @@ class Mage_System_Ftp
     public function fileExists($path, $excludeIfIsDir = true)
     {
         $path = $this->correctFilePath($path);
-        $globalPathMode = substr($path, 0, 1) == '/';
+        $globalPathMode = str_starts_with($path, '/');
 
         $file = basename($path);
         $dir = $globalPathMode ? dirname($path) : $this->getcwd() . '/' . $path;

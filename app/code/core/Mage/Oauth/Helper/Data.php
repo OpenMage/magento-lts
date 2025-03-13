@@ -168,7 +168,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$token->getAuthorized()) {
             Mage::throwException('Token is not authorized');
         }
-        $callbackUrl .= (strpos($callbackUrl, '?') === false ? '?' : '&');
+        $callbackUrl .= (!str_contains($callbackUrl, '?') ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
 
         return $callbackUrl . ($rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier());

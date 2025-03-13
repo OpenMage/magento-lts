@@ -9,7 +9,7 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -20,6 +20,7 @@
     <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
 </div>
 <form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" class="scaffold-form">
+    <?php echo $this->getBlockHtml('formkey') ?>
     <div class="fieldset">
         <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
         <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>

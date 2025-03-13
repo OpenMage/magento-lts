@@ -249,6 +249,17 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ragnese"><img src="https://avatars.githubusercontent.com/u/7927565?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rob Agnese</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://www.cartware.de"><img src="https://avatars.githubusercontent.com/u/1931120?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Buch</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mbattistini"><img src="https://avatars.githubusercontent.com/u/276468?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>mbattistini</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/justlife4x4"><img src="https://avatars.githubusercontent.com/u/59994040?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>justlife4x4</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fabianaromagnoli"><img src="https://avatars.githubusercontent.com/u/23638004?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Fabiana Romagnoli</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://arnaudamant.fr"><img src="https://avatars.githubusercontent.com/u/393311?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Arnaud Amant</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/matteotestoni"><img src="https://avatars.githubusercontent.com/u/34275189?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>matteotestoni</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.webgriffe.com"><img src="https://avatars.githubusercontent.com/u/1199914?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Manuele Menozzi</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/darinda"><img src="https://avatars.githubusercontent.com/u/8490373?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rene Hrdina</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Hanmac"><img src="https://avatars.githubusercontent.com/u/225553?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Hans Mackowiak</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tim-breitenstein-it"><img src="https://avatars.githubusercontent.com/u/65597245?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tim Steinbrecher</b></sub></a></td>
     </tr>
   </tbody>
 </table>

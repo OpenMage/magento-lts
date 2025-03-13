@@ -1,13 +1,14 @@
 {
     "name": "openmage/magento-lts",
     "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
+    "homepage": "https://www.openmage.org/",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
     ],
     "type": "magento-source",
     "require": {
-        "php": ">=7.4 <8.5",
+        "php": ">=8.1 <8.5",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
@@ -24,31 +25,29 @@
         "ext-simplexml": "*",
         "ext-soap": "*",
         "ext-zlib": "*",
+        "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
-        "mklkj/tinymce-i18n": "^24.11",
+        "mklkj/tinymce-i18n": "^25.2",
+        "nnnick/chartjs": "^4.4",
         "openmage/composer-plugin": "^3.0",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
-        "symfony/polyfill-php74": "^1.31",
-        "symfony/polyfill-php80": "^1.31",
-        "symfony/polyfill-php81": "^1.31",
         "symfony/polyfill-php82": "^1.31",
         "symfony/polyfill-php83": "^1.31",
         "symfony/polyfill-php84": "^1.31",
-        "symfony/string": "^5.4",
+        "symfony/string": "^6.4",
         "symfony/translation-contracts": "^2.5",
         "tinymce/tinymce": "^7.5"
     },
     "require-dev": {
         "ext-xmlreader": "*",
-        "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
@@ -142,9 +141,12 @@
             "phpstan/extension-installer": true
         },
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         },
         "sort-packages": true
+    },
+    "suggest": {
+        "n98/magerun": "The n98 magerun cli tools provides some handy tools to work with Magento from command line."
     },
     "scripts": {
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
@@ -156,7 +158,7 @@
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testdox",
         "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
-        "rector:fix": "vendor/bin/rector --config .rector.php process",
+        "rector:fix": "vendor/bin/rector process --config .rector.php",
         "mono-repo:copy": "OpenMage\\Dev\\Mono\\CopyToMonoRepos::process",
         "test": [
             "@php-cs-fixer:test",
@@ -176,12 +178,5 @@
         "rector:test": "Run rector",
         "rector:fix": "Run rector and fix issues",
         "test": "Run php-cs-fixer, phpstan & phpunit"
-    },
-    "repositories": {
-        "local": {
-            "type": "path",
-            "url": "./.localdev/*",
-            "canonical": false
-        }
     }
 }

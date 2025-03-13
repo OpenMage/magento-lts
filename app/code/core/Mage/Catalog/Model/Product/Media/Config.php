@@ -106,7 +106,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             return $this->getBaseMediaUrl() . $file;
         }
 
@@ -136,7 +136,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             $file = substr($file, 1);
         }
 
@@ -154,7 +154,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             $file = substr($file, 1);
         }
 
@@ -171,7 +171,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             $file = substr($file, 1);
         }
 
