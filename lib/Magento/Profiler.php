@@ -103,7 +103,7 @@ class Magento_Profiler
     public static function enable()
     {
         if (!self::$_isInitialized) {
-            register_shutdown_function([__CLASS__, 'display']);
+            register_shutdown_function([self::class, 'display']);
             self::$_isInitialized = true;
         }
         self::$_enabled = true;
