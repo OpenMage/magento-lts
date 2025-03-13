@@ -1544,6 +1544,42 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "aamant",
+      "name": "Arnaud Amant",
+      "avatar_url": "https://avatars.githubusercontent.com/u/393311?v=4",
+      "profile": "http://arnaudamant.fr",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "matteotestoni",
+      "name": "matteotestoni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34275189?v=4",
+      "profile": "https://github.com/matteotestoni",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "mmenozzi",
+      "name": "Manuele Menozzi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1199914?v=4",
+      "profile": "https://www.webgriffe.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "darinda",
+      "name": "Rene Hrdina",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8490373?v=4",
+      "profile": "https://github.com/darinda",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "commitType": "docs"
