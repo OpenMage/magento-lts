@@ -93,7 +93,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
         if (is_dir($certDir)) {
             $entries = scandir($certDir);
             foreach ($entries as $entry) {
-                if ($entry != '.' && $entry != '..' && strpos($entry, 'cert_' . $this->getWebsiteId()) !== false) {
+                if ($entry != '.' && $entry != '..' && str_contains($entry, 'cert_' . $this->getWebsiteId())) {
                     unlink($certDir . DS . $entry);
                 }
             }

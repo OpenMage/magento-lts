@@ -60,7 +60,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         $varFilters = $this->getVars();
         $filters = [];
         foreach ($varFilters as $key => $val) {
-            if (substr($key, 0, 6) === 'filter') {
+            if (str_starts_with($key, 'filter')) {
                 $keys = explode('/', $key, 2);
                 $filters[$keys[1]] = $val;
             }
@@ -96,7 +96,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
 
             if ($type == 'dateFromTo' || $type == 'datetimeFromTo') {
                 foreach ($filters as $k => $v) {
-                    if (strpos($k, $key . '/') === 0) {
+                    if (str_starts_with($k, $key . '/')) {
                         $split = explode('/', $k);
                         $filters[$key][$split[1]] = $v;
                     }

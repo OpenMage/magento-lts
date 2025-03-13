@@ -16,6 +16,9 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 try {
     return RectorConfig::configure()
+        ->withPhpSets(
+            php55: true,
+        )
         ->withPaths([
             __DIR__,
         ])
@@ -32,9 +35,6 @@ try {
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
             Php80\Class_\StringableForToStringRector::class,
             Php80\FunctionLike\MixedTypeRector::class,
-            Php80\Identical\StrEndsWithRector::class,
-            Php80\Identical\StrStartsWithRector::class,
-            Php80\NotIdentical\StrContainsRector::class,
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',

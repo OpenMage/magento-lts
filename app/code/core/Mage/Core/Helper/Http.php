@@ -50,7 +50,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
             foreach ($_SERVER as $k => $v) {
-                if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
+                if (str_ends_with($k, 'HTTP_AUTHORIZATION') && !empty($v)) {
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
                 }
