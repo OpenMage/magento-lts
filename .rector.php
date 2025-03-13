@@ -26,6 +26,7 @@ try {
         ->withSkip([
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
+            # may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             Php70\FuncCall\RandomFunctionRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class,
@@ -37,12 +38,14 @@ try {
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',
+            __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
         ])
         ->withRules([
             CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
             CodeQuality\Foreach_\UnusedForeachValueToArrayKeysRector::class,
             CodeQuality\FuncCall\ChangeArrayPushToArrayAssignRector::class,
             CodeQuality\FuncCall\CompactToVariablesRector::class,
+            CodeQuality\FunctionLike\SimplifyUselessVariableRector::class,
             CodeQuality\Identical\SimplifyArraySearchRector::class,
             CodeQuality\Identical\SimplifyConditionsRector::class,
             CodeQuality\Identical\StrlenZeroToIdenticalEmptyStringRector::class,
