@@ -1562,6 +1562,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "mmenozzi",
+      "name": "Manuele Menozzi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1199914?v=4",
+      "profile": "https://www.webgriffe.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "commitType": "docs"
