@@ -252,6 +252,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mbattistini"><img src="https://avatars.githubusercontent.com/u/276468?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>mbattistini</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/justlife4x4"><img src="https://avatars.githubusercontent.com/u/59994040?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>justlife4x4</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/fabianaromagnoli"><img src="https://avatars.githubusercontent.com/u/23638004?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Fabiana Romagnoli</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://arnaudamant.fr"><img src="https://avatars.githubusercontent.com/u/393311?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Arnaud Amant</b></sub></a></td>
     </tr>
   </tbody>
 </table>
