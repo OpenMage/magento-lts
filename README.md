@@ -261,6 +261,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Hanmac"><img src="https://avatars.githubusercontent.com/u/225553?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Hans Mackowiak</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tim-breitenstein-it"><img src="https://avatars.githubusercontent.com/u/65597245?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tim Steinbrecher</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tomekjordan"><img src="https://avatars.githubusercontent.com/u/8250276?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tomek</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dford-avb"><img src="https://avatars.githubusercontent.com/u/52465239?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Ford</b></sub></a></td>
     </tr>
   </tbody>
 </table>
