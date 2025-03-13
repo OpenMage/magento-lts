@@ -57,4 +57,5 @@ jobs:
             
             [1]: https://github.com/netz98/n98-magerun
           branch: phpstorm-meta
+          labels: chore
           base: main
