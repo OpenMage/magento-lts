@@ -306,7 +306,7 @@ class Mage_Core_Model_Resource_File_Storage_File
         }
 
         // Clean up all empty directories
-        if (rand() % 1000 === 0) {
+        if (random_int(0, mt_getrandmax()) % 1000 === 0) {
             @exec("find {$this->getMediaBaseDirectory()} -empty -type d -delete"); // TODO - replace with native PHP?
         }
     }

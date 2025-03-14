@@ -28,7 +28,6 @@ try {
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
             # may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
-            Php70\FuncCall\RandomFunctionRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class,
             Php73\FuncCall\RegexDashEscapeRector::class,
             Php80\Class_\AnnotationToAttributeRector::class,
