@@ -29,6 +29,9 @@ class Mage_Catalog_Model_Observer_SingleSearchResult
 
     /**
      * Disable Advanced Search at storeview scope
+     *
+     * @SuppressWarnings("PHPMD.ExitExpression")
+     * @SuppressWarnings("PHPMD.StaticAccess")
      */
     public function execute(Varien_Event_Observer $observer): void
     {
