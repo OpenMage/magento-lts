@@ -369,8 +369,8 @@ class Varien_Object_Cache
         $debug = [];
         foreach ($bt as $i => $step) {
             $debug[$i] = [
-                'file'     => isset($step['file']) ? $step['file'] : null,
-                'line'     => isset($step['line']) ? $step['line'] : null,
+                'file'     => $step['file'] ?? null,
+                'line'     => $step['line'] ?? null,
                 'function' => $step['function'],
             ];
         }

@@ -30,7 +30,6 @@ try {
             Php53\Ternary\TernaryToElvisRector::class,
             Php70\If_\IfToSpaceshipRector::class,
             Php70\FuncCall\RandomFunctionRector::class,
-            Php70\Ternary\TernaryToNullCoalescingRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class,
             Php73\FuncCall\RegexDashEscapeRector::class,
             Php80\Class_\AnnotationToAttributeRector::class,

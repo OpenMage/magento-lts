@@ -332,7 +332,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                             . '_' . $fieldPrefix
                             . $dependentFieldNameValue;
                         $shouldBeAddedDependence = true;
-                        $dependentValue = (string) (isset($dependent->value) ? $dependent->value : $dependent);
+                        $dependentValue = (string) ($dependent->value ?? $dependent);
                         if (isset($dependent['separator'])) {
                             $dependentValue = explode((string) $dependent['separator'], $dependentValue);
                         }
