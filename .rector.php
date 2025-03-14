@@ -16,6 +16,9 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 try {
     return RectorConfig::configure()
+        ->withPhpSets(
+            php56: true,
+        )
         ->withPaths([
             __DIR__,
         ])
@@ -23,6 +26,7 @@ try {
         ->withSkip([
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
+            # may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
             Php70\FuncCall\RandomFunctionRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class,
@@ -31,18 +35,17 @@ try {
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
             Php80\Class_\StringableForToStringRector::class,
             Php80\FunctionLike\MixedTypeRector::class,
-            Php80\Identical\StrEndsWithRector::class,
-            Php80\Identical\StrStartsWithRector::class,
-            Php80\NotIdentical\StrContainsRector::class,
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',
+            __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
         ])
         ->withRules([
             CodeQuality\BooleanNot\ReplaceMultipleBooleanNotRector::class,
             CodeQuality\Foreach_\UnusedForeachValueToArrayKeysRector::class,
             CodeQuality\FuncCall\ChangeArrayPushToArrayAssignRector::class,
             CodeQuality\FuncCall\CompactToVariablesRector::class,
+            CodeQuality\FunctionLike\SimplifyUselessVariableRector::class,
             CodeQuality\Identical\SimplifyArraySearchRector::class,
             CodeQuality\Identical\SimplifyConditionsRector::class,
             CodeQuality\Identical\StrlenZeroToIdenticalEmptyStringRector::class,

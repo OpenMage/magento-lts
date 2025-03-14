@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $menuArr['active'] = ($this->getActive() == $path . $childName)
-                || (strpos((string) $this->getActive(), $path . $childName . '/') === 0);
+                || (str_starts_with((string) $this->getActive(), $path . $childName . '/'));
 
             $menuArr['level'] = $level;
 
