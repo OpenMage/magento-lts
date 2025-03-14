@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Observer_DisableAdvancedSearch
+class Mage_Catalog_Model_Observer_DisableAdvancedSearch implements Mage_Core_Observer_Interface
 {
     /**
      * Disable Advanced Search at storeview scope

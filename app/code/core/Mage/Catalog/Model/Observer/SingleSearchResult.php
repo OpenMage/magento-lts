@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Observer_SingleSearchResult
+class Mage_Catalog_Model_Observer_SingleSearchResult implements Mage_Core_Observer_Interface
 {
     /**
      * Product list block name in layout
@@ -28,7 +28,7 @@ class Mage_Catalog_Model_Observer_SingleSearchResult
     public const RESULT_BLOCK_NAME = 'search_result_list';
 
     /**
-     * Disable Advanced Search at storeview scope
+     * Redirect single search result to product page
      *
      * @SuppressWarnings("PHPMD.ExitExpression")
      * @SuppressWarnings("PHPMD.StaticAccess")
