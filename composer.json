@@ -103,7 +103,8 @@
     ],
     "autoload-dev": {
         "psr-4": {
-            "OpenMage\\Tests\\Unit\\": "tests/unit"
+            "OpenMage\\Tests\\Unit\\": "tests/unit",
+            "OpenMage\\Dev\\Mono\\": "dev/mono"
         }
     },
     "extra": {
@@ -158,6 +159,7 @@
         "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
         "rector:fix": "vendor/bin/rector process --config .rector.php",
+        "mono-repo:copy": "OpenMage\\Dev\\Mono\\CopyToMonoRepos::process",
         "test": [
             "@php-cs-fixer:test",
             "@phpstan",
