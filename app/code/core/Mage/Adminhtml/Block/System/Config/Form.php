@@ -553,7 +553,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _sortForm($a, $b)
     {
-        return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
+        return (int) $a->sort_order <=> (int) $b->sort_order;
     }
 
     /**
