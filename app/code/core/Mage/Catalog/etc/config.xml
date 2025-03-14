@@ -727,6 +727,22 @@
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_result>
+            <controller_action_layout_render_before_catalogsearch_result_index>
+                <observers>
+                    <single_search_result>
+                        <model>catalog/observer_singleSearchResult</model>
+                        <method>execute</method>
+                    </single_search_result>
+                </observers>
+            </controller_action_layout_render_before_catalogsearch_result_index>
+            <controller_action_layout_render_before_catalogsearch_advanced_result>
+                <observers>
+                    <single_search_result>
+                        <model>catalog/observer_singleSearchResult</model>
+                        <method>execute</method>
+                    </single_search_result>
+                </observers>
+            </controller_action_layout_render_before_catalogsearch_advanced_result>
         </events>
         <translate>
             <modules>
@@ -839,6 +855,7 @@
             </layered_navigation>
             <search>
                 <enable_advanced_search>1</enable_advanced_search>
+                <enable_single_search_result>1</enable_single_search_result>
             </search>
         </catalog>
         <system>

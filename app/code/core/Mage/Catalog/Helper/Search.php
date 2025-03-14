@@ -34,6 +34,14 @@ class Mage_Catalog_Helper_Search extends Mage_Core_Helper_Abstract
     /**
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
+    public function isRedirectSingleSearchResult(): bool
+    {
+        return Mage::getStoreConfigFlag('catalog/search/enable_single_search_result');
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.StaticAccess")
+     */
     public function getNoRoutePath(): string
     {
         return $this->_getUrl(Mage::getStoreConfig('web/default/cms_no_route'));
