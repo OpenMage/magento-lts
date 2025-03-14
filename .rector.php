@@ -17,7 +17,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 try {
     return RectorConfig::configure()
         ->withPhpSets(
-            php55: true,
+            php56: true,
         )
         ->withPaths([
             __DIR__,
