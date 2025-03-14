@@ -649,10 +649,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     public function getDestinationFolder($filepath)
     {
         preg_match('/^(.*[!\/])/', $filepath, $mathces);
-        if (isset($mathces[0])) {
-            return $mathces[0];
-        }
-        return false;
+        return $mathces[0] ?? false;
     }
 
     /**
