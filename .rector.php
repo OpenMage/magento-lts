@@ -32,7 +32,6 @@ try {
             Php70\FuncCall\RandomFunctionRector::class,
             Php70\Ternary\TernaryToNullCoalescingRector::class,
             Php70\Ternary\TernaryToSpaceshipRector::class,
-            Php70\Variable\WrapVariableVariableNameInCurlyBracesRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class,
             Php73\FuncCall\RegexDashEscapeRector::class,
             Php80\Class_\AnnotationToAttributeRector::class,
