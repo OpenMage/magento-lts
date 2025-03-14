@@ -715,7 +715,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_index>
@@ -723,7 +722,6 @@
                 <observers>
                     <disable_advanced_search>
                         <class>catalog/observer_disableAdvancedSearch</class>
-                        <method>execute</method>
                     </disable_advanced_search>
                 </observers>
             </controller_action_predispatch_catalogsearch_advanced_result>
@@ -731,7 +729,6 @@
                 <observers>
                     <single_search_result>
                         <model>catalog/observer_singleSearchResult</model>
-                        <method>execute</method>
                     </single_search_result>
                 </observers>
             </controller_action_layout_render_before_catalogsearch_result_index>
@@ -739,7 +736,6 @@
                 <observers>
                     <single_search_result>
                         <model>catalog/observer_singleSearchResult</model>
-                        <method>execute</method>
                     </single_search_result>
                 </observers>
             </controller_action_layout_render_before_catalogsearch_advanced_result>

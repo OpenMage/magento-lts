@@ -1413,15 +1413,23 @@ class Mage_Core_Model_App
                         break;
                     case 'object':
                     case 'model':
-                        $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getModel($obs['model']);
+                        if ($object instanceof Mage_Core_Observer_Interface) {
+                            $method = 'execute';
+                        } else {
+                            $method = $obs['method'];
+                        }
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                     default:
-                        $method = $obs['method'];
                         $observer->addData($args);
                         $object = Mage::getSingleton($obs['model']);
+                        if ($object instanceof Mage_Core_Observer_Interface) {
+                            $method = 'execute';
+                        } else {
+                            $method = $obs['method'];
+                        }
                         $this->_callObserverMethod($object, $method, $observer, $obsName);
                         break;
                 }
