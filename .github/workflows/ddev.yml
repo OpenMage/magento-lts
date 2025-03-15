@@ -19,6 +19,10 @@ jobs:
         with:
           autostart: false
 
+      # install DDEV configuration
+      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=nginx-fpm
+
+      # install composer dependencies
       - run: ddev composer install
 
       # install openmage
