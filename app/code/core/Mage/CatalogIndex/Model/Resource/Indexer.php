@@ -124,7 +124,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         }
 
         foreach ($tables as $variable => $table) {
-            $variable = $$variable;
+            $variable = ${$variable};
             $suffixToInsert = $suffix;
             if (in_array($table, $this->_getPriceTables())) {
                 $suffixToInsert = $priceSuffix;

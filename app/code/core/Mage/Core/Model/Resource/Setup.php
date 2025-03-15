@@ -203,7 +203,7 @@ class Mage_Core_Model_Resource_Setup
             if (!$resource->setup) {
                 continue;
             }
-            $className = __CLASS__;
+            $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }
@@ -238,7 +238,7 @@ class Mage_Core_Model_Resource_Setup
             if (!$resource->setup) {
                 continue;
             }
-            $className = __CLASS__;
+            $className = self::class;
             if (isset($resource->setup->class)) {
                 $className = $resource->setup->getClassName();
             }

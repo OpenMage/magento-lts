@@ -322,6 +322,7 @@ For copyright and license information, read the COPYING.txt file.
                         </template_ua_regexp>
                         <skin translate="label">
                             <label>Skin (Images / CSS)</label>
+                            <validate>validate-no-html-tags</validate>
                             <sort_order>30</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>

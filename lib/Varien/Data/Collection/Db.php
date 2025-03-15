@@ -415,7 +415,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
                     $currField,
-                    isset($condition[$key]) ? $condition[$key] : null,
+                    $condition[$key] ?? null,
                 );
             }
 
@@ -845,10 +845,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getCacheInstance()
     {
-        if (isset($this->_cacheConf['object'])) {
-            return $this->_cacheConf['object'];
-        }
-        return false;
+        return $this->_cacheConf['object'] ?? false;
     }
 
     /**
@@ -858,10 +855,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getCacheTags()
     {
-        if (isset($this->_cacheConf['tags'])) {
-            return $this->_cacheConf['tags'];
-        }
-        return [];
+        return $this->_cacheConf['tags'] ?? [];
     }
 
     /**

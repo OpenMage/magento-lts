@@ -6,8 +6,10 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Mage
  */
-define('DS', DIRECTORY_SEPARATOR);
-define('PS', PATH_SEPARATOR);
+
+defined('DS') || define('DS', DIRECTORY_SEPARATOR);
+defined('PS') || define('PS', PATH_SEPARATOR);
+
 define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
@@ -204,7 +206,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '12',
+                'minor'     => '14',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -270,7 +272,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "' . $key . '" already exists');
+            self::throwException("Mage registry key $key already exists");
         }
         self::$_registry[$key] = $value;
     }
@@ -323,7 +325,7 @@ final class Mage
         if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
-            self::throwException($appRoot . ' is not a directory or not readable by this user');
+            self::throwException("$appRoot is not a directory or not readable by this user");
         }
     }
 

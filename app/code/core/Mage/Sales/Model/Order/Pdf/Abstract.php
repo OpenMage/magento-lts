@@ -508,12 +508,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         if (!isset($a['sort_order']) || !isset($b['sort_order'])) {
             return 0;
         }
-
-        if ($a['sort_order'] == $b['sort_order']) {
-            return 0;
-        }
-
-        return ($a['sort_order'] > $b['sort_order']) ? 1 : -1;
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**

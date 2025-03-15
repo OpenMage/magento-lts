@@ -56,11 +56,22 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      *
      *
      * @return $this
+     * @throws Zend_Date_Exception
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
         if (!$object->getDiscountQty()) {
             $object->setDiscountQty(new Zend_Db_Expr('NULL'));
+        }
+
+        $dateFrom = $object->getFromDate();
+        $dateTo = $object->getToDate();
+
+        # fix when from and to day are the same
+        if (($dateFrom instanceof Zend_Date && $dateTo instanceof Zend_Date) &&
+            ($dateFrom->getTimestamp() === $dateTo->getTimestamp())
+        ) {
+            $dateTo->setHour(23)->setMinute(59)->setSecond(59);
         }
 
         parent::_beforeSave($object);

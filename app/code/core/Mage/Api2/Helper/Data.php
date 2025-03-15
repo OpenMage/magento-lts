@@ -37,10 +37,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected static function _compareOrder($a, $b)
     {
-        if ($a['order'] == $b['order']) {
-            return 0;
-        }
-        return ($a['order'] < $b['order']) ? -1 : 1;
+        return $a['order'] <=> $b['order'];
     }
 
     /**
@@ -127,7 +124,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $userType
      * @param string $resourceId
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
      * @return array
      */
     public function getAllowedAttributes($userType, $resourceId, $operation)
@@ -157,8 +154,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get operation type for specified operation
      *
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
-     * @return string One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_* $operation
+     * @return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_*
      * @throws Exception
      */
     public function getTypeOfOperation($operation)

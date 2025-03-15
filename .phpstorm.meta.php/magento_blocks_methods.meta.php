@@ -723,7 +723,6 @@ namespace PHPSTORM_META {
             'adminhtml/widget_form_renderer_fieldset' => \Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset::class,
             'adminhtml/widget_form_renderer_fieldset_element' => \Mage_Adminhtml_Block_Widget_Form_Renderer_Fieldset_Element::class,
             'adminhtml/widget_grid' => \Mage_Adminhtml_Block_Widget_Grid::class,
-            'adminhtml/widget_grid_block' => \Mage_Adminhtml_Block_Widget_Grid_Block::class,
             'adminhtml/widget_grid_column' => \Mage_Adminhtml_Block_Widget_Grid_Column::class,
             'adminhtml/widget_grid_column_filter_abstract' => \Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Abstract::class,
             'adminhtml/widget_grid_column_filter_checkbox' => \Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Checkbox::class,

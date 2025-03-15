@@ -42,7 +42,7 @@ class Unserialize_Reader_Int
             if ($char !== Unserialize_Parser::SYMBOL_SEMICOLON) {
                 $this->_value .= $char;
             } else {
-                return (int)$this->_value;
+                return (int) $this->_value;
             }
         }
         return null;

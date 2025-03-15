@@ -8,11 +8,10 @@
  * @license    Open Software License (OSL 3.0)
  * @package    Varien_Object
  */
+
 /**
  * @package    Varien_Object
  */
-
-
 class Varien_Object implements ArrayAccess
 {
     /**
@@ -312,7 +311,7 @@ class Varien_Object implements ArrayAccess
         }
 
         $data = $this->_data[$key] ?? null;
-        if ($data === null && $key !== null && strpos($key, '/') !== false) {
+        if ($data === null && $key !== null && str_contains($key, '/')) {
             /* process a/b/c key as ['a']['b']['c'] */
             $data = $this->getDataByPath($key);
         }

@@ -161,7 +161,6 @@ nav:
           - users/install/index.md
           - users/install/use-composer.md
           - users/install/use-git.md
-          - users/install/use-tarball.md
           - users/install/secure-install.md
       - 'Changelog':
           - developers/changelog/index.md
@@ -205,6 +204,7 @@ nav:
           - blog/posts/guides/2023-01-09-dynamic-blocks.md
           - blog/posts/guides/2022-08-17-observer.md
           - blog/posts/guides/2023-05-01-customize-your-openmage.md
+          - blog/posts/guides/2024-02-17-ddev-windows-10.md
       - 'Documentation':
           - developers/mkdocs.md
   - 'Modules':

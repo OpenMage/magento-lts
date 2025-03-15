@@ -146,45 +146,6 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
     }
 
     /**
-     * Get SQL for get record count
-     *
-     * @return Varien_Db_Select
-     */
-    public function getSelectCountSql()
-    {
-        $this->_renderFilters();
-        $select = clone $this->getSelect();
-        $select->reset(Zend_Db_Select::ORDER);
-        return $this->getConnection()->select()->from($select, 'COUNT(*)');
-    }
-
-    /**
-     * Set ids for store restrictions
-     *
-     * @param  array $storeIds
-     * @return $this
-     */
-    public function addStoreRestrictions($storeIds)
-    {
-        if (!is_array($storeIds)) {
-            $storeIds = [$storeIds];
-        }
-        $currentStoreIds = $this->_storesIds;
-        if (isset($currentStoreIds) && $currentStoreIds != Mage_Core_Model_App::ADMIN_STORE_ID
-            && $currentStoreIds != [Mage_Core_Model_App::ADMIN_STORE_ID]
-        ) {
-            if (!is_array($currentStoreIds)) {
-                $currentStoreIds = [$currentStoreIds];
-            }
-            $this->_storesIds = array_intersect($currentStoreIds, $storeIds);
-        } else {
-            $this->_storesIds = $storeIds;
-        }
-
-        return $this;
-    }
-
-    /**
      * Redeclare parent method for applying filters after parent method
      * but before adding unions and calculating totals
      *

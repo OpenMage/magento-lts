@@ -20,11 +20,10 @@ class Mage_Sales_Model_Observer
     /**
      * Clean expired quotes (cron process)
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function cleanExpiredQuotes($schedule)
+    public function cleanExpiredQuotes()
     {
         Mage::dispatchEvent('clear_expired_quotes_before', ['sales_observer' => $this]);
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
@@ -153,10 +152,9 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales order report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
-    public function aggregateSalesReportOrderData($schedule)
+    public function aggregateSalesReportOrderData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -169,11 +167,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales shipment report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportShipmentData($schedule)
+    public function aggregateSalesReportShipmentData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -186,11 +183,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales invoiced report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportInvoicedData($schedule)
+    public function aggregateSalesReportInvoicedData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -203,11 +199,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales refunded report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportRefundedData($schedule)
+    public function aggregateSalesReportRefundedData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -220,11 +215,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh bestsellers report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportBestsellersData($schedule)
+    public function aggregateSalesReportBestsellersData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();

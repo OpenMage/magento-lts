@@ -25,7 +25,7 @@ class XMLParser
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function XMLParser()
-        //
+    //
     // Initialize the XML parser.
     /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,18 +36,18 @@ class XMLParser
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function startElement(parser, name, attribute)
-        //
+    //
     // Start Tag Element Handler
     /////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function startElement($parser, $name, $attrs='')
+    public function startElement($parser, $name, $attrs = '')
     {
-        $this->elementName= $name;
+        $this->elementName = $name;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function elementData(parser, data)
-        //
+    //
     // Element Data Handler
     /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -58,20 +58,20 @@ class XMLParser
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function endElement(name, value)
-        //
+    //
     // End Tag Element Handler
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     public function endElement($parser, $name)
     {
-        $this->deserializedResponse[$this->elementName]= $this->elementValue;
+        $this->deserializedResponse[$this->elementName] = $this->elementValue;
         $this->elementName = '';
         $this->elementValue = '';
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////
     // Function deserialize(xmlString)
-        //
+    //
     // Deserilize the XML reponse message and add each element to the deseralizedResponse collection.
     // Once complete, then each element reference will be available using the getValue function.
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,8 +84,8 @@ class XMLParser
         xml_set_character_data_handler($this->xml_parser, 'elementData');
 
         if (!xml_parse($this->xml_parser, $responseString)) {
-            $this->deserializedResponse['ErrorNo']= CENTINEL_ERROR_CODE_8020;
-            $this->deserializedResponse['ErrorDesc']= CENTINEL_ERROR_CODE_8020_DESC;
+            $this->deserializedResponse['ErrorNo'] = CENTINEL_ERROR_CODE_8020;
+            $this->deserializedResponse['ErrorDesc'] = CENTINEL_ERROR_CODE_8020_DESC;
         }
 
         xml_parser_free($this->xml_parser);

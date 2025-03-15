@@ -47,7 +47,7 @@ class Unserialize_Reader_Str
             if ($char != Unserialize_Parser::SYMBOL_COLON) {
                 $this->_length .= $char;
             } else {
-                $this->_length = (int)$this->_length;
+                $this->_length = (int) $this->_length;
                 $this->_status = self::FINISHED_LENGTH;
             }
         }
@@ -71,7 +71,7 @@ class Unserialize_Reader_Str
 
             if (strlen($this->_value) == $this->_length) {
                 if ($char == Unserialize_Parser::SYMBOL_SEMICOLON && $prevChar == Unserialize_Parser::SYMBOL_QUOTE) {
-                    return (string)$this->_value;
+                    return (string) $this->_value;
                 }
             }
         }

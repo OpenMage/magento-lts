@@ -253,7 +253,7 @@ HTML;
         }
 
         try {
-            if (strpos($this->_viewDir . DS . $fileName, '..') === false
+            if (!str_contains($this->_viewDir . DS . $fileName, '..')
                 &&
                 ($this->_viewDir == Mage::getBaseDir('design') || str_starts_with(realpath($this->_viewDir), realpath(Mage::getBaseDir('design'))))
             ) {

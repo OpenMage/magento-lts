@@ -205,7 +205,7 @@ class Mage_Core_Model_Date
             return false;
         }
         foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
-            $value = (int) $$var;
+            $value = (int) ${$var};
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
@@ -240,7 +240,7 @@ class Mage_Core_Model_Date
         ];
 
         foreach ($formats as $supportedFormat => $regRule) {
-            if (strpos($dateTimeFormat, $supportedFormat, 0) !== false) {
+            if (str_contains($dateTimeFormat, $supportedFormat)) {
                 $isSupportedFormatFound = true;
                 break;
             }
