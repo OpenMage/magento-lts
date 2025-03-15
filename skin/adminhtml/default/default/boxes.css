@@ -238,7 +238,7 @@ tr.dynamic-grid input.input-text { width:154px; }
 .entry-edit-head .icon-copy {
     width: 11px;
     height: 11px;
-    margin: 0 0 0 5px;
+    margin: 5px 0;
     filter: hue-rotate(0) brightness(0) contrast(1) saturate(0) invert(1);
     float: right;
 }
