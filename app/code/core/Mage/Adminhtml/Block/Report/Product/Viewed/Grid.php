@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
             'header'    => Mage::helper('adminhtml')->__('Product Name'),
             'index'     => 'product_name',
             'type'      => 'string',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         if ($this->getFilterData()->getStoreIds()) {
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
             'index'     => 'views_num',
             'type'      => 'number',
             'total'     => 'sum',
-            'sortable'  => false
+            'sortable'  => false,
         ]);
 
         $this->addExportType('*/*/exportViewedCsv', Mage::helper('adminhtml')->__('CSV'));

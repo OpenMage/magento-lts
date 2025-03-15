@@ -49,12 +49,12 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
     {
         $this->addColumn('name', [
             'header'    => Mage::helper('reports')->__('Product Name'),
-            'index'     => 'original_name'
+            'index'     => 'original_name',
         ]);
 
         $this->addColumn('tag_name', [
             'header'    => Mage::helper('reports')->__('Tag Name'),
-            'index'     => 'tag_name'
+            'index'     => 'tag_name',
         ]);
 
         if (!Mage::app()->isSingleStoreMode()) {
@@ -74,7 +74,7 @@ class Mage_Adminhtml_Block_Report_Tag_Customer_Detail_Grid extends Mage_Adminhtm
         $this->addColumn('created_at', [
             'header'    => Mage::helper('reports')->__('Submitted On'),
             'type'      => 'datetime',
-            'index'     => 'created_at'
+            'index'     => 'created_at',
         ]);
 
         $this->setFilterVisibility(false);

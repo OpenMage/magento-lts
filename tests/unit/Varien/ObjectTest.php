@@ -53,25 +53,25 @@ class ObjectTest extends TestCase
             ['empty_key' => ['empty_value']],
             'empty_key',
             ['empty_value'],
-            ''
+            '',
         ];
         yield 'string' => [
             'value',
             'string',
             'value',
-            'string'
+            'string',
         ];
         yield 'int' => [
             1,
             'int',
             1,
-            'int'
+            'int',
         ];
         yield 'numeric' => [
             '1',
             'numeric',
             '1',
-            'numeric'
+            'numeric',
         ];
         yield 'array' => [
             ['string', 1],
@@ -166,15 +166,33 @@ class ObjectTest extends TestCase
     }
 
     /**
+     * @dataProvider provideToString
      * @group Varien_Object
      */
-    public function testToString(): void
+    public function testToString(string $expectedResult, string $format): void
     {
-        $this->subject->setString1('open');
-        $this->subject->setString2('mage');
-        $this->assertSame('open, mage', $this->subject->toString());
-        $this->assertSame('openmage', $this->subject->toString('{{string1}}{{string2}}'));
-        $this->assertSame('open', $this->subject->toString('{{string1}}{{string_not_exists}}'));
+        $this->subject->setString0('0');
+        $this->subject->setString1('one');
+        $this->subject->setString2('two');
+        $this->subject->setString3('three');
+
+        $this->assertSame($expectedResult, $this->subject->toString($format));
+    }
+
+    public function provideToString(): Generator
+    {
+        yield 'no format' => [
+            '0, one, two, three',
+            '',
+        ];
+        yield 'valid' => [
+            '0 one two',
+            '{{string0}} {{string1}} {{string2}}',
+        ];
+        yield 'invalid' => [
+            'three  0',
+            '{{string3}} {{string_not_exists}} {{string0}}',
+        ];
     }
 
     /**

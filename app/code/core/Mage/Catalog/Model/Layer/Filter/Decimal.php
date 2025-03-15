@@ -80,12 +80,12 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         }
 
         list($index, $range) = $filter;
-        if ((int)$index && (int)$range) {
-            $this->setRange((int)$range);
+        if ((int) $index && (int) $range) {
+            $this->setRange((int) $range);
 
             $this->_getResource()->applyFilterToCollection($this, $range, $index);
             $this->getLayer()->getState()->addFilter(
-                $this->_createItem($this->_renderItemLabel($range, $index), $filter)
+                $this->_createItem($this->_renderItemLabel($range, $index), $filter),
             );
 
             $this->_items = [];
@@ -163,7 +163,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $maxValue = $this->getMaxValue();
             $index = 1;
             do {
-                $range = pow(10, (strlen(floor($maxValue)) - $index));
+                $range = 10 ** (strlen(floor($maxValue)) - $index);
                 $items = $this->getRangeItemCounts($range);
                 $index++;
             } while ($range > self::MIN_RANGE_POWER && count($items) < 2);

@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -142,7 +142,7 @@ abstract class Varien_Image_Adapter_Abstract
     abstract public function checkDependencies();
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getMimeType()
     {
@@ -235,7 +235,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepAspectRatio($value = null)
     {
         if (null !== $value) {
-            $this->_keepAspectRatio = (bool)$value;
+            $this->_keepAspectRatio = (bool) $value;
         }
         return $this->_keepAspectRatio;
     }
@@ -249,7 +249,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepFrame($value = null)
     {
         if (null !== $value) {
-            $this->_keepFrame = (bool)$value;
+            $this->_keepFrame = (bool) $value;
         }
         return $this->_keepFrame;
     }
@@ -263,7 +263,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function keepTransparency($value = null)
     {
         if (null !== $value) {
-            $this->_keepTransparency = (bool)$value;
+            $this->_keepTransparency = (bool) $value;
         }
         return $this->_keepTransparency;
     }
@@ -277,7 +277,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function constrainOnly($value = null)
     {
         if (null !== $value) {
-            $this->_constrainOnly = (bool)$value;
+            $this->_constrainOnly = (bool) $value;
         }
         return $this->_constrainOnly;
     }
@@ -291,7 +291,7 @@ abstract class Varien_Image_Adapter_Abstract
     public function quality($value = null)
     {
         if (null !== $value) {
-            $this->_quality = (int)$value;
+            $this->_quality = (int) $value;
         }
         return $this->_quality;
     }

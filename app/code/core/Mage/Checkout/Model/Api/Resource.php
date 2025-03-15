@@ -37,7 +37,7 @@ class Mage_Checkout_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      * @var array
      */
     protected $_ignoredAttributeCodes = [
-        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id']
+        'global'    =>  ['entity_id', 'attribute_set_id', 'entity_type_id'],
     ];
 
     /**

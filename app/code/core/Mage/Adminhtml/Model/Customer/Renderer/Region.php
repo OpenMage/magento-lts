@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
 
     /**
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
@@ -85,7 +85,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
                  . $element->serialize($htmlAttributes) . '>' . "\n";
             foreach ($regionCollection as $region) {
                 $selected = ($regionId == $region['value']) ? ' selected="selected"' : '';
-                $value =  is_numeric($region['value']) ? (int)$region['value'] : '';
+                $value =  is_numeric($region['value']) ? (int) $region['value'] : '';
                 $html .= '<option value="' . $value . '"' . $selected . '>'
                     . Mage::helper('adminhtml')->escapeHtml(Mage::helper('directory')->__($region['label']))
                     . '</option>';
@@ -110,7 +110,6 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
             $html .= '</td>' . "\n";
         }
-        $html .= '</tr>' . "\n";
-        return $html;
+        return $html . ('</tr>' . "\n");
     }
 }

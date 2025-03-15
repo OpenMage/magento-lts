@@ -19,12 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Generator;
 use Mage;
-use Mage_Adminhtml_Helper_Js;
+use Mage_Adminhtml_Helper_Js as Subject;
 use PHPUnit\Framework\TestCase;
 
 class JsTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Js $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -52,14 +52,14 @@ class JsTest extends TestCase
                 2 => 3,
                 3 => 4,
             ],
-            '1&2&3&4'
+            '1&2&3&4',
         ];
         yield 'w/ keys' => [
             [
                 1 => [],
                 2 => [],
             ],
-            '1=1&2=2'
+            '1=1&2=2',
         ];
     }
 }

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -155,7 +155,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
     public function editBillingAction()
     {
         $this->_getState()->setActiveStep(
-            Mage_Checkout_Model_Type_Multishipping_State::STEP_BILLING
+            Mage_Checkout_Model_Type_Multishipping_State::STEP_BILLING,
         );
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');

@@ -144,7 +144,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         self::ERROR_VALUE_IS_REQUIRED    => "Required attribute '%s' has an empty value",
         self::ERROR_INVALID_STORE        => 'Invalid value in Store column (store does not exists?)',
         self::ERROR_EMAIL_SITE_NOT_FOUND => 'E-mail and website combination is not found',
-        self::ERROR_PASSWORD_LENGTH      => 'Invalid password length'
+        self::ERROR_PASSWORD_LENGTH      => 'Invalid password length',
     ];
 
     /**
@@ -236,8 +236,8 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 $this->_connection->query(
                     $this->_connection->quoteInto(
                         "DELETE FROM `{$this->_entityTable}` WHERE `entity_id` IN (?)",
-                        $idToDelete
-                    )
+                        $idToDelete,
+                    ),
                 );
             }
         }
@@ -279,7 +279,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     ? Mage::helper('core/unserializeArray')->unserialize($attribute->getValidateRules())
                     : null,
                 'type'        => Mage_ImportExport_Model_Import::getAttributeType($attribute),
-                'options'     => $this->getAttributeOptions($attribute)
+                'options'     => $this->getAttributeOptions($attribute),
             ];
             $this->_attributes[$attribute->getAttributeCode()] = $attributeArray;
             if (Mage_ImportExport_Model_Import::getAttributeType($attribute) === 'multiselect') {
@@ -387,7 +387,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
                                         ? $now : gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData['created_at'])),
-                        'updated_at' => $now
+                        'updated_at' => $now,
                     ];
 
                     $emailToLower = strtolower($rowData[self::COL_EMAIL]);
@@ -420,7 +420,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             } elseif ($attrParams['type'] === 'datetime') {
                                 $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($value));
                             } elseif ($attrParams['type'] === 'multiselect') {
-                                $value = (array)$attrParams['options'][strtolower($value)];
+                                $value = (array) $attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
                                 $multiSelect[$entityId][] = $value;
@@ -479,7 +479,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                         'entity_id'      => $customerId,
                         'entity_type_id' => $this->_entityTypeId,
                         'attribute_id'   => $attributeId,
-                        'value'          => $value
+                        'value'          => $value,
                     ];
                 }
             }
@@ -504,7 +504,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             $this->_connection->insertOnDuplicate(
                 $this->_entityTable,
                 $entityRowsUp,
-                ['group_id', 'store_id', 'updated_at', 'created_at']
+                ['group_id', 'store_id', 'updated_at', 'created_at'],
             );
         }
         return $this;

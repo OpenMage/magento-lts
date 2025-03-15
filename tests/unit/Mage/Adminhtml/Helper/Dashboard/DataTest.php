@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 
 use Mage;
-use Mage_Adminhtml_Helper_Dashboard_Data;
+use Mage_Adminhtml_Helper_Dashboard_Data as Subject;
 use Mage_Core_Model_Resource_Store_Collection;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Dashboard_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -64,7 +64,7 @@ class DataTest extends TestCase
             '7d'  => $this->subject->__('Last 7 Days'),
             '1m'  => $this->subject->__('Current Month'),
             '1y'  => $this->subject->__('YTD'),
-            '2y'  => $this->subject->__('2YTD')
+            '2y'  => $this->subject->__('2YTD'),
         ];
         $this->assertSame($expectedResult, $this->subject->getDatePeriods());
     }

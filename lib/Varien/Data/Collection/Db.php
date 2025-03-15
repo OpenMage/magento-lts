@@ -122,7 +122,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         $this->_cacheConf = [
             'object'    => $object,
             'prefix'    => $idPrefix,
-            'tags'      => $tags
+            'tags'      => $tags,
         ];
         return $this;
     }
@@ -209,7 +209,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     {
         if (is_null($this->_totalRecords)) {
             $sql = $this->getSelectCountSql();
-            $this->_totalRecords = (int)$this->getConnection()->fetchOne($sql, $this->_bindParams);
+            $this->_totalRecords = (int) $this->getConnection()->fetchOne($sql, $this->_bindParams);
         }
         return (int) $this->_totalRecords;
     }
@@ -341,7 +341,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
     private function _setOrder($field, $direction, $unshift = false)
     {
         $this->_isOrdersRendered = false;
-        $field = (string)$this->_getMappedField($field);
+        $field = (string) $this->_getMappedField($field);
         $direction = (strtoupper($direction) == self::SORT_ORDER_ASC) ? self::SORT_ORDER_ASC : self::SORT_ORDER_DESC;
 
         unset($this->_orders[$field]); // avoid ordering by the same field twice
@@ -385,7 +385,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $this->_select->where(
                         $this->_getConditionSql($field, $condition),
                         null,
-                        Varien_Db_Select::TYPE_CONDITION
+                        Varien_Db_Select::TYPE_CONDITION,
                     );
                     break;
                 default:
@@ -402,9 +402,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      *
      * @return void
      */
-    protected function _renderFiltersBefore()
-    {
-    }
+    protected function _renderFiltersBefore() {}
 
     /**
      * Add field filter to collection
@@ -424,7 +422,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($field as $key => $currField) {
                 $conditions[] = $this->_translateCondition(
                     $currField,
-                    isset($condition[$key]) ? $condition[$key] : null
+                    $condition[$key] ?? null,
                 );
             }
 
@@ -840,7 +838,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getSelectCacheId($select)
     {
-        $id = md5((string)$select);
+        $id = md5((string) $select);
         if (isset($this->_cacheConf['prefix'])) {
             $id = $this->_cacheConf['prefix'] . '_' . $id;
         }
@@ -854,10 +852,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getCacheInstance()
     {
-        if (isset($this->_cacheConf['object'])) {
-            return $this->_cacheConf['object'];
-        }
-        return false;
+        return $this->_cacheConf['object'] ?? false;
     }
 
     /**
@@ -867,10 +862,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      */
     protected function _getCacheTags()
     {
-        if (isset($this->_cacheConf['tags'])) {
-            return $this->_cacheConf['tags'];
-        }
-        return [];
+        return $this->_cacheConf['tags'] ?? [];
     }
 
     /**

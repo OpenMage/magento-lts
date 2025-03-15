@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Shipping
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -176,7 +176,7 @@ class Mage_Shipping_Model_Shipping
                             }
                             $sumResults[] = $result;
                         }
-                        if (!empty($sumResults) && count($sumResults) > 1) {
+                        if (count($sumResults) > 1) {
                             $result = [];
                             foreach ($sumResults as $res) {
                                 if (empty($result)) {
@@ -292,7 +292,7 @@ class Mage_Shipping_Model_Shipping
                 foreach ($decimalItems as $decimalItem) {
                     $fullItems = array_merge(
                         $fullItems,
-                        array_fill(0, $decimalItem['qty'] * $qty, $decimalItem['weight'])
+                        array_fill(0, $decimalItem['qty'] * $qty, $decimalItem['weight']),
                     );
                 }
             } else {
@@ -332,18 +332,18 @@ class Mage_Shipping_Model_Shipping
                         unset($items[$keyItem]);
                         $sumWeight += $weightItem;
                     } elseif (($sumWeight + $weightItem) > $maxWeight) {
-                        $pieces[] = (string)(float)$sumWeight;
+                        $pieces[] = (string) (float) $sumWeight;
                         break;
                     } else {
                         unset($items[$keyItem]);
-                        $pieces[] = (string)(float)($sumWeight + $weightItem);
+                        $pieces[] = (string) (float) ($sumWeight + $weightItem);
                         $sumWeight = 0;
                         break;
                     }
                 }
             }
             if ($sumWeight > 0) {
-                $pieces[] = (string)(float)$sumWeight;
+                $pieces[] = (string) (float) $sumWeight;
             }
             $pieces = array_count_values($pieces);
         }
@@ -451,7 +451,7 @@ class Mage_Shipping_Model_Shipping
             || !Mage::getStoreConfig(self::XML_PATH_STORE_COUNTRY_ID, $shipmentStoreId)
         ) {
             Mage::throwException(
-                Mage::helper('sales')->__('Insufficient information to create shipping label(s). Please verify your Store Information and Shipping Settings.')
+                Mage::helper('sales')->__('Insufficient information to create shipping label(s). Please verify your Store Information and Shipping Settings.'),
             );
         }
 

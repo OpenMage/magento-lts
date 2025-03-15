@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,12 +10,13 @@
  * @category   Mage
  * @package    Mage
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-define('DS', DIRECTORY_SEPARATOR);
-define('PS', PATH_SEPARATOR);
+defined('DS') || define('DS', DIRECTORY_SEPARATOR);
+defined('PS') || define('PS', PATH_SEPARATOR);
+
 define('BP', dirname(__DIR__));
 
 Mage::register('original_include_path', get_include_path());
@@ -37,15 +39,15 @@ $paths[] = BP . DS . 'lib';
 
 $appPath = implode(PS, $paths);
 set_include_path($appPath . PS . Mage::registry('original_include_path'));
-include_once "Mage/Core/functions.php";
-include_once "Varien/Autoload.php";
+include_once 'Mage/Core/functions.php';
+include_once 'Varien/Autoload.php';
 
 Varien_Autoload::register();
 
 /** AUTOLOADER PATCH **/
 $autoloaderPath = getenv('COMPOSER_VENDOR_PATH');
 if (!$autoloaderPath) {
-    $autoloaderPath = dirname(BP) . DS .  'vendor';
+    $autoloaderPath = dirname(BP) . DS . 'vendor';
     if (!is_dir($autoloaderPath)) {
         $autoloaderPath = BP . DS . 'vendor';
     }
@@ -150,7 +152,7 @@ final class Mage
     public static function getVersion()
     {
         $i = self::getVersionInfo();
-        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : "")
+        return trim("{$i['major']}.{$i['minor']}.{$i['revision']}" . ($i['patch'] != '' ? ".{$i['patch']}" : '')
                         . "-{$i['stability']}{$i['number']}", '.-');
     }
 
@@ -211,8 +213,8 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '10',
-                'patch'     => '2',
+                'minor'     => '14',
+                'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
             ];
@@ -277,7 +279,7 @@ final class Mage
             if ($graceful) {
                 return;
             }
-            self::throwException('Mage registry key "' . $key . '" already exists');
+            self::throwException("Mage registry key $key already exists");
         }
         self::$_registry[$key] = $value;
     }
@@ -330,7 +332,7 @@ final class Mage
         if (is_dir($appRoot) && is_readable($appRoot)) {
             self::$_appRoot = $appRoot;
         } else {
-            self::throwException($appRoot . ' is not a directory or not readable by this user');
+            self::throwException("$appRoot is not a directory or not readable by this user");
         }
     }
 
@@ -444,7 +446,7 @@ final class Mage
     /**
      * Get base URL path by type
      *
-     * @param string $type
+     * @param Mage_Core_Model_Store::URL_TYPE_* $type
      * @param null|bool $secure
      * @return string
      */
@@ -576,7 +578,7 @@ final class Mage
     }
 
     /**
-     * Retrieve resource vodel object singleton
+     * Retrieve resource model object singleton
      *
      * @param   string $modelClass
      * @return  object
@@ -835,7 +837,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime((string)$date)) {
+                if (($date = $localConfig->global->install->date) && strtotime((string) $date)) {
                     self::$_isInstalled = true;
                 }
             }
@@ -892,7 +894,7 @@ final class Mage
                 // Validate file extension before save. Allowed file extensions: log, txt, html, csv
                 $_allowedFileExtensions = explode(
                     ',',
-                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE)
+                    (string) self::getConfig()->getNode('dev/log/allowedFileExtensions', Mage_Core_Model_Store::DEFAULT_CODE),
                 );
                 if (! ($extension = pathinfo($file, PATHINFO_EXTENSION)) || ! in_array($extension, $_allowedFileExtensions)) {
                     return;
@@ -913,7 +915,7 @@ final class Mage
 
                 $format = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
                 $formatter = new Zend_Log_Formatter_Simple($format);
-                $writerModel = (string)self::getConfig()->getNode('global/log/core/writer_model');
+                $writerModel = (string) self::getConfig()->getNode('global/log/core/writer_model');
                 if (!self::$_app || !$writerModel) {
                     $writer = new Zend_Log_Writer_Stream($logFile);
                 } else {
@@ -953,7 +955,7 @@ final class Mage
      */
     public static function setIsDeveloperMode($mode)
     {
-        self::$_isDeveloperMode = (bool)$mode;
+        self::$_isDeveloperMode = (bool) $mode;
         return self::$_isDeveloperMode;
     }
 
@@ -985,7 +987,7 @@ final class Mage
         } else {
             $reportData = [
                 (!empty($extra) ? $extra . "\n\n" : '') . $e->getMessage(),
-                $e->getTraceAsString()
+                $e->getTraceAsString(),
             ];
 
             // retrieve server data

@@ -167,7 +167,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
             'type'         => self::TYPE_REQUEST,
             'token'        => $helper->generateToken(),
             'secret'       => $helper->generateTokenSecret(),
-            'callback_url' => $callbackUrl
+            'callback_url' => $callbackUrl,
         ]);
         $this->save();
 
@@ -228,7 +228,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
     {
         if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $this->getCallbackUrl()) {
             $callbackUrl = $this->getConsumer()->getCallbackUrl();
-            $isWhitelisted = $callbackUrl && strpos($this->getCallbackUrl(), $callbackUrl) === 0;
+            $isWhitelisted = $callbackUrl && str_starts_with($this->getCallbackUrl(), $callbackUrl);
             $validatorUrl = Mage::getSingleton('core/url_validator');
             if (!$isWhitelisted && !$validatorUrl->isValid($this->getCallbackUrl())) {
                 $messages = $validatorUrl->getMessages();
@@ -238,7 +238,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
 
         /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
         $validatorLength = Mage::getModel(
-            'oauth/consumer_validator_keyLength'
+            'oauth/consumer_validator_keyLength',
         );
         $validatorLength->setLength(self::LENGTH_SECRET);
         $validatorLength->setName('Token Secret Key');

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,11 +50,11 @@ class Mage_Adminhtml_Sales_Order_View_GiftmessageController extends Mage_Adminht
 
         if ($this->getRequest()->getParam('type') == 'order_item') {
             $this->getResponse()->setBody(
-                $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO'
+                $this->_getGiftmessageSaveModel()->getSaved() ? 'YES' : 'NO',
             );
         } else {
             $this->getResponse()->setBody(
-                Mage::helper('giftmessage')->__('The gift message has been saved.')
+                Mage::helper('giftmessage')->__('The gift message has been saved.'),
             );
         }
     }

@@ -9,7 +9,7 @@
  *
  * @category   OpenMage
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,19 +17,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
-use Generator;
 use Mage;
-use Mage_Catalog_Model_Category;
+use Mage_Catalog_Model_Category as Subject;
 use Mage_Catalog_Model_Category_Url;
 use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
 use PHPUnit\Framework\TestCase;
 
 class CategoryTest extends TestCase
 {
-    public const TEST_STRING = 'a & B, x%, ä, ö, ü';
+    use CatalogTrait;
 
-    public Mage_Catalog_Model_Category $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -88,7 +88,7 @@ class CategoryTest extends TestCase
      */
     public function testAfterCommitCallback(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Category::class, $this->subject->afterCommitCallback());
+        $this->assertInstanceOf(Subject::class, $this->subject->afterCommitCallback());
     }
 
     /**
@@ -107,33 +107,21 @@ class CategoryTest extends TestCase
      * @group Mage_Catalog_Model
      * @runInSeparateProcess
      */
-//    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
-//    {
-//        $this->subject->setName(self::TEST_STRING);
-//        $this->subject->setLocale($locale);
-//        $this->assertSame($expectedResult, $this->subject->getCategoryIdUrl());
-//    }
+    //    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
+    //    {
+    //        $this->subject->setName(self::TEST_STRING);
+    //        $this->subject->setLocale($locale);
+    //        $this->assertSame($expectedResult, $this->subject->getCategoryIdUrl());
+    //    }
 
     /**
      * @dataProvider provideFormatUrlKey
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testFormatUrlKey($expectedResult, ?string $locale): void
+    public function testFormatUrlKey($expectedResult, string $locale): void
     {
         $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey(self::TEST_STRING));
-    }
-
-    public function provideFormatUrlKey(): Generator
-    {
-        yield 'null locale' => [
-            'a-b-x-a-o-u',
-            null,
-        ];
-        yield 'de_DE' => [
-            'a-und-b-x-prozent-ae-oe-ue',
-            'de_DE',
-        ];
+        $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));
     }
 }

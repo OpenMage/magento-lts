@@ -9,13 +9,14 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
 
-<?php
-/** @var Mage_Adminhtml_Block_System_Store_Tree $this */
+/**
+ * @see Mage_Adminhtml_Block_System_Store_Tree
+ * @var Mage_Adminhtml_Block_System_Store_Tree $this
+ */
 ?>
 
 <div class="grid">
@@ -31,9 +32,7 @@
         <?php $printedWebsite = false; ?>
         <?php $printedStoreGroup = false; ?>
         <?php foreach ($this->getTableData() as $webSiteId => $webSiteData): ?>
-
             <?php if (count($webSiteData['storeGroups']) == 0): ?>
-
                 <tr>
                     <?php if (!$printedWebsite): ?>
                         <td class="a-left" rowspan="<?php echo $webSiteData['count'] ?>"><?php echo $this->renderWebsite($webSiteData['object']) ?></td>
@@ -41,7 +40,6 @@
 
                     <td colspan="2" class="a-left last"><span class="not-available"></span></td>
                 </tr>
-
                 <?php $printedWebsite = false; ?>
                 <?php continue ?>
             <?php endif ?>

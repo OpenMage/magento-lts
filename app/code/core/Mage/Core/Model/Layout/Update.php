@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -142,14 +142,14 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $handle
+     * @param array|string $handle
      * @return $this
      */
     public function addHandle($handle)
     {
         if (is_array($handle)) {
-            foreach ($handle as $h) {
-                $this->_handles[$h] = 1;
+            foreach ($handle as $item) {
+                $this->_handles[$item] = 1;
             }
         } else {
             $this->_handles[$handle] = 1;
@@ -325,7 +325,7 @@ class Mage_Core_Model_Layout_Update
                 $design->getArea(),
                 $design->getPackageName(),
                 $design->getTheme('layout'),
-                $storeId
+                $storeId,
             );
             if (Mage::app()->useCache('layout')) {
                 Mage::app()->saveCache($this->_packageLayout->asXML(), $cacheKey, $cacheTags, null);
@@ -401,13 +401,13 @@ class Mage_Core_Model_Layout_Update
         foreach ($updateXml->children() as $child) {
             if ((strtolower($child->getName()) == 'update') && isset($child['handle'])) {
                 $allow = true;
-                if (isset($child['ifconfig']) && ($configPath = (string)$child['ifconfig'])) {
+                if (isset($child['ifconfig']) && ($configPath = (string) $child['ifconfig'])) {
                     $allow = Mage::getStoreConfigFlag($configPath);
                 }
                 if ($allow) {
-                    $this->merge((string)$child['handle']);
+                    $this->merge((string) $child['handle']);
                     // Adding merged layout handle to the list of applied handles
-                    $this->addHandle((string)$child['handle']);
+                    $this->addHandle((string) $child['handle']);
                 }
             }
         }
@@ -457,7 +457,7 @@ class Mage_Core_Model_Layout_Update
             $filename = $design->getLayoutFilename($file, [
                 '_area'    => $area,
                 '_package' => $package,
-                '_theme'   => $theme
+                '_theme'   => $theme,
             ]);
             if (!is_readable($filename)) {
                 continue;
@@ -471,7 +471,6 @@ class Mage_Core_Model_Layout_Update
             }
             $layoutStr .= $fileXml->innerXml();
         }
-        $layoutXml = simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
-        return $layoutXml;
+        return simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
     }
 }

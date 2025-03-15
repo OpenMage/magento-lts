@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -359,8 +359,10 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool)$params['_secure'] : null)
-            . $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        $urlPath = $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        // Prevent XSS through malformed configuration
+        $urlPath = htmlspecialchars($urlPath, ENT_HTML5 | ENT_QUOTES, 'UTF-8');
+        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null) . $urlPath;
     }
 
     /**
@@ -462,8 +464,8 @@ class Mage_Core_Model_Design_Package
             $this->_fallback->getFallbackScheme(
                 $params['_area'],
                 $params['_package'],
-                $params['_theme']
-            )
+                $params['_theme'],
+            ),
         );
         Varien_Profiler::stop(__METHOD__);
         return $result;
@@ -511,7 +513,7 @@ class Mage_Core_Model_Design_Package
         Varien_Profiler::start(__METHOD__);
 
         // Prevent reading files outside of the proper directory while still allowing symlinked files
-        if (str_contains((string)$file, '..')) {
+        if (str_contains((string) $file, '..')) {
             Mage::log(sprintf('Invalid path requested: %s (params: %s)', $file, json_encode($params)), Zend_Log::ERR);
             throw new Exception('Invalid path requested.');
         }
@@ -524,14 +526,15 @@ class Mage_Core_Model_Design_Package
         }
         $this->updateParamDefaults($params);
         if (!empty($file)) {
-            $result = $this->_fallback(
+            // This updates $params with the base package and default theme if the file is not found
+            $this->_fallback(
                 $file,
                 $params,
                 $this->_fallback->getFallbackScheme(
                     $params['_area'],
                     $params['_package'],
-                    $params['_theme']
-                )
+                    $params['_theme'],
+                ),
             );
         }
         $result = $this->getSkinBaseUrl($params) . (empty($file) ? '' : $file);
@@ -584,7 +587,7 @@ class Mage_Core_Model_Design_Package
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
+                if (str_starts_with($entry, '.') || !is_dir($path . DS . $entry)) {
                     continue;
                 }
                 if ($fullPath) {
@@ -608,8 +611,8 @@ class Mage_Core_Model_Design_Package
      * @param string $regexpsConfigPath
      * @return false|string
      *
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName))
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName"))
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _checkUserAgentAgainstRegexps($regexpsConfigPath)
     {
@@ -647,9 +650,9 @@ class Mage_Core_Model_Design_Package
      * @param string $regexpsConfigPath
      * @return bool|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public static function getPackageByUserAgent(array $rules, $regexpsConfigPath = 'path_mock')
     {
@@ -738,7 +741,7 @@ class Mage_Core_Model_Design_Package
             $targetDir . DS . $targetFilename,
             false,
             [$this, 'beforeMergeCss'],
-            'css'
+            'css',
         );
         if ($mergeFilesResult) {
             return $baseMediaUrl . $mergerDir . '/' . $targetFilename;
@@ -777,7 +780,7 @@ class Mage_Core_Model_Design_Package
                 $targetFile,
                 $mustMerge,
                 $beforeMergeCallback,
-                $extensionsFilter
+                $extensionsFilter,
             );
             if ($result && (filemtime($targetFile) > $filemtime)) {
                 Mage::helper('core/file_storage_database')->saveFile($targetFile);
@@ -789,7 +792,7 @@ class Mage_Core_Model_Design_Package
                 $targetFile,
                 $mustMerge,
                 $beforeMergeCallback,
-                $extensionsFilter
+                $extensionsFilter,
             );
         }
     }
@@ -801,7 +804,7 @@ class Mage_Core_Model_Design_Package
      */
     public function cleanMergedJsCss()
     {
-        $result = (bool)$this->_initMergerDir('js', true);
+        $result = (bool) $this->_initMergerDir('js', true);
         $result = $this->_initMergerDir('css', true) && $result;
         return $this->_initMergerDir('css_secure', true) && $result;
     }
@@ -847,9 +850,8 @@ class Mage_Core_Model_Design_Package
         $contents = preg_replace_callback($cssImport, [$this, '_cssMergerImportCallback'], $contents);
 
         $cssUrl = '/url\\(\\s*(?![\\\'\\"]?data:)([^\\)\\s]+)\\s*\\)?/';
-        $contents = preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
 
-        return $contents;
+        return preg_replace_callback($cssUrl, [$this, '_cssMergerUrlCallback'], $contents);
     }
 
     /**

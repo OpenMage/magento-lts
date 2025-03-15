@@ -19,12 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Generator;
 use Mage;
-use Mage_Adminhtml_Helper_Config;
+use Mage_Adminhtml_Helper_Config as Subject;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Config $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -48,14 +48,14 @@ class ConfigTest extends TestCase
         yield 'null' => [
             [
                 'color' => [
-                    'backend_model' => 'adminhtml/system_config_backend_color'
-                ]
+                    'backend_model' => 'adminhtml/system_config_backend_color',
+                ],
             ],
             null,
         ];
         yield 'color' => [
             [
-                'backend_model' => 'adminhtml/system_config_backend_color'
+                'backend_model' => 'adminhtml/system_config_backend_color',
             ],
             'color',
         ];

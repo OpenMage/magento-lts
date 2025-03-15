@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,8 +34,8 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Back'),
                     'onclick'   => 'window.location.href=\'' . $this->getUrl('*/*/') . '\'',
-                    'class' => 'back'
-                ])
+                    'class' => 'back',
+                ]),
         );
 
         $this->setChild(
@@ -43,8 +43,8 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Reset'),
-                    'onclick'   => 'window.location.reload()'
-                ])
+                    'onclick'   => 'window.location.reload()',
+                ]),
         );
 
         $this->setChild(
@@ -53,8 +53,8 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Save Role'),
                     'onclick'   => 'roleForm.submit();return false;',
-                    'class' => 'save'
-                ])
+                    'class' => 'save',
+                ]),
         );
 
         $this->setChild(
@@ -63,10 +63,10 @@ class Mage_Adminhtml_Block_Permissions_Buttons extends Mage_Adminhtml_Block_Temp
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Delete Role'),
                     'onclick'   => 'if(confirm(\'' . Mage::helper('core')->jsQuoteEscape(
-                        Mage::helper('adminhtml')->__('Are you sure you want to do this?')
+                        Mage::helper('adminhtml')->__('Are you sure you want to do this?'),
                     ) . '\')) roleForm.submit(\'' . $this->getUrl('*/*/delete') . '\'); return false;',
-                    'class' => 'delete'
-                ])
+                    'class' => 'delete',
+                ]),
         );
         return parent::_prepareLayout();
     }

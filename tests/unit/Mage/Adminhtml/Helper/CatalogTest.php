@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Mage;
-use Mage_Adminhtml_Helper_Catalog;
+use Mage_Adminhtml_Helper_Catalog as Subject;
 use PHPUnit\Framework\TestCase;
 
 class CatalogTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Catalog $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -38,7 +38,7 @@ class CatalogTest extends TestCase
      */
     public function testSetAttributeTabBlock(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Helper_Catalog::class, $this->subject->setAttributeTabBlock(''));
+        $this->assertInstanceOf(Subject::class, $this->subject->setAttributeTabBlock(''));
     }
 
     /**
@@ -48,7 +48,7 @@ class CatalogTest extends TestCase
      */
     public function testSetCategoryAttributeTabBlock(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Helper_Catalog::class, $this->subject->setCategoryAttributeTabBlock(''));
+        $this->assertInstanceOf(Subject::class, $this->subject->setCategoryAttributeTabBlock(''));
     }
 
     /**
@@ -60,7 +60,7 @@ class CatalogTest extends TestCase
     {
         $assert = [
             'available' => [
-                'any_path'  => '/*/*.xml'
+                'any_path'  => '/*/*.xml',
             ],
             'protected' => [
                 'app'       => '/app/*/*',

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +90,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'FeeAmount' => 12,
                 'FeeCurrency' => 13,
                 'CustomField' => 14,
-                'ConsumerID' => 15
+                'ConsumerID' => 15,
             ],
             'rowmap' => [
                 'TransactionID' => 'transaction_id',
@@ -107,8 +107,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'FeeAmount' => 'fee_amount',
                 'FeeCurrency' => 'fee_currency',
                 'CustomField' => 'custom_field',
-                'ConsumerID' => 'consumer_id'
-            ]
+                'ConsumerID' => 'consumer_id',
+            ],
         ],
         'new' => [
             'section_columns' => [
@@ -148,9 +148,9 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 'Custom Field' => 'custom_field',
                 'Consumer ID' => 'consumer_id',
                 'Payment Tracking ID' => 'payment_tracking_id',
-                'Store ID' => 'store_id'
-            ]
-        ]
+                'Store ID' => 'store_id',
+            ],
+        ],
     ];
 
     protected function _construct()
@@ -182,7 +182,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      * @param array $config SFTP credentials
      * @return int Number of report rows that were fetched and saved successfully
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function fetchAndSave($config)
     {
@@ -190,7 +190,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         $connection->open([
             'host'     => $config['hostname'],
             'username' => $config['username'],
-            'password' => $config['password']
+            'password' => $config['password'],
         ]);
         $connection->cd($config['path']);
         $fetched = 0;
@@ -377,7 +377,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
         $uniques = [];
         foreach (Mage::app()->getStores() as $store) {
             /*@var $store Mage_Core_Model_Store */
-            $active = (bool)$store->getConfig('paypal/fetch_reports/active');
+            $active = (bool) $store->getConfig('paypal/fetch_reports/active');
             if (!$active && $automaticMode) {
                 continue;
             }

@@ -244,7 +244,7 @@ class Mage_Core_Model_Translate_Inline
         $urlPrefix = Mage::app()->getStore()->isAdmin() ? 'adminhtml' : 'core';
         $ajaxUrl = Mage::getUrl(
             $urlPrefix . '/ajax/translate',
-            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()]
+            ['_secure' => Mage::app()->getStore()->isCurrentlySecure()],
         );
         $trigImg = Mage::getDesign()->getSkinUrl('images/fam_book_open.png');
 
@@ -457,7 +457,7 @@ class Mage_Core_Model_Translate_Inline
         $tagMatch = [];
         while (preg_match($tagRegExp, $content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
             $tagName  = strtolower($tagMatch[1][0]);
-            if (substr($tagMatch[0][0], -2) == '/>') {
+            if (str_ends_with($tagMatch[0][0], '/>')) {
                 $tagClosurePos = $tagMatch[0][1] + strlen($tagMatch[0][0]);
             } else {
                 $tagClosurePos = $this->findEndOfTag($content, $tagName, $tagMatch[0][1]);
@@ -482,8 +482,8 @@ class Mage_Core_Model_Translate_Inline
                 [$this, '_getTagLocation'],
                 [
                     'tagName' => $tagName,
-                    'tagList' => $tagsList
-                ]
+                    'tagList' => $tagsList,
+                ],
             );
 
             if (!empty($trArr)) {
@@ -563,7 +563,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function getIsAjaxRequest()
     {
-        return (bool)Mage::app()->getRequest()->getQuery('isAjax');
+        return (bool) Mage::app()->getRequest()->getQuery('isAjax');
     }
 
     /**
@@ -575,7 +575,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsAjaxRequest($flag)
     {
-        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool)$flag);
+        Mage::app()->getRequest()->setQuery('isAjax', (int) (bool) $flag);
         return $this;
     }
 
@@ -597,7 +597,7 @@ class Mage_Core_Model_Translate_Inline
      */
     public function setIsJson($flag)
     {
-        $this->_isJson = (bool)$flag;
+        $this->_isJson = (bool) $flag;
         return $this;
     }
 }

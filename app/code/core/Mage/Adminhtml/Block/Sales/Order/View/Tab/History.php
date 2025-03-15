@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
                 $orderComment->getStatusLabel(),
                 $orderComment->getIsCustomerNotified(),
                 $orderComment->getCreatedAtDate(),
-                $orderComment->getComment()
+                $orderComment->getComment(),
             );
         }
 
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Credit memo #%s created', $memo->getIncrementId()),
                 $memo->getEmailSent(),
-                $memo->getCreatedAtDate()
+                $memo->getCreatedAtDate(),
             );
 
             foreach ($memo->getCommentsCollection() as $comment) {
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
                     $this->__('Credit memo #%s comment added', $memo->getIncrementId()),
                     $comment->getIsCustomerNotified(),
                     $comment->getCreatedAtDate(),
-                    $comment->getComment()
+                    $comment->getComment(),
                 );
             }
         }
@@ -79,7 +79,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Shipment #%s created', $shipment->getIncrementId()),
                 $shipment->getEmailSent(),
-                $shipment->getCreatedAtDate()
+                $shipment->getCreatedAtDate(),
             );
 
             foreach ($shipment->getCommentsCollection() as $comment) {
@@ -87,7 +87,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
                     $this->__('Shipment #%s comment added', $shipment->getIncrementId()),
                     $comment->getIsCustomerNotified(),
                     $comment->getCreatedAtDate(),
-                    $comment->getComment()
+                    $comment->getComment(),
                 );
             }
         }
@@ -96,7 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Invoice #%s created', $invoice->getIncrementId()),
                 $invoice->getEmailSent(),
-                $invoice->getCreatedAtDate()
+                $invoice->getCreatedAtDate(),
             );
 
             foreach ($invoice->getCommentsCollection() as $comment) {
@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
                     $this->__('Invoice #%s comment added', $invoice->getIncrementId()),
                     $comment->getIsCustomerNotified(),
                     $comment->getCreatedAtDate(),
-                    $comment->getComment()
+                    $comment->getComment(),
                 );
             }
         }
@@ -113,11 +113,11 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             $history[] = $this->_prepareHistoryItem(
                 $this->__('Tracking number %s for %s assigned', $track->getNumber(), $track->getTitle()),
                 false,
-                $track->getCreatedAtDate()
+                $track->getCreatedAtDate(),
             );
         }
 
-        usort($history, [__CLASS__, '_sortHistoryByTimestamp']);
+        usort($history, [self::class, '_sortHistoryByTimestamp']);
         return $history;
     }
 
@@ -195,7 +195,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             'title'      => $label,
             'notified'   => $notified,
             'comment'    => $comment,
-            'created_at' => $created
+            'created_at' => $created,
         ];
     }
 
@@ -292,11 +292,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     {
         $createdAtA = $a['created_at'];
         $createdAtB = $b['created_at'];
-
-        /** @var Zend_Date $createdAtA */
-        if ($createdAtA->getTimestamp() == $createdAtB->getTimestamp()) {
-            return 0;
-        }
-        return ($createdAtA->getTimestamp() < $createdAtB->getTimestamp()) ? -1 : 1;
+        return $createdAtA->getTimestamp() <=> $createdAtB->getTimestamp();
     }
 }

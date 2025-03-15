@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +38,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             ->_addContent(
                 $block
                     ->assign('createUrl', $this->getUrl('*/tax_rate/add'))
-                    ->assign('header', Mage::helper('tax')->__('Manage Tax Rates'))
+                    ->assign('header', Mage::helper('tax')->__('Manage Tax Rates')),
             )
             ->_addContent($this->getLayout()->createBlock('adminhtml/tax_rate_grid', 'tax_rate_grid'))
             ->renderLayout();
@@ -71,7 +71,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             ->_addContent(
                 $block
                 ->assign('header', Mage::helper('tax')->__('Add New Tax Rate'))
-                ->assign('form', $this->getLayout()->createBlock('adminhtml/tax_rate_form'))
+                ->assign('form', $this->getLayout()->createBlock('adminhtml/tax_rate_form')),
             )
             ->renderLayout();
     }
@@ -124,7 +124,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
              ->_title($this->__('Tax'))
              ->_title($this->__('Manage Tax Zones and Rates'));
 
-        $rateId = (int)$this->getRequest()->getParam('rate');
+        $rateId = (int) $this->getRequest()->getParam('rate');
         $rateModel = Mage::getSingleton('tax/calculation_rate')->load(null);
         $rateModel->setData(Mage::getSingleton('adminhtml/session')->getFormData(true));
         if ($rateModel->getId() != $rateId) {
@@ -150,7 +150,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             ->_addContent(
                 $block
                 ->assign('header', Mage::helper('tax')->__('Edit Tax Rate'))
-                ->assign('form', $this->getLayout()->createBlock('adminhtml/tax_rate_form'))
+                ->assign('form', $this->getLayout()->createBlock('adminhtml/tax_rate_form')),
             )
             ->renderLayout();
     }
@@ -248,7 +248,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     /**
      * import action from import/export tax
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function importPostAction()
     {
@@ -269,7 +269,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _importRates()
     {
@@ -286,7 +286,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             4   => Mage::helper('tax')->__('Rate'),
             5   => Mage::helper('tax')->__('Zip/Post is Range'),
             6   => Mage::helper('tax')->__('Range From'),
-            7   => Mage::helper('tax')->__('Range To')
+            7   => Mage::helper('tax')->__('Range To'),
         ];
 
         $stores = [];
@@ -405,7 +405,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             'rate'         => Mage::helper('tax')->__('Rate'),
             'zip_is_range' => Mage::helper('tax')->__('Zip/Post is Range'),
             'zip_from'     => Mage::helper('tax')->__('Range From'),
-            'zip_to'       => Mage::helper('tax')->__('Range To')
+            'zip_to'       => Mage::helper('tax')->__('Range To'),
         ]);
         $template = '"{{code}}","{{country_name}}","{{region_name}}","{{tax_postcode}}","{{rate}}"'
                 . ',"{{zip_is_range}}","{{zip_from}}","{{zip_to}}"';

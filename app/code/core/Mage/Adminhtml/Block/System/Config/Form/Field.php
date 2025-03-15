@@ -77,7 +77,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         $html .= '</td>';
 
         if ($addInheritCheckbox) {
-            $defText = (string)$element->getDefaultValue();
+            $defText = (string) $element->getDefaultValue();
             if ($options) {
                 $defTextArr = [];
                 foreach ($options as $k => $v) {

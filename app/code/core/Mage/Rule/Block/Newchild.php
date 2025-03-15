@@ -31,7 +31,6 @@ class Mage_Rule_Block_Newchild extends Mage_Core_Block_Abstract implements Varie
         $html .= $element->getValueName();
         $html .= '</a><span class="element">';
         $html .= $element->getElementHtml();
-        $html .= '</span></span>&nbsp;';
-        return $html;
+        return $html . '</span></span>&nbsp;';
     }
 }

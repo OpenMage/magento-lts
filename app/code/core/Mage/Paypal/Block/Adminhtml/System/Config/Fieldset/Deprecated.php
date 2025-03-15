@@ -43,7 +43,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
         $wasActiveConfigPath = $this->_getWasActiveConfigPath($element);
         return empty($wasActiveConfigPath)
             ? false
-            : (bool)(string)$this->_getConfigDataModel()->getConfigDataValue($wasActiveConfigPath);
+            : (bool) (string) $this->_getConfigDataModel()->getConfigDataValue($wasActiveConfigPath);
     }
 
     /**
@@ -94,11 +94,11 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
      */
     public function isPaymentEnabledAnyScope($activityPath)
     {
-        if ((bool)(string)$this->_getConfigModel()->getNode($activityPath, 'default')) {
+        if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'default')) {
             return true;
         }
         foreach ($this->_getWebsites() as $website) {
-            if ((bool)(string)$this->_getConfigModel()->getNode($activityPath, 'website', (int)$website->getId())) {
+            if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'website', (int) $website->getId())) {
                 return true;
             }
         }

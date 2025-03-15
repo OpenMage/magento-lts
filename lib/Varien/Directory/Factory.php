@@ -37,8 +37,7 @@ class Varien_Directory_Factory
     public static function getFactory($path, $is_recursion = true, $recurse_level = 0)
     {
         if (is_dir($path)) {
-            $obj = new Varien_Directory_Collection($path, $is_recursion, $recurse_level + 1);
-            return $obj;
+            return new Varien_Directory_Collection($path, $is_recursion, $recurse_level + 1);
         } else {
             return new Varien_File_Object($path);
         }

@@ -42,7 +42,7 @@ class Mage_Sitemap_Model_Resource_Cms_Page extends Mage_Core_Model_Resource_Db_A
             ->join(
                 ['store_table' => $this->getTable('cms/page_store')],
                 'main_table.page_id=store_table.page_id',
-                []
+                [],
             )
             ->where('main_table.is_active=1')
             ->where('store_table.store_id IN(?)', [0, $storeId]);

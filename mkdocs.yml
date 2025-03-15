@@ -81,7 +81,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/OpenMage/magento-lts
     - icon: fontawesome/brands/discord
-      link: https://discord.gg/EV8aNbU
+      link: https://discord.gg/R2q5WadstX
     - icon: fontawesome/brands/stack-overflow
       link: https://magento.stackexchange.com/tags/openmage
     - icon: fontawesome/brands/x-twitter
@@ -161,7 +161,6 @@ nav:
           - users/install/index.md
           - users/install/use-composer.md
           - users/install/use-git.md
-          - users/install/use-tarball.md
           - users/install/secure-install.md
       - 'Changelog':
           - developers/changelog/index.md
@@ -186,10 +185,14 @@ nav:
           - api/rest/response_formats.md
           - api/rest/testing_rest_resources.md
   - 'Development':
+      - 'Installation':
+          - developers/tools/ddev.md
+          - developers/tools/oneline.md
+      - 'Coding Style':
+          - developers/coding-style/per-2.0.md
       - 'Events':
           - developers/events/list.md
       - 'Tools':
-          - developers/tools/ddev.md
           - developers/tools/n98-magerun.md
           - developers/tools/phpstorm.md
       - 'Multistore':
@@ -201,6 +204,7 @@ nav:
           - blog/posts/guides/2023-01-09-dynamic-blocks.md
           - blog/posts/guides/2022-08-17-observer.md
           - blog/posts/guides/2023-05-01-customize-your-openmage.md
+          - blog/posts/guides/2024-02-17-ddev-windows-10.md
       - 'Documentation':
           - developers/mkdocs.md
   - 'Modules':

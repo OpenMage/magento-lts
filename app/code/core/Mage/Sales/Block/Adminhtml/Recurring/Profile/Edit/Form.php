@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,9 +104,16 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $form::setFieldsetRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'));
-        $form::setFieldsetElementRenderer($this->getLayout()
-            ->createBlock('adminhtml/widget_form_renderer_fieldset_element'));
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetElementRenderer($renderer);
+        }
 
         /**
          * if there is a parent element defined, it will be replaced by a hidden element with the same name
@@ -124,14 +131,14 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // schedule
         $schedule = $form->addFieldset('schedule_fieldset', [
             'legend' => Mage::helper('sales')->__('Schedule'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $schedule->addField('start_date_is_editable', 'select', [
             'name'    => 'start_date_is_editable',
             'label'   => Mage::helper('sales')->__('Customer Can Define Start Date'),
             'comment' => Mage::helper('sales')->__('Whether buyer can define the date when billing for the profile begins.'),
             'options' => $noYes,
-            'disabled' => $this->_isReadOnly
+            'disabled' => $this->_isReadOnly,
         ]);
         $this->_addField($schedule, 'schedule_description');
         $this->_addField($schedule, 'suspension_threshold');
@@ -140,7 +147,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // billing
         $billing = $form->addFieldset('billing_fieldset', [
             'legend' => Mage::helper('sales')->__('Billing'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $this->_addField($billing, 'period_unit', [
             'options' => $this->_getPeriodUnitOptions(Mage::helper('adminhtml')->__('-- Please Select --')),
@@ -151,7 +158,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // trial
         $trial = $form->addFieldset('trial_fieldset', [
             'legend' => Mage::helper('sales')->__('Trial Period'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $this->_addField($trial, 'trial_period_unit', [
             'options' => $this->_getPeriodUnitOptions(Mage::helper('adminhtml')->__('-- Not Selected --')),
@@ -163,7 +170,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         // initial fees
         $initial = $form->addFieldset('initial_fieldset', [
             'legend' => Mage::helper('sales')->__('Initial Fees'),
-            'disabled'  => $this->_isReadOnly
+            'disabled'  => $this->_isReadOnly,
         ]);
         $this->_addField($initial, 'init_amount');
         $this->_addField($initial, 'init_may_fail', ['options' => $noYes], 'select');
@@ -205,7 +212,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     {
         return array_merge(
             ['' => $emptyLabel],
-            $this->_profile->getAllPeriodUnits()
+            $this->_profile->getAllPeriodUnits(),
         );
     }
 

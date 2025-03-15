@@ -1,17 +1,12 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
+ * This file is part of OpenMage.
+ * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
  * @category   Mage
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  Copyright © 2024 Maho (https://mahocommerce.com)
  */
 
 /**
@@ -22,10 +17,8 @@
  */
 class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
-    /**
-     * Api URL
-     */
-    public const API_URL = 'https://image-charts.com/chart';
+    public const AXIS_X = 'x';
+    public const AXIS_Y = 'y';
 
     /**
      * All series
@@ -56,41 +49,18 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     protected $_dataRows = [];
 
     /**
-     * Simple encoding chars
-     *
-     * @var string
-     */
-    protected $_simpleEncoding = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    /**
-     * Extended encoding chars
-     *
-     * @var string
-     */
-    protected $_extendedEncoding = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.';
-
-    /**
      * Chart width
      *
      * @var string
      */
-    protected $_width = '587';
+    protected $_width = '998px';
 
     /**
      * Chart height
      *
      * @var string
      */
-    protected $_height = '300';
-
-    /**
-     * Google chart api data encoding
-     *
-     * @deprecated since the Google Image Charts API not accessible from March 14, 2019
-     *
-     * @var string
-     */
-    protected $_encoding = 'e';
+    protected $_height = '350px';
 
     /**
      * Html identifier
@@ -102,6 +72,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     protected $_max;
     protected $_min;
 
+    protected string $dataDelimiter = ',';
+    protected string $dataSetdelimiter = '|';
+    protected string $dataMissing = '_';
+
     /**
      * Initialize object
      */
@@ -109,6 +83,17 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         parent::__construct();
         $this->setTemplate('dashboard/graph.phtml');
+        $this->setDataHelperName('adminhtml/dashboard_order');
+
+        /** @var Mage_Adminhtml_Helper_Dashboard_Order $dataHelper */
+        $dataHelper = $this->getDataHelper();
+
+        /** @var Mage_Core_Controller_Request_Http $request */
+        $request = $this->getRequest();
+
+        $dataHelper->setParam('store', $request->getParam('store'));
+        $dataHelper->setParam('website', $request->getParam('website'));
+        $dataHelper->setParam('group', $request->getParam('group'));
     }
 
     /**
@@ -128,7 +113,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
      */
     public function setDataRows($rows)
     {
-        $this->_dataRows = (array)$rows;
+        $this->_dataRows = (array) $rows;
     }
 
     /**
@@ -163,23 +148,20 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     }
 
     /**
-     * Get chart url
-     *
-     * @param bool $directUrl
-     * @return string
-     * @throws Mage_Core_Model_Store_Exception
-     * @throws Zend_Date_Exception
+     * @deprecated
      */
     public function getChartUrl($directUrl = true)
     {
-        $params = [
-            'cht'  => 'lc',
-            'chf'  => 'bg,s,f4f4f4|c,lg,90,ffffff,0.1,ededed,0',
-            'chm'  => 'B,f4d4b2,0,0,0',
-            'chco' => 'db4814',
-            'chxs' => '0,0,11|1,0,11',
-            'chma' => '15,15,15,15'
-        ];
+        return '';
+    }
+
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Zend_Date_Exception
+     */
+    public function generateChart(): array
+    {
+        $params = [];
 
         $this->_allSeries = $this->getRowsData($this->_dataRows);
 
@@ -187,6 +169,69 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $this->setAxisLabels($axis, $this->getRowsData($attr, true));
         }
 
+        list($datas, $dates) = $this->getChartDatasAndDates();
+        $this->_axisLabels['x'] = $dates;
+        $this->_allSeries = $datas;
+
+        // Image-Charts Awesome data format values
+        $params['chd'] = 'a:';
+        $params['chd'] .= $this->getChartDataFromAllSeries();
+
+        $valueBuffer = [];
+
+        if (!array_key_exists(self::AXIS_X, $this->_axisLabels) ||
+            !array_key_exists(self::AXIS_Y, $this->_axisLabels)
+        ) {
+            return $params;
+        }
+
+        $params['chxt'] = implode(',', array_keys($this->_axisLabels));
+
+        $indexid = 0;
+        foreach (array_keys($this->_axisLabels) as $idx) {
+            if ($idx === self::AXIS_X) {
+                foreach ($this->_axisLabels[$idx] as $_index => $_label) {
+                    $this->_axisLabels[$idx][$_index] = '';
+                    switch ($this->getDataHelper()->getParam('period')) {
+                        case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
+                            $this->_axisLabels[$idx][$_index] = $this->formatTime(
+                                new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
+                                'short',
+                            );
+                            break;
+                        case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
+                        case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+                            $this->_axisLabels[$idx][$_index] = $this->formatDate(
+                                new Zend_Date($_label, 'yyyy-MM-dd'),
+                            );
+                            break;
+                        case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+                        case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
+                            $formats = Mage::app()->getLocale()->getTranslationList('datetime');
+                            $format = $formats['yyMM'] ?? 'MM/yyyy';
+                            $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
+                            $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
+                            break;
+                    }
+                }
+
+                $tmpstring      = implode('|', $this->_axisLabels[$idx]);
+                $valueBuffer[]  = $indexid . ':|' . $tmpstring;
+            }
+
+            if ($idx === self::AXIS_Y) {
+                $valueBuffer[] = $indexid . ':|' . implode('|', $this->getChartYLabels());
+            }
+
+            $indexid++;
+        }
+        $params['chxl'] = implode('|', $valueBuffer);
+
+        return $params;
+    }
+
+    private function getChartDatasAndDates(): array
+    {
         $timezoneLocal = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
 
         list($dateStart, $dateEnd) = Mage::getResourceModel('reports/order_collection')
@@ -195,69 +240,69 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $dateStart->setTimezone($timezoneLocal);
         $dateEnd->setTimezone($timezoneLocal);
 
-        $d = '';
+        $date  = '';
         $dates = [];
         $datas = [];
 
         while ($dateStart->compare($dateEnd) < 0) {
             switch ($this->getDataHelper()->getParam('period')) {
-                case '24h':
-                    $d = $dateStart->toString('yyyy-MM-dd HH:00');
+                case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
+                    $date = $dateStart->toString('yyyy-MM-dd HH:00');
                     $dateStart->addHour(1);
                     break;
-                case '7d':
-                case '1m':
-                    $d = $dateStart->toString('yyyy-MM-dd');
+                case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
+                case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+                    $date = $dateStart->toString('yyyy-MM-dd');
                     $dateStart->addDay(1);
                     break;
-                case '1y':
-                case '2y':
-                    $d = $dateStart->toString('yyyy-MM');
+                case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+                case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
+                    $date = $dateStart->toString('yyyy-MM');
                     $dateStart->addMonth(1);
                     break;
             }
             foreach (array_keys($this->getAllSeries()) as $index) {
-                if (in_array($d, $this->_axisLabels['x'])) {
-                    $datas[$index][] = (float)array_shift($this->_allSeries[$index]);
+                if (in_array($date, $this->_axisLabels['x'])) {
+                    $datas[$index][] = (float) array_shift($this->_allSeries[$index]);
                 } else {
                     $datas[$index][] = 0;
                 }
             }
-            $dates[] = $d;
+            $dates[] = $date;
         }
 
-        /**
-         * setting skip step
-         */
-        if (count($dates) > 8 && count($dates) < 15) {
-            $c = 1;
-        } elseif (count($dates) >= 15) {
-            $c = 2;
-        } else {
-            $c = 0;
-        }
-        /**
-         * skipping some x labels for good reading
-         */
-        $i = 0;
-        foreach ($dates as $k => $d) {
-            if ($i == $c) {
-                $dates[$k] = $d;
-                $i = 0;
-            } else {
-                $dates[$k] = '';
-                $i++;
+        return [$datas, $dates];
+    }
+
+    private function getChartDataFromAllSeries(): string
+    {
+        $yorigin = 0;
+        $chartdata = [];
+
+        foreach ($this->getAllSeries() as $serie) {
+            $thisdataarray = $serie;
+            $thisdataarrayCount = count($thisdataarray);
+            for ($j = 0; $j < $thisdataarrayCount; $j++) {
+                $currentvalue = $thisdataarray[$j];
+                if (is_numeric($currentvalue)) {
+                    $ylocation = $yorigin + $currentvalue;
+                    $chartdata[] = $ylocation . $this->dataDelimiter;
+                } else {
+                    $chartdata[] = $this->dataMissing . $this->dataDelimiter;
+                }
             }
+            $chartdata[] = $this->dataSetdelimiter;
         }
 
-        $this->_axisLabels['x'] = $dates;
-        $this->_allSeries = $datas;
+        $buffer = implode('', $chartdata);
+        $buffer = rtrim($buffer, $this->dataSetdelimiter);
+        $buffer = rtrim($buffer, $this->dataDelimiter);
 
-        // Image-Charts Awesome data format values
-        $params['chd'] = 'a:';
-        $dataDelimiter = ',';
-        $dataSetdelimiter = '|';
-        $dataMissing = '_';
+        return str_replace(($this->dataDelimiter . $this->dataDelimiter), $this->dataSetdelimiter, $buffer);
+    }
+
+    private function getChartYLabels(): array
+    {
         $localmaxlength = [];
         $localmaxvalue = [];
         $localminvalue = [];
@@ -282,10 +327,6 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
         // default values
         $yLabels = [];
-        $miny = 0;
-        $maxy = 0;
-        $yorigin = 0;
-
         if ($minvalue >= 0 && $maxvalue >= 0) {
             $miny = 0;
             if ($maxvalue > 10) {
@@ -298,109 +339,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             }
         }
 
-        $chartdata = [];
-
-        foreach ($this->getAllSeries() as $serie) {
-            $thisdataarray = $serie;
-            $thisdataarrayCount = count($thisdataarray);
-            for ($j = 0; $j < $thisdataarrayCount; $j++) {
-                $currentvalue = $thisdataarray[$j];
-                if (is_numeric($currentvalue)) {
-                    $ylocation = $yorigin + $currentvalue;
-                    $chartdata[] = $ylocation . $dataDelimiter;
-                } else {
-                    $chartdata[] = $dataMissing . $dataDelimiter;
-                }
-            }
-            $chartdata[] = $dataSetdelimiter;
-        }
-        $buffer = implode('', $chartdata);
-
-        $buffer = rtrim($buffer, $dataSetdelimiter);
-        $buffer = rtrim($buffer, $dataDelimiter);
-        $buffer = str_replace(($dataDelimiter . $dataSetdelimiter), $dataSetdelimiter, $buffer);
-
-        $params['chd'] .= $buffer;
-
-        $valueBuffer = [];
-
-        if (count($this->_axisLabels)) {
-            $params['chxt'] = implode(',', array_keys($this->_axisLabels));
-            $indexid = 0;
-            foreach (array_keys($this->_axisLabels) as $idx) {
-                if ($idx === 'x') {
-                    /**
-                     * Format date
-                     */
-                    foreach ($this->_axisLabels[$idx] as $_index => $_label) {
-                        if ($_label != '') {
-                            switch ($this->getDataHelper()->getParam('period')) {
-                                case '24h':
-                                    $this->_axisLabels[$idx][$_index] = $this->formatTime(
-                                        new Zend_Date($_label, 'yyyy-MM-dd HH:00'),
-                                        'short'
-                                    );
-                                    break;
-                                case '7d':
-                                case '1m':
-                                    $this->_axisLabels[$idx][$_index] = $this->formatDate(
-                                        new Zend_Date($_label, 'yyyy-MM-dd')
-                                    );
-                                    break;
-                                case '1y':
-                                case '2y':
-                                    $formats = Mage::app()->getLocale()->getTranslationList('datetime');
-                                    $format = $formats['yyMM'] ?? 'MM/yyyy';
-                                    $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
-                                    $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
-                                    break;
-                            }
-                        } else {
-                            $this->_axisLabels[$idx][$_index] = '';
-                        }
-                    }
-
-                    $tmpstring = implode('|', $this->_axisLabels[$idx]);
-
-                    $valueBuffer[] = $indexid . ':|' . $tmpstring;
-                    if (count($this->_axisLabels[$idx]) > 1) {
-                        $deltaX = 100 / (count($this->_axisLabels[$idx]) - 1);
-                    } else {
-                        $deltaX = 100;
-                    }
-                } elseif ($idx === 'y') {
-                    $valueBuffer[] = $indexid . ':|' . implode('|', $yLabels);
-                    if (count($yLabels) - 1) {
-                        $deltaY = 100 / (count($yLabels) - 1);
-                    } else {
-                        $deltaY = 100;
-                    }
-                }
-                $indexid++;
-            }
-            $params['chxl'] = implode('|', $valueBuffer);
-        }
-
-        // chart size
-        $params['chs'] = $this->getWidth() . 'x' . $this->getHeight();
-
-        if (isset($deltaX, $deltaY)) {
-            $params['chg'] = $deltaX . ',' . $deltaY . ',1,0';
-        }
-
-        // return the encoded data
-        if ($directUrl) {
-            $p = [];
-            foreach ($params as $name => $value) {
-                $p[] = $name . '=' . urlencode($value);
-            }
-            return self::API_URL . '?' . implode('&', $p);
-        }
-
-        $gaData = urlencode(base64_encode(json_encode($params)));
-        $gaHash = Mage::helper('adminhtml/dashboard_data')->getChartDataHash($gaData);
-        $params = ['ga' => $gaData, 'h' => $gaHash];
-        return $this->getUrl('*/*/tunnel', ['_query' => $params]);
+        return $yLabels;
     }
 
     /**
@@ -418,7 +357,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             if ($single) {
                 $options[] = max(0, $item->getData($attributes));
             } else {
-                foreach ((array)$attributes as $attr) {
+                foreach ((array) $attributes as $attr) {
                     $options[$attr][] = max(0, $item->getData($attr));
                 }
             }
@@ -506,9 +445,45 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $availablePeriods = array_keys($helper->getDatePeriods());
         $period = $this->getRequest()->getParam('period');
 
+        $this->setChartId($this->getHtmlId() . random_int(0, 100));
         $this->getDataHelper()->setParam(
             'period',
-            ($period && in_array($period, $availablePeriods)) ? $period : '24h'
+            ($period && in_array($period, $availablePeriods)) ? $period : '24h',
         );
+    }
+
+    public function getChartData(): string
+    {
+        return json_encode($this->_allSeries[array_key_first($this->_allSeries)]);
+    }
+
+    public function getChartLabels(): string
+    {
+        return json_encode($this->_axisLabels['x']);
+    }
+
+    public function getChartType(): string
+    {
+        return 'bar';
+    }
+
+    public function getChartId(): string
+    {
+        return $this->getDataByKey('chart_id');
+    }
+
+    public function setChartId(string $chartId): self
+    {
+        return $this->setData('chart_id', $chartId);
+    }
+
+    public function getChartBackgroundColor(): string
+    {
+        return 'rgba(113,121,142,0.7)';
+    }
+
+    public function getChartHoverBackgroundColor(): string
+    {
+        return 'rgba(113,121,142,1.0)';
     }
 }

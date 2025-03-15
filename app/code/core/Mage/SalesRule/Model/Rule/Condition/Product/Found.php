@@ -65,7 +65,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Found extends Mage_SalesRule_M
     public function validate(Varien_Object $object)
     {
         $all = $this->getAggregator() === 'all';
-        $true = (bool)$this->getValue();
+        $true = (bool) $this->getValue();
         $found = false;
         foreach ($object->getAllItems() as $item) {
             $found = $all;

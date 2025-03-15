@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Wishlist
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,7 @@ $installer->getConnection()->dropKey($installer->getTable('wishlist/wishlist'), 
 $installer->getConnection()->modifyColumn(
     $installer->getTable('wishlist/item'),
     'store_id',
-    'smallint UNSIGNED DEFAULT NULL'
+    'smallint UNSIGNED DEFAULT NULL',
 );
 
 $installer->getConnection()->addKey($installer->getTable('wishlist/item'), 'IDX_WISHLIST', 'wishlist_id');
@@ -47,7 +47,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('core/store'),
     'store_id',
     'set null',
-    'cascade'
+    'cascade',
 );
 $installer->getConnection()->addConstraint(
     'FK_WISHLIST_ITEM_WISHLIST',
@@ -56,7 +56,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('wishlist/wishlist'),
     'wishlist_id',
     'cascade',
-    'cascade'
+    'cascade',
 );
 $installer->getConnection()->addConstraint(
     'FK_WISHLIST_ITEM_PRODUCT',
@@ -65,7 +65,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('catalog/product'),
     'entity_id',
     'cascade',
-    'cascade'
+    'cascade',
 );
 $installer->getConnection()->addConstraint(
     'FK_WISHLIST_CUSTOMER',
@@ -74,7 +74,7 @@ $installer->getConnection()->addConstraint(
     $installer->getTable('customer/entity'),
     'entity_id',
     'cascade',
-    'cascade'
+    'cascade',
 );
 
 $installer->endSetup();

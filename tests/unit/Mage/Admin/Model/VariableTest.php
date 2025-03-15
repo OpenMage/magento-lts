@@ -19,12 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Generator;
 use Mage;
-use Mage_Admin_Model_Variable;
+use Mage_Admin_Model_Variable as Subject;
 use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    public Mage_Admin_Model_Variable $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -41,7 +41,7 @@ class VariableTest extends TestCase
      */
     public function testValidate($expectedResult, string $variableName, string $isAllowed): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_Variable::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getVariableName', 'getIsAllowed'])
             ->getMock();
 
@@ -55,22 +55,22 @@ class VariableTest extends TestCase
         yield 'test passes' => [
             true,
             'test',
-            '1'
+            '1',
         ];
         yield 'test error empty' => [
             [0 => 'Variable Name is required field.'],
             '',
-            '1'
+            '1',
         ];
         yield 'test error regex' => [
             [0 => 'Variable Name is incorrect.'],
             '#invalid-name#',
-            '1'
+            '1',
         ];
         yield 'test error allowed' => [
             [0 => 'Is Allowed is required field.'],
             'test',
-            'invalid'
+            'invalid',
         ];
     }
 

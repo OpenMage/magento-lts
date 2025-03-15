@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Convert\Adapter;
 
 use Mage;
-use Mage_Customer_Model_Convert_Adapter_Customer;
+use Mage_Customer_Model_Convert_Adapter_Customer as Subject;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class CustomerTest extends TestCase
 {
-    public Mage_Customer_Model_Convert_Adapter_Customer $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -32,7 +32,7 @@ class CustomerTest extends TestCase
         $this->subject = Mage::getModel('customer/convert_adapter_customer');
     }
 
-//    /**
+    //    /**
     //     * @return void
     //     * @throws Throwable
     //     *
@@ -143,6 +143,6 @@ class CustomerTest extends TestCase
             'firstname' => 'John',
             'lastname'  => 'Doe',
         ];
-        $this->assertInstanceOf(Mage_Customer_Model_Convert_Adapter_Customer::class, $this->subject->saveRow($data));
+        $this->assertInstanceOf(Subject::class, $this->subject->saveRow($data));
     }
 }

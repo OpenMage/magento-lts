@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -244,9 +244,7 @@ class Mage_Core_Model_App
      */
     protected $_isInstalled = null;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Initialize application without request processing
@@ -463,12 +461,12 @@ class Mage_Core_Model_App
             return false;
         }
 
-        $ignoreDevelopmentMode = (bool)(string)$this->_config->getNode(self::XML_PATH_IGNORE_DEV_MODE);
+        $ignoreDevelopmentMode = (bool) (string) $this->_config->getNode(self::XML_PATH_IGNORE_DEV_MODE);
         if (Mage::getIsDeveloperMode() && !$ignoreDevelopmentMode) {
             return false;
         }
 
-        return (bool)(string)$this->_config->getNode(self::XML_PATH_SKIP_PROCESS_MODULES_UPDATES);
+        return (bool) (string) $this->_config->getNode(self::XML_PATH_SKIP_PROCESS_MODULES_UPDATES);
     }
 
     /**
@@ -518,7 +516,7 @@ class Mage_Core_Model_App
             $this->_checkGetStore($scopeType);
         }
         $this->_useSessionInUrl = $this->getStore()->getConfig(
-            Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID
+            Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID,
         );
         return $this;
     }
@@ -538,7 +536,7 @@ class Mage_Core_Model_App
      *
      * @param string $type
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _checkGetStore($type)
     {
@@ -1299,7 +1297,7 @@ class Mage_Core_Model_App
 
     /**
      * @return bool
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function isCurrentlySecure()
     {
@@ -1390,10 +1388,10 @@ class Mage_Core_Model_App
                  */
                 foreach ($eventConfig->observers->children() as $obsName => $obsConfig) {
                     $observers[$obsName] = [
-                        'type'  => (string)$obsConfig->type,
-                        'model' => $obsConfig->class ? (string)$obsConfig->class : $obsConfig->getClassName(),
-                        'method' => (string)$obsConfig->method,
-                        'args'  => (array)$obsConfig->args,
+                        'type'  => (string) $obsConfig->type,
+                        'model' => $obsConfig->class ? (string) $obsConfig->class : $obsConfig->getClassName(),
+                        'method' => (string) $obsConfig->method,
+                        'args'  => (array) $obsConfig->args,
                     ];
                 }
                 $events[$eventName]['observers'] = $observers;
@@ -1493,7 +1491,7 @@ class Mage_Core_Model_App
      */
     public function setUseSessionVar($var)
     {
-        $this->_useSessionVar = (bool)$var;
+        $this->_useSessionVar = (bool) $var;
         return $this;
     }
 
@@ -1531,7 +1529,7 @@ class Mage_Core_Model_App
      */
     public function setUseSessionInUrl($flag = true)
     {
-        $this->_useSessionInUrl = (bool)$flag;
+        $this->_useSessionInUrl = (bool) $flag;
         return $this;
     }
 
@@ -1553,7 +1551,7 @@ class Mage_Core_Model_App
      */
     public function setIsSingleStoreModeAllowed($value)
     {
-        $this->_isSingleStoreAllowed = (bool)$value;
+        $this->_isSingleStoreAllowed = (bool) $value;
         return $this;
     }
 
@@ -1647,8 +1645,7 @@ class Mage_Core_Model_App
     public function prepareCacheId($id)
     {
         $id = strtoupper($id);
-        $id = preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
-        return $id;
+        return preg_replace('/([^a-zA-Z0-9_]{1,1})/', '_', $id);
     }
 
     /**
@@ -1658,7 +1655,7 @@ class Mage_Core_Model_App
      */
     public function getIsCacheLocked()
     {
-        return (bool)$this->_isCacheLocked;
+        return (bool) $this->_isCacheLocked;
     }
 
     /**

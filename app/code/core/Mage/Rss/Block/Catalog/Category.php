@@ -34,7 +34,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
             'rss_catalog_category_'
             . $this->getRequest()->getParam('cid') . '_'
             . $this->getRequest()->getParam('store_id') . '_'
-            . Mage::getModel('customer/session')->getId()
+            . Mage::getModel('customer/session')->getId(),
         );
         $this->setCacheLifetime(600);
     }
@@ -55,13 +55,13 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
             if ($category->getId()) {
                 $layer = Mage::getSingleton('catalog/layer')->setStore($storeId);
                 //want to load all products no matter anchor or not
-                $category->setIsAnchor(true);
+                $category->setIsAnchor(1);
                 $newurl = $category->getUrl();
                 $title = $category->getName();
                 $data = ['title' => $title,
-                        'description' => $title,
-                        'link'        => $newurl,
-                        'charset'     => 'UTF-8',
+                    'description' => $title,
+                    'link'        => $newurl,
+                    'charset'     => 'UTF-8',
                 ];
 
                 $rssObj->_addHeader($data);
@@ -138,9 +138,9 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
         $description .= '</td></tr></table>';
         $rssObj = $args['rssObj'];
         $data = [
-                'title'         => $product->getName(),
-                'link'          => $product->getProductUrl(),
-                'description'   => $description,
+            'title'         => $product->getName(),
+            'link'          => $product->getProductUrl(),
+            'description'   => $description,
         ];
 
         $rssObj->_addEntry($data);

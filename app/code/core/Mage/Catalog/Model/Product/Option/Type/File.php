@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -154,7 +154,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @return $this
      * @throws Mage_Core_Exception|Zend_File_Transfer_Exception
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _validateUploadedFile()
     {
@@ -182,7 +182,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $this->setIsValid(false);
                 $value = $this->_bytesToMbytes($this->_getUploadMaxFilesize());
                 Mage::throwException(
-                    Mage::helper('catalog')->__('The file you uploaded is larger than %s Megabytes allowed by server', $value)
+                    Mage::helper('catalog')->__('The file you uploaded is larger than %s Megabytes allowed by server', $value),
                 );
             } else {
                 switch ($this->getProcessMode()) {
@@ -247,7 +247,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
             $upload->addFilter('Rename', [
                 'target' => $fileFullPath,
-                'overwrite' => true
+                'overwrite' => true,
             ]);
 
             $this->getProduct()->getTypeInstance(true)->addFileQueue([
@@ -348,7 +348,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         }
         if (count($_dimentions) > 0) {
             $validatorChain->addValidator(
-                new Zend_Validate_File_ImageSize($_dimentions)
+                new Zend_Validate_File_ImageSize($_dimentions),
             );
         }
 
@@ -365,7 +365,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
         // Maximum filesize
         $validatorChain->addValidator(
-            new Zend_Validate_File_FilesSize(['max' => $this->_getUploadMaxFilesize()])
+            new Zend_Validate_File_FilesSize(['max' => $this->_getUploadMaxFilesize()]),
         );
 
         if ($validatorChain->isValid($fileFullPath)) {
@@ -472,7 +472,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
 
                 $customOptionUrlParams = $this->getCustomOptionUrlParams() ?: [
                     'id'  => $this->getConfigurationItemOption()->getId(),
-                    'key' => $value['secret_key']
+                    'key' => $value['secret_key'],
                 ];
 
                 $value['url'] = ['route' => $this->_customOptionDownloadUrl, 'params' => $customOptionUrlParams];
@@ -514,7 +514,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 '<a href="%s" target="_blank">%s</a> %s',
                 $this->_getOptionDownloadUrl($urlRoute, $urlParams),
                 Mage::helper('core')->escapeHtml($title),
-                $sizes
+                $sizes,
             );
         } catch (Exception $e) {
             Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
@@ -564,7 +564,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             return sprintf(
                 '%s [%d]',
                 Mage::helper('core')->escapeHtml($value['title']),
-                $this->getConfigurationItemOption()->getId()
+                $this->getConfigurationItemOption()->getId(),
             );
         } catch (Exception $e) {
             return $optionValue;
@@ -614,7 +614,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      *
      * @return $this
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function copyQuoteToOrder()
     {
@@ -797,7 +797,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      * @param string $option php.ini Var name
      * @return int Setting value
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _getBytesIniValue($option)
     {

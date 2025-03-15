@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             'admin_top_nav',
             $this->getActive(),
             Mage::getSingleton('admin/session')->getUser()->getId(),
-            Mage::app()->getLocale()->getLocaleCode()
+            Mage::app()->getLocale()->getLocaleCode(),
         ];
         // Add additional key parameters if needed
         $additionalCacheKeyInfo = $this->getAdditionalCacheKeyInfo();
@@ -100,10 +100,10 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         $titleNodeName      = 'title';
         $childAttributes    = $child->attributes();
         if (isset($childAttributes['module'])) {
-            $helperName     = (string)$childAttributes['module'];
+            $helperName     = (string) $childAttributes['module'];
         }
 
-        return Mage::helper($helperName)->__((string)$child->$titleNodeName);
+        return Mage::helper($helperName)->__((string) $child->$titleNodeName);
     }
 
     /**
@@ -122,7 +122,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 continue;
             }
 
-            $aclResource = 'admin/' . ($child->resource ? (string)$child->resource : $path . $childName);
+            $aclResource = 'admin/' . ($child->resource ? (string) $child->resource : $path . $childName);
             if (!$this->_checkAcl($aclResource) || !$this->_isEnabledModuleOutput($child)) {
                 continue;
             }
@@ -133,19 +133,21 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
             $menuArr = [];
 
+            $menuArr['id'] = str_replace(['/'], ['-'], $aclResource);
+
             $menuArr['label'] = $this->_getHelperValue($child);
 
-            $menuArr['sort_order'] = $child->sort_order ? (int)$child->sort_order : $sortOrder;
+            $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
 
             if ($child->action) {
-                $menuArr['url'] = $this->_url->getUrl((string)$child->action, ['_cache_secret_key' => true]);
+                $menuArr['url'] = $this->_url->getUrl((string) $child->action, ['_cache_secret_key' => true]);
             } else {
                 $menuArr['url'] = '#';
                 $menuArr['click'] = 'return false';
             }
 
             $menuArr['active'] = ($this->getActive() == $path . $childName)
-                || (strpos((string)$this->getActive(), $path . $childName . '/') === 0);
+                || (str_starts_with((string) $this->getActive(), $path . $childName . '/'));
 
             $menuArr['level'] = $level;
 
@@ -180,7 +182,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**
@@ -201,7 +203,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
         if ($depends->config) {
             foreach ($depends->config as $path) {
-                if (!Mage::getStoreConfigFlag((string)$path)) {
+                if (!Mage::getStoreConfigFlag((string) $path)) {
                     return false;
                 }
             }
@@ -234,9 +236,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _afterToHtml($html)
     {
-        $html = preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
-
-        return $html;
+        return preg_replace_callback('#' . Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME . '/\$([^\/].*)/([^\$].*)\$#', [$this, '_callbackSecretKey'], $html);
     }
 
     /**
@@ -271,6 +271,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 . (!empty($item['children']) ? ' parent' : '')
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')
                 . ' level' . $level . '"> <a href="' . $item['url'] . '" '
+                . (!empty($item['id']) ? 'id="nav-' . $item['id'] . '"' : '') . ' '
                 . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
                 . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
                 . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'
@@ -281,9 +282,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
             $html .= '</li>' . PHP_EOL;
         }
-        $html .= '</ul>' . PHP_EOL;
 
-        return $html;
+        return $html . ('</ul>' . PHP_EOL);
     }
 
     /**
@@ -296,7 +296,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
         $helperName      = 'adminhtml';
         $childAttributes = $child->attributes();
         if (isset($childAttributes['module'])) {
-            $helperName  = (string)$childAttributes['module'];
+            $helperName  = (string) $childAttributes['module'];
         }
 
         return Mage::helper($helperName)->isModuleOutputEnabled();

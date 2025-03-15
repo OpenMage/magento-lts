@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Bundle
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -225,7 +225,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         if ($product->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
             $product->setData(
                 'msrp_enabled',
-                Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_NO
+                Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled::MSRP_ENABLE_NO,
             );
             $product->unsetData('msrp');
             $product->unsetData('msrp_display_actual_price_type');
@@ -237,16 +237,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $product->canAffectOptions(true);
             $selections = $product->getBundleSelectionsData();
             if ($selections) {
-                if (!empty($selections)) {
-                    $options = $product->getBundleOptionsData();
-                    if ($options) {
-                        foreach ($options as $option) {
-                            if (empty($option['delete']) || (int)$option['delete'] != 1) {
-                                $product->setTypeHasOptions(true);
-                                if ((int)$option['required'] == 1) {
-                                    $product->setTypeHasRequiredOptions(true);
-                                    break;
-                                }
+                $options = $product->getBundleOptionsData();
+                if ($options) {
+                    foreach ($options as $option) {
+                        if (empty($option['delete']) || (int) $option['delete'] != 1) {
+                            $product->setTypeHasOptions(true);
+                            if ((int) $option['required'] == 1) {
+                                $product->setTypeHasRequiredOptions(true);
+                                break;
                             }
                         }
                     }
@@ -284,7 +282,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     ->setParentId($product->getId())
                     ->setStoreId($product->getStoreId());
 
-                $optionModel->isDeleted((bool)$option['delete']);
+                $optionModel->isDeleted((bool) $option['delete']);
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $optionModel->save();
 
@@ -311,7 +309,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                             ->setOptionId($options[$index]['option_id'])
                             ->setParentProductId($product->getId());
 
-                        $selectionModel->isDeleted((bool)$selection['delete']);
+                        $selectionModel->isDeleted((bool) $selection['delete']);
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $selectionModel->save();
 
@@ -530,7 +528,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $isStrictProcessMode = $this->_isStrictProcessMode($processMode);
 
         $skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck();
-        $_appendAllSelections = (bool)$product->getSkipCheckRequiredOption() || $skipSaleableCheck;
+        $_appendAllSelections = (bool) $product->getSkipCheckRequiredOption() || $skipSaleableCheck;
 
         $options = $buyRequest->getBundleOption();
         if (is_array($options)) {
@@ -561,12 +559,12 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             foreach ($options as $optionId => $selectionId) {
                 if (!is_array($selectionId)) {
                     if ($selectionId != '') {
-                        $selectionIds[] = (int)$selectionId;
+                        $selectionIds[] = (int) $selectionId;
                     }
                 } else {
                     foreach ($selectionId as $id) {
                         if ($id != '') {
-                            $selectionIds[] = (int)$id;
+                            $selectionIds[] = (int) $id;
                         }
                     }
                 }
@@ -611,7 +609,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             $selectionCollection = $productType->getSelectionsCollection(
                 $optionIds,
-                $product
+                $product,
             );
 
             $options = $optionCollection->appendSelections($selectionCollection, false, $_appendAllSelections);
@@ -634,11 +632,11 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             foreach ($selections as $selection) {
                 if ($selection->getSelectionCanChangeQty() && isset($qtys[$selection->getOptionId()])) {
-                    $qty = (float)$qtys[$selection->getOptionId()] > 0 ? $qtys[$selection->getOptionId()] : 1;
+                    $qty = (float) $qtys[$selection->getOptionId()] > 0 ? $qtys[$selection->getOptionId()] : 1;
                 } else {
-                    $qty = (float)$selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
+                    $qty = (float) $selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
                 }
-                $qty = (float)$qty;
+                $qty = (float) $qty;
 
                 $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
                 $selection->addCustomOption('selection_id', $selection->getSelectionId());
@@ -653,7 +651,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     'price'         => Mage::app()->getStore()->convertPrice($price),
                     'qty'           => $qty,
                     'option_label'  => $selection->getOption()->getTitle(),
-                    'option_id'     => $selection->getOption()->getId()
+                    'option_id'     => $selection->getOption()->getId(),
                 ];
 
                 $_result = $selection->getTypeInstance(true)->prepareForCart($buyRequest, $selection);
@@ -794,7 +792,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                             $product,
                             $selection,
                             0,
-                            $selectionQty->getValue()
+                            $selectionQty->getValue(),
                         );
 
                         $option = $options->getItemById($selection->getOptionId());
@@ -802,14 +800,14 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                             $bundleOptions[$option->getId()] = [
                                 'option_id' => $option->getId(),
                                 'label' => $option->getTitle(),
-                                'value' => []
+                                'value' => [],
                             ];
                         }
 
                         $bundleOptions[$option->getId()]['value'][] = [
                             'title' => $selection->getName(),
                             'qty'   => $selectionQty->getValue(),
-                            'price' => Mage::app()->getStore()->convertPrice($price)
+                            'price' => Mage::app()->getStore()->convertPrice($price),
                         ];
                     }
                 }
@@ -846,19 +844,15 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $a->getOption()->getPosition(),
             $a->getOptionId(),
             $a->getPosition(),
-            $a->getSelectionId()
+            $a->getSelectionId(),
         ];
         $bPosition = [
             $b->getOption()->getPosition(),
             $b->getOptionId(),
             $b->getPosition(),
-            $b->getSelectionId()
+            $b->getSelectionId(),
         ];
-        if ($aPosition == $bPosition) {
-            return 0;
-        } else {
-            return $aPosition < $bPosition ? -1 : 1;
-        }
+        return $aPosition <=> $bPosition;
     }
 
     /**
@@ -942,7 +936,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $selection = $productSelections->getItemById($selectionId);
             if (!$selection || (!$selection->isSalable() && !$skipSaleableCheck)) {
                 Mage::throwException(
-                    Mage::helper('bundle')->__('Selected required options are not available.')
+                    Mage::helper('bundle')->__('Selected required options are not available.'),
                 );
             }
         }
@@ -952,7 +946,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         foreach ($optionsCollection->getItems() as $option) {
             if ($option->getRequired() && empty($selectionIds) && empty($bundleOption[$option->getId()])) {
                 Mage::throwException(
-                    Mage::helper('bundle')->__('Required options are not selected.')
+                    Mage::helper('bundle')->__('Required options are not selected.'),
                 );
             }
         }
@@ -1007,7 +1001,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
         return [
             'bundle_option'     => $option,
-            'bundle_option_qty' => $optionQty
+            'bundle_option_qty' => $optionQty,
         ];
     }
 

@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -25,7 +25,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
      * @return void
      * @throws Zend_Db_Adapter_Mysqli_Exception
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _connect()
     {
@@ -49,10 +49,10 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
         $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
         // socket specified in host config
-        if (strpos($this->_config['host'], '/') !== false) {
+        if (str_contains($this->_config['host'], '/')) {
             $socket = $this->_config['host'];
             $this->_config['host'] = null;
-        } elseif (strpos($this->_config['host'], ':') !== false) {
+        } elseif (str_contains($this->_config['host'], ':')) {
             list($this->_config['host'], $port) = explode(':', $this->_config['host']);
         }
 
@@ -62,7 +62,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $this->_config['password'],
             $this->_config['dbname'],
             $port,
-            $socket
+            $socket,
         );
         if (!$connectionSuccessful) {
             throw new Zend_Db_Adapter_Mysqli_Exception(mysqli_connect_error());
@@ -134,7 +134,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (empty($field)) {
             return $row;
         } else {
-            return isset($row[$field]) ? $row[$field] : false;
+            return $row[$field] ?? false;
         }
     }
 
@@ -177,7 +177,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public function dropForeignKey($table, $fk)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "CONSTRAINT `$fk` FOREIGN KEY (") !== false) {
+        if (str_contains($create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
         }
         return true;
@@ -186,7 +186,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public function dropKey($table, $key)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "KEY `$key` (") !== false) {
+        if (str_contains($create, "KEY `$key` (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
         }
         return true;
@@ -213,7 +213,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $onDelete = 'cascade',
         $onUpdate = 'cascade'
     ) {
-        if (substr($fkName, 0, 3) != 'FK_') {
+        if (!str_starts_with($fkName, 'FK_')) {
             $fkName = 'FK_' . $fkName;
         }
 
@@ -244,8 +244,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($this->tableColumnExists($tableName, $columnName)) {
             return true;
         }
-        $result = $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
-        return $result;
+        return $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
     }
 
     public function dropColumn($tableName, $columnName)

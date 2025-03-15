@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -156,7 +156,7 @@ class Mage_Core_Model_Url_Rewrite_Request
 
         $this->_request->setAlias(
             Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $this->_rewrite->getRequestPath()
+            $this->_rewrite->getRequestPath(),
         );
         $this->_processRedirectOptions();
 
@@ -228,8 +228,8 @@ class Mage_Core_Model_Url_Rewrite_Request
             return false;
         }
         foreach ($config->children() as $rewrite) {
-            $from = (string)$rewrite->from;
-            $to = (string)$rewrite->to;
+            $from = (string) $rewrite->from;
+            $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }
@@ -260,7 +260,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     {
         $pathInfo = $this->_request->getPathInfo();
         $requestPath = trim($pathInfo, '/');
-        $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
+        $origSlash = (str_ends_with($pathInfo, '/')) ? '/' : '';
         // If there were final slash - add nothing to less priority paths. And vice versa.
         $altSlash = $origSlash ? '' : '/';
 
@@ -281,7 +281,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      *
      * @param string $url
      * @param bool $isPermanent
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _sendRedirectHeaders($url, $isPermanent = false)
     {
@@ -299,7 +299,7 @@ class Mage_Core_Model_Url_Rewrite_Request
      * Prepare and return QUERY_STRING
      *
      * @return bool|string
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _getQueryString()
     {
@@ -308,7 +308,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach (array_keys($queryParams) as $key) {
-                if (substr($key, 0, 3) === '___') {
+                if (str_starts_with($key, '___')) {
                     unset($queryParams[$key]);
                     $hasChanges = true;
                 }

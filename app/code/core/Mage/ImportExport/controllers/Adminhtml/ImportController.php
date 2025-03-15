@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -58,7 +58,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
     {
         $maxUploadSize = Mage::helper('importexport')->getMaxUploadSize();
         $this->_getSession()->addNotice(
-            $this->__('Total size of uploadable files must not exceed %s', $maxUploadSize)
+            $this->__('Total size of uploadable files must not exceed %s', $maxUploadSize),
         );
         $this->_initAction()
             ->_title($this->__('Import'))
@@ -102,7 +102,7 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
     /**
      * Validate uploaded files action.
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function validateAction()
     {
@@ -128,22 +128,22 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                     if (!$validationResult) {
                         if ($import->getProcessedRowsCount() == $import->getInvalidRowsCount()) {
                             $resultBlock->addNotice(
-                                $this->__('File is totally invalid. Please fix errors and re-upload file')
+                                $this->__('File is totally invalid. Please fix errors and re-upload file'),
                             );
                         } elseif ($import->getErrorsCount() >= $import->getErrorsLimit()) {
                             $resultBlock->addNotice(
-                                $this->__('Errors limit (%d) reached. Please fix errors and re-upload file', $import->getErrorsLimit())
+                                $this->__('Errors limit (%d) reached. Please fix errors and re-upload file', $import->getErrorsLimit()),
                             );
                         } else {
                             if ($import->isImportAllowed()) {
                                 $resultBlock->addNotice(
                                     $this->__('Please fix errors and re-upload file or simply press "Import" button to skip rows with errors'),
-                                    true
+                                    true,
                                 );
                             } else {
                                 $resultBlock->addNotice(
                                     $this->__('File is partially valid, but import is not possible'),
-                                    false
+                                    false,
                                 );
                             }
                         }
@@ -156,11 +156,11 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                         if ($import->isImportAllowed()) {
                             $resultBlock->addSuccess(
                                 $this->__('File is valid! To start import process press "Import" button'),
-                                true
+                                true,
                             );
                         } else {
                             $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible')
+                                $this->__('File is valid, but import is not possible'),
                             );
                         }
                     }

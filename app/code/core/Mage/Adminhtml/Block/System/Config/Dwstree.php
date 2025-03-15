@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -47,7 +47,7 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
         ]);
 
         foreach ($websitesConfig->children() as $wCode => $wConfig) {
-            $wName = (string)$wConfig->descend('system/website/name');
+            $wName = (string) $wConfig->descend('system/website/name');
             $wUrl = $this->getUrl('*/*/*', ['section' => $section, 'website' => $wCode]);
             $this->addTab('website_' . $wCode, [
                 'label' => $wName,
@@ -62,7 +62,7 @@ class Mage_Adminhtml_Block_System_Config_Dwstree extends Mage_Adminhtml_Block_Wi
                 }
             }
             foreach ($wConfig->descend('system/stores')->children() as $sCode => $sId) {
-                $sName = (string)$storesConfig->descend($sCode . '/system/store/name');
+                $sName = (string) $storesConfig->descend($sCode . '/system/store/name');
                 $this->addTab('store_' . $sCode, [
                     'label' => $sName,
                     'url'   => $this->getUrl('*/*/*', ['section' => $section, 'website' => $wCode, 'store' => $sCode]),

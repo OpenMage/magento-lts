@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -56,7 +56,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
         $adapter   = $this->_getWriteAdapter();
         $whereCond = [
             $adapter->quoteInto('website_id IN(?)', $websiteIds),
-            $adapter->quoteInto('product_id IN(?)', $productIds)
+            $adapter->quoteInto('product_id IN(?)', $productIds),
         ];
         $whereCond = implode(' AND ', $whereCond);
 
@@ -101,7 +101,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
                     }
                     $this->_getWriteAdapter()->insert($this->getMainTable(), [
                         'product_id' => (int) $productId,
-                        'website_id' => (int) $websiteId
+                        'website_id' => (int) $websiteId,
                     ]);
                 }
 

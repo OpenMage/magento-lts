@@ -9,11 +9,16 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @see Mage_Review_Block_Customer_Recent
+ * @var Mage_Review_Block_Customer_Recent $this
+ */
 ?>
-<?php if( $this->getCollection() && $this->count()): ?>
+<?php if($this->getCollection() && $this->count()): ?>
 <div class="box-account box-reviews">
     <div class="box-head">
         <h2><?php echo $this->__('My Recent Reviews') ?></h2>
@@ -30,7 +35,7 @@
                     <div class="ratings">
                         <strong><?php echo $this->__('Rating:') ?></strong>
                         <div class="rating-box">
-                            <div class="rating" style="width:<?php echo ( $_review->getSum() / $_review->getCount() ) ?>%;"></div>
+                            <div class="rating" style="width:<?php echo ($_review->getSum() / $_review->getCount()) ?>%;"></div>
                         </div>
                     </div>
                 <?php endif ?>

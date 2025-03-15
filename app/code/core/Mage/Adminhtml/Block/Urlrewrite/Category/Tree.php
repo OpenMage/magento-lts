@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -104,13 +104,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
     protected function _getNodesArray($node)
     {
         $result = [
-            'id'             => (int)$node->getId(),
-            'parent_id'      => (int)$node->getParentId(),
-            'children_count' => (int)$node->getChildrenCount(),
-            'is_active'      => (bool)$node->getIsActive(),
+            'id'             => (int) $node->getId(),
+            'parent_id'      => (int) $node->getParentId(),
+            'children_count' => (int) $node->getChildrenCount(),
+            'is_active'      => (bool) $node->getIsActive(),
             'name'           => $this->escapeHtml($node->getName()),
-            'level'          => (int)$node->getLevel(),
-            'product_count'  => (int)$node->getProductCount()
+            'level'          => (int) $node->getLevel(),
+            'product_count'  => (int) $node->getProductCount(),
         ];
 
         if (is_array($this->_allowedCategoryIds) && !in_array($result['id'], $this->_allowedCategoryIds)) {

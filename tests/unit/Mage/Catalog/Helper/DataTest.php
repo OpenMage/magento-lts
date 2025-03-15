@@ -19,13 +19,13 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Generator;
 use Mage;
-use Mage_Catalog_Helper_Data;
+use Mage_Catalog_Helper_Data as Subject;
 use Mage_Catalog_Model_Template_Filter;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Catalog_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -54,10 +54,10 @@ class DataTest extends TestCase
         yield 'test #2 w/ length' => [
             [
                 '10',
-                '0'
+                '0',
             ],
             '100',
-            2
+            2,
         ];
     }
 

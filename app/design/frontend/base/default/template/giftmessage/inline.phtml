@@ -9,8 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_GiftMessage_Block_Message_Inline
+ * @var Mage_GiftMessage_Block_Message_Inline $this
  */
 ?>
 <?php if(!$this->getDontDisplayContainer()): ?>
@@ -145,14 +150,14 @@ billing.onSave = function(evt){
                 <div id="allow-gift-messages-for-items-container">
                  <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for the item.') ?></p>
                  <ol>
-                 <?php foreach($this->getItems() as $_index=>$_item): ?>
-                 <?php $_product=$_item->getProduct() ?>
+                 <?php foreach($this->getItems() as $_index => $_item): ?>
+                 <?php $_product = $_item->getProduct() ?>
                  <li class="item">
                      <div class="product-img-box">
                          <p class="product-image">
                              <img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" />
                          </p>
-                         <p class="number"><?php echo $this->__('Item %d of %d', $_index+1, $this->countItems()) ?></p>
+                         <p class="number"><?php echo $this->__('Item %d of %d', $_index + 1, $this->countItems()) ?></p>
                      </div>
                      <div class="details">
                          <div class="f-fix">
@@ -263,12 +268,12 @@ billing.onSave = function(evt){
             <div id="allow-gift-messages-for-items-container-<?php echo $this->getEntity()->getId() ?>">
              <p><?php echo $this->__('You can leave this box blank if you do not wish to add a gift message for the item.') ?></p>
              <ol>
-             <?php foreach($this->getItems() as $_index=>$_item): ?>
-             <?php $_product=$_item->getProduct() ?>
+             <?php foreach($this->getItems() as $_index => $_item): ?>
+             <?php $_product = $_item->getProduct() ?>
                  <li class="item">
                      <div class="product-img-box">
                          <p class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($_product->getName()) ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" /></p>
-                         <p class="number"><?php echo $this->__('Item %d of %d', $_index+1, $this->countItems()) ?></p>
+                         <p class="number"><?php echo $this->__('Item %d of %d', $_index + 1, $this->countItems()) ?></p>
                      </div>
                      <div class="details">
                          <div class="f-fix">

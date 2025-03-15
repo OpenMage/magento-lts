@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * Save uploaded file before saving config value
      *
      * @return $this
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     protected function _beforeSave()
     {
@@ -119,7 +119,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             Mage::throwException(Mage::helper('catalog')->__('The base directory to upload file is not specified.'));
         }
 
-        $uploadDir = (string)$fieldConfig->upload_dir;
+        $uploadDir = (string) $fieldConfig->upload_dir;
 
         $el = $fieldConfig->descend('upload_dir');
 
@@ -134,7 +134,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
          * Take root from config
          */
         if (!empty($el['config'])) {
-            $uploadRoot = $this->_getUploadRoot((string)$el['config']);
+            $uploadRoot = $this->_getUploadRoot((string) $el['config']);
             $uploadDir = $uploadRoot . '/' . $uploadDir;
         }
         return $uploadDir;
@@ -202,7 +202,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         $fieldConfig = $this->getFieldConfig();
         $el = $fieldConfig->descend('upload_dir');
         if (!empty($el['allowed_extensions'])) {
-            $allowedExtensions = (string)$el['allowed_extensions'];
+            $allowedExtensions = (string) $el['allowed_extensions'];
             return explode(',', $allowedExtensions);
         }
         return [];

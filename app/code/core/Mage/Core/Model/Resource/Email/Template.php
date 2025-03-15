@@ -58,7 +58,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
                 ->from($this->getMainTable(), 'COUNT(*)')
                 ->where('template_code = :template_code');
             $bind = [
-                'template_code' => $template->getTemplateCode()
+                'template_code' => $template->getTemplateCode(),
             ];
 
             $templateId = $template->getId();
@@ -87,7 +87,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
             $object->setCreatedAt($this->formatDate(true));
         }
         $object->setModifiedAt($this->formatDate(true));
-        $object->setTemplateType((int)$object->getTemplateType());
+        $object->setTemplateType((int) $object->getTemplateType());
 
         return parent::_beforeSave($object);
     }

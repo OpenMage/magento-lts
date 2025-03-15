@@ -84,8 +84,8 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
                     'store_id',
                     'lifetime'  => 'sum(sales.base_grand_total)',
                     'avgsale'   => 'avg(sales.base_grand_total)',
-                    'num_orders' => 'count(sales.base_grand_total)'
-                ]
+                    'num_orders' => 'count(sales.base_grand_total)',
+                ],
             )
             ->where('sales.entity_type_id=?', $this->getEntity()->getTypeId())
             ->group('sales.store_id')

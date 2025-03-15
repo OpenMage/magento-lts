@@ -103,9 +103,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     protected $_flags = [];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Add collection filter
@@ -629,9 +627,8 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this as $item) {
             $xml .= $item->toXml();
         }
-        $xml .= '</items>
+        return $xml . '</items>
         </collection>';
-        return $xml;
     }
 
     /**
@@ -728,10 +725,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function getItemById($idValue)
     {
         $this->load();
-        if (isset($this->_items[$idValue])) {
-            return $this->_items[$idValue];
-        }
-        return null;
+        return $this->_items[$idValue] ?? null;
     }
 
     /**
@@ -808,7 +802,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function getFlag($flag)
     {
-        return isset($this->_flags[$flag]) ? $this->_flags[$flag] : null;
+        return $this->_flags[$flag] ?? null;
     }
 
     /**

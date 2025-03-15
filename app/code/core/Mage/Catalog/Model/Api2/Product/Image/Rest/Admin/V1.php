@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -27,7 +27,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      *
      * @throws Mage_Api2_Exception
      * @return string|void
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function _create(array $data)
     {
@@ -43,7 +43,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         if (!$imageFileContent) {
             $this->_critical(
                 'The image content must be valid base64 encoded data',
-                Mage_Api2_Model_Server::HTTP_BAD_REQUEST
+                Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
         unset($data['file_content']);
@@ -145,7 +145,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _update(array $data)
     {
-        $imageId = (int)$this->getRequest()->getParam('image');
+        $imageId = (int) $this->getRequest()->getParam('image');
         $imageFileUri = $this->_getImageFileById($imageId);
         $product = $this->_getProduct();
         $this->_getMediaGallery()->updateImage($product, $imageFileUri, $data);
@@ -174,7 +174,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
      */
     protected function _delete()
     {
-        $imageId = (int)$this->getRequest()->getParam('image');
+        $imageId = (int) $this->getRequest()->getParam('image');
         $product = $this->_getProduct();
         $imageFileUri = $this->_getImageFileById($imageId);
         $this->_getMediaGallery()->removeImage($product, $imageFileUri);
@@ -217,12 +217,12 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         $apiTypeRoute = Mage::getModel('api2/route_apiType');
 
         $chain = $apiTypeRoute->chain(
-            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType()))
+            new Zend_Controller_Router_Route($this->getConfig()->getRouteWithEntityTypeAction($this->getResourceType())),
         );
         $params = [
             'api_type' => $this->getRequest()->getApiType(),
             'id'       => $this->getRequest()->getParam('id'),
-            'image'    => $imageId
+            'image'    => $imageId,
         ];
         $uri = $chain->assemble($params);
         return '/' . $uri;

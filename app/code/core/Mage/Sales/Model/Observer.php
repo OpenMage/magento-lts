@@ -32,11 +32,10 @@ class Mage_Sales_Model_Observer
     /**
      * Clean expired quotes (cron process)
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Mage_Core_Exception
      */
-    public function cleanExpiredQuotes($schedule)
+    public function cleanExpiredQuotes()
     {
         Mage::dispatchEvent('clear_expired_quotes_before', ['sales_observer' => $this]);
         $lifetimes = Mage::getConfig()->getStoresConfigByPath('checkout/cart/delete_quote_after');
@@ -165,10 +164,9 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales order report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      */
-    public function aggregateSalesReportOrderData($schedule)
+    public function aggregateSalesReportOrderData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -181,11 +179,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales shipment report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportShipmentData($schedule)
+    public function aggregateSalesReportShipmentData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -198,11 +195,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales invoiced report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportInvoicedData($schedule)
+    public function aggregateSalesReportInvoicedData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -215,11 +211,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh sales refunded report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportRefundedData($schedule)
+    public function aggregateSalesReportRefundedData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -232,11 +227,10 @@ class Mage_Sales_Model_Observer
     /**
      * Refresh bestsellers report statistics for last day
      *
-     * @param Mage_Cron_Model_Schedule $schedule
      * @return $this
      * @throws Zend_Date_Exception
      */
-    public function aggregateSalesReportBestsellersData($schedule)
+    public function aggregateSalesReportBestsellersData()
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
@@ -257,7 +251,7 @@ class Mage_Sales_Model_Observer
         $profileElement = $observer->getEvent()->getProductElement();
         $block = Mage::app()->getLayout()->createBlock(
             'sales/adminhtml_recurring_profile_edit_form',
-            'adminhtml_recurring_profile_edit_form'
+            'adminhtml_recurring_profile_edit_form',
         )->setParentElement($profileElement)
             ->setProductEntity($observer->getEvent()->getProduct());
         $observer->getEvent()->getResult()->output = $block->toHtml();
@@ -266,7 +260,7 @@ class Mage_Sales_Model_Observer
         /** @var Mage_Adminhtml_Block_Widget_Form_Element_Dependence $block */
         $block = Mage::app()->getLayout()->createBlock(
             'adminhtml/widget_form_element_dependence',
-            'adminhtml_recurring_profile_edit_form_dependence'
+            'adminhtml_recurring_profile_edit_form_dependence',
         );
         $dependencies = $block
             ->addFieldMap('is_recurring', 'product[is_recurring]')
@@ -474,11 +468,11 @@ class Mage_Sales_Model_Observer
                 $customerCountryCode,
                 $customerVatNumber,
                 ($merchantVatNumber !== '') ? $merchantCountryCode : '',
-                $merchantVatNumber
+                $merchantVatNumber,
             );
 
             // Store validation results in corresponding quote address
-            $quoteAddress->setVatIsValid((int)$gatewayResponse->getIsValid())
+            $quoteAddress->setVatIsValid((int) $gatewayResponse->getIsValid())
                 ->setVatRequestId($gatewayResponse->getRequestIdentifier())
                 ->setVatRequestDate($gatewayResponse->getRequestDate())
                 ->setVatRequestSuccess($gatewayResponse->getRequestSuccess())
@@ -488,10 +482,10 @@ class Mage_Sales_Model_Observer
         } else {
             // Restore validation results from corresponding quote address
             $gatewayResponse = new Varien_Object([
-                'is_valid' => (int)$quoteAddress->getVatIsValid(),
-                'request_identifier' => (string)$quoteAddress->getVatRequestId(),
-                'request_date' => (string)$quoteAddress->getVatRequestDate(),
-                'request_success' => (bool)$quoteAddress->getVatRequestSuccess()
+                'is_valid' => (int) $quoteAddress->getVatIsValid(),
+                'request_identifier' => (string) $quoteAddress->getVatRequestId(),
+                'request_date' => (string) $quoteAddress->getVatRequestDate(),
+                'request_success' => (bool) $quoteAddress->getVatRequestSuccess(),
             ]);
         }
 
@@ -500,7 +494,7 @@ class Mage_Sales_Model_Observer
             $groupId = $customerHelper->getCustomerGroupIdBasedOnVatNumber(
                 $customerCountryCode,
                 $gatewayResponse,
-                $customerInstance->getStore()
+                $customerInstance->getStore(),
             );
         } else {
             $groupId = $quoteInstance->getCustomerGroupId();

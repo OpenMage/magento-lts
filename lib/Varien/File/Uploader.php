@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -33,7 +33,7 @@ class Varien_File_Uploader
         UPLOAD_ERR_NO_FILE => 'No file was uploaded',
         UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder',
         UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk',
-        UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload'
+        UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload',
     ];
 
     /**
@@ -202,7 +202,7 @@ class Varien_File_Uploader
         $this->_result = false;
 
         $destinationFile = $destinationFolder;
-        $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
+        $fileName = $newFileName ?? $this->_file['name'];
         $fileName = self::getCorrectFileName($fileName);
         if ($this->_enableFilesDispersion) {
             $fileName = $this->correctFileNameCase($fileName);
@@ -226,7 +226,7 @@ class Varien_File_Uploader
                 $fileName = str_replace(
                     DIRECTORY_SEPARATOR,
                     '/',
-                    self::_addDirSeparator($this->_dispretionPath)
+                    self::_addDirSeparator($this->_dispretionPath),
                 ) . $fileName;
             }
             $this->_uploadedFileName = $fileName;
@@ -306,8 +306,8 @@ class Varien_File_Uploader
     public function addValidateCallback($callbackName, $callbackObject, $callbackMethod)
     {
         $this->_validateCallbacks[$callbackName] = [
-           'object' => $callbackObject,
-           'method' => $callbackMethod
+            'object' => $callbackObject,
+            'method' => $callbackMethod,
         ];
         return $this;
     }
@@ -450,7 +450,7 @@ class Varien_File_Uploader
 
     public function setAllowedExtensions($extensions = [])
     {
-        foreach ((array)$extensions as $extension) {
+        foreach ((array) $extensions as $extension) {
             $this->_allowedExtensions[] = strtolower($extension);
         }
         return $this;
@@ -535,7 +535,7 @@ class Varien_File_Uploader
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     private function _createDestinationFolder($destinationFolder)
     {

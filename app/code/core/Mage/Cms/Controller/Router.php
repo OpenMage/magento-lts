@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -39,7 +39,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
      * Validate and Match Cms Page and modify request
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     public function match(Zend_Controller_Request_Http $request)
     {
@@ -54,11 +54,11 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
 
         $condition = new Varien_Object([
             'identifier' => $identifier,
-            'continue'   => true
+            'continue'   => true,
         ]);
         Mage::dispatchEvent('cms_controller_router_match_before', [
             'router'    => $this,
-            'condition' => $condition
+            'condition' => $condition,
         ]);
         $identifier = $condition->getIdentifier();
 
@@ -86,7 +86,7 @@ class Mage_Cms_Controller_Router extends Mage_Core_Controller_Varien_Router_Abst
             ->setParam('page_id', $pageId);
         $request->setAlias(
             Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-            $identifier
+            $identifier,
         );
 
         return true;

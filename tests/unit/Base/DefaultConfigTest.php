@@ -19,7 +19,7 @@ namespace OpenMage\Tests\Unit\Base;
 
 use Generator;
 use Mage;
-use Mage_Adminhtml_Block_Dashboard;
+use Mage_Adminhtml_Helper_Dashboard_Data;
 use PHPUnit\Framework\TestCase;
 
 class DefaultConfigTest extends TestCase
@@ -37,9 +37,9 @@ class DefaultConfigTest extends TestCase
 
     public function provideGetStoreConfig(): Generator
     {
-        yield Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS => [
+        yield Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS => [
             '1',
-            Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS
+            Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS,
         ];
     }
 }

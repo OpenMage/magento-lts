@@ -68,7 +68,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
         }
         // unix timestamp given - simply instantiate date object
         if (preg_match('/^[0-9]+$/', $date)) {
-            $date = new Zend_Date((int)$date);
+            $date = new Zend_Date((int) $date);
         } elseif (preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$#', $date)) {
             // international format
             $zendDate = new Zend_Date();
@@ -79,7 +79,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
                 $date,
                 Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                 null,
-                false
+                false,
             );
         }
         return $date->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);

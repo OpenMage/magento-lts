@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -75,7 +75,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
      * Checking installation status
      *
      * @return bool
-     * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings("PHPMD.ExitExpression")
      */
     protected function _checkIfInstalled()
     {
@@ -108,7 +108,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_initLayoutMessages('install/session');
 
         $this->getLayout()->getBlock('content')->append(
-            $this->getLayout()->createBlock('install/begin', 'install.begin')
+            $this->getLayout()->createBlock('install/begin', 'install.begin'),
         );
 
         $this->renderLayout();
@@ -141,7 +141,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_prepareLayout();
         $this->_initLayoutMessages('install/session');
         $this->getLayout()->getBlock('content')->append(
-            $this->getLayout()->createBlock('install/locale', 'install.locale')
+            $this->getLayout()->createBlock('install/locale', 'install.locale'),
         );
 
         $this->renderLayout();
@@ -199,7 +199,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_prepareLayout();
         $this->_initLayoutMessages('install/session');
         $this->getLayout()->getBlock('content')->append(
-            $this->getLayout()->createBlock('install/config', 'install.config')
+            $this->getLayout()->createBlock('install/config', 'install.config'),
         );
 
         $this->renderLayout();
@@ -273,7 +273,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_initLayoutMessages('install/session');
 
         $this->getLayout()->getBlock('content')->append(
-            $this->getLayout()->createBlock('install/admin', 'install.administrator')
+            $this->getLayout()->createBlock('install/admin', 'install.administrator'),
         );
         $this->renderLayout();
     }
@@ -331,7 +331,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
     {
         $this->_checkIfInstalled();
 
-        $date = (string)Mage::getConfig()->getNode('global/install/date');
+        $date = (string) Mage::getConfig()->getNode('global/install/date');
         if ($date !== Mage_Install_Model_Installer_Config::TMP_INSTALL_DATE_VALUE) {
             $this->_redirect('*/*');
             return;
@@ -343,7 +343,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
         $this->_initLayoutMessages('install/session');
 
         $this->getLayout()->getBlock('content')->append(
-            $this->getLayout()->createBlock('install/end', 'install.end')
+            $this->getLayout()->createBlock('install/end', 'install.end'),
         );
         $this->renderLayout();
         Mage::getSingleton('install/session')->clear();

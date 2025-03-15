@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -78,7 +78,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
             if ($product->getId()/* && !$product->isSuper()*/) {
                 Mage::getSingleton('catalog/product_compare_list')->addProduct($product);
                 Mage::getSingleton('catalog/session')->addSuccess(
-                    $this->__('The product %s has been added to comparison list.', Mage::helper('core')->escapeHtml($product->getName()))
+                    $this->__('The product %s has been added to comparison list.', Mage::helper('core')->escapeHtml($product->getName())),
                 );
                 Mage::dispatchEvent('catalog_product_compare_add_product', ['product' => $product]);
             }
@@ -107,7 +107,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
                     $item->addCustomerData(Mage::getSingleton('customer/session')->getCustomer());
                 } elseif ($this->_customerId) {
                     $item->addCustomerData(
-                        Mage::getModel('customer/customer')->load($this->_customerId)
+                        Mage::getModel('customer/customer')->load($this->_customerId),
                     );
                 } else {
                     $item->addVisitorId(Mage::getSingleton('log/visitor')->getId());
@@ -118,7 +118,7 @@ class Mage_Catalog_Product_CompareController extends Mage_Core_Controller_Front_
                 if ($item->getId()) {
                     $item->delete();
                     Mage::getSingleton('catalog/session')->addSuccess(
-                        $this->__('The product %s has been removed from comparison list.', $product->getName())
+                        $this->__('The product %s has been removed from comparison list.', $product->getName()),
                     );
                     Mage::dispatchEvent('catalog_product_compare_remove_product', ['product' => $item]);
                     Mage::helper('catalog/product_compare')->calculate();

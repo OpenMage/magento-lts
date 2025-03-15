@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tag
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -129,7 +129,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
             if (!empty($tagIds)) {
                 $writeAdapter->delete(
                     $this->getTable('tag/summary'),
-                    ['tag_id IN(?)' => $tagIds]
+                    ['tag_id IN(?)' => $tagIds],
                 );
             } else {
                 $writeAdapter->delete($this->getTable('tag/summary'));
@@ -148,37 +148,37 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                             . $writeAdapter->getCheckSql(
                                 'tp.base_popularity IS NOT NULL',
                                 'tp.base_popularity',
-                                '0'
-                            ) . ')'
+                                '0',
+                            ) . ')',
                         ),
-                        'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                        'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                        'base_popularity'   => new Zend_Db_Expr(0)  // deprecated since 1.4.0.1
-                    ]
+                        'uses'              => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                        'historical_uses'   => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                        'base_popularity'   => new Zend_Db_Expr('0'),  // deprecated since 1.4.0.1
+                    ],
                 )
                 ->joinInner(
                     ['cs' => $this->getTable('core/store')],
                     'cs.store_id = tr.store_id',
-                    []
+                    [],
                 )
                 ->joinInner(
                     ['pw' => $this->getTable('catalog/product_website')],
                     'cs.website_id = pw.website_id AND tr.product_id = pw.product_id',
-                    []
+                    [],
                 )
                 ->joinInner(
                     ['e' => $this->getTable('catalog/product')],
                     'tr.product_id = e.entity_id',
-                    []
+                    [],
                 )
                 ->joinLeft(
                     ['tp' => $this->getTable('tag/properties')],
                     'tp.tag_id = tr.tag_id AND tp.store_id = tr.store_id',
-                    []
+                    [],
                 )
                 ->group([
                     'tr.tag_id',
-                    'tr.store_id'
+                    'tr.store_id',
                 ])
                 ->where('tr.active = 1');
 
@@ -197,7 +197,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                 'select'        => $select,
                 'entity_field'  => new Zend_Db_Expr('e.entity_id'),
                 'website_field' => new Zend_Db_Expr('cs.website_id'),
-                'store_field'   => new Zend_Db_Expr('cs.store_id')
+                'store_field'   => new Zend_Db_Expr('cs.store_id'),
             ]);
 
             $writeAdapter->query(
@@ -209,19 +209,19 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                     'popularity',
                     'uses',            // deprecated since 1.4.0.1
                     'historical_uses', // deprecated since 1.4.0.1
-                    'base_popularity'  // deprecated since 1.4.0.1
-                ])
+                    'base_popularity',  // deprecated since 1.4.0.1
+                ]),
             );
 
             $selectedFields = [
                 'tag_id'            => 'tag_id',
-                'store_id'          => new Zend_Db_Expr(0),
+                'store_id'          => new Zend_Db_Expr('0'),
                 'customers'         => 'COUNT(DISTINCT customer_id)',
                 'products'          => 'COUNT(DISTINCT product_id)',
                 'popularity'        => 'COUNT(customer_id)',
-                'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                'base_popularity'   => new Zend_Db_Expr(0)  // deprecated since 1.4.0.1
+                'uses'              => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                'historical_uses'   => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                'base_popularity'   => new Zend_Db_Expr('0'),  // deprecated since 1.4.0.1
             ];
 
             $agregateSelect = $writeAdapter->select();
@@ -234,7 +234,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
             }
 
             $writeAdapter->query(
-                $agregateSelect->insertFromSelect($this->getTable('tag/summary'), array_keys($selectedFields))
+                $agregateSelect->insertFromSelect($this->getTable('tag/summary'), array_keys($selectedFields)),
             );
             $this->commit();
         } catch (Exception $e) {

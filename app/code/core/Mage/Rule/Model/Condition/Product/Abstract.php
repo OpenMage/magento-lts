@@ -88,9 +88,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         }
 
         $value = array_map('trim', $value);
-        $value = array_filter($value, 'is_numeric');
 
-        return $value;
+        return array_filter($value, 'is_numeric');
     }
 
     /**
@@ -475,7 +474,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (isset($arr['value'])) {
                 if (!empty($arr['operator'])
                     && in_array($arr['operator'], ['!()', '()'])
-                    && strpos($arr['value'], ',') !== false
+                    && str_contains($arr['value'], ',')
                 ) {
                     $tmp = [];
                     foreach (explode(',', $arr['value']) as $value) {

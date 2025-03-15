@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -162,10 +162,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         Mage::getDesign()
             ->setArea($this->_currentArea)
-            ->setPackageName((string)Mage::getConfig()->getNode('stores/admin/design/package/name'))
-            ->setTheme((string)$theme);
+            ->setPackageName((string) Mage::getConfig()->getNode('stores/admin/design/package/name'))
+            ->setTheme((string) $theme);
         foreach (['layout', 'template', 'skin', 'locale'] as $type) {
-            if ($value = (string)Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
+            if ($value = (string) Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
                 Mage::getDesign()->setTheme($type, $value);
             }
         }
@@ -192,7 +192,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             if ($this->getRequest()->getQuery('isAjax', false) || $this->getRequest()->getQuery('ajax', false)) {
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode([
                     'error' => true,
-                    'message' => $keyErrorMsg
+                    'message' => $keyErrorMsg,
                 ]));
             } else {
                 if (!$isValidFormKey) {
@@ -242,16 +242,16 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
         $configData = Mage::getModel('core/config_data');
 
-        $defaultUnsecure = (string)Mage::getConfig()->getNode(
-            'default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL
+        $defaultUnsecure = (string) Mage::getConfig()->getNode(
+            'default/' . Mage_Core_Model_Store::XML_PATH_UNSECURE_BASE_URL,
         );
-        $defaultSecure = (string)Mage::getConfig()->getNode(
-            'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL
+        $defaultSecure = (string) Mage::getConfig()->getNode(
+            'default/' . Mage_Core_Model_Store::XML_PATH_SECURE_BASE_URL,
         );
 
         if ($defaultSecure == '{{base_url}}' || $defaultUnsecure == '{{base_url}}') {
             $this->_getSession()->addNotice(
-                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web']))
+                $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $this->getUrl('adminhtml/system_config/edit', ['section' => 'web'])),
             );
             return $this;
         }
@@ -272,7 +272,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
 
             if ($url) {
                 $this->_getSession()->addNotice(
-                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url)
+                    $this->__('{{base_url}} is not recommended to use in a production environment to declare the Base Unsecure URL / Base Secure URL. It is highly recommended to change this value in your Magento <a href="%s">configuration</a>.', $url),
                 );
                 return $this;
             }
@@ -332,8 +332,8 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      * Translate a phrase
      *
      * @return string
-     * @SuppressWarnings(PHPMD.CamelCaseMethodName)
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.CamelCaseMethodName")
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function __()
     {
@@ -431,7 +431,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         return in_array(
             strtolower($this->getRequest()->getActionName()),
-            array_map('strtolower', $this->_forcedFormKeyActions)
+            array_map('strtolower', $this->_forcedFormKeyActions),
         );
     }
 
@@ -443,7 +443,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _setForcedFormKeyActions($actionNames)
     {
         if (!Mage::helper('adminhtml')->isEnabledSecurityKeyUrl()) {
-            $actionNames = (is_array($actionNames)) ? $actionNames : (array)$actionNames;
+            $actionNames = (is_array($actionNames)) ? $actionNames : (array) $actionNames;
             $actionNames = array_merge($this->_forcedFormKeyActions, $actionNames);
             $actionNames = array_unique($actionNames);
             $this->_forcedFormKeyActions = $actionNames;

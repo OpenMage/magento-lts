@@ -9,16 +9,19 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-/** @var Mage_Adminhtml_Block_Api_Tab_Roleinfo $this */
 
+/**
+ * @see Mage_Adminhtml_Block_Api_Tab_Roleinfo
+ * @var Mage_Adminhtml_Block_Api_Tab_Roleinfo $this
+ */
 ?>
 <div class="content-header">
     <table cellspacing="0">
         <tr>
-            <td style="width:50%;"><h3 class="icon-head head-permissions-role"><?php echo ($this->getRoleId() > 0 ) ? ($this->__('Edit Role') . " '{$this->escapeHtml($this->getRoleInfo()->getRoleName())}'") : $this->__('Add New Role') ?></h3></td>
+            <td style="width:50%;"><h3 class="icon-head head-permissions-role"><?php echo ($this->getRoleId() > 0) ? ($this->__('Edit Role') . " '{$this->escapeHtml($this->getRoleInfo()->getRoleName())}'") : $this->__('Add New Role') ?></h3></td>
             <td class="form-buttons">
             <?php echo $this->getBackButtonHtml() ?>
             <?php echo $this->getResetButtonHtml() ?>

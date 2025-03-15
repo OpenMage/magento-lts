@@ -165,9 +165,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If template preprocessing
             return $construction[0];
         }
-
-        $replacedValue = $this->_getVariable($construction[2], '');
-        return $replacedValue;
+        return $this->_getVariable($construction[2], '');
     }
 
     public function includeDirective($construction)
@@ -255,7 +253,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $tokenizer->setString($value);
         $params = $tokenizer->tokenize();
         foreach ($params as $key => $value) {
-            if (substr($value, 0, 1) === '$') {
+            if (str_starts_with($value, '$')) {
                 $params[$key] = $this->_getVariable(substr($value, 1), null);
             }
         }
@@ -282,7 +280,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         for ($i = 0; $i < count($stackVars); $i++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
-                $stackVars[$i]['variable'] =& $this->_templateVars[$stackVars[$i]['name']];
+                $stackVars[$i]['variable'] = & $this->_templateVars[$stackVars[$i]['name']];
             } elseif (isset($stackVars[$i - 1]['variable']) && $stackVars[$i - 1]['variable'] instanceof Varien_Object) {
                 // If object calling methods or getting properties
                 if ($stackVars[$i]['type'] == 'property') {
@@ -293,7 +291,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 } elseif ($stackVars[$i]['type'] == 'method') {
                     // Calling of object method
                     if (method_exists($stackVars[$i - 1]['variable'], $stackVars[$i]['name'])
-                        || substr($stackVars[$i]['name'], 0, 3) == 'get'
+                        || str_starts_with($stackVars[$i]['name'], 'get')
                     ) {
                         $isEncrypted = false;
                         if ($stackVars[$i]['name'] == 'getConfig') {
@@ -301,7 +299,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                         }
                         $stackVars[$i]['variable'] = call_user_func_array(
                             [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
-                            !$isEncrypted ? $stackVars[$i]['args'] : [null]
+                            !$isEncrypted ? $stackVars[$i]['args'] : [null],
                         );
                     }
                 }

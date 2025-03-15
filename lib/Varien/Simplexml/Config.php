@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Simplexml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -134,7 +134,7 @@ class Varien_Simplexml_Config
      * @param string $xpath
      * @return Varien_Simplexml_Element[]|false
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getXpath($xpath)
     {
@@ -503,7 +503,7 @@ class Varien_Simplexml_Config
         }
 
         foreach ($targets as $target) {
-            $sources = $this->getXpath((string)$target['extends']);
+            $sources = $this->getXpath((string) $target['extends']);
             if ($sources) {
                 foreach ($sources as $source) {
                     $target->extend($source);

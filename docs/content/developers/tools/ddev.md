@@ -5,11 +5,15 @@ tags:
 
 # DDEV
 
-See: https://ddev.com
+[DDEV](https://ddev.com) is a powerful tool to set up and manage local PHP development environments.
+It is a Docker-based wrapper that provides many useful features for developers out of the box.
+
+!!! info "Docker only"
+    For development environment without dependencies aside from Docker, see the
+    [Docker Compose](/developers/tools/oneline) guide.
 
 !!! info "Test Environment for OpenMage in Windows 10 Based on DDEV"
-
-    See https://github.com/OpenMage/magento-lts/discussions/3839
+    For development environment with Windows 10, see this [guide](/blog/2024/08/17/test-environment-for-openmage-in-windows-10-based-on-ddev/).
 
 ## Using phpMyAdmin
 

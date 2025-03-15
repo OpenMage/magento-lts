@@ -9,7 +9,7 @@
  *
  * @category   OpenMage
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -17,45 +17,36 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget;
 
-use Generator;
 use Mage;
-use Mage_Cms_Block_Widget_Block;
+use Mage_Cms_Block_Widget_Block as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
 use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
 {
-    public Mage_Cms_Block_Widget_Block $subject;
+    use NumericStringTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Cms_Block_Widget_Block();
+        $this->subject = new Subject();
     }
 
     /**
-     * @dataProvider provideGetCacheKeyInfoData
+     * @dataProvider provideNumericString
      * @group Mage_Cms
      * @group Mage_Cms_Block
      */
     public function testGetCacheKeyInfo(string $blockId): void
     {
-        $mock = $this->getMockBuilder(Mage_Cms_Block_Widget_Block::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getBlockId'])
             ->getMock();
 
         $mock->method('getBlockId')->willReturn($blockId);
         $this->assertIsArray($mock->getCacheKeyInfo());
-    }
-
-    public function provideGetCacheKeyInfoData(): Generator
-    {
-        yield 'valid block ID' => [
-            '2'
-        ];
-        yield 'invalid block ID' => [
-            '0'
-        ];
     }
 
     /**

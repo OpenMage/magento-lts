@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Install
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -93,7 +93,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      *
      * @param array $args
      * @return bool
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function setArgs($args = null)
     {
@@ -149,7 +149,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          */
         if (!$this->_checkFlag($args['license_agreement_accepted'])) {
             $this->addError(
-                'ERROR: You have to accept Magento license agreement terms and conditions to continue installation'
+                'ERROR: You have to accept Magento license agreement terms and conditions to continue installation',
             );
             return false;
         }
@@ -311,7 +311,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
      *
      * @return bool
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function install()
     {

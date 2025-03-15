@@ -19,12 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Generator;
 use Mage;
-use Mage_Adminhtml_Helper_Sales;
+use Mage_Adminhtml_Helper_Sales as Subject;
 use PHPUnit\Framework\TestCase;
 
 class SalesTest extends TestCase
 {
-    public Mage_Adminhtml_Helper_Sales $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -47,7 +47,7 @@ class SalesTest extends TestCase
     {
         yield 'test #1' => [
             '&lt;a href=&quot;https://localhost&quot;&gt;',
-            '<a href="https://localhost">'
+            '<a href="https://localhost">',
         ];
     }
 }

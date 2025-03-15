@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -123,7 +123,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateRemoteAddr();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -137,7 +137,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpVia();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -151,7 +151,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpXForwardedFor();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -165,7 +165,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpUserAgent();
         }
-        return (bool)$use;
+        return (bool) $use;
     }
 
     /**
@@ -189,7 +189,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         $userAgents = [];
         $skip = Mage::getConfig()->getNode(self::XML_NODE_USET_AGENT_SKIP);
         foreach ($skip->children() as $userAgent) {
-            $userAgents[] = (string)$userAgent;
+            $userAgents[] = (string) $userAgent;
         }
         return $userAgents;
     }
@@ -358,7 +358,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      * Specify session identifier
      *
      * @inheritDoc
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function setSessionId($id = null)
     {
@@ -393,7 +393,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
     public function getSessionIdQueryParam()
     {
         $sessionName = $this->getSessionName();
-        if ($sessionName && $queryParam = (string)Mage::getConfig()->getNode($sessionName . '/session/query_param')) {
+        if ($sessionName && $queryParam = (string) Mage::getConfig()->getNode($sessionName . '/session/query_param')) {
             return $queryParam;
         }
         return self::SESSION_ID_QUERY_PARAM;
@@ -426,7 +426,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      *
      * @param string $urlHost can be host or url
      * @return string {session_id_key}={session_id_encrypted}
-     * @SuppressWarnings(PHPMD.CamelCaseVariableName)
+     * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
     public function getSessionIdForHost($urlHost)
     {

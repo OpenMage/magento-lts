@@ -40,8 +40,6 @@ class Mage_Tax_Block_Adminhtml_Frontend_Region_Updater extends Mage_Adminhtml_Bl
                    updater.update();
                }
                </script>';
-
-        $html .= sprintf($js, Mage::helper('directory')->getRegionJsonByStore());
-        return $html;
+        return $html . sprintf($js, Mage::helper('directory')->getRegionJsonByStore());
     }
 }

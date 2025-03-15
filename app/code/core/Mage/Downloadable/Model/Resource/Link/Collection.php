@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -63,12 +63,12 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
             ->joinLeft(
                 ['d' => $this->getTable('downloadable/link_title')],
                 'd.link_id=main_table.link_id AND d.store_id = 0',
-                ['default_title' => 'title']
+                ['default_title' => 'title'],
             )
             ->joinLeft(
                 ['st' => $this->getTable('downloadable/link_title')],
-                'st.link_id=main_table.link_id AND st.store_id = ' . (int)$storeId,
-                ['store_title' => 'title','title' => $ifNullDefaultTitle]
+                'st.link_id=main_table.link_id AND st.store_id = ' . (int) $storeId,
+                ['store_title' => 'title','title' => $ifNullDefaultTitle],
             )
             ->order('main_table.sort_order ASC')
             ->order('title ASC');
@@ -90,12 +90,12 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
             ->joinLeft(
                 ['dp' => $this->getTable('downloadable/link_price')],
                 'dp.link_id=main_table.link_id AND dp.website_id = 0',
-                ['default_price' => 'price']
+                ['default_price' => 'price'],
             )
             ->joinLeft(
                 ['stp' => $this->getTable('downloadable/link_price')],
-                'stp.link_id=main_table.link_id AND stp.website_id = ' . (int)$websiteId,
-                ['website_price' => 'price','price' => $ifNullDefaultPrice]
+                'stp.link_id=main_table.link_id AND stp.website_id = ' . (int) $websiteId,
+                ['website_price' => 'price','price' => $ifNullDefaultPrice],
             );
 
         return $this;

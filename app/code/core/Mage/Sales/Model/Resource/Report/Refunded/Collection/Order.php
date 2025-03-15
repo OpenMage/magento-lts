@@ -70,7 +70,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sa
                 'orders_count'      => 'SUM(orders_count)',
                 'refunded'          => 'SUM(refunded)',
                 'online_refunded'   => 'SUM(online_refunded)',
-                'offline_refunded'  => 'SUM(offline_refunded)'
+                'offline_refunded'  => 'SUM(offline_refunded)',
             ];
         }
 
@@ -90,7 +90,7 @@ class Mage_Sales_Model_Resource_Report_Refunded_Collection_Order extends Mage_Sa
     {
         $this->getSelect()->from(
             $this->getResource()->getMainTable(),
-            $this->_getSelectedColumns()
+            $this->_getSelectedColumns(),
         );
         if (!$this->isTotals()) {
             $this->getSelect()->group($this->_periodFormat);

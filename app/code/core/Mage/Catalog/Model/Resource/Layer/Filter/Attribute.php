@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,13 +44,13 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
             "{$tableAlias}.entity_id = e.entity_id",
             $connection->quoteInto("{$tableAlias}.attribute_id = ?", $attribute->getAttributeId()),
             $connection->quoteInto("{$tableAlias}.store_id = ?", $collection->getStoreId()),
-            $connection->quoteInto("{$tableAlias}.value = ?", $value)
+            $connection->quoteInto("{$tableAlias}.value = ?", $value),
         ];
 
         $collection->getSelect()->join(
             [$tableAlias => $this->getMainTable()],
             implode(' AND ', $conditions),
-            []
+            [],
         );
 
         return $this;
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Attribute extends Mage_Core_Model
             ->join(
                 [$tableAlias => $this->getMainTable()],
                 implode(' AND ', $conditions),
-                ['value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")]
+                ['value', 'count' => new Zend_Db_Expr("COUNT({$tableAlias}.entity_id)")],
             )
             ->group("{$tableAlias}.value");
 

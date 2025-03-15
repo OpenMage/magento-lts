@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -94,7 +94,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('System'),
             Mage::helper('adminhtml')->__('System'),
-            $this->getUrl('*/system')
+            $this->getUrl('*/system'),
         );
 
         /** @var Mage_Adminhtml_Block_System_Config_Tabs $block */
@@ -127,7 +127,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Save configuration
      *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @SuppressWarnings("PHPMD.Superglobals")
      */
     public function saveAction()
     {
@@ -174,14 +174,14 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             Mage::dispatchEvent('admin_system_config_section_save_after', [
                 'website' => $website,
                 'store'   => $store,
-                'section' => $section
+                'section' => $section,
             ]);
             Mage::app()->reinitStores();
 
             // website and store codes can be used in event implementation, so set them as well
             Mage::dispatchEvent(
                 "admin_system_config_changed_section_{$section}",
-                ['website' => $website, 'store' => $store]
+                ['website' => $website, 'store' => $store],
             );
 
             if (!empty($groups)) {
@@ -195,7 +195,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             $session->addException(
                 $e,
                 Mage::helper('adminhtml')->__('An error occurred while saving this configuration:') . ' '
-                . $e->getMessage()
+                . $e->getMessage(),
             );
         }
 
@@ -223,8 +223,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         Mage::app()->cleanCache(
             [
                 'layout',
-                Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG
-            ]
+                Mage_Core_Model_Layout_Update::LAYOUT_GENERAL_CACHE_TAG,
+            ],
         );
     }
 
@@ -239,7 +239,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                         && $this->getRequest()->getParam('value') != ''
         ) {
             $configState = [
-                $this->getRequest()->getParam('container') => $this->getRequest()->getParam('value')
+                $this->getRequest()->getParam('container') => $this->getRequest()->getParam('value'),
             ];
             $this->_saveState($configState);
             $this->getResponse()->setBody('success');

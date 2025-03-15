@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -43,7 +43,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         if (empty($ids)) {
             $ids = [];
         } elseif (!is_array($ids)) {
-            $ids = [(int)$ids];
+            $ids = [(int) $ids];
         }
         $this->_selectedIds = $ids;
         return $this;
@@ -70,7 +70,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
             }
         }
 
-        if (empty($item['children']) && (int)$node->getChildrenCount() > 0) {
+        if (empty($item['children']) && (int) $node->getChildrenCount() > 0) {
             $item['children'] = [];
         }
 

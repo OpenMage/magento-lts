@@ -19,28 +19,27 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 
 use Mage;
 use Mage_Core_Model_Security_HtmlEscapedString;
-use Mage_Page_Block_Html_Header;
+use Mage_Page_Block_Html_Header as Subject;
 use PHPUnit\Framework\TestCase;
 
 class HeaderTest extends TestCase
 {
-    public Mage_Page_Block_Html_Header $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Html_Header();
+        $this->subject = new Subject();
     }
 
     /**
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetIsHomePage(): void
-//    {
-//        $this->assertIsBool($this->subject->getIsHomePage());
-//    }
+    //    public function testGetIsHomePage(): void
+    //    {
+    //        $this->assertIsBool($this->subject->getIsHomePage());
+    //    }
 
     /**
      * @group Mage_Page
@@ -48,7 +47,7 @@ class HeaderTest extends TestCase
      */
     public function testSetLogo(): void
     {
-        $this->assertInstanceOf(Mage_Page_Block_Html_Header::class, $this->subject->setLogo('src', 'alt'));
+        $this->assertInstanceOf(Subject::class, $this->subject->setLogo('src', 'alt'));
     }
 
     /**

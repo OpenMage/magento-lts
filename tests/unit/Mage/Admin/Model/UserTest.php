@@ -19,13 +19,13 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Generator;
 use Mage;
-use Mage_Admin_Model_User;
+use Mage_Admin_Model_User as Subject;
 use Mage_Core_Exception;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public Mage_Admin_Model_User $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -44,7 +44,7 @@ class UserTest extends TestCase
      */
     public function testAuthenticate($expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
                 'loadByUsername',
                 'getId',
@@ -58,7 +58,7 @@ class UserTest extends TestCase
 
         $mock->method('loadByUsername')->willReturnSelf();
         $mock->method('getId')->willReturn($methods['getId']);
-//        $mock->expects($this->any())->method('getUsername')->willReturn($methods['getUsername']);
+        //        $mock->expects($this->any())->method('getUsername')->willReturn($methods['getUsername']);
         $mock->method('getPassword')->willReturn($methods['getPassword']);
         $mock->method('validatePasswordHash')->willReturn($methods['validatePasswordHash']);
         $mock->method('getIsActive')->willReturn($methods['getIsActive']);
@@ -66,8 +66,8 @@ class UserTest extends TestCase
 
         try {
             $this->assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
-        } catch (Mage_Core_Exception $e) {
-            $this->assertSame($expectedResult, $e->getMessage());
+        } catch (Mage_Core_Exception $exception) {
+            $this->assertSame($expectedResult, $exception->getMessage());
         }
     }
 
@@ -82,7 +82,7 @@ class UserTest extends TestCase
                 'getIsActive' => '1',
                 'validatePasswordHash' => true,
                 'hasAssigned2Role' => true,
-            ]
+            ],
         ];
         yield 'fail #1 inactive' => [
             'This account is inactive.',
@@ -93,7 +93,7 @@ class UserTest extends TestCase
                 'getIsActive' => '0',
                 'validatePasswordHash' => true,
                 'hasAssigned2Role' => true,
-            ]
+            ],
         ];
         yield 'fail #2 invalid hash' => [
             false,
@@ -104,7 +104,7 @@ class UserTest extends TestCase
                 'getIsActive' => '1',
                 'validatePasswordHash' => false,
                 'hasAssigned2Role' => true,
-            ]
+            ],
         ];
         yield 'fail #3 no role assigned' => [
             'Access denied.',
@@ -115,7 +115,7 @@ class UserTest extends TestCase
                 'getIsActive' => '1',
                 'validatePasswordHash' => true,
                 'hasAssigned2Role' => false,
-            ]
+            ],
         ];
     }
 
@@ -127,7 +127,7 @@ class UserTest extends TestCase
      */
     public function testValidate($expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
                 'hasNewPassword',
                 'getNewPassword',
@@ -159,7 +159,7 @@ class UserTest extends TestCase
                 'getNewPassword' => '123',
                 'hasPassword' => false,
                 'getPassword' => '456',
-            ]
+            ],
         ];
         yield 'fails #2' => [
             [
@@ -175,7 +175,7 @@ class UserTest extends TestCase
                 'getNewPassword' => '123',
                 'hasPassword' => true,
                 'getPassword' => '456',
-            ]
+            ],
         ];
     }
 
@@ -195,7 +195,7 @@ class UserTest extends TestCase
      */
     public function testLoadByUsername(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->loadByUsername('invalid-user'));
+        $this->assertInstanceOf(Subject::class, $this->subject->loadByUsername('invalid-user'));
     }
 
     /**
@@ -214,7 +214,7 @@ class UserTest extends TestCase
      */
     public function testChangeResetPasswordLinkToken(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->changeResetPasswordLinkToken('123'));
+        $this->assertInstanceOf(Subject::class, $this->subject->changeResetPasswordLinkToken('123'));
     }
 
     /**
@@ -224,7 +224,7 @@ class UserTest extends TestCase
      */
     public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_User::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
                 'getRpToken',
                 'getRpTokenCreatedAt',
@@ -243,14 +243,14 @@ class UserTest extends TestCase
             [
                 'getRpToken'       => '',
                 'getRpTokenCreatedAt' => '',
-            ]
+            ],
         ];
         yield '#2' => [
             true,
             [
                 'getRpToken'       => '1',
                 'getRpTokenCreatedAt' => '0',
-            ]
+            ],
         ];
     }
 
@@ -260,6 +260,6 @@ class UserTest extends TestCase
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        $this->assertInstanceOf(Mage_Admin_Model_User::class, $this->subject->sendPasswordResetConfirmationEmail());
+        $this->assertInstanceOf(Subject::class, $this->subject->sendPasswordResetConfirmationEmail());
     }
 }

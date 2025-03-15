@@ -19,12 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Log\Helper;
 
 use Generator;
 use Mage;
-use Mage_Log_Helper_Data;
+use Mage_Log_Helper_Data as Subject;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Log_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -77,11 +77,11 @@ class DataTest extends TestCase
     {
         yield 'valid' => [
             true,
-            'valid.log'
+            'valid.log',
         ];
         yield 'invalid' => [
             false,
-            'invalid.file'
+            'invalid.file',
         ];
     }
 }

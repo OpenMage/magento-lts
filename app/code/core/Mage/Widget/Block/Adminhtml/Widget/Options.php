@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -145,7 +145,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
             $data['value'] = $parameter->getValue();
             //prepare unique id value
             if ($fieldName == 'unique_id' && $data['value'] == '') {
-                $data['value'] = md5((string)microtime(true));
+                $data['value'] = md5((string) microtime(true));
             }
         }
 
@@ -156,7 +156,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
             foreach ($values as $option) {
                 $data['values'][] = [
                     'label' => $this->_translationHelper->__($option['label']),
-                    'value' => $option['value']
+                    'value' => $option['value'],
                 ];
             }
         } elseif ($sourceModel = $parameter->getSourceModel()) { // otherwise, a source model is specified
@@ -176,7 +176,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
 
         // instantiate field and render html
         $field = $fieldset->addField($this->getMainFieldsetHtmlId() . '_' . $fieldName, $fieldType, $data);
-        if ($fieldRenderer) {
+        if ($fieldRenderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
             $field->setRenderer($fieldRenderer);
         }
 
@@ -196,7 +196,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Options extends Mage_Adminhtml_Block_Wi
         $dependenceBlock->addFieldMap($field->getId(), $fieldName);
         if ($parameter->getDepends()) {
             foreach ($parameter->getDepends() as $from => $row) {
-                $values = isset($row['values']) ? array_values($row['values']) : (string)$row['value'];
+                $values = isset($row['values']) ? array_values($row['values']) : (string) $row['value'];
                 $dependenceBlock->addFieldDependence($fieldName, $from, $values);
             }
         }

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +34,7 @@ function destruct($object)
  *
  * @return string
  * @deprecated 1.3
- * @SuppressWarnings(PHPMD.ShortMethodName)
+ * @SuppressWarnings("PHPMD.ShortMethodName")
  */
 function __()
 {
@@ -196,7 +196,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
  * @param bool $showFirst
  * @return string|null
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
 function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
 {
@@ -236,7 +236,7 @@ function mageSendErrorFooter()
 /**
  * @param string $path
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
 function mageDelTree($path)
 {
@@ -273,7 +273,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
                         $elements,
                         $i,
                         $j - $i + 1,
-                        implode($delimiter, array_slice($elements, $i, $j - $i + 1))
+                        implode($delimiter, array_slice($elements, $i, $j - $i + 1)),
                     );
                     break;
                 }
@@ -281,7 +281,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
         }
         if ($nquotes > 0) {
             // Remove first and last quotes, then merge pairs of quotes
-            $qstr =& $elements[$i];
+            $qstr = & $elements[$i];
             $qstr = substr_replace($qstr, '', strpos($qstr, $enclosure), 1);
             $qstr = substr_replace($qstr, '', strrpos($qstr, $enclosure), 1);
             $qstr = str_replace($enclosure . $enclosure, $enclosure, $qstr);
@@ -294,7 +294,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
  * @param string $dir
  * @return bool
  *
- * @SuppressWarnings(PHPMD.ErrorControlOperator)
+ * @SuppressWarnings("PHPMD.ErrorControlOperator")
  */
 function isDirWriteable($dir)
 {

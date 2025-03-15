@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -103,7 +103,7 @@ class Mage_Core_Model_Cookie
      */
     public function getConfigDomain()
     {
-        return (string)Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
+        return (string) Mage::getStoreConfig(self::XML_PATH_COOKIE_DOMAIN, $this->getStore());
     }
 
     /**
@@ -146,7 +146,7 @@ class Mage_Core_Model_Cookie
      */
     public function setLifetime($lifetime)
     {
-        $this->_lifetime = (int)$lifetime;
+        $this->_lifetime = (int) $lifetime;
         return $this;
     }
 
@@ -161,7 +161,7 @@ class Mage_Core_Model_Cookie
         if (is_null($httponly)) {
             return null;
         }
-        return (bool)$httponly;
+        return (bool) $httponly;
     }
 
     /**
@@ -173,7 +173,7 @@ class Mage_Core_Model_Cookie
         if (is_null($sameSite)) {
             return 'None';
         }
-        return (string)$sameSite;
+        return (string) $sameSite;
     }
 
     /**
@@ -248,25 +248,18 @@ class Mage_Core_Model_Cookie
             $secure = true;
         }
 
-        if (PHP_VERSION_ID >= 70300) {
-            setcookie(
-                $name,
-                (string)$value,
-                [
-                    'expires'  => $expire,
-                    'path'     => $path,
-                    'domain'   => $domain,
-                    'secure'   => $secure,
-                    'httponly' => $httponly,
-                    'samesite' => $sameSite
-                ]
-            );
-        } else {
-            if (!empty($sameSite)) {
-                $path .= "; samesite={$sameSite}";
-            }
-            setcookie($name, (string)$value, $expire, $path, $domain, $secure, $httponly);
-        }
+        setcookie(
+            $name,
+            (string) $value,
+            [
+                'expires'  => $expire,
+                'path'     => $path,
+                'domain'   => $domain,
+                'secure'   => $secure,
+                'httponly' => $httponly,
+                'samesite' => $sameSite,
+            ],
+        );
 
         return $this;
     }

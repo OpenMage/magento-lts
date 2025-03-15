@@ -151,7 +151,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         Varien_Profiler::start('TEST: ' . __METHOD__);
         if (!$this->_regionJson) {
             $store = $this->_app->getStore($storeId);
-            $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . (string)$store->getId();
+            $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . (string) $store->getId();
             if ($this->_app->useCache('config')) {
                 $json = $this->_app->loadCache($cacheKey);
             }
@@ -197,8 +197,8 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         $regions = [
             'config' => [
                 'show_all_regions' => $this->getShowNonRequiredState(),
-                'regions_required' => $this->getCountriesWithStatesRequired()
-            ]
+                'regions_required' => $this->getCountriesWithStatesRequired(),
+            ],
         ];
         foreach ($collection as $region) {
             if (!$region->getRegionId()) {
@@ -206,7 +206,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
             }
             $regions[$region->getCountryId()][$region->getRegionId()] = [
                 'code' => $region->getCode(),
-                'name' => $this->__($region->getName())
+                'name' => $this->__($region->getName()),
             ];
         }
         return $regions;
@@ -245,7 +245,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
                 '/\,/',
                 Mage::getStoreConfig(self::OPTIONAL_ZIP_COUNTRIES_CONFIG_PATH),
                 0,
-                PREG_SPLIT_NO_EMPTY
+                PREG_SPLIT_NO_EMPTY,
             );
         }
         if ($asJson) {
@@ -309,5 +309,17 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
     public static function getConfigCurrencyBase(): string
     {
         return (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE);
+    }
+
+    /** @return list<string> */
+    public function getTopCountryCodes(): array
+    {
+        $topCountries = array_filter(explode(',', (string) Mage::getStoreConfig('general/country/top_countries')));
+
+        $transportObject = new Varien_Object();
+        $transportObject->setData('top_countries', $topCountries);
+        Mage::dispatchEvent('directory_get_top_countries', ['topCountries' => $transportObject]);
+
+        return $transportObject->getData('top_countries');
     }
 }

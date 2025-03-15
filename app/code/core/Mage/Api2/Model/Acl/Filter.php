@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -99,7 +99,7 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Fetch array of allowed attributes for given resource type, operation and user type.
      *
-     * @param string $operationType OPTIONAL One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
      * @return array
      */
     public function getAllowedAttributes($operationType = null)
@@ -114,13 +114,13 @@ class Mage_Api2_Model_Acl_Filter
             if ($helper->isAllAttributesAllowed($this->_resource->getUserType())) {
                 $this->_allowedAttributes = array_keys($this->_resource->getAvailableAttributes(
                     $this->_resource->getUserType(),
-                    $operationType
+                    $operationType,
                 ));
             } else {
                 $this->_allowedAttributes = $helper->getAllowedAttributes(
                     $this->_resource->getUserType(),
                     $this->_resource->getResourceType(),
-                    $operationType
+                    $operationType,
                 );
             }
             // force attributes to be no filtered
@@ -161,7 +161,7 @@ class Mage_Api2_Model_Acl_Filter
      * Filter data for write operations
      *
      * @return array
-     * @SuppressWarnings(PHPMD.ShortMethodName)
+     * @SuppressWarnings("PHPMD.ShortMethodName")
      */
     public function in(array $requestData)
     {

@@ -18,18 +18,17 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
-use Mage_Page_Block_Html;
+use Mage_Page_Block_Html as Subject;
 use PHPUnit\Framework\TestCase;
 
 class HtmlTest extends TestCase
 {
-    public Mage_Page_Block_Html $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Html();
+        $this->subject = new Subject();
     }
 
     /**
@@ -54,10 +53,10 @@ class HtmlTest extends TestCase
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetCurrentUrl(): void
-//    {
-//        $this->assertIsString($this->subject->getCurrentUrl());
-//    }
+    //    public function testGetCurrentUrl(): void
+    //    {
+    //        $this->assertIsString($this->subject->getCurrentUrl());
+    //    }
 
     /**
      * @group Mage_Page

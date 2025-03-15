@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,13 +41,13 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         'website' => [
             'associations_table' => 'catalogrule/website',
             'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'website_id'
+            'entity_id_field'    => 'website_id',
         ],
         'customer_group' => [
             'associations_table' => 'catalogrule/customer_group',
             'rule_id_field'      => 'rule_id',
-            'entity_id_field'    => 'customer_group_id'
-        ]
+            'entity_id_field'    => 'customer_group_id',
+        ],
     ];
 
     /**
@@ -93,8 +93,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
     {
-        $object->setData('customer_group_ids', (array)$this->getCustomerGroupIds($object->getId()));
-        $object->setData('website_ids', (array)$this->getWebsiteIds($object->getId()));
+        $object->setData('customer_group_ids', (array) $this->getCustomerGroupIds($object->getId()));
+        $object->setData('website_ids', (array) $this->getWebsiteIds($object->getId()));
 
         return parent::_afterLoad($object);
     }
@@ -111,7 +111,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         if ($object->hasWebsiteIds()) {
             $websiteIds = $object->getWebsiteIds();
             if (!is_array($websiteIds)) {
-                $websiteIds = explode(',', (string)$websiteIds);
+                $websiteIds = explode(',', (string) $websiteIds);
             }
             $this->bindRuleToEntity($object->getId(), $websiteIds, 'website');
         }
@@ -119,7 +119,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         if ($object->hasCustomerGroupIds()) {
             $customerGroupIds = $object->getCustomerGroupIds();
             if (!is_array($customerGroupIds)) {
-                $customerGroupIds = explode(',', (string)$customerGroupIds);
+                $customerGroupIds = explode(',', (string) $customerGroupIds);
             }
             $this->bindRuleToEntity($object->getId(), $customerGroupIds, 'customer_group');
         }
@@ -211,22 +211,22 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                         ->joinLeft(
                             ['cg' => $this->getTable('customer/customer_group')],
                             $write->quoteInto('cg.customer_group_id IN (?)', $customerGroupIds),
-                            ['cg.customer_group_id']
+                            ['cg.customer_group_id'],
                         )
                         ->reset(Varien_Db_Select::COLUMNS)
                         ->columns([
-                            new Zend_Db_Expr((string)$store->getWebsiteId()),
+                            new Zend_Db_Expr((string) $store->getWebsiteId()),
                             'cg.customer_group_id',
                             'p.entity_id',
                             new Zend_Db_Expr($rule->getId()),
-                            new Zend_Db_Expr($fromTime),
-                            new Zend_Db_Expr($toTime),
+                            new Zend_Db_Expr((string) $fromTime),
+                            new Zend_Db_Expr((string) $toTime),
                             new Zend_Db_Expr("'" . $actionOperator . "'"),
-                            new Zend_Db_Expr($actionAmount),
-                            new Zend_Db_Expr($actionStop),
-                            new Zend_Db_Expr($sortOrder),
+                            new Zend_Db_Expr((string) $actionAmount),
+                            new Zend_Db_Expr((string) $actionStop),
+                            new Zend_Db_Expr((string) $sortOrder),
                             new Zend_Db_Expr("'" . $subActionOperator . "'"),
-                            new Zend_Db_Expr($subActionAmount),
+                            new Zend_Db_Expr((string) $subActionAmount),
                         ]);
 
                     // phpcs:ignore Ecg.Performance.Loop.ArraySize
@@ -254,8 +254,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                                     'sub_simple_action',
                                     'sub_discount_amount',
                                 ],
-                                Varien_Db_Adapter_Interface::INSERT_IGNORE
-                            )
+                                Varien_Db_Adapter_Interface::INSERT_IGNORE,
+                            ),
                         );
                     }
                 }
@@ -396,7 +396,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             $select,
             $this->getTable('catalogrule/affected_product'),
             ['product_id'],
-            true
+            true,
         );
         $write->query($replace);
         $write->delete($this->getTable('catalogrule/rule_product_price'), $conds);
@@ -469,7 +469,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $select->join(
             ['pp_default' => $priceTable],
             sprintf($joinCondition, 'pp_default', Mage_Core_Model_App::ADMIN_STORE_ID),
-            ['default_price' => 'pp_default.value']
+            ['default_price' => 'pp_default.value'],
         );
 
         if ($websiteId !== null) {
@@ -486,7 +486,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 'product_website.product_id=rp.product_id ' .
                 'AND rp.website_id=product_website.website_id ' .
                 'AND product_website.website_id=' . $websiteId,
-                []
+                [],
             );
 
             $tableAlias = 'pp' . $websiteId;
@@ -494,7 +494,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             $select->joinLeft(
                 [$tableAlias => $priceTable],
                 sprintf($joinCondition, $tableAlias, $storeId),
-                [$fieldAlias => $tableAlias . '.value']
+                [$fieldAlias => $tableAlias . '.value'],
             );
         } else {
             foreach (Mage::app()->getWebsites() as $website) {
@@ -511,7 +511,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 $select->joinLeft(
                     [$tableAlias => $priceTable],
                     sprintf($joinCondition, $tableAlias, $storeId),
-                    [$fieldAlias => $tableAlias . '.value']
+                    [$fieldAlias => $tableAlias . '.value'],
                 );
             }
         }
@@ -575,8 +575,8 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                 'factory'    => Mage::getModel('core/factory'),
                 'resource'   => $this,
                 'app'        => Mage::app(),
-                'value'      => $value
-            ]
+                'value'      => $value,
+            ],
         );
         $indexer->execute();
     }
@@ -601,7 +601,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
         $productPrice = Mage::helper('catalogrule')->calcPriceRule(
             $ruleData['action_operator'],
             $ruleData['action_amount'],
-            $productPrice
+            $productPrice,
         );
 
         return Mage::app()->getStore()->roundPrice($productPrice);
