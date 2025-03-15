@@ -41,7 +41,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
         }
 
         $this->loadLayout();
-        $this->_setActiveMenu('system/email_template');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('Transactional Emails'),
             Mage::helper('adminhtml')->__('Transactional Emails'),
@@ -76,7 +76,7 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
     {
         $this->loadLayout();
         $template = $this->_initTemplate('id');
-        $this->_setActiveMenu('system/email_template');
+        $this->_setActiveMenu(self::ADMIN_RESOURCE);
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('Transactional Emails'),
             Mage::helper('adminhtml')->__('Transactional Emails'),
