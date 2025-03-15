@@ -4,5 +4,5 @@ module.exports = {
       // implement node event listeners here
     },
     baseUrl: 'https://magento-lts.ddev.site'
-  },
+  }
 };

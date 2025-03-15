@@ -35,4 +35,4 @@ jobs:
       - run: ddev start
 
         # run cypress
-      - run: ddev cypress-run
+      - run: ddev cypress-run --config .cypress.config.js
