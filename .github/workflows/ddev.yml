@@ -1,0 +1,34 @@
+name: DDEV
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: DDEV cypress
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup DDEV
+        uses: ddev/github-action-setup-ddev@v1
+        with:
+          autostart: false
+
+      - run: ddev composer install
+
+      # install openmage
+      - run: ddev openmage-install -s -q
+
+      # install cypress-addon
+      - run: ddev add-on get tyler36/ddev-cypress
+
+      # start ddev
+      - run: ddev start
+
+        # run cypress
+      - run: ddev cypress-run
