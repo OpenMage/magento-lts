@@ -197,7 +197,7 @@ class Mage_Core_Model_App
     /**
      * Response object
      *
-     * @var Zend_Controller_Response_Http
+     * @var Mage_Core_Controller_Response_Http
      */
     protected $_response;
 

@@ -169,12 +169,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
 
 		-
-			message: '#^Parameter \#2 \$value of method Mage_Adminhtml_Block_Widget_Grid\:\:isColumnGrouped\(\) expects string\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Grid/Abstract.php
-
-		-
 			message: '#^Property Mage_Adminhtml_Block_Report_Grid_Abstract\:\:\$_columnGroupBy \(string\) in isset\(\) is not nullable\.$#'
 			identifier: isset.property
 			count: 1
@@ -227,12 +221,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
-
-		-
-			message: '#^Method Mage_Adminhtml_Block_Sales_Order_Create_Billing_Address\:\:getAddress\(\) should return Mage_Customer_Model_Address but returns Mage_Sales_Model_Quote_Address\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Billing/Address.php
 
 		-
 			message: '#^Method Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form\:\:getEntity\(\) should return Varien_Object but returns Mage_Eav_Model_Entity_Abstract\.$#'
@@ -319,28 +307,10 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Giftmessage.php
 
 		-
-			message: '#^Parameter \#1 \$entityType of method Mage_Eav_Model_Config\:\:getEntityAttributeCodes\(\) expects Mage_Eav_Model_Entity_Type, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php
-
-		-
 			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<int, array\<string\>\|string\|null\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Info.php
-
-		-
-			message: '#^Parameter \#1 \$item of method Mage_Checkout_Helper_Data\:\:getBasePriceInclTax\(\) expects Mage_Core_Model_Abstract, Varien_Object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Items/Renderer/Default.php
-
-		-
-			message: '#^Parameter \#1 \$item of method Mage_Checkout_Helper_Data\:\:getPriceInclTax\(\) expects Mage_Core_Model_Abstract, Varien_Object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/View/Items/Renderer/Default.php
 
 		-
 			message: '#^Property Mage_Adminhtml_Block_Sales_Order_View_Items_Renderer_Default\:\:\$_giftMessage \(Mage_GiftMessage_Model_Message\) does not accept default value of type array\.$#'
@@ -473,18 +443,6 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Tax/Rate/Grid/Renderer/Data.php
-
-		-
-			message: '#^Parameter \#1 \$classTypeId of method Mage_Tax_Model_Resource_Class_Collection\:\:setClassTypeFilter\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Tax/Rule/Edit/Form.php
-
-		-
-			message: '#^Parameter \#1 \$classTypeId of method Mage_Tax_Model_Resource_Class_Collection\:\:setClassTypeFilter\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Adminhtml/Block/Tax/Rule/Grid.php
 
 		-
 			message: '#^Method Mage_Adminhtml_Block_Widget_Container\:\:_addButtonChildBlock\(\) should return Mage_Adminhtml_Block_Widget_Button but returns Mage_Core_Block_Abstract\|false\.$#'
@@ -683,12 +641,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/System/Config/ValidatevatController.php
-
-		-
-			message: '#^Property Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController\:\:\$_wishlistItem \(Mage_Wishlist_Model_Wishlist\) does not accept Mage_Wishlist_Model_Item\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php
 
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, array\|bool given\.$#'
@@ -1129,12 +1081,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Multicall.php
 
 		-
-			message: '#^Property Mage_Api2_Model_Request\:\:\$_interpreter \(Mage_Api2_Model_Request_Interpreter_Interface\) does not accept Mage_Core_Model_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Request.php
-
-		-
 			message: '#^Call to an undefined method Mage_Api2_Model_Resource\:\:_multiDelete\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -1197,24 +1143,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \.\.\.\$arrays of function array_merge expects array, false given\.$#'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			message: '#^Property Mage_Api2_Model_Resource_Validator_Eav\:\:\$_eavForm \(Mage_Eav_Model_Form\) does not accept Mage_Core_Model_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			message: '#^Property Mage_Api2_Model_Resource_Validator_Eav\:\:\$_eavForm \(Mage_Eav_Model_Form\) in empty\(\) is not falsy\.$#'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
-
-		-
-			message: '#^Property Mage_Api2_Model_Resource_Validator_Eav\:\:\$_entity \(Mage_Core_Model_Abstract\) in empty\(\) is not falsy\.$#'
-			identifier: empty.property
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
@@ -1495,12 +1423,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/Compare/List.php
 
 		-
-			message: '#^Property Mage_Catalog_Block_Product_List_Crosssell\:\:\$_itemCollection \(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Link_Product_Collection\) does not accept Mage_Catalog_Model_Resource_Product_Link_Product_Collection\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/List/Crosssell.php
-
-		-
 			message: '#^Property Mage_Catalog_Block_Product_List_Toolbar\:\:\$_collection \(Mage_Core_Model_Resource_Db_Collection_Abstract\) does not accept Varien_Data_Collection\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -1535,12 +1457,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Product/Widget/Html/Pager.php
-
-		-
-			message: '#^Property Mage_Catalog_Block_Product_Widget_New\:\:\$_pager \(Mage_Catalog_Block_Product_Widget_Html_Pager\) does not accept Mage_Core_Block_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Widget/New.php
 
 		-
 			message: '#^Parameter \#1 \$category \(Mage_Catalog_Model_Category\) of method Mage_Catalog_Block_Seo_Sitemap_Category\:\:getItemUrl\(\) should be compatible with parameter \$item \(Mage_Catalog_Block_Seo_Sitemap_Abstract\) of method Mage_Catalog_Block_Seo_Sitemap_Abstract\:\:getItemUrl\(\)$#'
@@ -1603,12 +1519,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Helper/Data.php
 
 		-
-			message: '#^Property Mage_Catalog_Helper_Output\:\:\$_templateProcessor \(Varien_Filter_Template\) does not accept Mage_Core_Model_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Output.php
-
-		-
 			message: '#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Frontend_Abstract\:\:getUrl\(\)\.$#'
 			identifier: method.notFound
 			count: 3
@@ -1623,12 +1533,6 @@ parameters:
 		-
 			message: '#^Method Mage_Catalog_Helper_Product_Compare\:\:getItemCollection\(\) should return Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection but returns Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\.$#'
 			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
-
-		-
-			message: '#^Property Mage_Catalog_Helper_Product_Compare\:\:\$_itemCollection \(Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Compare_Item_Collection\) does not accept Mage_Catalog_Model_Resource_Product_Compare_Item_Collection\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Catalog/Helper/Product/Compare.php
 
@@ -2521,18 +2425,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Customergroup.php
 
 		-
-			message: '#^Method Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\:\:_getGroupRenderer\(\) should return Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup but returns Mage_Core_Block_Abstract\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Minsaleqty.php
-
-		-
-			message: '#^Property Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\:\:\$_groupRenderer \(Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup\) does not accept Mage_Core_Block_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Minsaleqty.php
-
-		-
 			message: '#^Method Mage_CatalogInventory_Model_Observer\:\:_getQuoteItemQtyForCheck\(\) should return int but returns float\.$#'
 			identifier: return.type
 			count: 1
@@ -2687,24 +2579,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Grouped.php
-
-		-
-			message: '#^Property Mage_Checkout_Block_Cart_Shipping\:\:\$_address \(array\) does not accept Mage_Sales_Model_Quote_Address\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Cart/Shipping.php
-
-		-
-			message: '#^Method Mage_Checkout_Block_Onepage_Billing\:\:_getTaxvat\(\) should return Mage_Customer_Block_Widget_Taxvat but returns Mage_Core_Block_Abstract\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
-
-		-
-			message: '#^Property Mage_Checkout_Block_Onepage_Billing\:\:\$_taxvat \(Mage_Customer_Block_Widget_Taxvat\) does not accept Mage_Core_Block_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Billing.php
 
 		-
 			message: '#^Method Mage_Checkout_Block_Onepage_Progress\:\:getShippingPriceInclTax\(\) should return float but returns string\.$#'
@@ -2917,12 +2791,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Front.php
 
 		-
-			message: '#^Method Mage_Core_Controller_Varien_Front\:\:_getRequestRewriteController\(\) should return Mage_Core_Model_Url_Rewrite_Request but returns bool\|Mage_Core_Model_Abstract\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Front.php
-
-		-
 			message: '#^Parameter \#2 \$useRouterName \(bool\) of method Mage_Core_Controller_Varien_Router_Admin\:\:collectRoutes\(\) should be compatible with parameter \$useRouterName \(string\) of method Mage_Core_Controller_Varien_Router_Standard\:\:collectRoutes\(\)$#'
 			identifier: method.childParameterType
 			count: 1
@@ -2965,12 +2833,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
 
 		-
-			message: '#^Method Mage_Core_Helper_Abstract\:\:_getRequest\(\) should return Mage_Core_Controller_Request_Http but returns Zend_Controller_Request_Http\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Helper/Abstract.php
-
-		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, ''trim'' given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2995,19 +2857,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Abstract.php
 
 		-
-			message: '#^Method Mage_Core_Model_App\:\:getResponse\(\) should return Mage_Core_Controller_Response_Http but returns Zend_Controller_Response_Http\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
 			message: '#^Parameter \#1 \$group of method Mage_Core_Model_App\:\:_getStoreByGroup\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
-			message: '#^Parameter \#3 \$period of method Mage_Core_Model_Cookie\:\:set\(\) expects int\|null, true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
@@ -3019,7 +2869,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/App.php
 
 		-
-			message: '#^Property Mage_Core_Model_App\:\:\$_response \(Zend_Controller_Response_Http\) in empty\(\) is not falsy\.$#'
+			message: '#^Property Mage_Core_Model_App\:\:\$_response \(Mage_Core_Controller_Response_Http\) in empty\(\) is not falsy\.$#'
 			identifier: empty.property
 			count: 1
 			path: app/code/core/Mage/Core/Model/App.php
@@ -3035,12 +2885,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Cache.php
-
-		-
-			message: '#^Parameter \#1 \$options of method Mage_Core_Model_Config\:\:reinit\(\) expects array, Mage_Core_Model_Config_Options given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
 			message: '#^Parameter \#2 \$constructArguments of method Mage_Core_Model_Config\:\:getModelInstance\(\) expects array\|object, string given\.$#'
@@ -3161,12 +3005,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Core/Model/Encryption.php
-
-		-
-			message: '#^Method Mage_Core_Model_Factory\:\:getUrlRewriteInstance\(\) should return Mage_Core_Model_Url_Rewrite but returns bool\|Mage_Core_Model_Abstract\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Factory.php
 
 		-
 			message: '#^Negated boolean expression is always false\.$#'
@@ -3487,12 +3325,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
 		-
-			message: '#^Parameter \#3 \$period of method Mage_Core_Model_Cookie\:\:set\(\) expects int\|null, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
 			identifier: deadCode.unreachable
 			count: 1
@@ -3507,12 +3339,6 @@ parameters:
 		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
-
-		-
-			message: '#^Parameter \#3 \$period of method Mage_Core_Model_Cookie\:\:set\(\) expects int\|null, true given\.$#'
-			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Url/Rewrite/Request.php
 
@@ -3587,12 +3413,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Newsletter.php
-
-		-
-			message: '#^Parameter \#1 \$entityType of method Mage_Eav_Model_Config\:\:getEntityAttributeCodes\(\) expects Mage_Eav_Model_Entity_Type, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Customer/Helper/Address.php
 
 		-
 			message: '#^Property Mage_Customer_Helper_Data\:\:\$_customer \(Mage_Customer_Model_Customer\) in empty\(\) is not falsy\.$#'
@@ -4513,12 +4333,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock.php
 
 		-
-			message: '#^Property Mage_Index_Model_Lock\:\:\$_storage \(Mage_Index_Model_Lock_Storage_Interface\) does not accept Mage_Core_Model_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Index/Model/Lock.php
-
-		-
 			message: '#^Strict comparison using \=\=\= between mixed and null will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
@@ -4593,24 +4407,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method Mage_Install_Model_Installer_Db_Abstract\:\:getVersion\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Db.php
-
-		-
-			message: '#^Method Mage_Install_Model_Installer_Db\:\:_getDbResource\(\) should return Mage_Install_Model_Installer_Db_Abstract but returns resource\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Db.php
-
-		-
-			message: '#^Property Mage_Install_Model_Installer_Db\:\:\$_dbResource \(resource\) does not accept Mage_Core_Model_Abstract\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Install/Model/Installer/Db.php
-
-		-
-			message: '#^Property Mage_Install_Model_Installer_Db\:\:\$_dbResource \(resource\) in isset\(\) is not nullable\.$#'
-			identifier: isset.property
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer/Db.php
 
@@ -4873,12 +4669,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Config.php
 
 		-
-			message: '#^Property Mage_Paypal_Model_Direct\:\:\$_pro \(Mage_Paypal_Model_Pro\) does not accept Mage_Core_Model_Abstract\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Direct.php
-
-		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 1
@@ -4893,12 +4683,6 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$datetime of class DateTime constructor expects string, null given\.$#'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express.php
-
-		-
-			message: '#^Property Mage_Paypal_Model_Express\:\:\$_pro \(Mage_Paypal_Model_Pro\) does not accept Mage_Core_Model_Abstract\|false\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Express.php
 
@@ -5025,12 +4809,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$to of method Mage_Paypal_Model_Pro\:\:importPaymentInfo\(\) expects Mage_Payment_Model_Info, Varien_Object given\.$#'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Pro.php
-
-		-
-			message: '#^Property Mage_Paypal_Model_Pro\:\:\$_config \(Mage_Paypal_Model_Config\) does not accept Mage_Core_Model_Abstract\|false\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Pro.php
 
@@ -6547,12 +6325,6 @@ parameters:
 			path: app/code/core/Mage/Weee/Helper/Data.php
 
 		-
-			message: '#^Parameter \#1 \$item of method Mage_Weee_Helper_Data\:\:getApplied\(\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Core_Model_Abstract given\.$#'
-			identifier: argument.type
-			count: 9
-			path: app/code/core/Mage/Weee/Helper/Data.php
-
-		-
 			message: '#^Parameter \#2 \$shipping of method Mage_Weee_Model_Tax\:\:getProductWeeeAttributes\(\) expects Mage_Sales_Model_Quote_Address\|null, Varien_Object\|false\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -6613,22 +6385,10 @@ parameters:
 			path: app/code/core/Mage/Weee/Model/Tax.php
 
 		-
-			message: '#^Parameter \#1 \$item of method Mage_Weee_Helper_Data\:\:getApplied\(\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Creditmemo_Item given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Creditmemo/Weee.php
-
-		-
 			message: '#^Parameter \#1 \$item of method Mage_Weee_Helper_Data\:\:setApplied\(\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Creditmemo_Item given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Weee/Model/Total/Creditmemo/Weee.php
-
-		-
-			message: '#^Parameter \#1 \$item of method Mage_Weee_Helper_Data\:\:getApplied\(\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Invoice_Item given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Weee/Model/Total/Invoice/Weee.php
 
 		-
 			message: '#^Parameter \#1 \$item of method Mage_Weee_Helper_Data\:\:setApplied\(\) expects Mage_Sales_Model_Quote_Item_Abstract, Mage_Sales_Model_Order_Invoice_Item given\.$#'
@@ -8521,34 +8281,10 @@ parameters:
 			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
-			message: '#^Comparison operation "\<" between int\<80100, 80499\> and 80100 is always false\.$#'
-			identifier: smaller.alwaysFalse
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
 			message: '#^Parameter \#1 \$name of function posix_getgrnam expects string, int\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^Parameter \#2 \$mode of method Varien_Io_File\:\:chmod\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: lib/Varien/Io/File.php
-
-		-
-			message: '#^Parameter \#1 \$prefix of function uniqid expects string, int\<0, max\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Varien/Io/Ftp.php
 
 		-
 			message: '#^Call to an undefined method SimpleXMLElement\:\:setNode\(\)\.$#'
@@ -8609,9 +8345,3 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Simplexml/Element.php
-
-		-
-			message: '#^Comparison operation "\>\=" between int\<80100, 80499\> and 80000 is always true\.$#'
-			identifier: greaterOrEqual.alwaysTrue
-			count: 1
-			path: tests/unit/Mage/Core/Model/LayoutTest.php
