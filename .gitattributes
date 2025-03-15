@@ -1,5 +1,4 @@
 # Make packagist / composer download smaller
-/.ddev export-ignore
 /.github export-ignore
 /dev export-ignore
 /docs export-ignore
