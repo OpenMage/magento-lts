@@ -1652,6 +1652,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "magentox",
+      "name": "magentox",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44047835?v=4",
+      "profile": "https://github.com/magentox",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"

@@ -268,6 +268,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="http://twopointzero.eu"><img src="https://avatars.githubusercontent.com/u/25850269?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Nicky</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://alond.com.au/"><img src="https://avatars.githubusercontent.com/u/1549372?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>pauldpauld</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/PapaDragonov"><img src="https://avatars.githubusercontent.com/u/17141028?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>PapaDragonov</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/magentox"><img src="https://avatars.githubusercontent.com/u/44047835?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>magentox</b></sub></a></td>
     </tr>
   </tbody>
 </table>
