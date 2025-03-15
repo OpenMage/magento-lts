@@ -1,17 +1,16 @@
 <?php
 
 /**
- * OpenMage
+ * Creates a real connection to the database with multi-query capability.
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @return void
+ * @throws Zend_Db_Adapter_Mysqli_Exception
+ */
+/**
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
@@ -19,14 +18,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
     public const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
 
-    /**
-     * Creates a real connection to the database with multi-query capability.
-     *
-     * @return void
-     * @throws Zend_Db_Adapter_Mysqli_Exception
-     *
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
+
     protected function _connect()
     {
         if ($this->_connection) {

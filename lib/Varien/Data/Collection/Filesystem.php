@@ -1,34 +1,24 @@
 <?php
 
 /**
- * OpenMage
+ * Filesystem items collection
+Can scan a folder for files and/or folders recursively.
+Creates Varien_Object instance for each item, with its filename and base name
+Supports regexp masks that are applied to files and folders base names.
+These masks apply before adding items to collection, during filesystem scanning
+Supports dirsFirst feature, that will make directories be before files, regardless of sorting column.
+Supports some fancy filters.
+At least one target directory must be set
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ */
+/**
  * @package    Varien_Data
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Filesystem items collection
- *
- * Can scan a folder for files and/or folders recursively.
- * Creates Varien_Object instance for each item, with its filename and base name
- *
- * Supports regexp masks that are applied to files and folders base names.
- * These masks apply before adding items to collection, during filesystem scanning
- *
- * Supports dirsFirst feature, that will make directories be before files, regardless of sorting column.
- *
- * Supports some fancy filters.
- *
- * At least one target directory must be set
- */
+
 class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
 {
     /**

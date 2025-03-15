@@ -1,18 +1,12 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideGetFilePathData
+ * @group Mage_Downloadable
+ * @group Mage_Downloadable_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
@@ -34,12 +28,7 @@ class FileTest extends TestCase
         $this->subject = Mage::helper('downloadable/file');
     }
 
-    /**
-     * @dataProvider provideGetFilePathData
-     *
-     * @group Mage_Downloadable
-     * @group Mage_Downloadable_Helper
-     */
+
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = $this->subject->getFilePath($path, $file);

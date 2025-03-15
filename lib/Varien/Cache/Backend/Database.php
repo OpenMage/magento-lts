@@ -1,21 +1,7 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
- * @package    Varien_Cache
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
-Tables declaration:
+ * Tables declaration:
 
 CREATE TABLE IF NOT EXISTS `core_cache` (
         `id` VARCHAR(255) NOT NULL,
@@ -35,7 +21,16 @@ CREATE TABLE IF NOT EXISTS `core_cache_tag` (
     CONSTRAINT `FK_CORE_CACHE_TAG` FOREIGN KEY (`cache_id`)
     REFERENCES `core_cache` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-*/
+ *
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ */
+/**
+ * @package    Varien_Cache
+ */
+
+
 
 /**
  * Database cache backend

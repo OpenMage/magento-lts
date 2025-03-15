@@ -1,29 +1,21 @@
 <?php
 
 /**
- * OpenMage
+ * Defined by Zend_Filter_Interface
+Returns the string $value, removing all but alphabetic (including -_;) and digit characters
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @param  string $value
+ * @return string
+ */
+/**
  * @package    Varien_Filter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Filter_FormElementName extends Zend_Filter_Alnum
 {
-    /**
-     * Defined by Zend_Filter_Interface
-     *
-     * Returns the string $value, removing all but alphabetic (including -_;) and digit characters
-     *
-     * @param  string $value
-     * @return string
-     */
     public function filter($value)
     {
         $whiteSpace = $this->allowWhiteSpace ? '\s' : '';

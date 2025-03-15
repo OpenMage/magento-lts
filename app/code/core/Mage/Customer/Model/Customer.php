@@ -1,29 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Customer model
  *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- *
  * @method Mage_Customer_Model_Resource_Customer getResource()
  * @method Mage_Customer_Model_Resource_Customer _getResource()
  * @method Mage_Customer_Model_Resource_Customer_Collection getCollection()
- *
  * @method $this setChangePassword(int $value)
  * @method string getCompany()
  * @method bool getConfirmation()
@@ -31,7 +17,6 @@
  * @method string getCreatedAt()
  * @method int getCustomerId()
  * @method $this setCustomerId(int|null $value)
- *
  * @method int|null getDefaultBilling()
  * @method $this setDefaultBilling(int|null $value)
  * @method $this unsetDefaultBilling()
@@ -41,18 +26,14 @@
  * @method int getDisableAutoGroupChange()
  * @method string getDob()
  * @method $this setDob(string  $value)
- *
  * @method string getEmail()
  * @method $this setEmail(string $value)
- *
  * @method string getFirstname()
  * @method $this setFirstname(string $value)
  * @method bool getForceConfirmed()
  * @method $this setForceConfirmed(bool $value)
- *
  * @method string getGender()
  * @method $this setGroupId(int $value)
- *
  * @method bool getImportMode()
  * @method $this setImportMode(bool $value)
  * @method int getIncrementId()
@@ -66,17 +47,13 @@
  * @method bool getIsSubscribed()
  * @method $this setIsSubscribed(bool $value)
  * @method $this setItems(int $value)
- *
  * @method string getLastname()
  * @method $this setLastname(string $value)
- *
  * @method string getMiddlename()
  * @method string getMode()
  * @method $this setMode(bool $value)
- *
  * @method string getOldEmail()
  * @method $this setOldEmail(string $value)
- *
  * @method string getPasswordConfirm()
  * @method string getPasswordConfirmation()
  * @method $this setPasswordConfirmation(string $value)
@@ -84,13 +61,11 @@
  * @method string getPasswordHash()
  * @method $this setPasswordHash(string $value)
  * @method string getPrefix()
- *
  * @method $this setRpCustomerId(string $value)
  * @method string getRpToken()
  * @method $this setRpToken(string $value)
  * @method string getRpTokenCreatedAt()
  * @method $this setRpTokenCreatedAt(string $value)
- *
  * @method string getSendemailStoreId()
  * @method setSendemailStoreId(string $value)
  * @method bool hasSkipConfirmationIfEmail()
@@ -99,12 +74,10 @@
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
  * @method string getSuffix()
- *
  * @method int getTagId()
  * @method $this setTaxClassId(bool $value)
  * @method string getTaxvat()
  * @method $this setTotal(float $value)
- *
  * @method int getWebsiteId()
  * @method $this setWebsiteId(int $value)
  */

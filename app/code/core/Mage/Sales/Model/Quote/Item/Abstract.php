@@ -1,37 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Quote item abstract model
+Price attributes:
+- price - initial item price, declared during product association
+- original_price - product price before any calculations
+- calculation_price - prices for item totals calculation
+- custom_price - new price that can be declared by user and recalculated during calculation process
+- original_custom_price - original defined value of custom price without any conversion
  *
- * Price attributes:
- *  - price - initial item price, declared during product association
- *  - original_price - product price before any calculations
- *  - calculation_price - prices for item totals calculation
- *  - custom_price - new price that can be declared by user and recalculated during calculation process
- *  - original_custom_price - original defined value of custom price without any conversion
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Quote_Address getAddress()
  * @method $this setAddress(Mage_Sales_Model_Quote_Address $value)
- *
  * @method $this setAppliedRuleIds(string $value)
- *
  * @method bool hasBaseCalculationPrice()
  * @method $this setBaseCalculationPrice(float|null $value)
  * @method $this setBaseCustomPrice(float $value)
@@ -75,11 +59,9 @@
  * @method $this setBaseWeeeTaxDisposition(int $value)
  * @method int getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(int $value)
- *
  * @method $this setCalculationPrice(float|null $value)
  * @method bool hasCustomPrice()
  * @method float getCustomPrice()
- *
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
  * @method float getDiscountCalculationPrice()
@@ -88,35 +70,27 @@
  * @method $this setDiscountPercent(float $value)
  * @method float getDiscountTaxCompensation()
  * @method $this setDiscountTaxCompensation(float $value)
- *
  * @method $this setExtraRowTaxableAmount(float $value)
  * @method $this setExtraTaxableAmount(float $value)
- *
  * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
- *
  * @method bool getHasChildren()
  * @method $this setHasChildren(bool $value)
  * @method $this setHasError(bool $value)
  * @method bool getHasConfigurationUnavailableError()
  * @method $this unsHasConfigurationUnavailableError()
  * @method $this setHiddenTaxAmount(float $value)
- *
  * @method bool getIsPriceInclTax()
  * @method $this setIsPriceInclTax(bool $value)
- *
  * @method string getName()
  * @method bool getNoDiscount()
  * @method float getNominalRowTotal()
  * @method array getNominalTotalDetails()
- *
  * @method $this unsMessage()
- *
  * @method bool hasOriginalCustomPrice()
  * @method float getOriginalCustomPrice()
  * @method float getOriginalDiscountAmount()
  * @method $this setOriginalDiscountAmount(float $value)
- *
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)
  * @method $this setPriceInclTax(float $value)
@@ -125,9 +99,7 @@
  * @method $this setProduct(Mage_Catalog_Model_Product $value)
  * @method array getProductOrderOptions()
  * @method string getProductType()
- *
  * @method $this setQty(float $value)
- *
  * @method float getRowTax()
  * @method $this setRowTax(int $rowTax)
  * @method float getRowTotal()
@@ -139,9 +111,7 @@
  * @method float getRowTotalWithDiscount()
  * @method $this setRowTotalWithDiscount(float $value)
  * @method float getRowWeight()
- *
  * @method int getStoreId()
- *
  * @method float getTaxableAmount()
  * @method $this setTaxableAmount(float $value)
  * @method float getTaxBeforeDiscount()
@@ -152,7 +122,6 @@
  * @method $this setTaxAmount(float $value)
  * @method $this setTaxBeforeDiscount(float $value)
  * @method $this setTaxPercent(float $value)
- *
  * @method float getWeeeDiscount()
  * @method string getWeeeTaxApplied()
  * @method $this setWeeeTaxApplied(string $value)

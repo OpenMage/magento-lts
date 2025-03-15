@@ -1,34 +1,19 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Sales Quote Item Model
  *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Quote_Item _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item getResource()
  * @method Mage_Sales_Model_Resource_Quote_Item_Collection getCollection()
- *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
  * @method string getAppliedRuleIds()
  * @method $this setAppliedRuleIds(string $value)
- *
  * @method $this setBackorders(float $value)
  * @method float getBaseCost()
  * @method $this setBaseCost(float $value)
@@ -56,49 +41,39 @@
  * @method $this setBaseWeeeTaxDisposition(float $value)
  * @method float getBaseWeeeTaxRowDisposition()
  * @method $this setBaseWeeeTaxRowDisposition(float $value)
- *
  * @method string getCreatedAt()
  * @method $this setCreatedAt(string $value)
  * @method float getCost()
  * @method float getCustomPrice()
- *
  * @method string getDescription()
  * @method $this setDescription(string $value)
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
  * @method float getDiscountPercent()
  * @method $this setDiscountPercent(float $value)
- *
  * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
- *
  * @method $this setGiftMessage(string $value)
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
- *
  * @method bool getHasConfigurationUnavailableError()
  * @method $this setHasConfigurationUnavailableError(bool $value)
  * @method $this unsHasConfigurationUnavailableError()
  * @method bool getHasError()
  * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
- *
  * @method int getIsQtyDecimal()
  * @method $this setIsQtyDecimal(int $value)
  * @method $this setIsRecurring(int $value)
  * @method int getItemId()
- *
  * @method int getMultishippingQty()
  * @method $this setMultishippingQty(int $value)
- *
  * @method string getName()
  * @method $this setName(string $value)
  * @method int getNoDiscount()
  * @method $this setNoDiscount(int $value)
- *
  * @method float getOriginalCustomPrice()
  * @method $this setOriginalCustomPrice(float $value)
- *
  * @method int getParentItemId()
  * @method $this setParentItemId(int $value)
  * @method $this setParentProductId(int $value)
@@ -108,7 +83,6 @@
  * @method $this setProductType(string $value)
  * @method float getPriceInclTax()
  * @method $this setPriceInclTax(float $value)
- *
  * @method int getQuoteId()
  * @method $this setQuoteId(int $value)
  * @method $this setQuoteItemId(int $value)
@@ -116,7 +90,6 @@
  * @method $this setQuoteMessageIndex(string $value)
  * @method float getQtyToAdd()
  * @method $this setQtyToAdd(float $value)
- *
  * @method string getRedirectUrl()
  * @method $this setRedirectUrl(string $value)
  * @method float getRowTotal()
@@ -127,26 +100,21 @@
  * @method $this setRowTotalWithDiscount(float $value)
  * @method float getRowWeight()
  * @method $this setRowWeight(float $value)
- *
  * @method string getSku()
  * @method $this setSku(string $value)
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
  * @method $this setTaxAmount(float $value)
  * @method float getTaxBeforeDiscount()
  * @method $this setTaxBeforeDiscount(float $value)
  * @method $this setTaxClassId(int $value)
  * @method float getTaxPercent()
  * @method $this setTaxPercent(float $value)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  * @method bool getUseOldQty()
- *
  * @method int getIsVirtual()
  * @method $this setIsVirtual(int $value)
- *
  * @method string getWeeeTaxApplied()
  * @method $this setWeeeTaxApplied(string $value)
  * @method float getWeeeTaxAppliedAmount()

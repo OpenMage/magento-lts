@@ -1,32 +1,17 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Quote payment information
  *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Quote_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment getResource()
  * @method Mage_Sales_Model_Resource_Quote_Payment_Collection getCollection()
- *
  * @method string getAdditionalData()
  * @method $this setAdditionalData(string $value)
- *
  * @method $this setCcCid(string $value)
  * @method string getCcCidEnc()
  * @method $this setCcCidEnc(string $value)
@@ -57,15 +42,12 @@
  * @method $this setCustomerPaymentId(int $value)
  * @method string getCybersourceToken()
  * @method $this setCybersourceToken(string $value)
- *
  * @method string getIdealIssuerId()
  * @method $this setIdealIssuerId(string $value)
  * @method string getIdealIssuerList()
  * @method $this setIdealIssuerList(string $value)
- *
  * @method string getMethod()
  * @method $this setMethod(string $value)
- *
  * @method string getPaypalCorrelationId()
  * @method $this setPaypalCorrelationId(string $value)
  * @method string getPaypalPayerId()
@@ -74,13 +56,10 @@
  * @method $this setPaypalPayerStatus(string $value)
  * @method string getPoNumber()
  * @method $this setPoNumber(string $value)
- *
  * @method int getQuoteId()
  * @method $this setQuoteId(int $value)
- *
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
  */

@@ -1,29 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Order payment information
  *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Order_Payment _getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment getResource()
  * @method Mage_Sales_Model_Resource_Order_Payment_Collection getCollection()
- *
  * @method string getAccountStatus()
  * @method $this setAccountStatus(string $value)
  * @method string getAdditionalData()
@@ -42,7 +28,6 @@
  * @method $this setAmountRefunded(float $value)
  * @method string getAnetTransMethod()
  * @method $this setAnetTransMethod(string $value)
- *
  * @method float getBaseAmountAuthorized()
  * @method $this setBaseAmountAuthorized(float $value)
  * @method float getBaseAmountCanceled()
@@ -64,7 +49,6 @@
  * @method float getBaseShippingRefunded()
  * @method $this setBaseShippingRefunded(float $value)
  * @method array getBillingAgreementData()
- *
  * @method string getCcApproval()
  * @method $this setCcApproval(string $value)
  * @method string getCcAvsStatus()
@@ -112,7 +96,6 @@
  * @method $this setCustomerPaymentId(int $value)
  * @method string getCybersourceToken()
  * @method $this setCybersourceToken(string $value)
- *
  * @method string getEcheckAccountName()
  * @method $this setEcheckAccountName(string $value)
  * @method string getEcheckAccountType()
@@ -123,13 +106,11 @@
  * @method $this setEcheckRoutingNumber(string $value)
  * @method string getEcheckType()
  * @method $this setEcheckType(string $value)
- *
  * @method string getFlo2cashAccountId()
  * @method $this setFlo2cashAccountId(string $value)
  * @method bool hasForcedState()
  * @method string getForcedState()
  * @method bool getIsFraudDetected()
- *
  * @method string getIdealIssuerId()
  * @method $this setIdealIssuerId(string $value)
  * @method string getIdealIssuerTitle()
@@ -143,18 +124,14 @@
  * @method bool getIsTransactionClosed()
  * @method bool getIsTransactionDenied()
  * @method bool getIsTransactionPending()
- *
  * @method string getLastTransId()
  * @method $this setLastTransId(string $value)
- *
  * @method bool hasMessage()
  * @method string getMessage()
  * @method $this setMessage(string $value)
  * @method string getMethod()
  * @method $this setMethod(string $value)
- *
  * @method bool getNotificationResult()
- *
  * @method int getParentId()
  * @method $this setParentId(int $value)
  * @method string getParentTransactionId()
@@ -168,12 +145,9 @@
  * @method string getPreparedMessage()
  * @method string getProtectionEligibility()
  * @method $this setProtectionEligibility(string $value)
- *
  * @method int getQuotePaymentId()
  * @method $this setQuotePaymentId(int $value)
- *
  * @method $this setRefundTransactionId(string $value)
- *
  * @method float getShippingAmount()
  * @method $this setShippingAmount(float $value)
  * @method float getShippingCaptured()
@@ -186,11 +160,9 @@
  * @method bool getSkipTransactionCreation()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
- *
  * @method string getTransactionId()
  * @method $this setTransactionId(string $value)
  * @method $this unsTransactionId()
- *
  * @method $this setVoidTransactionId(string $value)
  */
 class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info

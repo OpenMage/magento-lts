@@ -1,18 +1,11 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @dataProvider provideFilterDatetimeData
+ * @group Varien_Data
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Varien\Data\Form\Filter;
@@ -31,11 +24,7 @@ class DatetimeTest extends TestCase
         $this->subject = new Varien_Data_Form_Filter_Datetime(null, 'en_US');
     }
 
-    /**
-     * @dataProvider provideFilterDatetimeData
-     *
-     * @group Varien_Data
-     */
+
     public function testInputFilter(?string $expectedResult, ?string $value): void
     {
         try {

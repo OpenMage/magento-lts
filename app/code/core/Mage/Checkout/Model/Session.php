@@ -1,25 +1,14 @@
 <?php
 
 /**
- * OpenMage
+ * This file is part of OpenMage.
+For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Checkout
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
- * @category   Mage
- * @package    Mage_Checkout
- *
  * @method $this setAdditionalMessages(array|null $value)
- *
  * @method string getCartCouponCode()
  * @method $this setCartCouponCode(string $value)
  * @method bool getCartWasUpdated()
@@ -28,20 +17,14 @@
  * @method $this setCheckoutState(string $value)
  * @method string getContinueShoppingUrl()
  * @method $this setContinueShoppingUrl(string $value)
- *
  * @method bool getDisplaySuccess()
  * @method $this setDisplaySuccess(bool $value)
- *
  * @method array getEstimatedShippingAddressData()
  * @method $this setEstimatedShippingAddressData(array $value)
- *
  * @method bool getHasDownloadableProducts()
- *
  * @method string getGotoSection()
  * @method $this setGotoSection(string $value)
- *
  * @method $this setHasDownloadableProducts(bool $value)
- *
  * @method int getLastAddedProductId()
  * @method $this setLastAddedProductId(int $value)
  * @method int getLastBillingAgreementId()
@@ -60,32 +43,25 @@
  * @method int getLastSuccessQuoteId()
  * @method $this setLastSuccessQuoteId(int|null $value)
  * @method $this unsLastSuccessQuoteId()
- *
  * @method array getMethodData()
- *
  * @method bool getNoCartRedirect()
  * @method $this setNoCartRedirect(bool $value)
- *
  * @method array getPaypalTransactionData()
- *
  * @method string getRedirectUrl()
  * @method $this setRedirectUrl(string $value)
  * @method bool getRememberMeChecked()
  * @method $this setRememberMeChecked(bool $value)
  * @method $this unsRememberMeChecked()
- *
  * @method string getSharedWishlist()
  * @method $this setSharedWishlist(string $value)
  * @method int getSingleWishlistId()
  * @method $this setSingleWishlistId(int $value)
  * @method array getSteps()
  * @method $this setSteps(array $value)
- *
  * @method string getUpdateSection()
  * @method $this setUpdateSection(string $value)
  * @method bool getUseNotice()
  * @method $this setUseNotice(bool $value)
- *
  * @method array getWishlistIds()
  * @method $this setWishlistIds(array $value)
  * @method array getWishlistPendingMessages()
