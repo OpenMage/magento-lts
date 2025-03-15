@@ -35,7 +35,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Address Model
      *
-     * @var array
+     * @var Mage_Sales_Model_Quote_Address|array
      */
     protected $_address = [];
 

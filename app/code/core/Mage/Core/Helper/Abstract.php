@@ -32,7 +32,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Request object
      *
-     * @var Zend_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http
      */
     protected $_request;
 

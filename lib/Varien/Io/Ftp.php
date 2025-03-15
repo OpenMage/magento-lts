@@ -329,7 +329,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
+            $this->_tmpFilename = tempnam(md5(uniqid((string) rand(), true)), '');
         }
         return $this->_tmpFilename;
     }

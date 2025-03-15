@@ -239,7 +239,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns applied weee taxes
      *
-     * @param Mage_Sales_Model_Quote_Item_Abstract $item
+     * @param Mage_Sales_Model_Quote_Item_Abstract|Varien_Object $item
      * @return array
      */
     public function getApplied($item)
@@ -608,7 +608,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get the Total tax applied for Weee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getTotalRowTaxAppliedForWeeeTax($item)
@@ -625,7 +625,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get the Total tax applied in base for Weee
      *
-     * @param Mage_Core_Model_Abstract $item
+     * @param Mage_Core_Model_Abstract|Varien_Object $item
      * @return float
      */
     public function getBaseTotalRowTaxAppliedForWeeeTax($item)

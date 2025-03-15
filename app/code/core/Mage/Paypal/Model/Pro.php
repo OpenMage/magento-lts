@@ -80,7 +80,10 @@ class Mage_Paypal_Model_Pro
             if ($storeId !== null) {
                 $params[] = $storeId;
             }
-            $this->_config = Mage::getModel($this->_configType, $params);
+
+            /** @var Mage_Paypal_Model_Config $model */
+            $model = Mage::getModel($this->_configType, $params);
+            $this->_config = $model;
         } else {
             $this->_config->setMethod($code);
             if ($storeId !== null) {
