@@ -16,7 +16,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 try {
     return RectorConfig::configure()
         ->withPhpSets(
-            php71: true,
+            php73: true,
         )
         ->withPaths([
             __DIR__,
@@ -29,7 +29,6 @@ try {
             Php53\Ternary\TernaryToElvisRector::class,
             # todo: check later
             Php71\FuncCall\RemoveExtraParametersRector::class,
-            Php73\FuncCall\RegexDashEscapeRector::class,
             Php80\Class_\AnnotationToAttributeRector::class,
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
             Php80\Class_\StringableForToStringRector::class,
