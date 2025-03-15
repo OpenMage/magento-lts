@@ -11,12 +11,16 @@ use Rector\Php71\Rector as Php71;
 use Rector\Php73\Rector as Php73;
 use Rector\Php74\Rector as Php74;
 use Rector\Php80\Rector as Php80;
+use Rector\Php81\Rector as Php81;
+use Rector\Php82\Rector as Php82;
+use Rector\Php83\Rector as Php83;
+use Rector\Php84\Rector as Php84;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 try {
     return RectorConfig::configure()
         ->withPhpSets(
-            php73: true,
+            php74: true,
         )
         ->withPaths([
             __DIR__,
@@ -25,14 +29,18 @@ try {
         ->withSkip([
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
-            # todo: may conflict with phpstan strict rules
+            # skip: may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
-            # todo: check later
-            Php71\FuncCall\RemoveExtraParametersRector::class,
-            Php80\Class_\AnnotationToAttributeRector::class,
-            Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
-            Php80\Class_\StringableForToStringRector::class,
-            Php80\FunctionLike\MixedTypeRector::class,
+            Php71\FuncCall\RemoveExtraParametersRector::class, # todo: check later
+            # skip: causes syntax error in Varien_Db_Adapter_Pdo_Mysql
+            Php73\FuncCall\RegexDashEscapeRector::class,
+            # skip: causes issues with some tests
+            Php74\Closure\ClosureToArrowFunctionRector::class,
+            # skip: causes issues
+            Php74\Assign\NullCoalescingOperatorRector::class,
+            Php80\Class_\AnnotationToAttributeRector::class, # todo: wait for php80
+            Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
+            Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',
