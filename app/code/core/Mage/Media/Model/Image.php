@@ -251,7 +251,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
 
         if (!$this->hasSpecialImage()) {
             if (str_contains($size, 'x')) {
-                list($width, $height) = explode('x', $size);
+                [$width, $height] = explode('x', $size);
             } else {
                 $width = $size;
                 $height = $this->getDimensions()->getHeight();

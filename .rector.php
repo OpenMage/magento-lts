@@ -7,7 +7,6 @@ use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector as DeadCode;
 use Rector\Exception\Configuration\InvalidConfigurationException;
 use Rector\Php53\Rector as Php53;
-use Rector\Php70\Rector as Php70;
 use Rector\Php71\Rector as Php71;
 use Rector\Php73\Rector as Php73;
 use Rector\Php74\Rector as Php74;
@@ -26,9 +25,10 @@ try {
         ->withSkip([
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
-            # may conflict with phpstan strict rules
+            # todo: may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
-            Php71\List_\ListToArrayDestructRector::class,
+            # todo: check later
+            Php71\FuncCall\RemoveExtraParametersRector::class,
             Php73\FuncCall\RegexDashEscapeRector::class,
             Php80\Class_\AnnotationToAttributeRector::class,
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class,
