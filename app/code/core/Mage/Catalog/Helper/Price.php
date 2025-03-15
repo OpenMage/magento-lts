@@ -23,8 +23,8 @@ class Mage_Catalog_Helper_Price extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_ROUNDING_PRECISION    = 'catalog/price/rounding_precision';
     public const ROUNDING_PRECISION_DEFAULT     = 2;
-    public const ROUNDING_PRECISION_MAX         = 0;
-    public const ROUNDING_PRECISION_MIN         = 4;
+    public const ROUNDING_PRECISION_MAX         = 4;
+    public const ROUNDING_PRECISION_MIN         = 0;
 
     protected $_moduleName = 'Mage_Catalog';
 
