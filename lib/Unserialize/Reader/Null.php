@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Unserialize_Reader_Null
  *
