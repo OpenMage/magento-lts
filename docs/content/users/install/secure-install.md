@@ -5,14 +5,14 @@ tags:
 
 # Secure installation
 
-## Backend URL
+## Back-end URL
 
-Don't use common paths like `admin` for OpenMage backend URL. Don't use the path in `robots.txt` and keep it secret.
+Don't use common paths like `admin` for OpenMage back-end URL. Don't use the path in `robots.txt` and keep it secret.
 
-You can change it from backend (1) or by editing `app/etc/local.xml`:
+You can change it from back-end (1) or by editing `app/etc/local.xml`:
 { .annotate }
 
-1.  Admin / System / Configuration / Admin / Admin Base Url
+1.  Admin / System / Configuration / Admin / Admin Base URL
 
 ```xml
 <config>
@@ -30,7 +30,7 @@ You can change it from backend (1) or by editing `app/etc/local.xml`:
 
 ## URL rewrites
 
-Don't use common file names like `api.php` for OpenMage API URLs to prevent attacks. Don't use the new file name in `robots.txt` and keep it secret with your partners. After renaming the file you must update the webserver configuration as follows:
+Don't use common file names like `api.php` for OpenMage API URLs to prevent attacks. Don't use the new file name in `robots.txt` and keep it secret with your partners. After renaming the file you must update the web-server configuration as follows:
 
 === "Apache"
 
