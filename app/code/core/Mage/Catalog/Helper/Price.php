@@ -36,8 +36,8 @@ class Mage_Catalog_Helper_Price extends Mage_Core_Helper_Abstract
         /** @var int<0,4> $precision */
         $precision = Mage::getStoreConfigAsInt(self::XML_PATH_ROUNDING_PRECISION);
         if ($precision < self::ROUNDING_PRECISION_MIN || $precision > self::ROUNDING_PRECISION_MAX) {
-            return $precision;
+            return self::ROUNDING_PRECISION_DEFAULT;
         }
-        return self::ROUNDING_PRECISION_DEFAULT;
+        return $precision;
     }
 }
