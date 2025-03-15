@@ -281,9 +281,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
 
             $category->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception|Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
@@ -326,9 +324,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
             }
 
             $category->save();
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
-        } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
+        } catch (Mage_Core_Exception|Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
 
