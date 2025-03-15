@@ -217,9 +217,9 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         // determine width and height from string
         list($width, $height) = explode('x', strtolower($size), 2);
         foreach (['width', 'height'] as $wh) {
-            $$wh  = (int) $$wh;
-            if (empty($$wh)) {
-                $$wh = null;
+            ${$wh}  = (int) ${$wh};
+            if (empty(${$wh})) {
+                ${$wh} = null;
             }
         }
 
@@ -314,7 +314,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
                 $result[] = sprintf('%02s', dechex($value));
             }
         }
-        return implode($result);
+        return implode('', $result);
     }
 
     /**
