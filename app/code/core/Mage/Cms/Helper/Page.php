@@ -72,7 +72,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         if ($page->getCustomTheme()) {
             if ($inRange) {
-                list($package, $theme) = explode('/', $page->getCustomTheme());
+                [$package, $theme] = explode('/', $page->getCustomTheme());
                 Mage::getSingleton('core/design_package')
                     ->setPackageName($package)
                     ->setTheme($theme);

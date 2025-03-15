@@ -203,7 +203,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $currentCookieDomain = $cookie->getDomain();
                 foreach (array_keys($sessionHosts) as $host) {
                     // Delete cookies with the same name for parent domains
-                    if (strpos($currentCookieDomain, $host) > 0) {
+                    if (strpos($currentCookieDomain, (string) $host) > 0) {
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $cookie->delete($this->getSessionName(), null, $host);
                     }

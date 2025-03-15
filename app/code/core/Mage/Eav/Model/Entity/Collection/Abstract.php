@@ -697,7 +697,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $tableAlias = $this->_getAttributeTableAlias($alias);
 
         // validate bind
-        list($pk, $fk) = explode('=', $bind);
+        [$pk, $fk] = explode('=', $bind);
         $pk = $this->getSelect()->getAdapter()->quoteColumnAs(trim($pk), null);
         $bindCond = $tableAlias . '.' . trim($pk) . '=' . $this->_getAttributeFieldName(trim($fk));
 
@@ -783,7 +783,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate bind
-        list($pk, $fk) = explode('=', $bind);
+        [$pk, $fk] = explode('=', $bind);
         $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
 
         // process join type

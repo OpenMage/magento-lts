@@ -237,10 +237,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 $this->saveReloadAclFlag($user, 1);
             }
             $adapter->commit();
-        } catch (Mage_Core_Exception $e) {
-            $adapter->rollBack();
-            throw $e;
-        } catch (Exception $e) {
+        } catch (Mage_Core_Exception|Exception $e) {
             $adapter->rollBack();
             throw $e;
         }

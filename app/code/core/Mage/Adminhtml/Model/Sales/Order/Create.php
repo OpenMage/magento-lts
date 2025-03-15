@@ -907,7 +907,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.'),
                         );
                     }
-                    list($label, $value) = explode(':', $additionalOption, 2);
+                    [$label, $value] = explode(':', $additionalOption, 2);
                 } catch (Exception $e) {
                     Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
                 }

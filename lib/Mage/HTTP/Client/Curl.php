@@ -263,7 +263,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -289,7 +289,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -300,7 +300,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
                 continue;
             }
             for ($i = 0; $i < $c; $i++) {
-                list($subkey, $val) = explode('=', $values[$i]);
+                [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
@@ -408,7 +408,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $name = $value = '';
             $out  = explode(': ', trim($data), 2);
             if (count($out) === 2) {
-                list($name, $value) = $out;
+                [$name, $value] = $out;
             }
 
             if ($name !== '') {

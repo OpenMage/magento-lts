@@ -42,7 +42,7 @@ class Mage_Adminhtml_Block_Report_Wishlist extends Mage_Adminhtml_Block_Template
 
         $collection = Mage::getResourceModel('reports/wishlist_collection');
 
-        list($customerWithWishlist, $wishlistsCount) = $collection->getWishlistCustomerCount();
+        [$customerWithWishlist, $wishlistsCount] = $collection->getWishlistCustomerCount();
         $this->setCustomerWithWishlist($customerWithWishlist);
         $this->setWishlistsCount($wishlistsCount);
         $this->setItemsBought(0);

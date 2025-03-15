@@ -48,7 +48,7 @@ class Mage_Core_Model_Design_Config extends Varien_Simplexml_Config
             foreach ($files as $file) {
                 $config = new Varien_Simplexml_Config();
                 $config->loadFile($file);
-                list($area, $package, $theme) = $this->_getThemePathSegments($file);
+                [$area, $package, $theme] = $this->_getThemePathSegments($file);
                 $this->setNode($area . '/' . $package . '/' . $theme, null);
                 $this->getNode($area . '/' . $package . '/' . $theme)->extend($config->getNode());
             }

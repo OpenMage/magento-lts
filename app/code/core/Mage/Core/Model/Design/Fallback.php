@@ -134,7 +134,7 @@ class Mage_Core_Model_Design_Fallback
             if (count($parts) !== 2) {
                 throw new Mage_Core_Exception('Parent node should be defined as "package/theme"');
             }
-            list($package, $theme) = $parts;
+            [$package, $theme] = $parts;
             $scheme[] = ['_package' => $package, '_theme' => $theme];
         }
 

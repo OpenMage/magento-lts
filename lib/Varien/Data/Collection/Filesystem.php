@@ -446,7 +446,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      */
     protected function _invokeFilter($callback, $callbackParams)
     {
-        list($field, $value, $row) = $callbackParams;
+        [$field, $value, $row] = $callbackParams;
         if (!array_key_exists($field, $row)) {
             return false;
         }

@@ -244,7 +244,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     {
         if (is_array($entityName)) {
             $cacheName = implode('@', $entityName);
-            list($entityName, $entitySuffix) = $entityName;
+            [$entityName, $entitySuffix] = $entityName;
         } else {
             $cacheName    = $entityName;
             $entitySuffix = null;
@@ -547,7 +547,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     public function unserializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            list($serializeDefault, $unserializeDefault) = $parameters;
+            [$serializeDefault, $unserializeDefault] = $parameters;
             $this->_unserializeField($object, $field, $unserializeDefault);
         }
     }
@@ -742,7 +742,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     protected function _serializeFields(Mage_Core_Model_Abstract $object)
     {
         foreach ($this->_serializableFields as $field => $parameters) {
-            list($serializeDefault, $unserializeDefault) = $parameters;
+            [$serializeDefault, $unserializeDefault] = $parameters;
             $this->_serializeField($object, $field, $serializeDefault, isset($parameters[2]));
         }
     }
