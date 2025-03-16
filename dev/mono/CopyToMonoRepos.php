@@ -28,7 +28,7 @@ class CopyToMonoRepos
     public static function process(): void
     {
         foreach (self::getModules() as $module) {
-            echo $module . PHP_EOL;
+            echo sprintf('Copy files for %s.', $module) . PHP_EOL;
             $modman = new CopyToMonoRepos(
                 sprintf('.localdev/%s', $module),
                 sprintf('.localdev/%s/src', $module),

@@ -93,6 +93,8 @@ while :; do
             REVERT_FLAG='true' ;;
          -t|--tag)
             TAG_FLAG='true' ;;
+         -v|--verbose)
+            VERBOSE_FLAG='true' ;;
          --)              # End of all options.
              shift
              break
@@ -121,7 +123,7 @@ fi
 cd ".localdev/" || exit
 
 if [[ "${COMMIT_FLAG}" || "${TAG_FLAG}" ]]; then
-    CURRENT_COMMIT="Updated commit to $(git log --pretty="%h" -n1 HEAD)"
+    CURRENT_COMMIT="Updated to commit $(git log --pretty="%h" -n1 HEAD)"
     read -r -p "Commit message[${CURRENT_COMMIT}]: " MESSAGE
     MESSAGE=${MESSAGE:-${CURRENT_COMMIT}}
 fi
@@ -138,7 +140,7 @@ for class in ${!modules[@]}; do
 
       echo "Add commit message to ${modules[${class}]}."
       git add .
-      git commit -m "${MESSAGE}"
+      git commit -a -m "${MESSAGE}"
 
       if [[ "${TAG_FLAG}" ]]; then
         echo "Add tag to ${modules[${class}]}."
@@ -153,7 +155,7 @@ for class in ${!modules[@]}; do
         cd "${modules[${class}]}" || exit
 
         echo "Push ${modules[${class}]}."
-        git push
+        git push -f
 
         cd ..
     fi
@@ -169,6 +171,10 @@ for class in ${!modules[@]}; do
         git commit -c ORIG_HEAD
 
         cd ..
+    fi
+
+    if [[ "${VERBOSE_FLAG}" ]]; then
+        composer require --dev "openmage-strict/${modules[${class}]}" --no-scripts --no-plugins
     fi
 
     if [[ "${DOWNLOAD_FLAG}" ]]; then
