@@ -3,7 +3,6 @@
 namespace OpenMage\Dev\Mono;
 
 use Exception;
-use Mage_Core_Model_Config;
 use Symfony\Component\Filesystem\Filesystem;
 
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
@@ -29,6 +28,7 @@ class CopyToMonoRepos
     public static function process(): void
     {
         foreach (self::getModules() as $module) {
+            echo $module . PHP_EOL;
             $modman = new CopyToMonoRepos(
                 sprintf('.localdev/%s', $module),
                 sprintf('.localdev/%s/src', $module),
@@ -109,12 +109,67 @@ class CopyToMonoRepos
     public static function getModules(): array
     {
         $modules = [];
-        foreach (array_keys(Mage_Core_Model_Config::MAGE_MODULES) as $module) {
-            $string = str_replace('Mage_', 'module', $module);
-            $data   = preg_split('/(?=[A-Z])/', $string);
-            $string = implode('-', $data);
-            $modules[$module] = strtolower($string);
-        }
+        $modules['Mage_Admin'] = 'module-admin';
+        $modules['Mage_AdminNotification'] = 'module-admin-notification';
+        $modules['Mage_Adminhtml'] = 'module-adminhtml';
+        $modules['Mage_Api'] = 'module-api';
+        $modules['Mage_Api2'] = 'module-api2';
+        $modules['Mage_Authorizenet'] = 'module-authorizenet';
+        $modules['Mage_Bundle'] = 'module-bundle';
+        $modules['Mage_Captcha'] = 'module-captcha';
+        $modules['Mage_Catalog'] = 'module-catalog';
+        $modules['Mage_CatalogIndex'] = 'module-catalog-index';
+        $modules['Mage_CatalogInventory'] = 'module-catalog-inventory';
+        $modules['Mage_CatalogRule'] = 'module-catalog-rule';
+        $modules['Mage_CatalogSearch'] = 'module-catalog-search';
+        $modules['Mage_Centinel'] = 'module-centinel';
+        $modules['Mage_Checkout'] = 'module-checkout';
+        $modules['Mage_Cms'] = 'module-cms';
+        $modules['Mage_ConfigurableWwatches'] = 'module-configurable-swatches';
+        $modules['Mage_Contacts'] = 'module-contacts';
+        $modules['Mage_Core'] = 'module-core';
+        $modules['Mage_Cron'] = 'module-cron';
+        $modules['Mage_CurrencySymbol'] = 'module-currency-symbol';
+        $modules['Mage_Customer'] = 'module-customer';
+        $modules['Mage_Dataflow'] = 'module-dataflow';
+        $modules['Mage_Directory'] = 'module-directory';
+        $modules['Mage_Downloadable'] = 'module-downloadable';
+        $modules['Mage_Eav'] = 'module-eav';
+        $modules['Mage_GiftMessage'] = 'module-gift-message';
+        $modules['Mage_GoogleAnalytics'] = 'module-google-analytics';
+        $modules['Mage_GoogleCheckout'] = 'module-google-checkout';
+        $modules['Mage_ImportExport'] = 'module-import-export';
+        $modules['Mage_Index'] = 'module-index';
+        $modules['Mage_Install'] = 'module-install';
+        $modules['Mage_Log'] = 'module-log';
+        $modules['Mage_Media'] = 'module-media';
+        $modules['Mage_Newsletter'] = 'module-newsletter';
+        $modules['Mage_Oauth'] = 'module-oauth';
+        $modules['Mage_Page'] = 'module-page';
+        $modules['Mage_Paygate'] = 'module-paygate';
+        $modules['Mage_Payment'] = 'module-payment';
+        $modules['Mage_Paypal'] = 'module-paypal';
+        $modules['Mage_PaypalUk'] = 'module-paypal-uk';
+        $modules['Mage_Persistent'] = 'module-persistent';
+        $modules['Mage_ProductAlert'] = 'module-product-alert';
+        $modules['Mage_Rating'] = 'module-rating';
+        $modules['Mage_Report'] = 'module-reports';
+        $modules['Mage_Review'] = 'module-review';
+        $modules['Mage_Rss'] = 'module-rss';
+        $modules['Mage_Rule'] = 'module-rule';
+        $modules['Mage_Sales'] = 'module-sales';
+        $modules['Mage_SalesRule'] = 'module-sales-rule';
+        $modules['Mage_Sendfriend'] = 'module-sendfriend';
+        $modules['Mage_Shipping'] = 'module-shipping';
+        $modules['Mage_Sitemap'] = 'module-sitemap';
+        $modules['Mage_Tag'] = 'module-tag';
+        $modules['Mage_Tax'] = 'module-tax';
+        $modules['Mage_Uploader'] = 'module-uploader';
+        $modules['Mage_Usa'] = 'module-usa';
+        $modules['Mage_Wee'] = 'module-weee';
+        $modules['Mage_Widget'] = 'module-widget';
+        $modules['Mage_Wishlist'] = 'module-wishlist';
+
         return $modules;
     }
 }

@@ -121,8 +121,9 @@ fi
 cd ".localdev/" || exit
 
 if [[ "${COMMIT_FLAG}" || "${TAG_FLAG}" ]]; then
-    read -r -p "Commit message[update]: " MESSAGE
-    MESSAGE=${MESSAGE:-update}
+    CURRENT_COMMIT="Updated commit to $(git log --pretty="%h" -n1 HEAD)"
+    read -r -p "Commit message[${CURRENT_COMMIT}]: " MESSAGE
+    MESSAGE=${MESSAGE:-${CURRENT_COMMIT}}
 fi
 
 if [[ "${TAG_FLAG}" ]]; then
