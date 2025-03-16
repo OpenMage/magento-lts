@@ -179,12 +179,5 @@
         "rector:test": "Run rector",
         "rector:fix": "Run rector and fix issues",
         "test": "Run php-cs-fixer, phpstan & phpunit"
-    },
-    "repositories": {
-        "local": {
-            "type": "path",
-            "url": "./.localdev/*",
-            "canonical": false
-        }
     }
 }
