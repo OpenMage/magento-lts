@@ -131,9 +131,10 @@ if [[ "${TAG_FLAG}" ]]; then
 fi
 
 for class in ${!modules[@]}; do
-    cd "${modules[${class}]}" || exit
-
     if [[ "${COMMIT_FLAG}" ]]; then
+      echo "Change directory ${modules[${class}]}."
+      cd "${modules[${class}]}" || exit
+
       echo "Add commit message to ${modules[${class}]}."
       git add .
       git commit -m "${MESSAGE}"
@@ -142,22 +143,32 @@ for class in ${!modules[@]}; do
         echo "Add tag to ${modules[${class}]}."
         git tag "${TAG}" HEAD -m "${TAG}"
       fi
+
+      cd ..
     fi
 
     if [[ "${PUSH_FLAG}" ]]; then
+        echo "Change directory ${modules[${class}]}."
+        cd "${modules[${class}]}" || exit
+
         echo "Push ${modules[${class}]}."
         git push
+
+        cd ..
     fi
 
     if [[ "${REVERT_FLAG}" ]]; then
+        echo "Change directory ${modules[${class}]}."
+        cd "${modules[${class}]}" || exit
+
         echo "Revert last commit in ${modules[${class}]}."
         git commit -m "Revert last commit"
         git reset HEAD~
         git add .
         git commit -c ORIG_HEAD
-    fi
 
-    cd ..
+        cd ..
+    fi
 
     if [[ "${DOWNLOAD_FLAG}" ]]; then
       # create directory
@@ -168,10 +179,14 @@ for class in ${!modules[@]}; do
 
       # clone repo
       if ! [ -d "${modules[${class}]}/.git" ]; then
-          echo "Clone ${modules[${class}]} repo."
+          echo "Change directory ${modules[${class}]}."
           cd "${modules[${class}]}" || exit
+
+          echo "Clone ${modules[${class}]} repo."
           git clone "https://github.com/openmage-strict/${modules[${class}]}.git" .
           cd ..
+      else
+          echo "Module ${modules[${class}]} exits."
       fi
     fi
 
@@ -195,9 +210,12 @@ for class in ${!modules[@]}; do
         # require PHPMD
         if ! [ -f "${modules[${class}]}/.phpmd.dist.xml" ]; then
             echo "Add PHPMD to ${modules[${class}]} repo."
+
+            echo "Change directory ${modules[${class}]}."
             cd "${modules[${class}]}" || exit
             composer require --dev phpmd/phpmd
             cp -f dev-module-template/.phpmd.dist.xml "${modules[${class}]}/.phpmd.dist.xml"
+
             cd ..
         fi
 
