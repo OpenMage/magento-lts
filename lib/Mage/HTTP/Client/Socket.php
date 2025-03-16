@@ -495,7 +495,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         foreach ($headers as $k => $v) {
             $str [] = "$k: $v\r\n";
         }
-        return implode($str);
+        return implode('', $str);
     }
 
     /**

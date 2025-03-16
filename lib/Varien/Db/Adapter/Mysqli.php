@@ -134,7 +134,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (empty($field)) {
             return $row;
         } else {
-            return isset($row[$field]) ? $row[$field] : false;
+            return $row[$field] ?? false;
         }
     }
 

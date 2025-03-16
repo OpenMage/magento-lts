@@ -868,10 +868,7 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
     {
-        if ($option1->getAmount() == $option2->getAmount()) {
-            return 0;
-        }
-        return ($option1->getAmount() < $option2->getAmount()) ? -1 : 1;
+        return $option1->getAmount() <=> $option2->getAmount();
     }
 
     /**
