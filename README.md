@@ -260,6 +260,15 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/darinda"><img src="https://avatars.githubusercontent.com/u/8490373?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rene Hrdina</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Hanmac"><img src="https://avatars.githubusercontent.com/u/225553?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Hans Mackowiak</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/tim-breitenstein-it"><img src="https://avatars.githubusercontent.com/u/65597245?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tim Steinbrecher</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tomekjordan"><img src="https://avatars.githubusercontent.com/u/8250276?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tomek</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dford-avb"><img src="https://avatars.githubusercontent.com/u/52465239?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Ford</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.jandolejs.cz"><img src="https://avatars.githubusercontent.com/u/16374521?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Jan Dolejš</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://twopointzero.eu"><img src="https://avatars.githubusercontent.com/u/25850269?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Nicky</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://alond.com.au/"><img src="https://avatars.githubusercontent.com/u/1549372?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>pauldpauld</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/PapaDragonov"><img src="https://avatars.githubusercontent.com/u/17141028?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>PapaDragonov</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/magentox"><img src="https://avatars.githubusercontent.com/u/44047835?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>magentox</b></sub></a></td>
     </tr>
   </tbody>
 </table>

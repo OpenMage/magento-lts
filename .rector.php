@@ -17,7 +17,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 try {
     return RectorConfig::configure()
         ->withPhpSets(
-            php55: true,
+            php70: true,
         )
         ->withPaths([
             __DIR__,
@@ -28,7 +28,6 @@ try {
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
             # may conflict with phpstan strict rules
             Php53\Ternary\TernaryToElvisRector::class,
-            Php70\FuncCall\RandomFunctionRector::class,
             Php71\FuncCall\RemoveExtraParametersRector::class,
             Php73\FuncCall\RegexDashEscapeRector::class,
             Php80\Class_\AnnotationToAttributeRector::class,
@@ -52,7 +51,7 @@ try {
             CodeQuality\NotEqual\CommonNotEqualRector::class,
             CodeQuality\LogicalAnd\LogicalToBooleanRector::class,
             CodeQuality\Ternary\SimplifyTautologyTernaryRector::class,
-            #CodingStyle\FuncCall\ConsistentImplodeRector::class,
+            CodingStyle\FuncCall\ConsistentImplodeRector::class,
             DeadCode\ClassMethod\RemoveUselessParamTagRector::class,
             DeadCode\ClassMethod\RemoveUselessReturnTagRector::class,
             DeadCode\Property\RemoveUselessVarTagRector::class,

@@ -125,7 +125,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         $this->_quote->getBillingAddress()->importCustomerAddress($customer->getDefaultBillingAddress());
         $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
 
-        $productCount = rand(3, 10);
+        $productCount = random_int(3, 10);
         for ($i = 0; $i < $productCount; $i++) {
             $product = $this->_getRandomProduct();
             if ($product) {
@@ -145,7 +145,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
 
     protected function _getRandomDate()
     {
-        $timestamp = mktime(rand(0, 23), rand(0, 59), 0, rand(1, 11), rand(1, 28), rand(2006, 2007));
+        $timestamp = mktime(random_int(0, 23), random_int(0, 59), 0, random_int(1, 11), random_int(1, 28), random_int(2006, 2007));
         return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
     }
 
