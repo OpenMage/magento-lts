@@ -1,16 +1,19 @@
 <?php
 
 /**
+ * Refresh viewed report statistics for last day
+ *
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @param Mage_Cron_Model_Schedule $schedule
+ * @return $this
+ */
+/**
  * Reports Observer
  */
 class Mage_Reports_Model_Observer
 {
-    /**
-     * Refresh viewed report statistics for last day
-     *
-     * @param Mage_Cron_Model_Schedule $schedule
-     * @return $this
-     */
     public function aggregateReportsReportProductViewedData($schedule)
     {
         Mage::app()->getLocale()->emulate(0);

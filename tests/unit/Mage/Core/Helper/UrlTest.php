@@ -1,18 +1,12 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link /COPYING.txt
+ * @covers Mage_Core_Helper_Url::getCurrentBase64Url()
+ * @group Mage_Core
+ * @group Mage_Core_Helper
  */
-
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
@@ -46,11 +40,7 @@ class UrlTest extends TestCase
         $this->subject = Mage::helper('core/url');
     }
 
-    /**
-     * @covers Mage_Core_Helper_Url::getCurrentBase64Url()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
-     */
+
     public function testGetCurrentBase64Url(): void
     {
         $this->assertIsString($this->subject->getCurrentBase64Url());

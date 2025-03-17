@@ -1,38 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Validator for check not protected/available path
+Mask symbols from path:
+"?" - something directory with any name
+"" - something directory structure, which can not exist
+Note: For set directory structure which must be exist, need to set mask "/?/{
  *
- * Mask symbols from path:
- * "?" - something directory with any name
- * "*" - something directory structure, which can not exist
- * Note: For set directory structure which must be exist, need to set mask "/?/{@*}"
- * Mask symbols from filename:
- * "*" - something symbols in file name
- * Example:
- * <code>
- * //set available path
- * $validator->setAvailablePath(array('/path/to/?/*fileMask.xml'));
- * $validator->isValid('/path/to/MyDir/Some-fileMask.xml'); //return true
- * $validator->setAvailablePath(array('/path/to/{@*}*.xml'));
- * $validator->isValid('/path/to/my.xml'); //return true, because directory structure can't exist
- * </code>
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
  */
 class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract

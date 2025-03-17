@@ -1,29 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * Sales Quote address model
  *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- *
  * @method Mage_Sales_Model_Resource_Quote_Address _getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address getResource()
  * @method Mage_Sales_Model_Resource_Quote_Address_Collection getCollection()()
- *
  * @method $this unsAddressId()
  * @method string getAddressType()
  * @method $this setAddressType(string $value)
@@ -32,7 +18,6 @@
  * @method $this setAppliedRuleIds(array $value)
  * @method bool getAppliedTaxesReset()
  * @method $this setAppliedTaxesReset(bool $value)
- *
  * @method float getBaseCustbalanceAmount()
  * @method $this setBaseCustbalanceAmount(float $float)
  * @method float getBaseDiscountAmount()
@@ -71,7 +56,6 @@
  * @method $this setBaseWeeeDiscount(float $value)
  * @method float getBaseVirtualAmount()
  * @method $this setBaseVirtualAmount(float $value)
- *
  * @method array getCartFixedRules()
  * @method $this setCartFixedRules(array $value)
  * @method string getCity()
@@ -96,7 +80,6 @@
  * @method string getCustomerNotes()
  * @method $this setCustomerNotes(string $value)
  * @method string getCustomerPassword()
- *
  * @method $this setDeleteImmediately(bool $value)
  * @method float getDiscountAmount()
  * @method $this setDiscountAmount(float $value)
@@ -106,12 +89,10 @@
  * @method $this setDiscountDescriptionArray(array $value)
  * @method float getDiscountTaxCompensation()
  * @method string getDob()
- *
  * @method string getEmail()
  * @method $this setEmail(string $value)
  * @method float getExtraTaxAmount()
  * @method $this setExtraTaxAmount(float $value)
- *
  * @method string getFax()
  * @method $this setFax(string $value)
  * @method string getFirstname()
@@ -120,30 +101,24 @@
  * @method $this setFreeMethodWeight(int $value)
  * @method int getFreeShipping()
  * @method $this setFreeShipping(int $value)
- *
  * @method string getGender()
  * @method int getGiftMessageId()
  * @method $this setGiftMessageId(int $value)
  * @method float getGrandTotal()
  * @method $this setGrandTotal(float $value)
- *
  * @method bool getHasChildren()
  * @method bool hasPaymentMethod()
  * @method bool hasCouponCode()
  * @method float getHiddenTaxAmount()
  * @method $this setHiddenTaxAmount(float $value)
- *
  * @method bool getIsShippingInclTax()
  * @method $this setIsShippingInclTax(bool $value)
  * @method $this setItemQty(float $value)
- *
  * @method string getLastname()
  * @method $this setLastname(string $string)
  * @method string getLimitCarrier()
- *
  * @method string getMiddlename()
  * @method $this setMiddlename(string $string)
- *
  * @method int getParentItemId()
  * @method $this setPaymentMethod(string|null $value)
  * @method string getPostcode()
@@ -152,18 +127,15 @@
  * @method $this setPrefix(string $string)
  * @method $this setPrevQuoteCustomerGroupId(int $groupId)
  * @method Mage_Catalog_Model_Product getProduct()
- *
  * @method float getQty()
  * @method int getQuoteId()
  * @method $this setQuoteId(int $value)
- *
  * @method $this setRegion(string $value)
  * @method $this setRegionId(int $value)
  * @method array getRoundingDeltas()
  * @method $this setRoundingDeltas(array $value)
  * @method float getRowTotal()
  * @method $this setRowWeight(float $value)
- *
  * @method int getSameAsBilling()
  * @method $this setSameAsBilling(int $value)
  * @method int getSaveInAddressBook()
@@ -196,7 +168,6 @@
  * @method $this setSubtotalWithDiscount(float $value)
  * @method string getSuffix()
  * @method $this setSuffix(string $value)
- *
  * @method float getTaxAmount()
  * @method $this setTaxAmount(float $value)
  * @method string getTaxvat()
@@ -204,17 +175,13 @@
  * @method $this setTelephone(string $value)
  * @method float getTotalQty()
  * @method $this setTotalQty(float $int)
- *
  * @method string getUpdatedAt()
  * @method $this setUpdatedAt(string $value)
- *
  * @method $this setVirtualAmount(float $value)
  * @method float getWeeeDiscount()
  * @method $this setWeeeDiscount(float $value)
  * @method float getWeight()
  * @method $this setWeight(float $value)
- *
- *
  * @method Mage_Sales_Model_Quote_Address getParentItem()
  * @method Mage_Sales_Model_Quote_Address[] getChildren()
  */

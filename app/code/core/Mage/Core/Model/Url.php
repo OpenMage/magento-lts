@@ -1,70 +1,36 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
-
-/**
  * URL
+Properties:
+- request
+- relative_url: true, false
+- type: 'link', 'skin', 'js', 'media'
+- store: instanceof Mage_Core_Model_Store
+- secure: true, false
+- scheme: 'http', 'https'
+- user: 'user'
+- password: 'password'
+- host: 'localhost'
+- port: 80, 443
+- base_path: '/dev/magento/'
+- base_script: 'index.php'
+- storeview_path: 'storeview/'
+- route_path: 'module/controller/action/param1/value1/param2/value2'
+- route_name: 'module'
+- controller_name: 'controller'
+- action_name: 'action'
+- route_params: array('param1'=>'value1', 'param2'=>'value2')
+- query: (?)'param1=value1&param2=value2'
+- query_array: array('param1'=>'value1', 'param2'=>'value2')
+- fragment: (#)'fragment-anchor'
+URL structure:
+https://user:password
  *
- * Properties:
- *
- * - request
- *
- * - relative_url: true, false
- * - type: 'link', 'skin', 'js', 'media'
- * - store: instanceof Mage_Core_Model_Store
- * - secure: true, false
- *
- * - scheme: 'http', 'https'
- * - user: 'user'
- * - password: 'password'
- * - host: 'localhost'
- * - port: 80, 443
- * - base_path: '/dev/magento/'
- * - base_script: 'index.php'
- *
- * - storeview_path: 'storeview/'
- * - route_path: 'module/controller/action/param1/value1/param2/value2'
- * - route_name: 'module'
- * - controller_name: 'controller'
- * - action_name: 'action'
- * - route_params: array('param1'=>'value1', 'param2'=>'value2')
- *
- * - query: (?)'param1=value1&param2=value2'
- * - query_array: array('param1'=>'value1', 'param2'=>'value2')
- * - fragment: (#)'fragment-anchor'
- *
- * URL structure:
- *
- * https://user:password@host:443/base_path/[base_script][storeview_path]route_name/controller_name/action_name/param1/value1?query_param=query_value#fragment
- *       \__________A___________/\____________________________________B_____________________________________/
- * \__________________C___________________/              \__________________D_________________/ \_____E_____/
- * \_____________F______________/                        \___________________________G______________________/
- * \___________________________________________________H____________________________________________________/
- *
- * - A: authority
- * - B: path
- * - C: absolute_base_url
- * - D: action_path
- * - E: route_params
- * - F: host_url
- * - G: route_path
- * - H: route_url
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- *
  * @method $this setType(string $value)
  * @method $this setSecure(bool $value)
  * @method $this setSecureIsForced(bool $value)
