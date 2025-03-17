@@ -215,7 +215,7 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
     public function setSize($size)
     {
         // determine width and height from string
-        list($width, $height) = explode('x', strtolower($size), 2);
+        [$width, $height] = explode('x', strtolower($size), 2);
         foreach (['width', 'height'] as $wh) {
             ${$wh}  = (int) ${$wh};
             if (empty(${$wh})) {

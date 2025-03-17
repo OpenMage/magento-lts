@@ -255,7 +255,7 @@ class Mage_Api2_Model_Multicall
         $headers = $response->getHeaders();
         foreach ($headers as $header) {
             if ($header['name'] == 'Location') {
-                list($resourceId) = array_reverse(explode('/', $header['value']));
+                [$resourceId] = array_reverse(explode('/', $header['value']));
                 break;
             }
         }
