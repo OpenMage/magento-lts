@@ -26,6 +26,9 @@
 # ChartJs library
 /js/lib/chartjs
 
+# jQuery library
+/js/lib/jquery/jquery*
+
 # TinyMCE library
 /js/lib/tinymce
 

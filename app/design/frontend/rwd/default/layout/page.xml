@@ -25,7 +25,10 @@
 
             <block type="page/html_head" name="head" as="head">
                 <action method="addJs"><script>prototype/prototype.js</script></action>
-                <action method="addJs"><script>lib/jquery/jquery-1.12.4.min.js</script></action>
+                <action method="addJs"><script>lib/jquery/jquery.min.js</script></action>
+                <action method="addJs" ifconfig="dev/jquery/migrate">
+                    <script>lib/jquery/jquery-migrate.min.js</script>
+                </action>
                 <action method="addJs"><script>lib/jquery/noconflict.js</script></action>
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>
