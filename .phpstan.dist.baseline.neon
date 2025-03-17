@@ -4717,12 +4717,6 @@ parameters:
 			path: app/code/core/Mage/Oauth/Model/Resource/Token/Collection.php
 
 		-
-			message: '#^Parameter \#1 \$data of method Mage_Oauth_Adminhtml_Oauth_ConsumerController\:\:_setFormData\(\) expects array, null given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Oauth/controllers/Adminhtml/Oauth/ConsumerController.php
-
-		-
 			message: '#^Call to an undefined method Mage_Payment_Model_Method_Abstract\:\:isPartialAuthorization\(\)\.$#'
 			identifier: method.notFound
 			count: 1
