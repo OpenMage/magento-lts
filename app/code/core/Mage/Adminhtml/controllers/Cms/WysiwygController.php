@@ -45,7 +45,7 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
             }
             $image = Varien_Image_Adapter::factory('GD2');
             $image->open($url);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $image = Varien_Image_Adapter::factory('GD2');
             $image->open(Mage::getSingleton('cms/wysiwyg_config')->getSkinImagePlaceholderPath());
         }

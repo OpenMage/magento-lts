@@ -52,7 +52,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             } elseif (isset($optionInfo['value'])) {
                 return $optionInfo['value'];
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $optionInfo['value'];
         }
         return '';
@@ -176,7 +176,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $fileInfo = $upload->getFileInfo($file);
             $fileInfo = $fileInfo[$file];
             $fileInfo['title'] = $fileInfo['name'];
-        } catch (Exception $e) {
+        } catch (Exception) {
             // when file exceeds the upload_max_filesize, $_FILES is empty
             if (isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > $this->_getUploadMaxFilesize()) {
                 $this->setIsValid(false);
@@ -435,7 +435,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $result = serialize($value);
             try {
                 Mage::helper('core/unserializeArray')->unserialize($result);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
             }
         } else {
@@ -480,7 +480,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 $this->_formattedOptionValue = $this->_getOptionHtml($value);
                 $this->getConfigurationItemOption()->setValue(serialize($value));
                 return $this->_formattedOptionValue;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return $optionValue;
             }
         }
@@ -516,7 +516,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 Mage::helper('core')->escapeHtml($title),
                 $sizes,
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(Mage::helper('catalog')->__('File options format is not valid.'));
         }
     }
@@ -566,7 +566,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
                 Mage::helper('core')->escapeHtml($value['title']),
                 $this->getConfigurationItemOption()->getId(),
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $optionValue;
         }
     }
@@ -586,7 +586,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $option = Mage::getModel('sales/quote_item_option')->load($confItemOptionId);
             try {
                 return $option->getValue();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return null;
             }
         } else {
@@ -604,7 +604,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     {
         try {
             return Mage::helper('core/unserializeArray')->unserialize($optionValue);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -633,7 +633,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $this->_createWriteableDir($dir);
             Mage::helper('core/file_storage_database')->copyFile($quoteFileFullPath, $orderFileFullPath);
             @copy($quoteFileFullPath, $orderFileFullPath);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $this;
         }
         return $this;

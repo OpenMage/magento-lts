@@ -48,7 +48,7 @@ class Mage_Directory_Model_Observer
         try {
             /** @var Mage_Directory_Model_Currency_Import_Abstract $importModel */
             $importModel = Mage::getModel(Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray());
-        } catch (Exception $e) {
+        } catch (Exception) {
             $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::throwException(Mage::helper('directory')->__('Unable to initialize the import model.'));
         }
 

@@ -355,7 +355,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
                     $writeAdapter->insert($this->_aggregateTable, $data->getData());
                 }
                 $writeAdapter->commit();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $writeAdapter->rollBack();
             }
         }

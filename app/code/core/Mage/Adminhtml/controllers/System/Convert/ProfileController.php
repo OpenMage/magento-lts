@@ -293,7 +293,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $batchModel->beforeFinish();
                 } catch (Mage_Core_Exception $e) {
                     $result['error'] = $e->getMessage();
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $result['error'] = Mage::helper('adminhtml')->__('An error occurred while finishing process. Please refresh the cache');
                 }
                 $batchModel->delete();

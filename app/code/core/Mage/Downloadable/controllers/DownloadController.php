@@ -109,7 +109,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             try {
                 $this->_processDownload($resource, $resourceType);
                 exit(0);
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception) {
                 $this->_getSession()->addError(Mage::helper('downloadable')->__('Sorry, there was an error getting requested content. Please contact the store owner.'));
             }
         }
@@ -145,7 +145,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
             try {
                 $this->_processDownload($resource, $resourceType);
                 exit(0);
-            } catch (Mage_Core_Exception $e) {
+            } catch (Mage_Core_Exception) {
                 $this->_getCustomerSession()->addError(Mage::helper('downloadable')->__('Sorry, there was an error getting requested content. Please contact the store owner.'));
             }
         }
@@ -217,7 +217,7 @@ class Mage_Downloadable_DownloadController extends Mage_Core_Controller_Front_Ac
                 }
                 $linkPurchasedItem->save();
                 exit(0);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_getCustomerSession()->addError(
                     Mage::helper('downloadable')->__('An error occurred while getting the requested content. Please contact the store owner.'),
                 );

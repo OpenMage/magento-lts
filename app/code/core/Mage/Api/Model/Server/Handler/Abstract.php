@@ -220,7 +220,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         try {
             $this->_startSession();
             $this->_getSession()->login($username, $apiKey);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('access_denied');
             return;
         }

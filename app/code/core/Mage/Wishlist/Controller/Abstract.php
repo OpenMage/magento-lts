@@ -176,7 +176,7 @@ abstract class Mage_Wishlist_Controller_Abstract extends Mage_Core_Controller_Fr
             // save wishlist model for setting date of last update
             try {
                 $wishlist->save();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('wishlist/session')->addError($this->__('Cannot update wishlist'));
                 $redirectUrl = $indexUrl;
             }

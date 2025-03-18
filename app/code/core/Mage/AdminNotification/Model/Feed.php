@@ -152,7 +152,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
 
         try {
             $xml  = new SimpleXMLElement($data);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
 
@@ -167,7 +167,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
         try {
             $data = $this->getFeedData();
             $xml  = new SimpleXMLElement($data);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $xml  = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><feed />');
         }
 

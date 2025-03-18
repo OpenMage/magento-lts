@@ -381,7 +381,7 @@ class Varien_File_Uploader
                 return $validator->isValid($this->_file['tmp_name']);
             }
             return true;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }

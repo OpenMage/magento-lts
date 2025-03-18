@@ -56,11 +56,11 @@ $installer->getConnection()->dropForeignKey($categoryTable, 'FK_CATALOG_CATEGORY
 
 try {
     $this->run("ALTER TABLE `{$this->getTable('catalog/category')}` ADD `path` VARCHAR( 255 ) NOT NULL, ADD `position` INT NOT NULL;");
-} catch (Exception $e) {
+} catch (Exception) {
 }
 try {
     $this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
-} catch (Exception $e) {
+} catch (Exception) {
 }
 
 $installer->getConnection()->dropKey($categoryTable, 'FK_catalog_category_ENTITY_ENTITY_TYPE');

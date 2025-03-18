@@ -80,7 +80,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                     $adapter->insertMultiple($this->_rowsTable, $rows);
                 }
                 $adapter->commit();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $adapter->rollBack();
             }
         }
