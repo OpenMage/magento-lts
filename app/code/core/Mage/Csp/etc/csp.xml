@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config>
+    <csp>
+        <script-src>
+            <host>*.cloudflare.com</host>
+        </script-src>
+    </csp>
+</config>

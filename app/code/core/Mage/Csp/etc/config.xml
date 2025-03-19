@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mage_Csp>
+            <version>1.0.0</version>
+        </Mage_Csp>
+    </modules>
+    <global>
+        <helpers>
+            <csp>
+                <class>Mage_Csp_Helper</class>
+            </csp>
+        </helpers>
+        <models>
+            <csp>
+                <class>Mage_Csp_Model</class>
+            </csp>
+        </models>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <mage_csp>
+                        <class>csp/observer</class>
+                        <method>addCspHeaders</method>
+                    </mage_csp>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+</config>
+
