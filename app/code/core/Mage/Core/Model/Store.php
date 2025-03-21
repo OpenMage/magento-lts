@@ -966,7 +966,10 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
      */
     public function roundPrice($price)
     {
-        return round((float) $price, 2);
+        /** @var Mage_Catalog_Helper_Price $helper */
+        $helper = Mage::helper('catalog/price');
+
+        return round((float) $price, $helper->getRoundingPresision());
     }
 
     /**
