@@ -84,7 +84,7 @@ class Mage_Reports_Model_Test extends Varien_Object
         $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i <= $countOfStartData; $i++) {
-            $allData[] = ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)];
+            $allData[] = ['time' => date('Y-m-d H:i', $startPoint), 'value' => random_int(1, 100)];
             $startPoint += 30 * 60;
         }
 
@@ -107,7 +107,7 @@ class Mage_Reports_Model_Test extends Varien_Object
         $reset = 12;
 
         $newData  = [
-            ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)],
+            ['time' => date('Y-m-d H:i', $startPoint), 'value' => random_int(1, 100)],
         ];
 
         $startPoint += 30 * 60;
