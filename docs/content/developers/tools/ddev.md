@@ -39,13 +39,13 @@ To launch Mailpit in the browser run in the terminal window.
 ddev mailpit
 ```
 
-## Setting up cronjobs
+## Setting up Cron tasks
 
-Run in the terminal window `ddev get ddev/ddev-cron` to install the cron add-on then restart DDEV.
+Run in the terminal window `ddev get ddev/ddev-cron` to install the Cron add-on then restart DDEV.
 
-By default the OpenMage cronjob runs every minute. If you want to change it edit the file `.ddev/web-build/openmage.cron`.
+By default the OpenMage Cron runs every minute. If you want to change it edit the file `.ddev/web-build/openmage.cron`.
 
-You can set the OpenMage cronjob using DDEV hooks, but you must comment all the lines in the file `.ddev/web-build/openmage.cron`. Edit the file `.ddev/config.yaml` and insert the following lines
+You can set the OpenMage Cron using DDEV hooks, but you must comment all the lines in the file `.ddev/web-build/openmage.cron`. Edit the file `.ddev/config.yaml` and insert the following lines
 
 ```yml
 hooks:
@@ -68,9 +68,9 @@ web_environment: [
 
 ### Xdebug
 
-Every DDEV project is automatically configured with Xdebug so that popular IDEs can do step debugging of PHP code. Xdebug is a server-side tool and it is installed automatically in the container so you do not have to install or configure it on your workstation. Xdebug is disabled by default for performance reasons, so you will need to enable it and configure your IDE before can start debugging. For more information, please visit https://ddev.readthedocs.io/en/latest/users/debugging-profiling/step-debugging/.
+Every DDEV project is automatically configured with Xdebug so that popular IDE can do step debugging of PHP code. Xdebug is a server-side tool and it is installed automatically in the container so you do not have to install or configure it on your workstation. Xdebug is disabled by default for performance reasons, so you will need to enable it and configure your IDE before can start debugging. For more information, please visit [Step Debugging with Xdebug](https://ddev.readthedocs.io/en/latest/users/debugging-profiling/step-debugging/).
 
-Run the following commands in the terminal window to enable or disable xDebug
+Run the following commands in the terminal window to enable or disable Xdebug
 
 ```bash
 ddev xdebug on`
@@ -79,7 +79,7 @@ ddev xdebug on`
 ddev xdebug off
 ```
 
-If Xdebug does not work properly with PHPStorm edit the file `.ddev/php/xdebug.ini` and insert the following lines
+If Xdebug does not work properly with PhpStorm edit the file `.ddev/php/xdebug.ini` and insert the following lines
 
 ```ini
 [xdebug]
@@ -89,7 +89,7 @@ xdebug.start_with_request=trigger
 
 ### Accessing the database
 
-Please note that DDEV changes the port numbers on every restart. If you want to access the database in PHPStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
+Please note that DDEV changes the port numbers on every restart. If you want to access the database in PhpStorm you must set up a fixed port. Edit the file `.ddev/config.yaml` and insert the following line
 
 ```yml
 host_db_port: 6000
@@ -97,7 +97,7 @@ host_db_port: 6000
 
 ## Using Browsersync
 
-See: https://github.com/ddev/ddev-browsersync
+- GitHub [repository](https://github.com/ddev/ddev-browsersync)
 
 Browsersync features live reloads, click mirroring, network throttling. Run the following commands in the terminal window
 
@@ -109,7 +109,7 @@ ddev browsersync
 
 ## Installing Compass
 
-See: https://compass-style.org
+See: [https://compass-style.org](https://compass-style.org)
 
 Compass is required for editing SCSS files.
 
@@ -123,7 +123,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -o Dpkg::Options::="--forc
 RUN gem install compass
 ```
 
-For more information, please visit https://stackoverflow.com/questions/61787926/how-can-i-get-sass-compass-into-the-ddev-web-container.
+For more information, please visit [How can I get SASS/Compass into the DDEV web container?](https://stackoverflow.com/q/61787926).
 
 ## Commands
     
@@ -150,15 +150,15 @@ Run in the terminal window `ddev phpstan`.
 You can use flags, for example `ddev openmage-install -d -s -k -q`
 
 - `-d` (default values for the administrator account)
-- `-s` (sampledata installation)
-- `-k` (keeps the downloaded archive in the .ddev/.sampleData directory)
+- `-s` (sample-data installation)
+- `-k` (keeps the downloaded archive in the `.ddev/.sampleData` directory)
 - `-q` (quiet mode)
 
 **2. By default, running the `ddev config` command does not create an administrator account. If you want to create or update one run in the terminal window `ddev openmage-admin` and follow the steps.**
 
 ### Useful commands
 
-See: https://ddev.readthedocs.io/en/latest/users/usage/commands
+See: [Commands](https://ddev.readthedocs.io/en/latest/users/usage/commands)
 
 Run in the terminal window any of the following commands for different tasks.
 
@@ -206,7 +206,7 @@ Run in the terminal window any of the following commands for different tasks.
 
 `ddev get --list`, `ddev get drud/ddev/cron`
 
-**Run MYSQL client in the database container / Run php inside the web container / Stars a shell session in a service container / Execute a shell command in the container**
+**Run MYSQL client in the database container / Run `php` inside the web container / Stars a shell session in a service container / Execute a shell command in the container**
 
 `ddev mysql`, `ddev php`, `ddev ssh`, `ddev exec`
 
@@ -228,7 +228,7 @@ Run in the terminal window any of the following commands for different tasks.
 
 ## Using mkcert for secured connections
 
-See: https://github.com/FiloSottile/mkcert
+- GitHub [repsitory](https://github.com/FiloSottile/mkcert)
 
 mkcert is a simple tool for making locally-trusted development certificates. If you use (Windows 10/11 + WSL + Docker), first install the mkcert package in Windows then copy the certificates files associated to the current user into the Linux distribution.
 

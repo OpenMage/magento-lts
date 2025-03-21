@@ -69,4 +69,4 @@ docs/
 docs_includes/             # Need to stay outside "docs"
 ```
 
-[^1]: see https://realpython.com/installing-python/
+[^1]: see [How to Install Python on Your System: A Guide](https://realpython.com/installing-python/)
