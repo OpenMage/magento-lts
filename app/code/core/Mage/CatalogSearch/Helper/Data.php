@@ -354,4 +354,28 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
 
         return $this->_engine;
     }
+
+    /**
+     * @SuppressWarnings("PHPMD.StaticAccess")
+     */
+    public function isNotEnabled(): bool
+    {
+        return !Mage::getStoreConfigFlag('catalog/advanced_search/enabled');
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.StaticAccess")
+     */
+    public function isRedirectSingleSearchResult(): bool
+    {
+        return Mage::getStoreConfigFlag('catalog/search/redirect_to_single_search_result');
+    }
+
+    /**
+     * @SuppressWarnings("PHPMD.StaticAccess")
+     */
+    public function getNoRoutePath(): string
+    {
+        return $this->_getUrl(Mage::getStoreConfig('web/default/cms_no_route'));
+    }
 }
