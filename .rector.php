@@ -20,7 +20,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 try {
     return RectorConfig::configure()
         ->withPhpSets(
-            php80: true,
+            php81: true,
         )
         ->withPaths([
             __DIR__,
@@ -42,6 +42,7 @@ try {
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: check later
             Php80\Class_\StringableForToStringRector::class, # todo: check later
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: check later
+            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',

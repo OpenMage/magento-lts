@@ -67,7 +67,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         $this->addColumn('tole_user_type', [
             'header'         => Mage::helper('oauth')->__('User Type'),
             'sortable'       => false,
-            'frame_callback' => [$this, 'decorateUserType'],
+            'frame_callback' => $this->decorateUserType(...),
         ]);
 
         $this->addColumn('created_at', [

@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             );
         }
 
-        usort($history, [self::class, '_sortHistoryByTimestamp']);
+        usort($history, self::_sortHistoryByTimestamp(...));
         return $history;
     }
 

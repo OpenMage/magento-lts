@@ -539,7 +539,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         }
 
         $this->_sortingSetId = $setId;
-        uasort($attributes, [$this, 'attributesCompare']);
+        uasort($attributes, $this->attributesCompare(...));
         return $attributes;
     }
 

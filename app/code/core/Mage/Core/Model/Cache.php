@@ -238,7 +238,7 @@ class Mage_Core_Model_Cache
             $this->_dbConnection = $options['connection'];
         }
 
-        $options['adapter_callback'] = [$this, 'getDbAdapter'];
+        $options['adapter_callback'] = $this->getDbAdapter(...);
         $options['data_table'] = Mage::getSingleton('core/resource')->getTableName('core/cache');
         $options['tags_table'] = Mage::getSingleton('core/resource')->getTableName('core/cache_tag');
         return $options;

@@ -240,6 +240,6 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
      */
     protected function _prepareElementsIds($targets)
     {
-        return array_map([$this, 'getElementId'], array_unique(array_values($targets)));
+        return array_map($this->getElementId(...), array_unique(array_values($targets)));
     }
 }

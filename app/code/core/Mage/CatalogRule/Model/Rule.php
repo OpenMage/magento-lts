@@ -224,7 +224,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
 
                 Mage::getSingleton('core/resource_iterator')->walk(
                     $productCollection->getSelect(),
-                    [[$this, 'callbackValidateProduct']],
+                    [$this->callbackValidateProduct(...)],
                     [
                         'attributes' => $this->getCollectedAttributes(),
                         'product'    => Mage::getModel('catalog/product'),
