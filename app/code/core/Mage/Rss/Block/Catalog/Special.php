@@ -98,7 +98,7 @@ class Mage_Rss_Block_Catalog_Special extends Mage_Rss_Block_Catalog_Abstract
         */
         Mage::getSingleton('core/resource_iterator')->walk(
             $specials->getSelect(),
-            [$this->addSpecialXmlCallback(...)],
+            [[$this, 'addSpecialXmlCallback']],
             ['rssObj' => $rssObj, 'results' => &$results],
         );
 

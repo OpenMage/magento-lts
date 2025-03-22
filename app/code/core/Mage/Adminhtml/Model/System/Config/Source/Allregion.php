@@ -38,7 +38,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Allregion
             foreach ($regionsCollection as $region) {
                 $countryRegions[$region->getCountryId()][$region->getId()] = $region->getDefaultName();
             }
-            uksort($countryRegions, $this->sortRegionCountries(...));
+            uksort($countryRegions, [$this, 'sortRegionCountries']);
 
             $this->_options = [];
             foreach ($countryRegions as $countryId => $regions) {

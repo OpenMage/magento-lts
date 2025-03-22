@@ -20,7 +20,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 try {
     return RectorConfig::configure()
         ->withPhpSets(
-            php81: true,
+            php80: true,
         )
         ->withPaths([
             __DIR__,
@@ -42,7 +42,6 @@ try {
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: check later
             Php80\Class_\StringableForToStringRector::class, # todo: check later
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: check later
-            Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',
@@ -65,6 +64,11 @@ try {
             DeadCode\ClassMethod\RemoveUselessReturnTagRector::class,
             DeadCode\Property\RemoveUselessVarTagRector::class,
             DeadCode\StaticCall\RemoveParentCallWithoutParentRector::class,
+            DeadCode\ConstFetch\RemovePhpVersionIdCheckRector::class,
+            DeadCode\Assign\RemoveUnusedVariableAssignRector::class,
+            DeadCode\Foreach_\RemoveUnusedForeachKeyRector::class,
+            DeadCode\If_\RemoveUnusedNonEmptyArrayBeforeForeachRector::class,
+            DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class,
         ])
         ->withPreparedSets(
             deadCode: false,

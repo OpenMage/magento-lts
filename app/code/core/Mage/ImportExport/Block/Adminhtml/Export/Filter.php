@@ -349,7 +349,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             'header'         => Mage::helper('importexport')->__('Filter'),
             'sortable'       => false,
             'filter'         => false,
-            'frame_callback' => $this->decorateFilter(...),
+            'frame_callback' => [$this, 'decorateFilter'],
         ]);
 
         if ($this->hasOperation()) {

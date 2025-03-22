@@ -297,7 +297,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
             $wordsFull = $stringHelper->splitWords($this->getQueryText(), true);
             $wordsLike = $stringHelper->splitWords($this->getQueryText(), true, $this->getMaxQueryWords());
             if (count($wordsFull) > count($wordsLike)) {
-                $wordsCut = array_map($this->escapeHtml(...), array_diff($wordsFull, $wordsLike));
+                $wordsCut = array_map([$this, 'escapeHtml'], array_diff($wordsFull, $wordsLike));
                 $this->addNoteMessage(
                     $this->__('Maximum words count is %1$s. In your search query was cut next part: %2$s.', $this->getMaxQueryWords(), implode(' ', $wordsCut)),
                 );

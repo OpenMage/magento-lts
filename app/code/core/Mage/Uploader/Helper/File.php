@@ -678,7 +678,7 @@ class Mage_Uploader_Helper_File extends Mage_Core_Helper_Abstract
             $extensionsList = array_map('trim', explode(',', $extensionsList));
         }
 
-        return array_map($this->getMimeTypeByExtension(...), $extensionsList);
+        return array_map([$this, 'getMimeTypeByExtension'], $extensionsList);
     }
 
     /**
