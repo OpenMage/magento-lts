@@ -1,36 +1,76 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * This file is part of OpenMage.
+ * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
  * @category    design
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @copyright   Copyright © 2024 Maho (https://mahocommerce.com)
  */
 
-/** @see Mage_Adminhtml_Block_Dashboard_Tab_Amounts */
-/** @see Mage_Adminhtml_Block_Dashboard_Tab_Orders */
-/** @var Mage_Adminhtml_Block_Dashboard_Graph $this */
+/**
+ * @see Mage_Adminhtml_Block_Dashboard_Tab_Amounts
+ * @see Mage_Adminhtml_Block_Dashboard_Tab_Orders
+ * @var Mage_Adminhtml_Block_Dashboard_Graph $this
+ */
 ?>
-
 <div style="margin:20px;">
     <p class="switcher a-right" style="padding:5px 10px;"><?php echo $this->__('Select Range') ?>:
     <select name="period" id="order_<?php echo $this->getHtmlId() ?>_period" onchange="changeDiagramsPeriod(this);">
-        <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value=>$_label): ?>
-            <?php if(in_array($_value, ['custom'])) continue; ?>
-            <option value="<?php echo $_value ?>" <?php if($this->getRequest()->getParam('period')==$_value): ?> selected="selected"<?php endif ?>><?php echo $_label ?></option>
+        <?php foreach ($this->helper('adminhtml/dashboard_data')->getDatePeriods() as $_value => $_label): ?>
+            <?php if ($_value != 'custom'): ?>
+                <option value="<?php echo $_value ?>" <?php if ($this->getRequest()->getParam('period') == $_value): ?> selected="selected"<?php endif ?>><?php echo $_label ?></option>
+            <?php endif ?>
         <?php endforeach ?>
     </select></p><br/>
-    <?php
-    $_containerStyle = "width:{$this->getWidth()}px;height:{$this->getHeight()}px; margin:0 auto;";
-    ?>
+    <?php $_containerStyle = "width:{$this->getWidth()};height:{$this->getHeight()}; margin:0 auto;"; ?>
     <?php if($this->getCount()): ?>
-    <p style="<?php echo $_containerStyle?>"><img src="<?php echo $this->getChartUrl(false) ?>" alt="chart" title="chart" /></p>
+        <?php $this->generateChart() ?>
+        <div class="a-center" style="<?php echo $_containerStyle?>">
+            <canvas id="chart<?php echo $this->getChartId() ?>"></canvas>
+        </div>
+        <script type="text/javascript">
+            window.chartsLoaded = window.chartsLoaded || false;
+            function loadCharts(callback) {
+                if (window.chartsLoaded && window.Chart) {
+                    callback();
+                    return;
+                }
+                const script = document.createElement('script');
+                script.src = '<?php echo $this->getJsUrl('lib/chartjs/chart.umd.js') ?>';
+                script.async = true;
+                script.onload = () => {
+                    window.chartsLoaded = true;
+                    callback();
+                };
+                document.head.appendChild(script);
+            }
+            function initializeChart() {
+                const config = {
+                    type: "<?php echo $this->getChartType() ?>",
+                    data: {
+                        labels: <?php echo $this->getChartLabels() ?>,
+                        datasets: [{
+                            data: <?php echo $this->getChartData() ?>,
+                            backgroundColor: "<?php echo $this->getChartBackgroundColor() ?>",
+                            hoverBackgroundColor: "<?php echo $this->getChartHoverBackgroundColor() ?>",
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                };
+                if (window.chart<?php echo $this->getChartId() ?> && window.chart<?php echo $this->getChartId() ?>.destroy) window.chart<?php echo $this->getChartId() ?>.destroy();
+                window.chart<?php echo $this->getChartId() ?> = new Chart(document.getElementById('chart<?php echo $this->getChartId() ?>'), config);
+            }
+            loadCharts(initializeChart);
+        </script>
     <?php else: ?>
     <p class="a-center" style="<?php echo $_containerStyle?>"><?php echo $this->__('No Data Found') ?></p>
     <?php endif ?>

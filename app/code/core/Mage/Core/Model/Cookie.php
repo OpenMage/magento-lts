@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -248,25 +248,18 @@ class Mage_Core_Model_Cookie
             $secure = true;
         }
 
-        if (PHP_VERSION_ID >= 70300) {
-            setcookie(
-                $name,
-                (string) $value,
-                [
-                    'expires'  => $expire,
-                    'path'     => $path,
-                    'domain'   => $domain,
-                    'secure'   => $secure,
-                    'httponly' => $httponly,
-                    'samesite' => $sameSite,
-                ],
-            );
-        } else {
-            if (!empty($sameSite)) {
-                $path .= "; samesite={$sameSite}";
-            }
-            setcookie($name, (string) $value, $expire, $path, $domain, $secure, $httponly);
-        }
+        setcookie(
+            $name,
+            (string) $value,
+            [
+                'expires'  => $expire,
+                'path'     => $path,
+                'domain'   => $domain,
+                'secure'   => $secure,
+                'httponly' => $httponly,
+                'samesite' => $sameSite,
+            ],
+        );
 
         return $this;
     }

@@ -9,8 +9,13 @@
  * @category    design
  * @package     default_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat
+ * @var Mage_Adminhtml_Block_Customer_Sales_Order_Address_Form_Renderer_Vat $this
  */
 ?>
 <?php
@@ -22,7 +27,7 @@ $_validateButton = $this->getValidateButton();
 ?>
 <?php if (!$_element->getNoDisplay()): ?>
 <tr<?php if($_trId): ?> id="<?php echo $_trId; ?>"<?php endif ?>>
-    <?php if ($_element->getType()=='hidden'): ?>
+    <?php if ($_element->getType() == 'hidden'): ?>
     <td colspan="2" class="hidden"><?php echo trim($_element->getElementHtml()); ?></td>
     <?php else: ?>
     <td class="label<?php echo $_class ? " {$_class}-label" : ''?>"><?php echo trim($_element->getLabelHtml()); ?></td>

@@ -19,14 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Generator;
 use Mage;
-use Mage_Core_Helper_Purifier;
+use Mage_Core_Helper_Purifier as Subject;
 use PHPUnit\Framework\TestCase;
 
 class PurifierTest extends TestCase
 {
-    public const TEST_STRING = '1234567890';
-
-    public Mage_Core_Helper_Purifier $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {

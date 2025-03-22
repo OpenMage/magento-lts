@@ -38,7 +38,7 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
     public function getName()
     {
         $name = parent::getName();
-        if (strpos($name, '[]') === false) {
+        if (!str_contains($name, '[]')) {
             $name .= '[]';
         }
         return $name;

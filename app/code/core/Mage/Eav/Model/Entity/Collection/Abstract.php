@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -697,7 +697,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         $tableAlias = $this->_getAttributeTableAlias($alias);
 
         // validate bind
-        list($pk, $fk) = explode('=', $bind);
+        [$pk, $fk] = explode('=', $bind);
         $pk = $this->getSelect()->getAdapter()->quoteColumnAs(trim($pk), null);
         $bindCond = $tableAlias . '.' . trim($pk) . '=' . $this->_getAttributeFieldName(trim($fk));
 
@@ -783,7 +783,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // validate bind
-        list($pk, $fk) = explode('=', $bind);
+        [$pk, $fk] = explode('=', $bind);
         $bindCond = $tableAlias . '.' . $pk . '=' . $this->_getAttributeFieldName($fk);
 
         // process join type

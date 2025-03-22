@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -50,7 +50,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
             foreach ($_SERVER as $k => $v) {
-                if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
+                if (str_ends_with($k, 'HTTP_AUTHORIZATION') && !empty($v)) {
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
                 }
@@ -64,10 +64,10 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             // IIS Note:: For HTTP Authentication to work with IIS,
             // the PHP directive cgi.rfc2616_headers must be set to 0 (the default value).
             $auth = $_SERVER['HTTP_AUTHORIZATION'];
-            list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
+            [$user, $pass] = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
         } elseif (!empty($_SERVER['Authorization'])) {
             $auth = $_SERVER['Authorization'];
-            list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
+            [$user, $pass] = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
         }
 
         if (!$user || !$pass) {

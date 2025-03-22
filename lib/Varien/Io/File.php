@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Io
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -287,7 +287,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         }
         $stat = @fstat($this->_streamHandler);
         if (!is_null($part)) {
-            return isset($stat[$part]) ? $stat[$part] : $default;
+            return $stat[$part] ?? $default;
         }
         return $stat;
     }
@@ -649,10 +649,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     public function getDestinationFolder($filepath)
     {
         preg_match('/^(.*[!\/])/', $filepath, $mathces);
-        if (isset($mathces[0])) {
-            return $mathces[0];
-        }
-        return false;
+        return $mathces[0] ?? false;
     }
 
     /**

@@ -9,14 +9,18 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Sales_Block_Widget_Guest_Form
+ * @var Mage_Sales_Block_Widget_Guest_Form $this
  */
 ?>
 <div class="page-title">
    <h1><?php echo Mage::helper('sales')->__('Orders and Returns') ?></h1>
 </div>
-
 
 <form id="oar_widget_orders_and_returns_form" action="<?php echo $this->getActionUrl() ?>" method="post" class="search-form" name="guest_post">
     <div class="fieldset">

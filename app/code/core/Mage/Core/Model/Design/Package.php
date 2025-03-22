@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -359,8 +359,10 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null)
-            . $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        $urlPath = $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        // Prevent XSS through malformed configuration
+        $urlPath = htmlspecialchars($urlPath, ENT_HTML5 | ENT_QUOTES, 'UTF-8');
+        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null) . $urlPath;
     }
 
     /**
@@ -524,7 +526,8 @@ class Mage_Core_Model_Design_Package
         }
         $this->updateParamDefaults($params);
         if (!empty($file)) {
-            $result = $this->_fallback(
+            // This updates $params with the base package and default theme if the file is not found
+            $this->_fallback(
                 $file,
                 $params,
                 $this->_fallback->getFallbackScheme(
@@ -584,7 +587,7 @@ class Mage_Core_Model_Design_Package
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
+                if (str_starts_with($entry, '.') || !is_dir($path . DS . $entry)) {
                     continue;
                 }
                 if ($fullPath) {

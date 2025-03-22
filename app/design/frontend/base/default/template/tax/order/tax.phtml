@@ -9,36 +9,45 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Tax_Block_Sales_Order_Tax
+ * @var Mage_Tax_Block_Sales_Order_Tax $this
  */
 ?>
 <?php
-    $_order  = $this->getOrder();
-    $_source = $this->getSource();
-    $_fullInfo = $_order->getFullTaxInfo();
-    $_weees = $this->helper('tax')->getAllWeee($_order);
-    global $taxIter; $taxIter++;
-    $hasItemsInTaxSection = 0;
+$_order  = $this->getOrder();
+$_source = $this->getSource();
+$_fullInfo = $_order->getFullTaxInfo();
+$_weees = $this->helper('tax')->getAllWeee($_order);
+global $taxIter;
+$taxIter++;
+$hasItemsInTaxSection = 0;
 ?>
 <?php  ?>
 
 <?php if ($this->displayFullSummary()): ?>
 <?php $isTop = 1; ?>
-    <?php if ($_fullInfo) foreach ($_fullInfo as $info): ?>
-        <?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+    <?php if ($_fullInfo) {
+        foreach ($_fullInfo as $info): ?>
+        <?php if (isset($info['hidden']) && $info['hidden']) {
+            continue;
+        } ?>
         <?php
             $percent    = $info['percent'];
             $amount     = $info['amount'];
             $rates      = $info['rates'];
             $isFirst    = 1;
-        ?>
+            ?>
         <?php foreach ($rates as $rate): ?>
         <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"<?php if (!$this->getIsPlaneMode()):?> style="display:none;"<?php endif ?>>
             <td <?php echo $this->getLabelProperties()?>>
                 <?php echo $this->escapeHtml($rate['title']); ?>
                 <?php if (!is_null($rate['percent'])): ?>
-                    (<?php echo (float)$rate['percent']; ?>%)
+                    (<?php echo (float) $rate['percent']; ?>%)
                 <?php endif ?>
                 <br />
             </td>
@@ -52,7 +61,8 @@
         <?php $isTop = 0; ?>
         <?php $hasItemsInTaxSection = 1 ?>
         <?php endforeach ?>
-    <?php endforeach ?>
+    <?php endforeach;
+    } ?>
 
     <?php foreach ($_weees as $weeeTitle => $weeeAmount): ?>
         <tr class="summary-details-<?php echo $taxIter; ?> summary-details<?php if ($isTop): echo ' summary-details-first'; endif; ?>"<?php if (!$this->getIsPlaneMode()):?> style="display:none;"<?php endif ?>>
