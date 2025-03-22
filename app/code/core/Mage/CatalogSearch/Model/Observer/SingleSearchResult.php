@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Observer_SingleSearchResult implements Mage_Core_Observer_Interface
+class Mage_CatalogSearch_Model_Observer_SingleSearchResult implements Mage_Core_Observer_Interface
 {
     /**
      * Product list block name in layout
@@ -35,8 +35,7 @@ class Mage_Catalog_Model_Observer_SingleSearchResult implements Mage_Core_Observ
      */
     public function execute(Varien_Event_Observer $observer): void
     {
-        /** @var Mage_Catalog_Helper_Search $helper */
-        $helper = Mage::helper('catalog/search');
+        $helper = Mage::helper('catalogsearch');
 
         if (!$helper->isRedirectSingleSearchResult()) {
             return;

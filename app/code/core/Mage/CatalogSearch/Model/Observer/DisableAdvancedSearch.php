@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  */
-class Mage_Catalog_Model_Observer_DisableAdvancedSearch implements Mage_Core_Observer_Interface
+class Mage_CatalogSearch_Model_Observer_DisableAdvancedSearch implements Mage_Core_Observer_Interface
 {
     /**
      * Disable Advanced Search at storeview scope
@@ -29,8 +29,7 @@ class Mage_Catalog_Model_Observer_DisableAdvancedSearch implements Mage_Core_Obs
      */
     public function execute(Varien_Event_Observer $observer): void
     {
-        /** @var Mage_Catalog_Helper_Search $helper */
-        $helper = Mage::helper('catalog/search');
+        $helper = Mage::helper('catalogsearch');
         if ($helper->isNotEnabled()) {
             $observer->getControllerAction()->getResponse()->setRedirect($helper->getNoRoutePath());
         }
