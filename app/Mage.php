@@ -864,7 +864,7 @@ final class Mage
             if (empty($file)) {
                 $file = self::getStoreConfig('dev/log/file');
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $logActive = true;
         }
 

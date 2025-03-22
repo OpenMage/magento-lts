@@ -48,7 +48,7 @@ try {
         WHERE cs.store_id=ps.store_id AND ps.store_id>0;
     DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
     ");
-} catch (Exception $e) {
+} catch (Exception) {
 }
 
 $categoryTable = $this->getTable('catalog/category');
