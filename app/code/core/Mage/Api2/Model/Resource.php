@@ -384,7 +384,7 @@ abstract class Mage_Api2_Model_Resource
     public function getVersion()
     {
         if ($this->_version === null) {
-            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
+            if (preg_match('/^.+([1-9]\d*)$/', static::class, $matches)) {
                 $this->setVersion($matches[1]);
             } else {
                 throw new Exception('Can not determine version from class name');

@@ -2179,7 +2179,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                         /** @see Zend_Db_Adapter_Exception */
                         #require_once 'Zend/Db/Adapter/Exception.php';
                         throw new Zend_Db_Adapter_Exception(
-                            get_class($this) . " doesn't support positional or named binding",
+                            static::class . " doesn't support positional or named binding",
                         );
                     }
                 }

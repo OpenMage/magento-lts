@@ -129,7 +129,7 @@ class SecurityTest extends TestCase
         string $method,
         array $args
     ): void {
-        $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method));
+        $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', $block::class, $method));
         $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 }
