@@ -125,7 +125,7 @@ class Mage_Persistent_Model_Persistent_Config
 
         if (method_exists($object, $method)) {
             $object->$method($instance);
-        } elseif (Mage::getIsDeveloperMode()) {
+        } elseif ($object && Mage::getIsDeveloperMode()) {
             Mage::throwException('Method "' . $method . '" is not defined in "' . $object::class . '"');
         }
 
