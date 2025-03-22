@@ -1390,31 +1390,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _formUsSignatureConfirmationShipmentRequest(Varien_Object $request, $serviceType)
     {
-        switch ($serviceType) {
-            case 'PRIORITY':
-            case 'Priority':
-                $serviceType = 'Priority';
-                break;
-            case 'FIRST CLASS':
-            case 'First Class':
-                $serviceType = 'First Class';
-                break;
-            case 'STANDARD':
-            case 'Standard Post':
-            case 'Retail Ground':
-                $serviceType = 'Retail Ground';
-                break;
-            case 'MEDIA':
-            case 'Media':
-                $serviceType = 'Media Mail';
-                break;
-            case 'LIBRARY':
-            case 'Library':
-                $serviceType = 'Library Mail';
-                break;
-            default:
-                throw new Exception(Mage::helper('usa')->__('Service type does not match'));
-        }
+        $serviceType = match ($serviceType) {
+            'PRIORITY', 'Priority' => 'Priority',
+            'FIRST CLASS', 'First Class' => 'First Class',
+            'STANDARD', 'Standard Post', 'Retail Ground' => 'Retail Ground',
+            'MEDIA', 'Media' => 'Media Mail',
+            'LIBRARY', 'Library' => 'Library Mail',
+            default => throw new Exception(Mage::helper('usa')->__('Service type does not match')),
+        };
         $packageParams = $request->getPackageParams();
         $packageWeight = $request->getPackageWeight();
         if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
@@ -1526,25 +1509,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         $container = $request->getPackagingType();
-        switch ($container) {
-            case 'VARIABLE':
-                $container = 'VARIABLE';
-                break;
-            case 'FLAT RATE ENVELOPE':
-                $container = 'FLATRATEENV';
-                break;
-            case 'FLAT RATE BOX':
-                $container = 'FLATRATEBOX';
-                break;
-            case 'RECTANGULAR':
-                $container = 'RECTANGULAR';
-                break;
-            case 'NONRECTANGULAR':
-                $container = 'NONRECTANGULAR';
-                break;
-            default:
-                $container = 'VARIABLE';
-        }
+        $container = match ($container) {
+            'VARIABLE' => 'VARIABLE',
+            'FLAT RATE ENVELOPE' => 'FLATRATEENV',
+            'FLAT RATE BOX' => 'FLATRATEBOX',
+            'RECTANGULAR' => 'RECTANGULAR',
+            'NONRECTANGULAR' => 'NONRECTANGULAR',
+            default => 'VARIABLE',
+        };
         $shippingMethod = $request->getShippingMethod();
         [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
 

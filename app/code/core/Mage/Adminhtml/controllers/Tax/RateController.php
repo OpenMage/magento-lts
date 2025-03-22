@@ -462,12 +462,9 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'importexport':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export');
-            case 'index':
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates');
-        }
+        return match ($action) {
+            'importexport' => Mage::getSingleton('admin/session')->isAllowed('sales/tax/import_export'),
+            default => Mage::getSingleton('admin/session')->isAllowed('sales/tax/rates'),
+        };
     }
 }
