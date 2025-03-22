@@ -59,7 +59,7 @@ foreach ($purgeFk as $tableName => $columns) {
 }
 
 foreach ($purgeIndex as $prop) {
-    list($tableName, $columns) = $prop;
+    [$tableName, $columns] = $prop;
     $indexList = $installer->getConnection()->getIndexList($tableName);
     foreach ($indexList as $indexProp) {
         if ($columns === $indexProp['COLUMNS_LIST']) {

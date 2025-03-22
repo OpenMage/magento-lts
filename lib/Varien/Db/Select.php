@@ -122,7 +122,7 @@ class Varien_Db_Select extends Zend_Db_Select
             if ($tableProp['joinType'] == self::LEFT_JOIN) {
                 $useJoin = false;
                 foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
-                    list($correlationName, $column) = $columnEntry;
+                    [$correlationName, $column] = $columnEntry;
                     if ($column instanceof Zend_Db_Expr) {
                         if ($this->_findTableInCond($tableId, $column)
                             || $this->_findTableInCond($tableProp['tableName'], $column)
