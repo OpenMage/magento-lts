@@ -1,0 +1,285 @@
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available at https://opensource.org/license/afl-3-0-php
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+.nav-bar {
+  border-top: 1px solid #2d444f;
+  border-bottom: 1px solid #2d444f;
+  background: url(images/nav1_bg.gif) repeat-x 0 100% #666e73;
+  padding: 0 30px;
+}
+
+#nav {
+  float: left;
+
+  li {
+    position: relative;
+    text-align: left;
+
+    &.over {
+      z-index: 999;
+    }
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+
+    &:hover {
+      display: block;
+      text-decoration: none;
+    }
+  }
+
+  span {
+    display: block;
+
+    /*cursor:pointer;*/
+  }
+
+  a {
+    line-height: 1.3em;
+  }
+
+  li {
+    float: left;
+    background: url(images/nav1_sep.gif) no-repeat 100% 0;
+
+    &.active {
+      margin-left: -1px;
+      background: url(images/nav1_active.gif) no-repeat;
+      color: #fff;
+      font-weight: bold;
+
+      em {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: -1px;
+        width: 3px;
+        height: 27px;
+        background: url(images/nav1_active.gif) no-repeat 100% 0;
+      }
+    }
+  }
+
+  a {
+    float: left;
+    padding: 0 14px;
+    color: #fff;
+    line-height: 27px;
+  }
+
+  li.over a {
+    color: #d6e2e5;
+  }
+
+  ul {
+    li {
+      float: none;
+      height: auto;
+      background: none;
+      margin: 0;
+
+      &.active {
+        float: none;
+        height: auto;
+        background: none;
+        margin: 0;
+      }
+    }
+
+    a {
+      float: none;
+      padding: 0;
+      line-height: 1.3em;
+
+      &:hover {
+        float: none;
+        padding: 0;
+        line-height: 1.3em;
+      }
+    }
+
+    li.over a {
+      font-weight: normal;
+
+      &:hover {
+        font-weight: normal;
+      }
+    }
+
+    a {
+      font-weight: normal;
+    }
+  }
+
+  li.active li {
+    font-weight: normal;
+  }
+
+  ul {
+    position: absolute;
+    width: 189px;
+    top: 27px;
+    left: -10000px;
+    padding-bottom: 3px;
+    border-top: 1px solid #2d444f;
+
+    ul {
+      border-top: 0;
+      background: url(images/nav3_bg.png) 0 0 no-repeat;
+      padding-top: 2px;
+      left: 100px;
+      top: 13px;
+    }
+
+    li a.active {
+      background-color: #d0dfe2;
+    }
+  }
+
+  li.over ul {
+    left: -1px;
+
+    ul {
+      left: -10000px;
+    }
+
+    li.over ul {
+      left: 100px;
+    }
+  }
+
+  ul li {
+    background: url(images/nav2_li_bg.png) repeat-y;
+    padding: 0 2px;
+
+    a {
+      background: #e3ecee;
+
+      &:hover {
+        background: #d0dfe2;
+      }
+    }
+  }
+
+  li.over ul a {
+    color: #2f2f2f;
+  }
+
+  ul {
+    li {
+      &.active a {
+        color: #2f2f2f;
+      }
+
+      a {
+        color: #2f2f2f;
+
+        &:hover {
+          color: #2f2f2f;
+        }
+      }
+    }
+
+    span {
+      padding: 5px 15px;
+      background: url(images/nav2_link_bg.gif) repeat-x 0 100%;
+    }
+
+    li {
+      &.last {
+        li span {
+          padding: 5px 15px;
+          background: url(images/nav2_link_bg.gif) repeat-x 0 100%;
+        }
+
+        span, li.last span {
+          background: none;
+        }
+
+        background: url(images/nav2_last_li_bg.png) no-repeat 0 100%;
+        padding-bottom: 3px;
+      }
+
+      &.parent {
+        a {
+          background-image: url(images/nav2_parent_arrow.gif);
+          background-position: 100% 100%;
+          background-repeat: no-repeat;
+        }
+
+        li {
+          &.parent a {
+            background-image: url(images/nav2_parent_arrow.gif);
+            background-position: 100% 100%;
+            background-repeat: no-repeat;
+          }
+
+          a, &.parent li a {
+            background-image: none;
+          }
+        }
+      }
+    }
+  }
+
+  li.parent {
+    a[href="#"] {
+      cursor: default;
+    }
+
+    li {
+      &.parent {
+        a[href="#"], li.parent a[href="#"] {
+          cursor: default;
+        }
+      }
+
+      a {
+        cursor: pointer;
+      }
+
+      &.parent li {
+        a, &.parent li a {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  ul ul ul {
+    left: -10000px;
+  }
+
+  li.over ul li.over ul {
+    ul {
+      left: -10000px;
+    }
+
+    li.over ul {
+      left: 100px;
+    }
+  }
+}
+
+.nav-bar:after {
+  content: ".";
+  display: block;
+  clear: both;
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  overflow: hidden;
+}
