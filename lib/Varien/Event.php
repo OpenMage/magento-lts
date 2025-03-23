@@ -91,7 +91,7 @@ class Varien_Event extends Varien_Object
      */
     public function getName()
     {
-        return isset($this->_data['name']) ? $this->_data['name'] : null;
+        return $this->_data['name'] ?? null;
     }
 
     public function setName($data)

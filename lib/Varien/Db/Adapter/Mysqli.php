@@ -53,7 +53,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
             $socket = $this->_config['host'];
             $this->_config['host'] = null;
         } elseif (str_contains($this->_config['host'], ':')) {
-            list($this->_config['host'], $port) = explode(':', $this->_config['host']);
+            [$this->_config['host'], $port] = explode(':', $this->_config['host']);
         }
 
         $connectionSuccessful = @$conn->real_connect(
@@ -134,7 +134,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (empty($field)) {
             return $row;
         } else {
-            return isset($row[$field]) ? $row[$field] : false;
+            return $row[$field] ?? false;
         }
     }
 

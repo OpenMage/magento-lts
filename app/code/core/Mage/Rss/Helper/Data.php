@@ -50,7 +50,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function authFrontend()
     {
         if (!$this->_rssSession->isCustomerLoggedIn()) {
-            list($username, $password) = $this->authValidate();
+            [$username, $password] = $this->authValidate();
             $customer = Mage::getModel('customer/customer')->authenticate($username, $password);
             if ($customer && $customer->getId()) {
                 $this->_rssSession->settCustomer($customer);
@@ -68,7 +68,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function authAdmin($path)
     {
         if (!$this->_rssSession->isAdminLoggedIn() || !$this->_adminSession->isLoggedIn()) {
-            list($username, $password) = $this->authValidate();
+            [$username, $password] = $this->authValidate();
             Mage::getSingleton('adminhtml/url')->setNoSecret(true);
             $user = $this->_adminSession->login($username, $password);
         } else {

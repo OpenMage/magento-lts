@@ -1765,7 +1765,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return false;
         }
 
-        list($module, $model) = $classArray;
+        [$module, $model] = $classArray;
         if (!isset($this->_xml->global->models->{$module})) {
             return false;
         }
