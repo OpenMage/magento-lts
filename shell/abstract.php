@@ -210,9 +210,6 @@ USAGE;
      */
     public function getArg($name)
     {
-        if (isset($this->_args[$name])) {
-            return $this->_args[$name];
-        }
-        return false;
+        return $this->_args[$name] ?? false;
     }
 }
