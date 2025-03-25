@@ -56,6 +56,7 @@
         "openmage/dev-meta-package": "^1.0.5",
         "perftools/php-profiler": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
+        "phpdocumentor/shim": "^3.7",
         "phpmd/phpmd": "^2.13",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan": "^2.1",
@@ -138,6 +139,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "magento-hackathon/magento-composer-installer": true,
             "openmage/composer-plugin": true,
+            "phpdocumentor/shim": true,
             "phpstan/extension-installer": true
         },
         "platform": {
