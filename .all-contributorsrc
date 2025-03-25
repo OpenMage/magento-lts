@@ -1625,6 +1625,42 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "nprovoost",
+      "name": "Nicky",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25850269?v=4",
+      "profile": "http://twopointzero.eu",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "pauldpauld",
+      "name": "pauldpauld",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1549372?v=4",
+      "profile": "https://alond.com.au/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "PapaDragonov",
+      "name": "PapaDragonov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17141028?v=4",
+      "profile": "https://github.com/PapaDragonov",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "magentox",
+      "name": "magentox",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44047835?v=4",
+      "profile": "https://github.com/magentox",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"

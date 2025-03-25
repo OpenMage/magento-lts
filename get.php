@@ -179,7 +179,7 @@ function checkResource($resource, array $allowedResources)
 {
     $isResourceAllowed = false;
     foreach ($allowedResources as $allowedResource) {
-        if (0 === stripos($resource, $allowedResource)) {
+        if (0 === stripos($resource, (string) $allowedResource)) {
             $isResourceAllowed = true;
         }
     }
