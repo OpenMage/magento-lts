@@ -26,7 +26,7 @@ jobs:
       - run: ddev composer install
 
       # install openmage
-      - run: ddev openmage-install -s -q
+      - run: ddev openmage-install -q
 
       # install cypress-addon
       - run: ddev add-on get tyler36/ddev-cypress
