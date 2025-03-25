@@ -33,7 +33,7 @@ describe('Checks admin cms routes', () => {
         cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
     });
 
-    it('Submits valid form', () => {
+    it('Submits valid form with random email', () => {
         const randomEmail = generateRandomEmail();
         cy.get('#firstname').type('John');
         cy.get('#lastname').type('Doe');
@@ -41,7 +41,6 @@ describe('Checks admin cms routes', () => {
         cy.get('#password').type('12345678');
         cy.get('#confirmation').type('12345678');
         cy.get('#form-validate button[type="submit"]').click();
-        cy.get('#advice-validate-password-password').should('include.text', 'Please enter more characters or clean leading or trailing spaces.');
-        cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
+        cy.get('.success-msg').should('include.text', 'Thank you for registering with Madison Island.');
     });
 });
