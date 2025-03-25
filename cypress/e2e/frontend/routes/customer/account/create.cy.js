@@ -26,8 +26,8 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits form with short password and wrong confirmation', () => {
-        cy.get('#password').type('123');
-        cy.get('#confirmation').type('abc');
+        cy.get('#password').type('123').should('have.value', '123');
+        cy.get('#confirmation').type('abc').should('have.value', 'abc');
         cy.get('#form-validate button[type="submit"]').click();
         cy.get('#advice-validate-password-password').should('include.text', 'Please enter more characters or clean leading or trailing spaces.');
         cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
@@ -35,11 +35,11 @@ describe('Checks customer account create', () => {
 
     it('Submits valid form with random email', () => {
         const randomEmail = generateRandomEmail();
-        cy.get('#firstname').type('John');
-        cy.get('#lastname').type('Doe');
-        cy.get('#email_address').type(randomEmail);
-        cy.get('#password').type('12345678');
-        cy.get('#confirmation').type('12345678');
+        cy.get('#firstname').type('John').should('have.value', 'John');
+        cy.get('#lastname').type('Doe').should('have.value', 'Doe');
+        cy.get('#email_address').type(randomEmail).should('have.value', randomEmail);
+        cy.get('#password').type('12345678').should('have.value', '12345678');
+        cy.get('#confirmation').type('12345678').should('have.value', '12345678');
         cy.get('#form-validate button[type="submit"]').click();
         cy.get('.success-msg').should('include.text', 'Thank you for registering with Madison Island.');
     });

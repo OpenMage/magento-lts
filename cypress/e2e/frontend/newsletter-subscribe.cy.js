@@ -10,6 +10,7 @@ function generateRandomEmail() {
 describe('Check newsletter subribe', () => {
     it('Test empty input', () => {
         cy.visit('/')
+        cy.get('#newsletter').should('have.value', '');
         cy.get('#newsletter-validate-detail button[type="submit"]').click();
         cy.get('#advice-required-entry-newsletter').should('include.text', 'This is a required field.');
     })
@@ -17,12 +18,12 @@ describe('Check newsletter subribe', () => {
     it('Test valid input twice', () => {
         const randomEmail = generateRandomEmail();
         cy.visit('/')
-        cy.get('#newsletter').type(randomEmail);
+        cy.get('#newsletter').type(randomEmail).should('have.value', randomEmail);
         cy.get('#newsletter-validate-detail button[type="submit"]').click();
         cy.get('.success-msg').should('include.text', 'Thank you for your subscription.');
 
-        cy.get('#newsletter').type(randomEmail);
+        cy.get('#newsletter').type(randomEmail).should('have.value', randomEmail);
         cy.get('#newsletter-validate-detail button[type="submit"]').click();
-        cy.get('.success-msg').should('include.text', 'There was a problem with the subscription: This email address is already registered.');
+        cy.get('.error-msg').should('include.text', 'There was a problem with the subscription: This email address is already registered.');
     })
 })
