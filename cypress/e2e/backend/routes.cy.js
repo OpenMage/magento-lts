@@ -71,7 +71,7 @@ const routes = {
     }
 };
 
-describe('Checks admin cms routes', () => {
+describe('Checks admin routes', () => {
     beforeEach('Log in the user', () => {
         cy.visit('/admin');
         cy.adminLogInValidUser();

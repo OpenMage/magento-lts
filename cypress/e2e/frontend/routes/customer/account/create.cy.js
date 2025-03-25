@@ -7,7 +7,7 @@ function generateRandomEmail() {
     return email + '@example.com';
 }
 
-describe('Checks admin cms routes', () => {
+describe('Checks customer account create', () => {
     beforeEach('Log in the user', () => {
         cy.visit('/customer/account/create');
     });
