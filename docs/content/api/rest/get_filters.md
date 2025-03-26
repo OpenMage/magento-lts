@@ -4,11 +4,11 @@ _JSON responses on this page contributed by Tim Reynolds._
 
 Some requests use GET parameters in the URL. These are as follows:
 
-## filter
+## `filter`
 
 Specifies the filters for returned data.
 
-## page
+## `page`
 
 Specifies the page number which items will be returned.
 
@@ -16,7 +16,7 @@ Specifies the page number which items will be returned.
     ```
     https://om.ddev.site/api/rest/products?page=1
     ```
-## order, dir
+## `order`, `dir`
 
 Specifies the sort order of returned items and the order direction: `asc` - returns items in the ascending order; `dsc` - returns items in the descending order.
 
@@ -25,7 +25,7 @@ Specifies the sort order of returned items and the order direction: `asc` - retu
     https://om.ddev.site/api/rest/products?order=name&dir=dsc
     https://om.ddev.site/api/rest/products?order=name&dir=asc
     ```
-## limit
+## `limit`
 
 Limits the number of returned items in the response. Note that by default, 10 items are returned in the response. The maximum number is 100 items.
 
@@ -34,7 +34,7 @@ Limits the number of returned items in the response. Note that by default, 10 it
     https://om.ddev.site/api/rest/products?limit=2
     ```
 
-## neq
+## `neq`
 
 "not equal to" - returns items with the specified attribute that is not equal to the defined value.
 
@@ -43,7 +43,7 @@ Limits the number of returned items in the response. Note that by default, 10 it
     https://om.ddev.site/api/rest/products?filter[1][attribute]=entity_id&filter[1][neq]=3
     ```
 
-## in
+## `in`
 
 "equals any of" - returns items that are equal to the item(s) with the specified attribute(s).
 
@@ -52,7 +52,7 @@ Limits the number of returned items in the response. Note that by default, 10 it
     https://om.ddev.site/api/rest/products?filter[1][attribute]=entity_id&filter[1][in]=3
     ```
 
-## nin
+## `nin`
 
 "not equals any of" - returns items excluding the item with the specified attribute.
 
@@ -61,7 +61,7 @@ Limits the number of returned items in the response. Note that by default, 10 it
     https://om.ddev.site/api/rest/products?filter[1][attribute]=entity_id&filter[1][nin]=3
     ```
 
-## gt
+## `gt`
 
 "greater than" - returns items with the specified attribute that is greater than the defined value.
 
@@ -71,7 +71,7 @@ Limits the number of returned items in the response. Note that by default, 10 it
     https://om.ddev.site/api/rest/products?filter[1][attribute]=price&filter[1][gt]=300
     ```
 
-## lt
+## `lt`
 
 "less than" - returns items with the specified attribute that is less than the defined value.
 
@@ -80,7 +80,7 @@ Limits the number of returned items in the response. Note that by default, 10 it
     https://om.ddev.site/api/rest/products?filter[1][attribute]=entity_id&filter[1][lt]=4
     ```
 
-## from, to
+## `from`, `to`
 
 Specifies the range of attributes according to which items will be returned.
 
@@ -90,9 +90,9 @@ Specifies the range of attributes according to which items will be returned.
     https://om.ddev.site/api/rest/products?filter[1][attribute]=price&filter[1][from]=150&filter[1][to]=350
     ```
 
-## Whitespaces
+## White-spaces
 
-If the attribute value consists of several words separated by a whitespace, the '%20' sign is used:
+If the attribute value consists of several words separated by a white-space, the '%20' sign is used:
 
 !!! example
     ```
