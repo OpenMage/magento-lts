@@ -222,7 +222,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         }
 
         // assert
-        $this->assertFalse(str_contains('value_will_not_be_changed', (string) $valueAfterCheck), 'Default value was wrongfully overridden.');
+        $this->assertStringNotContainsString((string) $valueAfterCheck, 'value_will_not_be_changed', 'Default value was wrongfully overridden.');
     }
 
     public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator

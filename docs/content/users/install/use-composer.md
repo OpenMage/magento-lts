@@ -30,6 +30,16 @@ Configure root directory that magento-lts will be installed to, such as `pub`, `
 composer config extra.magento-root-dir pub
 ```
 
+## Specify PHP engine version
+
+This is not strictly required, but if you are running composer with a different PHP version than your target environment,
+specifying the engine version will ensure that the correct dependencies are installed for your target environment,
+ignoring the PHP engine used to run composer.
+
+```bash
+composer config platform.php 8.4
+```
+
 ## Require `magento-core-composer-installer`
 
 === "PHP 8"

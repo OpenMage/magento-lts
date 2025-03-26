@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -160,9 +160,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                             $this->_soap->handle(),
                         ),
                     );
-            } catch (Zend_Soap_Server_Exception $e) {
-                $this->fault($e->getCode(), $e->getMessage());
-            } catch (Exception $e) {
+            } catch (Zend_Soap_Server_Exception|Exception $e) {
                 $this->fault($e->getCode(), $e->getMessage());
             }
         }
@@ -265,7 +263,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     ['encoding' => $apiConfigCharset],
                 );
             } catch (SoapFault $e) {
-                if (strpos($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'") !== false) {
+                if (str_contains($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
                     $retry = true;
                     sleep(1);
                 } else {

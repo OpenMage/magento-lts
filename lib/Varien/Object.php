@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Object
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -319,7 +319,7 @@ class Varien_Object implements ArrayAccess
         }
 
         $data = $this->_data[$key] ?? null;
-        if ($data === null && $key !== null && strpos($key, '/') !== false) {
+        if ($data === null && $key !== null && str_contains($key, '/')) {
             /* process a/b/c key as ['a']['b']['c'] */
             $data = $this->getDataByPath($key);
         }
@@ -589,7 +589,8 @@ class Varien_Object implements ArrayAccess
         } else {
             preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
             foreach ($matches[1] as $var) {
-                $format = str_replace('{{' . $var . '}}', $this->getData($var), $format);
+                $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
+                $format = str_replace('{{' . $var . '}}', $replace, $format);
             }
             $str = $format;
         }

@@ -854,7 +854,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 $path = $this->_getCategoryPath($category);
                 $path = array_reverse($path);
                 $path = implode('/', $path);
-                if ($category['entity_id'] != 1 && substr($path, 0, 2) != '1/') {
+                if ($category['entity_id'] != 1 && !str_starts_with($path, '1/')) {
                     $path = "1/{$path}";
                 }
 

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -199,7 +199,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
 
                 $mailer = new Zend_Mail('utf-8');
                 foreach ($message->getRecipients() as $recipient) {
-                    list($email, $name, $type) = $recipient;
+                    [$email, $name, $type] = $recipient;
                     switch ($type) {
                         case self::EMAIL_TYPE_BCC:
                             $mailer->addBcc($email, '=?utf-8?B?' . base64_encode($name) . '?=');
@@ -248,7 +248,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                     $message->save();
 
                     foreach ($message->getRecipients() as $recipient) {
-                        list($email, $name, $type) = $recipient;
+                        [$email, $name, $type] = $recipient;
                         Mage::dispatchEvent('email_queue_send_after', [
                             'to'         => $email,
                             'html'       => !$parameters->getIsPlain(),

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Checkout
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -44,11 +44,10 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
                 $lastAdded = (int) $this->_getLastAddedProductId();
                 if ($lastAdded) {
                     $collection = $this->_getCollection()
-                        ->addProductFilter($lastAdded);
-                    if (!empty($ninProductIds)) {
-                        $collection->addExcludeProductFilter($ninProductIds);
-                    }
-                    $collection->setPositionOrder()->load();
+                        ->addProductFilter($lastAdded)
+                        ->addExcludeProductFilter($ninProductIds)
+                        ->setPositionOrder()
+                        ->load();
 
                     /** @var Mage_Catalog_Model_Product_Link $item */
                     foreach ($collection as $item) {
@@ -132,7 +131,7 @@ class Mage_Checkout_Block_Cart_Crosssell extends Mage_Catalog_Block_Product_Abst
     /**
      * Get last product ID that was added to cart and remove this information from session
      *
-     * @return int
+     * @return int|string|null
      */
     protected function _getLastAddedProductId()
     {

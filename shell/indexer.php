@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Shell
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -161,7 +161,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                         $resultTime = microtime(true) - $startTime;
                         Mage::dispatchEvent($process->getIndexerCode() . '_shell_reindex_after');
                         echo $process->getIndexer()->getName()
-                            . ' index was rebuilt successfully in ' . gmdate('H:i:s', ceil($resultTime)) . "\n";
+                            . ' index was rebuilt successfully in ' . gmdate('H:i:s', (int) ceil($resultTime)) . "\n";
                     } catch (Mage_Core_Exception $e) {
                         echo $e->getMessage() . "\n";
                     } catch (Exception $e) {

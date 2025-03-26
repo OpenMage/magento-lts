@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2015-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2015-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -142,14 +142,14 @@ class Mage_Core_Model_Layout_Update
     }
 
     /**
-     * @param string $handle
+     * @param array|string $handle
      * @return $this
      */
     public function addHandle($handle)
     {
         if (is_array($handle)) {
-            foreach ($handle as $h) {
-                $this->_handles[$h] = 1;
+            foreach ($handle as $item) {
+                $this->_handles[$item] = 1;
             }
         } else {
             $this->_handles[$handle] = 1;

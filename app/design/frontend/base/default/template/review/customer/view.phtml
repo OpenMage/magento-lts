@@ -9,8 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Review_Block_Customer_View
+ * @var Mage_Review_Block_Customer_View $this
  */
 ?>
 <?php if($this->getProductData()->getId()): ?>
@@ -20,14 +25,14 @@
     </div>
     <div class="product-img-box">
         <a href="<?php echo $this->getProductData()->getProductUrl() ?>" title="<?php echo $this->escapeHtml($this->getProductData()->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($this->getProductData(), 'small_image')->resize(125, 125); ?>" width="125" height="125" alt="<?php echo $this->escapeHtml($this->getProductData()->getName()) ?>" /></a>
-        <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
+        <?php if($this->getRating() && $this->getRating()->getSize()): ?>
             <p class="label"><?php echo $this->__('Average Customer Rating:') ?></p>
             <?php echo $this->getReviewsSummaryHtml($this->getProductData()) ?>
         <?php endif ?>
     </div>
     <div class="product-details">
         <h2 class="product-name"><?php echo $this->escapeHtml($this->getProductData()->getName()) ?></h2>
-        <?php if( $this->getRating() && $this->getRating()->getSize()): ?>
+        <?php if($this->getRating() && $this->getRating()->getSize()): ?>
         <h3><?php echo ($this->isReviewOwner()) ? $this->__('Your Rating:') : $this->__('Rating:'); ?></h3>
         <table class="ratings-table">
         <?php foreach ($this->getRating() as $_rating): ?>
