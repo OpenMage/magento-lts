@@ -111,8 +111,28 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </show_autocomplete_results_count>
+                        <redirect_to_single_search_result translate="label">
+                            <label>Redirect single search result to product</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </redirect_to_single_search_result>
                     </fields>
                 </search>
+                <advanced_search>
+                    <enabled translate="label">
+                        <label>Enable Advanced Search</label>
+                        <frontend_type>select</frontend_type>
+                        <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                        <sort_order>1</sort_order>
+                        <show_in_default>1</show_in_default>
+                        <show_in_website>1</show_in_website>
+                        <show_in_store>1</show_in_store>
+                    </enabled>
+                </advanced_search>
             </groups>
         </catalog>
     </sections>
