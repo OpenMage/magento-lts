@@ -1303,12 +1303,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			message: '#^Parameter \#2 \$qty of method Mage_Catalog_Model_Product_Type_Price\:\:_applyOptionsPrice\(\) expects int, float\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			message: '#^Parameter \#2 \$selectionProduct of method Mage_Bundle_Model_Product_Price\:\:getSelectionFinalTotalPrice\(\) expects Mage_Catalog_Model_Product, Mage_Bundle_Model_Selection given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1759,24 +1753,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price.php
 
 		-
-			message: '#^Parameter \#3 \$lowerPrice of method Mage_Catalog_Model_Layer_Filter_Price\:\:loadPreviousPrices\(\) expects int\|null, float\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price/Algorithm.php
-
-		-
-			message: '#^Parameter \#3 \$upperPrice of method Mage_Catalog_Model_Layer_Filter_Price\:\:loadNextPrices\(\) expects int\|null, float\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price/Algorithm.php
-
-		-
-			message: '#^Parameter \#4 \$upperPrice of method Mage_Catalog_Model_Layer_Filter_Price\:\:loadPrices\(\) expects int\|null, float\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Layer/Filter/Price/Algorithm.php
-
-		-
 			message: '#^Method Mage_Catalog_Model_Resource_Category_Flat\:\:move\(\) invoked with 3 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -1927,12 +1903,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable.php
 
 		-
-			message: '#^Parameter \#2 \$qty of method Mage_Catalog_Model_Product_Type_Price\:\:_applyOptionsPrice\(\) expects int, float\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Configurable/Price.php
-
-		-
 			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -1949,12 +1919,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Product/Type/Grouped.php
-
-		-
-			message: '#^Parameter \#2 \$qty of method Mage_Catalog_Model_Product_Type_Price\:\:_applyOptionsPrice\(\) expects int, float\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Product/Type/Price.php
 
 		-
 			message: '#^Call to an undefined method Mage_Eav_Model_Entity_Attribute_Abstract\:\:isScopeStore\(\)\.$#'
@@ -5035,12 +4999,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
 
 		-
-			message: '#^Parameter \#1 \$datetime of method Mage_Reports_Model_Resource_Report_Collection\:\:timeShift\(\) expects string, int given\.$#'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection.php
-
-		-
 			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
 			identifier: notEqual.invalid
 			count: 1
@@ -5073,18 +5031,6 @@ parameters:
 		-
 			message: '#^Argument of an invalid type Mage_Reports_Model_Report supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Totals.php
-
-		-
-			message: '#^Parameter \#1 \$from of method Mage_Reports_Model_Resource_Report_Collection\:\:getReportFull\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Totals.php
-
-		-
-			message: '#^Parameter \#2 \$to of method Mage_Reports_Model_Resource_Report_Collection\:\:getReportFull\(\) expects int, string given\.$#'
-			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Totals.php
 
@@ -6190,24 +6136,6 @@ parameters:
 			message: '#^Method Zend_Pdf_Canvas_Abstract\:\:drawText\(\) invoked with 5 parameters, 3\-4 required\.$#'
 			identifier: arguments.count
 			count: 3
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
-			message: '#^Parameter \#1 \$pt of method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder\:\:_x\(\) expects int, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
-			message: '#^Parameter \#1 \$pt of method Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder\:\:_y\(\) expects int, float given\.$#'
-			identifier: argument.type
-			count: 8
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
-
-		-
-			message: '#^Parameter \#1 \$string of function strlen expects string, bool given\.$#'
-			identifier: argument.type
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
 
 		-
