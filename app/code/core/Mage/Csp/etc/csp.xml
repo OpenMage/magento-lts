@@ -4,5 +4,8 @@
         <script-src>
             <host>*.cloudflare.com</host>
         </script-src>
+        <font-src>
+            <host>*.googleapis.com</host>
+        </font-src>
     </csp>
 </config>

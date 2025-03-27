@@ -27,9 +27,9 @@ class Mage_Csp_Model_Observer
             "default-src" => "'self'",
             "script-src"  => "'self' 'unsafe-inline' 'unsafe-eval' www.google-analytics.com www.googletagmanager.com stats.g.doubleclick.net www.paypal.com www.paypalobjects.com js.stripe.com connect.facebook.net",
             "style-src"   => "'self' 'unsafe-inline' fonts.googleapis.com maxcdn.bootstrapcdn.com",
-            "img-src"     => "'self' data: www.google-analytics.com stats.g.doubleclick.net www.paypal.com www.paypalobjects.com connect.facebook.net",
+            "img-src"     => "'self' data: googletagmanager.com www.google-analytics.com stats.g.doubleclick.net www.paypal.com www.paypalobjects.com connect.facebook.net",
             "connect-src" => "'self' www.google-analytics.com www.paypal.com securepayments.paypal.com api.braintreegateway.com js.stripe.com api.stripe.com",
-            "font-src"    => "'self' fonts.gstatic.com maxcdn.bootstrapcdn.com",
+            "font-src"    => "'self' data: fonts.gstatic.com maxcdn.bootstrapcdn.com",
             "frame-src"   => "'self' www.paypal.com payments.amazon.com",
             "object-src"  => "'none'",
             "media-src"   => "'self'",
@@ -39,13 +39,19 @@ class Mage_Csp_Model_Observer
         $policies = Mage::getSingleton('csp/config')->getPolicies();
 
         foreach ($policies as $directive => $hosts) {
-            $directives[$directive] .= ' ' . $hosts;
+            foreach ($hosts as $host) {
+                $directives[$directive] .= ' ' . $host;
+            }
         }
         $cspHeader = [];
         foreach ($directives as $directive => $value) {
             $cspHeader[] = $directive . " " . $value;
         }
 
-        header("Content-Security-Policy: " . implode("; ", $cspHeader));
+        if (!Mage::getStoreConfigFlag('system/csp/report_only')) {
+            header('Content-Security-Policy: ' . implode("; ", $cspHeader));
+        } else {
+            header('Content-Security-Policy-Report-Only: ' . implode("; ", $cspHeader));
+        }
     }
 }

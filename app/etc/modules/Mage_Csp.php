@@ -9,7 +9,7 @@
  *
  * @category   Mage
  * @package    Mage_Csp
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
