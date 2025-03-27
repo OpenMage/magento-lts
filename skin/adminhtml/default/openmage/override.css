@@ -301,6 +301,7 @@ small {
   height: 16px;
   margin: 8px 0 0 5px;
   filter: revert;
+  float: right;
 }
 .grid table {
   border: 1px solid lightgrey;
