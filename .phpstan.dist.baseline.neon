@@ -1177,12 +1177,6 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Route/ApiType.php
 
 		-
-			message: '#^Method Mage_Api2_Model_Server\:\:_setAuthUser\(\) has Exception in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: app/code/core/Mage/Api2/Model/Server.php
-
-		-
 			message: '#^Call to an undefined method Varien_Object\:\:encrypt\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -4079,12 +4073,6 @@ parameters:
 			identifier: arguments.count
 			count: 1
 			path: app/code/core/Mage/GiftMessage/controllers/IndexController.php
-
-		-
-			message: '#^Method Mage_GoogleAnalytics_Block_Ga\:\:_getOrdersTrackingCode\(\) has Mage_Core_Model_Store_Exception in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: app/code/core/Mage/GoogleAnalytics/Block/Ga.php
 
 		-
 			message: '#^Return type \(void\) of method Mage_GoogleCheckout_Model_Payment\:\:authorize\(\) should be compatible with return type \(\$this\(Mage_Payment_Model_Method_Abstract\)\) of method Mage_Payment_Model_Method_Abstract\:\:authorize\(\)$#'
