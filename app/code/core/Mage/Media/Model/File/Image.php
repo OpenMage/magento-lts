@@ -77,7 +77,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Create image resource for operation from file
      *
-     * @return bool|false|resource
+     * @return false|GdImage|resource
      * @throws Mage_Core_Exception
      */
     public function getImage(Mage_Media_Model_Image $object)
@@ -112,7 +112,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Create tmp image resource for operations
      *
-     * @return resource
+     * @return false|GdImage|resource
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {

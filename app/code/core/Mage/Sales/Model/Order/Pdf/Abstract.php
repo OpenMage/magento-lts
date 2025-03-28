@@ -106,7 +106,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  int $columnWidth
      * @param  int $fontSize
      * @param  int $padding
-     * @return int
+     * @return float
      */
     public function getAlignRight($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize, $padding = 5)
     {
@@ -121,7 +121,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * @param  int $x
      * @param  int $columnWidth
      * @param  int $fontSize
-     * @return int
+     * @return float
      */
     public function getAlignCenter($string, $x, $columnWidth, Zend_Pdf_Resource_Font $font, $fontSize)
     {

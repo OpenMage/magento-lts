@@ -217,18 +217,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Review/Grid/Filter/Type.php
 
 		-
-			message: '#^Method Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form\:\:getEntity\(\) should return Varien_Object but returns Mage_Eav_Model_Entity_Abstract\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage/Form.php
-
-		-
-			message: '#^Property Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage_Form\:\:\$_entity \(Mage_Eav_Model_Entity_Abstract\) does not accept Varien_Object\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Sales/Order/Create/Giftmessage/Form.php
-
-		-
 			message: '#^Call to method getIsOldCustomer\(\) on an unknown class Mage_Adminhtml_Model_Quote\.$#'
 			identifier: class.notFound
 			count: 1
@@ -1429,12 +1417,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/View/Attributes.php
 
 		-
-			message: '#^Method Mage_Catalog_Block_Product_View_Options_Type_Date\:\:_getValueWithLeadingZeros\(\) should return string but returns int\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/View/Options/Type/Date.php
-
-		-
 			message: '#^Invalid array key type array\.$#'
 			identifier: offsetAccess.invalidOffset
 			count: 1
@@ -2389,12 +2371,6 @@ parameters:
 			path: app/code/core/Mage/CatalogInventory/Block/Adminhtml/Form/Field/Customergroup.php
 
 		-
-			message: '#^Method Mage_CatalogInventory_Model_Observer\:\:_getQuoteItemQtyForCheck\(\) should return int but returns float\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/CatalogInventory/Model/Observer.php
-
-		-
 			message: '#^Cannot call method setTypeId\(\) on Mage_Core_Model_Resource_Db_Collection_Abstract\|false\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -2543,12 +2519,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Checkout/Block/Cart/Item/Renderer/Grouped.php
-
-		-
-			message: '#^Method Mage_Checkout_Block_Onepage_Progress\:\:getShippingPriceInclTax\(\) should return float but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Checkout/Block/Onepage/Progress.php
 
 		-
 			message: '#^PHPDoc tag @var with type Mage_Sales_Model_Quote_Item is not subtype of native type null\.$#'
@@ -2995,12 +2965,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php
 
 		-
-			message: '#^Variable \$parentId might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Core/Model/File/Storage/Directory/Database.php
-
-		-
 			message: '#^Call to an undefined method SimpleXMLElement\:\:getAttribute\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -3021,12 +2985,6 @@ parameters:
 		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Core/Model/Layout.php
-
-		-
-			message: '#^Method Mage_Core_Model_Layout\:\:getMessagesBlock\(\) should return Mage_Core_Block_Messages but returns Mage_Core_Block_Abstract\.$#'
-			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout.php
 
@@ -3097,7 +3055,13 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource.php
 
 		-
-			message: '#^Method Mage_Core_Model_Resource_Db_Abstract\:\:_getConnection\(\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\|false\.$#'
+			message: '#^Method Mage_Core_Model_Resource_Db_Abstract\:\:_getReadAdapter\(\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
+
+		-
+			message: '#^Method Mage_Core_Model_Resource_Db_Abstract\:\:_getWriteAdapter\(\) should return Magento_Db_Adapter_Pdo_Mysql but returns Varien_Db_Adapter_Interface\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Db/Abstract.php
@@ -3155,12 +3119,6 @@ parameters:
 			identifier: property.defaultValue
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Entity/Abstract.php
-
-		-
-			message: '#^Method Mage_Core_Model_Resource_File_Storage_Directory_Database\:\:getParentId\(\) should return int but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/File/Storage/Directory/Database.php
 
 		-
 			message: '#^PHPDoc tag @param for parameter \$callbacks with type array\|string is not subtype of native type array\.$#'
@@ -3349,32 +3307,8 @@ parameters:
 			path: app/code/core/Mage/Customer/Block/Account/Navigation.php
 
 		-
-			message: '#^Method Mage_Customer_Block_Address_Edit\:\:getCountryId\(\) should return int but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Address/Edit.php
-
-		-
-			message: '#^Return type \(int\) of method Mage_Customer_Block_Address_Edit\:\:getCountryId\(\) should be compatible with return type \(string\) of method Mage_Directory_Block_Data\:\:getCountryId\(\)$#'
+			message: '#^Return type \(string\) of method Mage_Customer_Block_Newsletter\:\:getAction\(\) should be compatible with return type \(Mage_Core_Controller_Varien_Action\) of method Mage_Core_Block_Abstract\:\:getAction\(\)$#'
 			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Address/Edit.php
-
-		-
-			message: '#^Method Mage_Customer_Block_Form_Register\:\:getCountryId\(\) should return int but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Form/Register.php
-
-		-
-			message: '#^Return type \(int\) of method Mage_Customer_Block_Form_Register\:\:getCountryId\(\) should be compatible with return type \(string\) of method Mage_Directory_Block_Data\:\:getCountryId\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Customer/Block/Form/Register.php
-
-		-
-			message: '#^Method Mage_Customer_Block_Newsletter\:\:getAction\(\) should return Mage_Core_Controller_Varien_Action but returns string\.$#'
-			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Newsletter.php
 
@@ -3505,12 +3439,6 @@ parameters:
 			path: app/code/core/Mage/Customer/Model/Session.php
 
 		-
-			message: '#^Method Mage_Dataflow_Model_Batch\:\:setParams\(\) should return Mage_Dataflow_Model_Batch_Abstract but returns \$this\(Mage_Dataflow_Model_Batch\)\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Batch.php
-
-		-
 			message: '#^Property Mage_Dataflow_Model_Batch\:\:\$_batchExport \(Mage_Dataflow_Model_Batch_Export\|null\) does not accept string\|false\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -3635,12 +3563,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Directory/Helper/Data.php
-
-		-
-			message: '#^Method Mage_Directory_Model_Country\:\:getFormat\(\) should return Mage_Directory_Model_Country_Format but returns null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Country.php
 
 		-
 			message: '#^Parameter \#1 \$value of method Zend_Currency\:\:toCurrency\(\) expects float\|int\|null, string given\.$#'
@@ -3779,12 +3701,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Attribute.php
-
-		-
-			message: '#^Method Mage_Eav_Model_Attribute_Data_Abstract\:\:setRequestScope\(\) should return string but returns \$this\(Mage_Eav_Model_Attribute_Data_Abstract\)\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Attribute/Data/Abstract.php
 
 		-
 			message: '#^Property Mage_Eav_Model_Attribute_Data_Abstract\:\:\$_attribite \(Mage_Eav_Model_Attribute\) does not accept Mage_Eav_Model_Entity_Attribute_Abstract\.$#'
@@ -4045,18 +3961,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
 
 		-
-			message: '#^Method Mage_Eav_Model_Entity_Setup\:\:getDefaultAttributeGroupId\(\) should return int but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Method Mage_Eav_Model_Entity_Setup\:\:getDefaultAttributeSetId\(\) should return int but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
 			message: '#^Parameter \#1 \$code of method Mage_Eav_Model_Entity_Setup\:\:updateEntityType\(\) expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4135,28 +4039,10 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Form.php
 
 		-
-			message: '#^Method Mage_Eav_Model_Resource_Entity_Attribute\:\:_getMaxSortOrder\(\) should return int but returns string\|false\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
-
-		-
-			message: '#^Method Mage_Eav_Model_Resource_Entity_Attribute\:\:getIdByCode\(\) should return int but returns string\|false\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute.php
-
-		-
 			message: '#^Call to an undefined method Mage_Eav_Model_Entity_Collection_Abstract\:\:getStoreId\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Option.php
-
-		-
-			message: '#^Method Mage_Eav_Model_Resource_Entity_Attribute_Set\:\:getDefaultGroupId\(\) should return int\|null but returns string\|false\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Set.php
 
 		-
 			message: '#^Variable \$store might not be defined\.$#'
@@ -4405,18 +4291,6 @@ parameters:
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: '#^Method Mage_Media_Model_File_Image\:\:getImage\(\) should return bool\|resource but returns GdImage\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: '#^Method Mage_Media_Model_File_Image\:\:getTmpImage\(\) should return resource but returns \(GdImage\|false\)\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
 			message: '#^Parameter \#1 \$dst_image of function imagecopyresampled expects GdImage, resource given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4553,18 +4427,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Paypal/Block/Adminhtml/System/Config/Fieldset/Deprecated.php
-
-		-
-			message: '#^Method Mage_Paypal_Block_Express_Review\:\:_formatPrice\(\) should return string but returns float\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Express/Review.php
-
-		-
-			message: '#^Method Mage_Paypal_Block_Express_Review\:\:_getShippingPrice\(\) should return bool but returns float\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Block/Express/Review.php
 
 		-
 			message: '#^Return type \(false\) of method Mage_Paypal_Block_Hosted_Pro_Info\:\:getCcTypeName\(\) should be compatible with return type \(string\|null\) of method Mage_Paypal_Block_Payment_Info\:\:getCcTypeName\(\)$#'
@@ -4843,22 +4705,10 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
 		-
-			message: '#^Method Mage_Rating_Model_Resource_Rating\:\:getEntityIdByCode\(\) should return int but returns string\|false\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Rating/Model/Resource/Rating.php
-
-		-
 			message: '#^Method Mage_Rating_Model_Resource_Rating_Collection\:\:getItemById\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 2
 			path: app/code/core/Mage/Rating/Model/Resource/Rating/Collection.php
-
-		-
-			message: '#^Method Mage_Rating_Model_Resource_Rating_Entity\:\:getIdByCode\(\) should return int but returns string\|false\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Rating/Model/Resource/Rating/Entity.php
 
 		-
 			message: '#^Parameter \#2 \$value of method Varien_Data_Collection\:\:addFilter\(\) expects array\|string, int given\.$#'
@@ -5039,12 +4889,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Review/Block/Form.php
-
-		-
-			message: '#^Method Mage_Review_Model_Resource_Review\:\:getTotalReviews\(\) should return int but returns string\|false\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Review/Model/Resource/Review.php
 
 		-
 			message: '#^Comparison operation "\=\=" between array\|null and 1 results in an error\.$#'
@@ -5263,18 +5107,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
 
 		-
-			message: '#^Method Mage_Sales_Model_Order_Pdf_Abstract\:\:getAlignCenter\(\) should return int but returns float\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: '#^Method Mage_Sales_Model_Order_Pdf_Abstract\:\:getAlignRight\(\) should return int but returns float\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
 			message: '#^Variable \$order might not be defined\.$#'
 			identifier: variable.undefined
 			count: 12
@@ -5303,12 +5135,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
-
-		-
-			message: '#^Method Mage_Sales_Model_Order_Pdf_Items_Abstract\:\:getSku\(\) should return string but returns array\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Abstract.php
 
 		-
 			message: '#^Parameter \#1 \$item of method Mage_Sales_Model_Order_Pdf_Items_Abstract\:\:getSku\(\) expects Mage_Sales_Model_Order_Creditmemo_Item\|Mage_Sales_Model_Order_Invoice_Item, Varien_Object given\.$#'
@@ -5371,24 +5197,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
 
 		-
-			message: '#^Method Mage_Sales_Model_Order_Shipment_Api\:\:create\(\) should return string but returns null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
-
-		-
-			message: '#^Parameter \#1 \$comment of method Mage_Sales_Model_Order_Shipment\:\:addComment\(\) expects Mage_Sales_Model_Order_Shipment_Comment, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
-
-		-
-			message: '#^Parameter \#1 \$comment of method Mage_Sales_Model_Order_Shipment\:\:addComment\(\) expects Mage_Sales_Model_Order_Shipment_Comment, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
-
-		-
 			message: '#^Parameter \#1 \$object of method Mage_Sales_Model_Order_Shipment_Api\:\:_getCarriers\(\) expects Mage_Eav_Model_Entity_Abstract, Mage_Sales_Model_Order given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5399,18 +5207,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api.php
-
-		-
-			message: '#^Method Mage_Sales_Model_Order_Shipment_Api_V2\:\:create\(\) should return string but returns null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api/V2.php
-
-		-
-			message: '#^Parameter \#1 \$comment of method Mage_Sales_Model_Order_Shipment\:\:addComment\(\) expects Mage_Sales_Model_Order_Shipment_Comment, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Shipment/Api/V2.php
 
 		-
 			message: '#^Parameter \#1 \$object of method Mage_Sales_Model_Order_Shipment_Api\:\:_getCarriers\(\) expects Mage_Eav_Model_Entity_Abstract, Mage_Sales_Model_Order given\.$#'
@@ -5737,12 +5533,6 @@ parameters:
 			path: app/code/core/Mage/Shipping/Model/Carrier/Pickup.php
 
 		-
-			message: '#^Method Mage_Shipping_Model_Carrier_Tablerate\:\:getRate\(\) should return Mage_Core_Model_Abstract but returns array\|bool\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Shipping/Model/Carrier/Tablerate.php
-
-		-
 			message: '#^Parameter \#1 \$hash of method Mage_Shipping_Helper_Data\:\:decodeTrackingHash\(\) expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5842,12 +5632,6 @@ parameters:
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 3
-			path: app/code/core/Mage/Tax/Helper/Data.php
-
-		-
-			message: '#^Method Mage_Tax_Helper_Data\:\:needPriceConversion\(\) should return int\|false but returns bool\.$#'
-			identifier: return.type
-			count: 1
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
@@ -6139,6 +5923,12 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
 
 		-
+			message: '#^Parameter \#1 \$string of function strlen expects string, bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Label/Pdf/PageBuilder.php
+
+		-
 			message: '#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Fedex\:\:\$_defaultGatewayUrl\.$#'
 			identifier: property.notFound
 			count: 1
@@ -6147,18 +5937,6 @@ parameters:
 		-
 			message: '#^Access to an undefined property Mage_Usa_Model_Shipping_Carrier_Fedex\:\:\$_rawTrackingRequest\.$#'
 			identifier: property.notFound
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: '#^Method Mage_Usa_Model_Shipping_Carrier_Fedex\:\:_getQuotes\(\) should return Mage_Shipping_Model_Rate_Result but returns true\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
-			message: '#^Method Mage_Usa_Model_Shipping_Carrier_Fedex\:\:_getRateAmountOriginBased\(\) should return float\|null but returns string\|null\.$#'
-			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
@@ -6243,12 +6021,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method Mage_Core_Helper_Abstract\:\:priceIncludesTax\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Weee/Helper/Data.php
-
-		-
-			message: '#^Method Mage_Weee_Helper_Data\:\:getOriginalAmount\(\) should return int but returns float\.$#'
-			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Weee/Helper/Data.php
 
@@ -7183,12 +6955,6 @@ parameters:
 			path: app/design/frontend/base/default/template/customer/form/edit.phtml
 
 		-
-			message: '#^Parameter \#1 \(Mage_Core_Controller_Varien_Action\) of echo cannot be converted to string\.$#'
-			identifier: echo.nonString
-			count: 1
-			path: app/design/frontend/base/default/template/customer/form/newsletter.phtml
-
-		-
 			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
 			identifier: method.nonObject
 			count: 3
@@ -7930,12 +7696,6 @@ parameters:
 			message: '#^Left side of && is always true\.$#'
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 2
-			path: lib/Varien/Cache/Backend/Database.php
-
-		-
-			message: '#^Method Varien_Cache_Backend_Database\:\:touch\(\) should return bool but returns int\.$#'
-			identifier: return.type
-			count: 1
 			path: lib/Varien/Cache/Backend/Database.php
 
 		-

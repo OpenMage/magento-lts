@@ -378,7 +378,7 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      * Returns original amount
      *
      * @param Mage_Catalog_Model_Product $product
-     * @return int
+     * @return float|int
      */
     public function getOriginalAmount($product)
     {

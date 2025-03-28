@@ -628,7 +628,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * If code is null return all options
      *
      * @param string $code
-     * @return array|null
+     * @return array|string|null
      */
     public function getProductOptionByCode($code = null)
     {

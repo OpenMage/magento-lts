@@ -408,7 +408,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     /**
      * Do remote request for and handle errors
      *
-     * @return Mage_Shipping_Model_Rate_Result
+     * @return Mage_Shipping_Model_Rate_Result|bool
      */
     protected function _getQuotes()
     {
@@ -567,7 +567,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             }
         }
 
-        return $amount;
+        return (float) $amount;
     }
 
     /**
