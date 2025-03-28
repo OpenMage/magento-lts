@@ -331,12 +331,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Sales/Transactions/Detail/Grid.php
 
 		-
-			message: '#^Property Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid\:\:\$_conditionName \(string\) does not accept int\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Shipping/Carrier/Tablerate/Grid.php
-
-		-
 			message: '#^Property Mage_Adminhtml_Block_Store_Switcher_Form_Renderer_Fieldset\:\:\$_element \(Varien_Data_Form_Element_Fieldset\) does not accept Varien_Data_Form_Element_Abstract\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -853,32 +847,8 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Rules.php
 
 		-
-			message: '#^Call to an undefined method SoapServer\:\:setReturnResponse\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
 			message: '#^Parameter \#1 \$code of class SoapFault constructor expects array\|string\|null, int given\.$#'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
-			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
-			message: '#^Property Mage_Api_Model_Server_Adapter_Soap\:\:\$_soap \(SoapServer\) does not accept Zend_Soap_Server\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
-			message: '#^Result of method SoapServer\:\:handle\(\) \(void\) is used\.$#'
-			identifier: method.void
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
 
@@ -887,18 +857,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
-
-		-
-			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/V2/Adapter/Soap.php
-
-		-
-			message: '#^Result of method SoapServer\:\:handle\(\) \(void\) is used\.$#'
-			identifier: method.void
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/V2/Adapter/Soap.php
 
 		-
 			message: '#^Return type \(Mage_Api_Model_Wsdl_Config\) of method Mage_Api_Model_Server_V2_Adapter_Soap\:\:_getWsdlConfig\(\) should be compatible with return type \(Varien_Object\) of method Mage_Api_Model_Server_Adapter_Soap\:\:_getWsdlConfig\(\)$#'
@@ -917,18 +875,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
-
-		-
-			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Wsi/Adapter/Soap.php
-
-		-
-			message: '#^Result of method SoapServer\:\:handle\(\) \(void\) is used\.$#'
-			identifier: method.void
-			count: 1
-			path: app/code/core/Mage/Api/Model/Server/Wsi/Adapter/Soap.php
 
 		-
 			message: '#^Return type \(Mage_Api_Model_Wsdl_Config\) of method Mage_Api_Model_Server_Wsi_Adapter_Soap\:\:_getWsdlConfig\(\) should be compatible with return type \(Varien_Object\) of method Mage_Api_Model_Server_Adapter_Soap\:\:_getWsdlConfig\(\)$#'
@@ -2803,12 +2749,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/App.php
 
 		-
-			message: '#^Property Mage_Core_Model_App\:\:\$_useSessionInUrl \(bool\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Core/Model/App.php
-
-		-
 			message: '#^Method Mage_Core_Model_Cache\:\:getDbAdapter\(\) should return Zend_Db_Adapter_Abstract but returns Varien_Db_Adapter_Interface\|false\.$#'
 			identifier: return.type
 			count: 1
@@ -3199,12 +3139,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Store.php
 
 		-
-			message: '#^Property Mage_Core_Model_Store\:\:\$_priceFilter \(Mage_Directory_Model_Currency_Filter\) does not accept Varien_Filter_Sprintf\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Core/Model/Store.php
-
-		-
 			message: '#^Parameter \#1 \$options of class Zend_Translate constructor expects array\|Zend_Config\|Zend_Translate_Adapter, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -3277,28 +3211,10 @@ parameters:
 			path: app/code/core/Mage/Cron/Model/Observer.php
 
 		-
-			message: '#^Property Mage_CurrencySymbol_Model_System_Currencysymbol\:\:\$_storeId \(string\|null\) does not accept int\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
-
-		-
-			message: '#^Property Mage_CurrencySymbol_Model_System_Currencysymbol\:\:\$_websiteId \(string\|null\) does not accept int\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/CurrencySymbol/Model/System/Currencysymbol.php
-
-		-
 			message: '#^Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection\:\:addAttributeToSelect\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Customer/Block/Account/Dashboard/Sidebar.php
-
-		-
-			message: '#^Property Mage_Customer_Block_Account_Navigation\:\:\$_activeLink \(bool\) does not accept string\.$#'
-			identifier: assign.propertyType
-			count: 2
-			path: app/code/core/Mage/Customer/Block/Account/Navigation.php
 
 		-
 			message: '#^Return type \(string\) of method Mage_Customer_Block_Newsletter\:\:getAction\(\) should be compatible with return type \(Mage_Core_Controller_Varien_Action\) of method Mage_Core_Block_Abstract\:\:getAction\(\)$#'
@@ -4253,24 +4169,6 @@ parameters:
 			identifier: isset.property
 			count: 1
 			path: app/code/core/Mage/Install/Model/Installer/Db/Abstract.php
-
-		-
-			message: '#^Method Mage_Log_Model_Aggregation\:\:_date\(\) never returns false so it can be removed from the return type\.$#'
-			identifier: return.unusedType
-			count: 1
-			path: app/code/core/Mage/Log/Model/Aggregation.php
-
-		-
-			message: '#^Parameter \#1 \$id of method Mage_Log_Model_Aggregation\:\:_update\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Log/Model/Aggregation.php
-
-		-
-			message: '#^Property Mage_Log_Model_Aggregation\:\:\$_lastRecord \(string\) does not accept int\|false\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Log/Model/Aggregation.php
 
 		-
 			message: '#^Binary operation "\+" between non\-falsy\-string and 1 results in an error\.$#'
@@ -5947,6 +5845,12 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
+			message: '#^Binary operation "\*" between float and string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
+
+		-
 			message: '#^Parameter \#1 \$error of method Mage_Shipping_Model_Rate_Result\:\:setError\(\) expects bool, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5968,12 +5872,6 @@ parameters:
 			message: '#^Parameter \#3 \$value of function curl_setopt expects bool, int given\.$#'
 			identifier: argument.type
 			count: 18
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: '#^Property Mage_Usa_Model_Shipping_Carrier_Ups\:\:\$_baseCurrencyRate \(float\) does not accept string\.$#'
-			identifier: assign.propertyType
-			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-

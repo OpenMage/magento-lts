@@ -75,7 +75,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Base currency rate
      *
-     * @var double
+     * @var string
      */
     protected $_baseCurrencyRate;
 
@@ -818,7 +818,7 @@ XMLRequest;
      * Get base currency rate
      *
      * @param string $code
-     * @return double
+     * @return string
      */
     protected function _getBaseCurrencyRate($code)
     {
