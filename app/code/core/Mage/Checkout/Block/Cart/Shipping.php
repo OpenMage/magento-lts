@@ -35,9 +35,9 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
     /**
      * Address Model
      *
-     * @var array
+     * @var Mage_Sales_Model_Quote_Address
      */
-    protected $_address = [];
+    protected $_address;
 
     /**
      * Get Estimate Rates
@@ -60,7 +60,7 @@ class Mage_Checkout_Block_Cart_Shipping extends Mage_Checkout_Block_Cart_Abstrac
      */
     public function getAddress()
     {
-        if (empty($this->_address)) {
+        if (is_null($this->_address)) {
             $this->_address = $this->getQuote()->getShippingAddress();
         }
         return $this->_address;

@@ -389,7 +389,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Retrieve Default Attribute Set for Entity Type
      *
      * @param string|int $entityType
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeSetId($entityType)
     {
@@ -573,7 +573,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string|int $entityType
      * @param int $attributeSetId
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {

@@ -101,7 +101,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
     /**
      * Retrieve customer country identifier
      *
-     * @return int
+     * @return string
      */
     public function getCountryId()
     {

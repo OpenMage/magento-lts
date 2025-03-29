@@ -40,7 +40,7 @@ class Mage_Core_Model_Cookie
     /**
      * Set Store object
      *
-     * @param mixed $store
+     * @param bool|int|Mage_Core_Model_Store|null|string $store
      * @return $this
      */
     public function setStore($store)
@@ -199,7 +199,7 @@ class Mage_Core_Model_Cookie
      *
      * @param string $name The cookie name
      * @param string $value The cookie value
-     * @param int $period Lifetime period
+     * @param int|bool $period Lifetime period
      * @param string $path
      * @param string $domain
      * @param int|bool $secure

@@ -312,7 +312,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {
                 $_category = &$designUpdateData;
             }
-            if ($_category && $_category->getId()) {
+            if (isset($_category) && $_category->getId()) {
                 $_designUpdateData = array_merge(
                     $_designUpdateData,
                     $_category->getResource()->getDesignUpdateData($_category),

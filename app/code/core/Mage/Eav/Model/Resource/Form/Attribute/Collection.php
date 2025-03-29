@@ -237,9 +237,9 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         }
 
         // add store attribute label
-        if ($store->isAdmin()) {
+        if (isset($store) && $store->isAdmin()) {
             $select->columns(['store_label' => 'ea.frontend_label']);
-        } else {
+        } elseif (isset($store)) {
             $storeLabelExpr = $connection->getCheckSql('al.value IS NULL', 'ea.frontend_label', 'al.value');
             $joinExpression = $connection
                 ->quoteInto('al.attribute_id = main_table.attribute_id AND al.store_id = ?', (int) $store->getId());
