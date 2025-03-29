@@ -265,6 +265,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $order = $shipment->getOrder();
         }
 
+        if (!isset($order)) {
+            return;
+        }
+
         $this->y = $this->y ? $this->y : 815;
         $top = $this->y;
 
@@ -444,8 +448,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             $yShipments -= $topMargin + 10;
 
             $tracks = [];
-            if ($shipment) {
-                /** @var Mage_Sales_Model_Order_Shipment $shipment */
+            if (isset($shipment)) {
                 $tracks = $shipment->getAllTracks();
             }
             if (count($tracks)) {
@@ -781,7 +784,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set font as bold
      *
-     * @param  Zend_Pdf_Page $object
+     * @param  Zend_Pdf_Page|Zend_Pdf_Style $object
      * @param  int $size
      * @return Zend_Pdf_Resource_Font
      */
@@ -795,7 +798,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
     /**
      * Set font as italic
      *
-     * @param  Zend_Pdf_Page $object
+     * @param  Zend_Pdf_Page|Zend_Pdf_Style $object
      * @param  int $size
      * @return Zend_Pdf_Resource_Font
      */

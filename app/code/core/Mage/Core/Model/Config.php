@@ -1598,7 +1598,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 case 'name':
                     $key = (string) $store->descend('system/store/name');
             }
-            if ($key === false) {
+            if (!isset($key) || $key === false) {
                 continue;
             }
 

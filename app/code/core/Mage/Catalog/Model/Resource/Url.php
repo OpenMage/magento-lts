@@ -756,7 +756,7 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         }
         unset($rowSet);
 
-        if ($storeId !== null && $categories) {
+        if (isset($category) && $storeId !== null && $categories) {
             foreach (['name', 'url_key', 'url_path'] as $attributeCode) {
                 $attributes = $this->_getCategoryAttribute(
                     $attributeCode,

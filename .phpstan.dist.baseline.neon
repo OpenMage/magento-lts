@@ -1171,12 +1171,6 @@ parameters:
 			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
 
 		-
-			message: '#^Variable \$params might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Authorizenet/controllers/Directpost/PaymentController.php
-
-		-
 			message: '#^Call to an undefined method Mage_Catalog_Model_Product_Configuration_Item_Interface\:\:getQty\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -1291,18 +1285,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
 
 		-
-			message: '#^Variable \$basePrice might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
-			message: '#^Variable \$customOptions might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Price/Index.php
-
-		-
 			message: '#^Property Mage_Captcha_Model_Zend\:\:\$_helper \(Mage_Captcha_Helper_Data\) in empty\(\) is not falsy\.$#'
 			identifier: empty.property
 			count: 1
@@ -1363,18 +1345,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Block/Product/View/Type/Configurable.php
 
 		-
-			message: '#^Variable \$finish might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Widget/Html/Pager.php
-
-		-
-			message: '#^Variable \$start might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Product/Widget/Html/Pager.php
-
-		-
 			message: '#^Parameter \#1 \$category \(Mage_Catalog_Model_Category\) of method Mage_Catalog_Block_Seo_Sitemap_Category\:\:getItemUrl\(\) should be compatible with parameter \$item \(Mage_Catalog_Block_Seo_Sitemap_Abstract\) of method Mage_Catalog_Block_Seo_Sitemap_Abstract\:\:getItemUrl\(\)$#'
 			identifier: method.childParameterType
 			count: 1
@@ -1385,18 +1355,6 @@ parameters:
 			identifier: method.childParameterType
 			count: 1
 			path: app/code/core/Mage/Catalog/Block/Seo/Sitemap/Product.php
-
-		-
-			message: '#^Variable \$finish might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Seo/Sitemap/Tree/Pager.php
-
-		-
-			message: '#^Variable \$start might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Block/Seo/Sitemap/Tree/Pager.php
 
 		-
 			message: '#^Parameter \#1 \$entityId of method Mage_Catalog_Model_Resource_Abstract\:\:getAttributeRawValue\(\) expects int, string given\.$#'
@@ -1599,12 +1557,6 @@ parameters:
 		-
 			message: '#^Method Mage_Catalog_Model_Category\:\:getParentDesignCategory\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Design.php
-
-		-
-			message: '#^Variable \$_category might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Design.php
 
@@ -1945,32 +1897,8 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
 
 		-
-			message: '#^Variable \$condition might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Flat/Collection.php
-
-		-
 			message: '#^Call to an undefined method Zend_Db_Select\:\:insertFromSelect\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
-
-		-
-			message: '#^Variable \$anchorProductsTable might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
-
-		-
-			message: '#^Variable \$anchorTable might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
-
-		-
-			message: '#^Variable \$enabledTable might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Category/Indexer/Product.php
 
@@ -2197,12 +2125,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Setup.php
 
 		-
-			message: '#^Variable \$category might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Url.php
-
-		-
 			message: '#^Loose comparison using \=\= between true and true will always evaluate to true\.$#'
 			identifier: equal.alwaysTrue
 			count: 2
@@ -2260,12 +2182,6 @@ parameters:
 			message: '#^Call to function is_array\(\) with mixed will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
-			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
-
-		-
-			message: '#^Variable \$storeObject might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
 			path: app/code/core/Mage/CatalogIndex/Model/Indexer.php
 
 		-
@@ -2347,30 +2263,6 @@ parameters:
 			path: app/code/core/Mage/CatalogRule/Model/Observer.php
 
 		-
-			message: '#^Variable \$gId might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Observer.php
-
-		-
-			message: '#^Variable \$pId might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Observer.php
-
-		-
-			message: '#^Variable \$wId might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Observer.php
-
-		-
-			message: '#^Variable \$indexAlias might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/CatalogRule/Model/Resource/Rule/Product/Price.php
-
-		-
 			message: '#^Call to an undefined method Mage_Rule_Model_Condition_Combine\:\:collectValidatedAttributes\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -2395,12 +2287,6 @@ parameters:
 			path: app/code/core/Mage/CatalogSearch/Block/Advanced/Form.php
 
 		-
-			message: '#^Variable \$temp might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Block/Term.php
-
-		-
 			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<array\<string\>\|string\|null\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2417,12 +2303,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/CatalogSearch/Model/Advanced.php
-
-		-
-			message: '#^Variable \$select might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/CatalogSearch/Model/Resource/Advanced/Collection.php
 
 		-
 			message: '#^Parameter \#1 \$typeId of method Mage_CatalogSearch_Model_Resource_Fulltext\:\:_getProductTypeInstance\(\) expects string, int given\.$#'
@@ -2683,30 +2563,6 @@ parameters:
 			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
 
 		-
-			message: '#^Variable \$action might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
-			message: '#^Variable \$controller might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
-			message: '#^Variable \$controllerInstance might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
-			message: '#^Variable \$realModule might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Core/Controller/Varien/Router/Standard.php
-
-		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, ''trim'' given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2775,12 +2631,6 @@ parameters:
 		-
 			message: '#^Return type \(string\) of method Mage_Core_Model_Config\:\:_loadCache\(\) should be compatible with return type \(bool\) of method Varien_Simplexml_Config\:\:_loadCache\(\)$#'
 			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Core/Model/Config.php
-
-		-
-			message: '#^Variable \$key might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Core/Model/Config.php
 
@@ -3181,12 +3031,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
 
 		-
-			message: '#^Variable \$targetUrl might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/code/core/Mage/Core/Model/Url/Rewrite.php
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 1
@@ -3203,12 +3047,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Core/functions.php
-
-		-
-			message: '#^Variable \$arguments might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Cron/Model/Observer.php
 
 		-
 			message: '#^Call to an undefined method Mage_Wishlist_Model_Resource_Item_Collection\:\:addAttributeToSelect\(\)\.$#'
@@ -3291,7 +3129,7 @@ parameters:
 		-
 			message: '#^Variable \$regionId might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Customer/Model/Convert/Parser/Customer.php
 
 		-
@@ -3451,18 +3289,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			message: '#^Variable \$parseFileXml might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
-			message: '#^Variable \$path might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
 			message: '#^Method Mage_Directory_Helper_Data\:\:getCountryCollection\(\) should return Mage_Directory_Model_Resource_Country_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract\.$#'
 			identifier: return.type
 			count: 1
@@ -3481,12 +3307,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Currency/Filter.php
 
 		-
-			message: '#^Variable \$response might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency/Import/Fixerio.php
-
-		-
 			message: '#^Method Mage_Directory_Model_Currency_Import_Webservicex\:\:_convert\(\) should return float\|null but return statement is missing\.$#'
 			identifier: return.missing
 			count: 1
@@ -3496,12 +3316,6 @@ parameters:
 			message: '#^Parameter \#1 \$modelClass of static method Mage\:\:getModel\(\) expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
-			path: app/code/core/Mage/Directory/Model/Observer.php
-
-		-
-			message: '#^Variable \$importModel might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
 			path: app/code/core/Mage/Directory/Model/Observer.php
 
 		-
@@ -3521,12 +3335,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
-
-		-
-			message: '#^Variable \$downloadableModel might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/code/core/Mage/Downloadable/Model/Link/Api.php
 
 		-
 			message: '#^Parameter \#2 \$code of class Exception constructor expects int, string given\.$#'
@@ -3703,36 +3511,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
 
 		-
-			message: '#^Variable \$attributeCode might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: '#^Variable \$id might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: '#^Variable \$instance might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: '#^Variable \$method might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
-			message: '#^Variable \$part might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Abstract.php
-
-		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Db_Abstract\:\:getIdByCode\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -3817,36 +3595,6 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			message: '#^Variable \$attrArr might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: '#^Variable \$bindAttribute might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: '#^Variable \$entity might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: '#^Variable \$query might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
-			message: '#^Variable \$select might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
-
-		-
 			message: '#^Argument of an invalid type string supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -3874,18 +3622,6 @@ parameters:
 			message: '#^Parameter \#1 \$code of method Mage_Eav_Model_Entity_Setup\:\:updateEntityType\(\) expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Parameter \#1 \$priTableName of method Mage_Core_Model_Resource_Setup\:\:getFkName\(\) expects string, array\<int, \(int\|string\)\> given\.$#'
-			identifier: argument.type
-			count: 3
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Parameter \#1 \$tableName of method Mage_Core_Model_Resource_Setup\:\:getIdxName\(\) expects string, array\<int, \(int\|string\)\> given\.$#'
-			identifier: argument.type
-			count: 6
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
 
 		-
@@ -3953,12 +3689,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Resource/Entity/Attribute/Option.php
-
-		-
-			message: '#^Variable \$store might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Resource/Form/Attribute/Collection.php
 
 		-
 			message: '#^Return type \(stdClass\) of method Mage_GiftMessage_Model_Api_V2\:\:_setGiftMessage\(\) should be compatible with return type \(array\) of method Mage_GiftMessage_Model_Api\:\:_setGiftMessage\(\)$#'
@@ -4177,48 +3907,6 @@ parameters:
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
 
 		-
-			message: '#^Parameter \#1 \$dst_image of function imagecopyresampled expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagedestroy expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagegif expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagejpeg expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagepng expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagewebp expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
-			message: '#^Parameter \#2 \$src_image of function imagecopyresampled expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Media/Model/File/Image.php
-
-		-
 			message: '#^Call to function is_null\(\) with bool will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -4333,12 +4021,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
 
 		-
-			message: '#^Variable \$isAjax might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Paypal/Controller/Express/Abstract.php
-
-		-
 			message: '#^Call to an undefined method Mage_Paypal_Model_Api_Nvp\:\:_export\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -4413,12 +4095,6 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$message of static method Mage\:\:throwException\(\) expects string, array given\.$#'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
-
-		-
-			message: '#^Variable \$shippingAddress might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Paypal/Model/Express/Checkout.php
 
@@ -4687,12 +4363,6 @@ parameters:
 			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
 
 		-
-			message: '#^Variable \$productViewEvent might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Product/Collection.php
-
-		-
 			message: '#^Parameter \#1 \$from of method Mage_Reports_Model_Resource_Product_Ordered_Collection\:\:_joinFields\(\) expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4909,18 +4579,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Entity/Quote.php
 
 		-
-			message: '#^Variable \$oldArea might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Api.php
-
-		-
-			message: '#^Variable \$oldStore might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Api.php
-
-		-
 			message: '#^Parameter \#1 \$string of function trim expects string, float given\.$#'
 			identifier: argument.type
 			count: 2
@@ -4993,36 +4651,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Payment/Transaction.php
 
 		-
-			message: '#^Variable \$order might not be defined\.$#'
-			identifier: variable.undefined
-			count: 12
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: '#^Variable \$shipment might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Abstract.php
-
-		-
-			message: '#^Parameter \#1 \$object of method Mage_Sales_Model_Order_Pdf_Abstract\:\:_setFontBold\(\) expects Zend_Pdf_Page, Zend_Pdf_Style given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
-
-		-
-			message: '#^Variable \$creditmemo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Creditmemo.php
-
-		-
-			message: '#^Parameter \#1 \$object of method Mage_Sales_Model_Order_Pdf_Abstract\:\:_setFontBold\(\) expects Zend_Pdf_Page, Zend_Pdf_Style given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Invoice.php
-
-		-
 			message: '#^Parameter \#1 \$item of method Mage_Sales_Model_Order_Pdf_Items_Abstract\:\:getSku\(\) expects Mage_Sales_Model_Order_Creditmemo_Item\|Mage_Sales_Model_Order_Invoice_Item, Varien_Object given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5041,20 +4669,8 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Items/Shipment/Default.php
 
 		-
-			message: '#^Parameter \#1 \$object of method Mage_Sales_Model_Order_Pdf_Abstract\:\:_setFontBold\(\) expects Zend_Pdf_Page, Zend_Pdf_Style given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
-
-		-
 			message: '#^Parameter \#2 \$obj of method Mage_Sales_Model_Order_Pdf_Abstract\:\:insertOrder\(\) expects Mage_Sales_Model_Order, Mage_Sales_Model_Order_Shipment given\.$#'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
-
-		-
-			message: '#^Variable \$shipment might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Order/Pdf/Shipment.php
 
@@ -5164,12 +4780,6 @@ parameters:
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
-			path: app/code/core/Mage/Sales/Model/Quote/Address.php
-
-		-
-			message: '#^Variable \$totalInstance might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
 			path: app/code/core/Mage/Sales/Model/Quote/Address.php
 
 		-
@@ -5309,12 +4919,6 @@ parameters:
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: app/code/core/Mage/Sales/Model/Status/List.php
-
-		-
-			message: '#^Variable \$billingAgreement might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Sales/controllers/Billing/AgreementController.php
 
 		-
 			message: '#^Parameter \#2 \$loginUrl of method Mage_Customer_Model_Session\:\:authenticate\(\) expects bool\|null, string given\.$#'
@@ -5581,24 +5185,6 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Config/Price/Include.php
 
 		-
-			message: '#^Variable \$selectClone might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/code/core/Mage/Tax/Model/Resource/Calculation.php
-
-		-
-			message: '#^Variable \$zipFrom might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Resource/Calculation.php
-
-		-
-			message: '#^Variable \$zipTo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Resource/Calculation.php
-
-		-
 			message: '#^Parameter \#2 \$resourceModel of method Mage_Core_Model_Resource_Db_Collection_Abstract\:\:_init\(\) expects Mage_Core_Model_Resource_Db_Abstract\|null, string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5626,54 +5212,6 @@ parameters:
 			message: '#^Parameter \#4 \$value of method Mage_Weee_Helper_Data\:\:setWeeeTaxesAppliedProperty\(\) expects string, \(float\|int\) given\.$#'
 			identifier: argument.type
 			count: 4
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$baseRowTax might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$baseTax might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$baseTaxBeforeDiscountRounded might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$baseUnitTax might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$rowTax might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$tax might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$taxBeforeDiscountRounded might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
-
-		-
-			message: '#^Variable \$unitTax might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
 			path: app/code/core/Mage/Tax/Model/Sales/Total/Quote/Tax.php
 
 		-
@@ -5715,36 +5253,6 @@ parameters:
 		-
 			message: '#^Property Mage_Usa_Model_Shipping_Carrier_Dhl\:\:\$_result \(Mage_Shipping_Model_Rate_Result\|null\) does not accept Mage_Shipping_Model_Tracking_Result\.$#'
 			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: '#^Variable \$shipKey might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: '#^Variable \$shippingLabelContent might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: '#^Variable \$specialServices might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: '#^Variable \$trackingNumber might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
-
-		-
-			message: '#^Variable \$xml might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl.php
 
@@ -5839,12 +5347,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
 
 		-
-			message: '#^Variable \$errorTitle might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Fedex.php
-
-		-
 			message: '#^Binary operation "\*" between float and string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
@@ -5872,18 +5374,6 @@ parameters:
 			message: '#^Parameter \#3 \$value of function curl_setopt expects bool, int given\.$#'
 			identifier: argument.type
 			count: 18
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: '#^Variable \$debugData might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			message: '#^Variable \$response might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
@@ -5995,22 +5485,10 @@ parameters:
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Chooser.php
 
 		-
-			message: '#^Variable \$options might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Form.php
-
-		-
 			message: '#^Parameter \#1 \$layoutHandles of method Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout\:\:_collectLayoutHandles\(\) expects Mage_Core_Model_Layout_Element, SimpleXMLElement given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php
-
-		-
-			message: '#^Variable \$productsOptions might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Tab/Main/Layout.php
 
 		-
 			message: '#^Cannot call method toOptionArray\(\) on Mage_Core_Model_Abstract\|false\.$#'
@@ -6023,12 +5501,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Widget/Model/Resource/Widget/Instance.php
-
-		-
-			message: '#^Variable \$template might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Widget/Model/Widget/Instance.php
 
 		-
 			message: '#^Parameter \#1 \$item \(Mage_Wishlist_Model_Item\) of method Mage_Wishlist_Block_Share_Email_Items\:\:hasDescription\(\) should be compatible with parameter \$item \(Mage_Catalog_Model_Product\) of method Mage_Wishlist_Block_Abstract\:\:hasDescription\(\)$#'
@@ -6055,12 +5527,6 @@ parameters:
 			path: app/code/core/Mage/Wishlist/Helper/Data.php
 
 		-
-			message: '#^Variable \$params might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
 			message: '#^Parameter \#1 \$message of class Mage_Core_Exception constructor expects string, null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -6071,12 +5537,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
-
-		-
-			message: '#^Variable \$item might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Wishlist.php
 
 		-
 			message: '#^Parameter \#1 \$qty of method Mage_Wishlist_Model_Item\:\:setQty\(\) expects int, float given\.$#'
@@ -6101,18 +5561,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: app/design/adminhtml/default/default/template/api/user_roles_grid_js.phtml
-
-		-
-			message: '#^Variable \$roles might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/api/userroles.phtml
-
-		-
-			message: '#^Variable \$user_roles might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/api/userroles.phtml
 
 		-
 			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
@@ -6211,24 +5659,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
 
 		-
-			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 9
-			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
-
-		-
-			message: '#^Variable \$addressCollection might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: app/design/adminhtml/default/default/template/customer/tab/addresses.phtml
-
-		-
-			message: '#^Variable \$customer might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/adminhtml/default/default/template/customer/tab/addresses.phtml
-
-		-
 			message: '#^Call to an undefined method Mage_GiftMessage_Block_Message_Helper\:\:prepareAsIs\(\)\.$#'
 			identifier: method.notFound
 			count: 2
@@ -6259,46 +5689,10 @@ parameters:
 			path: app/design/adminhtml/default/default/template/permissions/user_roles_grid_js.phtml
 
 		-
-			message: '#^Variable \$roles might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/userroles.phtml
-
-		-
-			message: '#^Variable \$user_roles might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/userroles.phtml
-
-		-
-			message: '#^Variable \$options might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/rating/options.phtml
-
-		-
 			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
 			identifier: greater.alwaysTrue
 			count: 1
 			path: app/design/adminhtml/default/default/template/report/grid.phtml
-
-		-
-			message: '#^Variable \$minAdminPasswordLength might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/resetforgottenpassword.phtml
-
-		-
-			message: '#^Variable \$resetPasswordLinkToken might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/resetforgottenpassword.phtml
-
-		-
-			message: '#^Variable \$userId might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/resetforgottenpassword.phtml
 
 		-
 			message: '#^Method Mage_Adminhtml_Block_Sales_Order_Create_Abstract\:\:formatPrice\(\) invoked with 3 parameters, 1 required\.$#'
@@ -6317,12 +5711,6 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: app/design/adminhtml/default/default/template/sales/order/shipment/tracking/info.phtml
-
-		-
-			message: '#^Variable \$items might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/system/autocomplete.phtml
 
 		-
 			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions\|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\:\:\$_addAfter\.$#'
@@ -6367,66 +5755,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
 
 		-
-			message: '#^Variable \$createUrl might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/class/add.phtml
-
-		-
-			message: '#^Variable \$header might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/class/add.phtml
-
-		-
-			message: '#^Variable \$form might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/class/save.phtml
-
-		-
-			message: '#^Variable \$header might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/class/save.phtml
-
-		-
-			message: '#^Variable \$createUrl might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/rule/add.phtml
-
-		-
-			message: '#^Variable \$header might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/rule/add.phtml
-
-		-
-			message: '#^Variable \$form might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/rule/save.phtml
-
-		-
-			message: '#^Variable \$header might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/tax/toolbar/rule/save.phtml
-
-		-
-			message: '#^Variable \$element might not be defined\.$#'
-			identifier: variable.undefined
-			count: 62
-			path: app/design/adminhtml/default/default/template/widget/form/element.phtml
-
-		-
-			message: '#^Variable \$formBlock might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/widget/form/element.phtml
-
-		-
 			message: '#^Method Mage_Adminhtml_Block_Widget_Grid\:\:getEmptyCellColspan\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -6445,58 +5773,10 @@ parameters:
 			path: app/design/adminhtml/default/default/template/widget/grid/massaction.phtml
 
 		-
-			message: '#^Variable \$id might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: app/design/adminhtml/default/default/template/widget/tabsleft.phtml
-
-		-
-			message: '#^Variable \$sections might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/default/template/widget/tabsleft.phtml
-
-		-
-			message: '#^Variable \$minAdminPasswordLength might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/adminhtml/default/openmage/template/resetforgottenpassword.phtml
-
-		-
-			message: '#^Variable \$resetPasswordLinkToken might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/openmage/template/resetforgottenpassword.phtml
-
-		-
-			message: '#^Variable \$userId might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/adminhtml/default/openmage/template/resetforgottenpassword.phtml
-
-		-
-			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 8
-			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
-
-		-
 			message: '#^Method Mage_Catalog_Block_Product_Abstract\:\:getTierPrices\(\) invoked with 2 parameters, 0\-1 required\.$#'
 			identifier: arguments.count
 			count: 1
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/option_tierprices.phtml
-
-		-
-			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 9
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/option_tierprices.phtml
-
-		-
-			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/price.phtml
 
 		-
 			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
@@ -6551,36 +5831,6 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 1
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/options.phtml
-
-		-
-			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 8
-			path: app/design/frontend/base/default/template/bundle/rss/catalog/product/price.phtml
-
-		-
-			message: '#^Variable \$_item might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/sales/order/creditmemo/items/renderer.phtml
-
-		-
-			message: '#^Variable \$_showlastRow might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/sales/order/creditmemo/items/renderer.phtml
-
-		-
-			message: '#^Variable \$_item might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/sales/order/invoice/items/renderer.phtml
-
-		-
-			message: '#^Variable \$_showlastRow might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/sales/order/invoice/items/renderer.phtml
 
 		-
 			message: '#^Call to method escapeUrl\(\) on an unknown class Mage_Catalog_Block_Layer_Filter\.$#'
@@ -6661,12 +5911,6 @@ parameters:
 			path: app/design/frontend/base/default/template/catalog/product/view/options/type/text.phtml
 
 		-
-			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 9
-			path: app/design/frontend/base/default/template/catalog/product/view/tierprices.phtml
-
-		-
 			message: '#^Method Mage_Checkout_Helper_Data\:\:formatPrice\(\) invoked with 3 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 12
@@ -6691,22 +5935,10 @@ parameters:
 			path: app/design/frontend/base/default/template/checkout/cart/sidebar/default.phtml
 
 		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 45
-			path: app/design/frontend/base/default/template/checkout/cart/sidebar/default.phtml
-
-		-
 			message: '#^Left side of && is always true\.$#'
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
 			path: app/design/frontend/base/default/template/checkout/multishipping/address/select.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: app/design/frontend/base/default/template/checkout/multishipping/item/default.phtml
 
 		-
 			message: '#^Parameter \#1 \$totals of method Mage_Checkout_Block_Multishipping_Overview\:\:renderTotals\(\) expects Mage_Sales_Model_Order_Total, array\<Mage_Sales_Model_Quote_Address_Total\> given\.$#'
@@ -6769,72 +6001,6 @@ parameters:
 			path: app/design/frontend/base/default/template/checkout/total/nominal.phtml
 
 		-
-			message: '#^Variable \$pageData might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/cms/content.phtml
-
-		-
-			message: '#^Variable \$pageData might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: app/design/frontend/base/default/template/cms/meta.phtml
-
-		-
-			message: '#^Variable \$html might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/core/messages.phtml
-
-		-
-			message: '#^Variable \$types might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/core/messages.phtml
-
-		-
-			message: '#^Variable \$customer might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/customer/balance.phtml
-
-		-
-			message: '#^Variable \$action might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$address might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$countries might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$data might not be defined\.$#'
-			identifier: variable.undefined
-			count: 12
-			path: app/design/frontend/base/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$primaryTypes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$action might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/customer/form/changepassword.phtml
-
-		-
 			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
 			identifier: method.nonObject
 			count: 3
@@ -6845,24 +6011,6 @@ parameters:
 			identifier: method.nonObject
 			count: 3
 			path: app/design/frontend/base/default/template/customer/form/register.phtml
-
-		-
-			message: '#^Variable \$orders might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/customer/orders.phtml
-
-		-
-			message: '#^Variable \$wishlist might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/customer/wishlist.phtml
-
-		-
-			message: '#^Variable \$currency might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/directory/currency/switch.phtml
 
 		-
 			message: '#^Method Mage_Checkout_Helper_Data\:\:formatPrice\(\) invoked with 3 parameters, 1 required\.$#'
@@ -6881,24 +6029,6 @@ parameters:
 			identifier: arguments.count
 			count: 12
 			path: app/design/frontend/base/default/template/downloadable/checkout/onepage/review/item.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 16
-			path: app/design/frontend/base/default/template/email/order/items/creditmemo/default.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 16
-			path: app/design/frontend/base/default/template/email/order/items/invoice/default.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 8
-			path: app/design/frontend/base/default/template/email/order/items/shipment/default.phtml
 
 		-
 			message: '#^Cannot call method getMessage\(\) on string\.$#'
@@ -6931,84 +6061,6 @@ parameters:
 			path: app/design/frontend/base/default/template/googleanalytics/ga.phtml
 
 		-
-			message: '#^Variable \$crumbs might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/html/breadcrumbs.phtml
-
-		-
-			message: '#^Variable \$toplinks might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/html/top.links.phtml
-
-		-
-			message: '#^Variable \$am might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$days might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$defaultFormat might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$enUS might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$firstDay might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$months might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$pm might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$today might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$toolTipFormat might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$week might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
-			message: '#^Variable \$weekendDays might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/base/default/template/page/js/calendar.phtml
-
-		-
 			message: '#^Class Mage_Paypal_Block_Express_Form referenced with incorrect case\: Mage_PayPal_Block_Express_Form\.$#'
 			identifier: class.nameCase
 			count: 1
@@ -7037,12 +6089,6 @@ parameters:
 			identifier: method.nonObject
 			count: 3
 			path: app/design/frontend/base/default/template/persistent/customer/form/register.phtml
-
-		-
-			message: '#^Variable \$data might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/design/frontend/base/default/template/review/form.phtml
 
 		-
 			message: '#^Parameter \#1 \(non\-empty\-array\) of echo cannot be converted to string\.$#'
@@ -7237,18 +6283,6 @@ parameters:
 			path: app/design/frontend/rwd/default/template/checkout/cart/sidebar/default.phtml
 
 		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 45
-			path: app/design/frontend/rwd/default/template/checkout/cart/sidebar/default.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 9
-			path: app/design/frontend/rwd/default/template/checkout/multishipping/item/default.phtml
-
-		-
 			message: '#^Parameter \#1 \$totals of method Mage_Checkout_Block_Multishipping_Overview\:\:renderTotals\(\) expects Mage_Sales_Model_Order_Total, array\<Mage_Sales_Model_Quote_Address_Total\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -7265,42 +6299,6 @@ parameters:
 			identifier: arguments.count
 			count: 12
 			path: app/design/frontend/rwd/default/template/checkout/onepage/review/item.phtml
-
-		-
-			message: '#^Variable \$action might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/rwd/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$address might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: app/design/frontend/rwd/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$countries might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/rwd/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$data might not be defined\.$#'
-			identifier: variable.undefined
-			count: 12
-			path: app/design/frontend/rwd/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$primaryTypes might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/rwd/default/template/customer/form/address.phtml
-
-		-
-			message: '#^Variable \$action might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/frontend/rwd/default/template/customer/form/changepassword.phtml
 
 		-
 			message: '#^Cannot call method isEnabled\(\) on Mage_Core_Block_Abstract\|false\.$#'
@@ -7321,34 +6319,10 @@ parameters:
 			path: app/design/frontend/rwd/default/template/downloadable/checkout/cart/item/default.phtml
 
 		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 79
-			path: app/design/frontend/rwd/default/template/downloadable/checkout/cart/item/default.phtml
-
-		-
 			message: '#^Method Mage_Checkout_Helper_Data\:\:formatPrice\(\) invoked with 3 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 12
 			path: app/design/frontend/rwd/default/template/downloadable/checkout/onepage/review/item.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 17
-			path: app/design/frontend/rwd/default/template/email/order/items/creditmemo/default.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 17
-			path: app/design/frontend/rwd/default/template/email/order/items/invoice/default.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 8
-			path: app/design/frontend/rwd/default/template/email/order/items/shipment/default.phtml
 
 		-
 			message: '#^Call to protected method _getRenderedMenuItemAttributes\(\) of class Mage_Page_Block_Html_Topmenu\.$#'
@@ -7379,36 +6353,6 @@ parameters:
 			identifier: method.nonObject
 			count: 3
 			path: app/design/frontend/rwd/default/template/persistent/customer/form/register.phtml
-
-		-
-			message: '#^Variable \$data might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: app/design/frontend/rwd/default/template/review/form.phtml
-
-		-
-			message: '#^Variable \$steps might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/design/install/default/default/template/install/state.phtml
-
-		-
-			message: '#^Variable \$cronMode might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: cron.php
-
-		-
-			message: '#^Variable \$contentTemplate might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: errors/default/page.phtml
-
-		-
-			message: '#^Variable \$this might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: errors/default/page.phtml
 
 		-
 			message: '#^Comparison operation "\>\=" between int\<0, max\> and 0 is always true\.$#'
@@ -7633,12 +6577,6 @@ parameters:
 			path: lib/Varien/Convert/Mapper/Column.php
 
 		-
-			message: '#^Variable \$data might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: lib/Varien/Convert/Parser/Xml/Excel.php
-
-		-
 			message: '#^Cannot access property \$_items on array\.$#'
 			identifier: property.nonObject
 			count: 2
@@ -7729,12 +6667,6 @@ parameters:
 			path: lib/Varien/Data/Form/Element/Time.php
 
 		-
-			message: '#^Variable \$node might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: lib/Varien/Data/Tree.php
-
-		-
 			message: '#^Method Varien_Data_Tree\:\:load\(\) invoked with 2 parameters, 0\-1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -7749,12 +6681,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$value of method mysqli\:\:options\(\) expects int\|string, true given\.$#'
 			identifier: argument.type
-			count: 1
-			path: lib/Varien/Db/Adapter/Mysqli.php
-
-		-
-			message: '#^Variable \$result might not be defined\.$#'
-			identifier: variable.undefined
 			count: 1
 			path: lib/Varien/Db/Adapter/Mysqli.php
 
@@ -7810,12 +6736,6 @@ parameters:
 			message: '#^Return type \(array\) of method Varien_Db_Adapter_Pdo_Mysql\:\:multiQuery\(\) should be compatible with return type \(Varien_Db_Adapter_Interface\) of method Varien_Db_Adapter_Interface\:\:multiQuery\(\)$#'
 			identifier: method.childReturnType
 			count: 1
-			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
-
-		-
-			message: '#^Variable \$result might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
 			path: lib/Varien/Db/Adapter/Pdo/Mysql.php
 
 		-

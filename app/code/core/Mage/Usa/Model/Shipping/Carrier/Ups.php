@@ -1581,7 +1581,14 @@ XMLAuth;
             $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
         }
 
+        $this->_debug($debugData);
+
         $result = new Varien_Object();
+
+        if (!isset($response)) {
+            return $result;
+        }
+
         if (isset($response->Error)) {
             $result->setErrors((string) $response->Error->ErrorDescription);
         } else {
@@ -1592,7 +1599,6 @@ XMLAuth;
             $result->setTrackingNumber($trackingNumber);
         }
 
-        $this->_debug($debugData);
         return $result;
     }
 
@@ -1954,6 +1960,7 @@ XMLAuth;
         $result = new Varien_Object();
         $xmlRequest = $this->_formShipmentRequest($request);
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
+        $debugData = [];
 
         if ($xmlResponse === null) {
             $url = $this->getConfigData('shipconfirm_xml_url');

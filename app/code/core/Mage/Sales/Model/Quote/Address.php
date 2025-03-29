@@ -1117,8 +1117,12 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         } elseif ($total instanceof Mage_Sales_Model_Quote_Address_Total) {
             $totalInstance = $total;
         }
-        $totalInstance->setAddress($this);
-        $this->_totals[$totalInstance->getCode()] = $totalInstance;
+
+        if (isset($totalInstance)) {
+            $totalInstance->setAddress($this);
+            $this->_totals[$totalInstance->getCode()] = $totalInstance;
+        }
+
         return $this;
     }
 

@@ -279,7 +279,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
             Mage::logException($e);
         }
-        if ($isAjax) {
+        if (isset($isAjax) && $isAjax) {
             $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
                 . Mage::getUrl('*/*/review') . ';</script>');
         } else {

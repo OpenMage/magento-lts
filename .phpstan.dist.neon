@@ -135,6 +135,12 @@ parameters:
                 - app/design/install/default/default/template/page.phtml
         -
             identifier: phpunit.coversMethod
+        -
+            identifier: variable.undefined
+            paths:
+                - app/design/*/*/template/*
+                - errors/*
+                - lib/Varien/*
     tmpDir: .phpstan.cache
     level: 5
     checkFunctionNameCase: true
