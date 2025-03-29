@@ -256,12 +256,12 @@ class Mage_Core_Model_Resource
     {
         $tableSuffix = null;
         if (is_array($modelEntity)) {
-            list($modelEntity, $tableSuffix) = $modelEntity;
+            [$modelEntity, $tableSuffix] = $modelEntity;
         }
 
         $parts = explode('/', $modelEntity);
         if (isset($parts[1])) {
-            list($model, $entity) = $parts;
+            [$model, $entity] = $parts;
             $entityConfig = false;
             if (!empty(Mage::getConfig()->getNode()->global->models->{$model}->resourceModel)) {
                 $resourceModel = (string) Mage::getConfig()->getNode()->global->models->{$model}->resourceModel;

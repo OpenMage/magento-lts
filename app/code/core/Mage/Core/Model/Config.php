@@ -526,6 +526,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         }
         $waitTime = $waitTime ?: (getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3));
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        if (!$connection) {
+            return;
+        }
         if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
             if ($ignoreFailure) {
                 return;
@@ -550,6 +553,9 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return;
         }
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+        if (!$connection) {
+            return;
+        }
         $connection->fetchOne("SELECT RELEASE_LOCK('core_config_cache_save_lock')");
     }
 
@@ -1759,7 +1765,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return false;
         }
 
-        list($module, $model) = $classArray;
+        [$module, $model] = $classArray;
         if (!isset($this->_xml->global->models->{$module})) {
             return false;
         }

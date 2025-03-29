@@ -99,7 +99,7 @@ class Mage_Api2_Model_Acl_Filter
     /**
      * Fetch array of allowed attributes for given resource type, operation and user type.
      *
-     * @param string $operationType OPTIONAL One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType OPTIONAL
      * @return array
      */
     public function getAllowedAttributes($operationType = null)

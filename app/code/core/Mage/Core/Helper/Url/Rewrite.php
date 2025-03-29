@@ -57,7 +57,7 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
                 self::VERR_MANYSLASHES,
             );
         }
-        if (strpos($requestPath, '#') !== false) {
+        if (str_contains($requestPath, '#')) {
             throw new Mage_Core_Exception(
                 $this->__('Anchor symbol (#) is not supported in request path'),
                 self::VERR_ANCHOR,

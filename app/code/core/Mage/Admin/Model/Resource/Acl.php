@@ -130,7 +130,7 @@ class Mage_Admin_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     $acl->deny($role, $resource, $privileges, $assert);
                 }
             } catch (Zend_Acl_Exception $e) {
-                if (!in_array($resource, $orphanedResources) && strpos($e->getMessage(), "Resource '$resource' not found") !== false) {
+                if (!in_array($resource, $orphanedResources) && str_contains($e->getMessage(), "Resource '$resource' not found")) {
                     $orphanedResources[] = $resource;
                 }
             } catch (Exception $e) {
