@@ -623,9 +623,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 new Assert\Length([
                     'min' => $minAdminPasswordLength,
                     'minMessage' => Mage::helper('adminhtml')->__('Password must be at least of %d characters.', $minAdminPasswordLength),
-                    'callback' => function ($password) {
-                        return Mage::helper('core/string')->strlen($password);
-                    },
                 ]),
                 new Assert\Regex([
                     'pattern' => '/^(?=.*[a-z])(?=.*[0-9]).+$/iu',

@@ -243,7 +243,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
     public function validateFileExension(string $extension, string $filePath): bool
     {
         $validator  = Validation::createValidator();
-        return $validator->validate($filePath . $extension, new Assert\File(['extensions' => (array) $extension]))->count() === 0;
+        return $validator->validate($filePath . $extension, new Assert\File(['maxSize' => '8M','extensions' => (array) $extension]))->count() === 0;
     }
 
     /**
