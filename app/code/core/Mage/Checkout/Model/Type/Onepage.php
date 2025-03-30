@@ -14,6 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * One page checkout processing model
  *
@@ -506,7 +509,8 @@ class Mage_Checkout_Model_Type_Onepage
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
+            $validator  = Validation::createValidator();
+            if ($validator->validate($email, new Assert\Email())->count() > 0) {
                 return [
                     'error'   => -1,
                     'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),

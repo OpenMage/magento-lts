@@ -14,6 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * Review model
  *
@@ -137,29 +140,37 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|bool
-     * @throws Zend_Validate_Exception
+     * @return array|true
      */
     public function validate()
     {
-        $errors = [];
+        $validator  = Validation::createValidator();
+        $violations = [];
+        $errors = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getTitle(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Review summary can\'t be empty');
+        $violations[] = $validator->validate($this->getTitle(), [new Assert\NotBlank([
+            'message' => Mage::helper('review')->__('Review summary can\'t be empty'),
+        ])]);
+
+        $violations[] = $validator->validate($this->getNickname(), [new Assert\NotBlank([
+            'message' => Mage::helper('review')->__('Nickname can\'t be empty'),
+        ])]);
+
+        $violations[] = $validator->validate($this->getDetail(), [new Assert\NotBlank([
+            'message' => Mage::helper('review')->__('Review can\'t be empty'),
+        ])]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
-        if (!Zend_Validate::is($this->getNickname(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Nickname can\'t be empty');
-        }
-
-        if (!Zend_Validate::is($this->getDetail(), 'NotEmpty')) {
-            $errors[] = Mage::helper('review')->__('Review can\'t be empty');
-        }
-
-        if (empty($errors)) {
+        if (count($errors) === 0) {
             return true;
         }
-        return $errors;
+
+        return (array) $errors;
     }
 
     /**

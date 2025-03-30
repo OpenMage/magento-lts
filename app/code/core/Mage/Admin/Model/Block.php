@@ -14,6 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * Class Mage_Admin_Model_Block
  *
@@ -29,6 +32,8 @@
  */
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {
+    public const BLOCK_NAME_REGEX = '/[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/';
+
     /**
      * Initialize variable model
      */
@@ -40,31 +45,38 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
     /**
      * @return array|true
      * @throws Exception
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
-        $errors = [];
+        $validator  = Validation::createValidator();
+        $violations = [];
+        $errors     = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getBlockName(), 'NotEmpty')) {
-            $errors[] = Mage::helper('adminhtml')->__('Block Name is required field.');
+        $violations[] = $validator->validate($this->getBlockName(), [
+            new Assert\NotBlank(null, Mage::helper('adminhtml')->__('Block Name is required field.')),
+            new Assert\Regex(self::BLOCK_NAME_REGEX, Mage::helper('adminhtml')->__('Block Name is incorrect.')),
+        ]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
+
         $disallowedBlockNames = Mage::helper('admin/block')->getDisallowedBlockNames();
         if (in_array($this->getBlockName(), $disallowedBlockNames)) {
-            $errors[] = Mage::helper('adminhtml')->__('Block Name is disallowed.');
-        }
-        if (!Zend_Validate::is($this->getBlockName(), 'Regex', ['/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Block Name is incorrect.');
+            $errors->append(Mage::helper('adminhtml')->__('Block Name is disallowed.'));
         }
 
         if (!in_array($this->getIsAllowed(), ['0', '1'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
+            $errors->append(Mage::helper('adminhtml')->__('Is Allowed is required field.'));
         }
 
-        if (empty($errors)) {
+        if (count($errors) === 0) {
             return true;
         }
-        return $errors;
+
+        return (array) $errors;
     }
 
     /**

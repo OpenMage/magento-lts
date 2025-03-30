@@ -14,6 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * Api model
  *
@@ -365,26 +368,33 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      * Validate user attribute values.
      *
      * @return array|true
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
+        $validator  = Validation::createValidator();
+        $violations = [];
         $errors = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getUsername(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('User Name is required field.'));
-        }
+        $violations[] = $validator->validate($this->getUsername(), [new Assert\NotBlank([
+            'message' => Mage::helper('api')->__('User Name is required field.'),
+        ])]);
 
-        if (!Zend_Validate::is($this->getFirstname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('First Name is required field.'));
-        }
+        $violations[] = $validator->validate($this->getFirstname(), [new Assert\NotBlank([
+            'message' => Mage::helper('api')->__('First Name is required field.'),
+        ])]);
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors->append($this->_getHelper('api')->__('Last Name is required field.'));
-        }
+        $violations[] = $validator->validate($this->getLastname(), [new Assert\NotBlank([
+            'message' => Mage::helper('api')->__('Last Name is required field.'),
+        ])]);
 
-        if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
-            $errors->append($this->_getHelper('api')->__('Please enter a valid email.'));
+        $violations[] = $validator->validate($this->getEmail(), [new Assert\Email([
+            'message' => Mage::helper('api')->__('Please enter a valid email.'),
+        ])]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
         if ($this->hasNewApiKey()) {
