@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -45,8 +46,8 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         if (!isset($args['timeout'])) {
             $args['timeout'] = self::REMOTE_TIMEOUT;
         }
-        if (strpos($args['host'], ':') !== false) {
-            list($host, $port) = explode(':', $args['host'], 2);
+        if (str_contains($args['host'], ':')) {
+            [$host, $port] = explode(':', $args['host'], 2);
         } else {
             $host = $args['host'];
             $port = self::SSH2_PORT;
@@ -120,8 +121,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
                     }
                 }
             }
-            $no_errors = $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
-            return $no_errors;
+            return $no_errors && ($this->_connection->chdir($cwd) && $this->_connection->rmdir($dir));
         } else {
             return $this->_connection->rmdir($dir);
         }
@@ -213,8 +213,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
 
     public function rawls()
     {
-        $list = $this->_connection->rawlist();
-        return $list;
+        return $this->_connection->rawlist();
     }
 
     /**

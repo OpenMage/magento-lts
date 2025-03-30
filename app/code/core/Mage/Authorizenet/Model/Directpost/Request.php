@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -73,7 +74,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
             $fpTimestamp . '^' .
             $amount . '^' .
             $currencyCode,
-            $merchantTransactionKey
+            $merchantTransactionKey,
         );
     }
 
@@ -162,7 +163,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
      */
     public function signRequestData()
     {
-        $fpTimestamp = time();
+        $fpTimestamp = (string) time();
         $signatureKey = $this->_getSignatureKey();
         if (!empty($signatureKey)) {
             $hash = $this->_generateSha2RequestSign(
@@ -171,7 +172,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
                 $this->getXAmount(),
                 $this->getXCurrencyCode(),
                 $this->getXFpSequence(),
-                $fpTimestamp
+                $fpTimestamp,
             );
         } else {
             $hash = $this->generateRequestSign(
@@ -180,7 +181,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
                 $this->getXAmount(),
                 $this->getXCurrencyCode(),
                 $this->getXFpSequence(),
-                $fpTimestamp
+                $fpTimestamp,
             );
         }
         $this->setXFpTimestamp($fpTimestamp);

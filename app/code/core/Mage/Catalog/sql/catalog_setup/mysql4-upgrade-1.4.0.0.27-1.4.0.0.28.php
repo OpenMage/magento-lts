@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,7 +39,7 @@ $installer->addAttribute('catalog_product', 'is_recurring', [
     'visible_on_front'  => false,
     'unique'            => false,
     'apply_to'          => 'simple,virtual',
-    'is_configurable'   => false
+    'is_configurable'   => false,
 ]);
 
 // recurring payment profile
@@ -62,5 +63,5 @@ $installer->addAttribute('catalog_product', 'recurring_profile', [
     'visible_on_front'  => false,
     'unique'            => false,
     'apply_to'          => 'simple,virtual',
-    'is_configurable'   => false
+    'is_configurable'   => false,
 ]);

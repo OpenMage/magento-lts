@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -38,7 +39,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Nominal_Tax extends Mage_Tax_Model_Sales_
     /**
      * Don't fetch anything
      *
-     * @return array
+     * @return array|Mage_Sales_Model_Quote_Address_Total_Abstract
      */
     public function fetch(Mage_Sales_Model_Quote_Address $address)
     {

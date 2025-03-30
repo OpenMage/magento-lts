@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Image
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -41,7 +42,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
     /**
      * Destroy object image on shutdown
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function destruct()
     {
@@ -104,7 +105,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
         if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
             $option = strtolower($matches[2]);
-            $memoryValue = (int)$matches[1];
+            $memoryValue = (int) $matches[1];
             switch ($option) {
                 case 'g':
                     $memoryValue *= 1024;
@@ -119,7 +120,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     break;
             }
         }
-        $memoryValue = (int)$memoryValue;
+        $memoryValue = (int) $memoryValue;
 
         return $memoryValue > 0 ? $memoryValue : 0;
     }
@@ -140,7 +141,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
         }
 
-        $destinationDir = (isset($destination)) ? $destination : $this->_fileSrcPath;
+        $destinationDir = $destination ?? $this->_fileSrcPath;
 
         if (!is_writable($destinationDir)) {
             try {
@@ -176,7 +177,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     0,
                     0,
                     $this->_imageSrcWidth,
-                    $this->_imageSrcHeight
+                    $this->_imageSrcHeight,
                 );
                 $this->_imageHandler = $newImage;
             }
@@ -262,8 +263,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
-                        list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
-                        $transparentColor = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
+                        [$r, $g, $b]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
+                        $transparentColor = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
                     }
                     if (false === $transparentColor) {
                         throw new Exception('Failed to allocate transparent color for image.');
@@ -278,8 +279,8 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 // fallback to default background color
             }
         }
-        list($r, $g, $b) = $this->_backgroundColor;
-        $color = imagecolorallocate($imageResourceTo, (int)$r, (int)$g, (int)$b);
+        [$r, $g, $b] = $this->_backgroundColor;
+        $color = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
             throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
         }
@@ -405,7 +406,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $dstWidth,
             $dstHeight,
             $this->_imageSrcWidth,
-            $this->_imageSrcHeight
+            $this->_imageSrcHeight,
         );
         $this->_imageHandler = $newImage;
         $this->refreshImageDimensions();
@@ -432,12 +433,12 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
-        list($watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ) = getimagesize($watermarkImage);
+        [$watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ] = getimagesize($watermarkImage);
         $this->_getFileAttributes();
         $watermark = call_user_func($this->_getCallback(
             'create',
             $watermarkFileType,
-            'Unsupported watermark image format.'
+            'Unsupported watermark image format.',
         ), $watermarkImage);
 
         if ($this->getWatermarkWidth() &&
@@ -461,7 +462,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 $this->getWatermarkWidth(),
                 $this->getWatermarkHeigth(),
                 imagesx($watermark),
-                imagesy($watermark)
+                imagesy($watermark),
             );
             $watermark = $newWatermark;
         }
@@ -486,7 +487,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 $this->_imageSrcWidth,
                 $this->_imageSrcHeight,
                 imagesx($watermark),
-                imagesy($watermark)
+                imagesy($watermark),
             );
             $watermark = $newWatermark;
         } elseif ($this->getWatermarkPosition() == self::POSITION_CENTER) {
@@ -501,7 +502,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_TOP_RIGHT) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
@@ -514,7 +515,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_TOP_LEFT) {
             imagecopymerge(
@@ -526,7 +527,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_BOTTOM_RIGHT) {
             $positionX = ($this->_imageSrcWidth - imagesx($watermark));
@@ -540,7 +541,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } elseif ($this->getWatermarkPosition() == self::POSITION_BOTTOM_LEFT) {
             $positionY = ($this->_imageSrcHeight - imagesy($watermark));
@@ -553,7 +554,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         }
 
@@ -567,7 +568,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 0,
                 imagesx($watermark),
                 imagesy($watermark),
-                $this->getWatermarkImageOpacity()
+                $this->getWatermarkImageOpacity(),
             );
         } else {
             $offsetX = $positionX;
@@ -583,7 +584,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                         0,
                         imagesx($watermark),
                         imagesy($watermark),
-                        $this->getWatermarkImageOpacity()
+                        $this->getWatermarkImageOpacity(),
                     );
                     $offsetX += imagesx($watermark);
                 }
@@ -621,7 +622,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $newWidth,
             $newHeight,
             $newWidth,
-            $newHeight
+            $newHeight,
         );
 
         $this->_imageHandler = $canvas;

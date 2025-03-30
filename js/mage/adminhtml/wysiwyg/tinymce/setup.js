@@ -8,7 +8,7 @@
  * @category    Mage
  * @package     Mage_Adminhtml
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2023-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2023-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
@@ -68,6 +68,7 @@ tinyMceWysiwygSetup.prototype =
         }
 
         var settings = {
+            license_key: "gpl",
             selector: this.selector,
             config: this.config,
             valid_children: '+body[style]',
@@ -352,7 +353,7 @@ tinyMceWysiwygSetup.prototype =
 
     parseAttributesString: function (attributes) {
         var result = {};
-        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/, function (match) {
+        attributes.gsub(/(\w+)(?:\s*=\s*(?:(?:"((?:\\.|[^"\\])*)")|(?:'((?:\\.|[^'\\])*)')|([^>\s]+)))?/, function (match) {
             result[match[1]] = match[2];
         });
         return result;

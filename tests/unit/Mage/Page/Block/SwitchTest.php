@@ -18,18 +18,17 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
-use Mage_Page_Block_Switch;
+use Mage_Page_Block_Switch as Subject;
 use PHPUnit\Framework\TestCase;
 
 class SwitchTest extends TestCase
 {
-    public Mage_Page_Block_Switch $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Switch();
+        $this->subject = new Subject();
     }
 
     /**
@@ -38,7 +37,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentWebsiteId(): void
     {
-        $this->assertIsString($this->subject->getCurrentWebsiteId());
+        $this->assertIsInt($this->subject->getCurrentWebsiteId());
     }
 
     /**
@@ -47,7 +46,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentGroupId(): void
     {
-        $this->assertIsString($this->subject->getCurrentGroupId());
+        $this->assertIsInt($this->subject->getCurrentGroupId());
     }
 
     /**
@@ -56,7 +55,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentStoreId(): void
     {
-        $this->assertIsString($this->subject->getCurrentStoreId());
+        $this->assertIsInt($this->subject->getCurrentStoreId());
     }
 
     /**
@@ -81,28 +80,28 @@ class SwitchTest extends TestCase
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetRawStores(): void
-//    {
-//        $this->assertIsArray($this->subject->getRawStores());
-//    }
+    //    public function testGetRawStores(): void
+    //    {
+    //        $this->assertIsArray($this->subject->getRawStores());
+    //    }
 
     /**
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetGroups(): void
-//    {
-//        $this->assertIsArray($this->subject->getGroups());
-//    }
+    //    public function testGetGroups(): void
+    //    {
+    //        $this->assertIsArray($this->subject->getGroups());
+    //    }
 
     /**
      * @group Mage_Page
      * @group Mage_Page_Block
      */
-//    public function testGetStores(): void
-//    {
-//        $this->assertIsArray($this->subject->getStores());
-//    }
+    //    public function testGetStores(): void
+    //    {
+    //        $this->assertIsArray($this->subject->getStores());
+    //    }
 
     /**
      * @group Mage_Page

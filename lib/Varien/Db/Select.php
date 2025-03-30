@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -100,7 +101,7 @@ class Varien_Db_Select extends Zend_Db_Select
          * Additional internal type used for really null value
          * cast to string, to prevent false matching 0 == "TYPE_CONDITION"
          */
-        if ((string)$type === self::TYPE_CONDITION) {
+        if ((string) $type === self::TYPE_CONDITION) {
             $type = null;
         }
         if (is_array($value)) {
@@ -121,7 +122,7 @@ class Varien_Db_Select extends Zend_Db_Select
             if ($tableProp['joinType'] == self::LEFT_JOIN) {
                 $useJoin = false;
                 foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
-                    list($correlationName, $column) = $columnEntry;
+                    [$correlationName, $column] = $columnEntry;
                     if ($column instanceof Zend_Db_Expr) {
                         if ($this->_findTableInCond($tableId, $column)
                             || $this->_findTableInCond($tableProp['tableName'], $column)
@@ -213,10 +214,10 @@ class Varien_Db_Select extends Zend_Db_Select
      */
     protected function _findTableInCond($table, $cond)
     {
-        $cond  = (string)$cond;
+        $cond  = (string) $cond;
         $quote = $this->_adapter->getQuoteIdentifierSymbol();
 
-        if (strpos($cond, $quote . $table . $quote . '.') !== false) {
+        if (str_contains($cond, $quote . $table . $quote . '.')) {
             return true;
         }
 

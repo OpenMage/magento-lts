@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
-use Mage_Core_Model_Config;
+use Mage_Core_Model_Config as Subject;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public Mage_Core_Model_Config $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -43,7 +43,7 @@ class ConfigTest extends TestCase
         $this->assertFalse($this->subject->getConfig($path));
 
         $this->subject->saveConfig($path, $value);
-        $this->assertEquals($value, $this->subject->getConfig($path));
+        $this->assertSame($value, $this->subject->getConfig($path));
 
         $this->subject->deleteConfig($path);
         $this->assertFalse($this->subject->getConfig($path));

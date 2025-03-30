@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -65,7 +66,7 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
             throw new Varien_Exception(sprintf('Can not open a file "%s".', $this->_filename));
         }
 
-        $needLock = (strpos($this->_filename, 'php://') !== 0);
+        $needLock = (!str_starts_with($this->_filename, 'php://'));
         $isLocked = false;
         while ($needLock && !$isLocked) {
             $isLocked = flock($fileHandle, LOCK_EX);

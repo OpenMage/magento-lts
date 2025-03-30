@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -42,16 +43,13 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Compare order to be used in adapters list sort
      *
-     * @param int $a
-     * @param int $b
+     * @param array $a
+     * @param array $b
      * @return int
      */
     protected static function _compareOrder($a, $b)
     {
-        if ($a['order'] == $b['order']) {
-            return 0;
-        }
-        return ($a['order'] < $b['order']) ? -1 : 1;
+        return $a['order'] <=> $b['order'];
     }
 
     /**
@@ -138,7 +136,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $userType
      * @param string $resourceId
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
      * @return array
      */
     public function getAllowedAttributes($userType, $resourceId, $operation)
@@ -168,8 +166,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get operation type for specified operation
      *
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
-     * @return string One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_* $operation
+     * @return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_*
      * @throws Exception
      */
     public function getTypeOfOperation($operation)

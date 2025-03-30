@@ -5,6 +5,13 @@
       .github/**/*
     ]
 
+'git':
+  - changed-files:
+    - any-glob-to-any-file: [
+      .gitattributes,
+      .gitignore
+    ]
+
 'htaccess':
   - changed-files:
     - any-glob-to-any-file: [
@@ -861,7 +868,15 @@
 'Documentation':
   - changed-files:
     - any-glob-to-any-file: [
-      '*.md'
+      docs/*.md,
+      docs/**/*.md,
+      docs_includes/*.md
+    ]
+
+'README':
+  - changed-files:
+    - any-glob-to-any-file: [
+      README.md
     ]
 
 'PHPStorm':
@@ -884,19 +899,26 @@
       .github/workflows/php-cs-fixer.yml
     ]
 
+'phpmd':
+  - changed-files:
+    - any-glob-to-any-file: [
+      .phpmd*,
+      .github/workflows/phpmd.yml
+    ]
+
 'phpstan':
   - changed-files:
     - any-glob-to-any-file: [
       .phpstan*,
-      phpstan*,
       .github/workflows/phpstan.yml
     ]
 
 'phpunit':
   - changed-files:
     - any-glob-to-any-file: [
-      phpunit*,
+      .phpunit*,
       tests/*,
+      tests/**/*,
       .github/workflows/phpunit.yml
     ]
 
@@ -910,6 +932,6 @@
 'rector':
   - changed-files:
       - any-glob-to-any-file: [
-        rector.php,
+        .rector.php,
         .github/workflows/rector.yml
       ]

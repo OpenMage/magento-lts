@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,7 +49,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
         $model = Mage::registry('cms_block');
 
         $form = new Varien_Data_Form(
-            ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post']
+            ['id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'],
         );
 
         $form->setHtmlIdPrefix('block_');
@@ -92,7 +93,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
         } else {
             $fieldset->addField('store_id', 'hidden', [
                 'name'      => 'stores[]',
-                'value'     => Mage::app()->getStore(true)->getId()
+                'value'     => Mage::app()->getStore(true)->getId(),
             ]);
             $model->setStoreId(Mage::app()->getStore(true)->getId());
         }
@@ -117,7 +118,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
             'title'     => Mage::helper('cms')->__('Content'),
             'style'     => 'height:36em',
             'required'  => true,
-            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
+            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig(),
         ]);
 
         $form->setValues($model->getData());

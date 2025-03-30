@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
-use Mage_Log_Model_Customer;
+use Mage_Log_Model_Customer as Subject;
 use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase
 {
-    public Mage_Log_Model_Customer $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -37,6 +37,13 @@ class CustomerTest extends TestCase
      */
     public function testGetLoginAtTimestamp(): void
     {
-        $this->assertNull($this->subject->getLoginAtTimestamp());
+        $mock = $this->getMockBuilder(Subject::class)
+            ->setMethods(['getLoginAt'])
+            ->getMock();
+
+        $this->assertNull($mock->getLoginAtTimestamp());
+
+        $mock->method('getLoginAt')->willReturn(true);
+        $this->assertIsInt($mock->getLoginAtTimestamp());
     }
 }

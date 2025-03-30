@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Object
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,9 +112,7 @@ class Varien_Object implements ArrayAccess
      * Inits mapping array of object's previously used fields to new fields.
      * Must be overloaded by descendants to set concrete fields map.
      */
-    protected function _initOldFieldsMap()
-    {
-    }
+    protected function _initOldFieldsMap() {}
 
     /**
      * Called after old fields are inited. Forms synchronization map to sync old fields and new fields
@@ -134,9 +133,7 @@ class Varien_Object implements ArrayAccess
      *
      * @return void
      */
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Set _isDeleted flag value (if $isDeleted param is defined) and return current flag value
@@ -322,13 +319,13 @@ class Varien_Object implements ArrayAccess
         }
 
         $data = $this->_data[$key] ?? null;
-        if ($data === null && $key !== null && strpos($key, '/') !== false) {
+        if ($data === null && $key !== null && str_contains($key, '/')) {
             /* process a/b/c key as ['a']['b']['c'] */
             $data = $this->getDataByPath($key);
         }
 
         if ($index !== null) {
-            if ($data === (array)$data) {
+            if ($data === (array) $data) {
                 $data = $data[$index] ?? null;
             } elseif (is_string($data)) {
                 $data = explode(PHP_EOL, $data);
@@ -352,11 +349,11 @@ class Varien_Object implements ArrayAccess
      */
     public function getDataByPath($path)
     {
-        $keys = explode('/', (string)$path);
+        $keys = explode('/', (string) $path);
 
         $data = $this->_data;
         foreach ($keys as $key) {
-            if ((array)$data === $data && isset($data[$key])) {
+            if ((array) $data === $data && isset($data[$key])) {
                 $data = $data[$key];
             } elseif ($data instanceof Varien_Object) {
                 $data = $data->getDataByKey($key);
@@ -551,8 +548,7 @@ class Varien_Object implements ArrayAccess
     protected function __toJson(array $arrAttributes = [])
     {
         $arrData = $this->toArray($arrAttributes);
-        $json = Zend_Json::encode($arrData);
-        return $json;
+        return Zend_Json::encode($arrData);
     }
 
     /**
@@ -572,11 +568,11 @@ class Varien_Object implements ArrayAccess
      * @param  string $valueSeparator
      * @return string
      */
-//    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
-//    {
-//        $arrData = $this->toArray($arrAttributes);
-//        return implode($valueSeparator, $arrData);
-//    }
+    //    public function __toString(array $arrAttributes = array(), $valueSeparator=',')
+    //    {
+    //        $arrData = $this->toArray($arrAttributes);
+    //        return implode($valueSeparator, $arrData);
+    //    }
 
     /**
      * Public wrapper for __toString
@@ -593,7 +589,8 @@ class Varien_Object implements ArrayAccess
         } else {
             preg_match_all('/\{\{([a-z0-9_]+)\}\}/is', $format, $matches);
             foreach ($matches[1] as $var) {
-                $format = str_replace('{{' . $var . '}}', $this->getData($var), $format);
+                $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
+                $format = str_replace('{{' . $var . '}}', $replace, $format);
             }
             $str = $format;
         }
@@ -611,35 +608,23 @@ class Varien_Object implements ArrayAccess
     {
         switch (substr($method, 0, 3)) {
             case 'get':
-                //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $data = $this->getData($key, $args[0] ?? null);
-                //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
-                return $data;
+                return $this->getData($key, $args[0] ?? null);
 
             case 'set':
-                //Varien_Profiler::start('SETTER: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $result = $this->setData($key, $args[0] ?? null);
-                //Varien_Profiler::stop('SETTER: '.get_class($this).'::'.$method);
-                return $result;
+                return $this->setData($key, $args[0] ?? null);
 
             case 'uns':
-                //Varien_Profiler::start('UNS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                $result = $this->unsetData($key);
-                //Varien_Profiler::stop('UNS: '.get_class($this).'::'.$method);
-                return $result;
+                return $this->unsetData($key);
 
             case 'has':
-                //Varien_Profiler::start('HAS: '.get_class($this).'::'.$method);
                 $key = $this->_underscore(substr($method, 3));
-                //Varien_Profiler::stop('HAS: '.get_class($this).'::'.$method);
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception(
-            // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')'
+            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')',
         );
     }
 
@@ -742,7 +727,7 @@ class Varien_Object implements ArrayAccess
      */
     public function setDataChanges($value)
     {
-        $this->_hasDataChanges = (bool)$value;
+        $this->_hasDataChanges = (bool) $value;
         return $this;
     }
 

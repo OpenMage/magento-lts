@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -70,7 +71,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if (!$this->_storageRoot) {
             $path = Mage::getConfig()->getOptions()->getMediaDir()
                 . DS . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY;
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             $this->_storageRoot = realpath($path);
             if (!$this->_storageRoot) {
                 $this->_storageRoot = $path;
@@ -108,7 +108,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
      */
     public function convertPathToId($path)
     {
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         $storageRoot = realpath($this->getStorageRoot());
         $path = str_replace($storageRoot, '', $path);
         return $this->idEncode($path);
@@ -123,9 +122,8 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function convertIdToPath($id)
     {
         $path = $this->idDecode($id);
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         $storageRoot = realpath($this->getStorageRoot());
-        if (!strstr($path, $storageRoot)) {
+        if (!strstr($path, (string) $storageRoot)) {
             $path = $storageRoot . DS . $path;
         }
         return $path;
@@ -169,7 +167,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $checkResult->isAllowed = false;
         Mage::dispatchEvent('cms_wysiwyg_images_static_urls_allowed', [
             'result'   => $checkResult,
-            'store_id' => $this->_storeId
+            'store_id' => $this->_storeId,
         ]);
         return $checkResult->isAllowed;
     }
@@ -212,9 +210,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $currentPath = $this->getStorageRoot();
             $node = $this->_getRequest()->getParam($this->getTreeNodeName());
             if ($node) {
-                // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
                 $path = realpath($this->convertIdToPath($node));
-                // phpcs:ignore: Ecg.Security.DiscouragedFunction.Discouraged
                 if ($path && is_dir($path) && stripos($path, $currentPath) !== false) {
                     $currentPath = $path;
                 }
@@ -223,7 +219,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
                 $message = Mage::helper('cms')->__(
                     'The directory %s is not writable by server.',
-                    $io->getFilteredPath($currentPath)
+                    $io->getFilteredPath($currentPath),
                 );
                 Mage::throwException($message);
             }
@@ -240,7 +236,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function getCurrentUrl()
     {
         if (!$this->_currentUrl) {
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             $mediaPath = realpath(Mage::getConfig()->getOptions()->getMediaDir());
             $path = str_replace($mediaPath, '', $this->getCurrentPath());
             $path = trim($path, DS);
@@ -280,7 +275,6 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     public function idDecode($string)
     {
         $string = strtr($string, ':_-', '+/=');
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         return base64_decode($string);
     }
 

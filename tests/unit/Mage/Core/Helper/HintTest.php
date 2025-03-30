@@ -18,14 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
-use Mage_Core_Helper_Hint;
+use Mage_Core_Helper_Hint as Subject;
 use PHPUnit\Framework\TestCase;
 
 class HintTest extends TestCase
 {
-    public const TEST_STRING = '1234567890';
-
-    public Mage_Core_Helper_Hint $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -34,6 +32,17 @@ class HintTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Hint::getAvailableHints()
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
+    public function testGetAvailableHints(): void
+    {
+        $this->assertSame([], $this->subject->getAvailableHints());
+    }
+
+    /**
+     * @covers Mage_Core_Helper_Hint::getHintByCode()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */

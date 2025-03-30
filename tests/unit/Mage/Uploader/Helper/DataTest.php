@@ -18,20 +18,22 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
 use Mage;
-use Mage_Uploader_Helper_Data;
+use Mage_Uploader_Helper_Data as Subject;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Uploader_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
+        Mage::app();
         $this->subject = Mage::helper('uploader/data');
     }
 
     /**
      * @group Mage_Uploader
+     * @group Mage_Uploader_Helper
      */
     public function testIsModuleEnabled(): void
     {

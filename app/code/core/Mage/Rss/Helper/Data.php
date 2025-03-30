@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rss
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2021-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -49,7 +50,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function authFrontend()
     {
         if (!$this->_rssSession->isCustomerLoggedIn()) {
-            list($username, $password) = $this->authValidate();
+            [$username, $password] = $this->authValidate();
             $customer = Mage::getModel('customer/customer')->authenticate($username, $password);
             if ($customer && $customer->getId()) {
                 $this->_rssSession->settCustomer($customer);
@@ -67,7 +68,7 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
     public function authAdmin($path)
     {
         if (!$this->_rssSession->isAdminLoggedIn() || !$this->_adminSession->isLoggedIn()) {
-            list($username, $password) = $this->authValidate();
+            [$username, $password] = $this->authValidate();
             Mage::getSingleton('adminhtml/url')->setNoSecret(true);
             $user = $this->_adminSession->login($username, $password);
         } else {
@@ -159,6 +160,6 @@ class Mage_Rss_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getRssAdminOrderNewPeriod($store = null): int
     {
-        return (int)Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
+        return (int) Mage::getStoreConfig(self::XML_PATH_RSS_ADMIN_ORDER_NEW_PERIOD, $store);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -255,7 +256,9 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function isMessagesAvailable()
     {
-        return Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity());
+        /** @var Mage_GiftMessage_Helper_Message $helper */
+        $helper = $this->helper('giftmessage/message');
+        return $helper->isMessagesAvailable($helper::TYPE_CONFIG, $this->getEntity());
     }
 
     /**
@@ -266,7 +269,7 @@ class Mage_GiftMessage_Block_Message_Inline extends Mage_Core_Block_Template
      */
     public function isItemMessagesAvailable($item)
     {
-        $type = substr($this->getType(), 0, 5) === 'multi' ? 'address_item' : 'item';
+        $type = str_starts_with($this->getType(), 'multi') ? 'address_item' : 'item';
         return Mage::helper('giftmessage/message')->isMessagesAvailable($type, $item);
     }
 }

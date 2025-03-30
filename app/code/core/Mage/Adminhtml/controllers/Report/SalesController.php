@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -48,7 +49,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();
@@ -69,7 +70,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();
@@ -167,7 +168,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();
@@ -210,7 +211,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();
@@ -253,7 +254,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();
@@ -296,7 +297,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();
@@ -339,7 +340,7 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
 
         $this->_initReportAction([
             $gridBlock,
-            $filterFormBlock
+            $filterFormBlock,
         ]);
 
         $this->renderLayout();

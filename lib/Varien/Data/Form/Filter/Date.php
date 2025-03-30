@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,7 +32,7 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
     /**
      * Local
      *
-     * @var Zend_Locale
+     * @var string|Zend_Locale
      */
     protected $_locale;
 
@@ -39,7 +40,7 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
      * Initialize filter
      *
      * @param string $format    Zend_Date input/output format
-     * @param Zend_Locale $locale
+     * @param string|Zend_Locale $locale
      */
     public function __construct($format = null, $locale = null)
     {
@@ -53,8 +54,8 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
     /**
      * Returns the result of filtering $value
      *
-     * @param string $value
-     * @return string
+     * @param string|null $value
+     * @return string|null
      */
     public function inputFilter($value)
     {
@@ -64,22 +65,21 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
 
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
             'date_format'   => Varien_Date::DATE_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
 
         $value = $filterInput->filter($value);
-        $value = $filterInternal->filter($value);
-        return $value;
+        return $filterInternal->filter($value);
     }
 
     /**
      * Returns the result of filtering $value
      *
-     * @param string $value
+     * @param string|null $value
      * @return string
      */
     public function outputFilter($value)
@@ -90,15 +90,14 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
 
         $filterInput = new Zend_Filter_LocalizedToNormalized([
             'date_format'   => Varien_Date::DATE_INTERNAL_FORMAT,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
             'date_format'   => $this->_dateFormat,
-            'locale'        => $this->_locale
+            'locale'        => $this->_locale,
         ]);
 
         $value = $filterInput->filter($value);
-        $value = $filterInternal->filter($value);
-        return $value;
+        return $filterInternal->filter($value);
     }
 }

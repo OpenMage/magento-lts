@@ -17,14 +17,15 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Security;
 
-use Mage_Core_Model_Security_HtmlEscapedString;
+use Generator;
+use Mage_Core_Model_Security_HtmlEscapedString as Subject;
 use PHPUnit\Framework\TestCase;
 
 class HtmlEscapedStringTest extends TestCase
 {
     public const TEST_STRING = 'This is a bold <b>string</b>';
 
-    public Mage_Core_Model_Security_HtmlEscapedString $subject;
+    public Subject $subject;
 
     /**
      * @dataProvider provideHtmlEscapedStringAsStringData
@@ -34,9 +35,8 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
-        $this->assertEquals($expectedResult, $this->subject->__toString());
+        $this->subject = new Subject($string, $allowedTags);
+        $this->assertSame($expectedResult, $this->subject->__toString());
     }
 
     /**
@@ -47,46 +47,35 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Core_Model_Security_HtmlEscapedString($string, $allowedTags);
-        $this->assertEquals($expectedResult, $this->subject->getUnescapedValue());
+        $this->subject = new Subject($string, $allowedTags);
+        $this->assertSame($expectedResult, $this->subject->getUnescapedValue());
     }
 
-    /**
-     * @return array<string, array<int, array<int, string>|string|null>>
-     */
-    public function provideHtmlEscapedStringAsStringData(): array
+    public function provideHtmlEscapedStringAsStringData(): Generator
     {
-        return [
-            'tags_null' => [
-                'This is a bold &lt;b&gt;string&lt;/b&gt;',
-                self::TEST_STRING,
-                null
-            ],
-            'tags_array' => [
-                self::TEST_STRING,
-                self::TEST_STRING,
-                ['b']
-            ],
+        yield 'tags null' => [
+            'This is a bold &lt;b&gt;string&lt;/b&gt;',
+            self::TEST_STRING,
+            null,
+        ];
+        yield 'tags array' => [
+            self::TEST_STRING,
+            self::TEST_STRING,
+            ['b'],
         ];
     }
 
-    /**
-     * @return array<string, array<int, array<int, string>|string|null>>
-     */
-    public function provideHtmlEscapedStringGetUnescapedValueData(): array
+    public function provideHtmlEscapedStringGetUnescapedValueData(): Generator
     {
-        return [
-            'tags_null' => [
-                self::TEST_STRING,
-                self::TEST_STRING,
-                null
-            ],
-            'tags_array' => [
-                self::TEST_STRING,
-                self::TEST_STRING,
-                ['some-invalid-value']
-            ],
+        yield 'tags null' => [
+            self::TEST_STRING,
+            self::TEST_STRING,
+            null,
+        ];
+        yield 'tags array' => [
+            self::TEST_STRING,
+            self::TEST_STRING,
+            ['some-invalid-value'],
         ];
     }
 }

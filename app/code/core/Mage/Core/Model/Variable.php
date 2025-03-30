@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -90,7 +91,7 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
         if ($type === null) {
             $type = self::TYPE_HTML;
         }
-        if ($type == self::TYPE_TEXT || !(strlen((string)$this->getData('html_value')))) {
+        if ($type == self::TYPE_TEXT || !(strlen((string) $this->getData('html_value')))) {
             $value = $this->getData('plain_value');
             //escape html if type is html, but html value is not defined
             if ($type == self::TYPE_HTML) {
@@ -134,14 +135,14 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
                 'value' => '{{customVar code=' . $variable['value'] . '}}',
                 'label' => Mage::helper('core')->__(
                     '%s',
-                    Mage::helper('core')->escapeHtml($variable['label'])
-                )
+                    Mage::helper('core')->escapeHtml($variable['label']),
+                ),
             ];
         }
         if ($withGroup && $variables) {
             $variables = [
                 'label' => Mage::helper('core')->__('Custom Variables'),
-                'value' => $variables
+                'value' => $variables,
             ];
         }
         return $variables;

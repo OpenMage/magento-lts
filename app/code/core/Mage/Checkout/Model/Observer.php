@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -35,7 +36,7 @@ class Mage_Checkout_Model_Observer
         } catch (Exception $e) {
             Mage::getSingleton('checkout/session')->addException(
                 $e,
-                Mage::helper('checkout')->__('Load customer quote error')
+                Mage::helper('checkout')->__('Load customer quote error'),
             );
         }
     }

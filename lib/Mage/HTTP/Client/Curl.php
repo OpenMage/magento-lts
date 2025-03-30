@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -121,9 +122,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Constructor
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Set headers from hash
@@ -264,7 +263,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -290,7 +289,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -301,7 +300,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
                 continue;
             }
             for ($i = 0; $i < $c; $i++) {
-                list($subkey, $val) = explode('=', $values[$i]);
+                [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
@@ -310,7 +309,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Get response status code
-     * @see lib/Mage/HTTP/Mage_HTTP_Client#getStatus()
+     * @see Mage_HTTP_Client::getStatus()
      */
     public function getStatus()
     {
@@ -403,13 +402,13 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
             $line = explode(' ', trim($data), 3);
 
             $this->validateHttpVersion($line);
-            $this->_responseStatus = (int)$line[1];
+            $this->_responseStatus = (int) $line[1];
         } else {
             //var_dump($data);
             $name = $value = '';
             $out  = explode(': ', trim($data), 2);
             if (count($out) === 2) {
-                list($name, $value) = $out;
+                [$name, $value] = $out;
             }
 
             if ($name !== '') {
@@ -433,15 +432,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
      */
     protected function validateHttpVersion(array $line)
     {
-        if ($line[0] === 'HTTP/1.0' || $line[0] === 'HTTP/1.1') {
-            if (count($line) !== 3) {
-                $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
-            }
-
-            return;
-        }
-
-        if ($line[0] === 'HTTP/2') {
+        if (in_array($line[0], ['HTTP/2', 'HTTP/1.0', 'HTTP/1.1'])) {
             if (!in_array(count($line), [2, 3])) {
                 $this->doError('Invalid response line returned from server: ' . implode(' ', $line));
             }

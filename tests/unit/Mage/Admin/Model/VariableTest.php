@@ -17,13 +17,14 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
+use Generator;
 use Mage;
-use Mage_Admin_Model_Variable;
+use Mage_Admin_Model_Variable as Subject;
 use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    public Mage_Admin_Model_Variable $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -33,47 +34,43 @@ class VariableTest extends TestCase
 
     /**
      * @dataProvider provideValidateData
-     * @param array|true $expectedResult
-     *
      * @group Mage_Admin
+     * @group Mage_Admin_Model
+     *
+     * @param array|true $expectedResult
      */
     public function testValidate($expectedResult, string $variableName, string $isAllowed): void
     {
-        $mock = $this->getMockBuilder(Mage_Admin_Model_Variable::class)
+        $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getVariableName', 'getIsAllowed'])
             ->getMock();
 
-        $mock->expects($this->any())->method('getVariableName')->willReturn($variableName);
-        $mock->expects($this->any())->method('getIsAllowed')->willReturn($isAllowed);
-        $this->assertEquals($expectedResult, $mock->validate());
+        $mock->method('getVariableName')->willReturn($variableName);
+        $mock->method('getIsAllowed')->willReturn($isAllowed);
+        $this->assertSame($expectedResult, $mock->validate());
     }
 
-    /**
-     * @return array<string, array<int, bool|array|string>>
-     */
-    public function provideValidateData(): array
+    public function provideValidateData(): Generator
     {
-        return [
-            'test_passes' => [
-                true,
-                'test',
-                '1'
-            ],
-            'test_error_empty' => [
-                [0 => 'Variable Name is required field.'],
-                '',
-                '1'
-            ],
-            'test_error_regex' => [
-                [0 => 'Variable Name is incorrect.'],
-                '#invalid-name#',
-                '1'
-            ],
-            'test_error_allowed' => [
-                [0 => 'Is Allowed is required field.'],
-                'test',
-                'invalid'
-            ],
+        yield 'test passes' => [
+            true,
+            'test',
+            '1',
+        ];
+        yield 'test error empty' => [
+            [0 => 'Variable Name is required field.'],
+            '',
+            '1',
+        ];
+        yield 'test error regex' => [
+            [0 => 'Variable Name is incorrect.'],
+            '#invalid-name#',
+            '1',
+        ];
+        yield 'test error allowed' => [
+            [0 => 'Is Allowed is required field.'],
+            'test',
+            'invalid',
         ];
     }
 

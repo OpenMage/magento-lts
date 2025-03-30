@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -110,7 +111,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $ignoreAgents = $ignoreAgents->asArray();
             $userAgent = $this->_httpHelper->getHttpUserAgent();
             foreach ($ignoreAgents as $ignoreAgent) {
-                if (stripos($userAgent, $ignoreAgent) !== false) {
+                if (stripos($userAgent, (string) $ignoreAgent) !== false) {
                     $this->_skipRequestLogging = true;
                     break;
                 }
@@ -172,8 +173,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     public function getUrl()
     {
         $url = 'http' . ($this->getHttpSecure() ? 's' : '') . '://';
-        $url .= $this->getHttpHost() . $this->getRequestUri();
-        return $url;
+        return $url . ($this->getHttpHost() . $this->getRequestUri());
     }
 
     /**

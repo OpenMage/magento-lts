@@ -18,27 +18,26 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
-use Mage_Page_Block_Redirect;
+use Mage_Page_Block_Redirect as Subject;
 use PHPUnit\Framework\TestCase;
 
 class RedirectTest extends TestCase
 {
-    public Mage_Page_Block_Redirect $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Redirect();
+        $this->subject = new Subject();
     }
 
     /**
      * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Mage_Page_Block
      */
     public function testGetTargetUrl(): void
     {
-        $this->assertEquals('', $this->subject->getTargetURL());
+        $this->assertSame('', $this->subject->getTargetURL());
     }
 
     /**
@@ -47,7 +46,7 @@ class RedirectTest extends TestCase
      */
     public function testGetMessage(): void
     {
-        $this->assertEquals('', $this->subject->getMessage());
+        $this->assertSame('', $this->subject->getMessage());
     }
 
     /**
@@ -92,7 +91,7 @@ class RedirectTest extends TestCase
      */
     public function testGetFormId(): void
     {
-        $this->assertEquals('', $this->subject->getFormId());
+        $this->assertSame('', $this->subject->getFormId());
     }
 
     /**
@@ -101,6 +100,6 @@ class RedirectTest extends TestCase
      */
     public function testGetFormMethod(): void
     {
-        $this->assertEquals('POST', $this->subject->getFormMethod());
+        $this->assertSame('POST', $this->subject->getFormMethod());
     }
 }

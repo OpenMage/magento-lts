@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -40,7 +41,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
      * Replace review summary html with more detailed review summary
      * Reviews collection count will be jerked here
      *
-     * @param bool $templateType
+     * @param string|false $templateType
      * @param bool $displayIfNoReviews
      * @return string
      * @throws Mage_Core_Model_Store_Exception|Mage_Core_Exception

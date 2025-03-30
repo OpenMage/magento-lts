@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -61,11 +62,11 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
                                 preg_replace(
                                     '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                                     '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
-                                    $this->wsdlConfig->getWsdlContent()
-                                )
-                            )
-                        )
-                    )
+                                    $this->wsdlConfig->getWsdlContent(),
+                                ),
+                            ),
+                        ),
+                    ),
                 );
         } else {
             try {
@@ -83,10 +84,10 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
                             preg_replace(
                                 '/<\?xml version="([^\"]+)"([^\>]+)>/i',
                                 '<?xml version="$1" encoding="' . $apiConfigCharset . '"?>',
-                                $this->_soap->handle()
-                            )
-                        )
-                    )
+                                $this->_soap->handle(),
+                            ),
+                        ),
+                    ),
                 );
 
                 $this->getController()->getResponse()
@@ -94,9 +95,7 @@ class Mage_Api_Model_Server_Wsi_Adapter_Soap extends Mage_Api_Model_Server_Adapt
                     ->setHeader('Content-Type', 'text/xml; charset=' . $apiConfigCharset)
                     ->setHeader('Content-Length', strlen($content), true)
                     ->setBody($content);
-            } catch (Zend_Soap_Server_Exception $e) {
-                $this->fault($e->getCode(), $e->getMessage());
-            } catch (Exception $e) {
+            } catch (Zend_Soap_Server_Exception|Exception $e) {
                 $this->fault($e->getCode(), $e->getMessage());
             }
         }

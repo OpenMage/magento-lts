@@ -9,9 +9,11 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/** @var Mage_Checkout_Block_Onepage_Progress $this */
 ?>
 <div class="block block-progress opc-block-progress<?php if (!$this->isCustomerLoggedIn()/* && !$this->getCheckout()->getStepData('billing', 'is_show')*/): ?> opc-block-progress-step-login<?php endif ?>">
     <div class="block-title">

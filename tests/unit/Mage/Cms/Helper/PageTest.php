@@ -17,14 +17,16 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
-use Generator;
 use Mage;
-use Mage_Cms_Helper_Page;
+use Mage_Cms_Helper_Page as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
 use PHPUnit\Framework\TestCase;
 
 class PageTest extends TestCase
 {
-    public Mage_Cms_Helper_Page $subject;
+    use CmsTrait;
+
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -39,35 +41,6 @@ class PageTest extends TestCase
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
-        $this->assertSame($expectedResult, Mage_Cms_Helper_Page::getUsedInStoreConfigPaths($path));
-    }
-
-    public function provideGetUsedInStoreConfigPaths(): Generator
-    {
-        yield 'null' => [
-            [],
-            null,
-        ];
-        yield 'empty array' => [
-            [
-                0 => 'web/default/cms_no_route',
-                1 => 'web/default/cms_no_cookies',
-                2 => 'web/default/cms_home_page',
-            ],
-            [],
-        ];
-        yield 'custom paths' => [
-            [
-                0 => 'web/default/cms_no_route',
-                1 => 'web/default/cms_no_cookies',
-                2 => 'web/default/cms_home_page',
-                3 => 'my/first/path',
-                4 => 'my/second/path',
-            ],
-            [
-                'my/first/path',
-                'my/second/path',
-            ],
-        ];
+        $this->assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
     }
 }

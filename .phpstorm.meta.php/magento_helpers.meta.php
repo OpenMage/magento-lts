@@ -169,8 +169,6 @@ namespace PHPSTORM_META {
             'sales/data' => \Mage_Sales_Helper_Data::class,
             'sales/guest' => \Mage_Sales_Helper_Guest::class,
             'sales/reorder' => \Mage_Sales_Helper_Reorder::class,
-            'sendfriend' => \Mage_Sendfriend_Helper_Data::class,
-            'sendfriend/data' => \Mage_Sendfriend_Helper_Data::class,
             'shipping' => \Mage_Shipping_Helper_Data::class,
             'shipping/data' => \Mage_Shipping_Helper_Data::class,
             'sitemap' => \Mage_Sitemap_Helper_Data::class,

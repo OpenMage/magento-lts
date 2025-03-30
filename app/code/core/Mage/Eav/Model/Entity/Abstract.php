@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -176,9 +177,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
         return $this;
     }
 
-    protected function _construct()
-    {
-    }
+    protected function _construct() {}
 
     /**
      * Retrieve connection for read data
@@ -292,7 +291,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     public function getTypeId()
     {
-        return (int)$this->getEntityType()->getEntityTypeId();
+        return (int) $this->getEntityType()->getEntityTypeId();
     }
 
     /**
@@ -462,7 +461,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     {
         $result = $this->_isPartialLoad;
         if ($flag !== null) {
-            $this->_isPartialLoad = (bool)$flag;
+            $this->_isPartialLoad = (bool) $flag;
         }
         return $result;
     }
@@ -477,7 +476,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     {
         $result = $this->_isPartialSave;
         if ($flag !== null) {
-            $this->_isPartialSave = (bool)$flag;
+            $this->_isPartialSave = (bool) $flag;
         }
         return $result;
     }
@@ -635,7 +634,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             }
 
             try {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $results[$attrCode] = call_user_func_array([$instance, $method], $args);
             } catch (Mage_Eav_Model_Entity_Attribute_Exception $e) {
                 throw $e;
@@ -657,7 +655,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param array $args array of arguments
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _isCallableAttributeInstance($instance, $method, $args)
     {
         if (!is_object($instance) || !method_exists($instance, $method)) {
@@ -750,7 +747,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function getValueTablePrefix()
     {
         if (!$this->_valueTablePrefix) {
-            $prefix = (string)$this->getEntityType()->getValueTablePrefix();
+            $prefix = (string) $this->getEntityType()->getValueTablePrefix();
             if (!empty($prefix)) {
                 $this->_valueTablePrefix = $prefix;
             } else {
@@ -856,7 +853,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $value = $object->getData($attribute->getAttributeCode());
             $bind = [
                 'entity_type_id' => $this->getTypeId(),
-                'attribute_code' => trim($value)
+                'attribute_code' => trim($value),
             ];
 
             $select
@@ -872,7 +869,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $bind = [
                 'entity_type_id' => $this->getTypeId(),
                 'attribute_id'   => $attribute->getId(),
-                'value'          => trim($value)
+                'value'          => trim($value),
             ];
             $select
                 ->from($attribute->getBackend()->getTable(), $attribute->getBackend()->getEntityIdField())
@@ -977,7 +974,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                     $select = $selects;
                 }
 
-                // phpcs:ignore Ecg.Performance.FetchAll.Found
                 $values = $this->_getReadAdapter()->fetchAll($select);
                 foreach ($values as $valueRow) {
                     $this->_setAttributeValue($object, $valueRow);
@@ -997,7 +993,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      */
     protected function _prepareLoadSelect(array $selects)
     {
-        // phpcs:ignore Ecg.Sql.SlowQuery.SlowSql
         return $this->_getReadAdapter()->select()->union($selects, Zend_Db_Select::SQL_UNION_ALL);
     }
 
@@ -1008,7 +1003,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   mixed $rowId
      * @return  Zend_Db_Select
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _getLoadRowSelect($object, $rowId)
     {
         return $this->_getReadAdapter()->select()
@@ -1193,7 +1187,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                 if ($this->_isAttributeValueEmpty($attribute, $v)) {
                     $delete[$attribute->getBackend()->getTable()][] = [
                         'attribute_id'  => $attrId,
-                        'value_id'      => $attribute->getBackend()->getEntityValueId($newObject)
+                        'value_id'      => $attribute->getBackend()->getEntityValueId($newObject),
                     ];
                 } elseif ($v !== $origData[$k]) {
                     $update[$attrId] = [
@@ -1211,7 +1205,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             'entityRow' => $entityRow,
             'insert'    => $insert,
             'update'    => $update,
-            'delete'    => $delete
+            'delete'    => $delete,
         ];
     }
 
@@ -1221,7 +1215,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param mixed $v  New value of the attribute. Can be used in subclasses.
      * @return bool
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _canUpdateAttribute(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $v, array &$origData)
     {
         return array_key_exists($attribute->getAttributeCode(), $origData);
@@ -1394,7 +1387,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   mixed $value
      * @return  $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _updateAttribute($object, $attribute, $valueId, $value)
     {
         return $this->_saveAttribute($object, $attribute, $value);
@@ -1423,7 +1415,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             'entity_type_id'    => $object->getEntityTypeId(),
             $entityIdField      => $object->getId(),
             'attribute_id'      => $attribute->getId(),
-            'value'             => $this->_prepareValueForSave($value, $attribute)
+            'value'             => $this->_prepareValueForSave($value, $attribute),
         ];
 
         $this->_attributeValuesToSave[$table][] = $data;
@@ -1489,7 +1481,6 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
      * @param   array $info
      * @return  $this
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassBeforeLastUsed
     protected function _deleteAttributes($object, $table, $info)
     {
         $valueIds = [];
@@ -1580,16 +1571,16 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function delete($object)
     {
         if (is_numeric($object)) {
-            $id = (int)$object;
+            $id = (int) $object;
         } elseif ($object instanceof Varien_Object) {
-            $id = (int)$object->getId();
+            $id = (int) $object->getId();
         }
 
         $this->_beforeDelete($object);
 
         try {
             $where = [
-                $this->getEntityIdField() . '=?' => $id
+                $this->getEntityIdField() . '=?' => $id,
             ];
             $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
             $this->loadAllAttributes($object);

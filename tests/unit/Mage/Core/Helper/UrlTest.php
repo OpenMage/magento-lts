@@ -19,7 +19,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Generator;
 use Mage;
-use Mage_Core_Helper_Url;
+use Mage_Core_Helper_Url as Subject;
 use PHPUnit\Framework\TestCase;
 
 class UrlTest extends TestCase
@@ -38,7 +38,7 @@ class UrlTest extends TestCase
 
     public const TEST_URL_PUNY      = 'https://XN--example.com?foo=bar&BOO=baz';
 
-    public Mage_Core_Helper_Url $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -47,6 +47,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::getCurrentBase64Url()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -56,6 +57,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::getEncodedUrl()
      * @dataProvider provideGetEncodedUrl
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -78,6 +80,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::getHomeUrl()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -87,6 +90,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::addRequestParam()
      * @dataProvider provideAddRequestParam
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -131,6 +135,7 @@ class UrlTest extends TestCase
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::removeRequestParam()
      * @dataProvider provideRemoveRequestParam
      * @group Mage_Core
      * @group Mage_Core_Helper
@@ -145,43 +150,44 @@ class UrlTest extends TestCase
         yield 'remove #1' => [
             self::TEST_URL_BASE,
             self::TEST_URL_PARAM,
-            'foo'
+            'foo',
         ];
         yield 'remove #2' => [
             self::TEST_URL_PARAMS,
             self::TEST_URL_PARAMS,
-            'boo'
+            'boo',
         ];
         yield 'remove #1 case sensitive' => [
             self::TEST_URL_PARAM,
             self::TEST_URL_PARAM,
             'FOO',
-            true
+            true,
         ];
         yield 'remove #2 case sensitive' => [
             self::TEST_URL_PARAM,
             self::TEST_URL_PARAMS,
             'BOO',
-            true
+            true,
         ];
         yield 'not-exists' => [
             self::TEST_URL_PARAMS,
             self::TEST_URL_PARAMS,
-            'not-exists'
+            'not-exists',
         ];
         yield '___SID' => [
             self::TEST_URL_SID1,
             self::TEST_URL_SID_BOTH,
-            '___SID'
+            '___SID',
         ];
         yield 'SID' => [
             self::TEST_URL_SID2,
             self::TEST_URL_SID_BOTH,
-            'SID'
+            'SID',
         ];
     }
 
     /**
+     * @covers Mage_Core_Helper_Url::encodePunycode()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
@@ -191,7 +197,9 @@ class UrlTest extends TestCase
         $this->assertSame(self::TEST_URL_PUNY, $this->subject->encodePunycode(self::TEST_URL_PUNY));
         $this->markTestIncomplete('This test has to be checked.');
     }
+
     /**
+     * @covers Mage_Core_Helper_Url::decodePunycode()
      * @group Mage_Core
      * @group Mage_Core_Helper
      */

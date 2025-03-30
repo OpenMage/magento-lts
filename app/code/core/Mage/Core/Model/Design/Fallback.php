@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -126,14 +127,14 @@ class Mage_Core_Model_Design_Fallback
     {
         $scheme = [[]];
         $this->_visited = [];
-        while ($parent = (string)$this->_config->getNode($area . '/' . $package . '/' . $theme . '/parent')) {
+        while ($parent = (string) $this->_config->getNode($area . '/' . $package . '/' . $theme . '/parent')) {
             $this->_checkVisited($area, $package, $theme);
 
             $parts = explode('/', $parent);
             if (count($parts) !== 2) {
                 throw new Mage_Core_Exception('Parent node should be defined as "package/theme"');
             }
-            list($package, $theme) = $parts;
+            [$package, $theme] = $parts;
             $scheme[] = ['_package' => $package, '_theme' => $theme];
         }
 
@@ -153,7 +154,7 @@ class Mage_Core_Model_Design_Fallback
         $path = $area . '/' . $package . '/' . $theme;
         if (in_array($path, $this->_visited)) {
             throw new Mage_Core_Exception(
-                'Circular inheritance in theme ' . $package . '/' . $theme
+                'Circular inheritance in theme ' . $package . '/' . $theme,
             );
         }
         $this->_visited[] = $path;

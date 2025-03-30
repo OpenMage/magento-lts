@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -55,7 +56,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                 } else {
                     $selectOperator = ' LIKE ?';
                 }
-                if (substr($operator, 0, 1) == '!') {
+                if (str_starts_with($operator, '!')) {
                     $selectOperator = ' NOT' . $selectOperator;
                 }
                 break;
@@ -65,7 +66,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
             case '()':
             case '!()':
                 $selectOperator = 'FIND_IN_SET(?,' . $this->_adapter->quoteIdentifier($field) . ')';
-                if (substr($operator, 0, 1) == '!') {
+                if (str_starts_with($operator, '!')) {
                     $selectOperator = 'NOT ' . $selectOperator;
                 }
                 break;

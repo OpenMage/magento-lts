@@ -18,13 +18,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model\Convert\Adapter;
 
 use Mage;
-use Mage_Customer_Model_Convert_Adapter_Customer;
+use Mage_Customer_Model_Convert_Adapter_Customer as Subject;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class CustomerTest extends TestCase
 {
-    public Mage_Customer_Model_Convert_Adapter_Customer $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -32,7 +32,7 @@ class CustomerTest extends TestCase
         $this->subject = Mage::getModel('customer/convert_adapter_customer');
     }
 
-//    /**
+    //    /**
     //     * @return void
     //     * @throws Throwable
     //     *
@@ -45,7 +45,7 @@ class CustomerTest extends TestCase
     //            $this->subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
-    //            $this->assertEquals('Skipping import row, required field "website" is not defined.', $e->getMessage());
+    //            $this->assertSame('Skipping import row, required field "website" is not defined.', $e->getMessage());
     //        }
     //    }
     //
@@ -64,7 +64,7 @@ class CustomerTest extends TestCase
     //            $this->subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
-    //            $this->assertEquals('Skipping import row, required field "email" is not defined.', $e->getMessage());
+    //            $this->assertSame('Skipping import row, required field "email" is not defined.', $e->getMessage());
     //        }
     //    }
     //
@@ -84,7 +84,7 @@ class CustomerTest extends TestCase
     //            $this->subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
-    //            $this->assertEquals('Skipping import row, the value "" is not valid for the "group" field.', $e->getMessage());
+    //            $this->assertSame('Skipping import row, the value "" is not valid for the "group" field.', $e->getMessage());
     //        }
     //    }
     //
@@ -127,7 +127,7 @@ class CustomerTest extends TestCase
     //            $this->subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
-    //            $this->assertEquals('Skip import row, required field "lastname" for the new customer is not defined.', $e->getMessage());
+    //            $this->assertSame('Skip import row, required field "lastname" for the new customer is not defined.', $e->getMessage());
     //        }
     //    }
     /**
@@ -143,6 +143,6 @@ class CustomerTest extends TestCase
             'firstname' => 'John',
             'lastname'  => 'Doe',
         ];
-        $this->assertInstanceOf(Mage_Customer_Model_Convert_Adapter_Customer::class, $this->subject->saveRow($data));
+        $this->assertInstanceOf(Subject::class, $this->subject->saveRow($data));
     }
 }

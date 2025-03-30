@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -149,10 +150,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_stores)) {
             $this->_stores = Mage::app()->getStores(true);
         }
-        if (isset($this->_stores[$storeId])) {
-            return $this->_stores[$storeId];
-        }
-        return false;
+        return $this->_stores[$storeId] ?? false;
     }
 
     /**
@@ -166,10 +164,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_websites)) {
             $this->_websites = Mage::app()->getWebsites(true);
         }
-        if (isset($this->_websites[$websiteId])) {
-            return $this->_websites[$websiteId];
-        }
-        return false;
+        return $this->_websites[$websiteId] ?? false;
     }
 
     /**
@@ -330,7 +325,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                 if (is_null($groupCode)) {
                     $this->addException(
                         Mage::helper('catalog')->__('An invalid group ID is specified, skipping the record.'),
-                        Mage_Dataflow_Model_Convert_Exception::ERROR
+                        Mage_Dataflow_Model_Convert_Exception::ERROR,
                     );
                     continue;
                 } else {
@@ -362,7 +357,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             'created_in',
             'default_billing',
             'default_shipping',
-            'country_id'
+            'country_id',
         ];
 
         $customerAttributes = Mage::getResourceModel('customer/attribute_collection')
@@ -376,7 +371,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
             'email'         => 'email',
             'group'         => 'group',
             'create_in'     => 'create_in',
-            'is_subscribed' => 'is_subscribed'
+            'is_subscribed' => 'is_subscribed',
         ];
 
         foreach ($customerAttributes as $attr) {
@@ -519,9 +514,9 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                                     Mage::helper('customer')->__(
                                         'Invalid attribute option specified for attribute %s (%s), skipping the record.',
                                         $field,
-                                        $value
+                                        $value,
                                     ),
-                                    Varien_Convert_Exception::ERROR
+                                    Varien_Convert_Exception::ERROR,
                                 );
                                 continue;
                             }

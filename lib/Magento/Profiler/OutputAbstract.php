@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -82,7 +83,7 @@ abstract class Magento_Profiler_OutputAbstract
         if ($columnId == 'timer_id') {
             return $this->_renderTimerId($timerId);
         }
-        $value = (float)Magento_Profiler::fetch($timerId, $columnId);
+        $value = (float) Magento_Profiler::fetch($timerId, $columnId);
         if (in_array($columnId, [Magento_Profiler::FETCH_TIME, Magento_Profiler::FETCH_AVG])) {
             $value = number_format($value, 6);
         } else {
@@ -128,10 +129,10 @@ abstract class Magento_Profiler_OutputAbstract
                 continue;
             }
             /* Loop over all timers that need to be closed under previous timer */
-            while (strpos($timerId, $prevTimerId . Magento_Profiler::NESTING_SEPARATOR) !== 0) {
+            while (!str_starts_with($timerId, $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
                 /* Add to result all timers nested in the previous timer */
                 for ($j = $i + 1; $j < count($timerIds); $j++) {
-                    if (strpos($timerIds[$j], $prevTimerId . Magento_Profiler::NESTING_SEPARATOR) === 0) {
+                    if (str_starts_with($timerIds[$j], $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
                         $result[] = $timerIds[$j];
                         /* Mark timer as already added */
                         $timerIds[$j] = null;
@@ -192,8 +193,7 @@ abstract class Magento_Profiler_OutputAbstract
     protected function _renderCaption()
     {
         $result = 'Code Profiler (Memory usage: real - %s, emalloc - %s)';
-        $result = sprintf($result, memory_get_usage(true), memory_get_usage());
-        return $result;
+        return sprintf($result, memory_get_usage(true), memory_get_usage());
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -34,7 +35,7 @@ class Mage_ImportExport_Model_Import_Adapter
         if (!is_string($type) || !$type) {
             Mage::throwException(Mage::helper('importexport')->__('Adapter type must be a non empty string'));
         }
-        $adapterClass = __CLASS__ . '_' . ucfirst(strtolower($type));
+        $adapterClass = self::class . '_' . ucfirst(strtolower($type));
 
         if (!class_exists($adapterClass)) {
             Mage::throwException("'{$type}' file extension is not supported");
@@ -43,7 +44,7 @@ class Mage_ImportExport_Model_Import_Adapter
 
         if (!$adapter instanceof Mage_ImportExport_Model_Import_Adapter_Abstract) {
             Mage::throwException(
-                Mage::helper('importexport')->__('Adapter must be an instance of Mage_ImportExport_Model_Import_Adapter_Abstract')
+                Mage::helper('importexport')->__('Adapter must be an instance of Mage_ImportExport_Model_Import_Adapter_Abstract'),
             );
         }
         return $adapter;

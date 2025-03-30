@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Persistent
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -87,7 +88,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
     {
         return gmdate(
             Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT,
-            time() - Mage::helper('persistent')->getLifeTime($store)
+            time() - Mage::helper('persistent')->getLifeTime($store),
         );
     }
 
@@ -209,13 +210,13 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         $lifetime = Mage::getConfig()->getNode(
             Mage_Persistent_Helper_Data::XML_PATH_LIFE_TIME,
             'website',
-            (int) $websiteId
+            (int) $websiteId,
         );
 
         if ($lifetime) {
             $this->getResource()->deleteExpired(
                 $websiteId,
-                gmdate(Varien_Date::DATETIME_PHP_FORMAT, time() - $lifetime)
+                gmdate(Varien_Date::DATETIME_PHP_FORMAT, time() - $lifetime),
             );
         }
 

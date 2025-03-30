@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,7 +154,7 @@ class Mage_Core_Model_Encryption
         if (count($hashArr) === 1) {
             return hash_equals($this->hash($password, $version), $hash);
         }
-        list($hash, $salt) = $hashArr;
+        [$hash, $salt] = $hashArr;
         return hash_equals($this->hash($salt . $password, $version), $hash);
     }
 
@@ -167,7 +168,7 @@ class Mage_Core_Model_Encryption
     {
         if (!$this->_crypt) {
             if ($key === null) {
-                $key = (string)Mage::getConfig()->getNode('global/crypt/key');
+                $key = (string) Mage::getConfig()->getNode('global/crypt/key');
             }
             $this->_crypt = Varien_Crypt::factory()->init($key);
         }
@@ -182,7 +183,7 @@ class Mage_Core_Model_Encryption
      */
     public function encrypt($data)
     {
-        return base64_encode($this->_getCrypt()->encrypt((string)$data));
+        return base64_encode($this->_getCrypt()->encrypt((string) $data));
     }
 
     /**
@@ -193,7 +194,7 @@ class Mage_Core_Model_Encryption
      */
     public function decrypt($data)
     {
-        return str_replace("\x0", '', trim($this->_getCrypt()->decrypt(base64_decode((string)$data))));
+        return str_replace("\x0", '', trim($this->_getCrypt()->decrypt(base64_decode((string) $data))));
     }
 
     /**

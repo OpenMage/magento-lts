@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -38,12 +39,12 @@ class Mage_Api2_Block_Adminhtml_Attribute_Buttons extends Mage_Adminhtml_Block_T
             'backButton'    => [
                 'label'     => $this->__('Back'),
                 'onclick'   => sprintf("window.location.href='%s';", $this->getUrl('*/*/')),
-                'class'     => 'back'
+                'class'     => 'back',
             ],
             'saveButton'    => [
                 'label'     => $this->__('Save'),
                 'onclick'   => 'form.submit(); return false;',
-                'class'     => 'save'
+                'class'     => 'save',
             ],
         ];
 

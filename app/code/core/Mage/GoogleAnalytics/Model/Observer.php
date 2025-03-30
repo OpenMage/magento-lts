@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -83,7 +84,7 @@ class Mage_GoogleAnalytics_Model_Observer
                 'qty' => $addedQty ?: $removedQty,
                 'price' => $product->getFinalPrice(),
                 'manufacturer' => $manufacturer,
-                'category' => Mage::helper('googleanalytics')->getLastCategoryName($product)
+                'category' => Mage::helper('googleanalytics')->getLastCategoryName($product),
             ];
 
             $session = Mage::getSingleton('core/session');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -61,7 +62,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage_Core_Model_Locale::FORMAT_TYPE_FULL,
         Mage_Core_Model_Locale::FORMAT_TYPE_LONG,
         Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
+        Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
     ];
 
     /**
@@ -70,7 +71,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getEncryptor()
     {
         if ($this->_encryptor === null) {
-            $encryptionModel = (string)Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
+            $encryptionModel = (string) Mage::getConfig()->getNode(self::XML_PATH_ENCRYPTION_MODEL);
             if ($encryptionModel) {
                 $this->_encryptor = new $encryptionModel();
             } else {
@@ -331,7 +332,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve store identifier
      *
-     * @param   mixed $store
+     * @param   bool|int|Mage_Core_Model_Store|null|string $store
      * @return  int
      */
     public function getStoreId($store = null)
@@ -344,7 +345,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param bool $german
      * @return false|string
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function removeAccents($string, $german = false)
     {
@@ -378,20 +379,18 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             if ($german) {
                 // umlauts
                 $subst = [
-                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue'
-                    ] + $subst;
+                    196 => 'Ae', 228 => 'ae', 214 => 'Oe', 246 => 'oe', 220 => 'Ue', 252 => 'ue',
+                ] + $subst;
             }
 
             $replacements[$german] = [];
             foreach ($subst as $k => $v) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
             }
         }
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
-        // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
         if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
             $string = $s;
         }
@@ -434,7 +433,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $types = [];
         $config = Mage::getConfig()->getNode(Mage_Core_Model_Cache::XML_PATH_TYPES);
         foreach ($config->children() as $type => $node) {
-            $types[$type] = (string)$node->label;
+            $types[$type] = (string) $node->label;
         }
         return $types;
     }
@@ -450,7 +449,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $config = Mage::getConfig()->getNode(self::XML_PATH_CACHE_BETA_TYPES);
         if ($config) {
             foreach ($config->children() as $type => $node) {
-                $types[$type] = (string)$node->label;
+                $types[$type] = (string) $node->label;
             }
         }
         return $types;
@@ -497,7 +496,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $value = $source->getDataUsingMethod($code);
             }
 
-            $targetCode = (string)$node->$aspect;
+            $targetCode = (string) $node->$aspect;
             $targetCode = $targetCode == '*' ? $code : $targetCode;
 
             if ($targetIsArray) {
@@ -513,7 +512,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         Mage::dispatchEvent($eventName, [
             'target' => $target,
             'source' => $source,
-            'root'   => $root
+            'root'   => $root,
         ]);
 
         return $result;
@@ -675,15 +674,15 @@ XML;
             if (isset($value->$key)) {
                 $i = 0;
                 foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string)$v;
+                    $array[$key][$i++] = (string) $v;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements
-                $array[$key] = trim((string)$value);
+                $array[$key] = trim((string) $value);
                 if (empty($array[$key]) && !empty($value)) {
                     $array[$key] = self::xmlToAssoc($value);
                 } else { // untrim strings values
-                    $array[$key] = (string)$value;
+                    $array[$key] = (string) $value;
                 }
             }
         }
@@ -772,7 +771,7 @@ XML;
      * @param callable $beforeMergeCallback
      * @param array|string $extensionsFilter
      * @return bool|string
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function mergeFiles(
         array $srcFiles,
@@ -785,18 +784,14 @@ XML;
             // check whether merger is required
             $shouldMerge = $mustMerge || !$targetFile;
             if (!$shouldMerge) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if (!file_exists($targetFile)) {
                     $shouldMerge = true;
                 } else {
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     $targetMtime = filemtime($targetFile);
                     foreach ($srcFiles as $file) {
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         if (!file_exists($file)) {
                             // no translation intentionally
                             Mage::logException(new Exception(sprintf('File %s not found.', $file)));
-                            // phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged,Ecg.Security.ForbiddenFunction.Found
                         } elseif (@filemtime($file) > $targetMtime) {
                             $shouldMerge = true;
                             break;
@@ -807,10 +802,8 @@ XML;
 
             // merge contents into the file
             if ($shouldMerge) {
-                // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                 if ($targetFile && !is_writable(dirname($targetFile))) {
                     // no translation intentionally
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
                 }
 
@@ -821,7 +814,6 @@ XML;
                     }
                     if (!empty($srcFiles)) {
                         foreach ($srcFiles as $key => $file) {
-                            // phpcs:ignore Ecg.Security.DiscouragedFunction.Discouraged
                             $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
                             if (!in_array($fileExt, $extensionsFilter)) {
                                 unset($srcFiles[$key]);
@@ -836,14 +828,12 @@ XML;
 
                 $data = '';
                 foreach ($srcFiles as $file) {
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if (!file_exists($file)) {
                         continue;
                     }
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     $contents = file_get_contents($file) . "\n";
+                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
-                        // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
                     }
                     $data .= $contents;
@@ -853,7 +843,6 @@ XML;
                     throw new Exception(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
                 }
                 if ($targetFile) {
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     file_put_contents($targetFile, $data, LOCK_EX);
                 } else {
                     return $data; // no need to write to file, just return data
@@ -909,7 +898,6 @@ XML;
     public function checkLfiProtection($name)
     {
         if (preg_match('#\.\.[\\\/]#', $name)) {
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
         return true;
@@ -994,7 +982,7 @@ XML;
     {
         if (Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 $firstLetter = substr($value, 0, 1);
                 if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
@@ -1015,7 +1003,7 @@ XML;
     {
         if (is_array($data) && Mage::getStoreConfigFlag(Mage_ImportExport_Model_Export_Adapter_Csv::CONFIG_ESCAPING_FLAG)) {
             foreach ($data as $key => $value) {
-                $value = (string)$value;
+                $value = (string) $value;
 
                 if (preg_match("/^ [=\-+]/", $value)) {
                     $data[$key] = ltrim($value);

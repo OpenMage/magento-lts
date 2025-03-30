@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -144,7 +145,7 @@ class Mage_Sales_Model_Quote_Address_Total_Discount extends Mage_Sales_Model_Quo
             $address->addTotal([
                 'code' => $this->getCode(),
                 'title' => $title,
-                'value' => -$amount
+                'value' => -$amount,
             ]);
         }
         return $this;

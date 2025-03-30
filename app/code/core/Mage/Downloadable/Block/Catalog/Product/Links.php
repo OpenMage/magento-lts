@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -95,9 +96,8 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
                 $priceStr .= ' (+' . $coreHelper::currencyByStore($_priceInclTax, $store) . ' ' . $this->__('Incl. Tax') . ')';
             }
         }
-        $priceStr .= '</span>';
 
-        return $priceStr;
+        return $priceStr . '</span>';
     }
 
     /**
@@ -174,7 +174,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
             return false;
         }
 
-        return $configValue && (in_array($link->getId(), $configValue));
+        return in_array($link->getId(), $configValue);
     }
 
     /**

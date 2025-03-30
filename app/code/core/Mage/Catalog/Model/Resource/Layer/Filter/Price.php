@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -151,7 +152,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             'select'          => $select,
             'table'           => $this->_getIndexTableAlias(),
             'store_id'        => $filter->getStoreId(),
-            'response_object' => $response
+            'response_object' => $response,
         ];
 
         /**
@@ -258,7 +259,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
 
         $select->columns([
             'range' => $rangeExpr,
-            'count' => $countExpr
+            'count' => $countExpr,
         ]);
         $select->group($rangeExpr)->order($rangeOrderExpr);
 
@@ -301,7 +302,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         $select = $this->_getSelect($filter);
         $priceExpression = $this->_getPriceExpression($filter, $select);
         $select->columns([
-            'min_price_expr' => $this->_getFullPriceExpression($filter, $select)
+            'min_price_expr' => $this->_getFullPriceExpression($filter, $select),
         ]);
         if (!is_null($lowerPrice)) {
             $select->where("$priceExpression >= " . $this->_getComparingValue($lowerPrice, $filter));
@@ -366,7 +367,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
 
         $pricesSelect
             ->columns([
-                'min_price_expr' => $this->_getFullPriceExpression($filter, $pricesSelect)
+                'min_price_expr' => $this->_getFullPriceExpression($filter, $pricesSelect),
             ])
             ->where("$priceExpression >= " . $this->_getComparingValue($price, $filter));
         if (!is_null($upperPrice)) {
@@ -390,7 +391,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
             return $this;
         }
 
-        list($from, $to) = $interval;
+        [$from, $to] = $interval;
         if ($from === '' && $to === '') {
             return $this;
         }
@@ -399,7 +400,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
         $priceExpr = $this->_getPriceExpression($filter, $select, false);
 
         if ($to !== '') {
-            $to = (float)$to;
+            $to = (float) $to;
             if ($from == $to) {
                 $to += self::MIN_POSSIBLE_PRICE;
             }

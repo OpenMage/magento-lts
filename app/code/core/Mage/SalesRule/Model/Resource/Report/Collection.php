@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -119,7 +120,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
         } elseif (!$this->isTotals()) {
             $this->getSelect()->group([
                 $this->_periodFormat,
-                'coupon_code'
+                'coupon_code',
             ]);
         }
 

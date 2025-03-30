@@ -9,8 +9,13 @@
  * @category    design
  * @package     base_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2021-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * @see Mage_Bundle_Block_Catalog_Product_Price
+ * @var Mage_Bundle_Block_Catalog_Product_Price $this
  */
 ?>
 <?php $_product = $this->getProduct() ?>
@@ -39,15 +44,16 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                 <span class="label"><?php echo Mage::helper('tax')->__('Excl. Tax:') ?></span>
                 <span class="price" id="price-excluding-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
                 <?php if (!$canApplyMAP): ?>
-                    <?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?>
+                    <?php echo Mage::helper('core')->currency($_finalPrice, true, false) ?>
                 <?php endif ?>
                 </span>
             </span>
             <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
                 <span class="weee">(<small>
-                    <?php $_weeeSeparator = ''; foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
+                    <?php $_weeeSeparator = '';
+                foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
                         <?php if (Mage::helper('weee')->typeOfDisplay($_product, [2, 4])): ?>
-                            <?php $amount = $_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(); ?>
+                            <?php $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount(); ?>
                         <?php else: ?>
                             <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
                         <?php endif ?>
@@ -62,7 +68,7 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
                 <span class="label"><?php echo Mage::helper('tax')->__('Incl. Tax:') ?></span>
                 <span class="price" id="price-including-tax-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
                 <?php if (!$canApplyMAP): ?>
-                    <?php echo Mage::helper('core')->currency($_finalPriceInclTax,true,false) ?>
+                    <?php echo Mage::helper('core')->currency($_finalPriceInclTax, true, false) ?>
                 <?php endif ?>
                 </span>
             </span>
@@ -70,14 +76,15 @@ $canApplyMAP  = Mage::helper('catalog')->canApplyMsrp($_product);
         <?php else: ?>
         <span class="price" id="product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>">
             <?php if (!$canApplyMAP): ?>
-                <?php echo Mage::helper('core')->currency($_finalPrice,true,false) ?>
+                <?php echo Mage::helper('core')->currency($_finalPrice, true, false) ?>
             <?php endif ?>
         </span>
         <?php if ($_weeeTaxAmount && $_product->getPriceType() == 1 && Mage::helper('weee')->typeOfDisplay($_product, [2, 1, 4])): ?>
             <span class="weee">(<small>
-                <?php $_weeeSeparator = ''; foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
+                <?php $_weeeSeparator = '';
+            foreach ($_weeeTaxAttributes as $_weeeTaxAttribute): ?>
                     <?php if ($this->helper('tax')->displayPriceIncludingTax()): ?>
-                        <?php $amount = $_weeeTaxAttribute->getAmount()+$_weeeTaxAttribute->getTaxAmount(); ?>
+                        <?php $amount = $_weeeTaxAttribute->getAmount() + $_weeeTaxAttribute->getTaxAmount(); ?>
                     <?php else: ?>
                         <?php $amount = $_weeeTaxAttribute->getAmount(); ?>
                     <?php endif ?>

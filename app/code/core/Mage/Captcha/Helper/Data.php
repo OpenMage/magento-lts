@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -62,7 +63,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
      * Get Captcha
      *
      * @param string $formId
-     * @return Mage_Captcha_Model_Interface
+     * @return Mage_Captcha_Model_Zend
      */
     public function getCaptcha($formId)
     {
@@ -76,7 +77,7 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns value of the node with respect to current area (frontend or backend)
      *
-     * @param string $id The last part of XML_PATH_$area_CAPTCHA_ constant (case insensitive)
+     * @param string $id The last part of XML_PATH_$area_CAPTCHA_ constant (case-insensitive)
      * @param Mage_Core_Model_Store $store
      * @return Mage_Core_Model_Config_Element
      */
@@ -100,8 +101,8 @@ class Mage_Captcha_Helper_Data extends Mage_Core_Helper_Abstract
         if ($node) {
             foreach ($node->children() as $fontName => $fontNode) {
                 $fonts[$fontName] = [
-                   'label' => (string)$fontNode->label,
-                   'path' => Mage::getBaseDir('base') . DS . $fontNode->path
+                    'label' => (string) $fontNode->label,
+                    'path' => Mage::getBaseDir('base') . DS . $fontNode->path,
                 ];
             }
         }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -31,8 +32,8 @@
  *
  * @method bool hasCanApplyMsrp()
  * @method bool getCanApplyMsrp()
- * @method string getAppliedRuleIds()
- * @method $this setAppliedRuleIds(string $value)
+ * @method string|array getAppliedRuleIds()
+ * @method $this setAppliedRuleIds(string|array $value)
  *
  * @method string getBaseCurrencyCode()
  * @method $this setBaseCurrencyCode(string $value)
@@ -261,7 +262,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
-        return $this->_getData('store_id');
+        return (int) $this->_getData('store_id');
     }
 
     /**
@@ -798,7 +799,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @param bool $useCache
      * @return Mage_Sales_Model_Resource_Quote_Item_Collection
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClass
     public function getItemsCollection($useCache = true)
     {
         if ($this->hasItemsCollection()) {
@@ -901,8 +901,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             foreach ($this->getItemsCollection() as $item) {
                 if ($item->getId() == $itemId) {
-                    $quoteItem = $item;
-                    return $quoteItem;
+                    return $item;
                 }
             }
         }
@@ -1006,7 +1005,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
          */
         if ($item->isNominal() && $this->hasItems() || $this->hasNominalItems()) {
             Mage::throwException(
-                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.')
+                Mage::helper('sales')->__('Nominal item can be purchased standalone only. To proceed please remove other items from the quote.'),
             );
         }
 
@@ -1113,7 +1112,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         return $this->addProductAdvanced(
             $product,
             $request,
-            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL
+            Mage_Catalog_Model_Product_Type_Abstract::PROCESS_MODE_FULL,
         );
     }
 
@@ -1124,7 +1123,6 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @return  Mage_Sales_Model_Quote_Item
      * @throws Mage_Core_Model_Store_Exception
      */
-    // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundInExtendedClassAfterLastUsed
     protected function _addCatalogProduct(Mage_Catalog_Model_Product $product, $qty = 1)
     {
         $newItem = false;
@@ -1430,10 +1428,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setBaseSubtotal((float) $this->getBaseSubtotal() + $address->getBaseSubtotal());
 
             $this->setSubtotalWithDiscount(
-                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount()
+                (float) $this->getSubtotalWithDiscount() + $address->getSubtotalWithDiscount(),
             );
             $this->setBaseSubtotalWithDiscount(
-                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount()
+                (float) $this->getBaseSubtotalWithDiscount() + $address->getBaseSubtotalWithDiscount(),
             );
 
             $this->setGrandTotal((float) $this->getGrandTotal() + $address->getGrandTotal());
@@ -1796,13 +1794,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         $isVirtual = true;
         $countItems = 0;
-        foreach ($this->getItemsCollection() as $_item) {
-            /** @var Mage_Sales_Model_Quote_Item $_item */
-            if ($_item->isDeleted() || $_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $item) {
+            /** @var Mage_Sales_Model_Quote_Item $item */
+            if ($item->isDeleted() || $item->getParentItemId()) {
                 continue;
             }
             $countItems++;
-            if (!$_item->getProduct()->getIsVirtual()) {
+            if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;
                 break;
             }
@@ -1828,11 +1826,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     public function hasVirtualItems()
     {
         $hasVirtual = false;
-        foreach ($this->getItemsCollection() as $_item) {
-            if ($_item->getParentItemId()) {
+        foreach ($this->getItemsCollection() as $quoteItem) {
+            if ($quoteItem->getParentItemId()) {
                 continue;
             }
-            if ($_item->getProduct()->isVirtual()) {
+            if ($quoteItem->getProduct()->isVirtual()) {
                 $hasVirtual = true;
             }
         }
@@ -1849,9 +1847,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_before',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         foreach ($quote->getAllVisibleItems() as $item) {
@@ -1892,9 +1890,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         Mage::dispatchEvent(
             $this->_eventPrefix . '_merge_after',
             [
-                 $this->_eventObject => $this,
-                 'source' => $quote
-            ]
+                $this->_eventObject => $this,
+                'source' => $quote,
+            ],
         );
 
         return $this;
@@ -2073,7 +2071,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
     public function getCouponCode(): string
     {
-        return (string)$this->_getData('coupon_code');
+        return (string) $this->_getData('coupon_code');
     }
 
     /**

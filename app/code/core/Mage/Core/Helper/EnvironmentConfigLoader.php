@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -63,18 +64,18 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
                 continue;
             }
 
-            list($configKeyParts, $scope) = $this->getConfigKey($configKey);
+            [$configKeyParts, $scope] = $this->getConfigKey($configKey);
 
             switch ($scope) {
                 case static::CONFIG_KEY_DEFAULT:
-                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
+                    [$unused1, $unused2, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
                     $xmlConfig->setNode($this->buildNodePath($scope, $path), $value);
                     break;
 
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
-                    list($unused1, $unused2, $code, $section, $group, $field) = $configKeyParts;
+                    [$unused1, $unused2, $code, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
                     $nodePath = sprintf('%s/%s/%s', strtolower($scope), strtolower($code), $path);
                     $xmlConfig->setNode($nodePath, $value);
@@ -104,11 +105,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $configKeyParts = array_filter(
             explode(
                 static::ENV_KEY_SEPARATOR,
-                $configKey
+                $configKey,
             ),
-            'trim'
+            'trim',
         );
-        list($_, $scope) = $configKeyParts;
+        [$unused, $scope] = $configKeyParts;
         return [$configKeyParts, $scope];
     }
 

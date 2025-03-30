@@ -18,12 +18,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
 
 use Mage;
-use Mage_Admin_Helper_Data;
+use Mage_Admin_Helper_Data as Subject;
 use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Mage_Admin_Helper_Data $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -32,6 +32,7 @@ class DataTest extends TestCase
     }
 
     /**
+     * @covers Mage_Admin_Helper_Data::generateResetPasswordLinkToken()
      * @group Mage_Admin
      * @group Mage_Admin_Helper
      */
@@ -41,6 +42,7 @@ class DataTest extends TestCase
     }
 
     /**
+     * @covers Mage_Admin_Helper_Data::getResetPasswordLinkExpirationPeriod()
      * @group Mage_Admin
      * @group Mage_Admin_Helper
      */

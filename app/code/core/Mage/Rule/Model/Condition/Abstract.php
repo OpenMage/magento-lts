@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Rule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -222,7 +223,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         if (is_string($xml)) {
             $xml = simplexml_load_string($xml);
         }
-        $arr = (array)$xml;
+        $arr = (array) $xml;
         $this->loadArray($arr);
         return $this;
     }
@@ -387,8 +388,8 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                         $this->getData('value'),
                         $format,
                         null,
-                        false
-                    )->toString($format)
+                        false,
+                    )->toString($format),
                 );
                 $this->setIsValueParsed(true);
             }
@@ -507,12 +508,20 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
             }
         }
-        return $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__attribute', 'select', [
+
+        $element = $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__attribute', 'select', [
             'name'       => 'rule[' . $this->getPrefix() . '][' . $this->getId() . '][attribute]',
             'values'     => $this->getAttributeSelectOptions(),
             'value'      => $this->getAttribute(),
             'value_name' => $this->getAttributeName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -547,7 +556,11 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             'value'         => $this->getOperator(),
             'value_name'    => $this->getOperatorName(),
         ]);
-        $element->setRenderer(Mage::getBlockSingleton('rule/editable'));
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
 
         return $element;
     }
@@ -612,7 +625,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         return $this->getForm()->addField(
             $this->getPrefix() . '__' . $this->getId() . '__value',
             $this->getValueElementType(),
-            $elementParams
+            $elementParams,
         )->setRenderer($this->getValueElementRenderer());
     }
 
@@ -747,7 +760,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '!{}':
                 if (is_scalar($validatedValue) && is_array($value)) {
                     foreach ($value as $item) {
-                        if (stripos($validatedValue, $item) !== false) {
+                        if (stripos($validatedValue, (string) $item) !== false) {
                             $result = true;
                             break;
                         }
@@ -773,7 +786,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '[]':
             case '![]':
                 if (is_array($validatedValue)) {
-                    $value = (array)$value;
+                    $value = (array) $value;
                     $match = count(array_intersect($validatedValue, $value));
 
                     if (in_array($op, ['[]', '![]'])) {
@@ -782,7 +795,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                         $result = $match > 0;
                     }
                 } else {
-                    $value = (array)$value;
+                    $value = (array) $value;
                     foreach ($value as $item) {
                         if ($this->_compareValues($validatedValue, $item)) {
                             $result = true;
@@ -818,7 +831,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             if ($strict) {
                 $validatePattern = '^' . $validatePattern . '$';
             }
-            return (bool)preg_match('~' . $validatePattern . '~iu', $value);
+            return (bool) preg_match('~' . $validatePattern . '~iu', $value);
         }
     }
 

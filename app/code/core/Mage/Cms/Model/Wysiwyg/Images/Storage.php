@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -9,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -51,9 +52,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $subDirectories = Mage::getModel('core/file_storage_directory_database')->getSubdirectories($path);
             foreach ($subDirectories as $directory) {
                 $fullPath = rtrim($path, DS) . DS . $directory['name'];
-                // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
                 if (!file_exists($fullPath)) {
-                    // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
                     mkdir($fullPath, 0777, true);
                 }
             }
@@ -96,7 +95,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      * @param string $type Type of storage, e.g. image, media etc.
      * @return Varien_Data_Collection_Filesystem
      *
-     * @SuppressWarnings(PHPMD.ErrorControlOperator)
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function getFilesCollection($path, $type = null)
     {
@@ -138,7 +137,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                     $thumbUrl = Mage::getSingleton('adminhtml/url')->getUrl('*/*/thumbnail', ['file' => $item->getId()]);
                 }
 
-                // phpcs:ignore: Generic.PHP.NoSilencedErrors.Discouraged
                 $size = @getimagesize($item->getFilename());
 
                 if (is_array($size)) {
@@ -183,14 +181,12 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (!preg_match(self::DIRECTORY_NAME_REGEXP, $name)) {
             Mage::throwException(Mage::helper('cms')->__('Invalid folder name. Please, use alphanumeric characters, underscores and dashes.'));
         }
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found, Ecg.Security.DiscouragedFunction.Discouraged
         if (!is_dir($path) || !is_writable($path)) {
             $path = $this->getHelper()->getStorageRoot();
         }
 
         $newPath = $path . DS . $name;
 
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         if (file_exists($newPath)) {
             Mage::throwException(Mage::helper('cms')->__('A directory with the same name already exists. Please try another folder name.'));
         }
@@ -206,7 +202,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 'name'          => $name,
                 'short_name'    => $this->getHelper()->getShortFilename($name),
                 'path'          => $newPath,
-                'id'            => $this->getHelper()->convertPathToId($newPath)
+                'id'            => $this->getHelper()->convertPathToId($newPath),
             ];
         }
         Mage::throwException(Mage::helper('cms')->__('Cannot create new directory.'));
@@ -228,10 +224,9 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if ($rootCmp == $pathCmp) {
             Mage::throwException(Mage::helper('cms')->__(
                 'Cannot delete root directory %s.',
-                $io->getFilteredPath($path)
+                $io->getFilteredPath($path),
             ));
         }
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
         if (str_contains($pathCmp, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $pathCmp)
         ) {
@@ -290,7 +285,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $uploader->addValidateCallback(
                 Mage_Core_Model_File_Validator_Image::NAME,
                 Mage::getModel('core/file_validator_image'),
-                'validate'
+                'validate',
             );
         }
         $result = $uploader->save($targetPath);
@@ -304,12 +299,11 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $this->resizeFile($targetPath . DS . $uploader->getUploadedFileName(), true);
         }
         $result['cookie'] = [
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             'name'     => session_name(),
             'value'    => $this->getSession()->getSessionId(),
             'lifetime' => $this->getSession()->getCookieLifetime(),
             'path'     => $this->getSession()->getCookiePath(),
-            'domain'   => $this->getSession()->getCookieDomain()
+            'domain'   => $this->getSession()->getCookieDomain(),
         ];
 
         return $result;
@@ -329,7 +323,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbPath = $this->getThumbnailRoot() . DS . substr($filePath, strlen($mediaRootDir));
 
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             if (!$checkFile || is_readable($thumbPath)) {
                 return $thumbPath;
             }
@@ -350,7 +343,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $mediaRootDir = Mage::getConfig()->getOptions()->getMediaDir() . DS;
         if (str_starts_with($filePath, $mediaRootDir)) {
             $thumbSuffix = self::THUMBS_DIRECTORY_NAME . DS . substr($filePath, strlen($mediaRootDir));
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             if (!$checkFile || is_readable($this->getHelper()->getStorageRoot() . $thumbSuffix)) {
                 $randomIndex = '?rand=' . time();
                 $thumbUrl = $this->getHelper()->getBaseUrl() . Mage_Cms_Model_Wysiwyg_Config::IMAGE_DIRECTORY
@@ -370,7 +362,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
      */
     public function resizeFile($source, $keepRation = true)
     {
-        // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found, Ecg.Security.DiscouragedFunction.Discouraged
         if (!is_file($source) || !is_readable($source)) {
             return false;
         }
@@ -396,10 +387,8 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $image->resize($width, $height);
         $dest = $targetDir
             . DS
-            // phpcs:ignore: Ecg.Security.DiscouragedFunction.Discouraged
             . Mage_Core_Model_File_Uploader::getCorrectFileName(pathinfo($source, PATHINFO_BASENAME));
         $image->save($dest);
-        // phpcs:ignore: Ecg.Security.DiscouragedFunction.Discouraged
         if (is_file($dest)) {
             return $dest;
         }
@@ -433,7 +422,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         $thumbnailDir = $this->getThumbnailRoot();
 
         if ($filePath && str_starts_with($filePath, $mediaRootDir)) {
-            // phpcs:ignore: Ecg.Security.ForbiddenFunction.Found
             $thumbnailDir .= DS . dirname(substr($filePath, strlen($mediaRootDir)));
         }
 
@@ -542,7 +530,6 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (!$this->hasData('_image_extensions')) {
             $this->setData('_image_extensions', $this->getAllowedExtensions('image'));
         }
-        // phpcs:ignore: Ecg.Security.DiscouragedFunction.Discouraged
         $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         return in_array($ext, $this->_getData('_image_extensions'));
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -70,7 +71,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
         $select = $readAdapter->select()
             ->from(
                 ['recips' => $this->getTable('core/email_recipients')],
-                ['recipient_email', 'recipient_name', 'email_type']
+                ['recipient_email', 'recipient_name', 'email_type'],
             )
             ->join(['queue' => $this->getMainTable()], 'queue.message_id = recips.message_id', [])
             ->where('queue.entity_id =? ', $queue->getEntityId())
@@ -78,25 +79,26 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
             ->where('queue.event_type =? ', $queue->getEventType())
             ->where('queue.message_body_hash =? ', md5($queue->getMessageBody()));
 
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $existingRecipients = $readAdapter->fetchAll($select);
         if ($existingRecipients) {
             $newRecipients = $queue->getRecipients();
             $oldEmails = $newEmails = [];
             foreach ($existingRecipients as $recipient) {
                 $oldEmails[$recipient['recipient_email']] = [
-                    $recipient['recipient_email'], $recipient['recipient_name'], $recipient['email_type']
+                    $recipient['recipient_email'], $recipient['recipient_name'], $recipient['email_type'],
                 ];
             }
             unset($recipient);
             foreach ($newRecipients as $recipient) {
-                list($email, $name, $type) = $recipient;
+                [$email, $name, $type] = $recipient;
                 $newEmails[$email] = [$email, $name, $type];
             }
             $diff = array_diff_key($newEmails, $oldEmails);
             if (count($diff)) {
                 $queue->clearRecipients();
                 foreach ($diff as $recipient) {
-                    list($email, $name, $type) = $recipient;
+                    [$email, $name, $type] = $recipient;
                     $queue->addRecipients($email, $name, $type);
                 }
                 return false;
@@ -120,6 +122,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
         $select = $readAdapter->select()
             ->from($this->getTable('core/email_recipients'), ['recipient_email', 'recipient_name', 'email_type'])
             ->where('message_id =? ', $messageId);
+        // phpcs:ignore Ecg.Performance.FetchAll.Found
         $recipients = $readAdapter->fetchAll($select);
         $existingRecipients = [];
         if ($recipients) {
@@ -127,7 +130,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
                 $existingRecipients[] = [
                     $recipient['recipient_email'],
                     $recipient['recipient_name'],
-                    $recipient['email_type']
+                    $recipient['email_type'],
                 ];
             }
         }
@@ -151,16 +154,16 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
 
         try {
             foreach ($recipients as $recipient) {
-                list($email, $name, $type) = $recipient;
+                [$email, $name, $type] = $recipient;
                 $writeAdapter->insertOnDuplicate(
                     $recipientsTable,
                     [
-                         'message_id'      => $messageId,
-                         'recipient_email' => $email,
-                         'recipient_name'  => $name,
-                         'email_type'      => $type
+                        'message_id'      => $messageId,
+                        'recipient_email' => $email,
+                        'recipient_name'  => $name,
+                        'email_type'      => $type,
                     ],
-                    ['recipient_name']
+                    ['recipient_name'],
                 );
             }
             $writeAdapter->commit();

@@ -18,12 +18,13 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
 use Mage;
-use Mage_AdminNotification_Model_Feed;
+use Mage_AdminNotification_Model_Feed as Subject;
 use PHPUnit\Framework\TestCase;
+use SimpleXMLElement;
 
 class FeedTest extends TestCase
 {
-    public Mage_AdminNotification_Model_Feed $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
@@ -46,6 +47,24 @@ class FeedTest extends TestCase
      */
     public function testCheckUpdate(): void
     {
-        $this->assertInstanceOf(Mage_AdminNotification_Model_Feed::class, $this->subject->checkUpdate());
+        $this->assertInstanceOf(Subject::class, $this->subject->checkUpdate());
+    }
+
+    /**
+     * @group Mage_AdminNotification
+     * @group Mage_AdminNotification_Model
+     */
+    public function testGetFeedData(): void
+    {
+        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedData());
+    }
+
+    /**
+     * @group Mage_AdminNotification
+     * @group Mage_AdminNotification_Model
+     */
+    public function testGetFeedXml(): void
+    {
+        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedXml());
     }
 }
