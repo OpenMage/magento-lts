@@ -14,8 +14,7 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -49,31 +48,35 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = [];
+        $validator  = Validation::createValidator();
+        $violations = [];
+        $errors     = new ArrayObject();
 
-        $validator = Validation::createValidator();
-        $violations = $validator->validate($this->getBlockName(), [
-            new NotBlank(null, Mage::helper('adminhtml')->__('Block Name is required field.')),
-            new Regex(self::BLOCK_NAME_REGEX, Mage::helper('adminhtml')->__('Block Name is incorrect.')),
+        $violations[] = $validator->validate($this->getBlockName(), [
+            new Assert\NotBlank(null, Mage::helper('adminhtml')->__('Block Name is required field.')),
+            new Assert\Regex(self::BLOCK_NAME_REGEX, Mage::helper('adminhtml')->__('Block Name is incorrect.')),
         ]);
 
         foreach ($violations as $violation) {
-            $errors[] = $violation->getMessage();
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
         $disallowedBlockNames = Mage::helper('admin/block')->getDisallowedBlockNames();
         if (in_array($this->getBlockName(), $disallowedBlockNames)) {
-            $errors[] = Mage::helper('adminhtml')->__('Block Name is disallowed.');
+            $errors->append(Mage::helper('adminhtml')->__('Block Name is disallowed.'));
         }
 
         if (!in_array($this->getIsAllowed(), ['0', '1'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
+            $errors->append(Mage::helper('adminhtml')->__('Is Allowed is required field.'));
         }
 
-        if (empty($errors)) {
+        if (count($errors) === 0) {
             return true;
         }
-        return $errors;
+
+        return (array) $errors;
     }
 
     /**

@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Contacts index controller
@@ -76,11 +77,12 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
                 // check data
                 $error = false;
-                if (!v::stringType()->notEmpty()->validate(trim($post['name']))) {
+                $validator  = Validation::createValidator();
+                if ($validator->validate(trim($post['name']), new Assert\Length(['min' => 1, 'max' => 255]))->count() > 0) {
                     $error = true;
-                } elseif (!v::stringType()->notEmpty()->validate(trim($post['comment']))) {
+                } elseif ($validator->validate(trim($post['comment']), new Assert\Length(['min' => 1, 'max' => 2048]))->count() > 0) {
                     $error = true;
-                } elseif (!v::email()->validate(trim($post['email']))) {
+                } elseif ($validator->validate(trim($post['email']), new Assert\Email())->count() > 0) {
                     $error = true;
                 }
 

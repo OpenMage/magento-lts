@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Wishlist front controller
@@ -658,9 +659,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         } elseif (count($emails) > 5) {
             $error = $this->__('Please enter no more than 5 email addresses.');
         } else {
+            $validator = Validation::createValidator();
             foreach ($emails as $index => $email) {
                 $email = trim($email);
-                if (!v::email()->validate($email)) {
+                if ($validator->validate($email, new Assert\Email())->count() > 0) {
                     $error = $this->__('Please input a valid email address.');
                     break;
                 }

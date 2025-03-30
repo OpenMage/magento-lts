@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * EAV Entity Setup Model
@@ -648,9 +649,10 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
     protected function _validateAttributeData($data)
     {
         $attributeCodeMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
+        $validator = Validation::createValidator();
 
-        if (isset($data['attribute_code']) &&
-            !v::stringType()->length(null, $attributeCodeMaxLength)->validate($data['attribute_code'])
+        if (isset($data['attribute_code'])
+            && $validator->validate($data['attribute_code'], new Assert\Length(['max' => $attributeCodeMaxLength]))->count() > 0
         ) {
             throw Mage::exception(
                 'Mage_Eav',

@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * API2 catalog_product Validator
@@ -135,8 +136,9 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
         // Validate weight
+        $validator  = Validation::createValidator();
         if (!empty($data['weight']) && $data['weight'] > 0
-            && !v::floatVal()->between(0, self::MAX_DECIMAL_VALUE)->validate($data['weight'])
+            && $validator->validate($data['weight'], new Assert\Range(['min' => 0, 'max' => self::MAX_DECIMAL_VALUE]))->count() > 0
         ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
@@ -283,8 +285,8 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         }
 
         $skuMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
-
-        if (!v::stringType()->length(0, $skuMaxLength)->validate((string) $data['sku'])) {
+        $validator  = Validation::createValidator();
+        if ($validator->validate($data['sku'], new Assert\Length(['max' => $skuMaxLength]))->count() > 0) {
             $this->_addError(sprintf('SKU length should be %d characters maximum.', $skuMaxLength));
         }
     }

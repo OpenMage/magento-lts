@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Class Mage_Admin_Model_Variable
@@ -45,23 +46,36 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = [];
+        $validator  = Validation::createValidator();
+        $violations = [];
+        $errors = new ArrayObject();
 
-        if (!v::stringType()->notEmpty()->validate($this->getVariableName())) {
-            $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
-        }
-        if (!v::regex('/^[-_a-zA-Z0-9\/]*$/')->validate($this->getVariableName())) {
-            $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
+        $violations[] = $validator->validate($this->getVariableName(), [
+            new Assert\NotBlank([
+                'message' => Mage::helper('adminhtml')->__('Variable Name is required field.'),
+            ]),
+            new Assert\Regex([
+                'message' => Mage::helper('adminhtml')->__('Variable Name is incorrect.'),
+                'pattern' => '/^[-_a-zA-Z0-9\/]*$/',
+            ]),
+        ]);
+
+        $violations[] = $validator->validate($this->getIsAllowed(), [new Assert\Choice([
+            'choices' => ['0', '1'],
+            'message' => Mage::helper('adminhtml')->__('Is Allowed is required field.'),
+        ])]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
-        if (!in_array($this->getIsAllowed(), ['0', '1'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
-        }
-
-        if (empty($errors)) {
+        if (count($errors) === 0) {
             return true;
         }
-        return $errors;
+
+        return (array) $errors;
     }
 
     /**

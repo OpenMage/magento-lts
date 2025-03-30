@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Admin user model
@@ -584,22 +585,30 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $errors = new ArrayObject();
+        $validator  = Validation::createValidator();
+        $violations = [];
+        $errors     = new ArrayObject();
 
-        if (!v::stringType()->notEmpty()->validate($this->getUsername())) {
-            $errors->append(Mage::helper('adminhtml')->__('User Name is required field.'));
-        }
+        $violations[] = $validator->validate($this->getUsername(), [new Assert\NotBlank([
+            'message' => Mage::helper('adminhtml')->__('User Name is required field.'),
+        ])]);
 
-        if (!v::stringType()->notEmpty()->validate($this->getFirstname())) {
-            $errors->append(Mage::helper('adminhtml')->__('First Name is required field.'));
-        }
+        $violations[] = $validator->validate($this->getFirstname(), [new Assert\NotBlank([
+            'message' => Mage::helper('adminhtml')->__('First Name is required field.'),
+        ])]);
 
-        if (!v::stringType()->notEmpty()->validate($this->getLastname())) {
-            $errors->append(Mage::helper('adminhtml')->__('Last Name is required field.'));
-        }
+        $violations[] = $validator->validate($this->getLastname(), [new Assert\NotBlank([
+            'message' => Mage::helper('adminhtml')->__('Last Name is required field.'),
+        ])]);
 
-        if (!v::email()->validate($this->getEmail())) {
-            $errors->append(Mage::helper('adminhtml')->__('Please enter a valid email.'));
+        $violations[] = $validator->validate($this->getEmail(), [new Assert\Email([
+            'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
+        ])]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
         if ($this->hasNewPassword()) {
@@ -609,14 +618,25 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
         if (isset($password)) {
             $minAdminPasswordLength = $this->getMinAdminPasswordLength();
-            if (Mage::helper('core/string')->strlen($password) < $minAdminPasswordLength) {
-                $errors->append(Mage::helper('adminhtml')
-                    ->__('Password must be at least of %d characters.', $minAdminPasswordLength));
-            }
+            $violations = [];
+            $violations[] = $validator->validate($password, [
+                new Assert\Length([
+                    'min' => $minAdminPasswordLength,
+                    'minMessage' => Mage::helper('adminhtml')->__('Password must be at least of %d characters.', $minAdminPasswordLength),
+                    'callback' => function ($password) {
+                        return Mage::helper('core/string')->strlen($password);
+                    },
+                ]),
+                new Assert\Regex([
+                    'pattern' => '/^(?=.*[a-z])(?=.*[0-9]).+$/iu',
+                    'message' => Mage::helper('adminhtml')->__('Password must include alphabetic characters.'),
+                ]),
+            ]);
 
-            if (!preg_match('/[a-z]/iu', $password) || !preg_match('/[0-9]/u', $password)) {
-                $errors->append(Mage::helper('adminhtml')
-                    ->__('Password must include both numeric and alphabetic characters.'));
+            foreach ($violations as $violation) {
+                foreach ($violation as $error) {
+                    $errors->append($error->getMessage());
+                }
             }
 
             if ($this->hasPasswordConfirmation() && $password != $this->getPasswordConfirmation()) {
@@ -650,9 +670,10 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function validateCurrentPassword($password)
     {
+        $validator = Validation::createValidator();
         $result = [];
 
-        if (!v::stringType()->notEmpty()->validate($password)) {
+        if ($validator->validate($password, [new Assert\NotBlank()])->count() > 0) {
             $result[] = $this->_getHelper('adminhtml')->__('Current password field cannot be empty.');
         } elseif (is_null($this->getId()) || !Mage::helper('core')->validateHash($password, $this->getPassword())) {
             $result[] = $this->_getHelper('adminhtml')->__('Invalid current password.');

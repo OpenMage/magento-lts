@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Newsletter subscribe controller
@@ -43,9 +44,10 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $session            = Mage::getSingleton('core/session');
             $customerSession    = Mage::getSingleton('customer/session');
             $email              = (string) $this->getRequest()->getPost('email');
+            $validator          = Validation::createValidator();
 
             try {
-                if (!v::email()->validate($email)) {
+                if ($validator->validate($email, new Assert\Email())->count() > 0) {
                     Mage::throwException($this->__('Please enter a valid email address.'));
                 }
 

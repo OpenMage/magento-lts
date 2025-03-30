@@ -15,7 +15,8 @@
  */
 
 use Mage_Customer_Helper_Data as Helper;
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Customer account controller
@@ -745,7 +746,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            if (!v::email()->validate($email)) {
+            $validator = Validation::createValidator();
+            if ($validator->validate($email, [new Assert\Email()])->count() > 0) {
                 $this->_getSession()->setForgottenEmail($email);
                 $this->_getSession()->addError($this->__('Invalid email address.'));
                 $this->_redirect('*/*/forgotpassword');

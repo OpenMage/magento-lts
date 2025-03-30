@@ -14,7 +14,8 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Respect\Validation\Validator as v;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
 
 /**
  * Template model
@@ -241,7 +242,8 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
 
     public function validateFileExension(string $extension, string $filePath): bool
     {
-        return v::extension($extension)->validate($filePath);
+        $validator  = Validation::createValidator();
+        return $validator->validate($filePath . $extension, new Assert\File(['extensions' => (array) $extension]))->count() === 0;
     }
 
     /**
