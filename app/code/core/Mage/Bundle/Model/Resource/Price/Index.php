@@ -210,7 +210,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     $basePrice = 0;
                 }
 
-                list($minPrice, $maxPrice) = $this->_calculateBundleSelections(
+                [$minPrice, $maxPrice] = $this->_calculateBundleSelections(
                     $options,
                     $salableStatus,
                     $productId,
@@ -223,7 +223,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 );
 
                 if ($priceType == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
-                    list($minPrice, $maxPrice) =
+                    [$minPrice, $maxPrice] =
                         $this->_calculateCustomOptions($customOptions, $basePrice, $minPrice, $maxPrice);
                 }
 

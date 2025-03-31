@@ -239,7 +239,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         foreach ($paths as $path) {
             if ($checkRootCategories) {
                 foreach ($rootCategories as $rootCategoryId => $rootCategoryPath) {
-                    if (strpos($path, sprintf('%d/', $rootCategoryPath)) === 0 || $path == $rootCategoryPath) {
+                    if (str_starts_with($path, sprintf('%d/', $rootCategoryPath)) || $path == $rootCategoryPath) {
                         $affectedRootCategoryIds[$rootCategoryId] = $rootCategoryId;
                     }
                 }

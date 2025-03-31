@@ -246,7 +246,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return;
         }
 
-        list($resourceName, $methodName) = explode('.', $apiPath);
+        [$resourceName, $methodName] = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');
@@ -357,7 +357,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $apiPath = $call[0];
             $args    = $call[1] ?? [];
 
-            list($resourceName, $methodName) = explode('.', $apiPath);
+            [$resourceName, $methodName] = explode('.', $apiPath);
 
             if (empty($resourceName) || empty($methodName)) {
                 $result[] = $this->_faultAsArray('resource_path_invalid');

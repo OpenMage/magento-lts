@@ -150,10 +150,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_stores)) {
             $this->_stores = Mage::app()->getStores(true);
         }
-        if (isset($this->_stores[$storeId])) {
-            return $this->_stores[$storeId];
-        }
-        return false;
+        return $this->_stores[$storeId] ?? false;
     }
 
     /**
@@ -167,10 +164,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_websites)) {
             $this->_websites = Mage::app()->getWebsites(true);
         }
-        if (isset($this->_websites[$websiteId])) {
-            return $this->_websites[$websiteId];
-        }
-        return false;
+        return $this->_websites[$websiteId] ?? false;
     }
 
     /**

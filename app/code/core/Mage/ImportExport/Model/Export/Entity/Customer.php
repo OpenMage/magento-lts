@@ -213,7 +213,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             $addrRow          = [];
             $currentAddressId = 0;
             if (isset($customerAddrs[$customerId])) {
-                list($addressId, $addrRow) = $this->_getNextAddressRow($customerAddress);
+                [$addressId, $addrRow] = $this->_getNextAddressRow($customerAddress);
                 $row              = $this->_addDefaultAddressFields($defaultAddrs, $addressId, $row);
                 $addrRow          = $this->_addNextAddressOptions($addressMultiselect, $addressId, $addrRow);
                 $currentAddressId = $addressId;
@@ -237,7 +237,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                         $writeRow[$column] = array_shift($multiSelectOptions);
                     }
                     if (!$this->_isExistMultiSelectOptions($addressMultiselect, $currentAddressId)) {
-                        list($addressId, $addrRow) = $this->_getNextAddressRow($customerAddress);
+                        [$addressId, $addrRow] = $this->_getNextAddressRow($customerAddress);
                         $currentAddressId = $addressId;
                         $addrRow = $this->_addNextAddressOptions($addressMultiselect, $currentAddressId, $addrRow);
                     } else {
@@ -294,8 +294,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
     protected function _getNextAddressRow(&$customerAddress)
     {
         if (!empty($customerAddress)) {
-            reset($customerAddress);
-            $addressId  = key($customerAddress);
+            $addressId  = array_key_first($customerAddress);
             $addressRow = current($customerAddress);
             unset($customerAddress[$addressId]);
 

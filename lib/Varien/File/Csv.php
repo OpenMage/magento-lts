@@ -98,7 +98,7 @@ class Varien_File_Csv
         $csvData = $this->getData($file);
         foreach ($csvData as $rowData) {
             if (isset($rowData[$keyIndex])) {
-                $data[$rowData[$keyIndex]] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
+                $data[$rowData[$keyIndex]] = $rowData[$valueIndex] ?? null;
             }
         }
         return $data;
@@ -128,10 +128,10 @@ class Varien_File_Csv
         foreach ($fields as $value) {
             if (str_contains($value, $delimiter) ||
                 str_contains($value, $enclosure) ||
-                strpos($value, "\n") !== false ||
-                strpos($value, "\r") !== false ||
-                strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false
+                str_contains($value, "\n") ||
+                str_contains($value, "\r") ||
+                str_contains($value, "\t") ||
+                str_contains($value, ' ')
             ) {
                 $str2 = $enclosure;
                 $escaped = 0;

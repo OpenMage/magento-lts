@@ -2080,7 +2080,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         if ($this->_reservedAttributes === null) {
             $_reserved = ['position'];
-            $methods = get_class_methods(__CLASS__);
+            $methods = get_class_methods(self::class);
             foreach ($methods as $method) {
                 if (preg_match('/^get([A-Z]{1}.+)/', $method, $matches)) {
                     $method = $matches[1];

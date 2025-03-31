@@ -45,7 +45,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
     public function getName()
     {
         $name = parent::getName();
-        if (strpos($name, '[]') === false) {
+        if (!str_contains($name, '[]')) {
             $name .= '[]';
         }
         return $name;

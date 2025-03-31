@@ -59,7 +59,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
             }
         }
 
-        list($modelName, $methodName) = $this->_getResourceName($apiKey);
+        [$modelName, $methodName] = $this->_getResourceName($apiKey);
         $methodParams = $this->getMethodParams($modelName, $methodName);
 
         $args = $this->prepareArgs($methodParams, $args);
@@ -103,7 +103,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     protected function _getResourceName($apiPath)
     {
-        list($resourceName, $methodName) = explode('.', $apiPath);
+        [$resourceName, $methodName] = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');

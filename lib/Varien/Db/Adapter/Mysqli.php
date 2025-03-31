@@ -49,11 +49,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $port = !empty($this->_config['port']) ? $this->_config['port'] : null;
         $socket = !empty($this->_config['unix_socket']) ? $this->_config['unix_socket'] : null;
         // socket specified in host config
-        if (strpos($this->_config['host'], '/') !== false) {
+        if (str_contains($this->_config['host'], '/')) {
             $socket = $this->_config['host'];
             $this->_config['host'] = null;
-        } elseif (strpos($this->_config['host'], ':') !== false) {
-            list($this->_config['host'], $port) = explode(':', $this->_config['host']);
+        } elseif (str_contains($this->_config['host'], ':')) {
+            [$this->_config['host'], $port] = explode(':', $this->_config['host']);
         }
 
         $connectionSuccessful = @$conn->real_connect(
@@ -134,7 +134,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (empty($field)) {
             return $row;
         } else {
-            return isset($row[$field]) ? $row[$field] : false;
+            return $row[$field] ?? false;
         }
     }
 
@@ -177,7 +177,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public function dropForeignKey($table, $fk)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "CONSTRAINT `$fk` FOREIGN KEY (") !== false) {
+        if (str_contains($create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
         }
         return true;
@@ -186,7 +186,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
     public function dropKey($table, $key)
     {
         $create = $this->raw_fetchRow("show create table `$table`", 'Create Table');
-        if (strpos($create, "KEY `$key` (") !== false) {
+        if (str_contains($create, "KEY `$key` (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
         }
         return true;
@@ -213,7 +213,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         $onDelete = 'cascade',
         $onUpdate = 'cascade'
     ) {
-        if (substr($fkName, 0, 3) != 'FK_') {
+        if (!str_starts_with($fkName, 'FK_')) {
             $fkName = 'FK_' . $fkName;
         }
 

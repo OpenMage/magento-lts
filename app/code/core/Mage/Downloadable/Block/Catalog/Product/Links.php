@@ -174,7 +174,7 @@ class Mage_Downloadable_Block_Catalog_Product_Links extends Mage_Catalog_Block_P
             return false;
         }
 
-        return $configValue && (in_array($link->getId(), $configValue));
+        return in_array($link->getId(), $configValue);
     }
 
     /**

@@ -548,10 +548,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         $before = filter_var($before, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
         $items = $this->_data['items'];
-
-        // get newly inserted item so we do not have to reproduce the functionality of the parent
-        end($items);
-        $newKey = key($items);
+        $newKey = array_key_last($items);
         $newVal = array_pop($items);
 
         $newItems = [];

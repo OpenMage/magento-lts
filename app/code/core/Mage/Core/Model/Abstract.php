@@ -120,7 +120,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (is_null($key)) {
             return $this->_origData;
         }
-        return isset($this->_origData[$key]) ? $this->_origData[$key] : null;
+        return $this->_origData[$key] ?? null;
     }
 
     /**

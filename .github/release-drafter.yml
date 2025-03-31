@@ -23,8 +23,10 @@ categories:
   - title: '↗️ Dependencies'
     labels:
       - 'dependencies'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: '- $TITLE ([#$NUMBER](https://github.com/OpenMage/magento-lts/pull/$NUMBER))'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+exclude-labels:
+  - 'allcontributors-bot'
 version-resolver:
   major:
     labels:

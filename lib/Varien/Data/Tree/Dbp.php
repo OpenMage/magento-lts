@@ -376,7 +376,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
     {
         if (isset($children[$path])) {
             foreach ($children[$path] as $child) {
-                $nodeId = isset($child[$this->_idField]) ? $child[$this->_idField] : false;
+                $nodeId = $child[$this->_idField] ?? false;
                 if ($parentNode && $nodeId && $node = $parentNode->getChildren()->searchById($nodeId)) {
                     $node->addData($child);
                 } else {

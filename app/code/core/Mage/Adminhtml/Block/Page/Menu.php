@@ -147,7 +147,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $menuArr['active'] = ($this->getActive() == $path . $childName)
-                || (strpos((string) $this->getActive(), $path . $childName . '/') === 0);
+                || (str_starts_with((string) $this->getActive(), $path . $childName . '/'));
 
             $menuArr['level'] = $level;
 
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**

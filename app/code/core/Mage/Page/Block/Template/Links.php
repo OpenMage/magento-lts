@@ -222,10 +222,8 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     protected function _beforeToHtml()
     {
         if (!empty($this->_links)) {
-            reset($this->_links);
-            $this->_links[key($this->_links)]->setIsFirst(true);
-            end($this->_links);
-            $this->_links[key($this->_links)]->setIsLast(true);
+            $this->_links[array_key_first($this->_links)]->setIsFirst(true);
+            $this->_links[array_key_last($this->_links)]->setIsLast(true);
         }
         return parent::_beforeToHtml();
     }

@@ -225,7 +225,7 @@ class Mage_Downloadable_Helper_Download extends Mage_Core_Helper_Abstract
         } elseif ($this->_linkType == self::LINK_TYPE_URL) {
             if (isset($this->_urlHeaders['content-disposition'])) {
                 $contentDisposition = explode('; ', $this->_urlHeaders['content-disposition']);
-                if (!empty($contentDisposition[1]) && strpos($contentDisposition[1], 'filename=') !== false) {
+                if (!empty($contentDisposition[1]) && str_contains($contentDisposition[1], 'filename=')) {
                     return substr($contentDisposition[1], 9);
                 }
             }

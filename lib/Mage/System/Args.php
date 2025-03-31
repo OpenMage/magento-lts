@@ -59,7 +59,7 @@ class Mage_System_Args
             $str = $argv[$i];
 
             // --foo
-            if (strlen($str) > 2 && substr($str, 0, 2) == '--') {
+            if (strlen($str) > 2 && str_starts_with($str, '--')) {
                 $str = substr($str, 2);
                 $parts = explode('=', $str);
                 $this->flags[$parts[0]] = true;

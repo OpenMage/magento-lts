@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                 if ($calculation == self::RANGE_CALCULATION_AUTO) {
                     $index = 1;
                     do {
-                        $range = pow(10, (strlen(floor($maxPrice)) - $index));
+                        $range = 10 ** (strlen(floor($maxPrice)) - $index);
                         $items = $this->getRangeItemCounts($range);
                         $index++;
                     } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
@@ -376,7 +376,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $this;
         }
 
-        list($from, $to) = $filter;
+        [$from, $to] = $filter;
 
         $this->setInterval([$from, $to]);
 

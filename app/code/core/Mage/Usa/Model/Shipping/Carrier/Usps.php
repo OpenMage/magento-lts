@@ -440,8 +440,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $costArr = [];
         $priceArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
-                if (strpos($response, '<?xml version="1.0"?>') !== false) {
+            if (str_starts_with(trim($response), '<?xml')) {
+                if (str_contains($response, '<?xml version="1.0"?>')) {
                     $response = str_replace(
                         '<?xml version="1.0"?>',
                         '<?xml version="1.0" encoding="ISO-8859-1"?>',
@@ -976,7 +976,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (isset($xml->Number) && isset($xml->Description) && (string) $xml->Description != '') {
@@ -1295,11 +1295,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'US' => 'United States',
         ];
 
-        if (isset($countries[$countryId])) {
-            return $countries[$countryId];
-        }
-
-        return false;
+        return $countries[$countryId] ?? false;
     }
 
     /**
@@ -1341,8 +1337,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ));
         }
 
-        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
-        list($toZip5, $toZip4) = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
+        [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
+        [$toZip5, $toZip4] = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
         $rootNode = 'ExpressMailLabelRequest';
         // the wrap node needs for remove xml declaration above
@@ -1429,8 +1425,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ));
         }
 
-        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
-        list($toZip5, $toZip4) = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
+        [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
+        [$toZip5, $toZip4] = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
         if ($this->getConfigData('mode')) {
             $rootNode = 'SignatureConfirmationV3.0Request';
@@ -1550,7 +1546,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                 $container = 'VARIABLE';
         }
         $shippingMethod = $request->getShippingMethod();
-        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
+        [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
 
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
@@ -1672,13 +1668,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $individualItemWeight = $itemWeight / $ceiledQty;
             $itemDetail->addChild('Quantity', (string) $ceiledQty);
             $itemDetail->addChild('Value', (string) ($item->getCustomsValue() * $item->getQty()));
-            list($individualPoundsWeight, $individualOuncesWeight) = $this->_convertPoundOunces($individualItemWeight);
+            [$individualPoundsWeight, $individualOuncesWeight] = $this->_convertPoundOunces($individualItemWeight);
             $itemDetail->addChild('NetPounds', $individualPoundsWeight);
             $itemDetail->addChild('NetOunces', $individualOuncesWeight);
             $itemDetail->addChild('HSTariffNumber', '0');
             $itemDetail->addChild('CountryOfOrigin', $countryOfManufacture);
 
-            list($itemPoundsWeight, $itemOuncesWeight) = $this->_convertPoundOunces($itemWeight);
+            [$itemPoundsWeight, $itemOuncesWeight] = $this->_convertPoundOunces($itemWeight);
             $packagePoundsWeight += $itemPoundsWeight;
             $packageOuncesWeight += $itemOuncesWeight;
         }
@@ -1686,7 +1682,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $packagePoundsWeight += $additionalPackagePoundsWeight;
         $packageOuncesWeight -= $additionalPackagePoundsWeight * self::OUNCES_POUND;
         if ($packagePoundsWeight + $packageOuncesWeight / self::OUNCES_POUND < $packageWeight) {
-            list($packagePoundsWeight, $packageOuncesWeight) = $this->_convertPoundOunces($packageWeight);
+            [$packagePoundsWeight, $packageOuncesWeight] = $this->_convertPoundOunces($packageWeight);
         }
 
         $xml->addChild('GrossPounds', $packagePoundsWeight);

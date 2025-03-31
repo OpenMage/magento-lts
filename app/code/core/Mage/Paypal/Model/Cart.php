@@ -279,8 +279,7 @@ class Mage_Paypal_Model_Cart
                 $this->_addRegularItem($item);
             }
         }
-        end($this->_items);
-        $lastRegularItemKey = key($this->_items);
+        $lastRegularItemKey = array_key_last($this->_items);
 
         // regular totals
         $shippingDescription = '';

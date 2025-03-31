@@ -482,9 +482,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 $this->_columns = array_combine($keys, $values);
             }
         }
-
-        end($this->_columns);
-        $this->_lastColumnId = key($this->_columns);
+        $this->_lastColumnId = array_key_last($this->_columns);
         return $this;
     }
 

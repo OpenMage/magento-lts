@@ -260,7 +260,7 @@ class Mage_Core_Model_Url_Rewrite_Request
     {
         $pathInfo = $this->_request->getPathInfo();
         $requestPath = trim($pathInfo, '/');
-        $origSlash = (substr($pathInfo, -1) == '/') ? '/' : '';
+        $origSlash = (str_ends_with($pathInfo, '/')) ? '/' : '';
         // If there were final slash - add nothing to less priority paths. And vice versa.
         $altSlash = $origSlash ? '' : '/';
 
@@ -308,7 +308,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             parse_str($_SERVER['QUERY_STRING'], $queryParams);
             $hasChanges = false;
             foreach (array_keys($queryParams) as $key) {
-                if (substr($key, 0, 3) === '___') {
+                if (str_starts_with($key, '___')) {
                     unset($queryParams[$key]);
                     $hasChanges = true;
                 }

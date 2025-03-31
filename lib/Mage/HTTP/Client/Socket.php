@@ -306,7 +306,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -332,7 +332,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -343,7 +343,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
                 continue;
             }
             for ($i = 0; $i < $c; $i++) {
-                list($subkey, $val) = explode('=', $values[$i]);
+                [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
@@ -497,7 +497,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         foreach ($headers as $k => $v) {
             $str [] = "$k: $v\r\n";
         }
-        return implode($str);
+        return implode('', $str);
     }
 
     /**

@@ -457,7 +457,7 @@ class Mage_Core_Model_Translate_Inline
         $tagMatch = [];
         while (preg_match($tagRegExp, $content, $tagMatch, PREG_OFFSET_CAPTURE, $nextTag)) {
             $tagName  = strtolower($tagMatch[1][0]);
-            if (substr($tagMatch[0][0], -2) == '/>') {
+            if (str_ends_with($tagMatch[0][0], '/>')) {
                 $tagClosurePos = $tagMatch[0][1] + strlen($tagMatch[0][0]);
             } else {
                 $tagClosurePos = $this->findEndOfTag($content, $tagName, $tagMatch[0][1]);

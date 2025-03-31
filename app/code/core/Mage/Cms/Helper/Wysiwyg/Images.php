@@ -123,7 +123,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
     {
         $path = $this->idDecode($id);
         $storageRoot = realpath($this->getStorageRoot());
-        if (!strstr($path, $storageRoot)) {
+        if (!strstr($path, (string) $storageRoot)) {
             $path = $storageRoot . DS . $path;
         }
         return $path;
