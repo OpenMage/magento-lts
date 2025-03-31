@@ -36,9 +36,9 @@ return $config
             ->in([
                 __DIR__,
             ])
-            ->exclude([
-                __DIR__ . '/shell/translations.php',
-                __DIR__ . '/shell/update-copyright.php',
+            ->notPath([
+                'shell/translations.php',
+                'shell/update-copyright.php',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)
