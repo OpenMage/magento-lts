@@ -66,7 +66,7 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
             throw new Varien_Exception(sprintf('Can not open a file "%s".', $this->_filename));
         }
 
-        $needLock = (strpos($this->_filename, 'php://') !== 0);
+        $needLock = (!str_starts_with($this->_filename, 'php://'));
         $isLocked = false;
         while ($needLock && !$isLocked) {
             $isLocked = flock($fileHandle, LOCK_EX);

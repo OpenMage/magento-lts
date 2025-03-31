@@ -711,6 +711,22 @@
                     </catalog>
                 </observers>
             </sales_convert_quote_item_to_order_item>
+            <controller_action_predispatch_catalogsearch_advanced_index>
+                <observers>
+                    <disable_advanced_search>
+                        <class>catalog/observer_disableAdvancedSearch</class>
+                        <method>execute</method>
+                    </disable_advanced_search>
+                </observers>
+            </controller_action_predispatch_catalogsearch_advanced_index>
+            <controller_action_predispatch_catalogsearch_advanced_result>
+                <observers>
+                    <disable_advanced_search>
+                        <class>catalog/observer_disableAdvancedSearch</class>
+                        <method>execute</method>
+                    </disable_advanced_search>
+                </observers>
+            </controller_action_predispatch_catalogsearch_advanced_result>
         </events>
         <translate>
             <modules>
@@ -821,6 +837,9 @@
                 <interval_division_limit>9</interval_division_limit>
                 <display_product_count>1</display_product_count>
             </layered_navigation>
+            <search>
+                <enable_advanced_search>1</enable_advanced_search>
+            </search>
         </catalog>
         <system>
             <media_storage_configuration>

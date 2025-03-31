@@ -303,7 +303,7 @@ class Mage_Paypal_Model_Express_Checkout
             ->setPaymentAction($this->_config->paymentAction);
 
         if ($this->_giropayUrls) {
-            list($successUrl, $cancelUrl, $pendingUrl) = $this->_giropayUrls;
+            [$successUrl, $cancelUrl, $pendingUrl] = $this->_giropayUrls;
             $this->_api->addData([
                 'giropay_cancel_url' => $cancelUrl,
                 'giropay_success_url' => $successUrl,
@@ -868,10 +868,7 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
     {
-        if ($option1->getAmount() == $option2->getAmount()) {
-            return 0;
-        }
-        return ($option1->getAmount() < $option2->getAmount()) ? -1 : 1;
+        return $option1->getAmount() <=> $option2->getAmount();
     }
 
     /**
