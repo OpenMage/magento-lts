@@ -376,7 +376,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $this;
         }
 
-        list($from, $to) = $filter;
+        [$from, $to] = $filter;
 
         $this->setInterval([$from, $to]);
 

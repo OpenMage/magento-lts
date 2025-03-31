@@ -313,7 +313,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     protected function _parsePackageTheme()
     {
         if ($this->getPackageTheme() && strpos($this->getPackageTheme(), '/')) {
-            list($package, $theme) = explode('/', $this->getPackageTheme());
+            [$package, $theme] = explode('/', $this->getPackageTheme());
             $this->setData('package', $package);
             $this->setData('theme', $theme);
         }

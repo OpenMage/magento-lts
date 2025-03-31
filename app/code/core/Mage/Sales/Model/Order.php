@@ -1349,7 +1349,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if (!isset($segments[1])) {
                 $segments[1] = $segments[0];
             }
-            list($carrierCode, $method) = $segments;
+            [$carrierCode, $method] = $segments;
             return new Varien_Object([
                 'carrier_code' => $carrierCode,
                 'method'       => $method,
