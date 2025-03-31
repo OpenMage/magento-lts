@@ -30,9 +30,9 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
     /**
      * Apply attribute filter to product collection
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Decimal $filter
-     * @param float $range
-     * @param int $index
+     * @param  Mage_Catalog_Model_Layer_Filter_Decimal $filter
+     * @param  float                                   $range
+     * @param  int                                     $index
      * @return $this
      */
     public function applyFilterToCollection($filter, $range, $index)
@@ -63,7 +63,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
     /**
      * Retrieve array of minimal and maximal values
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Decimal $filter
+     * @param  Mage_Catalog_Model_Layer_Filter_Decimal $filter
      * @return array
      */
     public function getMinMax($filter)
@@ -85,7 +85,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
      * Retrieve clean select with joined index table
      * Joined table has index
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Decimal $filter
+     * @param  Mage_Catalog_Model_Layer_Filter_Decimal $filter
      * @return Varien_Db_Select
      */
     protected function _getSelect($filter)
@@ -117,8 +117,8 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Decimal extends Mage_Core_Model_R
     /**
      * Retrieve array with products counts per range
      *
-     * @param Mage_Catalog_Model_Layer_Filter_Decimal $filter
-     * @param int $range
+     * @param  Mage_Catalog_Model_Layer_Filter_Decimal $filter
+     * @param  int                                     $range
      * @return array
      */
     public function getCount($filter, $range)

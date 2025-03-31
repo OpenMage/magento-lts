@@ -40,6 +40,7 @@ class LayoutTest extends TestCase
      * @dataProvider provideCreateBlock
      * @group Mage_Core
      * @group Mage_Core_Model
+     * @param mixed $expectedResult
      */
     public function testCreateBlock($expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
@@ -76,6 +77,7 @@ class LayoutTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Model
      * @group pr4411
+     * @param mixed $expectedResult
      */
     public function testGetBlockSingleton($expectedResult, bool $isAbstractBlock, string $type): void
     {

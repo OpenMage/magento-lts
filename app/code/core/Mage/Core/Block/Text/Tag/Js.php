@@ -33,8 +33,8 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
     }
 
     /**
-     * @param string $src
-     * @param string|null $type
+     * @param  string      $src
+     * @param  string|null $type
      * @return $this
      */
     public function setSrc($src, $type = null)

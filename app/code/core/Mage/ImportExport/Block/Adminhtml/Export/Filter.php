@@ -178,7 +178,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Date 'from-to' filter HTML with values
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getDateFromToHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -206,7 +206,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Input text filter HTML with value
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getInputHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -223,7 +223,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Multiselect field filter HTML with selected values
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getMultiSelectHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -258,7 +258,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Number 'from-to' field filter HTML with selected value.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getNumberFromToHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -282,7 +282,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Select field filter HTML with selected value.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return string
      */
     protected function _getSelectHtmlWithValue(Mage_Eav_Model_Entity_Attribute $attribute, $value)
@@ -372,8 +372,8 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Create filter fields for 'Filter' column.
      *
-     * @param mixed $value
-     * @param bool $isExport
+     * @param  mixed  $value
+     * @param  bool   $isExport
      * @return string
      */
     public function decorateFilter($value, Mage_Eav_Model_Entity_Attribute $row, Varien_Object $column, $isExport)
@@ -405,7 +405,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Element filter ID getter.
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return string
      */
     public function getFilterElementId($attributeCode)
@@ -416,7 +416,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Element filter full name getter.
      *
-     * @param string $attributeCode
+     * @param  string $attributeCode
      * @return string
      */
     public function getFilterElementName($attributeCode)
@@ -427,7 +427,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
     /**
      * Get row edit URL.
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $row
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $row
      * @return string
      */
     public function getRowUrl($row)

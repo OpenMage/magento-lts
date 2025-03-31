@@ -81,7 +81,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
      * custom_use_parent_settings is set to 1 while parent option is not
      *
      * @deprecated after 1.4.2.0-beta1, functionality moved to Mage_Catalog_Model_Design
-     * @param Mage_Catalog_Model_Category $category
+     * @param Mage_Catalog_Model_Category   $category
      * @param Mage_Core_Model_Layout_Update $update
      *
      * @return $this

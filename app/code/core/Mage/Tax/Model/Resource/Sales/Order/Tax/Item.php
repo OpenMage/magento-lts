@@ -30,7 +30,7 @@ class Mage_Tax_Model_Resource_Sales_Order_Tax_Item extends Mage_Core_Model_Resou
     /**
      * Get Tax Items with order tax information
      *
-     * @param int $itemId
+     * @param  int   $itemId
      * @return array
      */
     public function getTaxItemsByItemId($itemId)

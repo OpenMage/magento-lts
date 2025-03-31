@@ -25,7 +25,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
     /**
      * Return an Array of Object attributes.
      *
-     * @param object|array $data
+     * @param  object|array $data
      * @return array
      */
     protected function _prepareData($data)
@@ -66,9 +66,9 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
     /**
      * Raise event for setting a giftMessage.
      *
-     * @param String $entityId
-     * @param Mage_Core_Controller_Request_Http $request
-     * @param Mage_Sales_Model_Quote $quote
+     * @param  String                            $entityId
+     * @param  Mage_Core_Controller_Request_Http $request
+     * @param  Mage_Sales_Model_Quote            $quote
      * @return stdClass
      */
     protected function _setGiftMessage($entityId, $request, $quote)

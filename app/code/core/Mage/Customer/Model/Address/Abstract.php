@@ -22,46 +22,46 @@
  *
  * @method string getCustomerId()
  * @method string getFirstname()
- * @method $this setFirstname(string $value)
+ * @method $this  setFirstname(string $value)
  * @method string getMiddlename()
- * @method $this setMiddlename(string $value)
+ * @method $this  setMiddlename(string $value)
  * @method string getLastname()
- * @method $this setLastname(string $value)
+ * @method $this  setLastname(string $value)
  * @method string getCity()
- * @method $this setCity(string $value)
+ * @method $this  setCity(string $value)
  * @method string getTelephone()
- * @method $this setTelephone(string $value)
+ * @method $this  setTelephone(string $value)
  * @method string getCountryId()
- * @method $this setCountryId(string $value)
+ * @method $this  setCountryId(string $value)
  * @method string getPostcode()
- * @method $this setPostcode(string $value)
- * @method int getParentId()
- * @method $this setRegion(string $value)
- * @method bool getIsDefaultBilling()
- * @method $this setIsDefaultBilling(bool $value)
- * @method bool getIsDefaultShipping()
+ * @method $this  setPostcode(string $value)
+ * @method int    getParentId()
+ * @method $this  setRegion(string $value)
+ * @method bool   getIsDefaultBilling()
+ * @method $this  setIsDefaultBilling(bool $value)
+ * @method bool   getIsDefaultShipping()
  * @method string getVatId()
- * @method int getVatIsValid()
+ * @method int    getVatIsValid()
  * @method string getVatRequestId()
  * @method string getVatRequestDate()
- * @method int getVatRequestSuccess()
- * @method $this setIsDefaultShipping(bool $value)
- * @method bool getIsPrimaryBilling()
- * @method $this setIsPrimaryBilling(bool $value)
- * @method bool getIsPrimaryShipping()
- * @method $this setIsPrimaryShipping(bool $value)
- * @method bool getForceProcess()
- * @method $this setForceProcess(bool $value)
- * @method bool getIsCustomerSaveTransaction()
- * @method $this setParentId(int $value)
- * @method $this setStoreId(int $value)
- * @method $this setIsCustomerSaveTransaction(bool $value)
+ * @method int    getVatRequestSuccess()
+ * @method $this  setIsDefaultShipping(bool $value)
+ * @method bool   getIsPrimaryBilling()
+ * @method $this  setIsPrimaryBilling(bool $value)
+ * @method bool   getIsPrimaryShipping()
+ * @method $this  setIsPrimaryShipping(bool $value)
+ * @method bool   getForceProcess()
+ * @method $this  setForceProcess(bool $value)
+ * @method bool   getIsCustomerSaveTransaction()
+ * @method $this  setParentId(int $value)
+ * @method $this  setStoreId(int $value)
+ * @method $this  setIsCustomerSaveTransaction(bool $value)
  * @method string getPrefix()
- * @method $this setPrefix(string $value)
+ * @method $this  setPrefix(string $value)
  * @method string getSuffix()
- * @method $this setSuffix(string $value)
- * @method $this unsRegion()
- * @method bool getShouldIgnoreValidation()
+ * @method $this  setSuffix(string $value)
+ * @method $this  unsRegion()
+ * @method bool   getShouldIgnoreValidation()
  */
 class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 {
@@ -132,8 +132,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * get address street
      *
-     * @param   int $line address line index
-     * @return  string|array
+     * @param  int          $line address line index
+     * @return string|array
      */
     public function getStreet($line = 0)
     {
@@ -193,7 +193,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $street
+     * @param  string                               $street
      * @return Mage_Customer_Model_Address_Abstract
      */
     public function setStreetFull($street)
@@ -204,7 +204,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * set address street
      *
-     * @param array|string $street
+     * @param  array|string $street
      * @return $this
      */
     public function setStreet($street)
@@ -349,7 +349,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * Retrieve country model
      *
-     * @param int|null $region
+     * @param  int|null                     $region
      * @return Mage_Directory_Model_Country
      * @SuppressWarnings("PHPMD.CamelCaseVariableName")
      */
@@ -375,7 +375,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param bool $html
+     * @param  bool   $html
      * @return string
      * @deprecated for public function format
      */
@@ -386,7 +386,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param string $type
+     * @param  string      $type
      * @return string|null
      */
     public function format($type)
@@ -492,7 +492,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     /**
      * Add error
      *
-     * @param string $error
+     * @param  string $error
      * @return $this
      */
     public function addError($error)

@@ -41,7 +41,7 @@ class FileTest extends TestCase
 
     /**
      * @dataProvider provideGetMimeTypeFromExtensionListData
-     * @param array<int, string> $expectedResult
+     * @param array<int, string>        $expectedResult
      * @param string|array<int, string> $extensionsList
      *
      * @group Mage_Uploader

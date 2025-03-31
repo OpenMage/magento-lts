@@ -33,7 +33,7 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
     /**
      * Method for product filter
      *
-     * @param Mage_Catalog_Model_Product|array|integer|null $product
+     * @param  Mage_Catalog_Model_Product|array|integer|null $product
      * @return $this
      */
     public function addProductToFilter($product)
@@ -52,7 +52,7 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
     /**
      * Retrieve title for for current store
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function addTitleToResult($storeId = 0)
@@ -79,7 +79,7 @@ class Mage_Downloadable_Model_Resource_Link_Collection extends Mage_Core_Model_R
     /**
      * Retrieve price for for current website
      *
-     * @param int $websiteId
+     * @param  int   $websiteId
      * @return $this
      */
     public function addPriceToResult($websiteId)

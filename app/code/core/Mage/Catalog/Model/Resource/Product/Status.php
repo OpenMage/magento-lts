@@ -37,7 +37,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute (public method for status model)
      *
-     * @param string $attributeCode
+     * @param  string                                   $attributeCode
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     public function getProductAttribute($attributeCode)
@@ -48,7 +48,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Retrieve product attribute
      *
-     * @param string|int|Mage_Core_Model_Config_Element $attribute
+     * @param  string|int|Mage_Core_Model_Config_Element $attribute
      * @return Mage_Eav_Model_Entity_Attribute_Abstract
      */
     protected function _getProductAttribute($attribute)
@@ -63,8 +63,8 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Refresh enabled index cache
      *
-     * @param int $productId
-     * @param int $storeId
+     * @param  int   $productId
+     * @param  int   $storeId
      * @return $this
      */
     public function refreshEnabledIndex($productId, $storeId)
@@ -85,9 +85,9 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
     /**
      * Update product status for store
      *
-     * @param int $productId
-     * @param int $storeId
-     * @param int $value
+     * @param  int                       $productId
+     * @param  int                       $storeId
+     * @param  int                       $value
      * @return $this
      * @throws Mage_Core_Exception
      * @throws Zend_Db_Adapter_Exception
@@ -140,8 +140,8 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
      * Retrieve Product(s) status for store
      * Return array where key is a product_id, value - status
      *
-     * @param array|int $productIds
-     * @param int $storeId
+     * @param  array|int $productIds
+     * @param  int       $storeId
      * @return array
      */
     public function getProductStatus($productIds, $storeId = null)

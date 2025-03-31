@@ -39,7 +39,7 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
     /**
      * Mage_Directory_Model_Currency_Filter constructor.
      * @param string $code
-     * @param int $rate
+     * @param int    $rate
      */
     public function __construct($code, $rate = 1)
     {
@@ -60,8 +60,8 @@ class Mage_Directory_Model_Currency_Filter implements Zend_Filter_Interface
     /**
      * Filter value
      *
-     * @param   double $value
-     * @return  string
+     * @param  double $value
+     * @return string
      */
     public function filter($value)
     {

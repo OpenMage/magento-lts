@@ -25,7 +25,7 @@ class Mage_Admin_Model_Acl_Assert_Ip implements Zend_Acl_Assert_Interface
     /**
      * Check whether ip is allowed
      *
-     * @param string|null $privilege
+     * @param  string|null $privilege
      * @return bool|null
      */
     public function assert(

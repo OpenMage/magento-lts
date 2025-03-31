@@ -23,9 +23,9 @@
  *
  * @method Mage_Paypal_Model_Resource_Payment_Transaction _getResource()
  * @method Mage_Paypal_Model_Resource_Payment_Transaction getResource()
- * @method string getTxnId()
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method string                                         getTxnId()
+ * @method string                                         getCreatedAt()
+ * @method $this                                          setCreatedAt(string $value)
  */
 class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 {
@@ -66,7 +66,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Transaction ID setter
-     * @param string $txnId
+     * @param  string $txnId
      * @return $this
      */
     public function setTxnId($txnId)
@@ -77,7 +77,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Check object before loading by by specified transaction ID
-     * @param string $txnId
+     * @param  string $txnId
      * @return $this
      */
     protected function _beforeLoadByTxnId($txnId)
@@ -91,7 +91,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Load self by specified transaction ID. Requires the valid payment object to be set
-     * @param string $txnId
+     * @param  string $txnId
      * @return $this
      */
     public function loadByTxnId($txnId)
@@ -121,8 +121,8 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
      * Updates data inside the 'additional_information' array
      * Doesn't allow to set arrays
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string              $key
+     * @param  mixed               $value
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -141,7 +141,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Getter for entire additional_information value or one of its element by key
-     * @param string $key
+     * @param  string           $key
      * @return array|null|mixed
      */
     public function getAdditionalInformation($key = null)
@@ -158,7 +158,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Unsetter for entire additional_information value or one of its element by key
-     * @param string $key
+     * @param  string $key
      * @return $this
      */
     public function unsAdditionalInformation($key = null)
@@ -177,7 +177,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
     /**
      * Setter/Getter whether transaction is supposed to prevent exceptions on saving
      *
-     * @param bool|null $setFailsafe
+     * @param  bool|null  $setFailsafe
      * @return bool|$this
      */
     public function isFailsafe($setFailsafe = null)
@@ -203,7 +203,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
 
     /**
      * Check whether specified transaction ID is valid
-     * @param string $txnId
+     * @param  string              $txnId
      * @throws Mage_Core_Exception
      */
     protected function _verifyTxnId($txnId)

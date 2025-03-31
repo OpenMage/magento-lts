@@ -37,7 +37,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
     /**
      * Parse string with indexers and return array of indexer instances
      *
-     * @param string $string
+     * @param  string $string
      * @return array
      */
     protected function _parseIndexerString($string)
@@ -185,7 +185,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
      */
     public function usageHelp()
     {
-        return <<<USAGE
+        return <<<EOD
 Usage:  php -f indexer.php -- [options]
 
   --status <indexer>            Show Indexer(s) Status
@@ -200,7 +200,7 @@ Usage:  php -f indexer.php -- [options]
 
   <indexer>     Comma separated indexer codes or value "all" for all indexers
 
-USAGE;
+EOD;
     }
 }
 

@@ -72,7 +72,7 @@ class Mage_Sales_Model_Resource_Order_Grid_Collection extends Mage_Sales_Model_R
     /**
      * Set customer mode flag value
      *
-     * @param bool $value
+     * @param  bool  $value
      * @return $this
      */
     public function setIsCustomerMode($value)

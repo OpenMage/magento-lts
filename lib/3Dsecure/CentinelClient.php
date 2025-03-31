@@ -13,13 +13,13 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-require('XMLParser.php');
-include 'CentinelErrors.php';
+require_once 'XMLParser.php';
+include_once 'CentinelErrors.php';
 
 class CentinelClient
 {
-    public $request ;
-    public $response ;
+    public $request;
+    public $response;
     public $parser;
 
     /////////////////////////////////////////////////////////////////////////////////////////////

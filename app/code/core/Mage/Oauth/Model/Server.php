@@ -175,7 +175,7 @@ class Mage_Oauth_Model_Server
     /**
      * Internal constructor not depended on params
      *
-     * @param Zend_Controller_Request_Http $request OPTIONAL Request object (If not specified - use singleton)
+     * @param  Zend_Controller_Request_Http $request OPTIONAL Request object (If not specified - use singleton)
      * @throws Exception
      */
     public function __construct($request = null)
@@ -344,7 +344,7 @@ class Mage_Oauth_Model_Server
     /**
      * Is attribute is referred to oAuth protocol?
      *
-     * @param string $attrName
+     * @param  string $attrName
      * @return bool
      */
     protected function _isProtocolParameter($attrName)
@@ -355,7 +355,7 @@ class Mage_Oauth_Model_Server
     /**
      * Extract parameters from sources (GET, FormBody, Authorization header), decode them and validate
      *
-     * @param string $requestType Request type - one of REQUEST_... class constant
+     * @param  string              $requestType Request type - one of REQUEST_... class constant
      * @return $this
      * @throws Mage_Core_Exception
      */
@@ -413,8 +413,8 @@ class Mage_Oauth_Model_Server
     /**
      * Throw OAuth exception
      *
-     * @param string $message Exception message
-     * @param int $code Exception code
+     * @param  string $message Exception message
+     * @param  int    $code    Exception code
      * @return never
      */
     protected function _throwException($message = '', $code = 0)
@@ -448,7 +448,7 @@ class Mage_Oauth_Model_Server
     /**
      * Validate nonce request data
      *
-     * @param string $nonce Nonce string
+     * @param string     $nonce     Nonce string
      * @param string|int $timestamp UNIX Timestamp
      */
     protected function _validateNonce($nonce, $timestamp)
@@ -583,8 +583,8 @@ class Mage_Oauth_Model_Server
     /**
      * Validate request, authorize token and return it
      *
-     * @param int $userId Authorization user identifier
-     * @param string $userType Authorization user type
+     * @param  int                    $userId   Authorization user identifier
+     * @param  string                 $userType Authorization user type
      * @return Mage_Oauth_Model_Token
      */
     public function authorizeToken($userId, $userType)
@@ -654,7 +654,7 @@ class Mage_Oauth_Model_Server
     /**
      * Create response string for problem during request and set HTTP error code
      *
-     * @param Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
+     * @param  Zend_Controller_Response_Http|null $response OPTIONAL If NULL - will use internal getter
      * @return string
      * @throws Zend_Controller_Response_Exception
      */

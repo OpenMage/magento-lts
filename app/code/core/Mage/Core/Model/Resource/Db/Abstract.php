@@ -151,8 +151,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * If one or both arguments are string, will be used as prefix
      * If $tables is null and $connections is string, $tables will be the same
      *
-     * @param string|array $connections
-     * @param string|array|null $tables
+     * @param  string|array                      $connections
+     * @param  string|array|null                 $tables
      * @return Mage_Core_Model_Resource_Abstract
      */
     protected function _setResource($connections, $tables = null)
@@ -183,8 +183,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Set main entity table name and primary key field name
      * If field name is omitted {table_name}_id will be used
      *
-     * @param string $mainTable
-     * @param string|null $idFieldName
+     * @param  string      $mainTable
+     * @param  string|null $idFieldName
      * @return $this
      */
     protected function _setMainTable($mainTable, $idFieldName = null)
@@ -237,7 +237,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get table name for the entity, validated by db adapter
      *
-     * @param string|array $entityName
+     * @param  string|array $entityName
      * @return string
      */
     public function getTable($entityName)
@@ -281,8 +281,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve table name for the entity separated value
      *
-     * @param string $entityName
-     * @param string $valueType
+     * @param  string $entityName
+     * @param  string $valueType
      * @return string
      */
     public function getValueTable($entityName, $valueType)
@@ -293,7 +293,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Get connection by name or type
      *
-     * @param string $connectionName
+     * @param  string                       $connectionName
      * @return Magento_Db_Adapter_Pdo_Mysql
      */
     protected function _getConnection($connectionName)
@@ -313,7 +313,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     }
 
     /**
-     * @param string $connectionName
+     * @param  string $connectionName
      * @return bool
      */
     public function hasConnection($connectionName)
@@ -362,8 +362,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Load an object
      *
-     * @param mixed $value
-     * @param string|null $field field to load by (defaults to model id)
+     * @param  mixed       $value
+     * @param  string|null $field field to load by (defaults to model id)
      * @return $this
      */
     public function load(Mage_Core_Model_Abstract $object, $value, $field = null)
@@ -391,9 +391,9 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve select object for load object data
      *
-     * @param string $field
-     * @param mixed $value
-     * @param Mage_Core_Model_Abstract $object
+     * @param  string                   $field
+     * @param  mixed                    $value
+     * @param  Mage_Core_Model_Abstract $object
      * @return Varien_Db_Select
      * @throws Exception
      */
@@ -516,7 +516,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Add unique field restriction
      *
-     * @param array|string $field
+     * @param  array|string $field
      * @return $this
      */
     public function addUniqueField($field)
@@ -590,7 +590,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Check that model data fields that can be saved
      * has really changed comparing with origData
      *
-     * @param Mage_Core_Model_Abstract $object
+     * @param  Mage_Core_Model_Abstract $object
      * @return bool
      */
     public function hasDataChanged($object)
@@ -612,8 +612,8 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Prepare value for save
      *
-     * @param mixed $value
-     * @param string $type
+     * @param  mixed  $value
+     * @param  string $type
      * @return mixed
      */
     protected function _prepareValueForSave($value, $type)
@@ -750,7 +750,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
     /**
      * Retrieve table checksum
      *
-     * @param string|array $table
+     * @param  string|array $table
      * @return array|false
      */
     public function getChecksum($table)

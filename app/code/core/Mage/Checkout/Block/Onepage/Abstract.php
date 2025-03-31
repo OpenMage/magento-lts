@@ -113,7 +113,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
 
     /* */
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getAddressesHtmlSelect($type)
@@ -155,7 +155,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
-     * @param string $type
+     * @param  string                          $type
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -170,7 +170,7 @@ abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Temp
     }
 
     /**
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     public function getRegionHtmlSelect($type)

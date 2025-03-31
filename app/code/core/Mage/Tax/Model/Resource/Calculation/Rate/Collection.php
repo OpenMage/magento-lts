@@ -68,7 +68,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Join rate title for specified store
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  Mage_Core_Model_Store|string|int $store
      * @return $this
      */
     public function joinTitle($store = null)
@@ -110,7 +110,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
     /**
      * Add rate filter
      *
-     * @param int $rateId
+     * @param  int   $rateId
      * @return $this
      */
     public function addRateFilter($rateId)
@@ -148,7 +148,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
      *
      * @see     _toOptionHashOptimized()
      *
-     * @return  array
+     * @return array
      */
     public function toOptionHashOptimized()
     {

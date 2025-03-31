@@ -291,7 +291,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Set free method request
      *
-     * @param  $freeMethod
+     * @param $freeMethod
      */
     protected function _setFreeMethodRequest($freeMethod)
     {
@@ -431,7 +431,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Parse calculated rates
      *
      * @link http://www.usps.com/webtools/htm/Rate-Calculators-v2-3.htm
-     * @param string $response
+     * @param  string                               $response
      * @return Mage_Shipping_Model_Rate_Result|void
      */
     protected function _parseXmlResponse($response)
@@ -524,8 +524,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get configuration data of carrier
      *
-     * @param string $type
-     * @param string $code
+     * @param  string     $type
+     * @param  string     $code
      * @return array|bool
      */
     public function getCode($type, $code = '')
@@ -891,7 +891,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get tracking
      *
-     * @param mixed $trackingData
+     * @param  mixed                                $trackingData
      * @return Mage_Shipping_Model_Rate_Result|null
      */
     public function getTracking($trackingData)
@@ -967,8 +967,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse xml tracking response
      *
-     * @param array $trackingValue
-     * @param string $response
+     * @param  array  $trackingValue
+     * @param  string $response
      * @return void
      */
     protected function _parseXmlTrackingResponse($trackingValue, $response)
@@ -1065,7 +1065,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      * Return USPS county name by country ISO 3166-1-alpha-2 code
      * Return false for unknown countries
      *
-     * @param string $countryId
+     * @param  string       $countryId
      * @return string|false
      */
     protected function _getCountryName($countryId)
@@ -1465,7 +1465,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Convert decimal weight into pound-ounces format
      *
-     * @param float $weightInPounds
+     * @param  float $weightInPounds
      * @return array
      */
     protected function _convertPoundOunces($weightInPounds)
@@ -1845,7 +1845,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Check whether girth is allowed for the USPS
      *
-     * @param null|string $countyDest
+     * @param  null|string $countyDest
      * @return bool
      */
     public function isGirthAllowed($countyDest = null)
@@ -1881,8 +1881,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Parse zip from string to zip5-zip4
      *
-     * @param string $zipString
-     * @param bool $returnFull
+     * @param  string $zipString
+     * @param  bool   $returnFull
      * @return array
      */
     protected function _parseZip($zipString, $returnFull = false)
@@ -1910,6 +1910,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * @deprecated
+     * @param mixed $method
+     * @param mixed $valuesToLabels
      */
     protected function _methodsMapper($method, $valuesToLabels = true)
     {
@@ -1918,6 +1920,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
 
     /**
      * @deprecated
+     * @param mixed $value
      */
     public function getMethodLabel($value)
     {
@@ -1927,6 +1930,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     /**
      * Get value of method by its label
      * @deprecated
+     * @param mixed $label
      */
     public function getMethodValue($label)
     {
@@ -1934,8 +1938,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
     }
 
     /**
-      * @deprecated
-      */
+     * @deprecated
+     */
     protected function setTrackingReqeust()
     {
         $this->setTrackingRequest();

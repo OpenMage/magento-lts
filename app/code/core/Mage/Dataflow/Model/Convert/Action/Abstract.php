@@ -54,8 +54,8 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Get action parameter
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  string $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function getParam($key, $default = null)
@@ -66,8 +66,8 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set action parameter
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string                                      $key
+     * @param  mixed                                       $value
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function setParam($key, $value = null)
@@ -93,7 +93,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set all action parameters
      *
-     * @param array $params
+     * @param  array                                       $params
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function setParams($params)
@@ -115,7 +115,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Set profile instance the action belongs to
      *
-     * @param Mage_Dataflow_Model_Convert_Profile_Abstract $profile
+     * @param  Mage_Dataflow_Model_Convert_Profile_Abstract $profile
      * @return Mage_Dataflow_Model_Convert_Action_Abstract
      */
     public function setProfile(Mage_Dataflow_Model_Convert_Profile_Interface $profile)
@@ -150,7 +150,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
     /**
      * Get action's container
      *
-     * @param string $name
+     * @param  string                                         $name
      * @return Mage_Dataflow_Model_Convert_Container_Abstract
      */
     public function getContainer($name = null)

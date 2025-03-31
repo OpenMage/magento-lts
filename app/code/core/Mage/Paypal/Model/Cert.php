@@ -35,8 +35,8 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
     /**
      * Load model by website id
      *
-     * @param int $websiteId
-     * @param bool $strictLoad
+     * @param  int   $websiteId
+     * @param  bool  $strictLoad
      * @return $this
      */
     public function loadByWebsite($websiteId, $strictLoad = true)

@@ -448,8 +448,8 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
     /**
      * Backup database
      *
-     * @param string $failPath redirect path if backup failed
-     * @param array $arguments
+     * @param  string     $failPath  redirect path if backup failed
+     * @param  array      $arguments
      * @return $this|void
      */
     protected function _backupDatabase($failPath, $arguments = [])
@@ -488,7 +488,7 @@ class Mage_Adminhtml_System_StoreController extends Mage_Adminhtml_Controller_Ac
     /**
      * Add notification on deleting store / store view / website
      *
-     * @param string $typeTitle
+     * @param  string $typeTitle
      * @return $this
      */
     protected function _addDeletionNotice($typeTitle)

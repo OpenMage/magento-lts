@@ -165,8 +165,8 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return Element HTML
      *
-     * @param string $element
-     * @param bool $closed
+     * @param  string $element
+     * @param  bool   $closed
      * @return string
      */
     protected function _drawElementHtml($element, array $attributes, $closed = true)
@@ -182,7 +182,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
     /**
      * Return escaped value
      *
-     * @param string|null $index
+     * @param  string|null  $index
      * @return false|string
      */
     public function getEscapedValue($index = null)

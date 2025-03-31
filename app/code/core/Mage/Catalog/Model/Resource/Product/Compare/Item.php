@@ -30,7 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Load object by product
      *
-     * @param mixed $product
+     * @param  mixed $product
      * @return bool
      */
     public function loadByProduct(Mage_Catalog_Model_Product_Compare_Item $object, $product)
@@ -65,8 +65,8 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Resource retrieve count compare items
      *
-     * @param int $customerId
-     * @param int $visitorId
+     * @param  int               $customerId
+     * @param  int               $visitorId
      * @return false|string|null
      */
     public function getCount($customerId, $visitorId)
@@ -117,7 +117,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Purge visitor data after customer logout
      *
-     * @param Mage_Catalog_Model_Product_Compare_Item $object
+     * @param  Mage_Catalog_Model_Product_Compare_Item $object
      * @return $this
      */
     public function purgeVisitorByCustomer($object)
@@ -140,7 +140,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
      * Update (Merge) customer data from visitor
      * After Login process
      *
-     * @param Mage_Catalog_Model_Product_Compare_Item $object
+     * @param  Mage_Catalog_Model_Product_Compare_Item $object
      * @return $this
      */
     public function updateCustomerFromVisitor($object)
@@ -211,8 +211,8 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
     /**
      * Clear compare items by visitor and/or customer
      *
-     * @param int $visitorId
-     * @param int $customerId
+     * @param  int   $visitorId
+     * @param  int   $customerId
      * @return $this
      */
     public function clearItems($visitorId = null, $customerId = null)

@@ -36,7 +36,7 @@ class Mage_Core_Model_Translate_Expr
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return $this
      */
     public function setText($text)
@@ -46,7 +46,7 @@ class Mage_Core_Model_Translate_Expr
     }
 
     /**
-     * @param string $module
+     * @param  string $module
      * @return $this
      */
     public function setModule($module)
@@ -78,8 +78,8 @@ class Mage_Core_Model_Translate_Expr
     /**
      * Retrieve expression code
      *
-     * @param   string $separator
-     * @return  string
+     * @param  string $separator
+     * @return string
      */
     public function getCode($separator = '::')
     {

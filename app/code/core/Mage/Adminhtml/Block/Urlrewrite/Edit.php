@@ -190,6 +190,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
      * not to duplicate them in future
      *
      * @return string
+     * @param  null|mixed $area
      */
     public function getButtonsHtml($area = null)
     {
@@ -237,7 +238,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * Check whether specified selection mode is set in request
      *
-     * @param string $mode
+     * @param  string $mode
      * @return bool
      */
     public function isMode($mode)
@@ -248,7 +249,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
     /**
      * Update layout by specified mode code
      *
-     * @param string $mode
+     * @param  string $mode
      * @return $this
      * @see Mage_Adminhtml_Block_Urlrewrite_Selector
      */

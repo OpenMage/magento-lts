@@ -20,16 +20,16 @@
  * @category   Mage
  * @package    Mage_Tax
  *
- * @method Mage_Tax_Model_Resource_Calculation_Rate_Title _getResource()
- * @method Mage_Tax_Model_Resource_Calculation_Rate_Title getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Title            _getResource()
+ * @method Mage_Tax_Model_Resource_Calculation_Rate_Title            getResource()
  * @method Mage_Tax_Model_Resource_Calculation_Rate_Title_Collection getCollection()
  *
- * @method int getTaxCalculationRateId()
- * @method $this setTaxCalculationRateId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
+ * @method int    getTaxCalculationRateId()
+ * @method $this  setTaxCalculationRateId(int $value)
+ * @method int    getStoreId()
+ * @method $this  setStoreId(int $value)
  * @method string getValue()
- * @method $this setValue(string $value)
+ * @method $this  setValue(string $value)
  */
 class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract
 {
@@ -39,7 +39,7 @@ class Mage_Tax_Model_Calculation_Rate_Title extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $rateId
+     * @param  int   $rateId
      * @return $this
      */
     public function deleteByRateId($rateId)

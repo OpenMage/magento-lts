@@ -152,8 +152,8 @@ $table = $adapter->newTable($installer->getTable('api2/acl_rule'))
 $adapter->createTable($table);
 
 /**
-* Create table 'api2/acl_attribute'
-*/
+ * Create table 'api2/acl_attribute'
+ */
 $table = $adapter->newTable($installer->getTable('api2/acl_attribute'))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity' => true,

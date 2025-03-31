@@ -20,20 +20,20 @@
  * @category   Mage
  * @package    Mage_Sales
  *
- * @method Mage_Sales_Model_Resource_Order_Shipment_Comment _getResource()
- * @method Mage_Sales_Model_Resource_Order_Shipment_Comment getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Comment            _getResource()
+ * @method Mage_Sales_Model_Resource_Order_Shipment_Comment            getResource()
  * @method Mage_Sales_Model_Resource_Order_Shipment_Comment_Collection getCollection()
- * @method string getComment()
- * @method $this setComment(string $value)
- * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
- * @method int getIsCustomerNotified()
- * @method $this setIsCustomerNotified(int $value)
- * @method int getParentId()
- * @method $this setParentId(int $value)
- * @method $this setStoreId(int $value)
- * @method int getIsVisibleOnFront()
- * @method $this setIsVisibleOnFront(int $value)
+ * @method string                                                      getComment()
+ * @method $this                                                       setComment(string $value)
+ * @method string                                                      getCreatedAt()
+ * @method $this                                                       setCreatedAt(string $value)
+ * @method int                                                         getIsCustomerNotified()
+ * @method $this                                                       setIsCustomerNotified(int $value)
+ * @method int                                                         getParentId()
+ * @method $this                                                       setParentId(int $value)
+ * @method $this                                                       setStoreId(int $value)
+ * @method int                                                         getIsVisibleOnFront()
+ * @method $this                                                       setIsVisibleOnFront(int $value)
  */
 class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
 {
@@ -52,7 +52,7 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
     /**
      * Declare Shipment instance
      *
-     * @return  $this
+     * @return $this
      */
     public function setShipment(Mage_Sales_Model_Order_Shipment $shipment)
     {

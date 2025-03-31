@@ -30,8 +30,8 @@ class Mage_Tax_Model_Resource_Report_Tax_Updatedat extends Mage_Tax_Model_Resour
     /**
      * Aggregate Tax data by order updated at
      *
-     * @param mixed $from
-     * @param mixed $to
+     * @param  mixed $from
+     * @param  mixed $to
      * @return $this
      */
     public function aggregate($from = null, $to = null)

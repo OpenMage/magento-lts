@@ -20,13 +20,13 @@
  * @category   Mage
  * @package    Mage_Bundle
  *
- * @method bool getCanEditPrice()
- * @method $this setCanEditPrice(bool $true)
- * @method bool getCanReadPrice()
- * @method $this setCanReadPrice(bool $true)
+ * @method bool   getCanEditPrice()
+ * @method $this  setCanEditPrice(bool $true)
+ * @method bool   getCanReadPrice()
+ * @method $this  setCanReadPrice(bool $true)
  * @method string getDefaultProductPrice()
- * @method bool getDisableChild()
- * @method $this setDisableChild(bool $value)
+ * @method bool   getDisableChild()
+ * @method $this  setDisableChild(bool $value)
  */
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {

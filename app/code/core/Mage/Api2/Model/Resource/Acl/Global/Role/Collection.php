@@ -33,7 +33,7 @@ class Mage_Api2_Model_Resource_Acl_Global_Role_Collection extends Mage_Core_Mode
     /**
      * Add filter by admin user id and join table with appropriate information
      *
-     * @param int $id Admin user id
+     * @param  int   $id Admin user id
      * @return $this
      */
     public function addFilterByAdminId($id)

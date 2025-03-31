@@ -59,8 +59,8 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
      * Check osCommerce order view availability
      *
      * @deprecated after 1.6.0.0
-     * @param   array $order
-     * @return  bool
+     * @param  array $order
+     * @return bool
      */
     protected function _canViewOscommerceOrder($order)
     {

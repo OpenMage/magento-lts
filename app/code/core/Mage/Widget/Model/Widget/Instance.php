@@ -20,18 +20,18 @@
  * @category   Mage
  * @package    Mage_Widget
  *
- * @method Mage_Widget_Model_Resource_Widget_Instance _getResource()
- * @method Mage_Widget_Model_Resource_Widget_Instance getResource()
+ * @method Mage_Widget_Model_Resource_Widget_Instance            _getResource()
+ * @method Mage_Widget_Model_Resource_Widget_Instance            getResource()
  * @method Mage_Widget_Model_Resource_Widget_Instance_Collection getCollection()
  *
- * @method array getPageGroups()
- * @method $this setPageGroups(array $value)
- * @method $this setStoreIds(string $value)
+ * @method array  getPageGroups()
+ * @method $this  setPageGroups(array $value)
+ * @method $this  setStoreIds(string $value)
  * @method string getTitle()
- * @method $this setTitle(string $value)
- * @method $this setWidgetParameters(string $value)
- * @method int getSortOrder()
- * @method $this setSortOrder(int $value)
+ * @method $this  setTitle(string $value)
+ * @method $this  setWidgetParameters(string $value)
+ * @method int    getSortOrder()
+ * @method $this  setSortOrder(int $value)
  */
 class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
 {
@@ -194,7 +194,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Setter
      * Prepare widget type
      *
-     * @param string $type
+     * @param  string $type
      * @return $this
      */
     public function setType($type)
@@ -233,7 +233,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
      * Setter
      * Prepare widget package theme
      *
-     * @param string $packageTheme
+     * @param  string $packageTheme
      * @return $this
      */
     public function setPackageTheme($packageTheme)
@@ -445,7 +445,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Retrieve widget templates that supported by given block reference
      *
-     * @param string $blockReference
+     * @param  string $blockReference
      * @return array
      */
     public function getWidgetSupportedTemplatesByBlock($blockReference)
@@ -478,8 +478,8 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     /**
      * Generate layout update xml
      *
-     * @param string $blockReference
-     * @param string $templatePath
+     * @param  string $blockReference
+     * @param  string $templatePath
      * @return string
      */
     public function generateLayoutUpdateXml($blockReference, $templatePath = '')

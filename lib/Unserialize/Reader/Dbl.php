@@ -32,8 +32,8 @@ class Unserialize_Reader_Dbl
     public const READING_VALUE = 1;
 
     /**
-     * @param string $char
-     * @param string $prevChar
+     * @param  string     $char
+     * @param  string     $prevChar
      * @return float|null
      */
     public function read($char, $prevChar)

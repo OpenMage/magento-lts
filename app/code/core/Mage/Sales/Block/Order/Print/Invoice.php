@@ -95,8 +95,8 @@ class Mage_Sales_Block_Order_Print_Invoice extends Mage_Sales_Block_Items_Abstra
     /**
      * Get html of invoice totlas block
      *
-     * @param   Mage_Sales_Model_Order_Invoice $invoice
-     * @return  string
+     * @param  Mage_Sales_Model_Order_Invoice $invoice
+     * @return string
      */
     public function getInvoiceTotalsHtml($invoice)
     {

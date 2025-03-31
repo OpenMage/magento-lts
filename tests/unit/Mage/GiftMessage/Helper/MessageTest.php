@@ -39,6 +39,7 @@ class MessageTest extends TestCase
      *
      * @group Mage_GiftMessage
      * @group Mage_GiftMessage_Helper
+     * @param null|mixed $store
      */
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, $store = null): void
     {

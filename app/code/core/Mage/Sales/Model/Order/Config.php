@@ -49,7 +49,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param string $status
+     * @param  string                   $status
      * @return Varien_Simplexml_Element
      */
     protected function _getStatus($status)
@@ -58,7 +58,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     }
 
     /**
-     * @param string $state
+     * @param  string                   $state
      * @return Varien_Simplexml_Element
      */
     protected function _getState($state)
@@ -69,8 +69,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve default status for state
      *
-     * @param   string $state
-     * @return  string
+     * @param  string $state
+     * @return string
      */
     public function getStateDefaultStatus($state)
     {
@@ -87,8 +87,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * Retrieve status label
      *
-     * @param   string $code
-     * @return  string
+     * @param  string $code
+     * @return string
      */
     public function getStatusLabel($code)
     {
@@ -103,8 +103,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
     /**
      * State label getter
      *
-     * @param   string $state
-     * @return  string
+     * @param  string $state
+     * @return string
      */
     public function getStateLabel($state)
     {
@@ -147,8 +147,8 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      * Get all possible statuses, or for specified state, or specified states array
      * Add labels by default. Return plain array of statuses, if no labels.
      *
-     * @param mixed $state
-     * @param bool $addLabels
+     * @param  mixed $state
+     * @param  bool  $addLabels
      * @return array
      */
     public function getStateStatuses($state, $addLabels = true)
@@ -190,7 +190,7 @@ class Mage_Sales_Model_Order_Config extends Mage_Core_Model_Config_Base
      * Retrieve state available for status
      * Get all assigned states for specified status
      *
-     * @param string $status
+     * @param  string $status
      * @return array
      */
     public function getStatusStates($status)

@@ -76,8 +76,8 @@ class Varien_Data_Form_Element_Select extends Varien_Data_Form_Element_Abstract
     }
 
     /**
-     * @param array $option
-     * @param string|array $selected
+     * @param  array        $option
+     * @param  string|array $selected
      * @return string
      */
     protected function _optionToHtml($option, $selected)

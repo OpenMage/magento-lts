@@ -20,25 +20,25 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  *
- * @method Mage_CatalogSearch_Model_Resource_Advanced getResource()
+ * @method Mage_CatalogSearch_Model_Resource_Advanced            getResource()
  * @method Mage_CatalogSearch_Model_Resource_Advanced_Collection getCollection()
  *
- * @method int getEntityTypeId()
- * @method $this setEntityTypeId(int $value)
- * @method int getAttributeSetId()
- * @method $this setAttributeSetId(int $value)
+ * @method int    getEntityTypeId()
+ * @method $this  setEntityTypeId(int $value)
+ * @method int    getAttributeSetId()
+ * @method $this  setAttributeSetId(int $value)
  * @method string getTypeId()
- * @method $this setTypeId(string $value)
+ * @method $this  setTypeId(string $value)
  * @method string getSku()
- * @method $this setSku(string $value)
- * @method int getHasOptions()
- * @method $this setHasOptions(int $value)
- * @method int getRequiredOptions()
- * @method $this setRequiredOptions(int $value)
+ * @method $this  setSku(string $value)
+ * @method int    getHasOptions()
+ * @method $this  setHasOptions(int $value)
+ * @method int    getRequiredOptions()
+ * @method $this  setRequiredOptions(int $value)
  * @method string getCreatedAt()
- * @method $this setCreatedAt(string $value)
+ * @method $this  setCreatedAt(string $value)
  * @method string getUpdatedAt()
- * @method $this setUpdatedAt(string $value)
+ * @method $this  setUpdatedAt(string $value)
  */
 class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
 {
@@ -125,8 +125,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
      *
      * @deprecated after 1.4.1.0 - use Mage_CatalogSearch_Model_Resource_Advanced->_prepareCondition()
      *
-     * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
-     * @param string|array $value
+     * @param  Mage_Catalog_Model_Resource_Eav_Attribute $attribute
+     * @param  string|array                              $value
      * @return mixed
      */
     protected function _prepareCondition($attribute, $value)
@@ -137,8 +137,8 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Add advanced search filters to product collection
      *
-     * @param   array $values
-     * @return  $this
+     * @param  array $values
+     * @return $this
      */
     public function addFilters($values)
     {
@@ -219,9 +219,9 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Add data about search criteria to object state
      *
-     * @param   Mage_Eav_Model_Entity_Attribute $attribute
-     * @param   mixed $value
-     * @return  $this
+     * @param  Mage_Eav_Model_Entity_Attribute $attribute
+     * @param  mixed                           $value
+     * @return $this
      */
     protected function _addSearchCriteria($attribute, $value)
     {
@@ -315,7 +315,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     /**
      * Prepare product collection
      *
-     * @param Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
+     * @param  Mage_CatalogSearch_Model_Resource_Advanced_Collection $collection
      * @return $this
      * @throws Mage_Core_Model_Store_Exception
      */

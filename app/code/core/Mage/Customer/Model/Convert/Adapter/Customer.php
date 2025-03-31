@@ -111,7 +111,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * Retrieve store object by code
      *
-     * @param string $store
+     * @param  string                      $store
      * @return Mage_Core_Model_Store|false
      */
     public function getStoreByCode($store)
@@ -125,7 +125,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * Retrieve website model by code
      *
-     * @param string $websiteCode
+     * @param  string                        $websiteCode
      * @return Mage_Core_Model_Website|false
      */
     public function getWebsiteByCode($websiteCode)
@@ -139,7 +139,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                          $code
      * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
@@ -153,8 +153,8 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * Retrieve region id by country code and region name (if exists)
      *
-     * @param string $country
-     * @param string $regionName
+     * @param  string $country
+     * @param  string $regionName
      * @return int
      */
     public function getRegionId($country, $regionName)
@@ -217,7 +217,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
         //$this->setAddress(Mage::getModel('catalog/'))
 
         /**
-         * @var string $code
+         * @var string                         $code
          * @var Mage_Core_Model_Config_Element $node
          */
         foreach (Mage::getConfig()->getFieldset('customer_dataflow', 'admin') as $code => $node) {
@@ -413,7 +413,7 @@ class Mage_Customer_Model_Convert_Adapter_Customer extends Mage_Eav_Model_Conver
     /**
      * saveRow function for saving each customer data
      *
-     * @param array $importData
+     * @param  array $importData
      * @return $this
      */
     public function saveRow($importData)

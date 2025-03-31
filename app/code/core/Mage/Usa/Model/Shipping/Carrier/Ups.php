@@ -286,7 +286,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
      * Checks the current weight to comply with the minimum weight standards set by the carrier.
      * Then strictly rounds the weight up until the first significant digit after the decimal point.
      *
-     * @param float|int $weight
+     * @param  float|int $weight
      * @return float
      */
     protected function _getCorrectWeight($weight)
@@ -332,7 +332,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Set free method request
      *
-     * @param string $freeMethod
+     * @param  string $freeMethod
      * @return void
      */
     protected function _setFreeMethodRequest($freeMethod)
@@ -349,8 +349,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get shipment by code
      *
-     * @param string $code
-     * @param string $origin
+     * @param  string      $code
+     * @param  string      $origin
      * @return array|false
      */
     public function getShipmentByCode($code, $origin = null)
@@ -369,8 +369,8 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Get configuration data of carrier
      *
-     * @param string $type
-     * @param string $code
+     * @param  string      $type
+     * @param  string      $code
      * @return array|false
      */
     public function getCode($type, $code = '')
@@ -690,7 +690,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
         $r = $this->_rawRequest;
         $params = $this->setQuoteRequestData($r);
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
 <?xml version="1.0"?>
 <RatingServiceSelectionRequest xml:lang="en-US">
   <Request>
@@ -707,7 +707,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
   </PickupType>
 
   <Shipment>
-XMLRequest;
+EOD;
 
         if ($params['serviceCode'] !== null) {
             $xmlRequest .= '<Service>' .
@@ -716,9 +716,9 @@ XMLRequest;
                 '</Service>';
         }
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
       <Shipper>
-XMLRequest;
+EOD;
 
         if ($this->getConfigFlag('negotiated_active') && ($shipper = $this->getConfigData('shipper_number'))) {
             $xmlRequest .= "<ShipperNumber>{$shipper}</ShipperNumber>";
@@ -736,7 +736,7 @@ XMLRequest;
             $shipperStateProvince = $params['origRegionCode'];
         }
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
       <Address>
           <City>{$shipperCity}</City>
           <PostalCode>{$shipperPostalCode}</PostalCode>
@@ -750,7 +750,7 @@ XMLRequest;
           <CountryCode>{$params['22_destCountry']}</CountryCode>
           <ResidentialAddress>{$params['49_residential']}</ResidentialAddress>
           <StateProvinceCode>{$params['destRegionCode']}</StateProvinceCode>
-XMLRequest;
+EOD;
 
         $xmlRequest .= (
             $params['49_residential'] === '01'
@@ -758,7 +758,7 @@ XMLRequest;
                 : ''
         );
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
       </Address>
     </ShipTo>
 
@@ -778,15 +778,15 @@ XMLRequest;
         <Weight>{$params['23_weight']}</Weight>
       </PackageWeight>
     </Package>
-XMLRequest;
+EOD;
         if ($this->getConfigFlag('negotiated_active')) {
             $xmlRequest .= '<RateInformation><NegotiatedRatesIndicator/></RateInformation>';
         }
 
-        $xmlRequest .= <<< XMLRequest
+        $xmlRequest .= <<< EOD
   </Shipment>
 </RatingServiceSelectionRequest>
-XMLRequest;
+EOD;
 
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
         if ($xmlResponse === null) {
@@ -817,7 +817,7 @@ XMLRequest;
     /**
      * Get base currency rate
      *
-     * @param string $code
+     * @param  string $code
      * @return double
      */
     protected function _getBaseCurrencyRate($code)
@@ -834,7 +834,7 @@ XMLRequest;
     /**
      * Prepare shipping rate result based on response
      *
-     * @param mixed $xmlResponse
+     * @param  mixed                           $xmlResponse
      * @return Mage_Shipping_Model_Rate_Result
      */
     protected function _parseXmlResponse($xmlResponse)
@@ -929,7 +929,7 @@ XMLRequest;
     /**
      * Get tracking
      *
-     * @param mixed $trackings
+     * @param  mixed                                    $trackings
      * @return Mage_Shipping_Model_Tracking_Result|null
      */
     public function getTracking($trackings)
@@ -959,20 +959,20 @@ XMLRequest;
         $userIdPass = $this->getConfigData('password');
         $accessKey  = $this->getConfigData('access_license_number');
 
-        $this->_xmlAccessRequest =  <<<XMLAuth
+        $this->_xmlAccessRequest =  <<<EOD
 <?xml version="1.0"?>
 <AccessRequest xml:lang="en-US">
   <AccessLicenseNumber>$accessKey</AccessLicenseNumber>
   <UserId>$userId</UserId>
   <Password>$userIdPass</Password>
 </AccessRequest>
-XMLAuth;
+EOD;
     }
 
     /**
      * Get xml tracking
      *
-     * @param array $trackings
+     * @param  array                                    $trackings
      * @return Mage_Shipping_Model_Tracking_Result|null
      */
     protected function _getXmlTracking($trackings)
@@ -992,7 +992,7 @@ XMLAuth;
             /*
             * RequestOption==>'activity' or '1' to request all activities
             */
-            $xmlRequest .=  <<<XMLAuth
+            $xmlRequest .=  <<<EOD
 <?xml version="1.0" ?>
 <TrackRequest xml:lang="en-US">
     <Request>
@@ -1002,7 +1002,7 @@ XMLAuth;
     <TrackingNumber>$tracking</TrackingNumber>
     <IncludeFreight>01</IncludeFreight>
 </TrackRequest>
-XMLAuth;
+EOD;
             $debugData = ['request' => $xmlRequest];
 
             $ch = curl_init();
@@ -1031,8 +1031,8 @@ XMLAuth;
     /**
      * Parse xml tracking response
      *
-     * @param string $trackingvalue
-     * @param string $xmlResponse
+     * @param  string $trackingvalue
+     * @param  string $xmlResponse
      * @return void
      */
     protected function _parseXmlTrackingResponse($trackingvalue, $xmlResponse)
@@ -1123,7 +1123,7 @@ XMLAuth;
     /**
      * Get REST tracking
      *
-     * @param string[] $trackings
+     * @param  string[]                                 $trackings
      * @return Mage_Shipping_Model_Tracking_Result|null
      */
     protected function _getRestTracking($trackings)
@@ -1191,8 +1191,8 @@ XMLAuth;
     /**
      * Parse REST tracking response
      *
-     * @param string $trackingValue
-     * @param string $jsonResponse
+     * @param  string $trackingValue
+     * @param  string $jsonResponse
      * @return void
      */
     protected function _parseRestTrackingResponse($trackingValue, $jsonResponse)
@@ -1263,7 +1263,7 @@ XMLAuth;
     /**
      * Set Tracking Response Data
      *
-     * @param array $resultArr
+     * @param array  $resultArr
      * @param string $trackingValue
      * @param string $errorTitle
      */
@@ -1722,9 +1722,9 @@ XMLAuth;
     /**
      * Return country code according to UPS
      *
-     * @param string $countryCode
-     * @param string $regionCode
-     * @param string $postCode
+     * @param  string $countryCode
+     * @param  string $regionCode
+     * @param  string $postCode
      * @return string
      */
     private function getNormalizedCountryCode($countryCode, $regionCode, $postCode)
@@ -2135,7 +2135,7 @@ XMLAuth;
      * Get delivery confirmation level based on origin/destination
      * Return null if delivery confirmation is not acceptable
      *
-     * @param string $countyDest
+     * @param  string   $countyDest
      * @return int|null
      */
     protected function _getDeliveryConfirmationLevel($countyDest = null)

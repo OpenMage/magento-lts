@@ -41,7 +41,7 @@ class Mage_Sales_Model_Resource_Order_Invoice_Comment_Collection extends Mage_Sa
     /**
      * Set invoice filter
      *
-     * @param int $invoiceId
+     * @param  int   $invoiceId
      * @return $this
      */
     public function setInvoiceFilter($invoiceId)

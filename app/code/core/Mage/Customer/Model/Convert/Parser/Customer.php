@@ -142,7 +142,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     }
 
     /**
-     * @param int $storeId
+     * @param  int                        $storeId
      * @return Mage_Core_Model_Store|bool
      */
     public function getStoreById($storeId)
@@ -156,7 +156,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Retrieve website model by id
      *
-     * @param int $websiteId
+     * @param  int                           $websiteId
      * @return Mage_Core_Model_Website|false
      */
     public function getWebsiteById($websiteId)
@@ -170,7 +170,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Retrieve eav entity attribute model
      *
-     * @param string $code
+     * @param  string                          $code
      * @return Mage_Eav_Model_Entity_Attribute
      */
     public function getAttribute($code)
@@ -193,7 +193,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     }
 
     /**
-     * @param int $storeId
+     * @param  int                                              $storeId
      * @return Mage_Customer_Model_Resource_Customer_Collection
      */
     public function getCollection($storeId)
@@ -417,7 +417,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
     /**
      * Gets group code by customer's groupId
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return string|null
      */
     protected function _getCustomerGroupCode($customer)

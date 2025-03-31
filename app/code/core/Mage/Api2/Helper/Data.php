@@ -43,8 +43,8 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Compare order to be used in adapters list sort
      *
-     * @param array $a
-     * @param array $b
+     * @param  array $a
+     * @param  array $b
      * @return int
      */
     protected static function _compareOrder($a, $b)
@@ -55,7 +55,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve Auth adapters info from configuration file as array
      *
-     * @param bool $enabledOnly
+     * @param  bool  $enabledOnly
      * @return array
      */
     public function getAuthAdapters($enabledOnly = false)
@@ -123,7 +123,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check API type support
      *
-     * @param string $type
+     * @param  string $type
      * @return bool
      */
     public function isApiTypeSupported($type)
@@ -134,9 +134,9 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get allowed attributes of a rule
      *
-     * @param string $userType
-     * @param string $resourceId
-     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
+     * @param  string                                          $userType
+     * @param  string                                          $resourceId
+     * @param  Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
      * @return array
      */
     public function getAllowedAttributes($userType, $resourceId, $operation)
@@ -152,7 +152,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if ALL attributes are allowed
      *
-     * @param string $userType
+     * @param  string $userType
      * @return bool
      */
     public function isAllAttributesAllowed($userType)
@@ -166,7 +166,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get operation type for specified operation
      *
-     * @param Mage_Api2_Model_Resource::OPERATION_* $operation
+     * @param  Mage_Api2_Model_Resource::OPERATION_*           $operation
      * @return Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_*
      * @throws Exception
      */

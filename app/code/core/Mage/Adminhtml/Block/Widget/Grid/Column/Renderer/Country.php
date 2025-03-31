@@ -25,7 +25,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Country extends Mage_Admi
     /**
      * Render country grid column
      *
-     * @return  string|null
+     * @return string|null
      */
     public function render(Varien_Object $row)
     {

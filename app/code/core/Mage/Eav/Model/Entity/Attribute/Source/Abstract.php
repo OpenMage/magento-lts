@@ -39,7 +39,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Set attribute instance
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
+     * @param  Mage_Eav_Model_Entity_Attribute_Abstract $attribute
      * @return $this
      */
     public function setAttribute($attribute)
@@ -61,7 +61,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Get a text for option value
      *
-     * @param  string|int $value
+     * @param  string|int  $value
      * @return string|bool
      */
     public function getOptionText($value)
@@ -79,7 +79,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     }
 
     /**
-     * @param string $value
+     * @param  string      $value
      * @return string|null
      */
     public function getOptionId($value)
@@ -105,8 +105,8 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Add Value Sort To Collection Select
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $collection
-     * @param string $dir direction
+     * @param  Mage_Eav_Model_Entity_Collection_Abstract $collection
+     * @param  string                                    $dir        direction
      * @return $this
      */
     public function addValueSortToCollection($collection, $dir = Varien_Data_Collection::SORT_ORDER_DESC)
@@ -137,7 +137,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Retrieve Select For Flat Attribute update
      *
-     * @param int $store
+     * @param  int                   $store
      * @return Varien_Db_Select|null
      */
     public function getFlatUpdateSelect($store)
@@ -148,7 +148,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
     /**
      * Get a text for index option value
      *
-     * @param string|int $value
+     * @param  string|int  $value
      * @return string|bool
      */
     public function getIndexOptionText($value)

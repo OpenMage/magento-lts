@@ -18,7 +18,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  *
- * @method bool getNoSecret()
+ * @method bool  getNoSecret()
  * @method $this setNoSecret(bool $value)
  */
 class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
@@ -45,6 +45,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
      * Force strip secret key param if _nosecret param specified
      *
      * @return Mage_Core_Model_Url
+     * @param  mixed               $unsetOldParams
      */
     public function setRouteParams(array $data, $unsetOldParams = true)
     {
@@ -61,8 +62,8 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Custom logic to retrieve Urls
      *
-     * @param string $routePath
-     * @param array $routeParams
+     * @param  string $routePath
+     * @param  array  $routeParams
      * @return string
      */
     public function getUrl($routePath = null, $routeParams = null)
@@ -102,8 +103,8 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
     /**
      * Generate secret key for controller and action based on form key
      *
-     * @param string $controller Controller name
-     * @param string $action Action name
+     * @param  string $controller Controller name
+     * @param  string $action     Action name
      * @return string
      */
     public function getSecretKey($controller = null, $action = null)

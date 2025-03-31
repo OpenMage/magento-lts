@@ -34,7 +34,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Replacing popularity by sum of popularity and base_popularity
      *
-     * @param int $storeId
+     * @param  int   $storeId
      * @return $this
      */
     public function joinFields($storeId = 0)
@@ -59,7 +59,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Add filter by specified tag status
      *
-     * @param string $statusCode
+     * @param  string $statusCode
      * @return $this
      */
     public function addStatusFilter($statusCode)
@@ -71,8 +71,8 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Loads collection
      *
-     * @param bool $printQuery
-     * @param bool $logQuery
+     * @param  bool  $printQuery
+     * @param  bool  $logQuery
      * @return $this
      */
     public function load($printQuery = false, $logQuery = false)
@@ -87,7 +87,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
     /**
      * Sets limit
      *
-     * @param int $limit
+     * @param  int   $limit
      * @return $this
      */
     public function limit($limit)

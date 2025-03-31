@@ -22,13 +22,13 @@
  *
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav _getResource()
  * @method Mage_CatalogIndex_Model_Resource_Indexer_Eav getResource()
- * @method $this setEntityId(int $value)
- * @method int getAttributeId()
- * @method $this setAttributeId(int $value)
- * @method int getStoreId()
- * @method $this setStoreId(int $value)
- * @method int getValue()
- * @method $this setValue(int $value)
+ * @method $this                                        setEntityId(int $value)
+ * @method int                                          getAttributeId()
+ * @method $this                                        setAttributeId(int $value)
+ * @method int                                          getStoreId()
+ * @method $this                                        setStoreId(int $value)
+ * @method int                                          getValue()
+ * @method $this                                        setValue(int $value)
  */
 class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexer_Abstract
 {

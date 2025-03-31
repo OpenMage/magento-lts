@@ -20,8 +20,8 @@
  *
  *
  * @method Mage_Sales_Model_Resource_Order_Abstract _getResource()
- * @method $this setTransactionId(int $value)
- * @method bool getForceUpdateGridRecords()
+ * @method $this                                    setTransactionId(int $value)
+ * @method bool                                     getForceUpdateGridRecords()
  */
 abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
 {

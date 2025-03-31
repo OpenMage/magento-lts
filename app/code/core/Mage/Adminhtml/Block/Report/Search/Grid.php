@@ -101,6 +101,7 @@ class Mage_Adminhtml_Block_Report_Search_Grid extends Mage_Adminhtml_Block_Widge
      * Retrieve Row Click callback URL
      *
      * @return string
+     * @param  mixed  $row
      */
     public function getRowUrl($row)
     {

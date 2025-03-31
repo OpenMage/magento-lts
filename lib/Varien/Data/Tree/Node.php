@@ -17,14 +17,14 @@
 /**
  * Data tree node
  *
- * @method int getLevel()
+ * @method int    getLevel()
  * @method string getClass()
  * @method string getPositionClass()
  * @method string getOutermostClass()
- * @method $this setOutermostClass(string $class)
- * @method $this setChildrenWrapClass(string $class)
- * @method bool getIsFirst()
- * @method bool getIsLast()
+ * @method $this  setOutermostClass(string $class)
+ * @method $this  setChildrenWrapClass(string $class)
+ * @method bool   getIsFirst()
+ * @method bool   getIsLast()
  *
  * @category   Varien
  * @package    Varien_Data
@@ -62,9 +62,9 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Data tree node constructor
      *
-     * @param array $data
-     * @param string $idFeild
-     * @param Varien_Data_Tree $tree
+     * @param array                 $data
+     * @param string                $idFeild
+     * @param Varien_Data_Tree      $tree
      * @param Varien_Data_Tree_Node $parent
      */
     public function __construct($data, $idFeild, $tree, $parent = null)
@@ -89,8 +89,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Set node id field name
      *
-     * @param   string $idField
-     * @return  $this
+     * @param  string $idField
+     * @return $this
      */
     public function setIdField($idField)
     {
@@ -111,7 +111,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Set node tree object
      *
-     * @return  $this
+     * @return $this
      */
     public function setTree(Varien_Data_Tree $tree)
     {
@@ -132,8 +132,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Set node parent
      *
-     * @param   Varien_Data_Tree_Node $parent
-     * @return  Varien_Data_Tree_Node
+     * @param  Varien_Data_Tree_Node $parent
+     * @return Varien_Data_Tree_Node
      */
     public function setParent($parent)
     {
@@ -162,7 +162,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param int $level
+     * @param  int   $level
      * @return $this
      */
     public function setLevel($level)
@@ -172,7 +172,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param int $path
+     * @param  int   $path
      * @return $this
      */
     public function setPathId($path)
@@ -190,8 +190,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Load node children
      *
-     * @param   int  $recursionLevel
-     * @return  Varien_Data_Tree_Node
+     * @param  int                   $recursionLevel
+     * @return Varien_Data_Tree_Node
      */
     public function loadChildren($recursionLevel = 0)
     {
@@ -210,7 +210,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param array $nodes
+     * @param  array                   $nodes
      * @return Varien_Data_Tree_Node[]
      */
     public function getAllChildNodes(&$nodes = [])
@@ -233,8 +233,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     /**
      * Add child node
      *
-     * @param   Varien_Data_Tree_Node $node
-     * @return  Varien_Data_Tree_Node
+     * @param  Varien_Data_Tree_Node $node
+     * @return Varien_Data_Tree_Node
      */
     public function addChild($node)
     {
@@ -243,7 +243,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param  Varien_Data_Tree_Node|null $prevNode
      * @return $this
      */
     public function appendChild($prevNode = null)
@@ -253,8 +253,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param  Varien_Data_Tree_Node      $parentNode
+     * @param  Varien_Data_Tree_Node|null $prevNode
      * @return $this
      */
     public function moveTo($parentNode, $prevNode = null)
@@ -264,8 +264,8 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param Varien_Data_Tree_Node $parentNode
-     * @param Varien_Data_Tree_Node|null $prevNode
+     * @param  Varien_Data_Tree_Node      $parentNode
+     * @param  Varien_Data_Tree_Node|null $prevNode
      * @return $this
      */
     public function copyTo($parentNode, $prevNode = null)
@@ -275,7 +275,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param Varien_Data_Tree_Node $childNode
+     * @param  Varien_Data_Tree_Node $childNode
      * @return $this
      */
     public function removeChild($childNode)
@@ -285,7 +285,7 @@ class Varien_Data_Tree_Node extends Varien_Object
     }
 
     /**
-     * @param array $prevNodes
+     * @param  array $prevNodes
      * @return array
      */
     public function getPath(&$prevNodes = [])

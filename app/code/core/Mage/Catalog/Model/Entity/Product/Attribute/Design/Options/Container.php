@@ -32,7 +32,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
     /**
      * Get a text for option value
      *
-     * @param string|int $value
+     * @param  string|int   $value
      * @return string|false
      */
     public function getOptionText($value)

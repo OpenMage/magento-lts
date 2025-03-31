@@ -109,7 +109,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * Add mapping ids for front-end use
      *
-     * @param array $additionalButtons
+     * @param  array $additionalButtons
      * @return $this
      */
     protected function _addElementIdsMapping($additionalButtons = [])
@@ -224,7 +224,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * Get button unique id
      *
-     * @param string $suffix
+     * @param  string $suffix
      * @return string
      */
     public function getElementId($suffix)
@@ -235,7 +235,7 @@ abstract class Mage_Uploader_Block_Abstract extends Mage_Adminhtml_Block_Widget
     /**
      * Prepare actual elements ids from suffixes
      *
-     * @param array $targets $type => array($idsSuffixes)
+     * @param  array $targets $type => array($idsSuffixes)
      * @return array $type => array($htmlIds)
      */
     protected function _prepareElementsIds($targets)

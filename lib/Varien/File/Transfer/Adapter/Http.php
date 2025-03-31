@@ -101,7 +101,7 @@ class Varien_File_Transfer_Adapter_Http
     /**
      * Internal method to detect the mime type of a file
      *
-     * @param  array $value File infos
+     * @param  array       $value File infos
      * @return string|null Mime type of given file
      */
     protected function _detectMimeType($value)

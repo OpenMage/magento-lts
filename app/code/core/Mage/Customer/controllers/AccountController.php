@@ -396,7 +396,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Escape message text HTML.
      *
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     protected function _escapeHtml($text)
@@ -407,7 +407,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Validate customer data and return errors if they are
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return array
      */
     protected function _getCustomerErrors($customer)
@@ -437,7 +437,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get Customer Form Initialized Model
      *
-     * @param Mage_Customer_Model_Customer $customer
+     * @param  Mage_Customer_Model_Customer $customer
      * @return Mage_Customer_Model_Form
      */
     protected function _getCustomerForm($customer)
@@ -451,7 +451,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get Helper
      *
-     * @param string $path
+     * @param  string                    $path
      * @return Mage_Core_Helper_Abstract
      */
     protected function _getHelper($path)
@@ -485,8 +485,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Gets customer address
      *
-     * @param Mage_Customer_Model_Customer $customer
-     * @return array $errors
+     * @param  Mage_Customer_Model_Customer $customer
+     * @return array                        $errors
      */
     protected function _getErrorsOnCustomerAddress($customer)
     {
@@ -518,8 +518,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * @deprecated Use Mage::getModel() instead for PHPStan and IDE type hinting.
      * Get model by path
      *
-     * @param string $path
-     * @param array|null $arguments
+     * @param  string                         $path
+     * @param  array|null                     $arguments
      * @return false|Mage_Core_Model_Abstract
      */
     public function _getModel($path, $arguments = [])
@@ -530,7 +530,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get model from registry by path
      *
-     * @param string $path
+     * @param  string $path
      * @return mixed
      */
     protected function _getFromRegistry($path)
@@ -542,7 +542,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      * Add welcome message and send new account email.
      * Returns success URL
      *
-     * @param bool $isJustConfirmed
+     * @param  bool                            $isJustConfirmed
      * @return string
      * @throws Mage_Core_Model_Store_Exception
      * @throws Mage_Core_Exception
@@ -694,8 +694,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Get Url method
      *
-     * @param string $url
-     * @param array $params
+     * @param  string $url
+     * @param  array  $params
      * @return string
      */
     protected function _getUrl($url, $params = [])
@@ -912,8 +912,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Check if password reset token is valid
      *
-     * @param int $customerId
-     * @param string $resetPasswordLinkToken
+     * @param  int                 $customerId
+     * @param  string              $resetPasswordLinkToken
      * @throws Mage_Core_Exception
      */
     protected function _validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken)
@@ -1074,7 +1074,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Filtering posted data. Converting localized data if needed
      *
-     * @param array $data
+     * @param  array $data
      * @return array
      */
     protected function _filterPostData($data)
@@ -1085,7 +1085,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Check whether VAT ID validation is enabled
      *
-     * @param Mage_Core_Model_Store|string|int $store
+     * @param  Mage_Core_Model_Store|string|int $store
      * @return bool
      */
     protected function _isVatValidationEnabled($store = null)
@@ -1111,7 +1111,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     /**
      * Save restore password params to session.
      *
-     * @param int $customerId
+     * @param  int    $customerId
      * @param  string $resetPasswordLinkToken
      * @return $this
      */

@@ -120,7 +120,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
     /**
      * Cancel order, return quote to customer
      *
-     * @param string $errorMsg
+     * @param  string      $errorMsg
      * @return bool|string
      */
     protected function _cancelPayment($errorMsg = '')

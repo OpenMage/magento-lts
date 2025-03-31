@@ -81,7 +81,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     /**
      * Set first store flag
      *
-     * @param bool $flag
+     * @param  bool  $flag
      * @return $this
      */
     public function setFirstStoreFlag($flag = false)
@@ -129,8 +129,8 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
     /**
      * Add filter by store
      *
-     * @param int|Mage_Core_Model_Store $store
-     * @param bool $withAdmin
+     * @param  int|Mage_Core_Model_Store $store
+     * @param  bool                      $withAdmin
      * @return $this
      */
     public function addStoreFilter($store, $withAdmin = true)

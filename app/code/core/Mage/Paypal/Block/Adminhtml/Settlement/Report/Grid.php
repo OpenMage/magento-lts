@@ -123,6 +123,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
     /**
      * Return item view URL
      * @return string
+     * @param  mixed  $item
      */
     public function getRowUrl($item)
     {

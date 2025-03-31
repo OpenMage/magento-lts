@@ -34,8 +34,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     /**
      * Save configurable product relations
      *
-     * @param Mage_Catalog_Model_Product $mainProduct the parent id
-     * @param array $productIds the children id array
+     * @param  Mage_Catalog_Model_Product $mainProduct the parent id
+     * @param  array                      $productIds  the children id array
      * @return $this
      */
     public function saveProducts($mainProduct, $productIds)
@@ -89,8 +89,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
      *   group => array(ids)
      * )
      *
-     * @param int $parentId
-     * @param bool $required
+     * @param  int   $parentId
+     * @param  bool  $required
      * @return array
      */
     public function getChildrenIds($parentId, $required = true)
@@ -116,7 +116,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     /**
      * Retrieve parent ids array by requered child
      *
-     * @param int|array $childId
+     * @param  int|array $childId
      * @return array
      */
     public function getParentIdsByChild($childId)
@@ -136,8 +136,8 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
     /**
      * Collect product options with values according to the product instance and attributes, that were received
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array $attributes
+     * @param  Mage_Catalog_Model_Product $product
+     * @param  array                      $attributes
      * @return array
      */
     public function getConfigurableOptions($product, $attributes)

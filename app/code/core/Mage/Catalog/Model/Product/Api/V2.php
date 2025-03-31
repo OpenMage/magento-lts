@@ -25,10 +25,10 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     /**
      * Retrieve product info
      *
-     * @param int|string $productId
-     * @param string|int $store
-     * @param stdClass   $attributes
-     * @param string     $identifierType
+     * @param  int|string $productId
+     * @param  string|int $store
+     * @param  stdClass   $attributes
+     * @param  string     $identifierType
      * @return array
      */
     public function info($productId, $store = null, $attributes = null, $identifierType = null)
@@ -88,11 +88,11 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     /**
      * Create new product.
      *
-     * @param string $type
-     * @param int $set
-     * @param string $sku
-     * @param array|stdClass $productData
-     * @param string $store
+     * @param  string         $type
+     * @param  int            $set
+     * @param  string         $sku
+     * @param  array|stdClass $productData
+     * @param  string         $store
      * @return int
      */
     public function create($type, $set, $sku, $productData, $store = null)
@@ -151,10 +151,10 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     /**
      * Update product data
      *
-     * @param int|string $productId
-     * @param array|stdClass $productData
-     * @param string|int $store
-     * @param string|null $identifierType
+     * @param  int|string                      $productId
+     * @param  array|stdClass                  $productData
+     * @param  string|int                      $store
+     * @param  string|null                     $identifierType
      * @return bool
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
@@ -194,10 +194,10 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     /**
      * Update multiple products information at once
      *
-     * @param array      $productIds
-     * @param array      $productData
-     * @param string|int $store
-     * @param string     $identifierType
+     * @param  array      $productIds
+     * @param  array      $productData
+     * @param  string|int $store
+     * @param  string     $identifierType
      * @return true|void
      */
     public function multiUpdate($productIds, $productData, $store = null, $identifierType = null)
@@ -227,8 +227,8 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     /**
      *  Set additional data before product saved
      *
-     * @param Mage_Catalog_Model_Product $product
-     * @param array|stdClass $productData
+     * @param  Mage_Catalog_Model_Product      $product
+     * @param  array|stdClass                  $productData
      * @throws Mage_Api_Exception
      * @throws Mage_Core_Model_Store_Exception
      */
@@ -315,13 +315,13 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
     /**
      * Update product special priceim
      *
-     * @param int|string $productId
-     * @param float $specialPrice
-     * @param string $fromDate
-     * @param string $toDate
-     * @param string|int $store
-     * @param string $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
-     *                                        otherwise - try to determine identifier type automatically
+     * @param  int|string $productId
+     * @param  float      $specialPrice
+     * @param  string     $fromDate
+     * @param  string     $toDate
+     * @param  string|int $store
+     * @param  string     $identifierType OPTIONAL If 'sku' - search product by SKU, if any except for NULL - search by ID,
+     *                                    otherwise - try to determine identifier type automatically
      * @return bool
      */
     public function setSpecialPrice(

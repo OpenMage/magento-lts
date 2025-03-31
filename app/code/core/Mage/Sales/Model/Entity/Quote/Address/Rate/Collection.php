@@ -28,7 +28,7 @@ class Mage_Sales_Model_Entity_Quote_Address_Rate_Collection extends Mage_Eav_Mod
     }
 
     /**
-     * @param int $addressId
+     * @param  int   $addressId
      * @return $this
      */
     public function setAddressFilter($addressId)

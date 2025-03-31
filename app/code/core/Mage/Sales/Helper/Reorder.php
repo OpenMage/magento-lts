@@ -37,7 +37,7 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
     /**
      * Check if reorder is allowed for given store
      *
-     * @param Mage_Core_Model_Store|int|null $store
+     * @param  Mage_Core_Model_Store|int|null $store
      * @return bool
      */
     public function isAllowed($store = null)

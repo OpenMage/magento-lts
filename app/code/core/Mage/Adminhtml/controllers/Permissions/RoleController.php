@@ -58,6 +58,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
      * Initialize role model by passed parameter in request
      *
      * @return Mage_Admin_Model_Roles
+     * @param  mixed                  $requestVariable
      */
     protected function _initRole($requestVariable = 'rid')
     {
@@ -264,8 +265,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     /**
      * Remove user from role
      *
-     * @param int $userId
-     * @param int $roleId
+     * @param  int  $userId
+     * @param  int  $roleId
      * @return true
      */
     protected function _deleteUserFromRole($userId, $roleId)
@@ -284,8 +285,8 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
     /**
      * Assign user to role
      *
-     * @param int $userId
-     * @param int $roleId
+     * @param  int  $userId
+     * @param  int  $roleId
      * @return bool
      */
     protected function _addUserToRole($userId, $roleId)

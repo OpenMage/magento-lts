@@ -38,10 +38,10 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
     /**
      * Add renderer for item product type
      *
-     * @param   string $productType
-     * @param   string $blockType
-     * @param   string $template
-     * @return  Mage_Checkout_Block_Cart_Abstract
+     * @param  string                            $productType
+     * @param  string                            $blockType
+     * @param  string                            $template
+     * @return Mage_Checkout_Block_Cart_Abstract
      */
     public function addItemRender($productType, $blockType, $template)
     {
@@ -58,8 +58,8 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
      *
      * @deprecated please use getItemRendererInfo() method instead
      * @see getItemRendererInfo()
-     * @param   string $type
-     * @return  array
+     * @param  string $type
+     * @return array
      */
     public function getItemRender($type)
     {
@@ -69,8 +69,8 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
     /**
      * Get renderer information by product type code
      *
-     * @param   string $type
-     * @return  array
+     * @param  string $type
+     * @return array
      */
     public function getItemRendererInfo($type)
     {
@@ -80,8 +80,8 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
     /**
      * Get renderer block instance by product type code
      *
-     * @param   string $type
-     * @return  array
+     * @param  string $type
+     * @return array
      */
     public function getItemRenderer($type)
     {
@@ -150,7 +150,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
     /**
      * Get item row html
      *
-     * @return  string
+     * @return string
      */
     public function getItemHtml(Mage_Sales_Model_Quote_Item $item)
     {
