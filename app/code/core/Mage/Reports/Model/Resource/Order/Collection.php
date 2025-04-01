@@ -341,22 +341,19 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+            case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+            case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
                 $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
+                if ($range === Mage_Reports_Helper_Data::PERIOD_3_MONTHS) {
+                    $dateStart->subMonth(2);
+                } elseif ($range === Mage_Reports_Helper_Data::PERIOD_6_MONTHS) {
+                    $dateStart->subMonth(5);
+                }
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
                 $dateStart = $customStart ?: $dateEnd;
                 $dateEnd   = $customEnd ?: $dateEnd;
-                break;
-
-            case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
-                $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
-                $dateStart->subMonth(2);
-                break;
-
-            case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
-                $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
-                $dateStart->subMonth(5);
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
