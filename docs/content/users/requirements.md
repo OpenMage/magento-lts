@@ -16,7 +16,7 @@ tags:
 
 
 - PHP extension `intl`[^1]
-- Command `patch` 2.7+ (or `gpatch` on macOS/HomeBrew)[^2]
+- Command `patch` 2.7+ (or `gpatch` on macOS/Homebrew)[^2]
 
 [^1]: since 1.9.4.19 & 20.0.17
 [^2]: since 1.9.5.0 & 20.1.0
