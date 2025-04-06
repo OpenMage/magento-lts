@@ -1237,12 +1237,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Product/Price.php
 
 		-
-			message: '#^Parameter \#4 \$selectionQty of method Mage_Bundle_Model_Product_Price\:\:getSelectionFinalTotalPrice\(\) expects float, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Product/Price.php
-
-		-
 			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -1265,18 +1259,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Bundle/Model/Product/Type.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Bundle/Model/Resource/Indexer/Price.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Bundle/Model/Resource/Indexer/Stock.php
 
 		-
 			message: '#^Parameter \#1 \$selection of method Mage_Bundle_Model_Option\:\:addSelection\(\) expects Mage_Bundle_Model_Selection, Mage_Catalog_Model_Product given\.$#'
@@ -2053,24 +2035,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Abstract.php
 
 		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Abstract.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Decimal.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Eav/Source.php
-
-		-
 			message: '#^Call to an undefined method Mage_Catalog_Model_Resource_Product_Indexer_Price_Interface\:\:getIsComposite\(\)\.$#'
 			identifier: method.notFound
 			count: 2
@@ -2081,24 +2045,6 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price/Configurable.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price/Default.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Product/Indexer/Price/Grouped.php
 
 		-
 			message: '#^Parameter \#2 \$alias of method Varien_Db_Adapter_Interface\:\:quoteColumnAs\(\) expects string, null given\.$#'
@@ -2117,12 +2063,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Product/Option.php
-
-		-
-			message: '#^Parameter \#3 \$default of method Mage_Eav_Model_Entity_Setup\:\:_getValue\(\) expects string\|null, int given\.$#'
-			identifier: argument.type
-			count: 15
-			path: app/code/core/Mage/Catalog/Model/Resource/Setup.php
 
 		-
 			message: '#^Loose comparison using \=\= between true and true will always evaluate to true\.$#'
@@ -2815,18 +2755,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Resource.php
 
 		-
-			message: '#^Method Mage_Core_Model_Resource\:\:_getDefaultConnection\(\) should return string but returns Varien_Db_Adapter_Interface\|false\.$#'
-			identifier: return.type
-			count: 2
-			path: app/code/core/Mage/Core/Model/Resource.php
-
-		-
-			message: '#^Method Mage_Core_Model_Resource\:\:getConnection\(\) should return Varien_Db_Adapter_Interface\|false but returns string\.$#'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource.php
-
-		-
 			message: '#^Parameter \#1 \$adapter of method Varien_Db_Adapter_Interface\:\:setCacheAdapter\(\) expects Zend_Cache_Backend_Interface, Zend_Cache_Core given\.$#'
 			identifier: argument.type
 			count: 2
@@ -2925,12 +2853,6 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$hook of method Varien_Db_Adapter_Pdo_Mysql\:\:setQueryHook\(\) expects array, null given\.$#'
 			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Core/Model/Resource/Setup.php
-
-		-
-			message: '#^Property Mage_Core_Model_Resource_Setup\:\:\$_conn \(Varien_Db_Adapter_Pdo_Mysql\) does not accept Varien_Db_Adapter_Interface\|false\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Core/Model/Resource/Setup.php
 
@@ -3173,12 +3095,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Customer/Model/Resource/Form/Attribute/Collection.php
-
-		-
-			message: '#^Parameter \#3 \$default of method Mage_Eav_Model_Entity_Setup\:\:_getValue\(\) expects string\|null, int given\.$#'
-			identifier: argument.type
-			count: 4
-			path: app/code/core/Mage/Customer/Model/Resource/Setup.php
 
 		-
 			message: '#^Parameter \#1 \$url of method Mage_Core_Controller_Response_Http\:\:setRedirect\(\) expects string, bool given\.$#'
@@ -3595,61 +3511,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Entity/Collection/Abstract.php
 
 		-
-			message: '#^Argument of an invalid type string supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Binary operation "\+" between string and 10 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Call to an undefined method Varien_Db_Adapter_Interface\:\:lastInsertId\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
 			message: '#^Parameter \#1 \$code of method Mage_Eav_Model_Entity_Setup\:\:updateEntityType\(\) expects string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Parameter \#2 \$field of method Mage_Eav_Model_Entity_Setup\:\:updateEntityType\(\) expects string, array\<string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Parameter \#3 \$default of method Mage_Eav_Model_Entity_Setup\:\:_getValue\(\) expects string\|null, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Parameter \#3 \$default of method Mage_Eav_Model_Entity_Setup\:\:_getValue\(\) expects string\|null, false given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Parameter \#3 \$default of method Mage_Eav_Model_Entity_Setup\:\:_getValue\(\) expects string\|null, int given\.$#'
-			identifier: argument.type
-			count: 7
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Parameter \#3 \$field of method Mage_Eav_Model_Entity_Setup\:\:updateAttribute\(\) expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
@@ -3658,12 +3520,6 @@ parameters:
 			message: '#^Parameter \#3 \$value of method Mage_Eav_Model_Entity_Setup\:\:updateEntityType\(\) expects string\|null, int given\.$#'
 			identifier: argument.type
 			count: 1
-			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
-
-		-
-			message: '#^Variable \$connection might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
 			path: app/code/core/Mage/Eav/Model/Entity/Setup.php
 
 		-
@@ -3823,18 +3679,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Lock.php
 
 		-
-			message: '#^Method Mage_Core_Model_Resource\:\:getConnection\(\) invoked with 2 parameters, 1 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
-			message: '#^Property Mage_Index_Model_Lock_Storage_Db\:\:\$_helper \(Mage_Index_Model_Resource_Helper_Mysql4\) does not accept Mage_Core_Model_Resource_Helper_Abstract\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Index/Model/Lock/Storage/Db.php
-
-		-
 			message: '#^Call to function is_array\(\) with '''' will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -3845,18 +3689,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
-
-		-
-			message: '#^Return type \(Varien_Db_Adapter_Interface\|false\) of method Mage_Index_Model_Resource_Lock_Resource\:\:_getDefaultConnection\(\) should be compatible with return type \(string\) of method Mage_Core_Model_Resource\:\:_getDefaultConnection\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
-
-		-
-			message: '#^Return type \(void\) of method Mage_Index_Model_Resource_Setup\:\:applyUpdates\(\) should be compatible with return type \(\$this\(Mage_Core_Model_Resource_Setup\)\|true\) of method Mage_Core_Model_Resource_Setup\:\:applyUpdates\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Index/Model/Resource/Setup.php
 
 		-
 			message: '#^Offset ''path'' does not exist on array\{\000\*\000_parent\: Varien_Simplexml_Element\}\|array\{false\}\.$#'
@@ -4891,12 +4723,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
 
 		-
-			message: '#^Call to an undefined method Varien_Db_Adapter_Interface\:\:listTables\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Setup.php
-
-		-
 			message: '#^Call to an undefined method Mage_Payment_Model_Recurring_Profile\:\:submit\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -5069,12 +4895,6 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: app/code/core/Mage/Tag/Model/Entity/Customer/Collection.php
-
-		-
-			message: '#^Parameter \#5 \$condition of method Mage_Catalog_Model_Resource_Product_Indexer_Abstract\:\:_addAttributeToSelect\(\) expects Zend_Db_Expr\|null, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: app/code/core/Mage/Tag/Model/Resource/Indexer/Summary.php
 
 		-
 			message: '#^Parameter \#1 \$model of method Mage_Tag_Model_Resource_Tag\:\:loadByName\(\) expects Mage_Tag_Model_Tag, Varien_Object given\.$#'
@@ -5479,70 +5299,10 @@ parameters:
 			path: app/code/core/Mage/Weee/Model/Total/Quote/Weee.php
 
 		-
-			message: '#^Method Mage_Widget_Block_Adminhtml_Widget_Chooser\:\:getConfig\(\) should return Varien_Object but returns mixed\.$#'
-			identifier: return.type
-			count: 2
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Chooser.php
-
-		-
-			message: '#^Parameter \#1 \$layoutHandles of method Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout\:\:_collectLayoutHandles\(\) expects Mage_Core_Model_Layout_Element, SimpleXMLElement given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Instance/Edit/Chooser/Layout.php
-
-		-
-			message: '#^Cannot call method toOptionArray\(\) on Mage_Core_Model_Abstract\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/code/core/Mage/Widget/Block/Adminhtml/Widget/Options.php
-
-		-
-			message: '#^Parameter \#1 \$widgetInstance of method Mage_Widget_Model_Resource_Widget_Instance\:\:_saveLayoutUpdates\(\) expects Mage_Widget_Model_Widget_Instance, Mage_Core_Model_Abstract given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Widget/Model/Resource/Widget/Instance.php
-
-		-
-			message: '#^Parameter \#1 \$item \(Mage_Wishlist_Model_Item\) of method Mage_Wishlist_Block_Share_Email_Items\:\:hasDescription\(\) should be compatible with parameter \$item \(Mage_Catalog_Model_Product\) of method Mage_Wishlist_Block_Abstract\:\:hasDescription\(\)$#'
-			identifier: method.childParameterType
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Share/Email/Items.php
-
-		-
-			message: '#^Parameter \#1 \$item of method Mage_Wishlist_Block_Abstract\:\:hasDescription\(\) expects Mage_Catalog_Model_Product, Mage_Wishlist_Model_Item given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Wishlist/Block/Share/Email/Items.php
-
-		-
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(mixed\)\: bool\)\|null, Closure\(mixed\)\: int\<0, max\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Wishlist/Controller/Abstract.php
-
-		-
-			message: '#^Method Mage_Wishlist_Helper_Data\:\:getCustomerName\(\) should return string\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: app/code/core/Mage/Wishlist/Helper/Data.php
-
-		-
-			message: '#^Parameter \#1 \$message of class Mage_Core_Exception constructor expects string, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Item.php
-
-		-
-			message: '#^Parameter \#1 \$collection of method Mage_Adminhtml_Helper_Sales\:\:applySalableProductTypesFilter\(\) expects Mage_Core_Model_Resource_Db_Collection_Abstract, Mage_Catalog_Model_Resource_Product_Collection given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Wishlist/Model/Resource/Item/Collection.php
-
-		-
-			message: '#^Parameter \#1 \$qty of method Mage_Wishlist_Model_Item\:\:setQty\(\) expects int, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Wishlist/controllers/IndexController.php
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Block_Abstract\:\:_getUsers\(\)\.$#'
@@ -6412,90 +6172,6 @@ parameters:
 			message: '#^Parameter \#1 \$array of function array_sum expects an array of values castable to number, list\<string\> given\.$#'
 			identifier: argument.type
 			count: 3
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_cdup expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_chdir expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 3
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_chmod expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 2
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_close expects FTP\\Connection, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_delete expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_fput expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_get expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_login expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_mkdir expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 2
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_nlist expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_pasv expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_put expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_raw expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mage/System/Ftp.php
-
-		-
-			message: '#^Parameter \#1 \$ftp of function ftp_rawlist expects FTP\\Connection, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
 			path: lib/Mage/System/Ftp.php
 
 		-

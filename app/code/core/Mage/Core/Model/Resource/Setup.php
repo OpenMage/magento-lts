@@ -71,7 +71,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Setup Connection
      *
-     * @var Varien_Db_Adapter_Pdo_Mysql
+     * @var Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql|Zend_Db_Adapter_Pdo_Abstract
      */
     protected $_conn;
     /**
@@ -140,7 +140,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get connection object
      *
-     * @return Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql
+     * @return Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql|Zend_Db_Adapter_Pdo_Abstract
      */
     public function getConnection()
     {

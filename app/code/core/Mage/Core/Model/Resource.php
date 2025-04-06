@@ -191,7 +191,7 @@ class Mage_Core_Model_Resource
      * Retrieve default connection name by required connection name
      *
      * @param string $requiredConnectionName
-     * @return string
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
