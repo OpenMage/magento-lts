@@ -635,14 +635,19 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 ]),
             ]);
 
+            if ($this->hasPasswordConfirmation()) {
+                $violations[] = $validator->validate($this->getPasswordConfirmation(), [
+                    new Assert\IdenticalTo([
+                        'value' => $password,
+                        'message' => Mage::helper('adminhtml')->__('Password confirmation must be same as password.'),
+                    ]),
+                ]);
+            }
+
             foreach ($violations as $violation) {
                 foreach ($violation as $error) {
                     $errors->append($error->getMessage());
                 }
-            }
-
-            if ($this->hasPasswordConfirmation() && $password != $this->getPasswordConfirmation()) {
-                $errors->append(Mage::helper('adminhtml')->__('Password confirmation must be same as password.'));
             }
 
             Mage::dispatchEvent('admin_user_validate', [

@@ -56,9 +56,22 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
             new Assert\NotBlank([
                 'message' => Mage::helper('adminhtml')->__('Block Name is required field.'),
             ]),
+            # @todo fix regex pattern
             new Assert\Regex([
                 'pattern' => self::BLOCK_NAME_REGEX,
                 'message' => Mage::helper('adminhtml')->__('Block Name is incorrect.'),
+            ]),
+            new Assert\Choice([
+                'choices' => Mage::helper('admin/block')->getDisallowedBlockNames(),
+                'match' => false,
+                'message' => Mage::helper('adminhtml')->__('Block Name is disallowed.'),
+            ]),
+        ]);
+
+        $violations[] = $validator->validate($this->getIsAllowed(), [
+            new Assert\Choice([
+                'choices' => ['0', '1'],
+                'message' => Mage::helper('adminhtml')->__('Is Allowed is required field.'),
             ]),
         ]);
 
@@ -66,15 +79,6 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
             foreach ($violation as $error) {
                 $errors->append($error->getMessage());
             }
-        }
-
-        $disallowedBlockNames = Mage::helper('admin/block')->getDisallowedBlockNames();
-        if (in_array($this->getBlockName(), $disallowedBlockNames)) {
-            $errors->append(Mage::helper('adminhtml')->__('Block Name is disallowed.'));
-        }
-
-        if (!in_array($this->getIsAllowed(), ['0', '1'])) {
-            $errors->append(Mage::helper('adminhtml')->__('Is Allowed is required field.'));
         }
 
         if (count($errors) === 0) {

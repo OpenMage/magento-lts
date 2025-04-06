@@ -1058,12 +1058,13 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             'message' => Mage::helper('customer')->__('The last name cannot be empty.'),
         ])]);
 
-        $violations[] = $validator->validate($this->getEmail(), [
+        $email = $this->getEmail();
+        $violations[] = $validator->validate($email, [
             new Assert\NotBlank([
-                'message' => Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail()),
+                'message' => Mage::helper('customer')->__('Invalid email address "%s".', $email),
             ]),
             new Assert\Email([
-                'message' => Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail()),
+                'message' => Mage::helper('customer')->__('Invalid email address "%s".', $email),
             ]),
         ]);
 
@@ -1084,31 +1085,43 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     'Please enter a password with at most %s characters.',
                     self::MAXIMUM_PASSWORD_LENGTH,
                 ),
+            ]),
+        ]);
+
+        $confirmation = $this->getPasswordConfirmation();
+        $violations[] = $validator->validate($confirmation, [
+            new Assert\IdenticalTo([
+                'value' => $password,
+                'message' => Mage::helper('customer')->__('Please make sure your passwords match.'),
+            ]),
+        ]);
+
+        $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
+        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'dob');
+        if ($attribute->getIsRequired()) {
+            $violations[] = $validator->validate(trim($this->getDob()), [new Assert\NotBlank([
+                'message' => Mage::helper('customer')->__('The Date of Birth is required.'),
             ])]);
+        }
+
+        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'taxvat');
+        if ($attribute->getIsRequired()) {
+            $violations[] = $validator->validate(trim($this->getTaxvat()), [new Assert\NotBlank([
+                'message' => Mage::helper('customer')->__('The TAX/VAT number is required.'),
+            ])]);
+        }
+
+        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'gender');
+        if ($attribute->getIsRequired()) {
+            $violations[] = $validator->validate(trim($this->getGender()), [new Assert\NotBlank([
+                'message' => Mage::helper('customer')->__('Gender is required.'),
+            ])]);
+        }
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
                 $errors->append($error->getMessage());
             }
-        }
-
-        $confirmation = $this->getPasswordConfirmation();
-        if ($password != $confirmation) {
-            $errors->append(Mage::helper('customer')->__('Please make sure your passwords match.'));
-        }
-
-        $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'dob');
-        if ($attribute->getIsRequired() && trim($this->getDob()) == '') {
-            $errors->append(Mage::helper('customer')->__('The Date of Birth is required.'));
-        }
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'taxvat');
-        if ($attribute->getIsRequired() && trim($this->getTaxvat()) == '') {
-            $errors->append(Mage::helper('customer')->__('The TAX/VAT number is required.'));
-        }
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'gender');
-        if ($attribute->getIsRequired() && trim($this->getGender()) == '') {
-            $errors->append(Mage::helper('customer')->__('Gender is required.'));
         }
 
         if (count($errors) === 0) {
@@ -1149,15 +1162,17 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             ]),
         ]);
 
+        $violations[] = $validator->validate($this->getPasswordConfirmation(), [
+            new Assert\IdenticalTo([
+                'value' => $password,
+                'message' => Mage::helper('customer')->__('Please make sure your passwords match.'),
+            ]),
+        ]);
+
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
                 $errors->append($error->getMessage());
             }
-        }
-
-        $confirmation = $this->getPasswordConfirmation();
-        if ($password != $confirmation) {
-            $errors->append(Mage::helper('customer')->__('Please make sure your passwords match.'));
         }
 
         if (count($errors) === 0) {

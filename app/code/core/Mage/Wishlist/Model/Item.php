@@ -231,7 +231,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      * Validate wish list item data
      *
      * @throws Mage_Core_Exception
-     * @return bool
+     * @return true
      */
     public function validate()
     {

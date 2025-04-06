@@ -396,12 +396,6 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             ]),
         ]);
 
-        foreach ($violations as $violation) {
-            foreach ($violation as $error) {
-                $errors->append($error->getMessage());
-            }
-        }
-
         if ($this->hasNewApiKey()) {
             $apiKey = $this->getNewApiKey();
         } elseif ($this->hasApiKey()) {
@@ -410,24 +404,41 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
         if (isset($apiKey)) {
             $minCustomerPasswordLength = $this->_getMinCustomerPasswordLength();
-            if (strlen($apiKey) < $minCustomerPasswordLength) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength));
-            }
+            $violations[] = $validator->validate($apiKey, [
+                new Assert\Length([
+                    'min' => $minCustomerPasswordLength,
+                    'minMessage' => $this->_getHelper('api')
+                        ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength),
+                ]),
+                new Assert\Regex([
+                    'pattern' => '/[a-z]/iu',
+                    'message' => $this->_getHelper('api')
+                        ->__('Api Key must include both numeric and alphabetic characters.'),
+                ]),
+                new Assert\Regex([
+                    'pattern' => '/[0-9]/u',
+                    'message' => $this->_getHelper('api')
+                        ->__('Api Key must include both numeric and alphabetic characters.'),
+                ]),
+            ]);
 
-            if (!preg_match('/[a-z]/iu', $apiKey) || !preg_match('/[0-9]/u', $apiKey)) {
-                $errors->append($this->_getHelper('api')
-                    ->__('Api Key must include both numeric and alphabetic characters.'));
-            }
-
-            if ($this->hasApiKeyConfirmation() && $apiKey != $this->getApiKeyConfirmation()) {
-                $errors->append($this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'));
+            if ($this->hasApiKeyConfirmation()) {
+                $violations[] = $validator->validate($apiKey, [new Assert\IdenticalTo([
+                    'value' => $this->getApiKeyConfirmation(),
+                    'message' => $this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'),
+                ])]);
             }
         }
 
-        if ($this->userExists()) {
-            $errors->append($this->_getHelper('api')
-                ->__('A user with the same user name or email already exists.'));
+        $violations[] = $validator->validate($this->userExists(), [new Assert\IsTrue([
+            'message' => $this->_getHelper('api')
+                ->__('A user with the same user name or email already exists.'),
+        ])]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
         if (count($errors) === 0) {
