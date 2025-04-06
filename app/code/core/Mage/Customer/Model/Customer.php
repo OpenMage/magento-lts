@@ -1097,22 +1097,20 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         ]);
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'dob');
-        if ($attribute->getIsRequired()) {
-            $violations[] = $validator->validate(trim($this->getDob()), [new Assert\NotBlank([
+
+        if ($this->shouldValidateDob($entityType)) {
+            $violations[] = $validator->validate(trim($this->getDob()), [new Assert\Date(), new Assert\NotBlank([
                 'message' => Mage::helper('customer')->__('The Date of Birth is required.'),
             ])]);
         }
 
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'taxvat');
-        if ($attribute->getIsRequired()) {
+        if ($this->shouldValidateTaxvat($entityType)) {
             $violations[] = $validator->validate(trim($this->getTaxvat()), [new Assert\NotBlank([
                 'message' => Mage::helper('customer')->__('The TAX/VAT number is required.'),
             ])]);
         }
 
-        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'gender');
-        if ($attribute->getIsRequired()) {
+        if ($this->shouldValidateGender($entityType)) {
             $violations[] = $validator->validate(trim($this->getGender()), [new Assert\NotBlank([
                 'message' => Mage::helper('customer')->__('Gender is required.'),
             ])]);
@@ -1724,5 +1722,38 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
         return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public function shouldValidateDob($entityType): bool
+    {
+        /** @var Mage_Customer_Model_Attribute $model */
+        $model = Mage::getModel('customer/attribute');
+        $attribute = $model->loadByCode($entityType, 'dob');
+        return $attribute->getIsRequired();
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public function shouldValidateGender($entityType): bool
+    {
+        /** @var Mage_Customer_Model_Attribute $model */
+        $model = Mage::getModel('customer/attribute');
+        $attribute = $model->loadByCode($entityType, 'gender');
+        return $attribute->getIsRequired();
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public function shouldValidateTaxvat($entityType): bool
+    {
+        /** @var Mage_Customer_Model_Attribute $model */
+        $model = Mage::getModel('customer/attribute');
+        $attribute = $model->loadByCode($entityType, 'taxvat');
+        return $attribute->getIsRequired();
     }
 }

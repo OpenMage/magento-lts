@@ -430,15 +430,15 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             }
         }
 
-        $violations[] = $validator->validate($this->userExists(), [new Assert\IsTrue([
-            'message' => $this->_getHelper('api')
-                ->__('A user with the same user name or email already exists.'),
-        ])]);
-
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
                 $errors->append($error->getMessage());
             }
+        }
+
+        if ($this->userExists()) {
+            $errors->append($this->_getHelper('api')
+                ->__('A user with the same user name or email already exists.'));
         }
 
         if (count($errors) === 0) {
