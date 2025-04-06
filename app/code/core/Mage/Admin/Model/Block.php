@@ -53,8 +53,13 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
         $errors     = new ArrayObject();
 
         $violations[] = $validator->validate($this->getBlockName(), [
-            new Assert\NotBlank(null, Mage::helper('adminhtml')->__('Block Name is required field.')),
-            new Assert\Regex(self::BLOCK_NAME_REGEX, Mage::helper('adminhtml')->__('Block Name is incorrect.')),
+            new Assert\NotBlank([
+                'message' => Mage::helper('adminhtml')->__('Block Name is required field.'),
+            ]),
+            new Assert\Regex([
+                'pattern' => self::BLOCK_NAME_REGEX,
+                'message' => Mage::helper('adminhtml')->__('Block Name is incorrect.'),
+            ]),
         ]);
 
         foreach ($violations as $violation) {

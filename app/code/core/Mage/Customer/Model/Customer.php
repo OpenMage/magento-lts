@@ -1058,9 +1058,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             'message' => Mage::helper('customer')->__('The last name cannot be empty.'),
         ])]);
 
-        $violations[] = $validator->validate($this->getEmail(), [new Assert\Email([
-            'message' => Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail()),
-        ])]);
+        $violations[] = $validator->validate($this->getEmail(), [
+            new Assert\NotBlank([
+                'message' => Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail()),
+            ]),
+            new Assert\Email([
+                'message' => Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail()),
+            ]),
+        ]);
 
         $password = $this->getPassword();
         $minPasswordLength = $this->getMinPasswordLength();

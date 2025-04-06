@@ -601,9 +601,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             'message' => Mage::helper('adminhtml')->__('Last Name is required field.'),
         ])]);
 
-        $violations[] = $validator->validate($this->getEmail(), [new Assert\Email([
-            'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
-        ])]);
+        $violations[] = $validator->validate($this->getEmail(), [
+            new Assert\NotBlank([
+                'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
+            ]),
+            new Assert\Email([
+                'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
+            ]),
+        ]);
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
@@ -626,7 +631,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 ]),
                 new Assert\Regex([
                     'pattern' => '/^(?=.*[a-z])(?=.*[0-9]).+$/iu',
-                    'message' => Mage::helper('adminhtml')->__('Password must include alphabetic characters.'),
+                    'message' => Mage::helper('adminhtml')->__('Password must include both numeric and alphabetic characters.'),
                 ]),
             ]);
 

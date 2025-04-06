@@ -616,7 +616,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins
             $validator = Validation::createValidator();
-            if ($validator->validate($email, new Assert\Email())->count() > 0) {
+            if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
                 $this->addRowError(self::ERROR_INVALID_EMAIL, $rowNum);
             } elseif (!isset($this->_websiteCodeToId[$website])) {
                 $this->addRowError(self::ERROR_INVALID_WEBSITE, $rowNum);

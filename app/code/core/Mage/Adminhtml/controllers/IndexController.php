@@ -224,7 +224,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 if (!empty($email)) {
                     // Validate received data to be an email address
                     $validator  = Validation::createValidator();
-                    if ($validator->validate($email, [new Assert\Email()])->count() === 0) {
+                    if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() === 0) {
                         $collection = Mage::getResourceModel('admin/user_collection');
                         /** @var Mage_Admin_Model_Resource_User_Collection $collection */
                         $collection->addFieldToFilter('email', $email);

@@ -747,7 +747,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             }
 
             $validator = Validation::createValidator();
-            if ($validator->validate($email, [new Assert\Email()])->count() > 0) {
+            if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
                 $this->_getSession()->setForgottenEmail($email);
                 $this->_getSession()->addError($this->__('Invalid email address.'));
                 $this->_redirect('*/*/forgotpassword');

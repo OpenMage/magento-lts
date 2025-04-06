@@ -82,7 +82,7 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                     $error = true;
                 } elseif ($validator->validate(trim($post['comment']), new Assert\Length(['min' => 1, 'max' => 2048]))->count() > 0) {
                     $error = true;
-                } elseif ($validator->validate(trim($post['email']), new Assert\Email())->count() > 0) {
+                } elseif ($validator->validate(trim($post['email']), [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
                     $error = true;
                 }
 

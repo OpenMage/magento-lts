@@ -387,9 +387,14 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
             'message' => Mage::helper('api')->__('Last Name is required field.'),
         ])]);
 
-        $violations[] = $validator->validate($this->getEmail(), [new Assert\Email([
-            'message' => Mage::helper('api')->__('Please enter a valid email.'),
-        ])]);
+        $violations[] = $validator->validate($this->getEmail(), [
+            new Assert\NotBlank([
+                'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
+            ]),
+            new Assert\Email([
+                'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
+            ]),
+        ]);
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
