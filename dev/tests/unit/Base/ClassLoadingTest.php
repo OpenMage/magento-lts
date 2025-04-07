@@ -27,15 +27,15 @@ class ClassLoadingTest extends TestCase
         return [
             'class exists #1' => [
                 true,
-                'Mage'
+                'Mage',
             ],
             'class exists #2' => [
                 true,
-                'Mage_Eav_Model_Entity_Increment_Numeric'
+                'Mage_Eav_Model_Entity_Increment_Numeric',
             ],
             'class not exists' => [
                 false,
-                'Mage_Non_Existent'
+                'Mage_Non_Existent',
             ],
         ];
     }

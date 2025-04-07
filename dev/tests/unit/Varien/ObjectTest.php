@@ -46,25 +46,25 @@ class ObjectTest extends TestCase
                 ['empty_key' => ['empty_value']],
                 'empty_key',
                 ['empty_value'],
-                ''
+                '',
             ],
             'string' => [
                 'value',
                 'string',
                 'value',
-                'string'
+                'string',
             ],
             'int' => [
                 1,
                 'int',
                 1,
-                'int'
+                'int',
             ],
             'numeric' => [
                 '1',
                 'numeric',
                 '1',
-                'numeric'
+                'numeric',
             ],
             'array' => [
                 ['string', 1],
@@ -107,7 +107,7 @@ class ObjectTest extends TestCase
                 'array_index_string_varien_object',
                 'array',
             ],
-             'array_index_string_std_class' => [
+            'array_index_string_std_class' => [
                 null,
                 'array_index_string_std_class',
                 new stdClass(),
@@ -138,7 +138,7 @@ class ObjectTest extends TestCase
                 ['nested' => 'some"\n"string'],
                 'array_nested_string/nested',
             ],
-             'array_nested_varien_object' => [
+            'array_nested_varien_object' => [
                 null,
                 'array_nested_varien_object',
                 new Varien_Object(),
