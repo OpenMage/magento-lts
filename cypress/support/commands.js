@@ -36,14 +36,10 @@ Cypress.Commands.add('adminTestRoute', (route) => {
     cy.get(route.id).click({force: true});
     cy.url().should('include', route.url);
     cy.get('h3.icon-head').should('include.text', route.h3);
-    //cy.get(route.parent).should('have.class', 'active');
+    cy.get(route.parent).should('have.class', 'active');
+    cy.get(route.id).should('have.class', 'active');
 })
-Cypress.Commands.add('adminTestRouteH3', (nav, route) => {
+Cypress.Commands.add('adminSetConfiguration', (nav, route) => {
     cy.get(route.id).click({force: true});
     cy.get('h3.icon-head').should('include.text', route.h3);
-})
-
-Cypress.Commands.add('adminTestRouteMainMenuActive', (nav, route) => {
-    cy.get(route.id).click({force: true});
-    cy.get(nav.main.id).should('have.class', 'active');
 })
