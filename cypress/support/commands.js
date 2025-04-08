@@ -19,6 +19,7 @@ Cypress.Commands.add('adminLogInValidUser', () => {
     cy.get('#username').clear().type(credentials.Admin.login).should('have.value', credentials.Admin.login);
     cy.get('#login').clear().type(credentials.Admin.password).should('have.value', credentials.Admin.password);
     cy.get('.form-button').click();
+    cy.url().should('include', '/dashboard/index');
 })
 
 Cypress.Commands.add('adminLogInInvalidUser', () => {
