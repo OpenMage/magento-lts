@@ -39,8 +39,7 @@ describe('Checks admin system sitemap settings', () => {
             .type(validation.assert.string, { force: true })
             .should('have.value', validation.assert.string);
 
-        cy.log('Clicking on Save Config button');
-        cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
+        cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
         cy.get('#advice-validate-number-sitemap_category_priority').should('include.text', validation.errors.number);
@@ -65,8 +64,7 @@ describe('Checks admin system sitemap settings', () => {
             .type(validation.assert.numberGreater1, { force: true })
             .should('have.value', validation.assert.numberGreater1);
 
-        cy.log('Clicking on Save Config button');
-        cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
+        cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
         cy.get('#advice-validate-number-range-sitemap_category_priority').should('include.text', validation.errors.numberRange);
@@ -88,8 +86,7 @@ describe('Checks admin system sitemap settings', () => {
             .clear({ force: true })
             .should('have.value', '');
 
-        cy.log('Clicking on Save Config button');
-        cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
+        cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
         cy.get('#advice-required-entry-sitemap_category_priority').should('include.text', validation.errors.requiredEntry);

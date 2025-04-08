@@ -69,8 +69,7 @@ describe('Checks admin system configswatches settings', () => {
             .should('have.value', validation.assert.float);
 
 
-        cy.log('Clicking on Save Config button');
-        cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
+        cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
         cy.get('#advice-validate-digits-configswatches_product_detail_dimensions_height').should('include.text', validation.errors.digits);
@@ -112,8 +111,7 @@ describe('Checks admin system configswatches settings', () => {
             .clear({ force: true })
             .should('have.value', '');
 
-        cy.log('Clicking on Save Config button');
-        cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
+        cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
         cy.get('#advice-required-entry-configswatches_product_detail_dimensions_height').should('include.text', validation.errors.requiredEntry);
