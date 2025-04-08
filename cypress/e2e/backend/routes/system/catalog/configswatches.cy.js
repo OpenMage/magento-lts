@@ -32,42 +32,20 @@ describe('Checks admin system configswatches settings', () => {
     });
 
     it(`tests non-digit dimensions`, () => {
-        cy
-            .get(route.validate.dimension._input.productDetail.height)
-            .clear({ force: true })
-            .type(validation.assert.float, { force: true })
-            .should('have.value', validation.assert.float);
+        Object.keys(route.validate.dimension._input).forEach(field => {
+            const selector = route.validate.dimension._input[field];
+            cy
+                .get(selector.height)
+                .clear({ force: true })
+                .type(validation.assert.float, { force: true })
+                .should('have.value', validation.assert.float);
 
-        cy
-            .get(route.validate.dimension._input.productDetail.width)
-            .clear({ force: true })
-            .type(validation.assert.float, { force: true })
-            .should('have.value', validation.assert.float);
-
-        cy
-            .get(route.validate.dimension._input.productList.height)
-            .clear({ force: true })
-            .type(validation.assert.float, { force: true })
-            .should('have.value', validation.assert.float);
-
-        cy
-            .get(route.validate.dimension._input.productList.width)
-            .clear({ force: true })
-            .type(validation.assert.float, { force: true })
-            .should('have.value', validation.assert.float);
-
-        cy
-            .get(route.validate.dimension._input.layeredNav.height)
-            .clear({ force: true })
-            .type(validation.assert.float, { force: true })
-            .should('have.value', validation.assert.float);
-
-        cy
-            .get(route.validate.dimension._input.layeredNav.width)
-            .clear({ force: true })
-            .type(validation.assert.float, { force: true })
-            .should('have.value', validation.assert.float);
-
+            cy
+                .get(selector.width)
+                .clear({ force: true })
+                .type(validation.assert.float, { force: true })
+                .should('have.value', validation.assert.float);
+        });
 
         cy.adminSaveConfiguration();
 
@@ -81,35 +59,18 @@ describe('Checks admin system configswatches settings', () => {
     });
 
     it(`tests empty dimensions`, () => {
-        cy
-            .get(route.validate.dimension._input.productDetail.height)
-            .clear({ force: true })
-            .should('have.value', '');
+        Object.keys(route.validate.dimension._input).forEach(field => {
+            const selector = route.validate.dimension._input[field];
+            cy
+                .get(selector.height)
+                .clear({ force: true })
+                .should('have.value', '');
 
-        cy
-            .get(route.validate.dimension._input.productDetail.width)
-            .clear({ force: true })
-            .should('have.value', '');
-
-        cy
-            .get(route.validate.dimension._input.productList.height)
-            .clear({ force: true })
-            .should('have.value', '');
-
-        cy
-            .get(route.validate.dimension._input.productList.width)
-            .clear({ force: true })
-            .should('have.value', '');
-
-        cy
-            .get(route.validate.dimension._input.layeredNav.height)
-            .clear({ force: true })
-            .should('have.value', '');
-
-        cy
-            .get(route.validate.dimension._input.layeredNav.width)
-            .clear({ force: true })
-            .should('have.value', '');
+            cy
+                .get(selector.width)
+                .clear({ force: true })
+                .should('have.value', '');
+        });
 
         cy.adminSaveConfiguration();
 

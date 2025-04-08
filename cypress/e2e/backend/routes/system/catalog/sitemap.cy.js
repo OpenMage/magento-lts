@@ -23,21 +23,14 @@ describe('Checks admin system sitemap settings', () => {
     });
 
     it(`tests invalid string priority`, () => {
-        cy
-            .get(route.validate.priority._input.category)
-            .clear({ force: true })
-            .type(validation.assert.string, { force: true })
-            .should('have.value', validation.assert.string);
-        cy
-            .get(route.validate.priority._input.product)
-            .clear({ force: true })
-            .type(validation.assert.string, { force: true })
-            .should('have.value', validation.assert.string);
-        cy
-            .get(route.validate.priority._input.page)
-            .clear({ force: true })
-            .type(validation.assert.string, { force: true })
-            .should('have.value', validation.assert.string);
+        Object.keys(route.validate.priority._input).forEach(field => {
+            const selector = route.validate.priority._input[field];
+            cy
+                .get(selector)
+                .clear({ force: true })
+                .type(validation.assert.string, { force: true })
+                .should('have.value', validation.assert.string);
+        });
 
         cy.adminSaveConfiguration();
 
@@ -48,21 +41,14 @@ describe('Checks admin system sitemap settings', () => {
     });
 
     it(`tests invalid number priority`, () => {
-        cy
-            .get(route.validate.priority._input.category)
-            .clear({ force: true })
-            .type(validation.assert.numberGreater1, { force: true })
-            .should('have.value', validation.assert.numberGreater1);
-        cy
-            .get(route.validate.priority._input.product)
-            .clear({ force: true })
-            .type(validation.assert.numberGreater1, { force: true })
-            .should('have.value', validation.assert.numberGreater1);
-        cy
-            .get(route.validate.priority._input.page)
-            .clear({ force: true })
-            .type(validation.assert.numberGreater1, { force: true })
-            .should('have.value', validation.assert.numberGreater1);
+        Object.keys(route.validate.priority._input).forEach(field => {
+            const selector = route.validate.priority._input[field];
+            cy
+                .get(selector)
+                .clear({ force: true })
+                .type(validation.assert.numberGreater1, { force: true })
+                .should('have.value', validation.assert.numberGreater1);
+        });
 
         cy.adminSaveConfiguration();
 
@@ -73,18 +59,13 @@ describe('Checks admin system sitemap settings', () => {
     });
 
     it(`tests empty priority`, () => {
-        cy
-            .get(route.validate.priority._input.category)
-            .clear({ force: true })
-            .should('have.value', '');
-        cy
-            .get(route.validate.priority._input.product)
-            .clear({ force: true })
-            .should('have.value', '');
-        cy
-            .get(route.validate.priority._input.page)
-            .clear({ force: true })
-            .should('have.value', '');
+        Object.keys(route.validate.priority._input).forEach(field => {
+            const selector = route.validate.priority._input[field];
+            cy
+                .get(selector)
+                .clear({ force: true })
+                .should('have.value', '');
+        });
 
         cy.adminSaveConfiguration();
 
