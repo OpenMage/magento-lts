@@ -31,7 +31,7 @@ Examples of unacceptable behavior by participants include:
 * Other conduct which could reasonably be considered inappropriate in a
   professional setting
 
-### Attribution to others
+### Attribution to Others
 
 We expect all contributors to provide appropriate attribution to others in appreciation
 of work performed or ideas inspired by other members of the OpenMage community or other communities.
