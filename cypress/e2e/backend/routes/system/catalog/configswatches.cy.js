@@ -32,19 +32,21 @@ describe('Checks admin system configswatches settings', () => {
     });
 
     it(`tests non-digit dimensions`, () => {
-        Object.keys(route.validate.dimension._input).forEach(field => {
-            const selector = route.validate.dimension._input[field];
-            cy
-                .get(selector.height)
-                .clear({ force: true })
-                .type(validation.assert.float, { force: true })
-                .should('have.value', validation.assert.float);
+        Object.keys(route.validate.dimension._input).forEach(section => {
+            const group = route.validate.dimension._input[section];
+            const value = validation.assert.float;
 
             cy
-                .get(selector.width)
+                .get(group.height)
                 .clear({ force: true })
-                .type(validation.assert.float, { force: true })
-                .should('have.value', validation.assert.float);
+                .type(value, { force: true })
+                .should('have.value', value);
+
+            cy
+                .get(group.width)
+                .clear({ force: true })
+                .type(value, { force: true })
+                .should('have.value', value);
         });
 
         cy.adminSaveConfiguration();

@@ -25,11 +25,13 @@ describe('Checks admin system sitemap settings', () => {
     it(`tests invalid string priority`, () => {
         Object.keys(route.validate.priority._input).forEach(field => {
             const selector = route.validate.priority._input[field];
+            const value = validation.assert.string;
+
             cy
                 .get(selector)
                 .clear({ force: true })
-                .type(validation.assert.string, { force: true })
-                .should('have.value', validation.assert.string);
+                .type(value, { force: true })
+                .should('have.value', value);
         });
 
         cy.adminSaveConfiguration();
@@ -43,11 +45,13 @@ describe('Checks admin system sitemap settings', () => {
     it(`tests invalid number priority`, () => {
         Object.keys(route.validate.priority._input).forEach(field => {
             const selector = route.validate.priority._input[field];
+            const value = validation.assert.numberGreater1;
+
             cy
                 .get(selector)
                 .clear({ force: true })
-                .type(validation.assert.numberGreater1, { force: true })
-                .should('have.value', validation.assert.numberGreater1);
+                .type(value, { force: true })
+                .should('have.value', value);
         });
 
         cy.adminSaveConfiguration();
