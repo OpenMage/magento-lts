@@ -34,7 +34,7 @@ Examples of unacceptable behavior by participants include:
 ### Attribution to others
 
 We expect all contributors to provide appropriate attribution to others in appreciation
-for work performed or ideas inspired by other members of the OpenMage or other communities.
+of work performed or ideas inspired by other members of the OpenMage community or other communities.
 
 When creating a Pull Request or otherwise representing work or ideas to the community,
 if the work includes substantial code or inspiration leading directly to the authorship
