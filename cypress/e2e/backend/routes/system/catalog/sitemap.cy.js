@@ -21,17 +21,17 @@ describe('Checks admin system sitmap settings', () => {
     it(`tests invalid string priority`, () => {
         cy
             .get('#sitemap_category_priority')
-            .clear()
+            .clear({ force: true })
             .type(route.validate.priority.invalidString)
             .should('have.value', route.validate.priority.invalidString);
         cy
             .get('#sitemap_product_priority')
-            .clear()
+            .clear({ force: true })
             .type(route.validate.priority.invalidString)
             .should('have.value', route.validate.priority.invalidString);
         cy
             .get('#sitemap_page_priority')
-            .clear()
+            .clear({ force: true })
             .type(route.validate.priority.invalidString)
             .should('have.value', route.validate.priority.invalidString);
 
@@ -47,17 +47,17 @@ describe('Checks admin system sitmap settings', () => {
     it(`tests invalid number priority`, () => {
         cy
             .get('#sitemap_category_priority')
-            .clear()
+            .clear({ force: true })
             .type(route.validate.priority.invalidNumber)
             .should('have.value', route.validate.priority.invalidNumber);
         cy
             .get('#sitemap_product_priority')
-            .clear()
+            .clear({ force: true })
             .type(route.validate.priority.invalidNumber)
             .should('have.value', route.validate.priority.invalidNumber);
         cy
             .get('#sitemap_page_priority')
-            .clear()
+            .clear({ force: true })
             .type(route.validate.priority.invalidNumber)
             .should('have.value', route.validate.priority.invalidNumber);
 
@@ -73,15 +73,15 @@ describe('Checks admin system sitmap settings', () => {
     it(`tests empty priority`, () => {
         cy
             .get('#sitemap_category_priority')
-            .clear()
+            .clear({ force: true })
             .should('have.value', '');
         cy
             .get('#sitemap_product_priority')
-            .clear()
+            .clear({ force: true })
             .should('have.value', '');
         cy
             .get('#sitemap_page_priority')
-            .clear()
+            .clear({ force: true })
             .should('have.value', '');
 
         cy.log('Clicking on Save Config button');
