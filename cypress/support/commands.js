@@ -44,6 +44,6 @@ Cypress.Commands.add('adminGetConfiguration', (route) => {
     cy.get('#nav-admin-system-config').click({force: true});
     cy.url().should('include', 'system_config/index');
     cy.get(route.id).click({force: true});
-    cy.url().should('include', 'system_config/edit');
+    cy.url().should('include', route.url);
     cy.get('.content-header h3').should('include.text', route.h3);
 })
