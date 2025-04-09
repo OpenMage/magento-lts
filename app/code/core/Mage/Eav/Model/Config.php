@@ -228,7 +228,7 @@ class Mage_Eav_Model_Config
             ->addStoreLabel($storeId);
 
         // if collection supports per-website values, set website id
-        if (method_exists($collection, 'setWebsite')) {
+        if ($collection instanceof Mage_Eav_Model_Resource_Attribute_Collection) {
             $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
             $collection->setWebsite($websiteId);
         }
