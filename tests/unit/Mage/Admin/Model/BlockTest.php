@@ -33,7 +33,7 @@ class BlockTest extends TestCase
     }
 
     /**
-     * @dataProvider provideValidateData
+     * @dataProvider provideValidateAdminBlockData
      * @param array<int, string> $expectedResult
      *
      * @group Mage_Admin
@@ -54,7 +54,7 @@ class BlockTest extends TestCase
         $this->assertEquals($expectedResult, $mock->validate());
     }
 
-    public function provideValidateData(): Generator
+    public function provideValidateAdminBlockData(): Generator
     {
         yield 'valid' => [
             true,

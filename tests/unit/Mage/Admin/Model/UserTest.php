@@ -119,7 +119,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @dataProvider provideValidateData
+     * @dataProvider provideValidateAdminUserData
      * @param array|true $expectedResult
      * @group Mage_Admin
      * @group Mage_Admin_Model
@@ -142,7 +142,7 @@ class UserTest extends TestCase
         $this->assertSame($expectedResult, $mock->validate());
     }
 
-    public function provideValidateData(): Generator
+    public function provideValidateAdminUserData(): Generator
     {
         yield 'fail #1' => [
             [

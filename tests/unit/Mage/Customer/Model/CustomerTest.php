@@ -33,7 +33,7 @@ class CustomerTest extends TestCase
     }
 
     /**
-     * @dataProvider provideValidateData
+     * @dataProvider provideValidateCustomerData
      * @param array|true $expectedResult
      * @group Mage_Customer_Model
      */
@@ -70,7 +70,7 @@ class CustomerTest extends TestCase
         $this->assertSame($expectedResult, $mock->validate());
     }
 
-    public function provideValidateData(): Generator
+    public function provideValidateCustomerData(): Generator
     {
         yield 'valid data' => [
             true,

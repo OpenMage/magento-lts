@@ -33,7 +33,7 @@ class VariableTest extends TestCase
     }
 
     /**
-     * @dataProvider provideValidateData
+     * @dataProvider provideValidateAdminVariableData
      * @group Mage_Admin
      * @group Mage_Admin_Model
      *
@@ -50,7 +50,7 @@ class VariableTest extends TestCase
         $this->assertSame($expectedResult, $mock->validate());
     }
 
-    public function provideValidateData(): Generator
+    public function provideValidateAdminVariableData(): Generator
     {
         yield 'test passes' => [
             true,

@@ -33,7 +33,7 @@ class UserTest extends TestCase
     }
 
     /**
-     * @dataProvider provideValidateData
+     * @dataProvider provideValidateApiUserData
      * @param array|true $expectedResult
      * @group Mage_Api
      * @group Mage_Api_Model
@@ -71,7 +71,7 @@ class UserTest extends TestCase
         $this->assertSame($expectedResult, $mock->validate());
     }
 
-    public function provideValidateData(): Generator
+    public function provideValidateApiUserData(): Generator
     {
         yield 'valid data' => [
             true,

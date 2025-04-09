@@ -32,7 +32,7 @@ class ReviewTest extends TestCase
     }
 
     /**
-     * @dataProvider provideValidateData
+     * @dataProvider provideValidateReviewData
      * @param array|true $expectedResult
      * @group Mage_Review
      * @group Mage_Review_Model
@@ -60,7 +60,7 @@ class ReviewTest extends TestCase
         $this->assertSame($expectedResult, $mock->validate());
     }
 
-    public function provideValidateData(): Generator
+    public function provideValidateReviewData(): Generator
     {
         yield 'valid data' => [
             true,
