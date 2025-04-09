@@ -51,3 +51,11 @@ Cypress.Commands.add('adminSaveConfiguration', () => {
     cy.log('Clicking on Save Config button');
     cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
 })
+Cypress.Commands.add('generateRandomEmail', () => {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let email = '';
+    for (let i = 0; i < 16; i++) {
+        email += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return email + '@example.com';
+})

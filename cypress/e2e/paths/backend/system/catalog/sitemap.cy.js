@@ -1,4 +1,4 @@
-import { validation } from '../validation.js';
+import { validation } from '../../../../../support/validation.js';
 
 const route = {
     id: '#section-sitemap',
@@ -26,7 +26,6 @@ describe('Checks admin system sitemap settings', () => {
         Object.keys(route.validate.priority._input).forEach(field => {
             const selector = route.validate.priority._input[field];
             const value = validation.assert.string;
-            const error = validation.errors.number;
 
             cy
                 .get(selector)
@@ -38,6 +37,7 @@ describe('Checks admin system sitemap settings', () => {
         cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
+        const error = validation.errors.number;
         cy.get('#advice-validate-number-sitemap_category_priority').should('include.text', error);
         cy.get('#advice-validate-number-sitemap_product_priority').should('include.text', error);
         cy.get('#advice-validate-number-sitemap_page_priority').should('include.text', error);
@@ -47,7 +47,6 @@ describe('Checks admin system sitemap settings', () => {
         Object.keys(route.validate.priority._input).forEach(field => {
             const selector = route.validate.priority._input[field];
             const value = validation.assert.numberGreater1;
-            const error = validation.errors.numberRange;
 
             cy
                 .get(selector)
@@ -59,6 +58,7 @@ describe('Checks admin system sitemap settings', () => {
         cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
+        const error = validation.errors.numberRange;
         cy.get('#advice-validate-number-range-sitemap_category_priority').should('include.text', error);
         cy.get('#advice-validate-number-range-sitemap_product_priority').should('include.text', error);
         cy.get('#advice-validate-number-range-sitemap_page_priority').should('include.text', error);
@@ -67,7 +67,6 @@ describe('Checks admin system sitemap settings', () => {
     it(`tests empty priority`, () => {
         Object.keys(route.validate.priority._input).forEach(field => {
             const selector = route.validate.priority._input[field];
-            const error = validation.errors.requiredEntry;
 
             cy
                 .get(selector)
@@ -78,6 +77,7 @@ describe('Checks admin system sitemap settings', () => {
         cy.adminSaveConfiguration();
 
         console.log('Checking for error messages');
+        const error = validation.errors.requiredEntry;
         cy.get('#advice-required-entry-sitemap_category_priority').should('include.text', error);
         cy.get('#advice-required-entry-sitemap_product_priority').should('include.text', error);
         cy.get('#advice-required-entry-sitemap_page_priority').should('include.text', error);

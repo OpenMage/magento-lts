@@ -1,12 +1,3 @@
-function generateRandomEmail() {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let email = '';
-    for (let i = 0; i < 16; i++) {
-        email += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return email + '@example.com';
-}
-
 describe('Check newsletter subribe', () => {
     it('Test empty input', () => {
         cy.visit('/')
@@ -16,7 +7,7 @@ describe('Check newsletter subribe', () => {
     })
 
     it('Test valid input twice', () => {
-        const randomEmail = generateRandomEmail();
+        const randomEmail = cy.generateRandomEmail();
         cy.visit('/')
         cy.get('#newsletter').type(randomEmail).should('have.value', randomEmail);
         cy.get('#newsletter-validate-detail button[type="submit"]').click();

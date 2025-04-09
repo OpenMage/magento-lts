@@ -1,12 +1,3 @@
-function generateRandomEmail() {
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let email = '';
-    for (let i = 0; i < 16; i++) {
-        email += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return email + '@example.com';
-}
-
 describe('Checks customer account create', () => {
     beforeEach('Log in the user', () => {
         cy.visit('/customer/account/create');
@@ -34,7 +25,7 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits valid form with random email', () => {
-        const randomEmail = generateRandomEmail();
+        const randomEmail = cy.generateRandomEmail();
         cy.get('#firstname').type('John').should('have.value', 'John');
         cy.get('#lastname').type('Doe').should('have.value', 'Doe');
         cy.get('#email_address').type(randomEmail).should('have.value', randomEmail);
