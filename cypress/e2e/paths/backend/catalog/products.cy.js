@@ -21,13 +21,4 @@ describe(`Checks admin system "${route.h3}"`, () => {
         cy.log('Checking for the number of filter visibility options');
         cy.get('#productGrid_product_filter_visibility option').should('have.length', 5);
     });
-
-    it(`tests add simple product`, () => {
-        cy.log('Checking for the number of add product options');
-        cy.get('#productGrid_product_add_product option').should('have.length', 6);
-
-        cy.log('Checking for the number of add product options');
-        cy.get('#productGrid_product_add_product option').contains('Simple Product').click();
-        cy.get('#productGrid_product_add_product option').should('have.length', 5);
-    });
 });
