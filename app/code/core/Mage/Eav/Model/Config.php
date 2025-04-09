@@ -221,18 +221,18 @@ class Mage_Eav_Model_Config
      * @throws Exception
      */
     protected function _loadEntityAttributes($entityType, $storeId)
-    {        
+    {
         // preload attributes in array form to avoid instantiating
         // models for every attribute even if it is never accessed
         $collection = $entityType->newAttributeCollection()
             ->addStoreLabel($storeId);
-        
+
         // if collection supports per-website values, set website id
         if (method_exists($collection, 'setWebsite')) {
             $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
             $collection->setWebsite($websiteId);
         }
-        
+
         $entityAttributes = $collection->getData();
 
         $this->_entityTypeAttributes[$storeId][$entityType->getId()] = [];
