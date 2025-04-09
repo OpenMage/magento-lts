@@ -213,7 +213,6 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
                 $validator = Validation::createValidator();
                 if ($validator->validate($data['attribute_code'], new Assert\Regex([
                     'pattern' => '/^(?!event$)[a-z][a-z_0-9]{1,254}$/',
-                    'message' => 'Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter. Do not use "event" for an attribute code.',
                 ]))->count() > 0) {
                     $session->addError(
                         Mage::helper('catalog')->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter. Do not use "event" for an attribute code.'),
