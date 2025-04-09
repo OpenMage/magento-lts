@@ -248,6 +248,17 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             $extension = ['css' => ['text/css', 'text/plain']];
         }
 
+        $violations[] = $validator->validate($filePath, new Assert\File([
+            'maxSize' => '8M',
+            'mimeTypes' => $extension,
+        ]));
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                echo $error->getMessage() . PHP_EOL;
+            }
+        }
+
         return $validator->validate($filePath, new Assert\File([
             'maxSize' => '8M',
             'extensions' => $extension,
