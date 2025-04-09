@@ -222,11 +222,20 @@ class Mage_Eav_Model_Config
      */
     protected function _loadEntityAttributes($entityType, $storeId)
     {
+        // Get website ID from store ID
+        $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+        
         // preload attributes in array form to avoid instantiating
         // models for every attribute even if it is never accessed
-        $entityAttributes = $entityType->newAttributeCollection()
-            ->addStoreLabel($storeId)
-            ->getData();
+        $collection = $entityType->newAttributeCollection()
+            ->addStoreLabel($storeId);
+        
+        // Call setWebsite() if the method exists
+        if (method_exists($collection, 'setWebsite')) {
+            $collection->setWebsite($websiteId);
+        }
+        
+        $entityAttributes = $collection->getData();
 
         $this->_entityTypeAttributes[$storeId][$entityType->getId()] = [];
         $attributeCodes = [];
