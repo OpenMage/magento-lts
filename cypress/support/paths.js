@@ -1,4 +1,5 @@
 export const adminNav = {
+    catalog: '#nav-admin-catalog',
     cms: '#nav-admin-cms',
     customer: '#nav-admin-customer',
     newsletter: '#nav-admin-newsletter',
@@ -9,6 +10,38 @@ export const adminNav = {
 
 export const paths = {
     backend: {
+        catalog: {
+            products: {
+                parent: adminNav.catalog,
+                id: '#nav-admin-catalog-products',
+                url: 'catalog_product/index',
+                h3: 'Manage Products',
+            },
+            categories: {
+                parent: adminNav.catalog,
+                id: '#nav-admin-catalog-categories',
+                url: 'catalog_category/index',
+                h3: 'Manage Categories',
+            },
+            search: {
+                parent: adminNav.catalog,
+                id: '#nav-admin-catalog-search',
+                url: 'catalog_search/index',
+                h3: 'Search',
+            },
+            sitemap: {
+                parent: adminNav.catalog,
+                id: '#nav-admin-catalog-sitemap',
+                url: 'sitemap/index',
+                h3: 'Google Sitemap',
+            },
+            urlrewrite: {
+                parent: adminNav.catalog,
+                id: '#nav-admin-catalog-urlrewrite',
+                url: 'urlrewrite/index',
+                h3: 'URL Rewrite Management',
+            }
+        },
         cms: {
             block: {
                 parent: adminNav.cms,
