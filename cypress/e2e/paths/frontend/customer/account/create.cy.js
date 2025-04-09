@@ -8,12 +8,13 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits empty form', () => {
+        const error = 'This is a required field.';
         cy.get('#form-validate button[type="submit"]').click();
-        cy.get('#advice-required-entry-firstname').should('include.text', 'This is a required field.');
-        cy.get('#advice-required-entry-lastname').should('include.text', 'This is a required field.');
-        cy.get('#advice-required-entry-email_address').should('include.text', 'This is a required field.');
-        cy.get('#advice-required-entry-password').should('include.text', 'This is a required field.');
-        cy.get('#advice-required-entry-confirmation').should('include.text', 'This is a required field.');
+        cy.get('#advice-required-entry-firstname').should('include.text', error);
+        cy.get('#advice-required-entry-lastname').should('include.text', error);
+        cy.get('#advice-required-entry-email_address').should('include.text', error);
+        cy.get('#advice-required-entry-password').should('include.text', error);
+        cy.get('#advice-required-entry-confirmation').should('include.text', error);
     });
 
     it('Submits form with short password and wrong confirmation', () => {
@@ -25,10 +26,10 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits valid form with random email', () => {
-        const randomEmail = cy.generateRandomEmail();
+        const email = cy.openmage.generateRandomEmail();
         cy.get('#firstname').type('John').should('have.value', 'John');
         cy.get('#lastname').type('Doe').should('have.value', 'Doe');
-        cy.get('#email_address').type(randomEmail).should('have.value', randomEmail);
+        cy.get('#email_address').type(email).should('have.value', email);
         cy.get('#password').type('12345678').should('have.value', '12345678');
         cy.get('#confirmation').type('12345678').should('have.value', '12345678');
         cy.get('#form-validate button[type="submit"]').click();
