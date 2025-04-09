@@ -36,7 +36,6 @@ class UserTest extends TestCase
     /**
      * @dataProvider provideAuthenticateData
      * @param array|true $expectedResult
-     * @group Model
      * @group Mage_Admin
      * @group Mage_Admin_Model
      * @group runInSeparateProcess
@@ -208,7 +207,6 @@ class UserTest extends TestCase
     }
 
     /**
-     * @group Model
      * @group Mage_Admin
      * @group Mage_Admin_Model
      */

@@ -232,7 +232,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             ],
         );
 
-        if ($this->validateFileExension('css', $filePath) && is_readable($filePath)) {
+        if ($this->validateFileExension($filePath, 'css') && is_readable($filePath)) {
             return (string) file_get_contents($filePath);
         }
 
@@ -240,10 +240,18 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         return '';
     }
 
-    public function validateFileExension(string $extension, string $filePath): bool
+    public function validateFileExension(string $filePath, string $extension): bool
     {
         $validator  = Validation::createValidator();
-        return $validator->validate($filePath . $extension, new Assert\File(['maxSize' => '8M','extensions' => (array) $extension]))->count() === 0;
+
+        if ($extension === 'css') {
+            $extension = ['css' => ['text/css', 'text/plain']];
+        }
+
+        return $validator->validate($filePath, new Assert\File([
+            'maxSize' => '8M',
+            'extensions' => $extension,
+        ]))->count() === 0;
     }
 
     /**

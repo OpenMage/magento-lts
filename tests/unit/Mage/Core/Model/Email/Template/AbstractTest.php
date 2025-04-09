@@ -45,7 +45,7 @@ class AbstractTest extends TestCase
             $this->assertFileDoesNotExist($filePath);
         }
 
-        $this->assertSame($expectedResult, $this->subject->validateFileExension($extension, $filePath));
+        $this->assertSame($expectedResult, $this->subject->validateFileExension($filePath, $extension));
     }
 
     public function provideValidateFileExension(): Generator
@@ -53,12 +53,12 @@ class AbstractTest extends TestCase
         yield 'css file exists' => [
             true,
             'css',
-            __DIR__ . '/../../../../../fixtures/files/test.css',
+            $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test.css',
         ];
         yield 'css file not exists' => [
             false,
             'css',
-            __DIR__ . '/../../../../../fixtures/files/test.not-exist',
+            $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test.not-exist',
         ];
     }
 }

@@ -59,7 +59,16 @@ class BlockTest extends TestCase
         yield 'valid' => [
             true,
             [
-                'getBlockName' => 'Mage_Block',
+                'getBlockName' => 'test/block',
+                'getIsAllowed' => '1',
+            ],
+        ];
+        yield 'invalid' => [
+            [
+                0 => 'Block Name is incorrect.',
+            ],
+            [
+                'getBlockName' => 'Test_Block',
                 'getIsAllowed' => '1',
             ],
         ];

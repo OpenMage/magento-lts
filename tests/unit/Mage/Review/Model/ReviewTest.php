@@ -34,7 +34,7 @@ class ReviewTest extends TestCase
     /**
      * @dataProvider provideValidateData
      * @param array|true $expectedResult
-     * @group Model
+     * @group Mage_Review
      * @group Mage_Review_Model
      */
     public function testValidate($expectedResult, array $methods): void

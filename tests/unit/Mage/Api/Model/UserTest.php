@@ -35,7 +35,6 @@ class UserTest extends TestCase
     /**
      * @dataProvider provideValidateData
      * @param array|true $expectedResult
-     * @group Model
      * @group Mage_Api
      * @group Mage_Api_Model
      */

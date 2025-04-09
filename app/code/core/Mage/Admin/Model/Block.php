@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Validation;
  */
 class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
 {
-    public const BLOCK_NAME_REGEX = '/[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/';
+    public const BLOCK_NAME_REGEX = '/^[-_a-zA-Z0-9]+\/[-_a-zA-Z0-9\/]+$/';
 
     /**
      * Initialize variable model
@@ -56,7 +56,6 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
             new Assert\NotBlank([
                 'message' => Mage::helper('adminhtml')->__('Block Name is required field.'),
             ]),
-            # @todo fix regex pattern
             new Assert\Regex([
                 'pattern' => self::BLOCK_NAME_REGEX,
                 'message' => Mage::helper('adminhtml')->__('Block Name is incorrect.'),
