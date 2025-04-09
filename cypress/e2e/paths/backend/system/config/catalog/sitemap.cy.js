@@ -1,21 +1,18 @@
-import { validation } from '../../../../../support/validation.js';
+import { paths } from '../../../../../../support/paths.js';
+import { validation } from '../../../../../../support/validation.js';
 
-const route = {
-    id: '#section-sitemap',
-    url: 'system_config/edit/section/sitemap',
-    h3: 'Google Sitemap',
-    validate: {
-        priority: {
-            _input: {
-                category: '#sitemap_category_priority',
-                product: '#sitemap_product_priority',
-                page: '#sitemap_page_priority',
-            }
+const route = paths.backend.system.config.catalog.sitemap;
+const validate = {
+    priority: {
+        _input: {
+            category: '#sitemap_category_priority',
+            product: '#sitemap_product_priority',
+            page: '#sitemap_page_priority',
         }
     }
 }
 
-describe('Checks admin system sitemap settings', () => {
+describe(`Checks admin system "${route.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
         cy.visit('/admin');
         cy.adminLogInValidUser();
@@ -23,8 +20,8 @@ describe('Checks admin system sitemap settings', () => {
     });
 
     it(`tests invalid string priority`, () => {
-        Object.keys(route.validate.priority._input).forEach(field => {
-            const selector = route.validate.priority._input[field];
+        Object.keys(validate.priority._input).forEach(field => {
+            const selector = validate.priority._input[field];
             const value = validation.assert.string;
 
             cy
@@ -44,8 +41,8 @@ describe('Checks admin system sitemap settings', () => {
     });
 
     it(`tests invalid number priority`, () => {
-        Object.keys(route.validate.priority._input).forEach(field => {
-            const selector = route.validate.priority._input[field];
+        Object.keys(validate.priority._input).forEach(field => {
+            const selector = validate.priority._input[field];
             const value = validation.assert.numberGreater1;
 
             cy
@@ -65,8 +62,8 @@ describe('Checks admin system sitemap settings', () => {
     });
 
     it(`tests empty priority`, () => {
-        Object.keys(route.validate.priority._input).forEach(field => {
-            const selector = route.validate.priority._input[field];
+        Object.keys(validate.priority._input).forEach(field => {
+            const selector = validate.priority._input[field];
 
             cy
                 .get(selector)

@@ -1,4 +1,4 @@
-name: DDEV
+name: Cypress
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: DDEV cypress
+    name: Cypress
     runs-on: [ubuntu-latest]
 
     steps:

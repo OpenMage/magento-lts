@@ -1,23 +1,20 @@
-import { validation } from '../../../../../support/validation.js';
+import { paths } from '../../../../../../support/paths.js';
+import { validation } from '../../../../../../support/validation.js';
 
-const route = {
-    id: '#section-promo',
-    url: 'system_config/edit/section/promo',
-    h3: 'Promotions',
-    validate: {
-        _group: {
-            couponCodes: {
-                head: '#promo_auto_generated_coupon_codes-head',
-                _input: {
-                    length: '#promo_auto_generated_coupon_codes_length',
-                    dashes: '#promo_auto_generated_coupon_codes_dash',
-                }
+const route = paths.backend.system.config.customers.promo;
+const validate = {
+    _group: {
+        couponCodes: {
+            _id: '#promo_auto_generated_coupon_codes-head',
+            _input: {
+                length: '#promo_auto_generated_coupon_codes_length',
+                dashes: '#promo_auto_generated_coupon_codes_dash',
             }
         }
     }
 }
 
-describe('Checks admin system promo settings', () => {
+describe(`Checks admin system "${route.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
         cy.visit('/admin');
         cy.adminLogInValidUser();
@@ -26,13 +23,13 @@ describe('Checks admin system promo settings', () => {
 
     it(`tests invalid string input`, () => {
         cy.get('body').then($body => {
-            if (!$body.find(route.validate._group.couponCodes.head).hasClass('open')) {
-                cy.get(route.validate._group.couponCodes.head).click({force: true});
+            if (!$body.find(validate._group.couponCodes._id).hasClass('open')) {
+                cy.get(validate._group.couponCodes._id).click({force: true});
             }
         });
 
-        Object.keys(route.validate._group.couponCodes._input).forEach(field => {
-            const selector = route.validate._group.couponCodes._input[field];
+        Object.keys(validate._group.couponCodes._input).forEach(field => {
+            const selector = validate._group.couponCodes._input[field];
             const value = validation.assert.string;
 
             cy

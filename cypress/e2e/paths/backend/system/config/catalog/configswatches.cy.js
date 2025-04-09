@@ -1,30 +1,27 @@
-import { validation } from '../../../../../support/validation.js';
+import { paths } from '../../../../../../support/paths.js';
+import { validation } from '../../../../../../support/validation.js';
 
-const route = {
-    id: '#section-configswatches',
-    url: 'system_config/edit/section/configswatches',
-    h3: 'Configurable Swatches',
-    validate: {
-        dimension: {
-            _input: {
-                productDetail: {
-                    height: '#configswatches_product_detail_dimensions_height',
-                    width: '#configswatches_product_detail_dimensions_width',
-                },
-                productList: {
-                    height: '#configswatches_product_listing_dimensions_height',
-                    width: '#configswatches_product_listing_dimensions_width',
-                },
-                layeredNav: {
-                    height: '#configswatches_layered_nav_dimensions_height',
-                    width: '#configswatches_layered_nav_dimensions_width',
-                },
-            }
+const route = paths.backend.system.config.catalog.configswatches;
+const validate = {
+    dimension: {
+        _input: {
+            productDetail: {
+                height: '#configswatches_product_detail_dimensions_height',
+                width: '#configswatches_product_detail_dimensions_width',
+            },
+            productList: {
+                height: '#configswatches_product_listing_dimensions_height',
+                width: '#configswatches_product_listing_dimensions_width',
+            },
+            layeredNav: {
+                height: '#configswatches_layered_nav_dimensions_height',
+                width: '#configswatches_layered_nav_dimensions_width',
+            },
         }
     }
 }
 
-describe('Checks admin system configswatches settings', () => {
+describe(`Checks admin system "${route.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
         cy.visit('/admin');
         cy.adminLogInValidUser();
@@ -34,8 +31,8 @@ describe('Checks admin system configswatches settings', () => {
     it(`tests non-digit dimensions`, () => {
         const value = validation.assert.float;
 
-        Object.keys(route.validate.dimension._input).forEach(section => {
-            const group = route.validate.dimension._input[section];
+        Object.keys(validate.dimension._input).forEach(section => {
+            const group = validate.dimension._input[section];
 
             cy
                 .get(group.height)
@@ -63,8 +60,8 @@ describe('Checks admin system configswatches settings', () => {
     });
 
     it(`tests empty dimensions`, () => {
-        Object.keys(route.validate.dimension._input).forEach(field => {
-            const selector = route.validate.dimension._input[field];
+        Object.keys(validate.dimension._input).forEach(field => {
+            const selector = validate.dimension._input[field];
 
             cy
                 .get(selector.height)
