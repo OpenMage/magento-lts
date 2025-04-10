@@ -37,9 +37,9 @@ class AbstractTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Model
      */
-    public function testValidateFileExension(bool $expectedResult, string $extension, string $filePath): void
+    public function testValidateFileExension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
     {
-        if ($expectedResult) {
+        if ($fileExists) {
             $this->assertFileExists($filePath);
         } else {
             $this->assertFileDoesNotExist($filePath);
@@ -52,13 +52,21 @@ class AbstractTest extends TestCase
     {
         yield 'css file exists' => [
             true,
-            'css',
             $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test.css',
+            'css',
+            true,
+        ];
+        yield 'css file exists, but empty' => [
+            false,
+            $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test-empty.css',
+            'css',
+            true,
         ];
         yield 'css file not exists' => [
             false,
-            'css',
             $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test.not-exist',
+            'css',
+            false,
         ];
     }
 }
