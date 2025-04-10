@@ -1755,6 +1755,6 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     {
         /** @var Mage_Customer_Model_Attribute $model */
         $model = Mage::getModel('customer/attribute');
-        return $model->getIsRequired();
+        return $model;
     }
 }
