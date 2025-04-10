@@ -49,7 +49,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
 
         cy.adminSaveConfiguration();
 
-        console.log('Checking for error messages');
+        cy.log('Checking for error messages');
         const error = validation.errors.digits;
         cy.get('#advice-validate-digits-configswatches_product_detail_dimensions_height').should('include.text', error);
         cy.get('#advice-validate-digits-configswatches_product_detail_dimensions_width').should('include.text', error);

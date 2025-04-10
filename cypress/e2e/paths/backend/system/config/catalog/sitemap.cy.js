@@ -33,7 +33,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
 
         cy.adminSaveConfiguration();
 
-        console.log('Checking for error messages');
+        cy.log('Checking for error messages');
         const error = validation.errors.number;
         cy.get('#advice-validate-number-sitemap_category_priority').should('include.text', error);
         cy.get('#advice-validate-number-sitemap_product_priority').should('include.text', error);

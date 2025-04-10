@@ -41,7 +41,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
 
         cy.adminSaveConfiguration();
 
-        console.log('Checking for error messages');
+        cy.log('Checking for error messages');
         const error = validation.errors.digits;
         cy.get('#advice-validate-digits-promo_auto_generated_coupon_codes_length').should('include.text', error);
         cy.get('#advice-validate-digits-promo_auto_generated_coupon_codes_dash').should('include.text', error);
