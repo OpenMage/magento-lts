@@ -48,9 +48,10 @@ Cypress.Commands.add('adminGoToTestRoute', (route) => {
     cy.get(route.id).click({force: true});
     cy.url().should('include', route.url);
 })
+
 Cypress.Commands.add('adminTestRoute', (route) => {
     cy.log('Checking for title');
-    cy.get('h3.icon-head').should('include.text', route.h3);
+    cy.get(route._h3).should('include.text', route.h3);
 
     cy.log('Checking for active parent class');
     cy.get(route.parent).should('have.class', 'active');
