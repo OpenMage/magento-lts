@@ -33,13 +33,14 @@ class BlockTest extends TestCase
     }
 
     /**
-     * @dataProvider provideValidateData
+     * @dataProvider provideValidateAdminBlockData
      * @param array<int, string> $expectedResult
      *
      * @group Mage_Admin
      * @group Mage_Admin_Model
+     * @group Mage_Admin_Model_Test
      */
-    public function testValidate(array $expectedResult, array $methods): void
+    public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
@@ -53,17 +54,46 @@ class BlockTest extends TestCase
         $this->assertEquals($expectedResult, $mock->validate());
     }
 
-    public function provideValidateData(): Generator
+    public function provideValidateAdminBlockData(): Generator
     {
-        yield 'errors' => [
+        $errorIncorrectBlockName = 'Block Name is incorrect.';
+
+        yield 'valid' => [
+            true,
+            [
+                'getBlockName' => 'test/block',
+                'getIsAllowed' => '1',
+            ],
+        ];
+        yield 'invalid' => [
+            [$errorIncorrectBlockName],
+            [
+                'getBlockName' => 'Test_Block',
+                'getIsAllowed' => '1',
+            ],
+        ];
+        yield 'errors: blank blockname' => [
             [
                 0 => 'Block Name is required field.',
-                1 => 'Block Name is incorrect.',
-                2 => 'Is Allowed is required field.',
+                1 => 'Is Allowed is required field.',
             ],
             [
                 'getBlockName' => '',
                 'getIsAllowed' => '',
+            ],
+        ];
+        yield 'errors: invalid char blockname' => [
+            [$errorIncorrectBlockName],
+            [
+                'getBlockName' => '~',
+                'getIsAllowed' => '0',
+            ],
+        ];
+        yield 'errors: invalid blockname' => [
+            [$errorIncorrectBlockName],
+            [
+                'getBlockName' => 'test',
+                'getIsAllowed' => '0',
             ],
         ];
     }

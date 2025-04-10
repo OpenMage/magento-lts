@@ -14,6 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * Class Mage_Admin_Model_Variable
  *
@@ -38,29 +41,41 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return array|bool
+     * @return array|true
      * @throws Exception
-     * @throws Zend_Validate_Exception
      */
     public function validate()
     {
-        $errors = [];
+        $validator  = Validation::createValidator();
+        $violations = [];
+        $errors = new ArrayObject();
 
-        if (!Zend_Validate::is($this->getVariableName(), 'NotEmpty')) {
-            $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
-        }
-        if (!Zend_Validate::is($this->getVariableName(), 'Regex', ['/^[-_a-zA-Z0-9\/]*$/'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
+        $violations[] = $validator->validate($this->getVariableName(), [
+            new Assert\NotBlank([
+                'message' => Mage::helper('adminhtml')->__('Variable Name is required field.'),
+            ]),
+            new Assert\Regex([
+                'message' => Mage::helper('adminhtml')->__('Variable Name is incorrect.'),
+                'pattern' => '/^[-_a-zA-Z0-9\/]*$/',
+            ]),
+        ]);
+
+        $violations[] = $validator->validate($this->getIsAllowed(), [new Assert\Choice([
+            'choices' => ['0', '1'],
+            'message' => Mage::helper('adminhtml')->__('Is Allowed is required field.'),
+        ])]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
-        if (!in_array($this->getIsAllowed(), ['0', '1'])) {
-            $errors[] = Mage::helper('adminhtml')->__('Is Allowed is required field.');
-        }
-
-        if (empty($errors)) {
+        if (count($errors) === 0) {
             return true;
         }
-        return $errors;
+
+        return (array) $errors;
     }
 
     /**
