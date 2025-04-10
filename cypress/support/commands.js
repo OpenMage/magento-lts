@@ -19,6 +19,8 @@ Cypress.Commands.add('adminLogInValidUser', () => {
     const username = credentials.Admin.login;
     const password = credentials.Admin.password;
 
+    cy.visit('/admin');
+
     cy.log(`Logging in as ${username}`);
     cy.get('#username').clear().type(username).should('have.value', username);
     cy.get('#login').clear().type(password).should('have.value', password);
@@ -34,7 +36,7 @@ Cypress.Commands.add('adminLogInInvalidUser', () => {
     cy.get('.form-button').click();
 })
 
-Cypress.Commands.add('adminTestRoute', (route) => {
+Cypress.Commands.add('adminGoToTestRoute', (route) => {
     cy.get('body').then($body => {
         if ($body.find('#message-popup-window .message-popup-head a').length > 0) {
             cy.log('Dismissing popup');
@@ -45,7 +47,8 @@ Cypress.Commands.add('adminTestRoute', (route) => {
     cy.log(`Clicking on "${route.h3}" menu`);
     cy.get(route.id).click({force: true});
     cy.url().should('include', route.url);
-
+})
+Cypress.Commands.add('adminTestRoute', (route) => {
     cy.log('Checking for title');
     cy.get('h3.icon-head').should('include.text', route.h3);
 
@@ -55,6 +58,7 @@ Cypress.Commands.add('adminTestRoute', (route) => {
     cy.log('Checking for active class');
     cy.get(route.id).should('have.class', 'active');
 })
+
 Cypress.Commands.add('adminGetConfiguration', (route) => {
     cy.get('#nav-admin-system-config').click({force: true});
     cy.url().should('include', 'system_config/index');
@@ -63,6 +67,7 @@ Cypress.Commands.add('adminGetConfiguration', (route) => {
     cy.url().should('include', route.url);
     cy.get('.content-header h3').should('include.text', route.h3);
 })
+
 Cypress.Commands.add('adminSaveConfiguration', () => {
     cy.log('Clicking on Save Config button');
     cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});

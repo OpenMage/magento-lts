@@ -5,12 +5,11 @@ const route = paths.backend.customers.groups
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.visit('/admin');
         cy.adminLogInValidUser();
-        cy.adminTestRoute(route);
+        cy.adminGoToTestRoute(route);
     });
 
-    it(`tests`, () => {
-        cy.log('Checking for error messages');
+    it(`tests classes and title`, () => {
+        cy.adminTestRoute(route);
     });
 });
