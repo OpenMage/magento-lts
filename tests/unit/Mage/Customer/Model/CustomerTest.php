@@ -72,197 +72,108 @@ class CustomerTest extends TestCase
 
     public function provideValidateCustomerData(): Generator
     {
+        $validCustomer = [
+            'getFirstname' => 'John',
+            'getLastname' => 'Doe',
+            'getEmail' => 'john.doe@example.com',
+            'getPassword' => 'validpassword123',
+            'getPasswordConfirmation' => 'validpassword123',
+            'getDob' => '1980-01-01',
+            'getTaxvat' => '123456789',
+            'getGender' => '1',
+            'shouldValidateDob' => false,
+            'shouldValidateTaxvat' => false,
+            'shouldValidateGender' => false,
+        ];
+
         yield 'valid data' => [
             true,
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $validCustomer,
         ];
+
+        $data = $validCustomer;
+        $data['getFirstname'] = '';
         yield 'missing firstname' => [
             ['The first name cannot be empty.'],
-            [
-                'getFirstname' => '',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getLastname'] = '';
         yield 'missing lastname' => [
             ['The last name cannot be empty.'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => '',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getEmail'] = '';
         yield 'missing email' => [
             ['Invalid email address "".'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => '',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getEmail'] = 'invalid-email';
         yield 'invalid email' => [
             ['Invalid email address "invalid-email".'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'invalid-email',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getPasswordConfirmation'] = 'differentpassword';
         yield 'passwords do not match' => [
             ['Please make sure your passwords match.'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'differentpassword',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $password = '123';
+        $data['getPassword'] = $password;
+        $data['getPasswordConfirmation'] = $password;
         yield 'passwords to short' => [
             ['The minimum password length is 7'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => '123',
-                'getPasswordConfirmation' => '123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $password = '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890';
+        $data['getPassword'] = $password;
+        $data['getPasswordConfirmation'] = $password;
         yield 'passwords to long' => [
             ['Please enter a password with at most 256 characters.'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
-                'getPasswordConfirmation' => '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getDob'] = '';
+        $data['shouldValidateDob'] = true;
         yield 'missing dob' => [
             ['The Date of Birth is required.'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => true,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getDob'] = 'abc';
+        $data['shouldValidateDob'] = true;
         yield 'invalid dob' => [
             ['This value is not a valid date.'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => 'abc',
-                'getTaxvat' => '123456789',
-                'getGender' => '1',
-                'shouldValidateDob' => true,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getTaxvat'] = '';
+        $data['shouldValidateTaxvat'] = true;
         yield 'missing taxvat' => [
             ['The TAX/VAT number is required.'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '',
-                'getGender' => '1',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => true,
-                'shouldValidateGender' => false,
-            ],
+            $data,
         ];
+
+        $data = $validCustomer;
+        $data['getGender'] = '';
+        $data['shouldValidateGender'] = true;
         yield 'missing gender' => [
             ['Gender is required.'],
-            [
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'getPassword' => 'validpassword123',
-                'getPasswordConfirmation' => 'validpassword123',
-                'getDob' => '1980-01-01',
-                'getTaxvat' => '123456789',
-                'getGender' => '',
-                'shouldValidateDob' => false,
-                'shouldValidateTaxvat' => false,
-                'shouldValidateGender' => true,
-            ],
+            $data,
         ];
     }
 }
