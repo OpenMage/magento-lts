@@ -54,7 +54,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
 
         cy.adminSaveConfiguration();
 
-        console.log('Checking for error messages');
+        cy.log('Checking for error messages');
         const error = validation.errors.numberRange;
         cy.get('#advice-validate-number-range-sitemap_category_priority').should('include.text', error);
         cy.get('#advice-validate-number-range-sitemap_product_priority').should('include.text', error);
@@ -73,7 +73,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
 
         cy.adminSaveConfiguration();
 
-        console.log('Checking for error messages');
+        cy.log('Checking for error messages');
         const error = validation.errors.requiredEntry;
         cy.get('#advice-required-entry-sitemap_category_priority').should('include.text', error);
         cy.get('#advice-required-entry-sitemap_product_priority').should('include.text', error);
