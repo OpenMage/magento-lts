@@ -75,18 +75,21 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
-                // check data
-                $error = false;
                 $validator  = Validation::createValidator();
-                if ($validator->validate(trim($post['name']), new Assert\Length(['min' => 1, 'max' => 255]))->count() > 0) {
-                    $error = true;
-                } elseif ($validator->validate(trim($post['comment']), new Assert\Length(['min' => 1, 'max' => 2048]))->count() > 0) {
-                    $error = true;
-                } elseif ($validator->validate(trim($post['email']), [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
-                    $error = true;
+                $violations = [];
+                $errors = new ArrayObject();
+
+                $violations[] = $validator->validate(trim($post['name']), new Assert\Length(['min' => 1, 'max' => 255]));
+                $violations[] = $validator->validate(trim($post['comment']), new Assert\Length(['min' => 1, 'max' => 2048]));
+                $violations[] = $validator->validate(trim($post['email']), new Assert\Length(['min' => 1, 'max' => 2048]));
+
+                foreach ($violations as $violation) {
+                    foreach ($violation as $error) {
+                        $errors->append($error->getMessage());
+                    }
                 }
 
-                if ($error) {
+                if (count($errors) !== 0) {
                     Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 
