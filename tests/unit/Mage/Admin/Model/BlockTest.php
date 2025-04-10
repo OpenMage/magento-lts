@@ -56,6 +56,8 @@ class BlockTest extends TestCase
 
     public function provideValidateAdminBlockData(): Generator
     {
+        $errorIncorrectBlockName = 'Block Name is incorrect.';
+
         yield 'valid' => [
             true,
             [
@@ -64,9 +66,7 @@ class BlockTest extends TestCase
             ],
         ];
         yield 'invalid' => [
-            [
-                0 => 'Block Name is incorrect.',
-            ],
+            [$errorIncorrectBlockName],
             [
                 'getBlockName' => 'Test_Block',
                 'getIsAllowed' => '1',
@@ -83,18 +83,14 @@ class BlockTest extends TestCase
             ],
         ];
         yield 'errors: invalid char blockname' => [
-            [
-                0 => 'Block Name is incorrect.',
-            ],
+            [$errorIncorrectBlockName],
             [
                 'getBlockName' => '~',
                 'getIsAllowed' => '0',
             ],
         ];
         yield 'errors: invalid blockname' => [
-            [
-                0 => 'Block Name is incorrect.',
-            ],
+            [$errorIncorrectBlockName],
             [
                 'getBlockName' => 'test',
                 'getIsAllowed' => '0',

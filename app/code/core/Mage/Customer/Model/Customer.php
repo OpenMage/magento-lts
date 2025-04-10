@@ -1729,9 +1729,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function shouldValidateDob($entityType): bool
     {
-        /** @var Mage_Customer_Model_Attribute $model */
-        $model = Mage::getModel('customer/attribute');
-        $attribute = $model->loadByCode($entityType, 'dob');
+        $attribute = $this->getCustomerAttributeModel()->loadByCode($entityType, 'dob');
         return $attribute->getIsRequired();
     }
 
@@ -1740,9 +1738,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function shouldValidateGender($entityType): bool
     {
-        /** @var Mage_Customer_Model_Attribute $model */
-        $model = Mage::getModel('customer/attribute');
-        $attribute = $model->loadByCode($entityType, 'gender');
+        $attribute = $this->getCustomerAttributeModel()->loadByCode($entityType, 'gender');
         return $attribute->getIsRequired();
     }
 
@@ -1751,9 +1747,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function shouldValidateTaxvat($entityType): bool
     {
+        $attribute = $this->getCustomerAttributeModel()->loadByCode($entityType, 'taxvat');
+        return $attribute->getIsRequired();
+    }
+
+    public function getCustomerAttributeModel(): Mage_Customer_Model_Attribute
+    {
         /** @var Mage_Customer_Model_Attribute $model */
         $model = Mage::getModel('customer/attribute');
-        $attribute = $model->loadByCode($entityType, 'taxvat');
-        return $attribute->getIsRequired();
+        return $model->getIsRequired();
     }
 }
