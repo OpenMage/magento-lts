@@ -62,49 +62,39 @@ class ReviewTest extends TestCase
 
     public function provideValidateReviewData(): Generator
     {
+        $validReview = [
+            'getTitle' => 'Great product',
+            'getDetail' => 'I really liked this product.',
+            'getNickname' => 'JohnDoe',
+            'getCustomerId' => 1,
+            'getEntityId' => 1,
+            'getStoreId' => 1,
+        ];
+
         yield 'valid data' => [
             true,
-            [
-                'getTitle' => 'Great product',
-                'getDetail' => 'I really liked this product.',
-                'getNickname' => 'JohnDoe',
-                'getCustomerId' => 1,
-                'getEntityId' => 1,
-                'getStoreId' => 1,
-            ],
+            $validReview,
         ];
+
+        $data = $validReview;
+        $data['getTitle'] = '';
         yield 'missing title' => [
             ['Review summary can\'t be empty'],
-            [
-                'getTitle' => '',
-                'getDetail' => 'I really liked this product.',
-                'getNickname' => 'JohnDoe',
-                'getCustomerId' => 1,
-                'getEntityId' => 1,
-                'getStoreId' => 1,
-            ],
+            $data,
         ];
+
+        $data = $validReview;
+        $data['getDetail'] = '';
         yield 'missing detail' => [
             ['Review can\'t be empty'],
-            [
-                'getTitle' => 'Great product',
-                'getDetail' => '',
-                'getNickname' => 'JohnDoe',
-                'getCustomerId' => 1,
-                'getEntityId' => 1,
-                'getStoreId' => 1,
-            ],
+            $data,
         ];
+
+        $data = $validReview;
+        $data['getNickname'] = '';
         yield 'missing nickname' => [
             ['Nickname can\'t be empty'],
-            [
-                'getTitle' => 'Great product',
-                'getDetail' => 'I really liked this product.',
-                'getNickname' => '',
-                'getCustomerId' => 1,
-                'getEntityId' => 1,
-                'getStoreId' => 1,
-            ],
+            $data,
         ];
     }
 }
