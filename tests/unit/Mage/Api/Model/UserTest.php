@@ -73,192 +73,100 @@ class UserTest extends TestCase
 
     public function provideValidateApiUserData(): Generator
     {
+        $validUser =             [
+            'getUsername' => 'validuser',
+            'getFirstname' => 'John',
+            'getLastname' => 'Doe',
+            'getEmail' => 'john.doe@example.com',
+            'hasNewApiKey' => false,
+            'getNewApiKey' => null,
+            'hasApiKey' => true,
+            'getApiKey' => 'validapikey123',
+            'hasApiKeyConfirmation' => true,
+            'getApiKeyConfirmation' => 'validapikey123',
+            'userExists' => false,
+        ];
+
         yield 'valid data' => [
             true,
-            [
-                'getUsername' => 'validuser',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => false,
-            ],
+            $validUser,
         ];
+
+        $data = $validUser;
+        $data['getUsername'] = '';
         yield 'missing username' => [
             ['User Name is required field.'],
-            [
-                'getUsername' => '',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => false,
-            ],
+            $data,
         ];
+
+        $data = $validUser;
+        $data['getFirstname'] = '';
         yield 'missing firstname' => [
             ['First Name is required field.'],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => '',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => false,
-            ],
+            $data,
         ];
+
+        $data = $validUser;
+        $data['getLastname'] = '';
         yield 'missing lastname' => [
             ['Last Name is required field.'],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => '',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => false,
-            ],
+            $data,
         ];
+
+        $data = $validUser;
+        $data['getEmail'] = '';
         yield 'missing email' => [
             ['Please enter a valid email.'],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => '',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => false,
-            ],
+            $data,
         ];
+
+        $data = $validUser;
+        $data['getEmail'] = 'invalid-email';
         yield 'invalid email' => [
             ['Please enter a valid email.'],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'invalidemail',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => false,
-            ],
+            $data,
         ];
+
+        $data = $validUser;
+        $data['getApiKey'] = '';
         yield 'missing api key' => [
             [
                 'Api Key must be at least of 7 characters.',
                 'Api Key confirmation must be same as Api Key.',
             ],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => '',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => false,
-            ],
+            $data,
         ];
+
+        $data = $validUser;
+        $data['getApiKeyConfirmation'] = '';
         yield 'missing api confirm key' => [
-            [
-                'Api Key confirmation must be same as Api Key.',
-            ],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => '',
-                'userExists' => false,
-            ],
+            ['Api Key confirmation must be same as Api Key.'],
+            $data,
         ];
+
+        $data = $validUser;
+        $apiKey = '1234567';
+        $data['getApiKey'] = $apiKey;
+        $data['getApiKeyConfirmation'] = $apiKey;
         yield 'numeric only api key' => [
-            [
-                'Api Key must include both numeric and alphabetic characters.',
-            ],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => '1234567',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => '1234567',
-                'userExists' => false,
-            ],
+            ['Api Key must include both numeric and alphabetic characters.'],
+            $data,
         ];
+
+        $data = $validUser;
+        $apiKey = 'abcdefg';
+        $data['getApiKey'] = $apiKey;
+        $data['getApiKeyConfirmation'] = $apiKey;
         yield 'string only api key' => [
-            [
-                'Api Key must include both numeric and alphabetic characters.',
-            ],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'abcdefg',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'abcdefg',
-                'userExists' => false,
-            ],
+            ['Api Key must include both numeric and alphabetic characters.'],
+            $data,
         ];
+
+        $data = $validUser;
+        $data['userExists'] = true;
         yield 'user exists' => [
-            [
-                'A user with the same user name or email already exists.',
-            ],
-            [
-                'getUsername' => 'jd',
-                'getFirstname' => 'John',
-                'getLastname' => 'Doe',
-                'getEmail' => 'john.doe@example.com',
-                'hasNewApiKey' => false,
-                'getNewApiKey' => null,
-                'hasApiKey' => true,
-                'getApiKey' => 'validapikey123',
-                'hasApiKeyConfirmation' => true,
-                'getApiKeyConfirmation' => 'validapikey123',
-                'userExists' => true,
-            ],
+            ['A user with the same user name or email already exists.'],
+            $data,
         ];
     }
 }
