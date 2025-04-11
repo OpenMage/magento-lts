@@ -330,7 +330,7 @@ class Mage_Catalog_Model_Product_Type_Price
      * Apply options price
      *
      * @param Mage_Catalog_Model_Product $product
-     * @param int $qty
+     * @param float $qty
      * @param float $finalPrice
      * @return float
      */

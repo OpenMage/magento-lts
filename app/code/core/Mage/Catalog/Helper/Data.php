@@ -268,12 +268,14 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve template processor for catalog content
      *
-     * @return false|Mage_Core_Model_Abstract
+     * @return Varien_Filter_Template
      */
     public function getPageTemplateProcessor()
     {
         $model = (string) Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
-        return Mage::getModel($model);
+        /** @var Varien_Filter_Template $model */
+        $model = Mage::getModel($model);
+        return $model;
     }
 
     /**

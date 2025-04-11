@@ -176,9 +176,11 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     {
         if ($this->showPager()) {
             if (!$this->_pager) {
-                $this->_pager = $this->getLayout()
+                /** @var Mage_Catalog_Block_Product_Widget_Html_Pager $block */
+                $block = $this->getLayout()
                     ->createBlock('catalog/product_widget_html_pager', 'widget.new.product.list.pager');
 
+                $this->_pager = $block;
                 $this->_pager->setUseContainer(true)
                     ->setShowAmounts(true)
                     ->setShowPerPage(false)

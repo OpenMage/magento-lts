@@ -354,6 +354,10 @@ class Mage_Reports_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             }
         }
 
+        if (!isset($productViewEvent)) {
+            return $this;
+        }
+
         $this->getSelect()->reset()
             ->from(
                 ['report_table_views' => $this->getTable('reports/event')],

@@ -34,14 +34,14 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
     /**
      * Store id
      *
-     * @var string | null
+     * @var int|null
      */
     protected $_storeId;
 
     /**
      * Website id
      *
-     * @var string | null
+     * @var int|null
      */
     protected $_websiteId;
     /**

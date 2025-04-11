@@ -168,8 +168,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      *
      * @param float $price
      * @param bool $isInclTax
-     *
-     * @return bool
+     * @return float
      */
     protected function _getShippingPrice($price, $isInclTax)
     {
@@ -182,7 +181,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
      * Format price base on store convert price method
      *
      * @param float $price
-     * @return string
+     * @return float
      */
     protected function _formatPrice($price)
     {

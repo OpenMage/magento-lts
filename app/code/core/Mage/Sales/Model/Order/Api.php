@@ -192,7 +192,7 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
 
             $order->save();
             $order->sendOrderUpdateEmail($notify, $comment);
-            if ($notify && $comment) {
+            if (isset($oldStore, $oldArea) && $notify && $comment) {
                 Mage::getDesign()->setStore($oldStore);
                 Mage::getDesign()->setArea($oldArea);
             }
