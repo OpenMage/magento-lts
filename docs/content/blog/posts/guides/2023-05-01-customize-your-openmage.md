@@ -59,11 +59,11 @@ To apply the patch, simply run `composer update` and Composer will apply the pat
 
 There are many ways to do this, but here are a few common ones:
 
-### Github Pull Requests
+### GitHub Pull Requests
 
-If a Github PR already contains the code changes you need, simply download a patch file from Github by appending `.patch` to the PR url. You gotta love Github!
+If a GitHub PR already contains the code changes you need, simply download a patch file from GitHub by appending `.patch` to the PR URL. You gotta love GitHub!
 
-For example, the patch URL for PR #3146 is: `https://github.com/OpenMage/magento-lts/pull/3146.patch`. This url will result in a redirect so download it with your
+For example, the patch URL for PR #3146 is: `https://github.com/OpenMage/magento-lts/pull/3146.patch`. This URL will result in a redirect so download it with your
 browser or a client that follows redirects (Location header) such as `wget` or `curl -L`.
 
 ```
@@ -72,7 +72,7 @@ echo -e "Order deny,allow\nDeny from all\n" > patches/.htaccess
 curl -L https://github.com/OpenMage/magento-lts/pull/3146.patch -o var/patches/3146_Add-form-key-validation-to-Contacts-form.patch
 ```
 
-Note, you can also have the patch downloaded at runtime by defining it as a url instead of a local path.
+Note, you can also have the patch downloaded at runtime by defining it as a URL instead of a local path.
 
 ```json
 {
@@ -89,11 +89,11 @@ Note, you can also have the patch downloaded at runtime by defining it as a url 
 
 If it doesn't apply cleanly, apply the patch using `git apply` and fix the conflicts and then output the changes as a local patch file using one of the methods below.
 
-### symplify/vendor-patches
+### `symplify/vendor-patches`
 
 If you are using OpenMage as a project dependency, you can use `symplify/vendor-patches` to generate a patch file easily. This tool automatically
-updates your composer.json for you. Note, in the case of modifying OpenMage core code installed as a project dependency you will need to modify the
-files in the "vendor" directory rather than the `magento-root-dir` directory (e.g. "htdocs").
+updates your `composer.json` for you. Note, in the case of modifying OpenMage core code installed as a project dependency you will need to modify the
+files in the "vendor" directory rather than the `magento-root-dir` directory (e.g. `htdocs`).
 
 Here is an example generating patches for `app/Mage.php`:
 
@@ -123,7 +123,7 @@ git format-patch origin/main...some-feature --stdout > patches/some-feature.patc
 
 Notice the three `...` which gets all changes as one patch. If you used `..` you would get one file per commit.
 
-Use `git show <commit>` to show a single commit or `git diff <base>...<commit>` to get all changes between two commits. Consult the interwebs for more info.
+Use `git show <commit>` to show a single commit or `git diff <base>...<commit>` to get all changes between two commits. Consult the internet for more info.
 
 ## Testing patches
 
