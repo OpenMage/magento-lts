@@ -26,7 +26,7 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits valid form with random email', () => {
-        const email = cy.openmage.generateRandomEmail();
+        const email = cy.openmage.tools.generateRandomEmail();
         cy.get('#firstname').type('John').should('have.value', 'John');
         cy.get('#lastname').type('Doe').should('have.value', 'Doe');
         cy.get('#email_address').type(email).should('have.value', email);

@@ -1,4 +1,4 @@
-const route = cy.testRoutes.paths.backend.sales.transactions
+const route = cy.testRoutes.backend.sales.transactions
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {

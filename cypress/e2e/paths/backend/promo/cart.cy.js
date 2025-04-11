@@ -1,4 +1,4 @@
-const route = cy.testRoutes.paths.backend.promo.cart
+const route = cy.testRoutes.backend.promo.cart
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {

@@ -1,4 +1,4 @@
-const route = cy.testRoutes.paths.backend.newsletter.report
+const route = cy.testRoutes.backend.newsletter.report
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {

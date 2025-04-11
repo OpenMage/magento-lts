@@ -1,4 +1,4 @@
-const route = cy.testRoutes.paths.backend.system.config.catalog.configswatches;
+const route = cy.testRoutes.backend.system.config.catalog.configswatches;
 const validate = {
     dimension: {
         _input: {
