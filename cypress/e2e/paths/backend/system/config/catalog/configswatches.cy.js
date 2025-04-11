@@ -25,7 +25,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
     });
 
     it(`tests non-digit dimensions`, () => {
-        const value = validation.assert.float;
+        const value = cy.openmage.validation.assert.float;
 
         Object.keys(validate.dimension._input).forEach(section => {
             const group = validate.dimension._input[section];
@@ -73,7 +73,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
         cy.adminSaveConfiguration();
 
         cy.log('Checking for error messages');
-        const error = validation.requiredEntry.error;
+        const error = cy.openmage.validation.requiredEntry.error;
         cy.get('#advice-required-entry-configswatches_product_detail_dimensions_height').should('include.text', error);
         cy.get('#advice-required-entry-configswatches_product_detail_dimensions_width').should('include.text', error);
         cy.get('#advice-required-entry-configswatches_product_listing_dimensions_height').should('include.text', error);
