@@ -1,13 +1,13 @@
 Cypress.Commands.add('adminLogIn', () => {
-    const username = cy.openmage.login.admin.username.value;
-    const password = cy.openmage.login.admin.password.value;
+    const username = cy.openmage.login.admin.username;
+    const password = cy.openmage.login.admin.password;
 
     cy.visit('/admin');
 
-    cy.log(`Logging in as ${username}`);
-    cy.get('#username').clear().type(username).should('have.value', username);
-    cy.get('#login').clear().type(password).should('have.value', password);
-    cy.get('.form-button').click();
+    cy.log(`Logging in as ${username.value}`);
+    cy.get(username._id).clear().type(username.value).should('have.value', username.value);
+    cy.get(password._id).clear().type(password.value).should('have.value', password.value);
+    cy.get(cy.openmage.login.admin._submit.__selector).click();
 
     cy.log('Checking for successful login');
     cy.url().should('include', '/dashboard/index');
