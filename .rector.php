@@ -19,6 +19,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 try {
     return RectorConfig::configure()
+        ->withFileExtensions(['php', 'phtml'])
         ->withPhpSets(
             php74: true,
         )

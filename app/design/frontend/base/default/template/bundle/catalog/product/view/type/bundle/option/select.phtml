@@ -19,7 +19,7 @@
 <?php $_option      = $this->getOption(); ?>
 <?php $_selections  = $_option->getSelections(); ?>
 <?php $_default     = $_option->getDefaultSelection(); ?>
-<?php list($_defaultQty, $_canChangeQty) = $this->_getDefaultValues(); ?>
+<?php [$_defaultQty, $_canChangeQty] = $this->_getDefaultValues(); ?>
 <?php $tierPriceHtml = ''; ?>
 
 <dt>
