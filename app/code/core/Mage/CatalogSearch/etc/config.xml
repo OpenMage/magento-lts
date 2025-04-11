@@ -96,6 +96,36 @@
                 </catalogsearch>
             </updates>
         </layout>
+        <events>
+            <controller_action_predispatch_catalogsearch_advanced_index>
+                <observers>
+                    <disable_advanced_search>
+                        <class>catalogsearch/observer_disableAdvancedSearch</class>
+                    </disable_advanced_search>
+                </observers>
+            </controller_action_predispatch_catalogsearch_advanced_index>
+            <controller_action_predispatch_catalogsearch_advanced_result>
+                <observers>
+                    <disable_advanced_search>
+                        <class>catalogsearch/observer_disableAdvancedSearch</class>
+                    </disable_advanced_search>
+                </observers>
+            </controller_action_predispatch_catalogsearch_advanced_result>
+            <controller_action_layout_render_before_catalogsearch_result_index>
+                <observers>
+                    <single_search_result>
+                        <model>catalogsearch/observer_singleSearchResult</model>
+                    </single_search_result>
+                </observers>
+            </controller_action_layout_render_before_catalogsearch_result_index>
+            <controller_action_layout_render_before_catalogsearch_advanced_result>
+                <observers>
+                    <single_search_result>
+                        <model>catalogsearch/observer_singleSearchResult</model>
+                    </single_search_result>
+                </observers>
+            </controller_action_layout_render_before_catalogsearch_advanced_result>
+        </events>
     </frontend>
     <adminhtml>
         <translate>
@@ -129,7 +159,11 @@
                 <search_separator>OR</search_separator>
                 <use_layered_navigation_count>2000</use_layered_navigation_count>
                 <show_autocomplete_results_count>1</show_autocomplete_results_count>
+                <redirect_to_single_search_result>1</redirect_to_single_search_result>
             </search>
+            <advanced_search>
+                <enabled>1</enabled>
+            </advanced_search>
         </catalog>
     </default>
 </config>
