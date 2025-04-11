@@ -4,7 +4,7 @@ const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${route.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogInValidUser();
+        cy.adminLogIn();
         cy.adminGetConfiguration(route);
     });
 

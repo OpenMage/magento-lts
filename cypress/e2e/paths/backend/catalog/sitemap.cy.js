@@ -2,7 +2,7 @@ const route = cy.testRoutes.backend.catalog.sitemap
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogInValidUser();
+        cy.adminLogIn();
         cy.adminGoToTestRoute(route);
     });
 
