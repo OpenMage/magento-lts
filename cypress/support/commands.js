@@ -1,6 +1,6 @@
 Cypress.Commands.add('adminLogIn', () => {
-    const username = cy.openmage.credentials.admin.login;
-    const password = cy.openmage.credentials.admin.password;
+    const username = cy.openmage.login.admin.username;
+    const password = cy.openmage.login.admin.password;
 
     cy.visit('/admin');
 
