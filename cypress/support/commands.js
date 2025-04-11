@@ -79,3 +79,4 @@ Cypress.Commands.add('adminSaveConfiguration', () => {
     cy.get('.form-buttons button[title="Save Config"]').click({force: true, multiple: true});
 })
 
+

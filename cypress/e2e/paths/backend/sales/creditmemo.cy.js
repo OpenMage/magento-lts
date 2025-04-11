@@ -1,7 +1,4 @@
-import {paths} from "../../../../support/paths";
-import {validation} from "../../../../support/validation";
-
-const route = paths.backend.sales.creditmemo
+const route = cy.testRoutes.paths.backend.sales.creditmemo
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {

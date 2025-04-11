@@ -1,7 +1,4 @@
-import { paths } from '../../../../../../support/paths.js';
-import { validation } from '../../../../../../support/validation.js';
-
-const route = paths.backend.system.config.customers.promo;
+const route = cy.testRoutes.backend.system.config.customers.promo;
 const validate = {
     _group: {
         couponCodes: {
@@ -16,7 +13,6 @@ const validate = {
 
 describe(`Checks admin system "${route.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
-        cy.visit('/admin');
         cy.adminLogInValidUser();
         cy.adminGetConfiguration(route);
     });
@@ -36,14 +32,17 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
                 .get(selector)
                 .clear({ force: true })
                 .type(value, { force: true })
-                .should('have.value', value);
+                .should('have.value', value)
+                .should('have.class', validation.digits.css);
         });
 
         cy.adminSaveConfiguration();
 
         cy.log('Checking for error messages');
-        const error = validation.errors.digits;
-        cy.get('#advice-validate-digits-promo_auto_generated_coupon_codes_length').should('include.text', error);
-        cy.get('#advice-validate-digits-promo_auto_generated_coupon_codes_dash').should('include.text', error);
+        const error = validation.digits.error;
+        Object.keys(validate._group.couponCodes._input).forEach(field => {
+            const selector = validation.digits._error + validate._group.couponCodes._input[field].replace(/^\#/, "");
+            cy.get(selector).should('include.text', error);
+        });
     });
 });

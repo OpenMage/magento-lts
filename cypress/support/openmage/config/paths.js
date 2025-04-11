@@ -1,4 +1,4 @@
-export const adminNav = {
+const adminNav = {
     catalog: '#nav-admin-catalog',
     cms: '#nav-admin-cms',
     customer: '#nav-admin-customer',
@@ -8,11 +8,11 @@ export const adminNav = {
     system: '#nav-admin-system',
 }
 
-export const adminPage = {
+const adminPage = {
     _h3: 'h3.icon-head',
 }
 
-export const paths = {
+cy.testRoutes = {
     backend: {
         catalog: {
             products: {
@@ -208,6 +208,16 @@ export const paths = {
                 url: 'system_account/index',
                 h3: 'My Account',
                 _h3: adminPage._h3,
+                _buttonSave: '.form-buttons button[title="Save Account"]',
+                __validation: {
+                    _input: {
+                        username: '#username',
+                        firstname: '#firstname',
+                        lastname: '#lastname',
+                        email: '#email',
+                        current_password: '#current_password',
+                    }
+                }
             },
             notification: {
                 _id_parent: adminNav.system,
@@ -250,6 +260,15 @@ export const paths = {
                         url: 'system_config/edit/section/sitemap',
                         h3: 'Google Sitemap',
                         _h3: adminPage._h3,
+                        __validation: {
+                            priority: {
+                                _input: {
+                                    category: '#sitemap_category_priority',
+                                    product: '#sitemap_product_priority',
+                                    page: '#sitemap_page_priority',
+                                }
+                            }
+                        }
                     }
                 },
                 customers: {
@@ -263,4 +282,8 @@ export const paths = {
             }
         }
     }
+}
+
+export const paths = {
+
 }

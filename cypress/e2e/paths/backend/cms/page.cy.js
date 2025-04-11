@@ -1,7 +1,4 @@
-import {paths} from "../../../../support/paths";
-import {validation} from "../../../../support/validation";
-
-const route = paths.backend.cms.page
+const route = cy.testRoutes.backend.cms.page
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {

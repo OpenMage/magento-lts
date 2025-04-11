@@ -7,7 +7,7 @@ describe('Check newsletter subribe', () => {
     })
 
     it('Test valid input twice', () => {
-        const email = cy.openmage.generateRandomEmail();
+        const email = cy.openmage.tools.generateRandomEmail();
         cy.visit('/')
         cy.get('#newsletter').type(email).should('have.value', email);
         cy.get('#newsletter-validate-detail button[type="submit"]').click();

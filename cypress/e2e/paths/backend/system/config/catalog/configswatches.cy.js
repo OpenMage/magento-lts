@@ -1,7 +1,4 @@
-import { paths } from '../../../../../../support/paths.js';
-import { validation } from '../../../../../../support/validation.js';
-
-const route = paths.backend.system.config.catalog.configswatches;
+const route = cy.testRoutes.paths.backend.system.config.catalog.configswatches;
 const validate = {
     dimension: {
         _input: {
@@ -50,7 +47,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
         cy.adminSaveConfiguration();
 
         cy.log('Checking for error messages');
-        const error = validation.errors.digits;
+        const error = validation.digits.error;
         cy.get('#advice-validate-digits-configswatches_product_detail_dimensions_height').should('include.text', error);
         cy.get('#advice-validate-digits-configswatches_product_detail_dimensions_width').should('include.text', error);
         cy.get('#advice-validate-digits-configswatches_product_listing_dimensions_height').should('include.text', error);
@@ -77,7 +74,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
         cy.adminSaveConfiguration();
 
         cy.log('Checking for error messages');
-        const error = validation.errors.requiredEntry;
+        const error = validation.requiredEntry.error;
         cy.get('#advice-required-entry-configswatches_product_detail_dimensions_height').should('include.text', error);
         cy.get('#advice-required-entry-configswatches_product_detail_dimensions_width').should('include.text', error);
         cy.get('#advice-required-entry-configswatches_product_listing_dimensions_height').should('include.text', error);
