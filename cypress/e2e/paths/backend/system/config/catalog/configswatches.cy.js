@@ -20,7 +20,6 @@ const validate = {
 
 describe(`Checks admin system "${route.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
-        cy.visit('/admin');
         cy.adminLogInValidUser();
         cy.adminGetConfiguration(route);
     });

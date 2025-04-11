@@ -1,5 +1,6 @@
 const route = cy.testRoutes.backend.system.config.catalog.sitemap;
-const assert = cy.openmage.validation.assert;
+const saveButton = cy.testRoutes.backend.system.config._buttonSave
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${route.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
@@ -8,23 +9,20 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
     });
 
     it(`tests invalid string priority`, () => {
-        const validate = cy.openmage.validation.number;
-        cy.openmage.validation.fillFields(route.__validation.priority._input, validate, assert.string);
-        cy.openmage.validation.saveAction(route._buttonSave);
-        cy.openmage.validation.validateFields(route.__validation.priority._input, validate);
+        validation.fillFields(route.__validation.priority._input, validation.number, validation.assert.string);
+        validation.saveAction(saveButton);
+        validation.validateFields(route.__validation.priority._input, validation.number);
     });
 
     it(`tests invalid number priority`, () => {
-        const validate = cy.openmage.validation.numberRange;
-        cy.openmage.validation.fillFields(route.__validation.priority._input, validate, assert.numberGreater1);
-        cy.openmage.validation.saveAction(route._buttonSave);
-        cy.openmage.validation.validateFields(route.__validation.priority._input, validate);
+        validation.fillFields(route.__validation.priority._input, validation.numberRange, validation.assert.numberGreater1);
+        validation.saveAction(saveButton);
+        validation.validateFields(route.__validation.priority._input, validation.numberRange);
      });
 
     it(`tests empty priority`, () => {
-        const validate = cy.openmage.validation.requiredEntry;
-        cy.openmage.validation.fillFields(route.__validation.priority._input, validate);
-        cy.openmage.validation.saveAction(route._buttonSave);
-        cy.openmage.validation.validateFields(route.__validation.priority._input, validate);
+        validation.fillFields(route.__validation.priority._input, validation.requiredEntry);
+        validation.saveAction(saveButton);
+        validation.validateFields(route.__validation.priority._input, validation.requiredEntry);
     });
 });

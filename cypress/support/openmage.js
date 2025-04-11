@@ -1,4 +1,19 @@
 cy.openmage = {
+    login: {
+        admin: {
+            username: {
+                _id: '#username',
+                value: 'admin',
+            },
+            password: {
+                _id: '#login',
+                value: 'veryl0ngpassw0rd',
+            },
+            _submit: {
+                __selector: '.form-button',
+            }
+        }
+    },
     tools: {
         generateRandomEmail: () => {
             const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';

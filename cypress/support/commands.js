@@ -1,23 +1,6 @@
-const credentials = {
-    Admin: {
-        login: 'admin',
-        password: 'veryl0ngpassw0rd',
-    },
-    NoAdmin: {
-        login: 'user',
-        password: 'password'
-    }
-};
-
-Cypress.Commands.add('adminLogInUser', (credential) => {
-    cy.get('#username').clear().type(credential.login).should('have.value', credential.login);
-    cy.get('#login').clear().type(credential.password).should('have.value', credential.password);
-    cy.get('.form-button').click();
-})
-
-Cypress.Commands.add('adminLogInValidUser', () => {
-    const username = credentials.Admin.login;
-    const password = credentials.Admin.password;
+Cypress.Commands.add('adminLogIn', () => {
+    const username = cy.openmage.credentials.admin.login;
+    const password = cy.openmage.credentials.admin.password;
 
     cy.visit('/admin');
 
@@ -28,16 +11,6 @@ Cypress.Commands.add('adminLogInValidUser', () => {
 
     cy.log('Checking for successful login');
     cy.url().should('include', '/dashboard/index');
-})
-
-Cypress.Commands.add('adminLogInInvalidUser', () => {
-    const username = credentials.NoAdmin.login;
-    const password = credentials.NoAdmin.password;
-
-    cy.log(`Logging in as ${username}`);
-    cy.get('#username').clear().type(username).should('have.value', username);
-    cy.get('#login').clear().type(password).should('have.value', password);
-    cy.get('.form-button').click();
 })
 
 Cypress.Commands.add('adminGoToTestRoute', (route) => {

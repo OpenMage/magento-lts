@@ -248,6 +248,7 @@ cy.testRoutes = {
                 _h3: adminPage._h3,
             },
             config: {
+                _buttonSave: '.form-buttons button[title="Save Config"]',
                 catalog: {
                     configswatches: {
                         _id: '#section-configswatches',
@@ -277,13 +278,20 @@ cy.testRoutes = {
                         url: 'system_config/edit/section/promo',
                         h3: 'Promotions',
                         _h3: adminPage._h3,
+                        __validation: {
+                            __groups: {
+                                couponCodes: {
+                                    _id: '#promo_auto_generated_coupon_codes-head',
+                                    _input: {
+                                        length: '#promo_auto_generated_coupon_codes_length',
+                                        dashes: '#promo_auto_generated_coupon_codes_dash',
+                                    }
+                                }
+                            }
+                        }
                     },
                 },
             }
         }
     }
-}
-
-export const paths = {
-
 }
