@@ -64,7 +64,7 @@ class TemplateTest extends TestCase
             'setTemplateSenderName' => 'Sender Name',
             'setTemplateSubject' => 'Valid Subject',
             'setTemplateText' => 'Valid Template Text',
-            'setTemplateType' => '1',
+            'setTemplateType' => 1,
         ];
 
         yield 'valid data' => [
@@ -76,6 +76,13 @@ class TemplateTest extends TestCase
         $data['setTemplateCode'] = null;
         yield 'missing template code' => [
             'You must give a non-empty value for field \'template_code\'',
+            $data,
+        ];
+
+        $data = $validData;
+        $data['setTemplateSenderEmail'] = null;
+        yield 'missing sender email' => [
+            '\'invalid-email\' is not a valid email address in the basic format local-part@hostname',
             $data,
         ];
 
