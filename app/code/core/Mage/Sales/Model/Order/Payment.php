@@ -888,6 +888,8 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
      * Order cancellation hook for payment method instance
      * Adds void transaction if needed
      * @return $this
+     *
+     * @uses Mage_SalesRule_Model_Observer_SalesOrderPaymentCancel::execute()
      */
     public function cancel()
     {

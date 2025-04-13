@@ -24,6 +24,8 @@ class Mage_Sales_Model_Quote_Config
 
     /**
      * @return array
+     *
+     * @uses Mage_SalesRule_Model_Observer_AddProductAttributes::execute()
      */
     public function getProductAttributes()
     {
