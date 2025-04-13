@@ -142,6 +142,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Varien_Db_Select $select
      * @return Varien_Object
      *
+     * @uses Mage_Tax_Model_Observer_PrepareCatalogIndexPriceSelect::execute()
      * @uses Mage_Weee_Model_Observer_PrepareCatalogIndexSelect::execute()
      */
     protected function _dispatchPreparePriceEvent($filter, $select)

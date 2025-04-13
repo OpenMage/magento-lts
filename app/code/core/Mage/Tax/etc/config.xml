@@ -108,40 +108,35 @@
             <sales_convert_quote_address_to_order>
                 <observers>
                     <tax>
-                        <class>tax/observer</class>
-                        <method>salesEventConvertQuoteAddressToOrder</method>
+                        <class>tax/observer_salesEventConvertQuoteAddressToOrder</class>
                     </tax>
                 </observers>
             </sales_convert_quote_address_to_order>
             <sales_order_save_after>
                 <observers>
                     <tax>
-                        <class>tax/observer</class>
-                        <method>salesEventOrderAfterSave</method>
-                    </tax>
+                        <class>tax/observer_salesEventOrderAfterSave</class>
+                      </tax>
                 </observers>
             </sales_order_save_after>
             <catalog_prepare_price_select>
                 <observers>
                     <tax>
-                        <class>tax/observer</class>
-                        <method>prepareCatalogIndexPriceSelect</method>
+                        <class>tax/observer_prepareCatalogIndexPriceSelect</class>
                     </tax>
                 </observers>
             </catalog_prepare_price_select>
             <catalog_product_collection_load_after>
                 <observers>
                     <tax>
-                        <class>tax/observer</class>
-                        <method>addTaxPercentToProductCollection</method>
+                        <class>tax/observer_addTaxPercentToProductCollection</class>
                     </tax>
                 </observers>
             </catalog_product_collection_load_after>
             <sales_quote_collect_totals_before>
                 <observers>
                     <tax>
-                        <class>tax/observer</class>
-                        <method>quoteCollectTotalsBefore</method>
+                        <class>tax/observer_quoteCollectTotalsBefore</class>
                     </tax>
                 </observers>
             </sales_quote_collect_totals_before>
@@ -304,7 +299,7 @@
                     <config_path>reports/crontab/tax_expr</config_path>
                 </schedule>
                 <run>
-                    <model>tax/observer::aggregateSalesReportTaxData</model>
+                    <model>tax/observer_aggregateSalesReportTaxData::execute</model>
                 </run>
             </aggregate_sales_report_tax_data>
         </jobs>

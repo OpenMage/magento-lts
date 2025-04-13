@@ -35,6 +35,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * @return Varien_Object
      * @throws Mage_Core_Model_Store_Exception
      *
+     * @uses Mage_Tax_Model_Observer_PrepareCatalogIndexPriceSelect::execute()
      * @uses Mage_Wee_Model_Observer_PrepareCatalogIndexSelect::execute()
      */
     protected function _dispatchPreparePriceEvent($select)
