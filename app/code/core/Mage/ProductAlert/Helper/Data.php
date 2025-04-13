@@ -22,6 +22,31 @@
  */
 class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
 {
+    /**
+     * Error email template configuration
+     */
+    public const XML_PATH_ERROR_TEMPLATE   = 'catalog/productalert_cron/error_email_template';
+
+    /**
+     * Error email identity configuration
+     */
+    public const XML_PATH_ERROR_IDENTITY   = 'catalog/productalert_cron/error_email_identity';
+
+    /**
+     * 'Send error emails to' configuration
+     */
+    public const XML_PATH_ERROR_RECIPIENT  = 'catalog/productalert_cron/error_email';
+
+    /**
+     * Allow price alert
+     */
+    public const XML_PATH_PRICE_ALLOW      = 'catalog/productalert/allow_price';
+
+    /**
+     * Allow stock alert
+     */
+    public const XML_PATH_STOCK_ALLOW      = 'catalog/productalert/allow_stock';
+
     protected $_moduleName = 'Mage_ProductAlert';
 
     /**
@@ -81,7 +106,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
     {
         return $this->_getUrl('productalert/add/' . $type, [
             'product_id'    => $this->getProduct()->getId(),
-            Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl(),
+            Mage_Core_Controller_Varien_Action::PARAM_NAME_URL_ENCODED => $this->getEncodedUrl(),
         ]);
     }
 
@@ -118,7 +143,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
      */
     public function isStockAlertAllowed()
     {
-        return Mage::getStoreConfigFlag(Mage_ProductAlert_Model_Observer::XML_PATH_STOCK_ALLOW);
+        return Mage::getStoreConfigFlag(self::XML_PATH_STOCK_ALLOW);
     }
 
     /**
@@ -128,6 +153,6 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
      */
     public function isPriceAlertAllowed()
     {
-        return Mage::getStoreConfigFlag(Mage_ProductAlert_Model_Observer::XML_PATH_PRICE_ALLOW);
+        return Mage::getStoreConfigFlag(self::XML_PATH_PRICE_ALLOW);
     }
 }

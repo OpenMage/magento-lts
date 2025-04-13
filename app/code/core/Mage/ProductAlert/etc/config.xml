@@ -134,7 +134,7 @@
         <jobs>
             <catalog_product_alert>
                 <run>
-                    <model>productalert/observer::process</model>
+                    <model>productalert/observer_process::execute</model>
                 </run>
             </catalog_product_alert>
         </jobs>

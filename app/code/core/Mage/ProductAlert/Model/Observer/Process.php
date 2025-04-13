@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
@@ -10,7 +12,7 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -20,35 +22,8 @@
  * @category   Mage
  * @package    Mage_ProductAlert
  */
-class Mage_ProductAlert_Model_Observer
+class Mage_ProductAlert_Model_Observer_Process implements Mage_Core_Observer_Interface
 {
-    /**
-     * Error email template configuration
-     */
-    public const XML_PATH_ERROR_TEMPLATE   = 'catalog/productalert_cron/error_email_template';
-
-    /**
-     * Error email identity configuration
-     */
-    public const XML_PATH_ERROR_IDENTITY   = 'catalog/productalert_cron/error_email_identity';
-
-    /**
-     * 'Send error emails to' configuration
-     */
-    public const XML_PATH_ERROR_RECIPIENT  = 'catalog/productalert_cron/error_email';
-
-    /**
-     * Allow price alert
-     *
-     */
-    public const XML_PATH_PRICE_ALLOW      = 'catalog/productalert/allow_price';
-
-    /**
-     * Allow stock alert
-     *
-     */
-    public const XML_PATH_STOCK_ALLOW      = 'catalog/productalert/allow_stock';
-
     /**
      * Website collection array
      *
@@ -64,26 +39,27 @@ class Mage_ProductAlert_Model_Observer
     protected $_errors = [];
 
     /**
-     * Retrieve website collection array
+     * Run process send product alerts
      *
-     * @return Mage_Core_Model_Website[]
+     * @return $this
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
-    protected function _getWebsites()
+    public function execute(Varien_Event_Observer $observer): self
     {
-        if (is_null($this->_websites)) {
-            try {
-                $this->_websites = Mage::app()->getWebsites();
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
-            }
-        }
-        return $this->_websites;
+        $email = Mage::getModel('productalert/email');
+        $this->_processPrice($email);
+        $this->_processStock($email);
+        $this->_sendErrorEmail();
+
+        return $this;
     }
 
     /**
      * Process price emails
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _processPrice(Mage_ProductAlert_Model_Email $email)
     {
@@ -95,7 +71,7 @@ class Mage_ProductAlert_Model_Observer
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
             }
-            if (!Mage::getStoreConfig(self::XML_PATH_PRICE_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
+            if (!Mage::getStoreConfig(Mage_ProductAlert_Helper_Data::XML_PATH_PRICE_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
                 continue;
             }
             try {
@@ -103,8 +79,8 @@ class Mage_ProductAlert_Model_Observer
                     ->getCollection()
                     ->addWebsiteFilter($website->getId())
                     ->setCustomerOrder();
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
                 return $this;
             }
 
@@ -148,15 +124,15 @@ class Mage_ProductAlert_Model_Observer
                         $alert->setStatus(1);
                         $alert->save();
                     }
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
             if ($previousCustomer) {
                 try {
                     $email->send();
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
         }
@@ -168,6 +144,7 @@ class Mage_ProductAlert_Model_Observer
      * Process stock emails
      *
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _processStock(Mage_ProductAlert_Model_Email $email)
     {
@@ -180,7 +157,7 @@ class Mage_ProductAlert_Model_Observer
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
             }
-            if (!Mage::getStoreConfig(self::XML_PATH_STOCK_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
+            if (!Mage::getStoreConfig(Mage_ProductAlert_Helper_Data::XML_PATH_STOCK_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
                 continue;
             }
             try {
@@ -189,8 +166,8 @@ class Mage_ProductAlert_Model_Observer
                     ->addWebsiteFilter($website->getId())
                     ->addStatusFilter(0)
                     ->setCustomerOrder();
-            } catch (Exception $e) {
-                $this->_errors[] = $e->getMessage();
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
                 return $this;
             }
 
@@ -233,16 +210,16 @@ class Mage_ProductAlert_Model_Observer
                         $alert->setStatus(1);
                         $alert->save();
                     }
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
 
             if ($previousCustomer) {
                 try {
                     $email->send();
-                } catch (Exception $e) {
-                    $this->_errors[] = $e->getMessage();
+                } catch (Exception $exception) {
+                    $this->_errors[] = $exception->getMessage();
                 }
             }
         }
@@ -255,11 +232,12 @@ class Mage_ProductAlert_Model_Observer
      * Send email to administrator if error
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _sendErrorEmail()
     {
         if (count($this->_errors)) {
-            if (!Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE)) {
+            if (!Mage::getStoreConfig(Mage_ProductAlert_Helper_Data::XML_PATH_ERROR_TEMPLATE)) {
                 return $this;
             }
 
@@ -271,9 +249,9 @@ class Mage_ProductAlert_Model_Observer
             /** @var Mage_Core_Model_Email_Template $emailTemplate */
             $emailTemplate->setDesignConfig(['area'  => 'backend'])
                 ->sendTransactional(
-                    Mage::getStoreConfig(self::XML_PATH_ERROR_TEMPLATE),
-                    Mage::getStoreConfig(self::XML_PATH_ERROR_IDENTITY),
-                    Mage::getStoreConfig(self::XML_PATH_ERROR_RECIPIENT),
+                    Mage::getStoreConfig(Mage_ProductAlert_Helper_Data::XML_PATH_ERROR_TEMPLATE),
+                    Mage::getStoreConfig(Mage_ProductAlert_Helper_Data::XML_PATH_ERROR_IDENTITY),
+                    Mage::getStoreConfig(Mage_ProductAlert_Helper_Data::XML_PATH_ERROR_RECIPIENT),
                     null,
                     ['warnings' => implode("\n", $this->_errors)],
                 );
@@ -285,17 +263,19 @@ class Mage_ProductAlert_Model_Observer
     }
 
     /**
-     * Run process send product alerts
+     * Retrieve website collection array
      *
-     * @return $this
+     * @return Mage_Core_Model_Website[]
      */
-    public function process()
+    protected function _getWebsites()
     {
-        $email = Mage::getModel('productalert/email');
-        $this->_processPrice($email);
-        $this->_processStock($email);
-        $this->_sendErrorEmail();
-
-        return $this;
+        if (is_null($this->_websites)) {
+            try {
+                $this->_websites = Mage::app()->getWebsites();
+            } catch (Exception $exception) {
+                $this->_errors[] = $exception->getMessage();
+            }
+        }
+        return $this->_websites;
     }
 }
