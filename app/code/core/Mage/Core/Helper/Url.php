@@ -135,7 +135,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             return $url;
         }
 
-        list($baseUrl, $query) = explode('?', $url, 2);
+        [$baseUrl, $query] = explode('?', $url, 2);
         parse_str($query, $params);
 
         if (!$caseSensitive) {

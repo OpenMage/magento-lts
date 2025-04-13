@@ -28,6 +28,7 @@
         "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
+        "components/jquery": "1.12.4",
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
@@ -43,7 +44,7 @@
         "symfony/polyfill-php83": "^1.31",
         "symfony/polyfill-php84": "^1.31",
         "symfony/string": "^6.4",
-        "symfony/translation-contracts": "^2.5",
+        "symfony/translation-contracts": "^3.5",
         "tinymce/tinymce": "^7.5"
     },
     "require-dev": {
