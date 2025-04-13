@@ -20,7 +20,7 @@
  * @category   Mage
  * @package    Mage_Sitemap
  */
-class Mage_Sitemap_Model_Observer
+class Mage_Sitemap_Model_Observer_ScheduledGenerateSitemaps implements Mage_Core_Observer_Interface
 {
     /**
      * Enable/disable configuration
@@ -49,10 +49,9 @@ class Mage_Sitemap_Model_Observer
 
     /**
      * Generate sitemaps
-     *
-     * @param Mage_Cron_Model_Schedule $schedule
+     * @throws Mage_Core_Exception
      */
-    public function scheduledGenerateSitemaps($schedule)
+    public function execute(Varien_Event_Observer $observer): void
     {
         $errors = [];
 
@@ -61,15 +60,15 @@ class Mage_Sitemap_Model_Observer
             return;
         }
 
-        $collection = Mage::getModel('sitemap/sitemap')->getCollection();
         /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
+        $collection = Mage::getModel('sitemap/sitemap')->getCollection();
         foreach ($collection as $sitemap) {
             /** @var Mage_Sitemap_Model_Sitemap $sitemap */
 
             try {
                 $sitemap->generateXml();
-            } catch (Throwable $e) {
-                $errors[] = $e->getMessage();
+            } catch (Throwable $exception) {
+                $errors[] = $exception->getMessage();
             }
         }
 
