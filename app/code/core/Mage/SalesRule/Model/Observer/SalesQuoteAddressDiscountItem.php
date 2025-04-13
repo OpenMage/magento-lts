@@ -36,10 +36,12 @@ class Mage_SalesRule_Model_Observer_SalesQuoteAddressDiscountItem implements Mag
     /**
      * Process quote item (apply discount to item)
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         $this->getValidator($observer->getEvent())
             ->process($observer->getEvent()->getItem());
+
+        return $this;
     }
 
     /**

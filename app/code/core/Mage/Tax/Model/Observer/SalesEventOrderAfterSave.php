@@ -29,13 +29,13 @@ class Mage_Tax_Model_Observer_SalesEventOrderAfterSave implements Mage_Core_Obse
      *
      * @throws Throwable
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getDataByKey('order');
 
         if (!$order->getConvertingFromQuote() || $order->getAppliedTaxIsSaved()) {
-            return;
+            return $this;
         }
 
         $getTaxesForItems   = $order->getQuote()->getTaxesForItems();
@@ -124,5 +124,6 @@ class Mage_Tax_Model_Observer_SalesEventOrderAfterSave implements Mage_Core_Obse
         }
 
         $order->setAppliedTaxIsSaved(true);
+        return $this;
     }
 }

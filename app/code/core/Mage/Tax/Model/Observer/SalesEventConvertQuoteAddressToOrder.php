@@ -27,7 +27,7 @@ class Mage_Tax_Model_Observer_SalesEventConvertQuoteAddressToOrder implements Ma
     /**
      * Put quote address tax information into order
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Sales_Model_Quote_Address $address */
         $address = $observer->getEvent()->getDataByKey('address');
@@ -42,5 +42,7 @@ class Mage_Tax_Model_Observer_SalesEventConvertQuoteAddressToOrder implements Ma
             $order->setAppliedTaxes($taxes);
             $order->setConvertingFromQuote(true);
         }
+
+        return $this;
     }
 }

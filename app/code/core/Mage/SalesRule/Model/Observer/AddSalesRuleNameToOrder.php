@@ -27,14 +27,14 @@ class Mage_SalesRule_Model_Observer_AddSalesRuleNameToOrder implements Mage_Core
     /**
      * Add coupon's rule name to order data
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getDataByKey('order');
         $couponCode = $order->getCouponCode();
 
         if (empty($couponCode)) {
-            return;
+            return $this;
         }
 
         /** @var Mage_SalesRule_Model_Coupon $couponModel */
@@ -44,7 +44,7 @@ class Mage_SalesRule_Model_Observer_AddSalesRuleNameToOrder implements Mage_Core
         $ruleId = $couponModel->getRuleId();
 
         if (empty($ruleId)) {
-            return;
+            return $this;
         }
 
         /** @var Mage_SalesRule_Model_Rule $ruleModel */
@@ -52,5 +52,6 @@ class Mage_SalesRule_Model_Observer_AddSalesRuleNameToOrder implements Mage_Core
         $ruleModel->load($ruleId);
 
         $order->setCouponRuleName($ruleModel->getName());
+        return $this;
     }
 }

@@ -28,7 +28,7 @@ class Mage_Wishlist_Model_Observer_ProcessAddToCart extends Mage_Core_Model_Abst
      * Customer logout processing
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Core_Controller_Request_Http $request */
         $request = $observer->getEvent()->getDataByKey('request');
@@ -51,7 +51,7 @@ class Mage_Wishlist_Model_Observer_ProcessAddToCart extends Mage_Core_Model_Abst
             } elseif ($sharedWishlist) {
                 $wishlist = Mage::getModel('wishlist/wishlist')->loadByCode($sharedWishlist);
             } else {
-                return;
+                return $this;
             }
 
             $wishlist->getItemCollection()->load();
@@ -79,6 +79,8 @@ class Mage_Wishlist_Model_Observer_ProcessAddToCart extends Mage_Core_Model_Abst
             $response->setRedirect($url);
             $this->getCheckoutSession()->setNoCartRedirect(true);
         }
+
+        return $this;
     }
 
     protected function getCheckoutSession(): Mage_Checkout_Model_Session

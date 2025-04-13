@@ -26,6 +26,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Recurring extends Mage
      * Element output getter
      *
      * @return string
+     *
+     * @uses Mage_Sales_Model_Observer_PrepareProductEditFormRecurringProfile::execute()
      */
     public function getElementHtml()
     {

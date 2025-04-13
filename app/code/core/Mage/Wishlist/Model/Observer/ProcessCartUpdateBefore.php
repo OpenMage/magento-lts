@@ -28,7 +28,7 @@ class Mage_Wishlist_Model_Observer_ProcessCartUpdateBefore extends Mage_Core_Mod
      * Customer logout processing
      * @throws Throwable
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         $cart = $observer->getEvent()->getDataByKey('cart');
         $info = $observer->getEvent()->getDataByKey('info');
@@ -36,7 +36,7 @@ class Mage_Wishlist_Model_Observer_ProcessCartUpdateBefore extends Mage_Core_Mod
 
         $wishlist = $this->_getWishlist($cart->getQuote()->getCustomerId());
         if (!$wishlist) {
-            return;
+            return $this;
         }
 
         /**
@@ -63,6 +63,8 @@ class Mage_Wishlist_Model_Observer_ProcessCartUpdateBefore extends Mage_Core_Mod
             $wishlist->save();
             Mage::helper('wishlist')->calculate();
         }
+
+        return $this;
     }
 
     /**

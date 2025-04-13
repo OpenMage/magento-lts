@@ -27,7 +27,7 @@ class Mage_Weee_Model_Observer_SetWeeeRendererInForm extends Mage_Core_Model_Abs
     /**
      * Assign custom renderer for product create/edit form weee attribute element
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Varien_Data_Form $form */
         $form = $observer->getEvent()->getDataByKey('form');
@@ -42,5 +42,7 @@ class Mage_Weee_Model_Observer_SetWeeeRendererInForm extends Mage_Core_Model_Abs
                 }
             }
         }
+
+        return $this;
     }
 }

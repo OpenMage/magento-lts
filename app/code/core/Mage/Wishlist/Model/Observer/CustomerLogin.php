@@ -27,8 +27,9 @@ class Mage_Wishlist_Model_Observer_CustomerLogin extends Mage_Core_Model_Abstrac
     /**
      * Customer logout processing
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         Mage::helper('wishlist')->calculate();
+        return $this;
     }
 }

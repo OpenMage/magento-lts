@@ -21,5 +21,5 @@
  */
 interface Mage_Core_Observer_Interface
 {
-    public function execute(Varien_Event_Observer $observer): void;
+    public function execute(Varien_Event_Observer $observer): self;
 }

@@ -27,7 +27,7 @@ class Mage_Weee_Model_Observer_UpdateExcludedFieldList extends Mage_Core_Model_A
     /**
      * Exclude WEEE attributes from standard form generation
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes $block */
         $block = $observer->getEvent()->getDataByKey('object');
@@ -35,5 +35,6 @@ class Mage_Weee_Model_Observer_UpdateExcludedFieldList extends Mage_Core_Model_A
         $attributes = Mage::getSingleton('weee/tax')->getWeeeAttributeCodes(true);
         $list = array_merge($list, array_values($attributes));
         $block->setFormExcludedFieldList($list);
+        return $this;
     }
 }

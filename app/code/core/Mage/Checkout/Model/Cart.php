@@ -552,11 +552,13 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
      * @param int|array|Varien_Object $requestInfo
      * @param null|array|Varien_Object $updatingParams
      * @return Mage_Sales_Model_Quote_Item|string
-     *
+     * @throws Mage_Core_Exception
      * @see Mage_Sales_Model_Quote::updateItem()
      */
     public function updateItem($itemId, $requestInfo = null, $updatingParams = null)
     {
+        $product = null;
+
         try {
             $item = $this->getQuote()->getItemById($itemId);
             if (!$item) {
@@ -597,7 +599,10 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
             'quote_item' => $result,
             'product' => $product,
         ]);
-        $this->getCheckoutSession()->setLastAddedProductId($productId);
+        if (isset($productId)) {
+            $this->getCheckoutSession()->setLastAddedProductId($productId);
+        }
+
         return $result;
     }
 }

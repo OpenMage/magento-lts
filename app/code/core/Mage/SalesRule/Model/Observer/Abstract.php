@@ -30,6 +30,7 @@ abstract class Mage_SalesRule_Model_Observer_Abstract
      *
      * @param string $attributeCode
      * @return $this
+     * @throws Throwable
      */
     protected function _checkSalesRulesAvailability($attributeCode)
     {
@@ -41,7 +42,6 @@ abstract class Mage_SalesRule_Model_Observer_Abstract
         foreach ($collection as $rule) {
             /** @var Mage_SalesRule_Model_Rule $rule */
             $rule->setIsActive(0);
-            /** @var $rule->getConditions() Mage_SalesRule_Model_Rule_Condition_Combine */
             $this->_removeAttributeFromConditions($rule->getConditions(), $attributeCode);
             $this->_removeAttributeFromConditions($rule->getActions(), $attributeCode);
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
@@ -62,7 +62,7 @@ abstract class Mage_SalesRule_Model_Observer_Abstract
     /**
      * Remove catalog attribute condition by attribute code from rule conditions
      *
-     * @param Mage_Rule_Model_Condition_Combine $combine
+     * @param Mage_Rule_Model_Condition_Combine|Mage_Rule_Model_Action_Collection $combine
      * @param string $attributeCode
      */
     protected function _removeAttributeFromConditions($combine, $attributeCode)

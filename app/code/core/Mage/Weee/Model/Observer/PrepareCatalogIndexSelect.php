@@ -29,17 +29,17 @@ class Mage_Wee_Model_Observer_PrepareCatalogIndexSelect extends Mage_Core_Model_
      *
      * @throws Mage_Core_Model_Store_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         $storeId = (int) $observer->getEvent()->getDataByKey('store_id');
         if (!Mage::helper('weee')->isEnabled($storeId)) {
-            return;
+            return $this;
         }
 
         switch (Mage::helper('weee')->getListPriceDisplayType()) {
             case Mage_Weee_Model_Tax::DISPLAY_EXCL_DESCR_INCL:
             case Mage_Weee_Model_Tax::DISPLAY_EXCL:
-                return;
+            return $this;
         }
 
         /** @var Varien_Db_Select $select */
@@ -115,6 +115,8 @@ class Mage_Wee_Model_Observer_PrepareCatalogIndexSelect extends Mage_Core_Model_
                 [],
             );
         }
+
+        return $this;
     }
 
     /**

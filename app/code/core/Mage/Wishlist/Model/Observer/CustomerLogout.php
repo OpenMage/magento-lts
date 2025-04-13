@@ -27,8 +27,9 @@ class Mage_Wishlist_Model_Observer_CustomerLogout extends Mage_Core_Model_Abstra
     /**
      * Customer logout processing
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         Mage::getSingleton('customer/session')->setWishlistItemCount(0);
+        return $this;
     }
 }

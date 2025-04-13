@@ -29,7 +29,7 @@ class Mage_SalesRule_Model_Observer_SalesOrderPaymentCancel implements Mage_Core
      *
      * @throws Throwable
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Sales_Model_Order_Payment $payment */
         $payment = $observer->getEvent()->getDataByKey('payment');
@@ -66,5 +66,7 @@ class Mage_SalesRule_Model_Observer_SalesOrderPaymentCancel implements Mage_Core
                 }
             }
         }
+
+        return $this;
     }
 }

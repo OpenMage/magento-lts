@@ -27,10 +27,10 @@ class Mage_Weee_Model_Observer_UpdateDiscountPercents extends Mage_Core_Model_Ab
     /**
      * Update WEEE amounts discount percents
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         if (!Mage::helper('weee')->isEnabled()) {
-            return;
+            return $this;
         }
 
         /** @var Mage_Catalog_Model_Product_Condition $productCondition */
@@ -41,5 +41,6 @@ class Mage_Weee_Model_Observer_UpdateDiscountPercents extends Mage_Core_Model_Ab
             $eventProduct = $observer->getEvent()->getDataByKey('product');
         }
         Mage::getModel('weee/tax')->updateProductsDiscountPercent($eventProduct);
+        return $this;
     }
 }

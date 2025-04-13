@@ -27,7 +27,7 @@ class Mage_Widget_Model_Observer_PrepareWidgetsPluginConfig implements Mage_Core
     /**
      * Add additional settings to wysiwyg config for Widgets Insertion Plugin
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Varien_Object $config */
         $config = $observer->getEvent()->getDataByKey('config');
@@ -35,5 +35,7 @@ class Mage_Widget_Model_Observer_PrepareWidgetsPluginConfig implements Mage_Core
             $settings = Mage::getModel('widget/widget_config')->getPluginSettings($config);
             $config->addData($settings);
         }
+
+        return $this;
     }
 }

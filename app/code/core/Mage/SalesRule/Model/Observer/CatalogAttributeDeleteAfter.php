@@ -27,13 +27,17 @@ class Mage_SalesRule_Model_Observer_CatalogAttributeDeleteAfter extends Mage_Sal
     /**
      * After delete attribute check rules that contains deleted attribute
      * If rules was found they will seted to inactive and added notice to admin session
+     *
+     * @throws Throwable
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
         $attribute = $observer->getEvent()->getDataByKey('attribute');
         if ($attribute->getIsUsedForPromoRules()) {
             $this->_checkSalesRulesAvailability($attribute->getAttributeCode());
         }
+
+        return $this;
     }
 }

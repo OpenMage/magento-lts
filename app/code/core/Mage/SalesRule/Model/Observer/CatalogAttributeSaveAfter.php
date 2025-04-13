@@ -26,13 +26,17 @@ class Mage_SalesRule_Model_Observer_CatalogAttributeSaveAfter extends Mage_Sales
 {
     /**
      * After save attribute if it is not used for promo rules already check rules for containing this attribute
+     *
+     * @throws Throwable
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
         $attribute = $observer->getEvent()->getDataByKey('attribute');
         if ($attribute->dataHasChangedFor('is_used_for_promo_rules') && !$attribute->getIsUsedForPromoRules()) {
             $this->_checkSalesRulesAvailability($attribute->getAttributeCode());
         }
+
+        return $this;
     }
 }

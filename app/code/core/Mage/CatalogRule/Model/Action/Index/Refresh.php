@@ -628,6 +628,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
      *
      * @throws Mage_Core_Exception
      *
+     * @uses Mage_Sales_Model_Observer_MarkQuotesRecollectOnCatalogRules::execute()
      * @uses Mage_Weee_Model_Observer_UpdateDiscountPercents::execute()
      */
     protected function _prepareAffectedProduct()

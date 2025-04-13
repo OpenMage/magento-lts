@@ -27,7 +27,7 @@ class Mage_Weee_Model_Observer_AssignBackendModelToAttribute extends Mage_Core_M
     /**
      * Automatically assign backend model to weee attributes
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Eav_Model_Entity_Attribute_Abstract $object */
         $object = $observer->getEvent()->getDataByKey('attribute');
@@ -45,5 +45,7 @@ class Mage_Weee_Model_Observer_AssignBackendModelToAttribute extends Mage_Core_M
                 $object->setApplyTo($applyTo);
             }
         }
+
+        return $this;
     }
 }

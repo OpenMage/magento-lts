@@ -10,34 +10,33 @@ declare(strict_types=1);
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
- * @package    Mage_Tax
+ * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * Tax Event Observer
+ * Mage_Sales Model Observer
  *
  * @category   Mage
- * @package    Mage_Tax
+ * @package    Mage_Sales
  */
-class Mage_Tax_Model_Observer_QuoteCollectTotalsBefore implements Mage_Core_Observer_Interface
+class Mage_Sales_Model_Observer_AggregateSalesReportBestsellersData implements Mage_Core_Observer_Interface
 {
     /**
-     * Reset extra tax amounts on quote addresses before recollecting totals
+     * Refresh bestsellers report statistics for last day
      *
-     * @throws Mage_Core_Exception
+     * @throws Zend_Date_Exception
+     * @throws Exception
      */
     public function execute(Varien_Event_Observer $observer): self
     {
-        /** @var Mage_Sales_Model_Quote $quote */
-        $quote = $observer->getEvent()->getDataByKey('quote');
-        foreach ($quote->getAllAddresses() as $address) {
-            $address->setExtraTaxAmount(0);
-            $address->setBaseExtraTaxAmount(0);
-        }
-
+        Mage::app()->getLocale()->emulate(0);
+        $currentDate = Mage::app()->getLocale()->date();
+        $date = $currentDate->subHour(25);
+        Mage::getResourceModel('sales/report_bestsellers')->aggregate($date);
+        Mage::app()->getLocale()->revert();
         return $this;
     }
 }

@@ -29,12 +29,12 @@ class Mage_Weee_Model_Observer_UpdateCofigurableProductOptions extends Mage_Core
      *
      * @throws Mage_Core_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
-            return;
+            return $this;
         }
 
         /** @var Varien_Object $response */
@@ -46,7 +46,7 @@ class Mage_Weee_Model_Observer_UpdateCofigurableProductOptions extends Mage_Core
         $_product = $eventProduct ?: Mage::registry('current_product');
 
         if (!$_product) {
-            return;
+            return $this;
         }
 
         $amount = $weeeHelper->getAmountForDisplay($_product);
@@ -72,5 +72,6 @@ class Mage_Weee_Model_Observer_UpdateCofigurableProductOptions extends Mage_Core
         }
 
         $response->setData('additional_options', $options);
+        return $this;
     }
 }

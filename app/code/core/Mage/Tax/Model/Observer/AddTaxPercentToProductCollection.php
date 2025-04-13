@@ -27,14 +27,14 @@ class Mage_Tax_Model_Observer_AddTaxPercentToProductCollection implements Mage_C
     /**
      * Add tax percent values to product collection items
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         $helper = Mage::helper('tax');
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = $observer->getEvent()->getDataByKey('collection');
         $store = $collection->getStoreId();
         if (!$helper->needPriceConversion($store)) {
-            return;
+            return $this;
         }
 
         if ($collection->requireTaxPercent()) {
@@ -50,5 +50,7 @@ class Mage_Tax_Model_Observer_AddTaxPercentToProductCollection implements Mage_C
                 $item->setTaxPercent($classToRate[$item->getTaxClassId()]);
             }
         }
+
+        return $this;
     }
 }

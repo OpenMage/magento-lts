@@ -29,12 +29,13 @@ class Mage_SalesRule_Model_Observer_AggregateSalesReportCouponsData implements M
      *
      * @throws Zend_Date_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
         $date = $currentDate->subHour(25);
         Mage::getResourceModel('salesrule/report_rule')->aggregate($date);
         Mage::app()->getLocale()->revert();
+        return $this;
     }
 }

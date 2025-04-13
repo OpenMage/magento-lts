@@ -565,7 +565,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     /**
      * Retrieve quote address collection
      *
-     * @return Mage_Sales_Model_Resource_Order_Address_Collection
+     * @return Mage_Sales_Model_Resource_Quote_Address_Collection
      * @throws Mage_Core_Exception
      */
     public function getAddressesCollection()
@@ -1447,6 +1447,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @return $this
      * @throws Mage_Core_Exception
      *
+     * @uses Mage_Sales_Model_Observer_SetQuoteCanApplyMsrp::execute()
      * @uses Mage_Tax_Model_Observer_QuoteCollectTotalsBefore::execute()
      */
     public function collectTotals()

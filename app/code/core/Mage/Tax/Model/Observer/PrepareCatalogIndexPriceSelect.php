@@ -27,7 +27,7 @@ class Mage_Tax_Model_Observer_PrepareCatalogIndexPriceSelect implements Mage_Cor
     /**
      * Prepare select which is using to select index data for layered navigation
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         $table = $observer->getEvent()->getTable();
         $response = $observer->getEvent()->getResponseObject();
@@ -42,5 +42,7 @@ class Mage_Tax_Model_Observer_PrepareCatalogIndexPriceSelect implements Mage_Cor
             $additionalCalculations[] = $calculation;
             $response->setAdditionalCalculations($additionalCalculations);
         }
+
+        return $this;
     }
 }

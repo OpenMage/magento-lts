@@ -29,13 +29,13 @@ class Mage_SalesRule_Model_Observer_SalesOrderAfterPlace implements Mage_Core_Ob
      *
      * @throws Throwable
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Sales_Model_Order $order */
         $order = $observer->getEvent()->getDataByKey('order');
 
         if (!$order) {
-            return;
+            return $this;
         }
 
         // lookup rule ids
@@ -87,5 +87,7 @@ class Mage_SalesRule_Model_Observer_SalesOrderAfterPlace implements Mage_Core_Ob
                 }
             }
         }
+
+        return $this;
     }
 }

@@ -29,12 +29,12 @@ class Mage_Weee_Model_Observer_UpdateBundleProductOptions extends Mage_Core_Mode
      *
      * @throws Mage_Core_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
         if (!$weeeHelper->isEnabled()) {
-            return;
+            return $this;
         }
 
         /** @var Varien_Object $response */
@@ -47,7 +47,7 @@ class Mage_Weee_Model_Observer_UpdateBundleProductOptions extends Mage_Core_Mode
 
         $typeDynamic = Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend::DYNAMIC;
         if (!$_product || $_product->getPriceType() != $typeDynamic) {
-            return;
+            return $this;
         }
 
         $amount = $weeeHelper->getAmountForDisplay($selection);
@@ -70,5 +70,6 @@ class Mage_Weee_Model_Observer_UpdateBundleProductOptions extends Mage_Core_Mode
         }
 
         $response->setData('additional_options', $options);
+        return $this;
     }
 }

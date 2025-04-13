@@ -29,7 +29,7 @@ class Mage_SalesRule_Model_Observer_AddProductAttributes implements Mage_Core_Ob
      *
      * @throws Mage_Core_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Varien_Object $attributesTransfer */
         $attributesTransfer = $observer->getEvent()->getDataByKey('attributes');
@@ -44,5 +44,6 @@ class Mage_SalesRule_Model_Observer_AddProductAttributes implements Mage_Core_Ob
             $result[$attribute['attribute_code']] = true;
         }
         $attributesTransfer->addData($result);
+        return $this;
     }
 }

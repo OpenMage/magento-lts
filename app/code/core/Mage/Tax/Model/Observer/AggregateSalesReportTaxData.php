@@ -29,12 +29,13 @@ class Mage_Tax_Model_Observer_AggregateSalesReportTaxData implements Mage_Core_O
      *
      * @throws Zend_Date_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         Mage::app()->getLocale()->emulate(0);
         $currentDate = Mage::app()->getLocale()->date();
         $date = $currentDate->subHour(25);
         Mage::getResourceModel('tax/report_tax')->aggregate($date);
         Mage::app()->getLocale()->revert();
+        return $this;
     }
 }

@@ -27,7 +27,7 @@ class Mage_Weee_Model_Observer_AddWeeeTaxAttributeType extends Mage_Core_Model_A
     /**
      * Add new attribute type to manage attributes interface
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Varien_Object $response */
         $response = $observer->getEvent()->getDataByKey('response');
@@ -50,5 +50,6 @@ class Mage_Weee_Model_Observer_AddWeeeTaxAttributeType extends Mage_Core_Model_A
         ];
 
         $response->setData('types', $types);
+        return $this;
     }
 }

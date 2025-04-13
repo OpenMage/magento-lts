@@ -51,13 +51,13 @@ class Mage_Sitemap_Model_Observer_ScheduledGenerateSitemaps implements Mage_Core
      * Generate sitemaps
      * @throws Mage_Core_Exception
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         $errors = [];
 
         // check if scheduled generation enabled
         if (!Mage::getStoreConfigFlag(self::XML_PATH_GENERATION_ENABLED)) {
-            return;
+            return $this;
         }
 
         /** @var Mage_Sitemap_Model_Resource_Sitemap_Collection $collection */
@@ -90,5 +90,7 @@ class Mage_Sitemap_Model_Observer_ScheduledGenerateSitemaps implements Mage_Core
 
             $translate->setTranslateInline(true);
         }
+
+        return $this;
     }
 }

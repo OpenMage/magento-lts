@@ -1472,8 +1472,7 @@
             <sales_order_place_after>
                 <observers>
                     <sales_vat_request_params_order_comment>
-                        <class>sales/observer</class>
-                        <method>addVatRequestParamsOrderComment</method>
+                        <class>sales/observer_addVatRequestParamsOrderComment</class>
                     </sales_vat_request_params_order_comment>
                 </observers>
             </sales_order_place_after>
@@ -1518,24 +1517,21 @@
             <sales_quote_address_collect_totals_before>
                 <observers>
                     <sales_customer_validate_vat_number>
-                        <class>sales/observer</class>
-                        <method>changeQuoteCustomerGroupId</method>
+                        <class>sales/observer_changeQuoteCustomerGroupId</class>
                     </sales_customer_validate_vat_number>
                 </observers>
             </sales_quote_address_collect_totals_before>
             <sales_quote_address_collect_totals_after>
                 <observers>
                     <sales_customer_validate_vat_number>
-                        <class>sales/observer</class>
-                        <method>restoreQuoteCustomerGroupId</method>
+                        <class>sales/observer_restoreQuoteCustomerGroupId</class>
                     </sales_customer_validate_vat_number>
                 </observers>
             </sales_quote_address_collect_totals_after>
             <sales_quote_collect_totals_after>
                 <observers>
                     <catalog_msrp>
-                        <class>sales/observer</class>
-                        <method>setQuoteCanApplyMsrp</method>
+                        <class>sales/observer_setQuoteCanApplyMsrp</class>
                     </catalog_msrp>
                 </observers>
             </sales_quote_collect_totals_after>
@@ -1562,57 +1558,49 @@
             <catalog_product_delete_before>
                 <observers>
                     <sales_quote_observer>
-                        <class>sales/observer</class>
-                        <method>substractQtyFromQuotes</method>
+                        <class>sales/observer_substractQtyFromQuotes</class>
                     </sales_quote_observer>
                 </observers>
             </catalog_product_delete_before>
             <catalogrule_after_apply>
                 <observers>
                     <sales_quote_observer>
-                        <class>sales/observer</class>
-                        <method>markQuotesRecollectOnCatalogRules</method>
+                        <class>sales/observer_markQuotesRecollectOnCatalogRules</class>
                     </sales_quote_observer>
                 </observers>
             </catalogrule_after_apply>
             <catalog_product_save_after>
                 <observers>
                     <sales_quote>
-                        <class>sales/observer</class>
-                        <method>catalogProductSaveAfter</method>
+                        <class>sales/observer_catalogProductSaveAfter</class>
                     </sales_quote>
                 </observers>
             </catalog_product_save_after>
             <catalog_product_status_update>
                 <observers>
                     <sales_quote>
-                        <class>sales/observer</class>
-                        <method>catalogProductStatusUpdate</method>
+                        <class>sales/observer_catalogProductStatusUpdate</class>
                     </sales_quote>
                 </observers>
             </catalog_product_status_update>
             <catalog_product_edit_form_render_recurring>
                 <observers>
                     <payment>
-                        <class>sales/observer</class>
-                        <method>prepareProductEditFormRecurringProfile</method>
+                        <class>sales/observer_prepareProductEditFormRecurringProfile</class>
                     </payment>
                 </observers>
             </catalog_product_edit_form_render_recurring>
             <payment_method_is_active>
                 <observers>
                     <sales_billing_agreement>
-                        <class>sales/observer</class>
-                        <method>restrictAdminBillingAgreementUsage</method>
+                        <class>sales/observer_restrictAdminBillingAgreementUsage</class>
                     </sales_billing_agreement>
                 </observers>
             </payment_method_is_active>
-
             <customer_save_after>
                 <observers>
                     <customer>
-                        <class>sales/observer</class>
-                        <method>customerSaveAfter</method>
+                        <class>sales/observer_customerSaveAfter</class>
                     </customer>
                 </observers>
             </customer_save_after>
@@ -1720,7 +1708,7 @@
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>sales/observer::cleanExpiredQuotes</model>
+                    <model>sales/observer_cleanExpiredQuotes::execute</model>
                 </run>
             </sales_clean_quotes>
             <aggregate_sales_report_order_data>
@@ -1728,7 +1716,7 @@
                     <config_path>reports/crontab/sales_expr</config_path>
                 </schedule>
                 <run>
-                    <model>sales/observer::aggregateSalesReportOrderData</model>
+                    <model>sales/observer_aggregateSalesReportOrderData::execute</model>
                 </run>
             </aggregate_sales_report_order_data>
             <aggregate_sales_report_shipment_data>
@@ -1736,7 +1724,7 @@
                     <config_path>reports/crontab/shipping_expr</config_path>
                 </schedule>
                 <run>
-                    <model>sales/observer::aggregateSalesReportShipmentData</model>
+                    <model>sales/observer_aggregateSalesReportShipmentData::execute</model>
                 </run>
             </aggregate_sales_report_shipment_data>
             <aggregate_sales_report_invoiced_data>
@@ -1744,7 +1732,7 @@
                     <config_path>reports/crontab/invoiced_expr</config_path>
                 </schedule>
                 <run>
-                    <model>sales/observer::aggregateSalesReportInvoicedData</model>
+                    <model>sales/observer_aggregateSalesReportInvoicedData::execute</model>
                 </run>
             </aggregate_sales_report_invoiced_data>
             <aggregate_sales_report_refunded_data>
@@ -1752,7 +1740,7 @@
                     <config_path>reports/crontab/refunded_expr</config_path>
                 </schedule>
                 <run>
-                    <model>sales/observer::aggregateSalesReportRefundedData</model>
+                    <model>sales/observer_aggregateSalesReportRefundedData::execute</model>
                 </run>
             </aggregate_sales_report_refunded_data>
             <aggregate_sales_report_bestsellers_data>
@@ -1760,7 +1748,7 @@
                     <config_path>reports/crontab/bestsellers_expr</config_path>
                 </schedule>
                 <run>
-                    <model>sales/observer::aggregateSalesReportBestsellersData</model>
+                    <model>sales/observer_aggregateSalesReportBestsellersData::execute</model>
                 </run>
             </aggregate_sales_report_bestsellers_data>
         </jobs>

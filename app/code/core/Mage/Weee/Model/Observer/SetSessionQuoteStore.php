@@ -28,7 +28,7 @@ class Mage_Weee_Model_Observer_SetSessionQuoteStore extends Mage_Core_Model_Abst
      * Notify weee helper about the admin session quote store when creating order
      * in the backend
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Mage_Weee_Helper_Data $weeeHelper */
         $weeeHelper = Mage::helper('weee');
@@ -38,5 +38,7 @@ class Mage_Weee_Model_Observer_SetSessionQuoteStore extends Mage_Core_Model_Abst
         if ($sessionQuote) {
             $weeeHelper->setStore($sessionQuote->getStore());
         }
+
+        return $this;
     }
 }

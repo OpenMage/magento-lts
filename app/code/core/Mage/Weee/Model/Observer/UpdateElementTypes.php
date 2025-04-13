@@ -27,12 +27,13 @@ class Mage_Weee_Model_Observer_UpdateElementTypes extends Mage_Core_Model_Abstra
     /**
      * Add custom element type for attributes form
      */
-    public function execute(Varien_Event_Observer $observer): void
+    public function execute(Varien_Event_Observer $observer): self
     {
         /** @var Varien_Object $response */
         $response = $observer->getEvent()->getDataByKey('response');
         $types = $response->getDataByKey('types');
         $types['weee'] = Mage::getConfig()->getBlockClassName('weee/element_weee_tax');
         $response->setData('types', $types);
+        return $this;
     }
 }
