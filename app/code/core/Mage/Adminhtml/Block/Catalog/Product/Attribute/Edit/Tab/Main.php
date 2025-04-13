@@ -26,6 +26,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
      * Adding product form elements for editing attribute
      *
      * @return $this
+     * @throws Mage_Core_Exception
+     *
+     * @uses Mage_Weee_Model_Observer_AddWeeeTaxAttributeType::execute()
      */
     protected function _prepareForm()
     {
@@ -65,11 +68,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Edit_Tab_Main extends Mage_
         }
 
         $response = new Varien_Object();
-        $response->setTypes([]);
+        $response->setData('types', []);
         Mage::dispatchEvent('adminhtml_product_attribute_types', ['response' => $response]);
         $_disabledTypes = [];
         $_hiddenFields = [];
-        foreach ($response->getTypes() as $type) {
+        foreach ($response->getDataByKey('types') as $type) {
             $additionalTypes[] = $type;
             if (isset($type['hide_fields'])) {
                 $_hiddenFields[$type['value']] = $type['hide_fields'];

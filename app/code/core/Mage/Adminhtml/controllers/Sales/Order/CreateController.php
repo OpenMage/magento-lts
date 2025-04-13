@@ -78,6 +78,8 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
      * Initialize order creation session data
      *
      * @return $this
+     *
+     * @uses Mage_Weee_Model_Observer_SetSessionQuoteStore::execute()
      */
     protected function _initSession()
     {

@@ -25,6 +25,9 @@ class Mage_Catalog_Model_Product_Attribute_Source_Inputtype extends Mage_Eav_Mod
     /**
      * Get product input types as option array
      * @return array
+     * @throws Mage_Core_Exception
+     *
+     * @uses Mage_Weee_Model_Observer_AddWeeeTaxAttributeType::execute()
      */
     public function toOptionArray()
     {
@@ -40,11 +43,11 @@ class Mage_Catalog_Model_Product_Attribute_Source_Inputtype extends Mage_Eav_Mod
         ];
 
         $response = new Varien_Object();
-        $response->setTypes([]);
+        $response->setData('types', []);
         Mage::dispatchEvent('adminhtml_product_attribute_types', ['response' => $response]);
         $_disabledTypes = [];
         $_hiddenFields = [];
-        foreach ($response->getTypes() as $type) {
+        foreach ($response->getDataByKey('types') as $type) {
             $inputTypes[] = $type;
             if (isset($type['hide_fields'])) {
                 $_hiddenFields[$type['value']] = $type['hide_fields'];

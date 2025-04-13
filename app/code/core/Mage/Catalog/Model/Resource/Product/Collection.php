@@ -230,6 +230,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      *
      * @param Varien_Db_Select $select
      * @return $this
+     *
+     * @uses Mage_Weee_Model_Observer_PrepareCatalogIndexSelect::execute()
      */
     protected function _preparePriceExpressionParameters($select)
     {
@@ -2048,15 +2050,15 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function clear()
     {
-        foreach ($this->_items as $i => $item) {
+        foreach ($this->_items as $index => $item) {
             if ($item->hasStockItem()) {
                 $item->unsStockItem();
             }
-            $item = $this->_items[$i] = null;
+            $item = $this->_items[$index] = null;
         }
 
-        foreach ($this->_itemsById as $i => $item) {
-            $item = $this->_itemsById[$i] = null;
+        foreach ($this->_itemsById as $index => $item) {
+            $item = $this->_itemsById[$index] = null;
         }
 
         unset($this->_items, $this->_data, $this->_itemsById);

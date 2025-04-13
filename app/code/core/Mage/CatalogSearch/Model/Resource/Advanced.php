@@ -33,12 +33,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      *
      * @param Varien_Db_Select $select
      * @return Varien_Object
+     * @throws Mage_Core_Model_Store_Exception
+     *
+     * @uses Mage_Wee_Model_Observer_PrepareCatalogIndexSelect::execute()
      */
     protected function _dispatchPreparePriceEvent($select)
     {
         // prepare response object for event
         $response = new Varien_Object();
-        $response->setAdditionalCalculations([]);
+        $response->setData('additional_calculations', []);
 
         // prepare event arguments
         $eventArgs = [
@@ -73,13 +76,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             } elseif (!isset($value['from']) && !isset($value['to'])) { // select
                 $condition = ['in' => $value];
             }
-        } else {
-            if (strlen($value) > 0) {
-                if (in_array($attribute->getBackendType(), ['varchar', 'text', 'static'])) {
-                    $condition = ['like' => '%' . $value . '%']; // text search
-                } else {
-                    $condition = $value;
-                }
+        } elseif (strlen($value) > 0) {
+            if (in_array($attribute->getBackendType(), ['varchar', 'text', 'static'])) {
+                $condition = ['like' => '%' . $value . '%']; // text search
+            } else {
+                $condition = $value;
             }
         }
 
@@ -94,6 +95,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * @param string|array $value
      * @param int $rate
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addRatedPriceFilter($collection, $attribute, $value, $rate = 1)
     {
@@ -122,7 +124,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         $collection->addPriceData();
         $select     = $collection->getSelect();
         $response = $this->_dispatchPreparePriceEvent($select);
-        $additional = implode('', $response->getAdditionalCalculations());
+        $additional = implode('', $response->getDataByKey('additional_calculations'));
 
         foreach ($conditions as $condition) {
             $select->where(sprintf($condition, $additional, $rate));
@@ -138,6 +140,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
      * @param Mage_Catalog_Model_Resource_Eav_Attribute $attribute
      * @param string|array $value
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function addIndexableAttributeModifiedFilter($collection, $attribute, $value)
     {
@@ -169,10 +172,10 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
         );
 
         if (is_array($value) && (isset($value['from']) || isset($value['to']))) {
-            if (isset($value['from']) && !empty($value['from'])) {
+            if (!empty($value['from'])) {
                 $select->where("{$tableAlias}.value >= ?", $value['from']);
             }
-            if (isset($value['to']) && !empty($value['to'])) {
+            if (!empty($value['to'])) {
                 $select->where("{$tableAlias}.value <= ?", $value['to']);
             }
             return true;

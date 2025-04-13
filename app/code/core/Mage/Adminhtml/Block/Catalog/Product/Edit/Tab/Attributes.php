@@ -129,6 +129,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
      * Retrieve additional element types
      *
      * @return array
+     *
+     * @uses Mage_Weee_Model_Observer_UpdateElementTypes::execute()
      */
     protected function _getAdditionalElementTypes()
     {

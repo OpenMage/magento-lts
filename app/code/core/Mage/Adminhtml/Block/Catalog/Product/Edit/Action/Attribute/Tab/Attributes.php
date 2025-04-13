@@ -19,6 +19,11 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method array getFormExcludedFieldList()
+ * @method $this setFormExcludedFieldList(array $list)
+ * @method bool getShowGlobalIcon()
+ * @method $this setShowGlobalIcon(bool $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes extends Mage_Adminhtml_Block_Catalog_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -29,7 +34,9 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
     }
 
     /**
-     * @return $this
+     * @inheritDoc
+     *
+     * @uses Mage_Weee_Model_Observer_UpdateExcludedFieldList::execute()
      */
     protected function _prepareForm()
     {
@@ -49,7 +56,8 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Action_Attribute_Tab_Attributes 
         $this->_setFieldset($attributes, $fieldset, $this->getFormExcludedFieldList());
         $form->setFieldNameSuffix('attributes');
         $this->setForm($form);
-        return $this;
+
+        return parent::_prepareForm();
     }
 
     /**

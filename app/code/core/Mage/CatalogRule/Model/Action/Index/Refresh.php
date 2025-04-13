@@ -616,7 +616,7 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
     /**
      * Return data for affected product
      *
-     * @return null
+     * @return int|null
      */
     protected function _getProduct()
     {
@@ -625,6 +625,10 @@ class Mage_CatalogRule_Model_Action_Index_Refresh
 
     /**
      * Prepare affected product
+     *
+     * @throws Mage_Core_Exception
+     *
+     * @uses Mage_Weee_Model_Observer_UpdateDiscountPercents::execute()
      */
     protected function _prepareAffectedProduct()
     {

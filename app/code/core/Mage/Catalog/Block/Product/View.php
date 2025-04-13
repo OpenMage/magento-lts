@@ -123,6 +123,8 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
      *
      * @return string
      * @throws Mage_Core_Exception
+     *
+     * @uses Mage_Weee_Model_Observer_UpdateCofigurableProductOptions::execute()
      */
     public function getJsonConfig()
     {
@@ -142,8 +144,9 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
 
         $responseObject = new Varien_Object();
         Mage::dispatchEvent('catalog_product_view_config', ['response_object' => $responseObject]);
-        if (is_array($responseObject->getAdditionalOptions())) {
-            foreach ($responseObject->getAdditionalOptions() as $option => $value) {
+        $additionalOptions = $responseObject->getDataByKey('additional_options');
+        if (is_array($additionalOptions)) {
+            foreach ($additionalOptions as $option => $value) {
                 $config[$option] = $value;
             }
         }
