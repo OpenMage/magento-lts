@@ -99,8 +99,7 @@
             <review_save_after>
                 <observers>
                     <rss>
-                        <class>rss/observer</class>
-                        <method>reviewSaveAfter</method>
+                        <class>rss/observer_reviewSaveAfter</class>
                     </rss>
                 </observers>
             </review_save_after>
