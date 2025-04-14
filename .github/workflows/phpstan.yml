@@ -11,11 +11,9 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        openmage:
-          config: .phpstan.dist.openmage.neon
+        - config: .phpstan.dist.openmage.neon
           cache: .phpstan.cache
-        phpunit:
-          config: .phpstan.dist.phpunit.neon
+        - config: .phpstan.dist.phpunit.neon
           cache: .phpstan.phpunit.cache
 
     steps:
