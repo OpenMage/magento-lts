@@ -40,7 +40,7 @@ class UserTest extends TestCase
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-    public function testAuthenticate(string $expectedResult, array $methods): void
+    public function testAuthenticate(bool|string $expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([
