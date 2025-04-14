@@ -79,9 +79,9 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $violations = [];
                 $errors = new ArrayObject();
 
-                $violations[] = $validator->validate(trim($post['name']), new Assert\Length(['min' => 1, 'max' => 255]));
-                $violations[] = $validator->validate(trim($post['comment']), new Assert\Length(['min' => 1, 'max' => 2048]));
-                $violations[] = $validator->validate(trim($post['email']), new Assert\Length(['min' => 1, 'max' => 2048]));
+                $violations[] = $validator->validate(trim($post['name']), [new Assert\NotBlank()]);
+                $violations[] = $validator->validate(trim($post['comment']), [new Assert\NotBlank()]);
+                $violations[] = $validator->validate(trim($post['email']), [new Assert\NotBlank(), new Assert\Email()]);
 
                 foreach ($violations as $violation) {
                     foreach ($violation as $error) {
