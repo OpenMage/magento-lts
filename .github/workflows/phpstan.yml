@@ -9,6 +9,14 @@ jobs:
   phpstan:
     name: Analyze
     runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        openmage:
+          config: .phpstan.dist.openmage.neon
+          cache: .phpstan.cache
+        phpunit:
+          config: .phpstan.dist.phpunit.neon
+          cache: .phpstan.phpunit.cache
 
     steps:
       - name: Setup PHP
@@ -41,11 +49,11 @@ jobs:
             phpstan-result-cache-
 
       - name: PHPStan Static Analysis
-        run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze
+        run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze -c ${{ matrix.config }}
 
       - name: Save result cache
         uses: actions/cache/save@v4
         if: always()
         with:
-          path: .phpstan.cache
+          path: ${{ matrix.cache }}
           key: phpstan-result-cache-${{ github.run_id }}

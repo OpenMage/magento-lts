@@ -1,0 +1,21 @@
+includes:
+    - .phpstan.dist.neon
+parameters:
+    fileExtensions:
+      - php
+    paths:
+        - errors
+        - tests/unit
+    tmpDir: .phpstan.phpunit.cache
+    level: 6
+    ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+        -
+            identifier: phpunit.coversMethod
+        -
+            identifier: missingType.parameter
+            path: errors/processor.php
+        -
+            identifier: missingType.return
+            path: errors/processor.php
