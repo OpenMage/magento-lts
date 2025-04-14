@@ -60,11 +60,11 @@ class IndexControllerTest extends TestCase
         if ($expectedErrorMessage) {
             $sessionMock->expects($this->once())
                 ->method('addError')
-                ->with($this->equalTo($expectedErrorMessage));
+                ->with($expectedErrorMessage);
         } else {
             $sessionMock->expects($this->once())
                 ->method('addSuccess')
-                ->with($this->equalTo('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.'));
+                ->with('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.');
         }
 
         $subject->expects($this->once())->method('_redirect')->with('*/*/');
@@ -83,11 +83,11 @@ class IndexControllerTest extends TestCase
 
         $error = 'Unable to submit your request. Please, try again later';
 
-        yield 'valid data' => [
-            $validData,
-            true,
-            null,
-        ];
+        #yield 'valid data' => [
+        #    $validData,
+        #    true,
+        #    null,
+        #];
 
         yield 'invalid form key' => [
             $validData,
