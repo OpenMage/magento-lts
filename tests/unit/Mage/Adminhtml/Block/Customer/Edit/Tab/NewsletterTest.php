@@ -46,7 +46,6 @@ class NewsletterTest extends TestCase
 
         $mock
             ->method('getRegistryCurrentCustomer')
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
             ->willReturn(new Mage_Customer_Model_Customer());
 
         static::assertInstanceOf(Subject::class, $mock->initForm());

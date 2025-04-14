@@ -41,22 +41,12 @@ class ReviewTest extends TestCase
     public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'getTitle',
-                'getDetail',
-                'getNickname',
-                'getCustomerId',
-                'getEntityId',
-                'getStoreId',
-            ])
+            ->setMethods(array_keys($methods))
             ->getMock();
 
-        $mock->method('getTitle')->willReturn($methods['getTitle']);
-        $mock->method('getDetail')->willReturn($methods['getDetail']);
-        $mock->method('getNickname')->willReturn($methods['getNickname']);
-        $mock->method('getCustomerId')->willReturn($methods['getCustomerId']);
-        $mock->method('getEntityId')->willReturn($methods['getEntityId']);
-        $mock->method('getStoreId')->willReturn($methods['getStoreId']);
+        foreach ($methods as $key => $value) {
+            $mock->method($key)->willReturn($value);
+        }
 
         static::assertSame($expectedResult, $mock->validate());
     }

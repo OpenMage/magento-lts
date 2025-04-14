@@ -42,32 +42,12 @@ class UserTest extends TestCase
     public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'getUsername',
-                'getFirstname',
-                'getLastname',
-                'getEmail',
-                'hasNewApiKey',
-                'getNewApiKey',
-                'hasApiKey',
-                'getApiKey',
-                'hasApiKeyConfirmation',
-                'getApiKeyConfirmation',
-                'userExists',
-            ])
+            ->setMethods(array_keys($methods))
             ->getMock();
 
-        $mock->method('getUsername')->willReturn($methods['getUsername']);
-        $mock->method('getFirstname')->willReturn($methods['getFirstname']);
-        $mock->method('getLastname')->willReturn($methods['getLastname']);
-        $mock->method('getEmail')->willReturn($methods['getEmail']);
-        $mock->method('hasNewApiKey')->willReturn($methods['hasNewApiKey']);
-        $mock->method('getNewApiKey')->willReturn($methods['getNewApiKey']);
-        $mock->method('hasApiKey')->willReturn($methods['hasApiKey']);
-        $mock->method('getApiKey')->willReturn($methods['getApiKey']);
-        $mock->method('hasApiKeyConfirmation')->willReturn($methods['hasApiKeyConfirmation']);
-        $mock->method('getApiKeyConfirmation')->willReturn($methods['getApiKeyConfirmation']);
-        $mock->method('userExists')->willReturn($methods['userExists']);
+        foreach ($methods as $key => $value) {
+            $mock->method($key)->willReturn($value);
+        }
 
         static::assertSame($expectedResult, $mock->validate());
     }

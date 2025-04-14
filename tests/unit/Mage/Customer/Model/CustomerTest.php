@@ -41,32 +41,12 @@ class CustomerTest extends TestCase
     public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'getFirstname',
-                'getLastname',
-                'getEmail',
-                'getPassword',
-                'getPasswordConfirmation',
-                'getDob',
-                'getTaxvat',
-                'getGender',
-                'shouldValidateDob',
-                'shouldValidateTaxvat',
-                'shouldValidateGender',
-            ])
+            ->setMethods(array_keys($methods))
             ->getMock();
 
-        $mock->method('getFirstname')->willReturn($methods['getFirstname']);
-        $mock->method('getLastname')->willReturn($methods['getLastname']);
-        $mock->method('getEmail')->willReturn($methods['getEmail']);
-        $mock->method('getPassword')->willReturn($methods['getPassword']);
-        $mock->method('getPasswordConfirmation')->willReturn($methods['getPasswordConfirmation']);
-        $mock->method('getDob')->willReturn($methods['getDob']);
-        $mock->method('getTaxvat')->willReturn($methods['getTaxvat']);
-        $mock->method('getGender')->willReturn($methods['getGender']);
-        $mock->method('shouldValidateDob')->willReturn($methods['shouldValidateDob']);
-        $mock->method('shouldValidateTaxvat')->willReturn($methods['shouldValidateTaxvat']);
-        $mock->method('shouldValidateGender')->willReturn($methods['shouldValidateGender']);
+        foreach ($methods as $key => $value) {
+            $mock->method($key)->willReturn($value);
+        }
 
         static::assertSame($expectedResult, $mock->validate());
     }

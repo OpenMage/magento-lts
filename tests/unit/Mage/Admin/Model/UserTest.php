@@ -42,25 +42,17 @@ class UserTest extends TestCase
      */
     public function testAuthenticate(bool|string $expectedResult, array $methods): void
     {
+        $defaultMethods = ['loadByUsername' => null];
+        $methods = array_merge($defaultMethods, $methods);
+
         $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'loadByUsername',
-                'getId',
-                'getUsername',
-                'getPassword',
-                'getIsActive',
-                'validatePasswordHash',
-                'hasAssigned2Role',
-            ])
+            ->setMethods(array_keys($methods))
             ->getMock();
 
         $mock->method('loadByUsername')->willReturnSelf();
-        $mock->method('getId')->willReturn($methods['getId']);
-        //        $mock->expects($this->any())->method('getUsername')->willReturn($methods['getUsername']);
-        $mock->method('getPassword')->willReturn($methods['getPassword']);
-        $mock->method('validatePasswordHash')->willReturn($methods['validatePasswordHash']);
-        $mock->method('getIsActive')->willReturn($methods['getIsActive']);
-        $mock->method('hasAssigned2Role')->willReturn($methods['hasAssigned2Role']);
+        foreach ($methods as $key => $value) {
+            $mock->method($key)->willReturn($value);
+        }
 
         try {
             static::assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
@@ -71,49 +63,46 @@ class UserTest extends TestCase
 
     public function provideAuthenticateData(): Generator
     {
+        $validData = [
+            'getId'       => '999',
+            'getUsername' => 'new',
+            'getPassword' => 'veryl0ngpassw0rd',
+            'getIsActive' => '1',
+            'validatePasswordHash' => true,
+            'hasAssigned2Role' => true,
+        ];
+
         yield 'pass' => [
             true,
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '1',
-                'validatePasswordHash' => true,
-                'hasAssigned2Role' => true,
-            ],
+            $validData,
         ];
+
+        $data = $validData;
+        $data['getUsername'] = 'admin';
+        yield 'fail #0 account exists' => [
+            'User Name already exists.',
+            $data,
+        ];
+
+        $data = $validData;
+        $data['getIsActive'] = '0';
         yield 'fail #1 inactive' => [
             'This account is inactive.',
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '0',
-                'validatePasswordHash' => true,
-                'hasAssigned2Role' => true,
-            ],
+            $data,
         ];
+
+        $data = $validData;
+        $data['validatePasswordHash'] = false;
         yield 'fail #2 invalid hash' => [
             false,
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '1',
-                'validatePasswordHash' => false,
-                'hasAssigned2Role' => true,
-            ],
+            $data,
         ];
+
+        $data = $validData;
+        $data['hasAssigned2Role'] = false;
         yield 'fail #3 no role assigned' => [
             'Access denied.',
-            [
-                'getId'       => '1',
-                'getUsername' => 'admin',
-                'getPassword' => 'veryl0ngpassw0rd',
-                'getIsActive' => '1',
-                'validatePasswordHash' => true,
-                'hasAssigned2Role' => false,
-            ],
+            $data,
         ];
     }
 
@@ -126,18 +115,13 @@ class UserTest extends TestCase
     public function testValidate($expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'hasNewPassword',
-                'getNewPassword',
-                'hasPassword',
-                'getPassword',
-            ])
+            ->setMethods(array_keys($methods))
             ->getMock();
 
-        $mock->method('hasNewPassword')->willReturn($methods['hasNewPassword']);
-        $mock->method('getNewPassword')->willReturn($methods['getNewPassword']);
-        $mock->method('hasPassword')->willReturn($methods['hasPassword']);
-        $mock->method('getPassword')->willReturn($methods['getPassword']);
+        foreach ($methods as $key => $value) {
+            $mock->method($key)->willReturn($value);
+        }
+
         static::assertSame($expectedResult, $mock->validate());
     }
 
@@ -222,14 +206,13 @@ class UserTest extends TestCase
     public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'getRpToken',
-                'getRpTokenCreatedAt',
-            ])
+            ->setMethods(array_keys($methods))
             ->getMock();
 
-        $mock->method('getRpToken')->willReturn($methods['getRpToken']);
-        $mock->method('getRpTokenCreatedAt')->willReturn($methods['getRpTokenCreatedAt']);
+        foreach ($methods as $key => $value) {
+            $mock->method($key)->willReturn($value);
+        }
+
         static::assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
     }
 
