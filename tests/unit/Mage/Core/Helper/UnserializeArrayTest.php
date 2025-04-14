@@ -38,7 +38,7 @@ class UnserializeArrayTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
-    public function testUnserialize($expectedTesult, $string): void
+    public function testUnserialize(array|string $expectedTesult, ?string $string): void
     {
         try {
             static::assertSame($expectedTesult, self::$subject->unserialize($string));

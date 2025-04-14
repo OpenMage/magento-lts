@@ -38,7 +38,7 @@ class DataTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
      */
-    public function testSplitSku($expectedResult, string $sku, int $length = 30): void
+    public function testSplitSku(array $expectedResult, string $sku, int $length = 30): void
     {
         static::assertSame($expectedResult, self::$subject->splitSku($sku, $length));
     }

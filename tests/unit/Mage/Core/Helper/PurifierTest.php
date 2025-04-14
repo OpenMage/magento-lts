@@ -37,7 +37,7 @@ class PurifierTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Helper
      */
-    public function testPurify($expectedResult, $content): void
+    public function testPurify(array|string $expectedResult, array|string $content): void
     {
         static::assertSame($expectedResult, self::$subject->purify($content));
     }

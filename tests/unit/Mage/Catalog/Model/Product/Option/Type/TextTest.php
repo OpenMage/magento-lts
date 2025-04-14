@@ -51,7 +51,7 @@ class TextTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testPrepareForCart($expectedResult, bool $setIsValid = true, $setUserValue = null): void
+    public function testPrepareForCart(?string $expectedResult, bool $setIsValid = true, ?string $setUserValue = null): void
     {
         self::$subject->setIsValid($setIsValid)->setUserValue($setUserValue);
         static::assertSame($expectedResult, self::$subject->prepareForCart());

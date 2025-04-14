@@ -20,6 +20,7 @@ namespace OpenMage\Tests\Unit\Mage\GiftMessage\Helper;
 use Generator;
 use Mage;
 use Mage_Catalog_Model_Product;
+use Mage_Core_Model_Store;
 use Mage_GiftMessage_Helper_Message as Subject;
 use PHPUnit\Framework\TestCase;
 use Varien_Object;
@@ -40,7 +41,7 @@ class MessageTest extends TestCase
      * @group Mage_GiftMessage
      * @group Mage_GiftMessage_Helper
      */
-    public function testIsMessagesAvailable(string $type, Varien_Object $entity, $store = null): void
+    public function testIsMessagesAvailable(string $type, Varien_Object $entity, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {
         static::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));
     }

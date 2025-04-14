@@ -44,7 +44,7 @@ class AttributeTest extends TestCase
      * @group Mage_Catalog_Model
      * @group Mage_Catalog_Model_Resource
      */
-    public function testGetStoreId($expectedResult, $withStoreId): void
+    public function testGetStoreId(?int $expectedResult, int|string|null $withStoreId): void
     {
         if ($withStoreId) {
             self::$subject->setStoreId($withStoreId);

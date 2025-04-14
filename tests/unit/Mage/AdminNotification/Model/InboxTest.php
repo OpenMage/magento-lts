@@ -42,7 +42,7 @@ class InboxTest extends TestCase
      * @group Mage_AdminNotification
      * @group Mage_AdminNotification_Model
      */
-    public function testGetSeverities($expectedResult, ?int $severity): void
+    public function testGetSeverities(array|string|null $expectedResult, ?int $severity): void
     {
         static::assertSame($expectedResult, self::$subject->getSeverities($severity));
     }

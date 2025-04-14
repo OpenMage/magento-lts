@@ -101,7 +101,7 @@ class ListTest extends TestCase
         static::assertSame('CD', $parentBlock->toHtml());
     }
 
-    public function testSortInstructionsAfterReplaceChild()
+    public function testSortInstructionsAfterReplaceChild(): void
     {
         $layout = Mage::getModel('core/layout');
 

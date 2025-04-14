@@ -50,7 +50,7 @@ class CollectionTest extends TestCase
      */
     public function testSetPeriod(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setPeriod(1));
+        static::assertInstanceOf(Subject::class, self::$subject->setPeriod('1m'));
     }
 
     /**
@@ -68,7 +68,7 @@ class CollectionTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testGetIntervals($expectedResult, $from, $to, $period): void
+    public function testGetIntervals(int $expectedResult, string|Zend_Date $from, string|Zend_Date $to, string $period): void
     {
         self::$subject->setInterval($from, $to);
         self::$subject->setPeriod($period);
@@ -135,7 +135,7 @@ class CollectionTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Model
      */
-    public function testInitReport($modelClass = ''): void
+    public function testInitReport(string $modelClass = ''): void
     {
         static::assertInstanceOf(Subject::class, self::$subject->initReport($modelClass));
     }

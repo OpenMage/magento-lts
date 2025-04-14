@@ -225,7 +225,7 @@ class DataTest extends TestCase
      * @group Mage_Tax
      * @group Mage_Tax_Helper
      */
-    public function testGetIncExcTaxLabel($expectedResult, bool $flag): void
+    public function testGetIncExcTaxLabel(string $expectedResult, bool $flag): void
     {
         static::assertStringContainsString($expectedResult, self::$subject->getIncExcTaxLabel($flag));
     }

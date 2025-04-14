@@ -81,7 +81,7 @@ class DataTest extends TestCase
      */
     public function testFormatTimezoneDate(
         string $expectedResult,
-        $data,
+        ?string $data,
         string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
         bool $showTime = false,
         bool $useTimezone = false # disable timezone by default for tests

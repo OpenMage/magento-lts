@@ -123,7 +123,7 @@ class AbstractTest extends TestCase
      * @group Mage_Rule
      * @group Mage_Rule_Model
      */
-    public function testValidate($expectedResul, ?array $data = null): void
+    public function testValidate(bool|array $expectedResul, ?array $data = null): void
     {
         $object = new Varien_Object($data);
         try {
@@ -139,7 +139,7 @@ class AbstractTest extends TestCase
      * @group Mage_Rule
      * @group Mage_Rule_Model
      */
-    public function testValidateData($expectedResul, ?array $data = null): void
+    public function testValidateData(bool|array $expectedResul, ?array $data = null): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             static::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');

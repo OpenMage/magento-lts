@@ -41,7 +41,7 @@ class LayoutTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Model
      */
-    public function testCreateBlock($expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
+    public function testCreateBlock(bool|string $expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
         $result = self::$subject->createBlock($type, $name, $attributes);
 
@@ -77,7 +77,7 @@ class LayoutTest extends TestCase
      * @group Mage_Core_Model
      * @group pr4411
      */
-    public function testGetBlockSingleton($expectedResult, bool $isAbstractBlock, string $type): void
+    public function testGetBlockSingleton(string $expectedResult, bool $isAbstractBlock, string $type): void
     {
         $result = self::$subject->getBlockSingleton($type);
 

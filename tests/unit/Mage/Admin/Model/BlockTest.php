@@ -35,13 +35,13 @@ class BlockTest extends TestCase
 
     /**
      * @dataProvider provideValidateAdminBlockData
-     * @param array<int, string> $expectedResult
+     * @param true|array<int, string> $expectedResult
      *
      * @group Mage_Admin
      * @group Mage_Admin_Model
      * @throws Exception
      */
-    public function testValidate($expectedResult, array $methods): void
+    public function testValidate(bool|array $expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([

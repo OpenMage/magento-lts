@@ -35,13 +35,12 @@ class UserTest extends TestCase
 
     /**
      * @dataProvider provideAuthenticateData
-     * @param array|true $expectedResult
      * @group Mage_Admin
      * @group Mage_Admin_Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
-    public function testAuthenticate($expectedResult, array $methods): void
+    public function testAuthenticate(string $expectedResult, array $methods): void
     {
         $mock = $this->getMockBuilder(Subject::class)
             ->setMethods([

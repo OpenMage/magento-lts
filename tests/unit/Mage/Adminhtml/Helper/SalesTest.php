@@ -38,7 +38,7 @@ class SalesTest extends TestCase
      * @group Mage_Adminhtml
      * @group Mage_Adminhtml_Helper
      */
-    public function testEscapeHtmlWithLinks($expectedResult, $data): void
+    public function testEscapeHtmlWithLinks(string $expectedResult, string $data): void
     {
         static::assertSame($expectedResult, self::$subject->escapeHtmlWithLinks($data, ['a']));
     }

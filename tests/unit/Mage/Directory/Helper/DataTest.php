@@ -78,7 +78,7 @@ class DataTest extends TestCase
      * @group Mage_Directory
      * @group Mage_Directory_Helper
      */
-    public function testGetCountriesWithOptionalZip($expectedResult, bool $asJson): void
+    public function testGetCountriesWithOptionalZip(array|string $expectedResult, bool $asJson): void
     {
         static::assertSame($expectedResult, self::$subject->getCountriesWithOptionalZip($asJson));
     }
@@ -116,7 +116,7 @@ class DataTest extends TestCase
      * @group Mage_Directory
      * @group Mage_Directory_Helper
      */
-    public function testGetCountriesWithStatesRequired($expectedResult, bool $asJson): void
+    public function testGetCountriesWithStatesRequired(array|string $expectedResult, bool $asJson): void
     {
         $result = self::$subject->getCountriesWithStatesRequired($asJson);
         if (defined('DATA_MAY_CHANGED')) {

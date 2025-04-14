@@ -63,7 +63,7 @@ class DataTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Helper
      */
-    public function testGetIntervals($expectedResult, $from, $to, $period): void
+    public function testGetIntervals(int $expectedResult, string $from, string $to, string $period): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             static::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
@@ -83,7 +83,7 @@ class DataTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Helper
      */
-    public function testPrepareIntervalsCollection($expectedResult, $from, $to, $period): void
+    public function testPrepareIntervalsCollection(int $expectedResult, string $from, string $to, string $period): void
     {
         static::markTestIncomplete('Test needs to be reviewed.');
         // @phpstan-ignore-next-line

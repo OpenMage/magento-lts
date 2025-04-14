@@ -76,7 +76,7 @@ class ProductTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
      */
-    public function testGetAttributeBackendModelByInputType($expectedResult, string $inputType): void
+    public function testGetAttributeBackendModelByInputType(string $expectedResult, string $inputType): void
     {
         static::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
     }
@@ -94,7 +94,7 @@ class ProductTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
      */
-    public function testGetAttributeSourceModelByInputType($expectedResult, string $inputType): void
+    public function testGetAttributeSourceModelByInputType(string $expectedResult, string $inputType): void
     {
         static::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
     }
