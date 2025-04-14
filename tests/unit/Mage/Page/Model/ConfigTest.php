@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('page/config');
+        self::$subject = Mage::getModel('page/config');
     }
 
     /**
@@ -37,6 +37,6 @@ class ConfigTest extends TestCase
      */
     public function testGetPageLayoutHandles(): void
     {
-        $this->assertIsArray($this->subject->getPageLayoutHandles());
+        static::assertIsArray(self::$subject->getPageLayoutHandles());
     }
 }

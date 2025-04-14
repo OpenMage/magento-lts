@@ -24,12 +24,12 @@ use Varien_Object;
 
 class DefaultTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -39,6 +39,6 @@ class DefaultTest extends TestCase
      */
     public function testSetItem(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setItem(new Varien_Object()));
+        static::assertInstanceOf(Subject::class, self::$subject->setItem(new Varien_Object()));
     }
 }

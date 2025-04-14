@@ -23,19 +23,20 @@ use PHPUnit\Framework\TestCase;
 
 class FormTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
      * @group Mage_Adminhtml
+     * @group Mage_Adminhtml_Block
      */
     public function testInitForm(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->initForm());
+        static::assertInstanceOf(Subject::class, self::$subject->initForm());
     }
 }

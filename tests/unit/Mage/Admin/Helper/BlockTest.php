@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('admin/block');
+        self::$subject = Mage::helper('admin/block');
     }
 
     /**
@@ -38,7 +38,7 @@ class BlockTest extends TestCase
      */
     public function testIsTypeAllowed(): void
     {
-        $this->assertFalse($this->subject->isTypeAllowed('some-type'));
+        static::assertFalse(self::$subject->isTypeAllowed('some-type'));
     }
 
     /**
@@ -48,6 +48,6 @@ class BlockTest extends TestCase
      */
     public function testGetDisallowedBlockNames(): void
     {
-        $this->assertSame(['install/end'], $this->subject->getDisallowedBlockNames());
+        static::assertSame(['install/end'], self::$subject->getDisallowedBlockNames());
     }
 }

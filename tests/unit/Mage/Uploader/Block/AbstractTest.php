@@ -26,12 +26,16 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app();
+    }
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = $this->getMockForAbstractClass(Subject::class);
+        self::$subject = $this->getMockForAbstractClass(Subject::class);
     }
 
     /**
@@ -40,7 +44,7 @@ class AbstractTest extends TestCase
      */
     public function testGetMiscConfig(): void
     {
-        $this->assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, $this->subject->getMiscConfig());
+        static::assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, self::$subject->getMiscConfig());
     }
 
     /**
@@ -51,7 +55,7 @@ class AbstractTest extends TestCase
      */
     public function testGetUploaderConfig(): void
     {
-        $this->assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, $this->subject->getUploaderConfig());
+        static::assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, self::$subject->getUploaderConfig());
     }
 
     /**
@@ -60,7 +64,7 @@ class AbstractTest extends TestCase
      */
     public function testGetButtonConfig(): void
     {
-        $this->assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, $this->subject->getButtonConfig());
+        static::assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, self::$subject->getButtonConfig());
     }
 
     /**
@@ -70,8 +74,8 @@ class AbstractTest extends TestCase
     public function testGetElementId(): void
     {
         $suffix = 'test';
-        $result = $this->subject->getElementId($suffix);
-        $this->assertStringStartsWith('id_', $result);
-        $this->assertStringEndsWith('-' . $suffix, $result);
+        $result = self::$subject->getElementId($suffix);
+        static::assertStringStartsWith('id_', $result);
+        static::assertStringEndsWith('-' . $suffix, $result);
     }
 }

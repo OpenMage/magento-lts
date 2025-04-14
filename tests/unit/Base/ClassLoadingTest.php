@@ -28,7 +28,7 @@ class ClassLoadingTest extends TestCase
      */
     public function testClassExists(bool $expectedResult, string $class): void
     {
-        $this->assertSame($expectedResult, class_exists($class));
+        static::assertSame($expectedResult, class_exists($class));
     }
 
     public function provideClassExistsData(): Generator

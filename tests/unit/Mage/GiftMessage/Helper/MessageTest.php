@@ -26,12 +26,12 @@ use Varien_Object;
 
 class MessageTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('giftmessage/message');
+        self::$subject = Mage::helper('giftmessage/message');
     }
 
     /**
@@ -42,7 +42,7 @@ class MessageTest extends TestCase
      */
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, $store = null): void
     {
-        $this->assertIsBool($this->subject->isMessagesAvailable($type, $entity, $store));
+        static::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));
     }
 
     public function provideIsMessagesAvailable(): Generator

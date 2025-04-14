@@ -22,11 +22,11 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -35,9 +35,9 @@ class ColumnTest extends TestCase
      */
     public function testGetType(): void
     {
-        $this->assertSame('', $this->subject->getType());
+        static::assertSame('', self::$subject->getType());
 
-        $this->subject->setType('text');
-        $this->assertSame('text', $this->subject->getType());
+        self::$subject->setType('text');
+        static::assertSame('text', self::$subject->getType());
     }
 }

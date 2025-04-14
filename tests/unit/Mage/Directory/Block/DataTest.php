@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -39,7 +39,7 @@ class DataTest extends TestCase
      */
     public function testGetCountryCollection(): void
     {
-        $this->assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, $this->subject->getCountryCollection());
+        static::assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, self::$subject->getCountryCollection());
     }
 
     /**
@@ -48,6 +48,6 @@ class DataTest extends TestCase
      */
     public function testGetRegionCollection(): void
     {
-        $this->assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, $this->subject->getRegionCollection());
+        static::assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, self::$subject->getRegionCollection());
     }
 }

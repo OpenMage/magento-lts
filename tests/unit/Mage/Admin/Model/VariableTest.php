@@ -24,22 +24,20 @@ use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('admin/variable');
+        self::$subject = Mage::getModel('admin/variable');
     }
 
     /**
      * @dataProvider provideValidateAdminVariableData
      * @group Mage_Admin
      * @group Mage_Admin_Model
-     *
-     * @param array|true $expectedResult
      */
-    public function testValidate($expectedResult, string $variableName, string $isAllowed): void
+    public function testValidate(bool|array $expectedResult, string $variableName, string $isAllowed): void
     {
         $mock = $this->getMockBuilder(Subject::class)
             ->setMethods(['getVariableName', 'getIsAllowed'])
@@ -47,7 +45,7 @@ class VariableTest extends TestCase
 
         $mock->method('getVariableName')->willReturn($variableName);
         $mock->method('getIsAllowed')->willReturn($isAllowed);
-        $this->assertSame($expectedResult, $mock->validate());
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function provideValidateAdminVariableData(): Generator
@@ -58,24 +56,24 @@ class VariableTest extends TestCase
             '1',
         ];
         yield 'test error empty' => [
-            [0 => 'Variable Name is required field.'],
+            ['Variable Name is required field.'],
             '',
             '1',
         ];
         yield 'test error regex' => [
-            [0 => 'Variable Name is incorrect.'],
+            ['Variable Name is incorrect.'],
             '#invalid-name#',
             '1',
         ];
         yield 'test error allowed' => [
-            [0 => 'Is Allowed is required field.'],
-            'test',
+            ['Is Allowed is required field.'],
             'invalid',
+            '',
         ];
     }
 
     public function testIsPathAllowed(): void
     {
-        $this->assertIsBool($this->subject->isPathAllowed('invalid-path'));
+        static::assertIsBool(self::$subject->isPathAllowed('invalid-path'));
     }
 }

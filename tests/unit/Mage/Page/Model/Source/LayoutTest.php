@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class LayoutTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('page/source_layout');
+        self::$subject = Mage::getModel('page/source_layout');
     }
 
     /**
@@ -37,6 +37,6 @@ class LayoutTest extends TestCase
      */
     public function testToOptionArray(): void
     {
-        $this->assertIsArray($this->subject->toOptionArray(true));
+        static::assertIsArray(self::$subject->toOptionArray(true));
     }
 }

@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class SalesTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('adminhtml/sales');
+        self::$subject = Mage::helper('adminhtml/sales');
     }
 
     /**
@@ -40,7 +40,7 @@ class SalesTest extends TestCase
      */
     public function testEscapeHtmlWithLinks($expectedResult, $data): void
     {
-        $this->assertSame($expectedResult, $this->subject->escapeHtmlWithLinks($data, ['a']));
+        static::assertSame($expectedResult, self::$subject->escapeHtmlWithLinks($data, ['a']));
     }
 
     public function provideDecodeGridSerializedInput(): Generator

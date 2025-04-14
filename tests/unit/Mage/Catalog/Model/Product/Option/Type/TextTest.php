@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 
 class TextTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('catalog/product_option_type_text');
+        self::$subject = Mage::getModel('catalog/product_option_type_text');
     }
 
     /**
@@ -41,8 +41,8 @@ class TextTest extends TestCase
      */
     public function testValidateUserValue(): void
     {
-        $this->subject->setOption(new Mage_Catalog_Model_Product_Option());
-        $this->assertInstanceOf(Subject::class, $this->subject->validateUserValue([]));
+        self::$subject->setOption(new Mage_Catalog_Model_Product_Option());
+        static::assertInstanceOf(Subject::class, self::$subject->validateUserValue([]));
     }
 
 
@@ -53,8 +53,8 @@ class TextTest extends TestCase
      */
     public function testPrepareForCart($expectedResult, bool $setIsValid = true, $setUserValue = null): void
     {
-        $this->subject->setIsValid($setIsValid)->setUserValue($setUserValue);
-        $this->assertSame($expectedResult, $this->subject->prepareForCart());
+        self::$subject->setIsValid($setIsValid)->setUserValue($setUserValue);
+        static::assertSame($expectedResult, self::$subject->prepareForCart());
     }
 
     public function providePrepareForCart(): Generator
@@ -76,6 +76,6 @@ class TextTest extends TestCase
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsString($this->subject->getFormattedOptionValue(''));
+        static::assertIsString(self::$subject->getFormattedOptionValue(''));
     }
 }

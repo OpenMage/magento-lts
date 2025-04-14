@@ -30,12 +30,12 @@ use function sprintf;
 
 class SecurityTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('core/security');
+        self::$subject = Mage::helper('core/security');
     }
 
     /**
@@ -72,7 +72,7 @@ class SecurityTest extends TestCase
         string $method,
         array $args
     ): void {
-        $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
+        self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 
     public function forbiddenBlockMethodsDataProvider(): Generator
@@ -130,6 +130,6 @@ class SecurityTest extends TestCase
         array $args
     ): void {
         $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method));
-        $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
+        self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 }

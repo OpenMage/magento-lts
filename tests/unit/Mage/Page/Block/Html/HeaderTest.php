@@ -24,12 +24,16 @@ use PHPUnit\Framework\TestCase;
 
 class HeaderTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app();
+    }
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -38,7 +42,7 @@ class HeaderTest extends TestCase
      */
     //    public function testGetIsHomePage(): void
     //    {
-    //        $this->assertIsBool($this->subject->getIsHomePage());
+    //        $this->assertIsBool(self::$subject->getIsHomePage());
     //    }
 
     /**
@@ -47,7 +51,7 @@ class HeaderTest extends TestCase
      */
     public function testSetLogo(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setLogo('src', 'alt'));
+        static::assertInstanceOf(Subject::class, self::$subject->setLogo('src', 'alt'));
     }
 
     /**
@@ -56,7 +60,7 @@ class HeaderTest extends TestCase
      */
     public function testGetLogoSrc(): void
     {
-        $this->assertIsString($this->subject->getLogoSrc());
+        static::assertIsString(self::$subject->getLogoSrc());
     }
 
     /**
@@ -65,7 +69,7 @@ class HeaderTest extends TestCase
      */
     public function testGetLogoSrcSmall(): void
     {
-        $this->assertIsString($this->subject->getLogoSrcSmall());
+        static::assertIsString(self::$subject->getLogoSrcSmall());
     }
 
     /**
@@ -74,6 +78,6 @@ class HeaderTest extends TestCase
      */
     public function testGetLogoAlt(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, $this->subject->getLogoAlt());
+        static::assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, self::$subject->getLogoAlt());
     }
 }

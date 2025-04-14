@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('admin/user');
+        self::$subject = Mage::getModel('admin/user');
     }
 
     /**
@@ -64,9 +64,9 @@ class UserTest extends TestCase
         $mock->method('hasAssigned2Role')->willReturn($methods['hasAssigned2Role']);
 
         try {
-            $this->assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
+            static::assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
         } catch (Mage_Core_Exception $exception) {
-            $this->assertSame($expectedResult, $exception->getMessage());
+            static::assertSame($expectedResult, $exception->getMessage());
         }
     }
 
@@ -139,7 +139,7 @@ class UserTest extends TestCase
         $mock->method('getNewPassword')->willReturn($methods['getNewPassword']);
         $mock->method('hasPassword')->willReturn($methods['hasPassword']);
         $mock->method('getPassword')->willReturn($methods['getPassword']);
-        $this->assertSame($expectedResult, $mock->validate());
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function provideValidateAdminUserData(): Generator
@@ -184,8 +184,8 @@ class UserTest extends TestCase
      */
     public function testValidateCurrentPassword(): void
     {
-        $this->assertIsArray($this->subject->validateCurrentPassword(''));
-        $this->assertIsArray($this->subject->validateCurrentPassword('123'));
+        static::assertIsArray(self::$subject->validateCurrentPassword(''));
+        static::assertIsArray(self::$subject->validateCurrentPassword('123'));
     }
 
     /**
@@ -194,7 +194,7 @@ class UserTest extends TestCase
      */
     public function testLoadByUsername(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->loadByUsername('invalid-user'));
+        static::assertInstanceOf(Subject::class, self::$subject->loadByUsername('invalid-user'));
     }
 
     /**
@@ -203,7 +203,7 @@ class UserTest extends TestCase
      */
     public function testHasAssigned2Role(): void
     {
-        $this->assertIsArray($this->subject->hasAssigned2Role(1));
+        static::assertIsArray(self::$subject->hasAssigned2Role(1));
     }
 
     /**
@@ -212,7 +212,7 @@ class UserTest extends TestCase
      */
     public function testChangeResetPasswordLinkToken(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->changeResetPasswordLinkToken('123'));
+        static::assertInstanceOf(Subject::class, self::$subject->changeResetPasswordLinkToken('123'));
     }
 
     /**
@@ -231,7 +231,7 @@ class UserTest extends TestCase
 
         $mock->method('getRpToken')->willReturn($methods['getRpToken']);
         $mock->method('getRpTokenCreatedAt')->willReturn($methods['getRpTokenCreatedAt']);
-        $this->assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
+        static::assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
     }
 
     public function provideIsResetPasswordLinkTokenExpiredData(): Generator
@@ -258,6 +258,53 @@ class UserTest extends TestCase
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->sendPasswordResetConfirmationEmail());
+        static::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
+    }
+
+    /**
+     * @group Mage_Admin
+     * @group Mage_Admin_Model
+     */
+    public function testCleanPasswordsValidationData(): void
+    {
+        self::$subject->setData('password', 'test123');
+        self::$subject->setData('current_password', 'current123');
+        self::$subject->setData('new_password', 'new123');
+        self::$subject->setData('password_confirmation', 'confirm123');
+
+        self::$subject->cleanPasswordsValidationData();
+
+        static::assertNull(self::$subject->getData('password'));
+        static::assertNull(self::$subject->getData('current_password'));
+        static::assertNull(self::$subject->getData('new_password'));
+        static::assertNull(self::$subject->getData('password_confirmation'));
+    }
+
+    /**
+     * @group Mage_Admin
+     * @group Mage_Admin_Model
+     */
+    public function testGetMinAdminPasswordLength(): void
+    {
+        $mock = $this->getMockBuilder(Subject::class)
+            ->setMethods(['getStoreConfigAsInt'])
+            ->getMock();
+        $mock->method('getStoreConfigAsInt')->willReturn(10);
+
+        static::assertSame(14, $mock->getMinAdminPasswordLength());
+    }
+
+    /**
+     * @group Mage_Admin
+     * @group Mage_Admin_Model
+     */
+    public function testSendAdminNotification(): void
+    {
+        $mock = $this->getMockBuilder(Subject::class)
+            ->setMethods(['getUserCreateAdditionalEmail'])
+            ->getMock();
+        $mock->method('getUserCreateAdditionalEmail')->willReturn(['test@example.com']);
+
+        static::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
     }
 }

@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 
 class AddressesTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('adminhtml/addresses');
+        self::$subject = Mage::helper('adminhtml/addresses');
     }
 
     /**
@@ -44,8 +44,8 @@ class AddressesTest extends TestCase
         $attribute = new Mage_Customer_Model_Attribute();
         $attribute->setScopeMultilineCount($lines);
 
-        $result = $this->subject->processStreetAttribute($attribute);
-        $this->assertSame($expectedResult, $result->getScopeMultilineCount());
+        $result = self::$subject->processStreetAttribute($attribute);
+        static::assertSame($expectedResult, $result->getScopeMultilineCount());
     }
 
     public function provideProcessStreetAttribute(): Generator

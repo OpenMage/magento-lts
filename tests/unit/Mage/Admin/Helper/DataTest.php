@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('admin/data');
+        self::$subject = Mage::helper('admin/data');
     }
 
     /**
@@ -38,7 +38,7 @@ class DataTest extends TestCase
      */
     public function testGenerateResetPasswordLinkToken(): void
     {
-        $this->assertIsString($this->subject->generateResetPasswordLinkToken());
+        static::assertIsString(self::$subject->generateResetPasswordLinkToken());
     }
 
     /**
@@ -48,6 +48,6 @@ class DataTest extends TestCase
      */
     public function testGetResetPasswordLinkExpirationPeriod(): void
     {
-        $this->assertIsInt($this->subject->getResetPasswordLinkExpirationPeriod());
+        static::assertIsInt(self::$subject->getResetPasswordLinkExpirationPeriod());
     }
 }

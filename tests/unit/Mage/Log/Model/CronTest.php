@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class CronTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('log/cron');
+        self::$subject = Mage::getModel('log/cron');
     }
 
     /**
@@ -37,6 +37,6 @@ class CronTest extends TestCase
      */
     public function testLogClean(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->logClean());
+        static::assertInstanceOf(Subject::class, self::$subject->logClean());
     }
 }

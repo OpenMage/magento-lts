@@ -24,12 +24,13 @@ use PHPUnit\Framework\TestCase;
 
 class ViewTest extends TestCase
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -46,6 +47,6 @@ class ViewTest extends TestCase
             ->method('getRegistryCurrentConvertProfile')
             ->willReturn(new Mage_Dataflow_Model_Profile());
 
-        $this->assertInstanceOf(Subject::class, $mock->initForm());
+        static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

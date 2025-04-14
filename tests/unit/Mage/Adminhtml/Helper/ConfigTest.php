@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('adminhtml/config');
+        self::$subject = Mage::helper('adminhtml/config');
     }
 
     /**
@@ -40,7 +40,7 @@ class ConfigTest extends TestCase
      */
     public function testGetInputTypes(array $expectedResult, ?string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getInputTypes($inputType));
+        static::assertSame($expectedResult, self::$subject->getInputTypes($inputType));
     }
 
     public function provideGetInputTypes(): Generator
@@ -73,7 +73,7 @@ class ConfigTest extends TestCase
      */
     public function testGetBackendModelByInputType(?string $expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getBackendModelByInputType($inputType));
+        static::assertSame($expectedResult, self::$subject->getBackendModelByInputType($inputType));
     }
 
     public function provideGetBackendModelByInputType(): Generator

@@ -26,12 +26,12 @@ class FileTest extends TestCase
 {
     use DownloadableTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('downloadable/file');
+        self::$subject = Mage::helper('downloadable/file');
     }
 
     /**
@@ -42,7 +42,7 @@ class FileTest extends TestCase
      */
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
-        $result = $this->subject->getFilePath($path, $file);
-        $this->assertSame($expectedResult, $result);
+        $result = self::$subject->getFilePath($path, $file);
+        static::assertSame($expectedResult, $result);
     }
 }

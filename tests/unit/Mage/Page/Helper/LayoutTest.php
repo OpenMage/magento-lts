@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class LayoutTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('page/layout');
+        self::$subject = Mage::helper('page/layout');
     }
 
     /**
@@ -38,6 +38,6 @@ class LayoutTest extends TestCase
      */
     public function testApplyTemplate(): void
     {
-        $this->assertTrue($this->subject->isModuleEnabled());
+        static::assertTrue(self::$subject->isModuleEnabled());
     }
 }

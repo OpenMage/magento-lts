@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class CategoryTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('catalog/category');
+        self::$subject = Mage::helper('catalog/category');
     }
 
     /**
@@ -37,6 +37,6 @@ class CategoryTest extends TestCase
      */
     public function testCanUseCanonicalTag(): void
     {
-        $this->assertIsBool($this->subject->canUseCanonicalTag());
+        static::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 }

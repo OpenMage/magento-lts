@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('catalog/product');
+        self::$subject = Mage::helper('catalog/product');
     }
 
     /**
@@ -38,7 +38,7 @@ class ProductTest extends TestCase
      */
     public function testCanUseCanonicalTag(): void
     {
-        $this->assertIsBool($this->subject->canUseCanonicalTag());
+        static::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 
     /**
@@ -48,7 +48,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
-        $this->assertCount($expectedResult, $this->subject->getAttributeInputTypes($inputType));
+        static::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
     }
 
     public function provideGetAttributeInputTypes(): Generator
@@ -78,7 +78,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeBackendModelByInputType($expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getAttributeBackendModelByInputType($inputType));
+        static::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
     }
 
     public function provideGetAttributeBackendModelByInputType(): Generator
@@ -96,7 +96,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeSourceModelByInputType($expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getAttributeSourceModelByInputType($inputType));
+        static::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
     }
 
     public function provideGetAttributeSourceModelByInputType(): Generator

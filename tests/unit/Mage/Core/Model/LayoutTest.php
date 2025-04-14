@@ -20,7 +20,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Error;
 use Generator;
 use Mage;
-use Mage_Core_Model_Layout;
+use Mage_Core_Model_Layout as Subject;
 use OpenMage\Tests\Unit\Traits\PhpStormMetaData\BlocksTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -28,12 +28,12 @@ class LayoutTest extends TestCase
 {
     use BlocksTrait;
 
-    public Mage_Core_Model_Layout $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('core/layout');
+        self::$subject = Mage::getModel('core/layout');
     }
 
     /**
@@ -43,12 +43,12 @@ class LayoutTest extends TestCase
      */
     public function testCreateBlock($expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
-        $result = $this->subject->createBlock($type, $name, $attributes);
+        $result = self::$subject->createBlock($type, $name, $attributes);
 
         if ($willReturnBlock) {
-            $this->assertInstanceOf($expectedResult, $result);
+            static::assertInstanceOf($expectedResult, $result);
         } else {
-            $this->assertFalse($result);
+            static::assertFalse($result);
         }
     }
 
@@ -79,14 +79,14 @@ class LayoutTest extends TestCase
      */
     public function testGetBlockSingleton($expectedResult, bool $isAbstractBlock, string $type): void
     {
-        $result = $this->subject->getBlockSingleton($type);
+        $result = self::$subject->getBlockSingleton($type);
 
-        $this->assertInstanceOf($expectedResult, $result);
+        static::assertInstanceOf($expectedResult, $result);
 
         if ($isAbstractBlock) {
-            $this->assertInstanceOf(\Mage_Core_Block_Abstract::class, $result);
+            static::assertInstanceOf(\Mage_Core_Block_Abstract::class, $result);
         } else {
-            $this->assertNotInstanceOf(\Mage_Core_Block_Abstract::class, $result);
+            static::assertNotInstanceOf(\Mage_Core_Block_Abstract::class, $result);
         }
     }
 
@@ -132,6 +132,6 @@ class LayoutTest extends TestCase
             $this->expectExceptionMessage("Class 'Mage_Invalid_Block_Type' not found");
         }
 
-        $this->subject->getBlockSingleton('invalid/type');
+        self::$subject->getBlockSingleton('invalid/type');
     }
 }

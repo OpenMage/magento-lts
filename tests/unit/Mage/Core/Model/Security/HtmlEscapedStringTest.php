@@ -25,7 +25,7 @@ class HtmlEscapedStringTest extends TestCase
 {
     public const TEST_STRING = 'This is a bold <b>string</b>';
 
-    public Subject $subject;
+    private static Subject $subject;
 
     /**
      * @dataProvider provideHtmlEscapedStringAsStringData
@@ -35,8 +35,8 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        $this->subject = new Subject($string, $allowedTags);
-        $this->assertSame($expectedResult, $this->subject->__toString());
+        self::$subject = new Subject($string, $allowedTags);
+        static::assertSame($expectedResult, self::$subject->__toString());
     }
 
     /**
@@ -47,8 +47,8 @@ class HtmlEscapedStringTest extends TestCase
      */
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        $this->subject = new Subject($string, $allowedTags);
-        $this->assertSame($expectedResult, $this->subject->getUnescapedValue());
+        self::$subject = new Subject($string, $allowedTags);
+        static::assertSame($expectedResult, self::$subject->getUnescapedValue());
     }
 
     public function provideHtmlEscapedStringAsStringData(): Generator

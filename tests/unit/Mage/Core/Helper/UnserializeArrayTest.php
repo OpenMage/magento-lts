@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 
 class UnserializeArrayTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('core/unserializeArray');
+        self::$subject = Mage::helper('core/unserializeArray');
     }
 
     /**
@@ -41,9 +41,9 @@ class UnserializeArrayTest extends TestCase
     public function testUnserialize($expectedTesult, $string): void
     {
         try {
-            $this->assertSame($expectedTesult, $this->subject->unserialize($string));
+            static::assertSame($expectedTesult, self::$subject->unserialize($string));
         } catch (Exception $exception) {
-            $this->assertSame($expectedTesult, $exception->getMessage());
+            static::assertSame($expectedTesult, $exception->getMessage());
         }
     }
 

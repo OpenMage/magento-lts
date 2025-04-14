@@ -26,12 +26,16 @@ class StoreTest extends TestCase
 {
     use CoreTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app();
+    }
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('core/store');
+        self::$subject = Mage::getModel('core/store');
     }
 
     /**
@@ -44,8 +48,8 @@ class StoreTest extends TestCase
     public function testGetId(?int $expectedResult, $withStore): void
     {
         if ($withStore) {
-            $this->subject->setData('store_id', $withStore);
+            self::$subject->setData('store_id', $withStore);
         }
-        $this->assertSame($expectedResult, $this->subject->getId());
+        static::assertSame($expectedResult, self::$subject->getId());
     }
 }

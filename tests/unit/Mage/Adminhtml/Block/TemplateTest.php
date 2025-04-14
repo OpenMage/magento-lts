@@ -26,12 +26,12 @@ class TemplateTest extends TestCase
 {
     use CoreTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -43,7 +43,7 @@ class TemplateTest extends TestCase
      */
     public function testGetFormKey(): void
     {
-        $this->assertIsString($this->subject->getFormKey());
+        static::assertIsString(self::$subject->getFormKey());
     }
 
     /**
@@ -54,7 +54,7 @@ class TemplateTest extends TestCase
      */
     public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
-        $this->assertSame($expectedResult, $this->subject->isOutputEnabled($moduleName));
+        static::assertSame($expectedResult, self::$subject->isOutputEnabled($moduleName));
     }
 
     /**
@@ -63,7 +63,7 @@ class TemplateTest extends TestCase
      */
     public function testGetModuleName(): void
     {
-        $this->assertSame('Mage_Adminhtml', $this->subject->getModuleName());
+        static::assertSame('Mage_Adminhtml', self::$subject->getModuleName());
     }
 
     /**
@@ -73,6 +73,6 @@ class TemplateTest extends TestCase
      */
     public function testMaliciousCodeFilter(): void
     {
-        $this->assertIsString($this->subject->maliciousCodeFilter(''));
+        static::assertIsString(self::$subject->maliciousCodeFilter(''));
     }
 }

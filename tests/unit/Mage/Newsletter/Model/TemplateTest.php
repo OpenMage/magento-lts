@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class TemplateTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('newsletter/template');
+        self::$subject = Mage::getModel('newsletter/template');
     }
 
     /**
@@ -39,12 +39,12 @@ class TemplateTest extends TestCase
      */
     public function testValidate(?string $expected, array $methods): void
     {
-        $this->subject->setTemplateCode($methods['setTemplateCode']);
-        $this->subject->setTemplateSenderEmail($methods['setTemplateSenderEmail']);
-        $this->subject->setTemplateSenderName($methods['setTemplateSenderName']);
-        $this->subject->setTemplateSubject($methods['setTemplateSubject']);
-        $this->subject->setTemplateText($methods['setTemplateText']);
-        $this->subject->setTemplateType($methods['setTemplateType']);
+        self::$subject->setTemplateCode($methods['setTemplateCode']);
+        self::$subject->setTemplateSenderEmail($methods['setTemplateSenderEmail']);
+        self::$subject->setTemplateSenderName($methods['setTemplateSenderName']);
+        self::$subject->setTemplateSubject($methods['setTemplateSubject']);
+        self::$subject->setTemplateText($methods['setTemplateText']);
+        self::$subject->setTemplateType($methods['setTemplateType']);
 
         if ($expected) {
             $this->expectException(Mage_Core_Exception::class);
@@ -53,7 +53,7 @@ class TemplateTest extends TestCase
             $this->expectNotToPerformAssertions();
         }
 
-        $this->subject->validate();
+        self::$subject->validate();
     }
 
     public function validateTemplateDataProvider(): Generator
@@ -128,7 +128,7 @@ class TemplateTest extends TestCase
      */
     public function testLoadByCode(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->loadByCode('test_code'));
+        static::assertInstanceOf(Subject::class, self::$subject->loadByCode('test_code'));
     }
 
     /**
@@ -137,7 +137,7 @@ class TemplateTest extends TestCase
      */
     public function testIsValidForSend(): void
     {
-        $this->assertIsBool($this->subject->isValidForSend());
+        static::assertIsBool(self::$subject->isValidForSend());
     }
 
     /**
@@ -146,6 +146,6 @@ class TemplateTest extends TestCase
      */
     public function testGetProcessedTemplate(): void
     {
-        $this->assertIsString($this->subject->getProcessedTemplate(['key' => 'value']));
+        static::assertIsString(self::$subject->getProcessedTemplate(['key' => 'value']));
     }
 }

@@ -24,12 +24,13 @@ use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('customer/customer');
+        self::$subject = Mage::getModel('customer/customer');
     }
 
     /**
@@ -67,7 +68,7 @@ class CustomerTest extends TestCase
         $mock->method('shouldValidateTaxvat')->willReturn($methods['shouldValidateTaxvat']);
         $mock->method('shouldValidateGender')->willReturn($methods['shouldValidateGender']);
 
-        $this->assertSame($expectedResult, $mock->validate());
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function provideValidateCustomerData(): Generator

@@ -18,18 +18,19 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Wishlist\Model;
 
 use Mage;
+use Mage_Core_Exception;
 use Mage_Wishlist_Model_Item as Subject;
 use PHPUnit\Framework\TestCase;
 
 class ItemTest extends TestCase
 {
     /** @var Subject */
-    private $subject;
+    private static Subject $subject;
 
     protected function setUp(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('wishlist/item');
+        self::$subject = Mage::getModel('wishlist/item');
     }
 
     /**
@@ -39,8 +40,8 @@ class ItemTest extends TestCase
      */
     public function testSetQty(int $expectedQty, int $inputQty): void
     {
-        $this->subject->setQty($inputQty);
-        $this->assertEquals($expectedQty, $this->subject->getQty());
+        self::$subject->setQty($inputQty);
+        static::assertEquals($expectedQty, self::$subject->getQty());
     }
 
     public function qtyDataProvider(): \Generator
@@ -63,20 +64,21 @@ class ItemTest extends TestCase
      * @dataProvider validateDataProvider
      * @group Mage_Wishlist
      * @group Mage_Wishlist_Model
+     * @throws Mage_Core_Exception
      */
     public function testValidate(?string $expectedExceptionMessage, ?int $wishlistId, ?int $productId): void
     {
-        $this->subject->setWishlistId($wishlistId);
-        $this->subject->setProductId($productId);
+        self::$subject->setWishlistId($wishlistId);
+        self::$subject->setProductId($productId);
 
         if ($expectedExceptionMessage) {
             $this->expectExceptionMessage($expectedExceptionMessage);
         }
 
-        $result = $this->subject->validate();
+        $result = self::$subject->validate();
 
         if (!$expectedExceptionMessage) {
-            $this->assertTrue($result);
+            static::assertTrue($result);
         }
     }
 

@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class EnvironmentTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('rule/environment');
+        self::$subject = Mage::getModel('rule/environment');
     }
 
     /**
@@ -38,6 +38,6 @@ class EnvironmentTest extends TestCase
      */
     public function testGetConditionsInstance(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->collect());
+        static::assertInstanceOf(Subject::class, self::$subject->collect());
     }
 }

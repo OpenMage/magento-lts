@@ -26,12 +26,12 @@ class ConfigTest extends TestCase
 {
     public const TEST_STRING = '0123456789';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('cms/wysiwyg_config');
+        self::$subject = Mage::getModel('cms/wysiwyg_config');
     }
 
     /**
@@ -42,7 +42,7 @@ class ConfigTest extends TestCase
      */
     public function testGetConfig(): void
     {
-        $this->assertInstanceOf(Varien_Object::class, $this->subject->getConfig());
+        static::assertInstanceOf(Varien_Object::class, self::$subject->getConfig());
     }
 
     /**
@@ -51,7 +51,7 @@ class ConfigTest extends TestCase
      */
     public function testGetSkinImagePlaceholderUrl(): void
     {
-        $this->assertIsString($this->subject->getSkinImagePlaceholderUrl());
+        static::assertIsString(self::$subject->getSkinImagePlaceholderUrl());
     }
 
     /**
@@ -60,7 +60,7 @@ class ConfigTest extends TestCase
      */
     public function testGetSkinImagePlaceholderPath(): void
     {
-        $this->assertIsString($this->subject->getSkinImagePlaceholderPath());
+        static::assertIsString(self::$subject->getSkinImagePlaceholderPath());
     }
 
     /**
@@ -69,7 +69,7 @@ class ConfigTest extends TestCase
      */
     public function testIsEnabled(): void
     {
-        $this->assertIsBool($this->subject->isEnabled());
+        static::assertIsBool(self::$subject->isEnabled());
     }
 
     /**
@@ -78,6 +78,6 @@ class ConfigTest extends TestCase
      */
     public function testIsHidden(): void
     {
-        $this->assertIsBool($this->subject->isHidden());
+        static::assertIsBool(self::$subject->isHidden());
     }
 }

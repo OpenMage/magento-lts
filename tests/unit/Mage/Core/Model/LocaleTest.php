@@ -26,12 +26,12 @@ class LocaleTest extends TestCase
 {
     use LocaleTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('core/locale');
+        self::$subject = Mage::getModel('core/locale');
     }
 
     /**
@@ -42,6 +42,6 @@ class LocaleTest extends TestCase
      */
     public function testGetNumber(?float $expectedResult, $value): void
     {
-        $this->assertSame($expectedResult, $this->subject->getNumber($value));
+        static::assertSame($expectedResult, self::$subject->getNumber($value));
     }
 }

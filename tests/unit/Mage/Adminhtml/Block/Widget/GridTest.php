@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class GridTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -39,7 +39,7 @@ class GridTest extends TestCase
      */
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
-        $this->assertSame($expectedResult, $this->subject->addColumnDefaultData($column));
+        static::assertSame($expectedResult, self::$subject->addColumnDefaultData($column));
     }
 
     public function provideAddColumnDefaultData(): Generator

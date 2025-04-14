@@ -28,12 +28,12 @@ class StringTest extends TestCase
 
     public const TEST_STRING_JSON   = '{"name":"John", "age":30, "car":null}';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('core/string');
+        self::$subject = Mage::helper('core/string');
     }
 
     /**
@@ -42,16 +42,16 @@ class StringTest extends TestCase
      */
     public function testTruncate(): void
     {
-        $this->assertSame('', $this->subject->truncate(null));
-        $this->assertSame('', $this->subject->truncate(self::TEST_STRING, 0));
+        static::assertSame('', self::$subject->truncate(null));
+        static::assertSame('', self::$subject->truncate(self::TEST_STRING, 0));
 
-        $this->assertSame('', $this->subject->truncate(self::TEST_STRING, 3));
+        static::assertSame('', self::$subject->truncate(self::TEST_STRING, 3));
 
         $remainder = '';
-        $this->assertSame('12...', $this->subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));
+        static::assertSame('12...', self::$subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));
 
-        $resultString = $this->subject->truncate(self::TEST_STRING, 5, '...');
-        $this->assertSame('12...', $resultString);
+        $resultString = self::$subject->truncate(self::TEST_STRING, 5, '...');
+        static::assertSame('12...', $resultString);
     }
 
     /**
@@ -60,8 +60,8 @@ class StringTest extends TestCase
      */
     public function testSubstr(): void
     {
-        $resultString = $this->subject->substr(self::TEST_STRING, 2, 2);
-        $this->assertSame('34', $resultString);
+        $resultString = self::$subject->substr(self::TEST_STRING, 2, 2);
+        static::assertSame('34', $resultString);
     }
 
     /**
@@ -70,9 +70,9 @@ class StringTest extends TestCase
      */
     public function testSplitInjection(): void
     {
-        $resultString = $this->subject->splitInjection(self::TEST_STRING, 1, '-', ' ');
+        $resultString = self::$subject->splitInjection(self::TEST_STRING, 1, '-', ' ');
         #$this->assertSame('1-2-3-4-5-6-7-8-9-0-', $resultString);
-        $this->assertIsString($resultString);
+        static::assertIsString($resultString);
     }
 
     /**
@@ -81,7 +81,7 @@ class StringTest extends TestCase
      */
     public function testStrlen(): void
     {
-        $this->assertSame(10, $this->subject->strlen(self::TEST_STRING));
+        static::assertSame(10, self::$subject->strlen(self::TEST_STRING));
     }
 
     /**
@@ -90,10 +90,10 @@ class StringTest extends TestCase
      */
     public function testStrSplit(): void
     {
-        $this->assertIsArray($this->subject->str_split(''));
-        $this->assertIsArray($this->subject->str_split(self::TEST_STRING));
-        $this->assertIsArray($this->subject->str_split(self::TEST_STRING, 3));
-        $this->assertIsArray($this->subject->str_split(self::TEST_STRING, 3, true, true));
+        static::assertIsArray(self::$subject->str_split(''));
+        static::assertIsArray(self::$subject->str_split(self::TEST_STRING));
+        static::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3));
+        static::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3, true, true));
     }
 
     /**
@@ -102,11 +102,11 @@ class StringTest extends TestCase
      */
     public function testSplitWords(): void
     {
-        $this->assertIsArray($this->subject->splitWords(null));
-        $this->assertIsArray($this->subject->splitWords(''));
-        $this->assertIsArray($this->subject->splitWords(self::TEST_STRING));
-        $this->assertIsArray($this->subject->splitWords(self::TEST_STRING, true));
-        $this->assertIsArray($this->subject->splitWords(self::TEST_STRING, true, 1));
+        static::assertIsArray(self::$subject->splitWords(null));
+        static::assertIsArray(self::$subject->splitWords(''));
+        static::assertIsArray(self::$subject->splitWords(self::TEST_STRING));
+        static::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true));
+        static::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true, 1));
     }
 
     /**
@@ -115,7 +115,7 @@ class StringTest extends TestCase
      */
     public function testParseQueryStr(): void
     {
-        $this->assertIsArray($this->subject->parseQueryStr(self::TEST_STRING));
+        static::assertIsArray(self::$subject->parseQueryStr(self::TEST_STRING));
     }
 
     /**
@@ -124,7 +124,7 @@ class StringTest extends TestCase
      */
     public function testGetArrayHelper(): void
     {
-        $this->assertInstanceOf(Mage_Core_Helper_Array::class, $this->subject->getArrayHelper());
+        static::assertInstanceOf(Mage_Core_Helper_Array::class, self::$subject->getArrayHelper());
     }
 
     /**
@@ -133,7 +133,7 @@ class StringTest extends TestCase
      */
     public function testUnserialize(): void
     {
-        $this->assertNull($this->subject->unserialize(null));
+        static::assertNull(self::$subject->unserialize(null));
     }
 
     /**
@@ -142,7 +142,7 @@ class StringTest extends TestCase
      */
     public function testValidateSerializedObject(): void
     {
-        $this->assertIsBool($this->subject->validateSerializedObject(self::TEST_STRING));
-        $this->assertIsBool($this->subject->validateSerializedObject(self::TEST_STRING_JSON));
+        static::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING));
+        static::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING_JSON));
     }
 }

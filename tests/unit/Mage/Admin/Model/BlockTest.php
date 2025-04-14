@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
+use Exception;
 use Generator;
 use Mage;
 use Mage_Admin_Model_Block as Subject;
@@ -24,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('admin/block');
+        self::$subject = Mage::getModel('admin/block');
     }
 
     /**
@@ -38,7 +39,7 @@ class BlockTest extends TestCase
      *
      * @group Mage_Admin
      * @group Mage_Admin_Model
-     * @group Mage_Admin_Model_Test
+     * @throws Exception
      */
     public function testValidate($expectedResult, array $methods): void
     {
@@ -51,7 +52,7 @@ class BlockTest extends TestCase
 
         $mock->method('getBlockName')->willReturn($methods['getBlockName']);
         $mock->method('getIsAllowed')->willReturn($methods['getIsAllowed']);
-        $this->assertEquals($expectedResult, $mock->validate());
+        static::assertEquals($expectedResult, $mock->validate());
     }
 
     public function provideValidateAdminBlockData(): Generator
@@ -86,7 +87,7 @@ class BlockTest extends TestCase
             [$errorIncorrectBlockName],
             [
                 'getBlockName' => '~',
-                'getIsAllowed' => '0',
+                'getIsAllowed' => '1',
             ],
         ];
         yield 'errors: invalid blockname' => [
@@ -94,6 +95,34 @@ class BlockTest extends TestCase
             [
                 'getBlockName' => 'test',
                 'getIsAllowed' => '0',
+            ],
+        ];
+        yield 'errors: null blockname' => [
+            ['Block Name is required field.'],
+            [
+                'getBlockName' => null,
+                'getIsAllowed' => '1',
+            ],
+        ];
+        yield 'errors: special chars in blockname' => [
+            [$errorIncorrectBlockName],
+            [
+                'getBlockName' => '!@#$%^&*()',
+                'getIsAllowed' => '1',
+            ],
+        ];
+        yield 'errors: numeric blockname' => [
+            [$errorIncorrectBlockName],
+            [
+                'getBlockName' => '12345',
+                'getIsAllowed' => '1',
+            ],
+        ];
+        yield 'valid: mixed case blockname' => [
+            true,
+            [
+                'getBlockName' => 'Test/Block',
+                'getIsAllowed' => '1',
             ],
         ];
     }
@@ -104,6 +133,6 @@ class BlockTest extends TestCase
      */
     public function testIsTypeAllowed(): void
     {
-        $this->assertIsBool($this->subject->isTypeAllowed('invalid-type'));
+        static::assertIsBool(self::$subject->isTypeAllowed('invalid-type'));
     }
 }

@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class PurifierTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('core/purifier');
+        self::$subject = Mage::helper('core/purifier');
     }
 
     /**
@@ -39,7 +39,7 @@ class PurifierTest extends TestCase
      */
     public function testPurify($expectedResult, $content): void
     {
-        $this->assertSame($expectedResult, $this->subject->purify($content));
+        static::assertSame($expectedResult, self::$subject->purify($content));
     }
 
     public function providePurify(): Generator

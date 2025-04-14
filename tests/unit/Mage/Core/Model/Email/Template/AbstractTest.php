@@ -24,12 +24,16 @@ use PHPUnit\Framework\TestCase;
 
 class AbstractTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app();
+    }
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = $this->getMockForAbstractClass(Subject::class);
+        self::$subject = $this->getMockForAbstractClass(Subject::class);
     }
 
     /**
@@ -40,12 +44,12 @@ class AbstractTest extends TestCase
     public function testValidateFileExension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
     {
         if ($fileExists) {
-            $this->assertFileExists($filePath);
+            static::assertFileExists($filePath);
         } else {
-            $this->assertFileDoesNotExist($filePath);
+            static::assertFileDoesNotExist($filePath);
         }
 
-        $this->assertSame($expectedResult, $this->subject->validateFileExension($filePath, $extension));
+        static::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
     }
 
     public function provideValidateFileExension(): Generator

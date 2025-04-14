@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class AggregationTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('log/aggregation');
+        self::$subject = Mage::getModel('log/aggregation');
     }
 
     /**
@@ -38,6 +38,6 @@ class AggregationTest extends TestCase
      */
     public function testRun(): void
     {
-        $this->subject->run();
+        self::$subject->run();
     }
 }

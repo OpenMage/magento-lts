@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('log/data');
+        self::$subject = Mage::helper('log/data');
     }
 
     /**
@@ -39,7 +39,7 @@ class DataTest extends TestCase
      */
     public function testIsVisitorLogEnabled(): void
     {
-        $this->assertTrue($this->subject->isVisitorLogEnabled());
+        static::assertTrue(self::$subject->isVisitorLogEnabled());
     }
 
     /**
@@ -49,7 +49,7 @@ class DataTest extends TestCase
      */
     public function testIsLogEnabled(): void
     {
-        $this->assertFalse($this->subject->isLogEnabled());
+        static::assertFalse(self::$subject->isLogEnabled());
     }
 
     /**
@@ -59,7 +59,7 @@ class DataTest extends TestCase
      */
     public function testIsLogDisabled(): void
     {
-        $this->assertFalse($this->subject->isLogDisabled());
+        static::assertFalse(self::$subject->isLogDisabled());
     }
 
     /**
@@ -70,7 +70,7 @@ class DataTest extends TestCase
      */
     public function testIsLogFileExtensionValid(bool $expectedResult, string $file): void
     {
-        $this->assertSame($expectedResult, $this->subject->isLogFileExtensionValid($file));
+        static::assertSame($expectedResult, self::$subject->isLogFileExtensionValid($file));
     }
 
     public function provideIsLogFileExtensionValid(): Generator

@@ -24,12 +24,13 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('api/user');
+        self::$subject = Mage::getModel('api/user');
     }
 
     /**
@@ -68,7 +69,7 @@ class UserTest extends TestCase
         $mock->method('getApiKeyConfirmation')->willReturn($methods['getApiKeyConfirmation']);
         $mock->method('userExists')->willReturn($methods['userExists']);
 
-        $this->assertSame($expectedResult, $mock->validate());
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function provideValidateApiUserData(): Generator

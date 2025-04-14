@@ -26,12 +26,16 @@ class AttributeTest extends TestCase
 {
     use CoreTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app();
+    }
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('catalog/resource_eav_attribute');
+        self::$subject = Mage::getModel('catalog/resource_eav_attribute');
     }
 
     /**
@@ -43,8 +47,8 @@ class AttributeTest extends TestCase
     public function testGetStoreId($expectedResult, $withStoreId): void
     {
         if ($withStoreId) {
-            $this->subject->setStoreId($withStoreId);
+            self::$subject->setStoreId($withStoreId);
         }
-        $this->assertSame($expectedResult, $this->subject->getStoreId());
+        static::assertSame($expectedResult, self::$subject->getStoreId());
     }
 }

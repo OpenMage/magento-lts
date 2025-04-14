@@ -26,12 +26,13 @@ class PageTest extends TestCase
 {
     use CmsTrait;
 
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('cms/page');
+        self::$subject = Mage::helper('cms/page');
     }
 
     /**
@@ -41,6 +42,6 @@ class PageTest extends TestCase
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
-        $this->assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
+        static::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
     }
 }

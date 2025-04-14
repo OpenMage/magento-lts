@@ -23,12 +23,16 @@ use PHPUnit\Framework\TestCase;
 
 class CacheTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
+    {
+        Mage::app();
+    }
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -39,7 +43,7 @@ class CacheTest extends TestCase
      */
     public function testGetFlushStorageUrl(): void
     {
-        $this->assertStringStartsWith('http', $this->subject->getFlushStorageUrl());
+        static::assertStringStartsWith('http', self::$subject->getFlushStorageUrl());
     }
 
     /**
@@ -50,6 +54,6 @@ class CacheTest extends TestCase
      */
     public function testGetFlushSystemUrl(): void
     {
-        $this->assertStringStartsWith('http', $this->subject->getFlushSystemUrl());
+        static::assertStringStartsWith('http', self::$subject->getFlushSystemUrl());
     }
 }

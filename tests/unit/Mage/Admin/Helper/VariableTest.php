@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    public Subject $subject;
+    public static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('admin/variable');
+        self::$subject = Mage::helper('admin/variable');
     }
 
     /**
@@ -38,6 +38,6 @@ class VariableTest extends TestCase
      */
     public function testIsPathAllowed(): void
     {
-        $this->assertIsBool($this->subject->isPathAllowed(''));
+        static::assertIsBool(self::$subject->isPathAllowed(''));
     }
 }

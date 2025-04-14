@@ -25,12 +25,12 @@ class JsTest extends TestCase
 {
     public const TEST_URL = 'foo';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('core/js');
+        self::$subject = Mage::helper('core/js');
     }
 
     /**
@@ -40,7 +40,7 @@ class JsTest extends TestCase
      */
     public function testGetTranslateJson(): void
     {
-        $this->assertIsString($this->subject->getTranslateJson());
+        static::assertIsString(self::$subject->getTranslateJson());
     }
 
     /**
@@ -50,7 +50,7 @@ class JsTest extends TestCase
      */
     public function testGetTranslatorScript(): void
     {
-        $this->assertIsString($this->subject->getTranslatorScript());
+        static::assertIsString(self::$subject->getTranslatorScript());
     }
 
     /**
@@ -59,7 +59,7 @@ class JsTest extends TestCase
      */
     public function testIncludeScript(): void
     {
-        $this->assertStringContainsString(self::TEST_URL, $this->subject->includeScript(self::TEST_URL));
+        static::assertStringContainsString(self::TEST_URL, self::$subject->includeScript(self::TEST_URL));
     }
 
     /**
@@ -68,7 +68,7 @@ class JsTest extends TestCase
      */
     public function testIncludeSkinScript(): void
     {
-        $this->assertStringContainsString(self::TEST_URL, $this->subject->includeSkinScript(self::TEST_URL));
+        static::assertStringContainsString(self::TEST_URL, self::$subject->includeSkinScript(self::TEST_URL));
     }
 
     /**
@@ -77,8 +77,8 @@ class JsTest extends TestCase
      */
     public function testGetDeleteConfirmJs(): void
     {
-        $this->assertStringStartsWith('deleteConfirm', $this->subject->getDeleteConfirmJs('foo'));
-        $this->assertStringStartsWith('deleteConfirm', $this->subject->getDeleteConfirmJs('foo', 'bar'));
+        static::assertStringStartsWith('deleteConfirm', self::$subject->getDeleteConfirmJs('foo'));
+        static::assertStringStartsWith('deleteConfirm', self::$subject->getDeleteConfirmJs('foo', 'bar'));
     }
 
     /**
@@ -87,8 +87,8 @@ class JsTest extends TestCase
      */
     public function testGetConfirmSetLocationJs(): void
     {
-        $this->assertStringStartsWith('confirmSetLocation', $this->subject->getConfirmSetLocationJs('foo'));
-        $this->assertStringStartsWith('confirmSetLocation', $this->subject->getConfirmSetLocationJs('foo', 'bar'));
+        static::assertStringStartsWith('confirmSetLocation', self::$subject->getConfirmSetLocationJs('foo'));
+        static::assertStringStartsWith('confirmSetLocation', self::$subject->getConfirmSetLocationJs('foo', 'bar'));
     }
 
     /**
@@ -97,9 +97,9 @@ class JsTest extends TestCase
      */
     public function testGetSetLocationJs(): void
     {
-        $result = $this->subject->getSetLocationJs(self::TEST_URL);
-        $this->assertStringStartsWith('setLocation', $result);
-        $this->assertStringContainsString(self::TEST_URL, $result);
+        $result = self::$subject->getSetLocationJs(self::TEST_URL);
+        static::assertStringStartsWith('setLocation', $result);
+        static::assertStringContainsString(self::TEST_URL, $result);
     }
 
     /**
@@ -109,8 +109,8 @@ class JsTest extends TestCase
      */
     public function testGetSaveAndContinueEditJs(): void
     {
-        $result = $this->subject->getSaveAndContinueEditJs(self::TEST_URL);
-        $this->assertStringStartsWith('saveAndContinueEdit', $result);
-        $this->assertStringContainsString(self::TEST_URL, $result);
+        $result = self::$subject->getSaveAndContinueEditJs(self::TEST_URL);
+        static::assertStringStartsWith('saveAndContinueEdit', $result);
+        static::assertStringContainsString(self::TEST_URL, $result);
     }
 }

@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class JsTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('adminhtml/media_js');
+        self::$subject = Mage::helper('adminhtml/media_js');
     }
 
     /**
@@ -37,6 +37,6 @@ class JsTest extends TestCase
      */
     public function testDecodeGridSerializedInput(): void
     {
-        $this->assertIsString($this->subject->getTranslatorScript());
+        static::assertIsString(self::$subject->getTranslatorScript());
     }
 }

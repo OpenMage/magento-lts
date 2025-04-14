@@ -24,12 +24,13 @@ use PHPUnit\Framework\TestCase;
 
 class AddressesTest extends TestCase
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -50,6 +51,6 @@ class AddressesTest extends TestCase
             ->method('isReadonly')
             ->willReturn(true);
 
-        $this->assertInstanceOf(Subject::class, $mock->initForm());
+        static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -37,7 +37,7 @@ class HtmlTest extends TestCase
      */
     public function testGetBaseUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseUrl());
+        static::assertIsString(self::$subject->getBaseUrl());
     }
 
     /**
@@ -46,7 +46,7 @@ class HtmlTest extends TestCase
      */
     public function testGetBaseSecureUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseSecureUrl());
+        static::assertIsString(self::$subject->getBaseSecureUrl());
     }
 
     /**
@@ -55,7 +55,7 @@ class HtmlTest extends TestCase
      */
     //    public function testGetCurrentUrl(): void
     //    {
-    //        $this->assertIsString($this->subject->getCurrentUrl());
+    //        $this->assertIsString(self::$subject->getCurrentUrl());
     //    }
 
     /**
@@ -64,6 +64,6 @@ class HtmlTest extends TestCase
      */
     public function testGetPrintLogoUrl(): void
     {
-        $this->assertIsString($this->subject->getPrintLogoUrl());
+        static::assertIsString(self::$subject->getPrintLogoUrl());
     }
 }

@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('core/config');
+        self::$subject = Mage::getModel('core/config');
     }
 
     /**
@@ -40,12 +40,12 @@ class ConfigTest extends TestCase
         $path = 'test/config';
         $value = 'foo';
 
-        $this->assertFalse($this->subject->getConfig($path));
+        static::assertFalse(self::$subject->getConfig($path));
 
-        $this->subject->saveConfig($path, $value);
-        $this->assertSame($value, $this->subject->getConfig($path));
+        self::$subject->saveConfig($path, $value);
+        static::assertSame($value, self::$subject->getConfig($path));
 
-        $this->subject->deleteConfig($path);
-        $this->assertFalse($this->subject->getConfig($path));
+        self::$subject->deleteConfig($path);
+        static::assertFalse(self::$subject->getConfig($path));
     }
 }

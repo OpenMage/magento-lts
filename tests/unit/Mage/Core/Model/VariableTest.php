@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class VariableTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('core/variable');
+        self::$subject = Mage::getModel('core/variable');
     }
 
     /**
@@ -37,6 +37,6 @@ class VariableTest extends TestCase
      */
     public function testGetVariablesOptionArray(): void
     {
-        $this->assertIsArray($this->subject->getVariablesOptionArray());
+        static::assertIsArray(self::$subject->getVariablesOptionArray());
     }
 }

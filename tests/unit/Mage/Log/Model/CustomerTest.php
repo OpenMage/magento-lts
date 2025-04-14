@@ -23,12 +23,13 @@ use PHPUnit\Framework\TestCase;
 
 class CustomerTest extends TestCase
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('log/customer');
+        self::$subject = Mage::getModel('log/customer');
     }
 
     /**
@@ -41,9 +42,9 @@ class CustomerTest extends TestCase
             ->setMethods(['getLoginAt'])
             ->getMock();
 
-        $this->assertNull($mock->getLoginAtTimestamp());
+        static::assertNull($mock->getLoginAtTimestamp());
 
         $mock->method('getLoginAt')->willReturn(true);
-        $this->assertIsInt($mock->getLoginAtTimestamp());
+        static::assertIsInt($mock->getLoginAtTimestamp());
     }
 }

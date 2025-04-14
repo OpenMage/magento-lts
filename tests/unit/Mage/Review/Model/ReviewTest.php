@@ -23,12 +23,13 @@ use PHPUnit\Framework\TestCase;
 
 class ReviewTest extends TestCase
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('review/review');
+        self::$subject = Mage::getModel('review/review');
     }
 
     /**
@@ -57,7 +58,7 @@ class ReviewTest extends TestCase
         $mock->method('getEntityId')->willReturn($methods['getEntityId']);
         $mock->method('getStoreId')->willReturn($methods['getStoreId']);
 
-        $this->assertSame($expectedResult, $mock->validate());
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function provideValidateReviewData(): Generator

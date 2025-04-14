@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class JsTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('adminhtml/js');
+        self::$subject = Mage::helper('adminhtml/js');
     }
 
     /**
@@ -40,7 +40,7 @@ class JsTest extends TestCase
      */
     public function testDecodeGridSerializedInput(array $expectedResult, string $encoded): void
     {
-        $this->assertSame($expectedResult, $this->subject->decodeGridSerializedInput($encoded));
+        static::assertSame($expectedResult, self::$subject->decodeGridSerializedInput($encoded));
     }
 
     public function provideDecodeGridSerializedInput(): Generator

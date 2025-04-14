@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 class ListTest extends TestCase
 {
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
     }
@@ -43,7 +43,7 @@ class ListTest extends TestCase
         $childBlockA = $layout->createBlock('core/text', 'child_a')->setText('A2');
         $parentBlock->append($childBlockA);
 
-        $this->assertSame('A2', $parentBlock->toHtml());
+        static::assertSame('A2', $parentBlock->toHtml());
     }
 
     /**
@@ -70,7 +70,7 @@ class ListTest extends TestCase
         $childBlockB = $layout->createBlock('core/text', 'child_b')->setText('B');
         $parentBlock->insert($childBlockB, 'child_c', false);
 
-        $this->assertSame('ABC', $parentBlock->toHtml());
+        static::assertSame('ABC', $parentBlock->toHtml());
     }
 
     /**
@@ -98,7 +98,7 @@ class ListTest extends TestCase
         $parentBlock->unsetChild('child_a');
         $parentBlock->unsetChild('child_b');
 
-        $this->assertSame('CD', $parentBlock->toHtml());
+        static::assertSame('CD', $parentBlock->toHtml());
     }
 
     public function testSortInstructionsAfterReplaceChild()
@@ -117,6 +117,6 @@ class ListTest extends TestCase
         $layout->setBlock('target_block', $childBlockB);
         $parentBlock->setChild('child', $childBlockB);
 
-        $this->assertSame('B', $parentBlock->toHtml());
+        static::assertSame('B', $parentBlock->toHtml());
     }
 }

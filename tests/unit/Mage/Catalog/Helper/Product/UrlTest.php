@@ -24,12 +24,12 @@ use PHPUnit\Framework\TestCase;
 
 class UrlTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('catalog/product_url');
+        self::$subject = Mage::helper('catalog/product_url');
     }
 
     /**
@@ -39,8 +39,8 @@ class UrlTest extends TestCase
      */
     public function testGetConvertTable(): void
     {
-        $result = $this->subject->getConvertTable();
-        $this->assertCount(317, $result);
+        $result = self::$subject->getConvertTable();
+        static::assertCount(317, $result);
     }
 
     /**
@@ -50,8 +50,8 @@ class UrlTest extends TestCase
      */
     public function testGetConvertTableCustom(): void
     {
-        $result = $this->subject->getConvertTableCustom();
-        $this->assertEmpty($result);
+        $result = self::$subject->getConvertTableCustom();
+        static::assertEmpty($result);
     }
 
     /**
@@ -61,8 +61,8 @@ class UrlTest extends TestCase
      */
     public function testGetConvertTableShort(): void
     {
-        $result = $this->subject->getConvertTableShort();
-        $this->assertCount(4, $result);
+        $result = self::$subject->getConvertTableShort();
+        static::assertCount(4, $result);
     }
 
     /**
@@ -73,7 +73,7 @@ class UrlTest extends TestCase
      */
     public function testFormat(string $expectedResult, ?string $string): void
     {
-        $this->assertSame($expectedResult, $this->subject->format($string));
+        static::assertSame($expectedResult, self::$subject->format($string));
     }
 
     public function provideFormat(): Generator

@@ -25,12 +25,12 @@ use PHPUnit\Framework\TestCase;
 
 class DataTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('catalog');
+        self::$subject = Mage::helper('catalog');
     }
 
     /**
@@ -40,7 +40,7 @@ class DataTest extends TestCase
      */
     public function testSplitSku($expectedResult, string $sku, int $length = 30): void
     {
-        $this->assertSame($expectedResult, $this->subject->splitSku($sku, $length));
+        static::assertSame($expectedResult, self::$subject->splitSku($sku, $length));
     }
 
     public function provideSplitSku(): Generator
@@ -67,7 +67,7 @@ class DataTest extends TestCase
      */
     public function testShouldSaveUrlRewritesHistory(): void
     {
-        $this->assertIsBool($this->subject->shouldSaveUrlRewritesHistory());
+        static::assertIsBool(self::$subject->shouldSaveUrlRewritesHistory());
     }
 
     /**
@@ -76,7 +76,7 @@ class DataTest extends TestCase
      */
     public function testIsUsingStaticUrlsAllowed(): void
     {
-        $this->assertIsBool($this->subject->isUsingStaticUrlsAllowed());
+        static::assertIsBool(self::$subject->isUsingStaticUrlsAllowed());
     }
 
     /**
@@ -85,7 +85,7 @@ class DataTest extends TestCase
      */
     public function testIsUrlDirectivesParsingAllowed(): void
     {
-        $this->assertIsBool($this->subject->isUrlDirectivesParsingAllowed());
+        static::assertIsBool(self::$subject->isUrlDirectivesParsingAllowed());
     }
 
     /**
@@ -94,7 +94,7 @@ class DataTest extends TestCase
      */
     public function testGetPageTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Template_Filter::class, $this->subject->getPageTemplateProcessor());
+        static::assertInstanceOf(Mage_Catalog_Model_Template_Filter::class, self::$subject->getPageTemplateProcessor());
     }
 
     /**
@@ -103,6 +103,6 @@ class DataTest extends TestCase
      */
     public function testGetOldFieldMap(): void
     {
-        $this->assertSame([], $this->subject->getOldFieldMap());
+        static::assertSame([], self::$subject->getOldFieldMap());
     }
 }

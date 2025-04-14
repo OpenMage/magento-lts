@@ -26,12 +26,12 @@ class DataTest extends TestCase
 {
     public const TEST_STRING = '1234567890';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('cms/data');
+        self::$subject = Mage::helper('cms/data');
     }
 
     /**
@@ -40,7 +40,7 @@ class DataTest extends TestCase
      */
     public function testGetAllowedStreamWrappers(): void
     {
-        $this->assertIsArray($this->subject->getAllowedStreamWrappers());
+        static::assertIsArray(self::$subject->getAllowedStreamWrappers());
     }
 
     /**
@@ -49,7 +49,7 @@ class DataTest extends TestCase
      */
     public function testGetBlockTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getBlockTemplateProcessor());
+        static::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getBlockTemplateProcessor());
     }
 
     /**
@@ -58,7 +58,7 @@ class DataTest extends TestCase
      */
     public function testGetPageTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getPageTemplateProcessor());
+        static::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getPageTemplateProcessor());
     }
 
     /**
@@ -67,6 +67,6 @@ class DataTest extends TestCase
      */
     public function testIsSwfDisabled(): void
     {
-        $this->assertTrue($this->subject->isSwfDisabled());
+        static::assertTrue(self::$subject->isSwfDisabled());
     }
 }

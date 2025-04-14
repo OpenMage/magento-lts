@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class LogTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::getModel('log/log');
+        self::$subject = Mage::getModel('log/log');
     }
 
     /**
@@ -37,6 +37,6 @@ class LogTest extends TestCase
      */
     public function testClean(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->clean());
+        static::assertInstanceOf(Subject::class, self::$subject->clean());
     }
 }

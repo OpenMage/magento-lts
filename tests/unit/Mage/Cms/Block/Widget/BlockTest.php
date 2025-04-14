@@ -26,12 +26,12 @@ class BlockTest extends TestCase
 {
     use NumericStringTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -46,7 +46,7 @@ class BlockTest extends TestCase
             ->getMock();
 
         $mock->method('getBlockId')->willReturn($blockId);
-        $this->assertIsArray($mock->getCacheKeyInfo());
+        static::assertIsArray($mock->getCacheKeyInfo());
     }
 
     /**
@@ -55,6 +55,6 @@ class BlockTest extends TestCase
      */
     public function testIsRequestFromAdminArea(): void
     {
-        $this->assertIsBool($this->subject->isRequestFromAdminArea());
+        static::assertIsBool(self::$subject->isRequestFromAdminArea());
     }
 }

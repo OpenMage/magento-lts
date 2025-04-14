@@ -23,12 +23,12 @@ use PHPUnit\Framework\TestCase;
 
 class HintTest extends TestCase
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
         Mage::app();
-        $this->subject = Mage::helper('core/hint');
+        self::$subject = Mage::helper('core/hint');
     }
 
     /**
@@ -38,7 +38,7 @@ class HintTest extends TestCase
      */
     public function testGetAvailableHints(): void
     {
-        $this->assertSame([], $this->subject->getAvailableHints());
+        static::assertSame([], self::$subject->getAvailableHints());
     }
 
     /**
@@ -48,6 +48,6 @@ class HintTest extends TestCase
      */
     public function testGetHintByCode(): void
     {
-        $this->assertNull($this->subject->getHintByCode('test'));
+        static::assertNull(self::$subject->getHintByCode('test'));
     }
 }
