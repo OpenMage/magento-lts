@@ -24,7 +24,6 @@ use PHPUnit\Framework\TestCase;
 
 class ItemTest extends TestCase
 {
-    /** @var Subject */
     private static Subject $subject;
 
     protected function setUp(): void
