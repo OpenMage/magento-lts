@@ -41,7 +41,7 @@ jobs:
             phpstan-result-cache-
 
       - name: PHPStan Static Analysis
-        run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze -c .phpstan.openmage.neon
+        run: XDEBUG_MODE=off php vendor/bin/phpstan.phar analyze -c .phpstan.dist.openmage.neon
 
       - name: Save result cache
         uses: actions/cache/save@v4
