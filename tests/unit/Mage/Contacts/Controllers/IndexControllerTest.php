@@ -81,6 +81,8 @@ class IndexControllerTest extends TestCase
             'comment' => 'Test comment',
         ];
 
+        $error = 'Unable to submit your request. Please, try again later';
+
         yield 'valid data' => [
             $validData,
             true,
@@ -98,7 +100,7 @@ class IndexControllerTest extends TestCase
         yield 'missing name' => [
             $data,
             true,
-            'Unable to submit your request. Please, try again later',
+            $error,
         ];
 
         $data = $validData;
@@ -106,7 +108,7 @@ class IndexControllerTest extends TestCase
         yield 'missing email' => [
             $data,
             true,
-            'Unable to submit your request. Please, try again later',
+            $error,
         ];
 
         $data = $validData;
@@ -114,7 +116,7 @@ class IndexControllerTest extends TestCase
         yield 'invalid email' => [
             $data,
             true,
-            'Unable to submit your request. Please, try again later',
+            $error,
         ];
 
         $data = $validData;
@@ -122,7 +124,7 @@ class IndexControllerTest extends TestCase
         yield 'missing comment' => [
             $data,
             true,
-            'Unable to submit your request. Please, try again later',
+            $error,
         ];
     }
 }
