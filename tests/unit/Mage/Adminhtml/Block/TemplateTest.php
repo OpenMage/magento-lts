@@ -17,12 +17,11 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
-use Mage;
 use Mage_Adminhtml_Block_Template as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
-use PHPUnit\Framework\TestCase;
 
-class TemplateTest extends TestCase
+class TemplateTest extends OpenMageTest
 {
     use CoreTrait;
 
@@ -30,7 +29,7 @@ class TemplateTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 

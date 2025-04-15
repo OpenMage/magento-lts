@@ -23,9 +23,9 @@ use Mage_Catalog_Model_Category_Url;
 use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CategoryTest extends TestCase
+class CategoryTest extends OpenMageTest
 {
     use CatalogTrait;
 
@@ -33,7 +33,7 @@ class CategoryTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/category');
     }
 

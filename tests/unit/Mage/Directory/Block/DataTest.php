@@ -21,15 +21,15 @@ use Mage;
 use Mage_Directory_Block_Data as Subject;
 use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 

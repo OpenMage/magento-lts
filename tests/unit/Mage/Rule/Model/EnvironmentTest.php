@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
 use Mage;
 use Mage_Rule_Model_Environment as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class EnvironmentTest extends TestCase
+class EnvironmentTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('rule/environment');
     }
 

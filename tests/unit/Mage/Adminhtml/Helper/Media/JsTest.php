@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Media;
 
 use Mage;
 use Mage_Adminhtml_Helper_Media_Js as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class JsTest extends TestCase
+class JsTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/media_js');
     }
 

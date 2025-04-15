@@ -20,9 +20,9 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 use Mage;
 use Mage_Cms_Helper_Page as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class PageTest extends TestCase
+class PageTest extends OpenMageTest
 {
     use CmsTrait;
 
@@ -31,7 +31,7 @@ class PageTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('cms/page');
     }
 

@@ -20,15 +20,15 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Data as Subject;
 use Mage_Core_Model_Resource_Store_Collection;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/dashboard_data');
     }
 

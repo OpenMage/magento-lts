@@ -17,18 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
-use Generator;
 use Mage;
 use Mage_Adminhtml_Helper_Config as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\ConfigTrait;
 
-class ConfigTest extends TestCase
+class ConfigTest extends OpenMageTest
 {
+    use ConfigTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/config');
     }
 
@@ -43,28 +45,6 @@ class ConfigTest extends TestCase
         static::assertSame($expectedResult, self::$subject->getInputTypes($inputType));
     }
 
-    public function provideGetInputTypes(): Generator
-    {
-        yield 'null' => [
-            [
-                'color' => [
-                    'backend_model' => 'adminhtml/system_config_backend_color',
-                ],
-            ],
-            null,
-        ];
-        yield 'color' => [
-            [
-                'backend_model' => 'adminhtml/system_config_backend_color',
-            ],
-            'color',
-        ];
-        yield 'invalid' => [
-            [],
-            'invalid',
-        ];
-    }
-
     /**
      * @covers Mage_Adminhtml_Helper_Config::getBackendModelByInputType()
      * @dataProvider provideGetBackendModelByInputType
@@ -74,17 +54,5 @@ class ConfigTest extends TestCase
     public function testGetBackendModelByInputType(?string $expectedResult, string $inputType): void
     {
         static::assertSame($expectedResult, self::$subject->getBackendModelByInputType($inputType));
-    }
-
-    public function provideGetBackendModelByInputType(): Generator
-    {
-        yield 'color' => [
-            'adminhtml/system_config_backend_color',
-            'color',
-        ];
-        yield 'invalid' => [
-            null,
-            'invalid',
-        ];
     }
 }

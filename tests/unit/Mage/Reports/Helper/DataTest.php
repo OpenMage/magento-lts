@@ -21,11 +21,11 @@ use Composer\InstalledVersions;
 use Mage;
 use Mage_Reports_Helper_Data as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Data_Collection;
 use Zend_Date_Exception;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     use ReportsTrait;
 
@@ -33,7 +33,7 @@ class DataTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('reports/data');
     }
 
@@ -70,6 +70,7 @@ class DataTest extends TestCase
         }
 
         try {
+            /** @phpstan-ignore argument.type */
             static::assertCount($expectedResult, self::$subject->getIntervals($from, $to, $period));
         } catch (Zend_Date_Exception $exception) {
             static::assertSame("No date part in '' found.", $exception->getMessage());

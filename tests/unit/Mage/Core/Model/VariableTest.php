@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
 use Mage_Core_Model_Variable as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class VariableTest extends TestCase
+class VariableTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/variable');
     }
 

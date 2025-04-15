@@ -17,18 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
-use Generator;
 use Mage;
 use Mage_Adminhtml_Helper_Js as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\JsTrait;
 
-class JsTest extends TestCase
+class JsTest extends OpenMageTest
 {
+    use JsTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/js');
     }
 
@@ -41,25 +43,5 @@ class JsTest extends TestCase
     public function testDecodeGridSerializedInput(array $expectedResult, string $encoded): void
     {
         static::assertSame($expectedResult, self::$subject->decodeGridSerializedInput($encoded));
-    }
-
-    public function provideDecodeGridSerializedInput(): Generator
-    {
-        yield 'w/o keys' => [
-            [
-                0 => 1,
-                1 => 2,
-                2 => 3,
-                3 => 4,
-            ],
-            '1&2&3&4',
-        ];
-        yield 'w/ keys' => [
-            [
-                1 => [],
-                2 => [],
-            ],
-            '1=1&2=2',
-        ];
     }
 }

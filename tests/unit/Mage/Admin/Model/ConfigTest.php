@@ -20,16 +20,16 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 use Mage;
 use Mage_Admin_Model_Acl;
 use Mage_Admin_Model_Config as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-class ConfigTest extends TestCase
+class ConfigTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('admin/config');
     }
 

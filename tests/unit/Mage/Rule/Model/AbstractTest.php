@@ -26,12 +26,12 @@ use Mage_Rule_Model_Action_Collection;
 use Mage_Rule_Model_Condition_Combine;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\BoolTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Rule\RuleTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Data_Form;
 use Varien_Db_Select;
 use Varien_Object;
 
-class AbstractTest extends TestCase
+class AbstractTest extends OpenMageTest
 {
     use BoolTrait;
     use RuleTrait;
@@ -39,11 +39,6 @@ class AbstractTest extends TestCase
     public const CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL = 'Call to a member function setRule() on null';
 
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

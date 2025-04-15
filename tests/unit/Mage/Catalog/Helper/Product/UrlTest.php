@@ -17,18 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product;
 
-use Generator;
 use Mage;
 use Mage_Catalog_Helper_Product_Url as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\Product\UrlTrait;
 
-class UrlTest extends TestCase
+class UrlTest extends OpenMageTest
 {
+    use UrlTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog/product_url');
     }
 
@@ -74,25 +76,5 @@ class UrlTest extends TestCase
     public function testFormat(string $expectedResult, ?string $string): void
     {
         static::assertSame($expectedResult, self::$subject->format($string));
-    }
-
-    public function provideFormat(): Generator
-    {
-        yield 'null' => [
-            '',
-            null,
-        ];
-        yield 'string' => [
-            'string',
-            'string',
-        ];
-        yield 'umlauts' => [
-            'string with aou',
-            'string with ÄÖÜ',
-        ];
-        yield 'at' => [
-            'at',
-            '@',
-        ];
     }
 }

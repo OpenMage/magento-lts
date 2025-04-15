@@ -20,9 +20,9 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 use Mage;
 use Mage_Core_Helper_Array;
 use Mage_Core_Helper_String as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class StringTest extends TestCase
+class StringTest extends OpenMageTest
 {
     public const TEST_STRING        = '1234567890';
 
@@ -32,7 +32,7 @@ class StringTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('core/string');
     }
 

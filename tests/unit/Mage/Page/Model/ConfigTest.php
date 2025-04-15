@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Page\Model;
 
 use Mage;
 use Mage_Page_Model_Config as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ConfigTest extends TestCase
+class ConfigTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('page/config');
     }
 

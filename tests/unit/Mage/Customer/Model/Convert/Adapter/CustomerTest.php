@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Convert\Adapter;
 
 use Mage;
 use Mage_Customer_Model_Convert_Adapter_Customer as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Throwable;
 
-class CustomerTest extends TestCase
+class CustomerTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('customer/convert_adapter_customer');
     }
 

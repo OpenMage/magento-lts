@@ -17,18 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
-use Generator;
 use Mage;
 use Mage_Catalog_Helper_Product as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\ProductTrait;
 
-class ProductTest extends TestCase
+class ProductTest extends OpenMageTest
 {
+    use ProductTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog/product');
     }
 
@@ -51,26 +53,6 @@ class ProductTest extends TestCase
         static::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
     }
 
-    public function provideGetAttributeInputTypes(): Generator
-    {
-        yield 'null' => [
-            2,
-            null,
-        ];
-        yield 'invalid' => [
-            0,
-            'invalid',
-        ];
-        yield 'multiselect' => [
-            1,
-            'multiselect',
-        ];
-        yield 'boolean' => [
-            1,
-            'boolean',
-        ];
-    }
-
     /**
      * @dataProvider provideGetAttributeBackendModelByInputType
      * @group Mage_Catalog
@@ -81,14 +63,6 @@ class ProductTest extends TestCase
         static::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
     }
 
-    public function provideGetAttributeBackendModelByInputType(): Generator
-    {
-        yield 'multiselect' => [
-            'eav/entity_attribute_backend_array',
-            'multiselect',
-        ];
-    }
-
     /**
      * @dataProvider provideGetAttributeSourceModelByInputType
      * @group Mage_Catalog
@@ -97,13 +71,5 @@ class ProductTest extends TestCase
     public function testGetAttributeSourceModelByInputType(string $expectedResult, string $inputType): void
     {
         static::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
-    }
-
-    public function provideGetAttributeSourceModelByInputType(): Generator
-    {
-        yield 'boolean' => [
-            'eav/entity_attribute_source_boolean',
-            'boolean',
-        ];
     }
 }

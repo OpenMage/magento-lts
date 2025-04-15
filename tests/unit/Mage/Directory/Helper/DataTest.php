@@ -17,20 +17,22 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Helper;
 
-use Generator;
 use Mage;
 use Mage_Directory_Helper_Data as Subject;
 use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\DirectoryTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
+    use DirectoryTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('directory/data');
     }
 
@@ -83,23 +85,6 @@ class DataTest extends TestCase
         static::assertSame($expectedResult, self::$subject->getCountriesWithOptionalZip($asJson));
     }
 
-    public function provideGetCountriesWithOptionalZip(): Generator
-    {
-        yield 'as json' => [
-            '["HK","IE","MO","PA"]',
-            true,
-        ];
-        yield 'as array' => [
-            [
-                0 => 'HK',
-                1 => 'IE',
-                2 => 'MO',
-                3 => 'PA',
-            ],
-            false,
-        ];
-    }
-
     /**
      * @covers Mage_Directory_Helper_Data::isZipCodeOptional()
      * @group Mage_Directory
@@ -124,31 +109,6 @@ class DataTest extends TestCase
         } else {
             static::assertSame($expectedResult, $result);
         }
-    }
-
-    public function provideGetCountriesWithStatesRequired(): Generator
-    {
-        yield 'as json' => [
-            '["AT","CA","CH","DE","EE","ES","FI","FR","LT","LV","RO","US"]',
-            true,
-        ];
-        yield 'as array' => [
-            [
-                0 => 'AT',
-                1 => 'CA',
-                2 => 'CH',
-                3 => 'DE',
-                4 => 'EE',
-                5 => 'ES',
-                6 => 'FI',
-                7 => 'FR',
-                8 => 'LT',
-                9 => 'LV',
-                10 => 'RO',
-                11 => 'US',
-            ],
-            false,
-        ];
     }
 
     /**

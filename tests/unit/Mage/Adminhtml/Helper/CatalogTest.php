@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Mage;
 use Mage_Adminhtml_Helper_Catalog as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CatalogTest extends TestCase
+class CatalogTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/catalog');
     }
 

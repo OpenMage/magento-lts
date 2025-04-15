@@ -17,19 +17,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
-use Generator;
 use Mage;
 use Mage_Adminhtml_Helper_Addresses as Subject;
 use Mage_Customer_Model_Attribute;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\AddressTrait;
 
-class AddressesTest extends TestCase
+class AddressesTest extends OpenMageTest
 {
+    use AddressTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/addresses');
     }
 
@@ -46,17 +48,5 @@ class AddressesTest extends TestCase
 
         $result = self::$subject->processStreetAttribute($attribute);
         static::assertSame($expectedResult, $result->getScopeMultilineCount());
-    }
-
-    public function provideProcessStreetAttribute(): Generator
-    {
-        yield 'default' => [
-            Subject::DEFAULT_STREET_LINES_COUNT,
-            0,
-        ];
-        yield 'custom' => [
-            4,
-            4,
-        ];
     }
 }

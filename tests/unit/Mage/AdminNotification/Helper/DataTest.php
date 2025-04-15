@@ -20,15 +20,15 @@ namespace OpenMage\Tests\Unit\Mage\AdminNotification\Helper;
 use Mage;
 use Mage_AdminNotification_Helper_Data as Subject;
 use Mage_AdminNotification_Model_Inbox;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminnotification/data');
     }
 

@@ -21,9 +21,9 @@ use Mage;
 use Mage_Cms_Helper_Wysiwyg_Images as Subject;
 use Mage_Cms_Model_Wysiwyg_Images_Storage;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ImagesTest extends TestCase
+class ImagesTest extends OpenMageTest
 {
     use CmsTrait;
 
@@ -31,7 +31,7 @@ class ImagesTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('cms/wysiwyg_images');
     }
 

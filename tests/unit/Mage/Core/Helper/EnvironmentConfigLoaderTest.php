@@ -21,10 +21,10 @@ use Generator;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Helper_EnvironmentConfigLoader;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-class EnvironmentConfigLoaderTest extends TestCase
+class EnvironmentConfigLoaderTest extends OpenMageTest
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
 

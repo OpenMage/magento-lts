@@ -24,17 +24,17 @@ use Mage_Core_Block_Template;
 use Mage_Core_Exception;
 use Mage_Core_Helper_Security as Subject;
 use Mage_Page_Block_Html_Topmenu_Renderer;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
 use function sprintf;
 
-class SecurityTest extends TestCase
+class SecurityTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('core/security');
     }
 

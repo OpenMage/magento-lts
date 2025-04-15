@@ -20,10 +20,10 @@ namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 use Mage;
 use Mage_Core_Model_Config;
 use Mage_Uploader_Helper_File as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\UploaderTrait;
-use PHPUnit\Framework\TestCase;
 
-class FileTest extends TestCase
+class FileTest extends OpenMageTest
 {
     use UploaderTrait;
 
@@ -31,7 +31,7 @@ class FileTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
 
         /** @var Mage_Core_Model_Config $config */
         $config = Mage::getConfig();
@@ -71,18 +71,16 @@ class FileTest extends TestCase
     }
 
     /**
+     * @dataProvider provideGetDataMaxSizeData
      * @group Mage_Uploader
      * @group Mage_Uploader_Helper
      */
-    public function testGetDataMaxSize(): void
+    public function testGetDataMaxSize(string $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getPostMaxSize', 'getUploadMaxSize'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        $mock->expects(static::once())->method('getPostMaxSize')->willReturn('1G');
-        $mock->expects(static::once())->method('getUploadMaxSize')->willReturn('1M');
-        static::assertSame('1M', $mock->getDataMaxSize());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertSame($expectedResult, $mock->getDataMaxSize());
     }
 
     /**
@@ -90,13 +88,11 @@ class FileTest extends TestCase
      * @group Mage_Uploader
      * @group Mage_Uploader_Helper
      */
-    public function testGetDataMaxSizeInBytes(int $expectedResult, string $maxSize): void
+    public function testGetDataMaxSizeInBytes(int $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getDataMaxSize'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        $mock->expects(static::once())->method('getDataMaxSize')->willReturn($maxSize);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 }

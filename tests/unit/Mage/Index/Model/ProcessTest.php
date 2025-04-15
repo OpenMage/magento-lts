@@ -21,9 +21,9 @@ use Mage;
 use Mage_Core_Exception;
 use Mage_Index_Model_Process as Subject;
 use Mage_Index_Model_Resource_Event_Collection;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ProcessTest extends TestCase
+class ProcessTest extends OpenMageTest
 {
     public const INDEXER_MODEL_IS_NOT_DEFINED = 'Indexer model is not defined.';
 
@@ -31,7 +31,7 @@ class ProcessTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('index/process');
     }
 

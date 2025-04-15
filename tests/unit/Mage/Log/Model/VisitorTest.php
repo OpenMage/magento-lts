@@ -19,16 +19,11 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Visitor as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class VisitorTest extends TestCase
+class VisitorTest extends OpenMageTest
 {
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

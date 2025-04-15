@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Aggregation as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class AggregationTest extends TestCase
+class AggregationTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('log/aggregation');
     }
 

@@ -20,15 +20,15 @@ use Generator;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Newsletter_Model_Template as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class TemplateTest extends TestCase
+class TemplateTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('newsletter/template');
     }
 

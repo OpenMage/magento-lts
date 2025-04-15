@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
-use Generator;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Model_App as Subject;
@@ -13,10 +12,12 @@ use Mage_Core_Model_Store_Exception;
 use Mage_Core_Model_Store_Group;
 use Mage_Core_Model_Website;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\AppTrait;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class AppTest extends TestCase
+class AppTest extends OpenMageTest
 {
+    use AppTrait;
     use CoreTrait;
 
     private static Subject $subject;
@@ -31,10 +32,8 @@ class AppTest extends TestCase
      * @dataProvider provideGetStore
      * @group Mage_Core
      * @group Mage_Core_Model
-     *
-     * @param bool|int|Mage_Core_Model_Store|null|string $id
      */
-    public function testGetStore($id): void
+    public function testGetStore(Mage_Core_Model_Store|int|string|bool|null $id): void
     {
         try {
             static::assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getStore($id));
@@ -44,36 +43,20 @@ class AppTest extends TestCase
         }
     }
 
-    public function provideGetStore(): Generator
-    {
-        yield 'Mage_Core_Model_Store' => [
-            new Mage_Core_Model_Store(),
-        ];
-    }
-
     /**
      * @dataProvider provideGetStoreConfig
      * @dataProvider provideGetWebsite
      * @group Mage_Core
      * @group Mage_Core_Model
-     *
-     * @param int|Mage_Core_Model_Website|null|string|true $id
      */
-    public function testGetWebsite($id): void
+    public function testGetWebsite(Mage_Core_Model_Website|int|string|bool|null $id): void
     {
         try {
             static::assertInstanceOf(Mage_Core_Model_Website::class, self::$subject->getWebsite($id));
-        } catch (Mage_Core_Exception $e) {
-            static::assertNotEmpty($e->getMessage());
-            static::assertSame('Invalid website id requested.', $e->getMessage());
+        } catch (Mage_Core_Exception $exception) {
+            static::assertNotEmpty($exception->getMessage());
+            static::assertSame('Invalid website id requested.', $exception->getMessage());
         }
-    }
-
-    public function provideGetWebsite(): Generator
-    {
-        yield 'Mage_Core_Model_Website' => [
-            new Mage_Core_Model_Website(),
-        ];
     }
 
     /**
@@ -81,10 +64,8 @@ class AppTest extends TestCase
      * @dataProvider provideGetGroup
      * @group Mage_Core
      * @group Mage_Core_Model
-     *
-     * @param int|Mage_Core_Model_Store_Group|null|string $id
      */
-    public function testGetGroup($id): void
+    public function testGetGroup(Mage_Core_Model_Store_Group|int|string|bool|null $id): void
     {
         try {
             static::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));
@@ -92,12 +73,5 @@ class AppTest extends TestCase
             static::assertNotEmpty($e->getMessage());
             static::assertSame('Invalid store group id requested.', $e->getMessage());
         }
-    }
-
-    public function provideGetGroup(): Generator
-    {
-        yield 'Mage_Core_Model_Store_Group' => [
-            new Mage_Core_Model_Store_Group(),
-        ];
     }
 }

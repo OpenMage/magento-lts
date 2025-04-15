@@ -19,9 +19,9 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
 use Mage_Core_Helper_Js as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class JsTest extends TestCase
+class JsTest extends OpenMageTest
 {
     public const TEST_URL = 'foo';
 
@@ -29,7 +29,7 @@ class JsTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('core/js');
     }
 

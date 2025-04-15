@@ -20,18 +20,13 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Mage;
 use Mage_Core_Model_Store as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class StoreTest extends TestCase
+class StoreTest extends OpenMageTest
 {
     use CoreTrait;
 
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

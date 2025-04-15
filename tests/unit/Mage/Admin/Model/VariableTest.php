@@ -17,18 +17,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
-use Generator;
+use Exception;
 use Mage;
 use Mage_Admin_Model_Variable as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
 
-class VariableTest extends TestCase
+class VariableTest extends OpenMageTest
 {
+    use VariableTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('admin/variable');
     }
 
@@ -36,40 +39,14 @@ class VariableTest extends TestCase
      * @dataProvider provideValidateAdminVariableData
      * @group Mage_Admin
      * @group Mage_Admin_Model
+     * @throws Exception
      */
-    public function testValidate(bool|array $expectedResult, string $variableName, string $isAllowed): void
+    public function testValidate(bool|array $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getVariableName', 'getIsAllowed'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock->method('getVariableName')->willReturn($variableName);
-        $mock->method('getIsAllowed')->willReturn($isAllowed);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertSame($expectedResult, $mock->validate());
-    }
-
-    public function provideValidateAdminVariableData(): Generator
-    {
-        yield 'test passes' => [
-            true,
-            'test',
-            '1',
-        ];
-        yield 'test error empty' => [
-            ['Variable Name is required field.'],
-            '',
-            '1',
-        ];
-        yield 'test error regex' => [
-            ['Variable Name is incorrect.'],
-            '#invalid-name#',
-            '1',
-        ];
-        yield 'test error allowed' => [
-            ['Is Allowed is required field.'],
-            'invalid',
-            '',
-        ];
     }
 
     public function testIsPathAllowed(): void

@@ -20,9 +20,9 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Mage;
 use Mage_Core_Model_Locale as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\LocaleTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LocaleTest extends TestCase
+class LocaleTest extends OpenMageTest
 {
     use LocaleTrait;
 
@@ -30,7 +30,7 @@ class LocaleTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/locale');
     }
 

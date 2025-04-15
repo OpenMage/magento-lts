@@ -19,17 +19,12 @@ namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
 use Mage;
 use Mage_AdminNotification_Model_Feed as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use SimpleXMLElement;
 
-class FeedTest extends TestCase
+class FeedTest extends OpenMageTest
 {
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

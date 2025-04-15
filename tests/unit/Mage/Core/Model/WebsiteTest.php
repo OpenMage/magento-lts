@@ -22,16 +22,16 @@ use Mage_Core_Model_Resource_Store_Collection;
 use Mage_Core_Model_Resource_Store_Group_Collection;
 use Mage_Core_Model_Website as Subject;
 use Mage_Directory_Model_Currency;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Db_Select;
 
-class WebsiteTest extends TestCase
+class WebsiteTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/website');
     }
 

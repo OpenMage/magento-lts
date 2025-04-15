@@ -19,10 +19,10 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Block;
 
 use Mage_Cms_Block_Page as Subject;
 use Mage_Cms_Model_Page;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
-use PHPUnit\Framework\TestCase;
 
-class PageTest extends TestCase
+class PageTest extends OpenMageTest
 {
     use NumericStringTrait;
 
@@ -33,11 +33,12 @@ class PageTest extends TestCase
      */
     public function testGetPage(string $pageId): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getPageId'])
-            ->getMock();
+        $methods = [
+            'getPageId' => $pageId,
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock->method('getPageId')->willReturn($pageId);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
     }
 }

@@ -17,18 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
-use Generator;
 use Mage;
 use Mage_Core_Helper_Purifier as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\PurifierTrait;
 
-class PurifierTest extends TestCase
+class PurifierTest extends OpenMageTest
 {
+    use PurifierTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('core/purifier');
     }
 
@@ -40,17 +42,5 @@ class PurifierTest extends TestCase
     public function testPurify(array|string $expectedResult, array|string $content): void
     {
         static::assertSame($expectedResult, self::$subject->purify($content));
-    }
-
-    public function providePurify(): Generator
-    {
-        yield 'array' => [
-            [],
-            [],
-        ];
-        yield 'string' => [
-            '',
-            '',
-        ];
     }
 }

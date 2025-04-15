@@ -16,19 +16,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Review\Model;
 
-use Generator;
 use Mage;
 use Mage_Review_Model_Review as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\ReviewTrait;
 
-class ReviewTest extends TestCase
+class ReviewTest extends OpenMageTest
 {
+    use ReviewTrait;
+
     /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('review/review');
     }
 
@@ -40,52 +42,9 @@ class ReviewTest extends TestCase
      */
     public function testValidate($expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(array_keys($methods))
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        foreach ($methods as $key => $value) {
-            $mock->method($key)->willReturn($value);
-        }
-
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertSame($expectedResult, $mock->validate());
-    }
-
-    public function provideValidateReviewData(): Generator
-    {
-        $validReview = [
-            'getTitle' => 'Great product',
-            'getDetail' => 'I really liked this product.',
-            'getNickname' => 'JohnDoe',
-            'getCustomerId' => 1,
-            'getEntityId' => 1,
-            'getStoreId' => 1,
-        ];
-
-        yield 'valid data' => [
-            true,
-            $validReview,
-        ];
-
-        $data = $validReview;
-        $data['getTitle'] = '';
-        yield 'missing title' => [
-            ['Review summary can\'t be empty'],
-            $data,
-        ];
-
-        $data = $validReview;
-        $data['getDetail'] = '';
-        yield 'missing detail' => [
-            ['Review can\'t be empty'],
-            $data,
-        ];
-
-        $data = $validReview;
-        $data['getNickname'] = '';
-        yield 'missing nickname' => [
-            ['Nickname can\'t be empty'],
-            $data,
-        ];
     }
 }

@@ -17,19 +17,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
-use Generator;
 use Mage;
 use Mage_Catalog_Helper_Data as Subject;
 use Mage_Catalog_Model_Template_Filter;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\DataTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
+    use DataTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog');
     }
 
@@ -41,24 +43,6 @@ class DataTest extends TestCase
     public function testSplitSku(array $expectedResult, string $sku, int $length = 30): void
     {
         static::assertSame($expectedResult, self::$subject->splitSku($sku, $length));
-    }
-
-    public function provideSplitSku(): Generator
-    {
-        yield 'test #1' => [
-            [
-                '100',
-            ],
-            '100',
-        ];
-        yield 'test #2 w/ length' => [
-            [
-                '10',
-                '0',
-            ],
-            '100',
-            2,
-        ];
     }
 
     /**

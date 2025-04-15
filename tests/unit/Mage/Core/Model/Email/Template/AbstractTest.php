@@ -17,19 +17,15 @@ declare(strict_types=1);
 
 namespace unit\Mage\Core\Model\Email\Template;
 
-use Generator;
-use Mage;
 use Mage_Core_Model_Email_Template_Abstract as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Email\Template\AbstractTrait;
 
-class AbstractTest extends TestCase
+class AbstractTest extends OpenMageTest
 {
-    private static Subject $subject;
+    use AbstractTrait;
 
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
+    private static Subject $subject;
 
     public function setUp(): void
     {
@@ -50,27 +46,5 @@ class AbstractTest extends TestCase
         }
 
         static::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
-    }
-
-    public function provideValidateFileExension(): Generator
-    {
-        yield 'css file exists' => [
-            true,
-            $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test.css',
-            'css',
-            true,
-        ];
-        yield 'css file exists, but empty' => [
-            false,
-            $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test-empty.css',
-            'css',
-            true,
-        ];
-        yield 'css file not exists' => [
-            false,
-            $_SERVER['TEST_ROOT'] . '/unit/fixtures/files/test.not-exist',
-            'css',
-            false,
-        ];
     }
 }

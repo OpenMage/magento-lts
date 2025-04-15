@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
 use Mage_Page_Block_Switch as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class SwitchTest extends TestCase
+class SwitchTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 

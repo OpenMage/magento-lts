@@ -18,18 +18,20 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
 use Exception;
-use Generator;
 use Mage;
 use Mage_Admin_Model_Block as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\BlockTrait;
 
-class BlockTest extends TestCase
+class BlockTest extends OpenMageTest
 {
+    use BlockTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('admin/block');
     }
 
@@ -43,88 +45,10 @@ class BlockTest extends TestCase
      */
     public function testValidate(bool|array $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'getBlockName',
-                'getIsAllowed',
-            ])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock->method('getBlockName')->willReturn($methods['getBlockName']);
-        $mock->method('getIsAllowed')->willReturn($methods['getIsAllowed']);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertEquals($expectedResult, $mock->validate());
-    }
-
-    public function provideValidateAdminBlockData(): Generator
-    {
-        $errorIncorrectBlockName = 'Block Name is incorrect.';
-
-        yield 'valid' => [
-            true,
-            [
-                'getBlockName' => 'test/block',
-                'getIsAllowed' => '1',
-            ],
-        ];
-        yield 'invalid' => [
-            [$errorIncorrectBlockName],
-            [
-                'getBlockName' => 'Test_Block',
-                'getIsAllowed' => '1',
-            ],
-        ];
-        yield 'errors: blank blockname' => [
-            [
-                0 => 'Block Name is required field.',
-                1 => 'Is Allowed is required field.',
-            ],
-            [
-                'getBlockName' => '',
-                'getIsAllowed' => '',
-            ],
-        ];
-        yield 'errors: invalid char blockname' => [
-            [$errorIncorrectBlockName],
-            [
-                'getBlockName' => '~',
-                'getIsAllowed' => '1',
-            ],
-        ];
-        yield 'errors: invalid blockname' => [
-            [$errorIncorrectBlockName],
-            [
-                'getBlockName' => 'test',
-                'getIsAllowed' => '0',
-            ],
-        ];
-        yield 'errors: null blockname' => [
-            ['Block Name is required field.'],
-            [
-                'getBlockName' => null,
-                'getIsAllowed' => '1',
-            ],
-        ];
-        yield 'errors: special chars in blockname' => [
-            [$errorIncorrectBlockName],
-            [
-                'getBlockName' => '!@#$%^&*()',
-                'getIsAllowed' => '1',
-            ],
-        ];
-        yield 'errors: numeric blockname' => [
-            [$errorIncorrectBlockName],
-            [
-                'getBlockName' => '12345',
-                'getIsAllowed' => '1',
-            ],
-        ];
-        yield 'valid: mixed case blockname' => [
-            true,
-            [
-                'getBlockName' => 'Test/Block',
-                'getIsAllowed' => '1',
-            ],
-        ];
     }
 
     /**

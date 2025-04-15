@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Customer as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CustomerTest extends TestCase
+class CustomerTest extends OpenMageTest
 {
     /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('log/customer');
     }
 

@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
 use Mage_Page_Block_Redirect as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class RedirectTest extends TestCase
+class RedirectTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 

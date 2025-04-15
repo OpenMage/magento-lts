@@ -17,14 +17,16 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
-use Generator;
 use Mage;
 use Mage_AdminNotification_Model_Inbox as Subject;
 use Mage_Core_Exception;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\AdminNotification\Model\InboxTrait;
 
-class InboxTest extends TestCase
+class InboxTest extends OpenMageTest
 {
+    use InboxTrait;
+
     public const TITLE = 'PhpUnit test';
 
     public const URL = 'https://openmage.org';
@@ -33,7 +35,7 @@ class InboxTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('adminnotification/inbox');
     }
 
@@ -45,27 +47,6 @@ class InboxTest extends TestCase
     public function testGetSeverities(array|string|null $expectedResult, ?int $severity): void
     {
         static::assertSame($expectedResult, self::$subject->getSeverities($severity));
-    }
-
-    public function provideGetSeverities(): Generator
-    {
-        yield 'null' => [
-            [
-                Subject::SEVERITY_CRITICAL  => 'critical',
-                Subject::SEVERITY_MAJOR     => 'major',
-                Subject::SEVERITY_MINOR     => 'minor',
-                Subject::SEVERITY_NOTICE    => 'notice',
-            ],
-            null,
-        ];
-        yield 'valid' => [
-            'critical',
-            Subject::SEVERITY_CRITICAL,
-        ];
-        yield 'invalid' => [
-            null,
-            0,
-        ];
     }
 
     /**

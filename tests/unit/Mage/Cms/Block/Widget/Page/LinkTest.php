@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget\Page;
 
 use Mage;
 use Mage_Cms_Block_Widget_Page_Link as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LinkTest extends TestCase
+class LinkTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 

@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form;
 
 use Mage;
 use Mage_Adminhtml_Block_System_Config_Form as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class FormTest extends TestCase
+class FormTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 

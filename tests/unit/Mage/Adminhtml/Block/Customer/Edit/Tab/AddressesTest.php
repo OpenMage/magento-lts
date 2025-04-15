@@ -17,40 +17,36 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Edit\Tab;
 
-use Mage;
 use Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses as Subject;
+use Mage_Core_Exception;
 use Mage_Customer_Model_Customer;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class AddressesTest extends TestCase
+class AddressesTest extends OpenMageTest
 {
     /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 
     /**
      * @group Mage_Adminhtml
      * @group Mage_Adminhtml_Block
+     * @throws Mage_Core_Exception
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getRegistryCurrentCustomer', 'isReadonly'])
-            ->getMock();
+        $methods = [
+            'getRegistryCurrentCustomer' => new Mage_Customer_Model_Customer(),
+            'isReadonly' => true,
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock
-            ->method('getRegistryCurrentCustomer')
-            ->willReturn(new Mage_Customer_Model_Customer());
-
-        $mock
-            ->method('isReadonly')
-            ->willReturn(true);
-
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

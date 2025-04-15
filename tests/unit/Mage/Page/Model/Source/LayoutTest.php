@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Page\Model\Source;
 
 use Mage;
 use Mage_Page_Model_Source_Layout as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends TestCase
+class LayoutTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('page/source_layout');
     }
 

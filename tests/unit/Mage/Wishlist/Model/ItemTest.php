@@ -20,9 +20,9 @@ namespace OpenMage\Tests\Unit\Mage\Wishlist\Model;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Wishlist_Model_Item as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ItemTest extends TestCase
+class ItemTest extends OpenMageTest
 {
     private static Subject $subject;
 

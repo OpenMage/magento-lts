@@ -19,57 +19,55 @@ namespace OpenMage\Tests\Unit\Mage\Sitemap\Model;
 
 use Mage;
 use Mage_Sitemap_Model_Sitemap as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\SitemapTrait;
 use Throwable;
 
-class SitemapTest extends TestCase
+class SitemapTest extends OpenMageTest
 {
-    public const SITEMAP_FILE = '???phpunit.sitemap.xml';
+    use SitemapTrait;
 
     /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('sitemap/sitemap');
     }
 
     /**
+     * @dataProvider provideGetPreparedFilenameData
      * @group Mage_Sitemap
      * @group Mage_Sitemap_Model
      */
-    public function testGetPreparedFilename(): void
+    public function testGetPreparedFilename(array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getSitemapFilename'])
-            ->getMock();
-        $mock->method('getSitemapFilename')->willReturn('text.xml');
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertIsString($mock->getPreparedFilename());
     }
 
     /**
+     * @dataProvider provideGenerateXmlData
      * @group Mage_Sitemap
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
      * @group Mage_Sitemap_Model
      * @throws Throwable
      * @todo  test validation
      * @todo  test content of xml
      */
-    public function testGenerateXml(): void
+    public function testGenerateXml(array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['isDeleted']) # do not save to DB
-            ->setMethods(['getSitemapFilename'])
-            ->getMock();
-        $mock->method('isDeleted')->willReturn(true);
-        $mock->method('getSitemapFilename')->willReturn(self::SITEMAP_FILE);
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+        static::assertInstanceOf(Subject::class, $mock);
 
         $result = $mock->generateXml();
         static::assertInstanceOf(Subject::class, $result);
-        static::assertFileExists(self::SITEMAP_FILE);
-        unlink(self::SITEMAP_FILE);
+
+        /** @var string $file */
+        $file = $methods['getSitemapFilename'];
+        static::assertFileExists($file);
+        unlink($file);
     }
 }

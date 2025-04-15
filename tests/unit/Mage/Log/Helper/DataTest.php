@@ -17,18 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Log\Helper;
 
-use Generator;
 use Mage;
 use Mage_Log_Helper_Data as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\LogTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
+    use LogTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('log/data');
     }
 
@@ -71,17 +73,5 @@ class DataTest extends TestCase
     public function testIsLogFileExtensionValid(bool $expectedResult, string $file): void
     {
         static::assertSame($expectedResult, self::$subject->isLogFileExtensionValid($file));
-    }
-
-    public function provideIsLogFileExtensionValid(): Generator
-    {
-        yield 'valid' => [
-            true,
-            'valid.log',
-        ];
-        yield 'invalid' => [
-            false,
-            'invalid.file',
-        ];
     }
 }

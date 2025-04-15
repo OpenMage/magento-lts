@@ -19,10 +19,10 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
 use Mage;
 use Mage_Cms_Helper_Data as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Filter_Template;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     public const TEST_STRING = '1234567890';
 
@@ -30,7 +30,7 @@ class DataTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('cms/data');
     }
 

@@ -26,9 +26,9 @@ use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\BoolTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ProductTest extends TestCase
+class ProductTest extends OpenMageTest
 {
     use BoolTrait;
     use CatalogTrait;
@@ -37,7 +37,7 @@ class ProductTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product');
     }
 

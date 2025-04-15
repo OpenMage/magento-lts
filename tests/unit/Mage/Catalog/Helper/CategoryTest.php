@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Mage;
 use Mage_Catalog_Helper_Category as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CategoryTest extends TestCase
+class CategoryTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog/category');
     }
 

@@ -18,18 +18,20 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Exception;
-use Generator;
 use Mage;
 use Mage_Core_Helper_UnserializeArray as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\UnserializeArray as UnserializeArrayDataProvider;
 
-class UnserializeArrayTest extends TestCase
+class UnserializeArrayTest extends OpenMageTest
 {
+    use UnserializeArrayDataProvider;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('core/unserializeArray');
     }
 
@@ -45,27 +47,5 @@ class UnserializeArrayTest extends TestCase
         } catch (Exception $exception) {
             static::assertSame($expectedTesult, $exception->getMessage());
         }
-    }
-
-    public function provideUnserialize(): Generator
-    {
-        $errorMessage = 'Error unserializing data.';
-
-        yield 'null' => [
-            $errorMessage,
-            null,
-        ];
-        yield 'empty string' => [
-            $errorMessage,
-            '',
-        ];
-        yield 'random string' => [
-            $errorMessage,
-            'abc',
-        ];
-        yield 'valid' => [
-            ['key' => 'value'],
-            'a:1:{s:3:"key";s:5:"value";}',
-        ];
     }
 }

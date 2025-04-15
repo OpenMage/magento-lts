@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 
 use Mage;
 use Mage_Uploader_Helper_Data as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('uploader/data');
     }
 

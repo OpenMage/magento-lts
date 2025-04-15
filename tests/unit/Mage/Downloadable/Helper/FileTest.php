@@ -20,9 +20,9 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 use Mage;
 use Mage_Downloadable_Helper_File as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\DownloadableTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class FileTest extends TestCase
+class FileTest extends OpenMageTest
 {
     use DownloadableTrait;
 
@@ -30,7 +30,7 @@ class FileTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('downloadable/file');
     }
 

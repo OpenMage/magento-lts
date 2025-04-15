@@ -21,15 +21,15 @@ use Mage;
 use Mage_Rule_Model_Action_Collection;
 use Mage_Rule_Model_Condition_Combine;
 use Mage_Rule_Model_Rule as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class RuleTest extends TestCase
+class RuleTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('rule/rule');
     }
 

@@ -21,15 +21,15 @@ use Generator;
 use Mage;
 use Mage_Catalog_Model_Product_Option;
 use Mage_Catalog_Model_Product_Option_Type_Text as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class TextTest extends TestCase
+class TextTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('catalog/product_option_type_text');
     }
 

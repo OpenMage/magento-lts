@@ -18,9 +18,9 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid;
 
 use Mage_Adminhtml_Block_Widget_Grid_Column as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ColumnTest extends TestCase
+class ColumnTest extends OpenMageTest
 {
     private static Subject $subject;
 

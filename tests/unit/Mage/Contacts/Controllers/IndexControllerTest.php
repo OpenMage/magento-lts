@@ -20,9 +20,10 @@ namespace OpenMage\Tests\Unit\Mage\Contacts\Controllers;
 use Generator;
 use Mage;
 use Mage_Contacts_IndexController as Subject;
-use PHPUnit\Framework\TestCase;
+use Mage_Customer_Model_Session;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class IndexControllerTest extends TestCase
+class IndexControllerTest extends OpenMageTest
 {
     protected function setUp(): void
     {
@@ -34,6 +35,7 @@ class IndexControllerTest extends TestCase
      * @group Mage_Contacts
      * @group Mage_Contacts_Controller
      * @runInSeparateProcess
+     * @throws \Mage_Core_Exception
      */
     public function testPostAction(array $postData, bool $isFormKeyValid, ?string $expectedErrorMessage): void
     {
@@ -50,7 +52,7 @@ class IndexControllerTest extends TestCase
         $subject->method('getRequest')->willReturn($requestMock);
         $subject->method('_validateFormKey')->willReturn($isFormKeyValid);
 
-        $sessionMock = $this->getMockBuilder(\Mage_Customer_Model_Session::class)
+        $sessionMock = $this->getMockBuilder(Mage_Customer_Model_Session::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['addError', 'addSuccess'])
             ->getMock();

@@ -19,15 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Mage;
 use Mage_Catalog_Helper_Map as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class MapTest extends TestCase
+class MapTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('catalog/map');
     }
 

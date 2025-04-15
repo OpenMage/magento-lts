@@ -17,19 +17,18 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile\Edit\Tab;
 
-use Mage;
 use Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit as Subject;
 use Mage_Dataflow_Model_Profile;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class EditTest extends TestCase
+class EditTest extends OpenMageTest
 {
     /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 
@@ -39,14 +38,12 @@ class EditTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getRegistryCurrentConvertProfile'])
-            ->getMock();
+        $methods = [
+            'getRegistryCurrentConvertProfile' => new Mage_Dataflow_Model_Profile(),
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock
-            ->method('getRegistryCurrentConvertProfile')
-            ->willReturn(new Mage_Dataflow_Model_Profile());
-
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

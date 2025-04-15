@@ -21,15 +21,15 @@ use Mage;
 use Mage_Adminhtml_Model_Session;
 use Mage_Cms_Helper_Wysiwyg_Images;
 use Mage_Cms_Model_Wysiwyg_Images_Storage as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class StorageTest extends TestCase
+class StorageTest extends OpenMageTest
 {
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('cms/wysiwyg_images_storage');
     }
 

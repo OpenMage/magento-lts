@@ -21,22 +21,17 @@ use Mage;
 use Mage_Reports_Model_Report;
 use Mage_Reports_Model_Resource_Report_Collection as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Zend_Date;
 use Zend_Date_Exception;
 
-class CollectionTest extends TestCase
+class CollectionTest extends OpenMageTest
 {
     use ReportsTrait;
 
     public const SKIP_INCOMPLETE_MESSAGE = 'Test needs to be reviewed.';
 
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

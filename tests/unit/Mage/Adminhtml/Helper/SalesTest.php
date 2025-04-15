@@ -17,18 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
-use Generator;
 use Mage;
 use Mage_Adminhtml_Helper_Sales as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\SalesTrait;
 
-class SalesTest extends TestCase
+class SalesTest extends OpenMageTest
 {
+    use SalesTrait;
+
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('adminhtml/sales');
     }
 
@@ -41,13 +43,5 @@ class SalesTest extends TestCase
     public function testEscapeHtmlWithLinks(string $expectedResult, string $data): void
     {
         static::assertSame($expectedResult, self::$subject->escapeHtmlWithLinks($data, ['a']));
-    }
-
-    public function provideDecodeGridSerializedInput(): Generator
-    {
-        yield 'test #1' => [
-            '&lt;a href=&quot;https://localhost&quot;&gt;',
-            '<a href="https://localhost">',
-        ];
     }
 }

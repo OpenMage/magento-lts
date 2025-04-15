@@ -17,18 +17,12 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
-use Mage;
 use Mage_Adminhtml_Block_Cache as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CacheTest extends TestCase
+class CacheTest extends OpenMageTest
 {
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

@@ -20,18 +20,13 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model;
 use Mage;
 use Mage_Cms_Model_Page as Subject;
 use Mage_Core_Model_Resource_Db_Collection_Abstract;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class PageTest extends TestCase
+class PageTest extends OpenMageTest
 {
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

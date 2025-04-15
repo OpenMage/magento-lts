@@ -17,22 +17,24 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Helper;
 
-use Generator;
 use Mage;
 use Mage_Tax_Helper_Data as Subject;
 use Mage_Tax_Model_Calculation;
 use Mage_Tax_Model_Config;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\TaxTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
+    use TaxTrait;
+
     private static Subject $subject;
 
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::helper('tax/data');
     }
 
@@ -105,18 +107,6 @@ class DataTest extends TestCase
     public function testGetIncExcText(string $expectedResult, bool $flag): void
     {
         static::assertStringContainsString($expectedResult, self::$subject->getIncExcText($flag));
-    }
-
-    public function provideGetIncExcText(): Generator
-    {
-        yield 'true' => [
-            'Incl. Tax',
-            true,
-        ];
-        yield 'false' => [
-            'Excl. Tax',
-            false,
-        ];
     }
 
     /**
@@ -228,18 +218,6 @@ class DataTest extends TestCase
     public function testGetIncExcTaxLabel(string $expectedResult, bool $flag): void
     {
         static::assertStringContainsString($expectedResult, self::$subject->getIncExcTaxLabel($flag));
-    }
-
-    public function provideGetIncExcTaxLabel(): Generator
-    {
-        yield 'true' => [
-            '(Incl. Tax)',
-            true,
-        ];
-        yield 'false' => [
-            '(Excl. Tax)',
-            false,
-        ];
     }
 
     /**

@@ -20,19 +20,22 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Error;
 use Generator;
 use Mage;
+use Mage_Core_Block_Abstract;
 use Mage_Core_Model_Layout as Subject;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\LayoutTrait;
 use OpenMage\Tests\Unit\Traits\PhpStormMetaData\BlocksTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends TestCase
+class LayoutTest extends OpenMageTest
 {
     use BlocksTrait;
+    use LayoutTrait;
 
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
         self::$subject = Mage::getModel('core/layout');
     }
 
@@ -40,34 +43,18 @@ class LayoutTest extends TestCase
      * @dataProvider provideCreateBlock
      * @group Mage_Core
      * @group Mage_Core_Model
+     *
+     * @param bool|class-string $expectedResult
      */
     public function testCreateBlock(bool|string $expectedResult, bool $willReturnBlock, string $type, ?string $name, array $attributes): void
     {
         $result = self::$subject->createBlock($type, $name, $attributes);
 
-        if ($willReturnBlock) {
+        if ($willReturnBlock && is_string($expectedResult)) {
             static::assertInstanceOf($expectedResult, $result);
         } else {
             static::assertFalse($result);
         }
-    }
-
-    public function provideCreateBlock(): Generator
-    {
-        yield 'instance of Mage_Core_Block_Abstract' => [
-            \Mage_Cms_Block_Block::class,
-            true,
-            'cms/block',
-            null,
-            [],
-        ];
-        yield 'not instance of Mage_Core_Block_Abstract' => [
-            false,
-            false,
-            'rule/conditions',
-            null,
-            [],
-        ];
     }
 
     /**
@@ -76,6 +63,8 @@ class LayoutTest extends TestCase
      * @group Mage_Core
      * @group Mage_Core_Model
      * @group pr4411
+     *
+     * @param class-string $expectedResult
      */
     public function testGetBlockSingleton(string $expectedResult, bool $isAbstractBlock, string $type): void
     {
@@ -84,9 +73,9 @@ class LayoutTest extends TestCase
         static::assertInstanceOf($expectedResult, $result);
 
         if ($isAbstractBlock) {
-            static::assertInstanceOf(\Mage_Core_Block_Abstract::class, $result);
+            static::assertInstanceOf(Mage_Core_Block_Abstract::class, $result);
         } else {
-            static::assertNotInstanceOf(\Mage_Core_Block_Abstract::class, $result);
+            static::assertNotInstanceOf(Mage_Core_Block_Abstract::class, $result);
         }
     }
 

@@ -20,18 +20,13 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Eav;
 use Mage;
 use Mage_Catalog_Model_Resource_Eav_Attribute as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class AttributeTest extends TestCase
+class AttributeTest extends OpenMageTest
 {
     use CoreTrait;
 
     private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
 
     public function setUp(): void
     {

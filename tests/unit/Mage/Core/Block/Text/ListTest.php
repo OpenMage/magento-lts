@@ -18,15 +18,10 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Block\Text;
 
 use Mage;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ListTest extends TestCase
+class ListTest extends OpenMageTest
 {
-    public static function setUpBeforeClass(): void
-    {
-        Mage::app();
-    }
-
     /**
      * @group Mage_Core
      * @group Mage_Core_Block
