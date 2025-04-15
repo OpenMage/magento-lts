@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form;
 
 use Mage;
 use Mage_Adminhtml_Block_System_Config_Form as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class FormTest extends TestCase
+class FormTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -36,6 +36,6 @@ class FormTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->initForm());
+        static::assertInstanceOf(Subject::class, self::$subject->initForm());
     }
 }

@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
 
 use Mage;
 use Mage_Admin_Helper_Data as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('admin/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('admin/data');
     }
 
     /**
@@ -38,7 +38,7 @@ class DataTest extends TestCase
      */
     public function testGenerateResetPasswordLinkToken(): void
     {
-        $this->assertIsString($this->subject->generateResetPasswordLinkToken());
+        static::assertIsString(self::$subject->generateResetPasswordLinkToken());
     }
 
     /**
@@ -48,6 +48,6 @@ class DataTest extends TestCase
      */
     public function testGetResetPasswordLinkExpirationPeriod(): void
     {
-        $this->assertIsInt($this->subject->getResetPasswordLinkExpirationPeriod());
+        static::assertIsInt(self::$subject->getResetPasswordLinkExpirationPeriod());
     }
 }

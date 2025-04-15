@@ -24,18 +24,18 @@ use Mage_Core_Block_Template;
 use Mage_Core_Exception;
 use Mage_Core_Helper_Security as Subject;
 use Mage_Page_Block_Html_Topmenu_Renderer;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
 use function sprintf;
 
-class SecurityTest extends TestCase
+class SecurityTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('core/security');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('core/security');
     }
 
     /**
@@ -72,7 +72,7 @@ class SecurityTest extends TestCase
         string $method,
         array $args
     ): void {
-        $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
+        self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 
     public function forbiddenBlockMethodsDataProvider(): Generator
@@ -130,6 +130,6 @@ class SecurityTest extends TestCase
         array $args
     ): void {
         $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method));
-        $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
+        self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 }

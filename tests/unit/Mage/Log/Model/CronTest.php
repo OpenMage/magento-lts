@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Cron as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CronTest extends TestCase
+class CronTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('log/cron');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('log/cron');
     }
 
     /**
@@ -37,6 +37,6 @@ class CronTest extends TestCase
      */
     public function testLogClean(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->logClean());
+        static::assertInstanceOf(Subject::class, self::$subject->logClean());
     }
 }

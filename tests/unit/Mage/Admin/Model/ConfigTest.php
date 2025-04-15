@@ -20,17 +20,17 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 use Mage;
 use Mage_Admin_Model_Acl;
 use Mage_Admin_Model_Config as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-class ConfigTest extends TestCase
+class ConfigTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('admin/config');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/config');
     }
 
     /**
@@ -39,7 +39,7 @@ class ConfigTest extends TestCase
      */
     public function testGetAclAssert(): void
     {
-        $this->assertFalse($this->subject->getAclAssert(''));
+        static::assertFalse(self::$subject->getAclAssert(''));
     }
 
     /**
@@ -48,7 +48,7 @@ class ConfigTest extends TestCase
      */
     public function testGetAclPrivilegeSet(): void
     {
-        $this->assertFalse($this->subject->getAclPrivilegeSet());
+        static::assertFalse(self::$subject->getAclPrivilegeSet());
     }
 
     /**
@@ -57,7 +57,7 @@ class ConfigTest extends TestCase
      */
     public function testLoadAclResources(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->loadAclResources(new Mage_Admin_Model_Acl()));
+        static::assertInstanceOf(Subject::class, self::$subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
     /**
@@ -66,6 +66,6 @@ class ConfigTest extends TestCase
      */
     public function testGetAdminhtmlConfig(): void
     {
-        $this->assertInstanceOf(Varien_Simplexml_Config::class, $this->subject->getAdminhtmlConfig());
+        static::assertInstanceOf(Varien_Simplexml_Config::class, self::$subject->getAdminhtmlConfig());
     }
 }

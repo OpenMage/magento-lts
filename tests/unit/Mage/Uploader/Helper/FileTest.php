@@ -20,23 +20,23 @@ namespace OpenMage\Tests\Unit\Mage\Uploader\Helper;
 use Mage;
 use Mage_Core_Model_Config;
 use Mage_Uploader_Helper_File as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\UploaderTrait;
-use PHPUnit\Framework\TestCase;
 
-class FileTest extends TestCase
+class FileTest extends OpenMageTest
 {
     use UploaderTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
+        parent::setUpBeforeClass();
 
         /** @var Mage_Core_Model_Config $config */
         $config = Mage::getConfig();
         $config->setNode('global/mime/types/test-new-node', 'application/octet-stream');
-        $this->subject = Mage::helper('uploader/file');
+        self::$subject = Mage::helper('uploader/file');
     }
 
     /**
@@ -49,7 +49,7 @@ class FileTest extends TestCase
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        $this->assertSame($expectedResult, $this->subject->getMimeTypeFromExtensionList($extensionsList));
+        static::assertSame($expectedResult, self::$subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
     /**
@@ -58,7 +58,7 @@ class FileTest extends TestCase
      */
     public function testGetPostMaxSize(): void
     {
-        $this->assertIsString($this->subject->getPostMaxSize());
+        static::assertIsString(self::$subject->getPostMaxSize());
     }
 
     /**
@@ -67,22 +67,20 @@ class FileTest extends TestCase
      */
     public function testGetUploadMaxSize(): void
     {
-        $this->assertIsString($this->subject->getUploadMaxSize());
+        static::assertIsString(self::$subject->getUploadMaxSize());
     }
 
     /**
+     * @dataProvider provideGetDataMaxSizeData
      * @group Mage_Uploader
      * @group Mage_Uploader_Helper
      */
-    public function testGetDataMaxSize(): void
+    public function testGetDataMaxSize(string $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getPostMaxSize', 'getUploadMaxSize'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        $mock->expects($this->once())->method('getPostMaxSize')->willReturn('1G');
-        $mock->expects($this->once())->method('getUploadMaxSize')->willReturn('1M');
-        $this->assertSame('1M', $mock->getDataMaxSize());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertSame($expectedResult, $mock->getDataMaxSize());
     }
 
     /**
@@ -90,13 +88,11 @@ class FileTest extends TestCase
      * @group Mage_Uploader
      * @group Mage_Uploader_Helper
      */
-    public function testGetDataMaxSizeInBytes(int $expectedResult, string $maxSize): void
+    public function testGetDataMaxSizeInBytes(int $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getDataMaxSize'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        $mock->expects($this->once())->method('getDataMaxSize')->willReturn($maxSize);
-        $this->assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 }

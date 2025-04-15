@@ -17,21 +17,23 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Directory\Helper;
 
-use Generator;
 use Mage;
 use Mage_Directory_Helper_Data as Subject;
 use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\DirectoryTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    use DirectoryTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('directory/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('directory/data');
     }
 
     /**
@@ -40,7 +42,7 @@ class DataTest extends TestCase
      */
     public function testGetRegionCollection(): void
     {
-        $this->assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, $this->subject->getRegionCollection());
+        static::assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, self::$subject->getRegionCollection());
     }
 
     /**
@@ -49,7 +51,7 @@ class DataTest extends TestCase
      */
     public function testGetCountryCollection(): void
     {
-        $this->assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, $this->subject->getCountryCollection());
+        static::assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, self::$subject->getCountryCollection());
     }
 
     /**
@@ -58,7 +60,7 @@ class DataTest extends TestCase
      */
     public function testGetRegionJsonByStore(): void
     {
-        $this->assertIsString($this->subject->getRegionJson());
+        static::assertIsString(self::$subject->getRegionJson());
     }
 
     /**
@@ -69,7 +71,7 @@ class DataTest extends TestCase
      */
     public function testCurrencyConvert(): void
     {
-        $this->assertSame(10, $this->subject->currencyConvert(10, 'USD'));
+        static::assertSame(10, self::$subject->currencyConvert(10, 'USD'));
     }
 
     /**
@@ -78,26 +80,9 @@ class DataTest extends TestCase
      * @group Mage_Directory
      * @group Mage_Directory_Helper
      */
-    public function testGetCountriesWithOptionalZip($expectedResult, bool $asJson): void
+    public function testGetCountriesWithOptionalZip(array|string $expectedResult, bool $asJson): void
     {
-        $this->assertSame($expectedResult, $this->subject->getCountriesWithOptionalZip($asJson));
-    }
-
-    public function provideGetCountriesWithOptionalZip(): Generator
-    {
-        yield 'as json' => [
-            '["HK","IE","MO","PA"]',
-            true,
-        ];
-        yield 'as array' => [
-            [
-                0 => 'HK',
-                1 => 'IE',
-                2 => 'MO',
-                3 => 'PA',
-            ],
-            false,
-        ];
+        static::assertSame($expectedResult, self::$subject->getCountriesWithOptionalZip($asJson));
     }
 
     /**
@@ -107,7 +92,7 @@ class DataTest extends TestCase
      */
     public function testIsZipCodeOptional(): void
     {
-        $this->assertIsBool($this->subject->isZipCodeOptional(''));
+        static::assertIsBool(self::$subject->isZipCodeOptional(''));
     }
 
     /**
@@ -116,39 +101,14 @@ class DataTest extends TestCase
      * @group Mage_Directory
      * @group Mage_Directory_Helper
      */
-    public function testGetCountriesWithStatesRequired($expectedResult, bool $asJson): void
+    public function testGetCountriesWithStatesRequired(array|string $expectedResult, bool $asJson): void
     {
-        $result = $this->subject->getCountriesWithStatesRequired($asJson);
+        $result = self::$subject->getCountriesWithStatesRequired($asJson);
         if (defined('DATA_MAY_CHANGED')) {
-            $asJson ? $this->assertIsString($result) : $this->assertIsArray($result);
+            $asJson ? static::assertIsString($result) : static::assertIsArray($result);
         } else {
-            $this->assertSame($expectedResult, $result);
+            static::assertSame($expectedResult, $result);
         }
-    }
-
-    public function provideGetCountriesWithStatesRequired(): Generator
-    {
-        yield 'as json' => [
-            '["AT","CA","CH","DE","EE","ES","FI","FR","LT","LV","RO","US"]',
-            true,
-        ];
-        yield 'as array' => [
-            [
-                0 => 'AT',
-                1 => 'CA',
-                2 => 'CH',
-                3 => 'DE',
-                4 => 'EE',
-                5 => 'ES',
-                6 => 'FI',
-                7 => 'FR',
-                8 => 'LT',
-                9 => 'LV',
-                10 => 'RO',
-                11 => 'US',
-            ],
-            false,
-        ];
     }
 
     /**
@@ -158,7 +118,7 @@ class DataTest extends TestCase
      */
     public function testGetShowNonRequiredState(): void
     {
-        $this->assertTrue($this->subject->getShowNonRequiredState());
+        static::assertTrue(self::$subject->getShowNonRequiredState());
     }
 
     /**
@@ -168,6 +128,6 @@ class DataTest extends TestCase
      */
     public function testGetConfigCurrencyBase(): void
     {
-        $this->assertSame('USD', $this->subject->getConfigCurrencyBase());
+        static::assertSame('USD', self::$subject->getConfigCurrencyBase());
     }
 }

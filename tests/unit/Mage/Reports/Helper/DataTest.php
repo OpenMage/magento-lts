@@ -21,20 +21,20 @@ use Composer\InstalledVersions;
 use Mage;
 use Mage_Reports_Helper_Data as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Reports\ReportsTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Data_Collection;
 use Zend_Date_Exception;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     use ReportsTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('reports/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('reports/data');
     }
 
     /**
@@ -44,7 +44,7 @@ class DataTest extends TestCase
      */
     public function testIsModuleEnabled(): void
     {
-        $this->assertTrue($this->subject->isModuleEnabled());
+        static::assertTrue(self::$subject->isModuleEnabled());
     }
 
     /**
@@ -54,7 +54,7 @@ class DataTest extends TestCase
      */
     public function testIsReportsEnabled(): void
     {
-        $this->assertTrue($this->subject->isReportsEnabled());
+        static::assertTrue(self::$subject->isReportsEnabled());
     }
 
     /**
@@ -63,16 +63,16 @@ class DataTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Helper
      */
-    public function testGetIntervals($expectedResult, $from, $to, $period): void
+    public function testGetIntervals(int $expectedResult, string $from, string $to, string $period): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
-            $this->markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
+            static::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
 
         try {
-            $this->assertCount($expectedResult, $this->subject->getIntervals($from, $to, $period));
+            static::assertCount($expectedResult, self::$subject->getIntervals($from, $to, $period));
         } catch (Zend_Date_Exception $exception) {
-            $this->assertSame("No date part in '' found.", $exception->getMessage());
+            static::assertSame("No date part in '' found.", $exception->getMessage());
         }
     }
 
@@ -83,10 +83,10 @@ class DataTest extends TestCase
      * @group Mage_Reports
      * @group Mage_Reports_Helper
      */
-    public function testPrepareIntervalsCollection($expectedResult, $from, $to, $period): void
+    public function testPrepareIntervalsCollection(int $expectedResult, string $from, string $to, string $period): void
     {
-        $this->markTestIncomplete('Test needs to be reviewed.');
+        static::markTestIncomplete('Test needs to be reviewed.');
         // @phpstan-ignore-next-line
-        $this->subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
+        self::$subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
     }
 }

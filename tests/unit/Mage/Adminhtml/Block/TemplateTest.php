@@ -17,21 +17,20 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
-use Mage;
 use Mage_Adminhtml_Block_Template as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
-use PHPUnit\Framework\TestCase;
 
-class TemplateTest extends TestCase
+class TemplateTest extends OpenMageTest
 {
     use CoreTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -43,7 +42,7 @@ class TemplateTest extends TestCase
      */
     public function testGetFormKey(): void
     {
-        $this->assertIsString($this->subject->getFormKey());
+        static::assertIsString(self::$subject->getFormKey());
     }
 
     /**
@@ -54,7 +53,7 @@ class TemplateTest extends TestCase
      */
     public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
-        $this->assertSame($expectedResult, $this->subject->isOutputEnabled($moduleName));
+        static::assertSame($expectedResult, self::$subject->isOutputEnabled($moduleName));
     }
 
     /**
@@ -63,7 +62,7 @@ class TemplateTest extends TestCase
      */
     public function testGetModuleName(): void
     {
-        $this->assertSame('Mage_Adminhtml', $this->subject->getModuleName());
+        static::assertSame('Mage_Adminhtml', self::$subject->getModuleName());
     }
 
     /**
@@ -73,6 +72,6 @@ class TemplateTest extends TestCase
      */
     public function testMaliciousCodeFilter(): void
     {
-        $this->assertIsString($this->subject->maliciousCodeFilter(''));
+        static::assertIsString(self::$subject->maliciousCodeFilter(''));
     }
 }

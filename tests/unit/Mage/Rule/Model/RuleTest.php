@@ -21,16 +21,16 @@ use Mage;
 use Mage_Rule_Model_Action_Collection;
 use Mage_Rule_Model_Condition_Combine;
 use Mage_Rule_Model_Rule as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class RuleTest extends TestCase
+class RuleTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('rule/rule');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('rule/rule');
     }
 
     /**
@@ -40,7 +40,7 @@ class RuleTest extends TestCase
      */
     public function testGetConditionsInstance(): void
     {
-        $this->assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, $this->subject->getConditionsInstance());
+        static::assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, self::$subject->getConditionsInstance());
     }
 
     /**
@@ -50,6 +50,6 @@ class RuleTest extends TestCase
      */
     public function testGetActionsInstance(): void
     {
-        $this->assertInstanceOf(Mage_Rule_Model_Action_Collection::class, $this->subject->getActionsInstance());
+        static::assertInstanceOf(Mage_Rule_Model_Action_Collection::class, self::$subject->getActionsInstance());
     }
 }

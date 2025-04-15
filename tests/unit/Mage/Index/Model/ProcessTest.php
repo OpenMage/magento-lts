@@ -21,18 +21,18 @@ use Mage;
 use Mage_Core_Exception;
 use Mage_Index_Model_Process as Subject;
 use Mage_Index_Model_Resource_Event_Collection;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ProcessTest extends TestCase
+class ProcessTest extends OpenMageTest
 {
     public const INDEXER_MODEL_IS_NOT_DEFINED = 'Indexer model is not defined.';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('index/process');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('index/process');
     }
 
     /**
@@ -41,12 +41,12 @@ class ProcessTest extends TestCase
      */
     public function testReindexEverything(): void
     {
-        $this->subject->setIndexerCode('html');
+        self::$subject->setIndexerCode('html');
 
         try {
-            $this->assertInstanceOf(Subject::class, $this->subject->reindexEverything());
+            static::assertInstanceOf(Subject::class, self::$subject->reindexEverything());
         } catch (Mage_Core_Exception $exception) {
-            $this->assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+            static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
     }
 
@@ -56,12 +56,12 @@ class ProcessTest extends TestCase
      */
     public function testDisableIndexerKeys(): void
     {
-        $this->subject->setIndexerCode('html');
+        self::$subject->setIndexerCode('html');
 
         try {
-            $this->assertInstanceOf(Subject::class, $this->subject->disableIndexerKeys());
+            static::assertInstanceOf(Subject::class, self::$subject->disableIndexerKeys());
         } catch (Mage_Core_Exception $exception) {
-            $this->assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+            static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
 
     }
@@ -72,12 +72,12 @@ class ProcessTest extends TestCase
      */
     public function testEnableIndexerKeys(): void
     {
-        $this->subject->setIndexerCode('html');
+        self::$subject->setIndexerCode('html');
 
         try {
-            $this->assertInstanceOf(Subject::class, $this->subject->enableIndexerKeys());
+            static::assertInstanceOf(Subject::class, self::$subject->enableIndexerKeys());
         } catch (Mage_Core_Exception $exception) {
-            $this->assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+            static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ class ProcessTest extends TestCase
      */
     public function testGetUnprocessedEventsCollection(): void
     {
-        $this->subject->setIndexerCode('html');
-        $this->assertInstanceOf(Mage_Index_Model_Resource_Event_Collection::class, $this->subject->getUnprocessedEventsCollection());
+        self::$subject->setIndexerCode('html');
+        static::assertInstanceOf(Mage_Index_Model_Resource_Event_Collection::class, self::$subject->getUnprocessedEventsCollection());
     }
 }

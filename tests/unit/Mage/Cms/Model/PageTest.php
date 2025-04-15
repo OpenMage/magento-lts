@@ -20,18 +20,17 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model;
 use Mage;
 use Mage_Cms_Model_Page as Subject;
 use Mage_Core_Model_Resource_Db_Collection_Abstract;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class PageTest extends TestCase
+class PageTest extends OpenMageTest
 {
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('cms/page');
+        self::$subject = Mage::getModel('cms/page');
     }
 
     /**
@@ -40,8 +39,8 @@ class PageTest extends TestCase
      */
     public function testLoad(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->load(null));
-        $this->assertInstanceOf(Subject::class, $this->subject->load(2));
+        static::assertInstanceOf(Subject::class, self::$subject->load(null));
+        static::assertInstanceOf(Subject::class, self::$subject->load(2));
     }
 
     /**
@@ -50,7 +49,7 @@ class PageTest extends TestCase
      */
     public function testCheckIdentifier(): void
     {
-        $this->assertIsString($this->subject->checkIdentifier('home', 1));
+        static::assertIsString(self::$subject->checkIdentifier('home', 1));
     }
 
     /**
@@ -60,9 +59,9 @@ class PageTest extends TestCase
     public function testGetCmsPageTitleByIdentifier(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        $this->assertSame('Home page', $this->subject->getCmsPageTitleByIdentifier('home'));
+        static::assertSame('Home page', self::$subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -72,9 +71,9 @@ class PageTest extends TestCase
     public function testGetCmsPageTitleById(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        $this->assertSame('Home page', $this->subject->getCmsPageTitleById(2));
+        static::assertSame('Home page', self::$subject->getCmsPageTitleById(2));
     }
 
     /**
@@ -83,7 +82,7 @@ class PageTest extends TestCase
      */
     public function testGetCmsPageIdentifierById(): void
     {
-        $this->assertSame('home', $this->subject->getCmsPageIdentifierById(2));
+        static::assertSame('home', self::$subject->getCmsPageIdentifierById(2));
     }
 
     /**
@@ -92,7 +91,7 @@ class PageTest extends TestCase
      */
     public function testGetAvailableStatuses(): void
     {
-        $this->assertIsArray($this->subject->getAvailableStatuses());
+        static::assertIsArray(self::$subject->getAvailableStatuses());
     }
 
     /**
@@ -102,7 +101,7 @@ class PageTest extends TestCase
      */
     public function testGetUsedInStoreConfigCollection(): void
     {
-        $this->subject->getUsedInStoreConfigCollection();
+        self::$subject->getUsedInStoreConfigCollection();
     }
 
     /**
@@ -111,6 +110,6 @@ class PageTest extends TestCase
      */
     public function testIsUsedInStoreConfig(): void
     {
-        $this->assertFalse($this->subject->isUsedInStoreConfig());
+        static::assertFalse(self::$subject->isUsedInStoreConfig());
     }
 }

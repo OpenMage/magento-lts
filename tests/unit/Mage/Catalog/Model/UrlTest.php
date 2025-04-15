@@ -17,27 +17,27 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Model;
 
-use Generator;
 use Mage;
 use Mage_Catalog_Model_Url as Subject;
 use Mage_Core_Exception;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\IntOrNullTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\String\Slugger\AsciiSlugger;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\UrlTrait;
 use Varien_Object;
 
-class UrlTest extends TestCase
+class UrlTest extends OpenMageTest
 {
     use CatalogTrait;
     use IntOrNullTrait;
+    use UrlTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('catalog/url');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('catalog/url');
     }
 
     /**
@@ -46,7 +46,7 @@ class UrlTest extends TestCase
      */
     public function testGetStoreRootCategory(): void
     {
-        $this->assertInstanceOf(Varien_Object::class, $this->subject->getStoreRootCategory(1));
+        static::assertInstanceOf(Varien_Object::class, self::$subject->getStoreRootCategory(1));
     }
 
     /**
@@ -56,7 +56,7 @@ class UrlTest extends TestCase
      */
     public function testRefreshRewrites(?int $storeId): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->refreshRewrites($storeId));
+        static::assertInstanceOf(Subject::class, self::$subject->refreshRewrites($storeId));
     }
 
     /**
@@ -73,66 +73,21 @@ class UrlTest extends TestCase
         ?string $parentPath = null
     ): void {
         try {
-            $this->assertSame($expectedResult, $this->subject->generatePath($type, $product, $category, $parentPath));
+            static::assertSame($expectedResult, self::$subject->generatePath($type, $product, $category, $parentPath));
         } catch (Mage_Core_Exception $e) {
-            $this->assertSame($expectedResult, $e->getMessage());
+            static::assertSame($expectedResult, $e->getMessage());
         }
     }
 
-    public function provideGeneratePathData(): Generator
-    {
-        $category = new Varien_Object([
-            'id'        => '999',
-            'store_id'  => '1',
-            'url_key'   => '',
-            'name'      => 'category',
-
-        ]);
-        $product = new Varien_Object([
-            'id'        => '999',
-            'name'      => 'product',
-        ]);
-
-        yield 'test exception' => [
-            'Please specify either a category or a product, or both.',
-            'request',
-            null,
-            null,
-        ];
-        yield 'request' => [
-            'product.html',
-            'request',
-            $product,
-            $category,
-        ];
-        //        yield 'request w/o product' => [
-        //            '-.html',
-        //            'request',
-        //            null,
-        //            $category,
-        //        ];
-        yield 'target category' => [
-            'catalog/category/view/id/999',
-            'target',
-            null,
-            $category,
-        ];
-        yield 'target product' => [
-            'catalog/product/view/id/999',
-            'target',
-            $product,
-            $category,
-        ];
-    }
     /**
      * @dataProvider provideFormatUrlKey
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testFormatUrlKey($expectedResult, string $locale): void
+    public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
-        $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));
+        self::$subject->setLocale($locale);
+        static::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
     }
 
     /**
@@ -142,7 +97,7 @@ class UrlTest extends TestCase
      */
     //    public function testGetSlugger(): void
     //    {
-    //        $this->subject->getSlugger();
+    //        self::$subject->getSlugger();
     //    }
 
     /**
@@ -150,43 +105,18 @@ class UrlTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Model
      */
-    public function testGetSluggerConfig($expectedResult, string $locale): void
+    public function testGetSluggerConfig(array $expectedResult, string $locale): void
     {
-        $result = $this->subject->getSluggerConfig($locale);
+        $result = self::$subject->getSluggerConfig($locale);
 
-        $this->assertArrayHasKey($locale, $result);
+        static::assertArrayHasKey($locale, $result);
 
-        $this->assertArrayHasKey('%', $result[$locale]);
-        $this->assertArrayHasKey('&', $result[$locale]);
+        static::assertArrayHasKey('%', $result[$locale]);
+        static::assertArrayHasKey('&', $result[$locale]);
 
-        $this->assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
-        $this->assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
+        static::assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
+        static::assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
 
-        $this->assertSame('at', $result[$locale]['@']);
-    }
-
-    public function provideGetSluggerConfig(): Generator
-    {
-        yield 'de_DE' => [
-            ['de_DE' => [
-                '%' => 'prozent',
-                '&' => 'und',
-            ]],
-            'de_DE',
-        ];
-        yield 'en_US' => [
-            ['en_US' => [
-                '%' => 'percent',
-                '&' => 'and',
-            ]],
-            'en_US',
-        ];
-        yield 'fr_FR' => [
-            ['fr_FR' => [
-                '%' => 'pour cent',
-                '&' => 'et',
-            ]],
-            'fr_FR',
-        ];
+        static::assertSame('at', $result[$locale]['@']);
     }
 }

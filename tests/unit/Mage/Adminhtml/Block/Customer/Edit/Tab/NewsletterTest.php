@@ -20,16 +20,17 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Customer\Edit\Tab;
 use Mage;
 use Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter as Subject;
 use Mage_Customer_Model_Customer;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class NewsletterTest extends TestCase
+class NewsletterTest extends OpenMageTest
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -39,15 +40,12 @@ class NewsletterTest extends TestCase
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getRegistryCurrentCustomer'])
-            ->getMock();
+        $methods = [
+            'getRegistryCurrentCustomer' => new Mage_Customer_Model_Customer(),
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock
-            ->method('getRegistryCurrentCustomer')
-            // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-            ->willReturn(new Mage_Customer_Model_Customer());
-
-        $this->assertInstanceOf(Subject::class, $mock->initForm());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

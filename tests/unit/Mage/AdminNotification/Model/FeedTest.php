@@ -19,17 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
 use Mage;
 use Mage_AdminNotification_Model_Feed as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use SimpleXMLElement;
 
-class FeedTest extends TestCase
+class FeedTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('adminnotification/feed');
+        self::$subject = Mage::getModel('adminnotification/feed');
     }
 
     /**
@@ -38,7 +37,7 @@ class FeedTest extends TestCase
      */
     public function testGetFeedUrl(): void
     {
-        $this->assertIsString($this->subject->getFeedUrl());
+        static::assertIsString(self::$subject->getFeedUrl());
     }
 
     /**
@@ -47,7 +46,7 @@ class FeedTest extends TestCase
      */
     public function testCheckUpdate(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->checkUpdate());
+        static::assertInstanceOf(Subject::class, self::$subject->checkUpdate());
     }
 
     /**
@@ -56,7 +55,7 @@ class FeedTest extends TestCase
      */
     public function testGetFeedData(): void
     {
-        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedData());
+        static::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedData());
     }
 
     /**
@@ -65,6 +64,6 @@ class FeedTest extends TestCase
      */
     public function testGetFeedXml(): void
     {
-        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedXml());
+        static::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedXml());
     }
 }

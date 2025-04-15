@@ -19,16 +19,17 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Customer as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CustomerTest extends TestCase
+class CustomerTest extends OpenMageTest
 {
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('log/customer');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('log/customer');
     }
 
     /**
@@ -41,9 +42,9 @@ class CustomerTest extends TestCase
             ->setMethods(['getLoginAt'])
             ->getMock();
 
-        $this->assertNull($mock->getLoginAtTimestamp());
+        static::assertNull($mock->getLoginAtTimestamp());
 
         $mock->method('getLoginAt')->willReturn(true);
-        $this->assertIsInt($mock->getLoginAtTimestamp());
+        static::assertIsInt($mock->getLoginAtTimestamp());
     }
 }

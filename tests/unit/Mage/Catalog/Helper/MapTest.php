@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Mage;
 use Mage_Catalog_Helper_Map as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class MapTest extends TestCase
+class MapTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('catalog/map');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('catalog/map');
     }
 
     /**
@@ -39,7 +39,7 @@ class MapTest extends TestCase
      */
     public function testGetCategoryUrl(): void
     {
-        $this->assertStringEndsWith('/catalog/seo_sitemap/category/', $this->subject->getCategoryUrl());
+        static::assertStringEndsWith('/catalog/seo_sitemap/category/', self::$subject->getCategoryUrl());
     }
 
     /**
@@ -50,7 +50,7 @@ class MapTest extends TestCase
      */
     public function testGetProductUrl(): void
     {
-        $this->assertStringEndsWith('/catalog/seo_sitemap/product/', $this->subject->getProductUrl());
+        static::assertStringEndsWith('/catalog/seo_sitemap/product/', self::$subject->getProductUrl());
     }
 
     /**
@@ -59,6 +59,6 @@ class MapTest extends TestCase
      */
     public function testGetIsUseCategoryTreeMode(): void
     {
-        $this->assertIsBool($this->subject->getIsUseCategoryTreeMode());
+        static::assertIsBool(self::$subject->getIsUseCategoryTreeMode());
     }
 }

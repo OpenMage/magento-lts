@@ -17,19 +17,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
-use Generator;
 use Mage;
 use Mage_Catalog_Helper_Product as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\ProductTrait;
 
-class ProductTest extends TestCase
+class ProductTest extends OpenMageTest
 {
-    public Subject $subject;
+    use ProductTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('catalog/product');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('catalog/product');
     }
 
     /**
@@ -38,7 +40,7 @@ class ProductTest extends TestCase
      */
     public function testCanUseCanonicalTag(): void
     {
-        $this->assertIsBool($this->subject->canUseCanonicalTag());
+        static::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 
     /**
@@ -48,27 +50,7 @@ class ProductTest extends TestCase
      */
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
-        $this->assertCount($expectedResult, $this->subject->getAttributeInputTypes($inputType));
-    }
-
-    public function provideGetAttributeInputTypes(): Generator
-    {
-        yield 'null' => [
-            2,
-            null,
-        ];
-        yield 'invalid' => [
-            0,
-            'invalid',
-        ];
-        yield 'multiselect' => [
-            1,
-            'multiselect',
-        ];
-        yield 'boolean' => [
-            1,
-            'boolean',
-        ];
+        static::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
     }
 
     /**
@@ -76,17 +58,9 @@ class ProductTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
      */
-    public function testGetAttributeBackendModelByInputType($expectedResult, string $inputType): void
+    public function testGetAttributeBackendModelByInputType(string $expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getAttributeBackendModelByInputType($inputType));
-    }
-
-    public function provideGetAttributeBackendModelByInputType(): Generator
-    {
-        yield 'multiselect' => [
-            'eav/entity_attribute_backend_array',
-            'multiselect',
-        ];
+        static::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
     }
 
     /**
@@ -94,16 +68,8 @@ class ProductTest extends TestCase
      * @group Mage_Catalog
      * @group Mage_Catalog_Helper
      */
-    public function testGetAttributeSourceModelByInputType($expectedResult, string $inputType): void
+    public function testGetAttributeSourceModelByInputType(string $expectedResult, string $inputType): void
     {
-        $this->assertSame($expectedResult, $this->subject->getAttributeSourceModelByInputType($inputType));
-    }
-
-    public function provideGetAttributeSourceModelByInputType(): Generator
-    {
-        yield 'boolean' => [
-            'eav/entity_attribute_source_boolean',
-            'boolean',
-        ];
+        static::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
     }
 }

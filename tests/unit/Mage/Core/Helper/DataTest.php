@@ -17,24 +17,26 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
-use Generator;
 use Mage;
 use Mage_Core_Helper_Data as Subject;
 use Mage_Core_Model_Encryption;
 use Mage_Core_Model_Locale;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\DataTrait;
 use Varien_Crypt_Mcrypt;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
+    use DataTrait;
+
     public const TEST_STRING = '1234567890';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('core/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('core/data');
     }
 
     /**
@@ -43,7 +45,7 @@ class DataTest extends TestCase
      */
     public function testGetEncryptor(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Encryption::class, $this->subject->getEncryptor());
+        static::assertInstanceOf(Mage_Core_Model_Encryption::class, self::$subject->getEncryptor());
     }
 
     /**
@@ -52,7 +54,7 @@ class DataTest extends TestCase
      */
     public function testEncrypt(): void
     {
-        $this->assertIsString($this->subject->encrypt('test'));
+        static::assertIsString(self::$subject->encrypt('test'));
     }
 
     /**
@@ -61,7 +63,7 @@ class DataTest extends TestCase
      */
     public function testDecrypt(): void
     {
-        $this->assertIsString($this->subject->decrypt('test'));
+        static::assertIsString(self::$subject->decrypt('test'));
     }
 
     /**
@@ -70,7 +72,7 @@ class DataTest extends TestCase
      */
     public function testValidateKey(): void
     {
-        $this->assertInstanceOf(Varien_Crypt_Mcrypt::class, $this->subject->validateKey('test'));
+        static::assertInstanceOf(Varien_Crypt_Mcrypt::class, self::$subject->validateKey('test'));
     }
 
     /**
@@ -81,61 +83,12 @@ class DataTest extends TestCase
      */
     public function testFormatTimezoneDate(
         string $expectedResult,
-        $data,
+        string|int|null $data,
         string $format = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,
         bool $showTime = false,
         bool $useTimezone = false # disable timezone by default for tests
     ): void {
-        $this->assertSame($expectedResult, $this->subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
-    }
-
-    public function provideFormatTimezoneDate(): Generator
-    {
-        $date           = date_create()->getTimestamp();
-        $dateShort      = date('n/j/Y', $date);
-        $dateLong       = date('F j, Y', $date);
-        $dateShortTime  = date('n/j/Y g:i A', $date);
-
-        yield 'null' => [
-            $dateShort,
-            null,
-        ];
-        yield 'empty date' => [
-            $dateShort,
-            '',
-        ];
-        yield 'string date' => [
-            $dateShort,
-            'now',
-        ];
-        yield 'numeric date' => [
-            $dateShort,
-            '0',
-        ];
-        yield 'invalid date' => [
-            '',
-            'invalid',
-        ];
-        yield 'invalid format' => [
-            (string) $date,
-            $date,
-            'invalid',
-        ];
-        yield 'date short' => [
-            $dateShort,
-            $date,
-        ];
-        yield 'date long' => [
-            $dateLong,
-            $date,
-            'long',
-        ];
-        //        yield 'date short w/ time' => [
-        //            $dateShortTime,
-        //            $date,
-        //            'short',
-        //            true,
-        //        ];
+        static::assertSame($expectedResult, self::$subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
     }
 
     /**
@@ -144,7 +97,7 @@ class DataTest extends TestCase
      */
     public function testGetRandomString(): void
     {
-        $this->assertIsString($this->subject->getRandomString(5));
+        static::assertIsString(self::$subject->getRandomString(5));
     }
 
     /**
@@ -153,7 +106,7 @@ class DataTest extends TestCase
      */
     public function testGetHash(): void
     {
-        $this->assertIsString($this->subject->getHash('test'));
+        static::assertIsString(self::$subject->getHash('test'));
     }
 
     /**
@@ -162,7 +115,7 @@ class DataTest extends TestCase
      */
     public function testGetHashPassword(): void
     {
-        $this->assertIsString($this->subject->getHashPassword('test', 1));
+        static::assertIsString(self::$subject->getHashPassword('test', 1));
     }
 
     /**
@@ -171,7 +124,7 @@ class DataTest extends TestCase
      */
     public function testValidateHash(): void
     {
-        $this->assertIsBool($this->subject->validateHash('test', '1'));
+        static::assertIsBool(self::$subject->validateHash('test', '1'));
     }
 
     /**
@@ -180,7 +133,7 @@ class DataTest extends TestCase
      */
     public function testGetStoreId(): void
     {
-        $this->assertIsInt($this->subject->getStoreId());
+        static::assertIsInt(self::$subject->getStoreId());
     }
 
     /**
@@ -191,23 +144,7 @@ class DataTest extends TestCase
      */
     public function testRemoveAccents(string $expectedResult, string $string, bool $german): void
     {
-        $this->assertSame($expectedResult, $this->subject->removeAccents($string, $german));
-    }
-
-    public function provideRemoveAccents(): Generator
-    {
-        $string = 'Ae-Ä Oe-Ö Ue-Ü ae-ä oe-ö ue-ü';
-
-        yield 'german false' => [
-            'Ae-A Oe-O Ue-U ae-a oe-o ue-u',
-            $string,
-            false,
-        ];
-        yield 'german true' => [
-            'Ae-Ae Oe-Oe Ue-Ue ae-ae oe-oe ue-ue',
-            $string,
-            true,
-        ];
+        static::assertSame($expectedResult, self::$subject->removeAccents($string, $german));
     }
 
     /**
@@ -217,8 +154,8 @@ class DataTest extends TestCase
      */
     public function testIsDevAllowed(): void
     {
-        $this->assertIsBool($this->subject->isDevAllowed());
-        $this->markTestIncomplete('add tests for IPS');
+        static::assertIsBool(self::$subject->isDevAllowed());
+        static::markTestIncomplete('add tests for IPS');
     }
 
     /**
@@ -239,7 +176,7 @@ class DataTest extends TestCase
             'config_api2' => 'Web Services Configuration',
 
         ];
-        $this->assertSame($expectedResult, $this->subject->getCacheTypes());
+        static::assertSame($expectedResult, self::$subject->getCacheTypes());
     }
     /**
      * @covers Mage_Core_Helper_Data::getCacheBetaTypes()
@@ -250,7 +187,7 @@ class DataTest extends TestCase
     public function testGetCacheBetaTypes(): void
     {
         $expectedResult = [];
-        $this->assertSame($expectedResult, $this->subject->getCacheBetaTypes());
+        static::assertSame($expectedResult, self::$subject->getCacheBetaTypes());
     }
 
     /**
@@ -261,7 +198,7 @@ class DataTest extends TestCase
     public function testUniqHash(): void
     {
         $prefix = 'string';
-        $this->assertStringStartsWith($prefix, $this->subject->uniqHash($prefix));
+        static::assertStringStartsWith($prefix, self::$subject->uniqHash($prefix));
     }
 
     /**
@@ -271,7 +208,7 @@ class DataTest extends TestCase
      */
     public function testGetDefaultCountry(): void
     {
-        $this->assertSame('US', $this->subject->getDefaultCountry());
+        static::assertSame('US', self::$subject->getDefaultCountry());
     }
 
     /**
@@ -300,7 +237,7 @@ class DataTest extends TestCase
             'phtml' => 'phtml',
             'shtml' => 'shtml',
         ];
-        $this->assertSame($expectedResult, $this->subject->getProtectedFileExtensions());
+        static::assertSame($expectedResult, self::$subject->getProtectedFileExtensions());
     }
 
     /**
@@ -321,7 +258,7 @@ class DataTest extends TestCase
                 'skin' => '/skin/*/*',
             ],
         ];
-        $this->assertSame($expectedResult, $this->subject->getPublicFilesValidPath());
+        static::assertSame($expectedResult, self::$subject->getPublicFilesValidPath());
     }
 
     /**
@@ -331,7 +268,7 @@ class DataTest extends TestCase
      */
     public function testUseDbCompatibleMode(): void
     {
-        $this->assertTrue($this->subject->useDbCompatibleMode());
+        static::assertTrue(self::$subject->useDbCompatibleMode());
     }
 
     /**
@@ -341,7 +278,7 @@ class DataTest extends TestCase
      */
     public function testGetMerchantCountryCode(): void
     {
-        $this->assertIsString($this->subject->getMerchantCountryCode());
+        static::assertIsString(self::$subject->getMerchantCountryCode());
     }
 
     /**
@@ -351,7 +288,7 @@ class DataTest extends TestCase
      */
     public function testGetMerchantVatNumber(): void
     {
-        $this->assertIsString($this->subject->getMerchantVatNumber());
+        static::assertIsString(self::$subject->getMerchantVatNumber());
     }
 
     /**
@@ -361,8 +298,8 @@ class DataTest extends TestCase
      */
     public function testIsCountryInEU(): void
     {
-        $this->assertTrue($this->subject->isCountryInEU('DE'));
-        $this->assertFalse($this->subject->isCountryInEU('XX'));
-        $this->markTestIncomplete('add better tests');
+        static::assertTrue(self::$subject->isCountryInEU('DE'));
+        static::assertFalse(self::$subject->isCountryInEU('XX'));
+        static::markTestIncomplete('add better tests');
     }
 }

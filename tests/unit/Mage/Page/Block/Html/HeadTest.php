@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 
 use Mage;
 use Mage_Page_Block_Html_Head as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HeadTest extends TestCase
+class HeadTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -37,7 +37,7 @@ class HeadTest extends TestCase
      */
     public function testAddCss(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addCss('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addCss('test'));
     }
 
     /**
@@ -46,7 +46,7 @@ class HeadTest extends TestCase
      */
     public function testAddJs(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addJs('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addJs('test'));
     }
 
     /**
@@ -55,7 +55,7 @@ class HeadTest extends TestCase
      */
     public function testAddCssIe(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addCssIe('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addCssIe('test'));
     }
 
     /**
@@ -64,7 +64,7 @@ class HeadTest extends TestCase
      */
     public function testAddJsIe(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addJsIe('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addJsIe('test'));
     }
 
     /**
@@ -73,6 +73,6 @@ class HeadTest extends TestCase
      */
     public function testAddLinkRel(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addLinkRel('test', 'ref'));
+        static::assertInstanceOf(Subject::class, self::$subject->addLinkRel('test', 'ref'));
     }
 }

@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
 use Mage_Page_Block_Redirect as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class RedirectTest extends TestCase
+class RedirectTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -37,7 +37,7 @@ class RedirectTest extends TestCase
      */
     public function testGetTargetUrl(): void
     {
-        $this->assertSame('', $this->subject->getTargetURL());
+        static::assertSame('', self::$subject->getTargetURL());
     }
 
     /**
@@ -46,7 +46,7 @@ class RedirectTest extends TestCase
      */
     public function testGetMessage(): void
     {
-        $this->assertSame('', $this->subject->getMessage());
+        static::assertSame('', self::$subject->getMessage());
     }
 
     /**
@@ -55,7 +55,7 @@ class RedirectTest extends TestCase
      */
     public function testGetRedirectOutput(): void
     {
-        $this->assertIsString($this->subject->getRedirectOutput());
+        static::assertIsString(self::$subject->getRedirectOutput());
     }
 
     /**
@@ -64,7 +64,7 @@ class RedirectTest extends TestCase
      */
     public function testGetJsRedirect(): void
     {
-        $this->assertIsString($this->subject->getJsRedirect());
+        static::assertIsString(self::$subject->getJsRedirect());
     }
 
     /**
@@ -73,7 +73,7 @@ class RedirectTest extends TestCase
      */
     public function testGetHtmlFormRedirect(): void
     {
-        $this->assertIsString($this->subject->getHtmlFormRedirect());
+        static::assertIsString(self::$subject->getHtmlFormRedirect());
     }
 
     /**
@@ -82,7 +82,7 @@ class RedirectTest extends TestCase
      */
     public function testIsHtmlFormRedirect(): void
     {
-        $this->assertIsBool($this->subject->isHtmlFormRedirect());
+        static::assertIsBool(self::$subject->isHtmlFormRedirect());
     }
 
     /**
@@ -91,7 +91,7 @@ class RedirectTest extends TestCase
      */
     public function testGetFormId(): void
     {
-        $this->assertSame('', $this->subject->getFormId());
+        static::assertSame('', self::$subject->getFormId());
     }
 
     /**
@@ -100,6 +100,6 @@ class RedirectTest extends TestCase
      */
     public function testGetFormMethod(): void
     {
-        $this->assertSame('POST', $this->subject->getFormMethod());
+        static::assertSame('POST', self::$subject->getFormMethod());
     }
 }

@@ -9,7 +9,7 @@
  *
  * @category   OpenMage
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -18,26 +18,35 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Customer\Model;
 
 use Mage;
+use Mage_Core_Exception;
 use Mage_Customer_Model_Customer as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Customer\CustomerTrait;
 
-class CustomerTest extends TestCase
+class CustomerTest extends OpenMageTest
 {
-    public Subject $subject;
+    use CustomerTrait;
 
-    public function setUp(): void
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('customer/customer');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('customer/customer');
     }
 
     /**
-     * @group Mage_Customer
+     * @dataProvider provideValidateCustomerData
+     * @param array|true $expectedResult
      * @group Mage_Customer_Model
+     * @throws Mage_Core_Exception
      */
-    public function testValidateAddress(): void
+    public function testValidate($expectedResult, array $methods): void
     {
-        $data = [];
-        $this->assertIsBool($this->subject->validateAddress($data));
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
+
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertSame($expectedResult, $mock->validate());
     }
 }

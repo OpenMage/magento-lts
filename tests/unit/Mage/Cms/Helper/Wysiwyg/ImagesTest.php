@@ -21,18 +21,18 @@ use Mage;
 use Mage_Cms_Helper_Wysiwyg_Images as Subject;
 use Mage_Cms_Model_Wysiwyg_Images_Storage;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ImagesTest extends TestCase
+class ImagesTest extends OpenMageTest
 {
     use CmsTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('cms/wysiwyg_images');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('cms/wysiwyg_images');
     }
 
     /**
@@ -41,7 +41,7 @@ class ImagesTest extends TestCase
      */
     public function testGetCurrentPath(): void
     {
-        $this->assertIsString($this->subject->getCurrentPath());
+        static::assertIsString(self::$subject->getCurrentPath());
     }
 
     /**
@@ -50,7 +50,7 @@ class ImagesTest extends TestCase
      */
     public function testGetCurrentUrl(): void
     {
-        $this->assertIsString($this->subject->getCurrentUrl());
+        static::assertIsString(self::$subject->getCurrentUrl());
     }
 
     /**
@@ -59,7 +59,7 @@ class ImagesTest extends TestCase
      */
     public function testGetStorage(): void
     {
-        $this->assertInstanceOf(Mage_Cms_Model_Wysiwyg_Images_Storage::class, $this->subject->getStorage());
+        static::assertInstanceOf(Mage_Cms_Model_Wysiwyg_Images_Storage::class, self::$subject->getStorage());
     }
 
     /**
@@ -68,7 +68,7 @@ class ImagesTest extends TestCase
      */
     public function testIdEncode(): void
     {
-        $this->assertIsString($this->subject->idEncode($this->getTestString()));
+        static::assertIsString(self::$subject->idEncode($this->getTestString()));
     }
 
     /**
@@ -77,7 +77,7 @@ class ImagesTest extends TestCase
      */
     public function testIdDecode(): void
     {
-        $this->assertIsString($this->subject->idDecode($this->getTestString()));
+        static::assertIsString(self::$subject->idDecode($this->getTestString()));
     }
 
     /**
@@ -87,6 +87,6 @@ class ImagesTest extends TestCase
      */
     public function testGetShortFilename(string $expectedResult, string $filename, int $maxLength): void
     {
-        $this->assertSame($expectedResult, $this->subject->getShortFilename($filename, $maxLength));
+        static::assertSame($expectedResult, self::$subject->getShortFilename($filename, $maxLength));
     }
 }
