@@ -310,6 +310,9 @@
             <js>
                 <merge_files>0</merge_files>
             </js>
+            <jquery>
+                <migrate>0</migrate>
+            </jquery>
         </dev>
         <system>
             <csrf>
