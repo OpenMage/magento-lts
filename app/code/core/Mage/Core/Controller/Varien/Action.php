@@ -426,18 +426,18 @@ abstract class Mage_Core_Controller_Varien_Action
         } catch (Mage_Core_Controller_Varien_Exception $e) {
             // set prepared flags
             foreach ($e->getResultFlags() as $flagData) {
-                list($action, $flag, $value) = $flagData;
+                [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
             // call forward, redirect or an action
-            list($method, $parameters) = $e->getResultCallback();
+            [$method, $parameters] = $e->getResultCallback();
             switch ($method) {
                 case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
-                    list($path, $arguments) = $parameters;
+                    [$path, $arguments] = $parameters;
                     $this->_redirect($path, $arguments);
                     break;
                 case Mage_Core_Controller_Varien_Exception::RESULT_FORWARD:
-                    list($action, $controller, $module, $params) = $parameters;
+                    [$action, $controller, $module, $params] = $parameters;
                     $this->_forward($action, $controller, $module, $params);
                     break;
                 default:
@@ -981,19 +981,14 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($dateFields)) {
             return $array;
         }
-        $filterInput = new Zend_Filter_LocalizedToNormalized([
-            'date_format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-        ]);
-        $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-        ]);
 
+        $filter = new Varien_Data_Form_Filter_Date(Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         foreach ($dateFields as $dateField) {
-            if ($dateField && !empty($array[$dateField])) {
-                $array[$dateField] = $filterInput->filter($array[$dateField]);
-                $array[$dateField] = $filterInternal->filter($array[$dateField]);
+            if (!empty($dateField) && isset($array[$dateField]) && $array[$dateField] !== '') {
+                $array[$dateField] = $filter->inputFilter($array[$dateField]);
             }
         }
+
         return $array;
     }
 
@@ -1009,19 +1004,14 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($dateFields)) {
             return $array;
         }
-        $filterInput = new Zend_Filter_LocalizedToNormalized([
-            'date_format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-        ]);
-        $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format' => Varien_Date::DATETIME_INTERNAL_FORMAT,
-        ]);
 
+        $filter = new Varien_Data_Form_Filter_Datetime(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         foreach ($dateFields as $dateField) {
-            if (array_key_exists($dateField, $array) && !empty($dateField)) {
-                $array[$dateField] = $filterInput->filter($array[$dateField]);
-                $array[$dateField] = $filterInternal->filter($array[$dateField]);
+            if (!empty($dateField) && isset($array[$dateField]) && $array[$dateField] !== '') {
+                $array[$dateField] = $filter->inputFilter($array[$dateField]);
             }
         }
+
         return $array;
     }
 

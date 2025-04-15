@@ -169,7 +169,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
             $this->setAxisLabels($axis, $this->getRowsData($attr, true));
         }
 
-        list($datas, $dates) = $this->getChartDatasAndDates();
+        [$datas, $dates] = $this->getChartDatasAndDates();
         $this->_axisLabels['x'] = $dates;
         $this->_allSeries = $datas;
 
@@ -234,7 +234,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         $timezoneLocal = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
 
-        list($dateStart, $dateEnd) = Mage::getResourceModel('reports/order_collection')
+        [$dateStart, $dateEnd] = Mage::getResourceModel('reports/order_collection')
             ->getDateRange($this->getDataHelper()->getParam('period'), '', '', true);
 
         $dateStart->setTimezone($timezoneLocal);

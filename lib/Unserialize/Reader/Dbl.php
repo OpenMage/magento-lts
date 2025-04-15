@@ -48,7 +48,7 @@ class Unserialize_Reader_Dbl
             if ($char !== Unserialize_Parser::SYMBOL_SEMICOLON) {
                 $this->_value .= $char;
             } else {
-                return (float)$this->_value;
+                return (float) $this->_value;
             }
         }
         return null;
