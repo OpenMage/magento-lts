@@ -7,15 +7,26 @@ parameters:
         - errors
         - tests/unit
     tmpDir: .phpstan.phpunit.cache
-    level: 6
+    level: 7
     ignoreErrors:
+        -
+            message: '#^Cannot call method [a-zA-Z0-9]+\(\) on Mage_Core_Block_Abstract\|false.#'
         -
             identifier: missingType.iterableValue
         -
             identifier: phpunit.coversMethod
         -
+            identifier: argument.type
+            path: tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php
+        -
+            identifier: argument.type
+            path: errors/processor.php
+        -
             identifier: missingType.parameter
             path: errors/processor.php
         -
             identifier: missingType.return
+            path: errors/processor.php
+        -
+            identifier: return.type
             path: errors/processor.php
