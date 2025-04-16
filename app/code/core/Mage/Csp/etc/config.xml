@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mage_Csp>
+            <version>1.0.0</version>
+        </Mage_Csp>
+    </modules>
+    <global>
+        <blocks>
+            <csp>
+                <class>Mage_Csp_Block</class>
+            </csp>
+        </blocks>
+        <helpers>
+            <csp>
+                <class>Mage_Csp_Helper</class>
+            </csp>
+        </helpers>
+        <models>
+            <csp>
+                <class>Mage_Csp_Model</class>
+            </csp>
+        </models>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <csp>
+                    <file>csp.xml</file>
+                </csp>
+            </updates>
+        </layout>
+    </adminhtml>
+    <frontend>
+        <layout>
+            <updates>
+                <csp>
+                    <file>csp.xml</file>
+                </csp>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <system>
+            <csp>
+                <default-src>'self'</default-src>
+                <script-src>'self' 'unsafe-inline' 'unsafe-eval' www.google-analytics.com www.googletagmanager.com stats.g.doubleclick.net www.paypal.com www.paypalobjects.com js.stripe.com connect.facebook.net</script-src>
+                <style-src>'self' 'unsafe-inline' fonts.googleapis.com maxcdn.bootstrapcdn.com</style-src>,
+                <img-src>'self' data: www.google-analytics.com stats.g.doubleclick.net www.paypal.com www.paypalobjects.com connect.facebook.net</img-src>
+                <connect-src>'self' www.google-analytics.com www.paypal.com securepayments.paypal.com api.braintreegateway.com js.stripe.com api.stripe.com</connect-src>
+                <font-src>'self' fonts.gstatic.com maxcdn.bootstrapcdn.com</font-src>
+                <frame-src>'self' www.paypal.com payments.amazon.com</frame-src>
+                <object-src>'none'</object-src>
+                <media-src>'self'</media-src>
+                <form-action>'self' www.paypal.com securepayments.paypal.com</form-action>
+            </csp>
+        </system>
+    </default>
+</config>
+
