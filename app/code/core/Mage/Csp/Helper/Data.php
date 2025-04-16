@@ -14,7 +14,7 @@
  */
 class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const CONFIG_MAPPING = [
+    public const CONFIG_MAPPING = [
         'default-src',
         'script-src',
         'style-src',

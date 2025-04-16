@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -52,7 +53,7 @@ class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
         );
         $cspHeader = [];
         foreach ($directives as $directive => $value) {
-            $cspHeader[] = $directive . ' ' . (is_array($value) ? implode(' ', $value) : strval($value));
+            $cspHeader[] = $directive . ' ' . (is_array($value) ? implode(' ', $value) : (string) $value);
         }
 
         $header = Mage::getStoreConfigFlag("$this->section/csp/report_only") ?
