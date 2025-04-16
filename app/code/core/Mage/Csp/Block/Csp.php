@@ -34,7 +34,7 @@ class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
         }
 
         /**
-         * @var $helper Mage_Csp_Helper_Data
+         * @var Mage_Csp_Helper_Data $helper
          */
         $helper = Mage::helper('csp');
 
@@ -42,13 +42,13 @@ class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
             return '';
         }
         /**
-         * @var $config Mage_Csp_Model_Config
+         * @var Mage_Csp_Model_Config $config
          */
         $config = Mage::getSingleton('csp/config');
         $directives = array_merge_recursive(
             $helper->getPolicies($this->section),
             $config->getPolicies(),
-            $this->items
+            $this->items,
         );
         $cspHeader = [];
         foreach ($directives as $directive => $value) {

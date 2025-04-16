@@ -96,7 +96,7 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param bool $lifetime
+     * @param false|int $lifetime
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false): bool
     {
@@ -133,9 +133,6 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
     /**
      * Custom merging logic that preserves duplicate nodes.
      *
-     * @param Varien_Simplexml_Element $baseNode
-     * @param Mage_Core_Model_Config_Element $mergeNode
-     * @param bool $overwrite
      */
     protected function _extendNode(Varien_Simplexml_Element $baseNode, Varien_Simplexml_Element $mergeNode, bool $overwrite = false): void
     {
