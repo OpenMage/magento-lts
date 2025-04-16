@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -40,7 +40,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
             return $this;
         }
 
-        if (substr(php_sapi_name(), 0, 3) == 'cgi') {
+        if (str_starts_with(php_sapi_name(), 'cgi')) {
             $statusSent = false;
             foreach ($this->_headersRaw as $i => $header) {
                 if (stripos($header, 'status:') === 0) {

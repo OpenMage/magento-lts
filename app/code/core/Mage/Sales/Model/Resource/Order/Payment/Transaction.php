@@ -83,7 +83,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Transaction extends Mage_Sales_Mod
             if (!$verificationRow) {
                 return;
             }
-            list($paymentId, $orderId) = array_values($verificationRow);
+            [$paymentId, $orderId] = array_values($verificationRow);
 
             // inject
             $where = [

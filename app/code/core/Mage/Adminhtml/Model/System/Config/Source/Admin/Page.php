@@ -120,7 +120,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Admin_Page
 
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     protected function _checkDepends(Varien_Simplexml_Element $depends)

@@ -451,7 +451,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/System/Convert/Gui/Edit/Tab/Wizard.php
 
 		-
-			message: '#^Parameter \#2 \$character_mask of function rtrim expects string, int given\.$#'
+			message: '#^Parameter \#2 \$characters of function rtrim expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/System/Currency/Rate/Matrix.php
@@ -515,12 +515,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Currency.php
-
-		-
-			message: '#^Binary operation "\*" between string and 1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column/Renderer/Number.php
 
 		-
 			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<array\<string\>\|string\|null\> given\.$#'
@@ -697,7 +691,7 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/Wishlist/Product/Composite/WishlistController.php
 
 		-
-			message: '#^Parameter \#2 \$timestamp of function date expects int, array\|bool given\.$#'
+			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, array\|bool given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
@@ -802,6 +796,12 @@ parameters:
 			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(mixed\)\: bool\)\|null, ''\\\\intval'' given\.$#'
 			identifier: argument.type
 			count: 2
+			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
+
+		-
+			message: '#^Parameter \#2 \$enable of function imageinterlace expects bool\|null, int given\.$#'
+			identifier: argument.type
+			count: 1
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
@@ -925,7 +925,7 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
 
 		-
-			message: '#^Parameter \#1 \$code of class SoapFault constructor expects string, int given\.$#'
+			message: '#^Parameter \#1 \$code of class SoapFault constructor expects array\|string\|null, int given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Adapter/Soap.php
@@ -979,7 +979,7 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
 
 		-
-			message: '#^Parameter \#2 \$needle of function str_contains expects string\|null, array given\.$#'
+			message: '#^Parameter \#2 \$needle of function str_contains expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/V2/Handler.php
@@ -1009,7 +1009,7 @@ parameters:
 			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
 
 		-
-			message: '#^Parameter \#2 \$needle of function str_contains expects string\|null, array given\.$#'
+			message: '#^Parameter \#2 \$needle of function str_contains expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api/Model/Server/Wsi/Handler.php
@@ -1047,6 +1047,12 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$source of static method Mage_Api_Model_Wsdl_Config_Element\:\:_getChildren\(\) expects Varien_Simplexml_Element, SimpleXMLElement given\.$#'
 			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
+
+		-
+			message: '#^Return type \(array\) of method Mage_Api_Model_Wsdl_Config_Element\:\:getChildren\(\) should be compatible with return type \(RecursiveIterator\|null\) of method RecursiveIterator\<string,static\(SimpleXMLElement\)\>\:\:getChildren\(\)$#'
+			identifier: method.childReturnType
 			count: 1
 			path: app/code/core/Mage/Api/Model/Wsdl/Config/Element.php
 
@@ -1135,6 +1141,12 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource.php
 
 		-
+			message: '#^Call to an undefined method Varien_Data_Collection_Db\:\:addAttributeToFilter\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/code/core/Mage/Api2/Model/Resource.php
+
+		-
 			message: '#^Method Mage_Api2_Model_Resource\:\:_create\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -1189,7 +1201,7 @@ parameters:
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
 
 		-
-			message: '#^Parameter \#2 \.\.\.\$args of function array_merge expects array, false given\.$#'
+			message: '#^Parameter \#2 \.\.\.\$arrays of function array_merge expects array, false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Api2/Model/Resource/Validator/Eav.php
@@ -2845,7 +2857,7 @@ parameters:
 			path: app/code/core/Mage/ConfigurableSwatches/Model/Resource/Catalog/Product/Type/Configurable/Product/Collection.php
 
 		-
-			message: '#^Parameter \#1 \$stack of function array_unshift expects array, null given\.$#'
+			message: '#^Parameter \#1 \$array of function array_unshift expects array, null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/ConfigurableSwatches/Model/System/Config/Source/Catalog/Product/Configattribute/Select.php
@@ -3817,12 +3829,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Convert/Profile/Abstract.php
 
 		-
-			message: '#^Parameter \#2 \$class_name of function simplexml_load_string expects string, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Dataflow/Model/Profile.php
-
-		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
@@ -3877,12 +3883,6 @@ parameters:
 			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
 
 		-
-			message: '#^Parameter \#2 \$class_name of function simplexml_load_string expects string, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Directory/Model/Currency/Import/Webservicex.php
-
-		-
 			message: '#^Parameter \#1 \$modelClass of static method Mage\:\:getModel\(\) expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
@@ -3893,12 +3893,6 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: app/code/core/Mage/Directory/Model/Observer.php
-
-		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 1
-			path: app/code/core/Mage/Downloadable/Block/Catalog/Product/Links.php
 
 		-
 			message: '#^Cannot call method streamRead\(\) on resource\.$#'
@@ -3913,7 +3907,7 @@ parameters:
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
 
 		-
-			message: '#^Parameter \#1 \$str of function strtolower expects string, bool given\.$#'
+			message: '#^Parameter \#1 \$string of function strtolower expects string, bool given\.$#'
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Downloadable/Helper/Download.php
@@ -4081,7 +4075,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Convert/Adapter/Grid.php
 
 		-
-			message: '#^Parameter \#2 \$str of function explode expects string, array given\.$#'
+			message: '#^Parameter \#2 \$string of function explode expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Convert/Parser/Abstract.php
@@ -4357,7 +4351,7 @@ parameters:
 			path: app/code/core/Mage/Eav/Model/Form.php
 
 		-
-			message: '#^Parameter \#2 \.\.\.\$args of function array_merge expects array, false given\.$#'
+			message: '#^Parameter \#2 \.\.\.\$arrays of function array_merge expects array, false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Eav/Model/Form.php
@@ -4469,12 +4463,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/ImportExport/Block/Adminhtml/Export/Filter.php
-
-		-
-			message: '#^Parameter \#2 \$fields of function fputcsv expects array\<int\|string, bool\|float\|int\|string\|null\>, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/ImportExport/Model/Export/Adapter/Abstract.php
 
 		-
 			message: '#^Method Mage_Eav_Model_Entity_Attribute_Source_Interface\:\:getAllOptions\(\) invoked with 1 parameter, 0 required\.$#'
@@ -4661,6 +4649,60 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 2
 			path: app/code/core/Mage/Log/Model/Resource/Log.php
+
+		-
+			message: '#^Method Mage_Media_Model_File_Image\:\:getImage\(\) should return bool\|resource but returns GdImage\.$#'
+			identifier: return.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Method Mage_Media_Model_File_Image\:\:getTmpImage\(\) should return resource but returns \(GdImage\|false\)\.$#'
+			identifier: return.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Parameter \#1 \$dst_image of function imagecopyresampled expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagedestroy expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagegif expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagejpeg expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagepng expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Parameter \#1 \$image of function imagewebp expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
+
+		-
+			message: '#^Parameter \#2 \$src_image of function imagecopyresampled expects GdImage, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/code/core/Mage/Media/Model/File/Image.php
 
 		-
 			message: '#^Call to function is_null\(\) with bool will always evaluate to false\.$#'
@@ -4939,12 +4981,6 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/Payflowlink.php
 
 		-
-			message: '#^Loose comparison using \!\= between float and \(float\|false\) will always evaluate to false\.$#'
-			identifier: notEqual.alwaysFalse
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Payflowpro.php
-
-		-
 			message: '#^Parameter \#1 \$payment of method Mage_Paypal_Model_Payflowpro\:\:_buildBasicRequest\(\) expects Mage_Sales_Model_Order_Payment, Mage_Payment_Model_Info given\.$#'
 			identifier: argument.type
 			count: 1
@@ -5017,6 +5053,36 @@ parameters:
 			path: app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
 
 		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_setExpressCheckoutResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Express/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_doCaptureResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_getTransactionDetailsResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_paymentInformationResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
+			message: '#^Access to protected property Mage_Paypal_Model_Api_Nvp\:\:\$_refundTransactionResponse\.$#'
+			identifier: property.protected
+			count: 1
+			path: app/code/core/Mage/PaypalUk/Model/Api/Nvp.php
+
+		-
 			message: '#^Return type \(void\) of method Mage_PaypalUk_Model_Pro\:\:fetchTransactionInfo\(\) should be compatible with return type \(array\) of method Mage_Paypal_Model_Pro\:\:fetchTransactionInfo\(\)$#'
 			identifier: method.childReturnType
 			count: 1
@@ -5069,18 +5135,6 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: app/code/core/Mage/Reports/Block/Product/Abstract.php
-
-		-
-			message: '#^Variable \$dateStart might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: app/code/core/Mage/Reports/Helper/Data.php
-
-		-
-			message: '#^Variable \$t might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: app/code/core/Mage/Reports/Helper/Data.php
 
 		-
 			message: '#^Property Mage_Reports_Model_Grouped_Collection\:\:\$_resourceCollection \(Mage_Core_Model_Resource_Db_Collection_Abstract\) does not accept Varien_Data_Collection_Db\.$#'
@@ -5218,7 +5272,7 @@ parameters:
 			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
 			identifier: notEqual.invalid
 			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Report/Product/Viewed/Collection.php
+			path: app/code/core/Mage/Reports/Model/Resource/Report/Collection/Abstract.php
 
 		-
 			message: '#^Parameter \#1 \$select of method Mage_Core_Model_Resource_Helper_Mysql4\:\:getQueryUsingAnalyticFunction\(\) expects Varien_Db_Select, Zend_Db_Select given\.$#'
@@ -5229,12 +5283,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method Mage_Reports_Model_Resource_Review_Collection\:\:_joinFields\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Review/Collection.php
-
-		-
-			message: '#^Call to an undefined static method Mage_Review_Model_Resource_Review_Collection\:\:resetSelect\(\)\.$#'
-			identifier: staticMethod.notFound
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Review/Collection.php
 
@@ -5365,7 +5413,7 @@ parameters:
 			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
 
 		-
-			message: '#^Method Mage_Rule_Model_Condition_Product_Abstract\:\:getAttributeObject\(\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Varien_Object\|false\.$#'
+			message: '#^Method Mage_Rule_Model_Condition_Product_Abstract\:\:getAttributeObject\(\) should return Mage_Catalog_Model_Resource_Eav_Attribute but returns Mage_Eav_Model_Entity_Attribute_Abstract\|Varien_Object\|false\.$#'
 			identifier: return.type
 			count: 1
 			path: app/code/core/Mage/Rule/Model/Condition/Product/Abstract.php
@@ -5425,7 +5473,7 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Order/Api.php
 
 		-
-			message: '#^Parameter \#1 \$str of function trim expects string, float given\.$#'
+			message: '#^Parameter \#1 \$string of function trim expects string, float given\.$#'
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Sales/Model/Order/Creditmemo.php
@@ -5827,12 +5875,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Resource/Order/Tax/Collection.php
 
 		-
-			message: '#^Comparison operation "\!\=" between array\|int and 0 results in an error\.$#'
-			identifier: notEqual.invalid
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Report/Bestsellers/Collection.php
-
-		-
 			message: '#^Parameter \#1 \$select of method Mage_Core_Model_Resource_Helper_Mysql4\:\:getQueryUsingAnalyticFunction\(\) expects Varien_Db_Select, Zend_Db_Select given\.$#'
 			identifier: argument.type
 			count: 1
@@ -6081,7 +6123,7 @@ parameters:
 		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
-			count: 2
+			count: 3
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
@@ -6325,7 +6367,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
 
 		-
-			message: '#^Parameter \#2 \$str of function explode expects string, array given\.$#'
+			message: '#^Parameter \#2 \$string of function explode expects string, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/Abstract.php
@@ -6357,12 +6399,6 @@ parameters:
 		-
 			message: '#^Comparison operation "\>" between \(array\|float\|int\) and float results in an error\.$#'
 			identifier: greater.invalid
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
-
-		-
-			message: '#^Parameter \#1 \$array_arg of function sort contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Dhl/International.php
 
@@ -6457,7 +6493,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			message: '#^Parameter \#2 \$value of method SimpleXMLElement\:\:addChild\(\) expects string\|null, \(float\|false\) given\.$#'
+			message: '#^Parameter \#2 \$value of method SimpleXMLElement\:\:addChild\(\) expects string\|null, float given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
@@ -6487,7 +6523,7 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			message: '#^Parameter \#1 \$code of function curl_strerror expects int, \(resource\|false\) given\.$#'
+			message: '#^Parameter \#1 \$error_code of function curl_strerror expects int, \(CurlHandle\|false\) given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php
@@ -8065,6 +8101,18 @@ parameters:
 			path: lib/Mage/DB/Mysqli.php
 
 		-
+			message: '#^Parameter \#1 \$handle of function curl_setopt expects CurlHandle, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
+			message: '#^Parameter \#1 \$handle of function curl_setopt_array expects CurlHandle, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/HTTP/Client/Curl.php
+
+		-
 			message: '#^Property Mage_HTTP_Client_Socket\:\:\$_postFields is never read, only written\.$#'
 			identifier: property.onlyWritten
 			count: 1
@@ -8083,9 +8131,93 @@ parameters:
 			path: lib/Mage/System/Ftp.php
 
 		-
-			message: '#^Parameter \#1 \$input of function array_sum expects an array of values castable to number, list\<string\> given\.$#'
+			message: '#^Parameter \#1 \$array of function array_sum expects an array of values castable to number, list\<string\> given\.$#'
 			identifier: argument.type
 			count: 3
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_cdup expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_chdir expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 3
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_chmod expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_close expects FTP\\Connection, resource given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_delete expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_fput expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_get expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_login expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_mkdir expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_nlist expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_pasv expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_put expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_raw expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mage/System/Ftp.php
+
+		-
+			message: '#^Parameter \#1 \$ftp of function ftp_rawlist expects FTP\\Connection, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
 			path: lib/Mage/System/Ftp.php
 
 		-
@@ -8257,13 +8389,13 @@ parameters:
 			path: lib/Varien/Data/Form/Element/Multiline.php
 
 		-
-			message: '#^Parameter \#1 \$input of function str_pad expects string, int\<0, 23\> given\.$#'
+			message: '#^Parameter \#1 \$string of function str_pad expects string, int\<0, 23\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Data/Form/Element/Time.php
 
 		-
-			message: '#^Parameter \#1 \$input of function str_pad expects string, int\<0, 59\> given\.$#'
+			message: '#^Parameter \#1 \$string of function str_pad expects string, int\<0, 59\> given\.$#'
 			identifier: argument.type
 			count: 2
 			path: lib/Varien/Data/Form/Element/Time.php
@@ -8285,6 +8417,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Data/Tree/Node/Collection.php
+
+		-
+			message: '#^Parameter \#2 \$value of method mysqli\:\:options\(\) expects int\|string, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Varien/Db/Adapter/Mysqli.php
 
 		-
 			message: '#^Variable \$result might not be defined\.$#'
@@ -8377,31 +8515,25 @@ parameters:
 			path: lib/Varien/Filter/Template/Tokenizer/Variable.php
 
 		-
-			message: '#^Method Varien_Http_Adapter_Curl\:\:_getResource\(\) has invalid return type CurlHandle\.$#'
-			identifier: class.notFound
-			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
-
-		-
 			message: '#^Parameter \#3 \$value of function curl_setopt expects bool, int given\.$#'
 			identifier: argument.type
 			count: 2
 			path: lib/Varien/Http/Adapter/Curl.php
 
 		-
-			message: '#^Property Varien_Http_Adapter_Curl\:\:\$_resource has unknown class CurlHandle as its type\.$#'
-			identifier: class.notFound
+			message: '#^Parameter \#2 \$enable of function imageinterlace expects bool\|null, int given\.$#'
+			identifier: argument.type
 			count: 1
-			path: lib/Varien/Http/Adapter/Curl.php
+			path: lib/Varien/Image/Adapter/Gd2.php
 
 		-
-			message: '#^Property Varien_Image_Adapter_Abstract\:\:\$_imageHandler has unknown class GdImage as its type\.$#'
-			identifier: class.notFound
+			message: '#^Comparison operation "\<" between int\<80100, 80499\> and 80100 is always false\.$#'
+			identifier: smaller.alwaysFalse
 			count: 1
-			path: lib/Varien/Image/Adapter/Abstract.php
+			path: lib/Varien/Io/File.php
 
 		-
-			message: '#^Parameter \#1 \$groupname of function posix_getgrnam expects string, int\|false given\.$#'
+			message: '#^Parameter \#1 \$name of function posix_getgrnam expects string, int\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Io/File.php
@@ -8409,6 +8541,12 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$mode of method Varien_Io_File\:\:chmod\(\) expects int, string given\.$#'
 			identifier: argument.type
+			count: 1
+			path: lib/Varien/Io/File.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
 			count: 1
 			path: lib/Varien/Io/File.php
 
@@ -8477,3 +8615,9 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Simplexml/Element.php
+
+		-
+			message: '#^Comparison operation "\>\=" between int\<80100, 80499\> and 80000 is always true\.$#'
+			identifier: greaterOrEqual.alwaysTrue
+			count: 1
+			path: tests/unit/Mage/Core/Model/LayoutTest.php

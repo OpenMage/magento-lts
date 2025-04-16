@@ -435,7 +435,7 @@ class Mage_Oauth_Model_Server
         }
         // Is the callback URL whitelisted?
         $callbackUrl = $this->_consumer->getCallbackUrl();
-        if ($callbackUrl && strpos($this->_protocolParams['oauth_callback'], $callbackUrl) === 0) {
+        if ($callbackUrl && str_starts_with($this->_protocolParams['oauth_callback'], $callbackUrl)) {
             return;
         }
         if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']

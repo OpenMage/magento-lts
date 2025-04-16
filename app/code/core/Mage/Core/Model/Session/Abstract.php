@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -563,7 +563,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_array($sessionHosts)) {
             foreach (array_keys($sessionHosts) as $host) {
                 // Delete cookies with the same name for parent domains
-                if (strpos($currentCookieDomain, $host) > 0) {
+                if (strpos($currentCookieDomain, (string) $host) > 0) {
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $this->getCookie()->delete($this->getSessionName(), null, $host);
                 }

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -808,7 +808,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
         $fileName   = $ioFile->getCleanPath($path . $file);
         $path       = $ioFile->getCleanPath($path);
 
-        if ((!$ioFile->fileExists($fileName) || strpos($fileName, $path) !== 0)
+        if ((!$ioFile->fileExists($fileName) || !str_starts_with($fileName, $path))
             && !Mage::helper('core/file_storage')->processStorageFile(str_replace('/', DS, $fileName))
         ) {
             $this->norouteAction();

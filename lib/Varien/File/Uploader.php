@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -202,7 +202,7 @@ class Varien_File_Uploader
         $this->_result = false;
 
         $destinationFile = $destinationFolder;
-        $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
+        $fileName = $newFileName ?? $this->_file['name'];
         $fileName = self::getCorrectFileName($fileName);
         if ($this->_enableFilesDispersion) {
             $fileName = $this->correctFileNameCase($fileName);

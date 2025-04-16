@@ -18,18 +18,17 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
 use Mage;
-use Mage_Adminhtml_Block_Cache;
+use Mage_Adminhtml_Block_Cache as Subject;
 use PHPUnit\Framework\TestCase;
 
 class CacheTest extends TestCase
 {
-    public Mage_Adminhtml_Block_Cache $subject;
+    public Subject $subject;
 
     public function setUp(): void
     {
         Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Cache();
+        $this->subject = new Subject();
     }
 
     /**

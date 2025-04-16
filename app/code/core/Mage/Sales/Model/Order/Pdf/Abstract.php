@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -520,12 +520,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         if (!isset($a['sort_order']) || !isset($b['sort_order'])) {
             return 0;
         }
-
-        if ($a['sort_order'] == $b['sort_order']) {
-            return 0;
-        }
-
-        return ($a['sort_order'] > $b['sort_order']) ? 1 : -1;
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**

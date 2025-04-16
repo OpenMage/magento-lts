@@ -79,7 +79,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             return $this;
         }
 
-        list($index, $range) = $filter;
+        [$index, $range] = $filter;
         if ((int) $index && (int) $range) {
             $this->setRange((int) $range);
 
@@ -128,7 +128,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     {
         $max = $this->getData('max_value');
         if (is_null($max)) {
-            list($min, $max) = $this->_getResource()->getMinMax($this);
+            [$min, $max] = $this->_getResource()->getMinMax($this);
             $this->setData('max_value', $max);
             $this->setData('min_value', $min);
         }
@@ -144,7 +144,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
     {
         $min = $this->getData('min_value');
         if (is_null($min)) {
-            list($min, $max) = $this->_getResource()->getMinMax($this);
+            [$min, $max] = $this->_getResource()->getMinMax($this);
             $this->setData('max_value', $max);
             $this->setData('min_value', $min);
         }
@@ -163,7 +163,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $maxValue = $this->getMaxValue();
             $index = 1;
             do {
-                $range = pow(10, (strlen(floor($maxValue)) - $index));
+                $range = 10 ** (strlen(floor($maxValue)) - $index);
                 $items = $this->getRangeItemCounts($range);
                 $index++;
             } while ($range > self::MIN_RANGE_POWER && count($items) < 2);

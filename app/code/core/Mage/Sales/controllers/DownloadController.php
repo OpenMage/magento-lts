@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Sales
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -62,7 +62,7 @@ class Mage_Sales_DownloadController extends Mage_Core_Controller_Front_Action
     {
         $optionFile = Mage::getModel('catalog/product_option_type_file');
         $optionStoragePath = $optionFile->getOrderTargetDir(true);
-        if (strpos($info['order_path'], $optionStoragePath) !== 0) {
+        if (!str_starts_with($info['order_path'], $optionStoragePath)) {
             throw new Exception('Unexpected file path');
         }
     }

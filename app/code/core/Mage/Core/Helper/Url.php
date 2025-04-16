@@ -101,7 +101,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (strpos($url, '?') === false) ? '?' : '&';
+        $startDelimiter = (!str_contains($url, '?')) ? '?' : '&';
 
         $arrQueryParams = [];
         foreach ($param as $key => $value) {
@@ -135,7 +135,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             return $url;
         }
 
-        list($baseUrl, $query) = explode('?', $url, 2);
+        [$baseUrl, $query] = explode('?', $url, 2);
         parse_str($query, $params);
 
         if (!$caseSensitive) {
