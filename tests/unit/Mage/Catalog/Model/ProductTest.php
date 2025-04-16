@@ -42,8 +42,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetStoreId(): void
     {
@@ -51,8 +50,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetResourceCollection(): void
     {
@@ -60,8 +58,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetUrlModel(): void
     {
@@ -70,8 +67,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testValidate(): void
     {
@@ -79,8 +75,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     //    public function testGetName(): void
     //    {
@@ -89,8 +84,7 @@ class ProductTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     //    public function testGetPrice(): void
     //    {
@@ -98,8 +92,7 @@ class ProductTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testSetPriceCalculation(): void
     {
@@ -107,8 +100,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     //    public function testGetTypeId(): void
     //    {
@@ -116,8 +108,7 @@ class ProductTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetStatus(): void
     {
@@ -126,8 +117,7 @@ class ProductTest extends OpenMageTest
 
     /**
      * @dataProvider provideBool
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetTypeInstance(bool $singleton): void
     {
@@ -135,8 +125,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetLinkInstance(): void
     {
@@ -144,8 +133,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultAttributeSetId(): void
     {
@@ -153,8 +141,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testAfterCommitCallback(): void
     {
@@ -163,8 +150,7 @@ class ProductTest extends OpenMageTest
 
     /**
      * @dataProvider provideFormatUrlKey
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {

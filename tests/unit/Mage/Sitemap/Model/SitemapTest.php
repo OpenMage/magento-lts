@@ -38,8 +38,7 @@ class SitemapTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetPreparedFilenameData
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
+     * @group Model
      */
     public function testGetPreparedFilename(array $methods): void
     {
@@ -51,8 +50,7 @@ class SitemapTest extends OpenMageTest
 
     /**
      * @dataProvider provideGenerateXmlData
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
+     * @group Model
      * @throws Throwable
      * @todo  test validation
      * @todo  test content of xml

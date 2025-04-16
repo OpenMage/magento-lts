@@ -38,8 +38,7 @@ class UserTest extends OpenMageTest
     /**
      * @dataProvider provideValidateApiUserData
      * @param array|true $expectedResult
-     * @group Mage_Api
-     * @group Mage_Api_Model
+     * @group Model
      */
     public function testValidate($expectedResult, array $methods): void
     {

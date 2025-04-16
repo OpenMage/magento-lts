@@ -32,8 +32,7 @@ class LinkTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @group Block
      */
     public function testGetHref(): void
     {
@@ -41,8 +40,7 @@ class LinkTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @group Block
      */
     public function testGetTitle(): void
     {
@@ -50,8 +48,7 @@ class LinkTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @group Block
      */
     //    public function testGetAnchorText(): void
     //    {

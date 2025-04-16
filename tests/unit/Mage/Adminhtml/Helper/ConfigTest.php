@@ -37,8 +37,7 @@ class ConfigTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Helper_Config::getInputTypes()
      * @dataProvider provideGetInputTypes
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testGetInputTypes(array $expectedResult, ?string $inputType): void
     {
@@ -48,8 +47,7 @@ class ConfigTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Helper_Config::getBackendModelByInputType()
      * @dataProvider provideGetBackendModelByInputType
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testGetBackendModelByInputType(?string $expectedResult, string $inputType): void
     {

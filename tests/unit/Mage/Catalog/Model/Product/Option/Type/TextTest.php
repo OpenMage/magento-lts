@@ -34,8 +34,7 @@ class TextTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -48,8 +47,7 @@ class TextTest extends OpenMageTest
 
     /**
      * @dataProvider providePrepareForCart
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testPrepareForCart(?string $expectedResult, bool $setIsValid = true, ?string $setUserValue = null): void
     {
@@ -71,8 +69,7 @@ class TextTest extends OpenMageTest
 
     /**
      * @covers Mage_Catalog_Model_Product_Option_Type_Text::getFormattedOptionValue()
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultAttributeSetId(): void
     {

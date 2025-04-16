@@ -33,8 +33,7 @@ class EditTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testInitForm(): void
     {

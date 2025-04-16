@@ -39,8 +39,7 @@ class MessageTest extends OpenMageTest
     /**
      * @dataProvider provideIsMessagesAvailable
      *
-     * @group Mage_GiftMessage
-     * @group Mage_GiftMessage_Helper
+     * @group Helper
      */
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {

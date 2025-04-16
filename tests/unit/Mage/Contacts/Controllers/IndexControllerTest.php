@@ -20,6 +20,7 @@ namespace OpenMage\Tests\Unit\Mage\Contacts\Controllers;
 use Generator;
 use Mage;
 use Mage_Contacts_IndexController as Subject;
+use Mage_Core_Exception;
 use Mage_Customer_Model_Session;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -32,10 +33,10 @@ class IndexControllerTest extends OpenMageTest
 
     /**
      * @dataProvider postActionDataProvider
-     * @group Mage_Contacts
-     * @group Mage_Contacts_Controller
+     * @group Controller
+     * @group runInSeparateProcess
      * @runInSeparateProcess
-     * @throws \Mage_Core_Exception
+     * @throws Mage_Core_Exception
      */
     public function testPostAction(array $postData, bool $isFormKeyValid, ?string $expectedErrorMessage): void
     {

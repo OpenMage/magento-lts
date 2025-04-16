@@ -39,8 +39,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
     public function testIsModuleEnabled(): void
     {
@@ -49,8 +48,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Helper_Data::isReportsEnabled()
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
     public function testIsReportsEnabled(): void
     {
@@ -60,8 +58,7 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Reports_Helper_Data::getIntervals()
      * @dataProvider provideReportsDateIntervals
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
     public function testGetIntervals(int $expectedResult, string $from, string $to, string $period): void
     {
@@ -80,8 +77,7 @@ class DataTest extends OpenMageTest
      * @covers Mage_Reports_Helper_Data::prepareIntervalsCollection()
      * @dataProvider provideReportsDateIntervals
      * @doesNotPerformAssertions
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
     public function testPrepareIntervalsCollection(int $expectedResult, string $from, string $to, string $period): void
     {

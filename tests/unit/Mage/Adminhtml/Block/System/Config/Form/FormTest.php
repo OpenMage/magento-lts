@@ -32,7 +32,7 @@ class FormTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Adminhtml
+     * @group Block
      */
     public function testInitForm(): void
     {

@@ -37,8 +37,7 @@ class FileTest extends OpenMageTest
     /**
      * @dataProvider provideGetFilePathData
      *
-     * @group Mage_Downloadable
-     * @group Mage_Downloadable_Helper
+     * @group Helper
      */
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {

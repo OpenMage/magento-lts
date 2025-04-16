@@ -33,8 +33,7 @@ class LayoutTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Mage_Page
-     * @group Mage_Page_Helper
+     * @group Helper
      */
     public function testApplyTemplate(): void
     {

@@ -33,8 +33,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Admin_Helper_Data::generateResetPasswordLinkToken()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testGenerateResetPasswordLinkToken(): void
     {
@@ -43,8 +42,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Admin_Helper_Data::getResetPasswordLinkExpirationPeriod()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testGetResetPasswordLinkExpirationPeriod(): void
     {

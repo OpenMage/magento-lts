@@ -32,8 +32,7 @@ class FeedTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testGetFeedUrl(): void
     {
@@ -41,8 +40,7 @@ class FeedTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testCheckUpdate(): void
     {
@@ -50,8 +48,7 @@ class FeedTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testGetFeedData(): void
     {
@@ -59,8 +56,7 @@ class FeedTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testGetFeedXml(): void
     {

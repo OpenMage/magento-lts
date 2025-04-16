@@ -37,8 +37,7 @@ class PageTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetUsedInStoreConfigPaths
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {

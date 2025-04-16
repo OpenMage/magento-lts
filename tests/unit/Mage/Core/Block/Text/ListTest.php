@@ -23,8 +23,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 class ListTest extends OpenMageTest
 {
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Block
+     * @group Block
      */
     public function testDuplicateBlockName(): void
     {
@@ -42,8 +41,7 @@ class ListTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Block
+     * @group Block
      */
     public function testDuplicateBlockNameOrdering(): void
     {
@@ -69,8 +67,7 @@ class ListTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Block
+     * @group Block
      */
     public function testUniqueBlockNameOrdering(): void
     {

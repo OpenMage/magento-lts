@@ -32,8 +32,7 @@ class LayoutTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Model
      */
     public function testToOptionArray(): void
     {

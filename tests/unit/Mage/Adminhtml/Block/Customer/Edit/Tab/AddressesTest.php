@@ -34,8 +34,7 @@ class AddressesTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      * @throws Mage_Core_Exception
      */
     public function testInitForm(): void

@@ -30,8 +30,7 @@ class CacheTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -41,8 +40,7 @@ class CacheTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */

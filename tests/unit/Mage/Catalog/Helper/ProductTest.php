@@ -35,8 +35,7 @@ class ProductTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testCanUseCanonicalTag(): void
     {
@@ -45,8 +44,7 @@ class ProductTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetAttributeInputTypes
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
@@ -55,8 +53,7 @@ class ProductTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetAttributeBackendModelByInputType
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetAttributeBackendModelByInputType(string $expectedResult, string $inputType): void
     {
@@ -65,8 +62,7 @@ class ProductTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetAttributeSourceModelByInputType
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetAttributeSourceModelByInputType(string $expectedResult, string $inputType): void
     {

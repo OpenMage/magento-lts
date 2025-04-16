@@ -34,8 +34,7 @@ class DefaultTest extends OpenMageTest
 
     /**
      * @covers Mage_Sales_Block_Order_Item_Renderer_Default::setItem()
-     * @group Mage_Sales
-     * @group Mage_Sales_Block
+     * @group Block
      */
     public function testSetItem(): void
     {

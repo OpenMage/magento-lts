@@ -33,8 +33,7 @@ class CatalogTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Catalog::setAttributeTabBlock()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testSetAttributeTabBlock(): void
     {
@@ -43,8 +42,7 @@ class CatalogTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Catalog::setCategoryAttributeTabBlock()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testSetCategoryAttributeTabBlock(): void
     {
@@ -53,8 +51,7 @@ class CatalogTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Catalog::getSitemapValidPaths()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testGetSitemapValidPaths(): void
     {

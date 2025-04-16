@@ -44,8 +44,7 @@ class FileTest extends OpenMageTest
      * @param array<int, string> $expectedResult
      * @param string|array<int, string> $extensionsList
      *
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
@@ -53,8 +52,7 @@ class FileTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetPostMaxSize(): void
     {
@@ -62,8 +60,7 @@ class FileTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetUploadMaxSize(): void
     {
@@ -72,8 +69,7 @@ class FileTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetDataMaxSizeData
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetDataMaxSize(string $expectedResult, array $methods): void
     {
@@ -85,8 +81,7 @@ class FileTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetDataMaxSizeInBytesData
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testGetDataMaxSizeInBytes(int $expectedResult, array $methods): void
     {

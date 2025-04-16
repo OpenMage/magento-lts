@@ -37,8 +37,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testTruncate(): void
     {
@@ -55,8 +54,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testSubstr(): void
     {
@@ -65,8 +63,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testSplitInjection(): void
     {
@@ -76,8 +73,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testStrlen(): void
     {
@@ -85,8 +81,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testStrSplit(): void
     {
@@ -97,8 +92,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testSplitWords(): void
     {
@@ -110,8 +104,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testParseQueryStr(): void
     {
@@ -119,8 +112,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetArrayHelper(): void
     {
@@ -128,8 +120,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testUnserialize(): void
     {
@@ -137,8 +128,7 @@ class StringTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testValidateSerializedObject(): void
     {

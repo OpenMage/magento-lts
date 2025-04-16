@@ -34,8 +34,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Dashboard_Data::getStores()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testGetStores(): void
     {
@@ -44,8 +43,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Dashboard_Data::countStores()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testCountStores(): void
     {
@@ -54,8 +52,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Dashboard_Data::getDatePeriods()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testGetDatePeriods(): void
     {
@@ -71,8 +68,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Dashboard_Data::getChartDataHash()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testGetChartDataHash(): void
     {

@@ -32,8 +32,7 @@ class SwitchTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentWebsiteId(): void
     {
@@ -41,8 +40,7 @@ class SwitchTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentGroupId(): void
     {
@@ -50,8 +48,7 @@ class SwitchTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentStoreId(): void
     {
@@ -59,8 +56,7 @@ class SwitchTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentStoreCode(): void
     {
@@ -68,8 +64,7 @@ class SwitchTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetRawGroups(): void
     {
@@ -77,8 +72,7 @@ class SwitchTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetRawStores(): void
     //    {
@@ -86,8 +80,7 @@ class SwitchTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetGroups(): void
     //    {
@@ -95,8 +88,7 @@ class SwitchTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetStores(): void
     //    {
@@ -104,8 +96,7 @@ class SwitchTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testIsStoreInUrl(): void
     {

@@ -41,8 +41,7 @@ class LayoutTest extends OpenMageTest
 
     /**
      * @dataProvider provideCreateBlock
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      *
      * @param bool|class-string $expectedResult
      */
@@ -60,8 +59,7 @@ class LayoutTest extends OpenMageTest
     /**
      * @covers Mage_Core_Model_Layout::getBlockSingleton()
      * @dataProvider provideGetBlockSingleton
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      * @group pr4411
      *
      * @param class-string $expectedResult
@@ -109,8 +107,7 @@ class LayoutTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Model_Layout::getBlockSingleton()
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetBlockSingletonError(): void
     {

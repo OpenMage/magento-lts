@@ -37,8 +37,7 @@ class ReviewTest extends OpenMageTest
     /**
      * @dataProvider provideValidateReviewData
      * @param array|true $expectedResult
-     * @group Mage_Review
-     * @group Mage_Review_Model
+     * @group Model
      */
     public function testValidate($expectedResult, array $methods): void
     {

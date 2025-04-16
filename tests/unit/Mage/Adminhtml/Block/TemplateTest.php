@@ -35,8 +35,7 @@ class TemplateTest extends OpenMageTest
 
     /**
      * @see Mage_Core_Model_Session::getFormKey()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -48,8 +47,7 @@ class TemplateTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Block_Template::isOutputEnabled()
      * @dataProvider provideIsOutputEnabled
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
@@ -57,8 +55,7 @@ class TemplateTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testGetModuleName(): void
     {
@@ -67,8 +64,7 @@ class TemplateTest extends OpenMageTest
 
     /**
      * @see Mage_Core_Model_Input_Filter_MaliciousCode::filter()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testMaliciousCodeFilter(): void
     {

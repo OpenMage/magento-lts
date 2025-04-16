@@ -37,8 +37,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @dataProvider provideSplitSku
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testSplitSku(array $expectedResult, string $sku, int $length = 30): void
     {
@@ -46,8 +45,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testShouldSaveUrlRewritesHistory(): void
     {
@@ -55,8 +53,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testIsUsingStaticUrlsAllowed(): void
     {
@@ -64,8 +61,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testIsUrlDirectivesParsingAllowed(): void
     {
@@ -73,8 +69,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetPageTemplateProcessor(): void
     {
@@ -82,8 +77,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetOldFieldMap(): void
     {

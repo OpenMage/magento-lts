@@ -35,8 +35,7 @@ class RuleTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Rule::getConditionsInstance()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetConditionsInstance(): void
     {
@@ -45,8 +44,7 @@ class RuleTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Rule::getActionsInstance()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetActionsInstance(): void
     {

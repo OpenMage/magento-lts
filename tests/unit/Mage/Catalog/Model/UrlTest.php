@@ -41,8 +41,7 @@ class UrlTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetStoreRootCategory(): void
     {
@@ -51,8 +50,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @dataProvider provideIntOrNull
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testRefreshRewrites(?int $storeId): void
     {
@@ -62,8 +60,7 @@ class UrlTest extends OpenMageTest
     /**
      * @dataProvider provideGeneratePathData
      *
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGeneratePath(
         string $expectedResult,
@@ -81,8 +78,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @dataProvider provideFormatUrlKey
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
@@ -91,8 +87,7 @@ class UrlTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      * @doesNotPerformAssertions
      */
     //    public function testGetSlugger(): void
@@ -102,8 +97,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetSluggerConfig
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetSluggerConfig(array $expectedResult, string $locale): void
     {

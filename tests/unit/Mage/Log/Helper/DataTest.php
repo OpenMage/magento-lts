@@ -36,8 +36,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Log_Helper_Data::isVisitorLogEnabled()
-     * @group Mage_Log
-     * @group Mage_Log_Helper
+     * @group Helper
      */
     public function testIsVisitorLogEnabled(): void
     {
@@ -46,8 +45,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Log_Helper_Data::isLogEnabled()
-     * @group Mage_Log
-     * @group Mage_Log_Helper
+     * @group Helper
      */
     public function testIsLogEnabled(): void
     {
@@ -56,8 +54,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Log_Helper_Data::isLogDisabled()
-     * @group Mage_Log
-     * @group Mage_Log_Helper
+     * @group Helper
      */
     public function testIsLogDisabled(): void
     {
@@ -67,8 +64,7 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Log_Helper_Data::isLogFileExtensionValid()
      * @dataProvider provideIsLogFileExtensionValid
-     * @group Mage_Log
-     * @group Mage_Log_Helper
+     * @group Helper
      */
     public function testIsLogFileExtensionValid(bool $expectedResult, string $file): void
     {

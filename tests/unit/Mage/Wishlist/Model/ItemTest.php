@@ -34,8 +34,7 @@ class ItemTest extends OpenMageTest
 
     /**
      * @dataProvider qtyDataProvider
-     * @group Mage_Wishlist
-     * @group Mage_Wishlist_Model
+     * @group Model
      */
     public function testSetQty(int $expectedQty, int $inputQty): void
     {
@@ -61,8 +60,7 @@ class ItemTest extends OpenMageTest
 
     /**
      * @dataProvider validateDataProvider
-     * @group Mage_Wishlist
-     * @group Mage_Wishlist_Model
+     * @group Model
      * @throws Mage_Core_Exception
      */
     public function testValidate(?string $expectedExceptionMessage, ?int $wishlistId, ?int $productId): void

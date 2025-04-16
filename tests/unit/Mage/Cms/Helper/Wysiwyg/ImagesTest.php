@@ -36,8 +36,7 @@ class ImagesTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetCurrentPath(): void
     {
@@ -45,8 +44,7 @@ class ImagesTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetCurrentUrl(): void
     {
@@ -54,8 +52,7 @@ class ImagesTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetStorage(): void
     {
@@ -63,8 +60,7 @@ class ImagesTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testIdEncode(): void
     {
@@ -72,8 +68,7 @@ class ImagesTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testIdDecode(): void
     {
@@ -82,8 +77,7 @@ class ImagesTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetShortFilename
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetShortFilename(string $expectedResult, string $filename, int $maxLength): void
     {

@@ -32,8 +32,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testSaveDeleteGetConfig(): void
     {

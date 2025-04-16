@@ -38,7 +38,7 @@ class LocaleTest extends OpenMageTest
      * @dataProvider provideGetNumberData
      * @param string|float|int $value
      *
-     * @group Mage_Core
+     * @group Model
      */
     public function testGetNumber(?float $expectedResult, $value): void
     {

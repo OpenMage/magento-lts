@@ -33,8 +33,7 @@ class EnvironmentTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Environment::collect()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetConditionsInstance(): void
     {

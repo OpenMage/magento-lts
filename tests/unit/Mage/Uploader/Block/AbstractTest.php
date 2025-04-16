@@ -34,8 +34,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      */
     public function testGetMiscConfig(): void
     {
@@ -43,8 +42,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -54,8 +52,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      */
     public function testGetButtonConfig(): void
     {
@@ -63,8 +60,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      */
     public function testGetElementId(): void
     {

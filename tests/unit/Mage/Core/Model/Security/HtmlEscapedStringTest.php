@@ -31,7 +31,7 @@ class HtmlEscapedStringTest extends OpenMageTest
      * @dataProvider provideHtmlEscapedStringAsStringData
      * @param array<int, string> $allowedTags
      *
-     * @group Mage_Core
+     * @group Model
      */
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
@@ -43,7 +43,7 @@ class HtmlEscapedStringTest extends OpenMageTest
      * @dataProvider provideHtmlEscapedStringGetUnescapedValueData
      * @param array<int, string> $allowedTags
      *
-     * @group Mage_Core
+     * @group Model
      */
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {

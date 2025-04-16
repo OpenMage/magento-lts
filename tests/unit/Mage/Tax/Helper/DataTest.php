@@ -40,8 +40,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getPostCodeSubStringLength()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetPostCodeSubStringLength(): void
     {
@@ -50,8 +49,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getConfig()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetConfig(): void
     {
@@ -60,8 +58,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getCalculator()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetCalculator(): void
     {
@@ -69,8 +66,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @doesNotPerformAssertions
      */
     public function testGetProductPrice(): void
@@ -80,8 +76,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testPriceIncludesTax(): void
     {
@@ -90,8 +85,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::applyTaxAfterDiscount()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testApplyTaxAfterDiscount(): void
     {
@@ -101,8 +95,7 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Tax_Helper_Data::getIncExcText()
      * @dataProvider provideGetIncExcText
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetIncExcText(string $expectedResult, bool $flag): void
     {
@@ -111,8 +104,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getPriceDisplayType()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetPriceDisplayType(): void
     {
@@ -120,8 +112,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @doesNotPerformAssertions
      */
     public function testNeedPriceConversion(): void
@@ -131,8 +122,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
      * @doesNotPerformAssertions
@@ -144,8 +134,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @group UsesSampleDataFlag
      */
     public function testGetTaxRatesByProductClass(): void
@@ -157,8 +146,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @group UsesSampleDataFlag
      */
     public function testGetAllRatesByProductClass(): void
@@ -170,8 +158,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @doesNotPerformAssertions
      */
     public function testGetPrice(): void
@@ -182,8 +169,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::displayPriceIncludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayPriceIncludingTax(): void
     {
@@ -192,8 +178,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::displayPriceExcludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayPriceExcludingTax(): void
     {
@@ -202,8 +187,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::displayBothPrices()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayBothPrices(): void
     {
@@ -212,8 +196,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetIncExcTaxLabel
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetIncExcTaxLabel(string $expectedResult, bool $flag): void
     {
@@ -222,8 +205,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::shippingPriceIncludesTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testShippingPriceIncludesTax(): void
     {
@@ -232,8 +214,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getShippingPriceDisplayType()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetShippingPriceDisplayType(): void
     {
@@ -242,8 +223,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::displayShippingPriceIncludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayShippingPriceIncludingTax(): void
     {
@@ -252,8 +232,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::displayShippingPriceExcludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayShippingPriceExcludingTax(): void
     {
@@ -262,8 +241,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::displayShippingBothPrices()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayShippingBothPrices(): void
     {
@@ -272,8 +250,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getShippingTaxClass()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetShippingTaxClass(): void
     {
@@ -281,8 +258,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetShippingPrice(): void
     {
@@ -291,8 +267,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::discountTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDiscountTax(): void
     {
@@ -301,8 +276,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getTaxBasedOn()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetTaxBasedOn(): void
     {
@@ -311,8 +285,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::applyTaxOnCustomPrice()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testApplyTaxOnCustomPrice(): void
     {
@@ -321,8 +294,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::applyTaxOnOriginalPrice()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testApplyTaxOnOriginalPrice(): void
     {
@@ -330,8 +302,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetCalculationSequence(): void
     {
@@ -340,8 +311,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::getCalculationAgorithm()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetCalculationAgorithm(): void
     {
@@ -349,8 +319,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsWrongDisplaySettingsIgnored(): void
     {
@@ -358,8 +327,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsWrongDiscountSettingsIgnored(): void
     {
@@ -367,8 +335,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsConflictingFptTaxConfigurationSettingsIgnored(): void
     {
@@ -377,8 +344,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Tax_Helper_Data::isCrossBorderTradeEnabled()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsCrossBorderTradeEnabled(): void
     {

@@ -34,8 +34,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testGetAclAssert(): void
     {
@@ -43,8 +42,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testGetAclPrivilegeSet(): void
     {
@@ -52,8 +50,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testLoadAclResources(): void
     {
@@ -61,8 +58,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testGetAdminhtmlConfig(): void
     {

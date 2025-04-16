@@ -35,8 +35,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateFileExension
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testValidateFileExension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
     {

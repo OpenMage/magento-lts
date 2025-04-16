@@ -34,8 +34,7 @@ class StorageTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetThumbsPath(): void
     {
@@ -43,8 +42,7 @@ class StorageTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -54,8 +52,7 @@ class StorageTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetHelper(): void
     {
@@ -63,8 +60,7 @@ class StorageTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -74,8 +70,7 @@ class StorageTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetThumbnailRoot(): void
     {
@@ -83,8 +78,7 @@ class StorageTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testIsImage(): void
     {

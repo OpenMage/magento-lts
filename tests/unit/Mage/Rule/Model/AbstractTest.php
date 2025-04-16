@@ -46,8 +46,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetProductFlatSelect(): void
     {
@@ -60,8 +59,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetConditions(bool $empty): void
     {
@@ -78,8 +76,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetActions(bool $empty): void
     {
@@ -95,8 +92,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetForm(): void
     {
@@ -104,8 +100,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testLoadPost(array $data = []): void
     {
@@ -115,8 +110,7 @@ class AbstractTest extends OpenMageTest
     /**
      * @covers Mage_Rule_Model_Abstract::validate()
      * @dataProvider provideValidateData
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testValidate(bool|array $expectedResul, ?array $data = null): void
     {
@@ -131,8 +125,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateData
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testValidateData(bool|array $expectedResul, ?array $data = null): void
     {
@@ -145,8 +138,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::isDeleteable()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testIsDeleteable(): void
     {
@@ -156,8 +148,7 @@ class AbstractTest extends OpenMageTest
     /**
      * @covers Mage_Rule_Model_Abstract::setIsDeleteable()
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testSetIsDeleteable(bool $value): void
     {
@@ -166,8 +157,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::isReadonly()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testIsReadonly(): void
     {
@@ -177,8 +167,7 @@ class AbstractTest extends OpenMageTest
     /**
      * @covers Mage_Rule_Model_Abstract::setIsReadonly()
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testSetIsReadonly(bool $value): void
     {
@@ -186,8 +175,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetWebsiteIds(): void
     {
@@ -200,8 +188,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::asString()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testAsString(): void
     {
@@ -210,8 +197,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::asHtml()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testAsHtml(): void
     {
@@ -220,8 +206,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::asArray()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testAsArray(): void
     {

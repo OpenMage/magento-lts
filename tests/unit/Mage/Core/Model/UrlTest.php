@@ -32,8 +32,7 @@ class UrlTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testEscape(): void
     {
@@ -41,8 +40,7 @@ class UrlTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetSecure(): void
     {

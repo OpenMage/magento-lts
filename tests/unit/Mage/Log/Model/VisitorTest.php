@@ -31,8 +31,7 @@ class VisitorTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -42,8 +41,7 @@ class VisitorTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -53,8 +51,7 @@ class VisitorTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -64,8 +61,7 @@ class VisitorTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -75,8 +71,7 @@ class VisitorTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */

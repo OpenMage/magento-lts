@@ -27,8 +27,7 @@ class BlockTest extends OpenMageTest
 
     /**
      * @dataProvider provideNumericString
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @group Block
      */
     public function testGetCacheKeyInfo(string $blockId): void
     {

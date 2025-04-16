@@ -34,8 +34,7 @@ class TemplateTest extends OpenMageTest
 
     /**
      * @dataProvider validateTemplateDataProvider
-     * @group Mage_Newsletter
-     * @group Mage_Newsletter_Model
+     * @group Model
      */
     public function testValidate(?string $expected, array $methods): void
     {
@@ -123,8 +122,7 @@ class TemplateTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Newsletter
-     * @group Mage_Newsletter_Model
+     * @group Model
      */
     public function testLoadByCode(): void
     {
@@ -132,8 +130,7 @@ class TemplateTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Newsletter
-     * @group Mage_Newsletter_Model
+     * @group Model
      */
     public function testIsValidForSend(): void
     {
@@ -141,8 +138,7 @@ class TemplateTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Newsletter
-     * @group Mage_Newsletter_Model
+     * @group Model
      */
     public function testGetProcessedTemplate(): void
     {

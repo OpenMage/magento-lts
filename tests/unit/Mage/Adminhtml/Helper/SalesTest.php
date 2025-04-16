@@ -37,8 +37,7 @@ class SalesTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Helper_Sales::escapeHtmlWithLinks()
      * @dataProvider provideDecodeGridSerializedInput
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testEscapeHtmlWithLinks(string $expectedResult, string $data): void
     {

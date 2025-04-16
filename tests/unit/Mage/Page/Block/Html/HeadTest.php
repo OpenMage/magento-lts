@@ -32,8 +32,7 @@ class HeadTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddCss(): void
     {
@@ -41,8 +40,7 @@ class HeadTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddJs(): void
     {
@@ -50,8 +48,7 @@ class HeadTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddCssIe(): void
     {
@@ -59,8 +56,7 @@ class HeadTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddJsIe(): void
     {
@@ -68,8 +64,7 @@ class HeadTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddLinkRel(): void
     {

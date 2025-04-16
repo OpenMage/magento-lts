@@ -33,8 +33,7 @@ class VariableTest extends OpenMageTest
 
     /**
      * @covers Mage_Admin_Helper_Variable::isPathAllowed()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testIsPathAllowed(): void
     {

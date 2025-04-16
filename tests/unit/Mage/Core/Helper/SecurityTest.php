@@ -39,8 +39,7 @@ class SecurityTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function validateAgainstBlockMethodBlacklistDataProvider(): Generator
     {
@@ -64,8 +63,7 @@ class SecurityTest extends OpenMageTest
      * @param string[] $args
      * @throws Mage_Core_Exception
      *
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testValidateAgainstBlockMethodBlacklist(
         Mage_Core_Block_Abstract $block,
@@ -121,8 +119,7 @@ class SecurityTest extends OpenMageTest
      * @param string[] $args
      * @throws Mage_Core_Exception
      *
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testValidateAgainstBlockMethodBlacklistThrowsException(
         Mage_Core_Block_Abstract $block,

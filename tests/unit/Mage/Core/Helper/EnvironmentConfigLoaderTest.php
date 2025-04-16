@@ -43,8 +43,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testBuildPath(): void
     {
@@ -54,8 +53,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testBuildNodePath(): void
     {
@@ -65,8 +63,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testXmlHasTestStrings(): void
     {
@@ -80,8 +77,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      *
      * @param array<string, string> $config
      */
@@ -181,7 +177,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
-     * @group Mage_Core
+     * @group Helper
      *
      * @param array<string, string> $config
      */

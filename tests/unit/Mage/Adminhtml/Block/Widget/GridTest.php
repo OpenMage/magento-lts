@@ -35,8 +35,7 @@ class GridTest extends OpenMageTest
 
     /**
      * @dataProvider provideAddColumnDefaultData
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {

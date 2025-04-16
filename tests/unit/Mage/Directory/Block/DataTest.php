@@ -34,8 +34,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Block
+     * @group Block
      */
     public function testGetCountryCollection(): void
     {
@@ -43,8 +42,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Block
+     * @group Block
      */
     public function testGetRegionCollection(): void
     {

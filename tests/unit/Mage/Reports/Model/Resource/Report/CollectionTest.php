@@ -40,8 +40,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::setPeriod()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testSetPeriod(): void
     {
@@ -50,8 +49,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::setInterval()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testSetIntervals(): void
     {
@@ -60,8 +58,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @dataProvider provideReportsDateIntervals
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetIntervals(int $expectedResult, string|Zend_Date $from, string|Zend_Date $to, string $period): void
     {
@@ -77,8 +74,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getPeriods()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetPeriods(): void
     {
@@ -88,8 +84,7 @@ class CollectionTest extends OpenMageTest
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getStoreIds()
      * @covers Mage_Reports_Model_Resource_Report_Collection::setStoreIds()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testStoreIds(): void
     {
@@ -99,8 +94,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getSize()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetSize(): void
     {
@@ -108,8 +102,7 @@ class CollectionTest extends OpenMageTest
     }
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::setPageSize()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testSetPageSize(): void
     {
@@ -118,8 +111,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getPageSize()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetPageSize(): void
     {
@@ -127,8 +119,7 @@ class CollectionTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testInitReport(string $modelClass = ''): void
     {
@@ -136,8 +127,7 @@ class CollectionTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetReportFull(): void
     {
@@ -146,8 +136,7 @@ class CollectionTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetReport(): void
     {
@@ -156,8 +145,7 @@ class CollectionTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testTimeShift(): void
     {

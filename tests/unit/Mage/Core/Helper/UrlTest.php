@@ -37,8 +37,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Url::getCurrentBase64Url()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetCurrentBase64Url(): void
     {
@@ -48,8 +47,7 @@ class UrlTest extends OpenMageTest
     /**
      * @covers Mage_Core_Helper_Url::getEncodedUrl()
      * @dataProvider provideGetEncodedUrl
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetEncodedUrl(string $expectedResult, ?string $url): void
     {
@@ -58,8 +56,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Url::getHomeUrl()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetHomeUrl(): void
     {
@@ -69,8 +66,7 @@ class UrlTest extends OpenMageTest
     /**
      * @covers Mage_Core_Helper_Url::addRequestParam()
      * @dataProvider provideAddRequestParam
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testAddRequestParam(string $expectedResult, string $url, array $param): void
     {
@@ -80,8 +76,7 @@ class UrlTest extends OpenMageTest
     /**
      * @covers Mage_Core_Helper_Url::removeRequestParam()
      * @dataProvider provideRemoveRequestParam
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testRemoveRequestParam(string $expectedResult, string $url, string $paramKey, bool $caseSensitive = false): void
     {
@@ -90,8 +85,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Url::encodePunycode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testEncodePunycode(): void
     {
@@ -102,8 +96,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Url::decodePunycode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      * @throws Exception
      */
     public function testDecodePunycode(): void

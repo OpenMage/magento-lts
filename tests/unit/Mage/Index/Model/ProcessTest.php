@@ -36,8 +36,7 @@ class ProcessTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Index
-     * @group Mage_Index_Model
+     * @group Model
      */
     public function testReindexEverything(): void
     {
@@ -51,8 +50,7 @@ class ProcessTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Index
-     * @group Mage_Index_Model
+     * @group Model
      */
     public function testDisableIndexerKeys(): void
     {
@@ -67,8 +65,7 @@ class ProcessTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Index
-     * @group Mage_Index_Model
+     * @group Model
      */
     public function testEnableIndexerKeys(): void
     {
@@ -82,8 +79,7 @@ class ProcessTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Index
-     * @group Mage_Index_Model
+     * @group Model
      */
     public function testGetUnprocessedEventsCollection(): void
     {
