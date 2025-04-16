@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -14,6 +15,6 @@
 
 class Mage_Csp_Block_Adminhtml_Csp extends Mage_Csp_Block_Csp
 {
-    protected string $section = "admin";
+    protected string $section = 'admin';
 
 }

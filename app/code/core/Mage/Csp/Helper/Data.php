@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -23,7 +24,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         'frame-src',
         'object-src',
         'media-src',
-        'form-action'
+        'form-action',
     ];
 
 
@@ -34,7 +35,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         }
         $result = [];
         foreach (self::CONFIG_MAPPING as $key) {
-            $result [$key]= Mage::getStoreConfig("$section/csp/$key");
+            $result [$key] = Mage::getStoreConfig("$section/csp/$key");
         }
         return $result;
     }

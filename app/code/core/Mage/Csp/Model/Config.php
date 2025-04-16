@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OpenMage
  *
@@ -88,7 +89,7 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
      */
     protected function _loadCache($id): bool
     {
-        return (bool)Mage::app()->loadCache($id);
+        return (bool) Mage::app()->loadCache($id);
     }
 
     /**
@@ -139,9 +140,9 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
     protected function _extendNode(Varien_Simplexml_Element $baseNode, Varien_Simplexml_Element $mergeNode, bool $overwrite = false): void
     {
         foreach ($mergeNode->children() as $key => $child) {
-            $newChild = $baseNode->addChild($key, (string)$child);
+            $newChild = $baseNode->addChild($key, (string) $child);
             foreach ($child->attributes() as $attrKey => $attrValue) {
-                $newChild->addAttribute($attrKey, (string)$attrValue);
+                $newChild->addAttribute($attrKey, (string) $attrValue);
             }
             $this->_extendNode($newChild, $child, $overwrite);
         }

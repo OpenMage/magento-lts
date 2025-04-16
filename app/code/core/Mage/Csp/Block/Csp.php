@@ -15,11 +15,11 @@
 class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
 {
     protected array $items = [];
-    protected string $section = "system";
+    protected string $section = 'system';
 
     public function addItem(string $type, string $data): self
     {
-        $this->items[$type] []= $data;
+        $this->items[$type] [] = $data;
         return $this;
     }
 
@@ -52,12 +52,12 @@ class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
         );
         $cspHeader = [];
         foreach ($directives as $directive => $value) {
-            $cspHeader[] = $directive . " " . (is_array($value) ? implode(" ", $value) : strval($value));
+            $cspHeader[] = $directive . ' ' . (is_array($value) ? implode(' ', $value) : strval($value));
         }
 
         $header = Mage::getStoreConfigFlag("$this->section/csp/report_only") ?
             'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
-        $response->setHeader($header, implode("; ", $cspHeader));
+        $response->setHeader($header, implode('; ', $cspHeader));
         return '';
     }
 }
