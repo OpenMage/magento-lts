@@ -91,7 +91,6 @@ class UrlTest extends OpenMageTest
     {
         static::assertSame(self::$testUrlBase, self::$subject->encodePunycode(self::$testUrlBase));
         static::assertSame(self::$testUrlPuny, self::$subject->encodePunycode(self::$testUrlPuny));
-        static::markTestIncomplete('This test has to be checked.');
     }
 
     /**
@@ -103,6 +102,5 @@ class UrlTest extends OpenMageTest
     {
         static::assertSame(self::$testUrlBase, self::$subject->decodePunycode(self::$testUrlBase));
         static::assertSame('https://?foo=bar&BOO=baz', self::$subject->decodePunycode(self::$testUrlPuny));
-        static::markTestIncomplete('This test has to be checked.');
     }
 }

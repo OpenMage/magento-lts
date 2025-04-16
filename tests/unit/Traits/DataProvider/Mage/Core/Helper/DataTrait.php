@@ -86,4 +86,16 @@ trait DataTrait
             true,
         ];
     }
+
+    public function provideIsCountryInEUData(): Generator
+    {
+        yield 'DE true' => [
+            true,
+            'DE',
+        ];
+        yield 'US false' => [
+            false,
+            'US',
+        ];
+    }
 }

@@ -79,10 +79,12 @@ class DataTest extends OpenMageTest
      * @doesNotPerformAssertions
      * @group Helper
      */
-    public function testPrepareIntervalsCollection(int $expectedResult, string $from, string $to, string $period): void
+    public function testPrepareIntervalsCollection(int|string $expectedResult, string $from, string $to, string $period): void
     {
-        static::markTestIncomplete('Test needs to be reviewed.');
-        // @phpstan-ignore-next-line
-        self::$subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
+        try {
+            self::$subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
+        } catch (\Zend_Date_Exception $exception) {
+            static::assertSame($expectedResult, $exception->getMessage());
+        }
     }
 }

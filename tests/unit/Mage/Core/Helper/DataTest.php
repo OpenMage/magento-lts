@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
+use Mage_Core_Exception;
 use Mage_Core_Helper_Data as Subject;
 use Mage_Core_Model_Encryption;
 use Mage_Core_Model_Locale;
@@ -244,6 +245,16 @@ class DataTest extends OpenMageTest
     }
 
     /**
+     * @covers Mage_Core_Helper_Data::checkLfiProtection()
+     * @group Helper
+     * @throws Mage_Core_Exception
+     */
+    public function testCheckLfiProtection(string $name): void
+    {
+        static::assertTrue(self::$subject->checkLfiProtection($name));
+    }
+
+    /**
      * @covers Mage_Core_Helper_Data::useDbCompatibleMode()
      * @group Helper
      */
@@ -272,12 +283,11 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
+     * @dataProvider provideIsCountryInEUData
      * @group Helper
      */
-    public function testIsCountryInEU(): void
+    public function testIsCountryInEU(bool $expectedResult, string $value): void
     {
-        static::assertTrue(self::$subject->isCountryInEU('DE'));
-        static::assertFalse(self::$subject->isCountryInEU('XX'));
-        static::markTestIncomplete('add better tests');
+        static::assertSame($expectedResult, self::$subject->isCountryInEU($value));
     }
 }

@@ -30,6 +30,7 @@ class LinkTest extends OpenMageTest
 
     protected function setUp(): void
     {
+        parent::setUp();
         self::$subject = new Subject();
     }
 
