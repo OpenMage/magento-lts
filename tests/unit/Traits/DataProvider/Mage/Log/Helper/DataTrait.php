@@ -15,11 +15,11 @@
 
 declare(strict_types=1);
 
-namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log;
+namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Helper;
 
 use Generator;
 
-trait LogTrait
+trait DataTrait
 {
     public function provideIsLogFileExtensionValid(): Generator
     {

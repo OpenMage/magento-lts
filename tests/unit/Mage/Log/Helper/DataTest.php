@@ -20,11 +20,11 @@ namespace OpenMage\Tests\Unit\Mage\Log\Helper;
 use Mage;
 use Mage_Log_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
-use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\LogTrait;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Helper\DataTrait;
 
 class DataTest extends OpenMageTest
 {
-    use LogTrait;
+    use DataTrait;
 
     private static Subject $subject;
 

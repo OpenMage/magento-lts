@@ -17,41 +17,59 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget\Page;
 
-use Mage;
 use Mage_Cms_Block_Widget_Page_Link as Subject;
+use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Block\Widget\Page\LinkTrait;
 
 class LinkTest extends OpenMageTest
 {
+    use LinkTrait;
+
     private static Subject $subject;
 
-    public static function setUpBeforeClass(): void
+    protected function setUp(): void
     {
-        parent::setUpBeforeClass();
         self::$subject = new Subject();
     }
 
     /**
+     * @dataProvider provideGetHrefData
      * @group Block
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
      */
-    public function testGetHref(): void
+    public function testGetHref(string $expectedResult, array $data): void
     {
-        static::assertIsString(self::$subject->getHref());
+        self::$subject->setData($data);
+
+        $result = self::$subject->getHref();
+        static::assertSame($expectedResult, $result);
     }
 
     /**
+     * @dataProvider provideGetTitleData
      * @group Block
+     * @throws Mage_Core_Model_Store_Exception
      */
-    public function testGetTitle(): void
+    public function testGetTitle(string $expectedResult, array $data): void
     {
-        static::assertIsString(self::$subject->getTitle());
+        self::$subject->setData($data);
+
+        $result = self::$subject->getTitle();
+        static::assertSame($expectedResult, $result);
     }
 
     /**
+     * @dataProvider provideGetAnchorTextData
      * @group Block
+     * @throws Mage_Core_Model_Store_Exception
      */
-    //    public function testGetAnchorText(): void
-    //    {
-    //        $this->assertIsString(self::$subject->getAnchorText());
-    //    }
+    public function testGetAnchorText(bool|string|null $expectedResult, array $data): void
+    {
+        self::$subject->setData($data);
+
+        $result = self::$subject->getAnchorText();
+        static::assertSame($expectedResult, $result);
+    }
 }

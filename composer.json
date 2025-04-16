@@ -103,7 +103,7 @@
         }
     ],
     "autoload-dev": {
-        "classmap": ["app/code"],
+        "classmap": ["app/code/*/*/*/controllers"],
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
