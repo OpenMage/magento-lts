@@ -75,7 +75,6 @@ class DataTest extends OpenMageTest
     /**
      * @dataProvider provideFormatTimezoneDate
      * @group Helper
-     * @group Dates
      */
     public function testFormatTimezoneDate(
         string $expectedResult,
