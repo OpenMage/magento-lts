@@ -72,14 +72,14 @@ trait LinkTrait
         $data = $emptyData;
         $data['page_id'] = 1;
         yield 'page_id is set' => [
-            '404 Not Found',
+            '404 Not Found 1',
             $data,
         ];
 
         $data = $emptyData;
         $data['href'] = 'home';
         yield 'href is set' => [
-            'Madison Island',
+            'Home page',
             $data,
         ];
 
@@ -120,14 +120,14 @@ trait LinkTrait
         $data = $emptyData;
         $data['page_id'] = 1;
         yield 'page_id is set' => [
-            '404 Not Found',
+            '404 Not Found 1',
             $data,
         ];
 
         $data = $emptyData;
         $data['href'] = 'home';
         yield 'href is set' => [
-            'Madison Island',
+            'Home page',
             $data,
         ];
 
