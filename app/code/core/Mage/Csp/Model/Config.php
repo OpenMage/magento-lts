@@ -56,8 +56,6 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
 
     /**
      * Retrieve all adapters
-     *
-     * @return array
      */
     public function getPolicies(): array
     {
@@ -85,7 +83,6 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
 
     /**
      * @param string $id
-     * @return bool
      */
     protected function _loadCache($id): bool
     {
@@ -113,7 +110,6 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @param Varien_Simplexml_Config $config
      * @param bool $overwrite
      * @return $this
      */
