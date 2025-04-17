@@ -72,7 +72,7 @@ echo -e "Order deny,allow\nDeny from all\n" > patches/.htaccess
 curl -L https://github.com/OpenMage/magento-lts/pull/3146.patch -o var/patches/3146_Add-form-key-validation-to-Contacts-form.patch
 ```
 
-Note, you can also have the patch downloaded at runtime by defining it as a URL instead of a local path.
+Note, you can also have the patch downloaded at runtime by defining it as an URL instead of a local path.
 
 ```json
 {

@@ -23,7 +23,7 @@ The `addColumn()` method is the primary way to add columns to a grid in OpenMage
 
 ### Parameters:
 
-1. `$columnId` (string): A unique identifier for the column. This ID is used to reference the column elsewhere in the code.
+1. `$columnId` (string): An unique identifier for the column. This ID is used to reference the column elsewhere in the code.
 2. `$column` (array): An array of column attributes that define the column's behavior and appearance.
 
 ## Column Attributes

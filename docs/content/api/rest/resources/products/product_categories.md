@@ -60,7 +60,7 @@ As a result, the category with ID equal to 2 will be assigned to the specified p
 
 ### HTTP Method: DELETE
 
-**Description**: Allows you to remove a assigned category from a specified product.
+**Description**: Allows you to remove an assigned category from a specified product.
 
 **Authentication**: Admin<br>
 **Default Format**: JSON<br>
