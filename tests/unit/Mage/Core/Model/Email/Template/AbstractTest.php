@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-namespace unit\Mage\Core\Model\Email\Template;
+namespace OpenMage\Tests\Unit\Mage\Core\Model\Email\Template;
 
 use Mage_Core_Model_Email_Template_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;

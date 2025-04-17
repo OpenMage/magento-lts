@@ -60,7 +60,7 @@ class CollectionTest extends OpenMageTest
      * @dataProvider provideReportsDateIntervals
      * @group Model
      */
-    public function testGetIntervals(int $expectedResult, string|Zend_Date $from, string|Zend_Date $to, string $period): void
+    public function testGetIntervals(int|string $expectedResult, string|Zend_Date $from, string|Zend_Date $to, string $period): void
     {
         self::$subject->setInterval($from, $to);
         self::$subject->setPeriod($period);

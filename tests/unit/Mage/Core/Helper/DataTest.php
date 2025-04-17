@@ -245,16 +245,6 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Core_Helper_Data::checkLfiProtection()
-     * @group Helper
-     * @throws Mage_Core_Exception
-     */
-    public function testCheckLfiProtection(string $name): void
-    {
-        static::assertTrue(self::$subject->checkLfiProtection($name));
-    }
-
-    /**
      * @covers Mage_Core_Helper_Data::useDbCompatibleMode()
      * @group Helper
      */

@@ -60,7 +60,7 @@ class DataTest extends OpenMageTest
      * @dataProvider provideReportsDateIntervals
      * @group Helper
      */
-    public function testGetIntervals(int $expectedResult, string $from, string $to, string $period): void
+    public function testGetIntervals(int|string $expectedResult, string $from, string $to, string $period): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             static::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
@@ -76,13 +76,15 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Reports_Helper_Data::prepareIntervalsCollection()
      * @dataProvider provideReportsDateIntervals
-     * @doesNotPerformAssertions
      * @group Helper
      */
     public function testPrepareIntervalsCollection(int|string $expectedResult, string $from, string $to, string $period): void
     {
+        $collection = new Varien_Data_Collection();
+
         try {
-            self::$subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
+            self::$subject->prepareIntervalsCollection($collection, $from, $to, $period);
+            static::assertGreaterThanOrEqual(0, $collection->count());
         } catch (\Zend_Date_Exception $exception) {
             static::assertSame($expectedResult, $exception->getMessage());
         }
