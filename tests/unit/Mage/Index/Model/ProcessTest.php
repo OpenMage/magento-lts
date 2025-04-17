@@ -43,7 +43,7 @@ class ProcessTest extends OpenMageTest
         self::$subject->setIndexerCode('html');
 
         try {
-            static::assertInstanceOf(Subject::class, self::$subject->reindexEverything());
+            static::assertInstanceOf(self::$subject::class, self::$subject->reindexEverything());
         } catch (Mage_Core_Exception $exception) {
             static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
@@ -57,7 +57,7 @@ class ProcessTest extends OpenMageTest
         self::$subject->setIndexerCode('html');
 
         try {
-            static::assertInstanceOf(Subject::class, self::$subject->disableIndexerKeys());
+            static::assertInstanceOf(self::$subject::class, self::$subject->disableIndexerKeys());
         } catch (Mage_Core_Exception $exception) {
             static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
@@ -72,7 +72,7 @@ class ProcessTest extends OpenMageTest
         self::$subject->setIndexerCode('html');
 
         try {
-            static::assertInstanceOf(Subject::class, self::$subject->enableIndexerKeys());
+            static::assertInstanceOf(self::$subject::class, self::$subject->enableIndexerKeys());
         } catch (Mage_Core_Exception $exception) {
             static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }

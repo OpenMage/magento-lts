@@ -104,7 +104,7 @@ class AbstractTest extends OpenMageTest
      */
     public function testLoadPost(array $data = []): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->loadPost($data));
+        static::assertInstanceOf(self::$subject::class, self::$subject->loadPost($data));
     }
 
     /**
@@ -152,7 +152,7 @@ class AbstractTest extends OpenMageTest
      */
     public function testSetIsDeleteable(bool $value): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setIsDeleteable($value));
+        static::assertInstanceOf(self::$subject::class, self::$subject->setIsDeleteable($value));
     }
 
     /**
@@ -171,7 +171,7 @@ class AbstractTest extends OpenMageTest
      */
     public function testSetIsReadonly(bool $value): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setIsReadonly($value));
+        static::assertInstanceOf(self::$subject::class, self::$subject->setIsReadonly($value));
     }
 
     /**

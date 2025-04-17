@@ -44,7 +44,7 @@ class VariableTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
+        static::assertInstanceOf(self::$subject::class, $mock);
         static::assertSame($expectedResult, $mock->validate());
     }
 

@@ -26,6 +26,14 @@ class PageTest extends OpenMageTest
 {
     use NumericStringTrait;
 
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
+    }
+
     /**
      * @dataProvider provideNumericString
      * @group Block
@@ -37,7 +45,7 @@ class PageTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
+        static::assertInstanceOf(self::$subject::class, $mock);
         static::assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
     }
 }

@@ -36,7 +36,7 @@ class HeadTest extends OpenMageTest
      */
     public function testAddCss(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addCss('test'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addCss('test'));
     }
 
     /**
@@ -44,7 +44,7 @@ class HeadTest extends OpenMageTest
      */
     public function testAddJs(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addJs('test'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addJs('test'));
     }
 
     /**
@@ -52,7 +52,7 @@ class HeadTest extends OpenMageTest
      */
     public function testAddCssIe(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addCssIe('test'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addCssIe('test'));
     }
 
     /**
@@ -60,7 +60,7 @@ class HeadTest extends OpenMageTest
      */
     public function testAddJsIe(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addJsIe('test'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addJsIe('test'));
     }
 
     /**
@@ -68,6 +68,6 @@ class HeadTest extends OpenMageTest
      */
     public function testAddLinkRel(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addLinkRel('test', 'ref'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addLinkRel('test', 'ref'));
     }
 }

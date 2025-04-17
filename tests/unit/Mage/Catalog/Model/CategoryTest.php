@@ -82,7 +82,7 @@ class CategoryTest extends OpenMageTest
      */
     public function testAfterCommitCallback(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
+        static::assertInstanceOf(self::$subject::class, self::$subject->afterCommitCallback());
     }
 
     /**

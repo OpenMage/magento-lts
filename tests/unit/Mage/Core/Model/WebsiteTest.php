@@ -40,8 +40,8 @@ class WebsiteTest extends OpenMageTest
      */
     public function testLoad(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->load(1));
-        static::assertInstanceOf(Subject::class, self::$subject->load('default'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->load(1));
+        static::assertInstanceOf(self::$subject::class, self::$subject->load('default'));
     }
 
     /**
@@ -49,8 +49,8 @@ class WebsiteTest extends OpenMageTest
      */
     public function testLoadConfig(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->loadConfig('1'));
-        static::assertInstanceOf(Subject::class, self::$subject->loadConfig('default'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->loadConfig('1'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->loadConfig('default'));
     }
 
     /**

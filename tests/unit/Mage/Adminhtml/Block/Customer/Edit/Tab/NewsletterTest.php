@@ -44,7 +44,7 @@ class NewsletterTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertInstanceOf(Subject::class, $mock->initForm());
+        static::assertInstanceOf(self::$subject::class, $mock);
+        static::assertInstanceOf(self::$subject::class, $mock->initForm());
     }
 }

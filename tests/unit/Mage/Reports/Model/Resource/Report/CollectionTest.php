@@ -44,7 +44,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testSetPeriod(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setPeriod('1m'));
+        static::assertInstanceOf(self::$subject::class, self::$subject->setPeriod('1m'));
     }
 
     /**
@@ -53,7 +53,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testSetIntervals(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setInterval(new Zend_Date(), new Zend_Date()));
+        static::assertInstanceOf(self::$subject::class, self::$subject->setInterval(new Zend_Date(), new Zend_Date()));
     }
 
     /**
@@ -106,7 +106,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testSetPageSize(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setPageSize(1));
+        static::assertInstanceOf(self::$subject::class, self::$subject->setPageSize(1));
     }
 
     /**
@@ -123,7 +123,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testInitReport(string $modelClass = ''): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->initReport($modelClass));
+        static::assertInstanceOf(self::$subject::class, self::$subject->initReport($modelClass));
     }
 
     /**

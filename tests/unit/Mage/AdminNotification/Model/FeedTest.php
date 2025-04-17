@@ -44,7 +44,7 @@ class FeedTest extends OpenMageTest
      */
     public function testCheckUpdate(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->checkUpdate());
+        static::assertInstanceOf(self::$subject::class, self::$subject->checkUpdate());
     }
 
     /**

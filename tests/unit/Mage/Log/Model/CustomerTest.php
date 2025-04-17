@@ -82,7 +82,7 @@ class CustomerTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
+        static::assertInstanceOf(self::$subject::class, $mock);
         if ($expectedResult) {
             static::assertIsInt($mock->getLoginAtTimestamp());
         } else {

@@ -54,7 +54,7 @@ class InboxTest extends OpenMageTest
     public function testLoadLatestNotice(bool $delete = false): void
     {
         $result = self::$subject->loadLatestNotice();
-        static::assertInstanceOf(Subject::class, $result);
+        static::assertInstanceOf(self::$subject::class, $result);
         if ($delete) {
             $result->delete();
         }
@@ -65,7 +65,7 @@ class InboxTest extends OpenMageTest
      */
     public function testAdd(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->add(
+        static::assertInstanceOf(self::$subject::class, self::$subject->add(
             Subject::SEVERITY_CRITICAL,
             self::TITLE,
             [__METHOD__],
@@ -93,7 +93,7 @@ class InboxTest extends OpenMageTest
      */
     public function testAddCritical(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addCritical(self::TITLE, __METHOD__));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addCritical(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -103,7 +103,7 @@ class InboxTest extends OpenMageTest
      */
     public function testAddMajor(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addMajor(self::TITLE, __METHOD__));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addMajor(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -113,7 +113,7 @@ class InboxTest extends OpenMageTest
      */
     public function testAddMinor(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addMinor(self::TITLE, __METHOD__));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addMinor(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -123,7 +123,7 @@ class InboxTest extends OpenMageTest
      */
     public function testAddNotice(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addNotice(self::TITLE, __METHOD__));
+        static::assertInstanceOf(self::$subject::class, self::$subject->addNotice(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 }
