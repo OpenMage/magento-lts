@@ -49,7 +49,7 @@ class GridTest extends OpenMageTest
 
         $row->setStatus($data);
 
-        $expectedResult = sprintf('<span class="%s"><span>%s</span></span>', $expectedResult, $value);
+        $expectedResult = sprintf(self::$subject::PATTERN_SEVERITY, $expectedResult, $value);
         static::assertSame($expectedResult, self::$subject->decorateStatus($value, $row, $column, $isExpected));
     }
 
@@ -67,7 +67,7 @@ class GridTest extends OpenMageTest
 
         $row->setUpdateRequired($data);
 
-        $expectedResult = sprintf('<span class="%s"><span>%s</span></span>', $expectedResult, $value);
+        $expectedResult = sprintf(self::$subject::PATTERN_SEVERITY, $expectedResult, $value);
         static::assertSame($expectedResult, self::$subject->decorateUpdateRequired($value, $row, $column, $isExpected));
     }
 }

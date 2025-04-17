@@ -194,7 +194,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = self::SEVERITY_CRITICAL;
                 break;
         }
-        return sprintf('<span class="%s"><span>%s</span></span>', $class, $value);
+        return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
     /**
@@ -218,7 +218,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = self::SEVERITY_CRITICAL;
                 break;
         }
-        return sprintf('<span class="%s"><span>%s</span></span>', $class, $value);
+        return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
     /**

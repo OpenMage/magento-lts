@@ -25,6 +25,7 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
+    public const PATTERN_SEVERITY   = '<span class="%s"><span>%s</span></span>';
     public const SEVERITY_CRITICAL  = 'grid-severity-critical';
     public const SEVERITY_MAJOR     = 'grid-severity-major';
     public const SEVERITY_MINOR     = 'grid-severity-minor';
