@@ -39,7 +39,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
     {
         $this->_title(Mage::helper('sales')->__('Sales'))->_title(Mage::helper('sales')->__('Recurring Profiles'))
             ->loadLayout()
-            ->_setActiveMenu('sales/recurring_profile')
+            ->_setActiveMenu(self::ADMIN_RESOURCE)
             ->renderLayout();
         return $this;
     }
@@ -53,7 +53,7 @@ class Mage_Adminhtml_Sales_Recurring_ProfileController extends Mage_Adminhtml_Co
             $this->_title(Mage::helper('sales')->__('Sales'))->_title(Mage::helper('sales')->__('Recurring Profiles'));
             $profile = $this->_initProfile();
             $this->loadLayout()
-                ->_setActiveMenu('sales/recurring_profile')
+                ->_setActiveMenu(self::ADMIN_RESOURCE)
                 ->_title(Mage::helper('sales')->__('Profile #%s', $profile->getReferenceId()))
                 ->renderLayout()
             ;
