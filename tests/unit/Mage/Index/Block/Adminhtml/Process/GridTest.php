@@ -36,7 +36,7 @@ class GridTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Index_Model_Indexer::decorateStatus()
+     * @covers Mage_Index_Block_Adminhtml_Process_Grid::decorateStatus()
      * @dataProvider provideDecorateStatusData
      * @group Model
      */
@@ -54,7 +54,7 @@ class GridTest extends OpenMageTest
     }
 
     /**
-     * @covers Mage_Index_Model_Indexer::decorateUpdateRequired()
+     * @covers Mage_Index_Block_Adminhtml_Process_Grid::decorateUpdateRequired()
      * @dataProvider provideDecorateUpdateRequiredData
      * @group Model
      */
