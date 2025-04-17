@@ -1679,6 +1679,16 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "gdemarsico",
+      "name": "Gastón De Mársico",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2066819?v=4",
+      "profile": "https://github.com/gdemarsico",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"

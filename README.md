@@ -271,6 +271,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/magentox"><img src="https://avatars.githubusercontent.com/u/44047835?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>magentox</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/stasadev"><img src="https://avatars.githubusercontent.com/u/24270994?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Stanislav Zhuk</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Axepih"><img src="https://avatars.githubusercontent.com/u/95623175?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Axepih</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gdemarsico"><img src="https://avatars.githubusercontent.com/u/2066819?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Gastón De Mársico</b></sub></a></td>
     </tr>
   </tbody>
 </table>
