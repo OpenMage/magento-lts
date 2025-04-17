@@ -153,9 +153,9 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         // get legacy theme choice form backend config
         if (Mage::getStoreConfigFlag('admin/design/use_legacy_theme')) {
-            $package = Mage::getConfig()->getNode("stores/admin/design/package/name");
+            $package = Mage::getConfig()->getNode('stores/admin/design/package/name');
         } else {
-            $package = Mage::getConfig()->getNode("stores/admin/design/package/openmage");
+            $package = Mage::getConfig()->getNode('stores/admin/design/package/openmage');
         }
 
         Mage::getDesign()
