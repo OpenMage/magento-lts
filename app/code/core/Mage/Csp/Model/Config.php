@@ -37,10 +37,8 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
      */
     protected function _construct(): self
     {
-        if (Mage::app()->useCache('config_csp')) {
-            if ($this->loadCache()) {
-                return $this;
-            }
+        if (Mage::app()->useCache('config_csp') && $this->loadCache()) {
+            return $this;
         }
 
         $this->loadString('<config/>');
