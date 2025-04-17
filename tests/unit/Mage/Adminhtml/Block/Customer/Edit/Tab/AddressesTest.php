@@ -24,7 +24,6 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 class AddressesTest extends OpenMageTest
 {
-    /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
     public static function setUpBeforeClass(): void
@@ -45,7 +44,7 @@ class AddressesTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(self::$subject::class, $mock);
-        static::assertInstanceOf(self::$subject::class, $mock->initForm());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

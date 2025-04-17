@@ -54,7 +54,7 @@ class ConfigTest extends OpenMageTest
      */
     public function testLoadAclResources(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->loadAclResources(new Mage_Admin_Model_Acl()));
+        static::assertInstanceOf(Subject::class, self::$subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
     /**

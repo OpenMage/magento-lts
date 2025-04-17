@@ -46,7 +46,7 @@ class BlockTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(self::$subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertEquals($expectedResult, $mock->validate());
     }
 

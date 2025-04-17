@@ -37,7 +37,7 @@ class CatalogTest extends OpenMageTest
      */
     public function testSetAttributeTabBlock(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->setAttributeTabBlock(''));
+        static::assertInstanceOf(Subject::class, self::$subject->setAttributeTabBlock(''));
     }
 
     /**
@@ -46,7 +46,7 @@ class CatalogTest extends OpenMageTest
      */
     public function testSetCategoryAttributeTabBlock(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->setCategoryAttributeTabBlock(''));
+        static::assertInstanceOf(Subject::class, self::$subject->setCategoryAttributeTabBlock(''));
     }
 
     /**

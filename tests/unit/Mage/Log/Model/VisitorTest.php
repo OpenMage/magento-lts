@@ -37,7 +37,7 @@ class VisitorTest extends OpenMageTest
      */
     public function testInitServerData(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->initServerData());
+        static::assertInstanceOf(Subject::class, self::$subject->initServerData());
     }
 
     /**

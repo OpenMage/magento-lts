@@ -71,7 +71,7 @@ class ProductTest extends OpenMageTest
      */
     public function testValidate(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->validate());
+        static::assertInstanceOf(Subject::class, self::$subject->validate());
     }
 
     /**
@@ -96,7 +96,7 @@ class ProductTest extends OpenMageTest
      */
     public function testSetPriceCalculation(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->setPriceCalculation());
+        static::assertInstanceOf(Subject::class, self::$subject->setPriceCalculation());
     }
 
     /**
@@ -145,7 +145,7 @@ class ProductTest extends OpenMageTest
      */
     public function testAfterCommitCallback(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->afterCommitCallback());
+        static::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
     }
 
     /**

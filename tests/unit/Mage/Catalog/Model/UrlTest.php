@@ -54,7 +54,7 @@ class UrlTest extends OpenMageTest
      */
     public function testRefreshRewrites(?int $storeId): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->refreshRewrites($storeId));
+        static::assertInstanceOf(Subject::class, self::$subject->refreshRewrites($storeId));
     }
 
     /**

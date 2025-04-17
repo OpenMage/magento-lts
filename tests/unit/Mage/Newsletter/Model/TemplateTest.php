@@ -126,7 +126,7 @@ class TemplateTest extends OpenMageTest
      */
     public function testLoadByCode(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->loadByCode('test_code'));
+        static::assertInstanceOf(Subject::class, self::$subject->loadByCode('test_code'));
     }
 
     /**

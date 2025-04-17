@@ -38,6 +38,6 @@ class DefaultTest extends OpenMageTest
      */
     public function testSetItem(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->setItem(new Varien_Object()));
+        static::assertInstanceOf(Subject::class, self::$subject->setItem(new Varien_Object()));
     }
 }

@@ -66,7 +66,7 @@ class IndexerTest extends OpenMageTest
      */
     public function testLockIndexer(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->lockIndexer());
+        static::assertInstanceOf(Subject::class, self::$subject->lockIndexer());
     }
 
     /**
@@ -75,7 +75,7 @@ class IndexerTest extends OpenMageTest
      */
     public function testUnlockIndexer(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->unlockIndexer());
+        static::assertInstanceOf(Subject::class, self::$subject->unlockIndexer());
     }
 
     /**
@@ -84,7 +84,7 @@ class IndexerTest extends OpenMageTest
     public function testIndexEvent(): void
     {
         $event = new Mage_Index_Model_Event();
-        static::assertInstanceOf(self::$subject::class, self::$subject->indexEvent($event));
+        static::assertInstanceOf(Subject::class, self::$subject->indexEvent($event));
     }
 
     /**
@@ -93,7 +93,7 @@ class IndexerTest extends OpenMageTest
     public function testRegisterEvent(): void
     {
         $event = new Mage_Index_Model_Event();
-        static::assertInstanceOf(self::$subject::class, self::$subject->registerEvent($event));
+        static::assertInstanceOf(Subject::class, self::$subject->registerEvent($event));
     }
 
     /**
@@ -102,7 +102,7 @@ class IndexerTest extends OpenMageTest
      */
     public function testAllowTableChanges(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->allowTableChanges());
+        static::assertInstanceOf(Subject::class, self::$subject->allowTableChanges());
     }
 
     /**
@@ -111,6 +111,6 @@ class IndexerTest extends OpenMageTest
      */
     public function testDisallowTableChanges(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->disallowTableChanges());
+        static::assertInstanceOf(Subject::class, self::$subject->disallowTableChanges());
     }
 }

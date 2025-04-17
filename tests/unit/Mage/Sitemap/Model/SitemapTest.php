@@ -44,7 +44,7 @@ class SitemapTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(self::$subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertIsString($mock->getPreparedFilename());
     }
 
@@ -58,10 +58,10 @@ class SitemapTest extends OpenMageTest
     public function testGenerateXml(array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-        static::assertInstanceOf(self::$subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock);
 
         $result = $mock->generateXml();
-        static::assertInstanceOf(self::$subject::class, $result);
+        static::assertInstanceOf(Subject::class, $result);
 
         /** @var string $file */
         $file = $methods['getSitemapFilename'];

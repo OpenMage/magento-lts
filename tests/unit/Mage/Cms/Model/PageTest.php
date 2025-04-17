@@ -38,8 +38,8 @@ class PageTest extends OpenMageTest
      */
     public function testLoad(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->load(null));
-        static::assertInstanceOf(self::$subject::class, self::$subject->load(2));
+        static::assertInstanceOf(Subject::class, self::$subject->load(null));
+        static::assertInstanceOf(Subject::class, self::$subject->load(2));
     }
 
     /**

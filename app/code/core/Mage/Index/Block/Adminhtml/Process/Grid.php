@@ -52,6 +52,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Prepare grid collection
      *
      * @return $this
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
@@ -66,6 +67,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Add name and description to collection elements
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoadCollection()
     {
@@ -89,10 +91,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Prepare grid columns
      *
      * @return $this
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
         $this->addColumn('indexer_code', [
             'header'    => Mage::helper('index')->__('Index'),
             'width'     => '180',

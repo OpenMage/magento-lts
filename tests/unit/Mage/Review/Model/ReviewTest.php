@@ -43,7 +43,7 @@ class ReviewTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(self::$subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertSame($expectedResult, $mock->validate());
     }
 }

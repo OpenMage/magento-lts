@@ -41,7 +41,7 @@ class TextTest extends OpenMageTest
     public function testValidateUserValue(): void
     {
         self::$subject->setOption(new Mage_Catalog_Model_Product_Option());
-        static::assertInstanceOf(self::$subject::class, self::$subject->validateUserValue([]));
+        static::assertInstanceOf(Subject::class, self::$subject->validateUserValue([]));
     }
 
 

@@ -44,7 +44,7 @@ class HeaderTest extends OpenMageTest
      */
     public function testSetLogo(): void
     {
-        static::assertInstanceOf(self::$subject::class, self::$subject->setLogo('src', 'alt'));
+        static::assertInstanceOf(Subject::class, self::$subject->setLogo('src', 'alt'));
     }
 
     /**

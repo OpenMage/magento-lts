@@ -75,7 +75,7 @@ class FileTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        static::assertInstanceOf(self::$subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertSame($expectedResult, $mock->getDataMaxSize());
     }
 
@@ -87,7 +87,7 @@ class FileTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        static::assertInstanceOf(self::$subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock);
         static::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 }
