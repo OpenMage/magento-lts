@@ -15,5 +15,12 @@
  */
 -->
 <theme>
-    <parent>base/default</parent>
+    <parent>default/default</parent>
+    <layout>
+        <updates>
+            <openmage_adminhtml_default>
+                <file>openmage.xml</file>
+            </openmage_adminhtml_default>
+        </updates>
+    </layout>
 </theme>
