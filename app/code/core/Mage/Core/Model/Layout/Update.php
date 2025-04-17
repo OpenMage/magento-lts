@@ -479,7 +479,8 @@ class Mage_Core_Model_Layout_Update
      * Add layout files added via theme.xml to layout updates
      * for all themes that are parents of this theme.
      */
-    public function addFallbackThemesLayoutUpdates(Mage_Core_Model_Config_Element $updates) {
+    public function addFallbackThemesLayoutUpdates(Mage_Core_Model_Config_Element $updates)
+    {
         /* @var $designPackage Mage_Core_Model_Design_Package */
         $designPackage = Mage::getSingleton('core/design_package');
         /* @var $fallback Mage_Core_Model_Design_Fallback */
@@ -487,9 +488,9 @@ class Mage_Core_Model_Layout_Update
 
         $fallbacks = $fallback->getFallbackScheme($designPackage->getArea(), $designPackage->getPackageName(), $designPackage->getTheme('layout'));
 
-        for($i=count($fallbacks)-1; $i>=0; $i--) {
+        for ($i = count($fallbacks) - 1; $i >= 0; $i--) {
             $fallback = $fallbacks[$i];
-            if(!isset($fallback['_package']) || !isset($fallback['_theme'])) {
+            if (!isset($fallback['_package'], $fallback['_theme'])) {
                 continue;
             }
 
@@ -498,14 +499,12 @@ class Mage_Core_Model_Layout_Update
 
             $themeUpdateGroups = Mage::getSingleton('core/design_config')->getNode("{$designPackage->getArea()}/$fallbackPackage/$fallbackTheme/layout/updates");
 
-            if(!$themeUpdateGroups) {
+            if (!$themeUpdateGroups) {
                 continue;
             }
 
-            foreach($themeUpdateGroups as $themeUpdateGroup) {
-                $themeUpdateGroupArray = $themeUpdateGroup->asArray();
-
-                foreach($themeUpdateGroupArray as $key => $themeUpdate) {
+            foreach ($themeUpdateGroups as $themeUpdateGroup) {
+                foreach ($themeUpdateGroup->asArray() as $key => $themeUpdate) {
                     $updateNode = $updates->addChild($key);
                     $updateNode->addChild('file', $themeUpdate['file']);
                 }
