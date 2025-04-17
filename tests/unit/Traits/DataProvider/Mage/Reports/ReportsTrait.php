@@ -50,6 +50,13 @@ trait ReportsTrait
                 '',
                 Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
             ];
+        } else {
+            yield $prefix . 'no to' => [
+                'No date part in \'\' found.',
+                self::$dateFirstDay,
+                '',
+                Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+            ];
         }
 
         yield $prefix . 'same day' => [
