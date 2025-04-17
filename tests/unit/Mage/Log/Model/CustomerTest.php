@@ -28,15 +28,6 @@ class CustomerTest extends OpenMageTest
 {
     use CustomerTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('log/customer');
-    }
-
     /**
      * @dataProvider loadByCustomerDataProvider
      * @group Model

@@ -24,14 +24,6 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 class AddressesTest extends OpenMageTest
 {
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = new Subject();
-    }
-
     /**
      * @group Block
      * @throws Mage_Core_Exception

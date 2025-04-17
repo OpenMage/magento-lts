@@ -20,24 +20,17 @@ use Mage;
 use Mage_Review_Model_Review as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\ReviewTrait;
+use Zend_Validate_Exception;
 
 class ReviewTest extends OpenMageTest
 {
     use ReviewTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('review/review');
-    }
-
     /**
      * @dataProvider provideValidateReviewData
      * @param array|true $expectedResult
      * @group Model
+     * @throws Zend_Validate_Exception
      */
     public function testValidate($expectedResult, array $methods): void
     {

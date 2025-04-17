@@ -27,15 +27,6 @@ class SitemapTest extends OpenMageTest
 {
     use SitemapTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sitemap/sitemap');
-    }
-
     /**
      * @dataProvider provideGetPreparedFilenameData
      * @group Model

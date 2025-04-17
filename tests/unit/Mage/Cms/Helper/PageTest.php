@@ -26,15 +26,6 @@ class PageTest extends OpenMageTest
 {
     use CmsTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = Mage::helper('cms/page');
-    }
-
     /**
      * @dataProvider provideGetUsedInStoreConfigPaths
      * @group Helper
