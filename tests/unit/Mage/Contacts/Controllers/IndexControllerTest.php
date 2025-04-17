@@ -17,22 +17,19 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Contacts\Controllers;
 
-use Generator;
 use Mage;
 use Mage_Contacts_IndexController as Subject;
 use Mage_Core_Exception;
 use Mage_Customer_Model_Session;
 use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Contacts\Controllers\IndexControllerTrait;
 
 class IndexControllerTest extends OpenMageTest
 {
-    protected function setUp(): void
-    {
-        Mage::app();
-    }
+    use IndexControllerTrait;
 
     /**
-     * @dataProvider postActionDataProvider
+     * @dataProvider providePostActionData
      * @group Controller
      * @group runInSeparateProcess
      * @runInSeparateProcess
@@ -74,60 +71,5 @@ class IndexControllerTest extends OpenMageTest
         $subject->postAction();
 
         Mage::unregister('_singleton/customer/session');
-    }
-
-    public function postActionDataProvider(): Generator
-    {
-        $validData = [
-            'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
-            'comment' => 'Test comment',
-        ];
-
-        $error = 'Unable to submit your request. Please, try again later';
-
-        #yield 'valid data' => [
-        #    $validData,
-        #    true,
-        #    null,
-        #];
-
-        yield 'invalid form key' => [
-            $validData,
-            false,
-            'Invalid Form Key. Please submit your request again.',
-        ];
-
-        $data = $validData;
-        $data['name'] = '';
-        yield 'missing name' => [
-            $data,
-            true,
-            $error,
-        ];
-
-        $data = $validData;
-        $data['email'] = '';
-        yield 'missing email' => [
-            $data,
-            true,
-            $error,
-        ];
-
-        $data = $validData;
-        $data['email'] = 'invalid-email';
-        yield 'invalid email' => [
-            $data,
-            true,
-            $error,
-        ];
-
-        $data = $validData;
-        $data['comment'] = '';
-        yield 'missing comment' => [
-            $data,
-            true,
-            $error,
-        ];
     }
 }
