@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
-use Mage;
 use Mage_Page_Block_Redirect as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 

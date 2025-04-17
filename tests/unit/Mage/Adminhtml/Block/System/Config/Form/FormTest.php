@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form;
 
-use Mage;
 use Mage_Adminhtml_Block_System_Config_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 

@@ -19,7 +19,6 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model;
 
 use Mage;
 use Mage_Cms_Model_Page as Subject;
-use Mage_Core_Model_Resource_Db_Collection_Abstract;
 use OpenMage\Tests\Unit\OpenMageTest;
 
 class PageTest extends OpenMageTest

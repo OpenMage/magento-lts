@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
-use Mage_Core_Exception;
 use Mage_Core_Helper_Data as Subject;
 use Mage_Core_Model_Encryption;
 use Mage_Core_Model_Locale;

@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
-use Mage;
 use Mage_Cms_Helper_Page as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
 use OpenMage\Tests\Unit\OpenMageTest;

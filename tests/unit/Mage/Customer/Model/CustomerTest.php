@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Customer\Model;
 
-use Mage;
 use Mage_Core_Exception;
 use Mage_Customer_Model_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;

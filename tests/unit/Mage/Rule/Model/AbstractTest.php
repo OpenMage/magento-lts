@@ -19,7 +19,6 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
 use Composer\InstalledVersions;
 use Error;
-use Mage;
 use Mage_Core_Exception;
 use Mage_Rule_Model_Abstract as Subject;
 use Mage_Rule_Model_Action_Collection;

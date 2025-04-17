@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
 
-use Mage;
 use Mage_Uploader_Block_Abstract as Subject;
 use Mage_Uploader_Model_Config_Browsebutton;
 use Mage_Uploader_Model_Config_Misc;
