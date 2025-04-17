@@ -135,7 +135,6 @@ class DataTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group UsesSampleDataFlag
      */
     public function testGetTaxRatesByProductClass(): void
     {
@@ -147,7 +146,6 @@ class DataTest extends OpenMageTest
 
     /**
      * @group Helper
-     * @group UsesSampleDataFlag
      */
     public function testGetAllRatesByProductClass(): void
     {

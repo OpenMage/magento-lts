@@ -60,7 +60,6 @@ class LayoutTest extends OpenMageTest
      * @covers Mage_Core_Model_Layout::getBlockSingleton()
      * @dataProvider provideGetBlockSingleton
      * @group Model
-     * @group pr4411
      *
      * @param class-string $expectedResult
      */

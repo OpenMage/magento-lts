@@ -31,7 +31,6 @@ class CustomerTest extends OpenMageTest
     /**
      * @dataProvider provideValidateCustomerData
      * @param array|true $expectedResult
-     * @group Mage_Customer_Model
      * @throws Mage_Core_Exception
      * @throws Zend_Validate_Exception
      */

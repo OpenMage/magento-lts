@@ -25,7 +25,6 @@ use XMLReader;
 class XmlFileLoadingTest extends TestCase
 {
     /**
-     * @group Base
      * @dataProvider provideXmlFiles
      */
     public function testFileLoading(string $filepath): void
@@ -40,7 +39,6 @@ class XmlFileLoadingTest extends TestCase
     }
 
     /**
-     * @group Base
      * @dataProvider provideXmlFiles
      */
     public function testXmlReaderIsValid(string $filepath): void

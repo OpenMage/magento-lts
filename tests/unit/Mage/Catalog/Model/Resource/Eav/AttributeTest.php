@@ -36,7 +36,6 @@ class AttributeTest extends OpenMageTest
     /**
      * @dataProvider provideGetStoreId
      * @group Model
-     * @group Mage_Catalog_Model_Resource
      */
     public function testGetStoreId(?int $expectedResult, int|string|null $withStoreId): void
     {
