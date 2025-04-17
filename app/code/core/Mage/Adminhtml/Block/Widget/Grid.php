@@ -25,6 +25,11 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
+    public const SEVERITY_CRITICAL  = 'grid-severity-critical';
+    public const SEVERITY_MAJOR     = 'grid-severity-major';
+    public const SEVERITY_MINOR     = 'grid-severity-minor';
+    public const SEVERITY_NOTICE    = 'grid-severity-notice';
+
     /**
      * Columns array
      *
