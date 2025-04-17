@@ -26,17 +26,17 @@ trait GridTrait
     public function provideDecorateStatusData(): Generator
     {
         yield 'pending' => [
-            Mage_Adminhtml_Block_Widget_Grid::CLASS_SEVERITY_NOTICE,
+            Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_NOTICE,
             Mage_Index_Model_Process::STATUS_PENDING,
         ];
 
         yield 'working' => [
-            Mage_Adminhtml_Block_Widget_Grid::CLASS_SEVERITY_MAJOR,
+            Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_MAJOR,
             Mage_Index_Model_Process::STATUS_RUNNING,
         ];
 
         yield 'require reindex' => [
-            Mage_Adminhtml_Block_Widget_Grid::CLASS_SEVERITY_CRITICAL,
+            Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_CRITICAL,
             Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
         ];
     }
@@ -44,12 +44,12 @@ trait GridTrait
     public function provideDecorateUpdateRequiredData(): Generator
     {
         yield 'no' => [
-            Mage_Adminhtml_Block_Widget_Grid::CLASS_SEVERITY_NOTICE,
+            Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_NOTICE,
             0,
         ];
 
         yield 'yes' => [
-            Mage_Adminhtml_Block_Widget_Grid::CLASS_SEVERITY_CRITICAL,
+            Mage_Adminhtml_Block_Widget_Grid::CSS_SEVERITY_CRITICAL,
             1,
         ];
     }

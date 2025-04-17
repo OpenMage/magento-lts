@@ -185,13 +185,13 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $class = '';
         switch ($row->getStatus()) {
             case Mage_Index_Model_Process::STATUS_PENDING:
-                $class = self::CLASS_SEVERITY_NOTICE;
+                $class = self::CSS_SEVERITY_NOTICE;
                 break;
             case Mage_Index_Model_Process::STATUS_RUNNING:
-                $class = self::CLASS_SEVERITY_MAJOR;
+                $class = self::CSS_SEVERITY_MAJOR;
                 break;
             case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
-                $class = self::CLASS_SEVERITY_CRITICAL;
+                $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
         return sprintf(self::PATTERN_SEVERITY, $class, $value);
@@ -212,10 +212,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $class = '';
         switch ($row->getUpdateRequired()) {
             case 0:
-                $class = self::CLASS_SEVERITY_NOTICE;
+                $class = self::CSS_SEVERITY_NOTICE;
                 break;
             case 1:
-                $class = self::CLASS_SEVERITY_CRITICAL;
+                $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
         return sprintf(self::PATTERN_SEVERITY, $class, $value);

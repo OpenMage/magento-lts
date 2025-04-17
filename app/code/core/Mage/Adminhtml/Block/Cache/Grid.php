@@ -107,12 +107,12 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
     {
         $class = '';
         if (isset($this->_invalidatedTypes[$row->getId()])) {
-            $class = self::CLASS_SEVERITY_MINOR;
+            $class = self::CSS_SEVERITY_MINOR;
             $value = $this->__('Invalidated');
         } elseif ($row->getStatus()) {
-            $class = self::CLASS_SEVERITY_NOTICE;
+            $class = self::CSS_SEVERITY_NOTICE;
         } else {
-            $class = self::CLASS_SEVERITY_CRITICAL;
+            $class = self::CSS_SEVERITY_CRITICAL;
         }
         return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
