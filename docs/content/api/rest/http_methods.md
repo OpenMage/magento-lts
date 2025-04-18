@@ -32,7 +32,7 @@ You can retrieve a representation of a resource by getting its URL.
 
 The POST method is defined in section 9.5 of the [RFC2616](http://www.ietf.org/rfc/rfc2616.txt) document:
 
-> The POST method is used to request that the origin server accept the entity enclosed in the request as a new subordinate of the resource identified by the Request-URI in the Request-Line. POST is designed to allow an uniform method to cover the following functions:
+> The POST method is used to request that the origin server accept the entity enclosed in the request as a new subordinate of the resource identified by the Request-URI in the Request-Line. POST is designed to allow a uniform method to cover the following functions:
 >
 > *   Annotation of existing resources;
 >
