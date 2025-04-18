@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
 use Mage_Page_Block_Html as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HtmlTest extends TestCase
+class HtmlTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -37,7 +37,7 @@ class HtmlTest extends TestCase
      */
     public function testGetBaseUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseUrl());
+        static::assertIsString(self::$subject->getBaseUrl());
     }
 
     /**
@@ -46,7 +46,7 @@ class HtmlTest extends TestCase
      */
     public function testGetBaseSecureUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseSecureUrl());
+        static::assertIsString(self::$subject->getBaseSecureUrl());
     }
 
     /**
@@ -55,7 +55,7 @@ class HtmlTest extends TestCase
      */
     //    public function testGetCurrentUrl(): void
     //    {
-    //        $this->assertIsString($this->subject->getCurrentUrl());
+    //        $this->assertIsString(self::$subject->getCurrentUrl());
     //    }
 
     /**
@@ -64,6 +64,6 @@ class HtmlTest extends TestCase
      */
     public function testGetPrintLogoUrl(): void
     {
-        $this->assertIsString($this->subject->getPrintLogoUrl());
+        static::assertIsString(self::$subject->getPrintLogoUrl());
     }
 }

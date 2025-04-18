@@ -19,16 +19,15 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Visitor as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class VisitorTest extends TestCase
+class VisitorTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('log/visitor');
+        self::$subject = Mage::getModel('log/visitor');
     }
 
     /**
@@ -39,7 +38,7 @@ class VisitorTest extends TestCase
      */
     public function testInitServerData(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->initServerData());
+        static::assertInstanceOf(Subject::class, self::$subject->initServerData());
     }
 
     /**
@@ -50,7 +49,7 @@ class VisitorTest extends TestCase
      */
     public function testGetOnlineMinutesInterval(): void
     {
-        $this->assertIsInt($this->subject->getOnlineMinutesInterval());
+        static::assertIsInt(self::$subject->getOnlineMinutesInterval());
     }
 
     /**
@@ -61,7 +60,7 @@ class VisitorTest extends TestCase
      */
     public function testGetUrl(): void
     {
-        $this->assertIsString($this->subject->getUrl());
+        static::assertIsString(self::$subject->getUrl());
     }
 
     /**
@@ -72,7 +71,7 @@ class VisitorTest extends TestCase
      */
     public function testGetFirstVisitAt(): void
     {
-        $this->assertIsString($this->subject->getFirstVisitAt());
+        static::assertIsString(self::$subject->getFirstVisitAt());
     }
 
     /**
@@ -83,6 +82,6 @@ class VisitorTest extends TestCase
      */
     public function testGetLastVisitAt(): void
     {
-        $this->assertIsString($this->subject->getLastVisitAt());
+        static::assertIsString(self::$subject->getLastVisitAt());
     }
 }

@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Mage;
 use Mage_Adminhtml_Helper_Data as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('adminhtml/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('adminhtml/data');
     }
 
     /**
@@ -40,7 +40,7 @@ class DataTest extends TestCase
      */
     public function testGetUrl(): void
     {
-        $this->assertIsString($this->subject->getUrl());
+        static::assertIsString(self::$subject->getUrl());
     }
 
     /**
@@ -52,7 +52,7 @@ class DataTest extends TestCase
      */
     public function testGetCurrentUserId(): void
     {
-        $this->assertFalse($this->subject->getCurrentUserId());
+        static::assertFalse(self::$subject->getCurrentUserId());
     }
 
     /**
@@ -62,7 +62,7 @@ class DataTest extends TestCase
      */
     public function testPrepareFilterString(): void
     {
-        $this->assertIsArray($this->subject->prepareFilterString(''));
+        static::assertIsArray(self::$subject->prepareFilterString(''));
     }
 
     /**
@@ -73,8 +73,8 @@ class DataTest extends TestCase
     public function testDecodeFilter(): void
     {
         $string = '';
-        $this->subject->decodeFilter($string);
-        $this->assertSame('', $string);
+        self::$subject->decodeFilter($string);
+        static::assertSame('', $string);
     }
 
     /**
@@ -84,6 +84,6 @@ class DataTest extends TestCase
      */
     public function testIsEnabledSecurityKeyUrl(): void
     {
-        $this->assertTrue($this->subject->isEnabledSecurityKeyUrl());
+        static::assertTrue(self::$subject->isEnabledSecurityKeyUrl());
     }
 }

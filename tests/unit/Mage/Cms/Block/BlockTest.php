@@ -18,10 +18,10 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Cms\Block;
 
 use Mage_Cms_Block_Block as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
-use PHPUnit\Framework\TestCase;
 
-class BlockTest extends TestCase
+class BlockTest extends OpenMageTest
 {
     use NumericStringTrait;
 
@@ -32,11 +32,12 @@ class BlockTest extends TestCase
      */
     public function testGetCacheKeyInfo(string $blockId): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getBlockId'])
-            ->getMock();
+        $methods = [
+            'getBlockId' => $blockId,
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock->method('getBlockId')->willReturn($blockId);
-        $this->assertIsArray($mock->getCacheKeyInfo());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertIsArray($mock->getCacheKeyInfo());
     }
 }

@@ -973,7 +973,7 @@ class Mage_Core_Model_App
     /**
      * Retrieve application website object
      *
-     * @param null|Mage_Core_Model_Website|true|int|string $id
+     * @param null|Mage_Core_Model_Website|bool|int|string $id
      * @return Mage_Core_Model_Website
      */
     public function getWebsite($id = null)

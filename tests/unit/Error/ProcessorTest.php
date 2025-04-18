@@ -46,7 +46,7 @@ class ProcessorTest extends TestCase
         foreach ($serverVars as $serverVar => $value) {
             $_SERVER[$serverVar] = $value;
         }
-        $this->assertSame($expectedResult, $this->subject->getHostUrl());
+        static::assertSame($expectedResult, $this->subject->getHostUrl());
     }
 
     public function provideGetHostUrl(): Generator

@@ -17,18 +17,16 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
-use Mage;
 use Mage_Adminhtml_Block_Cache as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CacheTest extends TestCase
+class CacheTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
@@ -39,7 +37,7 @@ class CacheTest extends TestCase
      */
     public function testGetFlushStorageUrl(): void
     {
-        $this->assertStringStartsWith('http', $this->subject->getFlushStorageUrl());
+        static::assertStringStartsWith('http', self::$subject->getFlushStorageUrl());
     }
 
     /**
@@ -50,6 +48,6 @@ class CacheTest extends TestCase
      */
     public function testGetFlushSystemUrl(): void
     {
-        $this->assertStringStartsWith('http', $this->subject->getFlushSystemUrl());
+        static::assertStringStartsWith('http', self::$subject->getFlushSystemUrl());
     }
 }

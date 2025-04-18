@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
 use Mage_Page_Block_Switch as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class SwitchTest extends TestCase
+class SwitchTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -37,7 +37,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentWebsiteId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentWebsiteId());
+        static::assertIsInt(self::$subject->getCurrentWebsiteId());
     }
 
     /**
@@ -46,7 +46,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentGroupId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentGroupId());
+        static::assertIsInt(self::$subject->getCurrentGroupId());
     }
 
     /**
@@ -55,7 +55,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentStoreId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentStoreId());
+        static::assertIsInt(self::$subject->getCurrentStoreId());
     }
 
     /**
@@ -64,7 +64,7 @@ class SwitchTest extends TestCase
      */
     public function testGetCurrentStoreCode(): void
     {
-        $this->assertIsString($this->subject->getCurrentStoreCode());
+        static::assertIsString(self::$subject->getCurrentStoreCode());
     }
 
     /**
@@ -73,7 +73,7 @@ class SwitchTest extends TestCase
      */
     public function testGetRawGroups(): void
     {
-        $this->assertIsArray($this->subject->getRawGroups());
+        static::assertIsArray(self::$subject->getRawGroups());
     }
 
     /**
@@ -82,7 +82,7 @@ class SwitchTest extends TestCase
      */
     //    public function testGetRawStores(): void
     //    {
-    //        $this->assertIsArray($this->subject->getRawStores());
+    //        $this->assertIsArray(self::$subject->getRawStores());
     //    }
 
     /**
@@ -91,7 +91,7 @@ class SwitchTest extends TestCase
      */
     //    public function testGetGroups(): void
     //    {
-    //        $this->assertIsArray($this->subject->getGroups());
+    //        $this->assertIsArray(self::$subject->getGroups());
     //    }
 
     /**
@@ -100,7 +100,7 @@ class SwitchTest extends TestCase
      */
     //    public function testGetStores(): void
     //    {
-    //        $this->assertIsArray($this->subject->getStores());
+    //        $this->assertIsArray(self::$subject->getStores());
     //    }
 
     /**
@@ -109,6 +109,6 @@ class SwitchTest extends TestCase
      */
     public function testIsStoreInUrl(): void
     {
-        $this->assertIsBool($this->subject->isStoreInUrl());
+        static::assertIsBool(self::$subject->isStoreInUrl());
     }
 }

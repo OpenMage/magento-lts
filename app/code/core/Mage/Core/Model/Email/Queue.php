@@ -35,8 +35,8 @@
  * @method string getMessageBody()
  * @method $this setMessageBody(string $value)
  * @method $this setMessageBodyHash(string $value)
- * @method string getMessageParameters()
- * @method $this setMessageParameters(string $value)
+ * @method array getMessageParameters()
+ * @method $this setMessageParameters(array $value)
  * @method $this setProcessedAt(string $value)
  */
 class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract

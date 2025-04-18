@@ -17,19 +17,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Log\Helper;
 
-use Generator;
 use Mage;
 use Mage_Log_Helper_Data as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\LogTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    use LogTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('log/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('log/data');
     }
 
     /**
@@ -39,7 +41,7 @@ class DataTest extends TestCase
      */
     public function testIsVisitorLogEnabled(): void
     {
-        $this->assertTrue($this->subject->isVisitorLogEnabled());
+        static::assertTrue(self::$subject->isVisitorLogEnabled());
     }
 
     /**
@@ -49,7 +51,7 @@ class DataTest extends TestCase
      */
     public function testIsLogEnabled(): void
     {
-        $this->assertFalse($this->subject->isLogEnabled());
+        static::assertFalse(self::$subject->isLogEnabled());
     }
 
     /**
@@ -59,7 +61,7 @@ class DataTest extends TestCase
      */
     public function testIsLogDisabled(): void
     {
-        $this->assertFalse($this->subject->isLogDisabled());
+        static::assertFalse(self::$subject->isLogDisabled());
     }
 
     /**
@@ -70,18 +72,6 @@ class DataTest extends TestCase
      */
     public function testIsLogFileExtensionValid(bool $expectedResult, string $file): void
     {
-        $this->assertSame($expectedResult, $this->subject->isLogFileExtensionValid($file));
-    }
-
-    public function provideIsLogFileExtensionValid(): Generator
-    {
-        yield 'valid' => [
-            true,
-            'valid.log',
-        ];
-        yield 'invalid' => [
-            false,
-            'invalid.file',
-        ];
+        static::assertSame($expectedResult, self::$subject->isLogFileExtensionValid($file));
     }
 }

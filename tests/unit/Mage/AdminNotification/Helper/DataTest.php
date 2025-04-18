@@ -20,16 +20,16 @@ namespace OpenMage\Tests\Unit\Mage\AdminNotification\Helper;
 use Mage;
 use Mage_AdminNotification_Helper_Data as Subject;
 use Mage_AdminNotification_Model_Inbox;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('adminnotification/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('adminnotification/data');
     }
 
     /**
@@ -38,7 +38,7 @@ class DataTest extends TestCase
      */
     public function testGetLatestNotice(): void
     {
-        $this->assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, $this->subject->getLatestNotice());
+        static::assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, self::$subject->getLatestNotice());
     }
 
     /**
@@ -47,7 +47,7 @@ class DataTest extends TestCase
      */
     public function testGetUnreadNoticeCount(): void
     {
-        $this->assertIsInt($this->subject->getUnreadNoticeCount(99));
+        static::assertIsInt(self::$subject->getUnreadNoticeCount(99));
     }
 
     /**
@@ -57,6 +57,6 @@ class DataTest extends TestCase
      */
     public function testGetPopupObjectUrl(): void
     {
-        $this->assertSame('', $this->subject->getPopupObjectUrl());
+        static::assertSame('', self::$subject->getPopupObjectUrl());
     }
 }

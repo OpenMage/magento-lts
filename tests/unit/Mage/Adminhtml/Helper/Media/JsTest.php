@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Media;
 
 use Mage;
 use Mage_Adminhtml_Helper_Media_Js as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class JsTest extends TestCase
+class JsTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('adminhtml/media_js');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('adminhtml/media_js');
     }
 
     /**
@@ -37,6 +37,6 @@ class JsTest extends TestCase
      */
     public function testDecodeGridSerializedInput(): void
     {
-        $this->assertIsString($this->subject->getTranslatorScript());
+        static::assertIsString(self::$subject->getTranslatorScript());
     }
 }

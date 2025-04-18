@@ -14,6 +14,9 @@
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * Template model
  *
@@ -79,31 +82,51 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        $validators = [
-            'template_code'         => [Zend_Filter_Input::ALLOW_EMPTY => false],
-            'template_type'         => 'Int',
-            'template_sender_email' => 'EmailAddress',
-            'template_sender_name'  => [Zend_Filter_Input::ALLOW_EMPTY => false],
-        ];
-        $data = [];
-        foreach (array_keys($validators) as $validateField) {
-            $data[$validateField] = $this->getDataUsingMethod($validateField);
+        $validator  = Validation::createValidator();
+        $violations = [];
+        $errors     = new ArrayObject();
+
+        $violations[] = $validator->validate($this->getDataUsingMethod('template_code'), [
+            new Assert\NotBlank([
+                'message' => 'You must give a non-empty value for field \'template_code\'',
+            ]),
+        ]);
+
+        $message = 'You must give a non-empty value for field \'template_type\'';
+        $violations[] = $validator->validate($this->getDataUsingMethod('template_type'), [
+            new Assert\NotBlank([
+                'message' => $message,
+            ]),
+            new Assert\Type([
+                'type' => 'int',
+                'message' => $message,
+            ]),
+        ]);
+
+        $message = '\'invalid-email\' is not a valid email address in the basic format local-part@hostname';
+        $violations[] = $validator->validate($this->getDataUsingMethod('template_sender_email'), [
+            new Assert\NotBlank([
+                'message' => $message,
+            ]),
+            new Assert\Email([
+                'message' => $message,
+            ]),
+        ]);
+
+        $violations[] = $validator->validate($this->getDataUsingMethod('template_sender_name'), [
+            new Assert\NotBlank([
+                'message' => 'You must give a non-empty value for field \'template_sender_name\'',
+            ]),
+        ]);
+
+        foreach ($violations as $violation) {
+            foreach ($violation as $error) {
+                $errors->append($error->getMessage());
+            }
         }
 
-        $validateInput = new Zend_Filter_Input([], $validators, $data);
-        if (!$validateInput->isValid()) {
-            $errorMessages = [];
-            foreach ($validateInput->getMessages() as $messages) {
-                if (is_array($messages)) {
-                    foreach ($messages as $message) {
-                        $errorMessages[] = $message;
-                    }
-                } else {
-                    $errorMessages[] = $messages;
-                }
-            }
-
-            Mage::throwException(implode("\n", $errorMessages));
+        if (count($errors) !== 0) {
+            Mage::throwException(implode("\n", iterator_to_array($errors)));
         }
     }
 
@@ -111,6 +134,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Processing object before save data
      *
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
@@ -147,7 +171,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
     /**
      * Getter for template type
      *
-     * @return int|string
+     * @return int
      */
     public function getType()
     {
@@ -280,7 +304,8 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * @param   array                                     $variables    template variables
      * @param   string|null                               $name         receiver name (if subscriber model not specified)
      * @param   Mage_Newsletter_Model_Queue|null          $queue        queue model, used for problems reporting.
-     * @return bool
+     * @return  bool
+     * @throws  Exception|Throwable
      * @deprecated since 1.4.0.1
      **/
     public function send($subscriber, array $variables = [], $name = null, ?Mage_Newsletter_Model_Queue $queue = null)
@@ -346,7 +371,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
             if (!is_null($queue)) {
                 $subscriber->received($queue);
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
                 // If letter sent for subscriber, we create a problem report entry
                 $problem = Mage::getModel('newsletter/problem');
@@ -354,7 +379,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 if (!is_null($queue)) {
                     $problem->addQueueData($queue);
                 }
-                $problem->addErrorData($e);
+                $problem->addErrorData($exception);
                 $problem->save();
 
                 if (!is_null($queue)) {
@@ -362,7 +387,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 }
             } else {
                 // Otherwise throw error to upper level
-                throw $e;
+                throw $exception;
             }
             return false;
         }
@@ -374,6 +399,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Prepare Process (with save)
      *
      * @return $this
+     * @throws Throwable
      * @deprecated since 1.4.0.1
      */
     public function preprocess()
@@ -388,6 +414,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      * Retrieve processed template subject
      *
      * @return string
+     * @throws Exception
      */
     public function getProcessedTemplateSubject(array $variables)
     {

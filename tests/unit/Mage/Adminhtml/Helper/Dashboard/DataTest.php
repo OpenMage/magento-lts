@@ -20,16 +20,16 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper\Dashboard;
 use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Data as Subject;
 use Mage_Core_Model_Resource_Store_Collection;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('adminhtml/dashboard_data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('adminhtml/dashboard_data');
     }
 
     /**
@@ -39,7 +39,7 @@ class DataTest extends TestCase
      */
     public function testGetStores(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, $this->subject->getStores());
+        static::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, self::$subject->getStores());
     }
 
     /**
@@ -49,7 +49,7 @@ class DataTest extends TestCase
      */
     public function testCountStores(): void
     {
-        $this->assertIsInt($this->subject->countStores());
+        static::assertIsInt(self::$subject->countStores());
     }
 
     /**
@@ -60,13 +60,13 @@ class DataTest extends TestCase
     public function testGetDatePeriods(): void
     {
         $expectedResult = [
-            '24h' => $this->subject->__('Last 24 Hours'),
-            '7d'  => $this->subject->__('Last 7 Days'),
-            '1m'  => $this->subject->__('Current Month'),
-            '1y'  => $this->subject->__('YTD'),
-            '2y'  => $this->subject->__('2YTD'),
+            '24h' => self::$subject->__('Last 24 Hours'),
+            '7d'  => self::$subject->__('Last 7 Days'),
+            '1m'  => self::$subject->__('Current Month'),
+            '1y'  => self::$subject->__('YTD'),
+            '2y'  => self::$subject->__('2YTD'),
         ];
-        $this->assertSame($expectedResult, $this->subject->getDatePeriods());
+        static::assertSame($expectedResult, self::$subject->getDatePeriods());
     }
 
     /**
@@ -76,6 +76,6 @@ class DataTest extends TestCase
      */
     public function testGetChartDataHash(): void
     {
-        $this->assertIsString($this->subject->getChartDataHash(''));
+        static::assertIsString(self::$subject->getChartDataHash(''));
     }
 }

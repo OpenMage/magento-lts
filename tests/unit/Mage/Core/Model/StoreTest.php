@@ -20,18 +20,17 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 use Mage;
 use Mage_Core_Model_Store as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class StoreTest extends TestCase
+class StoreTest extends OpenMageTest
 {
     use CoreTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('core/store');
+        self::$subject = Mage::getModel('core/store');
     }
 
     /**
@@ -44,8 +43,8 @@ class StoreTest extends TestCase
     public function testGetId(?int $expectedResult, $withStore): void
     {
         if ($withStore) {
-            $this->subject->setData('store_id', $withStore);
+            self::$subject->setData('store_id', $withStore);
         }
-        $this->assertSame($expectedResult, $this->subject->getId());
+        static::assertSame($expectedResult, self::$subject->getId());
     }
 }

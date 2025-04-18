@@ -19,17 +19,17 @@ namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Item\Renderer;
 
 use Mage;
 use Mage_Sales_Block_Order_Item_Renderer_Default as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Object;
 
-class DefaultTest extends TestCase
+class DefaultTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -39,6 +39,6 @@ class DefaultTest extends TestCase
      */
     public function testSetItem(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setItem(new Varien_Object()));
+        static::assertInstanceOf(Subject::class, self::$subject->setItem(new Varien_Object()));
     }
 }

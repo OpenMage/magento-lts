@@ -17,19 +17,21 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper\Product;
 
-use Generator;
 use Mage;
 use Mage_Catalog_Helper_Product_Url as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\Product\UrlTrait;
 
-class UrlTest extends TestCase
+class UrlTest extends OpenMageTest
 {
-    public Subject $subject;
+    use UrlTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('catalog/product_url');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('catalog/product_url');
     }
 
     /**
@@ -39,8 +41,8 @@ class UrlTest extends TestCase
      */
     public function testGetConvertTable(): void
     {
-        $result = $this->subject->getConvertTable();
-        $this->assertCount(317, $result);
+        $result = self::$subject->getConvertTable();
+        static::assertCount(317, $result);
     }
 
     /**
@@ -50,8 +52,8 @@ class UrlTest extends TestCase
      */
     public function testGetConvertTableCustom(): void
     {
-        $result = $this->subject->getConvertTableCustom();
-        $this->assertEmpty($result);
+        $result = self::$subject->getConvertTableCustom();
+        static::assertEmpty($result);
     }
 
     /**
@@ -61,8 +63,8 @@ class UrlTest extends TestCase
      */
     public function testGetConvertTableShort(): void
     {
-        $result = $this->subject->getConvertTableShort();
-        $this->assertCount(4, $result);
+        $result = self::$subject->getConvertTableShort();
+        static::assertCount(4, $result);
     }
 
     /**
@@ -73,26 +75,6 @@ class UrlTest extends TestCase
      */
     public function testFormat(string $expectedResult, ?string $string): void
     {
-        $this->assertSame($expectedResult, $this->subject->format($string));
-    }
-
-    public function provideFormat(): Generator
-    {
-        yield 'null' => [
-            '',
-            null,
-        ];
-        yield 'string' => [
-            'string',
-            'string',
-        ];
-        yield 'umlauts' => [
-            'string with aou',
-            'string with ÄÖÜ',
-        ];
-        yield 'at' => [
-            'at',
-            '@',
-        ];
+        static::assertSame($expectedResult, self::$subject->format($string));
     }
 }

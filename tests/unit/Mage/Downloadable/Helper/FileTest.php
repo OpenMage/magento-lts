@@ -20,18 +20,18 @@ namespace OpenMage\Tests\Unit\Mage\Downloadable\Helper;
 use Mage;
 use Mage_Downloadable_Helper_File as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\DownloadableTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class FileTest extends TestCase
+class FileTest extends OpenMageTest
 {
     use DownloadableTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('downloadable/file');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('downloadable/file');
     }
 
     /**
@@ -42,7 +42,7 @@ class FileTest extends TestCase
      */
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
-        $result = $this->subject->getFilePath($path, $file);
-        $this->assertSame($expectedResult, $result);
+        $result = self::$subject->getFilePath($path, $file);
+        static::assertSame($expectedResult, $result);
     }
 }

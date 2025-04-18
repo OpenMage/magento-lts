@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Log as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LogTest extends TestCase
+class LogTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('log/log');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('log/log');
     }
 
     /**
@@ -37,6 +37,6 @@ class LogTest extends TestCase
      */
     public function testClean(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->clean());
+        static::assertInstanceOf(Subject::class, self::$subject->clean());
     }
 }

@@ -19,16 +19,16 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget\Page;
 
 use Mage;
 use Mage_Cms_Block_Widget_Page_Link as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LinkTest extends TestCase
+class LinkTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
@@ -37,7 +37,7 @@ class LinkTest extends TestCase
      */
     public function testGetHref(): void
     {
-        $this->assertIsString($this->subject->getHref());
+        static::assertIsString(self::$subject->getHref());
     }
 
     /**
@@ -46,7 +46,7 @@ class LinkTest extends TestCase
      */
     public function testGetTitle(): void
     {
-        $this->assertIsString($this->subject->getTitle());
+        static::assertIsString(self::$subject->getTitle());
     }
 
     /**
@@ -55,6 +55,6 @@ class LinkTest extends TestCase
      */
     //    public function testGetAnchorText(): void
     //    {
-    //        $this->assertIsString($this->subject->getAnchorText());
+    //        $this->assertIsString(self::$subject->getAnchorText());
     //    }
 }

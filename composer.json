@@ -40,15 +40,18 @@
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
+        "symfony/mime": "^6.4",
         "symfony/polyfill-php82": "^1.31",
         "symfony/polyfill-php83": "^1.31",
         "symfony/polyfill-php84": "^1.31",
         "symfony/string": "^6.4",
         "symfony/translation-contracts": "^3.5",
+        "symfony/validator": "^6.4",
         "tinymce/tinymce": "^7.5"
     },
     "require-dev": {
         "ext-xmlreader": "*",
+        "composer/composer": "^2.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
@@ -102,6 +105,9 @@
             "url": "https://opencollective.com/openmage"
         }
     ],
+    "autoload": {
+        "classmap": ["app/code"]
+    },
     "autoload-dev": {
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "tests/unit"
@@ -152,8 +158,9 @@
         "php-cs-fixer:test": "vendor/bin/php-cs-fixer fix --dry-run --diff",
         "php-cs-fixer:fix": "vendor/bin/php-cs-fixer fix",
         "phpmd": "vendor/bin/phpmd app/code/core/Mage text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
-        "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
-        "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.neon",
+        "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -c .phpstan.dist.openmage.neon",
+        "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -c .phpstan.dist.openmage.neon -b .phpstan.dist.baseline.neon",
+        "phpstan:phpunit": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -c .phpstan.dist.phpunit.neon",
         "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --no-coverage",
         "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testdox",
         "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage",
@@ -171,6 +178,7 @@
         "phpmd": "Run phpmd",
         "phpstan": "Run phpstan",
         "phpstan:baseline": "Run phpstan and update baseline",
+        "phpstan:phpunit": "Run phpstan for PHPUnit tests",
         "phpunit:test": "Run PHPUnit",
         "phpunit:coverage": "Run PHPUnit with code coverage (requires XDEBUG enabled)",
         "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage (requires XDEBUG enabled)",

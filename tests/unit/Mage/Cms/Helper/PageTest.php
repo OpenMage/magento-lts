@@ -20,18 +20,19 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 use Mage;
 use Mage_Cms_Helper_Page as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class PageTest extends TestCase
+class PageTest extends OpenMageTest
 {
     use CmsTrait;
 
-    public Subject $subject;
+    /** @phpstan-ignore property.onlyWritten */
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('cms/page');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('cms/page');
     }
 
     /**
@@ -41,6 +42,6 @@ class PageTest extends TestCase
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
-        $this->assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
+        static::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
     }
 }

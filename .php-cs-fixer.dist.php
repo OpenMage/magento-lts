@@ -15,7 +15,7 @@ return $config
         // PHP84: Adds or removes ? before single type declarations or |null at the end of union types when parameters have a default null value.
         'nullable_type_declaration_for_default_null_value' => true,
         // Calls to PHPUnit\Framework\TestCase static methods must all be of the same type, either $this->, self:: or static::
-        'php_unit_test_case_static_method_calls' => ['call_type' => 'this'],
+        'php_unit_test_case_static_method_calls' => ['call_type' => 'static'],
         // Convert double quotes to single quotes for simple strings.
         'single_quote' => true,
         // Arguments lists, array destructuring lists, arrays that are multi-line, match-lines and parameters lists must have a trailing comma.
