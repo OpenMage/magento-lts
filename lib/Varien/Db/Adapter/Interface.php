@@ -50,6 +50,7 @@ interface Varien_Db_Adapter_Interface
      * Error message for DDL query in transactions
      */
     public const ERROR_DDL_MESSAGE = 'DDL statements are not allowed in transactions';
+    public const ERROR_TRANSACTION_NOT_COMMITTED = 'Some transactions have not been committed or rolled back';
 
     /**
      * Begin new DB transaction for connection
