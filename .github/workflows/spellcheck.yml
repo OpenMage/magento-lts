@@ -6,7 +6,7 @@ on:
 
 jobs:
   spellcheck:
-    name: Spellcheck
+    name: Markdown
     runs-on: [ubuntu-latest]
 
     steps:
