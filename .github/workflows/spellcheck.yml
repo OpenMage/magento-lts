@@ -1,4 +1,4 @@
-name: Spellcheck
+name: Markdown
 
 on:
   workflow_call:
