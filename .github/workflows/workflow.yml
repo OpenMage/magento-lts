@@ -132,7 +132,7 @@ jobs:
   # DOES NOT run by default
   # runs on schedule or when workflow or unit tests changed
   unit_tests:
-    name: Unit Tests (OpenMage)
+    name: PHPUnit
     needs: [check, php-cs-fixer]
     if: |
       needs.check.outputs.php > 0 ||
@@ -142,7 +142,7 @@ jobs:
     uses: ./.github/workflows/phpunit.yml
 
   spellcheck:
-    name: Documentation spell check - trigger2
+    name: Documentation
     needs: [check]
     if: |
       needs.check.outputs.markdown > 0 ||
