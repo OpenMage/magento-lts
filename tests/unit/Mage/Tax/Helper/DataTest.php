@@ -119,8 +119,9 @@ class DataTest extends OpenMageTest
      */
     public function testNeedPriceConversion(): void
     {
-        #$this->assertSame(1, self::$subject->needPriceConversion());
-        static::markTestIncomplete();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        /** @phpstan-ignore deadCode.unreachable */
+        $this->assertSame(1, self::$subject->needPriceConversion());
     }
 
     /**
