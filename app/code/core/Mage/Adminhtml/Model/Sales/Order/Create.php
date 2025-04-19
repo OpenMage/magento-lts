@@ -252,6 +252,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
      * Initialize creation data from existing order
      *
      * @return $this
+     *
+     * @uses Mage_Weee_Model_Observer_SetSessionQuoteStore::execute()
      */
     public function initFromOrder(Mage_Sales_Model_Order $order)
     {

@@ -68,16 +68,14 @@
             <checkout_cart_update_items_before>
                 <observers>
                     <wishlist>
-                        <class>wishlist/observer</class>
-                        <method>processCartUpdateBefore</method>
+                        <class>wishlist/observer_processCartUpdateBefore</class>
                     </wishlist>
                 </observers>
             </checkout_cart_update_items_before>
             <checkout_cart_add_product_complete>
                 <observers>
                     <wishlist>
-                        <class>wishlist/observer</class>
-                        <method>processAddToCart</method>
+                        <class>wishlist/observer_processAddToCart</class>
                     </wishlist>
                 </observers>
             </checkout_cart_add_product_complete>
@@ -122,16 +120,14 @@
             <customer_login>
                 <observers>
                     <wishlist>
-                        <class>wishlist/observer</class>
-                        <method>customerLogin</method>
+                        <class>wishlist/observer_customerLogin</class>
                     </wishlist>
                 </observers>
             </customer_login>
             <customer_logout>
                 <observers>
                     <wishlist>
-                        <class>wishlist/observer</class>
-                        <method>customerLogout</method>
+                        <class>wishlist/observer_customerLogout</class>
                     </wishlist>
                 </observers>
             </customer_logout>

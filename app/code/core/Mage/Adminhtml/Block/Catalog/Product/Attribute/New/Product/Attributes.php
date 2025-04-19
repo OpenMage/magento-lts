@@ -19,9 +19,17 @@
  *
  * @category   Mage
  * @package    Mage_Adminhtml
+ *
+ * @method array getGroupAttributes()
+ * @method $this setGroupAttributes(array $value)
  */
 class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes extends Mage_Adminhtml_Block_Catalog_Form
 {
+    /**
+     * @inheritDoc
+     *
+     * @uses Mage_Weee_Model_Observer_SetWeeeRendererInForm::execute()
+     */
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
@@ -53,9 +61,15 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         $form->addValues($values);
         $form->setFieldNameSuffix('product');
         $this->setForm($form);
-        return $this;
+
+        return parent::_prepareForm();
     }
 
+    /**
+     * @return array
+     *
+     * @uses Mage_Weee_Model_Observer_UpdateElementTypes::execute()
+     */
     protected function _getAdditionalElementTypes()
     {
         $result = [
@@ -65,16 +79,19 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_New_Product_Attributes exte
         ];
 
         $response = new Varien_Object();
-        $response->setTypes([]);
+        $response->setData('types', []);
         Mage::dispatchEvent('adminhtml_catalog_product_edit_element_types', ['response' => $response]);
 
-        foreach ($response->getTypes() as $typeName => $typeClass) {
+        foreach ($response->getDataByKey('types') as $typeName => $typeClass) {
             $result[$typeName] = $typeClass;
         }
 
         return $result;
     }
 
+    /**
+     * @return string
+     */
     protected function _toHtml()
     {
         parent::_toHtml();

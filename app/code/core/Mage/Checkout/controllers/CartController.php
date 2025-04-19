@@ -194,6 +194,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
      * Add product to shopping cart action
      *
      * @throws Mage_Core_Exception
+     *
+     * @uses Mage_Wishlist_Model_Observer_ProcessAddToCart::execute()
      */
     public function addAction()
     {

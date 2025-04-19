@@ -100,6 +100,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
      * Returns JSON encoded config to be used in JS scripts
      *
      * @return string
+     *
+     * @throws Mage_Core_Model_Store_Exception
+     *
+     * @uses Mage_Weee_Model_Observer_UpdateBundleProductOptions::execute()
      */
     public function getJsonConfig()
     {
@@ -254,9 +258,10 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                 $responseObject = new Varien_Object();
                 $args = ['response_object' => $responseObject, 'selection' => $bundleSelection];
                 Mage::dispatchEvent('bundle_product_view_config', $args);
-                if (is_array($responseObject->getAdditionalOptions())) {
-                    foreach ($responseObject->getAdditionalOptions() as $o => $v) {
-                        $selection[$o] = $v;
+                $additionalOptions = $responseObject->getData('additional_options');
+                if (is_array($additionalOptions)) {
+                    foreach ($additionalOptions as $additionalKey => $additionalValue) {
+                        $selection[$additionalKey] = $additionalValue;
                     }
                 }
                 $option['selections'][$selectionId] = $selection;

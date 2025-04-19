@@ -93,8 +93,7 @@
             <cms_wysiwyg_config_prepare>
                 <observers>
                     <widget_observer>
-                        <class>widget/observer</class>
-                        <method>prepareWidgetsPluginConfig</method>
+                        <class>widget/observer_prepareWidgetsPluginConfig</class>
                     </widget_observer>
                 </observers>
             </cms_wysiwyg_config_prepare>

@@ -44,6 +44,8 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
      * Get configuration for configurable swatches price change
      *
      * @return string
+     *
+     *  @uses Mage_Weee_Model_Observer_UpdateCofigurableProductOptions::execute()
      */
     public function getJsonConfig()
     {
@@ -67,8 +69,9 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_List_Price extends Mage_Co
                 'response_object' => $responseObject,
                 'product' => $product,
             ]);
-            if (is_array($responseObject->getAdditionalOptions())) {
-                foreach ($responseObject->getAdditionalOptions() as $option => $value) {
+            $additionalOptions = $responseObject->getDataByKey('additional_options');
+            if (is_array($additionalOptions)) {
+                foreach ($additionalOptions as $option => $value) {
                     $config['products'][$product->getId()][$option] = $value;
                 }
             }

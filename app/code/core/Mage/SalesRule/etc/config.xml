@@ -96,32 +96,29 @@
             <sales_order_place_after>
                 <observers>
                     <salesrule>
-                        <class>salesrule/observer</class>
-                        <method>sales_order_afterPlace</method>
+                        <class>salesrule/observer_sales_order_afterPlace</class>
+                        <method></method>
                     </salesrule>
                 </observers>
             </sales_order_place_after>
             <sales_order_payment_cancel>
                 <observers>
                     <salesrule>
-                        <class>salesrule/observer</class>
-                        <method>sales_order_paymentCancel</method>
+                        <class>salesrule/observer_salesOrderPaymentCancel</class>
                     </salesrule>
                 </observers>
             </sales_order_payment_cancel>
             <sales_quote_config_get_product_attributes>
                 <observers>
                     <salesrule>
-                        <class>salesrule/observer</class>
-                        <method>addProductAttributes</method>
+                        <class>salesrule/observer_addProductAttributes</class>
                     </salesrule>
                 </observers>
             </sales_quote_config_get_product_attributes>
             <sales_convert_quote_to_order>
                 <observers>
                     <salesrule>
-                        <class>salesrule/observer</class>
-                        <method>addSalesRuleNameToOrder</method>
+                        <class>salesrule/observer_addSalesRuleNameToOrder</class>
                     </salesrule>
                 </observers>
             </sales_convert_quote_to_order>
@@ -173,16 +170,14 @@
             <catalog_entity_attribute_delete_after>
                 <observers>
                     <salesrule>
-                        <class>salesrule/observer</class>
-                        <method>catalogAttributeDeleteAfter</method>
+                        <class>salesrule/observer_catalogAttributeDeleteAfter</class>
                     </salesrule>
                 </observers>
             </catalog_entity_attribute_delete_after>
             <catalog_entity_attribute_save_after>
                 <observers>
                     <salesrule>
-                        <class>salesrule/observer</class>
-                        <method>catalogAttributeSaveAfter</method>
+                        <class>salesrule/observer_catalogAttributeSaveAfter</class>
                     </salesrule>
                 </observers>
             </catalog_entity_attribute_save_after>
@@ -206,7 +201,7 @@
                     <config_path>reports/crontab/coupons_expr</config_path>
                 </schedule>
                 <run>
-                    <model>salesrule/observer::aggregateSalesReportCouponsData</model>
+                    <model>salesrule/observer_aggregateSalesReportCouponsData::execute</model>
                 </run>
             </aggregate_sales_report_coupons_data>
         </jobs>

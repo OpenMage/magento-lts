@@ -211,7 +211,7 @@
                     <config_path>reports/crontab/viewed_expr</config_path>
                 </schedule>
                 <run>
-                    <model>reports/observer::aggregateReportsReportProductViewedData</model>
+                    <model>reports/observer_aggregateReportsReportProductViewedData::execute</model>
                 </run>
             </aggregate_reports_report_product_viewed_data>
         </jobs>

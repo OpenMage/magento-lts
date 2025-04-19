@@ -78,8 +78,7 @@
             <catalog_product_delete_after_done>
                 <observers>
                     <review>
-                        <class>review/observer</class>
-                        <method>processProductAfterDeleteEvent</method>
+                        <class>review/observer_processProductAfterDeleteEvent</class>
                     </review>
                 </observers>
             </catalog_product_delete_after_done>
@@ -99,8 +98,7 @@
             <review_save_after>
                 <observers>
                     <rss>
-                        <class>rss/observer</class>
-                        <method>reviewSaveAfter</method>
+                        <class>rss/observer_reviewSaveAfter</class>
                     </rss>
                 </observers>
             </review_save_after>
@@ -126,8 +124,7 @@
                 <observers>
                     <review>
                         <type>model</type>
-                        <class>review/observer</class>
-                        <method>tagProductCollectionLoadAfter</method>
+                        <class>review/observer_tagProductCollectionLoadAfter</class>
                     </review>
                 </observers>
             </tag_tag_product_collection_load_after>
@@ -135,8 +132,7 @@
                 <observers>
                     <review>
                         <type>model</type>
-                        <class>review/observer</class>
-                        <method>catalogBlockProductCollectionBeforeToHtml</method>
+                        <class>review/observer_catalogBlockProductCollectionBeforeToHtml</class>
                     </review>
                 </observers>
             </catalog_block_product_list_collection>

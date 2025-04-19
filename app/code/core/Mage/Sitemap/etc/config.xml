@@ -93,7 +93,7 @@
         <jobs>
             <sitemap_generate>
                 <run>
-                    <model>sitemap/observer::scheduledGenerateSitemaps</model>
+                    <model>sitemap/observer_scheduledGenerateSitemaps::execute</model>
                 </run>
             </sitemap_generate>
         </jobs>

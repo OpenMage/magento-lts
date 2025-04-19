@@ -1194,6 +1194,8 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Place order
      *
      * @return $this
+     *
+     * @uses Mage_Sales_Model_Observer_AddVatRequestParamsOrderComment::execute()
      */
     public function place()
     {

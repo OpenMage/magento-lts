@@ -38,8 +38,8 @@ class Mage_SalesRule_Model_Rule_Customer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @param int $customerId
-     * @param int $ruleId
+     * @param string|int $customerId
+     * @param string|int $ruleId
      * @return $this
      */
     public function loadByCustomerRule($customerId, $ruleId)

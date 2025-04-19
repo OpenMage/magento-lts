@@ -70,6 +70,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      *
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @return Varien_Db_Select
+     * @throws Zend_Db_Select_Exception
      */
     protected function _getSelect($filter)
     {
@@ -140,12 +141,15 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param Varien_Db_Select $select
      * @return Varien_Object
+     *
+     * @uses Mage_Tax_Model_Observer_PrepareCatalogIndexPriceSelect::execute()
+     * @uses Mage_Weee_Model_Observer_PrepareCatalogIndexSelect::execute()
      */
     protected function _dispatchPreparePriceEvent($filter, $select)
     {
         // prepare response object for event
         $response = new Varien_Object();
-        $response->setAdditionalCalculations([]);
+        $response->setData('additional_calculations', []);
 
         // prepare event arguments
         $eventArgs = [
@@ -240,6 +244,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param Mage_Catalog_Model_Layer_Filter_Price $filter
      * @param int $range
      * @return array
+     * @throws Zend_Db_Select_Exception
      */
     public function getCount($filter, $range)
     {
@@ -296,6 +301,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param null|float $lowerPrice
      * @param null|float $upperPrice
      * @return array
+     * @throws Zend_Db_Select_Exception
      */
     public function loadPrices($filter, $limit, $offset = null, $lowerPrice = null, $upperPrice = null)
     {
@@ -323,6 +329,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param int $index
      * @param float|null $lowerPrice
      * @return array|false
+     * @throws Zend_Db_Select_Exception
      */
     public function loadPreviousPrices($filter, $price, $index, $lowerPrice = null)
     {
@@ -348,6 +355,7 @@ class Mage_Catalog_Model_Resource_Layer_Filter_Price extends Mage_Core_Model_Res
      * @param int $rightIndex
      * @param null|int $upperPrice
      * @return array|false
+     * @throws Zend_Db_Select_Exception
      */
     public function loadNextPrices($filter, $price, $rightIndex, $upperPrice = null)
     {

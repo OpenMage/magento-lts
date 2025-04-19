@@ -244,6 +244,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
     /**
      * @param Mage_Customer_Model_Customer $customer
      * @return $this
+     *
+     * @uses Mage_Wishlist_Model_Observer_CustomerLogin::execute()
      */
     public function setCustomerAsLoggedIn($customer)
     {
@@ -274,6 +276,8 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
      * Logout customer
      *
      * @return $this
+     *
+     * @uses Mage_Wishlist_Model_Observer_CustomerLogout::execute()
      */
     public function logout()
     {

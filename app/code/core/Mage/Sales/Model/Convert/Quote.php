@@ -27,6 +27,9 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
      *
      * @param null|Mage_Sales_Model_Order  $order
      * @return  Mage_Sales_Model_Order
+     * @throws Mage_Core_Model_Store_Exception
+     *
+     * @uses Mage_SalesRule_Model_Observer_AddSalesRuleNameToOrder::execute()
      */
     public function toOrder(Mage_Sales_Model_Quote $quote, $order = null)
     {
@@ -50,6 +53,9 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
      *
      * @param   null|Mage_Sales_Model_Order $order
      * @return  Mage_Sales_Model_Order
+     * @throws Mage_Core_Model_Store_Exception
+     *
+     * @uses Mage_Tax_Model_Observer_SalesEventConvertQuoteAddressToOrder::execute()
      */
     public function addressToOrder(Mage_Sales_Model_Quote_Address $address, $order = null)
     {

@@ -20,6 +20,7 @@
  * @category   Mage
  * @package    Mage_Eav
  *
+ * @method $this setApplyTo(string|array $value)
  * @method bool hasAttributeSetInfo()
  * @method array getAttributeSetInfo()
  * @method $this setAttributeSetInfo(array $value)

@@ -394,6 +394,8 @@ class Mage_Tag_Model_Resource_Product_Collection extends Mage_Catalog_Model_Reso
      * After load adding data
      *
      * @return $this
+     *
+     * @uses Mage_Review_Model_Observer_TagProductCollectionLoadAfter::execute()
      */
     protected function _afterLoad()
     {

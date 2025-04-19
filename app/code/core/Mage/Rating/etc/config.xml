@@ -92,8 +92,7 @@
             <catalog_product_delete_after_done>
                 <observers>
                     <rating>
-                        <class>rating/observer</class>
-                        <method>processProductAfterDeleteEvent</method>
+                        <class>rating/observer_processProductAfterDeleteEvent</class>
                     </rating>
                 </observers>
             </catalog_product_delete_after_done>

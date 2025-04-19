@@ -67,16 +67,14 @@
             <sales_order_save_after>
                 <observers>
                     <notifystock>
-                        <class>rss/observer</class>
-                        <method>salesOrderItemSaveAfterNotifyStock</method>
+                        <class>rss/observer_salesOrderItemSaveAfterNotifyStock</class>
                     </notifystock>
                 </observers>
             </sales_order_save_after>
             <sales_order_save_after>
                 <observers>
                     <ordernew>
-                        <class>rss/observer</class>
-                        <method>salesOrderItemSaveAfterOrderNew</method>
+                        <class>rss/observer_salesOrderItemSaveAfterOrderNew</class>
                     </ordernew>
                 </observers>
             </sales_order_save_after>

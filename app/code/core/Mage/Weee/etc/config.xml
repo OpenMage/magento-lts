@@ -57,8 +57,7 @@
                 <observers>
                     <weee>
                         <type>model</type>
-                        <class>weee/observer</class>
-                        <method>prepareCatalogIndexSelect</method>
+                        <class>weee/observer_prepareCatalogIndexSelect</class>
                     </weee>
                 </observers>
             </catalog_prepare_price_select>
@@ -66,48 +65,42 @@
                 <observers>
                     <weee>
                         <type>model</type>
-                        <class>weee/observer</class>
-                        <method>assignBackendModelToAttribute</method>
+                        <class>weee/observer_assignBackendModelToAttribute</class>
                     </weee>
                 </observers>
             </catalog_entity_attribute_save_before>
             <catalogrule_after_apply>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>updateDiscountPercents</method>
+                        <class>weee/observer_updateDiscountPercents</class>
                     </weee>
                 </observers>
             </catalogrule_after_apply>
             <catalog_product_view_config>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>updateCofigurableProductOptions</method>
+                        <class>weee/observer_updateCofigurableProductOptions</class>
                     </weee>
                 </observers>
             </catalog_product_view_config>
             <bundle_product_view_config>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>updateBundleProductOptions</method>
+                        <class>weee/observer_updateBundleProductOptions</class>
                     </weee>
                 </observers>
             </bundle_product_view_config>
             <create_order_session_quote_initialized>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>setSessionQuoteStore</method>
+                        <class>weee/observer_setSessionQuoteStore</class>
                     </weee>
                 </observers>
             </create_order_session_quote_initialized>
             <init_from_order_session_quote_initialized>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>setSessionQuoteStore</method>
+                        <class>weee/observer_setSessionQuoteStore</class>
                     </weee>
                 </observers>
             </init_from_order_session_quote_initialized>
@@ -221,16 +214,15 @@
             <adminhtml_catalog_product_edit_prepare_form>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>setWeeeRendererInForm</method>
+                        <class>weee/observer_setWeeeRendererInForm</class>
+                        <method></method>
                     </weee>
                 </observers>
             </adminhtml_catalog_product_edit_prepare_form>
             <adminhtml_catalog_product_form_prepare_excluded_field_list>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>updateExcludedFieldList</method>
+                        <class>weee/observer_updateExcludedFieldList</class>
                     </weee>
                 </observers>
             </adminhtml_catalog_product_form_prepare_excluded_field_list>
@@ -238,16 +230,14 @@
                 <observers>
                     <weee>
                         <type>model</type>
-                        <class>weee/observer</class>
-                        <method>addWeeeTaxAttributeType</method>
+                        <class>weee/observer_addWeeeTaxAttributeType</class>
                     </weee>
                 </observers>
             </adminhtml_product_attribute_types>
             <adminhtml_catalog_product_edit_element_types>
                 <observers>
                     <weee>
-                        <class>weee/observer</class>
-                        <method>updateElementTypes</method>
+                        <class>weee/observer_updateElementTypes</class>
                     </weee>
                 </observers>
             </adminhtml_catalog_product_edit_element_types>

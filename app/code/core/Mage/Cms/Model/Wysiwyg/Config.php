@@ -74,6 +74,8 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
      *
      * @param array $data constructor params to override default config values
      * @return Varien_Object
+     *
+     * @uses Mage_Widget_Model_Observer_PrepareWidgetsPluginConfig::execute()
      */
     public function getConfig($data = [])
     {

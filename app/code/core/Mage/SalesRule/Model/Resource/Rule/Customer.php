@@ -31,8 +31,8 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
      * Get rule usage record for a customer
      *
      * @param Mage_SalesRule_Model_Rule_Customer $rule
-     * @param int $customerId
-     * @param int $ruleId
+     * @param string|int $customerId
+     * @param string|int $ruleId
      * @return $this
      */
     public function loadByCustomerRule($rule, $customerId, $ruleId)
