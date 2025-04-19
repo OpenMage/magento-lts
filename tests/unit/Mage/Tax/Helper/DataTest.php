@@ -121,7 +121,7 @@ class DataTest extends OpenMageTest
     {
         static::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
-        $this->assertSame(1, self::$subject->needPriceConversion());
+        static::assertSame(1, self::$subject->needPriceConversion());
     }
 
     /**
