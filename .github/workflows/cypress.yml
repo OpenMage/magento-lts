@@ -1,8 +1,6 @@
 name: Cypress
 
 on:
-  push:
-  pull_request:
   workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
