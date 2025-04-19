@@ -27,7 +27,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         'form-action',
     ];
 
-
     public function getPolicies(string $section): array
     {
         if (!Mage::getStoreConfigFlag("$section/csp/enabled")) {
