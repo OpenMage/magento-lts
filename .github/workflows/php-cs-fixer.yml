@@ -33,5 +33,20 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Restore result cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .php-cs-fixer.cache
+          key: php-cs-fixer-result-cache-${{ github.run_id }}
+          restore-keys: |
+            php-cs-fixer-result-cache-
+
       - name: PHP-CS-Fixer
         run: php vendor/bin/php-cs-fixer fix --diff --dry-run
+
+      - name: Save result cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .php-cs-fixer.cache
+          key: php-cs-fixer-result-cache-${{ github.run_id }}
