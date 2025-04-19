@@ -359,6 +359,7 @@ class Mage_Wishlist_Model_Wishlist extends Mage_Core_Model_Abstract
 
         $errors = [];
         $items = [];
+        $item = null;
 
         foreach ($cartCandidates as $candidate) {
             if ($candidate->getParentProductId()) {

@@ -394,7 +394,7 @@ class Mage_Eav_Model_Config
     /**
      * Get entity type object by entity type code/identifier
      *
-     * @param mixed $code
+     * @param Mage_Eav_Model_Entity_Type|string|int $code
      * @param string|null $field
      * @return Mage_Eav_Model_Entity_Type
      * @throws Mage_Core_Exception
@@ -544,7 +544,7 @@ class Mage_Eav_Model_Config
     /**
      * Get codes of all entity type attributes
      *
-     * @param Mage_Eav_Model_Entity_Type $entityType
+     * @param Mage_Eav_Model_Entity_Type|string|int $entityType
      * @param Varien_Object $object
      * @return array
      * @throws Mage_Core_Exception

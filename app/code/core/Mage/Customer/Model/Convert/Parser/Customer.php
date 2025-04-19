@@ -550,7 +550,9 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
                     $billingAddress->setLastname($row['lastname']);
                     $billingAddress->setCity($row['billing_city']);
                     $billingAddress->setRegion($row['billing_region']);
-                    $billingAddress->setRegionId($regionId);
+                    if (isset($regionId)) {
+                        $billingAddress->setRegionId($regionId);
+                    }
                     $billingAddress->setCountryId($row['billing_country']);
                     $billingAddress->setPostcode($row['billing_postcode']);
                     $billingAddress->setStreet([$row['billing_street1'],$row['billing_street2']]);

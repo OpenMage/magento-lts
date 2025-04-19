@@ -12,6 +12,10 @@
  * @copyright   Copyright (c) 2021-2022 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+/**
+ * @var Mage_Reports_Block_Product_Compared $this
+ */
 ?>
 <?php if ($_products = $this->getRecentlyComparedProducts()): ?>
 <div class="widget widget-compared">
@@ -22,7 +26,7 @@
         <div class="block-content">
             <?php $suffix = $this->getNameInLayout(); ?>
             <ol id="widget-compared-<?php echo $suffix; ?>">
-            <?php $i=0; foreach ($_products as $_product): ?>
+            <?php $i = 0; foreach ($_products as $_product): ?>
                 <li class="item">
                     <p class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->helper('catalog/output')->productAttribute($_product, $_product->getName() , 'name') ?></a></p>
                 </li>
