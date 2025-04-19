@@ -71,8 +71,8 @@ class DataTest extends OpenMageTest
      */
     public function testGetProductPrice(): void
     {
-        #$this->assertSame('', self::$subject->getProductPrice());
-        static::markTestIncomplete();
+        static::markTestSkipped();
+        $this->assertSame('', self::$subject->getProductPrice());
     }
 
     /**
@@ -129,8 +129,8 @@ class DataTest extends OpenMageTest
      */
     public function testGetPriceFormat(): void
     {
-        #$this->assertSame('', self::$subject->getPriceFormat());
-        static::markTestIncomplete();
+        static::markTestSkipped();
+        $this->assertSame('', self::$subject->getPriceFormat());
     }
 
     /**
@@ -161,8 +161,8 @@ class DataTest extends OpenMageTest
      */
     public function testGetPrice(): void
     {
-        #$this->assertFalse(self::$subject->getPrice());
-        static::markTestIncomplete();
+        static::markTestSkipped();
+        $this->assertFalse(self::$subject->getPrice());
     }
 
     /**

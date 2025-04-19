@@ -21,19 +21,23 @@ use Generator;
 
 trait ConfigTrait
 {
+    public static $backendModel = [
+        'color' => 'adminhtml/system_config_backend_color',
+    ];
+
     public function provideGetInputTypes(): Generator
     {
         yield 'null' => [
             [
                 'color' => [
-                    'backend_model' => 'adminhtml/system_config_backend_color',
+                    'backend_model' => self::$backendModel['color'],
                 ],
             ],
             null,
         ];
         yield 'color' => [
             [
-                'backend_model' => 'adminhtml/system_config_backend_color',
+                'backend_model' => self::$backendModel['color'],
             ],
             'color',
         ];
@@ -46,7 +50,7 @@ trait ConfigTrait
     public function provideGetBackendModelByInputType(): Generator
     {
         yield 'color' => [
-            'adminhtml/system_config_backend_color',
+            self::$backendModel['color'],
             'color',
         ];
         yield 'invalid' => [
