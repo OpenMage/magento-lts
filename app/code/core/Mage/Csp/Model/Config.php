@@ -126,7 +126,6 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
 
     /**
      * Custom merging logic that preserves duplicate nodes.
-     *
      */
     protected function _extendNode(Varien_Simplexml_Element $baseNode, Varien_Simplexml_Element $mergeNode, bool $overwrite = false): void
     {
