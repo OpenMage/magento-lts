@@ -103,17 +103,20 @@ trait LinkTrait
             'test'   => 'Test',
         ];
 
+        $customText = 'Custom Text';
+        $customTitle = 'Custom Title';
+
         $data = $emptyData;
-        $data['anchor_text'] = 'Custom Text';
+        $data['anchor_text'] = $customText;
         yield 'text is set' => [
-            'Custom Text',
+            $customText,
             $data,
         ];
 
         $data = $emptyData;
-        $data['title'] = 'Custom Title';
+        $data['title'] = $customTitle;
         yield 'title is set' => [
-            'Custom Title',
+            $customTitle,
             $data,
         ];
 
