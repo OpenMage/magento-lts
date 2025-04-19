@@ -72,7 +72,8 @@ class DataTest extends OpenMageTest
     public function testGetProductPrice(): void
     {
         static::markTestSkipped();
-        $this->assertSame('', self::$subject->getProductPrice());
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertSame('', self::$subject->getProductPrice());
     }
 
     /**
@@ -130,7 +131,8 @@ class DataTest extends OpenMageTest
     public function testGetPriceFormat(): void
     {
         static::markTestSkipped();
-        $this->assertSame('', self::$subject->getPriceFormat());
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertSame('', self::$subject->getPriceFormat());
     }
 
     /**
@@ -162,7 +164,8 @@ class DataTest extends OpenMageTest
     public function testGetPrice(): void
     {
         static::markTestSkipped();
-        $this->assertFalse(self::$subject->getPrice());
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertFalse(self::$subject->getPrice());
     }
 
     /**
