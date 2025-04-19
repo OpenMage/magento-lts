@@ -140,7 +140,8 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
      */
     protected function _getAttributeCollection()
     {
-        $collection = Mage::getModel('eav/entity_attribute')->getCollection();
+        $collectionClass = $this->getEntityAttributeCollection();
+        $collection = Mage::getResourceModel($collectionClass);
         $objectsModel = $this->getAttributeModel();
         if ($objectsModel) {
             $collection->setModel($objectsModel);
