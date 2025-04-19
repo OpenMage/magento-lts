@@ -19,33 +19,32 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
 use Mage_Core_Model_Config as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ConfigTest extends TestCase
+class ConfigTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('core/config');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('core/config');
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testSaveDeleteGetConfig(): void
     {
         $path = 'test/config';
         $value = 'foo';
 
-        $this->assertFalse($this->subject->getConfig($path));
+        static::assertFalse(self::$subject->getConfig($path));
 
-        $this->subject->saveConfig($path, $value);
-        $this->assertSame($value, $this->subject->getConfig($path));
+        self::$subject->saveConfig($path, $value);
+        static::assertSame($value, self::$subject->getConfig($path));
 
-        $this->subject->deleteConfig($path);
-        $this->assertFalse($this->subject->getConfig($path));
+        self::$subject->deleteConfig($path);
+        static::assertFalse(self::$subject->getConfig($path));
     }
 }

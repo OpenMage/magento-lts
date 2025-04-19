@@ -19,35 +19,33 @@ namespace OpenMage\Tests\Unit\Mage\Core\Helper;
 
 use Mage;
 use Mage_Core_Helper_Hint as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HintTest extends TestCase
+class HintTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('core/hint');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('core/hint');
     }
 
     /**
      * @covers Mage_Core_Helper_Hint::getAvailableHints()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetAvailableHints(): void
     {
-        $this->assertSame([], $this->subject->getAvailableHints());
+        static::assertSame([], self::$subject->getAvailableHints());
     }
 
     /**
      * @covers Mage_Core_Helper_Hint::getHintByCode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetHintByCode(): void
     {
-        $this->assertNull($this->subject->getHintByCode('test'));
+        static::assertNull(self::$subject->getHintByCode('test'));
     }
 }

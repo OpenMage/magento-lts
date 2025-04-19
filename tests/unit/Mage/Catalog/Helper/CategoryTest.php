@@ -19,24 +19,23 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
 use Mage;
 use Mage_Catalog_Helper_Category as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CategoryTest extends TestCase
+class CategoryTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('catalog/category');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('catalog/category');
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testCanUseCanonicalTag(): void
     {
-        $this->assertIsBool($this->subject->canUseCanonicalTag());
+        static::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 }

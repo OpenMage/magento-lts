@@ -19,35 +19,33 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
 
 use Mage;
 use Mage_Admin_Helper_Block as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class BlockTest extends TestCase
+class BlockTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('admin/block');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('admin/block');
     }
 
     /**
      * @covers Mage_Admin_Helper_Block::isTypeAllowed()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testIsTypeAllowed(): void
     {
-        $this->assertFalse($this->subject->isTypeAllowed('some-type'));
+        static::assertFalse(self::$subject->isTypeAllowed('some-type'));
     }
 
     /**
      * @covers Mage_Admin_Helper_Block::getDisallowedBlockNames()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testGetDisallowedBlockNames(): void
     {
-        $this->assertSame(['install/end'], $this->subject->getDisallowedBlockNames());
+        static::assertSame(['install/end'], self::$subject->getDisallowedBlockNames());
     }
 }

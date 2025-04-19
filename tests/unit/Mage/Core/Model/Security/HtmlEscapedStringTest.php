@@ -17,65 +17,37 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Core\Model\Security;
 
-use Generator;
 use Mage_Core_Model_Security_HtmlEscapedString as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\SecurityTrait;
 
-class HtmlEscapedStringTest extends TestCase
+class HtmlEscapedStringTest extends OpenMageTest
 {
-    public const TEST_STRING = 'This is a bold <b>string</b>';
+    use SecurityTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
     /**
      * @dataProvider provideHtmlEscapedStringAsStringData
      * @param array<int, string> $allowedTags
      *
-     * @group Mage_Core
+     * @group Model
      */
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        $this->subject = new Subject($string, $allowedTags);
-        $this->assertSame($expectedResult, $this->subject->__toString());
+        self::$subject = new Subject($string, $allowedTags);
+        static::assertSame($expectedResult, self::$subject->__toString());
     }
 
     /**
      * @dataProvider provideHtmlEscapedStringGetUnescapedValueData
      * @param array<int, string> $allowedTags
      *
-     * @group Mage_Core
+     * @group Model
      */
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
-        $this->subject = new Subject($string, $allowedTags);
-        $this->assertSame($expectedResult, $this->subject->getUnescapedValue());
-    }
-
-    public function provideHtmlEscapedStringAsStringData(): Generator
-    {
-        yield 'tags null' => [
-            'This is a bold &lt;b&gt;string&lt;/b&gt;',
-            self::TEST_STRING,
-            null,
-        ];
-        yield 'tags array' => [
-            self::TEST_STRING,
-            self::TEST_STRING,
-            ['b'],
-        ];
-    }
-
-    public function provideHtmlEscapedStringGetUnescapedValueData(): Generator
-    {
-        yield 'tags null' => [
-            self::TEST_STRING,
-            self::TEST_STRING,
-            null,
-        ];
-        yield 'tags array' => [
-            self::TEST_STRING,
-            self::TEST_STRING,
-            ['some-invalid-value'],
-        ];
+        self::$subject = new Subject($string, $allowedTags);
+        static::assertSame($expectedResult, self::$subject->getUnescapedValue());
     }
 }

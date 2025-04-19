@@ -31,6 +31,81 @@
         <testsuite name="Mage">
             <directory>tests/unit/Mage</directory>
         </testsuite>
+        <testsuite name="Mage_Admin">
+            <directory>tests/unit/Mage/Admin</directory>
+        </testsuite>
+        <testsuite name="Mage_Adminhtml">
+            <directory>tests/unit/Mage/Adminhtml</directory>
+        </testsuite>
+        <testsuite name="Mage_AdminNotification">
+            <directory>tests/unit/Mage/AdminNotification</directory>
+        </testsuite>
+        <testsuite name="Mage_Api">
+            <directory>tests/unit/Mage/Api</directory>
+        </testsuite>
+        <testsuite name="Mage_Catalog">
+            <directory>tests/unit/Mage/Catalog</directory>
+        </testsuite>
+        <testsuite name="Mage_Cms">
+            <directory>tests/unit/Mage/Cms</directory>
+        </testsuite>
+        <testsuite name="Mage_Contacts">
+            <directory>tests/unit/Mage/Contacts</directory>
+        </testsuite>
+        <testsuite name="Mage_Core">
+            <directory>tests/unit/Mage/Core</directory>
+        </testsuite>
+        <testsuite name="Mage_Customer">
+            <directory>tests/unit/Mage/Customer</directory>
+        </testsuite>
+        <testsuite name="Mage_Directory">
+            <directory>tests/unit/Mage/Directory</directory>
+        </testsuite>
+        <testsuite name="Mage_Downloadable">
+            <directory>tests/unit/Mage/Downloadable</directory>
+        </testsuite>
+        <testsuite name="Mage_Eav">
+            <directory>tests/unit/Mage/Eav</directory>
+        </testsuite>
+        <testsuite name="Mage_GiftMessage">
+            <directory>tests/unit/Mage/GiftMessage</directory>
+        </testsuite>
+        <testsuite name="Mage_Index">
+            <directory>tests/unit/Mage/Index</directory>
+        </testsuite>
+        <testsuite name="Mage_Log">
+            <directory>tests/unit/Mage/Log</directory>
+        </testsuite>
+        <testsuite name="Mage_Newsletter">
+            <directory>tests/unit/Mage/Newsletter</directory>
+        </testsuite>
+        <testsuite name="Mage_Page">
+            <directory>tests/unit/Mage/Page</directory>
+        </testsuite>
+        <testsuite name="Mage_Reports">
+            <directory>tests/unit/Mage/Reports</directory>
+        </testsuite>
+        <testsuite name="Mage_Review">
+            <directory>tests/unit/Mage/Review</directory>
+        </testsuite>
+        <testsuite name="Mage_Rule">
+            <directory>tests/unit/Mage/Rule</directory>
+        </testsuite>
+        <testsuite name="Mage_Sales">
+            <directory>tests/unit/Mage/Sales</directory>
+        </testsuite>
+        <testsuite name="Mage_Sitemap">
+            <directory>tests/unit/Mage/Sitemap</directory>
+        </testsuite>
+        <testsuite name="Mage_Tax">
+            <directory>tests/unit/Mage/Tax</directory>
+        </testsuite>
+        <testsuite name="Mage_Uploader">
+            <directory>tests/unit/Mage/Uploader</directory>
+        </testsuite>
+        <testsuite name="Mage_Wishlist">
+            <directory>tests/unit/Mage/Wishlist</directory>
+        </testsuite>
         <testsuite name="Varien">
             <directory>tests/unit/Varien</directory>
         </testsuite>

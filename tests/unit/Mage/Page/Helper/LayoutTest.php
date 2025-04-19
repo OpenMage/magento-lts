@@ -19,25 +19,24 @@ namespace OpenMage\Tests\Unit\Mage\Page\Helper;
 
 use Mage;
 use Mage_Page_Helper_Layout as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends TestCase
+class LayoutTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('page/layout');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('page/layout');
     }
 
     /**
      * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Mage_Page
-     * @group Mage_Page_Helper
+     * @group Helper
      */
     public function testApplyTemplate(): void
     {
-        $this->assertTrue($this->subject->isModuleEnabled());
+        static::assertTrue(self::$subject->isModuleEnabled());
     }
 }

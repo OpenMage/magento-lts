@@ -38,12 +38,10 @@ class Mage_Core_Helper_Array extends Mage_Core_Helper_Abstract
                 } else {
                     $baseArray[$key] = $value;
                 }
+            } elseif ($key) {
+                $baseArray[$key] = $value;
             } else {
-                if ($key) {
-                    $baseArray[$key] = $value;
-                } else {
-                    $baseArray[] = $value;
-                }
+                $baseArray[] = $value;
             }
         }
 
