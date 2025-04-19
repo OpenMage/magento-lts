@@ -1,6 +1,6 @@
 describe('Check form_key exists', () => {
     it('has form_key in contacts form', () => {
-        cy.visit('/contactshfjfj')
+        cy.visit('/contacts')
         cy.get('#contactForm input[name="form_key"]').should('exist')
     })
 
