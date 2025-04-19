@@ -28,7 +28,6 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
-
       - name: Restore result cache
         uses: actions/cache/restore@v4
         with:
