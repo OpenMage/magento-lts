@@ -1,0 +1,47 @@
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available at https://opensource.org/license/afl-3-0-php
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright   Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+* {
+  background: none !important;
+  text-align: left !important;
+}
+
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body {
+  background: #fff !important;
+  font-size: 9pt !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+a {
+  color: #2976c9 !important;
+}
+
+th, td {
+  color: #333 !important;
+  border-color: #ccc !important;
+}
+
+.middle {
+  padding: 0;
+}
+
+.header, .notification-global, .actions, .massaction, #sales_order_grid_massaction, .content-header-floating, .content-header .form-buttons, .footer {
+  display: none !important;
+}
