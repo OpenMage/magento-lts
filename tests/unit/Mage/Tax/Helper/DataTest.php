@@ -30,6 +30,7 @@ class DataTest extends OpenMageTest
 
     private static Subject $subject;
 
+    public const SKIP_INCOMPLETE = 'incomplete';
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
     public static function setUpBeforeClass(): void
@@ -71,7 +72,7 @@ class DataTest extends OpenMageTest
      */
     public function testGetProductPrice(): void
     {
-        static::markTestSkipped();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         static::assertSame('', self::$subject->getProductPrice());
     }
@@ -130,7 +131,7 @@ class DataTest extends OpenMageTest
      */
     public function testGetPriceFormat(): void
     {
-        static::markTestSkipped();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         static::assertSame('', self::$subject->getPriceFormat());
     }
@@ -163,7 +164,7 @@ class DataTest extends OpenMageTest
      */
     public function testGetPrice(): void
     {
-        static::markTestSkipped();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         static::assertFalse(self::$subject->getPrice());
     }
