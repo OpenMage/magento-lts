@@ -22,6 +22,20 @@ use Mage_Cms_Helper_Page;
 
 trait LinkTrait
 {
+    public static $defaults = [
+        'custom_title' => 'Custom Title',
+        'custom_text'  => 'Custom Text',
+    ];
+
+    public static $tests = [
+        'empty' => 'empty',
+        'href' => 'href is set',
+        'no_data' => 'no data is set',
+        'page_id' => 'page_id is set',
+        'text' => 'text is set',
+        'title' => 'title is set',
+    ];
+
     public function provideGetHrefData(): Generator
     {
         $emptyData = [
@@ -38,17 +52,17 @@ trait LinkTrait
 
         $data = $emptyData;
         $data['href'] = 'home';
-        yield 'href is set' => [
+        yield self::$tests['href'] => [
             'home',
             $data,
         ];
 
-        yield 'empty' => [
+        yield self::$tests['empty'] => [
             '',
             $emptyData,
         ];
 
-        yield 'no data set' => [
+        yield self::$tests['no_data'] => [
             '',
             [],
         ];
@@ -63,32 +77,32 @@ trait LinkTrait
         ];
 
         $data = $emptyData;
-        $data['title'] = 'Custom Title';
-        yield 'title is set' => [
-            'Custom Title',
+        $data['title'] = self::$defaults['custom_title'];
+        yield self::$tests['title'] => [
+            self::$defaults['custom_title'],
             $data,
         ];
 
         $data = $emptyData;
         $data['page_id'] = 1;
-        yield 'page_id is set' => [
+        yield self::$tests['page_id'] => [
             '404 Not Found 1',
             $data,
         ];
 
         $data = $emptyData;
         $data['href'] = 'home';
-        yield 'href is set' => [
+        yield self::$tests['href'] => [
             'Home page',
             $data,
         ];
 
-        yield 'empty' => [
+        yield self::$tests['empty'] => [
             '',
             $emptyData,
         ];
 
-        yield 'no data set' => [
+        yield self::$tests['no_data'] => [
             '',
             [],
         ];
@@ -103,43 +117,40 @@ trait LinkTrait
             'test'   => 'Test',
         ];
 
-        $customText = 'Custom Text';
-        $customTitle = 'Custom Title';
-
         $data = $emptyData;
-        $data['anchor_text'] = $customText;
-        yield 'text is set' => [
-            $customText,
+        $data['anchor_text'] = self::$defaults['custom_text'];
+        yield self::$tests['text'] => [
+            self::$defaults['custom_text'],
             $data,
         ];
 
         $data = $emptyData;
-        $data['title'] = $customTitle;
-        yield 'title is set' => [
-            $customTitle,
+        $data['title'] = self::$defaults['custom_title'];
+        yield self::$tests['title'] => [
+            self::$defaults['custom_title'],
             $data,
         ];
 
         $data = $emptyData;
         $data['page_id'] = 1;
-        yield 'page_id is set' => [
+        yield self::$tests['page_id'] => [
             '404 Not Found 1',
             $data,
         ];
 
         $data = $emptyData;
         $data['href'] = 'home';
-        yield 'href is set' => [
+        yield self::$tests['href'] => [
             'Home page',
             $data,
         ];
 
-        yield 'empty' => [
+        yield self::$tests['empty'] => [
             null,
             $emptyData,
         ];
 
-        yield 'no data set' => [
+        yield self::$tests['no_data'] => [
             null,
             [],
         ];
