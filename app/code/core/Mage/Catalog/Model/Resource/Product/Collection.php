@@ -1520,7 +1520,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             // optimize if using cat index
             $filters = $this->_productLimitationFilters;
             if (isset($filters['category_id']) || isset($filters['visibility'])) {
-                $this->getSelect()->order('cat_index.position ' . $dir);
+                $this->getSelect()->order(['cat_index.position ' . $dir, 'e.entity_id ' . $dir]);
             } else {
                 $this->getSelect()->order('e.entity_id ' . $dir);
             }
