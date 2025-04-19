@@ -28,7 +28,7 @@
         <?php $_iterator = 1; ?>
         <?php foreach ($_tab->getSections() as $_section): ?>
             <dd>
-                <a href="<?php echo $_section->getUrl() ?>" class="<?php echo $_section->getClass() ?><?php if($_section->getId()==$this->getActiveSection()): ?> active<?php endif ?> <?php echo $_section->getIsLast()?'last':'' ?>">
+                <a href="<?php echo $_section->getUrl() ?>" id="section-<?php echo $_section->getId() ?>" class="<?php echo $_section->getClass() ?><?php if($_section->getId()==$this->getActiveSection()): ?> active<?php endif ?> <?php echo $_section->getIsLast()?'last':'' ?>">
                     <span <?php if($_tab->getId()==$this->getActiveTab()): ?>class="active"<?php endif ?>>
                         <?php echo $_section->getLabel() ?>
                     </span>
