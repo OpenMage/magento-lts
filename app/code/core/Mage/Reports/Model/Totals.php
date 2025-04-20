@@ -69,7 +69,7 @@ class Mage_Reports_Model_Totals
                 if ($field !== '') {
                     $data[$field] = $a['value'];
                 }
-            } elseif (strpos($a['total'], '/') !== false) {
+            } elseif (str_contains($a['total'], '/')) {
                 if ($field !== '') {
                     $data[$field] = 0;
                 }

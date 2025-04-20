@@ -428,18 +428,18 @@ abstract class Mage_Core_Controller_Varien_Action
         } catch (Mage_Core_Controller_Varien_Exception $e) {
             // set prepared flags
             foreach ($e->getResultFlags() as $flagData) {
-                list($action, $flag, $value) = $flagData;
+                [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
             // call forward, redirect or an action
-            list($method, $parameters) = $e->getResultCallback();
+            [$method, $parameters] = $e->getResultCallback();
             switch ($method) {
                 case Mage_Core_Controller_Varien_Exception::RESULT_REDIRECT:
-                    list($path, $arguments) = $parameters;
+                    [$path, $arguments] = $parameters;
                     $this->_redirect($path, $arguments);
                     break;
                 case Mage_Core_Controller_Varien_Exception::RESULT_FORWARD:
-                    list($action, $controller, $module, $params) = $parameters;
+                    [$action, $controller, $module, $params] = $parameters;
                     $this->_forward($action, $controller, $module, $params);
                     break;
                 default:

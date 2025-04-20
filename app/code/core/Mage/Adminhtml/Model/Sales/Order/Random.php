@@ -127,7 +127,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         $this->_quote->getBillingAddress()->importCustomerAddress($customer->getDefaultBillingAddress());
         $this->_quote->getShippingAddress()->importCustomerAddress($customer->getDefaultShippingAddress());
 
-        $productCount = rand(3, 10);
+        $productCount = random_int(3, 10);
         for ($i = 0; $i < $productCount; $i++) {
             $product = $this->_getRandomProduct();
             if ($product) {

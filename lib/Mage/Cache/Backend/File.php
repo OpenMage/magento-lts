@@ -136,7 +136,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!$cache) {
             return false;
         }
-        list($metadatas, $data) = $cache;
+        [$metadatas, $data] = $cache;
         if (!$doNotTestCacheValidity && Carbon::now()->greaterThan($metadatas['expire'])) {
             // ?? $this->remove($id);
             return false;
@@ -350,7 +350,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         if (!$cache) {
             return false;
         }
-        list($metadatas, $data) = $cache;
+        [$metadatas, $data] = $cache;
         if (Carbon::now()->greaterThan($metadatas['expire'])) {
             return false;
         }
@@ -706,7 +706,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
         foreach ($tags as $tag) {
             $file = $this->_tagFile($tag);
             if (file_exists($file)) {
-                if ($mode == 'diff' || (rand(1, 100) == 1 && filesize($file) > 4096)) {
+                if ($mode == 'diff' || (random_int(1, 100) == 1 && filesize($file) > 4096)) {
                     $file = $this->_tagFile($tag);
                     if (! ($fd = fopen($file, 'rb+'))) {
                         $result = false;

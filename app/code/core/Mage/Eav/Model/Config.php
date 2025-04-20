@@ -224,9 +224,16 @@ class Mage_Eav_Model_Config
     {
         // preload attributes in array form to avoid instantiating
         // models for every attribute even if it is never accessed
-        $entityAttributes = $entityType->newAttributeCollection()
-            ->addStoreLabel($storeId)
-            ->getData();
+        $collection = $entityType->newAttributeCollection()
+            ->addStoreLabel($storeId);
+
+        // if collection supports per-website values, set website id
+        if ($collection instanceof Mage_Eav_Model_Resource_Attribute_Collection) {
+            $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+            $collection->setWebsite($websiteId);
+        }
+
+        $entityAttributes = $collection->getData();
 
         $this->_entityTypeAttributes[$storeId][$entityType->getId()] = [];
         $attributeCodes = [];
@@ -481,7 +488,7 @@ class Mage_Eav_Model_Config
             return $code;
         }
 
-        $storeId = $storeId !== null ? $storeId : $this->_storeId();
+        $storeId = $storeId ?? $this->_storeId();
         $this->_initializeStore($storeId);
         $entityType = $this->getEntityType($entityType);
 
