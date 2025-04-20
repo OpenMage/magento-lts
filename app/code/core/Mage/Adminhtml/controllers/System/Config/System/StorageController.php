@@ -103,10 +103,8 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
             switch ($state) {
                 case Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE:
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (!empty($flagData['destination'])) {
-                            $result['destination'] = $flagData['destination'];
-                        }
+                    if (is_array($flagData) && !empty($flagData['destination'])) {
+                        $result['destination'] = $flagData['destination'];
                     }
 
                     $state = Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE;
