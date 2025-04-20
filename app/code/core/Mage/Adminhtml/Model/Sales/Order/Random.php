@@ -145,15 +145,18 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         return $this;
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _getRandomDate()
     {
         return Carbon::now()
-            ->setHour(mt_rand(0, 23))
-            ->setMinute(mt_rand(0, 59))
-            ->setSecond(mt_rand(0, 0))
-            ->setMonth(mt_rand(1, 11))
-            ->setDay(mt_rand(1, 28))
-            ->setYear(mt_rand(2006, 2007))
+            ->setHour(random_int(0, 23))
+            ->setMinute(random_int(0, 59))
+            ->setSecond(random_int(0, 0))
+            ->setMonth(random_int(1, 11))
+            ->setDay(random_int(1, 28))
+            ->setYear(random_int(2006, 2007))
             ->format(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT);
     }
 
