@@ -54,6 +54,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
      * Synchronize action between storages
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @throws Throwable
      */
     public function synchronizeAction()
     {
@@ -66,7 +67,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         $flag = $this->_getSyncFlag();
         if ($flag && $flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING
             && $flag->getLastUpdate()
-            && Carbon::now()->lessThanOrEqualTo(strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+            && Carbon::now()->lessThanOrEqualTo((string) (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL))
         ) {
             return;
         }
@@ -111,7 +112,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                     break;
                 case Mage_Core_Model_File_Storage_Flag::STATE_RUNNING:
                     if (!$flag->getLastUpdate()
-                        || Carbon::now()->lessThanOrEqualTo(strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+                        || Carbon::now()->lessThanOrEqualTo((string) (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL))
                     ) {
                         $flagData = $flag->getFlagData();
                         if (is_array($flagData) && !empty($flagData['source']) && !empty($flagData['destination'])) {
