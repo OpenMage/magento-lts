@@ -77,8 +77,8 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
                 $format     = 'YYYY-MM';
                 $modifier   = 'addMonth';
                 break;
-            default:
             case self::REPORT_PERIOD_TYPE_YEAR:
+            default:
                 $format     = 'YYYY';
                 $modifier   = 'addYear';
                 $dateStart->addYear();
