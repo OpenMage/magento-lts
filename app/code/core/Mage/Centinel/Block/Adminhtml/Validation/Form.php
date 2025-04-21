@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Centinel
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
@@ -17,7 +16,6 @@
 /**
  * Adminhtml sales order create validation card block
  *
- * @category   Mage
  * @package    Mage_Centinel
  */
 class Mage_Centinel_Block_Adminhtml_Validation_Form extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract

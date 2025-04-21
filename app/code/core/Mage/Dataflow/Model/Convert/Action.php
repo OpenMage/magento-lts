@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Dataflow
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
@@ -17,7 +16,6 @@
 /**
  * Convert action
  *
- * @category   Mage
  * @package    Mage_Dataflow
  */
 class Mage_Dataflow_Model_Convert_Action extends Mage_Dataflow_Model_Convert_Action_Abstract {}

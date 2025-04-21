@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
@@ -22,7 +21,6 @@
  *  -Bcc: Blind carbon copy to tertiary recipients who receive the message
  *        without anyone else (including the To, Cc, and Bcc recipients) seeing who the tertiary recipients are
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Email_Info extends Varien_Object

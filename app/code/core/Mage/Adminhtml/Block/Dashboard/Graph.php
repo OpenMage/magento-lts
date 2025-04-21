@@ -4,7 +4,6 @@
  * This file is part of OpenMage.
  * For copyright and license information, please view the COPYING.txt file that was distributed with this source code.
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright © 2024 Maho (https://mahocommerce.com)
  */
@@ -12,7 +11,6 @@
 /**
  * Adminhtml dashboard google chart block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboard_Abstract

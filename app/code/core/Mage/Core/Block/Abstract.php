@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
@@ -20,7 +19,6 @@
  * For block generation you must define Data source class, data source class method,
  * parameters array and block template
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method $this setAdditionalHtml(string $value)

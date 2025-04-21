@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Index
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
@@ -18,7 +17,6 @@
  * Abstract index process class
  * Predefine list of methods required by indexer
  *
- * @category   Mage
  * @package    Mage_Index
  *
  * @method Mage_Index_Model_Resource_Abstract _getResource()

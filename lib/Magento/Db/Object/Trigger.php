@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Magento
  * @package    Magento_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
@@ -17,7 +16,6 @@
 /**
  * Magento_Db_Object_Trigger
  *
- * @category   Magento
  * @package    Magento_Db
  */
 class Magento_Db_Object_Trigger extends Magento_Db_Object implements Magento_Db_Object_Interface

@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
@@ -32,7 +31,6 @@
  * $validator->isValid('/path/to/my.xml'); //return true, because directory structure can't exist
  * </code>
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract

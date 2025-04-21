@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Cms
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
@@ -19,7 +18,6 @@ declare(strict_types=1);
 /**
  * Cms page mysql resource
  *
- * @category   Mage
  * @package    Mage_Cms
  * @deprecated
  * @see Mage_Cms_Model_Resource_Page

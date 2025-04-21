@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
@@ -22,7 +21,6 @@
  * Most used properties and methods are defined in interface. Specific things for concrete DB adapter can be
  * transmitted using 'additional' property (Varien_Object) as a container.
  *
- * @category   Varien
  * @package    Varien_Db
  */
 class Varien_Db_Statement_Parameter

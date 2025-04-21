@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Downloadable
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
@@ -19,7 +18,6 @@ require_once 'Mage/Adminhtml/controllers/Catalog/ProductController.php';
 /**
  * Adminhtml downloadable product edit
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Adminhtml_Downloadable_Product_EditController extends Mage_Adminhtml_Catalog_ProductController

@@ -6,7 +6,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Varien
  * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
@@ -16,7 +15,6 @@
 /**
  * Convert HTTP adapter
  *
- * @category   Varien
  * @package    Varien_Convert
  */
 class Varien_Convert_Adapter_Http extends Varien_Convert_Adapter_Abstract

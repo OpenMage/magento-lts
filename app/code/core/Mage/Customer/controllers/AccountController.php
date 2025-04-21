@@ -7,7 +7,6 @@
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available at https://opensource.org/license/osl-3-0-php
  *
- * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
  * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
@@ -19,7 +18,6 @@ use Mage_Customer_Helper_Data as Helper;
 /**
  * Customer account controller
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
