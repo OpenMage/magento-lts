@@ -28,5 +28,20 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Restore result cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .phpmd.result-cache.php
+          key: phpmd-result-cache-${{ github.run_id }}
+          restore-keys: |
+            phpmd-result-cache-
+
       - name: PHPMD
-        run: php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml --baseline-file .phpmd.dist.baseline.xml
+        run: php vendor/bin/phpmd app/code/core/Mage/ github .phpmd.dist.xml --cache --baseline-file .phpmd.dist.baseline.xml
+
+      - name: Save result cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .phpmd.result-cache.php
+          key: phpmd-result-cache-${{ github.run_id }}
