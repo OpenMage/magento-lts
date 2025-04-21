@@ -113,3 +113,6 @@ app/etc/includes/ddev.xhgui.php
 
 # local development
 .localdev
+
+# rector
+.rector.result.cache

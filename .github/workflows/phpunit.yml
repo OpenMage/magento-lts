@@ -86,8 +86,23 @@ jobs:
           --enable_charts 'yes' \
           --skip_url_validation 'yes'
 
+      - name: Restore result cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .phpunit.result.cache
+          key: phpunit-result-cache-${{ matrix.php-versions }}-${{ matrix.mysql-version }}-${{ github.run_id }}
+          restore-keys: |
+            phpunit-result-cache-
+
       - name: Run phpUnit
         run: php vendor/bin/phpunit --configuration .phpunit.dist.xml
+
+      - name: Save result cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .phpunit.result.cache
+          key: phpunit-result-cache-${{ matrix.php-versions }}-${{ matrix.mysql-version }}-${{ github.run_id }}
 
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
@@ -96,18 +111,10 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: tests/logging/*.xml
 
-      - name: prepare SonarCloud Scan Data
-        if: ${{ (matrix.php-versions == '7.4') && (matrix.mysql-version == '5.7') }}
-        run: |
-          head tests/coverage/clover.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' tests/logging/junit.xml
-          sed -i 's@'$GITHUB_WORKSPACE'/@/github/workspace/@g' tests/coverage/clover.xml
-          head ./tests/coverage/clover.xml
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         continue-on-error: true
-        if: ${{ (matrix.php-versions == '7.4') && (matrix.mysql-version == '5.7') }} && SONAR_TOKEN
+        if: ${{ (matrix.php-versions == '8.1') && (matrix.mysql-version == '5.7') }} && SONAR_TOKEN
         with:
           args: >
             -Dproject.settings=tests/sonar-project.properties
