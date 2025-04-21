@@ -117,3 +117,6 @@ app/etc/includes/ddev.xhgui.php
 # cypress
 cypress/screenshots/
 cypress/videos/
+
+# rector
+.rector.result.cache
