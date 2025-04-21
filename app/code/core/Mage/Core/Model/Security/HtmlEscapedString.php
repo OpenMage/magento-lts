@@ -11,7 +11,7 @@ declare(strict_types=1);
  *
  * @package    Mage_Core
  * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
 /**

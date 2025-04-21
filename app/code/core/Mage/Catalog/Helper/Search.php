@@ -9,7 +9,7 @@
  *
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
 /**
