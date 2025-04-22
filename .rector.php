@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
+use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector as CodeQuality;
 use Rector\CodingStyle\Rector as CodingStyle;
 use Rector\Config\RectorConfig;
@@ -19,6 +21,10 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 try {
     return RectorConfig::configure()
+        ->withCache(
+            cacheDirectory: '.rector.result.cache',
+            cacheClass: FileCacheStorage::class,
+        )
         ->withPhpSets(
             php74: true,
         )

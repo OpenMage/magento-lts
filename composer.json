@@ -28,7 +28,7 @@
         "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
-        "components/jquery": "1.12.4",
+        "components/jquery": "^3.7.1",
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
@@ -49,6 +49,7 @@
     },
     "require-dev": {
         "ext-xmlreader": "*",
+        "composer/composer": "^2.8",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",

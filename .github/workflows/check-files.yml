@@ -34,10 +34,10 @@ on:
         description: "Count changed PHPStan files"
         value: ${{ jobs.check.outputs.phpstan }}
       phpunit-test:
-        description: "Count changed PhpUnit test files"
+        description: "Count changed PHPUnit test files"
         value: ${{ jobs.check.outputs.phpunit-test }}
       phpunit:
-        description: "Count changed PhpUnit files"
+        description: "Count changed PHPUnit files"
         value: ${{ jobs.check.outputs.phpunit }}
   # Allow manually triggering the workflow.
   workflow_dispatch:
