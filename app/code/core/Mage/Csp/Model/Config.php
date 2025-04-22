@@ -14,6 +14,8 @@
  */
 class Mage_Csp_Model_Config extends Varien_Simplexml_Config
 {
+    public const CACHE_TYPE = 'config';
+    public const CACHE_ID = 'config_csp';
     public const CACHE_TAG = 'config_csp';
 
     /**
@@ -21,7 +23,7 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
      */
     public function __construct($sourceData = null)
     {
-        $this->setCacheId('config_csp');
+        $this->setCacheId(self::CACHE_ID);
         $this->setCacheTags([self::CACHE_TAG]);
         $this->setCacheChecksum(null);
 
@@ -37,7 +39,7 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
      */
     protected function _construct(): self
     {
-        if (Mage::app()->useCache('config_csp') && $this->loadCache()) {
+        if (Mage::app()->useCache(self::CACHE_TYPE) && $this->loadCache()) {
             return $this;
         }
 
@@ -46,7 +48,7 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
 
         $this->setXml($config->getNode());
 
-        if (Mage::app()->useCache('config_api')) {
+        if (Mage::app()->useCache(self::CACHE_TYPE)) {
             $this->saveCache();
         }
         return $this;
