@@ -102,6 +102,7 @@ var arrayRow<?php echo $_htmlId ?> = {
             Element.insert($(insertAfterId), {after: this.template.evaluate(templateData)});
         }
 
+        // workaround for prototypeJS bug with disabled inputs
         requestAnimationFrame(function() {
             var rowId = templateData._id;
             var input = document.querySelector('tr#' + rowId + ' input');
