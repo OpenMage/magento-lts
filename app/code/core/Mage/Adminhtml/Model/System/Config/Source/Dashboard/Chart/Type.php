@@ -18,9 +18,9 @@ declare(strict_types=1);
 class Mage_Adminhtml_Model_System_Config_Source_Dashboard_Chart_Type
 {
     /**
-     * @return array
+     * @return array<array<string, string>>
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return [
             ['value' => 'line', 'label' => Mage::helper('adminhtml')->__('Line')],
@@ -31,9 +31,9 @@ class Mage_Adminhtml_Model_System_Config_Source_Dashboard_Chart_Type
     /**
      * Get options in "key-value" format
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'bar' => Mage::helper('adminhtml')->__('Bar'),
