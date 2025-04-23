@@ -219,6 +219,19 @@ cy.testRoutes = {
                     }
                 }
             },
+            manage_curreny: {
+                _id_parent: adminNav.system,
+                _id: '#nav-admin-system-currency-rates',
+                url: 'system_currency/index',
+                h3: 'Manage Currency Rates',
+                _h3: adminPage._h3,
+                _buttonSave: '.form-buttons button[title="Save Currency Rates"]',
+                __validation: {
+                    _input: {
+                        from: 'input[name="rate[USD][EUR]"]',
+                    }
+                }
+            },
             notification: {
                 _id_parent: adminNav.system,
                 _id: '#nav-admin-system-adminnotification',
