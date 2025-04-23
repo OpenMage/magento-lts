@@ -41,7 +41,7 @@
                 <th><?php echo Mage::helper('catalog')->__('Label') ?></th>
                 <th><?php echo Mage::helper('catalog')->__('Sort Order') ?></th>
                 <?php foreach ($this->getImageTypes() as $typeId => $type): ?>
-                    <th><?php echo $this->escapeHtml($type['label'], array('br')); ?></th>
+                    <th><?php echo $this->escapeHtml($type['label'], ['br']); ?></th>
                 <?php endforeach ?>
                 <th><?php echo Mage::helper('catalog')->__('Exclude') ?></th>
                 <th class="last"><?php echo Mage::helper('catalog')->__('Remove') ?></th>

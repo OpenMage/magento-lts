@@ -19,7 +19,7 @@
 <?php $_selections  = $_option->getSelections(); ?>
 <?php $_default = $_option->getDefaultSelection(); ?>
 <?php $_skipSaleableCheck = Mage::helper('catalog/product')->getSkipSaleableCheck(); ?>
-<?php list($_defaultQty, $_canChangeQty) = $this->_getDefaultValues(); ?>
+<?php [$_defaultQty, $_canChangeQty] = $this->_getDefaultValues(); ?>
 
 <dt>
     <span class="qty-holder">
