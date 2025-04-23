@@ -38,12 +38,13 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
         $this->_collection = Mage::getModel('catalogsearch/query')
             ->getResourceCollection();
 
-        if ($this->getRequest()->getParam('store')) {
-            $storeIds = $this->getRequest()->getParam('store');
-        } elseif ($this->getRequest()->getParam('website')) {
-            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
-        } elseif ($this->getRequest()->getParam('group')) {
-            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
+        $request = $this->getRequest();
+        if ($request->getParam('store')) {
+            $storeIds = $request->getParam('store');
+        } elseif ($request->getParam('website')) {
+            $storeIds = Mage::app()->getWebsite($request->getParam('website'))->getStoreIds();
+        } elseif ($request->getParam('group')) {
+            $storeIds = Mage::app()->getGroup($request->getParam('group'))->getStoreIds();
         } else {
             $storeIds = '';
         }
@@ -56,6 +57,9 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
         return parent::_prepareCollection();
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('search_query', [
@@ -85,6 +89,10 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Top extends Mage_Adminhtml_Block_D
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_CatalogSearch_Model_Query $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);

@@ -28,23 +28,29 @@ class Mage_Adminhtml_Block_Dashboard_Sales extends Mage_Adminhtml_Block_Dashboar
         $this->setTemplate('dashboard/salebar.phtml');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     */
     protected function _prepareLayout()
     {
         if (!$this->isModuleEnabled('Mage_Reports')) {
             return $this;
         }
-        $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website') || $this->getRequest()->getParam('group');
+
+        $request = $this->getRequest();
+
+        $isFilter = $request->getParam('store') || $request->getParam('website') || $request->getParam('group');
 
         $collection = Mage::getResourceModel('reports/order_collection')
             ->calculateSales($isFilter);
 
-        if ($this->getRequest()->getParam('store')) {
-            $collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
-        } elseif ($this->getRequest()->getParam('website')) {
-            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
+        if ($request->getParam('store')) {
+            $collection->addFieldToFilter('store_id', $request->getParam('store'));
+        } elseif ($request->getParam('website')) {
+            $storeIds = Mage::app()->getWebsite($request->getParam('website'))->getStoreIds();
             $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
-        } elseif ($this->getRequest()->getParam('group')) {
-            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
+        } elseif ($request->getParam('group')) {
+            $storeIds = Mage::app()->getGroup($request->getParam('group'))->getStoreIds();
             $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         }
 

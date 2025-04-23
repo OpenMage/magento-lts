@@ -222,6 +222,7 @@
             </global_search>
             <dashboard>
                 <enable_charts>1</enable_charts>
+                <chart_type>bar</chart_type>
             </dashboard>
         </admin>
     </default>

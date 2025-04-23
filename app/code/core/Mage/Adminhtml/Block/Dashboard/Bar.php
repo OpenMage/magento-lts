@@ -81,16 +81,19 @@ class Mage_Adminhtml_Block_Dashboard_Bar extends Mage_Adminhtml_Block_Dashboard_
      * Retrieve currency model if not set then return currency model for current store
      *
      * @return Mage_Directory_Model_Currency
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function getCurrency()
     {
         if (is_null($this->_currentCurrencyCode)) {
-            if ($this->getRequest()->getParam('store')) {
-                $this->_currentCurrencyCode = Mage::app()->getStore($this->getRequest()->getParam('store'))->getBaseCurrency();
-            } elseif ($this->getRequest()->getParam('website')) {
-                $this->_currentCurrencyCode = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getBaseCurrency();
-            } elseif ($this->getRequest()->getParam('group')) {
-                $this->_currentCurrencyCode = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getWebsite()->getBaseCurrency();
+            $request = $this->getRequest();
+            if ($request->getParam('store')) {
+                $this->_currentCurrencyCode = Mage::app()->getStore($request->getParam('store'))->getBaseCurrency();
+            } elseif ($request->getParam('website')) {
+                $this->_currentCurrencyCode = Mage::app()->getWebsite($request->getParam('website'))->getBaseCurrency();
+            } elseif ($request->getParam('group')) {
+                $this->_currentCurrencyCode = Mage::app()->getGroup($request->getParam('group'))->getWebsite()->getBaseCurrency();
             } else {
                 $this->_currentCurrencyCode = Mage::app()->getStore()->getBaseCurrency();
             }
