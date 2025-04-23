@@ -15,12 +15,13 @@
 
 class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
 {
+    /** @var array<string, array<int, string>> */
     protected array $items = [];
     protected string $section = 'system';
 
     public function addItem(string $type, string $data): self
     {
-        $this->items[$type] [] = $data;
+        $this->items[$type][] = $data;
         return $this;
     }
 
@@ -34,17 +35,14 @@ class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
             return '';
         }
 
-        /**
-         * @var Mage_Csp_Helper_Data $helper
-         */
+        /** @var Mage_Csp_Helper_Data $helper */
         $helper = Mage::helper('csp');
 
-        if (!Mage::getStoreConfigFlag("$this->section/csp/enabled")) {
+        if (!$helper->isCspEnabled($this->section)) {
             return '';
         }
-        /**
-         * @var Mage_Csp_Model_Config $config
-         */
+
+        /** @var Mage_Csp_Model_Config $config */
         $config = Mage::getSingleton('csp/config');
         $directives = array_merge_recursive(
             $helper->getPolicies($this->section),
@@ -56,8 +54,7 @@ class Mage_Csp_Block_Csp extends Mage_Core_Block_Abstract
             $cspHeader[] = $directive . ' ' . (is_array($value) ? implode(' ', $value) : (string) $value);
         }
 
-        $header = Mage::getStoreConfigFlag("$this->section/csp/report_only") ?
-            'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
+        $header = $helper->getCspHeader($this->section);
         $response->setHeader($header, implode('; ', $cspHeader));
         return '';
     }

@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Csp
  * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 class Mage_Csp_Model_Config extends Varien_Simplexml_Config
 {
     public const CACHE_TYPE = 'config';
@@ -39,16 +42,19 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
      */
     protected function _construct(): self
     {
-        if (Mage::app()->useCache(self::CACHE_TYPE) && $this->loadCache()) {
+        if ($this->hasUseCache() && $this->loadCache()) {
             return $this;
         }
 
         $this->loadString('<config/>');
         $config = Mage::getConfig()->loadModulesConfiguration('csp.xml', $this);
 
-        $this->setXml($config->getNode());
+        $node = $config->getNode();
+        if ($node) {
+            $this->setXml($node);
+        }
 
-        if (Mage::app()->useCache(self::CACHE_TYPE)) {
+        if ($this->hasUseCache()) {
             $this->saveCache();
         }
         return $this;
@@ -56,11 +62,18 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
 
     /**
      * Retrieve all adapters
+     * @return array<string, array<int, string>>
      */
     public function getPolicies(): array
     {
         $policies = [];
-        foreach ($this->getXpath('csp') as $config) {
+
+        $xpaths = $this->getXpath('csp/policy');
+        if (!$xpaths) {
+            return $policies;
+        }
+
+        foreach ($xpaths as $config) {
             foreach ($config as $policy => $rules) {
                 foreach ($rules as $host) {
                     $policies[$policy][] = (string) $host;
@@ -92,7 +105,7 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
     /**
      * @param string $data
      * @param string $id
-     * @param array $tags
+     * @param array<int, string> $tags
      * @param false|int $lifetime
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false): bool
@@ -121,7 +134,10 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
             return $this;
         }
 
-        $this->_extendNode($this->getNode(), $config, $overwrite);
+        $node = $this->getNode();
+        if ($node) {
+            $this->_extendNode($node, $config, $overwrite);
+        }
 
         return $this;
     }
@@ -138,5 +154,13 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
             }
             $this->_extendNode($newChild, $child, $overwrite);
         }
+    }
+
+    /**
+     * @return array<mixed>|false
+     */
+    protected function hasUseCache(): array|false
+    {
+        return Mage::app()->useCache(self::CACHE_TYPE);
     }
 }

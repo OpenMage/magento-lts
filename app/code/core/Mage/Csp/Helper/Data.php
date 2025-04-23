@@ -1,19 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available at https://opensource.org/license/osl-3-0-php
  *
  * @category   Mage
  * @package    Mage_Csp
  * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    protected $_moduleName = 'Mage_Csp';
+
     public const CONFIG_MAPPING = [
         'default-src',
         'script-src',
@@ -27,15 +32,41 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         'form-action',
     ];
 
+    /**
+     * @return array<string, string>
+     */
     public function getPolicies(string $section): array
     {
-        if (!Mage::getStoreConfigFlag("$section/csp/enabled")) {
-            return [];
-        }
         $result = [];
+
+        if (!$this->isCspEnabled($section)) {
+            return $result;
+        }
+
         foreach (self::CONFIG_MAPPING as $key) {
-            $result [$key] = Mage::getStoreConfig("$section/csp/$key");
+            $result[$key] = $this->getCspConfigByKey($section, $key);
         }
         return $result;
+    }
+
+    public function isCspEnabled(string $section): bool
+    {
+        return Mage::getStoreConfigFlag("$section/csp/enabled");
+    }
+
+    public function isCspReportOnly(string $section): bool
+    {
+        return Mage::getStoreConfigFlag("$section/csp/report_only");
+    }
+
+    public function getCspConfigByKey(string $section, string $key): string
+    {
+        return Mage::getStoreConfig("$section/csp/$key");
+    }
+
+    public function getCspHeader(string $section): string
+    {
+        return $this->isCspReportOnly($section) ?
+            'Content-Security-Policy-Report-Only' : 'Content-Security-Policy';
     }
 }
