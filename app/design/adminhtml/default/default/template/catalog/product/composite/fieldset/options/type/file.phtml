@@ -21,7 +21,7 @@
 <?php $_fieldNameAction = $_fileName . '_action'; ?>
 <?php $_fieldValueAction = $_fileExists ? 'save_old' : 'save_new'; ?>
 <?php $_fileNamed = $_fileName . '_name'; ?>
-<?php $_rand = rand(); ?>
+<?php $_rand = random_int(0, mt_getrandmax()); ?>
 
 <script type="text/javascript">
 //<![CDATA[

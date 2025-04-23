@@ -21,6 +21,7 @@ use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 try {
     return RectorConfig::configure()
+        ->withFileExtensions(['php', 'phtml'])
         ->withCache(
             cacheDirectory: '.rector.result.cache',
             cacheClass: FileCacheStorage::class,
