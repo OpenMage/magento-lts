@@ -19,6 +19,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 
     public const XML_CPS_ENABLED = 'csp/%s/enabled';
     public const XML_CSP_REPORT_ONLY = 'csp/%s/report_only';
+    public const XML_CSP_REPORT_URI = 'csp/%s/report_uri';
     public const HEADER_CONTENT_SECURITY_POLICY = 'Content-Security-Policy';
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY = 'Content-Security-Policy-Report-Only';
     public const CSP_DIRECTIVES = [
@@ -52,6 +53,16 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     public function getReportOnly($area): bool
     {
         return Mage::getStoreConfigFlag( sprintf(self::XML_CSP_REPORT_ONLY, $area));
+    }
+
+    /**
+     * Get report uri
+     * @param string $area
+     * @return string
+     */
+    public function getReportUri($area): string
+    {
+        return Mage::getStoreConfig( sprintf(self::XML_CSP_REPORT_URI, $area));
     }
 
     /**

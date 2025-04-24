@@ -68,6 +68,9 @@ class Mage_Csp_Model_Observer
         $headerName = $helper->getReportOnly($area)
             ? Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY
             : Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY;
+        if (!empty($helper->getReportUri($area))) {
+            $headerValue.= '; report-uri ' . $helper->getReportUri($area);
+        }
         $response->setHeader($headerName, $headerValue);
     }
 

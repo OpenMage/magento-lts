@@ -51,6 +51,14 @@
                                 <enabled>1</enabled>
                             </depends>
                         </report_only>
+                        <report_uri translate="label">
+                            <label>Report URI</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </report_uri>
                         <default-src translate="label">
                             <label>default-src</label>
                             <frontend_model>adminhtml/system_config_form_field_csp_defaultsrc</frontend_model>
@@ -201,6 +209,14 @@
                                 <enabled>1</enabled>
                             </depends>
                         </report_only>
+                        <report_uri translate="label">
+                            <label>Report URI</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </report_uri>
                         <default-src translate="label">
                             <label>default-src</label>
                             <frontend_model>adminhtml/system_config_form_field_csp_admin_defaultsrc</frontend_model>
