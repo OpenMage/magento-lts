@@ -268,15 +268,13 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $dateStart->addMonth(1);
                     break;
             }
-            $axisTimestamps = [];
             if (in_array($this->getDataHelper()->getParam('period'), [
                 Mage_Reports_Helper_Data::PERIOD_3_MONTHS,
-                Mage_Reports_Helper_Data::PERIOD_6_MONTHS
+                Mage_Reports_Helper_Data::PERIOD_6_MONTHS,
             ])) {
-                if (empty($axisTimestamps)) {
-                    foreach ($this->_axisLabels['x'] as $axisDate) {
-                        $axisTimestamps[] = (new Zend_Date($axisDate, 'yyyy-MM-dd'))->getTimestamp();
-                    }
+                $axisTimestamps = [];
+                foreach ($this->_axisLabels['x'] as $axisDate) {
+                    $axisTimestamps[] = (new Zend_Date($axisDate, 'yyyy-MM-dd'))->getTimestamp();
                 }
             }
 
