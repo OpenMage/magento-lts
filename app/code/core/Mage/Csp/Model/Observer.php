@@ -19,7 +19,7 @@ class Mage_Csp_Model_Observer
 {
     /**
      * Add Content Security Policy headers to the frontend response
-     * 
+     *
      * @param Varien_Event_Observer $observer
      * @return void
      */
@@ -27,10 +27,10 @@ class Mage_Csp_Model_Observer
     {
         $this->_addCspHeaders($observer, Mage_Core_Model_App_Area::AREA_FRONTEND);
     }
-    
+
     /**
      * Add Content Security Policy headers to the admin response
-     * 
+     *
      * @param Varien_Event_Observer $observer
      * @return void
      */
@@ -38,10 +38,10 @@ class Mage_Csp_Model_Observer
     {
         $this->_addCspHeaders($observer, Mage_Core_Model_App_Area::AREA_ADMINHTML);
     }
-    
+
     /**
      * Common method to add CSP headers for a specific area
-     * 
+     *
      * @param Varien_Event_Observer $observer
      * @param string $area 'frontend' or 'admin'
      * @return void
@@ -69,14 +69,14 @@ class Mage_Csp_Model_Observer
             ? Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY
             : Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY;
         if (!empty($helper->getReportUri($area))) {
-            $headerValue.= '; report-uri ' . $helper->getReportUri($area);
+            $headerValue .= '; report-uri ' . $helper->getReportUri($area);
         }
         $response->setHeader($headerName, $headerValue);
     }
 
     /**
      * Build the CSP header value from directives
-     * 
+     *
      * @param array $directives
      * @return string
      */

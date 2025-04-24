@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types= 1);
+declare(strict_types=1);
 
 /**
  * OpenMage
@@ -31,9 +31,9 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
      */
     protected $_area = Mage_Core_Model_App_Area::AREA_FRONTEND;
 
-     /**
-     * @var Mage_Csp_Helper_Data
-     */
+    /**
+    * @var Mage_Csp_Helper_Data
+    */
     protected $_helper;
 
     /**
@@ -70,7 +70,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
 
         $directiveName = $this->_directiveName;
         $area = $this->_area;
-        
+
         $globalPolicy = $this->_helper->getGlobalPolicy($directiveName);
         if ($globalPolicy) {
             foreach ($globalPolicy as $key => $host) {

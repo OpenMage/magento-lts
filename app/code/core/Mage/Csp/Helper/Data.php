@@ -16,7 +16,6 @@ declare(strict_types=1);
  */
 class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
     public const XML_CPS_ENABLED = 'csp/%s/enabled';
     public const XML_CSP_REPORT_ONLY = 'csp/%s/report_only';
     public const XML_CSP_REPORT_URI = 'csp/%s/report_uri';
@@ -52,7 +51,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getReportOnly($area): bool
     {
-        return Mage::getStoreConfigFlag( sprintf(self::XML_CSP_REPORT_ONLY, $area));
+        return Mage::getStoreConfigFlag(sprintf(self::XML_CSP_REPORT_ONLY, $area));
     }
 
     /**
@@ -62,7 +61,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getReportUri($area): string
     {
-        return Mage::getStoreConfig( sprintf(self::XML_CSP_REPORT_URI, $area));
+        return Mage::getStoreConfig(sprintf(self::XML_CSP_REPORT_URI, $area));
     }
 
     /**
@@ -91,7 +90,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
             $policy[$directiveName] = array_merge_recursive(
                 $this->getGlobalPolicy($directiveName),
                 $this->getAreaPolicy($area, $directiveName),
-                $this->getStoreConfigPolicy($area, $directiveName)
+                $this->getStoreConfigPolicy($area, $directiveName),
             );
             $policy[$directiveName] = array_unique($policy[$directiveName]);
         }
@@ -107,7 +106,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getGlobalPolicy($directiveName = 'default-src'): array
     {
-        $globalNode = Mage::getConfig()->getNode(sprintf("global/csp/%s", $directiveName));
+        $globalNode = Mage::getConfig()->getNode(sprintf('global/csp/%s', $directiveName));
         if ($globalNode) {
             return $globalNode->asArray();
         }
