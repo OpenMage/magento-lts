@@ -58,6 +58,9 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends>
+                                <report_only>1</report_only>
+                            </depends>
                         </report_uri>
                         <default-src translate="label">
                             <label>default-src</label>
@@ -185,8 +188,6 @@
                     <label>CSP protection Admin</label>
                     <sort_order>200</sort_order>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>0</show_in_website>
-                    <show_in_store>0</show_in_store>
                     <fields>
                         <enabled translate="label">
                             <label>Enabled</label>
@@ -194,8 +195,6 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                         </enabled>
                         <report_only translate="label">
                             <label>Report Only</label>
@@ -203,8 +202,6 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <sort_order>11</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -214,8 +211,9 @@
                             <frontend_type>text</frontend_type>
                             <sort_order>12</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <report_only>1</report_only>
+                            </depends>
                         </report_uri>
                         <default-src translate="label">
                             <label>default-src</label>
@@ -223,8 +221,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -235,8 +231,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>21</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -247,8 +241,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -259,8 +251,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>23</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -271,8 +261,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>24</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -283,8 +271,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -295,8 +281,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>26</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -307,8 +291,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>27</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -319,8 +301,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>28</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
@@ -331,8 +311,6 @@
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>29</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
                             <depends>
                                 <enabled>1</enabled>
                             </depends>
