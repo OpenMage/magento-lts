@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
@@ -13,14 +16,14 @@
  */
 
 /**
- * connect-src hosts field renderer
+ * object-src hosts field renderer
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_ConnectSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Objectsrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'connect-src';
+    protected $_directiveName = 'object-src';
 }

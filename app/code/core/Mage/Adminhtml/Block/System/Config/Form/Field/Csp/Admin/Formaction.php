@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
@@ -13,14 +16,14 @@
  */
 
 /**
- * frame-src hosts field renderer
+ * form-action hosts field renderer
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_FrameSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Formaction extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'frame-src';
+    protected $_directiveName = 'form-action';
 }

@@ -1,4 +1,19 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * OpenMage
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available at https://opensource.org/license/afl-3-0-php
+ *
+ * @category   Mage
+ * @package    Mage_Log
+ * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
+ * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
+ * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ */
+-->
 <config>
     <modules>
         <Mage_Csp>
@@ -61,17 +76,38 @@
                 <observers>
                     <csp_observer>
                         <class>csp/observer</class>
-                        <method>addCspHeaders</method>
+                        <method>addFrontendCspHeaders</method>
                     </csp_observer>
                 </observers>
             </http_response_send_before>
         </events>
     </frontend>
+    <adminhtml>
+        <csp>
+            <script-src>
+                <unsafe-inline>'unsafe-inline'</unsafe-inline>
+            </script-src>
+            <style-src>
+                <unsafe-inline>'unsafe-inline'</unsafe-inline>
+            </style-src>
+        </csp>
+        <events>
+            <http_response_send_before>
+                <observers>
+                    <csp_observer>
+                        <class>csp/observer</class>
+                        <method>addAdminCspHeaders</method>
+                    </csp_observer>
+                </observers>
+            </http_response_send_before>
+        </events>
+    </adminhtml>
     <default>
-        <system>
-            <csp>
+        <csp>
+            <frontend>
+                <report_only>1</report_only>
                 <script-src>
-                    <unsafe-inline-script>'unsafe-inline'</unsafe-inline-script>
+                    <unsafe-inline>'unsafe-inline'</unsafe-inline>
                     <unsafe-eval>'unsafe-eval'</unsafe-eval>
                     <google-analytics>www.google-analytics.com</google-analytics>
                     <gtm>www.googletagmanager.com</gtm>
@@ -82,7 +118,7 @@
                     <facebook>connect.facebook.net</facebook>
                 </script-src>
                 <style-src>
-                    <unsafe-inline-style>'unsafe-inline'</unsafe-inline-style>
+                    <unsafe-inline>'unsafe-inline'</unsafe-inline>
                     <google-fonts>fonts.googleapis.com</google-fonts>
                     <maxcdn>maxcdn.bootstrapcdn.com</maxcdn>
                 </style-src>
@@ -113,8 +149,11 @@
                     <paypal-form>www.paypal.com</paypal-form>
                     <paypal-secure-form>securepayments.paypal.com</paypal-secure-form>
                 </form-action>
-            </csp>
-        </system>
+            </frontend>
+            <adminhtml>
+                <report_only>1</report_only>
+            </adminhtml>
+        </csp>
     </default>
 </config>
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
@@ -13,14 +16,14 @@
  */
 
 /**
- * img-src hosts field renderer
+ * style-src hosts field renderer
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_ImgSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Stylesrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'img-src';
+    protected $_directiveName = 'style-src';
 }

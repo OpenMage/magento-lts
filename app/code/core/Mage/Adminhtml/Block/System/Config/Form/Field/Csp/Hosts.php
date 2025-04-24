@@ -26,45 +26,31 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
      * @var string
      */
     protected $_directiveName = '';
-    protected $_area = 'system';
+    /**
+     * Area name adminhtml or frontend
+     */
+    protected $_area = Mage_Core_Model_App_Area::AREA_FRONTEND;
+
+     /**
+     * @var Mage_Csp_Helper_Data
+     */
+    protected $_helper;
 
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->_helper = Mage::helper('csp');
         $this->addColumn('host', [
             'label' => Mage::helper('csp')->__('Host'),
-            'style' => 'width:300px'
         ]);
 
         $this->_addAfter = false;
         $this->_addButtonLabel = Mage::helper('csp')->__('Add Host');
-        $this->setTemplate('csp/system/config/form/field/array.phtml');
+        $this->setTemplate('system/config/form/field/csp.phtml');
 
         parent::__construct();
-    }
-
-    /**
-     * Get directive name
-     *
-     * @return string
-     */
-    public function getDirectiveName(): string
-    {
-        return $this->_directiveName;
-    }
-
-    /**
-     * Set directive name
-     *
-     * @param string $name
-     * @return $this
-     */
-    public function setDirectiveName($name): static
-    {
-        $this->_directiveName = $name;
-        return $this;
     }
 
     /**
@@ -82,57 +68,49 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
 
         $result = [];
 
-        // Get values from XML files
-        $directiveName = $this->getDirectiveName();
+        $directiveName = $this->_directiveName;
         $area = $this->_area;
-        $configNode = Mage::getConfig()->getNode("global/csp/$directiveName");
-        if ($configNode) {
-            $hosts = $configNode->asArray();
-            if ($hosts) {
-                foreach ($hosts as $key => $host) {
-                    $rowId = $directiveName . '_xml_' . $area . '_' . $key;
-                    $result[$rowId] = new Varien_Object([
-                        'host' => $host,
-                        'readonly' => 'readonly="readonly"',
-                        '_id' => $rowId,
-                    ]);
-                    $this->_prepareArrayRow($result[$rowId]);
-                }
-            }
-        }
-        $areaNode = Mage::getConfig()->getNode("$area/csp/$key");
-        if ($areaNode) {
-            $hosts = $areaNode->asArray();
-            if ($hosts) {
-                foreach ($hosts as $key => $host) {
-                    $rowId = $directiveName . '_xml_' . $area . '_' . $key;
-                    $result[$rowId] = new Varien_Object([
-                        'host' => $host,
-                        'readonly' => 'readonly="readonly"',
-                        '_id' => $rowId,
-                    ]);
-                    $this->_prepareArrayRow($result[$rowId]);
-                }
+        
+        $globalPolicy = $this->_helper->getGlobalPolicy($directiveName);
+        if ($globalPolicy) {
+            foreach ($globalPolicy as $key => $host) {
+                $rowId = $directiveName . '_xml_' . $area . '_' . $key;
+                $result[$rowId] = new Varien_Object([
+                    'host' => $host,
+                    'readonly' => 'readonly="readonly"',
+                    '_id' => $rowId,
+                ]);
+                $this->_prepareArrayRow($result[$rowId]);
             }
         }
 
-        // Get values from default config
-        $defaultNode = Mage::getConfig()->getNode("default/$area/csp/$directiveName");
-        if ($defaultNode) {
-            $hosts = $defaultNode->asArray();
-            if ($hosts) {
-                foreach ($hosts as $key => $value) {
-                    $rowId = $directiveName . '_' . $area . '_' . $key;
-                    $result[$rowId] = new Varien_Object([
-                        'host' => $this->escapeHtml($value),
-                        '_id' => $rowId,
-                    ]);
-
-                    $this->_prepareArrayRow($result[$rowId]);
-                }
+        $areaPolicy = $this->_helper->getAreaPolicy($area, $directiveName);
+        if ($areaPolicy) {
+            foreach ($areaPolicy as $key => $host) {
+                $rowId = $directiveName . '_xml_' . $area . '_' . $key;
+                $result[$rowId] = new Varien_Object([
+                    'host' => $host,
+                    'readonly' => 'readonly="readonly"',
+                    '_id' => $rowId,
+                ]);
+                $this->_prepareArrayRow($result[$rowId]);
             }
         }
-        $this->_arrayRowsCache = array_merge($result, parent::getArrayRows());
+
+        $configPolicy = $this->_helper->getStoreConfigPolicy($area, $directiveName);
+        if ($configPolicy) {
+            foreach ($configPolicy as $key => $value) {
+                $rowId = $directiveName . '_' . $area . '_' . $key;
+                $result[$rowId] = new Varien_Object([
+                    'host' => $this->escapeHtml($value),
+                    '_id' => $rowId,
+                ]);
+
+                $this->_prepareArrayRow($result[$rowId]);
+            }
+        }
+
+        $this->_arrayRowsCache = $result;
         return $this->_arrayRowsCache;
     }
     /**

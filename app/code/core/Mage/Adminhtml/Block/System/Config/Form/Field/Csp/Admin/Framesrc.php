@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
@@ -13,14 +16,14 @@
  */
 
 /**
- * media-src hosts field renderer
+ * frame-src hosts field renderer
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_MediaSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Framesrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'media-src';
+    protected $_directiveName = 'frame-src';
 }

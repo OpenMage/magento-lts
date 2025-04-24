@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * OpenMage
  *
@@ -13,14 +16,14 @@
  */
 
 /**
- * font-src hosts field renderer
+ * default-src hosts field renderer
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_FontSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Defaultsrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'font-src';
+    protected $_directiveName = 'default-src';
 }

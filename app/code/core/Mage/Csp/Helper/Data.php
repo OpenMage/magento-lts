@@ -17,8 +17,8 @@ declare(strict_types=1);
 class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
-    public const XML_CPS_ENABLED = 'system/csp/enabled';
-    public const XML_CSP_REPORT_ONLY = 'system/csp/report_only';
+    public const XML_CPS_ENABLED = 'csp/%s/enabled';
+    public const XML_CSP_REPORT_ONLY = 'csp/%s/report_only';
     public const HEADER_CONTENT_SECURITY_POLICY = 'Content-Security-Policy';
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY = 'Content-Security-Policy-Report-Only';
     public const CSP_DIRECTIVES = [
@@ -34,47 +34,102 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         'form-action',
     ];
 
-    public function isEnabled(): bool
+    /**
+     * Check if CSP is enabled
+     * @param string $area
+     * @return bool
+     */
+    public function isEnabled($area): bool
     {
-        return Mage::getStoreConfigFlag(self::XML_CPS_ENABLED);
-    }
-
-    public function getReportOnly(): bool
-    {
-        return Mage::getStoreConfigFlag(self::XML_CSP_REPORT_ONLY);
+        return Mage::getStoreConfigFlag(sprintf(self::XML_CPS_ENABLED, $area));
     }
 
     /**
-     * Get CSP policies
+     * Check if report only mode is enabled
+     * @param string $area
+     * @return bool
+     */
+    public function getReportOnly($area): bool
+    {
+        return Mage::getStoreConfigFlag( sprintf(self::XML_CSP_REPORT_ONLY, $area));
+    }
+
+    /**
+     * Get the appropriate CSP header based on the area and report only mode
+     * @param string $area
+     * @return string
+     */
+    public function getReportOnlyHeader($area): string
+    {
+        return $this->getReportOnly($area) ? self::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY : self::HEADER_CONTENT_SECURITY_POLICY;
+    }
+
+    /**
+     * Get CSP policies for a specific area
+     * @param string $area
      * @return array
      */
-    public function getPolicies($area = 'frontend'): array
+    public function getPolicies($area = Mage_Core_Model_App_Area::AREA_FRONTEND): array
     {
-        if (!$this->isEnabled()) {
+        if (!$this->isEnabled($area)) {
             return [];
         }
         $policy = [];
-        foreach (self::CSP_DIRECTIVES as $key) {
-            $policy[$key] = [];
-
-            $globalNode = Mage::getConfig()->getNode("global/csp/$key");
-            $areaNode = Mage::getConfig()->getNode("$area/csp/$key");
-            $systemNode = $this->_getSystemPolicy($area, $key);
-            $policy[$key] = array_merge_recursive(
-                $globalNode ? $globalNode->asArray() : [],
-                $areaNode ? $areaNode->asArray() : [],
-                $systemNode
+        foreach (self::CSP_DIRECTIVES as $directiveName) {
+            $policy[$directiveName] = [];
+            $policy[$directiveName] = array_merge_recursive(
+                $this->getGlobalPolicy($directiveName),
+                $this->getAreaPolicy($area, $directiveName),
+                $this->getStoreConfigPolicy($area, $directiveName)
             );
-
-            $policy[$key] = array_unique($policy[$key]);
+            $policy[$directiveName] = array_unique($policy[$directiveName]);
         }
 
         return $policy;
     }
 
-    private function _getSystemPolicy($area = 'system', $key)
+    /**
+     * Get global policy for a specific directive
+     * global/csp/<directiveName>
+     * @param string $directiveName
+     * @return array
+     */
+    public function getGlobalPolicy($directiveName = 'default-src'): array
     {
-        $systemNode = Mage::getStoreConfig("$area/csp/$key");
+        $globalNode = Mage::getConfig()->getNode(sprintf("global/csp/%s", $directiveName));
+        if ($globalNode) {
+            return $globalNode->asArray();
+        }
+        return [];
+    }
+
+    /**
+     * Get area policy for a specific directive
+     * (adminhtml|frontend)/csp/<directiveName>
+     * @param string $area
+     * @param string $directiveName
+     * @return array
+     */
+    public function getAreaPolicy($area = Mage_Core_Model_App_Area::AREA_FRONTEND, $directiveName = 'default-src'): array
+    {
+        $areaNode = Mage::getConfig()->getNode(sprintf('%s/csp/%s', $area, $directiveName));
+        if ($areaNode) {
+            return $areaNode->asArray();
+        }
+        return [];
+    }
+
+
+    /**
+     * Get system policy for a specific directive
+     * csp/(adminhtml|frontend)/<directiveName>
+     * @param string $area
+     * @param string $directiveName
+     * @return array
+     */
+    public function getStoreConfigPolicy($area = Mage_Core_Model_App_Area::AREA_FRONTEND, $directiveName = 'default-src'): array
+    {
+        $systemNode = Mage::getStoreConfig(sprintf('csp/%s/%s', $area, $directiveName));
         if ($systemNode) {
             if (is_string($systemNode) && preg_match('/^a:\d+:{.*}$/', $systemNode)) {
                 $unserializedData = unserialize($systemNode);
