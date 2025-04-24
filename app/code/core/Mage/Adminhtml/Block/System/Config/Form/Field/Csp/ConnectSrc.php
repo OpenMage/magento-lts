@@ -13,14 +13,14 @@
  */
 
 /**
- * default-src hosts field renderer
+ * connect-src hosts field renderer
  */
-class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_DefaultSrc extends Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_ConnectSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'default-src';
+    protected $_directiveName = 'connect-src';
 }

@@ -13,14 +13,14 @@
  */
 
 /**
- * connect-src hosts field renderer
+ * media-src hosts field renderer
  */
-class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_ConnectSrc extends Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_MediaSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'connect-src';
+    protected $_directiveName = 'media-src';
 }

@@ -13,14 +13,14 @@
  */
 
 /**
- * font-src hosts field renderer
+ * img-src hosts field renderer
  */
-class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_FontSrc extends Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_ImgSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'font-src';
+    protected $_directiveName = 'img-src';
 }

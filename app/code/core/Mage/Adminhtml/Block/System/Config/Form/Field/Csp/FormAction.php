@@ -15,7 +15,7 @@
 /**
  * form-action hosts field renderer
  */
-class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_FormAction extends Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_FormAction extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
 {
     /**
      * Directive name

@@ -18,8 +18,9 @@ class Mage_Csp_Model_Observer
         }
 
         $response = $observer->getEvent()->getResponse();
-        if ($response instanceof Mage_Core_Controller_Response_Http) {
-            $directives = $helper->getPolicies();
+        if ($response->canSendHeaders(true)) {
+            $area = Mage::app()->getStore()->isAdmin() ? 'admin' : 'system';
+            $directives = $helper->getPolicies( $area );
             $cspHeader = [];
             foreach ($directives as $directive => $value) {
                 $cspHeader[] = $directive . ' ' . implode(' ', $value);

@@ -48,7 +48,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      * Get CSP policies
      * @return array
      */
-    public function getPolicies(): array
+    public function getPolicies($area = 'frontend'): array
     {
         if (!$this->isEnabled()) {
             return [];
@@ -57,25 +57,31 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         foreach (self::CSP_DIRECTIVES as $key) {
             $policy[$key] = [];
 
-            // Load module policy
-            $configNode = Mage::getConfig()->getNode("global/csp/$key");
-            if ($configNode) {
-                $policy[$key] = $configNode->asArray();
-            }
-
-            // Load system policy
-            $systemNode = Mage::getStoreConfig("system/csp/$key");
-            if ($systemNode) {
-                if (is_string($systemNode) && preg_match('/^a:\d+:{.*}$/', $systemNode)) {
-                    $unserializedData = unserialize($systemNode);
-                    $systemNode = array_column($unserializedData, 'host');
-                }
-                $policy[$key] = array_merge( $policy[$key], $systemNode);
-            }
+            $globalNode = Mage::getConfig()->getNode("global/csp/$key");
+            $areaNode = Mage::getConfig()->getNode("$area/csp/$key");
+            $systemNode = $this->_getSystemPolicy($area, $key);
+            $policy[$key] = array_merge_recursive(
+                $globalNode ? $globalNode->asArray() : [],
+                $areaNode ? $areaNode->asArray() : [],
+                $systemNode
+            );
 
             $policy[$key] = array_unique($policy[$key]);
         }
 
         return $policy;
+    }
+
+    private function _getSystemPolicy($area = 'system', $key)
+    {
+        $systemNode = Mage::getStoreConfig("$area/csp/$key");
+        if ($systemNode) {
+            if (is_string($systemNode) && preg_match('/^a:\d+:{.*}$/', $systemNode)) {
+                $unserializedData = unserialize($systemNode);
+                $systemNode = array_column($unserializedData, 'host');
+            }
+            return $systemNode;
+        }
+        return [];
     }
 }

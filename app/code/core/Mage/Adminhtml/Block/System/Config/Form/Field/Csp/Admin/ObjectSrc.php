@@ -13,14 +13,14 @@
  */
 
 /**
- * style-src hosts field renderer
+ * object-src hosts field renderer
  */
-class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_StyleSrc extends Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_ObjectSrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
 {
     /**
      * Directive name
      *
      * @var string
      */
-    protected $_directiveName = 'style-src';
+    protected $_directiveName = 'object-src';
 }

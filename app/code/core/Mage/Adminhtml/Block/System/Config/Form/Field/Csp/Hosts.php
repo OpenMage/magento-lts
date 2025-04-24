@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types= 1);
+
 /**
  * OpenMage
  *
@@ -15,7 +18,7 @@
 /**
  * Base class for CSP hosts field renderer
  */
-class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
+abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
     /**
      * Directive name (e.g., 'script-src', 'style-src')
@@ -23,6 +26,7 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
      * @var string
      */
     protected $_directiveName = '';
+    protected $_area = 'system';
 
     /**
      * Constructor
@@ -31,8 +35,7 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
     {
         $this->addColumn('host', [
             'label' => Mage::helper('csp')->__('Host'),
-            'style' => 'width:300px',
-            'renderer' => 'csp/adminhtml_system_config_form_field_hosts_renderer',
+            'style' => 'width:300px'
         ]);
 
         $this->_addAfter = false;
@@ -47,7 +50,7 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
      *
      * @return string
      */
-    public function getDirectiveName()
+    public function getDirectiveName(): string
     {
         return $this->_directiveName;
     }
@@ -58,7 +61,7 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
      * @param string $name
      * @return $this
      */
-    public function setDirectiveName($name)
+    public function setDirectiveName($name): static
     {
         $this->_directiveName = $name;
         return $this;
@@ -71,7 +74,7 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
      *
      * @return array
      */
-    public function getArrayRows()
+    public function getArrayRows(): array
     {
         if ($this->_arrayRowsCache !== null) {
             return $this->_arrayRowsCache;
@@ -81,12 +84,28 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
 
         // Get values from XML files
         $directiveName = $this->getDirectiveName();
+        $area = $this->_area;
         $configNode = Mage::getConfig()->getNode("global/csp/$directiveName");
         if ($configNode) {
             $hosts = $configNode->asArray();
             if ($hosts) {
                 foreach ($hosts as $key => $host) {
-                    $rowId = $directiveName . '_xml_' . $key;
+                    $rowId = $directiveName . '_xml_' . $area . '_' . $key;
+                    $result[$rowId] = new Varien_Object([
+                        'host' => $host,
+                        'readonly' => 'readonly="readonly"',
+                        '_id' => $rowId,
+                    ]);
+                    $this->_prepareArrayRow($result[$rowId]);
+                }
+            }
+        }
+        $areaNode = Mage::getConfig()->getNode("$area/csp/$key");
+        if ($areaNode) {
+            $hosts = $areaNode->asArray();
+            if ($hosts) {
+                foreach ($hosts as $key => $host) {
+                    $rowId = $directiveName . '_xml_' . $area . '_' . $key;
                     $result[$rowId] = new Varien_Object([
                         'host' => $host,
                         'readonly' => 'readonly="readonly"',
@@ -98,12 +117,12 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
         }
 
         // Get values from default config
-        $defaultNode = Mage::getConfig()->getNode("default/system/csp/$directiveName");
+        $defaultNode = Mage::getConfig()->getNode("default/$area/csp/$directiveName");
         if ($defaultNode) {
             $hosts = $defaultNode->asArray();
             if ($hosts) {
                 foreach ($hosts as $key => $value) {
-                    $rowId = $directiveName . '_default_' . $key;
+                    $rowId = $directiveName . '_' . $area . '_' . $key;
                     $result[$rowId] = new Varien_Object([
                         'host' => $this->escapeHtml($value),
                         '_id' => $rowId,
@@ -113,7 +132,7 @@ class Mage_Csp_Block_Adminhtml_System_Config_Form_Field_Hosts extends Mage_Admin
                 }
             }
         }
-        $this->_arrayRowsCache = $result;
+        $this->_arrayRowsCache = array_merge($result, parent::getArrayRows());
         return $this->_arrayRowsCache;
     }
     /**
