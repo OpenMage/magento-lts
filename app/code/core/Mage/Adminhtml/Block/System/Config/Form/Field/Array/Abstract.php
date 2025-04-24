@@ -48,7 +48,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
      *
      * @var array|null
      */
-    private $_arrayRowsCache;
+    protected $_arrayRowsCache;
 
     /**
      * Indication whether block is prepared to render or no
