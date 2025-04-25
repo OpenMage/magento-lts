@@ -19,9 +19,6 @@ class Mage_Csp_Model_Observer
 {
     /**
      * Add Content Security Policy headers to the frontend response
-     *
-     * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function addFrontendCspHeaders(Varien_Event_Observer $observer): void
     {
@@ -30,9 +27,6 @@ class Mage_Csp_Model_Observer
 
     /**
      * Add Content Security Policy headers to the admin response
-     *
-     * @param Varien_Event_Observer $observer
-     * @return void
      */
     public function addAdminCspHeaders(Varien_Event_Observer $observer): void
     {
@@ -42,9 +36,7 @@ class Mage_Csp_Model_Observer
     /**
      * Common method to add CSP headers for a specific area
      *
-     * @param Varien_Event_Observer $observer
      * @param string $area 'frontend' or 'admin'
-     * @return void
      */
     private function _addCspHeaders(Varien_Event_Observer $observer, $area): void
     {
@@ -76,9 +68,6 @@ class Mage_Csp_Model_Observer
 
     /**
      * Build the CSP header value from directives
-     *
-     * @param array $directives
-     * @return string
      */
     private function _buildCspHeaderValue(array $directives): string
     {

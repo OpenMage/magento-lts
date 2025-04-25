@@ -57,8 +57,6 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
      * Obtain existing data from form element
      *
      * Each row will be instance of Varien_Object
-     *
-     * @return array
      */
     public function getArrayRows(): array
     {

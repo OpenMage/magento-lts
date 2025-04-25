@@ -37,7 +37,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if CSP is enabled
      * @param string $area
-     * @return bool
      */
     public function isEnabled($area): bool
     {
@@ -47,7 +46,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Check if report only mode is enabled
      * @param string $area
-     * @return bool
      */
     public function getReportOnly($area): bool
     {
@@ -57,7 +55,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get report uri
      * @param string $area
-     * @return string
      */
     public function getReportUri($area): string
     {
@@ -67,7 +64,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get the appropriate CSP header based on the area and report only mode
      * @param string $area
-     * @return string
      */
     public function getReportOnlyHeader($area): string
     {
@@ -77,7 +73,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get CSP policies for a specific area
      * @param string $area
-     * @return array
      */
     public function getPolicies($area = Mage_Core_Model_App_Area::AREA_FRONTEND): array
     {
@@ -102,7 +97,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      * Get global policy for a specific directive
      * global/csp/<directiveName>
      * @param string $directiveName
-     * @return array
      */
     public function getGlobalPolicy($directiveName = 'default-src'): array
     {
@@ -118,7 +112,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      * (adminhtml|frontend)/csp/<directiveName>
      * @param string $area
      * @param string $directiveName
-     * @return array
      */
     public function getAreaPolicy($area = Mage_Core_Model_App_Area::AREA_FRONTEND, $directiveName = 'default-src'): array
     {
@@ -135,7 +128,6 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      * csp/(adminhtml|frontend)/<directiveName>
      * @param string $area
      * @param string $directiveName
-     * @return array
      */
     public function getStoreConfigPolicy($area = Mage_Core_Model_App_Area::AREA_FRONTEND, $directiveName = 'default-src'): array
     {
