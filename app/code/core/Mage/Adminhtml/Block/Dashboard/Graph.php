@@ -283,7 +283,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $dateObj = new Zend_Date($date, 'yyyy-MM-dd');
                     $weekStartTs = $dateObj->getTimestamp();
                     $weekEndTs = $dateObj->addWeek(1)->getTimestamp();
-                    
+
                     $found = false;
                     foreach ($axisTimestamps as $axisTs) {
                         if ($axisTs >= $weekStartTs && $axisTs < $weekEndTs) {
