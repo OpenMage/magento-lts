@@ -7011,7 +7011,7 @@ parameters:
 		-
 			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts\:\:\$_addAfter\.$#'
 			identifier: property.protected
-			count: 3
+			count: 4
 			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
 
 		-
@@ -7023,13 +7023,13 @@ parameters:
 		-
 			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts\:\:\$_columns\.$#'
 			identifier: property.protected
-			count: 4
+			count: 5
 			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
 
 		-
 			message: '#^Call to protected method _renderCellTemplate\(\) of class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts\.$#'
 			identifier: method.protected
-			count: 1
+			count: 2
 			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
 
 		-
