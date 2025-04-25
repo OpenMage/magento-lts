@@ -58,9 +58,6 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends>
-                                <report_only>1</report_only>
-                            </depends>
                         </report_uri>
                         <default-src translate="label">
                             <label>default-src</label>
@@ -211,9 +208,6 @@
                             <frontend_type>text</frontend_type>
                             <sort_order>12</sort_order>
                             <show_in_default>1</show_in_default>
-                            <depends>
-                                <report_only>1</report_only>
-                            </depends>
                         </report_uri>
                         <default-src translate="label">
                             <label>default-src</label>
