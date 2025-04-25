@@ -1458,6 +1458,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function addOptionsToResult()
     {
+        $storeId = $this->getStoreId();
+        if ($storeId === null) {
+            $storeId = Mage::app()->getStore()->getId();
+        }
+
         $productIds = [];
         foreach ($this as $product) {
             $productIds[] = $product->getId();
@@ -1465,10 +1470,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (!empty($productIds)) {
             $options = Mage::getModel('catalog/product_option')
                 ->getCollection()
-                ->addTitleToResult(Mage::app()->getStore()->getId())
-                ->addPriceToResult(Mage::app()->getStore()->getId())
+                ->addTitleToResult($storeId)
+                ->addPriceToResult($storeId)
                 ->addProductToFilter($productIds)
-                ->addValuesToResult();
+                ->addValuesToResult($storeId);
 
             foreach ($options as $option) {
                 if ($this->getItemById($option->getProductId())) {
