@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -272,7 +272,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      *
      * @param string $resource API resource ID
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getResourceIncludedAttributes($resource, $userType, $operationType)
@@ -295,7 +295,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      *
      * @param string $resource API resource ID
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getResourceEntityOnlyAttributes($resource, $userType, $operationType)

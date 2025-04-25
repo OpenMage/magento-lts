@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -725,10 +725,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
     public function getItemById($idValue)
     {
         $this->load();
-        if (isset($this->_items[$idValue])) {
-            return $this->_items[$idValue];
-        }
-        return null;
+        return $this->_items[$idValue] ?? null;
     }
 
     /**
@@ -805,7 +802,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
      */
     public function getFlag($flag)
     {
-        return isset($this->_flags[$flag]) ? $this->_flags[$flag] : null;
+        return $this->_flags[$flag] ?? null;
     }
 
     /**

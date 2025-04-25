@@ -1,9 +1,7 @@
 <?php
-/*
-* This document has been generated with
-* https://mlocati.github.io/php-cs-fixer-configurator/#version:3.4.0|configurator
-* you can change this configuration by importing this file.
-*/
+
+declare(strict_types=1);
+
 $config = new PhpCsFixer\Config();
 return $config
     ->setRiskyAllowed(true)
@@ -31,11 +29,10 @@ return $config
                 __DIR__,
             ])
             ->exclude([
-                'lib/3Dsecure/',
-                'lib/LinLibertineFont/',
-                'lib/Unserialize/',
+                __DIR__ . '/shell/translations.php',
+                __DIR__ . '/shell/update-copyright.php',
             ])
             ->name('*.php')
             ->ignoreDotFiles(true)
-            ->ignoreVCS(true)
+            ->ignoreVCS(true),
     );

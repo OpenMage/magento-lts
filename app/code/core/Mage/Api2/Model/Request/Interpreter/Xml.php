@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -48,15 +48,11 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
         if (!is_string($body)) {
             throw new Exception(sprintf('Invalid data type "%s". String expected.', gettype($body)));
         }
-        $body = strpos($body, '<?xml') !== false ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
+        $body = str_contains($body, '<?xml') ? $body : '<?xml version="1.0"?>' . PHP_EOL . $body;
 
-        // disable external entity loading to prevent possible vulnerability
-        libxml_disable_entity_loader(true);
         set_error_handler([$this, '_loadErrorHandler']); // Warnings and errors are suppressed
         $config = simplexml_load_string($body);
         restore_error_handler();
-        // restore default behavior to make possible to load external entities
-        libxml_disable_entity_loader(false);
 
         // Check if there was a error while loading file
         if ($this->_loadErrorStr !== null) {

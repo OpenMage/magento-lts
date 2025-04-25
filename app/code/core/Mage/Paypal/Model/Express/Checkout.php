@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -303,7 +303,7 @@ class Mage_Paypal_Model_Express_Checkout
             ->setPaymentAction($this->_config->paymentAction);
 
         if ($this->_giropayUrls) {
-            list($successUrl, $cancelUrl, $pendingUrl) = $this->_giropayUrls;
+            [$successUrl, $cancelUrl, $pendingUrl] = $this->_giropayUrls;
             $this->_api->addData([
                 'giropay_cancel_url' => $cancelUrl,
                 'giropay_success_url' => $successUrl,
@@ -868,10 +868,7 @@ class Mage_Paypal_Model_Express_Checkout
      */
     protected static function cmpShippingOptions(Varien_Object $option1, Varien_Object $option2)
     {
-        if ($option1->getAmount() == $option2->getAmount()) {
-            return 0;
-        }
-        return ($option1->getAmount() < $option2->getAmount()) ? -1 : 1;
+        return $option1->getAmount() <=> $option2->getAmount();
     }
 
     /**

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -59,7 +59,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
             }
         }
 
-        list($modelName, $methodName) = $this->_getResourceName($apiKey);
+        [$modelName, $methodName] = $this->_getResourceName($apiKey);
         $methodParams = $this->getMethodParams($modelName, $methodName);
 
         $args = $this->prepareArgs($methodParams, $args);
@@ -103,7 +103,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     protected function _getResourceName($apiPath)
     {
-        list($resourceName, $methodName) = explode('.', $apiPath);
+        [$resourceName, $methodName] = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');

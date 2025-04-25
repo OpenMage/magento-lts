@@ -10,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Crypt
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -69,7 +69,7 @@ class Magento_Crypt
                 $abc = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
                 $initVector = '';
                 for ($i = 0; $i < $initVectorSize; $i++) {
-                    $initVector .= $abc[rand(0, strlen($abc) - 1)];
+                    $initVector .= $abc[random_int(0, strlen($abc) - 1)];
                 }
             } elseif (false === $initVector) {
                 /* Set vector to zero bytes to not use it */

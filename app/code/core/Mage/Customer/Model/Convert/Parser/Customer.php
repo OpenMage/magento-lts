@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -150,10 +150,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_stores)) {
             $this->_stores = Mage::app()->getStores(true);
         }
-        if (isset($this->_stores[$storeId])) {
-            return $this->_stores[$storeId];
-        }
-        return false;
+        return $this->_stores[$storeId] ?? false;
     }
 
     /**
@@ -167,10 +164,7 @@ class Mage_Customer_Model_Convert_Parser_Customer extends Mage_Eav_Model_Convert
         if (is_null($this->_websites)) {
             $this->_websites = Mage::app()->getWebsites(true);
         }
-        if (isset($this->_websites[$websiteId])) {
-            return $this->_websites[$websiteId];
-        }
-        return false;
+        return $this->_websites[$websiteId] ?? false;
     }
 
     /**

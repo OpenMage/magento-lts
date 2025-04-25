@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Db
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,7 +122,7 @@ class Varien_Db_Select extends Zend_Db_Select
             if ($tableProp['joinType'] == self::LEFT_JOIN) {
                 $useJoin = false;
                 foreach ($this->_parts[self::COLUMNS] as $columnEntry) {
-                    list($correlationName, $column) = $columnEntry;
+                    [$correlationName, $column] = $columnEntry;
                     if ($column instanceof Zend_Db_Expr) {
                         if ($this->_findTableInCond($tableId, $column)
                             || $this->_findTableInCond($tableProp['tableName'], $column)
@@ -217,7 +217,7 @@ class Varien_Db_Select extends Zend_Db_Select
         $cond  = (string) $cond;
         $quote = $this->_adapter->getQuoteIdentifierSymbol();
 
-        if (strpos($cond, $quote . $table . $quote . '.') !== false) {
+        if (str_contains($cond, $quote . $table . $quote . '.')) {
             return true;
         }
 

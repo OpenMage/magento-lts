@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -176,7 +176,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
 
             /** @var Mage_Customer_Model_Attribute $customerAttribute */
             $customerAttribute = Mage::getSingleton('eav/config')->getAttribute('customer', $attributeCode);
-            $class .= $customerAttribute && $customerAttribute->getIsVisible()
+            $class = $customerAttribute && $customerAttribute->getIsVisible()
                 ? $customerAttribute->getFrontend()->getClass() : '';
             $class = implode(' ', array_unique(array_filter(explode(' ', $class))));
         }

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -435,7 +435,7 @@ class Mage_Oauth_Model_Server
         }
         // Is the callback URL whitelisted?
         $callbackUrl = $this->_consumer->getCallbackUrl();
-        if ($callbackUrl && strpos($this->_protocolParams['oauth_callback'], $callbackUrl) === 0) {
+        if ($callbackUrl && str_starts_with($this->_protocolParams['oauth_callback'], $callbackUrl)) {
             return;
         }
         if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']

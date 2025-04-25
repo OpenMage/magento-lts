@@ -10,7 +10,7 @@
  * @category    design
  * @package     rwd_default
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2020-2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright   Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
@@ -25,7 +25,10 @@
 
             <block type="page/html_head" name="head" as="head">
                 <action method="addJs"><script>prototype/prototype.js</script></action>
-                <action method="addJs"><script>lib/jquery/jquery-1.12.4.min.js</script></action>
+                <action method="addJs"><script>lib/jquery/jquery.min.js</script></action>
+                <action method="addJs" ifconfig="dev/jquery/migrate">
+                    <script>lib/jquery/jquery-migrate.min.js</script>
+                </action>
                 <action method="addJs"><script>lib/jquery/noconflict.js</script></action>
                 <action method="addJs"><script>lib/ccard.js</script></action>
                 <action method="addJs"><script>prototype/validation.js</script></action>

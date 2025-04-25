@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Api2
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -35,7 +35,7 @@ class Mage_Api2_Model_Resource_Acl_Filter_Attribute extends Mage_Core_Model_Reso
     /**
      * @param string $userType
      * @param string $resourceId
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operation
      * @return string|bool|null
      */
     public function getAllowedAttributes($userType, $resourceId, $operation)

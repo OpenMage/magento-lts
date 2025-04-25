@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
             );
         }
 
-        usort($history, [__CLASS__, '_sortHistoryByTimestamp']);
+        usort($history, [self::class, '_sortHistoryByTimestamp']);
         return $history;
     }
 
@@ -292,11 +292,6 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_History extends Mage_Adminhtml_B
     {
         $createdAtA = $a['created_at'];
         $createdAtB = $b['created_at'];
-
-        /** @var Zend_Date $createdAtA */
-        if ($createdAtA->getTimestamp() == $createdAtB->getTimestamp()) {
-            return 0;
-        }
-        return ($createdAtA->getTimestamp() < $createdAtB->getTimestamp()) ? -1 : 1;
+        return $createdAtA->getTimestamp() <=> $createdAtB->getTimestamp();
     }
 }

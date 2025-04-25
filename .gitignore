@@ -23,11 +23,17 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
-# flow.js library
-/js/lib/uploader
+# ChartJs library
+/js/lib/chartjs
+
+# jQuery library
+/js/lib/jquery/jquery*
 
 # TinyMCE library
 /js/lib/tinymce
+
+# flow.js library
+/js/lib/uploader
 
 # Add development environment setup files and README
 # https://github.com/OpenMage/magento-lts/pull/1012
@@ -107,3 +113,10 @@ app/etc/includes/ddev.xhgui.php
 
 # local development
 .localdev
+
+# cypress
+cypress/screenshots/
+cypress/videos/
+
+# rector
+.rector.result.cache

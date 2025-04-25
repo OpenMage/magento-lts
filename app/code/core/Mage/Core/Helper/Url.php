@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -101,7 +101,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
      */
     public function addRequestParam($url, $param)
     {
-        $startDelimiter = (strpos($url, '?') === false) ? '?' : '&';
+        $startDelimiter = (!str_contains($url, '?')) ? '?' : '&';
 
         $arrQueryParams = [];
         foreach ($param as $key => $value) {
@@ -135,7 +135,7 @@ class Mage_Core_Helper_Url extends Mage_Core_Helper_Abstract
             return $url;
         }
 
-        list($baseUrl, $query) = explode('?', $url, 2);
+        [$baseUrl, $query] = explode('?', $url, 2);
         parse_str($query, $params);
 
         if (!$caseSensitive) {

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Log
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -111,7 +111,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $ignoreAgents = $ignoreAgents->asArray();
             $userAgent = $this->_httpHelper->getHttpUserAgent();
             foreach ($ignoreAgents as $ignoreAgent) {
-                if (stripos($userAgent, $ignoreAgent) !== false) {
+                if (stripos($userAgent, (string) $ignoreAgent) !== false) {
                     $this->_skipRequestLogging = true;
                     break;
                 }

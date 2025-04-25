@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_CatalogSearch
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -158,7 +158,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
                 $this->_foundData = array_reverse($this->_foundData);
             }
             foreach ($this->_foundData as $dataString) {
-                list($relevance, $id) = explode('_', $dataString);
+                [$relevance, $id] = explode('_', $dataString);
                 $data[$id] = $relevance;
             }
             $this->_foundData = $data;

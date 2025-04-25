@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_File
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -54,7 +54,7 @@ class Varien_File_Csv_Multy extends Varien_File_Csv
                 } else {
                     $data[$rowData[$keyIndex]] = [];
                     $data[$rowData[$keyIndex]]['line'] = $line_number;
-                    $data[$rowData[$keyIndex]]['value'] = isset($rowData[$valueIndex]) ? $rowData[$valueIndex] : null;
+                    $data[$rowData[$keyIndex]]['value'] = $rowData[$valueIndex] ?? null;
                 }
             }
         }

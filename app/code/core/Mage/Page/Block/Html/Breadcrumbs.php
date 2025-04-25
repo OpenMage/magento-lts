@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Page
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -127,10 +127,8 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         if (is_array($this->_crumbs)) {
-            reset($this->_crumbs);
-            $this->_crumbs[key($this->_crumbs)]['first'] = true;
-            end($this->_crumbs);
-            $this->_crumbs[key($this->_crumbs)]['last'] = true;
+            $this->_crumbs[array_key_first($this->_crumbs)]['first'] = true;
+            $this->_crumbs[array_key_last($this->_crumbs)]['last'] = true;
         }
         $this->assign('crumbs', $this->_crumbs);
         return parent::_toHtml();

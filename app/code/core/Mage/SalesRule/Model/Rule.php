@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_SalesRule
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -424,7 +424,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     $coupon->setCode(
                         $couponCode .
                         self::getCouponCodeGenerator()->getDelimiter() .
-                        sprintf('%04u', rand(0, 9999)),
+                        sprintf('%04u', random_int(0, 9999)),
                     );
                     continue;
                 }

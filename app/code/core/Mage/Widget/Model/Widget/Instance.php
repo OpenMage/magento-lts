@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Widget
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -313,7 +313,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     protected function _parsePackageTheme()
     {
         if ($this->getPackageTheme() && strpos($this->getPackageTheme(), '/')) {
-            list($package, $theme) = explode('/', $this->getPackageTheme());
+            [$package, $theme] = explode('/', $this->getPackageTheme());
             $this->setData('package', $package);
             $this->setData('theme', $theme);
         }

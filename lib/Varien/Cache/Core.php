@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Cache
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -146,7 +146,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
     {
         $data = parent::load($id, $doNotTestCacheValidity, $doNotUnserialize);
 
-        if (is_string($data) && (substr($data, 0, strlen(self::CODE_WORD)) == self::CODE_WORD)) {
+        if (is_string($data) && (str_starts_with($data, self::CODE_WORD))) {
             // Seems we've got chunked data
 
             $arr = explode('|', $data);

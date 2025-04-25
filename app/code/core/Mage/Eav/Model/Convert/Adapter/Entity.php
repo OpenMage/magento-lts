@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -60,7 +60,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         $varFilters = $this->getVars();
         $filters = [];
         foreach ($varFilters as $key => $val) {
-            if (substr($key, 0, 6) === 'filter') {
+            if (str_starts_with($key, 'filter')) {
                 $keys = explode('/', $key, 2);
                 $filters[$keys[1]] = $val;
             }
@@ -96,7 +96,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
 
             if ($type == 'dateFromTo' || $type == 'datetimeFromTo') {
                 foreach ($filters as $k => $v) {
-                    if (strpos($k, $key . '/') === 0) {
+                    if (str_starts_with($k, $key . '/')) {
                         $split = explode('/', $k);
                         $filters[$key][$split[1]] = $v;
                     }

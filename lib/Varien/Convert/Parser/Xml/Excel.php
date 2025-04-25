@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Convert
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,7 +122,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                     }
                     $xml .= '<ss:Row>';
                     foreach ($fields as $fieldName) {
-                        $data = isset($row[$fieldName]) ? $row[$fieldName] : '';
+                        $data = $row[$fieldName] ?? '';
                         $fieldType = is_numeric($data) ? 'Number' : 'String';
                         $xml .= '<ss:Cell><Data ss:Type="' . $fieldType . '">' . $data . '</Data></ss:Cell>';
                     }

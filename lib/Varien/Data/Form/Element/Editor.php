@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Data
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -294,7 +294,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
     protected function _getButtonHtml($data)
     {
         $html = '<button type="button"';
-        $html .= ' class="scalable ' . (isset($data['class']) ? $data['class'] : '') . '"';
+        $html .= ' class="scalable ' . ($data['class'] ?? '') . '"';
         $html .= isset($data['onclick']) ? ' onclick="' . $data['onclick'] . '"' : '';
         $html .= isset($data['style']) ? ' style="' . $data['style'] . '"' : '';
         $html .= isset($data['id']) ? ' id="' . $data['id'] . '"' : '';

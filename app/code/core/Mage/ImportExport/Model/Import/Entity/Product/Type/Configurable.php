@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_ImportExport
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -437,7 +437,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Configurable extends Ma
                         $superAttributes['pricing'][] = [
                             'product_super_attribute_id' => $productSuperAttrId,
                             'value_index'   => $optionId,
-                            'is_percent'    => substr($rowData['_super_attribute_price_corr'], -1) === '%',
+                            'is_percent'    => str_ends_with($rowData['_super_attribute_price_corr'], '%'),
                             'pricing_value' => (float) rtrim($rowData['_super_attribute_price_corr'], '%'),
                             'website_id'    => 0,
                         ];

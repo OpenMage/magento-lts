@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Customer
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -792,7 +792,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     public function changeForgottenAction()
     {
         try {
-            list($customerId, $resetPasswordLinkToken) = $this->_getRestorePasswordParameters($this->_getSession());
+            [$customerId, $resetPasswordLinkToken] = $this->_getRestorePasswordParameters($this->_getSession());
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
             $this->loadLayout();
             $this->renderLayout();
@@ -834,7 +834,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             return;
         }
 
-        list($customerId, $resetPasswordLinkToken) = $this->_getRestorePasswordParameters($this->_getSession());
+        [$customerId, $resetPasswordLinkToken] = $this->_getRestorePasswordParameters($this->_getSession());
         $password = (string) $this->getRequest()->getPost('password');
         $passwordConfirmation = (string) $this->getRequest()->getPost('confirmation');
 

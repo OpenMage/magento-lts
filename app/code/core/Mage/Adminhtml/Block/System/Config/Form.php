@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2016-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -332,7 +332,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                             . '_' . $fieldPrefix
                             . $dependentFieldNameValue;
                         $shouldBeAddedDependence = true;
-                        $dependentValue = (string) (isset($dependent->value) ? $dependent->value : $dependent);
+                        $dependentValue = (string) ($dependent->value ?? $dependent);
                         if (isset($dependent['separator'])) {
                             $dependentValue = explode((string) $dependent['separator'], $dependentValue);
                         }
@@ -413,7 +413,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     $method = false;
                     if (preg_match('/^([^:]+?)::([^:]+?)$/', $factoryName, $matches)) {
                         array_shift($matches);
-                        list($factoryName, $method) = array_values($matches);
+                        [$factoryName, $method] = array_values($matches);
                     }
 
                     $sourceModel = Mage::getSingleton($factoryName);
@@ -553,7 +553,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _sortForm($a, $b)
     {
-        return (int) $a->sort_order < (int) $b->sort_order ? -1 : ((int) $a->sort_order > (int) $b->sort_order ? 1 : 0);
+        return (int) $a->sort_order <=> (int) $b->sort_order;
     }
 
     /**

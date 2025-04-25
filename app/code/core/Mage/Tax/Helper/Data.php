@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Tax
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -826,15 +826,15 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             'currentTaxString' => 'currentTaxes',
         ];
         foreach ($rateToVariable as $rateVariable => $rateArray) {
-            if ($$rateArray && is_array($$rateArray)) {
-                $$rateVariable = '';
-                foreach ($$rateArray as $classId => $rate) {
+            if (${$rateArray} && is_array(${$rateArray})) {
+                ${$rateVariable} = '';
+                foreach (${$rateArray} as $classId => $rate) {
                     if ($rate) {
-                        $$rateVariable .= sprintf('WHEN %d THEN %12.4f ', $classId, $rate / 100);
+                        ${$rateVariable} .= sprintf('WHEN %d THEN %12.4f ', $classId, $rate / 100);
                     }
                 }
-                if ($$rateVariable) {
-                    $$rateVariable = "CASE {$taxClassField} {$$rateVariable} ELSE 0 END";
+                if (${$rateVariable}) {
+                    ${$rateVariable} = "CASE {$taxClassField} {${$rateVariable}} ELSE 0 END";
                 }
             }
         }

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Oauth
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -168,7 +168,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$token->getAuthorized()) {
             Mage::throwException('Token is not authorized');
         }
-        $callbackUrl .= (strpos($callbackUrl, '?') === false ? '?' : '&');
+        $callbackUrl .= (!str_contains($callbackUrl, '?') ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
 
         return $callbackUrl . ($rejected ? self::QUERY_PARAM_REJECTED . '=1' : 'oauth_verifier=' . $token->getVerifier());

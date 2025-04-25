@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -907,7 +907,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.'),
                         );
                     }
-                    list($label, $value) = explode(':', $additionalOption, 2);
+                    [$label, $value] = explode(':', $additionalOption, 2);
                 } catch (Exception $e) {
                     Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
                 }

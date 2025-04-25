@@ -10,7 +10,7 @@
  * @category   Varien
  * @package    Varien_Object
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -122,10 +122,7 @@ class Varien_Object_Cache
         if (isset($this->_references[$idx])) {
             $idx = $this->_references[$idx];
         }
-        if (isset($this->_objects[$idx])) {
-            return $this->_objects[$idx];
-        }
-        return $default;
+        return $this->_objects[$idx] ?? $default;
     }
 
     /**
@@ -372,8 +369,8 @@ class Varien_Object_Cache
         $debug = [];
         foreach ($bt as $i => $step) {
             $debug[$i] = [
-                'file'     => isset($step['file']) ? $step['file'] : null,
-                'line'     => isset($step['line']) ? $step['line'] : null,
+                'file'     => $step['file'] ?? null,
+                'line'     => $step['line'] ?? null,
                 'function' => $step['function'],
             ];
         }

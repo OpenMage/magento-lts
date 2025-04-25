@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -100,7 +100,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                 if ($calculation == self::RANGE_CALCULATION_AUTO) {
                     $index = 1;
                     do {
-                        $range = pow(10, (strlen(floor($maxPrice)) - $index));
+                        $range = 10 ** (strlen(floor($maxPrice)) - $index);
                         $items = $this->getRangeItemCounts($range);
                         $index++;
                     } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
@@ -376,7 +376,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $this;
         }
 
-        list($from, $to) = $filter;
+        [$from, $to] = $filter;
 
         $this->setInterval([$from, $to]);
 

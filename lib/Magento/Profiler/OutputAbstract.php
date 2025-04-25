@@ -10,7 +10,7 @@
  * @category   Magento
  * @package    Magento_Profiler
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -129,10 +129,10 @@ abstract class Magento_Profiler_OutputAbstract
                 continue;
             }
             /* Loop over all timers that need to be closed under previous timer */
-            while (strpos($timerId, $prevTimerId . Magento_Profiler::NESTING_SEPARATOR) !== 0) {
+            while (!str_starts_with($timerId, $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
                 /* Add to result all timers nested in the previous timer */
                 for ($j = $i + 1; $j < count($timerIds); $j++) {
-                    if (strpos($timerIds[$j], $prevTimerId . Magento_Profiler::NESTING_SEPARATOR) === 0) {
+                    if (str_starts_with($timerIds[$j], $prevTimerId . Magento_Profiler::NESTING_SEPARATOR)) {
                         $result[] = $timerIds[$j];
                         /* Mark timer as already added */
                         $timerIds[$j] = null;

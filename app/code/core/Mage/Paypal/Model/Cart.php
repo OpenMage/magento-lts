@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Paypal
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -279,8 +279,7 @@ class Mage_Paypal_Model_Cart
                 $this->_addRegularItem($item);
             }
         }
-        end($this->_items);
-        $lastRegularItemKey = key($this->_items);
+        $lastRegularItemKey = array_key_last($this->_items);
 
         // regular totals
         $shippingDescription = '';

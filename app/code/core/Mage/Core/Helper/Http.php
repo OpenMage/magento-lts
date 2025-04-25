@@ -50,7 +50,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         // moshe's fix for CGI
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
             foreach ($_SERVER as $k => $v) {
-                if (substr($k, -18) === 'HTTP_AUTHORIZATION' && !empty($v)) {
+                if (str_ends_with($k, 'HTTP_AUTHORIZATION') && !empty($v)) {
                     $_SERVER['HTTP_AUTHORIZATION'] = $v;
                     break;
                 }
@@ -64,10 +64,10 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
             // IIS Note:: For HTTP Authentication to work with IIS,
             // the PHP directive cgi.rfc2616_headers must be set to 0 (the default value).
             $auth = $_SERVER['HTTP_AUTHORIZATION'];
-            list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
+            [$user, $pass] = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
         } elseif (!empty($_SERVER['Authorization'])) {
             $auth = $_SERVER['Authorization'];
-            list($user, $pass) = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
+            [$user, $pass] = explode(':', base64_decode(substr($auth, strpos($auth, ' ') + 1)));
         }
 
         if (!$user || !$pass) {

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Catalog
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -199,9 +199,9 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         }
 
         if ($standardDeviation <= 0) {
-            $intervalsNumber = pow(10, self::TEN_POWER_ROUNDING_FACTOR);
+            $intervalsNumber = 10 ** self::TEN_POWER_ROUNDING_FACTOR;
         } else {
-            $intervalsNumber = $priceRange * pow($count, 1 / 3) / (3.5 * $standardDeviation);
+            $intervalsNumber = $priceRange * $count ** (1 / 3) / (3.5 * $standardDeviation);
         }
         $this->_intervalsNumber = max(ceil($intervalsNumber), self::MIN_INTERVALS_NUMBER);
         $this->_intervalsNumber = (int) min($this->_intervalsNumber, self::MAX_INTERVALS_NUMBER);
@@ -461,7 +461,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         }
 
         $result = [];
-        $tenPower = pow(10, self::TEN_POWER_ROUNDING_FACTOR);
+        $tenPower = 10 ** self::TEN_POWER_ROUNDING_FACTOR;
         $roundingFactorCoefficients = [10, 5, 2];
         while ($tenPower >= Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE) {
             if ($tenPower == Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE) {
