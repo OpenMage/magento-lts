@@ -136,3 +136,16 @@ jobs:
       needs.check.outputs.phpunit > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  cypress:
+    name: Cypress E2E Tests
+    needs: [check, php-cs-fixer]
+    if: |
+      needs.check.outputs.cypress > 0 ||
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phtml > 0 ||
+      needs.check.outputs.xml > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/cypress.yml
