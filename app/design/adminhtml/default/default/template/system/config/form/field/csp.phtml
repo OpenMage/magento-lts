@@ -14,9 +14,8 @@
  */
 
 /**
- * @see Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions
- * @see Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty
- * @var Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty $this
+ * @see Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts
+ * @var Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts $this
  */
 ?>
 <?php
@@ -77,6 +76,19 @@ var arrayRow<?php echo $_htmlId ?> = {
             +'<td><button onclick="arrayRow<?php echo $_htmlId ?>.del(\'#{_id}\')" class="scalable delete" type="button"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Delete')) ?><\/span><\/span><\/span><\/button><\/td>'
         +'<\/tr>'
     ),
+    templateReadonly : new Template(
+        '<tr id="#{_id}">'
+<?php foreach ($this->_columns as $columnName => $column):?>
+            +'<td>'
+                +'<?php echo Mage::helper('core')->jsQuoteEscape($this->_renderCellTemplate($columnName)) ?>'
+            +'<\/td>'
+<?php endforeach ?>
+<?php if ($this->_addAfter):?>
+            +'<td><button onclick="" class="scalable add" type="button" id="addAfterBtn#{_id}"><span><span><span><?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('adminhtml')->__('Add after')) ?><\/span><\/span><\/span><\/button><\/td>'
+<?php endif ?>
+            +'<td style="vertical-align: middle;" class="scope-label">&lt;#{area}/&gt;<\/td>'
+        +'<\/tr>'
+    ),
 
     rowsCount : 0,
 
@@ -93,27 +105,31 @@ var arrayRow<?php echo $_htmlId ?> = {
             };
         }
 
+        if (templateData.readonly) {
+            var _newRow = this.templateReadonly.evaluate(templateData);
+        } else {
+            var _newRow = this.template.evaluate(templateData);
+        }
+
         // insert before last row
         if ('' == insertAfterId) {
-            Element.insert($('addRow<?php echo $_htmlId ?>'), {before: this.template.evaluate(templateData)});
+            Element.insert($('addRow<?php echo $_htmlId ?>'), {before: _newRow});
         }
         // insert after specified row
         else {
-            Element.insert($(insertAfterId), {after: this.template.evaluate(templateData)});
+            Element.insert($(insertAfterId), {after: _newRow});
         }
-
         // workaround for prototypeJS bug with disabled inputs
-        requestAnimationFrame(function() {
-            var rowId = templateData._id;
-            var input = document.querySelector('tr#' + rowId + ' input');
-            if (input && templateData.readonly) {
-                input.disabled = true;
-                var deleteButton = document.querySelector('tr#' + rowId + ' button.delete');
-                if (deleteButton) {
-                    deleteButton.remove();
+        if (templateData.readonly) {
+            requestAnimationFrame(function() {
+                var input = document.getElementById(templateData._id).getElementsByTagName('input')[0];
+                if (input) {
+                    input.setAttribute('disabled', 'disabled');
+                    input.setAttribute('aria-disabled', 'true');
+                    input.setAttribute('aria-readonly', 'true');
                 }
-            }
-        });
+            });
+    }
 
 <?php if ($this->_addAfter):?>
         Event.observe('addAfterBtn' + templateData._id, 'click', this.add.bind(this, '', templateData._id));

@@ -79,6 +79,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
                     'host' => $host,
                     'readonly' => 'readonly="readonly"',
                     '_id' => $rowId,
+                    'area' => 'global',
                 ]);
                 $this->_prepareArrayRow($result[$rowId]);
             }
@@ -92,6 +93,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
                     'host' => $host,
                     'readonly' => 'readonly="readonly"',
                     '_id' => $rowId,
+                    'area' => $area,
                 ]);
                 $this->_prepareArrayRow($result[$rowId]);
             }
