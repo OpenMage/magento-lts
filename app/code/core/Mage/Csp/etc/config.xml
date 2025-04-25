@@ -71,6 +71,13 @@
         </csp>
     </global>
     <frontend>
+        <layout>
+            <updates>
+                <csp_meta>
+                    <file>csp.xml</file>
+                </csp_meta>
+            </updates>
+        </layout>
         <events>
             <http_response_send_before>
                 <observers>
@@ -83,6 +90,13 @@
         </events>
     </frontend>
     <adminhtml>
+        <layout>
+            <updates>
+                <csp_meta>
+                    <file>csp.xml</file>
+                </csp_meta>
+            </updates>
+        </layout>
         <csp>
             <script-src>
                 <unsafe-inline>'unsafe-inline'</unsafe-inline>
