@@ -21,6 +21,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_CSP_REPORT_URI = 'csp/%s/report_uri';
     public const HEADER_CONTENT_SECURITY_POLICY = 'Content-Security-Policy';
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY = 'Content-Security-Policy-Report-Only';
+    public const HEADER_CONTENT_SECURITY_POLICY_REPORT_URI = 'Reporting-Endpoints';
     public const CSP_DIRECTIVES = [
         'default-src',
         'script-src',
