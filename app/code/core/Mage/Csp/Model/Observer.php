@@ -58,7 +58,7 @@ class Mage_Csp_Model_Observer
         }
         $headerValue = $this->_buildCspHeaderValue($directives);
         if (!empty($helper->getReportUri($area))) {
-            $reportUriEndpoint = $helper->getReportUri($area);
+            $reportUriEndpoint = trim($helper->getReportUri($area));
             $response->setHeader(Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY_REPORT_URI, sprintf('csp-endpoint="%s"', $reportUriEndpoint));
             $headerValue .= '; report-to csp-endpoint';
         }
