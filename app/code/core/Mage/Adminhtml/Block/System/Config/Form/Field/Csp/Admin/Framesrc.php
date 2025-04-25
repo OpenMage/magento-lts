@@ -18,12 +18,7 @@ declare(strict_types=1);
 /**
  * frame-src hosts field renderer
  */
-class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Framesrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Hosts
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Admin_Framesrc extends Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Framesrc
 {
-    /**
-     * Directive name
-     *
-     * @var string
-     */
-    protected $_directiveName = 'frame-src';
+    protected $_area = Mage_Core_Model_App_Area::AREA_ADMINHTML;
 }
