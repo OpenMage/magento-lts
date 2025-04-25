@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Eav
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -224,9 +224,16 @@ class Mage_Eav_Model_Config
     {
         // preload attributes in array form to avoid instantiating
         // models for every attribute even if it is never accessed
-        $entityAttributes = $entityType->newAttributeCollection()
-            ->addStoreLabel($storeId)
-            ->getData();
+        $collection = $entityType->newAttributeCollection()
+            ->addStoreLabel($storeId);
+
+        // if collection supports per-website values, set website id
+        if ($collection instanceof Mage_Eav_Model_Resource_Attribute_Collection) {
+            $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
+            $collection->setWebsite($websiteId);
+        }
+
+        $entityAttributes = $collection->getData();
 
         $this->_entityTypeAttributes[$storeId][$entityType->getId()] = [];
         $attributeCodes = [];

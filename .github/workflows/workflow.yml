@@ -123,14 +123,12 @@ jobs:
 
   rector:
     name: Rector
-    needs: [check, php-cs-fixer]
+    needs: [check, php-cs-fixer, phpstan]
     if: |
       needs.check.outputs.php > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/rector.yml
 
-  # DOES NOT run by default
-  # runs on schedule or when workflow or unit tests changed
   unit_tests:
     name: PHPUnit
     needs: [check, php-cs-fixer]
@@ -148,3 +146,14 @@ jobs:
       needs.check.outputs.markdown > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/spellcheck.yml
+
+  cypress:
+    name: Cypress E2E Tests
+    needs: [check, php-cs-fixer]
+    if: |
+      needs.check.outputs.cypress > 0 ||
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phtml > 0 ||
+      needs.check.outputs.xml > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/cypress.yml
