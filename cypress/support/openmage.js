@@ -53,6 +53,7 @@ cy.openmage = {
         },
         _errorMessage: '.error-msg',
         _successMessage: '.success-msg',
+        _warningMessage: '.warning-msg',
         fillFields: (fields, validation, value = '') =>{
             cy.log('Filling fields with invalid values');
             Object.keys(fields).forEach(field => {

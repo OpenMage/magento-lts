@@ -16,6 +16,18 @@ describe('Checks customer account create', () => {
         validation.validateFields(route.__validation._input, validation.requiredEntry);
     });
 
+    it('Submits empty form, no js', () => {
+        validation.fillFields(route.__validation._input, validation.requiredEntry);
+        validation.removeClasses(route.__validation._input);
+        validation.saveAction(route._buttonSubmit);
+        cy.get(validation._errorMessage)
+            .should('include.text', '"First Name" is a required value.')
+            .should('include.text', '"First Name" length must be equal or greater than 1 characters.')
+            .should('include.text', '"Last Name" is a required value.')
+            .should('include.text', '"Last Name" length must be equal or greater than 1 characters.')
+            .should('include.text', '"Email" is a required value.');
+    });
+
     it('Submits form with short password and wrong confirmation', () => {
         cy.get(route.__validation._input.password).type('123').should('have.value', '123');
         cy.get(route.__validation._input.confirmation).type('abc').should('have.value', 'abc');

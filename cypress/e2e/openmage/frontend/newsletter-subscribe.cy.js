@@ -5,7 +5,7 @@ describe('Check newsletter subribe', () => {
         cy.visit(route.url);
     });
 
-    it('Test empty input', () => {
+    it('tests empty input', () => {
         const error = cy.openmage.validation.requiredEntry.error;
         cy.get(route.newsletter._id).should('have.value', '');
         cy.get(route.newsletter._buttonSubmit).click();
