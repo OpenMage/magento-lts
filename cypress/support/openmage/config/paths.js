@@ -14,7 +14,14 @@ const adminPage = {
 
 cy.testRoutes = {
     api: {},
+    backendLogin: {},
     backend: {
+        dashboard: {
+            _id: '#nav-admin-dashboard',
+            url: 'dashboard/index',
+            h3: 'Dashboard',
+            _h3: adminPage._h3,
+        },
         catalog: {
             products: {
                 _id_parent: adminNav.catalog,

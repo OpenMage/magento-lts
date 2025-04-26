@@ -1,4 +1,5 @@
-const route = cy.testRoutes.backend.system.myaccount
+const route = cy.testRoutes.backend.system.myaccount;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {
@@ -12,8 +13,8 @@ describe(`Checks admin system "${route.h3}"`, () => {
 
     it(`tests empty input`, () => {
         const validate = cy.openmage.validation.requiredEntry;
-        cy.openmage.validation.fillFields(route.__validation._input, validate);
-        cy.openmage.validation.saveAction(route._buttonSave);
-        cy.openmage.validation.validateFields(route.__validation._input, validate);
+        validation.fillFields(route.__validation._input, validate);
+        validation.saveAction(route._buttonSave);
+        validation.validateFields(route.__validation._input, validate);
     });
 });

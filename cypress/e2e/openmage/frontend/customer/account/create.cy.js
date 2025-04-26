@@ -1,4 +1,5 @@
 const route = cy.testRoutes.frontend.customer.account.create;
+const fields = route.__validation._input;
 const validation = cy.openmage.validation;
 
 describe('Checks customer account create', () => {
@@ -11,14 +12,14 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits empty form', () => {
-        validation.fillFields(route.__validation._input, validation.requiredEntry);
+        validation.fillFields(fields, validation.requiredEntry);
         validation.saveAction(route._buttonSubmit);
-        validation.validateFields(route.__validation._input, validation.requiredEntry);
+        validation.validateFields(fields, validation.requiredEntry);
     });
 
     it('Submits empty form, no js', () => {
-        validation.fillFields(route.__validation._input, validation.requiredEntry);
-        validation.removeClasses(route.__validation._input);
+        validation.fillFields(fields, validation.requiredEntry);
+        validation.removeClasses(fields);
         validation.saveAction(route._buttonSubmit);
         cy.get(validation._errorMessage)
             .should('include.text', '"First Name" is a required value.')
@@ -29,8 +30,8 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits form with short password and wrong confirmation', () => {
-        cy.get(route.__validation._input.password).type('123').should('have.value', '123');
-        cy.get(route.__validation._input.confirmation).type('abc').should('have.value', 'abc');
+        cy.get(fields.password).type('123').should('have.value', '123');
+        cy.get(fields.confirmation).type('abc').should('have.value', 'abc');
         cy.get(route._buttonSubmit).click();
         cy.get('#advice-validate-password-password').should('include.text', 'Please enter more characters or clean leading or trailing spaces.');
         cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
@@ -42,11 +43,11 @@ describe('Checks customer account create', () => {
         const lastname = 'Doe';
         const password = '12345678';
         const successMsg = 'Thank you for registering with Madison Island.';
-        cy.get(route.__validation._input.firstname).type(firstname).should('have.value', firstname);
-        cy.get(route.__validation._input.lastname).type(lastname).should('have.value', lastname);
-        cy.get(route.__validation._input.email_address).type(email).should('have.value', email);
-        cy.get(route.__validation._input.password).type(password).should('have.value', password);
-        cy.get(route.__validation._input.confirmation).type(password).should('have.value', password);
+        cy.get(fields.firstname).type(firstname).should('have.value', firstname);
+        cy.get(fields.lastname).type(lastname).should('have.value', lastname);
+        cy.get(fields.email_address).type(email).should('have.value', email);
+        cy.get(fields.password).type(password).should('have.value', password);
+        cy.get(fields.confirmation).type(password).should('have.value', password);
         cy.get(route._buttonSubmit).click();
         cy.get(validation._successMessage).should('include.text', successMsg);
     });

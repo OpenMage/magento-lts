@@ -3,7 +3,7 @@ describe('Check admin login', () => {
         cy.visit('/admin');
     });
 
-    const login = cy.openmage.login.admin
+    const login = cy.openmage.login.admin;
 
     it('tests valid login', () => {
         const username = login.username.value;
@@ -13,6 +13,7 @@ describe('Check admin login', () => {
         cy.get(login.username._id).clear().type(username).should('have.value', username);
         cy.get(login.password._id).clear().type(password).should('have.value', password);
         cy.get(login._submit.__selector).click();
+        cy.url().should('include', '/dashboard/index');
     })
 
     it('tests invalid login', () => {
@@ -23,11 +24,14 @@ describe('Check admin login', () => {
         cy.get(login.username._id).clear().type(username).should('have.value', username);
         cy.get(login.password._id).clear().type(password).should('have.value', password);
         cy.get(login._submit.__selector).click();
+        cy.url().should('include', '/index/index');
     })
 
     it('tests empty login', () => {
         cy.get(login.username._id).clear().should('have.value', '');
         cy.get(login.password._id).clear().should('have.value', '');
         cy.get(login._submit.__selector).click();
+        cy.url().should('not.include', '/index/index');
+        cy.url().should('not.include', '/index/dashboard');
     })
 })

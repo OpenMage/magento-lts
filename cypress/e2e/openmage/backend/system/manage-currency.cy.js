@@ -1,5 +1,5 @@
-const route = cy.testRoutes.backend.system.manage_curreny
-const validation = cy.openmage.validation
+const route = cy.testRoutes.backend.system.manage_curreny;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {

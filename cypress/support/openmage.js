@@ -25,7 +25,7 @@ cy.openmage = {
         }
     },
     validation: {
-        assert: {
+        test: {
             float: '1.1',
             number: '1',
             numberGreater1: '666',
