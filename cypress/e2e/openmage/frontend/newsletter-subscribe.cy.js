@@ -1,20 +1,27 @@
+const route = cy.testRoutes.frontend.homepage;
+
 describe('Check newsletter subribe', () => {
+    beforeEach('Go to page', () => {
+        cy.visit(route.url);
+    });
+
     it('Test empty input', () => {
-        cy.visit('/')
-        cy.get('#newsletter').should('have.value', '');
-        cy.get('#newsletter-validate-detail button[type="submit"]').click();
-        cy.get('#advice-required-entry-newsletter').should('include.text', 'This is a required field.');
+        const error = cy.openmage.validation.requiredEntry.error;
+        cy.get(route.newsletter._id).should('have.value', '');
+        cy.get(route.newsletter._buttonSubmit).click();
+        cy.get('#advice-required-entry-newsletter').should('include.text', error);
     })
 
     it('Test valid input twice', () => {
         const email = cy.openmage.tools.generateRandomEmail();
-        cy.visit('/')
-        cy.get('#newsletter').type(email).should('have.value', email);
-        cy.get('#newsletter-validate-detail button[type="submit"]').click();
-        cy.get('.success-msg').should('include.text', 'Thank you for your subscription.');
+        cy.log('Test first valid input');
+        cy.get(route.newsletter._id).type(email).should('have.value', email);
+        cy.get(route.newsletter._buttonSubmit).click();
+        cy.get(cy.openmage.validation._successMessage).should('include.text', 'Thank you for your subscription.');
 
-        cy.get('#newsletter').type(email).should('have.value', email);
-        cy.get('#newsletter-validate-detail button[type="submit"]').click();
-        cy.get('.error-msg').should('include.text', 'There was a problem with the subscription: This email address is already registered.');
+        cy.log('Test second valid input');
+        cy.get(route.newsletter._id).type(email).should('have.value', email);
+        cy.get(route.newsletter._buttonSubmit).click();
+        cy.get(cy.openmage.validation._errorMessage).should('include.text', 'There was a problem with the subscription: This email address is already registered.');
     })
 })

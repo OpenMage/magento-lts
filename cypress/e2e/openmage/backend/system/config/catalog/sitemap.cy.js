@@ -25,4 +25,12 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
         validation.saveAction(saveButton);
         validation.validateFields(route.__validation.priority._input, validation.requiredEntry);
     });
+
+    it(`tests empty priority, no js`, () => {
+        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
+        validation.fillFields(route.__validation.priority._input, validation.requiredEntry);
+        validation.removeClasses(route.__validation.priority._input);
+        validation.saveAction(saveButton);
+        cy.get(cy.openmage.validation._errorMessage).should('include.text', error);
+    });
 });
