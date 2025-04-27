@@ -23,5 +23,5 @@ declare(strict_types=1);
  */
 class Mage_Csp_Block_Adminhtml_Meta extends Mage_Csp_Block_Meta
 {
-    protected $_area = Mage_Core_Model_App_Area::AREA_ADMINHTML;
+    protected string $_area = Mage_Core_Model_App_Area::AREA_ADMINHTML;
 }

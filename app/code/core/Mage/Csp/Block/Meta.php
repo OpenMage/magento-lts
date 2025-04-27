@@ -25,24 +25,20 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
 {
     /**
      * CSP directives
-     *
-     * @var array
      */
-    protected $_directives = [];
+    protected array $_directives = [];
 
     /**
      * CSP meta tag area
-     * @var
      */
-    protected $_area = Mage_Core_Model_App_Area::AREA_FRONTEND;
+    protected string $_area = Mage_Core_Model_App_Area::AREA_FRONTEND;
 
     /**
      * Add CSP directive
      *
-     * @param string $directive
-     * @param string $value
+     * @param value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES> $directive
      */
-    public function addDirective($directive, $value): static
+    public function addDirective(string $directive, string $value): static
     {
         if (!in_array($directive, Mage_Csp_Helper_Data::CSP_DIRECTIVES)) {
             return $this;
