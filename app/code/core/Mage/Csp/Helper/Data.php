@@ -57,6 +57,15 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Get report uri
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     */
+    public function getReportUri(string $area): string
+    {
+        return Mage::getStoreConfig(sprintf(self::XML_CSP_REPORT_URI, $area));
+    }
+
+    /**
      * Get the appropriate CSP header based on the area and report only mode
      * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      */
