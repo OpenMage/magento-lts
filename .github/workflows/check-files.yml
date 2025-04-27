@@ -39,6 +39,9 @@ on:
       phpunit:
         description: "Count changed PHPUnit files"
         value: ${{ jobs.check.outputs.phpunit }}
+      cypress:
+        description: "Count changed Cypress files"
+        value: ${{ jobs.check.outputs.cypress }}
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -59,6 +62,7 @@ jobs:
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
+      cypress: ${{ steps.changes-cypress.outputs.cypress }}
 
     steps:
       - name: Checkout code
@@ -194,3 +198,11 @@ jobs:
           count="$(grep -oE "**phpunit**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPUnit file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if Cypress files changed
+        id: changes-cypress
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "cypress/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Cypress file(s) changed"
+          echo "cypress=$count" >> $GITHUB_OUTPUT
