@@ -35,47 +35,50 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         'form-action',
     ];
 
+    protected $_moduleName = 'Mage_Csp';
+
+
     /**
      * Check if CSP is enabled
-     * @param string $area
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      */
-    public function isEnabled($area): bool
+    public function isEnabled(string $area): bool
     {
         return Mage::getStoreConfigFlag(sprintf(self::XML_CPS_ENABLED, $area));
     }
 
     /**
      * Check if report only mode is enabled
-     * @param string $area
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      */
-    public function getReportOnly($area): bool
+    public function getReportOnly(string $area): bool
     {
         return Mage::getStoreConfigFlag(sprintf(self::XML_CSP_REPORT_ONLY, $area));
     }
 
     /**
      * Get report uri
-     * @param string $area
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      */
-    public function getReportUri($area): string
+    public function getReportOnly(string $area): bool
     {
         return Mage::getStoreConfig(sprintf(self::XML_CSP_REPORT_URI, $area));
     }
 
     /**
      * Get the appropriate CSP header based on the area and report only mode
-     * @param string $area
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      */
-    public function getReportOnlyHeader($area): string
+    public function getReportOnlyHeader(string $area): string
     {
         return $this->getReportOnly($area) ? self::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY : self::HEADER_CONTENT_SECURITY_POLICY;
     }
 
     /**
      * Get CSP policies for a specific area
-     * @param string $area
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      */
-    public function getPolicies($area = Mage_Core_Model_App_Area::AREA_FRONTEND): array
+    public function getPolicies(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND): array
     {
         if (!$this->isEnabled($area)) {
             return [];
@@ -97,9 +100,9 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get global policy for a specific directive
      * global/csp/<directiveName>
-     * @param string $directiveName
+     * @param value-of<self::CSP_DIRECTIVES> $directiveName
      */
-    public function getGlobalPolicy($directiveName = 'default-src'): array
+    public function getGlobalPolicy(string $directiveName = 'default-src'): array
     {
         $globalNode = Mage::getConfig()->getNode(sprintf('global/csp/%s', $directiveName));
         if ($globalNode) {
@@ -111,10 +114,10 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get area policy for a specific directive
      * (adminhtml|frontend)/csp/<directiveName>
-     * @param string $area
-     * @param string $directiveName
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param value-of<self::CSP_DIRECTIVES> $directiveName
      */
-    public function getAreaPolicy($area = Mage_Core_Model_App_Area::AREA_FRONTEND, $directiveName = 'default-src'): array
+    public function getAreaPolicy(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND, string $directiveName = 'default-src'): array
     {
         $areaNode = Mage::getConfig()->getNode(sprintf('%s/csp/%s', $area, $directiveName));
         if ($areaNode) {
@@ -127,10 +130,10 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get system policy for a specific directive
      * csp/(adminhtml|frontend)/<directiveName>
-     * @param string $area
-     * @param string $directiveName
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @param value-of<self::CSP_DIRECTIVES> $directiveName
      */
-    public function getStoreConfigPolicy($area = Mage_Core_Model_App_Area::AREA_FRONTEND, $directiveName = 'default-src'): array
+    public function getStoreConfigPolicy(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND, string $directiveName = 'default-src'): array
     {
         $systemNode = Mage::getStoreConfig(sprintf('csp/%s/%s', $area, $directiveName));
         if ($systemNode) {
