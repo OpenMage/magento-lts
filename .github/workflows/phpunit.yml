@@ -8,6 +8,10 @@ on:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
+permissions:
+  checks: write
+  pull-requests: write
+
 jobs:
   unit-tests:
     runs-on: ${{ matrix.operating-system }}
@@ -38,7 +42,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          coverage: pcov #optional, setup coverage driver
+          coverage: xdebug #optional, setup coverage driver
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -111,13 +115,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           files: tests/logging/*.xml
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
         continue-on-error: true
-        if: ${{ (matrix.php-versions == '8.1') && (matrix.mysql-version == '5.7') }} && SONAR_TOKEN
+        if: ${{ (matrix.php-versions == '8.1') && (matrix.mysql-version == '5.7') }}
         with:
           args: >
             -Dproject.settings=tests/sonar-project.properties
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
