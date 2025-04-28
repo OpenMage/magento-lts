@@ -1,5 +1,5 @@
 {
-    "name": "openmage/magento-lts",
+    "name": "openmage-strict/openmage-future",
     "description": "A fork of Magento-1 that is accepting bug fixes (backward compatible, drop in replacement for official Magento)",
     "homepage": "https://www.openmage.org/",
     "license": [

@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Payment
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 -->
@@ -158,6 +158,15 @@
     </adminhtml>
     <default>
         <payment>
+            <ccsave>
+                <active>0</active>
+                <cctypes>AE,VI,MC,DI</cctypes>
+                <model>payment/method_ccsave</model>
+                <order_status>pending</order_status>
+                <title>Credit Card (saved)</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </ccsave>
             <checkmo>
                 <active>1</active>
                 <model>payment/method_checkmo</model>

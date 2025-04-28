@@ -8,6 +8,7 @@
 name: Labeler
 on:
   pull_request_target:
+  workflow_call:
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
