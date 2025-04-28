@@ -690,16 +690,16 @@
         },
         {
             "name": "nnnick/chartjs",
-            "version": "v4.4.8",
+            "version": "v4.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chartjs/Chart.js.git",
-                "reference": "32c8032e3f8e0c91edfb50cadbd612da88fc26cd"
+                "reference": "817bec0439b0e0666687deef2aefc435ff9710db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/32c8032e3f8e0c91edfb50cadbd612da88fc26cd",
-                "reference": "32c8032e3f8e0c91edfb50cadbd612da88fc26cd",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/817bec0439b0e0666687deef2aefc435ff9710db",
+                "reference": "817bec0439b0e0666687deef2aefc435ff9710db",
                 "shasum": ""
             },
             "require": {
@@ -729,9 +729,9 @@
             ],
             "support": {
                 "issues": "https://github.com/chartjs/Chart.js/issues",
-                "source": "https://github.com/chartjs/Chart.js/tree/v4.4.8"
+                "source": "https://github.com/chartjs/Chart.js/tree/v4.4.9"
             },
-            "time": "2025-02-19T15:37:15+00:00"
+            "time": "2025-04-15T13:19:05+00:00"
         },
         {
             "name": "openmage/composer-plugin",
