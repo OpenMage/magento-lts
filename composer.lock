@@ -100,16 +100,16 @@
         },
         {
             "name": "colinmollenhour/magento-redis-session",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
-                "reference": "4f10ca7b2370192f05d04d6e185cf2896b8a14aa"
+                "reference": "43db18623763dddd04edd8607f9123666008b884"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/4f10ca7b2370192f05d04d6e185cf2896b8a14aa",
-                "reference": "4f10ca7b2370192f05d04d6e185cf2896b8a14aa",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/43db18623763dddd04edd8607f9123666008b884",
+                "reference": "43db18623763dddd04edd8607f9123666008b884",
                 "shasum": ""
             },
             "require": {
@@ -133,9 +133,9 @@
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
-                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.2.0"
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.2.1"
             },
-            "time": "2023-10-03T14:21:02+00:00"
+            "time": "2025-04-25T14:24:43+00:00"
         },
         {
             "name": "colinmollenhour/php-redis-session-abstract",
@@ -690,16 +690,16 @@
         },
         {
             "name": "nnnick/chartjs",
-            "version": "v4.4.8",
+            "version": "v4.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chartjs/Chart.js.git",
-                "reference": "32c8032e3f8e0c91edfb50cadbd612da88fc26cd"
+                "reference": "817bec0439b0e0666687deef2aefc435ff9710db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/32c8032e3f8e0c91edfb50cadbd612da88fc26cd",
-                "reference": "32c8032e3f8e0c91edfb50cadbd612da88fc26cd",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/817bec0439b0e0666687deef2aefc435ff9710db",
+                "reference": "817bec0439b0e0666687deef2aefc435ff9710db",
                 "shasum": ""
             },
             "require": {
@@ -729,9 +729,9 @@
             ],
             "support": {
                 "issues": "https://github.com/chartjs/Chart.js/issues",
-                "source": "https://github.com/chartjs/Chart.js/tree/v4.4.8"
+                "source": "https://github.com/chartjs/Chart.js/tree/v4.4.9"
             },
-            "time": "2025-02-19T15:37:15+00:00"
+            "time": "2025-04-15T13:19:05+00:00"
         },
         {
             "name": "openmage/composer-plugin",
