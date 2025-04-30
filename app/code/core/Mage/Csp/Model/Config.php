@@ -157,9 +157,9 @@ class Mage_Csp_Model_Config extends Varien_Simplexml_Config
     }
 
     /**
-     * @return array<mixed>|false
+     * @return array<mixed>|bool|null
      */
-    protected function hasUseCache(): array|false
+    protected function hasUseCache(): array|bool|null
     {
         return Mage::app()->useCache(self::CACHE_TYPE);
     }
