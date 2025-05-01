@@ -94,8 +94,8 @@ class EnvironmentConfigLoaderTest extends TestCase
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
             $config['env_path'] => $config['value'],
         ]);
@@ -201,8 +201,8 @@ class EnvironmentConfigLoaderTest extends TestCase
         $defaultStoreValue = 'test_store';
         $this->assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
 
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
             $config['path'] => $config['value'],
         ]);
