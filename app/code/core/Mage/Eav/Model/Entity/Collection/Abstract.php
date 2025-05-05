@@ -635,19 +635,19 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
         }
 
         // cache entity
-        if (!isset($this->_joinEntities[$entity->getType()])) {
+        if (isset($entity) && !isset($this->_joinEntities[$entity->getType()])) {
             $this->_joinEntities[$entity->getType()] = $entity;
         }
 
         // validate attribute
-        if (is_string($attribute)) {
+        if (isset($entity) && is_string($attribute)) {
             $attribute = $entity->getAttribute($attribute);
         }
         if (!$attribute) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid attribute type'));
         }
 
-        if (empty($filter)) {
+        if (isset($entity) && empty($filter)) {
             $filter = $entity->getEntityIdField();
         }
 
