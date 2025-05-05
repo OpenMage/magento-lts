@@ -4,13 +4,11 @@ tags:
 - SCSS
 ---
 
-# PhpStorm
-
-See: https://www.jetbrains.com/phpstorm/
+# [PhpStorm](https://www.jetbrains.com/phpstorm/)
 
 ## Metadata Factory Helper
 
-This repo includes class maps for the core Magento files in `.phpstorm.meta.php`.
+This repository includes class maps for the core Magento files in `.phpstorm.meta.php`.
 To add class maps for installed extensions, you have to install [N98-magerun](https://github.com/netz98/n98-magerun)
 and run command:
 

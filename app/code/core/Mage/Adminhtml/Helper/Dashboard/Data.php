@@ -80,6 +80,8 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
             Mage_Reports_Helper_Data::PERIOD_24_HOURS   => $this->__('Last 24 Hours'),
             Mage_Reports_Helper_Data::PERIOD_7_DAYS     => $this->__('Last 7 Days'),
             Mage_Reports_Helper_Data::PERIOD_1_MONTH    => $this->__('Current Month'),
+            Mage_Reports_Helper_Data::PERIOD_3_MONTHS   => $this->__('Last 3 Months'),
+            Mage_Reports_Helper_Data::PERIOD_6_MONTHS   => $this->__('Last 6 Months'),
             Mage_Reports_Helper_Data::PERIOD_1_YEAR     => $this->__('YTD'),
             Mage_Reports_Helper_Data::PERIOD_2_YEARS    => $this->__('2YTD'),
         ];
