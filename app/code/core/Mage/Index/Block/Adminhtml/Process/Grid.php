@@ -52,6 +52,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Prepare grid collection
      *
      * @return $this
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
@@ -66,6 +67,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Add name and description to collection elements
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoadCollection()
     {
@@ -89,10 +91,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Prepare grid columns
      *
      * @return $this
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
         $this->addColumn('indexer_code', [
             'header'    => Mage::helper('index')->__('Index'),
             'width'     => '180',
@@ -183,16 +185,16 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $class = '';
         switch ($row->getStatus()) {
             case Mage_Index_Model_Process::STATUS_PENDING:
-                $class = 'grid-severity-notice';
+                $class = self::CSS_SEVERITY_NOTICE;
                 break;
             case Mage_Index_Model_Process::STATUS_RUNNING:
-                $class = 'grid-severity-major';
+                $class = self::CSS_SEVERITY_MAJOR;
                 break;
             case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
-                $class = 'grid-severity-critical';
+                $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
-        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
+        return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
     /**
@@ -210,13 +212,13 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $class = '';
         switch ($row->getUpdateRequired()) {
             case 0:
-                $class = 'grid-severity-notice';
+                $class = self::CSS_SEVERITY_NOTICE;
                 break;
             case 1:
-                $class = 'grid-severity-critical';
+                $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
-        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
+        return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
     /**

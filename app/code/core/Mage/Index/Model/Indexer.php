@@ -84,7 +84,7 @@ class Mage_Index_Model_Indexer
      * Get index process by specific id
      *
      * @param int $processId
-     * @return Mage_Index_Model_Process | false
+     * @return Mage_Index_Model_Process|false
      */
     public function getProcessById($processId)
     {
