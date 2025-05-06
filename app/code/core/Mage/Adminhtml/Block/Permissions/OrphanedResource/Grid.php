@@ -15,8 +15,6 @@ declare(strict_types=1);
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
-
 /**
  * Adminhtml permissions orphanedResource grid
  *
@@ -77,7 +75,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
         $this->setMassactionIdField('resource_id');
         $this->getMassactionBlock()->setFormFieldName('resource_id');
 
-        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
+        $this->getMassactionBlock()->addItem('delete', [
             'label'    => Mage::helper('adminhtml')->__('Delete'),
             'url'      => $this->getUrl('*/*/massDelete'),
             'confirm'  => Mage::helper('adminhtml')->__('Are you sure you want to do this?'),

@@ -39,7 +39,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Report period
      *
-     * @var string
+     * @var int
      */
     protected $_period;
 
@@ -76,7 +76,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set period
      *
-     * @param string $period
+     * @param int $period
      * @return $this
      */
     public function setPeriod($period)

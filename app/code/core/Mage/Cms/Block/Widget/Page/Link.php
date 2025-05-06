@@ -68,7 +68,6 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      * as parameter or retrieve page title from DB using passed identifier or page id.
      *
      * @return string
-     * @throws Mage_Core_Model_Store_Exception
      */
     public function getTitle()
     {
@@ -78,9 +77,10 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
                 // compare to null used here bc user can specify blank title
                 $this->_title = $this->getData('title');
             } elseif ($this->getData('page_id')) {
-                $this->_title = $this->getCmsPageTitleById($this->getData('page_id'));
+                $this->_title = Mage::getResourceSingleton('cms/page')->getCmsPageTitleById($this->getData('page_id'));
             } elseif ($this->getData('href')) {
-                $this->_title = $this->getCmsPageTitleByIdentifier($this->getData('href'));
+                $this->_title = Mage::getResourceSingleton('cms/page')->setStore(Mage::app()->getStore())
+                    ->getCmsPageTitleByIdentifier($this->getData('href'));
             }
         }
 
@@ -93,7 +93,6 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
      * if title will be blank string, page identifier will be used.
      *
      * @return string
-     * @throws Mage_Core_Model_Store_Exception
      */
     public function getAnchorText()
     {
@@ -102,27 +101,14 @@ class Mage_Cms_Block_Widget_Page_Link extends Mage_Core_Block_Html_Link implemen
         } elseif ($this->getTitle()) {
             $this->_anchorText = $this->getTitle();
         } elseif ($this->getData('href')) {
-            $this->_anchorText = $this->getCmsPageTitleByIdentifier($this->getData('href'));
+            $this->_anchorText = Mage::getResourceSingleton('cms/page')->setStore(Mage::app()->getStore())
+                ->getCmsPageTitleByIdentifier($this->getData('href'));
         } elseif ($this->getData('page_id')) {
-            $this->_anchorText = $this->getCmsPageTitleById($this->getData('page_id'));
+            $this->_anchorText = Mage::getResourceSingleton('cms/page')->getCmsPageTitleById($this->getData('page_id'));
         } else {
             $this->_anchorText = $this->getData('href');
         }
 
         return $this->_anchorText;
-    }
-
-    protected function getCmsPageTitleById(int|string $pageId): string
-    {
-        return Mage::getResourceSingleton('cms/page')->getCmsPageTitleById($pageId);
-    }
-
-    /**
-     * @throws Mage_Core_Model_Store_Exception
-     */
-    protected function getCmsPageTitleByIdentifier(int|string $identifier): string
-    {
-        return Mage::getResourceSingleton('cms/page')->setStore(Mage::app()->getStore())
-            ->getCmsPageTitleByIdentifier($identifier);
     }
 }
