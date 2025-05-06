@@ -1,4 +1,4 @@
-const route = cy.testRoutes.backend.catalog.search
+const route = cy.testRoutes.backend.catalog.search;
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {

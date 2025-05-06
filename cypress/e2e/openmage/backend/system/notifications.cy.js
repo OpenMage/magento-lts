@@ -1,4 +1,4 @@
-const route = cy.testRoutes.backend.system.notification
+const route = cy.testRoutes.backend.system.notification;
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {
