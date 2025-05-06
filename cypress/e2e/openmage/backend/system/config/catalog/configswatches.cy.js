@@ -25,7 +25,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
     });
 
     it(`tests non-digit dimensions`, () => {
-        const value = cy.openmage.validation.assert.float;
+        const value = cy.openmage.validation.test.float;
 
         Object.keys(validate.dimension._input).forEach(section => {
             const group = validate.dimension._input[section];

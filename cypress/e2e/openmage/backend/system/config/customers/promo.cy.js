@@ -1,5 +1,5 @@
 const route = cy.testRoutes.backend.system.config.customers.promo;
-const saveButton = cy.testRoutes.backend.system.config._buttonSave
+const saveButton = cy.testRoutes.backend.system.config._buttonSave;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${route.h3}" settings`, () => {
@@ -18,7 +18,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
 
         const fields = fieldset._input;
         const validate = validation.digits;
-        validation.fillFields(fields, validate, validation.assert.string);
+        validation.fillFields(fields, validate, validation.test.string);
         validation.saveAction(saveButton);
         validation.validateFields(fields, validate);
     });
