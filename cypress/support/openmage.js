@@ -25,7 +25,7 @@ cy.openmage = {
         }
     },
     validation: {
-        assert: {
+        test: {
             float: '1.1',
             number: '1',
             numberGreater1: '666',
@@ -51,6 +51,9 @@ cy.openmage = {
             error: 'The value is not within the specified range.',
             _error: '#advice-validate-number-range-',
         },
+        _errorMessage: '.error-msg',
+        _successMessage: '.success-msg',
+        _warningMessage: '.warning-msg',
         fillFields: (fields, validation, value = '') =>{
             cy.log('Filling fields with invalid values');
             Object.keys(fields).forEach(field => {
@@ -66,6 +69,15 @@ cy.openmage = {
                         .type(value, { force: true })
                         .should('have.value', value)
                 }
+            });
+        },
+        removeClasses: (fields) =>{
+            cy.log('Removing classes from fields');
+            Object.keys(fields).forEach(field => {
+                const selector = fields[field];
+                cy
+                    .get(selector)
+                    .invoke('removeClass');
             });
         },
         saveAction: (selector) => {

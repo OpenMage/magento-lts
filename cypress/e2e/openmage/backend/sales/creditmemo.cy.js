@@ -1,4 +1,4 @@
-const route = cy.testRoutes.backend.sales.creditmemo
+const route = cy.testRoutes.backend.sales.creditmemo;
 
 describe(`Checks admin system "${route.h3}"`, () => {
     beforeEach('Log in the user', () => {
