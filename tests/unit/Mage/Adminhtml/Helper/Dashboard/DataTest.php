@@ -57,6 +57,8 @@ class DataTest extends TestCase
             '24h' => $this->subject->__('Last 24 Hours'),
             '7d'  => $this->subject->__('Last 7 Days'),
             '1m'  => $this->subject->__('Current Month'),
+            '3m'  => $this->subject->__('Last 3 Months'),
+            '6m'  => $this->subject->__('Last 6 Months'),
             '1y'  => $this->subject->__('YTD'),
             '2y'  => $this->subject->__('2YTD'),
         ];

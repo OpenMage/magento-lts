@@ -9,6 +9,7 @@ on:
       - '**.php'
       - '**.phtml'
       - '**.js'
+      - '**.md'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
       - '.phpcs.dist.xml'
@@ -25,6 +26,7 @@ on:
       - '**.php'
       - '**.phtml'
       - '**.js'
+      - '**.md'
       - '**.xml'
       - '.php-cs-fixer.dist.php'
       - '.phpcs.dist.xml'
@@ -128,7 +130,7 @@ jobs:
     uses: ./.github/workflows/rector.yml
 
   unit_tests:
-    name: PHPUnit Tests
+    name: PHPUnit
     needs: [check, php-cs-fixer]
     if: |
       needs.check.outputs.php > 0 ||
@@ -136,3 +138,22 @@ jobs:
       needs.check.outputs.phpunit > 0 ||
       needs.check.outputs.workflow > 0
     uses: ./.github/workflows/phpunit.yml
+
+  spellcheck:
+    name: Spellcheck
+    needs: [check]
+    if: |
+      needs.check.outputs.markdown > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/spellcheck.yml
+
+  cypress:
+    name: Cypress E2E Tests
+    needs: [check]
+    if: |
+      needs.check.outputs.cypress > 0 ||
+      needs.check.outputs.php > 0 ||
+      needs.check.outputs.phtml > 0 ||
+      needs.check.outputs.xml > 0 ||
+      needs.check.outputs.workflow > 0
+    uses: ./.github/workflows/cypress.yml

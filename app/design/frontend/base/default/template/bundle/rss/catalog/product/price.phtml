@@ -17,7 +17,7 @@
 ?>
 
 <?php $_product = $this->getProduct() ?>
-<?php list($_minimalPrice, $_maximalPrice) = $_product->getPriceModel()->getPrices($_product) ?>
+<?php [$_minimalPrice, $_maximalPrice] = $_product->getPriceModel()->getPrices($_product) ?>
 <?php $_id = $_product->getId() ?>
 
 <?php
@@ -115,7 +115,7 @@ if ($_product->getPriceType() == 1) {
         <?php endif ?>
     </p>
 <?php else: ?>
-    <?php if ($_minimalPrice <> $_maximalPrice): ?>
+    <?php if ($_minimalPrice != $_maximalPrice): ?>
         <p class="price-from">
             <span class="price-label"><?php echo $this->__('From') ?>:</span>
             <?php if ($this->helper('tax')->displayBothPrices()): ?>

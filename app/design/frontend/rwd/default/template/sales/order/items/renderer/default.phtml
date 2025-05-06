@@ -33,7 +33,7 @@
                 </dd>
             <?php else: ?>
                 <dd>
-                    <?php echo nl2br($this->escapeHtml( (isset($_option['print_value']) ? $_option['print_value'] : $_option['value']) )) ?>
+                    <?php echo nl2br($this->escapeHtml( ($_option['print_value'] ?? $_option['value']) )) ?>
                 </dd>
             <?php endif ?>
         <?php endforeach ?>

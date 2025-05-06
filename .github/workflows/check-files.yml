@@ -39,6 +39,12 @@ on:
       phpunit:
         description: "Count changed PHPUnit files"
         value: ${{ jobs.check.outputs.phpunit }}
+      markdown:
+        description: "Count changed markdown files"
+        value: ${{ jobs.check.outputs.markdown }}
+      cypress:
+        description: "Count changed Cypress files"
+        value: ${{ jobs.check.outputs.cypress }}
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -49,6 +55,7 @@ jobs:
     outputs:
       composer: ${{ steps.changes-composer.outputs.composer }}
       js: ${{ steps.changes-js.outputs.js }}
+      markdown: ${{ steps.changes-php.outputs.markdown }}
       php: ${{ steps.changes-php.outputs.php }}
       phtml: ${{ steps.all.outputs.phtml }}
       xml: ${{ steps.changes-xml.outputs.xml }}
@@ -59,6 +66,7 @@ jobs:
       phpstan: ${{ steps.changes-phpstan.outputs.phpstan }}
       phpunit-test: ${{ steps.changes-phpunit-test.outputs.phpunit-test }}
       phpunit: ${{ steps.changes-phpunit.outputs.phpunit }}
+      cypress: ${{ steps.changes-cypress.outputs.cypress }}
 
     steps:
       - name: Checkout code
@@ -84,6 +92,7 @@ jobs:
           files: |
             composer.*
             *.php
+            **/*.md
             **/*.php
             **/*.phtml
             **/*.xml
@@ -194,3 +203,19 @@ jobs:
           count="$(grep -oE "**phpunit**" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
           echo "$count PHPUnit file(s) changed"
           echo "phpunit=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if Markdown files changed
+        id: changes-markdown
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "*.md" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Markdown file(s) changed"
+          echo "markdown=$count" >> $GITHUB_OUTPUT
+
+      - name: Check if Cypress files changed
+        id: changes-cypress
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          count="$(grep -oE "cypress/" <<< "${{ steps.changed-files-specific.outputs.all_modified_files }}" | wc -l)"
+          echo "$count Cypress file(s) changed"
+          echo "cypress=$count" >> $GITHUB_OUTPUT

@@ -782,7 +782,7 @@ class Mage_Core_Model_App
     /**
      * Redeclare custom error handler
      *
-     * @param   string $handler
+     * @param   callable|null $handler
      * @return  $this
      */
     public function setErrorHandler($handler)

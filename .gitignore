@@ -114,5 +114,9 @@ app/etc/includes/ddev.xhgui.php
 # local development
 .localdev
 
+# cypress
+cypress/screenshots/
+cypress/videos/
+
 # rector
 .rector.result.cache

@@ -199,6 +199,8 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                             break;
                         case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
                         case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+                        case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+                        case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
                             $this->_axisLabels[$idx][$_index] = $this->formatDate(
                                 new Zend_Date($_label, 'yyyy-MM-dd'),
                             );
@@ -241,9 +243,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         $date  = '';
         $dates = [];
         $datas = [];
+        $period = $this->getDataHelper()->getParam('period');
 
         while ($dateStart->compare($dateEnd) < 0) {
-            switch ($this->getDataHelper()->getParam('period')) {
+            switch ($period) {
                 case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
                     $date = $dateStart->toString('yyyy-MM-dd HH:00');
                     $dateStart->addHour(1);
@@ -253,22 +256,52 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $date = $dateStart->toString('yyyy-MM-dd');
                     $dateStart->addDay(1);
                     break;
+                case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+                case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
+                    $date = $dateStart->toString('yyyy-MM-dd');
+                    $dateStart->addWeek(1);
+                    break;
                 case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
                 case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
                     $date = $dateStart->toString('yyyy-MM');
                     $dateStart->addMonth(1);
                     break;
             }
+            if (in_array($period, [
+                Mage_Reports_Helper_Data::PERIOD_3_MONTHS,
+                Mage_Reports_Helper_Data::PERIOD_6_MONTHS,
+            ])) {
+                $axisTimestamps = [];
+                foreach ($this->_axisLabels['x'] as $axisDate) {
+                    $axisTimestamps[] = (new Zend_Date($axisDate, 'yyyy-MM-dd'))->getTimestamp();
+                }
+            }
             foreach (array_keys($this->getAllSeries()) as $index) {
-                if (in_array($date, $this->_axisLabels['x'])) {
-                    $datas[$index][] = (float) array_shift($this->_allSeries[$index]);
+                if (isset($axisTimestamps)) {
+                    $dateObj = new Zend_Date($date, 'yyyy-MM-dd');
+                    $weekStartTs = $dateObj->getTimestamp();
+                    $weekEndTs = $dateObj->addWeek(1)->getTimestamp();
+
+                    $found = false;
+                    foreach ($axisTimestamps as $axisTs) {
+                        if ($axisTs >= $weekStartTs && $axisTs < $weekEndTs) {
+                            $datas[$index][] = (float) array_shift($this->_allSeries[$index]);
+                            $found = true;
+                            break;
+                        }
+                    }
+
+                    if (!$found) {
+                        $datas[$index][] = 0;
+                    }
                 } else {
-                    $datas[$index][] = 0;
+                    $datas[$index][] = in_array($date, $this->_axisLabels['x'])
+                        ? (float) array_shift($this->_allSeries[$index])
+                        : 0;
                 }
             }
             $dates[] = $date;
         }
-
         return [$datas, $dates];
     }
 

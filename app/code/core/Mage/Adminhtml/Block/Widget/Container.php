@@ -245,7 +245,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     public function getHeaderCssClass()
     {
-        return 'head-' . strtr($this->_controller, '_', '-');
+        return 'icon-head head-' . strtr($this->_controller, '_', '-');
     }
 
     /**

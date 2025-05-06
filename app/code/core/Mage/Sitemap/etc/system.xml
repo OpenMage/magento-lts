@@ -41,7 +41,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
-                            <frontend_class>validate-number</frontend_class>
+                            <validate>required-entry validate-number validate-number-range number-range-0-1</validate>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -78,7 +78,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
-                            <frontend_class>validate-number</frontend_class>
+                            <validate>required-entry validate-number validate-number-range number-range-0-1</validate>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
@@ -115,7 +115,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <comment>Valid values range: from 0.0 to 1.0.</comment>
-                            <frontend_class>validate-number</frontend_class>
+                            <validate>required-entry validate-number validate-number-range number-range-0-1</validate>
                         </priority>
                         <lastmod translate="label">
                             <label>Show lastmod</label>
