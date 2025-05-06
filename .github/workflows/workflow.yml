@@ -149,7 +149,7 @@ jobs:
 
   cypress:
     name: Cypress E2E Tests
-    needs: [check, php-cs-fixer]
+    needs: [check]
     if: |
       needs.check.outputs.cypress > 0 ||
       needs.check.outputs.php > 0 ||
