@@ -13,33 +13,31 @@ namespace OpenMage\Tests\Unit\Mage\Core\Model;
 
 use Mage;
 use Mage_Core_Model_Url as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class UrlTest extends TestCase
+class UrlTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('core/url');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('core/url');
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testEscape(): void
     {
-        $this->assertSame('%22%27%3E%3C', $this->subject->escape('"\'><'));
+        static::assertSame('%22%27%3E%3C', self::$subject->escape('"\'><'));
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetSecure(): void
     {
-        $this->assertIsBool($this->subject->getSecure());
+        static::assertIsBool(self::$subject->getSecure());
     }
 }

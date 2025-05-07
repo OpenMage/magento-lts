@@ -15,10 +15,10 @@ use Generator;
 use Mage;
 use Mage_Core_Exception;
 use Mage_Core_Helper_EnvironmentConfigLoader;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-class EnvironmentConfigLoaderTest extends TestCase
+class EnvironmentConfigLoaderTest extends OpenMageTest
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
 
@@ -37,45 +37,41 @@ class EnvironmentConfigLoaderTest extends TestCase
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testBuildPath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $path = $environmentConfigLoaderHelper->exposedBuildPath('GENERAL', 'STORE_INFORMATION', 'NAME');
-        $this->assertSame(self::XML_PATH_GENERAL, $path);
+        static::assertSame(self::XML_PATH_GENERAL, $path);
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testBuildNodePath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $nodePath = $environmentConfigLoaderHelper->exposedBuildNodePath('DEFAULT', self::XML_PATH_GENERAL);
-        $this->assertSame(self::XML_PATH_DEFAULT, $nodePath);
+        static::assertSame(self::XML_PATH_DEFAULT, $nodePath);
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testXmlHasTestStrings(): void
     {
         $xmlStruct = $this->getTestXml();
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
-        $this->assertSame('test_default', (string) $xml->getNode(self::XML_PATH_DEFAULT));
-        $this->assertSame('test_website', (string) $xml->getNode(self::XML_PATH_WEBSITE));
-        $this->assertSame('test_store', (string) $xml->getNode(self::XML_PATH_STORE));
+        static::assertSame('test_default', (string) $xml->getNode(self::XML_PATH_DEFAULT));
+        static::assertSame('test_website', (string) $xml->getNode(self::XML_PATH_WEBSITE));
+        static::assertSame('test_store', (string) $xml->getNode(self::XML_PATH_STORE));
     }
 
     /**
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      *
      * @param array<string, string> $config
      */
@@ -100,7 +96,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
-        $this->assertNotSame((string) $defaultValue, (string) $valueAfterOverride, 'Default value was not overridden.');
+        static::assertNotSame((string) $defaultValue, (string) $valueAfterOverride, 'Default value was not overridden.');
     }
 
     public function envOverridesCorrectConfigKeysDataProvider(): Generator
@@ -175,7 +171,7 @@ class EnvironmentConfigLoaderTest extends TestCase
 
     /**
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
-     * @group Mage_Core
+     * @group Helper
      *
      * @param array<string, string> $config
      */
@@ -189,11 +185,11 @@ class EnvironmentConfigLoaderTest extends TestCase
         $xml->loadString($xmlStruct);
 
         $defaultValue = 'test_default';
-        $this->assertSame($defaultValue, (string) $xml->getNode(self::XML_PATH_DEFAULT));
+        static::assertSame($defaultValue, (string) $xml->getNode(self::XML_PATH_DEFAULT));
         $defaultWebsiteValue = 'test_website';
-        $this->assertSame($defaultWebsiteValue, (string) $xml->getNode(self::XML_PATH_WEBSITE));
+        static::assertSame($defaultWebsiteValue, (string) $xml->getNode(self::XML_PATH_WEBSITE));
         $defaultStoreValue = 'test_store';
-        $this->assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
+        static::assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
 
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
@@ -216,7 +212,7 @@ class EnvironmentConfigLoaderTest extends TestCase
         }
 
         // assert
-        $this->assertStringNotContainsString((string) $valueAfterCheck, 'value_will_not_be_changed', 'Default value was wrongfully overridden.');
+        static::assertStringNotContainsString((string) $valueAfterCheck, 'value_will_not_be_changed', 'Default value was wrongfully overridden.');
     }
 
     public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator

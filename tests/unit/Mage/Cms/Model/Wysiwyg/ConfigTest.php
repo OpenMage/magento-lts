@@ -13,65 +13,60 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Model\Wysiwyg;
 
 use Mage;
 use Mage_Cms_Model_Wysiwyg_Config as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Object;
 
-class ConfigTest extends TestCase
+class ConfigTest extends OpenMageTest
 {
     public const TEST_STRING = '0123456789';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('cms/wysiwyg_config');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('cms/wysiwyg_config');
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetConfig(): void
     {
-        $this->assertInstanceOf(Varien_Object::class, $this->subject->getConfig());
+        static::assertInstanceOf(Varien_Object::class, self::$subject->getConfig());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetSkinImagePlaceholderUrl(): void
     {
-        $this->assertIsString($this->subject->getSkinImagePlaceholderUrl());
+        static::assertIsString(self::$subject->getSkinImagePlaceholderUrl());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetSkinImagePlaceholderPath(): void
     {
-        $this->assertIsString($this->subject->getSkinImagePlaceholderPath());
+        static::assertIsString(self::$subject->getSkinImagePlaceholderPath());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testIsEnabled(): void
     {
-        $this->assertIsBool($this->subject->isEnabled());
+        static::assertIsBool(self::$subject->isEnabled());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testIsHidden(): void
     {
-        $this->assertIsBool($this->subject->isHidden());
+        static::assertIsBool(self::$subject->isHidden());
     }
 }

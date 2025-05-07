@@ -133,7 +133,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
      * Retrurn default attribute group id for attribute set id
      *
      * @param int $setId
-     * @return int|null
+     * @return string
      */
     public function getDefaultGroupId($setId)
     {

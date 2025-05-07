@@ -13,52 +13,47 @@ namespace OpenMage\Tests\Unit\Mage\AdminNotification\Model;
 
 use Mage;
 use Mage_AdminNotification_Model_Feed as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use SimpleXMLElement;
 
-class FeedTest extends TestCase
+class FeedTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('adminnotification/feed');
+        self::$subject = Mage::getModel('adminnotification/feed');
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testGetFeedUrl(): void
     {
-        $this->assertIsString($this->subject->getFeedUrl());
+        static::assertIsString(self::$subject->getFeedUrl());
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testCheckUpdate(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->checkUpdate());
+        static::assertInstanceOf(Subject::class, self::$subject->checkUpdate());
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testGetFeedData(): void
     {
-        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedData());
+        static::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedData());
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testGetFeedXml(): void
     {
-        $this->assertInstanceOf(SimpleXMLElement::class, $this->subject->getFeedXml());
+        static::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedXml());
     }
 }

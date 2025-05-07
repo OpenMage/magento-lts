@@ -13,24 +13,23 @@ namespace OpenMage\Tests\Unit\Mage\Page\Model;
 
 use Mage;
 use Mage_Page_Model_Config as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ConfigTest extends TestCase
+class ConfigTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('page/config');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('page/config');
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Model
      */
     public function testGetPageLayoutHandles(): void
     {
-        $this->assertIsArray($this->subject->getPageLayoutHandles());
+        static::assertIsArray(self::$subject->getPageLayoutHandles());
     }
 }

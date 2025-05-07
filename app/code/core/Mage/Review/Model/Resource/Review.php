@@ -260,7 +260,7 @@ class Mage_Review_Model_Resource_Review extends Mage_Core_Model_Resource_Db_Abst
      * @param int $entityPkValue
      * @param bool $approvedOnly
      * @param int $storeId
-     * @return int
+     * @return string
      */
     public function getTotalReviews($entityPkValue, $approvedOnly = false, $storeId = 0)
     {

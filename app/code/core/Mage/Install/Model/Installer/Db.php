@@ -15,7 +15,7 @@
 class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstract
 {
     /**
-     * @var resource database
+     * @var Mage_Install_Model_Installer_Db_Abstract|null database
      */
     protected $_dbResource;
 
@@ -133,10 +133,12 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
      *
      * @param  string $model database type
      * @return Mage_Install_Model_Installer_Db_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getDbResource($model)
     {
         if (!isset($this->_dbResource)) {
+            /** @var Mage_Install_Model_Installer_Db_Abstract $resource */
             $resource =  Mage::getSingleton(sprintf('install/installer_db_%s', $model));
             if (!$resource) {
                 Mage::throwException(

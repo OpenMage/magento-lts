@@ -13,70 +13,64 @@ namespace OpenMage\Tests\Unit\Mage\Log\Model;
 
 use Mage;
 use Mage_Log_Model_Visitor as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class VisitorTest extends TestCase
+class VisitorTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('log/visitor');
+        self::$subject = Mage::getModel('log/visitor');
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testInitServerData(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->initServerData());
+        static::assertInstanceOf(Subject::class, self::$subject->initServerData());
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetOnlineMinutesInterval(): void
     {
-        $this->assertIsInt($this->subject->getOnlineMinutesInterval());
+        static::assertIsInt(self::$subject->getOnlineMinutesInterval());
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetUrl(): void
     {
-        $this->assertIsString($this->subject->getUrl());
+        static::assertIsString(self::$subject->getUrl());
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetFirstVisitAt(): void
     {
-        $this->assertIsString($this->subject->getFirstVisitAt());
+        static::assertIsString(self::$subject->getFirstVisitAt());
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetLastVisitAt(): void
     {
-        $this->assertIsString($this->subject->getLastVisitAt());
+        static::assertIsString(self::$subject->getLastVisitAt());
     }
 }

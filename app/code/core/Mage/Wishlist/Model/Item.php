@@ -105,7 +105,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Set quantity. If quantity is less than 0 - set it to 1
      *
-     * @param int $qty
+     * @param float $qty
      * @return $this
      */
     public function setQty($qty)
@@ -355,7 +355,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         if (!$product->isSalable()) {
-            throw new Mage_Core_Exception(null, self::EXCEPTION_CODE_NOT_SALABLE);
+            throw new Mage_Core_Exception('', self::EXCEPTION_CODE_NOT_SALABLE);
         }
 
         $buyRequest = $this->getBuyRequest();

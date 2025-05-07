@@ -4,7 +4,6 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
- * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -37,7 +36,7 @@ trait RuleTrait
         ];
         yield 'object with invalid date' => [
             [
-                0 => 'End Date must be greater than Start Date.',
+                'End Date must be greater than Start Date.',
             ],
             [
                 'from_date' => '2',
@@ -46,7 +45,7 @@ trait RuleTrait
         ];
         yield 'object with empty website ids' => [
             [
-                0 => 'Websites must be specified.',
+                'Websites must be specified.',
             ],
             [
                 'website_ids' => '',
@@ -60,7 +59,7 @@ trait RuleTrait
         ];
         yield 'object with empty customer group ids' => [
             [
-                0 => 'Customer Groups must be specified.',
+                'Customer Groups must be specified.',
             ],
             [
                 'customer_group_ids' => '',

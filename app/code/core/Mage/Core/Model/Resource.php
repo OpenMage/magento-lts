@@ -183,7 +183,7 @@ class Mage_Core_Model_Resource
      * Retrieve default connection name by required connection name
      *
      * @param string $requiredConnectionName
-     * @return string
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getDefaultConnection($requiredConnectionName)
     {
@@ -393,7 +393,7 @@ class Mage_Core_Model_Resource
     /**
      * Retrieve 32bit UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
+     * @param array|string $priTableName  the target table name
      * @param string $priColumnName the target table column name
      * @param string $refTableName  the reference table name
      * @param string $refColumnName the reference table column name

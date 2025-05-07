@@ -20,7 +20,7 @@ class Mage_Customer_Block_Account_Navigation extends Mage_Core_Block_Template
     protected $_links = [];
 
     /**
-     * @var bool
+     * @var false|string
      */
     protected $_activeLink = false;
 

@@ -387,7 +387,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             $attributeId = $attribute->getAttributeId();
         }
 
-        if (!$attribute->getAttributeCode()) {
+        if (isset($attributeCode) && !$attribute->getAttributeCode()) {
             $attribute->setAttributeCode($attributeCode);
         }
         if (!$attribute->getAttributeModel()) {
@@ -586,6 +586,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
     public function walkAttributes($partMethod, array $args = [])
     {
         $methodArr = explode('/', $partMethod);
+        $part = '';
         switch (count($methodArr)) {
             case 1:
                 $part   = 'attribute';
@@ -621,7 +622,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
                     break;
             }
 
-            if (!$this->_isCallableAttributeInstance($instance, $method, $args)) {
+            if (!isset($instance, $method) || !$this->_isCallableAttributeInstance($instance, $method, $args)) {
                 continue;
             }
 
@@ -1570,18 +1571,20 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         $this->_beforeDelete($object);
 
-        try {
-            $where = [
-                $this->getEntityIdField() . '=?' => $id,
-            ];
-            $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
-            $this->loadAllAttributes($object);
-            foreach (array_keys($this->getAttributesByTable()) as $table) {
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $this->_getWriteAdapter()->delete($table, $where);
+        if (isset($id)) {
+            try {
+                $where = [
+                    $this->getEntityIdField() . '=?' => $id,
+                ];
+                $this->_getWriteAdapter()->delete($this->getEntityTable(), $where);
+                $this->loadAllAttributes($object);
+                foreach (array_keys($this->getAttributesByTable()) as $table) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $this->_getWriteAdapter()->delete($table, $where);
+                }
+            } catch (Exception $e) {
+                throw $e;
             }
-        } catch (Exception $e) {
-            throw $e;
         }
 
         $this->_afterDelete($object);

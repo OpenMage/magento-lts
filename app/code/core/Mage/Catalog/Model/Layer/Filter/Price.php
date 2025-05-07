@@ -521,9 +521,9 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * Load range of product prices
      *
      * @param int $limit
-     * @param null|int $offset
-     * @param null|int $lowerPrice
-     * @param null|int $upperPrice
+     * @param int|null $offset
+     * @param float|null $lowerPrice
+     * @param float|null $upperPrice
      * @return array
      */
     public function loadPrices($limit, $offset = null, $lowerPrice = null, $upperPrice = null)
@@ -541,7 +541,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      *
      * @param float $price
      * @param int $index
-     * @param null|int $lowerPrice
+     * @param float|null $lowerPrice
      * @return array|false
      */
     public function loadPreviousPrices($price, $index, $lowerPrice = null)
@@ -559,7 +559,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      *
      * @param float $price
      * @param int $rightIndex
-     * @param null|int $upperPrice
+     * @param float|null $upperPrice
      * @return array|false
      */
     public function loadNextPrices($price, $rightIndex, $upperPrice = null)

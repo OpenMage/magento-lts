@@ -67,7 +67,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
     /**
      * Base currency rate
      *
-     * @var double
+     * @var string
      */
     protected $_baseCurrencyRate;
 
@@ -810,7 +810,7 @@ XMLRequest;
      * Get base currency rate
      *
      * @param string $code
-     * @return double
+     * @return string
      */
     protected function _getBaseCurrencyRate($code)
     {
@@ -1573,7 +1573,14 @@ XMLAuth;
             $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
         }
 
+        $this->_debug($debugData);
+
         $result = new Varien_Object();
+
+        if (!isset($response)) {
+            return $result;
+        }
+
         if (isset($response->Error)) {
             $result->setErrors((string) $response->Error->ErrorDescription);
         } else {
@@ -1584,7 +1591,6 @@ XMLAuth;
             $result->setTrackingNumber($trackingNumber);
         }
 
-        $this->_debug($debugData);
         return $result;
     }
 
@@ -1946,6 +1952,7 @@ XMLAuth;
         $result = new Varien_Object();
         $xmlRequest = $this->_formShipmentRequest($request);
         $xmlResponse = $this->_getCachedQuotes($xmlRequest);
+        $debugData = [];
 
         if ($xmlResponse === null) {
             $url = $this->getConfigData('shipconfirm_xml_url');

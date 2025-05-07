@@ -105,7 +105,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
             }
         }
         $this->_afterGetPdf();
-        if ($shipment->getStoreId()) {
+        if (isset($shipment) && $shipment->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
         return $pdf;

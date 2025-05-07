@@ -4,7 +4,6 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
- * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -14,31 +13,28 @@ namespace OpenMage\Tests\Unit\Mage\Catalog\Model\Resource\Eav;
 use Mage;
 use Mage_Catalog_Model_Resource_Eav_Attribute as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class AttributeTest extends TestCase
+class AttributeTest extends OpenMageTest
 {
     use CoreTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('catalog/resource_eav_attribute');
+        self::$subject = Mage::getModel('catalog/resource_eav_attribute');
     }
 
     /**
      * @dataProvider provideGetStoreId
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
-     * @group Mage_Catalog_Model_Resource
+     * @group Model
      */
-    public function testGetStoreId($expectedResult, $withStoreId): void
+    public function testGetStoreId(?int $expectedResult, int|string|null $withStoreId): void
     {
         if ($withStoreId) {
-            $this->subject->setStoreId($withStoreId);
+            self::$subject->setStoreId($withStoreId);
         }
-        $this->assertSame($expectedResult, $this->subject->getStoreId());
+        static::assertSame($expectedResult, self::$subject->getStoreId());
     }
 }

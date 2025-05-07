@@ -203,7 +203,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
      * Add Leading Zeros to number less than 10
      *
      * @param int $value
-     * @return string
+     * @return int|string
      */
     protected function _getValueWithLeadingZeros($value)
     {

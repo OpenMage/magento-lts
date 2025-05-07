@@ -13,24 +13,23 @@ namespace OpenMage\Tests\Unit\Mage\Page\Model\Source;
 
 use Mage;
 use Mage_Page_Model_Source_Layout as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends TestCase
+class LayoutTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('page/source_layout');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('page/source_layout');
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Model
      */
     public function testToOptionArray(): void
     {
-        $this->assertIsArray($this->subject->toOptionArray(true));
+        static::assertIsArray(self::$subject->toOptionArray(true));
     }
 }

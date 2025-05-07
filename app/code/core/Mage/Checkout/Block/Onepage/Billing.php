@@ -170,7 +170,9 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
     protected function _getTaxvat()
     {
         if (!$this->_taxvat) {
-            $this->_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat');
+            /** @var Mage_Customer_Block_Widget_Taxvat $block */
+            $block = $this->getLayout()->createBlock('customer/widget_taxvat');
+            $this->_taxvat = $block;
         }
 
         return $this->_taxvat;

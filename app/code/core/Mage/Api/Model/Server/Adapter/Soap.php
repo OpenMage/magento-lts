@@ -24,7 +24,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Soap server
      *
-     * @var SoapServer
+     * @var Zend_Soap_Server
      */
     protected $_soap = null;
 

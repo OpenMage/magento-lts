@@ -232,7 +232,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
                 }
                 //BOM deleting for UTF files
-                if (isset($newFilename) && $newFilename) {
+                if (isset($path, $newFilename) && $newFilename) {
                     $contents = file_get_contents($path . $newFilename);
                     if (ord($contents[0]) == 0xEF && ord($contents[1]) == 0xBB && ord($contents[2]) == 0xBF) {
                         $contents = substr($contents, 3);
@@ -336,6 +336,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $fileXml .= '</action>' . $nl . $nl;
         }
 
+        $parseFileXml = '';
         switch ($p['parse']['type']) {
             case 'excel_xml':
                 $parseFileXml = '<action type="dataflow/convert_parser_xml_excel" method="'

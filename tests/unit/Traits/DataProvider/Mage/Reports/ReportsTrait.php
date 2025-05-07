@@ -4,7 +4,6 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
- * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -31,20 +30,18 @@ trait ReportsTrait
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
         yield $prefix . 'no from' => [
-            0,
+            'No date part in \'\' found.',
             '',
             self::$dateFirstDay,
             Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
         ];
 
-        if (!defined('DATA_MAY_CHANGED')) {
-            yield $prefix . 'no to' => [
-                0,
-                self::$dateFirstDay,
-                '',
-                Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
-            ];
-        }
+        yield $prefix . 'no to' => [
+            'No date part in \'\' found.',
+            self::$dateFirstDay,
+            '',
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY,
+        ];
 
         yield $prefix . 'same day' => [
             1,

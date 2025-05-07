@@ -196,7 +196,7 @@ class Mage_CatalogRule_Model_Observer
         }
 
         if ($key) {
-            if (!isset($this->_rulePrices[$key])) {
+            if (isset($wId, $gId, $pId) && !isset($this->_rulePrices[$key])) {
                 $rulePrice = Mage::getResourceModel('catalogrule/rule')
                     ->getRulePrice($date, $wId, $gId, $pId);
                 $this->_rulePrices[$key] = $rulePrice;

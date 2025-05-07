@@ -198,9 +198,11 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
     protected function _getRequestRewriteController()
     {
         $className = (string) Mage::getConfig()->getNode('global/request_rewrite/model');
-        return Mage::getSingleton('core/factory')->getModel($className, [
+        /** @var Mage_Core_Model_Url_Rewrite_Request $model */
+        $model = Mage::getSingleton('core/factory')->getModel($className, [
             'routers' => $this->getRouters(),
         ]);
+        return $model;
     }
 
     /**

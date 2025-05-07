@@ -17,105 +17,96 @@ use Mage_Catalog_Model_Category_Url;
 use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CategoryTest extends TestCase
+class CategoryTest extends OpenMageTest
 {
     use CatalogTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('catalog/category');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('catalog/category');
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsInt($this->subject->getDefaultAttributeSetId());
+        static::assertIsInt(self::$subject->getDefaultAttributeSetId());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetProductCollection(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getProductCollection());
+        static::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, self::$subject->getProductCollection());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetAvailableSortByOptions(): void
     {
-        $this->assertIsArray($this->subject->getAvailableSortByOptions());
+        static::assertIsArray(self::$subject->getAvailableSortByOptions());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultSortBy(): void
     {
-        $this->assertSame('position', $this->subject->getDefaultSortBy());
+        static::assertSame('position', self::$subject->getDefaultSortBy());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testValidate(): void
     {
-        $this->assertIsArray($this->subject->validate());
+        static::assertIsArray(self::$subject->validate());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testAfterCommitCallback(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->afterCommitCallback());
+        static::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetUrlModel(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
-        $this->assertInstanceOf(Mage_Catalog_Model_Category_Url::class, $this->subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Url::class, self::$subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Category_Url::class, self::$subject->getUrlModel());
     }
 
     /**
      * @dataProvider provideFormatUrlKey
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      * @runInSeparateProcess
      */
     //    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
     //    {
-    //        $this->subject->setName(self::TEST_STRING);
-    //        $this->subject->setLocale($locale);
-    //        $this->assertSame($expectedResult, $this->subject->getCategoryIdUrl());
+    //        self::$subject->setName(self::TEST_STRING);
+    //        self::$subject->setLocale($locale);
+    //        $this->assertSame($expectedResult, self::$subject->getCategoryIdUrl());
     //    }
 
     /**
      * @dataProvider provideFormatUrlKey
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
-    public function testFormatUrlKey($expectedResult, string $locale): void
+    public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
-        $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));
+        self::$subject->setLocale($locale);
+        static::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
     }
 }

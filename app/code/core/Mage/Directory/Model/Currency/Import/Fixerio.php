@@ -118,7 +118,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
             ini_restore('max_execution_time');
         }
 
-        if (!$this->_validateResponse($response, $currencyFrom)) {
+        if (isset($response) && !$this->_validateResponse($response, $currencyFrom)) {
             $data[$currencyFrom] = $this->_makeEmptyResponse($currenciesTo);
             return $data;
         }

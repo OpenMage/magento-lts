@@ -63,7 +63,7 @@ try {
     if ($isShellDisabled) {
         Mage::dispatchEvent('always');
         Mage::dispatchEvent('default');
-    } else {
+    } elseif (isset($cronMode)) {
         Mage::dispatchEvent($cronMode);
     }
 } catch (Exception $e) {

@@ -52,10 +52,12 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
     public function __construct($params = [])
     {
         $proInstance = array_shift($params);
-        if ($proInstance && ($proInstance instanceof Mage_Paypal_Model_Pro)) {
+        if ($proInstance instanceof Mage_Paypal_Model_Pro) {
             $this->_pro = $proInstance;
         } else {
-            $this->_pro = Mage::getModel($this->_proType);
+            /** @var Mage_Paypal_Model_Pro $model */
+            $model = Mage::getModel($this->_proType);
+            $this->_pro = $model;
         }
         $this->_pro->setMethod($this->_code);
     }

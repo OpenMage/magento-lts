@@ -13,30 +13,30 @@ namespace OpenMage\Tests\Unit\Mage\Customer\Model\Convert\Adapter;
 
 use Mage;
 use Mage_Customer_Model_Convert_Adapter_Customer as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Throwable;
 
-class CustomerTest extends TestCase
+class CustomerTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('customer/convert_adapter_customer');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('customer/convert_adapter_customer');
     }
 
     //    /**
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoWebsite(): void
     //    {
     //        $data = [];
     //        try {
-    //            $this->subject->saveRow($data);
+    //            self::$subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
     //            $this->assertSame('Skipping import row, required field "website" is not defined.', $e->getMessage());
@@ -47,7 +47,7 @@ class CustomerTest extends TestCase
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoEmail(): void
     //    {
@@ -55,7 +55,7 @@ class CustomerTest extends TestCase
     //            'website'   => 'base',
     //        ];
     //        try {
-    //            $this->subject->saveRow($data);
+    //            self::$subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
     //            $this->assertSame('Skipping import row, required field "email" is not defined.', $e->getMessage());
@@ -66,7 +66,7 @@ class CustomerTest extends TestCase
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoGroup(): void
     //    {
@@ -75,7 +75,7 @@ class CustomerTest extends TestCase
     //            'email'     => 'test@example.com',
     //        ];
     //        try {
-    //            $this->subject->saveRow($data);
+    //            self::$subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
     //            $this->assertSame('Skipping import row, the value "" is not valid for the "group" field.', $e->getMessage());
@@ -86,7 +86,7 @@ class CustomerTest extends TestCase
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoFirstname(): void
     //    {
@@ -96,7 +96,7 @@ class CustomerTest extends TestCase
     //            'group'     => 'General',
     //        ];
     //        try {
-    //            $this->subject->saveRow($data);
+    //            self::$subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
     //            $this->expectExceptionMessage('Skip import row, required field "firstname" for the new customer is not defined.');
@@ -107,7 +107,7 @@ class CustomerTest extends TestCase
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoLastname(): void
     //    {
@@ -118,7 +118,7 @@ class CustomerTest extends TestCase
     //            'firstname' => 'John',
     //        ];
     //        try {
-    //            $this->subject->saveRow($data);
+    //            self::$subject->saveRow($data);
     //            $this->fail();
     //        } catch (Mage_Core_Exception $e) {
     //            $this->assertSame('Skip import row, required field "lastname" for the new customer is not defined.', $e->getMessage());
@@ -126,7 +126,7 @@ class CustomerTest extends TestCase
     //    }
     /**
      * @throws Throwable
-     * @group Mage_Customer
+     * @group Model
      */
     public function testSaveRow(): void
     {
@@ -137,6 +137,6 @@ class CustomerTest extends TestCase
             'firstname' => 'John',
             'lastname'  => 'Doe',
         ];
-        $this->assertInstanceOf(Subject::class, $this->subject->saveRow($data));
+        static::assertInstanceOf(Subject::class, self::$subject->saveRow($data));
     }
 }

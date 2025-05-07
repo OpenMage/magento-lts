@@ -49,6 +49,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Form extends Mage_Adminhtml_Block_Widge
      */
     protected function _getWidgetSelectOptions()
     {
+        $options = [];
         foreach ($this->_getAvailableWidgets(true) as $data) {
             $options[$data['type']] = $data['name'];
         }

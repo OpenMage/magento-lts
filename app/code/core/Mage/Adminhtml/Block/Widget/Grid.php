@@ -17,6 +17,12 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
+    public const PATTERN_SEVERITY           = '<span class="%s"><span>%s</span></span>';
+    public const CSS_SEVERITY_CRITICAL      = 'grid-severity-critical';
+    public const CSS_SEVERITY_MAJOR         = 'grid-severity-major';
+    public const CSS_SEVERITY_MINOR         = 'grid-severity-minor';
+    public const CSS_SEVERITY_NOTICE        = 'grid-severity-notice';
+
     /**
      * Columns array
      *
@@ -1797,7 +1803,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * @param string|object $column
-     * @param string $value
+     * @param string|bool $value
      * @return bool|$this
      */
     public function isColumnGrouped($column, $value = null)

@@ -55,6 +55,7 @@ class Mage_Authorizenet_Directpost_PaymentController extends Mage_Core_Controlle
         $paymentMethod = Mage::getModel('authorizenet/directpost');
 
         $result = [];
+        $params = [];
         if (!empty($data['x_invoice_num'])) {
             $result['x_invoice_num'] = $data['x_invoice_num'];
         }

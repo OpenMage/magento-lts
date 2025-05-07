@@ -114,7 +114,7 @@ class Mage_Core_Model_Resource_File_Storage_Directory_Database extends Mage_Core
      * Return parent id
      *
      * @param string $path
-     * @return int
+     * @return string
      */
     public function getParentId($path)
     {

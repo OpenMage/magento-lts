@@ -147,6 +147,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Main_Layout extends M
                 ],
             ],
         ];
+        $productsOptions = [];
         foreach (Mage_Catalog_Model_Product_Type::getTypes() as $typeId => $type) {
             $productsOptions[] = [
                 'value' => $typeId . '_products',

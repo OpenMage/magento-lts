@@ -67,7 +67,7 @@ class Mage_Adminhtml_Block_Shipping_Carrier_Tablerate_Grid extends Mage_Adminhtm
     /**
      * Set current website
      *
-     * @param int $name
+     * @param string $name
      * @return $this
      */
     public function setConditionName($name)

@@ -144,7 +144,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Update entity row
      *
      * @param string $code
-     * @param string $field
+     * @param array|string $field
      * @param string $value
      * @return $this
      */
@@ -381,7 +381,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      * Retrieve Default Attribute Set for Entity Type
      *
      * @param string|int $entityType
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeSetId($entityType)
     {
@@ -565,7 +565,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param string|int $entityType
      * @param int $attributeSetId
-     * @return int
+     * @return string
      */
     public function getDefaultAttributeGroupId($entityType, $attributeSetId = null)
     {
@@ -590,8 +590,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param array $array
      * @param string $key
-     * @param string $default
-     * @return string
+     * @param string|int|bool|array $default
+     * @return string|int|bool|array|null
      */
     protected function _getValue($array, $key, $default = null)
     {
@@ -795,7 +795,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @param int $sortOrder
      * @return $this
@@ -812,7 +812,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @param int $sortOrder
      * @return $this
@@ -865,7 +865,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
      *
      * @param mixed $entityTypeId
      * @param mixed $id
-     * @param string $field
+     * @param array|string $field
      * @param mixed $value
      * @return $this
      */
@@ -875,8 +875,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!$additionalTable) {
             return $this;
         }
+
         $additionalTableExists = $this->getConnection()->isTableExists($this->getTable($additionalTable));
-        if ($additionalTable && $additionalTableExists) {
+        if ($additionalTableExists) {
             $attributeFields = $this->getConnection()->describeTable($this->getTable($additionalTable));
             if (is_array($field)) {
                 $bind = [];
@@ -1162,7 +1163,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     ->where('attribute_set_id = :attribute_set_id')
                     ->where('attribute_id = :attribute_id');
 
-                $sortOrder = $this->getConnection()->fetchOne($select, $bind) + 10;
+                $sortOrder = (int) $this->getConnection()->fetchOne($select, $bind) + 10;
             }
             $sortOrder = is_numeric($sortOrder) ? $sortOrder : 1;
             $data['sort_order'] = $sortOrder;
@@ -1248,12 +1249,12 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $isNoDefaultTypes    = $this->_getValue($options, 'no-default-types', false);
         $customTypes         = $this->_getValue($options, 'types', []);
         $tables              = [];
+        $connection          = $this->getConnection();
 
         if (!$isNoCreateMainTable) {
             /**
              * Create table main eav table
              */
-            $connection = $this->getConnection();
             $mainTable = $connection
                 ->newTable($this->getTable($baseTableName))
                 ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
@@ -1501,8 +1502,9 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         if (!$additionalTable) {
             return $this;
         }
+
         $additionalTableExists = $this->getConnection()->isTableExists($this->getTable($additionalTable));
-        if ($additionalTable && $additionalTableExists) {
+        if ($additionalTableExists) {
             $bind   = [];
             $fields = $this->getConnection()->describeTable($this->getTable($additionalTable));
             foreach ($data as $k => $v) {

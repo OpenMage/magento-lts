@@ -39,6 +39,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
      * Perform actions after object save
      *
      * @inheritDoc
+     * @param Mage_Widget_Model_Widget_Instance $object
      * @throws Zend_Db_Adapter_Exception
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)

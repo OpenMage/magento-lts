@@ -11,65 +11,39 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
-use Generator;
+use Exception;
 use Mage;
 use Mage_Admin_Model_Variable as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
 
-class VariableTest extends TestCase
+class VariableTest extends OpenMageTest
 {
-    public Subject $subject;
+    use VariableTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('admin/variable');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/variable');
     }
 
     /**
-     * @dataProvider provideValidateData
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
-     *
-     * @param array|true $expectedResult
+     * @dataProvider provideValidateAdminVariableData
+     * @group Model
+     * @throws Exception
      */
-    public function testValidate($expectedResult, string $variableName, string $isAllowed): void
+    public function testValidate(bool|array $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getVariableName', 'getIsAllowed'])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock->method('getVariableName')->willReturn($variableName);
-        $mock->method('getIsAllowed')->willReturn($isAllowed);
-        $this->assertSame($expectedResult, $mock->validate());
-    }
-
-    public function provideValidateData(): Generator
-    {
-        yield 'test passes' => [
-            true,
-            'test',
-            '1',
-        ];
-        yield 'test error empty' => [
-            [0 => 'Variable Name is required field.'],
-            '',
-            '1',
-        ];
-        yield 'test error regex' => [
-            [0 => 'Variable Name is incorrect.'],
-            '#invalid-name#',
-            '1',
-        ];
-        yield 'test error allowed' => [
-            [0 => 'Is Allowed is required field.'],
-            'test',
-            'invalid',
-        ];
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertSame($expectedResult, $mock->validate());
     }
 
     public function testIsPathAllowed(): void
     {
-        $this->assertIsBool($this->subject->isPathAllowed('invalid-path'));
+        static::assertIsBool(self::$subject->isPathAllowed('invalid-path'));
     }
 }

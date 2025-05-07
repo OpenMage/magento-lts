@@ -208,7 +208,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
          * if we did not found any suitable
          */
         if (!$found) {
-            if ($this->_noRouteShouldBeApplied()) {
+            if (isset($realModule) && $this->_noRouteShouldBeApplied()) {
                 $controller = 'index';
                 $action = 'noroute';
 
@@ -234,9 +234,16 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
         // set values only after all the checks are done
         $request->setModuleName($module);
-        $request->setControllerName($controller);
-        $request->setActionName($action);
-        $request->setControllerModule($realModule);
+
+        if (isset($controller)) {
+            $request->setControllerName($controller);
+        }
+        if (isset($action)) {
+            $request->setActionName($action);
+        }
+        if (isset($realModule)) {
+            $request->setControllerModule($realModule);
+        }
 
         // set parameters from path info
         for ($i = 3, $l = count($p); $i < $l; $i += 2) {
@@ -245,7 +252,9 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
 
         // dispatch action
         $request->setDispatched(true);
-        $controllerInstance->dispatch($action);
+        if (isset($controllerInstance, $action)) {
+            $controllerInstance->dispatch($action);
+        }
 
         return true;
     }

@@ -5,6 +5,10 @@
  * @license    Academic Free License (AFL 3.0)
  * @package     base_default
  */
+
+/**
+ * @var Mage_Catalog_Block_Product_Widget_New $this
+ */
 ?>
 <?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
 <?php $_params = $this->escapeHtml(json_encode(['form_key' => $this->getFormKey()])) ?>

@@ -427,7 +427,7 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
 
                 $parentIds = $retriever->getTypeInstance()
                     ->getParentIdsByChild($stepData);
-                if ($parentIds) {
+                if (isset($storeObject) && $parentIds) {
                     $parentCollection = $this->_getProductCollection($storeObject, $parentIds);
                     $parentCollection->addAttributeToFilter('status', $statusCond);
                     $parentCollection->addFieldToFilter('type_id', $type);

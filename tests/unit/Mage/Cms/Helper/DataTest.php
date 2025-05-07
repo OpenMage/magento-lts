@@ -13,54 +13,50 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
 use Mage;
 use Mage_Cms_Helper_Data as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Filter_Template;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
     public const TEST_STRING = '1234567890';
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('cms/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('cms/data');
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetAllowedStreamWrappers(): void
     {
-        $this->assertIsArray($this->subject->getAllowedStreamWrappers());
+        static::assertIsArray(self::$subject->getAllowedStreamWrappers());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetBlockTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getBlockTemplateProcessor());
+        static::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getBlockTemplateProcessor());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetPageTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Varien_Filter_Template::class, $this->subject->getPageTemplateProcessor());
+        static::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getPageTemplateProcessor());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testIsSwfDisabled(): void
     {
-        $this->assertTrue($this->subject->isSwfDisabled());
+        static::assertTrue(self::$subject->isSwfDisabled());
     }
 }

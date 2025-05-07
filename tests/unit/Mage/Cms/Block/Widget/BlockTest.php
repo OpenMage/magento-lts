@@ -11,44 +11,42 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget;
 
-use Mage;
 use Mage_Cms_Block_Widget_Block as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
-use PHPUnit\Framework\TestCase;
 
-class BlockTest extends TestCase
+class BlockTest extends OpenMageTest
 {
     use NumericStringTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
      * @dataProvider provideNumericString
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @group Block
      */
     public function testGetCacheKeyInfo(string $blockId): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getBlockId'])
-            ->getMock();
+        $methods = [
+            'getBlockId' => $blockId,
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock->method('getBlockId')->willReturn($blockId);
-        $this->assertIsArray($mock->getCacheKeyInfo());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertIsArray($mock->getCacheKeyInfo());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @group Block
      */
     public function testIsRequestFromAdminArea(): void
     {
-        $this->assertIsBool($this->subject->isRequestFromAdminArea());
+        static::assertIsBool(self::$subject->isRequestFromAdminArea());
     }
 }

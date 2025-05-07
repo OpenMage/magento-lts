@@ -33,14 +33,13 @@ class ProcessorTest extends TestCase
 
     /**
      * @dataProvider provideGetHostUrl
-     * @group Error
      */
     public function testGetHostUrl(string $expectedResult, array $serverVars): void
     {
         foreach ($serverVars as $serverVar => $value) {
             $_SERVER[$serverVar] = $value;
         }
-        $this->assertSame($expectedResult, $this->subject->getHostUrl());
+        static::assertSame($expectedResult, $this->subject->getHostUrl());
     }
 
     public function provideGetHostUrl(): Generator

@@ -136,7 +136,7 @@ class Mage_Sales_Model_Order_Pdf_Creditmemo extends Mage_Sales_Model_Order_Pdf_A
             $this->insertTotals($page, $creditmemo);
         }
         $this->_afterGetPdf();
-        if ($creditmemo->getStoreId()) {
+        if (isset($creditmemo) && $creditmemo->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
         return $pdf;

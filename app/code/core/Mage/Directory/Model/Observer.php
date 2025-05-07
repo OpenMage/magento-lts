@@ -44,6 +44,10 @@ class Mage_Directory_Model_Observer
             $importWarnings[] = Mage::helper('directory')->__('FATAL ERROR:') . ' ' . Mage::throwException(Mage::helper('directory')->__('Unable to initialize the import model.'));
         }
 
+        if (!isset($importModel)) {
+            return;
+        }
+
         $rates = $importModel->fetchRates();
         $errors = $importModel->getMessages();
 

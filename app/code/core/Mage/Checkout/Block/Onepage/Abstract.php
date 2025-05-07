@@ -12,7 +12,7 @@
  *
  * @package    Mage_Checkout
  *
- * @method \Mage_Sales_Model_Quote_Address getAddress()
+ * @method Mage_Sales_Model_Quote_Address getAddress()
  */
 abstract class Mage_Checkout_Block_Onepage_Abstract extends Mage_Core_Block_Template
 {

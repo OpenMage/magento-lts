@@ -151,7 +151,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Price filter
      *
-     * @var Mage_Directory_Model_Currency_Filter
+     * @var Mage_Directory_Model_Currency_Filter|Varien_Filter_Sprintf
      */
     protected $_priceFilter;
 
@@ -979,7 +979,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
     /**
      * Get store price filter
      *
-     * @return Varien_Filter_Sprintf
+     * @return Mage_Directory_Model_Currency_Filter|Varien_Filter_Sprintf
      */
     public function getPriceFilter()
     {

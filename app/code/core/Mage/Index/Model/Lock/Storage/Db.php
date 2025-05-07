@@ -26,10 +26,12 @@ class Mage_Index_Model_Lock_Storage_Db implements Mage_Index_Model_Lock_Storage_
 
     public function __construct()
     {
-        /** @var Mage_Core_Model_Resource $resource */
-        $resource   = Mage::getSingleton('index/resource_lock_resource');
+        /** @var Mage_Index_Model_Resource_Lock_Resource $resource */
+        $resource = Mage::getSingleton('index/resource_lock_resource');
         $this->_connection = $resource->getConnection('index_write', 'default_lock');
-        $this->_helper = Mage::getResourceHelper('index');
+        /** @var Mage_Index_Model_Resource_Helper_Mysql4 $helper */
+        $helper = Mage::getResourceHelper('index');
+        $this->_helper = $helper;
     }
 
     /**

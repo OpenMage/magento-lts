@@ -243,7 +243,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     /**
      * Retrieve product attribute by identifier
      *
-     * @param int $attributeId
+     * @param int|string $attributeId
      * @param Mage_Catalog_Model_Product $product
      * @return Mage_Eav_Model_Entity_Attribute_Abstract|null
      */

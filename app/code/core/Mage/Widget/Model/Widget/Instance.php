@@ -443,6 +443,7 @@ class Mage_Widget_Model_Widget_Instance extends Mage_Core_Model_Abstract
     public function getWidgetSupportedTemplatesByBlock($blockReference)
     {
         $templates = [];
+        $template = null;
         $widgetTemplates = $this->getWidgetTemplates();
         if ($this->getWidgetConfig()) {
             if (!($supportedBlocks = $this->getWidgetConfig()->supported_blocks)) {

@@ -4,7 +4,6 @@
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
  * @license    Open Software License (OSL 3.0)
- * @package    OpenMage_Tests
  */
 
 declare(strict_types=1);
@@ -13,25 +12,24 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
 use Mage;
 use Mage_Rule_Model_Environment as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class EnvironmentTest extends TestCase
+class EnvironmentTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('rule/environment');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('rule/environment');
     }
 
     /**
      * @covers Mage_Rule_Model_Environment::collect()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetConditionsInstance(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->collect());
+        static::assertInstanceOf(Subject::class, self::$subject->collect());
     }
 }

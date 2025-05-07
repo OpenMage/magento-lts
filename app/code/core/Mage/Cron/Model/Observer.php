@@ -272,6 +272,7 @@ class Mage_Cron_Model_Observer
             }
         }
 
+        $arguments = [];
         $errorStatus = Mage_Cron_Model_Schedule::STATUS_ERROR;
         try {
             if (!$isAlways) {

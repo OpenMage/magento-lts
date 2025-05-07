@@ -31,7 +31,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Report period
      *
-     * @var int
+     * @var string
      */
     protected $_period;
 
@@ -68,7 +68,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set period
      *
-     * @param int $period
+     * @param string $period
      * @return $this
      */
     public function setPeriod($period)
@@ -249,8 +249,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * get report full
      *
-     * @param int $from
-     * @param int $to
+     * @param string $from
+     * @param string $to
      * @return Mage_Reports_Model_Report
      */
     public function getReportFull($from, $to)
@@ -261,8 +261,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get report
      *
-     * @param int $from
-     * @param int $to
+     * @param string $from
+     * @param string $to
      * @return Mage_Reports_Model_Report
      */
     public function getReport($from, $to)

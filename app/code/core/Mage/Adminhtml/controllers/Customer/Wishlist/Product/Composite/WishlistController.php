@@ -30,7 +30,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
     /**
      * Wishlist item we're working with
      *
-     * @var Mage_Wishlist_Model_Wishlist
+     * @var Mage_Wishlist_Model_Item
      */
     protected $_wishlistItem = null;
 

@@ -11,35 +11,23 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Gui\Edit\Tab;
 
-use Mage;
 use Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View as Subject;
 use Mage_Dataflow_Model_Profile;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ViewTest extends TestCase
+class ViewTest extends OpenMageTest
 {
-    public Subject $subject;
-
-    public function setUp(): void
-    {
-        Mage::app();
-        $this->subject = new Subject();
-    }
-
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getRegistryCurrentConvertProfile'])
-            ->getMock();
+        $methods = [
+            'getRegistryCurrentConvertProfile' => new Mage_Dataflow_Model_Profile(),
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock
-            ->method('getRegistryCurrentConvertProfile')
-            ->willReturn(new Mage_Dataflow_Model_Profile());
-
-        $this->assertInstanceOf(Subject::class, $mock->initForm());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

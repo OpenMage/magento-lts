@@ -15,73 +15,67 @@ use Mage;
 use Mage_Adminhtml_Model_Session;
 use Mage_Cms_Helper_Wysiwyg_Images;
 use Mage_Cms_Model_Wysiwyg_Images_Storage as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class StorageTest extends TestCase
+class StorageTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('cms/wysiwyg_images_storage');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('cms/wysiwyg_images_storage');
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetThumbsPath(): void
     {
-        $this->assertIsString($this->subject->getThumbsPath());
+        static::assertIsString(self::$subject->getThumbsPath());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testResizeOnTheFly(): void
     {
-        $this->assertFalse($this->subject->resizeOnTheFly('not-existing.jpeg'));
+        static::assertFalse(self::$subject->resizeOnTheFly('not-existing.jpeg'));
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetHelper(): void
     {
-        $this->assertInstanceOf(Mage_Cms_Helper_Wysiwyg_Images::class, $this->subject->getHelper());
+        static::assertInstanceOf(Mage_Cms_Helper_Wysiwyg_Images::class, self::$subject->getHelper());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetSession(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Model_Session::class, $this->subject->getSession());
+        static::assertInstanceOf(Mage_Adminhtml_Model_Session::class, self::$subject->getSession());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetThumbnailRoot(): void
     {
-        $this->assertIsString($this->subject->getThumbnailRoot());
+        static::assertIsString(self::$subject->getThumbnailRoot());
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testIsImage(): void
     {
-        $this->assertIsBool($this->subject->isImage('test.jpeg'));
+        static::assertIsBool(self::$subject->isImage('test.jpeg'));
     }
 }

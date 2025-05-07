@@ -38,7 +38,7 @@ class ObjectTest extends TestCase
     public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
         $this->subject->setData($setKey, $setValue);
-        $this->assertSame($expectedResult, $this->subject->getData($key, $index));
+        static::assertSame($expectedResult, $this->subject->getData($key, $index));
     }
 
     public function provideGetDataData(): Generator
@@ -170,7 +170,7 @@ class ObjectTest extends TestCase
         $this->subject->setString2('two');
         $this->subject->setString3('three');
 
-        $this->assertSame($expectedResult, $this->subject->toString($format));
+        static::assertSame($expectedResult, $this->subject->toString($format));
     }
 
     public function provideToString(): Generator
@@ -194,7 +194,7 @@ class ObjectTest extends TestCase
      */
     public function testGetSetUnsData(): void
     {
-        $this->assertTrue($this->subject->isEmpty());
+        static::assertTrue($this->subject->isEmpty());
         $this->subject->setABC('abc');
         $this->subject->setData('efg', 'efg');
         $this->subject->set123('123');
@@ -203,46 +203,46 @@ class ObjectTest extends TestCase
         $this->subject->setData('key_a_2nd', 'value_a_2nd');
         $this->subject->setKeyA3rd('value_a_3rd');
         $this->subject->setData('left', 'over');
-        $this->assertFalse($this->subject->isEmpty());
+        static::assertFalse($this->subject->isEmpty());
 
-        $this->assertSame('abc', $this->subject->getData('a_b_c'));
-        $this->assertSame('abc', $this->subject->getABC());
+        static::assertSame('abc', $this->subject->getData('a_b_c'));
+        static::assertSame('abc', $this->subject->getABC());
         $this->subject->unsetData('a_b_c');
 
-        $this->assertSame('efg', $this->subject->getData('efg'));
-        $this->assertSame('efg', $this->subject->getEfg());
+        static::assertSame('efg', $this->subject->getData('efg'));
+        static::assertSame('efg', $this->subject->getEfg());
         $this->subject->unsEfg();
 
-        $this->assertSame('123', $this->subject->getData('123'));
-        $this->assertSame('123', $this->subject->get123());
+        static::assertSame('123', $this->subject->getData('123'));
+        static::assertSame('123', $this->subject->get123());
         $this->subject->uns123();
 
         $this->subject->unsetData('345');
 
-        $this->assertSame('value_a_first', $this->subject->getData('key_a_first'));
-        $this->assertSame('value_a_first', $this->subject->getKeyAFirst());
+        static::assertSame('value_a_first', $this->subject->getData('key_a_first'));
+        static::assertSame('value_a_first', $this->subject->getKeyAFirst());
         $this->subject->unsetData('key_a_first');
 
-        $this->assertSame('value_a_2nd', $this->subject->getData('key_a_2nd'));
-        $this->assertSame('value_a_2nd', $this->subject->getKeyA_2nd());
+        static::assertSame('value_a_2nd', $this->subject->getData('key_a_2nd'));
+        static::assertSame('value_a_2nd', $this->subject->getKeyA_2nd());
         $this->subject->unsetData('key_a_2nd');
 
-        $this->assertSame('value_a_3rd', $this->subject->getData('key_a3rd'));
-        $this->assertSame('value_a_3rd', $this->subject->getKeyA3rd());
+        static::assertSame('value_a_3rd', $this->subject->getData('key_a3rd'));
+        static::assertSame('value_a_3rd', $this->subject->getKeyA3rd());
         $this->subject->unsetData('key_a3rd');
 
-        $this->assertSame(['left' => 'over'], $this->subject->getData());
+        static::assertSame(['left' => 'over'], $this->subject->getData());
 
         $this->subject->unsetData();
-        $this->assertSame([], $this->subject->getData());
-        $this->assertTrue($this->subject->isEmpty());
+        static::assertSame([], $this->subject->getData());
+        static::assertTrue($this->subject->isEmpty());
 
         try {
             /** @phpstan-ignore-next-line */
             $this->subject->notData();
-            $this->fail('Invalid __call');
+            static::fail('Invalid __call');
         } catch (Varien_Exception $exception) {
-            $this->assertStringStartsWith('Invalid method', $exception->getMessage());
+            static::assertStringStartsWith('Invalid method', $exception->getMessage());
         }
     }
 
@@ -251,14 +251,14 @@ class ObjectTest extends TestCase
      */
     public function testOffset(): void
     {
-        $this->assertFalse($this->subject->offsetExists('off'));
+        static::assertFalse($this->subject->offsetExists('off'));
 
         $this->subject->offsetSet('off', 'set');
-        $this->assertTrue($this->subject->offsetExists('off'));
-        $this->assertSame('set', $this->subject->offsetGet('off'));
-        $this->assertNull($this->subject->offsetGet('not-exists'));
+        static::assertTrue($this->subject->offsetExists('off'));
+        static::assertSame('set', $this->subject->offsetGet('off'));
+        static::assertNull($this->subject->offsetGet('not-exists'));
 
         $this->subject->offsetUnset('off');
-        $this->assertFalse($this->subject->offsetExists('off'));
+        static::assertFalse($this->subject->offsetExists('off'));
     }
 }

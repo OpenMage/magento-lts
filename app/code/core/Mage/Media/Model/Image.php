@@ -66,7 +66,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return resource
+     * @return GdImage|resource
      */
     public function getImage()
     {
@@ -78,7 +78,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
     }
 
     /**
-     * @return resource
+     * @return GdImage|resource
      */
     public function getTmpImage()
     {

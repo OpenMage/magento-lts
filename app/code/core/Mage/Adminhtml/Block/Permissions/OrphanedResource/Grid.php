@@ -9,6 +9,8 @@ declare(strict_types=1);
  * @package    Mage_Adminhtml
  */
 
+use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
+
 /**
  * Adminhtml permissions orphanedResource grid
  *
@@ -68,7 +70,7 @@ class Mage_Adminhtml_Block_Permissions_OrphanedResource_Grid extends Mage_Adminh
         $this->setMassactionIdField('resource_id');
         $this->getMassactionBlock()->setFormFieldName('resource_id');
 
-        $this->getMassactionBlock()->addItem('delete', [
+        $this->getMassactionBlock()->addItem(MassAction::DELETE, [
             'label'    => Mage::helper('adminhtml')->__('Delete'),
             'url'      => $this->getUrl('*/*/massDelete'),
             'confirm'  => Mage::helper('adminhtml')->__('Are you sure you want to do this?'),

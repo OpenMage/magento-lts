@@ -29,7 +29,7 @@ class Mage_Customer_Block_Newsletter extends Mage_Customer_Block_Account_Dashboa
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
     public function getAction()
     {

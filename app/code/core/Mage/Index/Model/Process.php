@@ -15,6 +15,10 @@
  * @method string getIndexCode()
  * @method string getIndexerCode()
  * @method $this setIndexerCode(string $value)
+ * @method string getName()
+ * @method $this setName(string $value)
+ * @method string getDescription()
+ * @method $this setDescription(string $value)
  * @method string getStatus()
  * @method $this setStatus(string $value)
  * @method string getStartedAt()
@@ -25,6 +29,8 @@
  * @method $this setMode(string $value)
  * @method bool getForcePartialReindex()
  * @method $this setForcePartialReindex(bool $value)
+ * @method int getUpdateRequired()
+ * @method $this setUpdateRequired(int $value)
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
