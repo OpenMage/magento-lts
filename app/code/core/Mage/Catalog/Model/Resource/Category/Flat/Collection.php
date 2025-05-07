@@ -103,7 +103,10 @@ class Mage_Catalog_Model_Resource_Category_Flat_Collection extends Mage_Core_Mod
                 $condition = ['in' => $ids];
             }
         }
-        $this->addFieldToFilter('entity_id', $condition);
+        if (isset($condition)) {
+            $this->addFieldToFilter('entity_id', $condition);
+        }
+
         return $this;
     }
 

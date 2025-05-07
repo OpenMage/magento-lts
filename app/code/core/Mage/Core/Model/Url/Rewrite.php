@@ -231,6 +231,7 @@ class Mage_Core_Model_Url_Rewrite extends Mage_Core_Model_Abstract implements Ma
         $pathInfo = $request->getPathInfo();
         $origSlash = (str_ends_with($pathInfo, '/')) ? '/' : '';
         $requestPath = trim($pathInfo, '/');
+        $targetUrl = '';
 
         // If there were final slash - add nothing to less priority paths. And vice versa.
         $altSlash = $origSlash ? '' : '/';

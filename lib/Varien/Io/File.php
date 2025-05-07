@@ -76,7 +76,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Stream mode chmod
      *
-     * @var string
+     * @var int
      */
     protected $_streamChmod;
 
@@ -128,10 +128,6 @@ class Varien_Io_File extends Varien_Io_Abstract
         $writeableMode = preg_match('#^[wax]#i', $mode);
         if ($writeableMode && !is_writeable($this->_cwd)) {
             throw new Exception('Permission denied for write to ' . $this->getFilteredPath($this->_cwd));
-        }
-
-        if (PHP_VERSION_ID < 80100 && !ini_get('auto_detect_line_endings')) {
-            ini_set('auto_detect_line_endings', '1');
         }
 
         if ($this->_cwd) {
@@ -308,7 +304,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Possible arguments:
      * - path     default current path
      *
-     * @return boolean
+     * @return bool
      */
     public function open(array $args = [])
     {
@@ -337,7 +333,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     /**
      * Close a connection
      *
-     * @return boolean
+     * @return bool
      */
     public function close()
     {
@@ -349,8 +345,8 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $dir
      * @param int $mode
-     * @param boolean $recursive
-     * @return boolean
+     * @param bool $recursive
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -374,7 +370,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Delete a directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -433,7 +429,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      * @throws Exception
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
@@ -457,7 +453,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource $dest
-     * @return boolean|string
+     * @return bool|string
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -484,7 +480,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * @param string|resource $src
      * @param int $mode
      *
-     * @return int|boolean
+     * @return int|bool
      * @throws Exception
      */
     public function write($filename, $src, $mode = null)
@@ -692,7 +688,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Delete a file
      *
      * @param string $filename
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -713,7 +709,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $src
      * @param string $dest
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -734,7 +730,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $src
      * @param string $dest
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -755,7 +751,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param int $mode
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

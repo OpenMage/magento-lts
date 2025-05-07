@@ -21,6 +21,7 @@
  * @package    Mage_Reports
  *
  * @method $this setRecentlyViewedProducts(Mage_Reports_Model_Resource_Product_Index_Collection_Abstract $value)
+ * @method Mage_Reports_Model_Resource_Product_Index_Collection_Abstract getRecentlyViewedProducts()
  */
 class Mage_Reports_Block_Product_Viewed extends Mage_Reports_Block_Product_Abstract
 {

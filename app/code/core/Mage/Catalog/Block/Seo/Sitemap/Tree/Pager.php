@@ -166,7 +166,9 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
      */
     public function getPages()
     {
-        $pages = [];
+        $start = 1;
+        $finish = 1;
+
         if ($this->getLastPageNum() <= $this->_displayPages) {
             $pages = range(1, $this->getLastPageNum());
         } else {
@@ -175,7 +177,6 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Pager extends Mage_Page_Block_Html_Pag
                 $start  = ($this->getCurrentPage() - $half) + 1;
                 $finish = ($start + $this->_displayPages) - 1;
             } elseif ($this->getCurrentPage() < $half) {
-                $start  = 1;
                 $finish = $this->_displayPages;
             } elseif ($this->getCurrentPage() > ($this->getLastPageNum() - $half)) {
                 $finish = $this->getLastPageNum();

@@ -33,5 +33,20 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Restore result cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .rector.result.cache
+          key: rector-result-cache-${{ github.run_id }}
+          restore-keys: |
+            rector-result-cache-
+
       - name: Rector
         run: php vendor/bin/rector process --config .rector.php --dry-run
+
+      - name: Save result cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .rector.result.cache
+          key: rector-result-cache-${{ github.run_id }}

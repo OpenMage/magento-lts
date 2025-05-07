@@ -197,7 +197,7 @@ class Mage_Core_Model_App
     /**
      * Response object
      *
-     * @var Zend_Controller_Response_Http
+     * @var Mage_Core_Controller_Response_Http
      */
     protected $_response;
 
@@ -515,7 +515,7 @@ class Mage_Core_Model_App
             $this->_checkCookieStore($scopeType);
             $this->_checkGetStore($scopeType);
         }
-        $this->_useSessionInUrl = $this->getStore()->getConfig(
+        $this->_useSessionInUrl = (bool) $this->getStore()->getConfig(
             Mage_Core_Model_Session_Abstract::XML_PATH_USE_FRONTEND_SID,
         );
         return $this;
@@ -790,7 +790,7 @@ class Mage_Core_Model_App
     /**
      * Redeclare custom error handler
      *
-     * @param   string $handler
+     * @param   callable|null $handler
      * @return  $this
      */
     public function setErrorHandler($handler)

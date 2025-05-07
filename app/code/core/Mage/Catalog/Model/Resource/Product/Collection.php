@@ -1463,12 +1463,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productIds[] = $product->getId();
         }
         if (!empty($productIds)) {
+            $storeId = $this->getStoreId();
             $options = Mage::getModel('catalog/product_option')
                 ->getCollection()
-                ->addTitleToResult(Mage::app()->getStore()->getId())
-                ->addPriceToResult(Mage::app()->getStore()->getId())
+                ->addTitleToResult($storeId)
+                ->addPriceToResult($storeId)
                 ->addProductToFilter($productIds)
-                ->addValuesToResult();
+                ->addValuesToResult($storeId);
 
             foreach ($options as $option) {
                 if ($this->getItemById($option->getProductId())) {
@@ -1520,7 +1521,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             // optimize if using cat index
             $filters = $this->_productLimitationFilters;
             if (isset($filters['category_id']) || isset($filters['visibility'])) {
-                $this->getSelect()->order('cat_index.position ' . $dir);
+                $this->getSelect()->order(['cat_index.position ' . $dir, 'e.entity_id ' . $dir]);
             } else {
                 $this->getSelect()->order('e.entity_id ' . $dir);
             }

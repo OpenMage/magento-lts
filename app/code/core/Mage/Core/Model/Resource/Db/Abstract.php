@@ -10,7 +10,7 @@
  * @category   Mage
  * @package    Mage_Core
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
+ * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
  * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -153,7 +153,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      *
      * @param string|array $connections
      * @param string|array|null $tables
-     * @return Mage_Core_Model_Resource_Abstract
+     * @return $this
      */
     protected function _setResource($connections, $tables = null)
     {
@@ -294,7 +294,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
      * Get connection by name or type
      *
      * @param string $connectionName
-     * @return Magento_Db_Adapter_Pdo_Mysql
+     * @return Varien_Db_Adapter_Interface|false
      */
     protected function _getConnection($connectionName)
     {

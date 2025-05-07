@@ -28,7 +28,7 @@
         "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
-        "components/jquery": "1.12.4",
+        "components/jquery": "^3.7.1",
         "cweagans/composer-patches": "^1.7",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
@@ -51,7 +51,7 @@
     },
     "require-dev": {
         "ext-xmlreader": "*",
-        "composer/composer": "^2.7",
+        "composer/composer": "^2.8",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
@@ -105,10 +105,8 @@
             "url": "https://opencollective.com/openmage"
         }
     ],
-    "autoload": {
-        "classmap": ["app/code"]
-    },
     "autoload-dev": {
+        "classmap": ["app/code/*/*/*/controllers"],
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
@@ -161,9 +159,9 @@
         "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -c .phpstan.dist.openmage.neon",
         "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -c .phpstan.dist.openmage.neon -b .phpstan.dist.baseline.neon",
         "phpstan:phpunit": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -c .phpstan.dist.phpunit.neon",
-        "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --no-coverage",
-        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testdox",
-        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage",
+        "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
+        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
         "rector:fix": "vendor/bin/rector process --config .rector.php",
         "test": [
