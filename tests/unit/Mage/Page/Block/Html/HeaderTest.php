@@ -20,60 +20,54 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 use Mage;
 use Mage_Core_Model_Security_HtmlEscapedString;
 use Mage_Page_Block_Html_Header as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HeaderTest extends TestCase
+class HeaderTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetIsHomePage(): void
     //    {
-    //        $this->assertIsBool($this->subject->getIsHomePage());
+    //        $this->assertIsBool(self::$subject->getIsHomePage());
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testSetLogo(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setLogo('src', 'alt'));
+        static::assertInstanceOf(Subject::class, self::$subject->setLogo('src', 'alt'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetLogoSrc(): void
     {
-        $this->assertIsString($this->subject->getLogoSrc());
+        static::assertIsString(self::$subject->getLogoSrc());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetLogoSrcSmall(): void
     {
-        $this->assertIsString($this->subject->getLogoSrcSmall());
+        static::assertIsString(self::$subject->getLogoSrcSmall());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetLogoAlt(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, $this->subject->getLogoAlt());
+        static::assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, self::$subject->getLogoAlt());
     }
 }

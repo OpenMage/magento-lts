@@ -20,18 +20,17 @@ namespace OpenMage\Tests\Unit\Base;
 use Generator;
 use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Data;
+use Mage_Core_Model_Store;
 use PHPUnit\Framework\TestCase;
 
 class DefaultConfigTest extends TestCase
 {
     /**
      * @dataProvider provideGetStoreConfig
-     * @group Base
-     * @group Default_Config
      */
-    public function testGetStoreConfig(string $expectedResult, string $path, $store = null): void
+    public function testGetStoreConfig(string $expectedResult, string $path, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {
-        $this->assertSame($expectedResult, Mage::getStoreConfig($path, $store));
+        static::assertSame($expectedResult, Mage::getStoreConfig($path, $store));
     }
 
 

@@ -19,42 +19,39 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Helper;
 
 use Mage;
 use Mage_Adminhtml_Helper_Catalog as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CatalogTest extends TestCase
+class CatalogTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('adminhtml/catalog');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('adminhtml/catalog');
     }
 
     /**
      * @covers Mage_Adminhtml_Helper_Catalog::setAttributeTabBlock()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testSetAttributeTabBlock(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setAttributeTabBlock(''));
+        static::assertInstanceOf(Subject::class, self::$subject->setAttributeTabBlock(''));
     }
 
     /**
      * @covers Mage_Adminhtml_Helper_Catalog::setCategoryAttributeTabBlock()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testSetCategoryAttributeTabBlock(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setCategoryAttributeTabBlock(''));
+        static::assertInstanceOf(Subject::class, self::$subject->setCategoryAttributeTabBlock(''));
     }
 
     /**
      * @covers Mage_Adminhtml_Helper_Catalog::getSitemapValidPaths()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testGetSitemapValidPaths(): void
     {
@@ -72,6 +69,6 @@ class CatalogTest extends TestCase
                 'skin'      => '/skin/*/*',
             ],
         ];
-        $this->assertSame($assert, $this->subject->getSitemapValidPaths());
+        static::assertSame($assert, self::$subject->getSitemapValidPaths());
     }
 }

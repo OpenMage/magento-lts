@@ -19,60 +19,55 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 
 use Mage;
 use Mage_Page_Block_Html_Head as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HeadTest extends TestCase
+class HeadTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddCss(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addCss('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addCss('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddJs(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addJs('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addJs('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddCssIe(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addCssIe('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addCssIe('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddJsIe(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addJsIe('test'));
+        static::assertInstanceOf(Subject::class, self::$subject->addJsIe('test'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testAddLinkRel(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->addLinkRel('test', 'ref'));
+        static::assertInstanceOf(Subject::class, self::$subject->addLinkRel('test', 'ref'));
     }
 }
