@@ -53,6 +53,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         return parent::_prepareCollection();
     }
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -94,6 +97,10 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Newest extends Mage_Adminhtml
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Customer_Model_Customer $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getId()]);

@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Orders extends Mage_Adminhtml_Block_Das
      * Prepare chart data
      *
      * @return void
+     * @throws Exception
      */
     protected function _prepareData()
     {

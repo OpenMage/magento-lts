@@ -30,6 +30,9 @@ class Mage_Adminhtml_Block_Dashboard_Diagrams extends Mage_Adminhtml_Block_Widge
         $this->setTemplate('widget/tabshoriz.phtml');
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _prepareLayout()
     {
         $this->addTab('orders', [
@@ -42,6 +45,7 @@ class Mage_Adminhtml_Block_Dashboard_Diagrams extends Mage_Adminhtml_Block_Widge
             'label'     => $this->__('Amounts'),
             'content'   => $this->getLayout()->createBlock('adminhtml/dashboard_tab_amounts')->toHtml(),
         ]);
+
         return parent::_prepareLayout();
     }
 }

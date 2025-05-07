@@ -28,26 +28,34 @@ class Mage_Adminhtml_Block_Dashboard_Totals extends Mage_Adminhtml_Block_Dashboa
         $this->setTemplate('dashboard/totalbar.phtml');
     }
 
+    /**
+     * @throws Mage_Core_Exception
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
+     */
     protected function _prepareLayout()
     {
         if (!$this->isModuleEnabled('Mage_Reports')) {
             return $this;
         }
-        $isFilter = $this->getRequest()->getParam('store') || $this->getRequest()->getParam('website') || $this->getRequest()->getParam('group');
-        $period = $this->getRequest()->getParam('period', '24h');
+
+        $request = $this->getRequest();
+
+        $isFilter = $request->getParam('store') || $request->getParam('website') || $request->getParam('group');
+        $period = $request->getParam('period', '24h');
 
         /** @var Mage_Reports_Model_Resource_Order_Collection $collection */
         $collection = Mage::getResourceModel('reports/order_collection')
             ->addCreateAtPeriodFilter($period)
             ->calculateTotals($isFilter);
 
-        if ($this->getRequest()->getParam('store')) {
-            $collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
-        } elseif ($this->getRequest()->getParam('website')) {
-            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
+        if ($request->getParam('store')) {
+            $collection->addFieldToFilter('store_id', $request->getParam('store'));
+        } elseif ($request->getParam('website')) {
+            $storeIds = Mage::app()->getWebsite($request->getParam('website'))->getStoreIds();
             $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
-        } elseif ($this->getRequest()->getParam('group')) {
-            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
+        } elseif ($request->getParam('group')) {
+            $storeIds = Mage::app()->getGroup($request->getParam('group'))->getStoreIds();
             $collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         } elseif (!$collection->isLive()) {
             $collection->addFieldToFilter(

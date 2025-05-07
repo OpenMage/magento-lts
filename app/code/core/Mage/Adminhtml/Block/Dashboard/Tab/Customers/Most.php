@@ -57,6 +57,10 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
         return parent::_prepareCollection();
     }
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -96,6 +100,10 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Customers_Most extends Mage_Adminhtml_B
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Sales_Model_Order $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/customer/edit', ['id' => $row->getCustomerId()]);

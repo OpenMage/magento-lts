@@ -78,6 +78,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
     /**
      * Initialize object
+     * @throws Exception
      */
     public function __construct()
     {
@@ -232,6 +233,9 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         return $params;
     }
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     private function getChartDatasAndDates(): array
     {
         $timezoneLocal = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
@@ -497,7 +501,9 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
     public function getChartType(): string
     {
-        return 'bar';
+        /** @var Mage_Adminhtml_Helper_Dashboard_Data $helper */
+        $helper = $this->helper('adminhtml/dashboard_data');
+        return $helper->getChartType();
     }
 
     public function getChartId(): string
