@@ -33,8 +33,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Data::getUrl()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -45,8 +44,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Data::getCurrentUserId()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -57,8 +55,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Data::prepareFilterString()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testPrepareFilterString(): void
     {
@@ -67,8 +64,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Data::decodeFilter()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testDecodeFilter(): void
     {
@@ -79,8 +75,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Adminhtml_Helper_Data::isEnabledSecurityKeyUrl()
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testIsEnabledSecurityKeyUrl(): void
     {

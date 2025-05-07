@@ -41,8 +41,7 @@ class InboxTest extends OpenMageTest
 
     /**
      * @dataProvider provideGetSeverities
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testGetSeverities(array|string|null $expectedResult, ?int $severity): void
     {
@@ -50,8 +49,7 @@ class InboxTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testLoadLatestNotice(bool $delete = false): void
     {
@@ -63,8 +61,7 @@ class InboxTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testAdd(): void
     {
@@ -79,8 +76,7 @@ class InboxTest extends OpenMageTest
 
     /**
      * @covers Mage_AdminNotification_Model_Inbox::add()
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testAddException(): void
     {
@@ -93,8 +89,7 @@ class InboxTest extends OpenMageTest
 
     /**
      * @covers Mage_AdminNotification_Model_Inbox::addCritical()
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testAddCritical(): void
     {
@@ -104,8 +99,7 @@ class InboxTest extends OpenMageTest
 
     /**
      * @covers Mage_AdminNotification_Model_Inbox::addMajor()
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testAddMajor(): void
     {
@@ -115,8 +109,7 @@ class InboxTest extends OpenMageTest
 
     /**
      * @covers Mage_AdminNotification_Model_Inbox::addMinor()
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testAddMinor(): void
     {
@@ -126,8 +119,7 @@ class InboxTest extends OpenMageTest
 
     /**
      * @covers Mage_AdminNotification_Model_Inbox::addNotice()
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Model
+     * @group Model
      */
     public function testAddNotice(): void
     {

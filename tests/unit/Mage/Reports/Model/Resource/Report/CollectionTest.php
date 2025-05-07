@@ -1,16 +1,9 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -40,8 +33,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::setPeriod()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testSetPeriod(): void
     {
@@ -50,8 +42,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::setInterval()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testSetIntervals(): void
     {
@@ -60,10 +51,9 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @dataProvider provideReportsDateIntervals
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
-    public function testGetIntervals(int $expectedResult, string|Zend_Date $from, string|Zend_Date $to, string $period): void
+    public function testGetIntervals(int|string $expectedResult, string|Zend_Date $from, string|Zend_Date $to, string $period): void
     {
         self::$subject->setInterval($from, $to);
         self::$subject->setPeriod($period);
@@ -77,8 +67,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getPeriods()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetPeriods(): void
     {
@@ -88,8 +77,7 @@ class CollectionTest extends OpenMageTest
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getStoreIds()
      * @covers Mage_Reports_Model_Resource_Report_Collection::setStoreIds()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testStoreIds(): void
     {
@@ -99,8 +87,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getSize()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetSize(): void
     {
@@ -108,8 +95,7 @@ class CollectionTest extends OpenMageTest
     }
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::setPageSize()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testSetPageSize(): void
     {
@@ -118,8 +104,7 @@ class CollectionTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::getPageSize()
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetPageSize(): void
     {
@@ -127,8 +112,7 @@ class CollectionTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testInitReport(string $modelClass = ''): void
     {
@@ -136,32 +120,32 @@ class CollectionTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetReportFull(): void
     {
-        static::markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
-        # $this->assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReportFull(1, 1));
+        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReportFull(1, 1));
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testGetReport(): void
     {
-        static::markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
-        # $this->assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReport(1, 1));
+        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReport(1, 1));
     }
 
     /**
-     * @group Mage_Reports
-     * @group Mage_Reports_Model
+     * @group Model
      */
     public function testTimeShift(): void
     {
-        static::markTestIncomplete(self::SKIP_INCOMPLETE_MESSAGE);
-        # $this->assertSame(self::$subject->timeShift(''));
+        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertSame(self::$subject->timeShift(''));
     }
 }

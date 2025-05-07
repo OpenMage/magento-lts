@@ -40,8 +40,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetEncryptor(): void
     {
@@ -49,8 +48,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testEncrypt(): void
     {
@@ -58,8 +56,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testDecrypt(): void
     {
@@ -67,8 +64,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testValidateKey(): void
     {
@@ -77,9 +73,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @dataProvider provideFormatTimezoneDate
-     * @group Mage_Core
-     * @group Mage_Core_Helper
-     * @group Dates
+     * @group Helper
      */
     public function testFormatTimezoneDate(
         string $expectedResult,
@@ -92,8 +86,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetRandomString(): void
     {
@@ -101,8 +94,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetHash(): void
     {
@@ -110,8 +102,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetHashPassword(): void
     {
@@ -119,8 +110,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testValidateHash(): void
     {
@@ -128,8 +118,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetStoreId(): void
     {
@@ -139,8 +128,7 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Core_Helper_Data::removeAccents()
      * @dataProvider provideRemoveAccents
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testRemoveAccents(string $expectedResult, string $string, bool $german): void
     {
@@ -149,8 +137,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::isDevAllowed()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testIsDevAllowed(): void
     {
@@ -160,8 +147,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getCacheTypes()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetCacheTypes(): void
     {
@@ -180,8 +166,7 @@ class DataTest extends OpenMageTest
     }
     /**
      * @covers Mage_Core_Helper_Data::getCacheBetaTypes()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
 
     public function testGetCacheBetaTypes(): void
@@ -192,8 +177,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::uniqHash()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testUniqHash(): void
     {
@@ -203,8 +187,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getDefaultCountry()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetDefaultCountry(): void
     {
@@ -213,8 +196,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getProtectedFileExtensions()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetProtectedFileExtensions(): void
     {
@@ -242,8 +224,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getPublicFilesValidPath()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetPublicFilesValidPath(): void
     {
@@ -263,8 +244,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::useDbCompatibleMode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testUseDbCompatibleMode(): void
     {
@@ -273,8 +253,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetMerchantCountryCode(): void
     {
@@ -283,8 +262,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetMerchantVatNumber(): void
     {
@@ -293,13 +271,11 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Data::getMerchantCountryCode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @dataProvider provideIsCountryInEUData
+     * @group Helper
      */
-    public function testIsCountryInEU(): void
+    public function testIsCountryInEU(bool $expectedResult, string $value): void
     {
-        static::assertTrue(self::$subject->isCountryInEU('DE'));
-        static::assertFalse(self::$subject->isCountryInEU('XX'));
-        static::markTestIncomplete('add better tests');
+        static::assertSame($expectedResult, self::$subject->isCountryInEU($value));
     }
 }

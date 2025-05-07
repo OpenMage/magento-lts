@@ -39,8 +39,7 @@ class BlockTest extends OpenMageTest
      * @dataProvider provideValidateAdminBlockData
      * @param true|array<int, string> $expectedResult
      *
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      * @throws Exception
      */
     public function testValidate(bool|array $expectedResult, array $methods): void
@@ -52,8 +51,7 @@ class BlockTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testIsTypeAllowed(): void
     {

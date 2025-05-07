@@ -32,8 +32,7 @@ class MapTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -43,8 +42,7 @@ class MapTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -54,8 +52,7 @@ class MapTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetIsUseCategoryTreeMode(): void
     {

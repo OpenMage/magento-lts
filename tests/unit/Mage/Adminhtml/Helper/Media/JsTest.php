@@ -32,8 +32,7 @@ class JsTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testDecodeGridSerializedInput(): void
     {

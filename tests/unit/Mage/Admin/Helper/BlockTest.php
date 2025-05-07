@@ -33,8 +33,7 @@ class BlockTest extends OpenMageTest
 
     /**
      * @covers Mage_Admin_Helper_Block::isTypeAllowed()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testIsTypeAllowed(): void
     {
@@ -43,8 +42,7 @@ class BlockTest extends OpenMageTest
 
     /**
      * @covers Mage_Admin_Helper_Block::getDisallowedBlockNames()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testGetDisallowedBlockNames(): void
     {

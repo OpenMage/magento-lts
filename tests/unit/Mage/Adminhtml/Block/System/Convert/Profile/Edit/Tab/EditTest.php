@@ -23,18 +23,8 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 class EditTest extends OpenMageTest
 {
-    /** @phpstan-ignore property.onlyWritten */
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = new Subject();
-    }
-
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testInitForm(): void
     {

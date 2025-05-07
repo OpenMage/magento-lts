@@ -32,8 +32,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Helper
+     * @group Helper
      */
     public function testIsModuleEnabled(): void
     {

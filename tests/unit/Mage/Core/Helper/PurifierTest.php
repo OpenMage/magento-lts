@@ -36,8 +36,7 @@ class PurifierTest extends OpenMageTest
 
     /**
      * @dataProvider providePurify
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testPurify(array|string $expectedResult, array|string $content): void
     {

@@ -32,8 +32,7 @@ class CookieTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testIsUserNotAllowSaveCookie(): void
     {
@@ -41,8 +40,7 @@ class CookieTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetAcceptedSaveCookiesWebsiteIds(): void
     {
@@ -51,8 +49,7 @@ class CookieTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Cookie::getCookieRestrictionLifetime()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetCookieRestrictionLifetime(): void
     {
@@ -61,8 +58,7 @@ class CookieTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Cookie::getCookieRestrictionNoticeCmsBlockIdentifier()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetCookieRestrictionNoticeCmsBlockIdentifier(): void
     {

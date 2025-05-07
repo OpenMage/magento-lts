@@ -37,8 +37,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testGetRegionCollection(): void
     {
@@ -46,8 +45,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testGetCountryCollection(): void
     {
@@ -55,8 +53,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testGetRegionJsonByStore(): void
     {
@@ -64,8 +61,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -77,8 +73,7 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Directory_Helper_Data::getCountriesWithOptionalZip()
      * @dataProvider provideGetCountriesWithOptionalZip
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testGetCountriesWithOptionalZip(array|string $expectedResult, bool $asJson): void
     {
@@ -87,8 +82,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Directory_Helper_Data::isZipCodeOptional()
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testIsZipCodeOptional(): void
     {
@@ -98,8 +92,7 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Directory_Helper_Data::getCountriesWithStatesRequired()
      * @dataProvider provideGetCountriesWithStatesRequired
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testGetCountriesWithStatesRequired(array|string $expectedResult, bool $asJson): void
     {
@@ -113,8 +106,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Directory_Helper_Data::getShowNonRequiredState()
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testGetShowNonRequiredState(): void
     {
@@ -123,8 +115,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Directory_Helper_Data::getConfigCurrencyBase()
-     * @group Mage_Directory
-     * @group Mage_Directory_Helper
+     * @group Helper
      */
     public function testGetConfigCurrencyBase(): void
     {

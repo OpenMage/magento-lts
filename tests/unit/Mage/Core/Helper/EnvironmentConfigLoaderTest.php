@@ -43,8 +43,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testBuildPath(): void
     {
@@ -54,8 +53,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testBuildNodePath(): void
     {
@@ -65,8 +63,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testXmlHasTestStrings(): void
     {
@@ -80,8 +77,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      *
      * @param array<string, string> $config
      */
@@ -94,8 +90,8 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
             $config['env_path'] => $config['value'],
         ]);
@@ -181,7 +177,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
     /**
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
-     * @group Mage_Core
+     * @group Helper
      *
      * @param array<string, string> $config
      */
@@ -201,8 +197,8 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $defaultStoreValue = 'test_store';
         static::assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
 
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
             $config['path'] => $config['value'],
         ]);

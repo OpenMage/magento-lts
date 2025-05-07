@@ -36,8 +36,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Catalog_Helper_Product_Url::getConvertTable()
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetConvertTable(): void
     {
@@ -47,8 +46,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Catalog_Helper_Product_Url::getConvertTableCustom()
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetConvertTableCustom(): void
     {
@@ -58,8 +56,7 @@ class UrlTest extends OpenMageTest
 
     /**
      * @covers Mage_Catalog_Helper_Product_Url::getConvertTableShort()
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetConvertTableShort(): void
     {
@@ -70,8 +67,7 @@ class UrlTest extends OpenMageTest
     /**
      * @covers Mage_Catalog_Helper_Product_Url::format()
      * @dataProvider provideFormat
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testFormat(string $expectedResult, ?string $string): void
     {

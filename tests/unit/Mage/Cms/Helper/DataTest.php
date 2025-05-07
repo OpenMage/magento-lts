@@ -35,8 +35,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetAllowedStreamWrappers(): void
     {
@@ -44,8 +43,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetBlockTemplateProcessor(): void
     {
@@ -53,8 +51,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetPageTemplateProcessor(): void
     {
@@ -62,8 +59,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testIsSwfDisabled(): void
     {

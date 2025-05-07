@@ -32,8 +32,7 @@ class HtmlTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetBaseUrl(): void
     {
@@ -41,8 +40,7 @@ class HtmlTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetBaseSecureUrl(): void
     {
@@ -50,8 +48,7 @@ class HtmlTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetCurrentUrl(): void
     //    {
@@ -59,8 +56,7 @@ class HtmlTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetPrintLogoUrl(): void
     {

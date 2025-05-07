@@ -37,8 +37,7 @@ class VariableTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateAdminVariableData
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      * @throws Exception
      */
     public function testValidate(bool|array $expectedResult, array $methods): void

@@ -19,6 +19,7 @@ namespace OpenMage\Tests\Unit\Mage\Cms\Block;
 
 use Mage_Cms_Block_Page as Subject;
 use Mage_Cms_Model_Page;
+use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
 
@@ -28,8 +29,8 @@ class PageTest extends OpenMageTest
 
     /**
      * @dataProvider provideNumericString
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @group Block
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function testGetPage(string $pageId): void
     {

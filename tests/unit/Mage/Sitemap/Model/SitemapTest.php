@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sitemap\Model;
 
-use Mage;
 use Mage_Sitemap_Model_Sitemap as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\SitemapTrait;
@@ -27,19 +26,9 @@ class SitemapTest extends OpenMageTest
 {
     use SitemapTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = Mage::getModel('sitemap/sitemap');
-    }
-
     /**
      * @dataProvider provideGetPreparedFilenameData
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
+     * @group Model
      */
     public function testGetPreparedFilename(array $methods): void
     {
@@ -51,8 +40,7 @@ class SitemapTest extends OpenMageTest
 
     /**
      * @dataProvider provideGenerateXmlData
-     * @group Mage_Sitemap
-     * @group Mage_Sitemap_Model
+     * @group Model
      * @throws Throwable
      * @todo  test validation
      * @todo  test content of xml

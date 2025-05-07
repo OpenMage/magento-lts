@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Sales\Block\Order\Item\Renderer;
 
-use Mage;
 use Mage_Sales_Block_Order_Item_Renderer_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Object;
@@ -34,8 +33,7 @@ class DefaultTest extends OpenMageTest
 
     /**
      * @covers Mage_Sales_Block_Order_Item_Renderer_Default::setItem()
-     * @group Mage_Sales
-     * @group Mage_Sales_Block
+     * @group Block
      */
     public function testSetItem(): void
     {

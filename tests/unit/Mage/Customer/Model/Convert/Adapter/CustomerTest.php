@@ -36,7 +36,7 @@ class CustomerTest extends OpenMageTest
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoWebsite(): void
     //    {
@@ -53,7 +53,7 @@ class CustomerTest extends OpenMageTest
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoEmail(): void
     //    {
@@ -72,7 +72,7 @@ class CustomerTest extends OpenMageTest
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoGroup(): void
     //    {
@@ -92,7 +92,7 @@ class CustomerTest extends OpenMageTest
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoFirstname(): void
     //    {
@@ -113,7 +113,7 @@ class CustomerTest extends OpenMageTest
     //     * @return void
     //     * @throws Throwable
     //     *
-    //     * @group Mage_Customer
+    //     * @group Model
     //     */
     //    public function testSaveRowNoLastname(): void
     //    {
@@ -132,7 +132,7 @@ class CustomerTest extends OpenMageTest
     //    }
     /**
      * @throws Throwable
-     * @group Mage_Customer
+     * @group Model
      */
     public function testSaveRow(): void
     {

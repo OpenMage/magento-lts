@@ -35,8 +35,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -46,8 +45,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetSkinImagePlaceholderUrl(): void
     {
@@ -55,8 +53,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testGetSkinImagePlaceholderPath(): void
     {
@@ -64,8 +61,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testIsEnabled(): void
     {
@@ -73,8 +69,7 @@ class ConfigTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Model
+     * @group Model
      */
     public function testIsHidden(): void
     {

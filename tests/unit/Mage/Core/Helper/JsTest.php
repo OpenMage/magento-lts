@@ -35,8 +35,7 @@ class JsTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Js::getTranslateJson()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetTranslateJson(): void
     {
@@ -45,8 +44,7 @@ class JsTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Js::getTranslatorScript()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetTranslatorScript(): void
     {
@@ -54,8 +52,7 @@ class JsTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testIncludeScript(): void
     {
@@ -63,8 +60,7 @@ class JsTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testIncludeSkinScript(): void
     {
@@ -72,8 +68,7 @@ class JsTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetDeleteConfirmJs(): void
     {
@@ -82,8 +77,7 @@ class JsTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetConfirmSetLocationJs(): void
     {
@@ -92,8 +86,7 @@ class JsTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetSetLocationJs(): void
     {
@@ -104,8 +97,7 @@ class JsTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Js::getSaveAndContinueEditJs()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetSaveAndContinueEditJs(): void
     {

@@ -39,7 +39,6 @@ class ProcessorTest extends TestCase
 
     /**
      * @dataProvider provideGetHostUrl
-     * @group Error
      */
     public function testGetHostUrl(string $expectedResult, array $serverVars): void
     {

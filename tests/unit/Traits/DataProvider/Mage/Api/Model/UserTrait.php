@@ -1,16 +1,9 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -23,7 +16,12 @@ trait UserTrait
 {
     public function provideValidateApiUserData(): Generator
     {
-        $validUser =             [
+        $errorAlphaNumeric = 'Api Key must include both numeric and alphabetic characters.';
+        $errorIdentical = 'Api Key confirmation must be same as Api Key.';
+        $errorInvalidEmail = 'Please enter a valid email.';
+        $errorLength = 'Api Key must be at least of 7 characters.';
+
+        $validUser = [
             'getUsername' => 'validuser',
             'getFirstname' => 'John',
             'getLastname' => 'Doe',
@@ -66,14 +64,14 @@ trait UserTrait
         $data = $validUser;
         $data['getEmail'] = '';
         yield 'missing email' => [
-            ['Please enter a valid email.'],
+            [$errorInvalidEmail],
             $data,
         ];
 
         $data = $validUser;
         $data['getEmail'] = 'invalid-email';
         yield 'invalid email' => [
-            ['Please enter a valid email.'],
+            [$errorInvalidEmail],
             $data,
         ];
 
@@ -81,8 +79,9 @@ trait UserTrait
         $data['getApiKey'] = '';
         yield 'missing api key' => [
             [
-                'Api Key must be at least of 7 characters.',
-                'Api Key confirmation must be same as Api Key.',
+                $errorLength,
+                $errorAlphaNumeric,
+                $errorIdentical,
             ],
             $data,
         ];
@@ -90,7 +89,7 @@ trait UserTrait
         $data = $validUser;
         $data['getApiKeyConfirmation'] = '';
         yield 'missing api confirm key' => [
-            ['Api Key confirmation must be same as Api Key.'],
+            [$errorIdentical],
             $data,
         ];
 
@@ -99,7 +98,7 @@ trait UserTrait
         $data['getApiKey'] = $apiKey;
         $data['getApiKeyConfirmation'] = $apiKey;
         yield 'numeric only api key' => [
-            ['Api Key must include both numeric and alphabetic characters.'],
+            [$errorAlphaNumeric],
             $data,
         ];
 
@@ -108,7 +107,7 @@ trait UserTrait
         $data['getApiKey'] = $apiKey;
         $data['getApiKeyConfirmation'] = $apiKey;
         yield 'string only api key' => [
-            ['Api Key must include both numeric and alphabetic characters.'],
+            [$errorAlphaNumeric],
             $data,
         ];
 

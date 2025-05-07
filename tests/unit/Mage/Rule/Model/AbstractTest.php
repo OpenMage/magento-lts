@@ -1,16 +1,9 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -19,7 +12,6 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
 use Composer\InstalledVersions;
 use Error;
-use Mage;
 use Mage_Core_Exception;
 use Mage_Rule_Model_Abstract as Subject;
 use Mage_Rule_Model_Action_Collection;
@@ -46,8 +38,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetProductFlatSelect(): void
     {
@@ -60,8 +51,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetConditions(bool $empty): void
     {
@@ -78,8 +68,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetActions(bool $empty): void
     {
@@ -95,8 +84,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetForm(): void
     {
@@ -104,8 +92,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testLoadPost(array $data = []): void
     {
@@ -115,8 +102,7 @@ class AbstractTest extends OpenMageTest
     /**
      * @covers Mage_Rule_Model_Abstract::validate()
      * @dataProvider provideValidateData
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testValidate(bool|array $expectedResul, ?array $data = null): void
     {
@@ -131,8 +117,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @dataProvider provideValidateData
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testValidateData(bool|array $expectedResul, ?array $data = null): void
     {
@@ -145,8 +130,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::isDeleteable()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testIsDeleteable(): void
     {
@@ -156,8 +140,7 @@ class AbstractTest extends OpenMageTest
     /**
      * @covers Mage_Rule_Model_Abstract::setIsDeleteable()
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testSetIsDeleteable(bool $value): void
     {
@@ -166,8 +149,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::isReadonly()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testIsReadonly(): void
     {
@@ -177,8 +159,7 @@ class AbstractTest extends OpenMageTest
     /**
      * @covers Mage_Rule_Model_Abstract::setIsReadonly()
      * @dataProvider provideBool
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testSetIsReadonly(bool $value): void
     {
@@ -186,8 +167,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetWebsiteIds(): void
     {
@@ -200,8 +180,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::asString()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testAsString(): void
     {
@@ -210,8 +189,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::asHtml()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testAsHtml(): void
     {
@@ -220,8 +198,7 @@ class AbstractTest extends OpenMageTest
 
     /**
      * @covers Mage_Rule_Model_Abstract::asArray()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testAsArray(): void
     {

@@ -1,16 +1,9 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -34,8 +27,7 @@ class ItemTest extends OpenMageTest
 
     /**
      * @dataProvider qtyDataProvider
-     * @group Mage_Wishlist
-     * @group Mage_Wishlist_Model
+     * @group Model
      */
     public function testSetQty(int $expectedQty, int $inputQty): void
     {
@@ -61,8 +53,7 @@ class ItemTest extends OpenMageTest
 
     /**
      * @dataProvider validateDataProvider
-     * @group Mage_Wishlist
-     * @group Mage_Wishlist_Model
+     * @group Model
      * @throws Mage_Core_Exception
      */
     public function testValidate(?string $expectedExceptionMessage, ?int $wishlistId, ?int $productId): void

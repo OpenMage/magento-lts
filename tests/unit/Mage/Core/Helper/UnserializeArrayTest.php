@@ -37,8 +37,7 @@ class UnserializeArrayTest extends OpenMageTest
 
     /**
      * @dataProvider provideUnserialize
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testUnserialize(array|string $expectedTesult, ?string $string): void
     {

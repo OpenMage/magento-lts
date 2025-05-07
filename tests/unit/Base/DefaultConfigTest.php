@@ -27,8 +27,6 @@ class DefaultConfigTest extends TestCase
 {
     /**
      * @dataProvider provideGetStoreConfig
-     * @group Base
-     * @group Default_Config
      */
     public function testGetStoreConfig(string $expectedResult, string $path, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {

@@ -41,8 +41,7 @@ class LayoutTest extends OpenMageTest
 
     /**
      * @dataProvider provideCreateBlock
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      *
      * @param bool|class-string $expectedResult
      */
@@ -60,9 +59,7 @@ class LayoutTest extends OpenMageTest
     /**
      * @covers Mage_Core_Model_Layout::getBlockSingleton()
      * @dataProvider provideGetBlockSingleton
-     * @group Mage_Core
-     * @group Mage_Core_Model
-     * @group pr4411
+     * @group Model
      *
      * @param class-string $expectedResult
      */
@@ -109,17 +106,12 @@ class LayoutTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Model_Layout::getBlockSingleton()
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetBlockSingletonError(): void
     {
         $this->expectException(Error::class);
-        if (PHP_VERSION_ID >= 80000) {
-            $this->expectExceptionMessage('Class "Mage_Invalid_Block_Type" not found');
-        } else {
-            $this->expectExceptionMessage("Class 'Mage_Invalid_Block_Type' not found");
-        }
+        $this->expectExceptionMessage('Class "Mage_Invalid_Block_Type" not found');
 
         self::$subject->getBlockSingleton('invalid/type');
     }

@@ -36,8 +36,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testLoad(): void
     {
@@ -46,8 +45,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testLoadConfig(): void
     {
@@ -56,8 +54,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoreCollection(): void
     {
@@ -65,8 +62,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroupCollection(): void
     {
@@ -74,8 +70,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStores(): void
     {
@@ -83,8 +78,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoreIds(): void
     {
@@ -92,8 +86,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoreCodes(): void
     {
@@ -101,8 +94,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoresCount(): void
     {
@@ -110,8 +102,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroups(): void
     {
@@ -119,8 +110,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroupIds(): void
     {
@@ -128,8 +118,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroupsCount(): void
     {
@@ -137,8 +126,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetBaseCurrency(): void
     {
@@ -147,8 +135,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     //    /**
-    //     * @group Mage_Core
-    //     * @group Mage_Core_Model
+    //     * @group Model
     //     */
     //    public function testGetDefaultStore(): void
     //    {
@@ -157,7 +144,7 @@ class WebsiteTest extends OpenMageTest
     //    }
 
     /**
-     * @group Mage_Core
+     * @group Model
      */
     public function testGetDefaultStoresSelect(): void
     {
@@ -166,8 +153,7 @@ class WebsiteTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testIsReadOnly(): void
     {

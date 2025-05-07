@@ -38,8 +38,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultAttributeSetId(): void
     {
@@ -47,8 +46,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetProductCollection(): void
     {
@@ -56,8 +54,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetAvailableSortByOptions(): void
     {
@@ -65,8 +62,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultSortBy(): void
     {
@@ -74,8 +70,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testValidate(): void
     {
@@ -83,8 +78,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testAfterCommitCallback(): void
     {
@@ -92,8 +86,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetUrlModel(): void
     {
@@ -103,8 +96,7 @@ class CategoryTest extends OpenMageTest
 
     /**
      * @dataProvider provideFormatUrlKey
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      * @runInSeparateProcess
      */
     //    public function testGetCategoryIdUrl($expectedResult, ?string $locale): void
@@ -116,8 +108,7 @@ class CategoryTest extends OpenMageTest
 
     /**
      * @dataProvider provideFormatUrlKey
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {

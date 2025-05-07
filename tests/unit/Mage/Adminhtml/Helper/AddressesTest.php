@@ -38,8 +38,7 @@ class AddressesTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Helper_Addresses::processStreetAttribute()
      * @dataProvider provideProcessStreetAttribute
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testProcessStreetAttribute(int $expectedResult, int $lines): void
     {

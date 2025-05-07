@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 class ClassLoadingTest extends TestCase
 {
     /**
-     * @group Base
      * @dataProvider provideClassExistsData
      */
     public function testClassExists(bool $expectedResult, string $class): void

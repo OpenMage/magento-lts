@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Uploader\Block;
 
-use Mage;
 use Mage_Uploader_Block_Abstract as Subject;
 use Mage_Uploader_Model_Config_Browsebutton;
 use Mage_Uploader_Model_Config_Misc;
@@ -34,8 +33,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      */
     public function testGetMiscConfig(): void
     {
@@ -43,8 +41,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -54,8 +51,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      */
     public function testGetButtonConfig(): void
     {
@@ -63,8 +59,7 @@ class AbstractTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Uploader
-     * @group Mage_Uploader_Block
+     * @group Block
      */
     public function testGetElementId(): void
     {

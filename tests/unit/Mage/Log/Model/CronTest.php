@@ -32,8 +32,7 @@ class CronTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Log
-     * @group Mage_Log_Model
+     * @group Model
      */
     public function testLogClean(): void
     {

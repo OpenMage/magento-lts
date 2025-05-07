@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Helper;
 
-use Mage;
 use Mage_Cms_Helper_Page as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
@@ -26,19 +25,9 @@ class PageTest extends OpenMageTest
 {
     use CmsTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
-    private static Subject $subject;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        self::$subject = Mage::helper('cms/page');
-    }
-
     /**
      * @dataProvider provideGetUsedInStoreConfigPaths
-     * @group Mage_Cms
-     * @group Mage_Cms_Helper
+     * @group Helper
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {

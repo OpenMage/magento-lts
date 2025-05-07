@@ -37,8 +37,7 @@ class JsTest extends OpenMageTest
     /**
      * @covers Mage_Adminhtml_Helper_Js::decodeGridSerializedInput()
      * @dataProvider provideDecodeGridSerializedInput
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Helper
+     * @group Helper
      */
     public function testDecodeGridSerializedInput(array $expectedResult, string $encoded): void
     {

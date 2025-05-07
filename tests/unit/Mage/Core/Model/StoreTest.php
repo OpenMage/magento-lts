@@ -37,8 +37,7 @@ class StoreTest extends OpenMageTest
      * @covers Mage_Core_Model_Store::getId()
      * @dataProvider provideGetStoreId
      * @param string|int|null $withStore
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetId(?int $expectedResult, $withStore): void
     {

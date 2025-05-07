@@ -37,8 +37,7 @@ class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideAuthenticateData
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
@@ -60,8 +59,7 @@ class UserTest extends OpenMageTest
     /**
      * @dataProvider provideValidateAdminUserData
      * @param array|true $expectedResult
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testValidate($expectedResult, array $methods): void
     {
@@ -74,8 +72,7 @@ class UserTest extends OpenMageTest
 
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testValidateCurrentPassword(): void
     {
@@ -84,8 +81,7 @@ class UserTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testLoadByUsername(): void
     {
@@ -93,8 +89,7 @@ class UserTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testHasAssigned2Role(): void
     {
@@ -102,8 +97,7 @@ class UserTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testChangeResetPasswordLinkToken(): void
     {
@@ -112,8 +106,7 @@ class UserTest extends OpenMageTest
 
     /**
      * @dataProvider provideIsResetPasswordLinkTokenExpiredData
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testIsResetPasswordLinkTokenExpired(bool $expectedResult, array $methods): void
     {
@@ -124,8 +117,7 @@ class UserTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
@@ -133,8 +125,7 @@ class UserTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testCleanPasswordsValidationData(): void
     {
@@ -152,8 +143,7 @@ class UserTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testGetMinAdminPasswordLength(): void
     {
@@ -165,8 +155,7 @@ class UserTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testSendAdminNotification(): void
     {

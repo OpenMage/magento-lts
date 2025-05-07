@@ -1,16 +1,9 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -39,8 +32,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Abstract::isModuleEnabled()
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
     public function testIsModuleEnabled(): void
     {
@@ -49,8 +41,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_Reports_Helper_Data::isReportsEnabled()
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
     public function testIsReportsEnabled(): void
     {
@@ -60,17 +51,15 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Reports_Helper_Data::getIntervals()
      * @dataProvider provideReportsDateIntervals
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
-    public function testGetIntervals(int $expectedResult, string $from, string $to, string $period): void
+    public function testGetIntervals(int|string $expectedResult, string $from, string $to, string $period): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             static::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
 
         try {
-            /** @phpstan-ignore argument.type */
             static::assertCount($expectedResult, self::$subject->getIntervals($from, $to, $period));
         } catch (Zend_Date_Exception $exception) {
             static::assertSame("No date part in '' found.", $exception->getMessage());
@@ -80,14 +69,17 @@ class DataTest extends OpenMageTest
     /**
      * @covers Mage_Reports_Helper_Data::prepareIntervalsCollection()
      * @dataProvider provideReportsDateIntervals
-     * @doesNotPerformAssertions
-     * @group Mage_Reports
-     * @group Mage_Reports_Helper
+     * @group Helper
      */
-    public function testPrepareIntervalsCollection(int $expectedResult, string $from, string $to, string $period): void
+    public function testPrepareIntervalsCollection(int|string $expectedResult, string $from, string $to, string $period): void
     {
-        static::markTestIncomplete('Test needs to be reviewed.');
-        // @phpstan-ignore-next-line
-        self::$subject->prepareIntervalsCollection(new Varien_Data_Collection(), $from, $to, $period);
+        $collection = new Varien_Data_Collection();
+
+        try {
+            self::$subject->prepareIntervalsCollection($collection, $from, $to, $period);
+            static::assertGreaterThanOrEqual(0, $collection->count());
+        } catch (\Zend_Date_Exception $exception) {
+            static::assertSame($expectedResult, $exception->getMessage());
+        }
     }
 }

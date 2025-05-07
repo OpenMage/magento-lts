@@ -32,8 +32,7 @@ class CategoryTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testCanUseCanonicalTag(): void
     {

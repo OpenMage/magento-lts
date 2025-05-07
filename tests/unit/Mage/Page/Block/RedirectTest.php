@@ -17,7 +17,6 @@ declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
-use Mage;
 use Mage_Page_Block_Redirect as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
@@ -32,8 +31,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetTargetUrl(): void
     {
@@ -41,8 +39,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetMessage(): void
     {
@@ -50,8 +47,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetRedirectOutput(): void
     {
@@ -59,8 +55,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetJsRedirect(): void
     {
@@ -68,8 +63,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetHtmlFormRedirect(): void
     {
@@ -77,8 +71,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testIsHtmlFormRedirect(): void
     {
@@ -86,8 +79,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetFormId(): void
     {
@@ -95,8 +87,7 @@ class RedirectTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetFormMethod(): void
     {

@@ -33,8 +33,7 @@ class HintTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Hint::getAvailableHints()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetAvailableHints(): void
     {
@@ -43,8 +42,7 @@ class HintTest extends OpenMageTest
 
     /**
      * @covers Mage_Core_Helper_Hint::getHintByCode()
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testGetHintByCode(): void
     {

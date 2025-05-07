@@ -33,8 +33,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Helper
+     * @group Helper
      */
     public function testGetLatestNotice(): void
     {
@@ -42,8 +41,7 @@ class DataTest extends OpenMageTest
     }
 
     /**
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Helper
+     * @group Helper
      */
     public function testGetUnreadNoticeCount(): void
     {
@@ -52,8 +50,7 @@ class DataTest extends OpenMageTest
 
     /**
      * @covers Mage_AdminNotification_Helper_Data::getPopupObjectUrl()
-     * @group Mage_AdminNotification
-     * @group Mage_AdminNotification_Helper
+     * @group Helper
      */
     public function testGetPopupObjectUrl(): void
     {
