@@ -70,6 +70,7 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
@@ -104,7 +105,7 @@ class Mage_Adminhtml_Block_Dashboard_Orders_Grid extends Mage_Adminhtml_Block_Da
     }
 
     /**
-     * @param Varien_Object $row
+     * @param Mage_Sales_Model_Order $row
      * @return string
      */
     public function getRowUrl($row)

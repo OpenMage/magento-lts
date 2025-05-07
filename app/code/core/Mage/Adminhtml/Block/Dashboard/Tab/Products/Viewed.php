@@ -50,6 +50,9 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @throws Mage_Core_Model_Store_Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('name', [
@@ -78,6 +81,11 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_Catalog_Model_Product $row
+     * @return string
+     * @throws Exception
+     */
     public function getRowUrl($row)
     {
         $params = ['id' => $row->getId()];

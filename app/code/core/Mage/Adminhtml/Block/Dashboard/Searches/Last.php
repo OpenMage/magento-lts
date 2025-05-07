@@ -39,13 +39,14 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
             ->getResourceCollection();
         $this->_collection->setRecentQueryFilter();
 
-        if ($this->getRequest()->getParam('store')) {
-            $this->_collection->addFieldToFilter('store_id', $this->getRequest()->getParam('store'));
-        } elseif ($this->getRequest()->getParam('website')) {
-            $storeIds = Mage::app()->getWebsite($this->getRequest()->getParam('website'))->getStoreIds();
+        $request = $this->getRequest();
+        if ($request->getParam('store')) {
+            $this->_collection->addFieldToFilter('store_id', $request->getParam('store'));
+        } elseif ($request->getParam('website')) {
+            $storeIds = Mage::app()->getWebsite($request->getParam('website'))->getStoreIds();
             $this->_collection->addFieldToFilter('store_id', ['in' => $storeIds]);
-        } elseif ($this->getRequest()->getParam('group')) {
-            $storeIds = Mage::app()->getGroup($this->getRequest()->getParam('group'))->getStoreIds();
+        } elseif ($request->getParam('group')) {
+            $storeIds = Mage::app()->getGroup($request->getParam('group'))->getStoreIds();
             $this->_collection->addFieldToFilter('store_id', ['in' => $storeIds]);
         }
 
@@ -54,6 +55,9 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
         return parent::_prepareCollection();
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('search_query', [
@@ -83,6 +87,10 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Last extends Mage_Adminhtml_Block_
         return parent::_prepareColumns();
     }
 
+    /**
+     * @param Mage_CatalogSearch_Model_Query $row
+     * @return string
+     */
     public function getRowUrl($row)
     {
         return $this->getUrl('*/catalog_search/edit', ['id' => $row->getId()]);

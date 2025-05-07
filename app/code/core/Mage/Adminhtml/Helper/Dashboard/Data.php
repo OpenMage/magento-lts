@@ -28,6 +28,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      * Location of the "Enable Chart" config param
      */
     public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
+    public const XML_PATH_CHART_TYPE    = 'admin/dashboard/chart_type';
 
     protected $_moduleName = 'Mage_Adminhtml';
 
@@ -46,6 +47,8 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      * Retrieve stores configured in system.
      *
      * @return Mage_Core_Model_Resource_Store_Collection
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function getStores()
     {
@@ -96,5 +99,10 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     {
         $secret = (string) Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
         return md5($data . $secret);
+    }
+
+    public function getChartType(): string
+    {
+        return Mage::getStoreConfig(self::XML_PATH_CHART_TYPE);
     }
 }
