@@ -228,7 +228,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
     /**
      * Check Wishlist item has description
      *
-     * @param Mage_Catalog_Model_Product $item
+     * @param Mage_Catalog_Model_Product|Mage_Wishlist_Model_Item $item
      * @return bool
      */
     public function hasDescription($item)
