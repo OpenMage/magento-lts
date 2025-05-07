@@ -19,25 +19,24 @@ namespace OpenMage\Tests\Unit\Mage\Admin\Helper;
 
 use Mage;
 use Mage_Admin_Helper_Variable as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class VariableTest extends TestCase
+class VariableTest extends OpenMageTest
 {
-    public Subject $subject;
+    public static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('admin/variable');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('admin/variable');
     }
 
     /**
      * @covers Mage_Admin_Helper_Variable::isPathAllowed()
-     * @group Mage_Admin
-     * @group Mage_Admin_Helper
+     * @group Helper
      */
     public function testIsPathAllowed(): void
     {
-        $this->assertIsBool($this->subject->isPathAllowed(''));
+        static::assertIsBool(self::$subject->isPathAllowed(''));
     }
 }

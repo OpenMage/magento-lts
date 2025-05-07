@@ -88,7 +88,7 @@ class Mage_Log_Model_Resource_Aggregation extends Mage_Core_Model_Resource_Db_Ab
      * Save log
      *
      * @param array $data
-     * @param int $id
+     * @param string $id
      */
     public function saveLog($data, $id = null)
     {

@@ -17,6 +17,7 @@ use Rector\Php81\Rector as Php81;
 use Rector\Php82\Rector as Php82;
 use Rector\Php83\Rector as Php83;
 use Rector\Php84\Rector as Php84;
+use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
 
 try {
@@ -49,6 +50,8 @@ try {
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
+            # use static methods
+            PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',
             __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',

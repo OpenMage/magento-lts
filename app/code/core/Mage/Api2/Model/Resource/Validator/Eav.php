@@ -95,15 +95,19 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         if (empty($validationConfig[$userType]['entity_model'])) {
             throw new Exception("Config parameter 'entity' is wrong.");
         }
-        $this->_entity = Mage::getModel($validationConfig[$userType]['entity_model']);
-        if (empty($this->_entity) || !$this->_entity instanceof Mage_Core_Model_Abstract) {
+
+        $entityModel = Mage::getModel($validationConfig[$userType]['entity_model']);
+        if (empty($entityModel) || !$entityModel instanceof Mage_Core_Model_Abstract) {
             throw new Exception('Entity is not model.');
         }
+        $this->_entity = $entityModel;
 
-        $this->_eavForm = Mage::getModel($this->_formPath);
-        if (empty($this->_eavForm) || !$this->_eavForm instanceof Mage_Eav_Model_Form) {
-            throw new Exception("Eav form '{$this->_formPath}' is not found.");
+        $formModel = Mage::getModel($this->_formPath);
+        if (empty($formModel) || !$formModel instanceof Mage_Eav_Model_Form) {
+            throw new Exception("Eav form '{$formModel}' is not found.");
         }
+        $this->_eavForm = $formModel;
+
         $this->_eavForm->setEntity($this->_entity)
             ->setFormCode($this->_formCode)
             ->ignoreInvisible(false);

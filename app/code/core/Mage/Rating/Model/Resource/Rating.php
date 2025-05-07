@@ -418,7 +418,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
      * Get rating entity type id by code
      *
      * @param string $entityCode
-     * @return int
+     * @return string
      */
     public function getEntityIdByCode($entityCode)
     {

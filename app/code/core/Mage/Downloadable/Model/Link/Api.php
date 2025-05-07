@@ -236,6 +236,10 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                 break;
         }
 
+        if (!isset($downloadableModel)) {
+            $this->_fault('invalid_resource_type');
+        }
+
         $downloadableModel->load($linkId);
         if (is_null($downloadableModel->getId())) {
             $this->_fault('link_was_not_found');
