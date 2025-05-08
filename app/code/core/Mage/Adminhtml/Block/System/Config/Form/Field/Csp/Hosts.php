@@ -20,7 +20,6 @@ declare(strict_types=1);
  */
 abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
-
     /**
     * @var Mage_Csp_Helper_Data
     */
