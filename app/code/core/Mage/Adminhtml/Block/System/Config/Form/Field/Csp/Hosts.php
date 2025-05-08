@@ -18,7 +18,7 @@ declare(strict_types=1);
 /**
  * Base class for CSP hosts field renderer
  */
-abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
+class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
     /**
     * @var Mage_Csp_Helper_Data
