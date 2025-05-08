@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Eav_Model_Config
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Config
@@ -394,7 +386,7 @@ class Mage_Eav_Model_Config
     /**
      * Get entity type object by entity type code/identifier
      *
-     * @param mixed $code
+     * @param Mage_Eav_Model_Entity_Type|string|int $code
      * @param string|null $field
      * @return Mage_Eav_Model_Entity_Type
      * @throws Mage_Core_Exception
@@ -544,7 +536,7 @@ class Mage_Eav_Model_Config
     /**
      * Get codes of all entity type attributes
      *
-     * @param Mage_Eav_Model_Entity_Type $entityType
+     * @param Mage_Eav_Model_Entity_Type|string|int $entityType
      * @param Varien_Object $object
      * @return array
      * @throws Mage_Core_Exception

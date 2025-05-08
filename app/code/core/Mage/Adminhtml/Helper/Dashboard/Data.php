@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Composer\InstalledVersions;
@@ -19,7 +12,6 @@ use Composer\InstalledVersions;
 /**
  * Data helper for dashboard
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
@@ -28,6 +20,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      * Location of the "Enable Chart" config param
      */
     public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
+    public const XML_PATH_CHART_TYPE    = 'admin/dashboard/chart_type';
 
     protected $_moduleName = 'Mage_Adminhtml';
 
@@ -46,6 +39,8 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      * Retrieve stores configured in system.
      *
      * @return Mage_Core_Model_Resource_Store_Collection
+     * @throws Mage_Core_Model_Store_Exception
+     * @throws Mage_Core_Exception
      */
     public function getStores()
     {
@@ -96,5 +91,10 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
     {
         $secret = (string) Mage::getConfig()->getNode(Mage_Core_Model_App::XML_PATH_INSTALL_DATE);
         return md5($data . $secret);
+    }
+
+    public function getChartType(): string
+    {
+        return Mage::getStoreConfig(self::XML_PATH_CHART_TYPE);
     }
 }

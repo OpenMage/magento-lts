@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert profile
  *
- * @category   Mage
  * @package    Mage_Dataflow
  *
  * @method Mage_Dataflow_Model_Resource_Profile _getResource()
@@ -240,7 +232,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                     }
                 }
                 //BOM deleting for UTF files
-                if (isset($newFilename) && $newFilename) {
+                if (isset($path, $newFilename) && $newFilename) {
                     $contents = file_get_contents($path . $newFilename);
                     if (ord($contents[0]) == 0xEF && ord($contents[1]) == 0xBB && ord($contents[2]) == 0xBF) {
                         $contents = substr($contents, 3);
@@ -344,6 +336,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
             $fileXml .= '</action>' . $nl . $nl;
         }
 
+        $parseFileXml = '';
         switch ($p['parse']['type']) {
             case 'excel_xml':
                 $parseFileXml = '<action type="dataflow/convert_parser_xml_excel" method="'

@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -39,11 +33,11 @@ class DateTest extends TestCase
     public function testInputFilter(?string $expectedResult, ?string $value): void
     {
         try {
-            $this->assertSame($expectedResult, $this->subject->inputFilter($value));
+            static::assertSame($expectedResult, $this->subject->inputFilter($value));
         } catch (Throwable $e) {
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            $this->assertStringStartsWith((string) $expectedResult, $e->getMessage());
+            static::assertStringStartsWith((string) $expectedResult, $e->getMessage());
         }
     }
 

@@ -1,51 +1,33 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Convert\Profile\Edit\Tab;
 
-use Mage;
 use Mage_Adminhtml_Block_System_Convert_Profile_Edit_Tab_Edit as Subject;
 use Mage_Dataflow_Model_Profile;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class EditTest extends TestCase
+class EditTest extends OpenMageTest
 {
-    public Subject $subject;
-
-    public function setUp(): void
-    {
-        Mage::app();
-        $this->subject = new Subject();
-    }
-
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      */
     public function testInitForm(): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods(['getRegistryCurrentConvertProfile'])
-            ->getMock();
+        $methods = [
+            'getRegistryCurrentConvertProfile' => new Mage_Dataflow_Model_Profile(),
+        ];
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock
-            ->method('getRegistryCurrentConvertProfile')
-            ->willReturn(new Mage_Dataflow_Model_Profile());
-
-        $this->assertInstanceOf(Subject::class, $mock->initForm());
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }
