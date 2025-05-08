@@ -20,16 +20,6 @@ declare(strict_types=1);
  */
 abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
-    /**
-     * Directive name (e.g., 'script-src', 'style-src')
-     *
-     * @var string
-     */
-    protected $_directiveName = '';
-    /**
-     * Area name adminhtml or frontend
-     */
-    protected $_area = Mage_Core_Model_App_Area::AREA_FRONTEND;
 
     /**
     * @var Mage_Csp_Helper_Data
@@ -66,8 +56,11 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends M
 
         $result = [];
 
-        $directiveName = $this->_directiveName;
-        $area = $this->_area;
+        /** @var Varien_Data_Form_Element_Abstract $element */
+        $element = $this->getElement();
+        // NodePath: /config/sections/csp/groups/frontend/fields/default-src
+        $nodePath = dom_import_simplexml($element->getData('field_config'))->getNodePath();
+        [,,,,,$area,,$directiveName] = explode('/', $nodePath);
 
         $globalPolicy = $this->_helper->getGlobalPolicy($directiveName);
         if ($globalPolicy) {

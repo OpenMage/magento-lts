@@ -74,7 +74,7 @@
                         </split_headers>
                         <default-src translate="label">
                             <label>default-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_defaultsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -86,7 +86,7 @@
                         </default-src>
                         <script-src translate="label">
                             <label>script-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_scriptsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>21</sort_order>
                             <show_in_default>1</show_in_default>
@@ -98,7 +98,7 @@
                         </script-src>
                         <style-src translate="label">
                             <label>style-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_stylesrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
@@ -110,7 +110,7 @@
                         </style-src>
                         <img-src translate="label">
                             <label>img-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_imgsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>23</sort_order>
                             <show_in_default>1</show_in_default>
@@ -122,7 +122,7 @@
                         </img-src>
                         <connect-src translate="label">
                             <label>connect-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_connectsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>24</sort_order>
                             <show_in_default>1</show_in_default>
@@ -134,7 +134,7 @@
                         </connect-src>
                         <font-src translate="label">
                             <label>font-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_fontsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
@@ -146,7 +146,7 @@
                         </font-src>
                         <frame-src translate="label">
                             <label>frame-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_framesrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>26</sort_order>
                             <show_in_default>1</show_in_default>
@@ -158,7 +158,7 @@
                         </frame-src>
                         <object-src translate="label">
                             <label>object-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_objectsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>27</sort_order>
                             <show_in_default>1</show_in_default>
@@ -170,7 +170,7 @@
                         </object-src>
                         <media-src translate="label">
                             <label>media-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_mediasrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>28</sort_order>
                             <show_in_default>1</show_in_default>
@@ -182,7 +182,7 @@
                         </media-src>
                         <form-action translate="label">
                             <label>form-action</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_formaction</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>29</sort_order>
                             <show_in_default>1</show_in_default>
@@ -237,7 +237,7 @@
                         </split_headers>
                         <default-src translate="label">
                             <label>default-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_defaultsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
@@ -247,7 +247,7 @@
                         </default-src>
                         <script-src translate="label">
                             <label>script-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_scriptsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>21</sort_order>
                             <show_in_default>1</show_in_default>
@@ -257,7 +257,7 @@
                         </script-src>
                         <style-src translate="label">
                             <label>style-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_stylesrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>22</sort_order>
                             <show_in_default>1</show_in_default>
@@ -267,7 +267,7 @@
                         </style-src>
                         <img-src translate="label">
                             <label>img-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_imgsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>23</sort_order>
                             <show_in_default>1</show_in_default>
@@ -277,7 +277,7 @@
                         </img-src>
                         <connect-src translate="label">
                             <label>connect-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_connectsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>24</sort_order>
                             <show_in_default>1</show_in_default>
@@ -287,7 +287,7 @@
                         </connect-src>
                         <font-src translate="label">
                             <label>font-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_fontsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>25</sort_order>
                             <show_in_default>1</show_in_default>
@@ -297,7 +297,7 @@
                         </font-src>
                         <frame-src translate="label">
                             <label>frame-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_framesrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>26</sort_order>
                             <show_in_default>1</show_in_default>
@@ -307,7 +307,7 @@
                         </frame-src>
                         <object-src translate="label">
                             <label>object-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_objectsrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>27</sort_order>
                             <show_in_default>1</show_in_default>
@@ -317,7 +317,7 @@
                         </object-src>
                         <media-src translate="label">
                             <label>media-src</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_mediasrc</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>28</sort_order>
                             <show_in_default>1</show_in_default>
@@ -327,7 +327,7 @@
                         </media-src>
                         <form-action translate="label">
                             <label>form-action</label>
-                            <frontend_model>adminhtml/system_config_form_field_csp_admin_formaction</frontend_model>
+                            <frontend_model>adminhtml/system_config_form_field_csp_hosts</frontend_model>
                             <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                             <sort_order>29</sort_order>
                             <show_in_default>1</show_in_default>
