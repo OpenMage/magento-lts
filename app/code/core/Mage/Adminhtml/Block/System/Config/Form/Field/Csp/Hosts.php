@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
 
         $result = [];
 
-        list($area, $directiveName) = $this->_parseNodePath();
+        [$area, $directiveName] = $this->_parseNodePath();
 
         $globalPolicy = $this->_helper->getGlobalPolicy($directiveName);
         if ($globalPolicy) {
