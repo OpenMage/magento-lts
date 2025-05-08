@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -24,23 +18,22 @@ use Mage_Core_Block_Template;
 use Mage_Core_Exception;
 use Mage_Core_Helper_Security as Subject;
 use Mage_Page_Block_Html_Topmenu_Renderer;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
 use function sprintf;
 
-class SecurityTest extends TestCase
+class SecurityTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('core/security');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('core/security');
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function validateAgainstBlockMethodBlacklistDataProvider(): Generator
     {
@@ -64,15 +57,14 @@ class SecurityTest extends TestCase
      * @param string[] $args
      * @throws Mage_Core_Exception
      *
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testValidateAgainstBlockMethodBlacklist(
         Mage_Core_Block_Abstract $block,
         string $method,
         array $args
     ): void {
-        $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
+        self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 
     public function forbiddenBlockMethodsDataProvider(): Generator
@@ -121,8 +113,7 @@ class SecurityTest extends TestCase
      * @param string[] $args
      * @throws Mage_Core_Exception
      *
-     * @group Mage_Core
-     * @group Mage_Core_Helper
+     * @group Helper
      */
     public function testValidateAgainstBlockMethodBlacklistThrowsException(
         Mage_Core_Block_Abstract $block,
@@ -130,6 +121,6 @@ class SecurityTest extends TestCase
         array $args
     ): void {
         $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method));
-        $this->subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
+        self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 }

@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -26,149 +20,135 @@ use Mage_Catalog_Model_Resource_Product_Collection;
 use Mage_Catalog_Model_Url;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\BoolTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ProductTest extends TestCase
+class ProductTest extends OpenMageTest
 {
     use BoolTrait;
     use CatalogTrait;
 
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('catalog/product');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('catalog/product');
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetStoreId(): void
     {
-        $this->assertIsInt($this->subject->getStoreId());
+        static::assertIsInt(self::$subject->getStoreId());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetResourceCollection(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, $this->subject->getResourceCollection());
+        static::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, self::$subject->getResourceCollection());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetUrlModel(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Url::class, $this->subject->getUrlModel());
-        $this->assertInstanceOf(Mage_Catalog_Model_Product_Url::class, $this->subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Url::class, self::$subject->getUrlModel());
+        static::assertInstanceOf(Mage_Catalog_Model_Product_Url::class, self::$subject->getUrlModel());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testValidate(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->validate());
+        static::assertInstanceOf(Subject::class, self::$subject->validate());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     //    public function testGetName(): void
     //    {
-    //        $this->assertNull($this->subject->getName());
-    //        $this->assertIsString($this->subject->getName());
+    //        $this->assertNull(self::$subject->getName());
+    //        $this->assertIsString(self::$subject->getName());
     //    }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     //    public function testGetPrice(): void
     //    {
-    //        $this->assertIsFloat($this->subject->getPrice());
+    //        $this->assertIsFloat(self::$subject->getPrice());
     //    }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testSetPriceCalculation(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setPriceCalculation());
+        static::assertInstanceOf(Subject::class, self::$subject->setPriceCalculation());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     //    public function testGetTypeId(): void
     //    {
-    //        $this->assertIsString($this->subject->getTypeId());
+    //        $this->assertIsString(self::$subject->getTypeId());
     //    }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetStatus(): void
     {
-        $this->assertSame(1, $this->subject->getStatus());
+        static::assertSame(1, self::$subject->getStatus());
     }
 
     /**
      * @dataProvider provideBool
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetTypeInstance(bool $singleton): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, $this->subject->getTypeInstance($singleton));
+        static::assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, self::$subject->getTypeInstance($singleton));
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetLinkInstance(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Product_Link::class, $this->subject->getLinkInstance());
+        static::assertInstanceOf(Mage_Catalog_Model_Product_Link::class, self::$subject->getLinkInstance());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsInt($this->subject->getDefaultAttributeSetId());
+        static::assertIsInt(self::$subject->getDefaultAttributeSetId());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testAfterCommitCallback(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->afterCommitCallback());
+        static::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
     }
 
     /**
      * @dataProvider provideFormatUrlKey
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
-    public function testFormatUrlKey($expectedResult, string $locale): void
+    public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
-        $this->subject->setLocale($locale);
-        $this->assertSame($expectedResult, $this->subject->formatUrlKey($this->getTestString()));
+        self::$subject->setLocale($locale);
+        static::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
     }
 }

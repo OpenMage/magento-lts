@@ -1,108 +1,80 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Catalog\Helper;
 
-use Generator;
 use Mage;
 use Mage_Catalog_Helper_Data as Subject;
 use Mage_Catalog_Model_Template_Filter;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\DataTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    use DataTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('catalog');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('catalog');
     }
 
     /**
      * @dataProvider provideSplitSku
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
-    public function testSplitSku($expectedResult, string $sku, int $length = 30): void
+    public function testSplitSku(array $expectedResult, string $sku, int $length = 30): void
     {
-        $this->assertSame($expectedResult, $this->subject->splitSku($sku, $length));
-    }
-
-    public function provideSplitSku(): Generator
-    {
-        yield 'test #1' => [
-            [
-                '100',
-            ],
-            '100',
-        ];
-        yield 'test #2 w/ length' => [
-            [
-                '10',
-                '0',
-            ],
-            '100',
-            2,
-        ];
+        static::assertSame($expectedResult, self::$subject->splitSku($sku, $length));
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testShouldSaveUrlRewritesHistory(): void
     {
-        $this->assertIsBool($this->subject->shouldSaveUrlRewritesHistory());
+        static::assertIsBool(self::$subject->shouldSaveUrlRewritesHistory());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testIsUsingStaticUrlsAllowed(): void
     {
-        $this->assertIsBool($this->subject->isUsingStaticUrlsAllowed());
+        static::assertIsBool(self::$subject->isUsingStaticUrlsAllowed());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testIsUrlDirectivesParsingAllowed(): void
     {
-        $this->assertIsBool($this->subject->isUrlDirectivesParsingAllowed());
+        static::assertIsBool(self::$subject->isUrlDirectivesParsingAllowed());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetPageTemplateProcessor(): void
     {
-        $this->assertInstanceOf(Mage_Catalog_Model_Template_Filter::class, $this->subject->getPageTemplateProcessor());
+        static::assertInstanceOf(Mage_Catalog_Model_Template_Filter::class, self::$subject->getPageTemplateProcessor());
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Helper
+     * @group Helper
      */
     public function testGetOldFieldMap(): void
     {
-        $this->assertSame([], $this->subject->getOldFieldMap());
+        static::assertSame([], self::$subject->getOldFieldMap());
     }
 }
