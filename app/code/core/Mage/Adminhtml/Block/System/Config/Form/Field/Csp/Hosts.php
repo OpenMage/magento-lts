@@ -55,11 +55,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
 
         $result = [];
 
-        /** @var Varien_Data_Form_Element_Abstract $element */
-        $element = $this->getElement();
-        // NodePath: /config/sections/csp/groups/frontend/fields/default-src
-        $nodePath = dom_import_simplexml($element->getData('field_config'))->getNodePath();
-        [,,,,,$area,,$directiveName] = explode('/', $nodePath);
+        list($area, $directiveName) = $this->_parseNodePath();
 
         $globalPolicy = $this->_helper->getGlobalPolicy($directiveName);
         if ($globalPolicy) {
@@ -105,6 +101,36 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
         $this->_arrayRowsCache = $result;
         return $this->_arrayRowsCache;
     }
+
+    /**
+     * Extract and validate area and directive name from the node path
+     *
+     * @return array Array containing area and directiveName
+     * @throws Exception If path format is invalid or contains disallowed values
+     */
+    private function _parseNodePath(): array
+    {
+        
+        /** @var Varien_Data_Form_Element_Abstract $element */
+        $element = $this->getElement();
+        // NodePath: /config/sections/csp/groups/frontend/fields/default-src
+        $nodePath = dom_import_simplexml($element->getData('field_config'))->getNodePath();
+
+        $allowedDirectives = implode('|', Mage_Csp_Helper_Data::CSP_DIRECTIVES);
+        $allowedAreas = Mage_Core_Model_App_Area::AREA_FRONTEND . '|' . Mage_Core_Model_App_Area::AREA_ADMINHTML;
+
+        $pattern = "#/config/sections/csp/groups/({$allowedAreas})/fields/({$allowedDirectives})#";
+
+        if (!preg_match($pattern, $nodePath, $matches)) {
+            throw new Exception('Invalid node path format or disallowed area/directive');
+        }
+
+        $area = $matches[1];
+        $directiveName = $matches[2];
+
+        return [$area, $directiveName];
+    }
+
     /**
      * Render array cell for prototypeJS template
      *
