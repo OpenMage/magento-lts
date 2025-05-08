@@ -36,10 +36,13 @@ class Mage_Csp_Model_Observer
     /**
      * Common method to add CSP headers for a specific area
      *
-     * @param string $area 'frontend' or 'admin'
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      */
-    private function _addCspHeaders(Varien_Event_Observer $observer, $area): void
+    private function _addCspHeaders(Varien_Event_Observer $observer, string $area): void
     {
+        /**
+         * @var Mage_Core_Controller_Response_Http $response
+         */
         $response = $observer->getEvent()->getResponse();
         if (!$response || !$response->canSendHeaders(true)) {
             return;
@@ -56,29 +59,45 @@ class Mage_Csp_Model_Observer
         if (empty($directives)) {
             return;
         }
-        $headerValue = $this->_buildCspHeaderValue($directives);
+        
+        // Set the CSP Reporting-Endpoints header
+        $reportUriEndpoint = null;
         if (!empty($helper->getReportUri($area))) {
             $reportUriEndpoint = trim($helper->getReportUri($area));
             $response->setHeader(Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY_REPORT_URI, sprintf('csp-endpoint="%s"', $reportUriEndpoint));
-            $headerValue .= '; report-to csp-endpoint';
         }
+
+        $cspDirectives = $this->_compactHeaders($directives);
+        // Check if the CSP directives should be split into multiple headers
+        $shouldSplitHeaders = $helper->shouldSplitHeaders($area);
+        if ($shouldSplitHeaders !== true) {
+            $headerValue = implode('; ', $cspDirectives);
+            $cspDirectives = [$headerValue];
+        }
+        // Set the CSP headers
         $headerName = $helper->getReportOnly($area)
             ? Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY
             : Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY;
-        $response->setHeader($headerName, $headerValue);
+        foreach ($cspDirectives as $headerValue) {
+            if ($reportUriEndpoint !== null) {
+                $headerValue .= '; report-uri ' . $reportUriEndpoint;
+                $headerValue .= '; report-to csp-endpoint';
+            }
+            $response->setHeader($headerName, $headerValue);
+        }
     }
 
     /**
-     * Build the CSP header value from directives
+     * Compact the CSP directives into a single string for each directive
      */
-    private function _buildCspHeaderValue(array $directives): string
+    private function _compactHeaders(array $directives): array
     {
         $cspParts = [];
         foreach ($directives as $directive => $values) {
             if (!empty($values)) {
-                $cspParts[] = $directive . ' ' . implode(' ', $values);
+                $cspParts[$directive] = $directive . ' ' . implode(' ', $values);
             }
         }
-        return implode('; ', $cspParts);
+        return $cspParts;
     }
 }

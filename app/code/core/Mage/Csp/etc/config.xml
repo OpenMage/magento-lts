@@ -120,6 +120,7 @@
         <csp>
             <frontend>
                 <report_only>1</report_only>
+                <split_headers>1</split_headers>
                 <script-src>
                     <unsafe-inline>'unsafe-inline'</unsafe-inline>
                     <unsafe-eval>'unsafe-eval'</unsafe-eval>
@@ -166,6 +167,7 @@
             </frontend>
             <adminhtml>
                 <report_only>1</report_only>
+                <split_headers>0</split_headers>
             </adminhtml>
         </csp>
     </default>

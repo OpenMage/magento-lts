@@ -19,6 +19,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_CPS_ENABLED = 'csp/%s/enabled';
     public const XML_CSP_REPORT_ONLY = 'csp/%s/report_only';
     public const XML_CSP_REPORT_URI = 'csp/%s/report_uri';
+    public const XML_CSP_SPLIT_HEADERS = 'csp/%s/split_headers';
     public const HEADER_CONTENT_SECURITY_POLICY = 'Content-Security-Policy';
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY = 'Content-Security-Policy-Report-Only';
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_URI = 'Reporting-Endpoints';
@@ -63,6 +64,15 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     public function getReportUri(string $area): string
     {
         return Mage::getStoreConfig(sprintf(self::XML_CSP_REPORT_URI, $area));
+    }
+
+    /**
+     * Check if CSP headers should be split into multiple headers for each directive
+     * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     */
+    public function shouldSplitHeaders(string $area): bool
+    {
+        return Mage::getStoreConfigFlag(sprintf(self::XML_CSP_SPLIT_HEADERS, $area));
     }
 
     /**
