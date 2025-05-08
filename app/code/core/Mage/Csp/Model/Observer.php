@@ -59,7 +59,7 @@ class Mage_Csp_Model_Observer
         if (empty($directives)) {
             return;
         }
-        
+
         // Set the CSP Reporting-Endpoints header
         $reportUriEndpoint = null;
         if (!empty($helper->getReportUri($area))) {
