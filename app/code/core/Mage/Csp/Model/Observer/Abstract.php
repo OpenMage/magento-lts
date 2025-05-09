@@ -36,6 +36,19 @@ abstract class Mage_Csp_Model_Observer_Abstract
             return;
         }
 
+        // Merge meta directives if needed
+        if ($helper->shouldMergeMeta($area)) {
+            $blockCspMeta = Mage::app()->getLayout()->getBlock('csp_meta');
+            if ($blockCspMeta && $blockCspMeta instanceof Mage_Csp_Block_Meta) {
+                $metaDirectives = $blockCspMeta->getDirectives();
+                foreach ($metaDirectives as $directive => $values) {
+                    $directives[$directive] = array_unique(
+                        array_merge($directives[$directive] ?? [], $values),
+                    );
+                }
+            }
+        }
+
         // Set the CSP Reporting-Endpoints header
         $reportUriEndpoint = null;
         if (!empty($helper->getReportUri($area))) {

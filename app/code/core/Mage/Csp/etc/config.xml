@@ -114,6 +114,7 @@
             <frontend>
                 <report_only>1</report_only>
                 <split_headers>0</split_headers>
+                <merge_meta>1</merge_meta>
                 <script-src>
                     <unsafe-inline>'unsafe-inline'</unsafe-inline>
                     <unsafe-eval>'unsafe-eval'</unsafe-eval>
@@ -161,6 +162,7 @@
             <adminhtml>
                 <report_only>1</report_only>
                 <split_headers>0</split_headers>
+                <merge_meta>1</merge_meta>
             </adminhtml>
         </csp>
     </default>

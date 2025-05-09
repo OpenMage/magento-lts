@@ -49,6 +49,15 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
     }
 
     /**
+     * Get CSP directives
+     * @var array<value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>, array<string>>
+     */
+    public function getDirectives(): array
+    {
+        return $this->directives;
+    }
+
+    /**
      * Get CSP policy content
      */
     public function getContents(): string
@@ -64,7 +73,7 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
     }
 
     /**
-     * Render CSP meta tag
+     * Render CSP meta tag if enabled
      */
     protected function _toHtml(): string
     {
@@ -74,9 +83,10 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
 
         /** @var Mage_Csp_Helper_Data $helper */
         $helper = Mage::helper('csp');
-        if (!$helper->isEnabled($this->area)) {
+        if (!$helper->isEnabled($this->area) || $helper->shouldMergeMeta($this->area)) {
             return '';
         }
+
         $headerValue = $this->getContents();
         if (!empty($helper->getReportUri($this->area))) {
             $reportUriEndpoint = trim($helper->getReportUri($this->area));
