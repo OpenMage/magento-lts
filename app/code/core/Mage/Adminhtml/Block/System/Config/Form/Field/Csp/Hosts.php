@@ -145,15 +145,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
         $element     = $this->getElement();
         $elementName = $element->getName();
         $inputName   = $elementName . '[#{_id}][' . $columnName . ']';
-        $renderer    = $column['renderer'];
-
-#        if ($renderer instanceof Mage_Core_Block_Abstract) {
-#            return $renderer
-#                ->setInputName($inputName)
-#                ->setColumnName($columnName)
-#                ->setColumn($column)
-#                ->toHtml();
-#     }
 
         return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
             '#{readonly}' .
