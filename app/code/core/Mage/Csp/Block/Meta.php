@@ -50,7 +50,7 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
 
     /**
      * Get CSP directives
-     * @var array<value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>, array<string>>
+     * @return array<value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>, array<string>>
      */
     public function getDirectives(): array
     {
