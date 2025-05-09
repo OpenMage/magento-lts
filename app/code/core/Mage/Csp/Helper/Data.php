@@ -3,17 +3,12 @@
 declare(strict_types=1);
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Csp
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
+
 class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_CPS_ENABLED = 'csp/%s/enabled';
@@ -63,7 +58,8 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getReportUri(string $area): string
     {
-        return Mage::getStoreConfig(sprintf(self::XML_CSP_REPORT_URI, $area));
+        $config = Mage::getStoreConfig(sprintf(self::XML_CSP_REPORT_URI, $area));
+        return is_string($config) ? $config : '';
     }
 
     /**
@@ -87,6 +83,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get CSP policies for a specific area
      * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
+     * @return array<string, array<string>>
      */
     public function getPolicies(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND): array
     {
@@ -104,6 +101,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
             $policy[$directiveName] = array_unique($policy[$directiveName]);
         }
 
+        /** @var array<string, array<string>> $policy */
         return $policy;
     }
 
@@ -111,12 +109,20 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      * Get global policy for a specific directive
      * global/csp/<directiveName>
      * @param value-of<self::CSP_DIRECTIVES> $directiveName
+     * @return array<string>
      */
     public function getGlobalPolicy(string $directiveName = 'default-src'): array
     {
-        $globalNode = Mage::getConfig()->getNode(sprintf('global/csp/%s', $directiveName));
+        $config = Mage::getConfig();
+        if (!$config) {
+            return [];
+        }
+
+        $globalNode = $config->getNode(sprintf('global/csp/%s', $directiveName));
         if ($globalNode) {
-            return $globalNode->asArray();
+            /** @var array<string> $result */
+            $result = $globalNode->asArray();
+            return $result;
         }
         return [];
     }
@@ -126,12 +132,20 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      * (adminhtml|frontend)/csp/<directiveName>
      * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      * @param value-of<self::CSP_DIRECTIVES> $directiveName
+     * @return array<string>
      */
     public function getAreaPolicy(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND, string $directiveName = 'default-src'): array
     {
-        $areaNode = Mage::getConfig()->getNode(sprintf('%s/csp/%s', $area, $directiveName));
+        $config = Mage::getConfig();
+        if (!$config) {
+            return [];
+        }
+
+        $areaNode = $config->getNode(sprintf('%s/csp/%s', $area, $directiveName));
         if ($areaNode) {
-            return $areaNode->asArray();
+            /** @var array<string> $result */
+            $result = $areaNode->asArray();
+            return $result;
         }
         return [];
     }
@@ -142,14 +156,19 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
      * csp/(adminhtml|frontend)/<directiveName>
      * @param Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML $area
      * @param value-of<self::CSP_DIRECTIVES> $directiveName
+     * @return array<string>
      */
     public function getStoreConfigPolicy(string $area = Mage_Core_Model_App_Area::AREA_FRONTEND, string $directiveName = 'default-src'): array
     {
+        /** @var array<string>|null $systemNode */
         $systemNode = Mage::getStoreConfig(sprintf('csp/%s/%s', $area, $directiveName));
         if ($systemNode) {
             if (is_string($systemNode) && preg_match('/^a:\d+:{.*}$/', $systemNode)) {
                 $unserializedData = unserialize($systemNode);
-                $systemNode = array_column($unserializedData, 'host');
+                if (is_array($unserializedData)) {
+                    /** @var array<string> $systemNode */
+                    $systemNode = array_column($unserializedData, 'host');
+                }
             }
             return $systemNode;
         }

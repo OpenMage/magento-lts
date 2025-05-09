@@ -3,16 +3,10 @@
 declare(strict_types=1);
 
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Csp
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 
 /**
@@ -20,17 +14,16 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract
 {
-    /**
-    * @var Mage_Csp_Helper_Data
-    */
-    protected $_helper;
+    protected Mage_Csp_Helper_Data $helper;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->_helper = Mage::helper('csp');
+        /** @var Mage_Csp_Helper_Data $helper */
+        $helper = Mage::helper('csp');
+        $this->helper = $helper;
         $this->addColumn('host', [
             'label' => Mage::helper('csp')->__('Host'),
         ]);
@@ -46,6 +39,8 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      * Obtain existing data from form element
      *
      * Each row will be instance of Varien_Object
+     * @return array<string, Varien_Object> Array of rows
+     * @throws Exception
      */
     public function getArrayRows(): array
     {
@@ -57,7 +52,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
 
         [$area, $directiveName] = $this->_parseNodePath();
 
-        $globalPolicy = $this->_helper->getGlobalPolicy($directiveName);
+        $globalPolicy = $this->helper->getGlobalPolicy($directiveName);
         if ($globalPolicy) {
             foreach ($globalPolicy as $key => $host) {
                 $rowId = $directiveName . '_xml_' . $area . '_' . $key;
@@ -71,7 +66,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
             }
         }
 
-        $areaPolicy = $this->_helper->getAreaPolicy($area, $directiveName);
+        $areaPolicy = $this->helper->getAreaPolicy($area, $directiveName);
         if ($areaPolicy) {
             foreach ($areaPolicy as $key => $host) {
                 $rowId = $directiveName . '_xml_' . $area . '_' . $key;
@@ -85,7 +80,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
             }
         }
 
-        $configPolicy = $this->_helper->getStoreConfigPolicy($area, $directiveName);
+        $configPolicy = $this->helper->getStoreConfigPolicy($area, $directiveName);
         if ($configPolicy) {
             foreach ($configPolicy as $key => $value) {
                 $rowId = $directiveName . '_' . $area . '_' . $key;
@@ -105,23 +100,24 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
     /**
      * Extract and validate area and directive name from the node path
      *
-     * @return array Array containing area and directiveName
+     * @return array{Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML, value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>} Array containing area and directiveName
      * @throws Exception If path format is invalid or contains disallowed values
      */
     private function _parseNodePath(): array
     {
-
         /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
+        /** @var Varien_Simplexml_Element $config */
+        $config = $element->getData('field_config');
         // NodePath: /config/sections/csp/groups/frontend/fields/default-src
-        $nodePath = dom_import_simplexml($element->getData('field_config'))->getNodePath();
+        $nodePath = dom_import_simplexml($config)->getNodePath();
 
         $allowedDirectives = implode('|', Mage_Csp_Helper_Data::CSP_DIRECTIVES);
         $allowedAreas = Mage_Core_Model_App_Area::AREA_FRONTEND . '|' . Mage_Core_Model_App_Area::AREA_ADMINHTML;
 
         $pattern = "#/config/sections/csp/groups/({$allowedAreas})/fields/({$allowedDirectives})#";
 
-        if (!preg_match($pattern, $nodePath, $matches)) {
+        if (!$nodePath || !preg_match($pattern, $nodePath, $matches)) {
             throw new Exception('Invalid node path format or disallowed area/directive');
         }
 
@@ -136,19 +132,28 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
      *
      * @param string $columnName
      * @return string
+     * @throws Exception
      */
     protected function _renderCellTemplate($columnName)
     {
         if (empty($this->_columns[$columnName])) {
             throw new Exception('Wrong column name specified.');
         }
-        $column     = $this->_columns[$columnName];
-        $inputName  = $this->getElement()->getName() . '[#{_id}][' . $columnName . ']';
 
-        if ($column['renderer']) {
-            return $column['renderer']->setInputName($inputName)->setColumnName($columnName)->setColumn($column)
-                ->toHtml();
-        }
+        $column      = $this->_columns[$columnName];
+        /** @var Varien_Data_Form_Element_Text $element */
+        $element     = $this->getElement();
+        $elementName = $element->getName();
+        $inputName   = $elementName . '[#{_id}][' . $columnName . ']';
+        $renderer    = $column['renderer'];
+
+#        if ($renderer instanceof Mage_Core_Block_Abstract) {
+#            return $renderer
+#                ->setInputName($inputName)
+#                ->setColumnName($columnName)
+#                ->setColumn($column)
+#                ->toHtml();
+#     }
 
         return '<input type="text" name="' . $inputName . '" value="#{' . $columnName . '}" ' .
             '#{readonly}' .
