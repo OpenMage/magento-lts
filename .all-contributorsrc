@@ -1670,6 +1670,34 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Axepih",
+      "name": "Axepih",
+      "avatar_url": "https://avatars.githubusercontent.com/u/95623175?v=4",
+      "profile": "https://github.com/Axepih",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "gdemarsico",
+      "name": "Gastón De Mársico",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2066819?v=4",
+      "profile": "https://github.com/gdemarsico",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "denisahac",
+      "name": "Den Isahac",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6700576?v=4",
+      "profile": "http://www.denisahac.xyz",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "commitType": "docs"

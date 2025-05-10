@@ -26,6 +26,9 @@
 # ChartJs library
 /js/lib/chartjs
 
+# jQuery library
+/js/lib/jquery/jquery*
+
 # TinyMCE library
 /js/lib/tinymce
 
@@ -110,3 +113,10 @@ app/etc/includes/ddev.xhgui.php
 
 # local development
 .localdev
+
+# cypress
+cypress/screenshots/
+cypress/videos/
+
+# rector
+.rector.result.cache

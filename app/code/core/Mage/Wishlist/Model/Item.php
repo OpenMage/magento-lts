@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Wishlist
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wishlist item model
  *
- * @category   Mage
  * @package    Mage_Wishlist
  *
  * @method Mage_Wishlist_Model_Resource_Item _getResource()
@@ -113,7 +105,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
     /**
      * Set quantity. If quantity is less than 0 - set it to 1
      *
-     * @param int $qty
+     * @param float $qty
      * @return $this
      */
     public function setQty($qty)
@@ -363,7 +355,7 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
         }
 
         if (!$product->isSalable()) {
-            throw new Mage_Core_Exception(null, self::EXCEPTION_CODE_NOT_SALABLE);
+            throw new Mage_Core_Exception('', self::EXCEPTION_CODE_NOT_SALABLE);
         }
 
         $buyRequest = $this->getBuyRequest();

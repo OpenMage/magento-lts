@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -18,18 +12,12 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Core\Block\Text;
 
 use Mage;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class ListTest extends TestCase
+class ListTest extends OpenMageTest
 {
-    public function setUp(): void
-    {
-        Mage::app();
-    }
-
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Block
+     * @group Block
      */
     public function testDuplicateBlockName(): void
     {
@@ -43,12 +31,11 @@ class ListTest extends TestCase
         $childBlockA = $layout->createBlock('core/text', 'child_a')->setText('A2');
         $parentBlock->append($childBlockA);
 
-        $this->assertSame('A2', $parentBlock->toHtml());
+        static::assertSame('A2', $parentBlock->toHtml());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Block
+     * @group Block
      */
     public function testDuplicateBlockNameOrdering(): void
     {
@@ -70,12 +57,11 @@ class ListTest extends TestCase
         $childBlockB = $layout->createBlock('core/text', 'child_b')->setText('B');
         $parentBlock->insert($childBlockB, 'child_c', false);
 
-        $this->assertSame('ABC', $parentBlock->toHtml());
+        static::assertSame('ABC', $parentBlock->toHtml());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Block
+     * @group Block
      */
     public function testUniqueBlockNameOrdering(): void
     {
@@ -98,10 +84,10 @@ class ListTest extends TestCase
         $parentBlock->unsetChild('child_a');
         $parentBlock->unsetChild('child_b');
 
-        $this->assertSame('CD', $parentBlock->toHtml());
+        static::assertSame('CD', $parentBlock->toHtml());
     }
 
-    public function testSortInstructionsAfterReplaceChild()
+    public function testSortInstructionsAfterReplaceChild(): void
     {
         $layout = Mage::getModel('core/layout');
 
@@ -117,6 +103,6 @@ class ListTest extends TestCase
         $layout->setBlock('target_block', $childBlockB);
         $parentBlock->setChild('child', $childBlockB);
 
-        $this->assertSame('B', $parentBlock->toHtml());
+        static::assertSame('B', $parentBlock->toHtml());
     }
 }

@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -19,24 +13,23 @@ namespace OpenMage\Tests\Unit\Mage\Page\Model\Source;
 
 use Mage;
 use Mage_Page_Model_Source_Layout as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends TestCase
+class LayoutTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('page/source_layout');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('page/source_layout');
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Model
+     * @group Model
      */
     public function testToOptionArray(): void
     {
-        $this->assertIsArray($this->subject->toOptionArray(true));
+        static::assertIsArray(self::$subject->toOptionArray(true));
     }
 }

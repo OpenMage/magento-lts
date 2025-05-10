@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -21,40 +15,38 @@ use Generator;
 use Mage;
 use Mage_Catalog_Model_Product_Option;
 use Mage_Catalog_Model_Product_Option_Type_Text as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class TextTest extends TestCase
+class TextTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('catalog/product_option_type_text');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('catalog/product_option_type_text');
     }
 
     /**
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testValidateUserValue(): void
     {
-        $this->subject->setOption(new Mage_Catalog_Model_Product_Option());
-        $this->assertInstanceOf(Subject::class, $this->subject->validateUserValue([]));
+        self::$subject->setOption(new Mage_Catalog_Model_Product_Option());
+        static::assertInstanceOf(Subject::class, self::$subject->validateUserValue([]));
     }
 
 
     /**
      * @dataProvider providePrepareForCart
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
-    public function testPrepareForCart($expectedResult, bool $setIsValid = true, $setUserValue = null): void
+    public function testPrepareForCart(?string $expectedResult, bool $setIsValid = true, ?string $setUserValue = null): void
     {
-        $this->subject->setIsValid($setIsValid)->setUserValue($setUserValue);
-        $this->assertSame($expectedResult, $this->subject->prepareForCart());
+        self::$subject->setIsValid($setIsValid)->setUserValue($setUserValue);
+        static::assertSame($expectedResult, self::$subject->prepareForCart());
     }
 
     public function providePrepareForCart(): Generator
@@ -71,11 +63,10 @@ class TextTest extends TestCase
 
     /**
      * @covers Mage_Catalog_Model_Product_Option_Type_Text::getFormattedOptionValue()
-     * @group Mage_Catalog
-     * @group Mage_Catalog_Model
+     * @group Model
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        $this->assertIsString($this->subject->getFormattedOptionValue(''));
+        static::assertIsString(self::$subject->getFormattedOptionValue(''));
     }
 }
