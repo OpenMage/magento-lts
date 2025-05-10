@@ -378,6 +378,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     'inherit'               => $inherit,
                     'class'                 => $element->frontend_class . $sharedClass . $requiresClass,
                     'field_config'          => $element,
+                    'config_path'           => $path,
                     'scope'                 => $this->getScope(),
                     'scope_id'              => $this->getScopeId(),
                     'scope_label'           => $this->getScopeLabel($element),
