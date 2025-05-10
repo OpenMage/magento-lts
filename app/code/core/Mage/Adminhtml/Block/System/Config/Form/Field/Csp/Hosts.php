@@ -107,17 +107,14 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
     {
         /** @var Varien_Data_Form_Element_Abstract $element */
         $element = $this->getElement();
-        /** @var Varien_Simplexml_Element $config */
-        $config = $element->getData('field_config');
-        // NodePath: /config/sections/csp/groups/frontend/fields/default-src
-        $nodePath = dom_import_simplexml($config)->getNodePath();
+        $configPath = $element->getData('config_path');
 
         $allowedDirectives = implode('|', Mage_Csp_Helper_Data::CSP_DIRECTIVES);
         $allowedAreas = Mage_Core_Model_App_Area::AREA_FRONTEND . '|' . Mage_Core_Model_App_Area::AREA_ADMINHTML;
 
-        $pattern = "#/config/sections/csp/groups/({$allowedAreas})/fields/({$allowedDirectives})#";
+        $pattern = "#csp/({$allowedAreas})/({$allowedDirectives})#";
 
-        if (!$nodePath || !preg_match($pattern, $nodePath, $matches)) {
+        if (!$configPath || !preg_match($pattern, $configPath, $matches)) {
             throw new Exception('Invalid node path format or disallowed area/directive');
         }
 
