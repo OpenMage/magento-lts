@@ -1,17 +1,10 @@
 <?xml version="1.0"?>
 <!--
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category   Mage
- * @package    Mage_Log
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2023 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
+ * @package    Mage_Csp
  */
 -->
 <config>
@@ -82,8 +75,8 @@
             <http_response_send_before>
                 <observers>
                     <csp_observer>
-                        <class>csp/observer</class>
-                        <method>addFrontendCspHeaders</method>
+                        <class>csp/observer_addFrontendCspHeaders</class>
+                        <method>execute</method>
                     </csp_observer>
                 </observers>
             </http_response_send_before>
@@ -109,8 +102,8 @@
             <http_response_send_before>
                 <observers>
                     <csp_observer>
-                        <class>csp/observer</class>
-                        <method>addAdminCspHeaders</method>
+                        <class>csp/observer_addAdminCspHeaders</class>
+                        <method>execute</method>
                     </csp_observer>
                 </observers>
             </http_response_send_before>
@@ -121,6 +114,7 @@
             <frontend>
                 <report_only>1</report_only>
                 <split_headers>0</split_headers>
+                <merge_meta>1</merge_meta>
                 <script-src>
                     <unsafe-inline>'unsafe-inline'</unsafe-inline>
                     <unsafe-eval>'unsafe-eval'</unsafe-eval>
@@ -168,6 +162,7 @@
             <adminhtml>
                 <report_only>1</report_only>
                 <split_headers>0</split_headers>
+                <merge_meta>1</merge_meta>
             </adminhtml>
         </csp>
     </default>

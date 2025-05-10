@@ -3,35 +3,30 @@
 declare(strict_types=1);
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Csp
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
  */
 
 /**
  * CSP Meta Block
  *
- * @category   Mage
- * @package    Mage_Csp
+ * @package Mage_Csp
  */
 class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
 {
     /**
      * CSP directives
+     * @var array<value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>, array<string>>
      */
-    protected array $_directives = [];
+    protected array $directives = [];
 
     /**
      * CSP meta tag area
+     * @var Mage_Core_Model_App_Area::AREA_FRONTEND|Mage_Core_Model_App_Area::AREA_ADMINHTML
      */
-    protected string $_area = Mage_Core_Model_App_Area::AREA_FRONTEND;
+    protected string $area = Mage_Core_Model_App_Area::AREA_FRONTEND;
 
     /**
      * Add CSP directive
@@ -44,13 +39,22 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
             return $this;
         }
 
-        if (!isset($this->_directives[$directive])) {
-            $this->_directives[$directive] = [];
+        if (!isset($this->directives[$directive])) {
+            $this->directives[$directive] = [];
         }
 
-        $this->_directives[$directive][] = $value;
+        $this->directives[$directive][] = $value;
 
         return $this;
+    }
+
+    /**
+     * Get CSP directives
+     * @return array<value-of<Mage_Csp_Helper_Data::CSP_DIRECTIVES>, array<string>>
+     */
+    public function getDirectives(): array
+    {
+        return $this->directives;
     }
 
     /**
@@ -59,7 +63,7 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
     public function getContents(): string
     {
         $content = [];
-        foreach ($this->_directives as $directive => $values) {
+        foreach ($this->directives as $directive => $values) {
             if (!empty($values)) {
                 $content[] = $directive . ' ' . implode(' ', $values);
             }
@@ -69,28 +73,28 @@ class Mage_Csp_Block_Meta extends Mage_Core_Block_Template
     }
 
     /**
-     * Render CSP meta tag
+     * Render CSP meta tag if enabled
      */
     protected function _toHtml(): string
     {
-        if (empty($this->_directives)) {
+        if (empty($this->directives)) {
             return '';
         }
-        /**
-         * @var Mage_Csp_Helper_Data $helper
-         */
+
+        /** @var Mage_Csp_Helper_Data $helper */
         $helper = Mage::helper('csp');
-        if (!$helper->isEnabled($this->_area)) {
+        if (!$helper->isEnabled($this->area) || $helper->shouldMergeMeta($this->area)) {
             return '';
         }
+
         $headerValue = $this->getContents();
-        if (!empty($helper->getReportUri($this->_area))) {
-            $reportUriEndpoint = trim($helper->getReportUri($this->_area));
+        if (!empty($helper->getReportUri($this->area))) {
+            $reportUriEndpoint = trim($helper->getReportUri($this->area));
             $headerValue .= '; report-uri ' . $reportUriEndpoint;
         }
-        $headerName = $helper->getReportOnly($this->_area)
-            ? $helper::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY
-            : $helper::HEADER_CONTENT_SECURITY_POLICY;
+        $headerName = $helper->getReportOnly($this->area)
+            ? Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY
+            : Mage_Csp_Helper_Data::HEADER_CONTENT_SECURITY_POLICY;
 
         return sprintf(
             '<meta http-equiv="%s" content="%s" />' . PHP_EOL,
