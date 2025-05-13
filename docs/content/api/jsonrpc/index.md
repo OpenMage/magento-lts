@@ -19,13 +19,13 @@ The OpenMage API is built on a modular architecture that supports multiple proto
 - **JSON-RPC**: A lightweight protocol that uses JSON for data encoding
 - **XML-RPC**: Similar to JSON-RPC but uses XML for data encoding
 - **SOAP**: A comprehensive web service protocol with formal WSDL definitions
-- **REST**: See [OpenMage REST API](../rest/) for more information
+- **REST**: See [OpenMage REST API](../rest/common_http_status_codes/) for more information
 
-The JSON-RPC adapter is implemented in `Mage_Api_Model_Server_Adapter_Jsonrpc` and uses the Zend_Json_Server component to handle requests and responses. The API follows a resource-based architecture where functionality is organized into logical resources (like catalog, customer, sales) with methods that operate on those resources.
+The JSON-RPC adapter is implemented in `Mage_Api_Model_Server_Adapter_Jsonrpc` and uses the `Zend_Json_Server` component to handle requests and responses. The API follows a resource-based architecture where functionality is organized into logical resources (like catalog, customer, sales) with methods that operate on those resources.
 
 ### Key Components
 
-1. **API Entry Point**: The `api.php` file serves as the entry point for all API requests
+1. **API Entry Point**: The `api.php` file serves as the entry point for all API requests, routed to by the web server using the `/api/jsonrpc` URL
 2. **Server Adapter**: Handles protocol-specific details (JSON-RPC, XML-RPC, SOAP)
 3. **Handler**: Processes API requests and maps them to the appropriate resource models
 4. **Resource Models**: Implement the actual business logic for API operations
@@ -33,7 +33,7 @@ The JSON-RPC adapter is implemented in `Mage_Api_Model_Server_Adapter_Jsonrpc` a
 
 ## Authentication
 
-To use the OpenMage API, you must either authenticate with the login method to obtain a session ID and inlcude this session ID with all subsequent API calls (not recommended), or use the HTTP Basic Authentication method (recommended).
+To use the OpenMage API, you must either authenticate with the login method to obtain a session ID and inlcude this session ID with all subsequent API calls, or use the HTTP Basic Authentication method. The HTTP Basic Authentication method allows you to skip the login step and use your API credentials directly in the request which is simpler for many use cases, but does expose your credentials in each request whereas the session ID expires and needs to be refreshed periodically.
 
 ### Login Authentication Process
 
@@ -110,7 +110,7 @@ print_r($result['result']);
 
 ## JSON-RPC 2.0 Request/Response Format
 
-The OpenMage API implements the JSON-RPC 2.0 specification, which defines a stateless, light-weight remote procedure call (RPC) protocol using JSON as the data format.
+The OpenMage API implements the JSON-RPC 2.0 specification, which defines a stateless (aside from the session id), light-weight remote procedure call (RPC) protocol using JSON as the data format.
 
 ### Request Format
 
