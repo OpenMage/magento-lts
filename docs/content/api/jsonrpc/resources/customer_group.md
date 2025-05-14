@@ -13,9 +13,11 @@ Retrieve list of customer groups.
 **Method Name**: `customer_group.list`
 
 **Parameters**:
+
 - None
 
 **Return**:
+
 - (array) - Array of customer groups with the following structure:
   - `customer_group_id` (int) - Customer group ID
   - `customer_group_code` (string) - Customer group name/code
@@ -65,4 +67,5 @@ Retrieve list of customer groups.
 ```
 
 **Possible Errors**:
+
 - None specific to this method

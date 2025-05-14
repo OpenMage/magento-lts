@@ -13,9 +13,11 @@ Sets the current store for category operations.
 **Method Name**: `catalog_category.currentStore`
 
 **Parameters**:
+
 - `store` (string|int, required) - Store ID or code
 
 **Return**:
+
 - (int) - Current store ID
 
 **Example Request**:
@@ -48,10 +50,12 @@ Retrieve category tree.
 **Method Name**: `catalog_category.tree`
 
 **Parameters**:
+
 - `parentId` (int, optional) - Parent category ID (default: 1 - root category)
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (array) - Category tree with the following structure:
   - `category_id` (int) - Category ID
   - `parent_id` (int) - Parent category ID
@@ -109,11 +113,13 @@ Retrieve level of categories for category/store view/website.
 **Method Name**: `catalog_category.level`
 
 **Parameters**:
+
 - `website` (string|int, optional) - Website ID or code
 - `store` (string|int, optional) - Store ID or code
 - `categoryId` (int, optional) - Category ID
 
 **Return**:
+
 - (array) - Array of categories with the following structure:
   - `category_id` (int) - Category ID
   - `parent_id` (int) - Parent category ID
@@ -169,11 +175,13 @@ Retrieve category data.
 **Method Name**: `catalog_category.info`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID
 - `store` (string|int, optional) - Store ID or code
 - `attributes` (array, optional) - Array of attributes to return
 
 **Return**:
+
 - (array) - Category data with the following structure:
   - `category_id` (int) - Category ID
   - `is_active` (boolean) - Whether the category is active
@@ -225,6 +233,7 @@ Create new category.
 **Method Name**: `catalog_category.create`
 
 **Parameters**:
+
 - `parentId` (int, required) - Parent category ID
 - `categoryData` (array, required) - Category data:
   - `name` (string, required) - Category name
@@ -243,6 +252,7 @@ Create new category.
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (int) - ID of the created category
 
 **Example Request**:
@@ -279,6 +289,7 @@ Create new category.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `not_exists` - Parent category does not exist
 
@@ -289,11 +300,13 @@ Update category data.
 **Method Name**: `catalog_category.update`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID
 - `categoryData` (array, required) - Category data to update (same structure as in create method)
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -327,6 +340,7 @@ Update category data.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `not_exists` - Category does not exist
 
@@ -337,11 +351,13 @@ Move category in tree.
 **Method Name**: `catalog_category.move`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID to move
 - `parentId` (int, required) - New parent category ID
 - `afterId` (int, optional) - Category ID to place the moved category after (if null, the category will be placed at the end)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -368,6 +384,7 @@ Move category in tree.
 ```
 
 **Possible Errors**:
+
 - `not_moved` - Category could not be moved
 - `not_exists` - Category does not exist
 
@@ -378,9 +395,11 @@ Delete category.
 **Method Name**: `catalog_category.delete`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID to delete
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -407,6 +426,7 @@ Delete category.
 ```
 
 **Possible Errors**:
+
 - `not_deleted` - Category could not be deleted
 - `not_exists` - Category does not exist
 
@@ -417,10 +437,12 @@ Retrieve list of assigned products to category.
 **Method Name**: `catalog_category.assignedProducts`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (array) - Array of products with the following structure:
   - `product_id` (int) - Product ID
   - `type` (string) - Product type
@@ -473,12 +495,14 @@ Assign product to category.
 **Method Name**: `catalog_category.assignProduct`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID
 - `productId` (int|string, required) - Product ID or SKU
 - `position` (int, optional) - Position in category
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -505,6 +529,7 @@ Assign product to category.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `not_exists` - Category does not exist
 - `product_not_exists` - Product does not exist
@@ -516,12 +541,14 @@ Update product assignment.
 **Method Name**: `catalog_category.updateProduct`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID
 - `productId` (int|string, required) - Product ID or SKU
 - `position` (int, optional) - New position in category
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -548,6 +575,7 @@ Update product assignment.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `not_exists` - Category does not exist
 - `product_not_exists` - Product does not exist
@@ -560,11 +588,13 @@ Remove product assignment from category.
 **Method Name**: `catalog_category.removeProduct`
 
 **Parameters**:
+
 - `categoryId` (int, required) - Category ID
 - `productId` (int|string, required) - Product ID or SKU
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -591,5 +621,6 @@ Remove product assignment from category.
 ```
 
 **Possible Errors**:
+
 - `not_exists` - Category does not exist
 - `product_not_exists` - Product does not exist

@@ -13,6 +13,7 @@ Retrieve list of shipments with basic info.
 **Method Name**: `sales_order_shipment.list`
 
 **Parameters**:
+
 - `filters` (object|array, optional) - Filters to apply to the list:
   - `shipment_id` (int|array) - Filter by shipment ID(s)
   - `order_id` (int|array) - Filter by order ID(s)
@@ -22,6 +23,7 @@ Retrieve list of shipments with basic info.
   - Other attributes can also be used as filters
 
 **Return**:
+
 - (array) - Array of shipments with the following structure:
   - `increment_id` (string) - Shipment increment ID
   - `shipment_id` (int) - Shipment ID
@@ -65,6 +67,7 @@ Retrieve list of shipments with basic info.
 ```
 
 **Possible Errors**:
+
 - `filters_invalid` - Invalid filters provided
 
 ### info
@@ -74,9 +77,11 @@ Retrieve detailed shipment information.
 **Method Name**: `sales_order_shipment.info`
 
 **Parameters**:
+
 - `shipmentIncrementId` (string, required) - Shipment increment ID
 
 **Return**:
+
 - (object) - Shipment information with the following structure:
   - `increment_id` (string) - Shipment increment ID
   - `shipment_id` (int) - Shipment ID
@@ -173,6 +178,7 @@ Retrieve detailed shipment information.
 ```
 
 **Possible Errors**:
+
 - `shipment_not_exists` - Shipment does not exist
 
 ### create
@@ -182,6 +188,7 @@ Create a new shipment for an order.
 **Method Name**: `sales_order_shipment.create`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
 - `itemsQty` (array, optional) - Array of items to ship with quantities:
   - `order_item_id` (int) - Order item ID
@@ -191,6 +198,7 @@ Create a new shipment for an order.
 - `includeComment` (boolean, optional) - Whether to include comment in email (default: false)
 
 **Return**:
+
 - (string) - Shipment increment ID
 
 **Example Request**:
@@ -223,6 +231,7 @@ Create a new shipment for an order.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist
 - `order_not_shippable` - Order cannot be shipped
 - `data_invalid` - Invalid data provided
@@ -234,12 +243,14 @@ Add a comment to a shipment.
 **Method Name**: `sales_order_shipment.addComment`
 
 **Parameters**:
+
 - `shipmentIncrementId` (string, required) - Shipment increment ID
 - `comment` (string, required) - Comment text
 - `email` (boolean, optional) - Whether to send email notification (default: false)
 - `includeInEmail` (boolean, optional) - Whether to include comment in email (default: false)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -266,6 +277,7 @@ Add a comment to a shipment.
 ```
 
 **Possible Errors**:
+
 - `shipment_not_exists` - Shipment does not exist
 
 ### addTrack
@@ -275,12 +287,14 @@ Add tracking information to a shipment.
 **Method Name**: `sales_order_shipment.addTrack`
 
 **Parameters**:
+
 - `shipmentIncrementId` (string, required) - Shipment increment ID
 - `carrier` (string, required) - Carrier code
 - `title` (string, required) - Carrier title
 - `trackNumber` (string, required) - Tracking number
 
 **Return**:
+
 - (int) - Tracking ID
 
 **Example Request**:
@@ -307,6 +321,7 @@ Add tracking information to a shipment.
 ```
 
 **Possible Errors**:
+
 - `shipment_not_exists` - Shipment does not exist
 - `data_invalid` - Invalid data provided
 
@@ -317,10 +332,12 @@ Remove tracking information from a shipment.
 **Method Name**: `sales_order_shipment.removeTrack`
 
 **Parameters**:
+
 - `shipmentIncrementId` (string, required) - Shipment increment ID
 - `trackId` (int, required) - Tracking ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -347,6 +364,7 @@ Remove tracking information from a shipment.
 ```
 
 **Possible Errors**:
+
 - `shipment_not_exists` - Shipment does not exist
 - `track_not_exists` - Tracking information does not exist
 
@@ -357,10 +375,12 @@ Send shipment information to the customer.
 **Method Name**: `sales_order_shipment.sendInfo`
 
 **Parameters**:
+
 - `shipmentIncrementId` (string, required) - Shipment increment ID
 - `comment` (string, optional) - Comment to include in the email
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -387,6 +407,7 @@ Send shipment information to the customer.
 ```
 
 **Possible Errors**:
+
 - `shipment_not_exists` - Shipment does not exist
 
 ### getCarriers
@@ -396,9 +417,11 @@ Get list of available shipping carriers.
 **Method Name**: `sales_order_shipment.getCarriers`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
 
 **Return**:
+
 - (object) - Object with carrier codes as keys and carrier titles as values
 
 **Example Request**:
@@ -430,4 +453,5 @@ Get list of available shipping carriers.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist

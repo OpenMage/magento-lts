@@ -13,6 +13,7 @@ Retrieve list of orders with basic info.
 **Method Name**: `sales_order.list`
 
 **Parameters**:
+
 - `filters` (object|array, optional) - Filters to apply to the list:
   - `order_id` (int|array) - Filter by order ID(s)
   - `status` (string|array) - Filter by order status(es)
@@ -24,6 +25,7 @@ Retrieve list of orders with basic info.
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (array) - Array of orders with the following structure:
   - `increment_id` (string) - Order increment ID
   - `order_id` (int) - Order ID
@@ -85,6 +87,7 @@ Retrieve list of orders with basic info.
 ```
 
 **Possible Errors**:
+
 - `filters_invalid` - Invalid filters provided
 - `store_not_exists` - Requested store does not exist
 
@@ -95,9 +98,11 @@ Retrieve detailed order information.
 **Method Name**: `sales_order.info`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
 
 **Return**:
+
 - (object) - Order information with the following structure:
   - `increment_id` (string) - Order increment ID
   - `order_id` (int) - Order ID
@@ -213,6 +218,7 @@ Retrieve detailed order information.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist
 
 ### addComment
@@ -222,12 +228,14 @@ Add a comment to an order.
 **Method Name**: `sales_order.addComment`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
 - `status` (string, required) - Order status
 - `comment` (string, optional) - Comment text
 - `notify` (boolean, optional) - Whether to notify customer (default: false)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -254,6 +262,7 @@ Add a comment to an order.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist
 - `status_not_exists` - Status does not exist
 
@@ -264,9 +273,11 @@ Place an order on hold.
 **Method Name**: `sales_order.hold`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -293,6 +304,7 @@ Place an order on hold.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist
 - `order_not_holdable` - Order cannot be put on hold
 
@@ -303,9 +315,11 @@ Release an order from hold.
 **Method Name**: `sales_order.unhold`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -332,6 +346,7 @@ Release an order from hold.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist
 - `order_not_unholdable` - Order is not on hold
 
@@ -342,9 +357,11 @@ Cancel an order.
 **Method Name**: `sales_order.cancel`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -371,5 +388,6 @@ Cancel an order.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist
 - `order_not_cancelable` - Order cannot be canceled

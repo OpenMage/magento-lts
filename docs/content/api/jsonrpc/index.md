@@ -338,78 +338,7 @@ echo "Product ID: " . $result['result'];
 
 ## Available Resources
 
-The OpenMage API provides access to numerous resources. Here are the main resource categories:
-
-### Catalog Resources
-
-- **catalog_category**: Manage product categories
-  - [catalog_category.create](catalog_category.md#create)
-  - [catalog_category.update](catalog_category.md#update)
-  - [catalog_category.move](catalog_category.md#move)
-  - [catalog_category.delete](catalog_category.md#delete)
-  - [catalog_category.tree](catalog_category.md#tree)
-  - [catalog_category.info](catalog_category.md#info)
-  - [catalog_category.level](catalog_category.md#level)
-
-- **catalog_product**: Manage products
-  - [catalog_product.create](catalog_product.md#create)
-  - [catalog_product.update](catalog_product.md#update)
-  - [catalog_product.delete](catalog_product.md#delete)
-  - [catalog_product.info](catalog_product.md#info)
-  - [catalog_product.list](catalog_product.md#list)
-  - [catalog_product.attributes](catalog_product.md#attributes)
-
-### Customer Resources
-
-- **customer**: Manage customers
-  - [customer.create](customer.md#create)
-  - [customer.update](customer.md#update)
-  - [customer.delete](customer.md#delete)
-  - [customer.info](customer.md#info)
-  - [customer.list](customer.md#list)
-
-- **customer_address**: Manage customer addresses
-  - [customer_address.create](customer_address.md#create)
-  - [customer_address.update](customer_address.md#update)
-  - [customer_address.delete](customer_address.md#delete)
-  - [customer_address.info](customer_address.md#info)
-  - [customer_address.list](customer_address.md#list)
-
-### Sales Resources
-
-- **sales_order**: Manage orders
-  - [sales_order.info](sales_order.md#info)
-  - [sales_order.list](sales_order.md#list)
-  - [sales_order.addComment](sales_order.md#addComment)
-  - [sales_order.hold](sales_order.md#hold)
-  - [sales_order.unhold](sales_order.md#unhold)
-  - [sales_order.cancel](sales_order.md#cancel)
-
-- **sales_order_invoice**: Manage invoices
-  - [sales_order_invoice.create](sales_order_invoice.md#create)
-  - [sales_order_invoice.info](sales_order_invoice.md#info)
-  - [sales_order_invoice.list](sales_order_invoice.md#list)
-
-- **sales_order_shipment**: Manage shipments
-  - [sales_order_shipment.create](sales_order_shipment.md#create)
-  - [sales_order_shipment.info](sales_order_shipment.md#info)
-  - [sales_order_shipment.list](sales_order_shipment.md#list)
-
-### Inventory Resources
-
-- **cataloginventory_stock_item**: Manage inventory
-  - [cataloginventory_stock_item.list](cataloginventory_stock_item.md#list)
-  - [cataloginventory_stock_item.update](cataloginventory_stock_item.md#update)
-
-### Other Resources
-
-- **directory**: Access region and country information
-  - [directory.countries](directory.md#countries)
-  - [directory.regions](directory.md#regions)
-
-- **core**: Core functionality
-  - [core.resources](core.md#resources)
-  - [core.globalFaults](core.md#globalFaults)
+The OpenMage API provides access to numerous resources and third-party extensions may also provide additional resources. Please refer to the individual resource documentation pages in the left sidebar for more information on available methods and parameters.
 
 ## Best Practices
 
@@ -417,13 +346,7 @@ The OpenMage API provides access to numerous resources. Here are the main resour
 2. **Implement Rate Limiting**: Avoid overwhelming the server with too many requests
 3. **Cache Responses**: Cache responses when appropriate to reduce API calls
 4. **Handle Errors Gracefully**: Implement proper error handling in your applications
-5. **Use Batch Operations**: Use multiCall for better performance when making multiple requests
+5. **Use Batch Operations**: Use `multiCall` for better performance when making multiple requests
 6. **Validate Input**: Always validate input data before sending it to the API
 7. **Monitor API Usage**: Keep track of API usage to identify potential issues
 8. **Keep API Keys Secure**: Never expose API keys in client-side code
-
-## Conclusion
-
-The OpenMage JSON-RPC API provides a powerful and flexible way to interact with your OpenMage store programmatically. By following the guidelines and examples in this document, you can build robust integrations with your OpenMage store.
-
-For more detailed information about specific resources and methods, please refer to the individual resource documentation pages linked in the "Available Resources" section.

@@ -13,9 +13,11 @@ Retrieve list of addresses for a customer.
 **Method Name**: `customer_address.list`
 
 **Parameters**:
+
 - `customerId` (int, required) - Customer ID
 
 **Return**:
+
 - (array) - Array of addresses with the following structure:
   - `customer_address_id` (int) - Customer address ID
   - `created_at` (string) - Creation date
@@ -62,6 +64,7 @@ Retrieve list of addresses for a customer.
 ```
 
 **Possible Errors**:
+
 - `customer_not_exists` - Customer does not exist
 
 ### info
@@ -71,9 +74,11 @@ Retrieve detailed address information.
 **Method Name**: `customer_address.info`
 
 **Parameters**:
+
 - `addressId` (int, required) - Customer address ID
 
 **Return**:
+
 - (object) - Address information with the following structure:
   - `customer_address_id` (int) - Customer address ID
   - `customer_id` (int) - Customer ID
@@ -137,6 +142,7 @@ Retrieve detailed address information.
 ```
 
 **Possible Errors**:
+
 - `address_not_exists` - Address does not exist
 
 ### create
@@ -146,6 +152,7 @@ Create new address for a customer.
 **Method Name**: `customer_address.create`
 
 **Parameters**:
+
 - `customerId` (int, required) - Customer ID
 - `addressData` (array, required) - Address data:
   - `firstname` (string, required) - First name
@@ -166,6 +173,7 @@ Create new address for a customer.
   - `is_default_shipping` (boolean, optional) - Whether this is the default shipping address
 
 **Return**:
+
 - (int) - ID of the created address
 
 **Example Request**:
@@ -207,6 +215,7 @@ Create new address for a customer.
 ```
 
 **Possible Errors**:
+
 - `customer_not_exists` - Customer does not exist
 - `data_invalid` - Invalid data provided
 
@@ -217,10 +226,12 @@ Update customer address data.
 **Method Name**: `customer_address.update`
 
 **Parameters**:
+
 - `addressId` (int, required) - Customer address ID
 - `addressData` (array, required) - Address data to update (same structure as in create method)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -254,6 +265,7 @@ Update customer address data.
 ```
 
 **Possible Errors**:
+
 - `address_not_exists` - Address does not exist
 - `data_invalid` - Invalid data provided
 
@@ -264,9 +276,11 @@ Delete customer address.
 **Method Name**: `customer_address.delete`
 
 **Parameters**:
+
 - `addressId` (int, required) - Customer address ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -293,5 +307,6 @@ Delete customer address.
 ```
 
 **Possible Errors**:
+
 - `address_not_exists` - Address does not exist
 - `not_deleted` - Address could not be deleted

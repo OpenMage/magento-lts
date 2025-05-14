@@ -13,9 +13,11 @@ Sets the current store for product operations.
 **Method Name**: `catalog_product.currentStore`
 
 **Parameters**:
+
 - `store` (string|int, required) - Store ID or code
 
 **Return**:
+
 - (int) - Current store ID
 
 **Example Request**:
@@ -48,6 +50,7 @@ Retrieve list of products with basic info.
 **Method Name**: `catalog_product.list`
 
 **Parameters**:
+
 - `filters` (object|array, optional) - Filters to apply to the list:
   - `product_id` (int|array) - Filter by product ID(s)
   - `set` (int|array) - Filter by attribute set ID(s)
@@ -59,6 +62,7 @@ Retrieve list of products with basic info.
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (array) - Array of products with the following structure:
   - `product_id` (int) - Product ID
   - `sku` (string) - Product SKU
@@ -111,6 +115,7 @@ Retrieve list of products with basic info.
 ```
 
 **Possible Errors**:
+
 - `filters_invalid` - Invalid filters provided
 
 ### info
@@ -120,12 +125,14 @@ Retrieve product info.
 **Method Name**: `catalog_product.info`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `store` (string|int, optional) - Store ID or code
 - `attributes` (array, optional) - Array of attributes to return
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (array) - Product data with the following structure:
   - `product_id` (int) - Product ID
   - `sku` (string) - Product SKU
@@ -169,6 +176,7 @@ Retrieve product info.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 
 ### create
@@ -178,6 +186,7 @@ Create new product.
 **Method Name**: `catalog_product.create`
 
 **Parameters**:
+
 - `type` (string, required) - Product type (simple, configurable, grouped, virtual, bundle, downloadable)
 - `set` (int, required) - Attribute set ID
 - `sku` (string, required) - Product SKU
@@ -205,6 +214,7 @@ Create new product.
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (int) - ID of the created product
 
 **Example Request**:
@@ -252,6 +262,7 @@ Create new product.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `product_type_not_exists` - Product type does not exist
 - `product_attribute_set_not_exists` - Attribute set does not exist
@@ -264,12 +275,14 @@ Update product data.
 **Method Name**: `catalog_product.update`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `productData` (array, required) - Product data to update (same structure as in create method)
 - `store` (string|int, optional) - Store ID or code
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -305,6 +318,7 @@ Update product data.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `product_not_exists` - Product does not exist
 
@@ -315,12 +329,14 @@ Update multiple products in a single call.
 **Method Name**: `catalog_product.multiUpdate`
 
 **Parameters**:
+
 - `productIds` (array, required) - Array of product IDs or SKUs
 - `productData` (array, required) - Product data to update (same structure as in update method)
 - `store` (string|int, optional) - Store ID or code
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -355,6 +371,7 @@ Update multiple products in a single call.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `product_not_exists` - One or more products do not exist
 
@@ -365,10 +382,12 @@ Delete product.
 **Method Name**: `catalog_product.delete`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -395,6 +414,7 @@ Delete product.
 ```
 
 **Possible Errors**:
+
 - `not_deleted` - Product could not be deleted
 - `product_not_exists` - Product does not exist
 
@@ -405,10 +425,12 @@ Retrieve product special price.
 **Method Name**: `catalog_product.getSpecialPrice`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (array) - Special price data with the following structure:
   - `special_price` (float) - Special price
   - `special_from_date` (string) - Special price from date
@@ -442,6 +464,7 @@ Retrieve product special price.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 
 ### setSpecialPrice
@@ -451,6 +474,7 @@ Update product special price.
 **Method Name**: `catalog_product.setSpecialPrice`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `specialPrice` (float, optional) - Special price
 - `fromDate` (string, optional) - Special price from date (format: YYYY-MM-DD)
@@ -458,6 +482,7 @@ Update product special price.
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -484,6 +509,7 @@ Update product special price.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `product_not_exists` - Product does not exist
 
@@ -494,10 +520,12 @@ Get list of additional attributes which are not in default create/update list.
 **Method Name**: `catalog_product.listOfAdditionalAttributes`
 
 **Parameters**:
+
 - `productType` (string, required) - Product type
 - `attributeSetId` (int, required) - Attribute set ID
 
 **Return**:
+
 - (array) - Array of attributes with the following structure:
   - `attribute_id` (int) - Attribute ID
   - `code` (string) - Attribute code
@@ -544,5 +572,6 @@ Get list of additional attributes which are not in default create/update list.
 ```
 
 **Possible Errors**:
+
 - `product_type_not_exists` - Product type does not exist
 - `product_attribute_set_not_exists` - Attribute set does not exist

@@ -13,9 +13,11 @@ Retrieve attributes from specified attribute set.
 **Method Name**: `catalog_product_attribute.items`
 
 **Parameters**:
+
 - `setId` (int, required) - Attribute set ID
 
 **Return**:
+
 - (array) - Array of attributes with the following structure:
   - `attribute_id` (int) - Attribute ID
   - `code` (string) - Attribute code
@@ -68,10 +70,12 @@ Retrieve attribute options.
 **Method Name**: `catalog_product_attribute.options`
 
 **Parameters**:
+
 - `attributeId` (int, required) - Attribute ID
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (array) - Array of attribute options with the following structure:
   - `value` (string) - Option value
   - `label` (string) - Option label
@@ -113,6 +117,7 @@ Retrieve attribute options.
 ```
 
 **Possible Errors**:
+
 - `not_exists` - Attribute does not exist
 
 ### types
@@ -124,6 +129,7 @@ Retrieve list of possible attribute types.
 **Parameters**: None
 
 **Return**:
+
 - (array) - Array of attribute types with the following structure:
   - `value` (string) - Type value
   - `label` (string) - Type label
@@ -178,6 +184,8 @@ Retrieve list of possible attribute types.
   ],
   "id": 1
 }
+```
+
 ### create
 
 Create new product attribute.
@@ -185,6 +193,7 @@ Create new product attribute.
 **Method Name**: `catalog_product_attribute.create`
 
 **Parameters**:
+
 - `data` (array, required) - Attribute data:
   - `attribute_code` (string, required) - Attribute code
   - `frontend_input` (string, required) - Frontend input type
@@ -206,6 +215,7 @@ Create new product attribute.
   - `additional_fields` (array, optional) - Additional fields based on frontend input type
 
 **Return**:
+
 - (int) - ID of the created attribute
 
 **Example Request**:
@@ -247,6 +257,7 @@ Create new product attribute.
 ```
 
 **Possible Errors**:
+
 - `invalid_parameters` - Invalid parameters provided
 - `invalid_code` - Invalid attribute code
 - `invalid_frontend_input` - Invalid frontend input type
@@ -259,10 +270,12 @@ Update product attribute.
 **Method Name**: `catalog_product_attribute.update`
 
 **Parameters**:
+
 - `attribute` (int|string, required) - Attribute ID or code
 - `data` (array, required) - Attribute data to update (same structure as in create method)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -300,6 +313,7 @@ Update product attribute.
 ```
 
 **Possible Errors**:
+
 - `can_not_edit` - Attribute cannot be edited
 - `unable_to_save` - Unable to save attribute
 ### remove
@@ -309,9 +323,11 @@ Remove attribute.
 **Method Name**: `catalog_product_attribute.remove`
 
 **Parameters**:
+
 - `attribute` (int|string, required) - Attribute ID or code
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -338,6 +354,7 @@ Remove attribute.
 ```
 
 **Possible Errors**:
+
 - `can_not_delete` - Attribute cannot be deleted
 
 ### info
@@ -347,9 +364,11 @@ Get full information about attribute with list of options.
 **Method Name**: `catalog_product_attribute.info`
 
 **Parameters**:
+
 - `attribute` (int|string, required) - Attribute ID or code
 
 **Return**:
+
 - (array) - Attribute data with the following structure:
   - `attribute_id` (int) - Attribute ID
   - `attribute_code` (string) - Attribute code
@@ -442,6 +461,7 @@ Add option to select or multiselect attribute.
 **Method Name**: `catalog_product_attribute.addOption`
 
 **Parameters**:
+
 - `attribute` (int|string, required) - Attribute ID or code
 - `data` (array, required) - Option data:
   - `label` (array, required) - Array of option labels with the following structure:
@@ -451,6 +471,7 @@ Add option to select or multiselect attribute.
   - `is_default` (boolean, optional) - Whether the option is default
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -489,6 +510,7 @@ Add option to select or multiselect attribute.
 ```
 
 **Possible Errors**:
+
 - `invalid_frontend_input` - Invalid frontend input type
 - `unable_to_add_option` - Unable to add option
 
@@ -499,10 +521,12 @@ Remove option from select or multiselect attribute.
 **Method Name**: `catalog_product_attribute.removeOption`
 
 **Parameters**:
+
 - `attribute` (int|string, required) - Attribute ID or code
 - `optionId` (int, required) - Option ID to remove
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -529,6 +553,7 @@ Remove option from select or multiselect attribute.
 ```
 
 **Possible Errors**:
+
 - `invalid_frontend_input` - Invalid frontend input type
 - `unable_to_remove_option` - Unable to remove option
 
@@ -543,6 +568,7 @@ Retrieve attribute set list.
 **Parameters**: None
 
 **Return**:
+
 - (array) - Array of attribute sets with the following structure:
   - `set_id` (int) - Attribute set ID
   - `name` (string) - Attribute set name
@@ -578,6 +604,7 @@ Retrieve attribute set list.
   "id": 1
 }
 ```
+
 ### create
 
 Create new attribute set based on another set.
@@ -585,10 +612,12 @@ Create new attribute set based on another set.
 **Method Name**: `catalog_product_attribute_set.create`
 
 **Parameters**:
+
 - `attributeSetName` (string, required) - Attribute set name
 - `skeletonSetId` (int, required) - Skeleton attribute set ID
 
 **Return**:
+
 - (int) - ID of the created attribute set
 
 **Example Request**:
@@ -615,6 +644,7 @@ Create new attribute set based on another set.
 ```
 
 **Possible Errors**:
+
 - `invalid_skeleton_set_id` - Invalid skeleton attribute set ID
 - `invalid_data` - Invalid data provided
 - `create_attribute_set_error` - Error creating attribute set
@@ -626,10 +656,12 @@ Remove attribute set.
 **Method Name**: `catalog_product_attribute_set.remove`
 
 **Parameters**:
+
 - `attributeSetId` (int, required) - Attribute set ID
 - `forceProductsRemove` (boolean, optional) - Force removal of products with this attribute set
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -656,6 +688,7 @@ Remove attribute set.
 ```
 
 **Possible Errors**:
+
 - `invalid_attribute_set_id` - Invalid attribute set ID
 - `attribute_set_has_related_products` - Attribute set has related products
 - `remove_attribute_set_error` - Error removing attribute set
@@ -667,12 +700,14 @@ Add attribute to attribute set.
 **Method Name**: `catalog_product_attribute_set.attributeAdd`
 
 **Parameters**:
+
 - `attributeId` (int, required) - Attribute ID
 - `attributeSetId` (int, required) - Attribute set ID
 - `attributeGroupId` (int, optional) - Attribute group ID
 - `sortOrder` (int, optional) - Sort order
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -699,6 +734,7 @@ Add attribute to attribute set.
 ```
 
 **Possible Errors**:
+
 - `invalid_attribute_id` - Invalid attribute ID
 - `invalid_attribute_set_id` - Invalid attribute set ID
 - `invalid_attribute_group_id` - Invalid attribute group ID
@@ -712,10 +748,12 @@ Remove attribute from attribute set.
 **Method Name**: `catalog_product_attribute_set.attributeRemove`
 
 **Parameters**:
+
 - `attributeId` (int, required) - Attribute ID
 - `attributeSetId` (int, required) - Attribute set ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -742,6 +780,7 @@ Remove attribute from attribute set.
 ```
 
 **Possible Errors**:
+
 - `invalid_attribute_id` - Invalid attribute ID
 - `invalid_attribute_set_id` - Invalid attribute set ID
 - `attribute_is_not_in_set` - Attribute is not in set
@@ -754,10 +793,12 @@ Create group within existing attribute set.
 **Method Name**: `catalog_product_attribute_set.groupAdd`
 
 **Parameters**:
+
 - `attributeSetId` (int, required) - Attribute set ID
 - `groupName` (string, required) - Group name
 
 **Return**:
+
 - (int) - ID of the created group
 
 **Example Request**:
@@ -784,6 +825,7 @@ Create group within existing attribute set.
 ```
 
 **Possible Errors**:
+
 - `group_already_exists` - Group already exists
 - `group_add_error` - Error adding group
 
@@ -794,10 +836,12 @@ Rename existing group.
 **Method Name**: `catalog_product_attribute_set.groupRename`
 
 **Parameters**:
+
 - `groupId` (int, required) - Group ID
 - `groupName` (string, required) - New group name
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -824,6 +868,7 @@ Rename existing group.
 ```
 
 **Possible Errors**:
+
 - `invalid_attribute_group_id` - Invalid attribute group ID
 - `group_rename_error` - Error renaming group
 
@@ -834,9 +879,11 @@ Remove group from existing attribute set.
 **Method Name**: `catalog_product_attribute_set.groupRemove`
 
 **Parameters**:
+
 - `attributeGroupId` (int, required) - Attribute group ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -863,6 +910,7 @@ Remove group from existing attribute set.
 ```
 
 **Possible Errors**:
+
 - `invalid_attribute_group_id` - Invalid attribute group ID
 - `group_has_configurable_attributes` - Group has configurable attributes
 - `group_has_system_attributes` - Group has system attributes
@@ -879,6 +927,7 @@ Retrieve product type list.
 **Parameters**: None
 
 **Return**:
+
 - (array) - Array of product types with the following structure:
   - `type` (string) - Product type code
   - `label` (string) - Product type label
@@ -940,11 +989,13 @@ Retrieve images for product.
 **Method Name**: `catalog_product_attribute_media.items`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `store` (string|int, optional) - Store ID or code
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (array) - Array of product images with the following structure:
   - `file` (string) - Image file path
   - `label` (string) - Image label
@@ -994,6 +1045,7 @@ Retrieve images for product.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 
 ### info
@@ -1003,12 +1055,14 @@ Retrieve image data.
 **Method Name**: `catalog_product_attribute_media.info`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `file` (string, required) - Image file path
 - `store` (string|int, optional) - Store ID or code
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (array) - Image data with the same structure as in items method
 
 **Example Request**:
@@ -1042,6 +1096,7 @@ Retrieve image data.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 - `not_exists` - Image does not exist
 
@@ -1052,6 +1107,7 @@ Create new image for product and return image filename.
 **Method Name**: `catalog_product_attribute_media.create`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `data` (array, required) - Image data:
   - `file` (array, required) - Image file data:
@@ -1066,6 +1122,7 @@ Create new image for product and return image filename.
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (string) - Image file path
 
 **Example Request**:
@@ -1106,6 +1163,7 @@ Create new image for product and return image filename.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 - `data_invalid` - Invalid data provided
 - `not_created` - Image could not be created
@@ -1117,6 +1175,7 @@ Update image data.
 **Method Name**: `catalog_product_attribute_media.update`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `file` (string, required) - Image file path
 - `data` (array, required) - Image data to update (same structure as in create method)
@@ -1124,6 +1183,7 @@ Update image data.
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -1160,6 +1220,7 @@ Update image data.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 - `not_exists` - Image does not exist
 - `data_invalid` - Invalid data provided
@@ -1172,11 +1233,13 @@ Remove image from product.
 **Method Name**: `catalog_product_attribute_media.remove`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `file` (string, required) - Image file path
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -1203,6 +1266,7 @@ Remove image from product.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 - `not_exists` - Image does not exist
 - `not_removed` - Image could not be removed
@@ -1214,9 +1278,11 @@ Retrieve image types (image, small_image, thumbnail, etc...).
 **Method Name**: `catalog_product_attribute_media.types`
 
 **Parameters**:
+
 - `setId` (int, required) - Attribute set ID
 
 **Return**:
+
 - (array) - Array of image types with the following structure:
   - `code` (string) - Image type code
   - `scope` (string) - Image type scope (global, website, store)
@@ -1266,10 +1332,12 @@ Retrieve tier prices for a product.
 **Method Name**: `catalog_product_attribute_tier_price.info`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (array) - Array of tier prices with the following structure:
   - `customer_group_id` (string) - Customer group ID or 'all' for all groups
   - `website` (string) - Website code or 'all' for all websites
@@ -1313,6 +1381,7 @@ Retrieve tier prices for a product.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 
 ### update
@@ -1322,6 +1391,7 @@ Update tier prices of product.
 **Method Name**: `catalog_product_attribute_tier_price.update`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `tierPrices` (array, required) - Array of tier prices with the following structure:
   - `customer_group_id` (string, optional) - Customer group ID or 'all' for all groups (default: 'all')
@@ -1331,6 +1401,7 @@ Update tier prices of product.
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -1374,6 +1445,7 @@ Update tier prices of product.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 - `data_invalid` - Invalid data provided
 - `not_updated` - Tier prices could not be updated

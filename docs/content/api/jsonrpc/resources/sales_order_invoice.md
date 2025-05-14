@@ -1,34 +1,37 @@
-# Sales Order Credit Memo API
+# Sales Order Invoice API
 
 ## Introduction
 
-The Sales Order Credit Memo API allows you to manage credit memos in your OpenMage store. You can retrieve credit memo information, create new credit memos, add comments, and cancel credit memos.
+The Sales Order Invoice API allows you to manage invoices in your OpenMage store. You can retrieve invoice information, create new invoices, add comments, and perform various invoice operations such as capturing payment, voiding, and canceling invoices.
 
 ## Available Methods
 
 ### list
 
-Retrieve list of credit memos with basic info.
+Retrieve list of invoices with basic info.
 
-**Method Name**: `sales_order_creditmemo.list`
+**Method Name**: `sales_order_invoice.list`
 
 **Parameters**:
+
 - `filters` (object|array, optional) - Filters to apply to the list:
-  - `creditmemo_id` (int|array) - Filter by credit memo ID(s)
+  - `invoice_id` (int|array) - Filter by invoice ID(s)
   - `order_id` (int|array) - Filter by order ID(s)
   - `increment_id` (string|array) - Filter by increment ID(s)
   - `created_at` (string|array) - Filter by creation date
   - `order_increment_id` (string|array) - Filter by order increment ID(s)
+  - `state` (int|array) - Filter by state(s)
   - Other attributes can also be used as filters
 
 **Return**:
-- (array) - Array of credit memos with the following structure:
-  - `increment_id` (string) - Credit memo increment ID
-  - `creditmemo_id` (int) - Credit memo ID
+
+- (array) - Array of invoices with the following structure:
+  - `increment_id` (string) - Invoice increment ID
+  - `invoice_id` (int) - Invoice ID
   - `order_id` (int) - Order ID
   - `order_increment_id` (string) - Order increment ID
   - `created_at` (string) - Creation date
-  - `state` (int) - Credit memo state
+  - `state` (int) - Invoice state
   - `grand_total` (float) - Grand total
   - `store_id` (int) - Store ID
 
@@ -39,7 +42,7 @@ Retrieve list of credit memos with basic info.
   "method": "call",
   "params": [
     "session_id",
-    "sales_order_creditmemo.list",
+    "sales_order_invoice.list",
     [{"order_increment_id": "100000001"}]
   ],
   "id": 1
@@ -53,10 +56,10 @@ Retrieve list of credit memos with basic info.
   "result": [
     {
       "increment_id": "100000001",
-      "creditmemo_id": 1,
+      "invoice_id": 1,
       "order_id": 1,
       "order_increment_id": "100000001",
-      "created_at": "2023-01-17 09:45:20",
+      "created_at": "2023-01-16 11:15:30",
       "state": 2,
       "grand_total": 150.00,
       "store_id": 1
@@ -67,36 +70,38 @@ Retrieve list of credit memos with basic info.
 ```
 
 **Possible Errors**:
+
 - `filters_invalid` - Invalid filters provided
 
 ### info
 
-Retrieve detailed credit memo information.
+Retrieve detailed invoice information.
 
-**Method Name**: `sales_order_creditmemo.info`
+**Method Name**: `sales_order_invoice.info`
 
 **Parameters**:
-- `creditmemoIncrementId` (string, required) - Credit memo increment ID
+
+- `invoiceIncrementId` (string, required) - Invoice increment ID
 
 **Return**:
-- (object) - Credit memo information with the following structure:
-  - `increment_id` (string) - Credit memo increment ID
-  - `creditmemo_id` (int) - Credit memo ID
+
+- (object) - Invoice information with the following structure:
+  - `increment_id` (string) - Invoice increment ID
+  - `invoice_id` (int) - Invoice ID
   - `order_id` (int) - Order ID
   - `order_increment_id` (string) - Order increment ID
   - `created_at` (string) - Creation date
-  - `state` (int) - Credit memo state
+  - `state` (int) - Invoice state
   - `grand_total` (float) - Grand total
   - `subtotal` (float) - Subtotal
-  - `adjustment_positive` (float) - Positive adjustment
-  - `adjustment_negative` (float) - Negative adjustment
-  - `shipping_amount` (float) - Shipping amount
   - `tax_amount` (float) - Tax amount
+  - `shipping_amount` (float) - Shipping amount
+  - `discount_amount` (float) - Discount amount
   - `store_id` (int) - Store ID
   - `billing_address` (object) - Billing address information
   - `shipping_address` (object) - Shipping address information
-  - `items` (array) - Array of credit memo items
-  - `comments` (array) - Array of credit memo comments
+  - `items` (array) - Array of invoice items
+  - `comments` (array) - Array of invoice comments
 
 **Example Request**:
 ```json
@@ -105,7 +110,7 @@ Retrieve detailed credit memo information.
   "method": "call",
   "params": [
     "session_id",
-    "sales_order_creditmemo.info",
+    "sales_order_invoice.info",
     "100000001"
   ],
   "id": 1
@@ -118,17 +123,16 @@ Retrieve detailed credit memo information.
   "jsonrpc": "2.0",
   "result": {
     "increment_id": "100000001",
-    "creditmemo_id": 1,
+    "invoice_id": 1,
     "order_id": 1,
     "order_increment_id": "100000001",
-    "created_at": "2023-01-17 09:45:20",
+    "created_at": "2023-01-16 11:15:30",
     "state": 2,
     "grand_total": 150.00,
     "subtotal": 140.00,
-    "adjustment_positive": 0.00,
-    "adjustment_negative": 0.00,
-    "shipping_amount": 10.00,
     "tax_amount": 0.00,
+    "shipping_amount": 10.00,
+    "discount_amount": 0.00,
     "store_id": 1,
     "billing_address": {
       "firstname": "John",
@@ -167,8 +171,8 @@ Retrieve detailed credit memo information.
       {
         "comment_id": 1,
         "parent_id": 1,
-        "created_at": "2023-01-17 09:45:20",
-        "comment": "Credit memo created"
+        "created_at": "2023-01-16 11:15:30",
+        "comment": "Invoice created"
       }
     ]
   },
@@ -177,31 +181,28 @@ Retrieve detailed credit memo information.
 ```
 
 **Possible Errors**:
-- `creditmemo_not_exists` - Credit memo does not exist
+
+- `invoice_not_exists` - Invoice does not exist
 
 ### create
 
-Create a new credit memo for an order.
+Create a new invoice for an order.
 
-**Method Name**: `sales_order_creditmemo.create`
+**Method Name**: `sales_order_invoice.create`
 
 **Parameters**:
+
 - `orderIncrementId` (string, required) - Order increment ID
-- `creditmemoData` (object, optional) - Credit memo data:
-  - `items` (array, optional) - Array of items to refund:
-    - `order_item_id` (int) - Order item ID
-    - `qty` (float) - Quantity to refund
-  - `comment` (string, optional) - Credit memo comment
-  - `adjustment_positive` (float, optional) - Positive adjustment amount
-  - `adjustment_negative` (float, optional) - Negative adjustment amount
-  - `shipping_amount` (float, optional) - Shipping amount to refund
-  - `refund_to_store_credit` (boolean, optional) - Whether to refund to store credit
-- `comment` (string, optional) - Credit memo comment
+- `itemsQty` (array, optional) - Array of items to invoice with quantities:
+  - `order_item_id` (int) - Order item ID
+  - `qty` (float) - Quantity to invoice
+- `comment` (string, optional) - Invoice comment
 - `email` (boolean, optional) - Whether to send email notification (default: false)
 - `includeComment` (boolean, optional) - Whether to include comment in email (default: false)
 
 **Return**:
-- (string) - Credit memo increment ID
+
+- (string) - Invoice increment ID
 
 **Example Request**:
 ```json
@@ -210,16 +211,11 @@ Create a new credit memo for an order.
   "method": "call",
   "params": [
     "session_id",
-    "sales_order_creditmemo.create",
+    "sales_order_invoice.create",
     [
       "100000001",
-      {
-        "items": {
-          "1": {"qty": 2}
-        },
-        "shipping_amount": 10.00
-      },
-      "Credit memo created",
+      {"1": 2},
+      "Invoice created",
       true,
       true
     ]
@@ -238,23 +234,26 @@ Create a new credit memo for an order.
 ```
 
 **Possible Errors**:
+
 - `order_not_exists` - Order does not exist
-- `order_not_refundable` - Order cannot be refunded
+- `order_not_invoiceable` - Order cannot be invoiced
 - `data_invalid` - Invalid data provided
 
 ### addComment
 
-Add a comment to a credit memo.
+Add a comment to an invoice.
 
-**Method Name**: `sales_order_creditmemo.addComment`
+**Method Name**: `sales_order_invoice.addComment`
 
 **Parameters**:
-- `creditmemoIncrementId` (string, required) - Credit memo increment ID
+
+- `invoiceIncrementId` (string, required) - Invoice increment ID
 - `comment` (string, required) - Comment text
 - `email` (boolean, optional) - Whether to send email notification (default: false)
 - `includeInEmail` (boolean, optional) - Whether to include comment in email (default: false)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -264,8 +263,8 @@ Add a comment to a credit memo.
   "method": "call",
   "params": [
     "session_id",
-    "sales_order_creditmemo.addComment",
-    ["100000001", "Refund processed", true, true]
+    "sales_order_invoice.addComment",
+    ["100000001", "Payment received", true, true]
   ],
   "id": 1
 }
@@ -281,18 +280,21 @@ Add a comment to a credit memo.
 ```
 
 **Possible Errors**:
-- `creditmemo_not_exists` - Credit memo does not exist
 
-### cancel
+- `invoice_not_exists` - Invoice does not exist
 
-Cancel a credit memo.
+### capture
 
-**Method Name**: `sales_order_creditmemo.cancel`
+Capture an invoice.
+
+**Method Name**: `sales_order_invoice.capture`
 
 **Parameters**:
-- `creditmemoIncrementId` (string, required) - Credit memo increment ID
+
+- `invoiceIncrementId` (string, required) - Invoice increment ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -302,7 +304,7 @@ Cancel a credit memo.
   "method": "call",
   "params": [
     "session_id",
-    "sales_order_creditmemo.cancel",
+    "sales_order_invoice.capture",
     "100000001"
   ],
   "id": 1
@@ -319,5 +321,90 @@ Cancel a credit memo.
 ```
 
 **Possible Errors**:
-- `creditmemo_not_exists` - Credit memo does not exist
-- `creditmemo_not_cancelable` - Credit memo cannot be canceled
+
+- `invoice_not_exists` - Invoice does not exist
+- `invoice_not_capturable` - Invoice cannot be captured
+
+### void
+
+Void an invoice.
+
+**Method Name**: `sales_order_invoice.void`
+
+**Parameters**:
+
+- `invoiceIncrementId` (string, required) - Invoice increment ID
+
+**Return**:
+
+- (boolean) - True on success
+
+**Example Request**:
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "call",
+  "params": [
+    "session_id",
+    "sales_order_invoice.void",
+    "100000001"
+  ],
+  "id": 1
+}
+```
+
+**Example Response**:
+```json
+{
+  "jsonrpc": "2.0",
+  "result": true,
+  "id": 1
+}
+```
+
+**Possible Errors**:
+
+- `invoice_not_exists` - Invoice does not exist
+- `invoice_not_voidable` - Invoice cannot be voided
+
+### cancel
+
+Cancel an invoice.
+
+**Method Name**: `sales_order_invoice.cancel`
+
+**Parameters**:
+
+- `invoiceIncrementId` (string, required) - Invoice increment ID
+
+**Return**:
+
+- (boolean) - True on success
+
+**Example Request**:
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "call",
+  "params": [
+    "session_id",
+    "sales_order_invoice.cancel",
+    "100000001"
+  ],
+  "id": 1
+}
+```
+
+**Example Response**:
+```json
+{
+  "jsonrpc": "2.0",
+  "result": true,
+  "id": 1
+}
+```
+
+**Possible Errors**:
+
+- `invoice_not_exists` - Invoice does not exist
+- `invoice_not_cancelable` - Invoice cannot be canceled

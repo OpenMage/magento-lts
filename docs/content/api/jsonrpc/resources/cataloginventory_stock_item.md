@@ -13,10 +13,12 @@ Retrieve stock information for products.
 **Method Name**: `cataloginventory_stock_item.list`
 
 **Parameters**:
+
 - `productIds` (array, required) - Array of product IDs or SKUs
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (array) - Array of stock items with the following structure:
   - `product_id` (int) - Product ID
   - `sku` (string) - Product SKU
@@ -99,6 +101,7 @@ Retrieve stock information for products.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - One or more products do not exist
 
 ### update
@@ -108,6 +111,7 @@ Update stock information for a product.
 **Method Name**: `cataloginventory_stock_item.update`
 
 **Parameters**:
+
 - `productId` (int|string, required) - Product ID or SKU
 - `stockData` (array, required) - Stock data:
   - `qty` (float, optional) - Quantity
@@ -128,6 +132,7 @@ Update stock information for a product.
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -162,6 +167,7 @@ Update stock information for a product.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - Product does not exist
 - `data_invalid` - Invalid data provided
 
@@ -172,11 +178,13 @@ Update stock information for multiple products in a single call.
 **Method Name**: `cataloginventory_stock_item.multiUpdate`
 
 **Parameters**:
+
 - `productIds` (array, required) - Array of product IDs or SKUs
 - `stockData` (array, required) - Stock data (same structure as in update method)
 - `identifierType` (string, optional) - Type of product identifier ('sku' or null for ID)
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -210,10 +218,12 @@ Update stock information for multiple products in a single call.
 ```
 
 **Possible Errors**:
+
 - `product_not_exists` - One or more products do not exist
 - `data_invalid` - Invalid data provided
 
 **Notes**:
+
 - When updating stock information, you only need to include the fields you want to change. Other fields will retain their current values.
 - The `use_config_*` fields determine whether to use the system configuration value for the corresponding setting. When set to 1, the system configuration value is used regardless of the value specified for the setting.
 - When managing inventory for configurable, grouped, or bundle products, you should update the stock for the associated simple products, as the parent product's stock is calculated based on its child products.

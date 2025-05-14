@@ -13,6 +13,7 @@ Retrieve list of customers with basic info.
 **Method Name**: `customer.list`
 
 **Parameters**:
+
 - `filters` (object|array, optional) - Filters to apply to the list:
   - `customer_id` (int|array) - Filter by customer ID(s)
   - `email` (string|array) - Filter by email(s)
@@ -26,6 +27,7 @@ Retrieve list of customers with basic info.
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (array) - Array of customers with the following structure:
   - `customer_id` (int) - Customer ID
   - `email` (string) - Customer email
@@ -81,6 +83,7 @@ Retrieve list of customers with basic info.
 ```
 
 **Possible Errors**:
+
 - `filters_invalid` - Invalid filters provided
 - `store_not_exists` - Requested store does not exist
 
@@ -91,10 +94,12 @@ Retrieve detailed customer information.
 **Method Name**: `customer.info`
 
 **Parameters**:
+
 - `customerId` (int, required) - Customer ID
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (object) - Customer information with the following structure:
   - `customer_id` (int) - Customer ID
   - `email` (string) - Customer email
@@ -158,6 +163,7 @@ Retrieve detailed customer information.
 ```
 
 **Possible Errors**:
+
 - `customer_not_exists` - Customer does not exist
 - `store_not_exists` - Requested store does not exist
 
@@ -168,6 +174,7 @@ Create new customer.
 **Method Name**: `customer.create`
 
 **Parameters**:
+
 - `customerData` (array, required) - Customer data:
   - `email` (string, required) - Customer email
   - `firstname` (string, required) - Customer first name
@@ -185,6 +192,7 @@ Create new customer.
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (int) - ID of the created customer
 
 **Example Request**:
@@ -224,6 +232,7 @@ Create new customer.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `customer_data_invalid` - Invalid customer data
 - `customer_exists` - Customer with the same email already exists
@@ -237,11 +246,13 @@ Update customer data.
 **Method Name**: `customer.update`
 
 **Parameters**:
+
 - `customerId` (int, required) - Customer ID
 - `customerData` (array, required) - Customer data to update (same structure as in create method, except password is optional)
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -276,6 +287,7 @@ Update customer data.
 ```
 
 **Possible Errors**:
+
 - `data_invalid` - Invalid data provided
 - `customer_not_exists` - Customer does not exist
 - `customer_data_invalid` - Invalid customer data
@@ -290,9 +302,11 @@ Delete customer.
 **Method Name**: `customer.delete`
 
 **Parameters**:
+
 - `customerId` (int, required) - Customer ID
 
 **Return**:
+
 - (boolean) - True on success
 
 **Example Request**:
@@ -319,5 +333,6 @@ Delete customer.
 ```
 
 **Possible Errors**:
+
 - `customer_not_exists` - Customer does not exist
 - `not_deleted` - Customer could not be deleted
