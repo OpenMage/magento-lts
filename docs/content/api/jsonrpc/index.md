@@ -65,18 +65,18 @@ To use the OpenMage API, you must either authenticate with the login method to o
 
 As an alternative to session-based authentication, OpenMage also supports HTTP Basic Authentication for API requests. This method simplifies the authentication process by eliminating the need for a separate login step.
 
-#### How HTTP Basic Auth Works
+#### How HTTP Basic Authorization Works
 
-1. **Use API Credentials**: The API username and API key (created in admin panel) are used as the username and password for HTTP Basic Auth
-2. **Skip Login Call**: When using HTTP Basic Auth, the "login" call is not required
+1. **Use API Credentials**: The API username and API key (created in admin panel) are used as the username and password for HTTP Basic Authorization
+2. **Skip Login Call**: When using HTTP Basic Authorization, the "login" call is not required
 3. **Null Session ID**: The session ID parameter in the "call" method can be set to "null"
-4. **Include Auth Header**: Include the Authorization header with each request
+4. **Include Authorization Header**: Include the Authorization header with each request
 
-#### HTTP Basic Auth Example
+#### HTTP Basic Authorization Example
 
 ```php
 <?php
-// PHP example using HTTP Basic Auth
+// PHP example using HTTP Basic Authorization
 $jsonRpcUrl = 'https://your-magento-store.com/api/jsonrpc';
 $apiUser = 'apiuser';
 $apiKey = 'apikey123';
@@ -86,7 +86,7 @@ $requestData = array(
     'jsonrpc' => '2.0',
     'method' => 'call',
     'params' => [
-        null, // Null session ID when using HTTP Basic Auth
+        null, // Null session ID when using HTTP Basic Authorization
         'catalog_product.info',
         'product_sku_123'
     ],
@@ -96,7 +96,7 @@ $requestData = array(
 $ch = curl_init($jsonRpcUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-curl_setopt($ch, CURLOPT_USERPWD, "$apiUser:$apiKey"); // HTTP Basic Auth
+curl_setopt($ch, CURLOPT_USERPWD, "$apiUser:$apiKey"); // HTTP Basic Authorization
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
 
@@ -127,13 +127,13 @@ The OpenMage API implements the JSON-RPC 2.0 specification, which defines a stat
 }
 ```
 
-- **jsonrpc**: Must be exactly "2.0"
-- **method**: For most API calls, this will be "call"
-- **params**: An array containing:
-  1. The session ID obtained from login or `null` for HTTP Basic Auth
+- `jsonrpc`: Must be exactly "2.0"
+- `method`: For most API calls, this will be "call"
+- `params`: An array containing:
+  1. The session ID obtained from login or `null` for HTTP Basic Authorization
   2. The resource and method name in the format "resource.method"
   3. An array of parameters for the method
-- **id**: A unique identifier for the request (can be a string or number)
+- `id`: A unique identifier for the request (can be a string or number)
 
 ### Response Format
 
@@ -145,9 +145,9 @@ The OpenMage API implements the JSON-RPC 2.0 specification, which defines a stat
 }
 ```
 
-- **jsonrpc**: Always "2.0"
-- **result**: The data returned by the method call
-- **id**: The same ID that was sent in the request
+- `jsonrpc`: Always "2.0"
+- `result`: The data returned by the method call
+- `id`: The same ID that was sent in the request
 
 ### Error Response Format
 
@@ -197,7 +197,7 @@ The API also uses HTTP status codes to indicate the status of requests:
 2. **API Calls**: Make one or more API calls using the session ID
 3. **End Session**: Optionally end the session when finished
 
-### Batch Operations with multiCall
+### Batch Operations with `multiCall`
 
 For improved performance when making multiple API calls, use the `multiCall` method to batch requests:
 

@@ -22,6 +22,8 @@ Gitpod
 HiPay
 Homebrew
 HMAC
+HTTP
+HTTPS
 ImageMagick
 IntelliSense
 jQuery
@@ -58,6 +60,7 @@ RSS
 RWD
 SCSS
 SHA
+SKU
 SMTP
 SSL
 TinyMCE

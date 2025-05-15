@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Sales Order API allows you to manage orders in your OpenMage store. You can retrieve order information, add comments to orders, and perform various order operations such as holding, unholding, and canceling orders.
+The Sales Order API allows you to manage orders in your OpenMage store. You can retrieve order information, add comments to orders, and perform various order operations such as holding, un-holding, and canceling orders.
 
 ## Available Methods
 
