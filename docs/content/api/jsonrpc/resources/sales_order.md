@@ -221,7 +221,7 @@ Retrieve detailed order information.
 
 - `order_not_exists` - Order does not exist
 
-### addComment
+### `addComment`
 
 Add a comment to an order.
 
@@ -308,7 +308,7 @@ Place an order on hold.
 - `order_not_exists` - Order does not exist
 - `order_not_holdable` - Order cannot be put on hold
 
-### unhold
+### `unhold`
 
 Release an order from hold.
 
@@ -350,7 +350,7 @@ Release an order from hold.
 - `order_not_exists` - Order does not exist
 - `order_not_unholdable` - Order is not on hold
 
-### cancel
+### `cancel`
 
 Cancel an order.
 

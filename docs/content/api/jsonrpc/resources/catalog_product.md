@@ -6,7 +6,7 @@ The Catalog Product API allows you to manage products in your OpenMage store. Yo
 
 ## Available Methods
 
-### currentStore
+### `currentStore`
 
 Sets the current store for product operations.
 
@@ -43,7 +43,7 @@ Sets the current store for product operations.
 }
 ```
 
-### list
+### `list`
 
 Retrieve list of products with basic info.
 
@@ -118,7 +118,7 @@ Retrieve list of products with basic info.
 
 - `filters_invalid` - Invalid filters provided
 
-### info
+### `info`
 
 Retrieve product info.
 
@@ -179,7 +179,7 @@ Retrieve product info.
 
 - `product_not_exists` - Product does not exist
 
-### create
+### `create`
 
 Create new product.
 
@@ -268,7 +268,7 @@ Create new product.
 - `product_attribute_set_not_exists` - Attribute set does not exist
 - `product_attribute_set_not_valid` - Attribute set is not valid for the product
 
-### update
+### `update`
 
 Update product data.
 
@@ -322,7 +322,7 @@ Update product data.
 - `data_invalid` - Invalid data provided
 - `product_not_exists` - Product does not exist
 
-### multiUpdate
+### `multiUpdate`
 
 Update multiple products in a single call.
 
@@ -375,7 +375,7 @@ Update multiple products in a single call.
 - `data_invalid` - Invalid data provided
 - `product_not_exists` - One or more products do not exist
 
-### delete
+### `delete`
 
 Delete product.
 
@@ -418,7 +418,7 @@ Delete product.
 - `not_deleted` - Product could not be deleted
 - `product_not_exists` - Product does not exist
 
-### getSpecialPrice
+### `getSpecialPrice`
 
 Retrieve product special price.
 
@@ -467,7 +467,7 @@ Retrieve product special price.
 
 - `product_not_exists` - Product does not exist
 
-### setSpecialPrice
+### `setSpecialPrice`
 
 Update product special price.
 
@@ -513,7 +513,7 @@ Update product special price.
 - `data_invalid` - Invalid data provided
 - `product_not_exists` - Product does not exist
 
-### listOfAdditionalAttributes
+### `listOfAdditionalAttributes`
 
 Get list of additional attributes which are not in default create/update list.
 
