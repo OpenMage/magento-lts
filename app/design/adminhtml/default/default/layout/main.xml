@@ -53,6 +53,7 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/adminhtml/events.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/loader.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/grid.js</script></action>
+                <action method="addJs"><script>mage/adminhtml/grid-double-scroll.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/tabs.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/form.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/accordion.js</script></action>
