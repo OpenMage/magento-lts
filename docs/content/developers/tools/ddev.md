@@ -12,7 +12,7 @@ To install OpenMage in seconds, follow the DDEV [installation guide](https://dde
 
 !!! info "Docker only"
     For development environment without dependencies aside from Docker, see the
-    [Docker Compose](/developers/tools/oneline) guide.
+    [Docker Compose](oneline.md) guide.
 
 !!! info "Test Environment for OpenMage in Windows 10 Based on DDEV"
     For development environment with Windows 10, see this [guide](/blog/2024/08/17/test-environment-for-openmage-in-windows-10-based-on-ddev/).

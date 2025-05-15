@@ -19,7 +19,7 @@ The OpenMage API is built on a modular architecture that supports multiple proto
 - **JSON-RPC**: A lightweight protocol that uses JSON for data encoding
 - **XML-RPC**: Similar to JSON-RPC but uses XML for data encoding
 - **SOAP**: A comprehensive web service protocol with formal WSDL definitions
-- **REST**: See [OpenMage REST API](../rest/common_http_status_codes/) for more information
+- **REST**: See [OpenMage REST API](../rest/common_http_status_codes.md) for more information
 
 The JSON-RPC adapter is implemented in `Mage_Api_Model_Server_Adapter_Jsonrpc` and uses the `Zend_Json_Server` component to handle requests and responses. The API follows a resource-based architecture where functionality is organized into logical resources (like catalog, customer, sales) with methods that operate on those resources.
 
