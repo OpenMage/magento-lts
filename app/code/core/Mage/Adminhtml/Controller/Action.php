@@ -145,15 +145,15 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     {
         // get legacy theme choice form backend config
         if (Mage::getStoreConfigFlag('admin/design/use_legacy_theme')) {
-            $theme = Mage::getConfig()->getNode('stores/admin/design/theme/default');
+            $package = Mage::getConfig()->getNode('stores/admin/design/package/name');
         } else {
-            $theme = Mage::getConfig()->getNode('stores/admin/design/theme/openmage');
+            $package = Mage::getConfig()->getNode('stores/admin/design/package/openmage');
         }
 
         Mage::getDesign()
             ->setArea($this->_currentArea)
-            ->setPackageName((string) Mage::getConfig()->getNode('stores/admin/design/package/name'))
-            ->setTheme((string) $theme);
+            ->setPackageName((string) $package)
+            ->setTheme((string) Mage::getConfig()->getNode('stores/admin/design/theme/default'));
         foreach (['layout', 'template', 'skin', 'locale'] as $type) {
             if ($value = (string) Mage::getConfig()->getNode("stores/admin/design/theme/{$type}")) {
                 Mage::getDesign()->setTheme($type, $value);
