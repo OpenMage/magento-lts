@@ -239,7 +239,7 @@ Create a new invoice for an order.
 - `order_not_invoiceable` - Order cannot be invoiced
 - `data_invalid` - Invalid data provided
 
-### addComment
+### `addComment`
 
 Add a comment to an invoice.
 

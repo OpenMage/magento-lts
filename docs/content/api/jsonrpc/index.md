@@ -33,7 +33,7 @@ The JSON-RPC adapter is implemented in `Mage_Api_Model_Server_Adapter_Jsonrpc` a
 
 ## Authentication
 
-To use the OpenMage API, you must either authenticate with the login method to obtain a session ID and inlcude this session ID with all subsequent API calls, or use the HTTP Basic Authentication method. The HTTP Basic Authentication method allows you to skip the login step and use your API credentials directly in the request which is simpler for many use cases, but does expose your credentials in each request whereas the session ID expires and needs to be refreshed periodically.
+To use the OpenMage API, you must either authenticate with the login method to obtain a session ID and include this session ID with all subsequent API calls, or use the HTTP Basic Authentication method. The HTTP Basic Authentication method allows you to skip the login step and use your API credentials directly in the request which is simpler for many use cases, but does expose your credentials in each request whereas the session ID expires and needs to be refreshed periodically.
 
 ### Login Authentication Process
 

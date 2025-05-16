@@ -251,7 +251,7 @@ Create a new credit memo for an order.
 - `order_not_refundable` - Order cannot be refunded
 - `data_invalid` - Invalid data provided
 
-### addComment
+### `addComment`
 
 Add a comment to a credit memo.
 

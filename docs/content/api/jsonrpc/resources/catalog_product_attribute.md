@@ -454,9 +454,9 @@ Get full information about attribute with list of options.
 }
 ```
 
-### addOption
+### `addOption`
 
-Add option to select or multiselect attribute.
+Add option to select or multi-select attribute.
 
 **Method Name**: `catalog_product_attribute.addOption`
 
@@ -514,9 +514,9 @@ Add option to select or multiselect attribute.
 - `invalid_frontend_input` - Invalid frontend input type
 - `unable_to_add_option` - Unable to add option
 
-### removeOption
+### `removeOption`
 
-Remove option from select or multiselect attribute.
+Remove option from select or multi-select attribute.
 
 **Method Name**: `catalog_product_attribute.removeOption`
 
@@ -693,7 +693,7 @@ Remove attribute set.
 - `attribute_set_has_related_products` - Attribute set has related products
 - `remove_attribute_set_error` - Error removing attribute set
 
-### attributeAdd
+### `attributeAdd`
 
 Add attribute to attribute set.
 
@@ -741,7 +741,7 @@ Add attribute to attribute set.
 - `attribute_is_already_in_set` - Attribute is already in set
 - `add_attribute_error` - Error adding attribute
 
-### attributeRemove
+### `attributeRemove`
 
 Remove attribute from attribute set.
 
@@ -786,7 +786,7 @@ Remove attribute from attribute set.
 - `attribute_is_not_in_set` - Attribute is not in set
 - `remove_attribute_error` - Error removing attribute
 
-### groupAdd
+### `groupAdd`
 
 Create group within existing attribute set.
 
@@ -829,7 +829,7 @@ Create group within existing attribute set.
 - `group_already_exists` - Group already exists
 - `group_add_error` - Error adding group
 
-### groupRename
+### `groupRename`
 
 Rename existing group.
 
@@ -872,7 +872,7 @@ Rename existing group.
 - `invalid_attribute_group_id` - Invalid attribute group ID
 - `group_rename_error` - Error renaming group
 
-### groupRemove
+### `groupRemove`
 
 Remove group from existing attribute set.
 

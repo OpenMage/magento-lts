@@ -185,7 +185,7 @@ Create new customer.
   - `middlename` (string, optional) - Customer middle name
   - `prefix` (string, optional) - Name prefix
   - `suffix` (string, optional) - Name suffix
-  - `dob` (string, optional) - Date of birth (format: YYYY-MM-DD)
+  - `dob` (string, optional) - Date of birth (format: `YYYY-MM-DD`)
   - `taxvat` (string, optional) - Tax/VAT number
   - `is_subscribed` (boolean, optional) - Whether customer is subscribed to newsletter
   - `store_id` (int, optional) - Store ID

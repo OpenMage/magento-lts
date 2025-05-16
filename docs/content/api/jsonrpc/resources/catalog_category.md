@@ -6,7 +6,7 @@ The Catalog Category API allows you to manage product categories in your OpenMag
 
 ## Available Methods
 
-### currentStore
+### `currentStore`
 
 Sets the current store for category operations.
 
@@ -430,7 +430,7 @@ Delete category.
 - `not_deleted` - Category could not be deleted
 - `not_exists` - Category does not exist
 
-### assignedProducts
+### `assignedProducts`
 
 Retrieve list of assigned products to category.
 
@@ -488,7 +488,7 @@ Retrieve list of assigned products to category.
 }
 ```
 
-### assignProduct
+### `assignProduct`
 
 Assign product to category.
 
@@ -534,7 +534,7 @@ Assign product to category.
 - `not_exists` - Category does not exist
 - `product_not_exists` - Product does not exist
 
-### updateProduct
+### `updateProduct`
 
 Update product assignment.
 
@@ -581,7 +581,7 @@ Update product assignment.
 - `product_not_exists` - Product does not exist
 - `product_not_assigned` - Product is not assigned to the category
 
-### removeProduct
+### `removeProduct`
 
 Remove product assignment from category.
 

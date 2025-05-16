@@ -477,8 +477,8 @@ Update product special price.
 
 - `productId` (int|string, required) - Product ID or SKU
 - `specialPrice` (float, optional) - Special price
-- `fromDate` (string, optional) - Special price from date (format: YYYY-MM-DD)
-- `toDate` (string, optional) - Special price to date (format: YYYY-MM-DD)
+- `fromDate` (string, optional) - Special price from date (format: `YYYY-MM-DD`)
+- `toDate` (string, optional) - Special price to date (format: `YYYY-MM-DD`)
 - `store` (string|int, optional) - Store ID or code
 
 **Return**:

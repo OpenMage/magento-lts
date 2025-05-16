@@ -171,7 +171,7 @@ Update stock information for a product.
 - `product_not_exists` - Product does not exist
 - `data_invalid` - Invalid data provided
 
-### multiUpdate
+### `multiUpdate`
 
 Update stock information for multiple products in a single call.
 

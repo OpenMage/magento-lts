@@ -236,7 +236,7 @@ Create a new shipment for an order.
 - `order_not_shippable` - Order cannot be shipped
 - `data_invalid` - Invalid data provided
 
-### addComment
+### `addComment`
 
 Add a comment to a shipment.
 
@@ -280,7 +280,7 @@ Add a comment to a shipment.
 
 - `shipment_not_exists` - Shipment does not exist
 
-### addTrack
+### `addTrack`
 
 Add tracking information to a shipment.
 
@@ -325,7 +325,7 @@ Add tracking information to a shipment.
 - `shipment_not_exists` - Shipment does not exist
 - `data_invalid` - Invalid data provided
 
-### removeTrack
+### `removeTrack`
 
 Remove tracking information from a shipment.
 
@@ -368,7 +368,7 @@ Remove tracking information from a shipment.
 - `shipment_not_exists` - Shipment does not exist
 - `track_not_exists` - Tracking information does not exist
 
-### sendInfo
+### `sendInfo`
 
 Send shipment information to the customer.
 
@@ -410,7 +410,7 @@ Send shipment information to the customer.
 
 - `shipment_not_exists` - Shipment does not exist
 
-### getCarriers
+### `getCarriers`
 
 Get list of available shipping carriers.
 
