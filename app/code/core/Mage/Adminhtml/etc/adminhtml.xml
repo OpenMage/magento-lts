@@ -194,6 +194,10 @@
                                         <title>Admin</title>
                                         <sort_order>100</sort_order>
                                     </admin>
+                                    <advanced_grid translate="title">
+                                        <title>Admin Grids</title>
+                                        <sort_order>101</sort_order>
+                                    </advanced_grid>
                                 </children>
                             </config>
                             <currency translate="title">
@@ -227,6 +231,9 @@
                                     </profiles>
                                 </children>
                             </convert>
+                            <rearrange_grids_columns>
+                                <title>Rearrange Grids Columns</title>
+                            </rearrange_grids_columns>
                             <cache translate="title">
                                 <title>Cache Management</title>
                             </cache>
