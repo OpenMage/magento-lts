@@ -5308,229 +5308,397 @@ parameters:
 			message: '#^Call to an undefined method Mage_Core_Block_Abstract\:\:_getUsers\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/api/role_users_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/api/role_users_grid_js.phtml
 
 		-
 			message: '#^Call to protected method _getGridHtml\(\) of class Mage_Adminhtml_Block_Api_Tab_Rolesusers\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/api/rolesusers.phtml
+			path: app/design/adminhtml/base/default/template/api/rolesusers.phtml
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Block_Abstract\:\:_getSelectedRoles\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/api/user_roles_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/api/user_roles_grid_js.phtml
+
+		-
+			message: '#^Variable \$roles might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/api/userroles.phtml
+
+		-
+			message: '#^Variable \$user_roles might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/api/userroles.phtml
 
 		-
 			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/checkbox.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/checkbox.phtml
 
 		-
 			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/multi.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/multi.phtml
 
 		-
 			message: '#^Call to protected method _getDefaultValues\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
 
 		-
 			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
 
 		-
 			message: '#^Call to protected method _showSingle\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/radio.phtml
 
 		-
 			message: '#^Call to protected method _getDefaultValues\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/select.phtml
 
 		-
 			message: '#^Call to protected method _isSelected\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/select.phtml
 
 		-
 			message: '#^Call to protected method _showSingle\(\) of class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/select.phtml
+			path: app/design/adminhtml/base/default/template/bundle/product/composite/fieldset/options/type/select.phtml
 
 		-
 			message: '#^Call to protected method _getHeader\(\) of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/main.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/attribute/set/main.phtml
 
 		-
 			message: '#^Call to protected method _getHeader\(\) of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Add\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/toolbar/add.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/attribute/set/toolbar/add.phtml
 
 		-
 			message: '#^Call to protected method _getHeader\(\) of class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Toolbar_Main\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/attribute/set/toolbar/main.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/attribute/set/toolbar/main.phtml
 
 		-
 			message: '#^Access to an undefined property Mage_Catalog_Model_Product_Option\:\:\$decoratedIsLast\.$#'
 			identifier: property.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/date.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/composite/fieldset/options/type/date.phtml
 
 		-
 			message: '#^Access to an undefined property Mage_Catalog_Model_Product_Option\:\:\$decoratedIsLast\.$#'
 			identifier: property.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/file.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/composite/fieldset/options/type/file.phtml
 
 		-
 			message: '#^Access to an undefined property Mage_Catalog_Model_Product_Option\:\:\$decoratedIsLast\.$#'
 			identifier: property.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/select.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/composite/fieldset/options/type/select.phtml
 
 		-
 			message: '#^Access to an undefined property Mage_Catalog_Model_Product_Option\:\:\$decoratedIsLast\.$#'
 			identifier: property.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/composite/fieldset/options/type/text.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/composite/fieldset/options/type/text.phtml
 
 		-
 			message: '#^Parameter \#2 \$store of method Mage_Core_Helper_Data\:\:currencyByStore\(\) expects int\|Mage_Core_Model_Store\|null, true given\.$#'
 			identifier: argument.type
 			count: 1
-			path: app/design/adminhtml/default/default/template/catalog/product/price.phtml
+			path: app/design/adminhtml/base/default/template/catalog/product/price.phtml
+
+		-
+			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 9
+			path: app/design/adminhtml/base/default/template/catalog/product/price.phtml
+
+		-
+			message: '#^Variable \$addressCollection might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: app/design/adminhtml/base/default/template/customer/tab/addresses.phtml
+
+		-
+			message: '#^Variable \$customer might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/design/adminhtml/base/default/template/customer/tab/addresses.phtml
 
 		-
 			message: '#^Call to an undefined method Mage_GiftMessage_Block_Message_Helper\:\:prepareAsIs\(\)\.$#'
 			identifier: method.notFound
 			count: 2
-			path: app/design/adminhtml/default/default/template/giftmessage/helper.phtml
+			path: app/design/adminhtml/base/default/template/giftmessage/helper.phtml
 
 		-
 			message: '#^Parameter \#1 \$value of method Mage_GiftMessage_Block_Message_Helper\:\:setScriptIncluded\(\) expects string, true given\.$#'
 			identifier: argument.type
 			count: 1
-			path: app/design/adminhtml/default/default/template/giftmessage/helper.phtml
+			path: app/design/adminhtml/base/default/template/giftmessage/helper.phtml
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Block_Abstract\:\:_getUsers\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/role_users_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/permissions/role_users_grid_js.phtml
 
 		-
 			message: '#^Call to protected method _getGridHtml\(\) of class Mage_Adminhtml_Block_Permissions_Tab_Rolesusers\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/rolesusers.phtml
+			path: app/design/adminhtml/base/default/template/permissions/rolesusers.phtml
 
 		-
 			message: '#^Call to an undefined method Mage_Core_Block_Abstract\:\:_getSelectedRoles\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/permissions/user_roles_grid_js.phtml
+			path: app/design/adminhtml/base/default/template/permissions/user_roles_grid_js.phtml
+
+		-
+			message: '#^Variable \$roles might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/permissions/userroles.phtml
+
+		-
+			message: '#^Variable \$user_roles might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/permissions/userroles.phtml
+
+		-
+			message: '#^Variable \$options might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/rating/options.phtml
 
 		-
 			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
 			identifier: greater.alwaysTrue
 			count: 1
-			path: app/design/adminhtml/default/default/template/report/grid.phtml
+			path: app/design/adminhtml/base/default/template/report/grid.phtml
+
+		-
+			message: '#^Variable \$minAdminPasswordLength might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/resetforgottenpassword.phtml
+
+		-
+			message: '#^Variable \$resetPasswordLinkToken might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/resetforgottenpassword.phtml
+
+		-
+			message: '#^Variable \$userId might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/resetforgottenpassword.phtml
 
 		-
 			message: '#^Method Mage_Adminhtml_Block_Sales_Order_Create_Abstract\:\:formatPrice\(\) invoked with 3 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 18
-			path: app/design/adminhtml/default/default/template/sales/order/create/items/grid.phtml
+			path: app/design/adminhtml/base/default/template/sales/order/create/items/grid.phtml
 
 		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
 			identifier: deadCode.unreachable
 			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/shipment/packaging/grid.phtml
+			path: app/design/adminhtml/base/default/template/sales/order/shipment/packaging/grid.phtml
 
 		-
 			message: '#^Access to an undefined property Mage_Adminhtml_Block_Sales_Order_Shipment_Tracking_Info\:\:\$trackingInfo\.$#'
 			identifier: property.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/shipment/tracking/info.phtml
+			path: app/design/adminhtml/base/default/template/sales/order/shipment/tracking/info.phtml
+
+		-
+			message: '#^Variable \$items might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/system/autocomplete.phtml
 
 		-
 			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions\|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\:\:\$_addAfter\.$#'
 			identifier: property.protected
 			count: 3
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
+			path: app/design/adminhtml/base/default/template/system/config/form/field/array.phtml
 
 		-
 			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions\|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\:\:\$_addButtonLabel\.$#'
 			identifier: property.protected
 			count: 2
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
+			path: app/design/adminhtml/base/default/template/system/config/form/field/array.phtml
 
 		-
 			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions\|Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty\:\:\$_columns\.$#'
 			identifier: property.protected
 			count: 4
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
+			path: app/design/adminhtml/base/default/template/system/config/form/field/array.phtml
 
 		-
 			message: '#^Call to protected method _renderCellTemplate\(\) of class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract\.$#'
 			identifier: method.protected
 			count: 1
-			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
+			path: app/design/adminhtml/base/default/template/system/config/form/field/array.phtml
 
 		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
 			identifier: deadCode.unreachable
 			count: 1
-			path: app/design/adminhtml/default/default/template/system/config/switcher.phtml
+			path: app/design/adminhtml/base/default/template/system/config/switcher.phtml
 
 		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
 			count: 2
-			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
+			path: app/design/adminhtml/base/default/template/system/store/tree.phtml
 
 		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'
 			identifier: deadCode.unreachable
 			count: 2
-			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
+			path: app/design/adminhtml/base/default/template/system/store/tree.phtml
+
+		-
+			message: '#^Variable \$createUrl might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/class/add.phtml
+
+		-
+			message: '#^Variable \$header might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/class/add.phtml
+
+		-
+			message: '#^Variable \$form might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/class/save.phtml
+
+		-
+			message: '#^Variable \$header might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/class/save.phtml
+
+		-
+			message: '#^Variable \$createUrl might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/rule/add.phtml
+
+		-
+			message: '#^Variable \$header might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/rule/add.phtml
+
+		-
+			message: '#^Variable \$form might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/rule/save.phtml
+
+		-
+			message: '#^Variable \$header might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/tax/toolbar/rule/save.phtml
+
+		-
+			message: '#^Variable \$element might not be defined\.$#'
+			identifier: variable.undefined
+			count: 62
+			path: app/design/adminhtml/base/default/template/widget/form/element.phtml
+
+		-
+			message: '#^Variable \$formBlock might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/widget/form/element.phtml
 
 		-
 			message: '#^Method Mage_Adminhtml_Block_Widget_Grid\:\:getEmptyCellColspan\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/grid.phtml
+			path: app/design/adminhtml/base/default/template/widget/grid.phtml
 
 		-
 			message: '#^Method Mage_Adminhtml_Block_Widget_Grid\:\:getMultipleRowColumns\(\) invoked with 1 parameter, 0 required\.$#'
 			identifier: arguments.count
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/grid.phtml
+			path: app/design/adminhtml/base/default/template/widget/grid.phtml
 
 		-
 			message: '#^Call to an undefined method Mage_Adminhtml_Block_Widget_Grid_Massaction\:\:canDisplayContainer\(\)\.$#'
 			identifier: method.notFound
 			count: 1
-			path: app/design/adminhtml/default/default/template/widget/grid/massaction.phtml
+			path: app/design/adminhtml/base/default/template/widget/grid/massaction.phtml
+
+		-
+			message: '#^Variable \$id might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: app/design/adminhtml/base/default/template/widget/tabsleft.phtml
+
+		-
+			message: '#^Variable \$sections might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/base/default/template/widget/tabsleft.phtml
+
+		-
+			message: '#^Variable \$minAdminPasswordLength might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: app/design/adminhtml/openmage/default/template/resetforgottenpassword.phtml
+
+		-
+			message: '#^Variable \$resetPasswordLinkToken might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/openmage/default/template/resetforgottenpassword.phtml
+
+		-
+			message: '#^Variable \$userId might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/design/adminhtml/openmage/default/template/resetforgottenpassword.phtml
+
+		-
+			message: '#^Variable \$_weeeTaxAttributes might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: app/design/frontend/base/default/template/bundle/catalog/product/price.phtml
 
 		-
 			message: '#^Method Mage_Catalog_Block_Product_Abstract\:\:getTierPrices\(\) invoked with 2 parameters, 0\-1 required\.$#'
