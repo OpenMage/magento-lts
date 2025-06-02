@@ -4241,16 +4241,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "7.9.0",
+            "version": "7.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "41ca209b741864a96b11ca34294b2eeba873ff01"
+                "reference": "3d6219296c9a92c87337bb38fb502a469ac1167f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/41ca209b741864a96b11ca34294b2eeba873ff01",
-                "reference": "41ca209b741864a96b11ca34294b2eeba873ff01",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/3d6219296c9a92c87337bb38fb502a469ac1167f",
+                "reference": "3d6219296c9a92c87337bb38fb502a469ac1167f",
                 "shasum": ""
             },
             "type": "component",
@@ -4294,9 +4294,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/7.9.0"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/7.9.1"
             },
-            "time": "2025-05-15T01:47:37+00:00"
+            "time": "2025-05-29T02:22:36+00:00"
         },
         {
             "name": "voku/portable-ascii",
