@@ -93,6 +93,11 @@ class Mage_Api2_Model_Server
             if ($response->isException()) {
                 throw new Mage_Api2_Exception('Unhandled simple errors.', self::HTTP_INTERNAL_ERROR);
             }
+        } catch (Mage_Api2_Exception $e) {
+            if ($e->shouldLog()) {
+                Mage::logException($e);
+            }
+            $this->_renderException($e, $renderer, $response);
         } catch (Exception $e) {
             Mage::logException($e);
             $this->_renderException($e, $renderer, $response);
