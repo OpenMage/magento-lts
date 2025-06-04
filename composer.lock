@@ -122,20 +122,20 @@
         },
         {
             "name": "colinmollenhour/credis",
-            "version": "v1.16.2",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/credis.git",
-                "reference": "db2c0323292e360fdba39bf98c7a405fe3cb05b0"
+                "reference": "f4930b426f6b1238b687a1ffe6ee5af7f835b40a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/credis/zipball/db2c0323292e360fdba39bf98c7a405fe3cb05b0",
-                "reference": "db2c0323292e360fdba39bf98c7a405fe3cb05b0",
+                "url": "https://api.github.com/repos/colinmollenhour/credis/zipball/f4930b426f6b1238b687a1ffe6ee5af7f835b40a",
+                "reference": "f4930b426f6b1238b687a1ffe6ee5af7f835b40a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6.0"
+                "php": ">=7.4.0"
             },
             "suggest": {
                 "ext-redis": "Improved performance for communicating with redis"
@@ -163,27 +163,27 @@
             "homepage": "https://github.com/colinmollenhour/credis",
             "support": {
                 "issues": "https://github.com/colinmollenhour/credis/issues",
-                "source": "https://github.com/colinmollenhour/credis/tree/v1.16.2"
+                "source": "https://github.com/colinmollenhour/credis/tree/v1.17.0"
             },
-            "time": "2024-12-17T02:24:03+00:00"
+            "time": "2025-02-10T18:58:46+00:00"
         },
         {
             "name": "colinmollenhour/magento-redis-session",
-            "version": "3.2.1",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/Cm_RedisSession.git",
-                "reference": "43db18623763dddd04edd8607f9123666008b884"
+                "reference": "d86fc3789f884cb4b04a9353022a9a8ce89efbbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/43db18623763dddd04edd8607f9123666008b884",
-                "reference": "43db18623763dddd04edd8607f9123666008b884",
+                "url": "https://api.github.com/repos/colinmollenhour/Cm_RedisSession/zipball/d86fc3789f884cb4b04a9353022a9a8ce89efbbd",
+                "reference": "d86fc3789f884cb4b04a9353022a9a8ce89efbbd",
                 "shasum": ""
             },
             "require": {
                 "colinmollenhour/credis": "*",
-                "colinmollenhour/php-redis-session-abstract": "~1.4"
+                "colinmollenhour/php-redis-session-abstract": "~2.1"
             },
             "suggest": {
                 "magento-hackathon/magento-composer-installer": "Makes it possible to manage this package as a dependency"
@@ -202,27 +202,27 @@
             "homepage": "https://github.com/colinmollenhour/Cm_RedisSession",
             "support": {
                 "issues": "https://github.com/colinmollenhour/Cm_RedisSession/issues",
-                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.2.1"
+                "source": "https://github.com/colinmollenhour/Cm_RedisSession/tree/3.3.0"
             },
-            "time": "2025-04-25T14:24:43+00:00"
+            "time": "2025-05-29T19:31:55+00:00"
         },
         {
             "name": "colinmollenhour/php-redis-session-abstract",
-            "version": "v1.7.0",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/colinmollenhour/php-redis-session-abstract.git",
-                "reference": "5d93866cd53701ef8f866cb41cb5c6d7259d4416"
+                "reference": "defae6e34b0f6ce42e4be4f14f529d8932aea73a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/colinmollenhour/php-redis-session-abstract/zipball/5d93866cd53701ef8f866cb41cb5c6d7259d4416",
-                "reference": "5d93866cd53701ef8f866cb41cb5c6d7259d4416",
+                "url": "https://api.github.com/repos/colinmollenhour/php-redis-session-abstract/zipball/defae6e34b0f6ce42e4be4f14f529d8932aea73a",
+                "reference": "defae6e34b0f6ce42e4be4f14f529d8932aea73a",
                 "shasum": ""
             },
             "require": {
-                "colinmollenhour/credis": "~1.6",
-                "php": "^5.5 || ^7.0 || ^8.0"
+                "colinmollenhour/credis": "~1.17",
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9"
@@ -246,9 +246,9 @@
             "homepage": "https://github.com/colinmollenhour/php-redis-session-abstract",
             "support": {
                 "issues": "https://github.com/colinmollenhour/php-redis-session-abstract/issues",
-                "source": "https://github.com/colinmollenhour/php-redis-session-abstract/tree/v1.7.0"
+                "source": "https://github.com/colinmollenhour/php-redis-session-abstract/tree/v2.1.2"
             },
-            "time": "2024-02-03T06:04:45+00:00"
+            "time": "2025-05-05T07:31:11+00:00"
         },
         {
             "name": "components/jquery",
