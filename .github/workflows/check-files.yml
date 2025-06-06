@@ -55,7 +55,7 @@ jobs:
     outputs:
       composer: ${{ steps.changes-composer.outputs.composer }}
       js: ${{ steps.changes-js.outputs.js }}
-      markdown: ${{ steps.changes-php.outputs.markdown }}
+      markdown: ${{ steps.changes-markdown.outputs.markdown }}
       php: ${{ steps.changes-php.outputs.php }}
       phtml: ${{ steps.all.outputs.phtml }}
       xml: ${{ steps.changes-xml.outputs.xml }}

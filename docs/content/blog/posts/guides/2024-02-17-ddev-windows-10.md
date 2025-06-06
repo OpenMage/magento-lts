@@ -162,7 +162,7 @@ ddev start
 ddev launch
 ```
 
-For more information about using DDEV please visit [help](/developers/tools/ddev) page. It is a fantastic tool!
+For more information about using DDEV please visit [help](../../../developers/tools/ddev.md) page. It is a fantastic tool!
 
 ### CONCLUSION
 As you can see, the more complicated part is the initial configuration of WSL, Docker, DDEV. Once done, it doesn't take more than 3-5 minutes to get an instance of OpenMage ready for testing. Forget about XAMPP, WAMP in Windows.
