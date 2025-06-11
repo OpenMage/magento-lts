@@ -1009,21 +1009,6 @@ ul.item-options li { padding-left:.7em; }
 .giftmessage-whole-order-container .entry-edit textarea { width:99% !important; padding:2px 3px; }
 .giftmessage-whole-order-container .entry-edit label { width:121px; }
 
-/* PayPal */
-
-.pp-general-uk > .config-heading .heading strong,
-.pp-method-payflow > .config-heading .heading strong,
-.pp-method-express > .config-heading .heading strong,
-.pp-method-general > .config-heading .heading strong { padding-left:56px; background:url(images/paypal/logo-paypal.png) no-repeat 0 2px; }
-.pp-method-general > .config-heading .button-container { padding:8px 0 0 180px; background:url(images/paypal/pp-allinone.png) no-repeat 0 0; height:26px; }
-.pp-method-express > .config-heading .button-container { padding:0 0 0 174px; background:url(images/paypal/pp-alt.png) no-repeat 0 0; height:29px; }
-.pp-method-payflow > .config-heading .button-container { padding:0px 0 0 99px; background:url(images/paypal/pp-gateways.png) no-repeat 1px 0; height:36px; }
-.pp-general-uk > .config-heading .button-container { padding:9px 0 0 201px; background:url(images/paypal/pp-uk.png) no-repeat 0 0; height:27px; }
-.payflow-settings-notice {padding-bottom: 1em;max-width: 660px;}
-.payflow-settings-notice .important-label {color:red;}
-.payflow-settings-notice ul.options-list {list-style:disc;padding:0 2em;}
-
-
 /* Packaging for Shipping Popup */
 #popup-window-mask,
 .popup-window-mask { background:url(images/bg_window_mask.png) repeat 0 0; background:rgba(239, 239, 239, 0.5); position:absolute; top:0; right:0; bottom:0; left:0; width:100%; height:100%; z-index:399; }
@@ -1318,8 +1303,6 @@ ul.config-tabs a.last span  { background-image:none; }
 
 .comment { padding:5px; }
 .comment a { color:#888; margin-left:3px; }
-
-.paypal-payment-notice { font-weight: bold; margin: -10px 0 10px 0; }
 
 .payment-group-title { border:0; padding:10px 5px 10px; }
 .payment-group-title strong { display:inline; font-size:14px; border:0; }

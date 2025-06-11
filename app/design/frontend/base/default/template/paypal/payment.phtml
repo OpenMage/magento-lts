@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @var $this Mage_Paypal_Block_Form
+ */
+?>
+
+<script type="text/javascript">
+    var initPayPalPayment = function() {
+        new PayPalPayment({
+            formKey: '<?php echo $this->getFormKey(); ?>',
+            methodCode: '<?php echo $this->getMethodCode(); ?>',
+            sdkUrl: '<?php echo $this->getSdkUrl(); ?>',
+            buttonLayout: '<?php echo $this->getButtonConfig()['layout']; ?>',
+            buttonColor: '<?php echo $this->getButtonConfig()['color']; ?>',
+            buttonShape: '<?php echo $this->getButtonConfig()['shape']; ?>',
+            buttonLabel: '<?php echo $this->getButtonConfig()['label']; ?>',
+            buttonMessage: '<?php echo $this->getButtonConfig()['message']; ?>',
+            createOrderUrl: '<?php echo $this->getUrl('paypal/payment/create'); ?>',
+            captureUrl: '<?php echo $this->getUrl('paypal/payment/process'); ?>',
+            placeOrderUrl: '<?php echo $this->getUrl('paypal/payment/placeOrder'); ?>',
+            errorMessage: '<?php echo $this->__('An error occurred while processing your payment. Please try again.'); ?>',
+            containerId: 'paypal-button-container',
+            reviewButtonContainerId: 'review-buttons-container'
+        });
+    };
+
+    initPayPalPayment();
+</script>

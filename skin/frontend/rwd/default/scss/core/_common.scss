@@ -456,52 +456,6 @@ a.button:hover {
 }
 
 /* -------------------------------------------- *
- * Paypal Button
- */
-
-.paypal-logo.paypal-after {
-    float: left;
-}
-
-.paypal-after .paypal-or {
-    float: left;
-}
-
-.paypal-or {
-    line-height: 34px;
-    margin: 0px 10px 5px;
-}
-
-.paypal-after .paypal-button {
-    float: left;
-}
-
-.paypal-button {
-    line-height: 0px;
-}
-
-.paypal-button img {
-    display: inline;
-}
-
-@include bp(max-width, 740px) {
-    .paypal-or {
-        line-height: 20px;
-    }
-
-    .paypal-logo,
-    .paypal-or,
-    .paypal-button {
-        text-align: center;
-        width: 100%;
-        display: block;
-        margin-right: 0;
-        margin-left: 0;
-        float: none;
-    }
-}
-
-/* -------------------------------------------- *
  * Button Sets
  */
 

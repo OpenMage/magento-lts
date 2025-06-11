@@ -1016,50 +1016,6 @@ a.button:hover {
   }
 }
 /* -------------------------------------------- *
- * Paypal Button
- */
-.paypal-logo.paypal-after {
-  float: left;
-}
-
-.paypal-after .paypal-or {
-  float: left;
-}
-
-.paypal-or {
-  line-height: 34px;
-  margin: 0px 10px 5px;
-}
-
-.paypal-after .paypal-button {
-  float: left;
-}
-
-.paypal-button {
-  line-height: 0px;
-}
-
-.paypal-button img {
-  display: inline;
-}
-
-@media only screen and (max-width: 740px) {
-  .paypal-or {
-    line-height: 20px;
-  }
-
-  .paypal-logo,
-  .paypal-or,
-  .paypal-button {
-    text-align: center;
-    width: 100%;
-    display: block;
-    margin-right: 0;
-    margin-left: 0;
-    float: none;
-  }
-}
-/* -------------------------------------------- *
  * Button Sets
  */
 .buttons-set {
@@ -5170,9 +5126,6 @@ p.product-name a:hover {
 .product-view .product-options-bottom .price-box,
 .product-view .add-to-cart .qty-wrapper,
 .product-view .add-to-cart-buttons .button,
-.product-view .add-to-cart-buttons .paypal-logo {
-  margin-bottom: 10px;
-}
 .product-view .add-to-cart .qty-wrapper,
 .product-view .add-to-cart .qty-wrapper label {
   margin-right: 7px;
@@ -5190,31 +5143,6 @@ p.product-name a:hover {
   margin-right: 10px;
   max-width: 100%;
 }
-.product-view .add-to-cart-buttons .paypal-logo {
-  clear: left;
-  text-align: center;
-}
-.product-view .add-to-cart-buttons .paypal-logo .paypal-button {
-  margin: 0 auto;
-  display: block;
-  width: 170px;
-}
-.product-view .add-to-cart-buttons .paypal-logo .bml_button {
-  display: block;
-  width: 174px;
-  margin: 0 auto;
-}
-.product-view .add-to-cart-buttons .paypal-logo .bml_button a {
-  text-align: center;
-}
-.product-view .add-to-cart-buttons .paypal-logo .paypal-or {
-  display: block;
-  margin-bottom: 10px;
-  margin-left: 0;
-  margin-right: 0;
-  line-height: 1;
-  text-align: center;
-}
 .product-view .add-to-cart-buttons .button {
   min-height: 40px;
   line-height: 40px;
@@ -5228,23 +5156,6 @@ p.product-name a:hover {
 .product-view .alert-price,
 .product-view .alert-stock {
   clear: both;
-}
-
-@media only screen and (max-width: 479px) {
-  .product-view .add-to-cart-buttons .paypal-or {
-    line-height: 20px;
-  }
-  .product-view .add-to-cart-buttons .paypal-logo,
-  .product-view .add-to-cart-buttons .paypal-or,
-  .product-view .add-to-cart-buttons .paypal-button,
-  .product-view .add-to-cart-buttons .button {
-    text-align: center;
-    width: 100%;
-    display: block;
-    margin-right: 0;
-    margin-left: 0;
-    float: none;
-  }
 }
 /* This is the "or" that separates the "Add to Cart" and "Add to X" links */
 .add-to-box .or {
@@ -5967,46 +5878,6 @@ p.product-name a:hover {
 .map-popup .map-popup-checkout .additional-addtocart-box li {
   list-style-type: none;
 }
-.map-popup .map-popup-checkout .paypal-logo {
-  width: auto;
-}
-.map-popup .map-popup-checkout .paypal-logo a {
-  display: inline-block;
-  float: left;
-  clear: left;
-}
-.map-popup .map-popup-checkout .paypal-logo .paypal-or {
-  float: left;
-  text-align: center;
-  padding: 5px 15px;
-  clear: left;
-}
-.map-popup .map-popup-checkout .paypal-logo:after {
-  content: '';
-  display: table;
-  clear: both;
-}
-.map-popup .map-popup-checkout .paypal-logo .bml_button a {
-  clear: left;
-}
-@media only screen and (max-width: 479px) {
-  .map-popup .map-popup-checkout {
-    text-align: center;
-  }
-  .map-popup .map-popup-checkout .button,
-  .map-popup .map-popup-checkout .additional-addtocart-box,
-  .map-popup .map-popup-checkout .paypal-logo a,
-  .map-popup .map-popup-checkout .paypal-logo .paypal-or {
-    float: none;
-  }
-  .map-popup .map-popup-checkout .additional-addtocart-box {
-    min-width: 0px;
-  }
-  .map-popup .map-popup-checkout .paypal-logo .paypal-or {
-    margin: 0px;
-    margin-bottom: 10px;
-  }
-}
 .map-popup .map-popup-checkout:after {
   content: '';
   display: table;
@@ -6235,24 +6106,6 @@ p.product-name a:hover {
 .checkout-types.top .bml_button img {
   display: block;
 }
-.checkout-types.top .paypal-logo .paypal-or {
-  margin-top: 5px;
-}
-.checkout-types.bottom .paypal-logo a, .checkout-types.minicart .paypal-logo a {
-  display: block;
-}
-.checkout-types.bottom .paypal-or, .checkout-types.minicart .paypal-or {
-  margin: 0px;
-  display: block;
-  text-align: center;
-}
-
-@media only screen and (min-width: 741px) {
-  .checkout-types.bottom .paypal-or {
-    text-align: right;
-    padding-right: 70px;
-  }
-}
 .cart-totals .checkout-types .btn-checkout {
   margin-bottom: 7px;
 }
@@ -6261,10 +6114,6 @@ p.product-name a:hover {
   .checkout-types {
     float: none;
     text-align: center;
-  }
-  .checkout-types.bottom .paypal-or, .checkout-types.minicart .paypal-or {
-    width: auto;
-    float: none;
   }
 
   .checkout-types li {
@@ -7006,12 +6855,6 @@ p.product-name a:hover {
   padding: 5px 5px 5px 0;
 }
 
-@media only screen and (max-width: 479px) {
-  .opc .buttons-set .button + .buttons-set .button,
-  .paypal-express-review .buttons-set .button + .buttons-set .button {
-    margin-left: 0;
-  }
-}
 .opc #opc-login .step {
   padding: 0px;
 }
@@ -8341,135 +8184,6 @@ body.newsletter-manage-index .my-account .form-list {
 }
 
 /* ============================================ *
- * PayPal
- * ============================================ */
-@media only screen and (max-width: 870px) and (min-width: 771px) {
-  .paypal-review-order .col2-set .col-1,
-  .paypal-review-order .col2-set .col-2 {
-    padding: 0px;
-  }
-}
-.paypal-review-order .info-set {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ededed;
-}
-.paypal-review-order .buttons-set {
-  margin-top: 0px;
-  padding-top: 0px;
-  border: 0;
-}
-.paypal-review-order .buttons-set button {
-  margin-bottom: 10px;
-}
-@media only screen and (max-width: 770px) {
-  .paypal-review-order .col-1 {
-    padding-bottom: 0;
-  }
-  .paypal-review-order .field.inactive {
-    display: none;
-  }
-}
-
-.top-container .bml-ad {
-  margin-top: 7px;
-  margin-bottom: 7px;
-  text-align: center;
-}
-.top-container .bml-ad span {
-  display: inline-block;
-}
-.top-container .bml-ad span a {
-  display: block;
-}
-
-.bml-ad {
-  display: none;
-  text-align: center;
-  margin-bottom: 5px;
-}
-.bml-ad span {
-  display: block;
-  line-height: 0;
-}
-.bml-ad a {
-  display: inline-block;
-  max-width: 100%;
-}
-.bml-ad a:hover {
-  opacity: 0.7;
-}
-.bml-ad img {
-  height: auto !important;
-  max-width: 100%;
-}
-
-.cart-totals-wrapper .bml-ad.large img {
-  display: block;
-  margin: 0;
-}
-
-@media only screen and (max-width: 770px) {
-  .bml-ad.small {
-    display: block;
-  }
-}
-@media only screen and (min-width: 771px) {
-  .bml-ad.large {
-    display: block;
-  }
-}
-div.paypal-logo {
-  text-align: center;
-  margin: 15px 0;
-  max-width: 100%;
-}
-div.paypal-logo span {
-  display: block;
-  width: 100%;
-}
-div.paypal-logo span a {
-  display: inline-block;
-  max-width: 100%;
-}
-div.paypal-logo span a img {
-  max-width: 100%;
-}
-div.paypal-logo span > img {
-  display: none;
-}
-
-.checkout-types div.paypal-logo {
-  text-align: right;
-}
-
-.bml-checkout-type {
-  list-style-type: none;
-}
-
-.sidebar .paypal-logo {
-  text-align: center;
-  line-height: 0;
-}
-.sidebar .paypal-logo > a {
-  display: inline-block;
-  max-width: 100%;
-}
-.sidebar .paypal-logo > a:hover {
-  opacity: 0.8;
-}
-.sidebar .paypal-logo > a img {
-  display: block;
-}
-.sidebar .paypal-logo .label {
-  margin-top: 4px;
-}
-.sidebar .paypal-logo .label a {
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-/* ============================================ *
  * Review - Customer
  * ============================================ */
 #customer-reviews {
@@ -9391,9 +9105,6 @@ div.paypal-logo span > img {
   text-transform: uppercase;
   font-size: 13px;
 }
-.header-minicart .minicart-actions .paypal-logo .paypal-or {
-  line-height: 1.6;
-}
 .header-minicart #minicart-error-message {
   text-align: center;
   color: red;
@@ -9452,36 +9163,12 @@ div.paypal-logo span > img {
   .header-minicart .minicart-actions .checkout-types.minicart li {
     display: inline-block;
   }
-  .header-minicart .minicart-actions .checkout-types.minicart li .paypal-logo > a {
-    display: inline;
-  }
-  .header-minicart .minicart-actions .checkout-types.minicart li .paypal-logo .bml_button {
-    display: inline-block;
-    vertical-align: top;
-  }
-  .header-minicart .minicart-actions .checkout-types.minicart li .paypal-logo .paypal-or {
-    width: auto;
-    float: none;
-    display: inline;
-    margin: 0 10px 5px 10px;
-    line-height: 40px;
-  }
-}
 @media only screen and (max-width: 740px) {
   .header-minicart .minicart-actions .cart-link {
     right: auto;
     left: 0;
     text-align: center;
     width: 100%;
-  }
-  .header-minicart .minicart-actions .checkout-types.minicart li .paypal-logo .paypal-or,
-  .header-minicart .minicart-actions .checkout-types.minicart li .paypal-logo .paypal-button {
-    width: 100%;
-    display: block;
-    margin-left: 0;
-  }
-  .header-minicart .minicart-actions .checkout-types.minicart li .paypal-logo .paypal-or {
-    line-height: 1.6;
   }
 }
 @media only screen and (max-width: 599px) {

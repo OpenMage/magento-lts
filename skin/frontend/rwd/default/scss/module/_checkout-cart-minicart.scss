@@ -171,12 +171,6 @@
             text-transform: uppercase;
             font-size: $f-size-s;
         }
-
-        .paypal-logo {
-            .paypal-or {
-                line-height: 1.6;
-            }
-        }
     }
 
     #minicart-error-message {
@@ -253,25 +247,6 @@
             .checkout-types.minicart {
                 li {
                     display: inline-block;
-
-                    .paypal-logo {
-                        > a {
-                            display: inline;
-                        }
-
-                        .bml_button {
-                            display: inline-block;
-                            vertical-align: top;
-                        }
-
-                        .paypal-or {
-                            width: auto;
-                            float: none;
-                            display: inline;
-                            margin: 0 10px 5px 10px;
-                            line-height: 40px;
-                        }
-                    }
                 }
             }
         }
@@ -286,23 +261,6 @@
                 left: 0;
                 text-align: center;
                 width: 100%;
-            }
-
-            .checkout-types.minicart {
-                li {
-                    .paypal-logo {
-                        .paypal-or,
-                        .paypal-button {
-                            width: 100%;
-                            display: block;
-                            margin-left: 0;
-                        }
-
-                        .paypal-or {
-                            line-height: 1.6;
-                        }
-                    }
-                }
             }
         }
     }

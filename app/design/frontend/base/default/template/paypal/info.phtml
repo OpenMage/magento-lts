@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * @see Mage_Paypal_Block_Info
+ * @var $this Mage_Paypal_Block_Info
+ */
+?>
+<p><?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?></p>
+<?php if ($this->getTransactionId()): ?>
+    <p><?php echo $this->__('Transaction ID: %s', $this->escapeHtml($this->getTransactionId())) ?></p>
+<?php endif; ?>

@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @see Mage_Paypal_Block_Adminhtml_Info
+ * @var $this Mage_Paypal_Block_Adminhtml_Info
+ */
+?>
+<div class="paypal-info">
+    <?php if ($this->getTransactionId()): ?>
+        <div class="paypal-transaction">
+            <strong><?php echo $this->__('Transaction ID') ?>:</strong>
+            <?php if ($this->getTransactionUrl()): ?>
+                <a href="<?php echo $this->escapeHtml($this->getTransactionUrl()) ?>" target="_blank">
+                    <?php echo $this->escapeHtml($this->getTransactionId()) ?>
+                </a>
+            <?php else: ?>
+                <?php echo $this->escapeHtml($this->getTransactionId()) ?>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->getPaymentInfo()): ?>
+        <div class="paypal-payment-info">
+            <table>
+                <?php foreach ($this->getPaymentInfo() as $label => $value): ?>
+                    <tr>
+                        <td><?php echo $this->escapeHtml($label) ?>:</td>
+                        <td><?php echo $this->escapeHtml($value) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->canReauthorize()): ?>
+        <div class="paypal-reauthorize">
+            <button type="button" class="scalable" onclick="setLocation('<?php echo $this->getReauthorizeUrl() ?>')">
+                <span><?php echo $this->__('Reauthorize Payment') ?></span>
+            </button>
+            <p class="note"><?php echo $this->__('PayPal authorizations expire after 3 days. Reauthorize to extend the authorization period.') ?></p>
+        </div>
+    <?php endif; ?>
+</div>
+<style>
+    .paypal-info {
+        margin-top: 10px;
+    }
+
+    .paypal-transaction {
+        margin-bottom: 10px;
+    }
+
+    .paypal-payment-info table {
+        width: 100%;
+    }
+
+    .paypal-payment-info td:first-child {
+        width: 40%;
+        font-weight: bold;
+    }
+
+    .paypal-reauthorize {
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid #d6d6d6;
+    }
+
+    .paypal-reauthorize .note {
+        margin-top: 5px;
+        font-style: italic;
+        color: #666;
+    }
+</style>

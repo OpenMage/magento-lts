@@ -32,7 +32,6 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
             'sales_creditmemo' => 'order-processing/credit-refunds.html',
             'sales_transactions' => 'order-processing/sales-transactions.html',
             'sales_recurring_profile' => 'catalog/product-recurring-profile.html',
-            'sales_billing_agreement' => 'payment/paypal-billing-agreements.html',
             'checkout_agreement' => 'order-processing/terms-conditions.html',
             /* Sales → Tax */
             'tax_rule' => 'tax/tax-rules.html',
@@ -173,9 +172,6 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
         ],
         'Mage_Widget_Adminhtml' => [
             'widget_instance' => 'cms/widgets.html',
-        ],
-        'Mage_Paypal_Adminhtml' => [
-            'paypal_reports' => 'store-operations/reports-available.html',
         ],
         'Mage_Api2_Adminhtml' => [
             'api2_attribute' => 'system-operations/web-services.html',

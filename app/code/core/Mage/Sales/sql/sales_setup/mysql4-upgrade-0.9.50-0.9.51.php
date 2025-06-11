@@ -19,11 +19,7 @@ $processingItemsCountForOneIteration = 1000;
 $connection = $installer->getConnection();
 
 $paymentMethods = [
-    'paypal_standard',
-    'paypal_express',
-    'paypal_direct',
-    'paypaluk_direct',
-    'paypaluk_express',
+    'paypal',
 ];
 $entityTypeCode = 'order_payment';
 $attributesIds = [

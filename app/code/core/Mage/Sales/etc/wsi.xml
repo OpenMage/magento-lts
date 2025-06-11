@@ -186,7 +186,6 @@
                     <xsd:element name="edit_increment" type="xsd:string" minOccurs="0" />
                     <xsd:element name="forced_do_shipment_with_invoice" type="xsd:string" minOccurs="0" />
                     <xsd:element name="payment_authorization_expiration" type="xsd:string" minOccurs="0" />
-                    <xsd:element name="paypal_ipn_customer_notified" type="xsd:string" minOccurs="0" />
                     <xsd:element name="quote_address_id" type="xsd:string" minOccurs="0" />
                     <xsd:element name="adjustment_negative" type="xsd:string" minOccurs="0" />
                     <xsd:element name="adjustment_positive" type="xsd:string" minOccurs="0" />
