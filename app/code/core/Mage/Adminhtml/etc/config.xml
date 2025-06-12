@@ -224,10 +224,10 @@
             <design>
                 <package>
                     <name>default</name>
+                    <openmage>openmage</openmage>
                 </package>
                 <theme>
                     <default>default</default>
-                    <openmage>openmage</openmage>
                 </theme>
             </design>
         </admin>
