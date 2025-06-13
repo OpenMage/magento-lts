@@ -106,6 +106,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             'domain'   => $cookie->getConfigDomain(),
             'secure'   => $cookie->isSecure(),
             'httponly' => $cookie->getHttponly(),
+            'samesite' => $cookie->getSameSite(),
         ];
 
         if (!$cookieParams['httponly']) {
@@ -122,7 +123,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $cookieParams['domain'] = $cookie->getDomain();
         }
 
-        call_user_func_array('session_set_cookie_params', array_values($cookieParams));
+        session_set_cookie_params($cookieParams);
 
         if (!empty($sessionName)) {
             $this->setSessionName($sessionName);
