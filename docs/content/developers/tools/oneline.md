@@ -10,7 +10,7 @@ For a quick and easy way to get started developing on OpenMage, you can use the 
 command to install OpenMage with Docker Compose.
 
 !!! info
-    If you prefer a more robust development environment, consider using [DDEV](/developers/tools/ddev).
+    If you prefer a more robust development environment, consider using [DDEV](ddev.md).
 
 ```bash
 git clone https://github.com/OpenMage/magento-lts.git && cd magento-lts && dev/openmage/install.sh 
