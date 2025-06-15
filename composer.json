@@ -30,6 +30,7 @@
         "colinmollenhour/magento-redis-session": "^3.2.0",
         "components/jquery": "^3.7.1",
         "cweagans/composer-patches": "^1.7",
+        "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
@@ -82,7 +83,7 @@
         {
             "name": "Daniel Fahlke aka Flyingmana",
             "email": "flyingmana@googlemail.com",
-            "role": "Maintainer"
+            "role": "retired Maintainer"
         },
         {
             "name": "David Robinson",

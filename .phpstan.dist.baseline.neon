@@ -6751,7 +6751,7 @@ parameters:
 			path: lib/Varien/Data/Collection/Db.php
 
 		-
-			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(mixed\)\: bool\)\|null, Closure\(mixed\)\: array\<int\<0, max\>, string\> given\.$#'
+			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(mixed\)\: bool\)\|null, Closure\(mixed\)\: array\<int\<0, max\>, non\-empty\-string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Varien/Data/Collection/Db.php
