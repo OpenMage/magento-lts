@@ -60,16 +60,16 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         ]);
         // empty because env flag is not set
         $env = $environmentConfigLoaderHelper->getEnv();
-        $this->assertIsArray($env);
-        $this->assertEmpty($env);
+        static::assertIsArray($env);
+        static::assertEmpty($env);
         $environmentConfigLoaderHelper->setEnvStore([
             'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1, // enable feature
         ]);
         // flag is set => feature is enabled
         $env = $environmentConfigLoaderHelper->getEnv();
-        $this->assertIsArray($env);
-        $this->assertNotEmpty($env);
+        static::assertIsArray($env);
+        static::assertNotEmpty($env);
     }
 
     /**
@@ -216,7 +216,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         ]);
         $actual = $loader->getAsArray($config['scope']);
         $expected = $config['expected'];
-        $this->assertSame($expected, $actual);
+        static::assertSame($expected, $actual);
     }
 
     public function envAsArrayDataProvider(): Generator
@@ -228,7 +228,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
                 'expected'  => [
                     'general/store_information/name' => 1,
                 ],
-            ]
+            ],
         ];
         yield 'storeScope' => [
             [
@@ -237,14 +237,14 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
                 'expected'  => [
                     'general/store_information/name' => 1,
                 ],
-            ]
+            ],
         ];
         yield 'invalidScope' => [
             [
                 'env_path'  => '',
                 'scope'  => 'foo',
                 'expected'  => [],
-            ]
+            ],
         ];
     }
 
@@ -265,31 +265,31 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         ]);
         $actual = $loader->hasPath($config['xml_path']);
         $expected = $config['expected'];
-        $this->assertSame($expected, $actual);
+        static::assertSame($expected, $actual);
     }
 
     public function envHasPathDataProvider(): Generator
     {
         yield 'hasPath default' => [
             [
-              'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
-              'xml_path'  => 'default/general/store_information/name',
-              'expected'  => true,
-            ]
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'default/general/store_information/name',
+                'expected'  => true,
+            ],
         ];
         yield 'hasPath store' => [
             [
                 'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
                 'xml_path'  => 'stores/general/store_information/name',
                 'expected'  => true,
-            ]
+            ],
         ];
         yield 'hasNotPath' => [
             [
                 'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
                 'xml_path'  => 'foo/foo/foo',
                 'expected'  => false,
-            ]
+            ],
         ];
     }
 
