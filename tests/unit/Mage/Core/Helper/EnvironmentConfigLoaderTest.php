@@ -115,12 +115,14 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
+
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => $config['value'],
         ]);
+        Mage::unregister('current_env_config');
         $loader->overrideEnvironment($xml);
 
         $configPath = $config['xml_path'];
@@ -128,7 +130,9 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
-        self::assertNotSame((string) $defaultValue, (string) $valueAfterOverride, 'Default value was not overridden.');
+        $expected = (string) $defaultValue;
+        $actual = (string) $valueAfterOverride;
+        static::assertNotSame($expected, $actual, 'Default value was not overridden.');
     }
 
     public function envOverridesCorrectConfigKeysDataProvider(): Generator
@@ -217,35 +221,36 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => 1,
         ]);
-        $actual = $loader->getAsArray($config['scope']);
+        $store = $config['store'];
+        $actual = $loader->getAsArray($store);
         $expected = $config['expected'];
         static::assertSame($expected, $actual);
     }
 
     public function envAsArrayDataProvider(): Generator
     {
-        yield 'defaultScope' => [
+        yield 'default' => [
             [
                 'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
-                'scope'  => 'default',
+                'store'  => '', // or 'default', which will be used internally, but this is how \Mage_Adminhtml_Model_Config_Data::_validate defines it
                 'expected'  => [
                     'general/store_information/name' => 1,
                 ],
             ],
         ];
-        yield 'storeScope' => [
+        yield 'store' => [
             [
                 'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
-                'scope'  => 'stores',
+                'store'  => 'german',
                 'expected'  => [
                     'general/store_information/name' => 1,
                 ],
             ],
         ];
-        yield 'invalidScope' => [
+        yield 'invalidStore' => [
             [
                 'env_path'  => '',
-                'scope'  => 'foo',
+                'store'  => 'foo',
                 'expected'  => [],
             ],
         ];
@@ -284,7 +289,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         yield 'hasPath store' => [
             [
                 'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
-                'xml_path'  => 'stores/general/store_information/name',
+                'xml_path'  => 'stores/german/general/store_information/name',
                 'expected'  => true,
             ],
         ];
@@ -315,11 +320,14 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $xml->loadString($xmlStruct);
 
         $defaultValue = 'test_default';
-        self::assertSame($defaultValue, (string) $xml->getNode(self::XML_PATH_DEFAULT));
+        $actual = (string) $xml->getNode(self::XML_PATH_DEFAULT);
+        static::assertSame($defaultValue, $actual);
         $defaultWebsiteValue = 'test_website';
-        self::assertSame($defaultWebsiteValue, (string) $xml->getNode(self::XML_PATH_WEBSITE));
+        $actual = (string) $xml->getNode(self::XML_PATH_WEBSITE);
+        static::assertSame($defaultWebsiteValue, $actual);
         $defaultStoreValue = 'test_store';
-        self::assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
+        $actual = (string) $xml->getNode(self::XML_PATH_STORE);
+        static::assertSame($defaultStoreValue, $actual);
 
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */

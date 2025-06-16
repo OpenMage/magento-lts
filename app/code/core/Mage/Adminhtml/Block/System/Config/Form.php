@@ -662,8 +662,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
         $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
         $store = Mage::app()->getRequest()->getParam('store');
-        $scope = $this->getScope();
-        $path = "$scope/$store/$path";
+        if ($store) {
+            $scope = $this->getScope();
+            $path = "$scope/$store/$path";
+            return $environmentConfigLoaderHelper->hasPath($path);
+        }
+        $path = "default/$path";
         return $environmentConfigLoaderHelper->hasPath($path);
     }
 

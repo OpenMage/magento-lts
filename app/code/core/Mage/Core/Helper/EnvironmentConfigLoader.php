@@ -152,6 +152,9 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
     public function getAsArray(string $wantedStore): array
     {
+        if (empty($wantedStore)) {
+            $wantedStore = 'default';
+        }
         $data = Mage::registry("config_env_array_$wantedStore");
         if ($data !== null) {
             return $data;
@@ -167,6 +170,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             list($configKeyParts, $scope) = $this->getConfigKey($configKey);
 
             switch ($scope) {
+                case static::CONFIG_KEY_DEFAULT:
+                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
+                    $path = $this->buildPath($section, $group, $field);
+                    $config[$path] = $value;
+                    break;
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
                     [$unused1, $unused2, $storeCode, $section, $group, $field] = $configKeyParts;
