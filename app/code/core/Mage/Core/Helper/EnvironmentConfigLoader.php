@@ -88,7 +88,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
-                    [$unused1, $unused2, $code, $section, $group, $field] = $configKeyParts;
+                    [$unused1, $unused2, $storeCode, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
                     $storeCode = strtolower($storeCode);
                     $scope = strtolower($scope);
@@ -136,9 +136,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
-                    list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
+                    [$unused1, $unused2, $storeCode, $section, $group, $field] = $configKeyParts;
                     $path = $this->buildPath($section, $group, $field);
-                    $nodePath = $this->buildNodePath($scope, $path);
+                    $storeCode = strtolower($storeCode);
+                    $scope = strtolower($scope);
+                    $nodePath = sprintf('%s/%s/%s', $scope, $storeCode, $path);
                     $config[$nodePath] = $value;
                     break;
             }
@@ -148,9 +150,9 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         return $hasConfig;
     }
 
-    public function getAsArray(string $wantedScope): array
+    public function getAsArray(string $wantedStore): array
     {
-        $data = Mage::registry("config_env_array_$wantedScope");
+        $data = Mage::registry("config_env_array_$wantedStore");
         if ($data !== null) {
             return $data;
         }
@@ -163,26 +165,20 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             }
 
             list($configKeyParts, $scope) = $this->getConfigKey($configKey);
-            if (strtolower($scope) !== strtolower($wantedScope)) {
-                continue;
-            }
 
             switch ($scope) {
-                case static::CONFIG_KEY_DEFAULT:
-                    list($unused1, $unused2, $section, $group, $field) = $configKeyParts;
-                    $path = $this->buildPath($section, $group, $field);
-                    $config[$path] = $value;
-                    break;
-
                 case static::CONFIG_KEY_WEBSITES:
                 case static::CONFIG_KEY_STORES:
-                    list($unused1, $unused2, $storeCode, $section, $group, $field) = $configKeyParts;
+                    [$unused1, $unused2, $storeCode, $section, $group, $field] = $configKeyParts;
+                    if (strtolower($storeCode) !== strtolower($wantedStore)) {
+                        break;
+                    }
                     $path = $this->buildPath($section, $group, $field);
                     $config[$path] = $value;
                     break;
             }
         }
-        Mage::register("config_env_array_$wantedScope", $config);
+        Mage::register("config_env_array_$wantedStore", $config);
         return $config;
     }
 
@@ -218,8 +214,11 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
         $refProperty = $refObject->getProperty('_configCache');
         $refProperty->setAccessible(true);
         $configCache = $refProperty->getValue($store);
+        if (!is_array($configCache)) {
+            $configCache = [];
+        }
         $configCache[$path] = $value;
-        $refProperty->setValue($store, $configCache);
+        $store->setConfigCache($configCache);
     }
 
     protected function getConfigKey(string $configKey): array
