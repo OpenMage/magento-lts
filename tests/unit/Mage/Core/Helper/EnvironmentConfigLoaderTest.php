@@ -55,6 +55,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     public function testEnvFilter(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
+        /** @phpstan-ignore method.internal */
         $environmentConfigLoaderHelper->setEnvStore([
             'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
         ]);
@@ -62,6 +63,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $env = $environmentConfigLoaderHelper->getEnv();
         static::assertIsArray($env);
         static::assertEmpty($env);
+        /** @phpstan-ignore method.internal */
         $environmentConfigLoaderHelper->setEnvStore([
             'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1, // enable feature
@@ -210,6 +212,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => 1,
@@ -259,6 +262,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     {
         // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
             'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => 1,
