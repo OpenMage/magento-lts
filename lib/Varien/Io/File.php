@@ -49,7 +49,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * non-existent directories.
      *
      * @var bool
-     * @access protected
      */
     protected $_allowCreateFolders = false;
 
@@ -314,7 +313,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Used to set {@link _allowCreateFolders} value
      *
      * @param bool $flag
-     * @access public
      * @return $this
      */
     public function setAllowCreateFolders($flag)
@@ -771,7 +769,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      *   - LS_ALL   = 3
      *
      * @param Varien_Io_File $grep const
-     * @access public
      * @return array
      */
     public function ls($grep = null)
@@ -846,7 +843,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Convert integer permissions format into human readable
      *
      * @param integer $mode
-     * @access protected
      * @return string
      */
     protected function _parsePermissions($mode)
@@ -902,7 +898,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Get file owner
      *
      * @param string $filename
-     * @access protected
      * @return string
      */
     protected function _getFileOwner($filename)

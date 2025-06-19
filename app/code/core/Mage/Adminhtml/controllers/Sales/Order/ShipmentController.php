@@ -702,6 +702,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
      *
      * @param string $imageString
      * @return Zend_Pdf_Page|bool
+     * @throws Exception
      */
     protected function _createPdfPageFromImageString($imageString)
     {
@@ -716,7 +717,7 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
 
         imageinterlace($image, 0);
         $tmpFileName = sys_get_temp_dir() . DS . 'shipping_labels_'
-                     . uniqid(mt_rand()) . Date::toTimestamp(true) . '.png';
+                     . uniqid(random_int(0, mt_getrandmax()) . Date::toTimestamp(true) . '.png');
         imagepng($image, $tmpFileName);
         $pdfImage = Zend_Pdf_Image::imageWithPath($tmpFileName);
         $page->drawImage($pdfImage, 0, 0, $xSize, $ySize);
