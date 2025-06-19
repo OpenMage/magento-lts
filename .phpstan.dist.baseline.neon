@@ -619,18 +619,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Customer/System/Config/ValidatevatController.php
 
 		-
-			message: '#^Parameter \#2 \$timestamp of function date expects int\|null, array\|bool given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
-
-		-
-			message: '#^Parameter \#2 \$value of method Zend_Controller_Response_Abstract\:\:setHeader\(\) expects string, array\|bool given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/CustomerController.php
-
-		-
 			message: '#^Variable \$id in isset\(\) always exists and is not nullable\.$#'
 			identifier: isset.variable
 			count: 1

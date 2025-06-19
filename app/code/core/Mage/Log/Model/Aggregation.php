@@ -152,7 +152,8 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * @param string|int $in
      * @param null $offset deprecated
-     * @return false|int
+     * @return int
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     private function _timestamp($in, $offset = null)
     {

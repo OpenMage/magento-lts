@@ -266,8 +266,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $part the part of statistic
      * @param mixed $default default value for part
-     * @return array|bool
-     *
+     * @return array|string|false
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamStat($part = null, $default = null)
