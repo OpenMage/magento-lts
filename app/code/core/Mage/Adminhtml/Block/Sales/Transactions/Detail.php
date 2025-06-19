@@ -9,7 +9,6 @@
 
 use Carbon\Carbon;
 
-
 /**
  * Adminhtml transaction detail
  *
