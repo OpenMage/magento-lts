@@ -234,7 +234,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
                 'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
                 'store'  => '', // or 'default', which will be used internally, but this is how \Mage_Adminhtml_Model_Config_Data::_validate defines it
                 'expected'  => [
-                    'general/store_information/name' => 1,
+                    self::XML_PATH_GENERAL => 1,
                 ],
             ],
         ];
