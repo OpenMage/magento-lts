@@ -16,6 +16,8 @@ use Carbon\Carbon;
  */
 class Mage_Reports_Model_Test extends Varien_Object
 {
+    public const DATETIME_INTERNAL_FORMAT = 'Y-m-d H:i';
+
     /**
      * @return false|string
      */
@@ -78,11 +80,11 @@ class Mage_Reports_Model_Test extends Varien_Object
         $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i <= $countOfStartData; $i++) {
-            $allData[] = ['time' => Carbon::createFromTimestamp($startPoint)->format('Y-m-d H:i'), 'value' => random_int(1, 100)];
+            $allData[] = ['time' => Carbon::createFromTimestamp($startPoint)->format(self::DATETIME_INTERNAL_FORMAT), 'value' => random_int(1, 100)];
             $startPoint += 30 * 60;
         }
 
-        $allData[] = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format('Y-m-d H:i')];
+        $allData[] = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format(self::DATETIME_INTERNAL_FORMAT)];
 
         $session -> setData('startPoint', $startPoint);
 
@@ -101,11 +103,11 @@ class Mage_Reports_Model_Test extends Varien_Object
         $reset = 12;
 
         $newData  = [
-            ['time' => Carbon::createFromTimestamp($startPoint)->format('Y-m-d H:i'), 'value' => random_int(1, 100)],
+            ['time' => Carbon::createFromTimestamp($startPoint)->format(self::DATETIME_INTERNAL_FORMAT), 'value' => random_int(1, 100)],
         ];
 
         $startPoint += 30 * 60;
-        $newData[]  = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format('Y-m-d H:i')];
+        $newData[]  = ['time' => Carbon::createFromTimestamp($startPoint + (90 * 60))->format(self::DATETIME_INTERNAL_FORMAT)];
 
         $session->setData('startPoint', $startPoint);
 

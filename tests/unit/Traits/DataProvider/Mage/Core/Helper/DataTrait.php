@@ -21,7 +21,7 @@ trait DataTrait
         $date           = date_create()->getTimestamp();
         $dateShort      = Carbon::createFromTimestamp($date)->format('n/j/Y');
         $dateLong       = Carbon::createFromTimestamp($date)->format('F j, Y');
-        $dateShortTime  = Carbon::createFromTimestamp($date)->format('n/j/Y g:i A');
+        # $dateShortTime  = Carbon::createFromTimestamp($date)->format('n/j/Y g:i A');
 
         yield 'null' => [
             $dateShort,

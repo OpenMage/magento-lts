@@ -58,17 +58,19 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
             $errors = array_merge($errors, $result);
         }
 
-        //range validation
+        // Default date format
+        $format = 'd/m/Y';
+        // Range validation
         $validateRules = $attribute->getValidateRules();
         if ((!empty($validateRules['date_range_min']) && (Carbon::parse($value)->getTimestamp() < $validateRules['date_range_min']))
             || (!empty($validateRules['date_range_max']) && (Carbon::parse($value)->getTimestamp() > $validateRules['date_range_max']))
         ) {
             if (!empty($validateRules['date_range_min']) && !empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date between %s and %s at %s.', Carbon::createFromTimestamp($validateRules['date_range_min'])->format('d/m/Y'), Carbon::createFromTimestamp($validateRules['date_range_max'])->format('d/m/Y'), $label);
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date between %s and %s at %s.', Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format), Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format), $label);
             } elseif (!empty($validateRules['date_range_min'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date equal to or greater than %s at %s.', Carbon::createFromTimestamp($validateRules['date_range_min'])->format('d/m/Y'), $label);
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date equal to or greater than %s at %s.', Carbon::createFromTimestamp($validateRules['date_range_min'])->format($format), $label);
             } elseif (!empty($validateRules['date_range_max'])) {
-                $errors[] = Mage::helper('customer')->__('Please enter a valid date less than or equal to %s at %s.', Carbon::createFromTimestamp($validateRules['date_range_max'])->format('d/m/Y'), $label);
+                $errors[] = Mage::helper('customer')->__('Please enter a valid date less than or equal to %s at %s.', Carbon::createFromTimestamp($validateRules['date_range_max'])->format($format), $label);
             }
         }
 
