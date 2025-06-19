@@ -243,7 +243,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
                 'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
                 'store'  => 'german',
                 'expected'  => [
-                    'general/store_information/name' => 1,
+                    self::XML_PATH_GENERAL => 1,
                 ],
             ],
         ];
