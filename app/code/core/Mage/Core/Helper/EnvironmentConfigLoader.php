@@ -245,7 +245,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             'trim',
         );
 
-        array_shift($configKeyParts);
+        unset($configKeyParts[0]);
         $scope = array_shift($configKeyParts);
         return [$configKeyParts, $scope];
     }
