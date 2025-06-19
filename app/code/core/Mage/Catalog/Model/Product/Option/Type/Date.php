@@ -168,7 +168,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
                     ->date($optionValue, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT, null, false)->toString($format);
             } elseif ($this->getOption()->getType() == Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME) {
                 $date = new Zend_Date($optionValue);
-                $result = date($this->is24hTimeFormat() ? 'H:i' : 'h:i a', $date->getTimestamp());
+                $result = Carbon::createFromTimestamp($date->getTimestamp())->format($this->is24hTimeFormat() ? 'H:i' : 'h:i a');
             } else {
                 $result = $optionValue;
             }
@@ -208,7 +208,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
      */
     public function parseOptionValue($optionValue, $productOptionValues)
     {
-        $timestamp = strtotime($optionValue);
+        $timestamp = Carbon::parse($optionValue)->getTimestamp();
         if ($timestamp === false || $timestamp == -1) {
             return null;
         }

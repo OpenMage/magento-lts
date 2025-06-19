@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -104,7 +106,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($date instanceof Zend_Date) {
             return $date->toString(self::ISO_DATE_FORMAT);
         }
-        return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime($date));
+        return Carbon::parse($date)->format(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT);
     }
 
     public function convertDateTime($datetime)
@@ -112,7 +114,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($datetime instanceof Zend_Date) {
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
-        return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($datetime));
+        return Carbon::parse($datetime)->format(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
     }
 
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps

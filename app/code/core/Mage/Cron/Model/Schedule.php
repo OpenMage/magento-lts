@@ -7,6 +7,8 @@
  * @package    Mage_Cron
  */
 
+use Carbon\Carbon;
+
 /**
  * Crontab schedule model
  *
@@ -83,7 +85,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             return false;
         }
         if (!is_numeric($time)) {
-            $time = strtotime($time);
+            $time = Carbon::parse($time)->getTimestamp();
         }
 
         if ($time === false) {
@@ -100,7 +102,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 
         if ($match) {
             $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
-            $this->setScheduledAt(date('Y-m-d H:i:00', (int) $time));
+            $this->setScheduledAt(Carbon::createFromTimestamp((int) $time)->format('Y-m-d H:i:00'));
         }
         return $match;
     }

@@ -56,10 +56,10 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
 
             default:
                 if (is_string($customStart)) {
-                    $customStart = strtotime($customStart);
+                    $customStart = Carbon::parse($customStart)->getTimestamp();
                 }
                 if (is_string($customEnd)) {
-                    $customEnd = strtotime($customEnd);
+                    $customEnd = Carbon::parse($customEnd)->getTimestamp();
                 }
                 break;
         }

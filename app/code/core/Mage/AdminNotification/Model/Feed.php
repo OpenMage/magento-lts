@@ -90,7 +90,7 @@ class Mage_AdminNotification_Model_Feed extends Mage_Core_Model_Abstract
      */
     public function getDate($rssDate)
     {
-        return gmdate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($rssDate));
+        return gmdate(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, Carbon::parse($rssDate)->getTimestamp());
     }
 
     /**

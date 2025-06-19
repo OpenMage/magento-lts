@@ -117,7 +117,7 @@ class Varien_Date
             return Carbon::now()->getTimestamp();
         }
 
-        return strtotime($date);
+        return Carbon::parse($date)->getTimestamp();
     }
 
     /**
@@ -163,6 +163,6 @@ class Varien_Date
         }
 
         $format = $includeTime ? self::DATETIME_PHP_FORMAT : self::DATE_PHP_FORMAT;
-        return date($format, $date);
+        return Carbon::createFromTimestamp($date)->format($format);
     }
 }

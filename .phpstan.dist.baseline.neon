@@ -709,12 +709,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
 
 		-
-			message: '#^Parameter \#1 \$order of method Mage_Sales_Model_Resource_Order_Collection_Abstract\:\:setOrderFilter\(\) expects int\|Mage_Sales_Model_Order, array\<string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/controllers/Sales/Order/ShipmentController.php
-
-		-
 			message: '#^Parameter \#1 \$prefix of function uniqid expects string, int\<0, max\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2575,24 +2569,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Config.php
 
 		-
-			message: '#^Binary operation "\+" between string and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: '#^Binary operation "\-" between string and string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
-			message: '#^Property Mage_Core_Model_Date\:\:\$_systemOffset is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
 			message: '#^Call to an undefined method Mage_Core_Model_Resource_Design\:\:validate\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -4297,12 +4273,6 @@ parameters:
 			path: app/code/core/Mage/Rss/Helper/Data.php
 
 		-
-			message: '#^Property Mage_Rule_Model_Abstract\:\:\$_conditions \(Mage_Rule_Model_Condition_Combine\) in empty\(\) is not falsy\.$#'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Rule/Model/Abstract.php
-
-		-
 			message: '#^Call to an undefined method Mage_Rule_Model_Action_Interface\:\:getId\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -4379,12 +4349,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/code/core/Mage/Sales/Block/Recurring/Profiles.php
-
-		-
-			message: '#^Parameter \#1 \$order of method Mage_Sales_Model_Resource_Order_Collection_Abstract\:\:setOrderFilter\(\) expects int\|Mage_Sales_Model_Order, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Api2/Order.php
 
 		-
 			message: '#^Parameter \#2 \$code of method Mage_Api2_Model_Resource\:\:_critical\(\) expects int\|null, string given\.$#'

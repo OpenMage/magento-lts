@@ -1560,8 +1560,8 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
             $attrTable = $attribute->getBackend()->getTable();
             $storeIds = [0];
 
-            if ($attribute->getBackendType() === 'datetime' && strtotime($attrValue)) {
-                $attrValue = gmdate(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT, strtotime($attrValue));
+            if ($attribute->getBackendType() === 'datetime' && Carbon::parse($attrValue)->getTimestamp()) {
+                $attrValue = gmdate(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT, Carbon::parse($attrValue)->getTimestamp());
             } elseif ($attribute->getAttributeCode() === 'url_key') {
                 if (empty($attrValue)) {
                     $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $product->getStoreId());

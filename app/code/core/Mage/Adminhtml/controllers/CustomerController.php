@@ -838,7 +838,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 ->setHeader('Pragma', 'public', true)
                 ->setHeader('Content-type', $contentType, true)
                 ->setHeader('Content-Length', $contentLength)
-                ->setHeader('Last-Modified', date('r', $contentModify))
+                ->setHeader('Last-Modified', Carbon::createFromTimestamp($contentModify)->format('r'))
                 ->clearBody();
             $this->getResponse()->sendHeaders();
 

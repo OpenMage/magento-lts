@@ -57,8 +57,8 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             return $intervals;
         }
 
-        $dateStart  = Carbon::now()->setTimeFromTimeString($dateFrom);
-        $endDate    = Carbon::now()->setTimeFromTimeString($dateTo);
+        $dateStart  = Carbon::now()->setTimeFromTimeString($dateFrom . ' 00:00:00');
+        $endDate    = Carbon::now()->setTimeFromTimeString($dateTo . ' 00:00:00');
 
         switch ($period) {
             case self::REPORT_PERIOD_TYPE_DAY:
@@ -73,7 +73,6 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
             default:
                 $format     = 'YYYY';
                 $modifier   = 'addYear';
-                $dateStart->addYear();
                 break;
         }
 

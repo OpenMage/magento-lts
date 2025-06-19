@@ -7,6 +7,8 @@
  * @package    Mage_Usa
  */
 
+use Carbon\Carbon;
+
 /**
  * DHL Abstract class
  *
@@ -59,12 +61,12 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract extends Mage_Usa_Mod
         $shippingDays = explode(',', $shippingDays);
 
         $i = 0;
-        $weekday = date('D', strtotime($date));
+        $weekday = Carbon::parse($date)->format('D');
         while (!in_array($weekday, $shippingDays) && $i < 10) {
             $i++;
-            $weekday = date('D', strtotime("$date +$i day"));
+            $weekday = Carbon::parse("$date +$i day")->format('D');
         }
 
-        return date(self::REQUEST_DATE_FORMAT, strtotime("$date +$i day"));
+        return Carbon::parse("$date +$i day")->format(self::REQUEST_DATE_FORMAT);
     }
 }

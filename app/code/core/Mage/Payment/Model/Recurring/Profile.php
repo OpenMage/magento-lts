@@ -316,7 +316,7 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
         if (!$datetime || !$this->_locale || !$this->_store) {
             return;
         }
-        $date = $this->_locale->storeDate($this->_store, strtotime($datetime), true);
+        $date = $this->_locale->storeDate($this->_store, Carbon::parse($datetime)->getTimestamp(), true);
         if ($asString) {
             return $date->toString($this->_locale->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         }

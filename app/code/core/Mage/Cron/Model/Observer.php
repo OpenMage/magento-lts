@@ -171,7 +171,7 @@ class Mage_Cron_Model_Observer
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_PENDING);
 
             for ($time = $now; $time < $timeAhead; $time += 60) {
-                $ts = date('Y-m-d H:i:00', $time);
+                $ts = Carbon::createFromTimestamp($time)->format('Y-m-d H:i:00');
                 if (!empty($exists[$jobCode . '/' . $ts])) {
                     // already scheduled
                     continue;
@@ -216,7 +216,7 @@ class Mage_Cron_Model_Observer
         $now = Carbon::now()->getTimestamp();
         foreach ($history->getIterator() as $record) {
             if (empty($record->getExecutedAt())
-                || (strtotime($record->getExecutedAt()) < $now - $historyLifetimes[$record->getStatus()])
+                || (Carbon::parse($record->getExecutedAt())->getTimestamp() < $now - $historyLifetimes[$record->getStatus()])
             ) {
                 $record->delete();
             }
@@ -268,7 +268,7 @@ class Mage_Cron_Model_Observer
         if (!$isAlways) {
             $scheduleLifetime = Mage::getStoreConfig(self::XML_PATH_SCHEDULE_LIFETIME) * 60;
             $now = Carbon::now()->getTimestamp();
-            $time = strtotime($schedule->getScheduledAt());
+            $time = Carbon::parse($schedule->getScheduledAt())->getTimestamp();
             if ($time > $now) {
                 return;
             }

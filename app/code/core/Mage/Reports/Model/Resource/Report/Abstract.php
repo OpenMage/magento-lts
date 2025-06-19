@@ -456,7 +456,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     {
         $result         = true;
         $timeStamp      = $transition['ts'];
-        $transitionYear = date('Y', $timeStamp);
+        $transitionYear = Carbon::createFromTimestamp($timeStamp)->format('Y');
 
         if ($transitionYear > 10000 || $transitionYear < -10000) {
             $result = false;
