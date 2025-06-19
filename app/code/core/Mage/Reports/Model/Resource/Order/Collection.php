@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Reports orders collection
  *
- * @category   Mage
  * @package    Mage_Reports
  *
  * @method Mage_Sales_Model_Order getFirstItem()
@@ -236,6 +228,8 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 break;
             case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
             case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+            case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+            case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
                 $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d');
                 break;
             case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
@@ -341,7 +335,14 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+            case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+            case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
                 $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
+                if ($range === Mage_Reports_Helper_Data::PERIOD_3_MONTHS) {
+                    $dateStart->subMonth(2);
+                } elseif ($range === Mage_Reports_Helper_Data::PERIOD_6_MONTHS) {
+                    $dateStart->subMonth(5);
+                }
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_CUSTOM:

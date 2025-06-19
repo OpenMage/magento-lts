@@ -1,409 +1,350 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Tax\Helper;
 
-use Generator;
 use Mage;
 use Mage_Tax_Helper_Data as Subject;
 use Mage_Tax_Model_Calculation;
 use Mage_Tax_Model_Config;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\TaxTrait;
 
-class DataTest extends TestCase
+class DataTest extends OpenMageTest
 {
-    public Subject $subject;
+    use TaxTrait;
 
+    private static Subject $subject;
+
+    public const SKIP_INCOMPLETE = 'incomplete';
     public const SKIP_WITH_LOCAL_DATA = 'Constant DATA_MAY_CHANGED is defined.';
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::helper('tax/data');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::helper('tax/data');
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getPostCodeSubStringLength()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetPostCodeSubStringLength(): void
     {
-        $this->assertSame(10, $this->subject->getPostCodeSubStringLength());
+        static::assertSame(10, self::$subject->getPostCodeSubStringLength());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getConfig()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetConfig(): void
     {
-        $this->assertInstanceOf(Mage_Tax_Model_Config::class, $this->subject->getConfig());
+        static::assertInstanceOf(Mage_Tax_Model_Config::class, self::$subject->getConfig());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getCalculator()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetCalculator(): void
     {
-        $this->assertInstanceOf(Mage_Tax_Model_Calculation::class, $this->subject->getCalculator());
+        static::assertInstanceOf(Mage_Tax_Model_Calculation::class, self::$subject->getCalculator());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @doesNotPerformAssertions
      */
     public function testGetProductPrice(): void
     {
-        #$this->assertSame('', $this->subject->getProductPrice());
-        $this->markTestIncomplete();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertSame('', self::$subject->getProductPrice());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testPriceIncludesTax(): void
     {
-        $this->assertFalse($this->subject->priceIncludesTax());
+        static::assertFalse(self::$subject->priceIncludesTax());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::applyTaxAfterDiscount()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testApplyTaxAfterDiscount(): void
     {
-        $this->assertTrue($this->subject->applyTaxAfterDiscount());
+        static::assertTrue(self::$subject->applyTaxAfterDiscount());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getIncExcText()
      * @dataProvider provideGetIncExcText
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetIncExcText(string $expectedResult, bool $flag): void
     {
-        $this->assertStringContainsString($expectedResult, $this->subject->getIncExcText($flag));
-    }
-
-    public function provideGetIncExcText(): Generator
-    {
-        yield 'true' => [
-            'Incl. Tax',
-            true,
-        ];
-        yield 'false' => [
-            'Excl. Tax',
-            false,
-        ];
+        static::assertStringContainsString($expectedResult, self::$subject->getIncExcText($flag));
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getPriceDisplayType()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetPriceDisplayType(): void
     {
-        $this->assertSame(1, $this->subject->getPriceDisplayType());
+        static::assertSame(1, self::$subject->getPriceDisplayType());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @doesNotPerformAssertions
      */
     public function testNeedPriceConversion(): void
     {
-        #$this->assertSame(1, $this->subject->needPriceConversion());
-        $this->markTestIncomplete();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertSame(1, self::$subject->needPriceConversion());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @group runInSeparateProcess
      * @runInSeparateProcess
      * @doesNotPerformAssertions
      */
     public function testGetPriceFormat(): void
     {
-        #$this->assertSame('', $this->subject->getPriceFormat());
-        $this->markTestIncomplete();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertSame('', self::$subject->getPriceFormat());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
-     * @group UsesSampleDataFlag
+     * @group Helper
      */
     public function testGetTaxRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        $this->assertSame('{"value_2":8.25,"value_4":0}', $this->subject->getTaxRatesByProductClass());
+        static::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getTaxRatesByProductClass());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
-     * @group UsesSampleDataFlag
+     * @group Helper
      */
     public function testGetAllRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            $this->markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        $this->assertSame('{"value_2":8.25,"value_4":0}', $this->subject->getAllRatesByProductClass());
+        static::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getAllRatesByProductClass());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      * @doesNotPerformAssertions
      */
     public function testGetPrice(): void
     {
-        #$this->assertFalse($this->subject->getPrice());
-        $this->markTestIncomplete();
+        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        /** @phpstan-ignore deadCode.unreachable */
+        static::assertFalse(self::$subject->getPrice());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::displayPriceIncludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayPriceIncludingTax(): void
     {
-        $this->assertFalse($this->subject->displayPriceIncludingTax());
+        static::assertFalse(self::$subject->displayPriceIncludingTax());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::displayPriceExcludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayPriceExcludingTax(): void
     {
-        $this->assertTrue($this->subject->displayPriceExcludingTax());
+        static::assertTrue(self::$subject->displayPriceExcludingTax());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::displayBothPrices()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayBothPrices(): void
     {
-        $this->assertFalse($this->subject->displayBothPrices());
+        static::assertFalse(self::$subject->displayBothPrices());
     }
 
     /**
      * @dataProvider provideGetIncExcTaxLabel
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
-    public function testGetIncExcTaxLabel($expectedResult, bool $flag): void
+    public function testGetIncExcTaxLabel(string $expectedResult, bool $flag): void
     {
-        $this->assertStringContainsString($expectedResult, $this->subject->getIncExcTaxLabel($flag));
-    }
-
-    public function provideGetIncExcTaxLabel(): Generator
-    {
-        yield 'true' => [
-            '(Incl. Tax)',
-            true,
-        ];
-        yield 'false' => [
-            '(Excl. Tax)',
-            false,
-        ];
+        static::assertStringContainsString($expectedResult, self::$subject->getIncExcTaxLabel($flag));
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::shippingPriceIncludesTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testShippingPriceIncludesTax(): void
     {
-        $this->assertFalse($this->subject->shippingPriceIncludesTax());
+        static::assertFalse(self::$subject->shippingPriceIncludesTax());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getShippingPriceDisplayType()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetShippingPriceDisplayType(): void
     {
-        $this->assertSame(1, $this->subject->getShippingPriceDisplayType());
+        static::assertSame(1, self::$subject->getShippingPriceDisplayType());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::displayShippingPriceIncludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayShippingPriceIncludingTax(): void
     {
-        $this->assertFalse($this->subject->displayShippingPriceIncludingTax());
+        static::assertFalse(self::$subject->displayShippingPriceIncludingTax());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::displayShippingPriceExcludingTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayShippingPriceExcludingTax(): void
     {
-        $this->assertTrue($this->subject->displayShippingPriceExcludingTax());
+        static::assertTrue(self::$subject->displayShippingPriceExcludingTax());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::displayShippingBothPrices()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDisplayShippingBothPrices(): void
     {
-        $this->assertFalse($this->subject->displayShippingBothPrices());
+        static::assertFalse(self::$subject->displayShippingBothPrices());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getShippingTaxClass()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetShippingTaxClass(): void
     {
-        $this->assertSame(0, $this->subject->getShippingTaxClass(null));
+        static::assertSame(0, self::$subject->getShippingTaxClass(null));
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetShippingPrice(): void
     {
-        $this->assertEqualsWithDelta(100.0, $this->subject->getShippingPrice(100.0), PHP_FLOAT_EPSILON);
+        static::assertEqualsWithDelta(100.0, self::$subject->getShippingPrice(100.0), PHP_FLOAT_EPSILON);
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::discountTax()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testDiscountTax(): void
     {
-        $this->assertFalse($this->subject->discountTax());
+        static::assertFalse(self::$subject->discountTax());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getTaxBasedOn()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetTaxBasedOn(): void
     {
-        $this->assertSame('shipping', $this->subject->getTaxBasedOn());
+        static::assertSame('shipping', self::$subject->getTaxBasedOn());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::applyTaxOnCustomPrice()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testApplyTaxOnCustomPrice(): void
     {
-        $this->assertTrue($this->subject->applyTaxOnCustomPrice());
+        static::assertTrue(self::$subject->applyTaxOnCustomPrice());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::applyTaxOnOriginalPrice()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testApplyTaxOnOriginalPrice(): void
     {
-        $this->assertFalse($this->subject->applyTaxOnOriginalPrice());
+        static::assertFalse(self::$subject->applyTaxOnOriginalPrice());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetCalculationSequence(): void
     {
-        $this->assertSame('1_0', $this->subject->getCalculationSequence());
+        static::assertSame('1_0', self::$subject->getCalculationSequence());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::getCalculationAgorithm()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testGetCalculationAgorithm(): void
     {
-        $this->assertSame('TOTAL_BASE_CALCULATION', $this->subject->getCalculationAgorithm());
+        static::assertSame('TOTAL_BASE_CALCULATION', self::$subject->getCalculationAgorithm());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsWrongDisplaySettingsIgnored(): void
     {
-        $this->assertFalse($this->subject->isWrongDisplaySettingsIgnored());
+        static::assertFalse(self::$subject->isWrongDisplaySettingsIgnored());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsWrongDiscountSettingsIgnored(): void
     {
-        $this->assertFalse($this->subject->isWrongDiscountSettingsIgnored());
+        static::assertFalse(self::$subject->isWrongDiscountSettingsIgnored());
     }
 
     /**
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsConflictingFptTaxConfigurationSettingsIgnored(): void
     {
-        $this->assertFalse($this->subject->isConflictingFptTaxConfigurationSettingsIgnored());
+        static::assertFalse(self::$subject->isConflictingFptTaxConfigurationSettingsIgnored());
     }
 
     /**
      * @covers Mage_Tax_Helper_Data::isCrossBorderTradeEnabled()
-     * @group Mage_Tax
-     * @group Mage_Tax_Helper
+     * @group Helper
      */
     public function testIsCrossBorderTradeEnabled(): void
     {
-        $this->assertFalse($this->subject->isCrossBorderTradeEnabled());
+        static::assertFalse(self::$subject->isCrossBorderTradeEnabled());
     }
 }

@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -20,18 +14,17 @@ namespace OpenMage\Tests\Unit\Base;
 use Generator;
 use Mage;
 use Mage_Adminhtml_Helper_Dashboard_Data;
+use Mage_Core_Model_Store;
 use PHPUnit\Framework\TestCase;
 
 class DefaultConfigTest extends TestCase
 {
     /**
      * @dataProvider provideGetStoreConfig
-     * @group Base
-     * @group Default_Config
      */
-    public function testGetStoreConfig(string $expectedResult, string $path, $store = null): void
+    public function testGetStoreConfig(string $expectedResult, string $path, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {
-        $this->assertSame($expectedResult, Mage::getStoreConfig($path, $store));
+        static::assertSame($expectedResult, Mage::getStoreConfig($path, $store));
     }
 
 

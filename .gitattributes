@@ -23,6 +23,8 @@
 
 /README.md export-ignore
 
+/Makefile export-ignore
+
 # Enforce checkout with linux lf consistent over all platforms
 *.html text eol=lf
 *.css text eol=lf

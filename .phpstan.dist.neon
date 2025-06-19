@@ -112,11 +112,6 @@ parameters:
                 - app/design/frontend/base/default/template/catalog/product/view/price.phtml
                 - app/design/frontend/base/default/template/catalog/product/widget/link/link_block.phtml
                 - app/design/frontend/base/default/template/catalog/product/widget/link/link_inline.phtml
-                - app/design/frontend/base/default/template/catalog/product/widget/new/column/new_default_list.phtml
-                - app/design/frontend/base/default/template/catalog/product/widget/new/column/new_images_list.phtml
-                - app/design/frontend/base/default/template/catalog/product/widget/new/column/new_names_list.phtml
-                - app/design/frontend/base/default/template/catalog/product/widget/new/content/new_grid.phtml
-                - app/design/frontend/base/default/template/catalog/product/widget/new/content/new_list.phtml
                 - app/design/frontend/base/default/template/checkout/cart/render/default.phtml
                 - app/design/frontend/base/default/template/checkout/cart/render/simple.phtml
                 - app/design/frontend/base/default/template/cms/widget/link/link_block.phtml
@@ -132,28 +127,20 @@ parameters:
                 - app/design/frontend/base/default/template/directory/currency/switch.phtml
                 - app/design/frontend/base/default/template/page/redirect.phtml
                 - app/design/frontend/base/default/template/paypal/hss/review/button.phtml
-                - app/design/frontend/base/default/template/reports/widget/compared/column/compared_default_list.phtml
-                - app/design/frontend/base/default/template/reports/widget/compared/column/compared_images_list.phtml
-                - app/design/frontend/base/default/template/reports/widget/compared/column/compared_names_list.phtml
-                - app/design/frontend/base/default/template/reports/widget/compared/content/compared_grid.phtml
-                - app/design/frontend/base/default/template/reports/widget/compared/content/compared_list.phtml
-                - app/design/frontend/rwd/default/template/catalog/product/widget/new/column/new_default_list.phtml
-                - app/design/frontend/rwd/default/template/catalog/product/widget/new/column/new_images_list.phtml
-                - app/design/frontend/rwd/default/template/catalog/product/widget/new/column/new_names_list.phtml
-                - app/design/frontend/rwd/default/template/catalog/product/widget/new/content/new_list.phtml
                 - app/design/frontend/rwd/default/template/checkout/cart/render/default.phtml
                 - app/design/frontend/rwd/default/template/checkout/cart/render/simple.phtml
                 - app/design/frontend/rwd/default/template/customer/form/address.phtml
                 - app/design/frontend/rwd/default/template/customer/form/changepassword.phtml
                 - app/design/frontend/rwd/default/template/paypal/express/review/address.phtml
-                - app/design/frontend/rwd/default/template/reports/widget/compared/column/compared_default_list.phtml
-                - app/design/frontend/rwd/default/template/reports/widget/compared/column/compared_images_list.phtml
-                - app/design/frontend/rwd/default/template/reports/widget/compared/column/compared_names_list.phtml
-                - app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_grid.phtml
-                - app/design/frontend/rwd/default/template/reports/widget/compared/content/compared_list.phtml
                 - app/design/install/default/default/template/page.phtml
         -
             identifier: phpunit.coversMethod
+        -
+            identifier: variable.undefined
+            paths:
+                - app/design/*/*/template/*
+                - errors/*
+                - lib/Varien/*
     tmpDir: .phpstan.cache
     level: 5
     checkFunctionNameCase: true
