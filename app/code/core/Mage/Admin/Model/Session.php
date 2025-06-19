@@ -229,12 +229,12 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 try {
                     if (!$acl->has($resource)) {
                         return $acl->isAllowed($user->getAclRole(), null, $privilege);
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
         }
@@ -308,7 +308,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 'user_name' => $username,
                 'exception' => $e,
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
 
         if ($request && !$request->getParam('messageSent')) {

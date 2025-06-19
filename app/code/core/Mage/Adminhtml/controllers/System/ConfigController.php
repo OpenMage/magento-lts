@@ -278,11 +278,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 }
                 return true;
             }
-        } catch (Zend_Acl_Exception $e) {
+        } catch (Zend_Acl_Exception) {
             $this->norouteAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->deniedAction();
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;

@@ -73,6 +73,7 @@ try {
             DeadCode\ClassMethod\RemoveUselessReturnTagRector::class,
             DeadCode\Property\RemoveUselessVarTagRector::class,
             DeadCode\StaticCall\RemoveParentCallWithoutParentRector::class,
+            Php80\Catch_\RemoveUnusedVariableInCatchRector::class,
         ])
         ->withPreparedSets(
             deadCode: false,

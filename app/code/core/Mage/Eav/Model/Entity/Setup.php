@@ -1443,7 +1443,7 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
             foreach ($tables as $tableName => $table) {
                 $connection->createTable($table);
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Can\'t create table: %s', $tableName));
         }
 

@@ -703,7 +703,7 @@ final class Mage
             } else {
                 self::$_app->init($code, $type, $options);
             }
-        } catch (Mage_Core_Model_Session_Exception $e) {
+        } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die;
         } catch (Mage_Core_Model_Store_Exception $e) {
@@ -746,7 +746,7 @@ final class Mage
                 'options'    => $options,
             ]);
             Varien_Profiler::stop('mage');
-        } catch (Mage_Core_Model_Session_Exception $e) {
+        } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die();
         } catch (Mage_Core_Model_Store_Exception $e) {
@@ -924,7 +924,7 @@ final class Mage
 
             $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
     }
 

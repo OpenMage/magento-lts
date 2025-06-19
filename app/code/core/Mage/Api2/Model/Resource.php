@@ -756,7 +756,7 @@ abstract class Mage_Api2_Model_Resource
 
             try {
                 $collection->$methodName($attributeCode, $filterEntry);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_critical(self::RESOURCE_COLLECTION_FILTERING_ERROR);
             }
         }
@@ -824,7 +824,7 @@ abstract class Mage_Api2_Model_Resource
 
         try {
             return $globalAcl->isAllowed($this->getApiUser(), $resourceId, $this->getOperation());
-        } catch (Mage_Api2_Exception $e) {
+        } catch (Mage_Api2_Exception) {
             throw new Exception('Invalid arguments for isAllowed() call');
         }
     }
@@ -1041,7 +1041,7 @@ abstract class Mage_Api2_Model_Resource
                 }
                 $store = Mage::app()->getStore($store);
             }
-        } catch (Mage_Core_Model_Store_Exception $e) {
+        } catch (Mage_Core_Model_Store_Exception) {
             // store does not exist
             $this->_critical('Requested store is invalid', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
