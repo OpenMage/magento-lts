@@ -24,19 +24,14 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCmpiLabel($fieldName)
     {
-        switch ($fieldName) {
-            case Mage_Centinel_Model_Service::CMPI_PARES:
-                return $this->__('3D Secure Verification Result');
-            case Mage_Centinel_Model_Service::CMPI_ENROLLED:
-                return $this->__('3D Secure Cardholder Validation');
-            case Mage_Centinel_Model_Service::CMPI_ECI:
-                return $this->__('3D Secure Electronic Commerce Indicator');
-            case Mage_Centinel_Model_Service::CMPI_CAVV:
-                return $this->__('3D Secure CAVV');
-            case Mage_Centinel_Model_Service::CMPI_XID:
-                return $this->__('3D Secure XID');
-        }
-        return '';
+        return match ($fieldName) {
+            Mage_Centinel_Model_Service::CMPI_PARES => $this->__('3D Secure Verification Result'),
+            Mage_Centinel_Model_Service::CMPI_ENROLLED => $this->__('3D Secure Cardholder Validation'),
+            Mage_Centinel_Model_Service::CMPI_ECI => $this->__('3D Secure Electronic Commerce Indicator'),
+            Mage_Centinel_Model_Service::CMPI_CAVV => $this->__('3D Secure CAVV'),
+            Mage_Centinel_Model_Service::CMPI_XID => $this->__('3D Secure XID'),
+            default => '',
+        };
     }
 
     /**
@@ -48,18 +43,13 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getCmpiValue($fieldName, $value)
     {
-        switch ($fieldName) {
-            case Mage_Centinel_Model_Service::CMPI_PARES:
-                return $this->_getCmpiParesValue($value);
-            case Mage_Centinel_Model_Service::CMPI_ENROLLED:
-                return $this->_getCmpiEnrolledValue($value);
-            case Mage_Centinel_Model_Service::CMPI_ECI:
-                return $this->_getCmpiEciValue($value);
-            case Mage_Centinel_Model_Service::CMPI_CAVV: // break intentionally omitted
-            case Mage_Centinel_Model_Service::CMPI_XID:
-                return $value;
-        }
-        return '';
+        return match ($fieldName) {
+            Mage_Centinel_Model_Service::CMPI_PARES => $this->_getCmpiParesValue($value),
+            Mage_Centinel_Model_Service::CMPI_ENROLLED => $this->_getCmpiEnrolledValue($value),
+            Mage_Centinel_Model_Service::CMPI_ECI => $this->_getCmpiEciValue($value),
+            Mage_Centinel_Model_Service::CMPI_CAVV, Mage_Centinel_Model_Service::CMPI_XID => $value,
+            default => '',
+        };
     }
 
     /**
@@ -70,17 +60,11 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private function _getCmpiEciValue($value)
     {
-        switch ($value) {
-            case '01':
-            case '07':
-                return $this->__('Merchant Liability');
-            case '02':
-            case '05':
-            case '06':
-                return $this->__('Card Issuer Liability');
-            default:
-                return $value;
-        }
+        return match ($value) {
+            '01', '07' => $this->__('Merchant Liability'),
+            '02', '05', '06' => $this->__('Card Issuer Liability'),
+            default => $value,
+        };
     }
 
     /**
@@ -91,15 +75,11 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private function _getCmpiEnrolledValue($value)
     {
-        switch ($value) {
-            case 'Y':
-                return $this->__('Enrolled');
-            case 'U':
-                return $this->__('Enrolled but Authentication Unavailable');
-            case 'N': // break intentionally omitted
-            default:
-                return $this->__('Not Enrolled');
-        }
+        return match ($value) {
+            'Y' => $this->__('Enrolled'),
+            'U' => $this->__('Enrolled but Authentication Unavailable'),
+            default => $this->__('Not Enrolled'),
+        };
     }
 
     /**
@@ -110,18 +90,13 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
      */
     private function _getCmpiParesValue($value)
     {
-        switch ($value) {
-            case 'Y':
-                return $this->__('Successful');
-            case 'N':
-                return $this->__('Failed');
-            case 'U':
-                return $this->__('Unable to complete');
-            case 'A':
-                return $this->__('Successful attempt');
-            default:
-                return $value;
-        }
+        return match ($value) {
+            'Y' => $this->__('Successful'),
+            'N' => $this->__('Failed'),
+            'U' => $this->__('Unable to complete'),
+            'A' => $this->__('Successful attempt'),
+            default => $value,
+        };
     }
 
     /**

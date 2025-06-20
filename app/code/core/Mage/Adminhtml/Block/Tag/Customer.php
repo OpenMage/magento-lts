@@ -22,18 +22,11 @@ class Mage_Adminhtml_Block_Tag_Customer extends Mage_Adminhtml_Block_Widget_Grid
     {
         parent::__construct();
 
-        switch ($this->getRequest()->getParam('ret')) {
-            case 'all':
-                $url = $this->getUrl('*/*/');
-                break;
-
-            case 'pending':
-                $url = $this->getUrl('*/*/pending');
-                break;
-
-            default:
-                $url = $this->getUrl('*/*/');
-        }
+        $url = match ($this->getRequest()->getParam('ret')) {
+            'all' => $this->getUrl('*/*/'),
+            'pending' => $this->getUrl('*/*/pending'),
+            default => $this->getUrl('*/*/'),
+        };
 
         $this->_block = 'tag_customer';
         $this->_controller = 'tag_customer';

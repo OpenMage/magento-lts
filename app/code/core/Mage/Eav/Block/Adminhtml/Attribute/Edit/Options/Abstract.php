@@ -101,17 +101,11 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             $defaultValues = [];
         }
 
-        switch ($attributeType) {
-            case 'select':
-                $inputType = 'radio';
-                break;
-            case 'multiselect':
-                $inputType = 'checkbox';
-                break;
-            default:
-                $inputType = '';
-                break;
-        }
+        $inputType = match ($attributeType) {
+            'select' => 'radio',
+            'multiselect' => 'checkbox',
+            default => '',
+        };
 
         $values = $this->getData('option_values');
         if (is_null($values)) {

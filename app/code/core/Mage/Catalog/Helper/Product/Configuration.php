@@ -140,13 +140,11 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     public function getOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
     {
         $typeId = $item->getProduct()->getTypeId();
-        switch ($typeId) {
-            case Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE:
-                return $this->getConfigurableOptions($item);
-            case Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE:
-                return $this->getGroupedOptions($item);
-        }
-        return $this->getCustomOptions($item);
+        return match ($typeId) {
+            Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE => $this->getConfigurableOptions($item),
+            Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE => $this->getGroupedOptions($item),
+            default => $this->getCustomOptions($item),
+        };
     }
 
     /**

@@ -465,13 +465,11 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
       */
     protected function _getTrxTokenType()
     {
-        switch ($this->getConfigData('payment_action')) {
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH:
-                return self::TRXTYPE_AUTH_ONLY;
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
-                return self::TRXTYPE_SALE;
-        }
-        return '';
+        return match ($this->getConfigData('payment_action')) {
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH => self::TRXTYPE_AUTH_ONLY,
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE => self::TRXTYPE_SALE,
+            default => '',
+        };
     }
 
     /**

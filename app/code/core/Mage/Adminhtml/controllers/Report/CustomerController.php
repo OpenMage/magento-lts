@@ -151,15 +151,11 @@ class Mage_Adminhtml_Report_CustomerController extends Mage_Adminhtml_Controller
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'accounts':
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers/accounts');
-            case 'orders':
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers/orders');
-            case 'totals':
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers/totals');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/customers');
-        }
+        return match ($action) {
+            'accounts' => Mage::getSingleton('admin/session')->isAllowed('report/customers/accounts'),
+            'orders' => Mage::getSingleton('admin/session')->isAllowed('report/customers/orders'),
+            'totals' => Mage::getSingleton('admin/session')->isAllowed('report/customers/totals'),
+            default => Mage::getSingleton('admin/session')->isAllowed('report/customers'),
+        };
     }
 }

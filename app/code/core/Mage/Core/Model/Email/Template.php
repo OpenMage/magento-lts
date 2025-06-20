@@ -386,17 +386,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $subject = $this->getProcessedTemplateSubject($variables);
 
         $setReturnPath = Mage::getStoreConfig(self::XML_PATH_SENDING_SET_RETURN_PATH);
-        switch ($setReturnPath) {
-            case 1:
-                $returnPathEmail = $this->getSenderEmail();
-                break;
-            case 2:
-                $returnPathEmail = Mage::getStoreConfig(self::XML_PATH_SENDING_RETURN_PATH_EMAIL);
-                break;
-            default:
-                $returnPathEmail = null;
-                break;
-        }
+        $returnPathEmail = match ($setReturnPath) {
+            1 => $this->getSenderEmail(),
+            2 => Mage::getStoreConfig(self::XML_PATH_SENDING_RETURN_PATH_EMAIL),
+            default => null,
+        };
 
         if ($this->hasQueue() && $this->getQueue() instanceof Mage_Core_Model_Email_Queue) {
             $emailQueue = $this->getQueue();

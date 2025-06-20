@@ -22,17 +22,10 @@ class Mage_Eav_Model_Attribute_Data_Boolean extends Mage_Eav_Model_Attribute_Dat
      */
     protected function _getOptionText($value)
     {
-        switch ($value) {
-            case '0':
-                $text = Mage::helper('eav')->__('No');
-                break;
-            case '1':
-                $text = Mage::helper('eav')->__('Yes');
-                break;
-            default:
-                $text = '';
-                break;
-        }
-        return $text;
+        return match ($value) {
+            '0' => Mage::helper('eav')->__('No'),
+            '1' => Mage::helper('eav')->__('Yes'),
+            default => '',
+        };
     }
 }

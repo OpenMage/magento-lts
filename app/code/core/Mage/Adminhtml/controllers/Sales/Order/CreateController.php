@@ -540,22 +540,12 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         if (in_array($action, ['index', 'save']) && $this->_getSession()->getReordered()) {
             $action = 'reorder';
         }
-        switch ($action) {
-            case 'index':
-            case 'save':
-                $aclResource = 'sales/order/actions/create';
-                break;
-            case 'reorder':
-                $aclResource = 'sales/order/actions/reorder';
-                break;
-            case 'cancel':
-                $aclResource = 'sales/order/actions/cancel';
-                break;
-            default:
-                $aclResource = 'sales/order/actions';
-                break;
-        }
-        return $aclResource;
+        return match ($action) {
+            'index', 'save' => 'sales/order/actions/create',
+            'reorder' => 'sales/order/actions/reorder',
+            'cancel' => 'sales/order/actions/cancel',
+            default => 'sales/order/actions',
+        };
     }
 
     /**
