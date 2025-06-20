@@ -857,7 +857,7 @@ final class Mage
             if (empty($file)) {
                 $file = self::getStoreConfig('dev/log/file');
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $logActive = true;
         }
 
@@ -869,7 +869,7 @@ final class Mage
 
         try {
             $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             $maxLogLevel = Zend_Log::DEBUG;
         }
 

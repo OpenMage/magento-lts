@@ -41,7 +41,7 @@ try {
         WHERE cs.store_id=ps.store_id AND ps.store_id>0;
     DROP TABLE IF EXISTS {$this->getTable('catalog_product_store')};
     ");
-} catch (Exception $e) {
+} catch (Exception) {
 }
 
 $categoryTable = $this->getTable('catalog/category');
@@ -49,7 +49,7 @@ $installer->getConnection()->dropForeignKey($categoryTable, 'FK_CATALOG_CATEGORY
 
 try {
     $this->run("ALTER TABLE `{$this->getTable('catalog/category')}` ADD `path` VARCHAR( 255 ) NOT NULL, ADD `position` INT NOT NULL;");
-} catch (Exception $e) {
+} catch (Exception) {
 }
 try {
     $this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
