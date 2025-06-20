@@ -374,23 +374,15 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'sales':
-                return $this->_getSession()->isAllowed('report/salesroot/sales');
-            case 'tax':
-                return $this->_getSession()->isAllowed('report/salesroot/tax');
-            case 'shipping':
-                return $this->_getSession()->isAllowed('report/salesroot/shipping');
-            case 'invoiced':
-                return $this->_getSession()->isAllowed('report/salesroot/invoiced');
-            case 'refunded':
-                return $this->_getSession()->isAllowed('report/salesroot/refunded');
-            case 'coupons':
-                return $this->_getSession()->isAllowed('report/salesroot/coupons');
-            case 'bestsellers':
-                return $this->_getSession()->isAllowed('report/products/bestsellers');
-            default:
-                return $this->_getSession()->isAllowed('report/salesroot');
-        }
+        return match ($action) {
+            'sales' => $this->_getSession()->isAllowed('report/salesroot/sales'),
+            'tax' => $this->_getSession()->isAllowed('report/salesroot/tax'),
+            'shipping' => $this->_getSession()->isAllowed('report/salesroot/shipping'),
+            'invoiced' => $this->_getSession()->isAllowed('report/salesroot/invoiced'),
+            'refunded' => $this->_getSession()->isAllowed('report/salesroot/refunded'),
+            'coupons' => $this->_getSession()->isAllowed('report/salesroot/coupons'),
+            'bestsellers' => $this->_getSession()->isAllowed('report/products/bestsellers'),
+            default => $this->_getSession()->isAllowed('report/salesroot'),
+        };
     }
 }

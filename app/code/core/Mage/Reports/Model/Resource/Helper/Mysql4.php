@@ -43,17 +43,11 @@ class Mage_Reports_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource
         $ratingSubSelect = $adapter->select();
         $ratingSelect    = $adapter->select();
 
-        switch ($type) {
-            case 'year':
-                $periodCol = $adapter->getDateFormatSql('t.period', '%Y-01-01');
-                break;
-            case 'month':
-                $periodCol = $adapter->getDateFormatSql('t.period', '%Y-%m-01');
-                break;
-            default:
-                $periodCol = 't.period';
-                break;
-        }
+        $periodCol = match ($type) {
+            'year' => $adapter->getDateFormatSql('t.period', '%Y-01-01'),
+            'month' => $adapter->getDateFormatSql('t.period', '%Y-%m-01'),
+            default => 't.period',
+        };
 
         $columns = [
             'period'          => 't.period',
