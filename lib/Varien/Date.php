@@ -7,11 +7,16 @@
  * @package    Varien_Date
  */
 
+use Carbon\Carbon;
+
 /**
  * Converter of date formats
  * Internal dates
  *
  * @package  Varien_Date
+ * @deprecated
+ * @see Carbon
+ * @see Mage_Core_Helper_Date
  */
 class Varien_Date
 {
@@ -109,17 +114,18 @@ class Varien_Date
         }
 
         if ($date === true) {
-            return time();
+            return Carbon::now()->getTimestamp();
         }
 
-        return strtotime($date);
+        return Carbon::parse($date)->getTimestamp();
     }
 
     /**
      * Retrieve current date in internal format
      *
-     * @param boolean $withoutTime day only flag
+     * @param bool $withoutTime day only flag
      * @return string
+     * @deprecated replaced by carbon
      */
     public static function now($withoutTime = false)
     {
@@ -157,6 +163,6 @@ class Varien_Date
         }
 
         $format = $includeTime ? self::DATETIME_PHP_FORMAT : self::DATE_PHP_FORMAT;
-        return date($format, $date);
+        return Carbon::createFromTimestamp($date)->format($format);
     }
 }

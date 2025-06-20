@@ -208,7 +208,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 // Set last modified date, this value will be overwritten during parsing
                 if (isset($attributes['mtime'])) {
                     $lastModified = new Zend_Date($attributes['mtime']);
-                    $this->setReportLastModified($lastModified->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+                    $this->setReportLastModified($lastModified->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
                 }
 
                 $this->setReportDate($this->_fileNameToDate($filename))
@@ -254,7 +254,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             switch ($lineType) {
                 case 'RH': // Report header.
                     $lastModified = new Zend_Date($line[1]);
-                    $this->setReportLastModified($lastModified->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+                    $this->setReportLastModified($lastModified->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
                     //$this->setAccountId($columns[2]); -- probably we'll just take that from the section header...
                     break;
                 case 'FH': // File header.

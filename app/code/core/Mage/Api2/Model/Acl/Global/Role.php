@@ -7,6 +7,8 @@
  * @package    Mage_Api2
  */
 
+use Carbon\Carbon;
+
 /**
  * API2 Global ACL Role model
  *
@@ -58,9 +60,9 @@ class Mage_Api2_Model_Acl_Global_Role extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         if ($this->isObjectNew() && $this->getCreatedAt() === null) {
-            $this->setCreatedAt(Varien_Date::now());
+            $this->setCreatedAt(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
         } else {
-            $this->setUpdatedAt(Varien_Date::now());
+            $this->setUpdatedAt(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
         }
 
         //check and protect guest role

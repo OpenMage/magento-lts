@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Core cookie model
  *
@@ -217,7 +219,7 @@ class Mage_Core_Model_Cookie
         if ($period == 0) {
             $expire = 0;
         } else {
-            $expire = time() + $period;
+            $expire = Carbon::now()->addSeconds($period)->getTimestamp();
         }
         if (is_null($path)) {
             $path = $this->getPath();

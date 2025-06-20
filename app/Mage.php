@@ -7,6 +7,8 @@
  * @package    Mage
  */
 
+use Carbon\Carbon;
+
 defined('DS') || define('DS', DIRECTORY_SEPARATOR);
 defined('PS') || define('PS', PATH_SEPARATOR);
 
@@ -830,7 +832,7 @@ final class Mage
             if (is_readable($localConfigFile)) {
                 $localConfig = simplexml_load_file($localConfigFile);
                 date_default_timezone_set('UTC');
-                if (($date = $localConfig->global->install->date) && strtotime((string) $date)) {
+                if (($date = $localConfig->global->install->date) && Carbon::parse((string) $date)->getTimestamp()) {
                     self::$_isInstalled = true;
                 }
             }

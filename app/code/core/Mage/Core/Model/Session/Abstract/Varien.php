@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Core
  *
@@ -481,7 +483,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
             // Refresh expire timestamp
             if ($this->useValidateSessionExpire() || $this->useValidateSessionPasswordTimestamp()) {
-                $this->setValidatorSessionRenewTimestamp(time());
+                $this->setValidatorSessionRenewTimestamp(Carbon::now()->getTimestamp());
                 $_SESSION[self::VALIDATOR_KEY][self::VALIDATOR_SESSION_LIFETIME] = $this->getCookie()->getLifetime();
             }
         }
@@ -545,16 +547,14 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
         if ($this->useValidateSessionExpire()
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            && ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME])
-            < time()
+            && Carbon::now()->greaterThan((string) ((int) $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP] + (int) $sessionData[self::VALIDATOR_SESSION_LIFETIME]))
         ) {
             return false;
         }
         if ($this->useValidateSessionPasswordTimestamp()
             && isset($validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP])
             && isset($sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP])
-            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP]
-            > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
+            && $validatorData[self::VALIDATOR_PASSWORD_CREATE_TIMESTAMP] > $sessionData[self::VALIDATOR_SESSION_RENEW_TIMESTAMP]
         ) {
             return false;
         }

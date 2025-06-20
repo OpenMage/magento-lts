@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer admin controller
  *
@@ -322,7 +324,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 // Force new customer confirmation
                 if ($isNewCustomer) {
                     $customer->setPassword($data['account']['password']);
-                    $customer->setPasswordCreatedAt(time());
+                    $customer->setPasswordCreatedAt(Carbon::now()->getTimestamp());
                     $customer->setForceConfirmed(true);
                     if ($customer->getPassword() === 'auto') {
                         $sendPassToEmail = true;
@@ -836,7 +838,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 ->setHeader('Pragma', 'public', true)
                 ->setHeader('Content-type', $contentType, true)
                 ->setHeader('Content-Length', $contentLength)
-                ->setHeader('Last-Modified', date('r', $contentModify))
+                ->setHeader('Last-Modified', Carbon::createFromTimestamp($contentModify)->format('r'))
                 ->clearBody();
             $this->getResponse()->sendHeaders();
 

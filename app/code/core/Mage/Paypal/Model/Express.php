@@ -7,6 +7,8 @@
  * @package    Mage_Paypal
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Paypal
  */
@@ -635,7 +637,7 @@ class Mage_Paypal_Model_Express extends Mage_Payment_Model_Method_Abstract imple
 
             $dateCompass = new DateTime($orderTransaction->getCreatedAt());
             $dateCompass->modify('+' . $orderValidPeriod . ' days');
-            $currentDate = new DateTime();
+            $currentDate = Carbon::now();
 
             if ($currentDate > $dateCompass || $orderValidPeriod == 0) {
                 return false;

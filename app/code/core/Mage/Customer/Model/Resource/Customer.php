@@ -7,6 +7,8 @@
  * @package    Mage_Customer
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer entity resource model
  *
@@ -218,7 +220,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
      */
     public function changePassword(Mage_Customer_Model_Customer $customer, $newPassword)
     {
-        $customer->setPassword($newPassword)->setPasswordCreatedAt(time());
+        $customer->setPassword($newPassword)->setPasswordCreatedAt(Carbon::now()->getTimestamp());
         $this->saveAttribute($customer, 'password_hash');
         $this->saveAttribute($customer, 'password_created_at');
         return $this;
@@ -308,7 +310,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     {
         if (is_string($newResetPasswordLinkToken) && !empty($newResetPasswordLinkToken)) {
             $customer->setRpToken($newResetPasswordLinkToken);
-            $currentDate = Varien_Date::now();
+            $currentDate = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
             $customer->setRpTokenCreatedAt($currentDate);
             $this->saveAttribute($customer, 'rp_token');
             $this->saveAttribute($customer, 'rp_token_created_at');
@@ -363,7 +365,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
 
         $value = $this->_getReadAdapter()->fetchOne($select);
         if ($value && !is_numeric($value)) { // Convert created_at string to unix timestamp
-            $value = Varien_Date::toTimestamp($value);
+            $value = Carbon::now()->setTimeFromTimeString($value)->getTimestamp();
         }
         return $value;
     }

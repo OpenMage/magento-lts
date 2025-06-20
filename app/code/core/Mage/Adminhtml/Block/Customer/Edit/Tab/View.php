@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Customer account form block
  *
@@ -136,7 +138,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         $log = $this->getCustomerLog();
         if ($log->getLogoutAt()
             || !$log->getLastVisitAt()
-            || strtotime(Varien_Date::now()) - strtotime($log->getLastVisitAt()) > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
+            || Carbon::parse(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT))->getTimestamp() - Carbon::parse($log->getLastVisitAt())->getTimestamp() > Mage_Log_Model_Visitor::getOnlineMinutesInterval() * 60
         ) {
             return Mage::helper('customer')->__('Offline');
         }

@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Core Design Resource Model
  *
@@ -22,6 +24,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * @param Mage_Core_Model_Design $object
      * @inheritDoc
+     * @throws Mage_Core_Exception
      */
     public function _beforeSave(Mage_Core_Model_Abstract $object)
     {
@@ -32,7 +35,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             if (!$validator->isValid($dateFrom) || !$validator->isValid($dateTo)) {
                 Mage::throwException(Mage::helper('core')->__('Invalid date'));
             }
-            if (Varien_Date::toTimestamp($dateFrom) > Varien_Date::toTimestamp($dateTo)) {
+            if (Carbon::now()->setTimeFromTimeString($dateFrom) > Carbon::now()->setTimeFromTimeString($dateTo)) {
                 Mage::throwException(Mage::helper('core')->__('Start date cannot be greater than end date.'));
             }
         }
@@ -134,7 +137,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
     public function loadChange($storeId, $date = null)
     {
         if (is_null($date)) {
-            $date = Varien_Date::now();
+            $date = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         }
 
         $select = $this->_getReadAdapter()->select()

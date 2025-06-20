@@ -7,6 +7,8 @@
  * @package    Mage_Api
  */
 
+use Carbon\Carbon;
+
 /**
  * ACL role resource
  *
@@ -26,7 +28,7 @@ class Mage_Api_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
-        $now = Varien_Date::now();
+        $now = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         if (!$object->getId()) {
             $object->setCreated($now);
         }

@@ -7,6 +7,8 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+
 /**
  * Import entity customer model
  *
@@ -372,13 +374,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 }
                 if (self::SCOPE_DEFAULT == $this->getRowScope($rowData)) {
                     // entity table data
-                    $now = Varien_Date::now();
+                    $now = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
                     $entityRow = [
                         'group_id'   => empty($rowData['group_id']) ? self::DEFAULT_GROUP_ID : $rowData['group_id'],
                         'store_id'   => empty($rowData[self::COL_STORE])
                                         ? 0 : $this->_storeCodeToId[$rowData[self::COL_STORE]],
                         'created_at' => empty($rowData['created_at'])
-                                        ? $now : gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($rowData['created_at'])),
+                                        ? $now : gmdate(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT, Carbon::parse($rowData['created_at'])->getTimestamp()),
                         'updated_at' => $now,
                     ];
 
@@ -410,7 +412,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             if ($attrParams['type'] === 'select') {
                                 $value = $attrParams['options'][strtolower($value)];
                             } elseif ($attrParams['type'] === 'datetime') {
-                                $value = gmdate(Varien_Date::DATETIME_PHP_FORMAT, strtotime($value));
+                                $value = gmdate(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT, Carbon::parse($value)->getTimestamp());
                             } elseif ($attrParams['type'] === 'multiselect') {
                                 $value = (array) $attrParams['options'][strtolower($value)];
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));

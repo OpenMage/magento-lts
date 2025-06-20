@@ -7,6 +7,8 @@
  * @package    Mage_Oauth
  */
 
+use Carbon\Carbon;
+
 /**
  * oAuth token model
  *
@@ -204,7 +206,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         $this->validate();
 
         if ($this->isObjectNew() && $this->getCreatedAt() === null) {
-            $this->setCreatedAt(Varien_Date::now());
+            $this->setCreatedAt(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT));
         }
         parent::_beforeSave();
         return $this;

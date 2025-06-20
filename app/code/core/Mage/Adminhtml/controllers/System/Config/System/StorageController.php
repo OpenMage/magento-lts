@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Adminhtml account controller
  *
@@ -44,6 +46,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
      * Synchronize action between storages
      *
      * @SuppressWarnings("PHPMD.Superglobals")
+     * @throws Throwable
      */
     public function synchronizeAction()
     {
@@ -56,7 +59,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         $flag = $this->_getSyncFlag();
         if ($flag && $flag->getState() == Mage_Core_Model_File_Storage_Flag::STATE_RUNNING
             && $flag->getLastUpdate()
-            && time() <= (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+            && Carbon::now()->lessThanOrEqualTo((string) (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL))
         ) {
             return;
         }
@@ -65,7 +68,7 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
         Mage::getSingleton('admin/session')->setSyncProcessStopWatch(false);
 
         $storage = ['type' => (int) $_REQUEST['storage']];
-        if (isset($_REQUEST['connection']) && !empty($_REQUEST['connection'])) {
+        if (!empty($_REQUEST['connection'])) {
             $storage['connection'] = $_REQUEST['connection'];
         }
 
@@ -93,23 +96,18 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
             switch ($state) {
                 case Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE:
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (isset($flagData['destination']) && !empty($flagData['destination'])) {
-                            $result['destination'] = $flagData['destination'];
-                        }
+                    if (is_array($flagData) && !empty($flagData['destination'])) {
+                        $result['destination'] = $flagData['destination'];
                     }
 
                     $state = Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE;
                     break;
                 case Mage_Core_Model_File_Storage_Flag::STATE_RUNNING:
                     if (!$flag->getLastUpdate()
-                        || time() <= (strtotime($flag->getLastUpdate()) + Mage_Core_Model_File_Storage_Flag::FLAG_TTL)
+                        || Carbon::now()->lessThanOrEqualTo((string) (Carbon::parse($flag->getLastUpdate())->getTimestamp() + Mage_Core_Model_File_Storage_Flag::FLAG_TTL))
                     ) {
                         $flagData = $flag->getFlagData();
-                        if (is_array($flagData)
-                            && isset($flagData['source']) && !empty($flagData['source'])
-                            && isset($flagData['destination']) && !empty($flagData['destination'])
-                        ) {
+                        if (is_array($flagData) && !empty($flagData['source']) && !empty($flagData['destination'])) {
                             $result['message'] = Mage::helper('adminhtml')->__('Synchronizing %s to %s', $flagData['source'], $flagData['destination']);
                         } else {
                             $result['message'] = Mage::helper('adminhtml')->__('Synchronizing...');

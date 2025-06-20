@@ -92,7 +92,7 @@ abstract class Mage_Adminhtml_Controller_Report_Abstract extends Mage_Adminhtml_
         $updatedAt = ($flag->hasData())
             ? Mage::app()->getLocale()->storeDate(
                 0,
-                new Zend_Date($flag->getLastUpdate(), Varien_Date::DATETIME_INTERNAL_FORMAT),
+                new Zend_Date($flag->getLastUpdate(), Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT),
                 true,
             )
             : 'undefined';

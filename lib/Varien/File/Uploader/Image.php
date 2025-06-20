@@ -65,7 +65,6 @@ class Varien_File_Uploader_Image extends Varien_File_Uploader
      *
      * Default value is h (flip horizontally)
      *
-     * @access public
      * @param string $type
      */
     public function flip($type = 'h')

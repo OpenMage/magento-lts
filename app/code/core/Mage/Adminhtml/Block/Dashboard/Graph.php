@@ -8,6 +8,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Adminhtml dashboard google chart block
  *
@@ -211,7 +213,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                             $formats = Mage::app()->getLocale()->getTranslationList('datetime');
                             $format = $formats['yyMM'] ?? 'MM/yyyy';
                             $format = str_replace(['yyyy', 'yy', 'MM'], ['Y', 'y', 'm'], $format);
-                            $this->_axisLabels[$idx][$_index] = date($format, strtotime($_label));
+                            $this->_axisLabels[$idx][$_index] = Carbon::parse($_label)->format($format);
                             break;
                     }
                 }

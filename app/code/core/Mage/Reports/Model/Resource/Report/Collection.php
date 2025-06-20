@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Report Reviews collection
  *
@@ -59,7 +61,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Array of store ids
      *
-     * @var array
+     * @var array|null
      */
     protected $_storeIds;
 
@@ -127,7 +129,7 @@ class Mage_Reports_Model_Resource_Report_Collection
 
                         $time['end'] = ($lastInterval) ? $dateStart->setDay($dateEnd->getDay())
                             ->toString('yyyy-MM-dd 23:59:59')
-                            : $dateStart->toString('yyyy-MM-' . date('t', $dateStart->getTimestamp()) . ' 23:59:59');
+                            : $dateStart->toString('yyyy-MM-' . Carbon::createFromTimestamp($dateStart->getTimestamp())->format('t') . ' 23:59:59');
 
                         $dateStart->addMonth(1);
 
@@ -170,9 +172,9 @@ class Mage_Reports_Model_Resource_Report_Collection
     public function getPeriods()
     {
         return [
-            'day'   => Mage::helper('reports')->__('Day'),
-            'month' => Mage::helper('reports')->__('Month'),
-            'year'  => Mage::helper('reports')->__('Year'),
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_DAY   => Mage::helper('reports')->__('Day'),
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_MONTH => Mage::helper('reports')->__('Month'),
+            Mage_Reports_Helper_Data::REPORT_PERIOD_TYPE_YEAR  => Mage::helper('reports')->__('Year'),
         ];
     }
 
@@ -191,7 +193,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get store ids
      *
-     * @return array
+     * @return array|null
      */
     public function getStoreIds()
     {
@@ -223,7 +225,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get page size
      *
-     * @return int
+     * @return int|null
      */
     public function getPageSize()
     {
@@ -279,7 +281,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     public function timeShift($datetime)
     {
         return Mage::app()->getLocale()
-            ->utcDate(null, $datetime, true, Varien_Date::DATETIME_INTERNAL_FORMAT)
-            ->toString(Varien_Date::DATETIME_INTERNAL_FORMAT);
+            ->utcDate(null, $datetime, true, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT)
+            ->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
     }
 }

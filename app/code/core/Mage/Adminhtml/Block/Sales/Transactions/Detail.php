@@ -7,6 +7,7 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
 
 /**
  * Adminhtml transaction detail
@@ -97,7 +98,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Detail extends Mage_Adminhtml_Bloc
             ($this->_txn->getIsClosed()) ? Mage::helper('sales')->__('Yes') : Mage::helper('sales')->__('No'),
         );
 
-        $createdAt = (strtotime($this->_txn->getCreatedAt()))
+        $createdAt = (Carbon::parse($this->_txn->getCreatedAt())->getTimestamp())
             ? $this->formatDate($this->_txn->getCreatedAt(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true)
             : $this->__('N/A');
         $this->setCreatedAtHtml($this->escapeHtml($createdAt));

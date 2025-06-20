@@ -7,6 +7,8 @@
  * @package    Mage_Rule
  */
 
+use Carbon\Carbon;
+
 /**
  * Abstract Rule product condition data model
  *
@@ -507,8 +509,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $attr = $object->getResource()->getAttribute($attrCode);
 
             if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
-                $this->setValue(strtotime($this->getValue()));
-                $value = strtotime($object->getData($attrCode));
+                $this->setValue(Carbon::parse($this->getValue())->getTimestamp());
+                $value = Carbon::parse($object->getData($attrCode))->getTimestamp();
                 return $this->validateAttribute($value);
             }
 
@@ -527,7 +529,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             foreach ($this->_entityAttributeValues[$object->getId()] as $storeId => $value) {
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
-                    $value = strtotime($value);
+                    $value = Carbon::parse($value)->getTimestamp();
                 } elseif ($attr && $attr->getFrontendInput() == 'multiselect') {
                     $value = strlen($value) ? explode(',', $value) : [];
                 }

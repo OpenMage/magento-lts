@@ -7,6 +7,8 @@
  * @package    Mage_ImportExport
  */
 
+use Carbon\Carbon;
+
 /**
  * Import entity abstract model
  *
@@ -546,7 +548,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 break;
             case 'datetime':
                 $val   = trim($rowData[$attrCode]);
-                $valid = strtotime($val) !== false
+                $valid = Carbon::parse($val)->getTimestamp() !== false
                     || preg_match('/^\d{2}.\d{2}.\d{2,4}(?:\s+\d{1,2}.\d{1,2}(?:.\d{1,2})?)?$/', $val);
                 break;
             case 'text':

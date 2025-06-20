@@ -7,6 +7,8 @@
  * @package    Mage_CatalogIndex
  */
 
+use Carbon\Carbon;
+
 /**
  * Resource Model CatalogIndex Aggregation
  *
@@ -91,7 +93,7 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         } else {
             $this->_getWriteAdapter()->insert($this->getMainTable(), array(
                 'store_id'  => $storeId,
-                'created_at'=> $this->formatDate(time()),
+                'created_at'=> $this->formatDate(Carbon::now()->getTimestamp()),
                 'key'       => $key,
                 'data'      => $data
             ));
@@ -100,10 +102,10 @@ class Mage_CatalogIndex_Model_Resource_Aggregation extends Mage_Core_Model_Resou
         */
 
         $this->_getWriteAdapter()->insertOnDuplicate($this->getMainTable(), [
-            'store_id'  => $storeId,
-            'created_at' => $this->formatDate(time()),
-            'key'       => $key,
-            'data'      => $data,
+            'store_id'      => $storeId,
+            'created_at'    => $this->formatDate(Carbon::now()->getTimestamp()),
+            'key'           => $key,
+            'data'          => $data,
         ], ['created_at', 'data']);
 
         $id = $this->_getWriteAdapter()->lastInsertId($this->getMainTable());

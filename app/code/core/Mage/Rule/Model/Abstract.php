@@ -35,7 +35,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Store rule combine conditions model
      *
-     * @var Mage_Rule_Model_Condition_Combine
+     * @var Mage_Rule_Model_Condition_Combine|null
      */
     protected $_conditions;
 
@@ -86,6 +86,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      *
      * @param int $storeId
      * @return Varien_Db_Select
+     * @throws Mage_Core_Exception
      */
     public function getProductFlatSelect($storeId)
     {
@@ -310,7 +311,9 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $path = explode('--', $id);
                     $node = & $arr;
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
-                        $node = & $node[$key][$path[$i]] ?? [];
+                        // @phpstan-ignore-next-line
+                        $var = $node[$key][$path[$i]] ?? [];
+                        $node = &$var;
                     }
                     foreach ($data as $k => $v) {
                         $node[$k] = $v;
@@ -323,7 +326,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                 if (in_array($key, ['from_date', 'to_date']) && $value) {
                     $value = Mage::app()->getLocale()->date(
                         $value,
-                        Varien_Date::DATE_INTERNAL_FORMAT,
+                        Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
                         null,
                         false,
                     );
@@ -363,8 +366,8 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         }
 
         if ($fromDate && $toDate) {
-            $fromDate = new Zend_Date($fromDate, Varien_Date::DATE_INTERNAL_FORMAT);
-            $toDate = new Zend_Date($toDate, Varien_Date::DATE_INTERNAL_FORMAT);
+            $fromDate = new Zend_Date($fromDate, Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT);
+            $toDate = new Zend_Date($toDate, Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT);
 
             if ($fromDate->compare($toDate) === 1) {
                 $result[] = Mage::helper('rule')->__('End Date must be greater than Start Date.');
@@ -437,6 +440,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
      * Get rule associated website Ids
      *
      * @return array
+     * @throws Mage_Core_Exception
      */
     public function getWebsiteIds()
     {
