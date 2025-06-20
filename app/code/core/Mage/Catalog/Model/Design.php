@@ -367,7 +367,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     if (!Mage::getModel('core/layout_validator')->isValid($customLayout)) {
                         $customLayout = '';
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $customLayout = '';
                 }
             }

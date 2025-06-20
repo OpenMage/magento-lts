@@ -395,7 +395,7 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while trying to delete the category.'));
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['_current' => true]));
                 return;
