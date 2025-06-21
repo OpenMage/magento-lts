@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     public function __construct()
@@ -85,7 +93,7 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
         $this->getMassactionBlock()->addItem('delete', [
             'label'    => Mage::helper('paypal')->__('Delete'),
             'url'      => $this->getUrl('*/*/massDelete'),
-            'confirm'  => Mage::helper('paypal')->__('Are you sure?')
+            'confirm'  => Mage::helper('paypal')->__('Are you sure?'),
         ]);
 
         return $this;

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 declare(strict_types=1);
 
 use PaypalServerSdkLib\Models\Builders\PurchaseUnitRequestBuilder;
@@ -21,14 +28,9 @@ use PaypalServerSdkLib\Models\{
 
 /**
  * PayPal Payment Method Model
- * 
+ *
  * Handles PayPal order creation, authorization, capture, refund and void operations
- * using PayPal Server SDK for PHP 8.4+
- * 
- * @category   Mage
- * @package    Mage_Paypal
- * @author     Hirale
- * @since      PHP 8.4
+ *  *
  */
 class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 {
@@ -57,7 +59,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Create PayPal order via API
-     * 
+     *
      * @param Mage_Sales_Model_Quote $quote Customer quote
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Core_Exception
@@ -88,14 +90,14 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             Mage::logException($e);
             return [
                 'success' => false,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
 
     /**
      * Capture PayPal payment via API
-     * 
+     *
      * @param string $orderId PayPal order ID
      * @param Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote
      * @throws Mage_Core_Exception
@@ -110,13 +112,13 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             $this->_handleApiError($response, 'Capture failed');
         }
         $captureId = $this->_extractCaptureId($result);
-        $this->_updatePaymentAfterCapture($quote->getPayment(), $response,  $captureId);
+        $this->_updatePaymentAfterCapture($quote->getPayment(), $response, $captureId);
         $quote->collectTotals()->save();
     }
 
     /**
      * Authorize PayPal payment via API
-     * 
+     *
      * @param string $orderId PayPal order ID
      * @param Mage_Sales_Model_Quote $quote
      * @throws Mage_Core_Exception
@@ -140,7 +142,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Reauthorize a payment after the initial authorization has expired
-     * 
+     *
      * @param string $orderId PayPal order ID
      * @param Mage_Sales_Model_Order $order Magento order
      * @return array{success: bool, authorization_id?: string, error?: string}
@@ -165,7 +167,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
                 self::PAYPAL_PAYMENT_STATUS => $authorization->getStatus(),
                 self::PAYPAL_PAYMENT_AUTHORIZATION_ID => $authorizationId,
                 self::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME => $expirationTime,
-                Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS => $this->_prepareRawDetails($response->getBody())
+                Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS => $this->_prepareRawDetails($response->getBody()),
             ])->getShouldCloseParentTransaction();
             $payment->save();
 
@@ -176,7 +178,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
                 ->setIsClosed(0)
                 ->setAdditionalInformation(
                     Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                    $this->_prepareRawDetails($response->getBody())
+                    $this->_prepareRawDetails($response->getBody()),
                 );
             $transaction->save();
 
@@ -188,20 +190,20 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
                 Mage::helper('paypal')->__(
                     'PayPal payment has been reauthorized. New authorization ID: %s. Expires on: %s',
                     $authorizationId,
-                    $date->format('Y-m-d H:i:s')
+                    $date->format('Y-m-d H:i:s'),
                 ),
-                false
+                false,
             )->save();
 
             return [
                 'success' => true,
-                'authorization_id' => $authorizationId
+                'authorization_id' => $authorizationId,
             ];
         } catch (Exception $e) {
             Mage::logException($e);
             return [
                 'success' => false,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ];
         }
     }
@@ -217,7 +219,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Refund payment method
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @param float $amount Refund amount
      * @return static
@@ -227,13 +229,13 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     {
         try {
             if (is_string($amount)) {
-                $amount = (float)$amount;
+                $amount = (float) $amount;
             }
             $response = $this->_getApi()->refundCapturedPayment(
                 $payment->getParentTransactionId(),
                 $amount,
                 $payment->getOrder()->getOrderCurrencyCode(),
-                $payment->getOrder()
+                $payment->getOrder(),
             );
 
             if ($response->isError()) {
@@ -246,7 +248,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
         } catch (Exception $e) {
             Mage::logException($e);
             throw new Mage_Core_Exception(
-                Mage::helper('paypal')->__('Refund error: %s', $e->getMessage())
+                Mage::helper('paypal')->__('Refund error: %s', $e->getMessage()),
             );
         }
 
@@ -255,7 +257,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Capture payment method
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @param float $amount Capture amount
      * @return static
@@ -274,7 +276,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
         if (!$authorizationId) {
             throw new Mage_Core_Exception(
-                Mage::helper('paypal')->__(self::ERROR_NO_AUTHORIZATION_ID)
+                Mage::helper('paypal')->__(self::ERROR_NO_AUTHORIZATION_ID),
             );
         }
 
@@ -293,7 +295,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Void payment method
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @return static
      * @throws Mage_Core_Exception
@@ -316,12 +318,12 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             $this->_createVoidTransaction($payment, $response);
             $payment->getOrder()->addStatusHistoryComment(
                 Mage::helper('paypal')->__('PayPal payment voided successfully. Transaction ID: %s', $transactionId),
-                false
+                false,
             )->save();
         } catch (Exception $e) {
             Mage::logException($e);
             throw new Mage_Core_Exception(
-                Mage::helper('paypal')->__('Void error: %s', $e->getMessage())
+                Mage::helper('paypal')->__('Void error: %s', $e->getMessage()),
             );
         }
 
@@ -330,7 +332,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Cancel payment method
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @return static
      * @throws Mage_Core_Exception
@@ -346,7 +348,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Check if payment method is available
-     * 
+     *
      * @param Mage_Sales_Model_Quote|null $quote
      * @return bool
      */
@@ -371,7 +373,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Handle API error response
-     * 
+     *
      * @param ApiResponse $response API response
      * @param string $defaultMessage Default error message
      * @throws Mage_Core_Exception
@@ -392,7 +394,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Validate quote for PayPal payment processing
-     * 
+     *
      * @param Mage_Sales_Model_Quote $quote
      * @throws Mage_Core_Exception
      */
@@ -402,14 +404,14 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
         if (!$quote->getGrandTotal() && !$quote->hasNominalItems()) {
             throw new Mage_Core_Exception(
-                Mage::helper('paypal')->__(self::ERROR_ZERO_AMOUNT)
+                Mage::helper('paypal')->__(self::ERROR_ZERO_AMOUNT),
             );
         }
     }
 
     /**
      * Update payment object with PayPal order information
-     * 
+     *
      * @param Mage_Sales_Model_Quote_Payment $payment
      * @param ApiResponse $response
      */
@@ -419,14 +421,14 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
         $payment->setPaypalCorrelationId($result->getId())
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                $this->_prepareRawDetails($response->getBody())
+                $this->_prepareRawDetails($response->getBody()),
             )
             ->save();
     }
 
     /**
      * Build a purchase unit using PayPal SDK builders
-     * 
+     *
      * @param Mage_Sales_Model_Quote $quote
      * @param string|null $referenceId Optional reference ID
      * @return object The built purchase unit object
@@ -461,24 +463,24 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
         if ($taxDifference < 0) {
             if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])) {
                 $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(
-                    number_format($taxCalculated, 2, '.', '')
+                    number_format($taxCalculated, 2, '.', ''),
                 );
             }
             if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT])) {
                 $totalDiscount = (float) $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->getValue();
                 $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->setValue(
-                    number_format(abs($taxDifference) + $totalDiscount, 2, '.', '')
+                    number_format(abs($taxDifference) + $totalDiscount, 2, '.', ''),
                 );
             } else {
                 $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT] = MoneyBuilder::init(
                     $currency,
-                    number_format(abs($taxDifference), 2, '.', '')
+                    number_format(abs($taxDifference), 2, '.', ''),
                 )->build();
             }
         } else {
             $moneyBuilder = MoneyBuilder::init(
                 $currency,
-                number_format(abs($taxDifference), 2, '.', '')
+                number_format(abs($taxDifference), 2, '.', ''),
             );
             $itemBuilder = ItemBuilder::init(Mage::helper('paypal')->__('Rounding'), $moneyBuilder->build(), '1')
                 ->sku(Mage::helper('paypal')->__('Rounding'))
@@ -486,7 +488,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             $items[] = $itemBuilder->build();
             if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])) {
                 $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(
-                    number_format($taxCalculated, 2, '.', '')
+                    number_format($taxCalculated, 2, '.', ''),
                 );
             }
         }
@@ -496,14 +498,14 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
         if (!empty($items)) {
             $purchaseUnitBuilder->items($items);
         }
-        $purchaseUnitBuilder->referenceId($referenceId ?: (string)$quote->getId());
-        $purchaseUnitBuilder->invoiceId($referenceId ?: (string)$quote->getId());
+        $purchaseUnitBuilder->referenceId($referenceId ?: (string) $quote->getId());
+        $purchaseUnitBuilder->invoiceId($referenceId ?: (string) $quote->getId());
         return $purchaseUnitBuilder->build();
     }
 
     /**
      * Build amount breakdown from cart totals
-     * 
+     *
      * @param array<string, mixed> $totals Cart totals
      * @return object Built breakdown object
      */
@@ -535,7 +537,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Build amount with breakdown
-     * 
+     *
      * @param string $currency
      * @param float $totalAmount
      * @param object $breakdown Built breakdown object
@@ -552,7 +554,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Build a complete PayPal order request using SDK builders
-     * 
+     *
      * @param Mage_Sales_Model_Quote $quote
      * @param string|null $referenceId Optional reference ID
      * @return object The built order request object
@@ -562,7 +564,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
         $purchaseUnit = $this->_buildPurchaseUnit($quote, $referenceId);
         $orderRequestBuilder = OrderRequestBuilder::init(
             $this->_getPaymentIntent(),
-            [$purchaseUnit]
+            [$purchaseUnit],
         );
 
         $payer = $this->_buildPayerFromBillingAddress($quote);
@@ -575,7 +577,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Build payer object from billing address
-     * 
+     *
      * @param Mage_Sales_Model_Quote $quote
      * @return object|null
      */
@@ -626,7 +628,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Extract capture ID from API result
-     * 
+     *
      * @param mixed $result API result
      * @return string|null
      */
@@ -656,7 +658,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Update payment object after successful capture
-     * 
+     *
      * @param Mage_Sales_Model_Quote_Payment|Mage_Sales_Model_Order_Payment $payment
      * @param ApiResponse $response API result
      * @param string $orderId PayPal order ID
@@ -674,7 +676,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             ->setIsTransactionClosed(true)
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                $this->_prepareRawDetails($response->getBody())
+                $this->_prepareRawDetails($response->getBody()),
             );
         $paymentSource = $result->getPaymentSource();
         if ($paymentSource->getPaypal() instanceof PaypalWalletResponse) {
@@ -688,7 +690,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Update payment object after successful authorization
-     * 
+     *
      * @param Mage_Sales_Model_Quote_Payment $payment
      * @param ApiResponse $response API result
      */
@@ -708,14 +710,14 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             self::PAYPAL_PAYMENT_STATUS => $authorization->getStatus(),
             self::PAYPAL_PAYMENT_AUTHORIZATION_ID => $authorization->getId(),
             self::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME => $authorization->getExpirationTime(),
-            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS => $this->_prepareRawDetails($response->getBody())
+            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS => $this->_prepareRawDetails($response->getBody()),
         ]);
         $payment->save();
     }
 
     /**
      * Add order status comment
-     * 
+     *
      * @param Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote
      * @param string $action Action performed (captured, authorized, etc.)
      * @param string|null $transactionId Transaction ID
@@ -734,14 +736,14 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
             $quote->addStatusHistoryComment(
                 Mage::helper('paypal')->__($message, $transactionId),
-                false
+                false,
             );
         }
     }
 
     /**
      * Update payment after refund
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @param Refund $result API result
      */
@@ -755,7 +757,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Create refund transaction record
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @param ApiResponse $response API result
      * @param float $amount Refund amount
@@ -771,7 +773,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             ->setIsClosed(1)
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                $this->_prepareRawDetails($response->getBody())
+                $this->_prepareRawDetails($response->getBody()),
             );
 
         $transaction->save();
@@ -779,7 +781,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Update payment after authorized capture
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @param ApiResponse $response
      * @param string $authorizationId Authorization ID
@@ -794,13 +796,13 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             ->setShouldCloseParentTransaction(true)
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                $this->_prepareRawDetails($response->getBody())
+                $this->_prepareRawDetails($response->getBody()),
             );
     }
 
     /**
      * Create capture transaction record
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @param ApiResponse $response
      * @param string $authorizationId Authorization ID
@@ -816,7 +818,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             ->setIsClosed(1)
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                $this->_prepareRawDetails($response->getBody())
+                $this->_prepareRawDetails($response->getBody()),
             );
 
         $transaction->save();
@@ -824,7 +826,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Update payment after void
-     * 
+     *
      * @param Varien_Object $payment Payment object
      */
     private function _updatePaymentAfterVoid(Varien_Object $payment): void
@@ -836,7 +838,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Create void transaction record
-     * 
+     *
      * @param Varien_Object $payment Payment object
      * @param ApiResponse $response API response
      */
@@ -851,7 +853,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             ->setIsClosed(1)
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                $this->_prepareRawDetails($response->getBody())
+                $this->_prepareRawDetails($response->getBody()),
             );
         $transaction->save();
 
@@ -864,7 +866,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Handle multishipping notification
-     * 
+     *
      * @param Mage_Sales_Model_Quote|null $quote
      */
     private function _handleMultishippingNotification(?Mage_Sales_Model_Quote $quote): void
@@ -875,15 +877,15 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
         ) {
             Mage::getSingleton('core/session')->addNotice(
                 Mage::helper('paypal')->__(
-                    'PayPal will process multishipping orders as immediate capture regardless of your authorization setting.'
-                )
+                    'PayPal will process multishipping orders as immediate capture regardless of your authorization setting.',
+                ),
             );
         }
     }
 
     /**
      * Extract error message from API response
-     * 
+     *
      * @param ApiResponse $response API response
      * @param string $defaultMessage Default error message
      * @return string
@@ -902,7 +904,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Prepare raw details for storage
-     * 
+     *
      * @param string $details JSON details object
      * @return array<string, mixed>
      */
@@ -914,7 +916,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
         }
         return array_map(
             fn($v) => is_array($v) ? json_encode($v) : $v,
-            $decoded ?? []
+            $decoded ?? [],
         );
     }
 }

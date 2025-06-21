@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 /**
@@ -28,7 +35,7 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 
     /**
      * Get PayPal endpoint URL
-     * 
+     *
      * @return string
      */
     public function getEndpointUrl()
@@ -55,12 +62,12 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
     {
         $intent = Mage::getSingleton('paypal/config')->getPaymentAction();
 
-        $params = array(
+        $params = [
             'client-id' => $this->getClientId(),
             'components' => 'buttons',
             'intent' => $intent,
-            'currency' => Mage::app()->getStore()->getCurrentCurrencyCode()
-        );
+            'currency' => Mage::app()->getStore()->getCurrentCurrencyCode(),
+        ];
 
         $baseUrl = $this->getEndpointUrl();
         if (substr($baseUrl, -1) !== '/') {

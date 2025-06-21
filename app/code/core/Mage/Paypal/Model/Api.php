@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 declare(strict_types=1);
 
 use PaypalServerSdkLib\PaypalServerSdkClientBuilder;
@@ -57,7 +64,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
         try {
             $request = [
                 'prefer' => self::PREFER_RETURN_REPRESENTATION,
-                'body' => $orderRequest
+                'body' => $orderRequest,
             ];
             $response = $this->getClient()->getOrdersController()->createOrder($request);
 
@@ -85,7 +92,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
         try {
             $request = [
                 'id' => $id,
-                'prefer' => self::PREFER_RETURN_REPRESENTATION
+                'prefer' => self::PREFER_RETURN_REPRESENTATION,
             ];
 
             $response = $this->getClient()->getOrdersController()->authorizeOrder($request);
@@ -113,7 +120,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
         try {
             $request = [
                 'authorizationId' => $id,
-                'prefer' => self::PREFER_RETURN_REPRESENTATION
+                'prefer' => self::PREFER_RETURN_REPRESENTATION,
             ];
 
             $response = $this->getClient()->getPaymentsController()->reauthorizePayment($request);
@@ -127,7 +134,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
 
     /**
      * Capture authorized payment for a PayPal order
-     * 
+     *
      * @param string $id PayPal order ID
      * @param Mage_Sales_Model_Order $order
      * @return ApiResponse|null
@@ -140,7 +147,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
         try {
             $request = [
                 'authorizationId' => $id,
-                'prefer' => self::PREFER_RETURN_REPRESENTATION
+                'prefer' => self::PREFER_RETURN_REPRESENTATION,
             ];
             $response = $this->getClient()->getPaymentsController()->captureAuthorizedPayment($request);
             $this->helper->logDebug('Capture Authorized Payment', $order, $request, $response);
@@ -167,7 +174,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
         try {
             $request = [
                 'id' => $id,
-                'prefer' => self::PREFER_RETURN_REPRESENTATION
+                'prefer' => self::PREFER_RETURN_REPRESENTATION,
             ];
 
             $response = $this->getClient()->getOrdersController()->captureOrder($request);
@@ -203,7 +210,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
             $request = [
                 'captureId' => $captureId,
                 'prefer' => self::PREFER_RETURN_REPRESENTATION,
-                'body' => $this->_buildRefundBody($amount, $currencyCode)
+                'body' => $this->_buildRefundBody($amount, $currencyCode),
             ];
             $response = $this->getClient()->getPaymentsController()->refundCapturedPayment($request);
 
@@ -229,7 +236,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
         try {
             $request = [
                 'authorizationId' => $authorizationId,
-                'prefer' => self::PREFER_RETURN_REPRESENTATION
+                'prefer' => self::PREFER_RETURN_REPRESENTATION,
             ];
             $response = $this->getClient()->getPaymentsController()->voidPayment($request);
 
@@ -280,8 +287,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
                 ->clientCredentialsAuthCredentials(
                     ClientCredentialsAuthCredentialsBuilder::init(
                         $credentials['client_id'],
-                        $credentials['client_secret']
-                    )
+                        $credentials['client_secret'],
+                    ),
                 )
                 ->environment($environment)
                 ->build();
@@ -367,8 +374,8 @@ class Mage_Paypal_Model_Api extends Varien_Object
         return [
             'amount' => [
                 'value' => number_format($amount, 2, '.', ''),
-                'currency_code' => $currencyCode
-            ]
+                'currency_code' => $currencyCode,
+            ],
         ];
     }
 

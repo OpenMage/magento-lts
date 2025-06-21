@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 class Mage_Paypal_Model_Validator_Payment
 {
     /**
@@ -31,7 +39,7 @@ class Mage_Paypal_Model_Validator_Payment
         'SEK',
         'CHF',
         'THB',
-        'USD'
+        'USD',
     ];
 
     public function validateCurrency($currencyCode)
@@ -58,9 +66,10 @@ class Mage_Paypal_Model_Validator_Payment
         $epsilon = 0.00001;
         if (abs($calculatedTotal - $orderTotal) > $epsilon) {
             $message = 'Total amount mismatch';
-            Mage::log($message . sprintf(' (calculated: %s, order: %s)', 
-                $calculatedTotal, 
-                $orderTotal
+            Mage::log($message . sprintf(
+                ' (calculated: %s, order: %s)',
+                $calculatedTotal,
+                $orderTotal,
             ), Zend_Log::ERR, 'paypal.log', true);
             throw new Mage_Paypal_Model_Exception($message);
         }

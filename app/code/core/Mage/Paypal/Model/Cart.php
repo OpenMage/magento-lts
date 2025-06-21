@@ -1,15 +1,22 @@
 <?php
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 use PaypalServerSdkLib\Models\Builders\MoneyBuilder;
 use PaypalServerSdkLib\Models\Builders\ItemBuilder;
 use PaypalServerSdkLib\Models\ItemCategory;
 
 class Mage_Paypal_Model_Cart
 {
-    const TOTAL_SUBTOTAL = 'subtotal';
-    const TOTAL_DISCOUNT = 'discount';
-    const TOTAL_TAX = 'tax';
-    const TOTAL_SHIPPING = 'shipping';
+    public const TOTAL_SUBTOTAL = 'subtotal';
+    public const TOTAL_DISCOUNT = 'discount';
+    public const TOTAL_TAX = 'tax';
+    public const TOTAL_SHIPPING = 'shipping';
 
     protected $_quote = null;
     protected $_totals = [];
@@ -39,7 +46,7 @@ class Mage_Paypal_Model_Cart
 
         if (!in_array($currentCurrency, $allowedCurrencies)) {
             throw new Mage_Core_Exception(
-                Mage::helper('paypal')->__('Selected currency code (%s) is not supported by PayPal', $currentCurrency)
+                Mage::helper('paypal')->__('Selected currency code (%s) is not supported by PayPal', $currentCurrency),
             );
         }
         $this->_currency = $currentCurrency;
@@ -69,7 +76,7 @@ class Mage_Paypal_Model_Cart
             $qty = $item->getQty();
             $moneyBuilder = MoneyBuilder::init(
                 $this->_currency,
-                number_format($item->getCalculationPrice(), 2, '.', '')
+                number_format($item->getCalculationPrice(), 2, '.', ''),
             );
 
             $taxMoneyBuilder = ($taxAmount > 0)
@@ -100,20 +107,20 @@ class Mage_Paypal_Model_Cart
         $this->_totals = [
             self::TOTAL_SUBTOTAL => MoneyBuilder::init(
                 $this->_currency,
-                number_format($this->_quote->getSubtotal(), 2, '.', '')
+                number_format($this->_quote->getSubtotal(), 2, '.', ''),
             )->build(),
             self::TOTAL_TAX => MoneyBuilder::init(
                 $this->_currency,
-                number_format($shippingAddress->getTaxAmount() ?? 0, 2, '.', '')
+                number_format($shippingAddress->getTaxAmount() ?? 0, 2, '.', ''),
             )->build(),
             self::TOTAL_SHIPPING => MoneyBuilder::init(
                 $this->_currency,
-                number_format($shippingAddress->getShippingAmount() ?? 0, 2, '.', '')
+                number_format($shippingAddress->getShippingAmount() ?? 0, 2, '.', ''),
             )->build(),
             self::TOTAL_DISCOUNT => MoneyBuilder::init(
                 $this->_currency,
-                number_format($totalDiscount, 2, '.', '')
-            )->build()
+                number_format($totalDiscount, 2, '.', ''),
+            )->build(),
         ];
 
         return $this;

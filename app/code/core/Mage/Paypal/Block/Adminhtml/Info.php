@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+/**
  * PayPal payment information block for admin order view
  */
 class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
@@ -83,11 +90,11 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     {
         $payment = $this->getInfo();
 
-        if ($payment->getMethod() !== 'paypal' || 
+        if ($payment->getMethod() !== 'paypal' ||
             !$payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID)) {
             return false;
         }
-        
+
         $expirationTime = $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
         if ($expirationTime) {
             $now = new DateTime();
@@ -95,15 +102,15 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
             $daysDiff = $now->diff($expDate)->days;
             return $daysDiff <= 26;
         }
-        
+
         $authTime = $payment->getCreatedAt();
         $now = new DateTime();
         $authDate = new DateTime($authTime);
         $daysDiff = $now->diff($authDate)->days;
-        
+
         return $daysDiff >= 3;
     }
-    
+
     /**
      * Get reauthorize URL
      *
@@ -113,7 +120,7 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     {
         return Mage::getUrl('*/paypal_transaction/reauthorize', [
             'order_id' => $this->getInfo()->getOrder()->getId(),
-            '_secure' => true
+            '_secure' => true,
         ]);
     }
 }

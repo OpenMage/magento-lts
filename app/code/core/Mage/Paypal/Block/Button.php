@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+/**
  * PayPal button block
  */
 class Mage_Paypal_Block_Button extends Mage_Core_Block_Template
@@ -34,12 +41,12 @@ class Mage_Paypal_Block_Button extends Mage_Core_Block_Template
     {
         $config = $this->getButtonConfig();
         $intent = Mage::getSingleton('paypal/config')->getPaymentAction();
-    
+
         $params = [
             'client-id' => $this->getClientId(),
             'components' => 'buttons,messages',
             'intent' => $intent,
-            'currency' => Mage::app()->getStore()->getCurrentCurrencyCode()
+            'currency' => Mage::app()->getStore()->getCurrentCurrencyCode(),
         ];
 
         if ($config['message']) {
@@ -58,7 +65,7 @@ class Mage_Paypal_Block_Button extends Mage_Core_Block_Template
     {
         return Mage::getSingleton('core/session')->getFormKey();
     }
-    
+
     /**
      * Check if button should be rendered
      *
@@ -89,7 +96,7 @@ class Mage_Paypal_Block_Button extends Mage_Core_Block_Template
     {
         return sprintf(
             'id="%s" class="paypal-button-container" data-loading="false" style="min-height: 35px;"',
-            $this->getContainerId()
+            $this->getContainerId(),
         );
     }
 
@@ -102,7 +109,7 @@ class Mage_Paypal_Block_Button extends Mage_Core_Block_Template
     {
         $config = $this->getButtonConfig();
         $containerId = $this->getContainerId();
-        
+
         return sprintf(
             'window.paypalLoadPromise = window.paypalLoadPromise || new Promise(function(resolve) {
                 var script = document.createElement("script");
@@ -184,7 +191,7 @@ class Mage_Paypal_Block_Button extends Mage_Core_Block_Template
             $this->getUrl('paypal/payment/createOrder'),
             $this->getUrl('paypal/payment/capture'),
             $this->getUrl('checkout/onepage/success'),
-            $containerId
+            $containerId,
         );
     }
 }

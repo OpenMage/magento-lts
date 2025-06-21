@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 class Mage_Paypal_Model_System_Config_Source_MerchantCountry
 {
     /**
@@ -11,7 +19,7 @@ class Mage_Paypal_Model_System_Config_Source_MerchantCountry
     {
         $countries = Mage::getSingleton('adminhtml/system_config_source_country')
             ->toOptionArray(false);
-            
+
         // Filter to only PayPal supported countries
         $supportedCountries = [
             'AU', // Australia
@@ -58,9 +66,9 @@ class Mage_Paypal_Model_System_Config_Source_MerchantCountry
             'US', // United States
             'VN', // Vietnam
         ];
-        
-        return array_filter($countries, function($country) use ($supportedCountries) {
+
+        return array_filter($countries, function ($country) use ($supportedCountries) {
             return in_array($country['value'], $supportedCountries);
         });
     }
-} 
+}

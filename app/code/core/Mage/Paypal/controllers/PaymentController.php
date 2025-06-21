@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 /**
@@ -59,11 +66,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                     || $quoteCheckoutMethod != Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER)
                 && !Mage::helper('checkout')->isAllowedGuestCheckout(
                     $this->_getQuote(),
-                    $this->_getQuote()->getStoreId()
+                    $this->_getQuote()->getStoreId(),
                 )
             ) {
                 Mage::getSingleton('core/session')->addNotice(
-                    Mage::helper('paypal')->__('To proceed to Checkout, please log in using your email address.')
+                    Mage::helper('paypal')->__('To proceed to Checkout, please log in using your email address.'),
                 );
                 $this->_redirectLogin();
                 Mage::getSingleton('customer/session')
@@ -83,7 +90,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 ->setHeader('Content-Type', 'application/json')
                 ->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
-                    'error' => $e->getMessage()
+                    'error' => $e->getMessage(),
                 ]));
         }
     }
@@ -112,7 +119,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
             $this->getResponse()
                 ->setHeader('Content-Type', 'application/json')->setBody(Mage::helper('core')->jsonEncode([
-                    'success' => true
+                    'success' => true,
                 ]));
         } catch (Exception $e) {
             Mage::logException($e);
@@ -120,7 +127,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $this->getResponse()
                 ->setHeader('Content-Type', 'application/json')->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
-                    'message' => $e->getMessage()
+                    'message' => $e->getMessage(),
                 ]));
         }
     }
@@ -190,17 +197,17 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
                 $order->addStatusHistoryComment(
                     Mage::helper('paypal')->__('Paypal payment has been authorized, capture is required before date ' . $date->format('Y-m-d H:i:s')),
-                    false
+                    false,
                 );
                 $order->setState(
                     Mage_Sales_Model_Order::STATE_PENDING_PAYMENT,
                     true,
-                    Mage::helper('paypal')->__('Payment has been authorized. Capture is required.')
+                    Mage::helper('paypal')->__('Payment has been authorized. Capture is required.'),
                 )->save();
             } else {
                 $order->addStatusHistoryComment(
                     Mage::helper('paypal')->__('PayPal payment captured successfully. Capture ID: %s', $transaction->getTxnId()),
-                    false
+                    false,
                 );
                 $transaction->setOrderPaymentObject($orderPayment)
                     ->setTxnId($quotePayment->getPaypalCorrelationId())
@@ -459,8 +466,8 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         $this->getResponse()->setRedirect(
             Mage::helper('core/url')->addRequestParam(
                 Mage::helper('customer')->getLoginUrl(),
-                ['context' => 'checkout']
-            )
+                ['context' => 'checkout'],
+            ),
         );
     }
 
@@ -476,7 +483,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             $customer->sendNewAccountEmail('confirmation', '', $this->_quote->getStoreId());
             $url = Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail());
             $this->getCustomerSession()->addSuccess(
-                Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url)
+                Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url),
             );
         } else {
             $customer->sendNewAccountEmail('registered', '', $this->_quote->getStoreId());

@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+/**
  * PayPal installation script
  *
  * @category    Mage
@@ -49,11 +56,11 @@ $debugTable = $installer->getConnection()
     ], 'Created At')
     ->addIndex(
         $installer->getIdxName('paypal/debug', ['quote_id']),
-        ['quote_id']
+        ['quote_id'],
     )
     ->addIndex(
         $installer->getIdxName('paypal/debug', ['increment_id']),
-        ['increment_id']
+        ['increment_id'],
     )
     ->addForeignKey(
         $installer->getFkName('paypal/debug', 'quote_id', 'sales/quote', 'entity_id'),
@@ -61,7 +68,7 @@ $debugTable = $installer->getConnection()
         $installer->getTable('sales/quote'),
         'entity_id',
         Varien_Db_Ddl_Table::ACTION_CASCADE,
-        Varien_Db_Ddl_Table::ACTION_CASCADE
+        Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
         $installer->getFkName('paypal/debug', 'increment_id', 'sales/order', 'increment_id'),
@@ -69,14 +76,14 @@ $debugTable = $installer->getConnection()
         $installer->getTable('sales/order'),
         'increment_id',
         Varien_Db_Ddl_Table::ACTION_SET_NULL,
-        Varien_Db_Ddl_Table::ACTION_NO_ACTION
+        Varien_Db_Ddl_Table::ACTION_NO_ACTION,
     )
     ->setComment('PayPal Debug Table');
 $installer->getConnection()->createTable($debugTable);
 
 $installer->getConnection()->delete(
     $installer->getTable('core_resource'),
-    $installer->getConnection()->quoteInto('code = ?', 'paypaluk_setup')
+    $installer->getConnection()->quoteInto('code = ?', 'paypaluk_setup'),
 );
 
 $installer->getConnection()->delete(
@@ -170,8 +177,8 @@ $installer->getConnection()->delete(
         'paypal/style/paypal_hdrbordercolor',
         'paypal/style/paypal_payflowcolor',
         'paypal/wpp/button_flavor',
-        'paypal/general/business_account'
-    ])
+        'paypal/general/business_account',
+    ]),
 );
 
 $installer->endSetup();

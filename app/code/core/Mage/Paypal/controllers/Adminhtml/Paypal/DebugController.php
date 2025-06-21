@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Controller_Action
 {
     protected function _initAction()
@@ -7,7 +15,7 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
             ->_setActiveMenu('report/paypal/debug')
             ->_addBreadcrumb(
                 Mage::helper('paypal')->__('Reports'),
-                Mage::helper('paypal')->__('PayPal Debug Log')
+                Mage::helper('paypal')->__('PayPal Debug Log'),
             );
         return $this;
     }
@@ -23,7 +31,7 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
     {
         $this->loadLayout();
         $this->getResponse()->setBody(
-            $this->getLayout()->createBlock('paypal/adminhtml_debug_grid')->toHtml()
+            $this->getLayout()->createBlock('paypal/adminhtml_debug_grid')->toHtml(),
         );
     }
 
@@ -38,7 +46,7 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
                     Mage::getModel('paypal/debug')->load($debugId)->delete();
                 }
                 $this->_getSession()->addSuccess(
-                    $this->__('Total of %d record(s) have been deleted.', count($debugIds))
+                    $this->__('Total of %d record(s) have been deleted.', count($debugIds)),
                 );
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());

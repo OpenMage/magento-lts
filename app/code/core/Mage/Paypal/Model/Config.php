@@ -1,25 +1,32 @@
 <?php
 
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 class Mage_Paypal_Model_Config extends Varien_Object
 {
-    const BUTTON_SHAPE_RECT = 'rect';
-    const BUTTON_SHAPE_PILL = 'pill';
-    const BUTTON_SHAPE_SHARP = 'sharp';
+    public const BUTTON_SHAPE_RECT = 'rect';
+    public const BUTTON_SHAPE_PILL = 'pill';
+    public const BUTTON_SHAPE_SHARP = 'sharp';
 
-    const BUTTON_COLOR_GOLD = 'gold';
-    const BUTTON_COLOR_BLUE = 'blue';
-    const BUTTON_COLOR_SILVER = 'silver';
-    const BUTTON_COLOR_WHITE = 'white';
-    const BUTTON_COLOR_BLACK = 'black';
+    public const BUTTON_COLOR_GOLD = 'gold';
+    public const BUTTON_COLOR_BLUE = 'blue';
+    public const BUTTON_COLOR_SILVER = 'silver';
+    public const BUTTON_COLOR_WHITE = 'white';
+    public const BUTTON_COLOR_BLACK = 'black';
 
-    const BUTTON_LAYOUT_VERTICAL = 'vertical';
-    const BUTTON_LAYOUT_HORIZONTAL = 'horizontal';
+    public const BUTTON_LAYOUT_VERTICAL = 'vertical';
+    public const BUTTON_LAYOUT_HORIZONTAL = 'horizontal';
 
-    const BUTTON_LABEL_PAYPAL = 'paypal';
-    const BUTTON_LABEL_CHECKOUT = 'checkout';
-    const BUTTON_LABEL_BUYNOW = 'buynow';
-    const BUTTON_LABEL_PAY = 'pay';
-    const BUTTON_LABEL_INSTALLMENT = 'installment';
+    public const BUTTON_LABEL_PAYPAL = 'paypal';
+    public const BUTTON_LABEL_CHECKOUT = 'checkout';
+    public const BUTTON_LABEL_BUYNOW = 'buynow';
+    public const BUTTON_LABEL_PAY = 'pay';
+    public const BUTTON_LABEL_INSTALLMENT = 'installment';
 
     /**
      * Supported currencies for PayPal transactions
@@ -51,7 +58,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
         'SEK',
         'CHF',
         'THB',
-        'USD'
+        'USD',
     ];
 
     public function getApiCredentials()
@@ -59,19 +66,19 @@ class Mage_Paypal_Model_Config extends Varien_Object
         return [
             'client_id' => $this->getConfigData('client_id'),
             'client_secret' => Mage::helper('core')->decrypt(
-                $this->getConfigData('client_secret')
+                $this->getConfigData('client_secret'),
             ),
         ];
     }
 
     public function isDebugEnabled()
     {
-        return (bool)$this->getConfigData('debug');
+        return (bool) $this->getConfigData('debug');
     }
 
     public function isSandbox()
     {
-        return (bool)$this->getConfigData('sandbox_mode');
+        return (bool) $this->getConfigData('sandbox_mode');
     }
 
     public function getPaymentAction()
@@ -91,7 +98,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
             'color' => $this->getConfigData('button_color'),
             'layout' => $this->getConfigData('button_layout'),
             'label' => $this->getConfigData('button_label'),
-            'message' => (bool)$this->getConfigData('button_message')
+            'message' => (bool) $this->getConfigData('button_message'),
         ];
     }
 
@@ -103,7 +110,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
 
     public function isActive($store = null)
     {
-        return (bool)$this->getConfigData('active', $store);
+        return (bool) $this->getConfigData('active', $store);
     }
 
     public function getAllowedCurrencyCodes()

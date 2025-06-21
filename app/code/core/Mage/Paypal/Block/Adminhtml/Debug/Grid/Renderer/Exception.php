@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 /**
  * Renderer for exception_message column with copy functionality
  */
@@ -16,9 +24,9 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Exception extends Mage_Adm
         if (empty($value)) {
             return '';
         }
-        
+
         $escapedValue = $this->escapeHtml($value);
-        
+
         return '<span data-copy-text="' . $escapedValue . '">' . $escapedValue . '</span>';
     }
-} 
+}

@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
 class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
@@ -16,13 +24,13 @@ class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json extends Mage_Adminhtml_Bloc
         try {
             // Decode JSON
             $data = Mage::helper('core')->jsonDecode($json);
-            
+
             // Format with proper indentation and spacing
             $formattedJson = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-            
+
             // Escape HTML entities
             $formattedJson = $this->escapeHtml($formattedJson);
-            
+
             return sprintf('<pre class="paypal-json" style="max-height: 300px; overflow: auto; white-space: pre-wrap;">%s</pre>', $formattedJson);
         } catch (Exception $e) {
             return $this->escapeHtml($json);
