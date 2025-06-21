@@ -50,11 +50,6 @@
                 </states>
             </order>
         </sales>
-        <payment>
-            <groups>
-                <paypal>PayPal</paypal>
-            </groups>
-        </payment>
         <resources>
             <paypal_setup>
                 <setup>
@@ -130,7 +125,8 @@
         <payment>
             <paypal>
                 <model>paypal/paypal</model>
-                <title>PayPal</title>
+                <title>PayPal Express Checkout</title>
+                <merchant_country>US</merchant_country>
                 <active>0</active>
                 <sandbox_mode>1</sandbox_mode>
                 <payment_action>capture</payment_action>
