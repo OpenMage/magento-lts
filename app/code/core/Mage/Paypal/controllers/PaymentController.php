@@ -198,11 +198,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             }
             if ($isAuthorize) {
                 $transaction->setOrderPaymentObject($orderPayment)
-                    ->setTxnId($orderPayment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID))
+                    ->setTxnId($orderPayment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID))
                     ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH)
                     ->setIsClosed(false);
                 $storeTimezone = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
-                $expirationTime = $orderPayment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
+                $expirationTime = $orderPayment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
 
                 $date = new DateTime($expirationTime, new DateTimeZone('UTC'));
                 $date->setTimezone(new DateTimeZone($storeTimezone));

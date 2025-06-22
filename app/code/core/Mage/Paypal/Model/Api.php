@@ -33,7 +33,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     public const ERROR_EMPTY_AUTH_ID = 'Authorization ID cannot be empty';
     public const ERROR_INVALID_AMOUNT = 'Amount must be greater than 0';
 
-    private readonly Mage_Paypal_Model_Api_Helper $helper;
+    private readonly Mage_Paypal_Model_Helper $helper;
     private readonly Mage_Paypal_Model_Config $config;
     private ?PaypalServerSdkClient $client = null;
 
@@ -43,7 +43,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     public function __construct()
     {
         parent::__construct();
-        $this->helper = Mage::getSingleton('paypal/api_helper');
+        $this->helper = Mage::getSingleton('paypal/helper');
         $this->config = Mage::getSingleton('paypal/config');
     }
 

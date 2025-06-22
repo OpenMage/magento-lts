@@ -52,16 +52,16 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     {
         $payment = $this->getInfo();
         $info = [];
-        if ($payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_STATUS)) {
+        if ($payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_STATUS)) {
             $info[Mage::helper('paypal')->__('Status')] =
-                $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_STATUS);
+                $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_STATUS);
         }
-        if ($payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID)) {
+        if ($payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID)) {
             $info[Mage::helper('paypal')->__('Authorization ID')] =
-                $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID);
-            if ($payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME)) {
+                $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID);
+            if ($payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME)) {
                 $expirationTime =
-                    $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
+                    $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
                 $info[Mage::helper('paypal')->__('Authorization Expires')] = $this->formatExpirationDate($expirationTime);
             }
         }
@@ -94,12 +94,12 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
 
         if (
             $payment->getMethod() !== 'paypal' ||
-            !$payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID)
+            !$payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID)
         ) {
             return false;
         }
 
-        $expirationTime = $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
+        $expirationTime = $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
         if ($expirationTime) {
             $now = new DateTime();
             $expDate = new DateTime($expirationTime);

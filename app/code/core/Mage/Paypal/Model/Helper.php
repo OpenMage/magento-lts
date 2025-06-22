@@ -1,0 +1,268 @@
+<?php
+
+/**
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
+ * @package    Mage_Paypal
+ */
+
+declare(strict_types=1);
+
+use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
+use PaypalServerSdkLib\Http\ApiResponse;
+
+/**
+ * PayPal Model Helper Class
+ * Handles validation, error handling, and utility methods
+ */
+class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
+{
+    // Error messages
+    private const ERROR_ZERO_AMOUNT = 'PayPal does not support processing orders with zero amount. To complete your purchase, proceed to the standard checkout process.';
+
+    /**
+     * @var Mage_Paypal_Helper_Data
+     */
+    protected $_helper;
+
+    /**
+     * Initializes the helper with its dependencies.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_helper = Mage::helper('paypal');
+    }
+
+    /**
+     * Logs debug information for a PayPal API request if debugging is enabled.
+     *
+     * @param string $action Action being performed (e.g., 'Create Order').
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Quote or order object.
+     * @param array $request Request object or data sent to the API.
+     * @param ApiResponse|null $response API response, if available.
+     */
+    public function logDebug(
+        string $action,
+        Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote,
+        array $request,
+        ?ApiResponse $response = null
+    ): void {
+        if (Mage::getStoreConfigFlag('payment/paypal/debug')) {
+            $requestData = json_encode($request);
+            $debug = Mage::getModel('paypal/debug');
+            if ($quote instanceof Mage_Sales_Model_Quote) {
+                $debug->setQuoteId($quote->getId());
+            } elseif ($quote instanceof Mage_Sales_Model_Order) {
+                $debug->setIncrementId($quote->getIncrementId());
+            }
+
+            $debug->setAction($action)
+                ->setRequestBody($requestData);
+            Mage::log($response, null, 'paypal.log');
+            if ($response instanceof ApiResponse) {
+                $result = $response->getResult();
+                if ($response->isError()) {
+                    $debug->setTransactionId($result['debug_id'])
+                        ->setResponseBody(json_encode($result));
+                } else {
+                    $debug->setTransactionId($response->getResult()->getId() ?? null)
+                        ->setResponseBody(json_encode($response->getResult()));
+                }
+            }
+            $debug->save();
+        }
+    }
+
+    /**
+     * Logs an error message and exception details if debugging is enabled.
+     *
+     * @param string $message The error message.
+     * @param Exception $exception The exception object.
+     */
+    public function logError(string $message, Exception $exception): void
+    {
+        if (Mage::getStoreConfigFlag('payment/paypal/debug')) {
+            $errorData = [
+                'message' => $message,
+                'error' => $exception->getMessage(),
+            ];
+
+            if ($exception instanceof Mage_Paypal_Model_Exception) {
+                $errorData['debug_data'] = $exception->getDebugData();
+            }
+
+            Mage::log($message, Zend_Log::ERR, 'paypal.log', true);
+        }
+    }
+
+    /**
+     * Validate quote for PayPal payment processing
+     *
+     * @throws Mage_Core_Exception
+     */
+    public function validateQuoteForPayment(Mage_Sales_Model_Quote $quote): void
+    {
+        $quote->collectTotals();
+
+        if (!$quote->getGrandTotal() && !$quote->hasNominalItems()) {
+            throw new Mage_Core_Exception(
+                Mage::helper('paypal')->__(self::ERROR_ZERO_AMOUNT),
+            );
+        }
+    }
+
+    /**
+     * Handle API error response
+     *
+     * @param ApiResponse $response API response
+     * @param string $defaultMessage Default error message
+     * @throws Mage_Core_Exception
+     */
+    public function handleApiError(ApiResponse $response, string $defaultMessage): never
+    {
+        $errorMsg = $this->extractErrorMessage($response, $defaultMessage);
+        throw new Mage_Core_Exception($errorMsg);
+    }
+
+    /**
+     * Extract error message from API response
+     *
+     * @param ApiResponse $response API response
+     * @param string $defaultMessage Default error message
+     */
+    public function extractErrorMessage(ApiResponse $response, string $defaultMessage): string
+    {
+        $result = $response->getResult();
+
+        return match (true) {
+            is_array($result) && isset($result['message']) => $result['message'] ?: $defaultMessage,
+            is_object($result) && method_exists($result, 'getMessage') => $result->getMessage() ?: $defaultMessage,
+            is_string($result) => $result ?: $defaultMessage,
+            default => $defaultMessage
+        };
+    }
+
+    /**
+     * Extract capture ID from API result
+     *
+     * @param mixed $result API result
+     */
+    public function extractCaptureId(mixed $result): ?string
+    {
+        if (
+            !method_exists($result, 'getPurchaseUnits') ||
+            !is_array($result->getPurchaseUnits()) ||
+            empty($result->getPurchaseUnits())
+        ) {
+            return null;
+        }
+
+        $purchaseUnit = $result->getPurchaseUnits()[0];
+        $payments = $purchaseUnit->getPayments();
+
+        if (
+            !method_exists($payments, 'getCaptures') ||
+            !is_array($payments->getCaptures()) ||
+            empty($payments->getCaptures())
+        ) {
+            return null;
+        }
+
+        return $payments->getCaptures()[0]->getId();
+    }
+
+    /**
+     * Prepare raw details for storage
+     *
+     * @param string $details JSON details object
+     * @return array<string, mixed>
+     */
+    public function prepareRawDetails(string $details): array
+    {
+        $decoded = json_decode($details, true);
+        if (isset($decoded['links'])) {
+            unset($decoded['links']);
+        }
+        return array_map(
+            fn($v) => is_array($v) ? json_encode($v) : $v,
+            $decoded ?? [],
+        );
+    }
+
+    /**
+     * Add order status comment
+     *
+     * @param string $action Action performed (captured, authorized, etc.)
+     * @param string|null $transactionId Transaction ID
+     */
+    public function addOrderComment(
+        Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote,
+        string $action,
+        ?string $transactionId
+    ): void {
+        if ($quote instanceof Mage_Sales_Model_Order && $transactionId) {
+            $message = match ($action) {
+                'captured' => 'PayPal payment captured successfully. Capture ID: %s',
+                'authorized' => 'PayPal payment authorized successfully. Authorization ID: %s',
+                default => 'PayPal payment %s successfully. Transaction ID: %s'
+            };
+
+            $quote->addStatusHistoryComment(
+                Mage::helper('paypal')->__($message, $transactionId),
+                false,
+            );
+        }
+    }
+
+    /**
+     * Handle multishipping notification
+     */
+    public function handleMultishippingNotification(?Mage_Sales_Model_Quote $quote): void
+    {
+        if (
+            $quote?->getIsMultiShipping() &&
+            Mage::getSingleton('paypal/config')->getPaymentAction() === strtolower(CheckoutPaymentIntent::AUTHORIZE)
+        ) {
+            Mage::getSingleton('core/session')->addNotice(
+                Mage::helper('paypal')->__(
+                    'PayPal will process multishipping orders as immediate capture regardless of your authorization setting.',
+                ),
+            );
+        }
+    }
+
+    /**
+     * Get payment intent based on payment action configuration
+     */
+    public function getPaymentIntent(): string
+    {
+        // Always use capture for multishipping orders
+        if ($this->getQuote()->getIsMultiShipping()) {
+            return CheckoutPaymentIntent::CAPTURE;
+        }
+
+        $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
+
+        return $paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE)
+            ? CheckoutPaymentIntent::AUTHORIZE
+            : CheckoutPaymentIntent::CAPTURE;
+    }
+
+    /**
+     * Get PayPal API instance
+     */
+    public function getApi(): Mage_Paypal_Model_Api
+    {
+        return Mage::getSingleton('paypal/api');
+    }
+
+    /**
+     * Get current quote
+     */
+    public function getQuote(): Mage_Sales_Model_Quote
+    {
+        return Mage::getSingleton('checkout/session')->getQuote();
+    }
+}

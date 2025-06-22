@@ -34,7 +34,7 @@ class Mage_Paypal_Adminhtml_Paypal_TransactionController extends Mage_Adminhtml_
 
             $this->_validatePaymentMethod($payment);
 
-            $authorizationId = $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID);
+            $authorizationId = $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID);
             if (!$authorizationId) {
                 Mage::throwException($this->__('This order does not have a PayPal authorization.'));
             }
