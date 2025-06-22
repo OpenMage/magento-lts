@@ -107,7 +107,6 @@ class Mage_Paypal_Model_System_Config_Source_MerchantCountry
             'UY',
             'VN',
         ];
-        ;
 
         return array_filter($countries, function ($country) use ($supportedCountries) {
             return in_array($country['value'], $supportedCountries);

@@ -126,12 +126,10 @@ parameters:
                 - app/design/frontend/base/default/template/customer/wishlist.phtml
                 - app/design/frontend/base/default/template/directory/currency/switch.phtml
                 - app/design/frontend/base/default/template/page/redirect.phtml
-                - app/design/frontend/base/default/template/paypal/hss/review/button.phtml
                 - app/design/frontend/rwd/default/template/checkout/cart/render/default.phtml
                 - app/design/frontend/rwd/default/template/checkout/cart/render/simple.phtml
                 - app/design/frontend/rwd/default/template/customer/form/address.phtml
                 - app/design/frontend/rwd/default/template/customer/form/changepassword.phtml
-                - app/design/frontend/rwd/default/template/paypal/express/review/address.phtml
                 - app/design/install/default/default/template/page.phtml
         -
             identifier: phpunit.coversMethod
