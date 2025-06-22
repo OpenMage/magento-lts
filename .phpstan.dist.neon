@@ -55,7 +55,6 @@ parameters:
         - app/code/core/Mage/Centinel/Model/Api/Client.php
 
         # Class phpseclib\Net\SSH2 not found.
-        - app/code/core/Mage/Paypal/Model/Report/Settlement.php
         - lib/Varien/Io/Sftp.php
 
         # Dataflow/Model/Convert/Iterator.php

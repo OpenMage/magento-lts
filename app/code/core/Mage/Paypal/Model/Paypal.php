@@ -596,7 +596,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     private function _getPaymentIntent(): string
     {
         // Always use capture for multishipping orders
-        if ($this->_getQuote()?->getIsMultiShipping()) {
+        if ($this->_getQuote()->getIsMultiShipping()) {
             return CheckoutPaymentIntent::CAPTURE;
         }
 
@@ -640,7 +640,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Update payment object after successful capture
      *
      * @param ApiResponse $response API result
-     * @param string $orderId PayPal order ID
      * @param string $captureId Capture ID
      */
     private function _updatePaymentAfterCapture(
@@ -743,6 +742,9 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     {
         $result = $response->getResult();
         $transaction = Mage::getModel('sales/order_payment_transaction');
+        /**
+         * @var Mage_Sales_Model_Order_Payment $payment
+         */
         $transaction->setOrderPaymentObject($payment)
             ->setTxnId($result->getId())
             ->setParentTxnId($payment->getParentTransactionId())
@@ -786,6 +788,9 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     {
         $result = $response->getResult();
         $transaction = Mage::getModel('sales/order_payment_transaction');
+        /**
+         * @var Mage_Sales_Model_Order_Payment $payment
+         */
         $transaction->setOrderPaymentObject($payment)
             ->setTxnId($result->getId())
             ->setParentTxnId($authorizationId)
@@ -821,6 +826,9 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     {
         $transaction = Mage::getModel('sales/order_payment_transaction');
         $result = $response->getResult();
+        /**
+         * @var Mage_Sales_Model_Order_Payment $payment
+         */
         $transaction->setOrderPaymentObject($payment)
             ->setTxnId($payment->getTransactionId())
             ->setParentTxnId($result->getId())

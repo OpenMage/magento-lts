@@ -338,10 +338,6 @@ class Mage_Persistent_Model_Observer
                 Mage::helper('persistent')->__('To proceed to Checkout, please log in using your email address.'),
             );
             $controllerAction->redirectLogin();
-            if ($controllerAction instanceof Mage_Paypal_Controller_Express_Abstract) {
-                Mage::getSingleton('customer/session')
-                    ->setBeforeAuthUrl(Mage::getUrl('persistent/index/expressCheckout'));
-            }
         }
     }
 

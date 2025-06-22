@@ -290,9 +290,9 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      */
     protected function _prepareGuestQuote(): self
     {
-        $quote = $this->_quote;
+        $quote = $this->_getQuote();
         $quote->setCustomerEmail($quote->getBillingAddress()->getEmail())
-            ->setCustomerIsGuest(true)
+            ->setCustomerIsGuest(1)
             ->setCustomerGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
         return $this;
     }

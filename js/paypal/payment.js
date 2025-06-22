@@ -52,7 +52,7 @@ PayPalPayment.prototype = {
                 this.reviewContainerInterval = null;
             }
 
-            const maxAttempts = 20;
+            const maxAttempts = 100;
             let attempts = 0;
 
             const checkForContainer = () => {
@@ -71,7 +71,7 @@ PayPalPayment.prototype = {
             checkForContainer();
 
             if (!$(this.config.reviewButtonContainerId)) {
-                this.reviewContainerInterval = setInterval(checkForContainer, 500);
+                this.reviewContainerInterval = setInterval(checkForContainer, 100);
             }
         });
     },

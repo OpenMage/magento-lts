@@ -337,7 +337,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      */
     private function _validateAmount(float $amount): void
     {
-        if (!is_numeric($amount) || $amount <= 0) {
+        if ($amount <= 0) {
             throw new Mage_Core_Exception(self::ERROR_INVALID_AMOUNT);
         }
     }
