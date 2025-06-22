@@ -3829,36 +3829,6 @@ parameters:
 			path: app/code/core/Mage/Payment/Model/Recurring/Profile.php
 
 		-
-			message: '#^Call to an undefined method Varien_Object\:\:isNominal\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Cart.php
-
-		-
-			message: '#^Empty array passed to foreach\.$#'
-			identifier: foreach.emptyArray
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Cart.php
-
-		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Cart.php
-
-		-
-			message: '#^Negated boolean expression is always true\.$#'
-			identifier: booleanNot.alwaysTrue
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/Config.php
-
-		-
-			message: '#^Method Varien_Data_Collection\:\:toOptionArray\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Paypal/Model/System/Config/Source/MerchantCountry.php
-
-		-
 			message: '#^Method Mage_ProductAlert_Helper_Data\:\:createBlock\(\) should return Mage_ProductAlert_Block_Email_Price\|Mage_ProductAlert_Block_Email_Stock but returns Mage_Core_Block_Abstract\.$#'
 			identifier: return.type
 			count: 1
