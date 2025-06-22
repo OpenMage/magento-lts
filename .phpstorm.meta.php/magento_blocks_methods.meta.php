@@ -1116,8 +1116,6 @@ namespace PHPSTORM_META {
             'paypal/adminhtml_grid_renderer_json' => \Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json::class,
             'paypal/adminhtml_grid_renderer_order' => \Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order::class,
             'paypal/adminhtml_info' => \Mage_Paypal_Block_Adminhtml_Info::class,
-            'paypal/adminhtml_system_config_field_country' => \Mage_Paypal_Block_Adminhtml_System_Config_Field_Country::class,
-            'paypal/button' => \Mage_Paypal_Block_Button::class,
             'paypal/form' => \Mage_Paypal_Block_Form::class,
             'paypal/info' => \Mage_Paypal_Block_Info::class,
             'persistent/form_remember' => \Mage_Persistent_Block_Form_Remember::class,
