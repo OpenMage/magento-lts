@@ -7,6 +7,8 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 class Mage_Paypal_Model_Config extends Varien_Object
 {
     public const BUTTON_SHAPE_RECT = 'rect';
@@ -61,7 +63,12 @@ class Mage_Paypal_Model_Config extends Varien_Object
         'USD',
     ];
 
-    public function getApiCredentials()
+    /**
+     * Retrieves the API credentials, including the client ID and decrypted client secret.
+     *
+     * @return array<string, string>
+     */
+    public function getApiCredentials(): array
     {
         return [
             'client_id' => $this->getConfigData('client_id'),
@@ -71,54 +78,92 @@ class Mage_Paypal_Model_Config extends Varien_Object
         ];
     }
 
-    public function isDebugEnabled()
+    /**
+     * Checks if debug mode is enabled.
+     *
+     * @return bool
+     */
+    public function isDebugEnabled(): bool
     {
         return (bool) $this->getConfigData('debug');
     }
 
-    public function isSandbox()
+    /**
+     * Checks if sandbox mode is enabled.
+     *
+     * @return bool
+     */
+    public function isSandbox(): bool
     {
         return (bool) $this->getConfigData('sandbox_mode');
     }
 
-    public function getPaymentAction()
+    /**
+     * Retrieves the configured payment action (e.g., 'authorize', 'capture').
+     *
+     * @return string
+     */
+    public function getPaymentAction(): string
     {
-        return $this->getConfigData('payment_action');
+        return (string) $this->getConfigData('payment_action');
     }
 
-    public function getEndpoint()
+    /**
+     * Retrieves the PayPal API endpoint URL based on the sandbox mode.
+     *
+     * @return string
+     */
+    public function getEndpoint(): string
     {
         return $this->isSandbox() ? 'https://www.sandbox.paypal.com' : 'https://www.paypal.com';
     }
 
-    public function getButtonConfiguration()
+    /**
+     * Retrieves an array of configuration settings for the PayPal button.
+     *
+     * @return array<string, string|bool>
+     */
+    public function getButtonConfiguration(): array
     {
         return [
-            'shape' => $this->getConfigData('button_shape'),
-            'color' => $this->getConfigData('button_color'),
-            'layout' => $this->getConfigData('button_layout'),
-            'label' => $this->getConfigData('button_label'),
+            'shape' => (string) $this->getConfigData('button_shape'),
+            'color' => (string) $this->getConfigData('button_color'),
+            'layout' => (string) $this->getConfigData('button_layout'),
+            'label' => (string) $this->getConfigData('button_label'),
             'message' => (bool) $this->getConfigData('button_message'),
         ];
     }
 
-    public function getMerchantCountry()
-    {
-        return $this->getConfigData('merchant_country')
-            ?: Mage::getStoreConfig('general/country/default');
-    }
 
-    public function isActive($store = null)
+    /**
+     * Checks if the PayPal payment method is active for the given store.
+     *
+     * @param mixed|null $store The store ID or object to check for.
+     * @return bool
+     */
+    public function isActive(mixed $store = null): bool
     {
         return (bool) $this->getConfigData('active', $store);
     }
 
-    public function getAllowedCurrencyCodes()
+    /**
+     * Retrieves a list of supported currency codes.
+     *
+     * @return string[]
+     */
+    public function getAllowedCurrencyCodes(): array
     {
         return $this->_supportedCurrencies;
     }
 
-    protected function getConfigData($field, $store = null)
+    /**
+     * Retrieves a specific configuration value from the store config.
+     *
+     * @param string $field The configuration field to retrieve.
+     * @param mixed|null $store The store ID or object.
+     * @return mixed
+     */
+    protected function getConfigData(string $field, mixed $store = null): mixed
     {
         return Mage::getStoreConfig('payment/paypal/' . $field, $store);
     }

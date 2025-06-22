@@ -1,4 +1,3 @@
-
 /**
  * OpenMage
  *
@@ -24,7 +23,6 @@ PayPalPayment.prototype = {
         this.renderPromise = null;
         this.reviewContainerInterval = null;
 
-        // Initialize on DOM ready
         document.readyState === 'loading'
             ? document.observe('dom:loaded', this.onDOMReady.bind(this))
             : this.onDOMReady();
@@ -49,13 +47,12 @@ PayPalPayment.prototype = {
 
     waitForReviewContainer: function () {
         return new Promise(resolve => {
-            // Clear existing interval
             if (this.reviewContainerInterval) {
                 clearInterval(this.reviewContainerInterval);
                 this.reviewContainerInterval = null;
             }
 
-            const maxAttempts = 20; // 10 seconds max
+            const maxAttempts = 20;
             let attempts = 0;
 
             const checkForContainer = () => {
@@ -71,10 +68,8 @@ PayPalPayment.prototype = {
                 }
             };
 
-            // Initial check
             checkForContainer();
 
-            // Set interval if not found
             if (!$(this.config.reviewButtonContainerId)) {
                 this.reviewContainerInterval = setInterval(checkForContainer, 500);
             }
@@ -98,13 +93,9 @@ PayPalPayment.prototype = {
             .catch(() => { });
     },
 
-    debugCheckEnvironment: function () {
-        // Removed debug info
-    },
 
     loadPayPalSDK: function () {
         return new Promise((resolve, reject) => {
-            // Check if SDK is already loaded
             if (typeof paypal !== 'undefined') {
                 this.sdkLoaded = true;
                 return resolve();
@@ -123,9 +114,7 @@ PayPalPayment.prototype = {
     },
 
     renderButton: function () {
-        // Reset previous render operation
         this.renderPromise = null;
-
         if (!this.sdkLoaded) {
             return Promise.reject(new Error('SDK not loaded'));
         }
@@ -135,13 +124,10 @@ PayPalPayment.prototype = {
             return Promise.reject(new Error('Review container not found'));
         }
 
-        // Remove existing PayPal button
         this.removePayPalButton();
 
-        // Find the existing checkout button
         const checkoutButton = reviewContainer.down('button.btn-checkout');
 
-        // Create PayPal button container
         const paypalContainer = new Element('div', {
             'id': this.config.containerId,
             'class': 'paypal-button-container',
@@ -149,13 +135,9 @@ PayPalPayment.prototype = {
         });
 
         if (!checkoutButton) {
-            // Insert at the beginning of the container
             reviewContainer.insert({ top: paypalContainer });
         } else {
-            // Remove the original checkout button
             checkoutButton.remove();
-
-            // Insert PayPal container in the same position
             const pleaseWaitSpan = reviewContainer.down('span.please-wait');
             pleaseWaitSpan
                 ? pleaseWaitSpan.insert({ before: paypalContainer })
@@ -168,11 +150,9 @@ PayPalPayment.prototype = {
     createPayPalButton: function (paypalContainer, reviewContainer) {
         this.renderPromise = new Promise((resolve, reject) => {
             try {
-                // Create button wrapper
                 const buttonWrapper = new Element('div', { 'class': 'paypal-button-wrapper' });
                 paypalContainer.insert(buttonWrapper);
 
-                // Render PayPal button
                 paypal.Buttons({
                     style: {
                         layout: this.config.buttonLayout || 'vertical',
@@ -204,19 +184,17 @@ PayPalPayment.prototype = {
     },
 
     handleRenderError: function (error, reviewContainer, paypalContainer) {
-        // Clean up PayPal container
-        paypalContainer?.parentNode && paypalContainer.remove();
+        if (paypalContainer && paypalContainer.parentNode) {
+            paypalContainer.remove();
+        }
 
-        // Recreate the original checkout button
         this.recreateCheckoutButton(reviewContainer);
         this.buttonInitialized = false;
     },
 
     recreateCheckoutButton: function (reviewContainer) {
-        // Skip if button already exists
         if (reviewContainer.down('button.btn-checkout')) return;
 
-        // Create checkout button
         const checkoutButton = new Element('button', {
             'type': 'submit',
             'title': 'Place Order',
@@ -228,7 +206,6 @@ PayPalPayment.prototype = {
             )
         );
 
-        // Insert button
         const pleaseWaitSpan = reviewContainer.down('span.please-wait');
         pleaseWaitSpan
             ? pleaseWaitSpan.insert({ before: checkoutButton })
@@ -324,18 +301,15 @@ PayPalPayment.prototype = {
     },
 
     setupPaymentMethodHandling: function () {
-        // Handle payment method selection
         $$('input[name="payment[method]"]').each(input => {
             input.observe('click', () => this.handlePaymentMethodChange(input.value));
         });
 
-        // Handle review section updates
         document.observe('payment-method:switched', event => {
             const methodCode = event.memo?.method_code;
             methodCode && this.handlePaymentMethodChange(methodCode);
         });
 
-        // Check initial payment method
         const currentMethod = this.getCurrentPaymentMethod();
         currentMethod && this.handlePaymentMethodChange(currentMethod);
     },
@@ -375,15 +349,14 @@ PayPalPayment.prototype = {
     },
 
     hideLoadingMask: function () {
-        $('loading-mask')?.hide();
+        const mask = $('loading-mask');
+        if (mask) mask.hide();
     },
 
     showError: function (message) {
-        // Remove existing error
         const errorId = this.config.containerId + '-error';
         $(errorId)?.remove();
 
-        // Create new error element
         const container = $(this.config.containerId);
         if (container) {
             const errorDiv = new Element('div', {
@@ -396,27 +369,20 @@ PayPalPayment.prototype = {
         }
     },
 
-    log: function () {
-        // Removed logging
-    },
-
     destroy: function () {
-        // Remove event listeners
+
         $$('input[name="payment[method]"]').each(input => {
             input.stopObserving('click');
         });
 
-        // Remove payment button observer
         const paymentButton = $$('button[onclick="payment.save()"]')[0];
         paymentButton?.stopObserving('click');
 
-        // Clear interval
         if (this.reviewContainerInterval) {
             clearInterval(this.reviewContainerInterval);
             this.reviewContainerInterval = null;
         }
 
-        // Clean up containers
         this.removePayPalButton();
     }
 };

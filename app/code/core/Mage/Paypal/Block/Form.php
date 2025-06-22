@@ -7,7 +7,7 @@
  * @package    Mage_Paypal
  */
 
-use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
+declare(strict_types=1);
 
 /**
  * PayPal payment form block
@@ -15,57 +15,57 @@ use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 {
     /**
-     * Set template and init PayPal config
+     * Initializes the block by setting the payment template.
      */
-    protected function _construct()
+    protected function _construct(): void
     {
         parent::_construct();
         $this->setTemplate('paypal/payment.phtml');
     }
 
     /**
-     * Get PayPal button configuration
+     * Retrieves the configuration for the PayPal button.
      *
      * @return array
      */
-    public function getButtonConfig()
+    public function getButtonConfig(): array
     {
         return Mage::helper('paypal')->getButtonConfig();
     }
 
     /**
-     * Get PayPal endpoint URL
+     * Retrieves the PayPal API endpoint URL.
      *
      * @return string
      */
-    public function getEndpointUrl()
+    public function getEndpointUrl(): string
     {
         return Mage::helper('paypal')->getConfig()->getEndpoint();
     }
 
     /**
-     * Get PayPal client ID
+     * Retrieves the PayPal client ID from the API credentials.
      *
      * @return string
      */
-    public function getClientId()
+    public function getClientId(): string
     {
         return Mage::helper('paypal')->getConfig()->getApiCredentials()['client_id'];
     }
 
     /**
-     * Get PayPal SDK URL
+     * Constructs and retrieves the full URL for the PayPal JavaScript SDK.
      *
      * @return string
      */
-    public function getSdkUrl()
+    public function getSdkUrl(): string
     {
         $intent = Mage::getSingleton('paypal/config')->getPaymentAction();
 
         $params = [
             'client-id' => $this->getClientId(),
             'components' => 'buttons',
-            'intent' => $intent,
+            'intent' => (string) $intent,
             'currency' => Mage::app()->getStore()->getCurrentCurrencyCode(),
         ];
 
@@ -73,12 +73,11 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
         if (substr($baseUrl, -1) !== '/') {
             $baseUrl .= '/';
         }
-        $url = $baseUrl . 'sdk/js?' . http_build_query($params);
-        return $url;
+        return $baseUrl . 'sdk/js?' . http_build_query($params);
     }
 
     /**
-     * Get order amount
+     * Retrieves the grand total amount from the current quote.
      *
      * @return float
      */
@@ -88,11 +87,11 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
     }
 
     /**
-     * Get currency code
+     * Retrieves the currency code for the current store.
      *
      * @return string
      */
-    public function getCurrencyCode()
+    public function getCurrencyCode(): string
     {
         return Mage::app()->getStore()->getCurrentCurrencyCode();
     }

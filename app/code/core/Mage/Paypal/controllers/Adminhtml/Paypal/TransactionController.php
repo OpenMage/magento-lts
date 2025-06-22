@@ -7,19 +7,21 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
  * PayPal Transaction Controller
- *
- * @category   Mage
- * @package    Mage_Paypal
- * @author     Magento Core Team <core@magento.com>
  */
 class Mage_Paypal_Adminhtml_Paypal_TransactionController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Reauthorize a payment
+     * Handles the reauthorization of a PayPal payment for a specific order.
+     * It validates the order and payment details, triggers the reauthorization process,
+     * and redirects the user back to the order view with a success or error message.
+     *
+     * @return void
      */
-    public function reauthorizeAction()
+    public function reauthorizeAction(): void
     {
         $orderId = $this->getRequest()->getParam('order_id');
         if (!$orderId) {
@@ -60,11 +62,11 @@ class Mage_Paypal_Adminhtml_Paypal_TransactionController extends Mage_Adminhtml_
     }
 
     /**
-     * Check if the current user is allowed to access this controller
+     * Checks if the current user has permission to access this controller's actions.
      *
      * @return bool
      */
-    protected function _isAllowed()
+    protected function _isAllowed(): bool
     {
         return true;
     }

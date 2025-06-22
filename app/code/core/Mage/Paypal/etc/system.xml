@@ -33,10 +33,9 @@
                         </active>
                         <merchant_country translate="label comment">
                             <label>Merchant Country</label>
-                            <comment>If not specified, Default Country from General Config will be
-                                used</comment>
+                            <comment><![CDATA[If not specified, Default Country from General Config will be
+                                used. <a href="https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility" target="_blank">Learn more about PayPal Supported Countries.</a>]]></comment>
                             <frontend_type>select</frontend_type>
-                            <frontend_model>paypal/adminhtml_system_config_field_country</frontend_model>
                             <source_model>paypal/system_config_source_merchantCountry</source_model>
                             <backend_model>paypal/system_config_backend_merchantCountry</backend_model>
                             <show_in_default>1</show_in_default>

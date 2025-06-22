@@ -7,63 +7,65 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
  * PayPal module helper
  */
 class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
-     * Get PayPal configuration model
+     * Retrieves the PayPal configuration model, optionally for a specific store.
      *
-     * @param mixed $store
+     * @param mixed $store The store ID or object.
      * @return Mage_Paypal_Model_Config
      */
-    public function getConfig($store = null)
+    public function getConfig(mixed $store = null): Mage_Paypal_Model_Config
     {
         return Mage::getSingleton('paypal/config')->setStoreId($store);
     }
 
     /**
-     * Check if PayPal is available
+     * Checks if the PayPal payment method is active and available, optionally for a specific store.
      *
-     * @param mixed $store
+     * @param mixed $store The store ID or object.
      * @return bool
      */
-    public function isAvailable($store = null)
+    public function isAvailable(mixed $store = null): bool
     {
         return $this->getConfig($store)->isActive();
     }
 
     /**
-     * Get PayPal button configuration
+     * Retrieves the configuration settings for the PayPal button, optionally for a specific store.
      *
-     * @param mixed $store
+     * @param mixed $store The store ID or object.
      * @return array
      */
-    public function getButtonConfig($store = null)
+    public function getButtonConfig(mixed $store = null): array
     {
         return $this->getConfig($store)->getButtonConfiguration();
     }
 
     /**
-     * Format price for PayPal API
+     * Formats a numeric price into a string with two decimal places, suitable for the PayPal API.
      *
-     * @param float $amount
+     * @param float $amount The price amount to format.
      * @return string
      */
-    public function formatPrice($amount)
+    public function formatPrice(float $amount): string
     {
         return number_format($amount, 2, '.', '');
     }
 
     /**
-     * Get transaction URL in PayPal merchant dashboard
+     * Constructs the URL to view a specific transaction in the PayPal merchant dashboard.
      *
-     * @param string $transactionId
-     * @param bool $sandbox
+     * @param string $transactionId The transaction ID.
+     * @param bool $sandbox Whether to use the sandbox environment.
      * @return string
      */
-    public function getTransactionUrl($transactionId, $sandbox = false)
+    public function getTransactionUrl(string $transactionId, bool $sandbox = false): string
     {
         if (strpos($transactionId, '-') !== false) {
             $parts = explode('-', $transactionId);

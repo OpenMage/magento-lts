@@ -665,7 +665,9 @@
 "Failed to reauthorize payment","Failed to reauthorize payment"
 "Gold","Gold"
 "Horizontal","Horizontal"
-"If not specified, Default Country from General Config will be used","If not specified, Default Country from General Config will be used"
+"If not specified, Default Country from General Config will be
+                                used. <a href="https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility" target="_blank">Learn more about PayPal Supported Countries.</a>","If not specified, Default Country from General Config will be
+                                used. <a href="https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility" target="_blank">Learn more about PayPal Supported Countries.</a>"
 "If you want to use PayPal Express Checkout, you must complete the settings below.","If you want to use PayPal Express Checkout, you must complete the settings below."
 "Invalid form key","Invalid form key"
 "Order ID is required","Order ID is required"

@@ -7,6 +7,11 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
+/**
+ * PayPal Exception
+ */
 class Mage_Paypal_Model_Exception extends Mage_Core_Exception
 {
     protected $_debugData = [];
@@ -17,7 +22,12 @@ class Mage_Paypal_Model_Exception extends Mage_Core_Exception
         parent::__construct($message);
     }
 
-    public function getDebugData()
+    /**
+     * Get debug data
+     *
+     * @return array
+     */
+    public function getDebugData(): array
     {
         return $this->_debugData;
     }

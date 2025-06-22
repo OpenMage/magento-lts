@@ -7,41 +7,45 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
+use PaypalServerSdkLib\Http\ApiResponse;
+
+/**
+ * PayPal API Helper
+ *
+ * Provides utility methods for logging and validation related to PayPal API interactions.
+ */
 class Mage_Paypal_Model_Api_Helper
 {
-    protected $_validator;
+    /**
+     * @var Mage_Paypal_Helper_Data
+     */
     protected $_helper;
 
+    /**
+     * Initializes the helper with its dependencies.
+     */
     public function __construct()
     {
-        $this->_validator = Mage::getSingleton('paypal/validator_payment');
         $this->_helper = Mage::helper('paypal');
     }
 
-    public function validatePurchaseUnit($purchaseUnit)
-    {
-        if (empty($purchaseUnit['amount']) || empty($purchaseUnit['amount']['value'])) {
-            throw new Mage_Paypal_Model_Exception('Invalid purchase unit: missing amount');
-        }
-
-        if (empty($purchaseUnit['reference_id'])) {
-            throw new Mage_Paypal_Model_Exception('Invalid purchase unit: missing reference ID');
-        }
-
-        return true;
-    }
-
     /**
-     * Log debug information
+     * Logs debug information for a PayPal API request if debugging is enabled.
      *
-     * @param string $action Action being performed
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Quote or order object
-     * @param mixed $request Request object or data
-     * @param PaypalServerSdkLib\Http\ApiResponse|null $response API response (optional)
+     * @param string $action Action being performed (e.g., 'Create Order').
+     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Quote or order object.
+     * @param mixed $request Request object or data sent to the API.
+     * @param ApiResponse|null $response API response, if available.
      * @return void
      */
-    public function logDebug($action, $quote, $request, $response = null)
-    {
+    public function logDebug(
+        string $action,
+        Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote,
+        mixed $request,
+        ?ApiResponse $response = null
+    ): void {
         if (Mage::getStoreConfigFlag('payment/paypal/debug')) {
             $requestData = '';
 
@@ -64,7 +68,7 @@ class Mage_Paypal_Model_Api_Helper
             $debug->setAction($action)
                 ->setRequestBody($requestData);
             Mage::log($response, null, 'paypal.log');
-            if ($response instanceof PaypalServerSdkLib\Http\ApiResponse) {
+            if ($response instanceof ApiResponse) {
                 $result = $response->getResult();
                 if ($response->isError()) {
                     $debug->setTransactionId($result['debug_id'])
@@ -79,13 +83,13 @@ class Mage_Paypal_Model_Api_Helper
     }
 
     /**
-     * Log error information
+     * Logs an error message and exception details if debugging is enabled.
      *
-     * @param string $message Error message
-     * @param Exception $exception Exception object
+     * @param string $message The error message.
+     * @param Exception $exception The exception object.
      * @return void
      */
-    public function logError($message, $exception)
+    public function logError(string $message, Exception $exception): void
     {
         if (Mage::getStoreConfigFlag('payment/paypal/debug')) {
             $errorData = [

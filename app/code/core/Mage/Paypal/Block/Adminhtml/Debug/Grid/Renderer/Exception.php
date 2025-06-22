@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -18,9 +20,10 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Exception extends Mage_Adm
      * @param Varien_Object $row
      * @return string
      */
-    public function render(Varien_Object $row)
+    public function render(Varien_Object $row): string
     {
         $value = $row->getData($this->getColumn()->getIndex());
+
         if (empty($value)) {
             return '';
         }

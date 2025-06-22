@@ -7,6 +7,11 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
+/**
+ * PayPal Debug Model
+ */
 class Mage_Paypal_Model_Debug extends Mage_Core_Model_Abstract
 {
     protected function _construct()

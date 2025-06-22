@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -9,7 +10,7 @@
 
 class Mage_Paypal_Model_System_Config_Backend_MerchantCountry extends Mage_Core_Model_Config_Data
 {
-    protected function _beforeSave()
+    protected function _beforeSave(): Mage_Core_Model_Config_Data
     {
         $value = $this->getValue();
         if (!$value) {

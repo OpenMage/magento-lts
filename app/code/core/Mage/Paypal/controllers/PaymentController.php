@@ -7,6 +7,8 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 /**
@@ -19,24 +21,27 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      */
     protected $_quote = false;
 
-
     /**
-     * @var Mage_Customer_Model_Session
+     * @var Mage_Customer_Model_Session|null
      */
     protected $_customerSession = null;
 
     /**
-     * @var Mage_Paypal_Model_Paypal
+     * @var Mage_Paypal_Model_Paypal|null
      */
     protected $_paypal = null;
+
     /**
-     * Create PayPal order
+     * Handles the AJAX request to create a PayPal order.
+     * Validates the quote and creates a PayPal order via the PayPal model.
+     *
+     * @return void
      */
-    public function createAction()
+    public function createAction(): void
     {
         try {
             if (!$this->getRequest()->isAjax()) {
-                throw new Mage_Core_Exception('Invalid request');
+                throw new Mage_Core_Exception('Invalid request.');
             }
 
             if (!$this->getRequest()->isPost() || !$this->getRequest()->getParam('form_key')) {
@@ -96,9 +101,13 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Process PayPal payment (authorize or capture based on configuration)
+     * Processes the PayPal payment after customer approval on the PayPal side.
+     * This action will either authorize or capture the payment based on the store's configuration.
+     *
+     * @return void
+     * @throws Exception
      */
-    public function processAction()
+    public function processAction(): void
     {
         try {
             $orderId = $this->getRequest()->getParam('order_id');
@@ -132,7 +141,13 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         }
     }
 
-    public function placeOrderAction()
+    /**
+     * Places the Magento order after the PayPal payment has been successfully processed.
+     * It handles guest, new customer, and existing customer checkouts, creates the order,
+     * and redirects to the success or cart page.
+     * @return void
+     */
+    public function placeOrderAction(): void
     {
         try {
             $isNewCustomer = false;
@@ -245,11 +260,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Return checkout session object
+     * Retrieves the checkout session model.
      *
      * @return Mage_Checkout_Model_Session
      */
-    protected function _getCheckoutSession()
+    protected function _getCheckoutSession(): Mage_Checkout_Model_Session
     {
         return Mage::getSingleton('checkout/session');
     }
@@ -259,7 +274,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      *
      * @return Mage_Sales_Model_Quote
      */
-    private function _getQuote()
+    private function _getQuote(): Mage_Sales_Model_Quote
     {
         if (!$this->_quote) {
             $this->_quote = $this->_getCheckoutSession()->getQuote();
@@ -268,11 +283,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Return PayPal model
+     * Retrieves the PayPal model instance.
      *
      * @return Mage_Paypal_Model_Paypal
      */
-    private function _getPaypal()
+    private function _getPaypal(): Mage_Paypal_Model_Paypal
     {
         if (!$this->_paypal) {
             $this->_paypal = Mage::getModel('paypal/paypal');
@@ -281,11 +296,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Prepare quote for guest checkout order submit
+     * Prepares the quote for a guest checkout.
      *
-     * @return $this
+     * @return self
      */
-    protected function _prepareGuestQuote()
+    protected function _prepareGuestQuote(): self
     {
         $quote = $this->_quote;
         $quote->setCustomerEmail($quote->getBillingAddress()->getEmail())
@@ -295,12 +310,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Prepare quote for customer registration and customer order submit
-     * and restore magento customer data from quote
+     * Prepares the quote for a new customer registration during checkout.
      *
-     * @return $this
+     * @return self
      */
-    protected function _prepareNewCustomerQuote()
+    protected function _prepareNewCustomerQuote(): self
     {
         $quote      = $this->_quote;
         $billing    = $quote->getBillingAddress();
@@ -359,11 +373,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Prepare quote for customer order submit
+     * Prepares the quote for an existing, logged-in customer.
      *
-     * @return $this
+     * @return self
      */
-    protected function _prepareCustomerQuote()
+    protected function _prepareCustomerQuote(): self
     {
         $quote      = $this->_getQuote();
         $billing    = $quote->getBillingAddress();
@@ -398,11 +412,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Get customer session object
+     * Retrieves the customer session model.
      *
      * @return Mage_Customer_Model_Session
      */
-    public function getCustomerSession()
+    public function getCustomerSession(): Mage_Customer_Model_Session
     {
         if (is_null($this->_customerSession)) {
             $this->_customerSession = Mage::getSingleton('customer/session');
@@ -411,12 +425,12 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Check if customer email exists
+     * Checks if a customer with the given email address already exists for the current website.
      *
-     * @param string $email
+     * @param string $email The customer email to check.
      * @return bool
      */
-    protected function _customerEmailExists($email)
+    protected function _customerEmailExists(string $email): bool
     {
         $result    = false;
         $customer  = Mage::getModel('customer/customer');
@@ -433,11 +447,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Checks if customer with email coming from Express checkout exists
+     * Looks up a customer ID by the email address stored in the quote.
      *
-     * @return int
+     * @return int|null The customer ID if found, otherwise null.
      */
-    protected function _lookupCustomerId()
+    protected function _lookupCustomerId(): ?int
     {
         return Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getWebsite()->getId())
@@ -446,21 +460,23 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Make sure addresses will be saved without validation errors
+     * Sets the quote addresses to ignore validation during the order placement process.
+     *
+     * @return void
      */
-    private function _ignoreAddressValidation()
+    private function _ignoreAddressValidation(): void
     {
         $this->_quote->getBillingAddress()->setShouldIgnoreValidation(true);
         if (!$this->_quote->getIsVirtual()) {
             $this->_quote->getShippingAddress()->setShouldIgnoreValidation(true);
         }
     }
-
     /**
-     * Redirect to login page
+     * Redirects the user to the customer login page.
      *
+     * @return void
      */
-    protected function _redirectLogin()
+    protected function _redirectLogin(): void
     {
         $this->setFlag('', 'no-dispatch', true);
         $this->getResponse()->setRedirect(
@@ -472,11 +488,11 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
 
     /**
-     * Involve new customer to system
+     * Handles the post-order actions for a newly registered customer, such as sending confirmation emails.
      *
-     * @return $this
+     * @return self
      */
-    protected function _involveNewCustomer()
+    protected function _involveNewCustomer(): self
     {
         $customer = $this->_quote->getCustomer();
         if ($customer->isConfirmationRequired()) {

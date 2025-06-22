@@ -7,57 +7,62 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
-    protected function _construct()
+    /**
+     * Initializes the resource collection.
+     */
+    protected function _construct(): void
     {
         $this->_init('paypal/debug');
     }
 
     /**
-     * Add filter by quote ID
+     * Adds a filter to the collection for a specific quote ID.
      *
-     * @param int $quoteId
+     * @param int $quoteId The quote ID to filter by.
      * @return $this
      */
-    public function addQuoteIdFilter($quoteId)
+    public function addQuoteIdFilter(int $quoteId): self
     {
         $this->addFieldToFilter('quote_id', $quoteId);
         return $this;
     }
 
     /**
-     * Add filter by transaction ID
+     * Adds a filter to the collection for a specific transaction ID.
      *
-     * @param string $transactionId
+     * @param string $transactionId The transaction ID to filter by.
      * @return $this
      */
-    public function addTransactionIdFilter($transactionId)
+    public function addTransactionIdFilter(string $transactionId): self
     {
         $this->addFieldToFilter('transaction_id', $transactionId);
         return $this;
     }
 
     /**
-     * Add filter by action
+     * Adds a filter to the collection for a specific action.
      *
-     * @param string $action
+     * @param string $action The action string to filter by.
      * @return $this
      */
-    public function addActionFilter($action)
+    public function addActionFilter(string $action): self
     {
         $this->addFieldToFilter('action', $action);
         return $this;
     }
 
     /**
-     * Add date range filter
+     * Adds a date range filter to the collection based on the 'created_at' field.
      *
-     * @param string $from
-     * @param string $to
+     * @param string|null $from The start date of the range.
+     * @param string|null $to The end date of the range.
      * @return $this
      */
-    public function addDateRangeFilter($from, $to)
+    public function addDateRangeFilter(?string $from, ?string $to): self
     {
         if ($from) {
             $this->addFieldToFilter('created_at', ['gteq' => $from]);
@@ -68,7 +73,12 @@ class Mage_Paypal_Model_Resource_Debug_Collection extends Mage_Core_Model_Resour
         return $this;
     }
 
-    protected function _initSelect()
+    /**
+     * Initializes the select object for the collection, setting the default order.
+     *
+     * @return $this
+     */
+    protected function _initSelect(): self
     {
         parent::_initSelect();
         $this->getSelect()->order('created_at DESC');

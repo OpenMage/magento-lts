@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,61 +12,104 @@ class Mage_Paypal_Model_System_Config_Source_MerchantCountry
 {
     /**
      * Get list of allowed merchant countries
-     * https://developer.paypal.com/docs/platforms/seller-onboarding/before-you-begin/#supported-countries
+     * https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility
      *
      * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         $countries = Mage::getSingleton('adminhtml/system_config_source_country')
-            ->toOptionArray(false);
+            ->toOptionArray();
 
-        // Filter to only PayPal supported countries
         $supportedCountries = [
-            'AU', // Australia
-            'AT', // Austria
-            'BE', // Belgium
-            'BR', // Brazil
-            'CA', // Canada
-            'CN', // China
-            'CZ', // Czech Republic
-            'DK', // Denmark
-            'FI', // Finland
-            'FR', // France
-            'DE', // Germany
-            'GR', // Greece
-            'HK', // Hong Kong
-            'HU', // Hungary
-            'IN', // India
-            'ID', // Indonesia
-            'IE', // Ireland
-            'IL', // Israel
-            'IT', // Italy
-            'JP', // Japan
-            'LU', // Luxembourg
-            'MY', // Malaysia
-            'MX', // Mexico
-            'NL', // Netherlands
-            'NZ', // New Zealand
-            'NO', // Norway
-            'PH', // Philippines
-            'PL', // Poland
-            'PT', // Portugal
-            'RU', // Russia
-            'SG', // Singapore
-            'SK', // Slovakia
-            'KR', // South Korea
-            'ES', // Spain
-            'SE', // Sweden
-            'CH', // Switzerland
-            'TW', // Taiwan
-            'TH', // Thailand
-            'TR', // Turkey
-            'AE', // United Arab Emirates
-            'GB', // United Kingdom
-            'US', // United States
-            'VN', // Vietnam
+            'AL',
+            'DZ',
+            'AD',
+            'AG',
+            'AR',
+            'AU',
+            'AT',
+            'BS',
+            'BH',
+            'BB',
+            'BE',
+            'BZ',
+            'BA',
+            'BW',
+            'BR',
+            'BG',
+            'CA',
+            'CL',
+            'CN',
+            'CR',
+            'HR',
+            'CY',
+            'CZ',
+            'DK',
+            'DO',
+            'EC',
+            'EG',
+            'SV',
+            'EE',
+            'FI',
+            'FR',
+            'DE',
+            'GR',
+            'GT',
+            'HN',
+            'HK',
+            'HU',
+            'IS',
+            'IN',
+            'ID',
+            'IE',
+            'IT',
+            'JM',
+            'JP',
+            'JO',
+            'KE',
+            'KW',
+            'LV',
+            'LI',
+            'LT',
+            'LU',
+            'MY',
+            'MT',
+            'MX',
+            'MD',
+            'MC',
+            'NL',
+            'NZ',
+            'NO',
+            'OM',
+            'PA',
+            'PE',
+            'PH',
+            'PL',
+            'PT',
+            'QA',
+            'RO',
+            'RU',
+            'SA',
+            'RS',
+            'SG',
+            'SK',
+            'SI',
+            'ZA',
+            'KR',
+            'ES',
+            'SE',
+            'CH',
+            'TW',
+            'TH',
+            'TT',
+            'AE',
+            'GB',
+            'US',
+            'UY',
+            'VN',
         ];
+        ;
 
         return array_filter($countries, function ($country) use ($supportedCountries) {
             return in_array($country['value'], $supportedCountries);

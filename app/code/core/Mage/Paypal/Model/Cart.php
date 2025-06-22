@@ -7,6 +7,8 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 use PaypalServerSdkLib\Models\Builders\MoneyBuilder;
 use PaypalServerSdkLib\Models\Builders\ItemBuilder;
 use PaypalServerSdkLib\Models\ItemCategory;
@@ -18,12 +20,33 @@ class Mage_Paypal_Model_Cart
     public const TOTAL_TAX = 'tax';
     public const TOTAL_SHIPPING = 'shipping';
 
-    protected $_quote = null;
-    protected $_totals = [];
-    protected $_items = [];
-    protected $_currency = null;
+    /**
+     * @var Mage_Sales_Model_Order|Mage_Sales_Model_Quote|null
+     */
+    protected $_quote;
 
-    public function __construct($params = [])
+    /**
+     * @var array
+     */
+    protected $_totals = [];
+
+    /**
+     * @var array
+     */
+    protected $_items = [];
+
+    /**
+     * @var string|null
+     */
+    protected $_currency;
+
+    /**
+     * Initializes the cart model with a sales entity (order or quote).
+     *
+     * @param array $params
+     * @throws Exception
+     */
+    public function __construct(array $params = [])
     {
         $salesEntity = array_shift($params);
         if (
@@ -38,7 +61,12 @@ class Mage_Paypal_Model_Cart
         $this->_validateCurrency();
     }
 
-    protected function _validateCurrency()
+    /**
+     * Validates that the quote's currency is supported by PayPal.
+     *
+     * @return self
+     */
+    protected function _validateCurrency(): self
     {
         $allowedCurrencies = Mage::getModel('paypal/config')->getAllowedCurrencyCodes();
         $currentCurrency = $this->_quote->getOrderCurrencyCode()
@@ -53,7 +81,12 @@ class Mage_Paypal_Model_Cart
         return $this;
     }
 
-    public function getAllItems()
+    /**
+     * Retrieves all prepared items for the PayPal request. Items are prepared if not already.
+     *
+     * @return array
+     */
+    public function getAllItems(): array
     {
         if (empty($this->_items)) {
             $this->_prepareItems();
@@ -61,7 +94,12 @@ class Mage_Paypal_Model_Cart
         return $this->_items;
     }
 
-    public function getAmounts()
+    /**
+     * Retrieves all prepared totals (subtotal, tax, shipping, discount). Totals are prepared if not already.
+     *
+     * @return array
+     */
+    public function getAmounts(): array
     {
         if (empty($this->_totals)) {
             $this->_prepareTotals();
@@ -69,7 +107,12 @@ class Mage_Paypal_Model_Cart
         return $this->_totals;
     }
 
-    protected function _prepareItems()
+    /**
+     * Prepares the line items from the quote for the PayPal API request.
+     *
+     * @return self
+     */
+    protected function _prepareItems(): self
     {
         foreach ($this->_quote->getAllVisibleItems() as $item) {
             $taxAmount = $item->getData('tax_amount');
@@ -99,7 +142,13 @@ class Mage_Paypal_Model_Cart
 
         return $this;
     }
-    protected function _prepareTotals()
+
+    /**
+     * Prepares the cart totals from the quote for the PayPal API request.
+     *
+     * @return self
+     */
+    protected function _prepareTotals(): self
     {
         $this->_quote->collectTotals()->save();
         $shippingAddress = $this->_quote->getShippingAddress();
@@ -127,11 +176,11 @@ class Mage_Paypal_Model_Cart
     }
 
     /**
-     * Get the quote object associated with this cart.
+     * Get the sales entity (quote or order) object associated with this cart.
      *
-     * @return Mage_Sales_Model_Quote
+     * @return Mage_Sales_Model_Order|Mage_Sales_Model_Quote
      */
-    public function getQuote()
+    public function getQuote(): Mage_Sales_Model_Order|Mage_Sales_Model_Quote
     {
         return $this->_quote;
     }

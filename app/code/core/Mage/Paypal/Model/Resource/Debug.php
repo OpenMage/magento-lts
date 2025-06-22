@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -7,11 +9,11 @@
  * @package    Mage_Paypal
  */
 
+
 class Mage_Paypal_Model_Resource_Debug extends Mage_Core_Model_Resource_Db_Abstract
 {
     protected function _construct()
     {
         $this->_init('paypal/debug', 'entity_id');
     }
-
 }

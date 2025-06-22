@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -11,7 +12,7 @@ use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 
 class Mage_Paypal_Model_System_Config_Source_PaymentActions
 {
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return [
             [

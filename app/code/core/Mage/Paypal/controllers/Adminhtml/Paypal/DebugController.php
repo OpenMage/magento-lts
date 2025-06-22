@@ -7,9 +7,16 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Controller_Action
 {
-    protected function _initAction()
+    /**
+     * Initializes the layout and sets the active menu for the debug log page.
+     *
+     * @return $this
+     */
+    protected function _initAction(): self
     {
         $this->loadLayout()
             ->_setActiveMenu('report/paypal/debug')
@@ -20,14 +27,24 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
         return $this;
     }
 
-    public function indexAction()
+    /**
+     * Renders the PayPal debug log grid page.
+     *
+     * @return void
+     */
+    public function indexAction(): void
     {
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('paypal/adminhtml_debug'))
             ->renderLayout();
     }
 
-    public function gridAction()
+    /**
+     * Renders the debug log grid for AJAX requests.
+     *
+     * @return void
+     */
+    public function gridAction(): void
     {
         $this->loadLayout();
         $this->getResponse()->setBody(
@@ -35,7 +52,12 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
         );
     }
 
-    public function massDeleteAction()
+    /**
+     * Handles the mass deletion of selected debug log entries.
+     *
+     * @return void
+     */
+    public function massDeleteAction(): void
     {
         $debugIds = $this->getRequest()->getParam('debug');
         if (!is_array($debugIds)) {
@@ -55,7 +77,12 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
         $this->_redirect('*/*/index');
     }
 
-    public function deleteAllAction()
+    /**
+     * Handles the deletion of all debug log entries.
+     *
+     * @return void
+     */
+    public function deleteAllAction(): void
     {
         try {
             $collection = Mage::getModel('paypal/debug')->getCollection();
@@ -69,7 +96,12 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
         $this->_redirect('*/*/index');
     }
 
-    protected function _isAllowed()
+    /**
+     * Checks if the current user has permission to access this controller.
+     *
+     * @return bool
+     */
+    protected function _isAllowed(): bool
     {
         return Mage::getSingleton('admin/session')->isAllowed('report/paypal/debug');
     }

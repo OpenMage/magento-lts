@@ -7,33 +7,38 @@
  * @package    Mage_Paypal
  */
 
+declare(strict_types=1);
+
 /**
  * PayPal payment information block for admin order view
  */
 class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
 {
-    protected function _construct()
+    /**
+     * Initializes the payment information block by setting the template.
+     */
+    protected function _construct(): void
     {
         parent::_construct();
         $this->setTemplate('paypal/info.phtml');
     }
 
     /**
-     * Get transaction ID
+     * Retrieves the transaction ID from the payment information.
      *
      * @return string|null
      */
-    public function getTransactionId()
+    public function getTransactionId(): ?string
     {
         return $this->getInfo()->getLastTransId();
     }
 
     /**
-     * Get PayPal transaction URL
+     * Generates the PayPal transaction URL based on the transaction ID and sandbox status.
      *
      * @return string|null
      */
-    public function getTransactionUrl()
+    public function getTransactionUrl(): ?string
     {
         $transactionId = $this->getTransactionId();
         if (!$transactionId) {
@@ -45,21 +50,24 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     }
 
     /**
-     * Get additional information from payment
+     * Retrieves and formats additional payment information, such as status and authorization details.
      *
      * @return array
      */
-    public function getPaymentInfo()
+    public function getPaymentInfo(): array
     {
         $payment = $this->getInfo();
         $info = [];
         if ($payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_STATUS)) {
-            $info[Mage::helper('paypal')->__('Status')] = $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_STATUS);
+            $info[Mage::helper('paypal')->__('Status')] =
+                $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_STATUS);
         }
         if ($payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID)) {
-            $info[Mage::helper('paypal')->__('Authorization ID')] = $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID);
+            $info[Mage::helper('paypal')->__('Authorization ID')] =
+                $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID);
             if ($payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME)) {
-                $expirationTime = $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
+                $expirationTime =
+                    $payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
                 $info[Mage::helper('paypal')->__('Authorization Expires')] = $this->formatExpirationDate($expirationTime);
             }
         }
@@ -68,12 +76,12 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     }
 
     /**
-     * Format expiration date to local timezone
+     * Formats a given UTC expiration timestamp to the store's local timezone.
      *
-     * @param string $expirationTime
-     * @return string
+     * @param string $expirationTime The expiration timestamp in UTC.
+     * @return string The formatted date and time string.
      */
-    protected function formatExpirationDate($expirationTime)
+    protected function formatExpirationDate(string $expirationTime): string
     {
         $storeTimezone = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
         $date = new DateTime($expirationTime, new DateTimeZone('UTC'));
@@ -82,16 +90,18 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     }
 
     /**
-     * Check if payment can be reauthorized
+     * Determines if the payment can be reauthorized based on its method, authorization ID, and expiration/creation time.
      *
-     * @return bool
+     * @return bool True if the payment can be reauthorized, false otherwise.
      */
-    public function canReauthorize()
+    public function canReauthorize(): bool
     {
         $payment = $this->getInfo();
 
-        if ($payment->getMethod() !== 'paypal' ||
-            !$payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID)) {
+        if (
+            $payment->getMethod() !== 'paypal' ||
+            !$payment->getAdditionalInformation(Mage_Paypal_Model_Paypal::PAYPAL_PAYMENT_AUTHORIZATION_ID)
+        ) {
             return false;
         }
 
@@ -112,11 +122,11 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
     }
 
     /**
-     * Get reauthorize URL
+     * Generates the URL for reauthorizing the payment.
      *
-     * @return string
+     * @return string The reauthorization URL.
      */
-    public function getReauthorizeUrl()
+    public function getReauthorizeUrl(): string
     {
         return Mage::getUrl('*/paypal_transaction/reauthorize', [
             'order_id' => $this->getInfo()->getOrder()->getId(),
