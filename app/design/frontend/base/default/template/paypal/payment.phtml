@@ -13,24 +13,21 @@
 ?>
 
 <script type="text/javascript">
-    var initPayPalPayment = function() {
-        new PayPalPayment({
-            formKey: '<?php echo $this->getFormKey(); ?>',
-            methodCode: '<?php echo $this->getMethodCode(); ?>',
-            sdkUrl: '<?php echo $this->getSdkUrl(); ?>',
-            buttonLayout: '<?php echo $this->getButtonConfig()['layout']; ?>',
-            buttonColor: '<?php echo $this->getButtonConfig()['color']; ?>',
-            buttonShape: '<?php echo $this->getButtonConfig()['shape']; ?>',
-            buttonLabel: '<?php echo $this->getButtonConfig()['label']; ?>',
-            buttonMessage: '<?php echo $this->getButtonConfig()['message']; ?>',
-            createOrderUrl: '<?php echo $this->getUrl('paypal/payment/create'); ?>',
-            captureUrl: '<?php echo $this->getUrl('paypal/payment/process'); ?>',
-            placeOrderUrl: '<?php echo $this->getUrl('paypal/payment/placeOrder'); ?>',
-            errorMessage: '<?php echo $this->__('An error occurred while processing your payment. Please try again.'); ?>',
-            containerId: 'paypal-button-container',
-            reviewButtonContainerId: 'review-buttons-container'
-        });
-    };
-
-    initPayPalPayment();
+    new PayPalPayment(
+        <?php echo json_encode([
+            'formKey' => $this->getFormKey(),
+            'methodCode' => $this->getMethodCode(),
+            'sdkUrl' => $this->getSdkUrl(),
+            'buttonLayout' => $this->getButtonConfig()['layout'],
+            'buttonColor' => $this->getButtonConfig()['color'],
+            'buttonShape' => $this->getButtonConfig()['shape'],
+            'buttonLabel' => $this->getButtonConfig()['label'],
+            'buttonMessage' => (bool)$this->getButtonConfig()['message'],
+            'createOrderUrl' => $this->getUrl('paypal/payment/create'),
+            'captureUrl' => $this->getUrl('paypal/payment/process'),
+            'placeOrderUrl' => $this->getUrl('paypal/payment/placeOrder'),
+            'errorMessage' => $this->__('An error occurred while processing your payment. Please try again.'),
+            'containerId' => 'paypal-button-container',
+            'reviewButtonContainerId' => 'review-buttons-container'
+        ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>);
 </script>

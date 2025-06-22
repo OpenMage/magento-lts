@@ -40,10 +40,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     public function createAction(): void
     {
         try {
-            if (!$this->getRequest()->isAjax()) {
-                throw new Mage_Core_Exception('Invalid request.');
-            }
-
             if (!$this->getRequest()->isPost() || !$this->getRequest()->getParam('form_key')) {
                 Mage::throwException(Mage::helper('paypal')->__('Invalid form key'));
             }

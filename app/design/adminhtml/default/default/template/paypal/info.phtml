@@ -31,14 +31,12 @@
 
     <?php if ($this->getPaymentInfo()): ?>
         <div class="paypal-payment-info">
-            <table>
+            <dl class="payment-details">
                 <?php foreach ($this->getPaymentInfo() as $label => $value): ?>
-                    <tr>
-                        <td><?php echo $this->escapeHtml($label) ?>:</td>
-                        <td><?php echo $this->escapeHtml($value) ?></td>
-                    </tr>
+                    <dt><?php echo $this->escapeHtml($label) ?></dt>
+                    <dd><?php echo $this->escapeHtml($value) ?></dd>
                 <?php endforeach; ?>
-            </table>
+            </dl>
         </div>
     <?php endif; ?>
 
@@ -56,13 +54,29 @@
         margin-bottom: 10px;
     }
 
-    .paypal-payment-info table {
-        width: 100%;
+    .paypal-payment-info .payment-details {
+        margin: 0;
     }
 
-    .paypal-payment-info td:first-child {
-        width: 40%;
+    .paypal-payment-info dt {
         font-weight: bold;
+        display: inline;
+        color: #333;
+    }
+
+    .paypal-payment-info dt:after {
+        content: ": ";
+    }
+
+    .paypal-payment-info dd {
+        display: inline;
+        margin: 0;
+        color: #666;
+    }
+
+    .paypal-payment-info dd:after {
+        content: "\A";
+        white-space: pre;
     }
 
     .paypal-reauthorize {

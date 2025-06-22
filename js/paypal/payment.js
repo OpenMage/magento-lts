@@ -11,53 +11,61 @@
  * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-/**
- * Optimized PayPal payment integration
- */
-var PayPalPayment = Class.create();
-PayPalPayment.prototype = {
-    initialize: function (config) {
-        this.config = config || {};
+class PayPalPayment {
+    constructor(config = {}) {
+        this.config = config;
         this.buttonInitialized = false;
         this.sdkLoaded = false;
         this.renderPromise = null;
         this.reviewContainerInterval = null;
+        this.abortController = new AbortController();
 
-        document.readyState === 'loading'
-            ? document.observe('dom:loaded', this.onDOMReady.bind(this))
-            : this.onDOMReady();
-    },
+        this.init();
+    }
 
-    onDOMReady: function () {
-        this.setupPaymentMethodHandling();
-        this.setupPaymentButtonHandling();
-        this.checkAndInitialize();
-    },
-
-    setupPaymentButtonHandling: function () {
-        const paymentButton = $$('button[onclick="payment.save()"]')[0];
-        if (paymentButton) {
-            paymentButton.observe('click', () => {
-                if (this.getCurrentPaymentMethod() === this.config.methodCode) {
-                    this.waitForReviewContainer().then(() => this.init());
-                }
+    async init() {
+        if (document.readyState === 'loading') {
+            await new Promise(resolve => {
+                document.addEventListener('DOMContentLoaded', resolve, { once: true });
             });
         }
-    },
 
-    waitForReviewContainer: function () {
-        return new Promise(resolve => {
-            if (this.reviewContainerInterval) {
-                clearInterval(this.reviewContainerInterval);
-                this.reviewContainerInterval = null;
+        this.setupEventListeners();
+        this.checkAndInitialize();
+    }
+
+    setupEventListeners() {
+        this.setupPaymentMethodHandling();
+        this.setupPaymentButtonHandling();
+    }
+
+    setupPaymentButtonHandling() {
+        const paymentButton = document.querySelector('button[onclick="payment.save()"]');
+        if (!paymentButton) return;
+
+        paymentButton.addEventListener('click', async () => {
+            if (this.getCurrentPaymentMethod() === this.config.methodCode) {
+                const container = await this.waitForReviewContainer();
+                if (container) {
+                    await this.initializePayPalButton();
+                }
             }
+        }, { signal: this.abortController.signal });
+    }
 
-            const maxAttempts = 100;
-            let attempts = 0;
+    async waitForReviewContainer() {
+        if (this.reviewContainerInterval) {
+            clearInterval(this.reviewContainerInterval);
+            this.reviewContainerInterval = null;
+        }
 
+        const maxAttempts = 100;
+        let attempts = 0;
+
+        return new Promise(resolve => {
             const checkForContainer = () => {
                 attempts++;
-                const reviewContainer = $(this.config.reviewButtonContainerId);
+                const reviewContainer = document.getElementById(this.config.reviewButtonContainerId);
 
                 if (reviewContainer || attempts >= maxAttempts) {
                     if (this.reviewContainerInterval) {
@@ -70,37 +78,41 @@ PayPalPayment.prototype = {
 
             checkForContainer();
 
-            if (!$(this.config.reviewButtonContainerId)) {
+            if (!document.getElementById(this.config.reviewButtonContainerId)) {
                 this.reviewContainerInterval = setInterval(checkForContainer, 100);
             }
         });
-    },
+    }
 
-    checkAndInitialize: function () {
-        this.getCurrentPaymentMethod() === this.config.methodCode && this.init();
-    },
+    checkAndInitialize() {
+        if (this.getCurrentPaymentMethod() === this.config.methodCode) {
+            this.initializePayPalButton();
+        }
+    }
 
-    getCurrentPaymentMethod: function () {
-        const checkedInput = $$('input[name="payment[method]"]:checked')[0];
-        return checkedInput ? checkedInput.value : null;
-    },
+    getCurrentPaymentMethod() {
+        const checkedInput = document.querySelector('input[name="payment[method]"]:checked');
+        return checkedInput?.value ?? null;
+    }
 
-    init: function () {
-        if (this.buttonInitialized) return Promise.resolve();
+    async initializePayPalButton() {
+        if (this.buttonInitialized) return;
 
-        return this.loadPayPalSDK()
-            .then(() => this.renderButton())
-            .catch(() => { });
-    },
+        try {
+            await this.loadPayPalSDK();
+            await this.renderButton();
+        } catch (error) {
+            this.showError('Failed to load PayPal. Please try another payment method.');
+        }
+    }
 
+    async loadPayPalSDK() {
+        if (typeof paypal !== 'undefined') {
+            this.sdkLoaded = true;
+            return;
+        }
 
-    loadPayPalSDK: function () {
         return new Promise((resolve, reject) => {
-            if (typeof paypal !== 'undefined') {
-                this.sdkLoaded = true;
-                return resolve();
-            }
-
             const script = document.createElement('script');
             script.src = this.config.sdkUrl;
             script.async = true;
@@ -108,275 +120,334 @@ PayPalPayment.prototype = {
                 this.sdkLoaded = true;
                 resolve();
             };
-            script.onerror = reject;
-            document.body.appendChild(script);
+            script.onerror = () => reject(new Error('Failed to load PayPal SDK'));
+            document.head.appendChild(script);
         });
-    },
+    }
 
-    renderButton: function () {
-        this.renderPromise = null;
+    async renderButton() {
         if (!this.sdkLoaded) {
-            return Promise.reject(new Error('SDK not loaded'));
+            throw new Error('PayPal SDK not loaded');
         }
 
-        const reviewContainer = $(this.config.reviewButtonContainerId);
+        const reviewContainer = document.getElementById(this.config.reviewButtonContainerId);
         if (!reviewContainer) {
-            return Promise.reject(new Error('Review container not found'));
+            throw new Error('Review container not found');
         }
 
         this.removePayPalButton();
 
-        const checkoutButton = reviewContainer.down('button.btn-checkout');
-
-        const paypalContainer = new Element('div', {
-            'id': this.config.containerId,
-            'class': 'paypal-button-container',
-            'style': 'margin: 0; min-height: 35px;'
-        });
+        const checkoutButton = reviewContainer.querySelector('button.btn-checkout');
+        const paypalContainer = this.createPayPalContainer();
 
         if (!checkoutButton) {
-            reviewContainer.insert({ top: paypalContainer });
+            reviewContainer.prepend(paypalContainer);
         } else {
             checkoutButton.remove();
-            const pleaseWaitSpan = reviewContainer.down('span.please-wait');
-            pleaseWaitSpan
-                ? pleaseWaitSpan.insert({ before: paypalContainer })
-                : reviewContainer.insert({ top: paypalContainer });
-        }
+            const pleaseWaitSpan = reviewContainer.querySelector('span.please-wait');
 
-        return this.createPayPalButton(paypalContainer, reviewContainer);
-    },
-
-    createPayPalButton: function (paypalContainer, reviewContainer) {
-        this.renderPromise = new Promise((resolve, reject) => {
-            try {
-                const buttonWrapper = new Element('div', { 'class': 'paypal-button-wrapper' });
-                paypalContainer.insert(buttonWrapper);
-
-                paypal.Buttons({
-                    style: {
-                        layout: this.config.buttonLayout || 'vertical',
-                        color: this.config.buttonColor || 'gold',
-                        shape: this.config.buttonShape || 'rect',
-                        label: this.config.buttonLabel || 'paypal',
-                        height: this.config.buttonHeight || 40
-                    },
-                    createOrder: () => this.createOrder(),
-                    onApprove: data => this.onApprove(data),
-                    onError: error => this.onButtonError(error),
-                    onCancel: data => this.onCancel(data)
-                }).render(buttonWrapper)
-                    .then(() => {
-                        this.buttonInitialized = true;
-                        resolve();
-                    })
-                    .catch(error => {
-                        this.handleRenderError(error, reviewContainer, paypalContainer);
-                        reject(error);
-                    });
-            } catch (error) {
-                this.handleRenderError(error, reviewContainer, paypalContainer);
-                reject(error);
+            if (pleaseWaitSpan) {
+                pleaseWaitSpan.before(paypalContainer);
+            } else {
+                reviewContainer.prepend(paypalContainer);
             }
-        });
-
-        return this.renderPromise;
-    },
-
-    handleRenderError: function (error, reviewContainer, paypalContainer) {
-        if (paypalContainer && paypalContainer.parentNode) {
-            paypalContainer.remove();
         }
 
+        try {
+            await this.createPayPalButton(paypalContainer, reviewContainer);
+        } catch (error) {
+            this.handleRenderError(error, reviewContainer, paypalContainer);
+            throw error;
+        }
+    }
+
+    createPayPalContainer() {
+        const container = document.createElement('div');
+        container.id = this.config.containerId;
+        container.className = 'paypal-button-container';
+        container.style.cssText = 'margin: 0; min-height: 35px;';
+        return container;
+    }
+
+    async createPayPalButton(paypalContainer, reviewContainer) {
+        const buttonWrapper = document.createElement('div');
+        buttonWrapper.className = 'paypal-button-wrapper';
+        paypalContainer.appendChild(buttonWrapper);
+
+        await paypal.Buttons({
+            style: {
+                layout: this.config.buttonLayout || 'vertical',
+                color: this.config.buttonColor || 'gold',
+                shape: this.config.buttonShape || 'rect',
+                label: this.config.buttonLabel || 'paypal',
+                height: parseInt(this.config.buttonHeight, 10) || 40
+            },
+            createOrder: () => this.createOrder(),
+            onApprove: (data) => this.onApprove(data),
+            onError: (error) => this.onButtonError(error),
+            onCancel: () => this.onCancel()
+        }).render(buttonWrapper);
+
+        this.buttonInitialized = true;
+    }
+
+    handleRenderError(error, reviewContainer, paypalContainer) {
+        paypalContainer?.remove();
         this.recreateCheckoutButton(reviewContainer);
         this.buttonInitialized = false;
-    },
+    }
 
-    recreateCheckoutButton: function (reviewContainer) {
-        if (reviewContainer.down('button.btn-checkout')) return;
+    recreateCheckoutButton(reviewContainer) {
+        if (reviewContainer.querySelector('button.btn-checkout')) return;
 
-        const checkoutButton = new Element('button', {
-            'type': 'submit',
-            'title': 'Place Order',
-            'class': 'button btn-checkout',
-            'onclick': 'review.save();'
-        }).insert(
-            new Element('span').insert(
-                new Element('span').update('Place Order')
-            )
-        );
+        const checkoutButton = document.createElement('button');
+        checkoutButton.type = 'submit';
+        checkoutButton.title = 'Place Order';
+        checkoutButton.className = 'button btn-checkout';
+        checkoutButton.onclick = () => review.save();
 
-        const pleaseWaitSpan = reviewContainer.down('span.please-wait');
-        pleaseWaitSpan
-            ? pleaseWaitSpan.insert({ before: checkoutButton })
-            : reviewContainer.insert({ top: checkoutButton });
-    },
+        const span1 = document.createElement('span');
+        const span2 = document.createElement('span');
+        span2.textContent = 'Place Order';
+        span1.appendChild(span2);
+        checkoutButton.appendChild(span1);
 
-    createOrder: function () {
+        const pleaseWaitSpan = reviewContainer.querySelector('span.please-wait');
+        if (pleaseWaitSpan) {
+            pleaseWaitSpan.before(checkoutButton);
+        } else {
+            reviewContainer.prepend(checkoutButton);
+        }
+    }
+
+    async createOrder() {
         this.showLoadingMask();
 
-        return new Promise((resolve, reject) => {
+        try {
             if (!this.validateForm()) {
-                this.hideLoadingMask();
-                return reject(new Error('Form validation failed'));
+                throw new Error('Form validation failed');
             }
-            new Ajax.Request(this.config.createOrderUrl, {
-                method: 'post',
-                parameters: { form_key: this.config.formKey },
-                onSuccess: response => {
-                    const result = response.responseJSON;
-                    result?.success && result.id
-                        ? resolve(result.id)
-                        : reject(new Error(result?.message || 'Failed to create PayPal order'));
-                },
-                onFailure: () => reject(new Error('Failed to create PayPal order')),
-                onComplete: () => this.hideLoadingMask()
-            });
-        });
-    },
 
-    onApprove: function (data) {
+            const response = await fetch(this.config.createOrderUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    form_key: this.config.formKey
+                }),
+                signal: this.abortController.signal
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (!result?.success || !result?.id) {
+                throw new Error(result?.message || 'Failed to create PayPal order');
+            }
+
+            return result.id;
+        } catch (error) {
+            console.error('Create order error:', error);
+            throw error;
+        } finally {
+            this.hideLoadingMask();
+        }
+    }
+
+    async onApprove(data) {
         this.showLoadingMask();
-        return new Promise((resolve, reject) => {
-            new Ajax.Request(this.config.captureUrl, {
-                method: 'post',
-                parameters: { order_id: data.orderID, form_key: this.config.formKey },
-                onSuccess: response => {
-                    const result = response.responseJSON;
-                    if (result?.success) {
-                        this.submitPlaceOrderForm(data.orderID);
-                        resolve(result);
-                    } else {
-                        this.showError(result?.message);
-                        this.hideLoadingMask();
-                        reject(new Error('Payment capture failed'));
-                    }
+
+        try {
+            const response = await fetch(this.config.captureUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                onFailure: () => {
-                    this.showError();
-                    this.hideLoadingMask();
-                    reject(new Error('Payment capture failed'));
-                }
+                body: new URLSearchParams({
+                    order_id: data.orderID,
+                    form_key: this.config.formKey
+                }),
+                signal: this.abortController.signal
             });
-        });
-    },
 
-    submitPlaceOrderForm: function (orderId) {
-        const form = new Element('form', {
-            method: 'post',
-            action: this.config.placeOrderUrl,
-            style: 'display: none'
-        });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-        form.insert(new Element('input', {
-            type: 'hidden',
-            name: 'id',
-            value: orderId
-        }));
+            const result = await response.json();
 
-        form.insert(new Element('input', {
-            type: 'hidden',
-            name: 'form_key',
-            value: this.config.formKey
-        }));
+            if (!result?.success) {
+                throw new Error(result?.message || 'Payment capture failed');
+            }
 
+            this.submitPlaceOrderForm(data.orderID);
+            return result;
+        } catch (error) {
+            console.error('Payment approval error:', error);
+            this.showError(error.message);
+            throw error;
+        }
+    }
+
+    submitPlaceOrderForm(orderId) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = this.config.placeOrderUrl;
+        form.style.display = 'none';
+
+        const orderIdInput = document.createElement('input');
+        orderIdInput.type = 'hidden';
+        orderIdInput.name = 'id';
+        orderIdInput.value = orderId;
+
+        const formKeyInput = document.createElement('input');
+        formKeyInput.type = 'hidden';
+        formKeyInput.name = 'form_key';
+        formKeyInput.value = this.config.formKey;
+
+        form.append(orderIdInput, formKeyInput);
         document.body.appendChild(form);
         form.submit();
-    },
+    }
 
-    onButtonError: function () {
-        this.showError();
-    },
+    onButtonError(error) {
+        console.error('PayPal button error:', error);
+        this.showError('PayPal payment failed. Please try again or use another payment method.');
+    }
 
-    onCancel: function () {
+    onCancel() {
         this.hideLoadingMask();
-    },
+        console.log('PayPal payment cancelled by user');
+    }
 
-    validateForm: function () {
-        const form = $('firecheckout-form') || $('co-payment-form');
+    validateForm() {
+        const form = document.getElementById('firecheckout-form') ||
+            document.getElementById('co-payment-form');
+
         if (!form) return false;
 
-        const validator = new Validation(form);
-        return validator.validate();
-    },
+        const isValid = form.checkValidity();
+        if (!isValid) {
+            form.reportValidity();
+        }
 
-    setupPaymentMethodHandling: function () {
-        $$('input[name="payment[method]"]').each(input => {
-            input.observe('click', () => this.handlePaymentMethodChange(input.value));
+        if (typeof Validation !== 'undefined') {
+            const validator = new Validation(form);
+            return validator.validate() && isValid;
+        }
+
+        return isValid;
+    }
+
+    setupPaymentMethodHandling() {
+        const paymentInputs = document.querySelectorAll('input[name="payment[method]"]');
+
+        paymentInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                this.handlePaymentMethodChange(input.value);
+            }, { signal: this.abortController.signal });
         });
 
-        document.observe('payment-method:switched', event => {
-            const methodCode = event.memo?.method_code;
-            methodCode && this.handlePaymentMethodChange(methodCode);
-        });
+        document.addEventListener('payment-method:switched', (event) => {
+            const methodCode = event.detail?.method_code;
+            if (methodCode) {
+                this.handlePaymentMethodChange(methodCode);
+            }
+        }, { signal: this.abortController.signal });
 
         const currentMethod = this.getCurrentPaymentMethod();
-        currentMethod && this.handlePaymentMethodChange(currentMethod);
-    },
+        if (currentMethod) {
+            this.handlePaymentMethodChange(currentMethod);
+        }
+    }
 
-    handlePaymentMethodChange: function (selectedMethod) {
-        const reviewContainer = $(this.config.reviewButtonContainerId);
+    handlePaymentMethodChange(selectedMethod) {
+        const reviewContainer = document.getElementById(this.config.reviewButtonContainerId);
         if (!reviewContainer) return;
 
         this.buttonInitialized = false;
         reviewContainer.remove();
-    },
+    }
 
-    removePayPalButton: function () {
-        const container = $(this.config.containerId);
+    removePayPalButton() {
+        const container = document.getElementById(this.config.containerId);
         if (container) {
             container.remove();
             this.buttonInitialized = false;
         }
-    },
+    }
 
-    showLoadingMask: function () {
-        let mask = $('loading-mask');
+    showLoadingMask() {
+        let mask = document.getElementById('loading-mask');
+
         if (!mask) {
-            mask = new Element('div', {
-                'id': 'loading-mask',
-                'class': 'loading-mask',
-                'style': 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; align-items: center; justify-content: center;'
-            }).insert(
-                new Element('div', {
-                    'class': 'loading-mask-loader',
-                    'style': 'color: white; font-size: 18px;'
-                }).update('Processing...')
-            );
+            mask = document.createElement('div');
+            mask.id = 'loading-mask';
+            mask.className = 'loading-mask';
+            mask.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+
+            const loader = document.createElement('div');
+            loader.className = 'loading-mask-loader';
+            loader.style.cssText = 'color: white; font-size: 18px;';
+            loader.textContent = 'Processing...';
+
+            mask.appendChild(loader);
             document.body.appendChild(mask);
         }
-        mask.show();
-    },
 
-    hideLoadingMask: function () {
-        const mask = $('loading-mask');
-        if (mask) mask.hide();
-    },
+        mask.style.display = 'flex';
+    }
 
-    showError: function (message) {
-        const errorId = this.config.containerId + '-error';
-        $(errorId)?.remove();
-
-        const container = $(this.config.containerId);
-        if (container) {
-            const errorDiv = new Element('div', {
-                'id': errorId,
-                'class': 'paypal-error',
-                'style': 'color: red; margin: 10px 0; padding: 10px; border: 1px solid red; background: #ffe6e6;'
-            });
-            container.insert({ after: errorDiv });
-            errorDiv.update(message || this.config.errorMessage || 'An error occurred. Please try again later.');
+    hideLoadingMask() {
+        const mask = document.getElementById('loading-mask');
+        if (mask) {
+            mask.style.display = 'none';
         }
-    },
+    }
 
-    destroy: function () {
+    showError(message) {
+        const errorId = `${this.config.containerId}-error`;
+        const existingError = document.getElementById(errorId);
+        existingError?.remove();
 
-        $$('input[name="payment[method]"]').each(input => {
-            input.stopObserving('click');
-        });
+        const container = document.getElementById(this.config.containerId);
+        if (!container) return;
 
-        const paymentButton = $$('button[onclick="payment.save()"]')[0];
-        paymentButton?.stopObserving('click');
+        const errorDiv = document.createElement('div');
+        errorDiv.id = errorId;
+        errorDiv.className = 'paypal-error';
+        errorDiv.style.cssText = `
+            color: red;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid red;
+            background: #ffe6e6;
+            border-radius: 4px;
+        `;
+        errorDiv.textContent = message || this.config.errorMessage || 'An error occurred. Please try again later.';
+
+        container.after(errorDiv);
+
+        setTimeout(() => errorDiv?.remove(), 10000);
+    }
+
+    destroy() {
+        this.abortController.abort();
 
         if (this.reviewContainerInterval) {
             clearInterval(this.reviewContainerInterval);
@@ -384,5 +455,12 @@ PayPalPayment.prototype = {
         }
 
         this.removePayPalButton();
+
+        const mask = document.getElementById('loading-mask');
+        mask?.remove();
     }
-};
+}
+
+if (typeof window !== 'undefined') {
+    window.PayPalPayment = PayPalPayment;
+}
