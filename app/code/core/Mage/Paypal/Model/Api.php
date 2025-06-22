@@ -50,9 +50,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Create a new PayPal order with a pre-built request
      *
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote
      * @param object $orderRequest Pre-built order request object
-     * @return ApiResponse|null
      * @throws Mage_Core_Exception
      */
     public function createOrder(
@@ -79,8 +77,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Authorize payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote
-     * @return ApiResponse|null
      * @throws Mage_Core_Exception
      */
     public function authorizeOrder(
@@ -107,8 +103,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Authorize payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote
-     * @return ApiResponse|null
      * @throws Mage_Core_Exception
      */
     public function reAuthorizeOrder(
@@ -136,8 +130,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Capture authorized payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @param Mage_Sales_Model_Order $order
-     * @return ApiResponse|null
      * @throws Mage_Core_Exception
      */
     public function captureAuthorizedPayment(string $id, Mage_Sales_Model_Order $order): ?ApiResponse
@@ -161,8 +153,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Capture payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote
-     * @return ApiResponse|null
      * @throws Mage_Core_Exception
      */
     public function captureOrder(
@@ -193,8 +183,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * @param string $captureId PayPal capture ID
      * @param float $amount Amount to refund
      * @param string $currencyCode Currency code
-     * @param Mage_Sales_Model_Order $order
-     * @return ApiResponse|null
      * @throws Mage_Core_Exception
      */
     public function refundCapturedPayment(
@@ -225,8 +213,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Void an authorization
      *
      * @param string $authorizationId PayPal authorization ID
-     * @param Mage_Sales_Model_Order $order
-     * @return ApiResponse|null
      * @throws Mage_Core_Exception
      */
     public function voidPayment(string $authorizationId, Mage_Sales_Model_Order $order): ?ApiResponse
@@ -250,7 +236,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Get PayPal API client instance with lazy loading
      *
-     * @return PaypalServerSdkClient
      * @throws Mage_Core_Exception
      */
     public function getClient(): PaypalServerSdkClient
@@ -300,7 +285,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Validate quote object
      *
-     * @param mixed $quote
      * @throws Mage_Core_Exception
      */
     private function _validateQuote(mixed $quote): void
@@ -313,7 +297,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Validate order ID
      *
-     * @param string $id
      * @throws Mage_Core_Exception
      */
     private function _validateOrderId(string $id): void
@@ -326,7 +309,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Validate capture ID
      *
-     * @param string $captureId
      * @throws Mage_Core_Exception
      */
     private function _validateCaptureId(string $captureId): void
@@ -339,7 +321,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Validate authorization ID
      *
-     * @param string $authorizationId
      * @throws Mage_Core_Exception
      */
     private function _validateAuthorizationId(string $authorizationId): void
@@ -352,7 +333,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Validate amount
      *
-     * @param float $amount
      * @throws Mage_Core_Exception
      */
     private function _validateAmount(float $amount): void
@@ -365,8 +345,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Build refund request body
      *
-     * @param float $amount
-     * @param string $currencyCode
      * @return array<string, mixed>
      */
     private function _buildRefundBody(float $amount, string $currencyCode): array
@@ -382,8 +360,6 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Log error and throw exception
      *
-     * @param string $message
-     * @param Exception $e
      * @throws Exception
      */
     private function _logAndThrowError(string $message, Exception $e): never

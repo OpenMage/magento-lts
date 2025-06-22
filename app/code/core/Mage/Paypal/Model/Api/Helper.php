@@ -38,7 +38,6 @@ class Mage_Paypal_Model_Api_Helper
      * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Quote or order object.
      * @param mixed $request Request object or data sent to the API.
      * @param ApiResponse|null $response API response, if available.
-     * @return void
      */
     public function logDebug(
         string $action,
@@ -87,7 +86,6 @@ class Mage_Paypal_Model_Api_Helper
      *
      * @param string $message The error message.
      * @param Exception $exception The exception object.
-     * @return void
      */
     public function logError(string $message, Exception $exception): void
     {

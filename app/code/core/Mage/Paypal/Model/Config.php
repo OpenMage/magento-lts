@@ -80,8 +80,6 @@ class Mage_Paypal_Model_Config extends Varien_Object
 
     /**
      * Checks if debug mode is enabled.
-     *
-     * @return bool
      */
     public function isDebugEnabled(): bool
     {
@@ -90,8 +88,6 @@ class Mage_Paypal_Model_Config extends Varien_Object
 
     /**
      * Checks if sandbox mode is enabled.
-     *
-     * @return bool
      */
     public function isSandbox(): bool
     {
@@ -100,8 +96,6 @@ class Mage_Paypal_Model_Config extends Varien_Object
 
     /**
      * Retrieves the configured payment action (e.g., 'authorize', 'capture').
-     *
-     * @return string
      */
     public function getPaymentAction(): string
     {
@@ -110,8 +104,6 @@ class Mage_Paypal_Model_Config extends Varien_Object
 
     /**
      * Retrieves the PayPal API endpoint URL based on the sandbox mode.
-     *
-     * @return string
      */
     public function getEndpoint(): string
     {
@@ -139,7 +131,6 @@ class Mage_Paypal_Model_Config extends Varien_Object
      * Checks if the PayPal payment method is active for the given store.
      *
      * @param mixed|null $store The store ID or object to check for.
-     * @return bool
      */
     public function isActive(mixed $store = null): bool
     {
@@ -161,7 +152,6 @@ class Mage_Paypal_Model_Config extends Varien_Object
      *
      * @param string $field The configuration field to retrieve.
      * @param mixed|null $store The store ID or object.
-     * @return mixed
      */
     protected function getConfigData(string $field, mixed $store = null): mixed
     {

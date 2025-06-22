@@ -16,9 +16,6 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Response extends Mage_Payp
 {
     /**
      * Renders the response_body column with copy functionality
-     *
-     * @param Varien_Object $row
-     * @return string
      */
     public function render(Varien_Object $row): string
     {

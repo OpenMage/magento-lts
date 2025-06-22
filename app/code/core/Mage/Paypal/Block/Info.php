@@ -25,8 +25,6 @@ class Mage_Paypal_Block_Info extends Mage_Payment_Block_Info
 
     /**
      * Retrieves the transaction ID from the payment information.
-     *
-     * @return string|null
      */
     public function getTransactionId(): ?string
     {

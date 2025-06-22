@@ -13,9 +13,6 @@ class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Order extends Mage_Adminhtml_Blo
 {
     /**
      * Render order link
-     *
-     * @param Varien_Object $row
-     * @return string
      */
     public function render(Varien_Object $row): string
     {

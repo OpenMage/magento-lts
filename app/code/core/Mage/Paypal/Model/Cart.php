@@ -43,7 +43,6 @@ class Mage_Paypal_Model_Cart
     /**
      * Initializes the cart model with a sales entity (order or quote).
      *
-     * @param array $params
      * @throws Exception
      */
     public function __construct(array $params = [])
@@ -63,8 +62,6 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Validates that the quote's currency is supported by PayPal.
-     *
-     * @return self
      */
     protected function _validateCurrency(): self
     {
@@ -83,8 +80,6 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Retrieves all prepared items for the PayPal request. Items are prepared if not already.
-     *
-     * @return array
      */
     public function getAllItems(): array
     {
@@ -96,8 +91,6 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Retrieves all prepared totals (subtotal, tax, shipping, discount). Totals are prepared if not already.
-     *
-     * @return array
      */
     public function getAmounts(): array
     {
@@ -109,8 +102,6 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Prepares the line items from the quote for the PayPal API request.
-     *
-     * @return self
      */
     protected function _prepareItems(): self
     {
@@ -135,7 +126,7 @@ class Mage_Paypal_Model_Cart
             }
             $description = $item->getDescription();
             if ($description) {
-                $itemBuilder->description(substr($description, 0, 127));
+                $itemBuilder->description(substr((string) $description, 0, 127));
             }
             $this->_items[] = $itemBuilder->build();
         }
@@ -145,8 +136,6 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Prepares the cart totals from the quote for the PayPal API request.
-     *
-     * @return self
      */
     protected function _prepareTotals(): self
     {
@@ -177,8 +166,6 @@ class Mage_Paypal_Model_Cart
 
     /**
      * Get the sales entity (quote or order) object associated with this cart.
-     *
-     * @return Mage_Sales_Model_Order|Mage_Sales_Model_Quote
      */
     public function getQuote(): Mage_Sales_Model_Order|Mage_Sales_Model_Quote
     {

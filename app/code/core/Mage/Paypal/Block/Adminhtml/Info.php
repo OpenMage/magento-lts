@@ -25,8 +25,6 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
 
     /**
      * Retrieves the transaction ID from the payment information.
-     *
-     * @return string|null
      */
     public function getTransactionId(): ?string
     {
@@ -35,8 +33,6 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
 
     /**
      * Generates the PayPal transaction URL based on the transaction ID and sandbox status.
-     *
-     * @return string|null
      */
     public function getTransactionUrl(): ?string
     {
@@ -51,8 +47,6 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
 
     /**
      * Retrieves and formats additional payment information, such as status and authorization details.
-     *
-     * @return array
      */
     public function getPaymentInfo(): array
     {

@@ -24,8 +24,6 @@ class Mage_Paypal_Model_Exception extends Mage_Core_Exception
 
     /**
      * Get debug data
-     *
-     * @return array
      */
     public function getDebugData(): array
     {

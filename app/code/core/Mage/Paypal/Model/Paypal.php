@@ -99,7 +99,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Capture PayPal payment via API
      *
      * @param string $orderId PayPal order ID
-     * @param Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote
      * @throws Mage_Core_Exception
      */
     public function captureOrder(string $orderId, Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote): void
@@ -120,7 +119,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Authorize PayPal payment via API
      *
      * @param string $orderId PayPal order ID
-     * @param Mage_Sales_Model_Quote $quote
      * @throws Mage_Core_Exception
      */
     public function authorizePayment(string $orderId, Mage_Sales_Model_Quote $quote): void
@@ -222,7 +220,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param Varien_Object $payment Payment object
      * @param float $amount Refund amount
-     * @return static
      * @throws Mage_Core_Exception
      */
     public function refund(Varien_Object $payment, $amount): static
@@ -260,7 +257,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param Varien_Object $payment Payment object
      * @param float $amount Capture amount
-     * @return static
      * @throws Mage_Core_Exception
      */
     public function capture(Varien_Object $payment, $amount): static
@@ -297,7 +293,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Void payment method
      *
      * @param Varien_Object $payment Payment object
-     * @return static
      * @throws Mage_Core_Exception
      */
     public function void(Varien_Object $payment): static
@@ -334,7 +329,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Cancel payment method
      *
      * @param Varien_Object $payment Payment object
-     * @return static
      * @throws Mage_Core_Exception
      */
     public function cancel(Varien_Object $payment): static
@@ -350,7 +344,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Check if payment method is available
      *
      * @param Mage_Sales_Model_Quote|null $quote
-     * @return bool
      */
     public function isAvailable($quote = null): bool
     {
@@ -395,7 +388,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Validate quote for PayPal payment processing
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @throws Mage_Core_Exception
      */
     private function _validateQuoteForPayment(Mage_Sales_Model_Quote $quote): void
@@ -411,9 +403,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Update payment object with PayPal order information
-     *
-     * @param Mage_Sales_Model_Quote_Payment $payment
-     * @param ApiResponse $response
      */
     private function _updatePaymentWithOrderInfo(Mage_Sales_Model_Quote_Payment $payment, ApiResponse $response): void
     {
@@ -429,7 +418,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Build a purchase unit using PayPal SDK builders
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @param string|null $referenceId Optional reference ID
      * @return object The built purchase unit object
      */
@@ -538,10 +526,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Build amount with breakdown
      *
-     * @param string $currency
-     * @param float $totalAmount
      * @param object $breakdown Built breakdown object
-     * @return object
      */
     private function _buildAmountWithBreakdown(string $currency, float $totalAmount, object $breakdown): object
     {
@@ -555,7 +540,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Build a complete PayPal order request using SDK builders
      *
-     * @param Mage_Sales_Model_Quote $quote
      * @param string|null $referenceId Optional reference ID
      * @return object The built order request object
      */
@@ -577,9 +561,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Build payer object from billing address
-     *
-     * @param Mage_Sales_Model_Quote $quote
-     * @return object|null
      */
     private function _buildPayerFromBillingAddress(Mage_Sales_Model_Quote $quote): ?object
     {
@@ -630,7 +611,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Extract capture ID from API result
      *
      * @param mixed $result API result
-     * @return string|null
      */
     private function _extractCaptureId(mixed $result): ?string
     {
@@ -659,7 +639,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Update payment object after successful capture
      *
-     * @param Mage_Sales_Model_Quote_Payment|Mage_Sales_Model_Order_Payment $payment
      * @param ApiResponse $response API result
      * @param string $orderId PayPal order ID
      * @param string $captureId Capture ID
@@ -691,7 +670,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Update payment object after successful authorization
      *
-     * @param Mage_Sales_Model_Quote_Payment $payment
      * @param ApiResponse $response API result
      */
     private function _updatePaymentAfterAuthorization(Mage_Sales_Model_Quote_Payment $payment, ApiResponse $response): void
@@ -718,7 +696,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     /**
      * Add order status comment
      *
-     * @param Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote
      * @param string $action Action performed (captured, authorized, etc.)
      * @param string|null $transactionId Transaction ID
      */
@@ -783,7 +760,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Update payment after authorized capture
      *
      * @param Varien_Object $payment Payment object
-     * @param ApiResponse $response
      * @param string $authorizationId Authorization ID
      */
     private function _updatePaymentAfterAuthorizedCapture(Varien_Object $payment, ApiResponse $response, string $authorizationId): void
@@ -804,7 +780,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Create capture transaction record
      *
      * @param Varien_Object $payment Payment object
-     * @param ApiResponse $response
      * @param string $authorizationId Authorization ID
      */
     private function _createCaptureTransaction(Varien_Object $payment, ApiResponse $response, string $authorizationId): void
@@ -866,8 +841,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Handle multishipping notification
-     *
-     * @param Mage_Sales_Model_Quote|null $quote
      */
     private function _handleMultishippingNotification(?Mage_Sales_Model_Quote $quote): void
     {
@@ -888,7 +861,6 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param ApiResponse $response API response
      * @param string $defaultMessage Default error message
-     * @return string
      */
     private function _extractErrorMessage(ApiResponse $response, string $defaultMessage): string
     {

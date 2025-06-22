@@ -13,8 +13,6 @@ class Mage_Paypal_Model_System_Config_Source_MerchantCountry
     /**
      * Get list of allowed merchant countries
      * https://developer.paypal.com/docs/multiparty/seller-onboarding/#country-eligibility
-     *
-     * @return array
      */
     public function toOptionArray(): array
     {

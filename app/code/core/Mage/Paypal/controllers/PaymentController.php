@@ -34,8 +34,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     /**
      * Handles the AJAX request to create a PayPal order.
      * Validates the quote and creates a PayPal order via the PayPal model.
-     *
-     * @return void
      */
     public function createAction(): void
     {
@@ -104,7 +102,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      * Processes the PayPal payment after customer approval on the PayPal side.
      * This action will either authorize or capture the payment based on the store's configuration.
      *
-     * @return void
      * @throws Exception
      */
     public function processAction(): void
@@ -145,7 +142,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      * Places the Magento order after the PayPal payment has been successfully processed.
      * It handles guest, new customer, and existing customer checkouts, creates the order,
      * and redirects to the success or cart page.
-     * @return void
      */
     public function placeOrderAction(): void
     {
@@ -261,8 +257,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Retrieves the checkout session model.
-     *
-     * @return Mage_Checkout_Model_Session
      */
     protected function _getCheckoutSession(): Mage_Checkout_Model_Session
     {
@@ -271,8 +265,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Return checkout quote object
-     *
-     * @return Mage_Sales_Model_Quote
      */
     private function _getQuote(): Mage_Sales_Model_Quote
     {
@@ -284,8 +276,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Retrieves the PayPal model instance.
-     *
-     * @return Mage_Paypal_Model_Paypal
      */
     private function _getPaypal(): Mage_Paypal_Model_Paypal
     {
@@ -297,8 +287,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Prepares the quote for a guest checkout.
-     *
-     * @return self
      */
     protected function _prepareGuestQuote(): self
     {
@@ -311,8 +299,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Prepares the quote for a new customer registration during checkout.
-     *
-     * @return self
      */
     protected function _prepareNewCustomerQuote(): self
     {
@@ -374,8 +360,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Prepares the quote for an existing, logged-in customer.
-     *
-     * @return self
      */
     protected function _prepareCustomerQuote(): self
     {
@@ -413,8 +397,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Retrieves the customer session model.
-     *
-     * @return Mage_Customer_Model_Session
      */
     public function getCustomerSession(): Mage_Customer_Model_Session
     {
@@ -428,7 +410,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      * Checks if a customer with the given email address already exists for the current website.
      *
      * @param string $email The customer email to check.
-     * @return bool
      */
     protected function _customerEmailExists(string $email): bool
     {
@@ -461,8 +442,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Sets the quote addresses to ignore validation during the order placement process.
-     *
-     * @return void
      */
     private function _ignoreAddressValidation(): void
     {
@@ -473,8 +452,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     }
     /**
      * Redirects the user to the customer login page.
-     *
-     * @return void
      */
     protected function _redirectLogin(): void
     {
@@ -489,8 +466,6 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
 
     /**
      * Handles the post-order actions for a newly registered customer, such as sending confirmation emails.
-     *
-     * @return self
      */
     protected function _involveNewCustomer(): self
     {

@@ -29,8 +29,6 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
 
     /**
      * Renders the PayPal debug log grid page.
-     *
-     * @return void
      */
     public function indexAction(): void
     {
@@ -41,8 +39,6 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
 
     /**
      * Renders the debug log grid for AJAX requests.
-     *
-     * @return void
      */
     public function gridAction(): void
     {
@@ -54,8 +50,6 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
 
     /**
      * Handles the mass deletion of selected debug log entries.
-     *
-     * @return void
      */
     public function massDeleteAction(): void
     {
@@ -79,8 +73,6 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
 
     /**
      * Handles the deletion of all debug log entries.
-     *
-     * @return void
      */
     public function deleteAllAction(): void
     {
@@ -98,8 +90,6 @@ class Mage_Paypal_Adminhtml_Paypal_DebugController extends Mage_Adminhtml_Contro
 
     /**
      * Checks if the current user has permission to access this controller.
-     *
-     * @return bool
      */
     protected function _isAllowed(): bool
     {

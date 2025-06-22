@@ -18,7 +18,6 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieves the PayPal configuration model, optionally for a specific store.
      *
      * @param mixed $store The store ID or object.
-     * @return Mage_Paypal_Model_Config
      */
     public function getConfig(mixed $store = null): Mage_Paypal_Model_Config
     {
@@ -29,7 +28,6 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      * Checks if the PayPal payment method is active and available, optionally for a specific store.
      *
      * @param mixed $store The store ID or object.
-     * @return bool
      */
     public function isAvailable(mixed $store = null): bool
     {
@@ -40,7 +38,6 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      * Retrieves the configuration settings for the PayPal button, optionally for a specific store.
      *
      * @param mixed $store The store ID or object.
-     * @return array
      */
     public function getButtonConfig(mixed $store = null): array
     {
@@ -51,7 +48,6 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      * Formats a numeric price into a string with two decimal places, suitable for the PayPal API.
      *
      * @param float $amount The price amount to format.
-     * @return string
      */
     public function formatPrice(float $amount): string
     {
@@ -63,11 +59,10 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $transactionId The transaction ID.
      * @param bool $sandbox Whether to use the sandbox environment.
-     * @return string
      */
     public function getTransactionUrl(string $transactionId, bool $sandbox = false): string
     {
-        if (strpos($transactionId, '-') !== false) {
+        if (str_contains($transactionId, '-')) {
             $parts = explode('-', $transactionId);
             $transactionId = $parts[0];
         }

@@ -15,7 +15,6 @@ class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json extends Mage_Adminhtml_Bloc
      * Format JSON data for display
      *
      * @param string $json
-     * @return string
      */
     protected function _formatJson(?string $json): string
     {
@@ -35,16 +34,13 @@ class Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json extends Mage_Adminhtml_Bloc
                 '<pre class="paypal-json" style="max-height: 300px; overflow: auto; white-space: pre-wrap;">%s</pre>',
                 $this->escapeHtml($formattedJson),
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $this->escapeHtml($json);
         }
     }
 
     /**
      * Render cell content
-     *
-     * @param Varien_Object $row
-     * @return string
      */
     public function render(Varien_Object $row): string
     {

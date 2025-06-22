@@ -25,8 +25,6 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 
     /**
      * Retrieves the configuration for the PayPal button.
-     *
-     * @return array
      */
     public function getButtonConfig(): array
     {
@@ -35,8 +33,6 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 
     /**
      * Retrieves the PayPal API endpoint URL.
-     *
-     * @return string
      */
     public function getEndpointUrl(): string
     {
@@ -45,8 +41,6 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 
     /**
      * Retrieves the PayPal client ID from the API credentials.
-     *
-     * @return string
      */
     public function getClientId(): string
     {
@@ -55,8 +49,6 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 
     /**
      * Constructs and retrieves the full URL for the PayPal JavaScript SDK.
-     *
-     * @return string
      */
     public function getSdkUrl(): string
     {
@@ -70,7 +62,7 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
         ];
 
         $baseUrl = $this->getEndpointUrl();
-        if (substr($baseUrl, -1) !== '/') {
+        if (!str_ends_with($baseUrl, '/')) {
             $baseUrl .= '/';
         }
         return $baseUrl . 'sdk/js?' . http_build_query($params);
@@ -88,8 +80,6 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
 
     /**
      * Retrieves the currency code for the current store.
-     *
-     * @return string
      */
     public function getCurrencyCode(): string
     {
