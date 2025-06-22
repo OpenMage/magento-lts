@@ -12,7 +12,7 @@ declare(strict_types=1);
 /**
  * Renderer for exception_message column with copy functionality
  */
-class Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Exception extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
+class Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Message extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     /**
      * Renders the exception_message column with copy functionality

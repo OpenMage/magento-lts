@@ -1110,7 +1110,7 @@ namespace PHPSTORM_META {
             'payment/info_purchaseorder' => \Mage_Payment_Block_Info_Purchaseorder::class,
             'paypal/adminhtml_debug' => \Mage_Paypal_Block_Adminhtml_Debug::class,
             'paypal/adminhtml_debug_grid' => \Mage_Paypal_Block_Adminhtml_Debug_Grid::class,
-            'paypal/adminhtml_debug_grid_renderer_exception' => \Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Exception::class,
+            'paypal/adminhtml_debug_grid_renderer_message' => \Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Message::class,
             'paypal/adminhtml_debug_grid_renderer_request' => \Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Request::class,
             'paypal/adminhtml_debug_grid_renderer_response' => \Mage_Paypal_Block_Adminhtml_Debug_Grid_Renderer_Response::class,
             'paypal/adminhtml_grid_renderer_json' => \Mage_Paypal_Block_Adminhtml_Grid_Renderer_Json::class,

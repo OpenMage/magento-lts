@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -12,6 +13,9 @@
  */
 ?>
 <div class="paypal-info">
+    <div class="paypal-method">
+        <?php echo $this->escapeHtml($this->getMethod()->getTitle()) ?>
+    </div>
     <?php if ($this->getTransactionId()): ?>
         <div class="paypal-transaction">
             <strong><?php echo $this->__('Transaction ID') ?>:</strong>
@@ -48,10 +52,6 @@
     <?php endif; ?>
 </div>
 <style>
-    .paypal-info {
-        margin-top: 10px;
-    }
-
     .paypal-transaction {
         margin-bottom: 10px;
     }
@@ -75,5 +75,9 @@
         margin-top: 5px;
         font-style: italic;
         color: #666;
+    }
+
+    .paypal-method {
+        margin-bottom: 10px;
     }
 </style>

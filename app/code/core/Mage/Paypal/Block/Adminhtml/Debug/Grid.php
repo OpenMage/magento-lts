@@ -88,7 +88,7 @@ class Mage_Paypal_Block_Adminhtml_Debug_Grid extends Mage_Adminhtml_Block_Widget
         $this->addColumn('exception_message', [
             'header'   => Mage::helper('paypal')->__('Exception'),
             'index'    => 'exception_message',
-            'renderer' => 'paypal/adminhtml_debug_grid_renderer_exception',
+            'renderer' => 'paypal/adminhtml_debug_grid_renderer_message',
         ]);
 
         $this->addColumn('created_at', [

@@ -169,7 +169,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             ])->getShouldCloseParentTransaction();
             $payment->save();
 
-            $transaction = Mage::getModel('sales/order_payment_transaction');
+            $transaction = $this->_getTransaction();
             $transaction->setOrderPaymentObject($payment)
                 ->setTxnId($authorizationId)
                 ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH)
@@ -241,7 +241,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
             $result = $response->getResult();
             $this->_updatePaymentAfterRefund($payment, $result);
-            $this->_createRefundTransaction($payment, $response, $amount);
+            $this->_createRefundTransaction($payment, $response);
         } catch (Exception $e) {
             Mage::logException($e);
             throw new Mage_Core_Exception(
@@ -262,11 +262,10 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     public function capture(Varien_Object $payment, $amount): static
     {
         $addInfo = $payment->getAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS);
-        if (is_array($addInfo) && isset($addInfo['intent'])) {
-            if ($addInfo['intent'] === CheckoutPaymentIntent::CAPTURE) {
-                return $this;
-            }
+        if (($addInfo['intent'] ?? null) === CheckoutPaymentIntent::CAPTURE) {
+            return $this;
         }
+
         $order = $payment->getOrder();
         $authorizationId = $payment->getAdditionalInformation(self::PAYPAL_PAYMENT_AUTHORIZATION_ID);
 
@@ -417,43 +416,56 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
 
     /**
      * Build a purchase unit using PayPal SDK builders
-     *
-     * @param string|null $referenceId Optional reference ID
-     * @return object The built purchase unit object
      */
     private function _buildPurchaseUnit(Mage_Sales_Model_Quote $quote, ?string $referenceId = null): object
     {
         $cart = Mage::getModel('paypal/cart', [$quote]);
-        $totals = $cart->getAmounts();
         $currency = $quote->getOrderCurrencyCode() ?: $quote->getQuoteCurrencyCode();
-        $items = $cart->getAllItems();
-        // Amount check
+
+        $adjustedCartData = $this->_adjustCartTotalsForTaxDiscrepancy($cart, $currency);
+        $totals = $adjustedCartData['totals'];
+        $items  = $adjustedCartData['items'];
+
+        $breakdown = $this->_buildAmountBreakdown($totals);
+        $amount    = $this->_buildAmountWithBreakdown($currency, $quote->getGrandTotal(), $breakdown);
+
+        $purchaseUnitBuilder = PurchaseUnitRequestBuilder::init($amount)
+            ->items($items)
+            ->referenceId($referenceId ?: (string) $quote->getId())
+            ->invoiceId($referenceId ?: (string) $quote->getId());
+
+        return $purchaseUnitBuilder->build();
+    }
+
+    /**
+     * Adjust tax totals and items for rounding discrepancies
+     *
+     * @return array{totals: array, items: array}
+     */
+    private function _adjustCartTotalsForTaxDiscrepancy(Mage_Paypal_Model_Cart $cart, string $currency): array
+    {
+        $totals = $cart->getAmounts();
+        $items  = $cart->getAllItems();
+
         $taxCalculated = 0.00;
-        $taxDifference = 0.00;
-        $taxAmount = 0.00;
-        if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])) {
-            $taxAmount = (float) $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->getValue();
-        }
+        $taxAmount     = isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->getValue()
+            : 0.00;
+
         foreach ($items as $item) {
-            /**
-             * @var PaypalServerSdkLib\Models\Item $item
-             */
+            /** @var PaypalServerSdkLib\Models\Item $item */
             if ($item->getTax()) {
-                $qty = (int) $item->getQuantity();
-                $taxValue = (float) $item->getTax()->getValue();
+                $qty        = (int) $item->getQuantity();
+                $taxValue   = (float) $item->getTax()->getValue();
                 $taxCalculated += $taxValue * $qty;
             }
         }
-        if ($taxCalculated !== $taxAmount) {
-            $taxDifference = round($taxAmount - $taxCalculated, 2);
-            $taxAmount = $taxCalculated;
-        }
+
+        $taxDifference = round($taxAmount - $taxCalculated, 2);
+
         if ($taxDifference < 0) {
-            if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])) {
-                $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(
-                    number_format($taxCalculated, 2, '.', ''),
-                );
-            }
+            $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(number_format($taxCalculated, 2, '.', ''));
+
             if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT])) {
                 $totalDiscount = (float) $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->getValue();
                 $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->setValue(
@@ -465,31 +477,24 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
                     number_format(abs($taxDifference), 2, '.', ''),
                 )->build();
             }
-        } else {
-            $moneyBuilder = MoneyBuilder::init(
-                $currency,
-                number_format(abs($taxDifference), 2, '.', ''),
-            );
-            $itemBuilder = ItemBuilder::init(Mage::helper('paypal')->__('Rounding'), $moneyBuilder->build(), '1')
+        } elseif ($taxDifference > 0) {
+            $moneyBuilder = MoneyBuilder::init($currency, number_format(abs($taxDifference), 2, '.', ''));
+            $roundingItem = ItemBuilder::init(
+                Mage::helper('paypal')->__('Rounding'),
+                $moneyBuilder->build(),
+                '1',
+            )
                 ->sku(Mage::helper('paypal')->__('Rounding'))
-                ->category(ItemCategory::DIGITAL_GOODS);
-            $items[] = $itemBuilder->build();
-            if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])) {
-                $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(
-                    number_format($taxCalculated, 2, '.', ''),
-                );
-            }
+                ->category(ItemCategory::DIGITAL_GOODS)
+                ->build();
+
+            $items[] = $roundingItem;
+            $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(number_format($taxCalculated, 2, '.', ''));
         }
-        $breakdown = $this->_buildAmountBreakdown($totals);
-        $amount = $this->_buildAmountWithBreakdown($currency, $quote->getGrandTotal(), $breakdown);
-        $purchaseUnitBuilder = PurchaseUnitRequestBuilder::init($amount);
-        if (!empty($items)) {
-            $purchaseUnitBuilder->items($items);
-        }
-        $purchaseUnitBuilder->referenceId($referenceId ?: (string) $quote->getId());
-        $purchaseUnitBuilder->invoiceId($referenceId ?: (string) $quote->getId());
-        return $purchaseUnitBuilder->build();
+
+        return ['totals' => $totals, 'items' => $items];
     }
+
 
     /**
      * Build amount breakdown from cart totals
@@ -736,12 +741,11 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param Varien_Object $payment Payment object
      * @param ApiResponse $response API result
-     * @param float $amount Refund amount
      */
-    private function _createRefundTransaction(Varien_Object $payment, ApiResponse $response, float $amount): void
+    private function _createRefundTransaction(Varien_Object $payment, ApiResponse $response): void
     {
         $result = $response->getResult();
-        $transaction = Mage::getModel('sales/order_payment_transaction');
+        $transaction = $this->_getTransaction();
         /**
          * @var Mage_Sales_Model_Order_Payment $payment
          */
@@ -766,8 +770,16 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      */
     private function _updatePaymentAfterAuthorizedCapture(Varien_Object $payment, ApiResponse $response, string $authorizationId): void
     {
+        /**
+         * @var Mage_Sales_Model_Order_Payment $payment
+         */
         $result = $response->getResult();
         $captureId = $result->getId();
+        $additionalInfo = $payment->getAdditionalInformation();
+        unset($additionalInfo[self::PAYPAL_PAYMENT_STATUS]);
+        unset($additionalInfo[self::PAYPAL_PAYMENT_AUTHORIZATION_ID]);
+        unset($additionalInfo[self::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME]);
+        $payment->setAdditionalInformation($additionalInfo);
         $payment->setTransactionId($captureId)
             ->setParentTransactionId($authorizationId)
             ->setIsTransactionClosed(true)
@@ -787,7 +799,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
     private function _createCaptureTransaction(Varien_Object $payment, ApiResponse $response, string $authorizationId): void
     {
         $result = $response->getResult();
-        $transaction = Mage::getModel('sales/order_payment_transaction');
+        $transaction = $this->_getTransaction();
         /**
          * @var Mage_Sales_Model_Order_Payment $payment
          */
@@ -824,7 +836,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      */
     private function _createVoidTransaction(Varien_Object $payment, ApiResponse $response): void
     {
-        $transaction = Mage::getModel('sales/order_payment_transaction');
+        $transaction = $this->_getTransaction();
         $result = $response->getResult();
         /**
          * @var Mage_Sales_Model_Order_Payment $payment
@@ -898,5 +910,14 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
             fn($v) => is_array($v) ? json_encode($v) : $v,
             $decoded ?? [],
         );
+    }
+    /**
+     * Get order payment transaction model
+     *
+     * @throws Mage_Core_Exception
+     **/
+    private function _getTransaction(): Mage_Sales_Model_Order_Payment_Transaction
+    {
+        return Mage::getModel('sales/order_payment_transaction');
     }
 }

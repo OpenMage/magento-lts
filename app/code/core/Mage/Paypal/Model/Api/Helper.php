@@ -36,27 +36,17 @@ class Mage_Paypal_Model_Api_Helper
      *
      * @param string $action Action being performed (e.g., 'Create Order').
      * @param Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote Quote or order object.
-     * @param mixed $request Request object or data sent to the API.
+     * @param array $request Request object or data sent to the API.
      * @param ApiResponse|null $response API response, if available.
      */
     public function logDebug(
         string $action,
         Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote,
-        mixed $request,
+        array $request,
         ?ApiResponse $response = null
     ): void {
         if (Mage::getStoreConfigFlag('payment/paypal/debug')) {
-            $requestData = '';
-
-            if (is_object($request) && method_exists($request, 'jsonSerialize')) {
-                $requestData = json_encode($request->jsonSerialize());
-            } elseif (is_object($request)) {
-                $requestData = json_encode($request);
-            } elseif (is_string($request)) {
-                $requestData = $request;
-            } elseif (is_array($request)) {
-                $requestData = json_encode($request);
-            }
+            $requestData = json_encode($request);
             $debug = Mage::getModel('paypal/debug');
             if ($quote instanceof Mage_Sales_Model_Quote) {
                 $debug->setQuoteId($quote->getId());

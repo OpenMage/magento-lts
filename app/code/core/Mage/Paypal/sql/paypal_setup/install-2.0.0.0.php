@@ -17,11 +17,12 @@ $installer = $this;
 /* @var $installer Mage_Paypal_Model_Resource_Setup */
 
 $installer->startSetup();
+$debugTableName = 'paypal/debug';
 
-$installer->getConnection()->dropTable($installer->getTable('paypal/debug'));
+$installer->getConnection()->dropTable($installer->getTable($debugTableName));
 
 $debugTable = $installer->getConnection()
-    ->newTable($installer->getTable('paypal/debug'))
+    ->newTable($installer->getTable($debugTableName))
     ->addColumn('entity_id', Varien_Db_Ddl_Table::TYPE_INTEGER, null, [
         'identity'  => true,
         'unsigned'  => true,
@@ -55,15 +56,15 @@ $debugTable = $installer->getConnection()
         'default'   => Varien_Db_Ddl_Table::TIMESTAMP_INIT,
     ], 'Created At')
     ->addIndex(
-        $installer->getIdxName('paypal/debug', ['quote_id']),
+        $installer->getIdxName($debugTableName, ['quote_id']),
         ['quote_id'],
     )
     ->addIndex(
-        $installer->getIdxName('paypal/debug', ['increment_id']),
+        $installer->getIdxName($debugTableName, ['increment_id']),
         ['increment_id'],
     )
     ->addForeignKey(
-        $installer->getFkName('paypal/debug', 'quote_id', 'sales/quote', 'entity_id'),
+        $installer->getFkName($debugTableName, 'quote_id', 'sales/quote', 'entity_id'),
         'quote_id',
         $installer->getTable('sales/quote'),
         'entity_id',
@@ -71,7 +72,7 @@ $debugTable = $installer->getConnection()
         Varien_Db_Ddl_Table::ACTION_CASCADE,
     )
     ->addForeignKey(
-        $installer->getFkName('paypal/debug', 'increment_id', 'sales/order', 'increment_id'),
+        $installer->getFkName($debugTableName, 'increment_id', 'sales/order', 'increment_id'),
         'increment_id',
         $installer->getTable('sales/order'),
         'increment_id',
