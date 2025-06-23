@@ -39,15 +39,6 @@
             </dl>
         </div>
     <?php endif; ?>
-
-    <?php if ($this->canReauthorize()): ?>
-        <div class="paypal-reauthorize">
-            <button type="button" class="scalable" onclick="setLocation('<?php echo $this->getReauthorizeUrl() ?>')">
-                <span><?php echo $this->__('Reauthorize Payment') ?></span>
-            </button>
-            <p class="note"><?php echo $this->__('PayPal authorizations expire after 3 days. Reauthorize to extend the authorization period.') ?></p>
-        </div>
-    <?php endif; ?>
 </div>
 <style>
     .paypal-transaction {

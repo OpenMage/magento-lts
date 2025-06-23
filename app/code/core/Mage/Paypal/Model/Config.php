@@ -29,6 +29,7 @@ class Mage_Paypal_Model_Config extends Varien_Object
     public const BUTTON_LABEL_BUYNOW = 'buynow';
     public const BUTTON_LABEL_PAY = 'pay';
     public const BUTTON_LABEL_INSTALLMENT = 'installment';
+    protected $_cachedCredentials = null;
 
     /**
      * Supported currencies for PayPal transactions
@@ -70,12 +71,13 @@ class Mage_Paypal_Model_Config extends Varien_Object
      */
     public function getApiCredentials(): array
     {
-        return [
-            'client_id' => $this->getConfigData('client_id'),
-            'client_secret' => Mage::helper('core')->decrypt(
-                $this->getConfigData('client_secret'),
-            ),
-        ];
+        if ($this->_cachedCredentials === null) {
+            $this->_cachedCredentials = [
+                'client_id' => $this->getConfigData('client_id'),
+                'client_secret' => Mage::helper('core')->decrypt($this->getConfigData('client_secret')),
+            ];
+        }
+        return $this->_cachedCredentials;
     }
 
     /**

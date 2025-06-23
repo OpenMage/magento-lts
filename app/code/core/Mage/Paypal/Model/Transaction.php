@@ -227,6 +227,36 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
     }
 
     /**
+     * Update expired transaction record
+     *
+     * @param Varien_Object $payment Payment object
+     */
+    public function updateExpiredTransaction(Varien_Object $payment): void
+    {
+        $transaction = $this->getTransaction();
+        $transactionId = $payment->getLastTransId() . '-expired';
+
+        /**
+         * @var Mage_Sales_Model_Order_Payment $payment
+         */
+        $transaction->setOrderPaymentObject($payment)
+            ->setTxnId($transactionId)
+            ->setParentTxnId($payment->getTransactionId())
+            ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_VOID)
+            ->setIsClosed(1);
+        $transaction->save();
+        $payment->setLastTransId($transactionId)
+            ->setAdditionalInformation(self::PAYPAL_PAYMENT_STATUS, 'EXPIRED')
+            ->save();
+
+        $parentTxn = $transaction->loadByTxnId($payment->getLastTransId());
+        if ($parentTxn->getId()) {
+            $parentTxn->setIsClosed(1);
+            $parentTxn->save();
+        }
+    }
+
+    /**
      * Get order payment transaction model
      *
      * @throws Mage_Core_Exception

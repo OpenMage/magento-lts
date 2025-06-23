@@ -71,9 +71,8 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param string $orderId PayPal order ID
      * @param Mage_Sales_Model_Order $order Magento order
-     * @return array{success: bool, authorization_id?: string, error?: string}
      */
-    public function reauthorizePayment(string $orderId, Mage_Sales_Model_Order $order): array
+    public function reauthorizePayment(string $orderId, Mage_Sales_Model_Order $order): string
     {
         return $this->getPaymentProcessor()->reauthorizePayment($orderId, $order);
     }

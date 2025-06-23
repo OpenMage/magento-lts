@@ -62,6 +62,9 @@ $debugTable = $installer->getConnection()
     ->addIndex(
         $installer->getIdxName($debugTableName, ['increment_id']),
         ['increment_id'],
+    )->addIndex(
+        $installer->getIdxName($debugTableName, ['transaction_id']),
+        ['transaction_id'],
     )
     ->addForeignKey(
         $installer->getFkName($debugTableName, 'quote_id', 'sales/quote', 'entity_id'),
@@ -85,6 +88,25 @@ $installer->getConnection()->createTable($debugTable);
 $installer->getConnection()->delete(
     $installer->getTable('core_resource'),
     $installer->getConnection()->quoteInto('code = ?', 'paypaluk_setup'),
+);
+$status = 'paypal_auth_expired';
+$statusLabel = 'PayPal Authorization Expired';
+
+$installer->getConnection()->insert(
+    $installer->getTable('sales/order_status'),
+    [
+        'status' => $status,
+        'label'  => $statusLabel,
+    ],
+);
+
+$installer->getConnection()->insert(
+    $installer->getTable('sales/order_status_state'),
+    [
+        'status'     => $status,
+        'state'      => Mage_Sales_Model_Order::STATE_HOLDED,
+        'is_default' => 0,
+    ],
 );
 
 $installer->getConnection()->delete(

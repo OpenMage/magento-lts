@@ -82,49 +82,4 @@ class Mage_Paypal_Block_Adminhtml_Info extends Mage_Payment_Block_Info
         $date->setTimezone(new DateTimeZone($storeTimezone));
         return $date->format('Y-m-d H:i:s');
     }
-
-    /**
-     * Determines if the payment can be reauthorized based on its method, authorization ID, and expiration/creation time.
-     *
-     * @return bool True if the payment can be reauthorized, false otherwise.
-     */
-    public function canReauthorize(): bool
-    {
-        $payment = $this->getInfo();
-
-        if (
-            $payment->getMethod() !== 'paypal' ||
-            !$payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_ID)
-        ) {
-            return false;
-        }
-
-        $expirationTime = $payment->getAdditionalInformation(Mage_Paypal_Model_Transaction::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME);
-        if ($expirationTime) {
-            $now = new DateTime();
-            $expDate = new DateTime($expirationTime);
-            $daysDiff = $now->diff($expDate)->days;
-            return $daysDiff <= 26;
-        }
-
-        $authTime = $payment->getCreatedAt();
-        $now = new DateTime();
-        $authDate = new DateTime($authTime);
-        $daysDiff = $now->diff($authDate)->days;
-
-        return $daysDiff >= 3;
-    }
-
-    /**
-     * Generates the URL for reauthorizing the payment.
-     *
-     * @return string The reauthorization URL.
-     */
-    public function getReauthorizeUrl(): string
-    {
-        return Mage::getUrl('*/paypal_transaction/reauthorize', [
-            'order_id' => $this->getInfo()->getOrder()->getId(),
-            '_secure' => true,
-        ]);
-    }
 }

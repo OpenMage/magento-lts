@@ -139,4 +139,16 @@
             </paypal>
         </payment>
     </default>
+    <crontab>
+        <jobs>
+            <paypal_check_authorization_expiry>
+                <schedule>
+                    <cron_expr>0 */3 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>paypal/cron::processAuthorizationLifecycle</model>
+                </run>
+            </paypal_check_authorization_expiry>
+        </jobs>
+    </crontab>
 </config>
