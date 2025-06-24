@@ -80,55 +80,30 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      *
      * @param string $orderId PayPal order ID
      * @param Mage_Sales_Model_Order $order Magento order
-     * @todo Waiting for test, after test, transaction and payment part should be moved to transaction manager
      */
     public function reauthorizePayment(string $orderId, Mage_Sales_Model_Order $order): string
     {
         $api = $this->getHelper()->getApi();
         $response = $api->reAuthorizeOrder($orderId, $order);
-        $result = $response->getResult();
 
         if ($response->isError()) {
             $this->getHelper()->handleApiError($response, 'Reauthorization failed');
         }
 
-        $authorization = $result->getPurchaseUnits()[0]->getPayments()->getAuthorizations()[0];
-        $authorizationId = $authorization->getId();
-        $expirationTime = $authorization->getExpirationTime();
-
         $payment = $order->getPayment();
-        $payment->setAdditionalInformation([
-            self::PAYPAL_PAYMENT_STATUS => $authorization->getStatus(),
-            self::PAYPAL_PAYMENT_AUTHORIZATION_ID => $authorizationId,
-            self::PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME => $expirationTime,
-            Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS => $this->getHelper()->prepareRawDetails($response->getBody()),
-        ])->getShouldCloseParentTransaction();
-
-        $transaction = $this->getTransactionManager()->getTransaction();
-        $transaction->setOrderPaymentObject($payment)
-            ->setTxnId($authorizationId)
-            ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH)
-            ->setIsClosed(0)
-            ->setAdditionalInformation(self::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHROIZED, true)
-            ->setAdditionalInformation(
-                Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
-                $this->getHelper()->prepareRawDetails($response->getBody()),
-            );
-        $transaction->save();
-        $payment->setLastTransId($transaction->getTxnId())->save();
-        $storeTimezone = Mage::app()->getStore()->getConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE);
-        $date = new DateTime($expirationTime, new DateTimeZone('UTC'));
-        $date->setTimezone(new DateTimeZone($storeTimezone));
+        $payment->setAdditionalInformation(
+            self::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHROIZED,
+            true,
+        );
+        $payment->save();
 
         $order->addStatusHistoryComment(
             Mage::helper('paypal')->__(
-                'PayPal payment has been reauthorized. New authorization ID: %s. Expires on: %s',
-                $authorizationId,
-                $date->format('Y-m-d H:i:s'),
+                'PayPal payment has been reauthorized. Capture is required.',
             ),
             false,
         )->save();
-        return $authorizationId;
+        return $response->getResult()->getBody();
     }
 
     /**

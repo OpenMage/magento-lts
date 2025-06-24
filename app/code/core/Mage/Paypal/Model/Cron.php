@@ -92,7 +92,7 @@ class Mage_Paypal_Model_Cron
         } elseif ($hoursUntilExpiry <= 72) {
             // Within 3 days of expiration - send email alert
             $this->_addExpirationAlert($order, $transaction, $hoursUntilExpiry);
-        } elseif ($hoursFromAuth >= 72 && !$this->_hasBeenReauthorized($transaction)) {
+        } elseif ($hoursFromAuth >= 72 && !$this->_hasBeenReauthorized($payment)) {
             // Past honor period (3+ days) - attempt reauthorization
             $this->_attemptReauthorization($order, $transaction);
         }
@@ -141,13 +141,13 @@ class Mage_Paypal_Model_Cron
     /**
      * Check if transaction has been reauthorized
      *
-     * @param Mage_Sales_Model_Order_Payment_Transaction $transaction
+     * @param Mage_Sales_Model_Order_Payment $payment
      * @return bool
      */
-    protected function _hasBeenReauthorized($transaction)
+    protected function _hasBeenReauthorized($payment)
     {
-        $additionalInfo = $transaction->getAdditionalInformation();
-        return isset($additionalInfo[Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_ID]) && $additionalInfo[Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_ID];
+        $additionalInfo = $payment->getAdditionalInformation();
+        return isset($additionalInfo[Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHROIZED]);
     }
 
     /**
@@ -166,13 +166,13 @@ class Mage_Paypal_Model_Cron
             }
 
             $paypalModel = Mage::getModel('paypal/paypal');
-            $result = $paypalModel->reauthorizePayment($authorizationId, $order);
+            $response = $paypalModel->reauthorizePayment($authorizationId, $order);
 
             Mage::log([
                 'order_id' => $order->getIncrementId(),
-                'old_auth_id' => $authorizationId,
-                'new_auth_id' => $result,
+                'auth_id' => $authorizationId,
                 'message' => 'Auto-reauthorization successful',
+                'response' => $response,
             ], Zend_Log::INFO, 'paypal_auto_reauth.log');
         } catch (Exception $e) {
             Mage::logException($e);
