@@ -188,6 +188,8 @@ class Mage_Paypal_Model_Config
      */
     public const XML_PATH_PAYPAL_EXPRESS_SKIP_ORDER_REVIEW_STEP_FLAG = 'payment/paypal_express/skip_order_review_step';
 
+    public const XML_PATH_PAYMENT_SECTION = 'payment/';
+
     /**
      * Default URL for centinel API (PayPal Direct)
      *
@@ -1646,7 +1648,7 @@ class Mage_Paypal_Model_Config
     protected function _mapStandardFieldset($fieldName)
     {
         return match ($fieldName) {
-            'line_items_summary', 'sandbox_flag' => 'payment/' . self::METHOD_WPS . "/{$fieldName}",
+            'line_items_summary', 'sandbox_flag' => self::XML_PATH_PAYMENT_SECTION . self::METHOD_WPS . "/{$fieldName}",
             default => $this->_mapMethodFieldset($fieldName),
         };
     }
@@ -1674,7 +1676,7 @@ class Mage_Paypal_Model_Config
     protected function _mapBmlFieldset($fieldName)
     {
         return match ($fieldName) {
-            'allow_ba_signup' => 'payment/' . self::METHOD_WPP_EXPRESS . "/{$fieldName}",
+            'allow_ba_signup' => self::XML_PATH_PAYMENT_SECTION . self::METHOD_WPP_EXPRESS . "/{$fieldName}",
             default => $this->_mapExpressFieldset($fieldName),
         };
     }
@@ -1688,7 +1690,7 @@ class Mage_Paypal_Model_Config
     protected function _mapBmlUkFieldset($fieldName)
     {
         return match ($fieldName) {
-            'allow_ba_signup' => 'payment/' . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}",
+            'allow_ba_signup' => self::XML_PATH_PAYMENT_SECTION . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}",
             default => $this->_mapExpressFieldset($fieldName),
         };
     }
@@ -1738,7 +1740,7 @@ class Mage_Paypal_Model_Config
         } elseif ($this->_methodCode == self::METHOD_PAYFLOWADVANCED
             || $this->_methodCode == self::METHOD_PAYFLOWLINK
         ) {
-            $pathPrefix = 'payment/' . $this->_methodCode;
+            $pathPrefix = self::XML_PATH_PAYMENT_SECTION . $this->_methodCode;
         }
         return match ($fieldName) {
             'partner', 'user', 'vendor', 'pwd', 'sandbox_flag', 'use_proxy', 'proxy_host', 'proxy_port' => $pathPrefix . '/' . $fieldName,

@@ -423,7 +423,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         foreach ($emails as $key => $email) {
-            $mail->addTo($email, '=?utf-8?B?' . base64_encode($names[$key]) . '?=');
+            $mail->addTo($email, $this->getBase64EncodedString($names[$key]));
         }
 
         if ($this->isPlain()) {
@@ -432,7 +432,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $mail->setBodyHtml($text);
         }
 
-        $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
+        $mail->setSubject($this->getBase64EncodedString($subject));
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
@@ -645,5 +645,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Name'));
         }
         return parent::_beforeSave();
+    }
+
+    protected function getBase64EncodedString(string $string): string
+    {
+        return '=?utf-8?B?' . base64_encode($string) . '?=';
     }
 }
