@@ -18,16 +18,15 @@ class Mage_Adminhtml_Block_Tag_Product extends Mage_Adminhtml_Block_Widget_Grid_
     {
         parent::__construct();
 
-        $url = match ($this->getRequest()->getParam('ret')) {
-            'all' => $this->getUrl('*/*/'),
-            'pending' => $this->getUrl('*/*/pending'),
-            default => $this->getUrl('*/*/'),
+        $route = match ($this->getRequest()->getParam('ret')) {
+            'pending' => '*/*/pending',
+            default => '*/*/',
         };
 
         $this->_block = 'tag_product';
         $this->_controller = 'tag_product';
         $this->_removeButton('add');
-        $this->setBackUrl($url);
+        $this->setBackUrl($this->getUrl($route));
         $this->_addBackButton();
 
         $tagInfo = Mage::getModel('tag/tag')

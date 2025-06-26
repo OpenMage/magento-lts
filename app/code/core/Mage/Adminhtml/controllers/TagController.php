@@ -323,10 +323,12 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        return match ($action) {
-            'pending' => Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending'),
-            'all' => Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all'),
-            default => Mage::getSingleton('admin/session')->isAllowed('catalog/tag'),
+        $aclPath = match ($action) {
+            'pending' => 'catalog/tag/pending',
+            'all' => 'catalog/tag/all',
+            default => 'catalog/tag',
         };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

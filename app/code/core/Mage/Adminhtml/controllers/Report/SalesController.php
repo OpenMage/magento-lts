@@ -374,15 +374,17 @@ class Mage_Adminhtml_Report_SalesController extends Mage_Adminhtml_Controller_Re
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        return match ($action) {
-            'sales' => $this->_getSession()->isAllowed('report/salesroot/sales'),
-            'tax' => $this->_getSession()->isAllowed('report/salesroot/tax'),
-            'shipping' => $this->_getSession()->isAllowed('report/salesroot/shipping'),
-            'invoiced' => $this->_getSession()->isAllowed('report/salesroot/invoiced'),
-            'refunded' => $this->_getSession()->isAllowed('report/salesroot/refunded'),
-            'coupons' => $this->_getSession()->isAllowed('report/salesroot/coupons'),
-            'bestsellers' => $this->_getSession()->isAllowed('report/products/bestsellers'),
-            default => $this->_getSession()->isAllowed('report/salesroot'),
+        $aclPath = match ($action) {
+            'sales' => 'report/salesroot/sales',
+            'tax' => 'report/salesroot/tax',
+            'shipping' => 'report/salesroot/shipping',
+            'invoiced' => 'report/salesroot/invoiced',
+            'refunded' => 'report/salesroot/refunded',
+            'coupons' => 'report/salesroot/coupons',
+            'bestsellers' => 'report/products/bestsellers',
+            default => 'report/salesroot',
         };
+
+        return $this->_getSession()->isAllowed($aclPath);
     }
 }
