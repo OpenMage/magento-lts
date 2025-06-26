@@ -74,7 +74,7 @@ class Mage_Centinel_Adminhtml_Centinel_IndexController extends Mage_Adminhtml_Co
                 $validator->authenticate($data);
                 Mage::register('current_centinel_validator', $validator);
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::register('current_centinel_validator', false);
         }
         $this->loadLayout()->renderLayout();

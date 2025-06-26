@@ -41,7 +41,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         try {
             $adapter = Mage::getModel($adapterName);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $message = Mage::helper('dataflow')->__('Declared adapter %s was not found.', $adapterName);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
             return $this;
@@ -194,7 +194,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         try {
             $xmlElement = new SimpleXMLElement($xml);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $message = 'Invalid XML row';
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::ERROR);
             return $this;

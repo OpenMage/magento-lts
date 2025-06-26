@@ -56,7 +56,7 @@ class Mage_Xml_Generator
         foreach ($content as $key => $item) {
             try {
                 $node = $this->getDom()->createElement($key);
-            } catch (DOMException $e) {
+            } catch (DOMException) {
                 //  echo $e->getMessage();
                 var_dump($item);
                 die;
