@@ -336,6 +336,9 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
         }
 
         $config = Mage::getConfig();
+        /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+        $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+        $environmentConfigLoaderHelper->overrideEnvironment($config);
 
         $fullPath = 'stores/' . $this->getCode() . '/' . $path;
         $data = $config->getNode($fullPath);
