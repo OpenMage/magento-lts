@@ -157,12 +157,12 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                     break;
             }
             $this->_ignoreAddressValidation();
-            $this->_quote->collectTotals();
+            $this->_getQuote()->collectTotals();
             $session = $this->_getCheckoutSession();
             $service = Mage::getModel('sales/service_quote', $this->_getQuote());
 
             $service->submitAll();
-            $this->_quote->save();
+            $this->_getQuote()->save();
             if ($isNewCustomer) {
                 try {
                     $this->_involveNewCustomer();
@@ -177,7 +177,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            $quotePayment = $this->_quote->getPayment();
+            $quotePayment = $this->_getQuote()->getPayment();
             $orderPayment = $order->getPayment();
             $orderPayment->setQuotePaymentId($quotePayment->getId())
                 ->setLastTransId($quotePayment->getPaypalCorrelationId());
@@ -235,8 +235,8 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             }
 
             $session->clearHelperData();
-            $session->setLastQuoteId($this->_quote->getId())
-                ->setLastSuccessQuoteId($this->_quote->getId())
+            $session->setLastQuoteId($this->_getQuote()->getId())
+                ->setLastSuccessQuoteId($this->_getQuote()->getId())
                 ->setLastOrderId($order->getId())
                 ->setLastRealOrderId($order->getIncrementId());
             $order->queueNewOrderEmail();
@@ -246,7 +246,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
         } catch (Exception $e) {
             Mage::logException($e);
 
-            Mage::helper('checkout')->sendPaymentFailedEmail($this->_quote, $e->getMessage());
+            Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $e->getMessage());
             $session->addError($e->getMessage());
             $this->_redirect('checkout/cart');
         }
@@ -299,7 +299,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      */
     protected function _prepareNewCustomerQuote(): self
     {
-        $quote      = $this->_quote;
+        $quote      = $this->_getQuote();
         $billing    = $quote->getBillingAddress();
         $shipping   = $quote->isVirtual() ? null : $quote->getShippingAddress();
 
@@ -429,7 +429,7 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     {
         return Mage::getModel('customer/customer')
             ->setWebsiteId(Mage::app()->getWebsite()->getId())
-            ->loadByEmail($this->_quote->getCustomerEmail())
+            ->loadByEmail($this->_getQuote()->getCustomerEmail())
             ->getId();
     }
 
@@ -438,9 +438,9 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      */
     private function _ignoreAddressValidation(): void
     {
-        $this->_quote->getBillingAddress()->setShouldIgnoreValidation(true);
-        if (!$this->_quote->getIsVirtual()) {
-            $this->_quote->getShippingAddress()->setShouldIgnoreValidation(true);
+        $this->_getQuote()->getBillingAddress()->setShouldIgnoreValidation(true);
+        if (!$this->_getQuote()->getIsVirtual()) {
+            $this->_getQuote()->getShippingAddress()->setShouldIgnoreValidation(true);
         }
     }
     /**
@@ -462,15 +462,15 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
      */
     protected function _involveNewCustomer(): self
     {
-        $customer = $this->_quote->getCustomer();
+        $customer = $this->_getQuote()->getCustomer();
         if ($customer->isConfirmationRequired()) {
-            $customer->sendNewAccountEmail('confirmation', '', $this->_quote->getStoreId());
+            $customer->sendNewAccountEmail('confirmation', '', $this->_getQuote()->getStoreId());
             $url = Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail());
             $this->_getCustomerSession()->addSuccess(
                 Mage::helper('customer')->__('Account confirmation is required. Please, check your e-mail for confirmation link. To resend confirmation email please <a href="%s">click here</a>.', $url),
             );
         } else {
-            $customer->sendNewAccountEmail('registered', '', $this->_quote->getStoreId());
+            $customer->sendNewAccountEmail('registered', '', $this->_getQuote()->getStoreId());
             $this->_getCustomerSession()->loginById($customer->getId());
         }
         return $this;
