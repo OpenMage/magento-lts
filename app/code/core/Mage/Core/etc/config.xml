@@ -437,6 +437,32 @@
                 <secure_system_configuration_save_disabled>0</secure_system_configuration_save_disabled>
             </security>
         </admin>
+        <advanced_grid>
+            <productGrid>
+                <enabled>0</enabled>
+                <media_image_width>64</media_image_width>
+            </productGrid>
+            <catalog_category_products>
+                <enabled>0</enabled>
+                <media_image_width>64</media_image_width>
+            </catalog_category_products>
+            <related_product_grid>
+                <enabled>0</enabled>
+                <media_image_width>64</media_image_width>
+            </related_product_grid>
+            <up_sell_product_grid>
+                <enabled>0</enabled>
+                <media_image_width>64</media_image_width>
+            </up_sell_product_grid>
+            <cross_sell_product_grid>
+                <enabled>0</enabled>
+                <media_image_width>64</media_image_width>
+            </cross_sell_product_grid>
+            <super_product_links>
+                <enabled>0</enabled>
+                <media_image_width>64</media_image_width>
+            </super_product_links>
+        </advanced_grid>
         <general>
             <country>
                 <eu_countries>AT,BE,BG,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,HR</eu_countries>

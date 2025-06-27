@@ -100,8 +100,8 @@ $numColumns = count($this->getColumns());
             <thead>
                 <?php if ($this->getHeadersVisibility()): ?>
                     <tr class="headings">
-                    <?php foreach ($this->getColumns() as $_column): ?>
-                        <th<?php echo $_column->getHeaderHtmlProperty() ?> data-column-id="<?php echo $_column->getId() ?>"><?php echo $_column->getHeaderHtml() ?></th>
+                    <?php foreach ($this->getColumns() as $key => $_column): ?>
+                        <th data-entity="<?php echo $key; ?>" data-column-id="<?php echo $_column->getId() ?>" <?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getHeaderHtml() ?></th>
                     <?php endforeach ?>
                     </tr>
                 <?php endif ?>
@@ -200,7 +200,14 @@ $numColumns = count($this->getColumns());
     <?php if($this->getMassactionBlock()->isAvailable()): ?>
     <?php echo $this->getMassactionBlock()->getJavaScript() ?>
     <?php endif ?>
+    <?php if($this->getAdvancedGridBlock()->isAvailable()): ?>
+    <?php echo $this->getAdvancedGridBlock()->getJavaScript() ?>
+    <?php endif ?>
     <?php echo $this->getAdditionalJavaScript(); ?>
+
+    if (typeof gridDoubleScroll !== 'undefined') {
+        new gridDoubleScroll('<?php echo $this->getId() ?>', <?php echo $this->getJsObjectName() ?>);
+    }
 //]]>
 </script>
 <?php endif ?>

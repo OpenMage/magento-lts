@@ -125,6 +125,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Upsell extends Mage_Adminhtm
             'header'    => Mage::helper('catalog')->__('ID'),
             'index'     => 'entity_id',
         ]);
+
         $this->addColumn('name', [
             'header'    => Mage::helper('catalog')->__('Name'),
             'index'     => 'name',
