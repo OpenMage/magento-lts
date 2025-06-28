@@ -411,15 +411,12 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      */
     protected function _getPaypalUkActionName($methodName)
     {
-        switch ($methodName) {
-            case Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT:
-                return self::EXPRESS_SET;
-            case Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS:
-                return self::EXPRESS_GET;
-            case Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT:
-                return self::EXPRESS_DO_PAYMENT;
-        }
-        return null;
+        return match ($methodName) {
+            Mage_Paypal_Model_Api_Nvp::SET_EXPRESS_CHECKOUT => self::EXPRESS_SET,
+            Mage_Paypal_Model_Api_Nvp::GET_EXPRESS_CHECKOUT_DETAILS => self::EXPRESS_GET,
+            Mage_Paypal_Model_Api_Nvp::DO_EXPRESS_CHECKOUT_PAYMENT => self::EXPRESS_DO_PAYMENT,
+            default => null,
+        };
     }
 
     /**

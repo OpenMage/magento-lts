@@ -281,46 +281,32 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         }
 
         // set additional fields to different types
-        switch ($model->getFrontendInput()) {
-            case 'text':
-                $result['additional_fields'] = [
-                    'frontend_class' => $model->getFrontendClass(),
-                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                    'used_for_sort_by' => $model->getUsedForSortBy(),
-                ];
-                break;
-            case 'textarea':
-                $result['additional_fields'] = [
-                    'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
-                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                ];
-                break;
-            case 'date':
-            case 'boolean':
-                $result['additional_fields'] = [
-                    'used_for_sort_by' => $model->getUsedForSortBy(),
-                ];
-                break;
-            case 'multiselect':
-                $result['additional_fields'] = [
-                    'is_filterable' => $model->getIsFilterable(),
-                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                    'position' => $model->getPosition(),
-                ];
-                break;
-            case 'select':
-            case 'price':
-                $result['additional_fields'] = [
-                    'is_filterable' => $model->getIsFilterable(),
-                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                    'position' => $model->getPosition(),
-                    'used_for_sort_by' => $model->getUsedForSortBy(),
-                ];
-                break;
-            default:
-                $result['additional_fields'] = [];
-                break;
-        }
+        $result['additional_fields'] = match ($model->getFrontendInput()) {
+            'text' => [
+                'frontend_class' => $model->getFrontendClass(),
+                'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                'used_for_sort_by' => $model->getUsedForSortBy(),
+            ],
+            'textarea' => [
+                'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
+                'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+            ],
+            'date', 'boolean' => [
+                'used_for_sort_by' => $model->getUsedForSortBy(),
+            ],
+            'multiselect' => [
+                'is_filterable' => $model->getIsFilterable(),
+                'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                'position' => $model->getPosition(),
+            ],
+            'select', 'price' => [
+                'is_filterable' => $model->getIsFilterable(),
+                'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                'position' => $model->getPosition(),
+                'used_for_sort_by' => $model->getUsedForSortBy(),
+            ],
+            default => [],
+        };
 
         // set options
         $options = $this->options($model->getId());

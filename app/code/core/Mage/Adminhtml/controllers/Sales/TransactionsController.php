@@ -113,11 +113,11 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'fetch':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('sales/transactions');
-        }
+        $aclPath = match ($action) {
+            'fetch' => 'sales/transactions/fetch',
+            default => 'sales/transactions',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

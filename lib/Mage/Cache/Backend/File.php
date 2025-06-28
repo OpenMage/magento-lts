@@ -233,13 +233,10 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     {
         // We use this protected method to hide the recursive stuff
         clearstatcache();
-        switch ($mode) {
-            case Zend_Cache::CLEANING_MODE_ALL:
-            case Zend_Cache::CLEANING_MODE_OLD:
-                return $this->_clean($this->_options['cache_dir'], $mode);
-            default:
-                return $this->_cleanNew($mode, $tags);
-        }
+        return match ($mode) {
+            Zend_Cache::CLEANING_MODE_ALL, Zend_Cache::CLEANING_MODE_OLD => $this->_clean($this->_options['cache_dir'], $mode),
+            default => $this->_cleanNew($mode, $tags),
+        };
     }
 
     /**

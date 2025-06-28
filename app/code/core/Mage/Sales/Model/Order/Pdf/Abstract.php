@@ -907,17 +907,11 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                         $page->setFont($font, $fontSize);
                     } else {
                         $fontStyle = empty($column['font']) ? 'regular' : $column['font'];
-                        switch ($fontStyle) {
-                            case 'bold':
-                                $font = $this->_setFontBold($page, $fontSize);
-                                break;
-                            case 'italic':
-                                $font = $this->_setFontItalic($page, $fontSize);
-                                break;
-                            default:
-                                $font = $this->_setFontRegular($page, $fontSize);
-                                break;
-                        }
+                        $font = match ($fontStyle) {
+                            'bold' => $this->_setFontBold($page, $fontSize),
+                            'italic' => $this->_setFontItalic($page, $fontSize),
+                            default => $this->_setFontRegular($page, $fontSize),
+                        };
                     }
 
                     if (!is_array($column['text'])) {

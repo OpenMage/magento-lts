@@ -386,17 +386,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         $subject = $this->getProcessedTemplateSubject($variables);
 
         $setReturnPath = Mage::getStoreConfig(self::XML_PATH_SENDING_SET_RETURN_PATH);
-        switch ($setReturnPath) {
-            case 1:
-                $returnPathEmail = $this->getSenderEmail();
-                break;
-            case 2:
-                $returnPathEmail = Mage::getStoreConfig(self::XML_PATH_SENDING_RETURN_PATH_EMAIL);
-                break;
-            default:
-                $returnPathEmail = null;
-                break;
-        }
+        $returnPathEmail = match ($setReturnPath) {
+            1 => $this->getSenderEmail(),
+            2 => Mage::getStoreConfig(self::XML_PATH_SENDING_RETURN_PATH_EMAIL),
+            default => null,
+        };
 
         if ($this->hasQueue() && $this->getQueue() instanceof Mage_Core_Model_Email_Queue) {
             $emailQueue = $this->getQueue();
@@ -429,7 +423,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         }
 
         foreach ($emails as $key => $email) {
-            $mail->addTo($email, '=?utf-8?B?' . base64_encode($names[$key]) . '?=');
+            $mail->addTo($email, $this->getBase64EncodedString($names[$key]));
         }
 
         if ($this->isPlain()) {
@@ -438,7 +432,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $mail->setBodyHtml($text);
         }
 
-        $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
+        $mail->setSubject($this->getBase64EncodedString($subject));
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
 
         try {
@@ -651,5 +645,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Name'));
         }
         return parent::_beforeSave();
+    }
+
+    protected function getBase64EncodedString(string $string): string
+    {
+        return '=?utf-8?B?' . base64_encode($string) . '?=';
     }
 }

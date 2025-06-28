@@ -370,15 +370,10 @@ class Mage_Sales_Model_Observer
     protected function _getVatRequiredSalesAddress($salesModel, $store = null)
     {
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType($store);
-        $requiredAddress = null;
-        switch ($configAddressType) {
-            case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
-                $requiredAddress = $salesModel->getShippingAddress();
-                break;
-            default:
-                $requiredAddress = $salesModel->getBillingAddress();
-        }
-        return $requiredAddress;
+        return match ($configAddressType) {
+            Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => $salesModel->getShippingAddress(),
+            default => $salesModel->getBillingAddress(),
+        };
     }
 
     /**
@@ -390,15 +385,10 @@ class Mage_Sales_Model_Observer
     protected function _getVatRequiredCustomerAddress(Mage_Customer_Model_Customer $customer, $store = null)
     {
         $configAddressType = Mage::helper('customer/address')->getTaxCalculationAddressType($store);
-        $requiredAddress = null;
-        switch ($configAddressType) {
-            case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
-                $requiredAddress = $customer->getDefaultShipping();
-                break;
-            default:
-                $requiredAddress = $customer->getDefaultBilling();
-        }
-        return $requiredAddress;
+        return match ($configAddressType) {
+            Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => $customer->getDefaultShipping(),
+            default => $customer->getDefaultBilling(),
+        };
     }
 
     /**

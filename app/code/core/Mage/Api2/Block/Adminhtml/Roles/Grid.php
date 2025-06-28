@@ -109,17 +109,10 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
      */
     public function decorateUserType($renderedValue, $row, $column, $isExport)
     {
-        switch ($row->getEntityId()) {
-            case Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID:
-                $userType = Mage::helper('api2')->__('Guest');
-                break;
-            case Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID:
-                $userType = Mage::helper('api2')->__('Customer');
-                break;
-            default:
-                $userType = Mage::helper('api2')->__('Admin');
-                break;
-        }
-        return $userType;
+        return match ($row->getEntityId()) {
+            Mage_Api2_Model_Acl_Global_Role::ROLE_GUEST_ID => Mage::helper('api2')->__('Guest'),
+            Mage_Api2_Model_Acl_Global_Role::ROLE_CUSTOMER_ID => Mage::helper('api2')->__('Customer'),
+            default => Mage::helper('api2')->__('Admin'),
+        };
     }
 }
