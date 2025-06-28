@@ -7,6 +7,8 @@
  * @package    Mage_Admin
  */
 
+use Carbon\Carbon;
+
 /**
  * Admin user model
  *
@@ -670,7 +672,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
         $this->setRpToken($newResetPasswordLinkToken);
-        $currentDate = Varien_Date::now();
+        $currentDate = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         $this->setRpTokenCreatedAt($currentDate);
 
         return $this;
@@ -690,17 +692,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             return true;
         }
 
-        $tokenExpirationPeriod = Mage::helper('admin')->getResetPasswordLinkExpirationPeriod();
-
-        $currentDate = Varien_Date::now();
-        $currentTimestamp = Varien_Date::toTimestamp($currentDate);
-        $tokenTimestamp = Varien_Date::toTimestamp($resetPasswordLinkTokenCreatedAt);
+        $currentTimestamp   = Carbon::now();
+        $tokenTimestamp     = Carbon::now()->setTimeFromTimeString($resetPasswordLinkTokenCreatedAt);
         if ($tokenTimestamp > $currentTimestamp) {
             return true;
         }
 
-        $hoursDifference = floor(($currentTimestamp - $tokenTimestamp) / (60 * 60));
-        if ($hoursDifference >= $tokenExpirationPeriod) {
+        $tokenExpirationPeriod = Mage::helper('admin')->getResetPasswordLinkExpirationPeriod();
+        if ($currentTimestamp->diffInDays($tokenTimestamp) >= $tokenExpirationPeriod) {
             return true;
         }
 
@@ -729,7 +728,8 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     protected function _getDateNow($dayOnly = false)
     {
-        return Varien_Date::now($dayOnly);
+        $format = $dayOnly ? Mage_Core_Helper_Date::DATE_PHP_FORMAT : Mage_Core_Helper_Date::DATETIME_PHP_FORMAT;
+        return Carbon::now()->format($format);
     }
 
     /**

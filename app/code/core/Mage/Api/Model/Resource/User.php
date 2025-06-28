@@ -7,6 +7,8 @@
  * @package    Mage_Api
  */
 
+use Carbon\Carbon;
+
 /**
  * ACL user resource
  *
@@ -67,7 +69,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             ->from($this->getTable('api/session'), 'user_id')
             ->where('user_id = ?', $user->getId())
             ->where('sessid = ?', $user->getSessid());
-        $loginDate = Varien_Date::now();
+        $loginDate = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         if ($readAdapter->fetchRow($select)) {
             $writeAdapter->update(
                 $this->getTable('api/session'),
@@ -105,7 +107,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             Varien_Db_Adapter_Interface::INTERVAL_SECOND,
         );
         $where = [
-            $readAdapter->quote(Varien_Date::now()) . ' > ' . $timeSubtract,
+            $readAdapter->quote(Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT)) . ' > ' . $timeSubtract,
         ];
         if ($user) {
             $where['user_id = ?'] = $user->getId();
@@ -203,7 +205,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $user)
     {
-        $now = Varien_Date::now();
+        $now = Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT);
         if (!$user->getId()) {
             $user->setCreated($now);
         }

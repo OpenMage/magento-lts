@@ -7,6 +7,8 @@
  * @package    Mage_Index
  */
 
+use Carbon\Carbon;
+
 /**
  * Index Process Resource Model
  *
@@ -47,7 +49,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     {
         $data = [
             'status'    => Mage_Index_Model_Process::STATUS_PENDING,
-            'ended_at'  => $this->formatDate(time()),
+            'ended_at'  => $this->formatDate(Carbon::now()->getTimestamp()),
         ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -62,7 +64,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     {
         $data = [
             'status'        => Mage_Index_Model_Process::STATUS_RUNNING,
-            'started_at'    => $this->formatDate(time()),
+            'started_at'    => $this->formatDate(Carbon::now()->getTimestamp()),
         ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -77,7 +79,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
     {
         $data = [
             'status'   => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
-            'ended_at' => $this->formatDate(time()),
+            'ended_at' => $this->formatDate(Carbon::now()->getTimestamp()),
         ];
         $this->_updateProcessData($process->getId(), $data);
         return $this;
@@ -119,7 +121,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function updateProcessStartDate(Mage_Index_Model_Process $process)
     {
-        $this->_updateProcessData($process->getId(), ['started_at' => $this->formatDate(time())]);
+        $this->_updateProcessData($process->getId(), ['started_at' => $this->formatDate(Carbon::now()->getTimestamp())]);
         return $this;
     }
 
@@ -130,7 +132,7 @@ class Mage_Index_Model_Resource_Process extends Mage_Core_Model_Resource_Db_Abst
      */
     public function updateProcessEndDate(Mage_Index_Model_Process $process)
     {
-        $this->_updateProcessData($process->getId(), ['ended_at' => $this->formatDate(time())]);
+        $this->_updateProcessData($process->getId(), ['ended_at' => $this->formatDate(Carbon::now()->getTimestamp())]);
         return $this;
     }
 

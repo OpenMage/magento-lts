@@ -413,7 +413,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     }
                     break;
                 case 'date':
-                    $validator = new Zend_Validate_Date(Varien_Date::DATE_INTERNAL_FORMAT);
+                    $validator = new Zend_Validate_Date(Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT);
                     $validator->setMessage(
                         Mage::helper('eav')->__('"%s" invalid type entered.', $label),
                         Zend_Validate_Date::INVALID,

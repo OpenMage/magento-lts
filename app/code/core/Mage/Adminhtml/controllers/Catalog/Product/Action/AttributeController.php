@@ -81,7 +81,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                                 'date_format' => $dateFormat,
                             ]);
                             $filterInternal = new Zend_Filter_NormalizedToLocalized([
-                                'date_format' => Varien_Date::DATE_INTERNAL_FORMAT,
+                                'date_format' => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
                             ]);
                             $value = $filterInternal->filter($filterInput->filter($value));
                         } else {

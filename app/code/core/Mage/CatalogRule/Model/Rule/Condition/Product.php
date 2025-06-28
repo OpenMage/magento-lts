@@ -7,6 +7,8 @@
  * @package    Mage_CatalogRule
  */
 
+use Carbon\Carbon;
+
 /**
  * Catalog Rule Product Condition data model
  *
@@ -98,7 +100,7 @@ class Mage_CatalogRule_Model_Rule_Condition_Product extends Mage_Rule_Model_Cond
             if (!$value) {
                 return null;
             }
-            $value = strtotime($value);
+            $value = Carbon::parse($value)->getTimestamp();
         }
         return $value;
     }

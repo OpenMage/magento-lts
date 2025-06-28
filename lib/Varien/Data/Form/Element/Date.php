@@ -84,7 +84,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         }
         // last check, if input format was set
         if (null === $format) {
-            $format = Varien_Date::DATETIME_INTERNAL_FORMAT;
+            $format = Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT;
             if ($this->getInputFormat()) {
                 $format = $this->getInputFormat();
             }

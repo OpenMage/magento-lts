@@ -84,7 +84,7 @@ try {
             instanceOf: false,
             earlyReturn: false,
             strictBooleans: false,
-            carbon: false,
+            carbon: true,
             rectorPreset: false,
             phpunitCodeQuality: true,
             doctrineCodeQuality: false,

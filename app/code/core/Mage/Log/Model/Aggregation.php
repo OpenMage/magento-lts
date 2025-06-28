@@ -7,6 +7,8 @@
  * @package    Mage_Log
  */
 
+use Carbon\Carbon;
+
 /**
  * Log Aggregation Model
  *
@@ -53,7 +55,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $lastDateRecord = null;
         $start          = $this->_lastRecord;
-        $end            = time();
+        $end            = Carbon::now()->getTimestamp();
         $date           = $start;
 
         while ($date < $end) {
@@ -127,7 +129,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $result = $this->_getResource()->getLastRecordDate();
         if (!$result) {
-            $result = $this->_date(strtotime('now - 2 months'));
+            $result = $this->_date(Carbon::parse('now - 2 months')->getTimestamp());
         }
 
         return $result;
@@ -142,7 +144,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     {
         $out = $in;
         if (is_numeric($in)) {
-            $out = date(Varien_Date::DATETIME_PHP_FORMAT, $in);
+            $out = Carbon::createFromTimestamp($in)->format(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT);
         }
         return $out;
     }
@@ -150,13 +152,14 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
     /**
      * @param string|int $in
      * @param null $offset deprecated
-     * @return false|int
+     * @return int
+     * @SuppressWarnings("PHPMD.UnusedFormalParameter")
      */
     private function _timestamp($in, $offset = null)
     {
         $out = $in;
         if (!is_numeric($in)) {
-            $out = strtotime($in);
+            $out = Carbon::parse($in)->getTimestamp();
         }
         return $out;
     }
@@ -167,6 +170,6 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
      */
     private function _round($in)
     {
-        return date('Y-m-d H:00:00', $this->_timestamp($in));
+        return Carbon::createFromTimestamp($this->_timestamp($in))->format('Y-m-d H:00:00');
     }
 }

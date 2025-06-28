@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Custom Zend_Controller_Action class (formally)
  *
@@ -973,14 +975,19 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($dateFields)) {
             return $array;
         }
+        $filterInput = new Zend_Filter_LocalizedToNormalized([
+            'date_format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+        ]);
+        $filterInternal = new Zend_Filter_NormalizedToLocalized([
+            'date_format' => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
+        ]);
 
-        $filter = new Varien_Data_Form_Filter_Date(Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         foreach ($dateFields as $dateField) {
-            if (!empty($dateField) && isset($array[$dateField]) && $array[$dateField] !== '') {
-                $array[$dateField] = $filter->inputFilter($array[$dateField]);
+            if ($dateField && !empty($array[$dateField])) {
+                $array[$dateField] = $filterInput->filter($array[$dateField]);
+                $array[$dateField] = $filterInternal->filter($array[$dateField]);
             }
         }
-
         return $array;
     }
 
@@ -996,14 +1003,19 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($dateFields)) {
             return $array;
         }
+        $filterInput = new Zend_Filter_LocalizedToNormalized([
+            'date_format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+        ]);
+        $filterInternal = new Zend_Filter_NormalizedToLocalized([
+            'date_format' => Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT,
+        ]);
 
-        $filter = new Varien_Data_Form_Filter_Datetime(Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT));
         foreach ($dateFields as $dateField) {
-            if (!empty($dateField) && isset($array[$dateField]) && $array[$dateField] !== '') {
-                $array[$dateField] = $filter->inputFilter($array[$dateField]);
+            if (array_key_exists($dateField, $array) && !empty($dateField)) {
+                $array[$dateField] = $filterInput->filter($array[$dateField]);
+                $array[$dateField] = $filterInternal->filter($array[$dateField]);
             }
         }
-
         return $array;
     }
 
@@ -1051,7 +1063,7 @@ abstract class Mage_Core_Controller_Varien_Action
             ->setHeader('Content-type', $contentType, true)
             ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
             ->setHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"', true)
-            ->setHeader('Last-Modified', date('r'), true);
+            ->setHeader('Last-Modified', Carbon::now()->format('r'), true);
 
         if (!is_null($content)) {
             if ($isFile) {

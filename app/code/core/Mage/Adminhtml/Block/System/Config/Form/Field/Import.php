@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Custom import CSV file field for shipping table rates
  *
@@ -30,7 +32,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Import extends Varien_Data_F
     {
         $html = '';
 
-        $html .= '<input id="time_condition" type="hidden" name="' . $this->getName() . '" value="' . time() . '" />';
+        $html .= '<input id="time_condition" type="hidden" name="' . $this->getName() . '" value="' . Carbon::now()->getTimestamp() . '" />';
 
         $html .= <<<EndHTML
         <script type="text/javascript">

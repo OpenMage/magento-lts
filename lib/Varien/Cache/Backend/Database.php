@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS `core_cache_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 */
 
+use Carbon\Carbon;
+
 /**
  * Database cache backend
  */
@@ -54,6 +56,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Constructor
      *
      * @param array $options associative array of options
+     * @throws Zend_Cache_Exception
      */
     public function __construct($options = [])
     {
@@ -72,6 +75,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Get DB adapter
      *
      * @return Zend_Db_Adapter_Abstract
+     * @throws Zend_Cache_Exception
      */
     protected function _getAdapter()
     {
@@ -115,8 +119,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * Note : return value is always "string" (unserialization is done by the core not by the backend)
      *
-     * @param  string  $id                     Cache id
-     * @param  boolean $doNotTestCacheValidity If set to true, the cache validity won't be tested
+     * @param string $id Cache id
+     * @param bool $doNotTestCacheValidity If set to true, the cache validity won't be tested
      * @return string|false cached data
      */
     public function load($id, $doNotTestCacheValidity = false)
@@ -127,7 +131,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 ->where('id=:cache_id');
 
             if (!$doNotTestCacheValidity) {
-                $select->where('expire_time=0 OR expire_time>?', time());
+                $select->where('expire_time=0 OR expire_time>?', Carbon::now()->getTimestamp());
             }
             return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
         } else {
@@ -139,7 +143,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Test if a cache is available or not (for the given id)
      *
      * @param  string $id cache id
-     * @return mixed|false (a cache is not available) or "last modified" timestamp (int) of the available cache record
+     * @return false|null|string (a cache is not available) or "last modified" timestamp (int) of the available cache record
      */
     public function test($id)
     {
@@ -147,7 +151,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             $select = $this->_getAdapter()->select()
                 ->from($this->_getDataTable(), 'update_time')
                 ->where('id=:cache_id')
-                ->where('expire_time=0 OR expire_time>?', time());
+                ->where('expire_time=0 OR expire_time>?', Carbon::now()->getTimestamp());
             return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
         } else {
             return false;
@@ -175,7 +179,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             $dataTable  = $this->_getDataTable();
 
             $lifetime = $this->getLifetime($specificLifetime);
-            $time     = time();
+            $time     = Varien_Date::toTimestamp(true);
             $expire   = ($lifetime === 0 || $lifetime === null) ? 0 : $time + $lifetime;
 
             $dataCol    = $adapter->quoteIdentifier('data');
@@ -252,7 +256,9 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
-     * @return boolean true if no problem
+     * @return bool true if no problem
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -278,7 +284,6 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 break;
             default:
                 Zend_Cache::throwException('Invalid mode for clean() method');
-                break;
         }
 
         return $result;
@@ -291,7 +296,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      */
     protected function _cleanOldCache()
     {
-        $time    = time();
+        $time    = Varien_Date::toTimestamp(true);
         $counter = 0;
         $result  = true;
         $adapter = $this->_getAdapter();
@@ -451,7 +456,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param string $id cache id
      * @param int $extraLifetime
-     * @return int|true if ok
+     * @return int|true true if ok
      */
     public function touch($id, $extraLifetime)
     {
@@ -459,7 +464,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             return $this->_getAdapter()->update(
                 $this->_getDataTable(),
                 ['expire_time' => new Zend_Db_Expr('expire_time+' . $extraLifetime)],
-                ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => time()],
+                ['id=?' => $id, 'expire_time = 0 OR expire_time>?' => Varien_Date::toTimestamp(true)],
             );
         } else {
             return true;
@@ -540,6 +545,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * @param string $mode
      * @param array $tags
      * @return bool
+     * @throws Zend_Cache_Exception
+     * @throws Zend_Db_Statement_Exception
      */
     protected function _cleanByTags($mode, $tags)
     {
@@ -561,7 +568,6 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 break;
             default:
                 Zend_Cache::throwException('Invalid mode for _cleanByTags() method');
-                break;
         }
 
         $cacheIdsToRemove = [];

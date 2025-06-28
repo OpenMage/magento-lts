@@ -7,6 +7,8 @@
  * @package    Varien_Io
  */
 
+use Carbon\Carbon;
+
 /**
  * Filesystem client
  *
@@ -47,7 +49,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * non-existent directories.
      *
      * @var bool
-     * @access protected
      */
     protected $_allowCreateFolders = false;
 
@@ -264,8 +265,7 @@ class Varien_Io_File extends Varien_Io_Abstract
      *
      * @param string $part the part of statistic
      * @param mixed $default default value for part
-     * @return array|bool
-     *
+     * @return array|string|false
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function streamStat($part = null, $default = null)
@@ -313,7 +313,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Used to set {@link _allowCreateFolders} value
      *
      * @param bool $flag
-     * @access public
      * @return $this
      */
     public function setAllowCreateFolders($flag)
@@ -770,7 +769,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      *   - LS_ALL   = 3
      *
      * @param Varien_Io_File $grep const
-     * @access public
      * @return array
      */
     public function ls($grep = null)
@@ -802,7 +800,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                 }
 
                 $list_item['text'] = $entry;
-                $list_item['mod_date'] = date(Varien_Date::DATETIME_PHP_FORMAT, filectime($fullpath));
+                $list_item['mod_date'] = Carbon::createFromTimestamp(filectime($fullpath))->format(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT);
                 $list_item['permissions'] = $this->_parsePermissions(fileperms($fullpath));
                 $list_item['owner'] = $this->_getFileOwner($fullpath);
 
@@ -845,7 +843,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Convert integer permissions format into human readable
      *
      * @param integer $mode
-     * @access protected
      * @return string
      */
     protected function _parsePermissions($mode)
@@ -901,7 +898,6 @@ class Varien_Io_File extends Varien_Io_Abstract
      * Get file owner
      *
      * @param string $filename
-     * @access protected
      * @return string
      */
     protected function _getFileOwner($filename)

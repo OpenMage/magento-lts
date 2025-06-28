@@ -7,6 +7,8 @@
  * @package    Mage_Install
  */
 
+use Carbon\Carbon;
+
 /**
  * Config installer
  *
@@ -161,9 +163,9 @@ class Mage_Install_Model_Installer_Config extends Mage_Install_Model_Installer_A
 
     public function replaceTmpInstallDate($date = null)
     {
-        $stamp    = strtotime((string) $date);
+        $stamp    = Carbon::parse((string) $date)->getTimestamp();
         $localXml = file_get_contents($this->_localConfigFile);
-        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, date('r', $stamp ? $stamp : time()), $localXml);
+        $localXml = str_replace(self::TMP_INSTALL_DATE_VALUE, Carbon::createFromTimestamp($stamp ? $stamp : Carbon::now()->getTimestamp())->format('r'), $localXml);
         file_put_contents($this->_localConfigFile, $localXml);
 
         return $this;

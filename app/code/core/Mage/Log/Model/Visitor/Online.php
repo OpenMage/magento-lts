@@ -7,6 +7,8 @@
  * @package    Mage_Log
  */
 
+use Carbon\Carbon;
+
 /**
  * Prepare Log Online Visitors Model
  *
@@ -68,7 +70,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
     public function setPrepareAt($time = null)
     {
         if (is_null($time)) {
-            $time = time();
+            $time = Carbon::now()->getTimestamp();
         }
         Mage::app()->saveCache($time, 'log_visitor_online_prepare_at');
         return $this;

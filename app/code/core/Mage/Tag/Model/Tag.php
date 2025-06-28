@@ -7,6 +7,8 @@
  * @package    Mage_Tag
  */
 
+use Carbon\Carbon;
+
 /**
  * Tag model
  *
@@ -356,7 +358,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
             ->setProductId($productId)
             ->setCustomerId($customerId)
             ->setActive(Mage_Tag_Model_Tag_Relation::STATUS_ACTIVE)
-            ->setCreatedAt($relationModel->getResource()->formatDate(time()));
+            ->setCreatedAt($relationModel->getResource()->formatDate(Carbon::now()->getTimestamp()));
 
         $result = '';
         $relationModelSaveNeed = false;

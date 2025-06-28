@@ -37,7 +37,7 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
     public function __construct($format = null, $locale = null)
     {
         if (is_null($format)) {
-            $format = Varien_Date::DATE_INTERNAL_FORMAT;
+            $format = Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT;
         }
         $this->_dateFormat  = $format;
         $this->_locale      = $locale;
@@ -60,7 +60,7 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
             'locale'        => $this->_locale,
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([
-            'date_format'   => Varien_Date::DATE_INTERNAL_FORMAT,
+            'date_format'   => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
             'locale'        => $this->_locale,
         ]);
 
@@ -81,7 +81,7 @@ class Varien_Data_Form_Filter_Date implements Varien_Data_Form_Filter_Interface
         }
 
         $filterInput = new Zend_Filter_LocalizedToNormalized([
-            'date_format'   => Varien_Date::DATE_INTERNAL_FORMAT,
+            'date_format'   => Mage_Core_Helper_Date::DATE_INTERNAL_FORMAT,
             'locale'        => $this->_locale,
         ]);
         $filterInternal = new Zend_Filter_NormalizedToLocalized([

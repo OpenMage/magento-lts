@@ -35,6 +35,7 @@
         "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^25.2",
+        "nesbot/carbon": "^2.73",
         "nnnick/chartjs": "^4.4",
         "openmage/composer-plugin": "^3.0",
         "pelago/emogrifier": "^7.0",

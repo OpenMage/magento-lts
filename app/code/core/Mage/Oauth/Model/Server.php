@@ -7,6 +7,8 @@
  * @package    Mage_Oauth
  */
 
+use Carbon\Carbon;
+
 /**
  * oAuth Server
  *
@@ -442,12 +444,14 @@ class Mage_Oauth_Model_Server
      *
      * @param string $nonce Nonce string
      * @param string|int $timestamp UNIX Timestamp
+     * @throws Mage_Core_Exception
+     * @throws Throwable
      */
     protected function _validateNonce($nonce, $timestamp)
     {
         $timestamp = (int) $timestamp;
 
-        if ($timestamp <= 0 || $timestamp > (time() + self::TIME_DEVIATION)) {
+        if ($timestamp <= 0 || $timestamp > Carbon::now()->addSeconds(self::TIME_DEVIATION)->getTimestamp()) {
             $this->_throwException('', self::ERR_TIMESTAMP_REFUSED);
         }
         /** @var Mage_Oauth_Model_Nonce $nonceObj */

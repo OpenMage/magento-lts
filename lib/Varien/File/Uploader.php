@@ -32,7 +32,6 @@ class Varien_File_Uploader
      * Uploaded file handle (copy of $_FILES[] element)
      *
      * @var array
-     * @access protected
      */
     protected $_file;
 
@@ -40,7 +39,6 @@ class Varien_File_Uploader
      * Uploaded file mime type
      *
      * @var string
-     * @access protected
      */
     protected $_fileMimeType;
 
@@ -48,7 +46,6 @@ class Varien_File_Uploader
      * Upload type. Used to right handle $_FILES array.
      *
      * @var int Varien_File_Uploader::SINGLE_STYLE|Varien_File_Uploader::MULTIPLE_STYLE
-     * @access protected
      */
     protected $_uploadType;
 
@@ -57,7 +54,6 @@ class Varien_File_Uploader
      * we will change file name, this variable will be changed too.
      *
      * @var string
-     * @access protected
      */
     protected $_uploadedFileName;
 
@@ -65,7 +61,6 @@ class Varien_File_Uploader
      * The name of destination directory
      *
      * @var string
-     * @access protected
      */
     protected $_uploadedFileDir;
 
@@ -74,7 +69,6 @@ class Varien_File_Uploader
      * non-existent directories.
      *
      * @var bool
-     * @access protected
      */
     protected $_allowCreateFolders = true;
 
@@ -83,7 +77,6 @@ class Varien_File_Uploader
      * name already exists in the destination directory (if enabled).
      *
      * @var bool
-     * @access protected
      */
     protected $_allowRenameFiles = false;
 
@@ -91,7 +84,6 @@ class Varien_File_Uploader
      * If this variable is set to TRUE, files despersion will be supported.
      *
      * @var bool
-     * @access protected
      */
     protected $_enableFilesDispersion = false;
 
@@ -101,13 +93,11 @@ class Varien_File_Uploader
      * (e.g. NTFS->ext or ext->NTFS)
      *
      * @var bool
-     * @access protected
      */
     protected $_caseInsensitiveFilenames = true;
 
     /**
      * @var string
-     * @access protected
      */
     protected $_dispretionPath = null;
 
@@ -126,7 +116,6 @@ class Varien_File_Uploader
      * Validate callbacks storage
      *
      * @var array
-     * @access protected
      */
     protected $_validateCallbacks = [];
 
@@ -176,7 +165,6 @@ class Varien_File_Uploader
      *
      * @param string $destinationFolder
      * @param string $newFileName
-     * @access public
      * @return array|false
      */
     public function save($destinationFolder, $newFileName = null)
@@ -248,7 +236,6 @@ class Varien_File_Uploader
     /**
      * Validate file before save
      *
-     * @access public
      */
     protected function _validateFile()
     {
@@ -308,7 +295,6 @@ class Varien_File_Uploader
      * Delete validation callback model for us in self::_validateFile()
      *
      * @param string $callbackName
-     * @access public
      * @return Varien_File_Uploader
      */
     public function removeValidateCallback($callbackName)
@@ -362,7 +348,6 @@ class Varien_File_Uploader
      * Used to check if uploaded file mime type is valid or not
      *
      * @param array $validTypes
-     * @access public
      * @return bool
      */
     public function checkMimeType($validTypes = [])
@@ -381,7 +366,6 @@ class Varien_File_Uploader
     /**
      * Returns a name of uploaded file
      *
-     * @access public
      * @return string
      */
     public function getUploadedFileName()
@@ -393,7 +377,6 @@ class Varien_File_Uploader
      * Used to set {@link _allowCreateFolders} value
      *
      * @param mixed $flag
-     * @access public
      * @return Varien_File_Uploader
      */
     public function setAllowCreateFolders($flag)
@@ -406,7 +389,6 @@ class Varien_File_Uploader
      * Used to set {@link _allowRenameFiles} value
      *
      * @param mixed $flag
-     * @access public
      * @return Varien_File_Uploader
      */
     public function setAllowRenameFiles($flag)
@@ -419,7 +401,6 @@ class Varien_File_Uploader
      * Used to set {@link _enableFilesDispersion} value
      *
      * @param mixed $flag
-     * @access public
      * @return Varien_File_Uploader
      */
     public function setFilesDispersion($flag)

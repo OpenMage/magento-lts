@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Reports summary collection
  *
@@ -33,31 +35,31 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
     {
         switch ($periodType) {
             case '24h':
-                $customStart = Varien_Date::toTimestamp(true) - 86400;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customStart = Carbon::now()->subDay()->getTimestamp();
+                $customEnd   = Carbon::now()->getTimestamp();
                 break;
 
             case '7d':
-                $customStart = Varien_Date::toTimestamp(true) - 604800;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customStart = Carbon::now()->subWeek()->getTimestamp();
+                $customEnd   = Carbon::now()->getTimestamp();
                 break;
 
             case '30d':
-                $customStart = Varien_Date::toTimestamp(true) - 2592000;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customStart = Carbon::now()->subMonth()->getTimestamp();
+                $customEnd   = Carbon::now()->getTimestamp();
                 break;
 
             case '1y':
-                $customStart = Varien_Date::toTimestamp(true) - 31536000;
-                $customEnd   = Varien_Date::toTimestamp(true);
+                $customStart = Carbon::now()->subYear()->getTimestamp();
+                $customEnd   = Carbon::now()->getTimestamp();
                 break;
 
             default:
                 if (is_string($customStart)) {
-                    $customStart = strtotime($customStart);
+                    $customStart = Carbon::parse($customStart)->getTimestamp();
                 }
                 if (is_string($customEnd)) {
-                    $customEnd = strtotime($customEnd);
+                    $customEnd = Carbon::parse($customEnd)->getTimestamp();
                 }
                 break;
         }

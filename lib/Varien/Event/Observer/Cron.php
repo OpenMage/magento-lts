@@ -7,6 +7,8 @@
  * @package    Varien_Event
  */
 
+use Carbon\Carbon;
+
 /**
  * Event cron observer object
  *
@@ -47,7 +49,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
     public function getNow()
     {
         if (!$this->hasNow()) {
-            $this->setNow(time());
+            $this->setNow(Carbon::now()->getTimestamp());
         }
         return $this->getData('now');
     }

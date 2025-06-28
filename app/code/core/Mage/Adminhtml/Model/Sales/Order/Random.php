@@ -7,6 +7,8 @@
  * @package    Mage_Adminhtml
  */
 
+use Carbon\Carbon;
+
 /**
  * Create random order
  *
@@ -135,10 +137,19 @@ class Mage_Adminhtml_Model_Sales_Order_Random
         return $this;
     }
 
+    /**
+     * @throws Exception
+     */
     protected function _getRandomDate()
     {
-        $timestamp = mktime(random_int(0, 23), random_int(0, 59), 0, random_int(1, 11), random_int(1, 28), random_int(2006, 2007));
-        return date(Varien_Date::DATETIME_PHP_FORMAT, $timestamp);
+        return Carbon::now()
+            ->setHour(random_int(0, 23))
+            ->setMinute(random_int(0, 59))
+            ->setSecond(random_int(0, 0))
+            ->setMonth(random_int(1, 11))
+            ->setDay(random_int(1, 28))
+            ->setYear(random_int(2006, 2007))
+            ->format(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT);
     }
 
     public function save()

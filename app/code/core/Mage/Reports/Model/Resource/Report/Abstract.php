@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Abstract report aggregate resource model
  *
@@ -52,7 +54,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
             $this->_getFlag()->setFlagData($value);
         }
 
-        $time = Varien_Date::toTimestamp(true);
+        $time = Carbon::now()->getTimestamp();
         // touch last_update
         $this->_getFlag()->setLastUpdate($this->formatDate($time));
 
@@ -399,12 +401,12 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
         $tzTransitions = [];
         try {
             if (!empty($from)) {
-                $from = new Zend_Date($from, Varien_Date::DATETIME_INTERNAL_FORMAT);
+                $from = new Zend_Date($from, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
                 $from = $from->getTimestamp();
             }
 
-            $to = new Zend_Date($to, Varien_Date::DATETIME_INTERNAL_FORMAT);
-            $nextPeriod = $this->_getWriteAdapter()->formatDate($to->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+            $to = new Zend_Date($to, Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT);
+            $nextPeriod = $this->_getWriteAdapter()->formatDate($to->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
             $to = $to->getTimestamp();
 
             $dtz = new DateTimeZone($timezone);
@@ -418,7 +420,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
                 $dateTimeObject->set($tr['time']);
                 $tr['time'] = $this->_getWriteAdapter()
-                    ->formatDate($dateTimeObject->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+                    ->formatDate($dateTimeObject->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
                 $tzTransitions[$tr['offset']][] = ['from' => $tr['time'], 'to' => $nextPeriod];
 
                 if (!empty($from) && $tr['ts'] < $from) {
@@ -454,7 +456,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
     {
         $result         = true;
         $timeStamp      = $transition['ts'];
-        $transitionYear = date('Y', $timeStamp);
+        $transitionYear = Carbon::createFromTimestamp($timeStamp)->format('Y');
 
         if ($transitionYear > 10000 || $transitionYear < -10000) {
             $result = false;

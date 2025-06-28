@@ -90,7 +90,7 @@
     $('bug_tracking_link').target = "varien_external";
 //]]>
 </script>
-            <?php echo Mage::helper('install')->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', date('Y')) ?>
+            <?php echo Mage::helper('install')->__('Magento is a trademark of Magento Inc. Copyright &copy; %s Magento Inc.', \Carbon\Carbon::now()->format('Y')) ?>
         </p>
         </div>
     </div>

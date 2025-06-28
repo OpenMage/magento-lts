@@ -46,14 +46,14 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
     {
         $fromDate = $object->getFromDate();
         if ($fromDate instanceof Zend_Date) {
-            $object->setFromDate($fromDate->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+            $object->setFromDate($fromDate->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
         } elseif (!is_string($fromDate) || empty($fromDate)) {
             $object->setFromDate(null);
         }
 
         $toDate = $object->getToDate();
         if ($toDate instanceof Zend_Date) {
-            $object->setToDate($toDate->toString(Varien_Date::DATETIME_INTERNAL_FORMAT));
+            $object->setToDate($toDate->toString(Mage_Core_Helper_Date::DATETIME_INTERNAL_FORMAT));
         } elseif (!is_string($toDate) || empty($toDate)) {
             $object->setToDate(null);
         }

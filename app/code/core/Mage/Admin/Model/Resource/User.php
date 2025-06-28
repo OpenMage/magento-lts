@@ -7,6 +7,8 @@
  * @package    Mage_Admin
  */
 
+use Carbon\Carbon;
+
 /**
  * ACL user resource
  *
@@ -47,7 +49,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $adapter = $this->_getWriteAdapter();
 
         $data = [
-            'logdate' => Varien_Date::now(),
+            'logdate' => Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT),
             'lognum'  => $user->getLognum() + 1,
         ];
 

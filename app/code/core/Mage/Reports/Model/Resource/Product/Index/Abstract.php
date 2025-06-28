@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * Reports Product Index Abstract Resource Model
  *
@@ -61,14 +63,14 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
                 $data  = [
                     'visitor_id'    => $object->getVisitorId(),
                     'store_id'      => $object->getStoreId(),
-                    'added_at'      => Varien_Date::now(),
+                    'added_at'      => Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT),
                 ];
             } else {
                 $where = ['index_id = ?' => $row['index_id']];
                 $data  = [
                     'customer_id'   => $object->getCustomerId(),
                     'store_id'      => $object->getStoreId(),
-                    'added_at'      => Varien_Date::now(),
+                    'added_at'      => Carbon::now()->format(Carbon::DEFAULT_TO_STRING_FORMAT),
                 ];
             }
 
@@ -179,7 +181,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Abstract extends Mage_C
             'customer_id'   => $object->getCustomerId(),
             'store_id'      => $object->getStoreId(),
         ];
-        $addedAt    = Varien_Date::toTimestamp(true);
+        $addedAt    = Carbon::now()->getTimestamp();
         $data = [];
         foreach ($productIds as $productId) {
             $productId = (int) $productId;

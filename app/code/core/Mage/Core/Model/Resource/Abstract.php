@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Abstract resource model
  *
@@ -134,7 +136,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     public function mktime($str)
     {
-        return Varien_Date::toTimestamp($str);
+        return Carbon::now()->setTimeFromTimeString($str)->getTimestamp();
     }
 
     /**

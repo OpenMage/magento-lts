@@ -7,6 +7,8 @@
  * @package    Mage_Payment
  */
 
+use Carbon\Carbon;
+
 /**
  * Payment configuration model
  *
@@ -127,7 +129,7 @@ class Mage_Payment_Model_Config
     public function getYears()
     {
         $years = [];
-        $first = date('Y');
+        $first = (int) Carbon::now()->format('Y');
 
         for ($index = 0; $index <= 10; $index++) {
             $year = $first + $index;

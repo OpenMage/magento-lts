@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Carbon\Carbon;
+
 /**
  * Locale model
  *
@@ -581,9 +583,9 @@ class Mage_Core_Model_Locale
         $timezone = Mage::app()->getStore($store)->getConfig(self::XML_PATH_DEFAULT_TIMEZONE);
         $currentTimezone = @date_default_timezone_get();
         @date_default_timezone_set($timezone);
-        $date = date(Varien_Date::DATETIME_PHP_FORMAT);
+        $date = date(Mage_Core_Helper_Date::DATETIME_PHP_FORMAT);
         @date_default_timezone_set($currentTimezone);
-        return strtotime($date);
+        return Carbon::parse($date)->getTimestamp();
     }
 
     /**
@@ -828,8 +830,8 @@ class Mage_Core_Model_Locale
         }
 
         $storeTimeStamp = $this->storeTimeStamp($store);
-        $fromTimeStamp  = strtotime((string) $dateFrom);
-        $toTimeStamp    = strtotime((string) $dateTo);
+        $fromTimeStamp  = Carbon::parse((string) $dateFrom)->getTimestamp();
+        $toTimeStamp    = Carbon::parse((string) $dateTo)->getTimestamp();
         if ($dateTo) {
             // fix date YYYY-MM-DD 00:00:00 to YYYY-MM-DD 23:59:59
             $toTimeStamp += 86400;

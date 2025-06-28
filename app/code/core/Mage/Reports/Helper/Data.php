@@ -7,6 +7,8 @@
  * @package    Mage_Reports
  */
 
+use Carbon\Carbon;
+
 /**
  * @package    Mage_Reports
  */
@@ -43,71 +45,53 @@ class Mage_Reports_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve array of intervals
      *
-     * @param string $from
-     * @param string $to
+     * @param string $dateFrom
+     * @param string $dateTo
      * @param self::REPORT_PERIOD_TYPE_* $period
      * @return array
-     * @throws Zend_Date_Exception
      */
-    public function getIntervals($from, $to, $period = self::REPORT_PERIOD_TYPE_DAY)
+    public function getIntervals($dateFrom, $dateTo, $period = self::REPORT_PERIOD_TYPE_DAY)
     {
         $intervals = [];
-        $dateStart = null;
-
-        if (!$from && !$to) {
+        if (!$dateFrom && !$dateTo) {
             return $intervals;
         }
 
-        $start = new Zend_Date($from, Varien_Date::DATE_INTERNAL_FORMAT);
+        $dateStart  = Carbon::now()->setTimeFromTimeString($dateFrom . ' 00:00:00');
+        $endDate    = Carbon::now()->setTimeFromTimeString($dateTo . ' 00:00:00');
 
-        if ($period == self::REPORT_PERIOD_TYPE_DAY) {
-            $dateStart = $start;
+        switch ($period) {
+            case self::REPORT_PERIOD_TYPE_DAY:
+                $format     = 'YYYY-MM-DD';
+                $modifier   = 'addDay';
+                break;
+            case self::REPORT_PERIOD_TYPE_MONTH:
+                $format     = 'YYYY-MM';
+                $modifier   = 'addMonth';
+                break;
+            case self::REPORT_PERIOD_TYPE_YEAR:
+            default:
+                $format     = 'YYYY';
+                $modifier   = 'addYear';
+                break;
         }
 
-        if ($period == self::REPORT_PERIOD_TYPE_MONTH) {
-            $dateStart = new Zend_Date(date('Y-m', $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
+        for ($date = $dateStart->copy(); $date->lte($endDate); $date->$modifier()) {
+            $intervals[] = $date->isoFormat($format);
         }
 
-        if ($period == self::REPORT_PERIOD_TYPE_YEAR) {
-            $dateStart = new Zend_Date(date('Y', $start->getTimestamp()), Varien_Date::DATE_INTERNAL_FORMAT);
-        }
-
-        if (!$period || !$dateStart) {
-            return $intervals;
-        }
-
-        $dateEnd = new Zend_Date($to, Varien_Date::DATE_INTERNAL_FORMAT);
-
-        while ($dateStart->compare($dateEnd) <= 0) {
-            $time = '';
-            switch ($period) {
-                case self::REPORT_PERIOD_TYPE_DAY:
-                    $time = $dateStart->toString('yyyy-MM-dd');
-                    $dateStart->addDay(1);
-                    break;
-                case self::REPORT_PERIOD_TYPE_MONTH:
-                    $time = $dateStart->toString('yyyy-MM');
-                    $dateStart->addMonth(1);
-                    break;
-                case self::REPORT_PERIOD_TYPE_YEAR:
-                    $time = $dateStart->toString('yyyy');
-                    $dateStart->addYear(1);
-                    break;
-            }
-            $intervals[] = $time;
-        }
         return  $intervals;
     }
 
     /**
      * @param Varien_Data_Collection $collection
-     * @param string $from
-     * @param string $to
-     * @param string $periodType
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param self::REPORT_PERIOD_TYPE_* $periodType
      */
-    public function prepareIntervalsCollection($collection, $from, $to, $periodType = self::REPORT_PERIOD_TYPE_DAY)
+    public function prepareIntervalsCollection($collection, $dateFrom, $dateTo, $periodType = self::REPORT_PERIOD_TYPE_DAY)
     {
-        $intervals = $this->getIntervals($from, $to, $periodType);
+        $intervals = $this->getIntervals($dateFrom, $dateTo, $periodType);
 
         foreach ($intervals as $interval) {
             $item = Mage::getModel('adminhtml/report_item');
