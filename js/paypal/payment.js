@@ -45,6 +45,7 @@ class PayPalPayment {
 
         paymentButton.addEventListener('click', async () => {
             if (this.getCurrentPaymentMethod() === this.config.methodCode) {
+                this.handlePaymentMethodChange(this.config.methodCode);
                 const container = await this.waitForReviewContainer();
                 if (container) {
                     await this.initializePayPalButton();
