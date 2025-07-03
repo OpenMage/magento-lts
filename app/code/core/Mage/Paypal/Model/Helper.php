@@ -127,7 +127,7 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Extract error message from API response
+     * Extract comprehensive error message from PayPal API response
      *
      * @param ApiResponse $response API response
      * @param string $defaultMessage Default error message
@@ -135,13 +135,109 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     public function extractErrorMessage(ApiResponse $response, string $defaultMessage): string
     {
         $result = $response->getResult();
+        if (is_array($result)) {
+            $errorMessage = $this->_extractFromArrayResponse($result, $defaultMessage);
+            if ($errorMessage !== $defaultMessage) {
+                return $errorMessage;
+            }
+        }
+        if (is_object($result)) {
+            $errorMessage = $this->_extractFromObjectResponse($result, $defaultMessage);
+            if ($errorMessage !== $defaultMessage) {
+                return $errorMessage;
+            }
+        }
+        if (is_string($result) && !empty($result)) {
+            return $result;
+        }
+        return $defaultMessage;
+    }
 
-        return match (true) {
-            is_array($result) && isset($result['message']) => $result['message'] ?: $defaultMessage,
-            is_object($result) && method_exists($result, 'getMessage') => $result->getMessage() ?: $defaultMessage,
-            is_string($result) => $result ?: $defaultMessage,
-            default => $defaultMessage
-        };
+    /**
+     * Extract error message from array response structure
+     *
+     * @param array $result API result array
+     * @param string $defaultMessage Default error message
+     */
+    private function _extractFromArrayResponse(array $result, string $defaultMessage): string
+    {
+        $mainMessage = $result['message'] ?? '';
+        $detailedMessage = $this->_extractDetailedError($result);
+        if (!empty($detailedMessage)) {
+            return !empty($mainMessage) ? $mainMessage . ' ' . $detailedMessage : $detailedMessage;
+        }
+
+        return !empty($mainMessage) ? $this->_helper->__($mainMessage) : $defaultMessage;
+    }
+
+    /**
+     * Extract error message from object response structure
+     *
+     * @param object $result API result object
+     * @param string $defaultMessage Default error message
+     */
+    private function _extractFromObjectResponse(object $result, string $defaultMessage): string
+    {
+        $getters = ['getMessage', 'getErrorMessage', 'getDescription'];
+        foreach ($getters as $getter) {
+            if (method_exists($result, $getter)) {
+                $message = $result->$getter();
+                if (!empty($message)) {
+                    return $message;
+                }
+            }
+        }
+        $properties = ['message', 'error_message', 'description'];
+        foreach ($properties as $property) {
+            if (property_exists($result, $property) && !empty($result->$property)) {
+                return $result->$property;
+            }
+        }
+
+        return $defaultMessage;
+    }
+
+    /**
+     * Extract detailed error information from PayPal error response
+     *
+     * @param array $result API result array
+     */
+    private function _extractDetailedError(array $result): string
+    {
+        $errorMessages = [];
+
+        if (isset($result['details']) && is_array($result['details'])) {
+            foreach ($result['details'] as $detail) {
+                $issue = '';
+                if (is_array($detail)) {
+                    $issue = $detail['issue'] ?? '';
+                } elseif (is_object($detail)) {
+                    $issue = $detail->issue ?? '';
+                }
+                if (!empty($issue)) {
+                    $errorMessages[] = $this->_getReadableErrorMessage($issue);
+                }
+            }
+        }
+
+        if (empty($errorMessages) && isset($result['message'])) {
+            $errorMessages[] = $result['message'];
+        }
+        return implode('; ', $errorMessages);
+    }
+
+    /**
+     * Convert PayPal error codes to user-friendly messages
+     *
+     * @param string $errorCode PayPal error code
+     */
+    private function _getReadableErrorMessage(string $errorCode): string
+    {
+        $errorMessages = [
+            'INSTRUMENT_DECLINED' => $this->_helper->__('The instrument presented was either declined by the processor or bank, or it can\'t be used for this payment.'),
+        ];
+
+        return $errorMessages[$errorCode] ?? $errorCode;
     }
 
     /**

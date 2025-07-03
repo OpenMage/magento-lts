@@ -253,6 +253,8 @@ class PayPalPayment {
             return result.id;
         } catch (error) {
             console.error('Create order error:', error);
+            this.showError(error.message);
+            this.hideLoadingMask();
             throw error;
         } finally {
             this.hideLoadingMask();
@@ -290,6 +292,7 @@ class PayPalPayment {
         } catch (error) {
             console.error('Payment approval error:', error);
             this.showError(error.message);
+            this.hideLoadingMask();
             throw error;
         }
     }
@@ -317,7 +320,7 @@ class PayPalPayment {
 
     onButtonError(error) {
         console.error('PayPal button error:', error);
-        this.showError('PayPal payment failed. Please try again or use another payment method.');
+        this.showError(error);
     }
 
     onCancel() {
@@ -441,10 +444,7 @@ class PayPalPayment {
             border-radius: 4px;
         `;
         errorDiv.textContent = message || this.config.errorMessage || 'An error occurred. Please try again later.';
-
         container.after(errorDiv);
-
-        setTimeout(() => errorDiv?.remove(), 10000);
     }
 
     destroy() {

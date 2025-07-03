@@ -39,6 +39,12 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
     {
         try {
             $this->getHelper()->validateQuoteForPayment($quote);
+            if ($quote->getReservedOrderId()) {
+                $existingPayment = $quote->getPayment();
+                if ($existingPayment && $existingPayment->getPaypalCorrelationId()) {
+                    $quote->setReservedOrderId('');
+                }
+            }
 
             $quote->reserveOrderId()->save();
             $api = $this->getHelper()->getApi();
