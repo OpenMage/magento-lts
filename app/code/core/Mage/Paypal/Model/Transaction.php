@@ -259,7 +259,7 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
     /**
      * Get order payment transaction model
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function getTransaction(): Mage_Sales_Model_Order_Payment_Transaction
     {

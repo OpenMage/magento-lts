@@ -51,7 +51,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Create a new PayPal order with a pre-built request
      *
      * @param object $orderRequest Pre-built order request object
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function createOrder(
         Mage_Sales_Model_Order|Mage_Sales_Model_Quote $quote,
@@ -77,7 +77,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Authorize payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function authorizeOrder(
         string $id,
@@ -103,7 +103,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Authorize payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function reAuthorizeOrder(
         string $id,
@@ -130,7 +130,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Capture authorized payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function captureAuthorizedPayment(string $id, Mage_Sales_Model_Order $order): ?ApiResponse
     {
@@ -153,7 +153,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Capture payment for a PayPal order
      *
      * @param string $id PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function captureOrder(
         string $id,
@@ -183,7 +183,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * @param string $captureId PayPal capture ID
      * @param float $amount Amount to refund
      * @param string $currencyCode Currency code
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function refundCapturedPayment(
         string $captureId,
@@ -213,7 +213,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      * Void an authorization
      *
      * @param string $authorizationId PayPal authorization ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function voidPayment(string $authorizationId, Mage_Sales_Model_Order $order): ?ApiResponse
     {
@@ -236,7 +236,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Get PayPal API client instance with lazy loading
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function getClient(): PaypalServerSdkClient
     {
@@ -260,7 +260,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
     /**
      * Initialize PayPal client
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     private function _initializeClient(): void
     {
@@ -278,67 +278,67 @@ class Mage_Paypal_Model_Api extends Varien_Object
                 ->environment($environment)
                 ->build();
         } catch (Exception $e) {
-            throw new Mage_Core_Exception('Failed to initialize PayPal client: ' . $e->getMessage());
+            throw new Mage_Paypal_Model_Exception('Failed to initialize PayPal client: ' . $e->getMessage());
         }
     }
 
     /**
      * Validate quote object
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     private function _validateQuote(mixed $quote): void
     {
         if (!$quote || !$quote->hasItems()) {
-            throw new Mage_Core_Exception(self::ERROR_INVALID_QUOTE);
+            throw new Mage_Paypal_Model_Exception(self::ERROR_INVALID_QUOTE);
         }
     }
 
     /**
      * Validate order ID
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     private function _validateOrderId(string $id): void
     {
         if (empty($id)) {
-            throw new Mage_Core_Exception(self::ERROR_EMPTY_ORDER_ID);
+            throw new Mage_Paypal_Model_Exception(self::ERROR_EMPTY_ORDER_ID);
         }
     }
 
     /**
      * Validate capture ID
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     private function _validateCaptureId(string $captureId): void
     {
         if (empty($captureId)) {
-            throw new Mage_Core_Exception(self::ERROR_EMPTY_CAPTURE_ID);
+            throw new Mage_Paypal_Model_Exception(self::ERROR_EMPTY_CAPTURE_ID);
         }
     }
 
     /**
      * Validate authorization ID
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     private function _validateAuthorizationId(string $authorizationId): void
     {
         if (empty($authorizationId)) {
-            throw new Mage_Core_Exception(self::ERROR_EMPTY_AUTH_ID);
+            throw new Mage_Paypal_Model_Exception(self::ERROR_EMPTY_AUTH_ID);
         }
     }
 
     /**
      * Validate amount
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     private function _validateAmount(float $amount): void
     {
         if ($amount <= 0) {
-            throw new Mage_Core_Exception(self::ERROR_INVALID_AMOUNT);
+            throw new Mage_Paypal_Model_Exception(self::ERROR_INVALID_AMOUNT);
         }
     }
 

@@ -93,21 +93,21 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
                 $errorData['debug_data'] = $exception->getDebugData();
             }
 
-            Mage::log($message, Zend_Log::ERR, 'paypal.log', true);
+            Mage::log($errorData, Zend_Log::ERR, 'paypal.log', true);
         }
     }
 
     /**
      * Validate quote for PayPal payment processing
      *
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function validateQuoteForPayment(Mage_Sales_Model_Quote $quote): void
     {
         $quote->collectTotals();
 
         if (!$quote->getGrandTotal() && !$quote->hasNominalItems()) {
-            throw new Mage_Core_Exception(
+            throw new Mage_Paypal_Model_Exception(
                 Mage::helper('paypal')->__(self::ERROR_ZERO_AMOUNT),
             );
         }
@@ -118,12 +118,12 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
      *
      * @param ApiResponse $response API response
      * @param string $defaultMessage Default error message
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function handleApiError(ApiResponse $response, string $defaultMessage): never
     {
         $errorMsg = $this->extractErrorMessage($response, $defaultMessage);
-        throw new Mage_Core_Exception($errorMsg);
+        throw new Mage_Paypal_Model_Exception($errorMsg);
     }
 
     /**

@@ -70,7 +70,7 @@ class Mage_Paypal_Model_Cart
             ?: $this->_quote->getQuoteCurrencyCode();
 
         if (!in_array($currentCurrency, $allowedCurrencies)) {
-            throw new Mage_Core_Exception(
+            throw new Mage_Paypal_Model_Exception(
                 Mage::helper('paypal')->__('Selected currency code (%s) is not supported by PayPal', $currentCurrency),
             );
         }

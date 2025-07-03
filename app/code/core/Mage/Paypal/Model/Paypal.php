@@ -37,7 +37,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote Customer quote
      * @return array{success: bool, id?: string, error?: string}
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function create(Mage_Sales_Model_Quote $quote): array
     {
@@ -48,7 +48,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Capture PayPal payment via API
      *
      * @param string $orderId PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function captureOrder(string $orderId, Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote): void
     {
@@ -59,7 +59,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Authorize PayPal payment via API
      *
      * @param string $orderId PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function authorizePayment(string $orderId, Mage_Sales_Model_Quote $quote): void
     {
@@ -91,7 +91,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param Varien_Object $payment Payment object
      * @param float $amount Refund amount
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function refund(Varien_Object $payment, $amount): static
     {
@@ -104,7 +104,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      *
      * @param Varien_Object $payment Payment object
      * @param float $amount Capture amount
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function capture(Varien_Object $payment, $amount): static
     {
@@ -116,7 +116,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Void payment method
      *
      * @param Varien_Object $payment Payment object
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function void(Varien_Object $payment): static
     {
@@ -128,7 +128,7 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Cancel payment method
      *
      * @param Varien_Object $payment Payment object
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function cancel(Varien_Object $payment): static
     {

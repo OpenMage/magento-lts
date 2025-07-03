@@ -36,7 +36,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      * Capture PayPal payment via API
      *
      * @param string $orderId PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function captureOrder(string $orderId, Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote): void
     {
@@ -56,7 +56,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      * Authorize PayPal payment via API
      *
      * @param string $orderId PayPal order ID
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function authorizePayment(string $orderId, Mage_Sales_Model_Quote $quote): void
     {
@@ -111,7 +111,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      *
      * @param Varien_Object $payment Payment object
      * @param float $amount Refund amount
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function processRefund(Varien_Object $payment, $amount): static
     {
@@ -127,7 +127,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             );
 
             if ($response->isError()) {
-                throw new Mage_Core_Exception($response->getResult()->getMessage());
+                throw new Mage_Paypal_Model_Exception($response->getResult()->getMessage());
             }
 
             $result = $response->getResult();
@@ -135,7 +135,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             $this->getTransactionManager()->createRefundTransaction($payment, $response);
         } catch (Exception $e) {
             Mage::logException($e);
-            throw new Mage_Core_Exception(
+            throw new Mage_Paypal_Model_Exception(
                 Mage::helper('paypal')->__('Refund error: %s', $e->getMessage()),
             );
         }
@@ -148,7 +148,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      *
      * @param Varien_Object $payment Payment object
      * @param float $amount Capture amount
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function processCapture(Varien_Object $payment, $amount): static
     {
@@ -161,7 +161,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
         $authorizationId = $payment->getAdditionalInformation(self::PAYPAL_PAYMENT_AUTHORIZATION_ID);
 
         if (!$authorizationId) {
-            throw new Mage_Core_Exception(
+            throw new Mage_Paypal_Model_Exception(
                 Mage::helper('paypal')->__(self::ERROR_NO_AUTHORIZATION_ID),
             );
         }
@@ -183,7 +183,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      * Process void payment method
      *
      * @param Varien_Object $payment Payment object
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function processVoid(Varien_Object $payment): static
     {
@@ -196,7 +196,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             $response = $this->getHelper()->getApi()->voidPayment($transactionId, $payment->getOrder());
 
             if ($response->isError()) {
-                throw new Mage_Core_Exception($response->getResult()->getMessage());
+                throw new Mage_Paypal_Model_Exception($response->getResult()->getMessage());
             }
 
             $this->getTransactionManager()->updatePaymentAfterVoid($payment);
@@ -207,7 +207,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             )->save();
         } catch (Exception $e) {
             Mage::logException($e);
-            throw new Mage_Core_Exception(
+            throw new Mage_Paypal_Model_Exception(
                 Mage::helper('paypal')->__('Void error: %s', $e->getMessage()),
             );
         }
@@ -219,7 +219,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      * Process cancel payment method
      *
      * @param Varien_Object $payment Payment object
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function processCancel(Varien_Object $payment): static
     {

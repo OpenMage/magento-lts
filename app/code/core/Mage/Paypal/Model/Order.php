@@ -33,7 +33,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
      *
      * @param Mage_Sales_Model_Quote $quote Customer quote
      * @return array{success: bool, id?: string, error?: string}
-     * @throws Mage_Core_Exception
+     * @throws Mage_Paypal_Model_Exception
      */
     public function createOrder(Mage_Sales_Model_Quote $quote): array
     {
@@ -54,7 +54,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             $result = $response->getResult();
 
             if ($response->isError()) {
-                throw new Mage_Core_Exception($result['message'] ?? 'Error creating PayPal order');
+                throw new Mage_Paypal_Model_Exception($result['message'] ?? 'Error creating PayPal order');
             }
 
             $this->updatePaymentWithOrderInfo($quote->getPayment(), $response);
