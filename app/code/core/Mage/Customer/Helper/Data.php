@@ -577,7 +577,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             $gatewayResponse->setRequestDate((string) $result->requestDate);
             $gatewayResponse->setRequestIdentifier((string) $result->requestIdentifier);
             $gatewayResponse->setRequestSuccess(true);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $gatewayResponse->setIsValid(false);
             $gatewayResponse->setRequestDate('');
             $gatewayResponse->setRequestIdentifier('');

@@ -178,7 +178,7 @@ class Mage_Customer_Model_Observer
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::register(self::VIV_PROCESSED_FLAG, false, true);
         }
     }

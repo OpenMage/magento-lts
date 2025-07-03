@@ -31,7 +31,7 @@ class Mage_Adminhtml_Catalog_Product_GroupController extends Mage_Adminhtml_Cont
         } else {
             try {
                 $model->save();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('catalog')->__('An error occurred while saving this group.'));
             }
         }

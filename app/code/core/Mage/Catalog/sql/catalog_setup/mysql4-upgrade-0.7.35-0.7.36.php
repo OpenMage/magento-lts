@@ -16,7 +16,7 @@ try {
         ALTER TABLE `{$installer->getTable('catalog_category_entity')}` ADD `level` INT NOT NULL;
         ALTER TABLE `{$installer->getTable('catalog_category_entity')}` ADD INDEX `IDX_LEVEL` ( `level` );
     ");
-} catch (Exception $e) {
+} catch (Exception) {
 }
 
 $installer->rebuildCategoryLevels();
