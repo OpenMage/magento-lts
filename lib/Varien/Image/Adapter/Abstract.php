@@ -70,7 +70,7 @@ abstract class Varien_Image_Adapter_Abstract
      * original image, but after resize() it's already a scaled version.
      *
      * @see Varien_Image_Adapter_Gd2::open()
-     * @var resource|GdImage
+     * @var resource|GdImage|Imagick
      */
     protected $_imageHandler = null;
 
