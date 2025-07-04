@@ -601,9 +601,10 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $message
      * @param int $code
+     * @param bool $shouldLog Log the error in the log file?
      * @throws Mage_Api2_Exception
      */
-    protected function _critical($message, $code = null)
+    protected function _critical($message, $code = null, $shouldLog = true)
     {
         if ($code === null) {
             $errors = $this->_getCriticalErrors();
@@ -615,7 +616,10 @@ abstract class Mage_Api2_Model_Resource
             }
             $code = $errors[$message];
         }
-        throw new Mage_Api2_Exception($message, $code);
+
+        Mage::dispatchEvent('api2_resource_critical', ['resource' => $this, 'message' => $message, 'code' => $code]);
+
+        throw new Mage_Api2_Exception($message, $code, $shouldLog);
     }
 
     /**
