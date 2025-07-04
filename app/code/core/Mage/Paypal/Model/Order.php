@@ -11,7 +11,6 @@ declare(strict_types=1);
 
 use PaypalServerSdkLib\Models\Builders\PurchaseUnitRequestBuilder;
 use PaypalServerSdkLib\Models\Builders\OrderRequestBuilder;
-use PaypalServerSdkLib\Models\CheckoutPaymentIntent;
 use PaypalServerSdkLib\Models\Builders\AmountBreakdownBuilder;
 use PaypalServerSdkLib\Models\Builders\AmountWithBreakdownBuilder;
 use PaypalServerSdkLib\Models\Builders\PayerBuilder;
@@ -20,7 +19,20 @@ use PaypalServerSdkLib\Models\Builders\NameBuilder;
 use PaypalServerSdkLib\Http\ApiResponse;
 use PaypalServerSdkLib\Models\Builders\MoneyBuilder;
 use PaypalServerSdkLib\Models\Builders\ItemBuilder;
+use PaypalServerSdkLib\Models\Builders\PaymentSourceBuilder;
 use PaypalServerSdkLib\Models\ItemCategory;
+use PaypalServerSdkLib\Models\Builders\MybankPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\BancontactPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\BlikPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\EpsPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\GiropayPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\IdealPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\P24PaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\SofortPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\TrustlyPaymentRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\ApplePayRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\GooglePayRequestBuilder;
+use PaypalServerSdkLib\Models\Builders\VenmoWalletRequestBuilder;
 
 /**
  * PayPal Order Creation Handler
@@ -32,32 +44,26 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
      * Create PayPal order via API
      *
      * @param Mage_Sales_Model_Quote $quote Customer quote
+     * @param string|null $fundingSource Funding source for the order, e.g., 'mybank'
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Paypal_Model_Exception
      */
-    public function createOrder(Mage_Sales_Model_Quote $quote): array
+    public function createOrder(Mage_Sales_Model_Quote $quote, ?string $fundingSource): array
     {
         try {
             $this->getHelper()->validateQuoteForPayment($quote);
-            if ($quote->getReservedOrderId()) {
-                $existingPayment = $quote->getPayment();
-                if ($existingPayment && $existingPayment->getPaypalCorrelationId()) {
-                    $quote->setReservedOrderId('');
-                }
-            }
-
             $quote->reserveOrderId()->save();
             $api = $this->getHelper()->getApi();
-            $orderRequest = $this->buildOrderRequest($quote, $quote->getReservedOrderId());
-
-            $response = $api->createOrder($quote, $orderRequest);
+            $orderRequest = $this->buildOrderRequest($quote, $quote->getReservedOrderId(), $fundingSource);
+            $paypalRequestId = $this->getHelper()->getPaypalRequestId($quote) ?? bin2hex(random_bytes(16));
+            $response = $api->createOrder($quote, $orderRequest, $paypalRequestId);
             $result = $response->getResult();
 
             if ($response->isError()) {
-                throw new Mage_Paypal_Model_Exception($result['message'] ?? 'Error creating PayPal order');
+                $this->getHelper()->handleApiError($response, 'Error creating PayPal order');
             }
 
-            $this->updatePaymentWithOrderInfo($quote->getPayment(), $response);
+            $this->updatePaymentWithOrderInfo($quote->getPayment(), $response, $paypalRequestId, $fundingSource);
 
             return [
                 'success' => true,
@@ -76,9 +82,10 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
      * Build a complete PayPal order request using SDK builders
      *
      * @param string|null $referenceId Optional reference ID
+     * @param string|null $fundingSource Optional funding source for the order
      * @return object The built order request object
      */
-    public function buildOrderRequest(Mage_Sales_Model_Quote $quote, ?string $referenceId = null): object
+    public function buildOrderRequest(Mage_Sales_Model_Quote $quote, ?string $referenceId = null, ?string $fundingSource = null): object
     {
         $purchaseUnit = $this->buildPurchaseUnit($quote, $referenceId);
         $orderRequestBuilder = OrderRequestBuilder::init(
@@ -86,12 +93,88 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             [$purchaseUnit],
         );
 
+        /**
+         * @var PaypalServerSdkLib\Models\Payer $payer
+         */
         $payer = $this->buildPayerFromBillingAddress($quote);
         if ($payer !== null) {
             $orderRequestBuilder->payer($payer);
         }
-
+        if ($fundingSource) {
+            $paymentSource = $this->_buildPaymentSource($fundingSource, $payer);
+            if ($paymentSource !== null) {
+                $orderRequestBuilder->paymentSource($paymentSource);
+            }
+        }
         return $orderRequestBuilder->build();
+    }
+
+    /**
+     * Build a PayPal payment source based on funding source type
+     *
+     * @param string $fundingSource The funding source type
+     * @param object $payer The payer object containing customer information
+     * @return object|null The built payment source object, or null for default payment methods
+     */
+    private function _buildPaymentSource(string $fundingSource, object $payer): ?object
+    {
+        $paymentSourceBuilder = PaymentSourceBuilder::init();
+        $nameObj = $payer->getName();
+        $addressObj = $payer->getAddress();
+        $name = $nameObj->getGivenName() . ' ' . $nameObj->getSurname();
+        $country = $addressObj->getCountryCode();
+        $email = $payer->getEmailAddress() ?? 'noreply@example.com';
+        switch ($fundingSource) {
+            // Payment methods requiring name and country
+            case 'mybank':
+                $paymentSourceBuilder->mybank(MybankPaymentRequestBuilder::init($name, $country)->build());
+                break;
+            case 'bancontact':
+                $paymentSourceBuilder->bancontact(BancontactPaymentRequestBuilder::init($name, $country)->build());
+                break;
+            case 'blik':
+                $paymentSourceBuilder->blik(BlikPaymentRequestBuilder::init($name, $country)->build());
+                break;
+            case 'eps':
+                $paymentSourceBuilder->eps(EpsPaymentRequestBuilder::init($name, $country)->build());
+                break;
+            case 'giropay':
+                $paymentSourceBuilder->giropay(GiropayPaymentRequestBuilder::init($name, $country)->build());
+                break;
+            case 'ideal':
+                $paymentSourceBuilder->ideal(IdealPaymentRequestBuilder::init($name, $country)->build());
+                break;
+            case 'sofort':
+                $paymentSourceBuilder->sofort(SofortPaymentRequestBuilder::init($name, $country)->build());
+                break;
+
+                // Payment methods requiring name, email, and country
+            case 'p24':
+                $paymentSourceBuilder->p24(P24PaymentRequestBuilder::init($name, $email, $country)->build());
+                break;
+            case 'trustly':
+                $paymentSourceBuilder->trustly(TrustlyPaymentRequestBuilder::init($name, $country, $email)->build());
+                break;
+
+                // Payment methods requiring no init parameters
+            case 'applepay':
+                $paymentSourceBuilder->applePay(ApplePayRequestBuilder::init()->build());
+                break;
+            case 'googlepay':
+                $paymentSourceBuilder->googlePay(GooglePayRequestBuilder::init()->build());
+                break;
+            case 'venmo':
+                $paymentSourceBuilder->venmo(VenmoWalletRequestBuilder::init()->build());
+                break;
+
+                // Default payment methods (PayPal, card) don't need explicit payment source
+            case 'paypal':
+            case 'card':
+            default:
+                return null;
+        }
+
+        return $paymentSourceBuilder->build();
     }
 
     /**
@@ -255,15 +338,20 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
     /**
      * Update payment object with PayPal order information
      */
-    public function updatePaymentWithOrderInfo(Mage_Sales_Model_Quote_Payment $payment, ApiResponse $response): void
+    public function updatePaymentWithOrderInfo(Mage_Sales_Model_Quote_Payment $payment, ApiResponse $response, string $paypalRequestId, string $fundingSource): void
     {
         $result = $response->getResult();
         $payment->setPaypalCorrelationId($result->getId())
             ->setAdditionalInformation(
                 Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS,
                 $this->getHelper()->prepareRawDetails($response->getBody()),
-            )
-            ->save();
+            )->setAdditionalInformation(
+                Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID,
+                $paypalRequestId,
+            )->setAdditionalInformation(
+                Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_SOURCE,
+                $fundingSource,
+            )->save();
     }
 
     /**

@@ -205,7 +205,6 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     private function _extractDetailedError(array $result): string
     {
         $errorMessages = [];
-
         if (isset($result['details']) && is_array($result['details'])) {
             foreach ($result['details'] as $detail) {
                 $issue = '';
@@ -360,5 +359,18 @@ class Mage_Paypal_Model_Helper extends Mage_Core_Model_Abstract
     public function getQuote(): Mage_Sales_Model_Quote
     {
         return Mage::getSingleton('checkout/session')->getQuote();
+    }
+
+
+    /**
+     * Retrieve PayPal Transaction PayPal-Request-Id if available
+     */
+    public function getPaypalRequestId(Mage_Sales_Model_Quote $quote): ?string
+    {
+        $payment = $quote->getPayment();
+        if ($payment && $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID)) {
+            return $payment->getAdditionalInformation(Mage_Paypal_Model_Payment::PAYPAL_REQUEST_ID);
+        }
+        return null;
     }
 }

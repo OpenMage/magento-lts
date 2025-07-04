@@ -183,7 +183,7 @@ class PayPalPayment {
                 label: this.config.buttonLabel || 'paypal',
                 height: parseInt(this.config.buttonHeight, 10) || 40
             },
-            createOrder: () => this.createOrder(),
+            createOrder: (data) => this.createOrder(data),
             onApprove: (data) => this.onApprove(data),
             onError: (error) => this.onButtonError(error),
             onCancel: () => this.onCancel()
@@ -221,7 +221,7 @@ class PayPalPayment {
         }
     }
 
-    async createOrder() {
+    async createOrder(data) {
         this.showLoadingMask();
 
         try {
@@ -229,14 +229,19 @@ class PayPalPayment {
                 throw new Error('Form validation failed');
             }
 
+            const requestBody = new URLSearchParams({
+                form_key: this.config.formKey
+            });
+
+            if (data?.paymentSource) {
+                requestBody.append('funding_source', data.paymentSource);
+            }
             const response = await fetch(this.config.createOrderUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: new URLSearchParams({
-                    form_key: this.config.formKey
-                }),
+                body: requestBody,
                 signal: this.abortController.signal
             });
 
@@ -320,12 +325,23 @@ class PayPalPayment {
 
     onButtonError(error) {
         console.error('PayPal button error:', error);
+        this.onCancel();
         this.showError(error);
     }
 
     onCancel() {
         this.hideLoadingMask();
-        console.log('PayPal payment cancelled by user');
+        fetch(this.config.cancelUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                form_key: this.config.formKey
+            }),
+            signal: this.abortController.signal
+        }).catch(err => console.error('Cancel order error:', err));
+        this.showError('PayPal payment cancelled by user.');
     }
 
     validateForm() {

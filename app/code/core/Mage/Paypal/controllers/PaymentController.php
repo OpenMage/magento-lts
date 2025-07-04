@@ -40,8 +40,8 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     public function createAction(): void
     {
         try {
-            if (!$this->getRequest()->isPost() || !$this->getRequest()->getParam('form_key')) {
-                Mage::throwException(Mage::helper('paypal')->__('Invalid form key'));
+            if (!$this->_validateFormKey()) {
+                Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
             }
 
             if (!$this->_getQuote()->hasItems() || $this->_getQuote()->getHasError()) {
@@ -58,6 +58,8 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 $this->_getQuote()->setIsMultiShipping(false);
                 $this->_getQuote()->removeAllAddresses();
             }
+
+            $fundingSource = $this->getRequest()->getParam('funding_source');
 
             $customer = $this->_getCustomerSession()->getCustomer();
             $quoteCheckoutMethod = Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod();
@@ -78,19 +80,17 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            $result = $this->_getPaypal()->create($this->_getQuote());
-
+            $result = $this->_getPaypal()->create($this->_getQuote(), $fundingSource);
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                 ->setBody(Mage::helper('core')->jsonEncode($result));
         } catch (Exception $e) {
             Mage::logException($e);
-
             $this->getResponse()
                 ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
                 ->setBody(Mage::helper('core')->jsonEncode([
                     'success' => false,
-                    'error' => $e->getMessage(),
+                    'message' => $e->getMessage(),
                 ]));
         }
     }
@@ -104,16 +104,15 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     public function processAction(): void
     {
         try {
+            if (!$this->_validateFormKey()) {
+                Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
+            }
             $orderId = $this->getRequest()->getParam('order_id');
             $paymentAction = Mage::getSingleton('paypal/config')->getPaymentAction();
 
             if (!$orderId) {
                 Mage::throwException(Mage::helper('paypal')->__('PayPal order ID is required'));
             }
-            if (!$this->getRequest()->isPost() || !$this->getRequest()->getParam('form_key')) {
-                Mage::throwException(Mage::helper('paypal')->__('Invalid form key'));
-            }
-
             if ($paymentAction === strtolower(CheckoutPaymentIntent::AUTHORIZE)) {
                 $this->_getPaypal()->authorizePayment($orderId, $this->_getQuote());
             } else {
@@ -143,6 +142,9 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
     public function placeOrderAction(): void
     {
         try {
+            if (!$this->_validateFormKey()) {
+                Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
+            }
             $isNewCustomer = false;
             switch (Mage::getSingleton('checkout/type_onepage')->getCheckoutMethod()) {
                 case Mage_Checkout_Model_Type_Onepage::METHOD_GUEST:
@@ -213,14 +215,14 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
                     Mage::helper('paypal')->__('Payment has been authorized. Capture is required.'),
                 )->save();
             } else {
-                $order->addStatusHistoryComment(
-                    Mage::helper('paypal')->__('PayPal payment captured successfully. Capture ID: %s', $transaction->getTxnId()),
-                    false,
-                );
                 $transaction->setOrderPaymentObject($orderPayment)
                     ->setTxnId($quotePayment->getPaypalCorrelationId())
                     ->setTxnType(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE)
                     ->setIsClosed($orderPayment->getIsTransactionClosed());
+                $order->addStatusHistoryComment(
+                    Mage::helper('paypal')->__('PayPal payment captured successfully. Capture ID: %s', $transaction->getTxnId()),
+                    false,
+                );
             }
             $transaction->save();
 
@@ -245,10 +247,40 @@ class Mage_Paypal_PaymentController extends Mage_Core_Controller_Front_Action
             return;
         } catch (Exception $e) {
             Mage::logException($e);
-
             Mage::helper('checkout')->sendPaymentFailedEmail($this->_getQuote(), $e->getMessage());
-            $session->addError($e->getMessage());
+            $this->_getCheckoutSession()->addError($e->getMessage());
             $this->_redirect('checkout/cart');
+        }
+    }
+
+    /**
+     * Cancel Payment
+     *
+     */
+    public function cancelAction(): void
+    {
+        try {
+            if (!$this->_validateFormKey()) {
+                Mage::throwException(Mage::helper('paypal')->__('Invalid form key.'));
+            }
+            $payment = $this->_getQuote()->getPayment();
+            $additionalInfo = $payment->getAdditionalInformation();
+            foreach ($additionalInfo as $key => $value) {
+                $payment->unsAdditionalInformation($key);
+            }
+            $payment->setPaypalCorrelationId('')->save();
+            $this->_getQuote()->setReservedOrderId(null)->save();
+            $this->getResponse()
+                ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
+                ->setBody(Mage::helper('core')->jsonEncode(['success' => true]));
+        } catch (Exception $e) {
+            Mage::logException($e);
+            $this->getResponse()
+                ->setHeader('Content-Type', self::CONTENT_TYPE_JSON)
+                ->setBody(Mage::helper('core')->jsonEncode([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ]));
         }
     }
 

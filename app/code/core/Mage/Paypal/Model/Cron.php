@@ -147,7 +147,7 @@ class Mage_Paypal_Model_Cron
     protected function _hasBeenReauthorized($payment)
     {
         $additionalInfo = $payment->getAdditionalInformation();
-        return isset($additionalInfo[Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHROIZED]);
+        return isset($additionalInfo[Mage_Paypal_Model_Payment::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED]);
     }
 
     /**

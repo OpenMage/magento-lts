@@ -23,11 +23,10 @@ use PaypalServerSdkLib\Models\{
 class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
 {
     // Payment information transport keys
-    public const PAYPAL_PAYMENT_STATUS = 'paypal_payment_status';
+    public const PAYPAL_REQUEST_ID = 'paypal_request_id';
+    public const PAYPAL_PAYMENT_SOURCE = 'paypal_payment_source';
     public const PAYPAL_PAYMENT_AUTHORIZATION_ID = 'paypal_payment_authorization_id';
-    public const PAYPAL_PAYMENT_AUTHORIZATION_EXPIRATION_TIME = 'paypal_payment_authorization_expires_time';
-    public const PAYPAL_PAYMENT_AUTHORIZATION_REAUTHROIZED = 'paypal_payment_authorization_reauthorized';
-
+    public const PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED = 'paypal_payment_authorization_reauthorized';
 
     // Error messages
     private const ERROR_NO_AUTHORIZATION_ID = 'No authorization ID found. Cannot capture payment.';
@@ -41,13 +40,12 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
     public function captureOrder(string $orderId, Mage_Sales_Model_Quote|Mage_Sales_Model_Order $quote): void
     {
         $api = $this->getHelper()->getApi();
-        $response = $api->captureOrder($orderId, $quote);
-        $result = $response->getResult();
-
+        $requestId = $this->getHelper()->getPaypalRequestId($quote);
+        $response = $api->captureOrder($orderId, $quote, $requestId);
+        $captureId = $this->getHelper()->extractCaptureId($response->getResult());
         if ($response->isError()) {
-            $this->getHelper()->handleApiError($response, 'Capture failed');
+            $this->getHelper()->handleApiError($response, 'Capture order failed');
         }
-        $captureId = $this->getHelper()->extractCaptureId($result);
         $this->getTransactionManager()->updatePaymentAfterCapture($quote->getPayment(), $response, $captureId);
         $quote->collectTotals()->save();
     }
@@ -92,7 +90,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
 
         $payment = $order->getPayment();
         $payment->setAdditionalInformation(
-            self::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHROIZED,
+            self::PAYPAL_PAYMENT_AUTHORIZATION_REAUTHORIZED,
             true,
         );
         $payment->save();
@@ -187,7 +185,6 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
      */
     public function processVoid(Varien_Object $payment): static
     {
-        // PayPal will handle void transaction
         $transactionId = str_contains($payment->getTransactionId(), '-void')
             ? str_replace('-void', '', $payment->getTransactionId())
             : $payment->getTransactionId();

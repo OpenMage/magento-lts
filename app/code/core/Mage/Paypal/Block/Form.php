@@ -60,6 +60,9 @@ class Mage_Paypal_Block_Form extends Mage_Payment_Block_Form
             'intent' => (string) $intent,
             'currency' => Mage::app()->getStore()->getCurrentCurrencyCode(),
         ];
+        if (Mage::getSingleton('paypal/config')->isDebugEnabled()) {
+            $params['debug'] = 'true';
+        }
 
         $baseUrl = $this->getEndpointUrl();
         if (!str_ends_with($baseUrl, '/')) {

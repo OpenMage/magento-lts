@@ -131,7 +131,7 @@ class Mage_Paypal_Model_Transaction extends Mage_Core_Model_Abstract
                 $this->getHelper()->prepareRawDetails($response->getBody()),
             );
         $paymentSource = $result->getPaymentSource();
-        if ($paymentSource->getPaypal() instanceof PaypalWalletResponse) {
+        if (isset($paymentSource) && $paymentSource->getPaypal() instanceof PaypalWalletResponse) {
             $paypalWallet = $paymentSource->getPaypal();
             $payment->setPaypalPayerId($paypalWallet->getAccountId())
                 ->setPaypalPayerStatus($paypalWallet->getAccountStatus());

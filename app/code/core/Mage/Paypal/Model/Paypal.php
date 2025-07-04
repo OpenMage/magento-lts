@@ -36,12 +36,13 @@ class Mage_Paypal_Model_Paypal extends Mage_Payment_Model_Method_Abstract
      * Create PayPal order via API
      *
      * @param Mage_Sales_Model_Quote $quote Customer quote
+     * @param string|null $fundingSource Funding source for the order, e.g., 'mybank'
      * @return array{success: bool, id?: string, error?: string}
      * @throws Mage_Paypal_Model_Exception
      */
-    public function create(Mage_Sales_Model_Quote $quote): array
+    public function create(Mage_Sales_Model_Quote $quote, ?string $fundingSource): array
     {
-        return $this->getOrderHandler()->createOrder($quote);
+        return $this->getOrderHandler()->createOrder($quote, $fundingSource);
     }
 
     /**
