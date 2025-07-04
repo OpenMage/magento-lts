@@ -231,8 +231,6 @@
  * @method $this setPaymentAuthorizationAmount(float $value)
  * @method int getPaymentAuthorizationExpiration()
  * @method $this setPaymentAuthorizationExpiration(int $value)
- * @method int getPaypalIpnCustomerNotified()
- * @method $this setPaypalIpnCustomerNotified(int $value)
  * @method string getProtectCode()
  * @method $this setProtectCode(string $value)
  *

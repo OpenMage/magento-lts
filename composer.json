@@ -37,6 +37,7 @@
         "mklkj/tinymce-i18n": "^25.2",
         "nnnick/chartjs": "^4.4",
         "openmage/composer-plugin": "^3.0",
+        "paypal/paypal-server-sdk": "^1.1",
         "pelago/emogrifier": "^7.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
