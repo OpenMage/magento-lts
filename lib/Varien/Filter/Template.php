@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Filter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template constructions filter
  *
- * @category   Varien
  * @package    Varien_Filter
  */
 
@@ -253,7 +245,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $tokenizer->setString($value);
         $params = $tokenizer->tokenize();
         foreach ($params as $key => $value) {
-            if (substr($value, 0, 1) === '$') {
+            if (str_starts_with($value, '$')) {
                 $params[$key] = $this->_getVariable(substr($value, 1), null);
             }
         }
@@ -291,7 +283,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 } elseif ($stackVars[$i]['type'] == 'method') {
                     // Calling of object method
                     if (method_exists($stackVars[$i - 1]['variable'], $stackVars[$i]['name'])
-                        || substr($stackVars[$i]['name'], 0, 3) == 'get'
+                        || str_starts_with($stackVars[$i]['name'], 'get')
                     ) {
                         $isEncrypted = false;
                         if ($stackVars[$i]['name'] == 'getConfig') {

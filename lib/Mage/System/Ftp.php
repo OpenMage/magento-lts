@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_System
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class to work with remote FTP server
  *
- * @category   Mage
  * @package    Mage_System
  */
 class Mage_System_Ftp
@@ -25,7 +17,7 @@ class Mage_System_Ftp
     /**
      * Connection object
      *
-     * @var resource|false
+     * @var FTP\Connection|false
      */
     protected $_conn = false;
 
@@ -38,7 +30,7 @@ class Mage_System_Ftp
     protected function checkConnected()
     {
         if (!$this->_conn) {
-            throw new Exception(__CLASS__ . ' - no connection established with server');
+            throw new Exception(self::class . ' - no connection established with server');
         }
     }
 
@@ -254,7 +246,7 @@ class Mage_System_Ftp
             throw new Exception("Directory given instead of file: {$local}");
         }
 
-        $globalPathMode = substr($remote, 0, 1) == '/';
+        $globalPathMode = str_starts_with($remote, '/');
         $dirname = dirname($remote);
         $cwd = $this->getcwd();
         if (false === $cwd) {
@@ -417,7 +409,7 @@ class Mage_System_Ftp
     {
         $symbol = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
         $exp = floor(log($bytes) / log(1024));
-        return sprintf('%.2f ' . $symbol[ $exp ], ($bytes / pow(1024, floor($exp))));
+        return sprintf('%.2f ' . $symbol[ $exp ], ($bytes / 1024 ** floor($exp)));
     }
 
     /**
@@ -444,7 +436,7 @@ class Mage_System_Ftp
     public function fileExists($path, $excludeIfIsDir = true)
     {
         $path = $this->correctFilePath($path);
-        $globalPathMode = substr($path, 0, 1) == '/';
+        $globalPathMode = str_starts_with($path, '/');
 
         $file = basename($path);
         $dir = $globalPathMode ? dirname($path) : $this->getcwd() . '/' . $path;

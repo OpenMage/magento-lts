@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -20,60 +14,54 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block\Html;
 use Mage;
 use Mage_Core_Model_Security_HtmlEscapedString;
 use Mage_Page_Block_Html_Header as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HeaderTest extends TestCase
+class HeaderTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetIsHomePage(): void
     //    {
-    //        $this->assertIsBool($this->subject->getIsHomePage());
+    //        $this->assertIsBool(self::$subject->getIsHomePage());
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testSetLogo(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->setLogo('src', 'alt'));
+        static::assertInstanceOf(Subject::class, self::$subject->setLogo('src', 'alt'));
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetLogoSrc(): void
     {
-        $this->assertIsString($this->subject->getLogoSrc());
+        static::assertIsString(self::$subject->getLogoSrc());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetLogoSrcSmall(): void
     {
-        $this->assertIsString($this->subject->getLogoSrcSmall());
+        static::assertIsString(self::$subject->getLogoSrcSmall());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetLogoAlt(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, $this->subject->getLogoAlt());
+        static::assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, self::$subject->getLogoAlt());
     }
 }

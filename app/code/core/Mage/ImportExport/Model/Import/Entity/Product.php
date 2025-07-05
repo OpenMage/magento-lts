@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import entity product model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Model_Import_Entity_Abstract
@@ -940,7 +932,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                 if (array_key_exists($paramSuffix, $solidParams)) {
                                     $solidParams[$paramSuffix] = $data;
                                 } elseif ($paramSuffix === 'price') {
-                                    if (substr($data, -1) === '%') {
+                                    if (str_ends_with($data, '%')) {
                                         $priceTableRow['price_type'] = 'percent';
                                     }
                                     $priceTableRow['price'] = (float) rtrim($data, '%');
@@ -978,7 +970,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                                 'price'      => (float) rtrim($rowData['_custom_option_row_price'], '%'),
                                 'price_type' => 'fixed',
                             ];
-                            if (substr($rowData['_custom_option_row_price'], -1) === '%') {
+                            if (str_ends_with($rowData['_custom_option_row_price'], '%')) {
                                 $typePriceRow['price_type'] = 'percent';
                             }
                             if ($priceIsGlobal) {
@@ -1000,8 +992,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                         $flagNewOption = true;
                         if ($lastStoreId != $storeId) {
                             if (!$firstKeyOption) {
-                                reset($customOptions[$typeTitleTable]);
-                                $firstKeyOption = key($customOptions[$typeTitleTable]);
+                                $firstKeyOption = array_key_first($customOptions[$typeTitleTable]);
                             }
                             $currentValueId = $firstKeyOption;
                             $lastStoreId    = $storeId;

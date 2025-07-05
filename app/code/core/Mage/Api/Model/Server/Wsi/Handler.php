@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservices server handler WSI
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Abstract
@@ -59,7 +51,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
             }
         }
 
-        list($modelName, $methodName) = $this->_getResourceName($apiKey);
+        [$modelName, $methodName] = $this->_getResourceName($apiKey);
         $methodParams = $this->getMethodParams($modelName, $methodName);
 
         $args = $this->prepareArgs($methodParams, $args);
@@ -103,7 +95,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
      */
     protected function _getResourceName($apiPath)
     {
-        list($resourceName, $methodName) = explode('.', $apiPath);
+        [$resourceName, $methodName] = explode('.', $apiPath);
 
         if (empty($resourceName) || empty($methodName)) {
             $this->_fault('resource_path_invalid');

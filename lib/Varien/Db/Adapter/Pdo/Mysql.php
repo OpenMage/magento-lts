@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -321,7 +314,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
         } elseif (str_contains($hostName, ':')) {
-            list($hostAddress, $hostPort) = explode(':', $hostName);
+            [$hostAddress, $hostPort] = explode(':', $hostName);
             $hostInfo->setAddressType(
                 filter_var($hostAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
                     ? self::ADDRESS_TYPE_IPV4_ADDRESS
@@ -464,7 +457,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             if (in_array($startSql, $this->_ddlRoutines)
                 && (preg_match($this->_tempRoutines, $sql) !== 1)
             ) {
-                trigger_error(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE, E_USER_ERROR);
+                throw new Varien_Db_Exception(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE);
             }
         }
     }
@@ -560,9 +553,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         if (isset($matches[6])
             && (
-                strpos($matches[6], "'") !== false
-                || strpos($matches[6], ':') !== false
-                || strpos($matches[6], '?') !== false
+                str_contains($matches[6], "'")
+                || str_contains($matches[6], ':')
+                || str_contains($matches[6], '?')
             )
         ) {
             $bindName = ':_mage_bind_var_' . (++$this->_bindIncrement);
@@ -776,7 +769,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $foreignKeys = $this->getForeignKeys($tableName, $schemaName);
         $fkName = strtoupper($fkName);
-        if (substr($fkName, 0, 3) == 'FK_') {
+        if (str_starts_with($fkName, 'FK_')) {
             $fkName = substr($fkName, 3);
         }
         foreach ([$fkName, 'FK_' . $fkName] as $key) {
@@ -1687,7 +1680,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $matches = [];
         if (preg_match('/^((?:var)?binary)\((\d+)\)/', $tableColumnInfo['DATA_TYPE'], $matches)) {
-            list($fieldFullDescription, $fieldType, $fieldLength) = $matches;
+            [$fieldFullDescription, $fieldType, $fieldLength] = $matches;
             $tableColumnInfo['DATA_TYPE'] = $fieldType;
             $tableColumnInfo['LENGTH'] = $fieldLength;
         }
@@ -3751,7 +3744,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // render UPDATE SET
         $columns = [];
         foreach ($select->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
+            [$correlationName, $column, $alias] = $columnEntry;
             if (empty($alias)) {
                 $alias = $column;
             }
@@ -4048,7 +4041,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _getForeignKeyName($fkName)
     {
-        if (substr($fkName, 0, 3) != 'FK_') {
+        if (!str_starts_with($fkName, 'FK_')) {
             $fkName = 'FK_' . $fkName;
         }
 
@@ -4094,7 +4087,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     public function __destruct()
     {
         if ($this->_transactionLevel > 0) {
-            trigger_error('Some transactions have not been committed or rolled back', E_USER_ERROR);
+            throw new RuntimeException(Varien_Db_Adapter_Interface::ERROR_TRANSACTION_NOT_COMMITTED);
         }
     }
 }

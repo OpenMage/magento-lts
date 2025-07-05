@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Http
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * HTTP CURL Adapter
  *
- * @category   Varien
  * @package    Varien_Http
  */
 class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
@@ -70,10 +62,10 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             return $this;
         }
 
-        $verifyPeer = isset($this->_config['verifypeer']) ? $this->_config['verifypeer'] : 0;
+        $verifyPeer = $this->_config['verifypeer'] ?? 0;
         curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYPEER, $verifyPeer);
 
-        $verifyHost = isset($this->_config['verifyhost']) ? $this->_config['verifyhost'] : 0;
+        $verifyHost = $this->_config['verifyhost'] ?? 0;
         curl_setopt($this->_getResource(), CURLOPT_SSL_VERIFYHOST, $verifyHost);
 
         foreach (array_keys($this->_config) as $param) {
@@ -163,7 +155,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         }
         $this->_applyConfig();
 
-        $header = isset($this->_config['header']) ? $this->_config['header'] : true;
+        $header = $this->_config['header'] ?? true;
         $options = [
             CURLOPT_URL                     => $url,
             CURLOPT_RETURNTRANSFER          => true,

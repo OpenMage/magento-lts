@@ -7,7 +7,7 @@ tags:
 # SOAP/WSDL
 
 Since `19.4.17`/`20.0.15` we changed the `targetNamespace` of all the WSDL files (used in the API modules), from `Magento` to `OpenMage`.
-If your custom modules extends OpenMage's APIs with a custom WSDL file and there are some hardcoded `targetNamespace="urn:Magento"` strings, your APIs may stop working.
+If your custom modules extends OpenMage API with a custom WSDL file and there are some hard-coded `targetNamespace="urn:Magento"` strings, your API may stop working.
 
 Please replace all occurrences of
 

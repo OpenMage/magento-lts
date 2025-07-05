@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product collection
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method Mage_Catalog_Model_Product getItemById($value)
@@ -1387,7 +1379,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (is_string($attribute) && $attribute == 'is_saleable') {
             $columns = $this->getSelect()->getPart(Zend_Db_Select::COLUMNS);
             foreach ($columns as $columnEntry) {
-                list($correlationName, $column, $alias) = $columnEntry;
+                [$correlationName, $column, $alias] = $columnEntry;
                 if ($alias == 'is_saleable') {
                     if ($column instanceof Zend_Db_Expr) {
                         $field = $column;
@@ -1463,12 +1455,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productIds[] = $product->getId();
         }
         if (!empty($productIds)) {
+            $storeId = $this->getStoreId();
             $options = Mage::getModel('catalog/product_option')
                 ->getCollection()
-                ->addTitleToResult(Mage::app()->getStore()->getId())
-                ->addPriceToResult(Mage::app()->getStore()->getId())
+                ->addTitleToResult($storeId)
+                ->addPriceToResult($storeId)
                 ->addProductToFilter($productIds)
-                ->addValuesToResult();
+                ->addValuesToResult($storeId);
 
             foreach ($options as $option) {
                 if ($this->getItemById($option->getProductId())) {
@@ -1520,7 +1513,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             // optimize if using cat index
             $filters = $this->_productLimitationFilters;
             if (isset($filters['category_id']) || isset($filters['visibility'])) {
-                $this->getSelect()->order('cat_index.position ' . $dir);
+                $this->getSelect()->order(['cat_index.position ' . $dir, 'e.entity_id ' . $dir]);
             } else {
                 $this->getSelect()->order('e.entity_id ' . $dir);
             }
@@ -1651,7 +1644,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
         $hasColumn = false;
         foreach ($this->getSelect()->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
-            list(, , $alias) = $columnEntry;
+            [, , $alias] = $columnEntry;
             if ($alias == 'visibility') {
                 $hasColumn = true;
             }

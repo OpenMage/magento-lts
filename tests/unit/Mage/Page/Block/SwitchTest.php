@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -19,96 +13,87 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
 use Mage_Page_Block_Switch as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class SwitchTest extends TestCase
+class SwitchTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentWebsiteId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentWebsiteId());
+        static::assertIsInt(self::$subject->getCurrentWebsiteId());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentGroupId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentGroupId());
+        static::assertIsInt(self::$subject->getCurrentGroupId());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentStoreId(): void
     {
-        $this->assertIsInt($this->subject->getCurrentStoreId());
+        static::assertIsInt(self::$subject->getCurrentStoreId());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetCurrentStoreCode(): void
     {
-        $this->assertIsString($this->subject->getCurrentStoreCode());
+        static::assertIsString(self::$subject->getCurrentStoreCode());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetRawGroups(): void
     {
-        $this->assertIsArray($this->subject->getRawGroups());
+        static::assertIsArray(self::$subject->getRawGroups());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetRawStores(): void
     //    {
-    //        $this->assertIsArray($this->subject->getRawStores());
+    //        $this->assertIsArray(self::$subject->getRawStores());
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetGroups(): void
     //    {
-    //        $this->assertIsArray($this->subject->getGroups());
+    //        $this->assertIsArray(self::$subject->getGroups());
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetStores(): void
     //    {
-    //        $this->assertIsArray($this->subject->getStores());
+    //        $this->assertIsArray(self::$subject->getStores());
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testIsStoreInUrl(): void
     {
-        $this->assertIsBool($this->subject->isStoreInUrl());
+        static::assertIsBool(self::$subject->isStoreInUrl());
     }
 }

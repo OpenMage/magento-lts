@@ -1,79 +1,54 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Admin\Model;
 
-use Generator;
+use Exception;
 use Mage;
 use Mage_Admin_Model_Block as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\BlockTrait;
 
-class BlockTest extends TestCase
+class BlockTest extends OpenMageTest
 {
-    public Subject $subject;
+    use BlockTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('admin/block');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('admin/block');
     }
 
     /**
-     * @dataProvider provideValidateData
-     * @param array<int, string> $expectedResult
+     * @dataProvider provideValidateAdminBlockData
+     * @param true|array<int, string> $expectedResult
      *
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
+     * @throws Exception
      */
-    public function testValidate(array $expectedResult, array $methods): void
+    public function testValidate(bool|array $expectedResult, array $methods): void
     {
-        $mock = $this->getMockBuilder(Subject::class)
-            ->setMethods([
-                'getBlockName',
-                'getIsAllowed',
-            ])
-            ->getMock();
+        $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        $mock->method('getBlockName')->willReturn($methods['getBlockName']);
-        $mock->method('getIsAllowed')->willReturn($methods['getIsAllowed']);
-        $this->assertEquals($expectedResult, $mock->validate());
-    }
-
-    public function provideValidateData(): Generator
-    {
-        yield 'errors' => [
-            [
-                0 => 'Block Name is required field.',
-                1 => 'Block Name is incorrect.',
-                2 => 'Is Allowed is required field.',
-            ],
-            [
-                'getBlockName' => '',
-                'getIsAllowed' => '',
-            ],
-        ];
+        static::assertInstanceOf(Subject::class, $mock);
+        static::assertEquals($expectedResult, $mock->validate());
     }
 
     /**
-     * @group Mage_Admin
-     * @group Mage_Admin_Model
+     * @group Model
      */
     public function testIsTypeAllowed(): void
     {
-        $this->assertIsBool($this->subject->isTypeAllowed('invalid-type'));
+        static::assertIsBool(self::$subject->isTypeAllowed('invalid-type'));
     }
 }

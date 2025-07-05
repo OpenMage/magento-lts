@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Reports orders collection
  *
- * @category   Mage
  * @package    Mage_Reports
  *
  * @method Mage_Sales_Model_Order getFirstItem()
@@ -222,25 +214,27 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Get range expression
      *
-     * @param string $range
+     * @param Mage_Reports_Helper_Data::PERIOD_* $range
      * @return Zend_Db_Expr
      */
     protected function _getRangeExpression($range)
     {
         switch ($range) {
-            case '24h':
+            case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
                 $expression = $this->getConnection()->getConcatSql([
                     $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
                     $this->getConnection()->quote('00'),
                 ]);
                 break;
-            case '7d':
-            case '1m':
+            case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
+            case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+            case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+            case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
                 $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d');
                 break;
-            case '1y':
-            case '2y':
-            case 'custom':
+            case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+            case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
+            case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
             default:
                 $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m');
                 break;
@@ -306,7 +300,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
     /**
      * Calculate From and To dates (or times) by given period
      *
-     * @param string $range
+     * @param Mage_Reports_Helper_Data::PERIOD_* $range
      * @param string $customStart
      * @param string $customEnd
      * @param bool $returnObjects
@@ -327,30 +321,37 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
         $dateStart->setSecond(0);
 
         switch ($range) {
-            case '24h':
+            case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
                 $dateEnd = Mage::app()->getLocale()->date();
                 $dateEnd->addHour(1);
                 $dateStart = clone $dateEnd;
                 $dateStart->subDay(1);
                 break;
 
-            case '7d':
+            case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
                 // subtract 6 days we need to include
                 // only today and not the last one from range
                 $dateStart->subDay(6);
                 break;
 
-            case '1m':
+            case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+            case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+            case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
                 $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
+                if ($range === Mage_Reports_Helper_Data::PERIOD_3_MONTHS) {
+                    $dateStart->subMonth(2);
+                } elseif ($range === Mage_Reports_Helper_Data::PERIOD_6_MONTHS) {
+                    $dateStart->subMonth(5);
+                }
                 break;
 
-            case 'custom':
-                $dateStart = $customStart ? $customStart : $dateEnd;
-                $dateEnd   = $customEnd ? $customEnd : $dateEnd;
+            case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
+                $dateStart = $customStart ?: $dateEnd;
+                $dateEnd   = $customEnd ?: $dateEnd;
                 break;
 
-            case '1y':
-            case '2y':
+            case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
+            case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
                 $startMonthDay = explode(',', Mage::getStoreConfig('reports/dashboard/ytd_start'));
                 $startMonth = isset($startMonthDay[0]) ? (int) $startMonthDay[0] : 1;
                 $startDay = isset($startMonthDay[1]) ? (int) $startMonthDay[1] : 1;
@@ -797,7 +798,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      */
     public function addCreateAtPeriodFilter($period)
     {
-        list($from, $to) = $this->getDateRange($period, 0, 0, true);
+        [$from, $to] = $this->getDateRange($period, 0, 0, true);
 
         $this->checkIsLive($period);
 

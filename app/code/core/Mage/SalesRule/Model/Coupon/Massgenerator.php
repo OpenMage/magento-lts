@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * SalesRule Mass Coupon Generator
  *
- * @category   Mage
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Coupon getResource()
@@ -121,13 +113,13 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
         $chars = count(Mage::helper('salesrule/coupon')->getCharset($this->getFormat()));
         $length = (int) $this->getLength();
-        $maxCodes = pow($chars, $length);
+        $maxCodes = $chars ** $length;
         $probability = $size / $maxCodes;
         //increase the length of Code if probability is low
         if ($probability > $maxProbability) {
             do {
                 $length++;
-                $maxCodes = pow($chars, $length);
+                $maxCodes = $chars ** $length;
                 $probability = $size / $maxCodes;
             } while ($probability > $maxProbability);
             $this->setLength($length);

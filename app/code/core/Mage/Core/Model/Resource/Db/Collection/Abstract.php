@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Core Resource Collection
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Data_Collection_Db
@@ -203,7 +195,7 @@ abstract class Mage_Core_Model_Resource_Db_Collection_Abstract extends Varien_Da
         $columns = $this->_select->getPart(Zend_Db_Select::COLUMNS);
         $columnsToSelect = [];
         foreach ($columns as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
+            [$correlationName, $column, $alias] = $columnEntry;
             if ($correlationName !== 'main_table') { // Add joined fields to select
                 if ($column instanceof Zend_Db_Expr) {
                     $column = $column->__toString();

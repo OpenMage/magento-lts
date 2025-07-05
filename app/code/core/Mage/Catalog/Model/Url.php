@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -19,7 +12,6 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 /**
  * Catalog url model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Url extends Varien_Object
@@ -606,7 +598,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $this->_refreshProductRewrite($product, $this->_categories[$storeRootCategoryId]);
                 foreach ($product->getCategoryIds() as $categoryId) {
                     if ($categoryId != $storeRootCategoryId && isset($this->_categories[$categoryId])) {
-                        if (strpos($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/') !== 0) {
+                        if (!str_starts_with($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/')) {
                             continue;
                         }
                         $this->_refreshProductRewrite($product, $this->_categories[$categoryId]);

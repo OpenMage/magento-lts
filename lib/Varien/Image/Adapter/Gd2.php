@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Image
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
@@ -141,7 +134,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             $fileName = $this->_fileSrcPath . $this->_fileSrcName;
         }
 
-        $destinationDir = (isset($destination)) ? $destination : $this->_fileSrcPath;
+        $destinationDir = $destination ?? $this->_fileSrcPath;
 
         if (!is_writable($destinationDir)) {
             try {
@@ -263,7 +256,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 } elseif (false !== $transparentIndex) { // fill image with indexed non-alpha transparency
                     $transparentColor = false;
                     if ($transparentIndex >= 0 && $transparentIndex < imagecolorstotal($this->_imageHandler)) {
-                        list($r, $g, $b)  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
+                        [$r, $g, $b]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
                         $transparentColor = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
                     }
                     if (false === $transparentColor) {
@@ -279,7 +272,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 // fallback to default background color
             }
         }
-        list($r, $g, $b) = $this->_backgroundColor;
+        [$r, $g, $b] = $this->_backgroundColor;
         $color = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
             throw new Exception("Failed to fill image background with color {$r} {$g} {$b}. File: {$this->_fileName}");
@@ -433,7 +426,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 
     public function watermark($watermarkImage, $positionX = 0, $positionY = 0, $watermarkImageOpacity = 30, $repeat = false)
     {
-        list($watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ) = getimagesize($watermarkImage);
+        [$watermarkSrcWidth, $watermarkSrcHeight, $watermarkFileType, ] = getimagesize($watermarkImage);
         $this->_getFileAttributes();
         $watermark = call_user_func($this->_getCallback(
             'create',

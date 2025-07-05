@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_HTTP
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class to work with HTTP protocol using sockets
  *
- * @category   Mage
  * @package    Mage_HTTP
  */
 class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
@@ -304,7 +296,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -330,7 +322,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
-            list($key, $val) = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
+            [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
@@ -341,7 +333,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
                 continue;
             }
             for ($i = 0; $i < $c; $i++) {
-                list($subkey, $val) = explode('=', $values[$i]);
+                [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
@@ -495,7 +487,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         foreach ($headers as $k => $v) {
             $str [] = "$k: $v\r\n";
         }
-        return implode($str);
+        return implode('', $str);
     }
 
     /**

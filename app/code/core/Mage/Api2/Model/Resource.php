@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 Abstract Resource
  *
- * @category   Mage
  * @package    Mage_Api2
  *
  * @method string _create() _create(array $filteredData) creation of an entity
@@ -147,16 +139,12 @@ abstract class Mage_Api2_Model_Resource
     protected $_userType;
 
     /**
-     * One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
-     *
-     * @var string
+     * @var Mage_Api2_Model_Resource::ACTION_TYPE_*
      */
     protected $_actionType;
 
     /**
-     * One of Mage_Api2_Model_Resource::OPERATION_... constant
-     *
-     * @var string
+     * @var Mage_Api2_Model_Resource::OPERATION_*
      */
     protected $_operation;
 
@@ -529,7 +517,7 @@ abstract class Mage_Api2_Model_Resource
      * Get action type
      * If not exists get from Request
      *
-     * @return string One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
+     * @return self::ACTION_TYPE_*
      */
     public function getActionType()
     {
@@ -542,7 +530,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set route type
      *
-     * @param string $actionType One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
+     * @param self::ACTION_TYPE_* $actionType
      * @return $this
      */
     public function setActionType($actionType)
@@ -555,7 +543,7 @@ abstract class Mage_Api2_Model_Resource
      * Get operation
      * If not exists get from Request
      *
-     * @return string One of Mage_Api2_Model_Resource::OPERATION_... constant
+     * @return self::OPERATION_*
      */
     public function getOperation()
     {
@@ -568,7 +556,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set operation
      *
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
+     * @param self::OPERATION_* $operation
      * @return $this
      */
     public function setOperation($operation)
@@ -951,7 +939,7 @@ abstract class Mage_Api2_Model_Resource
      * Retrieve list of included attributes
      *
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getIncludedAttributes($userType, $operationType)
@@ -963,7 +951,7 @@ abstract class Mage_Api2_Model_Resource
      * Retrieve list of entity only attributes
      *
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getEntityOnlyAttributes($userType, $operationType)
