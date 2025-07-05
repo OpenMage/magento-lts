@@ -1,60 +1,70 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Cms\Block\Widget\Page;
 
-use Mage;
 use Mage_Cms_Block_Widget_Page_Link as Subject;
-use PHPUnit\Framework\TestCase;
+use Mage_Core_Model_Store_Exception;
+use OpenMage\Tests\Unit\OpenMageTest;
+use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Block\Widget\Page\LinkTrait;
 
-class LinkTest extends TestCase
+class LinkTest extends OpenMageTest
 {
-    public Subject $subject;
+    use LinkTrait;
 
-    public function setUp(): void
+    private static Subject $subject;
+
+    protected function setUp(): void
     {
-        Mage::app();
-        $this->subject = new Subject();
+        parent::setUp();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @dataProvider provideGetHrefData
+     * @group Block
+     * @group runInSeparateProcess
+     * @runInSeparateProcess
      */
-    public function testGetHref(): void
+    public function testGetHref(string $expectedResult, array $data): void
     {
-        $this->assertIsString($this->subject->getHref());
+        self::$subject->setData($data);
+
+        $result = self::$subject->getHref();
+        static::assertSame($expectedResult, $result);
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @dataProvider provideGetTitleData
+     * @group Block
+     * @throws Mage_Core_Model_Store_Exception
      */
-    public function testGetTitle(): void
+    public function testGetTitle(string $expectedResult, array $data): void
     {
-        $this->assertIsString($this->subject->getTitle());
+        self::$subject->setData($data);
+
+        $result = self::$subject->getTitle();
+        static::assertSame($expectedResult, $result);
     }
 
     /**
-     * @group Mage_Cms
-     * @group Mage_Cms_Block
+     * @dataProvider provideGetAnchorTextData
+     * @group Block
+     * @throws Mage_Core_Model_Store_Exception
      */
-    //    public function testGetAnchorText(): void
-    //    {
-    //        $this->assertIsString($this->subject->getAnchorText());
-    //    }
+    public function testGetAnchorText(bool|string|null $expectedResult, array $data): void
+    {
+        self::$subject->setData($data);
+
+        $result = self::$subject->getAnchorText();
+        static::assertSame($expectedResult, $result);
+    }
 }

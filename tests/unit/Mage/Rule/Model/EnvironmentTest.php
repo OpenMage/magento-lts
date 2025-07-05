@@ -1,16 +1,9 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -19,25 +12,24 @@ namespace OpenMage\Tests\Unit\Mage\Rule\Model;
 
 use Mage;
 use Mage_Rule_Model_Environment as Subject;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class EnvironmentTest extends TestCase
+class EnvironmentTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('rule/environment');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('rule/environment');
     }
 
     /**
      * @covers Mage_Rule_Model_Environment::collect()
-     * @group Mage_Rule
-     * @group Mage_Rule_Model
+     * @group Model
      */
     public function testGetConditionsInstance(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->collect());
+        static::assertInstanceOf(Subject::class, self::$subject->collect());
     }
 }

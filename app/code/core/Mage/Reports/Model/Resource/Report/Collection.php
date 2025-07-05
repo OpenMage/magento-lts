@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Report Reviews collection
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Resource_Report_Collection
@@ -39,7 +31,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Report period
      *
-     * @var int
+     * @var string
      */
     protected $_period;
 
@@ -76,7 +68,7 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Set period
      *
-     * @param int $period
+     * @param string $period
      * @return $this
      */
     public function setPeriod($period)
@@ -257,8 +249,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * get report full
      *
-     * @param int $from
-     * @param int $to
+     * @param string $from
+     * @param string $to
      * @return Mage_Reports_Model_Report
      */
     public function getReportFull($from, $to)
@@ -269,8 +261,8 @@ class Mage_Reports_Model_Resource_Report_Collection
     /**
      * Get report
      *
-     * @param int $from
-     * @param int $to
+     * @param string $from
+     * @param string $to
      * @return Mage_Reports_Model_Report
      */
     public function getReport($from, $to)

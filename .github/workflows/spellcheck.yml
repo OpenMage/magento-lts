@@ -1,0 +1,19 @@
+name: Markdown
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  spellcheck:
+    name: Markdown
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check Spelling
+        uses: rojopolis/spellcheck-github-actions@0.51.0
+        with:
+          config_path: .github/spellcheck.yml
+          task_name: Markdown
