@@ -1240,14 +1240,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $codePool = (string) $this->getModuleConfig($moduleName)->codePool;
         $dir = $this->getOptions()->getCodeDir() . DS . $codePool . DS . uc_words($moduleName, DS);
 
-        match ($type) {
-            'etc' => $dir .= DS . 'etc',
-            'controllers' => $dir .= DS . 'controllers',
-            'sql' => $dir .= DS . 'sql',
-            'data' => $dir .= DS . 'data',
-            'locale' => $dir .= DS . 'locale',
-            default => str_replace('/', DS, $dir),
-        };
+        $dirs = ['etc', 'controllers', 'sql', 'data', 'locale'];
+        if (in_array($type, $dirs)) {
+            $dir .= DS . $type;
+        }
+
         return str_replace('/', DS, $dir);
     }
 
