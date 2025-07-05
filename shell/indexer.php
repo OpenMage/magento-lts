@@ -83,20 +83,12 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
             foreach ($processes as $process) {
                 $status = 'unknown';
                 if ($this->getArg('status')) {
-                    switch ($process->getStatus()) {
-                        case Mage_Index_Model_Process::STATUS_PENDING:
-                            $status = 'Pending';
-                            break;
-                        case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
-                            $status = 'Require Reindex';
-                            break;
-                        case Mage_Index_Model_Process::STATUS_RUNNING:
-                            $status = 'Running';
-                            break;
-                        default:
-                            $status = 'Ready';
-                            break;
-                    }
+                    $status = match ($process->getStatus()) {
+                        Mage_Index_Model_Process::STATUS_PENDING => 'Pending',
+                        Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX => 'Require Reindex',
+                        Mage_Index_Model_Process::STATUS_RUNNING => 'Running',
+                        default => 'Ready',
+                    };
                 } else {
                     switch ($process->getMode()) {
                         case Mage_Index_Model_Process::MODE_SCHEDULE:

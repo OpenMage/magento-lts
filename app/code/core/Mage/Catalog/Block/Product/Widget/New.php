@@ -65,15 +65,10 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      */
     protected function _getProductCollection()
     {
-        switch ($this->getDisplayType()) {
-            case self::DISPLAY_TYPE_NEW_PRODUCTS:
-                $collection = parent::_getProductCollection();
-                break;
-            default:
-                $collection = $this->_getRecentlyAddedProductsCollection();
-                break;
-        }
-        return $collection;
+        return match ($this->getDisplayType()) {
+            self::DISPLAY_TYPE_NEW_PRODUCTS => parent::_getProductCollection(),
+            default => $this->_getRecentlyAddedProductsCollection(),
+        };
     }
 
     /**

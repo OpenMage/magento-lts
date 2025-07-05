@@ -449,17 +449,12 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
         if (!$field) {
             return false;
         }
-
-        switch ($this->getScope()) {
-            case self::SCOPE_DEFAULT:
-                return (bool) (int) $field->show_in_default;
-            case self::SCOPE_WEBSITES:
-                return (bool) (int) $field->show_in_website;
-            case self::SCOPE_STORES:
-                return (bool) (int) $field->show_in_store;
-        }
-
-        return true;
+        return match ($this->getScope()) {
+            self::SCOPE_DEFAULT => (bool) (int) $field->show_in_default,
+            self::SCOPE_WEBSITES => (bool) (int) $field->show_in_website,
+            self::SCOPE_STORES => (bool) (int) $field->show_in_store,
+            default => true,
+        };
     }
 
     /**

@@ -809,23 +809,13 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
         if ($plain) {
             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
-            switch (strtolower($extension)) {
-                case 'gif':
-                    $contentType = 'image/gif';
-                    break;
-                case 'jpg':
-                    $contentType = 'image/jpeg';
-                    break;
-                case 'webp':
-                    $contentType = 'image/webp';
-                    break;
-                case 'png':
-                    $contentType = 'image/png';
-                    break;
-                default:
-                    $contentType = 'application/octet-stream';
-                    break;
-            }
+            $contentType = match (strtolower($extension)) {
+                'gif' => 'image/gif',
+                'jpg' => 'image/jpeg',
+                'webp' => 'image/webp',
+                'png' => 'image/png',
+                default => 'application/octet-stream',
+            };
 
             $ioFile->streamOpen($fileName, 'r');
             $contentLength = $ioFile->streamStat('size');

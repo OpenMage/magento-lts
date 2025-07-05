@@ -34,20 +34,10 @@ class Mage_Paypal_Model_Api_ProcessableException extends Mage_Core_Exception
      */
     public function getUserMessage()
     {
-        switch ($this->getCode()) {
-            case self::API_INTERNAL_ERROR:
-            case self::API_UNABLE_PROCESS_PAYMENT_ERROR_CODE:
-                $message = Mage::helper('paypal')->__("I'm sorry - but we were not able to process your payment. Please try another payment method or contact us so we can assist you.");
-                break;
-            case self::API_COUNTRY_FILTER_DECLINE:
-            case self::API_MAXIMUM_AMOUNT_FILTER_DECLINE:
-            case self::API_OTHER_FILTER_DECLINE:
-                $message = Mage::helper('paypal')->__("I'm sorry - but we are not able to complete your transaction. Please contact us so we can assist you.");
-                break;
-            default:
-                $message = $this->getMessage();
-        }
-
-        return $message;
+        return match ($this->getCode()) {
+            self::API_INTERNAL_ERROR, self::API_UNABLE_PROCESS_PAYMENT_ERROR_CODE => Mage::helper('paypal')->__("I'm sorry - but we were not able to process your payment. Please try another payment method or contact us so we can assist you."),
+            self::API_COUNTRY_FILTER_DECLINE, self::API_MAXIMUM_AMOUNT_FILTER_DECLINE, self::API_OTHER_FILTER_DECLINE => Mage::helper('paypal')->__("I'm sorry - but we are not able to complete your transaction. Please contact us so we can assist you."),
+            default => $this->getMessage(),
+        };
     }
 }

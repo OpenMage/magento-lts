@@ -69,20 +69,12 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
      */
     public function render(Mage_Customer_Model_Address_Abstract $address, $format = null)
     {
-        switch ($this->getType()->getCode()) {
-            case 'html':
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML;
-                break;
-            case 'pdf':
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_PDF;
-                break;
-            case 'oneline':
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE;
-                break;
-            default:
-                $dataFormat = Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_TEXT;
-                break;
-        }
+        $dataFormat = match ($this->getType()->getCode()) {
+            'html' => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_HTML,
+            'pdf' => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_PDF,
+            'oneline' => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_ONELINE,
+            default => Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_TEXT,
+        };
 
         $formater   = new Varien_Filter_Template();
         $attributes = Mage::helper('customer/address')->getAttributes();

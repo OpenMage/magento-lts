@@ -177,20 +177,12 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
         $collection = $this->getCollection();
         $value = $column->getFilter()->getValue();
         if ($collection && $value) {
-            switch ($column->getId()) {
-                case 'product_name':
-                    $collection->addProductNameFilter($value);
-                    break;
-                case 'store':
-                    $collection->addStoreFilter($value);
-                    break;
-                case 'days':
-                    $collection->addDaysFilter($value);
-                    break;
-                default:
-                    $collection->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition());
-                    break;
-            }
+            match ($column->getId()) {
+                'product_name' => $collection->addProductNameFilter($value),
+                'store' => $collection->addStoreFilter($value),
+                'days' => $collection->addDaysFilter($value),
+                default => $collection->addFieldToFilter($column->getIndex(), $column->getFilter()->getCondition()),
+            };
         }
         return $this;
     }
@@ -205,14 +197,10 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Wishlist extends Mage_Adminhtml_Blo
     {
         $collection = $this->getCollection();
         if ($collection) {
-            switch ($column->getId()) {
-                case 'product_name':
-                    $collection->setOrderByProductName($column->getDir());
-                    break;
-                default:
-                    parent::_setCollectionOrder($column);
-                    break;
-            }
+            match ($column->getId()) {
+                'product_name' => $collection->setOrderByProductName($column->getDir()),
+                default => parent::_setCollectionOrder($column),
+            };
         }
         return $this;
     }

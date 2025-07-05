@@ -388,19 +388,11 @@ class Mage_Core_Model_Design_Package
      */
     protected function _renderFilename($file, array $params)
     {
-        switch ($params['_type']) {
-            case 'skin':
-                $dir = $this->getSkinBaseDir($params);
-                break;
-
-            case 'locale':
-                $dir = $this->getLocaleBaseDir($params);
-                break;
-
-            default:
-                $dir = $this->getBaseDir($params);
-                break;
-        }
+        $dir = match ($params['_type']) {
+            'skin' => $this->getSkinBaseDir($params),
+            'locale' => $this->getLocaleBaseDir($params),
+            default => $this->getBaseDir($params),
+        };
         return $dir . DS . $file;
     }
 
