@@ -20,6 +20,7 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
      * Returns stdClass object with two properties: type and id
      *
      * @return stdClass
+     * @throws Mage_Api2_Exception
      */
     public function getUserParams(Mage_Api2_Model_Request $request)
     {
@@ -38,7 +39,7 @@ class Mage_Api2_Model_Auth_Adapter_Oauth extends Mage_Api2_Model_Auth_Adapter_Ab
             }
             $userParamsObj->type = $userType;
         } catch (Exception $e) {
-            throw new Mage_Api2_Exception($oauthServer->reportProblem($e), Mage_Api2_Model_Server::HTTP_UNAUTHORIZED, $e);
+            throw new Mage_Api2_Exception($oauthServer->reportProblem($e), Mage_Api2_Model_Server::HTTP_UNAUTHORIZED);
         }
         return $userParamsObj;
     }
