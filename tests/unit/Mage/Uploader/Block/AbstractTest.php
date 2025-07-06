@@ -17,7 +17,7 @@ use Mage_Uploader_Model_Config_Misc;
 use Mage_Uploader_Model_Config_Uploader;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class AbstractTest extends OpenMageTest
+final class AbstractTest extends OpenMageTest
 {
     private static Subject $subject;
 

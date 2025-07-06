@@ -16,7 +16,7 @@ use ReflectionMethod;
 use Varien_Db_Adapter_Pdo_Mysql;
 use Varien_Object;
 
-class MysqlTest extends TestCase
+final class MysqlTest extends TestCase
 {
     public Varien_Db_Adapter_Pdo_Mysql $adapter;
 

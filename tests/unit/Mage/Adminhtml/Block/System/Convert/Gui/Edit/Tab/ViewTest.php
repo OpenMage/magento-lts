@@ -15,7 +15,7 @@ use Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View as Subject;
 use Mage_Dataflow_Model_Profile;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ViewTest extends OpenMageTest
+final class ViewTest extends OpenMageTest
 {
     /**
      * @group Block

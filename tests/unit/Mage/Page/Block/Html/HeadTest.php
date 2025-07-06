@@ -15,7 +15,7 @@ use Mage;
 use Mage_Page_Block_Html_Head as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class HeadTest extends OpenMageTest
+final class HeadTest extends OpenMageTest
 {
     private static Subject $subject;
 
