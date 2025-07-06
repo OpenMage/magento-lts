@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Text;
 use Mage;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ListTest extends OpenMageTest
+final class ListTest extends OpenMageTest
 {
     /**
      * @group Block

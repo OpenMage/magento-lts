@@ -22,7 +22,7 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Base\BoolTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ProductTest extends OpenMageTest
+final class ProductTest extends OpenMageTest
 {
     use BoolTrait;
     use CatalogTrait;

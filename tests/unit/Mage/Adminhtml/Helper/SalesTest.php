@@ -16,7 +16,7 @@ use Mage_Adminhtml_Helper_Sales as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\SalesTrait;
 
-class SalesTest extends OpenMageTest
+final class SalesTest extends OpenMageTest
 {
     use SalesTrait;
 

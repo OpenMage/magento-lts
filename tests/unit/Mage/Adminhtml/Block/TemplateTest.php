@@ -15,7 +15,7 @@ use Mage_Adminhtml_Block_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 
-class TemplateTest extends OpenMageTest
+final class TemplateTest extends OpenMageTest
 {
     use CoreTrait;
 

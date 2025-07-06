@@ -15,7 +15,7 @@ use Mage_Cms_Block_Widget_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
 
-class BlockTest extends OpenMageTest
+final class BlockTest extends OpenMageTest
 {
     use NumericStringTrait;
 
