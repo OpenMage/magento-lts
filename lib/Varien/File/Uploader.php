@@ -489,11 +489,6 @@ class Varien_File_Uploader
         return $this->checkAllowedExtension($extension);
     }
 
-    private function _getMimeType()
-    {
-        return $this->_file['type'];
-    }
-
     private function _setUploadFileId($fileId)
     {
         if (empty($_FILES)) {
