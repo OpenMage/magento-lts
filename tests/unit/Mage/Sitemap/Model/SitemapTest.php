@@ -16,7 +16,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\SitemapTrait;
 use Throwable;
 
-class SitemapTest extends OpenMageTest
+final class SitemapTest extends OpenMageTest
 {
     use SitemapTrait;
 

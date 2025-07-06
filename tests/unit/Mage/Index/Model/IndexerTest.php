@@ -23,7 +23,7 @@ use Mage_Index_Model_Indexer as Subject;
 use Mage_Index_Model_Resource_Process_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class IndexerTest extends OpenMageTest
+final class IndexerTest extends OpenMageTest
 {
     private static Subject $subject;
 

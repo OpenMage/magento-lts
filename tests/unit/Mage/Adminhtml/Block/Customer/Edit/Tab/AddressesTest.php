@@ -16,7 +16,7 @@ use Mage_Core_Exception;
 use Mage_Customer_Model_Customer;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class AddressesTest extends OpenMageTest
+final class AddressesTest extends OpenMageTest
 {
     /**
      * @group Block

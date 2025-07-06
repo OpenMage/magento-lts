@@ -16,7 +16,7 @@ use Mage_Cms_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Filter_Template;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     public const TEST_STRING = '1234567890';
 

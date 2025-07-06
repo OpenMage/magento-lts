@@ -18,7 +18,7 @@ use Mage_Log_Model_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Model\CustomerTrait;
 
-class CustomerTest extends OpenMageTest
+final class CustomerTest extends OpenMageTest
 {
     use CustomerTrait;
 
