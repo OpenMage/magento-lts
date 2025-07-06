@@ -549,7 +549,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Customer_Helper_Address $helper */
             $helper = $this->_getHelper('customer/address');
             $configAddressType = $helper->getTaxCalculationAddressType();
-            $userPrompt = '';
             $userPrompt = match ($configAddressType) {
                 Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => $this->__(
                     'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation',
