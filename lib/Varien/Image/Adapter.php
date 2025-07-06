@@ -18,19 +18,15 @@ class Varien_Image_Adapter
         switch ($adapter) {
             case self::ADAPTER_GD:
                 return new Varien_Image_Adapter_Gd();
-                break;
 
             case self::ADAPTER_GD2:
                 return new Varien_Image_Adapter_Gd2();
-                break;
 
             case self::ADAPTER_IM:
                 return new Varien_Image_Adapter_Imagemagic();
-                break;
 
             default:
                 throw new Exception('Invalid adapter selected.');
-                break;
         }
     }
 }
