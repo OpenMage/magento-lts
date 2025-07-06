@@ -89,7 +89,6 @@ try {
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
             CodingStyle\Stmt\NewlineAfterStatementRector::class, # todo: TMP
             CodingStyle\String_\SymplifyQuoteEscapeRector::class, # todo: TMP
-            DeadCode\Assign\RemoveDoubleAssignRector::class, # todo: TMP
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
