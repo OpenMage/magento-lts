@@ -16,7 +16,7 @@ use Mage_Core_Model_Security_HtmlEscapedString;
 use Mage_Page_Block_Html_Header as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class HeaderTest extends OpenMageTest
+final class HeaderTest extends OpenMageTest
 {
     private static Subject $subject;
 

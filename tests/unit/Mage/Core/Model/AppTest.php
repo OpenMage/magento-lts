@@ -15,7 +15,7 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\AppTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class AppTest extends OpenMageTest
+final class AppTest extends OpenMageTest
 {
     use AppTrait;
     use CoreTrait;

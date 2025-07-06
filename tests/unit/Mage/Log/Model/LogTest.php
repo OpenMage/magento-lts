@@ -15,7 +15,7 @@ use Mage;
 use Mage_Log_Model_Log as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LogTest extends OpenMageTest
+final class LogTest extends OpenMageTest
 {
     private static Subject $subject;
 

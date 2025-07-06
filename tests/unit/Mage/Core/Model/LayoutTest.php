@@ -20,7 +20,7 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\LayoutTrait;
 use OpenMage\Tests\Unit\Traits\PhpStormMetaData\BlocksTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends OpenMageTest
+final class LayoutTest extends OpenMageTest
 {
     use BlocksTrait;
     use LayoutTrait;

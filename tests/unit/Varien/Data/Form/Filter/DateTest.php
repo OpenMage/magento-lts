@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 use Throwable;
 use Varien_Data_Form_Filter_Date;
 
-class DateTest extends TestCase
+final class DateTest extends TestCase
 {
     public Varien_Data_Form_Filter_Date $subject;
 

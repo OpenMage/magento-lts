@@ -16,7 +16,7 @@ use Mage_Core_Model_Store as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class StoreTest extends OpenMageTest
+final class StoreTest extends OpenMageTest
 {
     use CoreTrait;
 

@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Base;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-class ClassLoadingTest extends TestCase
+final class ClassLoadingTest extends TestCase
 {
     /**
      * @dataProvider provideClassExistsData

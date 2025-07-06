@@ -16,7 +16,7 @@ use Mage_Core_Model_Locale as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\LocaleTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LocaleTest extends OpenMageTest
+final class LocaleTest extends OpenMageTest
 {
     use LocaleTrait;
 
