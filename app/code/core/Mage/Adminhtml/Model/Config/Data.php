@@ -341,6 +341,14 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 $config[$data->getPath()] = $data->getValue();
             }
         }
+
+        if (!$full) {
+            /** @var Mage_Core_Helper_EnvironmentConfigLoader $environmentConfigLoaderHelper */
+            $environmentConfigLoaderHelper = Mage::helper('core/environmentConfigLoader');
+            $store = $this->getStore();
+            $envConfig = $environmentConfigLoaderHelper->getAsArray($store);
+            $config = array_merge($config, $envConfig);
+        }
         return $config;
     }
 

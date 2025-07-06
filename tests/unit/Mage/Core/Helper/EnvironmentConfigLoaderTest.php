@@ -18,6 +18,9 @@ use Mage_Core_Helper_EnvironmentConfigLoader;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
+/**
+ * @group Mage_Core_EnvLoader
+ */
 class EnvironmentConfigLoaderTest extends OpenMageTest
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
@@ -49,6 +52,32 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     /**
      * @group Helper
      */
+    public function testEnvFilter(): void
+    {
+        $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
+        /** @phpstan-ignore method.internal */
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
+        ]);
+        // empty because env flag is not set
+        $env = $environmentConfigLoaderHelper->getEnv();
+        static::assertIsArray($env);
+        static::assertEmpty($env);
+        /** @phpstan-ignore method.internal */
+        $environmentConfigLoaderHelper->setEnvStore([
+            'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1, // enable feature
+        ]);
+        // flag is set => feature is enabled
+        $env = $environmentConfigLoaderHelper->getEnv();
+        static::assertIsArray($env);
+        static::assertNotEmpty($env);
+    }
+
+    /**
+     * @group Mage_Core
+     * @group Mage_Core_Helper
+     */
     public function testBuildNodePath(): void
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
@@ -70,6 +99,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
+     * @runInSeparateProcess
      * @dataProvider envOverridesCorrectConfigKeysDataProvider
      * @group Helper
      *
@@ -84,11 +114,14 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
+
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['env_path'] => $config['value'],
         ]);
+        Mage::unregister('current_env_config');
         $loader->overrideEnvironment($xml);
 
         $configPath = $config['xml_path'];
@@ -96,7 +129,9 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
-        static::assertNotSame((string) $defaultValue, (string) $valueAfterOverride, 'Default value was not overridden.');
+        $expected = (string) $defaultValue;
+        $actual = (string) $valueAfterOverride;
+        static::assertNotSame($expected, $actual, 'Default value was not overridden.');
     }
 
     public function envOverridesCorrectConfigKeysDataProvider(): Generator
@@ -170,6 +205,104 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     }
 
     /**
+     * @runInSeparateProcess
+     * @dataProvider envAsArrayDataProvider
+     * @group Mage_Core
+     *
+     * @param array<string, string> $config
+     */
+    public function testAsArray(array $config): void
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
+        $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
+            $config['env_path'] => 1,
+        ]);
+        $store = $config['store'];
+        $actual = $loader->getAsArray($store);
+        $expected = $config['expected'];
+        static::assertSame($expected, $actual);
+    }
+
+    public function envAsArrayDataProvider(): Generator
+    {
+        yield 'default' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'store'  => '', // or 'default', which will be used internally, but this is how \Mage_Adminhtml_Model_Config_Data::_validate defines it
+                'expected'  => [
+                    self::XML_PATH_GENERAL => 1,
+                ],
+            ],
+        ];
+        yield 'store' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
+                'store'  => 'german',
+                'expected'  => [
+                    self::XML_PATH_GENERAL => 1,
+                ],
+            ],
+        ];
+        yield 'invalidStore' => [
+            [
+                'env_path'  => '',
+                'store'  => 'foo',
+                'expected'  => [],
+            ],
+        ];
+    }
+
+    /**
+     * @runInSeparateProcess
+     * @dataProvider envHasPathDataProvider
+     * @group Mage_Core
+     *
+     * @param array<string, string> $config
+     */
+    public function testHasPath(array $config): void
+    {
+        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
+        $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
+        /** @phpstan-ignore method.internal */
+        $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
+            $config['env_path'] => 1,
+        ]);
+        $actual = $loader->hasPath($config['xml_path']);
+        $expected = $config['expected'];
+        static::assertSame($expected, $actual);
+    }
+
+    public function envHasPathDataProvider(): Generator
+    {
+        yield 'hasPath default' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'default/general/store_information/name',
+                'expected'  => true,
+            ],
+        ];
+        yield 'hasPath store' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__STORES__GERMAN__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'stores/german/general/store_information/name',
+                'expected'  => true,
+            ],
+        ];
+        yield 'hasNotPath' => [
+            [
+                'env_path'  => 'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME',
+                'xml_path'  => 'foo/foo/foo',
+                'expected'  => false,
+            ],
+        ];
+    }
+
+    /**
+     * @runInSeparateProcess
      * @dataProvider envDoesNotOverrideOnWrongConfigKeysDataProvider
      * @group Helper
      *
@@ -185,15 +318,19 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $xml->loadString($xmlStruct);
 
         $defaultValue = 'test_default';
-        static::assertSame($defaultValue, (string) $xml->getNode(self::XML_PATH_DEFAULT));
+        $actual = (string) $xml->getNode(self::XML_PATH_DEFAULT);
+        static::assertSame($defaultValue, $actual);
         $defaultWebsiteValue = 'test_website';
-        static::assertSame($defaultWebsiteValue, (string) $xml->getNode(self::XML_PATH_WEBSITE));
+        $actual = (string) $xml->getNode(self::XML_PATH_WEBSITE);
+        static::assertSame($defaultWebsiteValue, $actual);
         $defaultStoreValue = 'test_store';
-        static::assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
+        $actual = (string) $xml->getNode(self::XML_PATH_STORE);
+        static::assertSame($defaultStoreValue, $actual);
 
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
         $loader->setEnvStore([
+            'OPENMAGE_CONFIG_OVERRIDE_ALLOWED' => 1,
             $config['path'] => $config['value'],
         ]);
         $loader->overrideEnvironment($xml);
