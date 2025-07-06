@@ -34,8 +34,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
         if ($this->getAttribute()->getIsRequired()) {
             $attributeValue = $object->getData($attributeCode);
             if ($this->getAttribute()->isValueEmpty($attributeValue)) {
-                if (is_array($attributeValue) && count($attributeValue) > 0) {
-                } else {
+                if (!(is_array($attributeValue) && count($attributeValue) > 0)) {
                     if (!$isUseConfig) {
                         return false;
                     }
