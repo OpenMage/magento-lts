@@ -17,7 +17,7 @@ use Mage_Cms_Helper_Wysiwyg_Images;
 use Mage_Cms_Model_Wysiwyg_Images_Storage as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class StorageTest extends OpenMageTest
+final class StorageTest extends OpenMageTest
 {
     private static Subject $subject;
 

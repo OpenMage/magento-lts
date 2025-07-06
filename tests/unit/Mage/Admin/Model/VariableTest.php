@@ -17,7 +17,7 @@ use Mage_Admin_Model_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
 
-class VariableTest extends OpenMageTest
+final class VariableTest extends OpenMageTest
 {
     use VariableTrait;
 

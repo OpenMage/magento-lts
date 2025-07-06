@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Cache\Form;
 use Mage_Adminhtml_Block_System_Cache_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class FormTest extends OpenMageTest
+final class FormTest extends OpenMageTest
 {
     private static Subject $subject;
 

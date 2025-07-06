@@ -17,7 +17,7 @@ use stdClass;
 use Varien_Exception;
 use Varien_Object;
 
-class ObjectTest extends TestCase
+final class ObjectTest extends TestCase
 {
     public Varien_Object $subject;
 

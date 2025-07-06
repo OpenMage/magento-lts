@@ -16,7 +16,7 @@ use Mage_AdminNotification_Model_Feed as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use SimpleXMLElement;
 
-class FeedTest extends OpenMageTest
+final class FeedTest extends OpenMageTest
 {
     private static Subject $subject;
 

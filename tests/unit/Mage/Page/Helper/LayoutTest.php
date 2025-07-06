@@ -15,7 +15,7 @@ use Mage;
 use Mage_Page_Helper_Layout as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends OpenMageTest
+final class LayoutTest extends OpenMageTest
 {
     private static Subject $subject;
 

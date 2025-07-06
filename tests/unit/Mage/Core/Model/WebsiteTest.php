@@ -19,7 +19,7 @@ use Mage_Directory_Model_Currency;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Db_Select;
 
-class WebsiteTest extends OpenMageTest
+final class WebsiteTest extends OpenMageTest
 {
     private static Subject $subject;
 

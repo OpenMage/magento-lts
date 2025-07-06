@@ -17,7 +17,7 @@ use Mage_Index_Model_Process as Subject;
 use Mage_Index_Model_Resource_Event_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ProcessTest extends OpenMageTest
+final class ProcessTest extends OpenMageTest
 {
     public const INDEXER_MODEL_IS_NOT_DEFINED = 'Indexer model is not defined.';
 
