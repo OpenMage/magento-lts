@@ -54,7 +54,6 @@ try {
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
-            CodeQuality\For_\ForRepeatedCountToOwnVariableRector::class, # todo: TMP
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
             CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
             CodeQuality\FuncCall\UnwrapSprintfOneArgumentRector::class, # todo: TMP

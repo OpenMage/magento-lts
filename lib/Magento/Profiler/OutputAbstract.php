@@ -115,7 +115,8 @@ abstract class Magento_Profiler_OutputAbstract
 
         $prevTimerId = $timerIds[0];
         $result = [$prevTimerId];
-        for ($i = 1; $i < count($timerIds); $i++) {
+        $counter = count($timerIds);
+        for ($i = 1; $i < $counter; $i++) {
             $timerId = $timerIds[$i];
             /* Skip already added timer */
             if (!$timerId) {
