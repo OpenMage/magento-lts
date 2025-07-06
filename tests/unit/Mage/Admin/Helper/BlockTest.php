@@ -15,7 +15,7 @@ use Mage;
 use Mage_Admin_Helper_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class BlockTest extends OpenMageTest
+final class BlockTest extends OpenMageTest
 {
     private static Subject $subject;
 

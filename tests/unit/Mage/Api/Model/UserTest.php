@@ -15,7 +15,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\UserTrait;
 use Zend_Validate_Exception;
 
-class UserTest extends OpenMageTest
+final class UserTest extends OpenMageTest
 {
     use UserTrait;
 

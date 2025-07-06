@@ -15,7 +15,7 @@ use Mage;
 use Mage_Adminhtml_Helper_Media_Js as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class JsTest extends OpenMageTest
+final class JsTest extends OpenMageTest
 {
     private static Subject $subject;
 

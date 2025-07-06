@@ -15,7 +15,7 @@ use Mage_Core_Exception;
 use Mage_Wishlist_Model_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ItemTest extends OpenMageTest
+final class ItemTest extends OpenMageTest
 {
     private static Subject $subject;
 

@@ -15,7 +15,7 @@ use Mage;
 use Mage_Catalog_Helper_Category as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CategoryTest extends OpenMageTest
+final class CategoryTest extends OpenMageTest
 {
     private static Subject $subject;
 
