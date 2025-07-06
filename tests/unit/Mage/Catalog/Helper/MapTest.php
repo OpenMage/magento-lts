@@ -15,7 +15,7 @@ use Mage;
 use Mage_Catalog_Helper_Map as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class MapTest extends OpenMageTest
+final class MapTest extends OpenMageTest
 {
     private static Subject $subject;
 

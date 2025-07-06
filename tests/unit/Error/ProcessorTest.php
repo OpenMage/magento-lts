@@ -15,7 +15,7 @@ use Error_Processor as Subject;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-class ProcessorTest extends TestCase
+final class ProcessorTest extends TestCase
 {
     public Subject $subject;
     public array $server;

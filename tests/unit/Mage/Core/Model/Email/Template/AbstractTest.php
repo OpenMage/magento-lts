@@ -21,7 +21,7 @@ use Mage_Core_Model_Email_Template_Abstract as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\Email\Template\AbstractTrait;
 
-class AbstractTest extends OpenMageTest
+final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 

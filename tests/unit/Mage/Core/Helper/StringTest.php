@@ -16,7 +16,7 @@ use Mage_Core_Helper_Array;
 use Mage_Core_Helper_String as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class StringTest extends OpenMageTest
+final class StringTest extends OpenMageTest
 {
     public const TEST_STRING        = '1234567890';
 

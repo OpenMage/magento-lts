@@ -19,7 +19,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\DataTrait;
 use Varien_Crypt_Mcrypt;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     use DataTrait;
 

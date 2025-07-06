@@ -16,7 +16,7 @@ use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
 
-class BlockTest extends OpenMageTest
+final class BlockTest extends OpenMageTest
 {
     use NumericStringTrait;
 

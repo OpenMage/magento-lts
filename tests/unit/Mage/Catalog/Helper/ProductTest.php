@@ -16,7 +16,7 @@ use Mage_Catalog_Helper_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\ProductTrait;
 
-class ProductTest extends OpenMageTest
+final class ProductTest extends OpenMageTest
 {
     use ProductTrait;
 

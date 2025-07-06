@@ -17,7 +17,7 @@ use Mage_Uploader_Helper_File as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\UploaderTrait;
 
-class FileTest extends OpenMageTest
+final class FileTest extends OpenMageTest
 {
     use UploaderTrait;
 

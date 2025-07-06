@@ -28,7 +28,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
         $fp = tmpfile();
-        fputs($fp, $this->getData());
+        fwrite($fp, $this->getData());
         fseek($fp, 0);
 
         $data = [];
@@ -69,7 +69,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
         setlocale(LC_ALL, Mage::app()->getLocale()->getLocaleCode() . '.UTF-8');
 
         $fp = tmpfile();
-        fputs($fp, $this->getData());
+        fwrite($fp, $this->getData());
         fseek($fp, 0);
 
         $data = [];

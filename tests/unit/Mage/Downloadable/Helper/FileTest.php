@@ -16,7 +16,7 @@ use Mage_Downloadable_Helper_File as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Downloadable\DownloadableTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class FileTest extends OpenMageTest
+final class FileTest extends OpenMageTest
 {
     use DownloadableTrait;
 
