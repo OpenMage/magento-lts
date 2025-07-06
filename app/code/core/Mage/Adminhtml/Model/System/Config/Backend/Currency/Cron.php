@@ -41,7 +41,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Currency_Cron extends Mage_Core
                 ->setPath(self::CRON_STRING_PATH)
                 ->save();
         } catch (Exception $e) {
-            throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'));
+            throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'), $e->getCode(), $e);
         }
         return $this;
     }

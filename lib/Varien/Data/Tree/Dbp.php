@@ -315,7 +315,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
             $this->_conn->commit();
         } catch (Exception $e) {
             $this->_conn->rollBack();
-            throw new Exception("Can't move tree node due to error: " . $e->getMessage());
+            throw new Exception("Can't move tree node due to error: " . $e->getMessage(), $e->getCode(), $e);
         }
     }
 

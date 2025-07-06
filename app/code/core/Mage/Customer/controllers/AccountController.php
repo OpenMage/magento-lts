@@ -604,7 +604,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     throw new Exception('Failed to load customer by id.');
                 }
             } catch (Exception $e) {
-                throw new Exception($this->__('Wrong customer account specified.'));
+                throw new Exception($this->__('Wrong customer account specified.'), $e->getCode(), $e);
             }
 
             // check if it is inactive
@@ -618,7 +618,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $customer->setConfirmation(null);
                     $customer->save();
                 } catch (Exception $e) {
-                    throw new Exception($this->__('Failed to confirm customer account.'));
+                    throw new Exception($this->__('Failed to confirm customer account.'), $e->getCode(), $e);
                 }
 
                 // log in and send greeting email, then die happy
