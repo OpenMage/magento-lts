@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\Widget\Grid;
 use Mage_Adminhtml_Block_Widget_Grid_Column as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ColumnTest extends OpenMageTest
+final class ColumnTest extends OpenMageTest
 {
     private static Subject $subject;
 

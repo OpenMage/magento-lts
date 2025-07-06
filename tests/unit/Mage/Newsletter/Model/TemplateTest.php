@@ -22,7 +22,7 @@ use Mage_Core_Exception;
 use Mage_Newsletter_Model_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class TemplateTest extends OpenMageTest
+final class TemplateTest extends OpenMageTest
 {
     private static Subject $subject;
 

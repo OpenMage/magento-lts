@@ -19,7 +19,7 @@ use Mage_Catalog_Model_Url;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CategoryTest extends OpenMageTest
+final class CategoryTest extends OpenMageTest
 {
     use CatalogTrait;
 

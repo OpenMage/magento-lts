@@ -23,7 +23,7 @@ use Varien_Data_Form;
 use Varien_Db_Select;
 use Varien_Object;
 
-class AbstractTest extends OpenMageTest
+final class AbstractTest extends OpenMageTest
 {
     use BoolTrait;
     use RuleTrait;

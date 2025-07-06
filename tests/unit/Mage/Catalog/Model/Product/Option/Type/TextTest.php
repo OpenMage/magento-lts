@@ -17,7 +17,7 @@ use Mage_Catalog_Model_Product_Option;
 use Mage_Catalog_Model_Product_Option_Type_Text as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class TextTest extends OpenMageTest
+final class TextTest extends OpenMageTest
 {
     private static Subject $subject;
 

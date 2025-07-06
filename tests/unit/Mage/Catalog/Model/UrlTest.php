@@ -20,7 +20,7 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\CatalogTrait;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Model\UrlTrait;
 use Varien_Object;
 
-class UrlTest extends OpenMageTest
+final class UrlTest extends OpenMageTest
 {
     use CatalogTrait;
     use IntOrNullTrait;

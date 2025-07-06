@@ -16,7 +16,7 @@ use Mage_Core_Helper_Purifier as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\PurifierTrait;
 
-class PurifierTest extends OpenMageTest
+final class PurifierTest extends OpenMageTest
 {
     use PurifierTrait;
 

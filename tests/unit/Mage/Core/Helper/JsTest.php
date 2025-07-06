@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Helper_Js as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class JsTest extends OpenMageTest
+final class JsTest extends OpenMageTest
 {
     public const TEST_URL = 'foo';
 

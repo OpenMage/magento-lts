@@ -3106,7 +3106,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $value = (int) $value;
                 break;
             case 'bigint':
-                if (!is_integer($value)) {
+                if (!is_int($value)) {
                     $value = sprintf('%.0f', (float) $value);
                 }
                 break;
