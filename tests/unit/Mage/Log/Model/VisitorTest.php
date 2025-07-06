@@ -15,7 +15,7 @@ use Mage;
 use Mage_Log_Model_Visitor as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class VisitorTest extends OpenMageTest
+final class VisitorTest extends OpenMageTest
 {
     private static Subject $subject;
 

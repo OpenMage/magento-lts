@@ -140,7 +140,6 @@ try {
             Php80\Switch_\ChangeSwitchToMatchRector::class, # todo: TMP
             Php81\Array_\FirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
-            Privatization\Class_\FinalizeTestCaseClassRector::class, # todo: TMP
             Renaming\FuncCall\RenameFunctionRector::class, # todo: TMP
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             Transform\FuncCall\FuncCallToConstFetchRector::class, # todo: TMP

@@ -17,7 +17,7 @@ use Mage_Adminhtml_Helper_Dashboard_Data;
 use Mage_Core_Model_Store;
 use PHPUnit\Framework\TestCase;
 
-class DefaultConfigTest extends TestCase
+final class DefaultConfigTest extends TestCase
 {
     /**
      * @dataProvider provideGetStoreConfig

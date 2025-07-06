@@ -23,7 +23,7 @@ use Mage_Index_Model_Process;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Index\Block\Adminhtml\Process\GridTrait;
 
-class GridTest extends OpenMageTest
+final class GridTest extends OpenMageTest
 {
     use GridTrait;
 

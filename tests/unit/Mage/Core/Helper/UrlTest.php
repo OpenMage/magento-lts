@@ -17,7 +17,7 @@ use Mage_Core_Helper_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\UrlTrait;
 
-class UrlTest extends OpenMageTest
+final class UrlTest extends OpenMageTest
 {
     use UrlTrait;
 

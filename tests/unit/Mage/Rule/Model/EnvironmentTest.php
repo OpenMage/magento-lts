@@ -14,7 +14,7 @@ use Mage;
 use Mage_Rule_Model_Environment as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class EnvironmentTest extends OpenMageTest
+final class EnvironmentTest extends OpenMageTest
 {
     private static Subject $subject;
 
