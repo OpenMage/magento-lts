@@ -192,7 +192,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         /** @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
-        if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
+        if ($fieldset instanceof Varien_Data_Form_Element_Fieldset) {
             // apply field visibility
             foreach ($fieldset->getElements() as $field) {
                 if (!$this->getFieldVisibility($field->getId())) {
