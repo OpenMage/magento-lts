@@ -255,13 +255,11 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     {
         $output = '';
         $value  = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
-        if ($value) {
-            if ($format === Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON) {
-                $output = [
-                    'value'     => $value,
-                    'url_key'   => Mage::helper('core')->urlEncode($value),
-                ];
-            }
+        if ($value && $format === Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON) {
+            $output = [
+                'value'     => $value,
+                'url_key'   => Mage::helper('core')->urlEncode($value),
+            ];
         }
 
         return $output;

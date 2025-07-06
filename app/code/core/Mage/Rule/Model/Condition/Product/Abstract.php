@@ -398,10 +398,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getValueElement()
     {
         $element = parent::getValueElement();
-        if (is_object($this->getAttributeObject())) {
-            if ($this->getAttributeObject()->getFrontendInput() === 'date') {
-                $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
-            }
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
         }
 
         return $element;
@@ -440,10 +438,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             case 'category_ids':
                 return true;
         }
-        if (is_object($this->getAttributeObject())) {
-            if ($this->getAttributeObject()->getFrontendInput() === 'date') {
-                return true;
-            }
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            return true;
         }
         return false;
     }
