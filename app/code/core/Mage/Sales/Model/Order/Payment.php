@@ -1432,8 +1432,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($preparedMessage) {
             if (is_string($preparedMessage)) {
                 return $preparedMessage . ' ' . $messagePrependTo;
-            } elseif (is_object($preparedMessage)
-                && ($preparedMessage instanceof Mage_Sales_Model_Order_Status_History)
+            } elseif ($preparedMessage instanceof Mage_Sales_Model_Order_Status_History
             ) {
                 $comment = $preparedMessage->getComment() . ' ' . $messagePrependTo;
                 $preparedMessage->setComment($comment);
