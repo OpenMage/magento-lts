@@ -142,7 +142,11 @@ class Mage_Catalog_Model_Product_Compare_Item extends Mage_Core_Model_Abstract
      */
     public function getDataForSave()
     {
-        return ['customer_id' => $this->getCustomerId(), 'visitor_id' => $this->getVisitorId(), 'product_id' => $this->getProductId()];
+        return [
+            'customer_id' => $this->getCustomerId(),
+            'visitor_id' => $this->getVisitorId(),
+            'product_id' => $this->getProductId(),
+        ];
     }
 
     /**
