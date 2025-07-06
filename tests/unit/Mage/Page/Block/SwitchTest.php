@@ -15,7 +15,7 @@ use Mage;
 use Mage_Page_Block_Switch as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class SwitchTest extends OpenMageTest
+final class SwitchTest extends OpenMageTest
 {
     private static Subject $subject;
 

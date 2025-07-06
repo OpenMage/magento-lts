@@ -15,7 +15,7 @@ use Mage_Sales_Block_Order_Item_Renderer_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Object;
 
-class DefaultTest extends OpenMageTest
+final class DefaultTest extends OpenMageTest
 {
     private static Subject $subject;
 

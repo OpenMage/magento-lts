@@ -18,7 +18,7 @@ use Mage_Directory_Model_Resource_Region_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Directory\DirectoryTrait;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     use DirectoryTrait;
 

@@ -15,7 +15,7 @@ use Mage_Core_Model_Security_HtmlEscapedString as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\SecurityTrait;
 
-class HtmlEscapedStringTest extends OpenMageTest
+final class HtmlEscapedStringTest extends OpenMageTest
 {
     use SecurityTrait;
 
