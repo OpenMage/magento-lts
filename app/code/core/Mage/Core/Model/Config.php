@@ -1319,12 +1319,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getPathVars($args = null)
     {
-        $path = [];
-
-        $path['baseUrl'] = Mage::getBaseUrl();
-        $path['baseSecureUrl'] = Mage::getBaseUrl('link', true);
-
-        return $path;
+        return ['baseUrl' => Mage::getBaseUrl(), 'baseSecureUrl' => Mage::getBaseUrl('link', true)];
     }
 
     /**
