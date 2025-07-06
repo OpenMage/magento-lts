@@ -70,7 +70,6 @@ try {
             CodeQuality\If_\ShortenElseIfRector::class, # todo: TMP
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Switch_\SingularSwitchToIfRector::class, # todo: TMP
             CodeQuality\Ternary\NumberCompareToMaxFuncCallRector::class, # todo: TMP
             CodeQuality\Ternary\SwitchNegatedTernaryRector::class, # todo: TMP
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP

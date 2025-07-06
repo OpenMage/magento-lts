@@ -213,10 +213,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
         if ((!is_array($decorators)) || empty($decorators)) {
             return $value;
         }
-        switch (array_shift($decorators)) {
-            case 'nobr':
-                $value = '<span class="nobr">' . $value . '</span>';
-                break;
+        if (array_shift($decorators) === 'nobr') {
+            $value = '<span class="nobr">' . $value . '</span>';
         }
         if (!empty($decorators)) {
             return $this->_applyDecorators($value, $decorators);

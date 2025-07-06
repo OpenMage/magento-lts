@@ -399,10 +399,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     {
         $element = parent::getValueElement();
         if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
-                    break;
+            if ($this->getAttributeObject()->getFrontendInput() === 'date') {
+                $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
             }
         }
 
@@ -443,9 +441,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 return true;
         }
         if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    return true;
+            if ($this->getAttributeObject()->getFrontendInput() === 'date') {
+                return true;
             }
         }
         return false;
