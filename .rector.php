@@ -136,7 +136,6 @@ try {
             Php81\Array_\FirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
-            Transform\FuncCall\FuncCallToConstFetchRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             TypeDeclaration\Empty_\EmptyOnNullableObjectToInstanceOfRector::class, # todo: TMP
