@@ -132,7 +132,6 @@ try {
             Php80\ClassConstFetch\ClassOnThisVariableObjectRector::class, # todo: TMP
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
             Php80\FuncCall\ClassOnObjectRector::class, # todo: TMP
-            Php80\Switch_\ChangeSwitchToMatchRector::class, # todo: TMP
             Php81\Array_\FirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
