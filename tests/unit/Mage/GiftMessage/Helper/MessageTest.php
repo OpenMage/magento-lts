@@ -18,7 +18,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\GiftMessageTrait;
 use Varien_Object;
 
-class MessageTest extends OpenMageTest
+final class MessageTest extends OpenMageTest
 {
     use GiftMessageTrait;
 

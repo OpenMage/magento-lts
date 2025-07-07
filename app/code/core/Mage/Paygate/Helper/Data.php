@@ -121,20 +121,14 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _getOperation($requestType)
     {
-        switch ($requestType) {
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_ONLY:
-                return $this->__('authorize');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_CAPTURE:
-                return $this->__('authorize and capture');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_PRIOR_AUTH_CAPTURE:
-                return $this->__('capture');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_CREDIT:
-                return $this->__('refund');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_VOID:
-                return $this->__('void');
-            default:
-                return false;
-        }
+        return match ($requestType) {
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_ONLY => $this->__('authorize'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_CAPTURE => $this->__('authorize and capture'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_PRIOR_AUTH_CAPTURE => $this->__('capture'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_CREDIT => $this->__('refund'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_VOID => $this->__('void'),
+            default => false,
+        };
     }
 
     /**

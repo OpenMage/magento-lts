@@ -22,7 +22,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 use function sprintf;
 
-class SecurityTest extends OpenMageTest
+final class SecurityTest extends OpenMageTest
 {
     private static Subject $subject;
 

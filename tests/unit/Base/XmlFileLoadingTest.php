@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 use SimpleXMLElement;
 use XMLReader;
 
-class XmlFileLoadingTest extends TestCase
+final class XmlFileLoadingTest extends TestCase
 {
     /**
      * @dataProvider provideXmlFiles

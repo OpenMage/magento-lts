@@ -17,7 +17,7 @@ use Mage_Customer_Model_Attribute;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\AddressTrait;
 
-class AddressesTest extends OpenMageTest
+final class AddressesTest extends OpenMageTest
 {
     use AddressTrait;
 

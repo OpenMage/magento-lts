@@ -302,7 +302,7 @@ abstract class Varien_Image_Adapter_Abstract
                 return;
             }
             foreach ($value as $color) {
-                if ((!is_integer($color)) || ($color < 0) || ($color > 255)) {
+                if ((!is_int($color)) || ($color < 0) || ($color > 255)) {
                     return;
                 }
             }

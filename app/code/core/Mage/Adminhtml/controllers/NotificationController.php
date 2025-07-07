@@ -144,20 +144,11 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'massmarkasread':
-            case 'markasread':
-                $acl = 'system/adminnotification/mark_as_read';
-                break;
-
-            case 'massremove':
-            case 'remove':
-                $acl = 'system/adminnotification/remove';
-                break;
-
-            default:
-                $acl = 'system/adminnotification/show_list';
-        }
+        $acl = match ($action) {
+            'massmarkasread', 'markasread' => 'system/adminnotification/mark_as_read',
+            'massremove', 'remove' => 'system/adminnotification/remove',
+            default => 'system/adminnotification/show_list',
+        };
         return Mage::getSingleton('admin/session')->isAllowed($acl);
     }
 }

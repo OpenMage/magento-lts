@@ -18,7 +18,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Data_Collection;
 use Zend_Date_Exception;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     use ReportsTrait;
 

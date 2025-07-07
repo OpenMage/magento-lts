@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Helper_Cookie as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CookieTest extends OpenMageTest
+final class CookieTest extends OpenMageTest
 {
     private static Subject $subject;
 

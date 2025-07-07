@@ -17,7 +17,7 @@ use Mage_Directory_Model_Resource_Country_Collection;
 use Mage_Directory_Model_Resource_Region_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 

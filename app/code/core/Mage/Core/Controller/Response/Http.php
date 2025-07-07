@@ -32,7 +32,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
             return $this;
         }
 
-        if (str_starts_with(php_sapi_name(), 'cgi')) {
+        if (str_starts_with(PHP_SAPI, 'cgi')) {
             $statusSent = false;
             foreach ($this->_headersRaw as $i => $header) {
                 if (stripos($header, 'status:') === 0) {

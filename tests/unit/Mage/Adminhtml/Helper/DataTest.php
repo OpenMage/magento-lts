@@ -15,7 +15,7 @@ use Mage;
 use Mage_Adminhtml_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 

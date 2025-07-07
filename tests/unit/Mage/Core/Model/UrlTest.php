@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Model_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class UrlTest extends OpenMageTest
+final class UrlTest extends OpenMageTest
 {
     private static Subject $subject;
 
