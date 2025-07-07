@@ -39,11 +39,9 @@ class Mage_Api2_Exception extends Exception
 
     /**
      * Check if exception should be logged
-     *
-     * @return bool
      */
-    public function shouldLog()
+    public function shouldLog(): bool
     {
-        return $this->_shouldLog;
+        return $this->shouldLog;
     }
 }
