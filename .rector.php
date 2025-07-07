@@ -57,7 +57,6 @@ try {
             CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
             CodeQuality\FuncCall\UnwrapSprintfOneArgumentRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
-            CodeQuality\Identical\FlipTypeControlToUseExclusiveTypeRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP
             CodeQuality\If_\CombineIfRector::class, # todo: TMP<
