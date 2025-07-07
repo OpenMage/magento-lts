@@ -1530,7 +1530,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     public function quoteInto($text, $value, $type = null, $count = null)
     {
-        if (is_array($value) && empty($value)) {
+        if ($value === []) {
             $value = new Zend_Db_Expr('NULL');
         }
 

@@ -41,7 +41,6 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withSkip([
             CodeQuality\Assign\CombinedAssignRector::class, # todo: TMP
-            CodeQuality\BooleanAnd\SimplifyEmptyArrayCheckRector::class, # todo: TMP
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class, # todo: TMP
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
