@@ -146,13 +146,12 @@ class Mage_Adminhtml_Report_ReviewController extends Mage_Adminhtml_Controller_A
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'customer':
-                return Mage::getSingleton('admin/session')->isAllowed('report/review/customer');
-            case 'product':
-                return Mage::getSingleton('admin/session')->isAllowed('report/review/product');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/review');
-        }
+        $aclPath = match ($action) {
+            'customer' => 'report/review/customer',
+            'product' => 'report/review/product',
+            default => 'report/review',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }
