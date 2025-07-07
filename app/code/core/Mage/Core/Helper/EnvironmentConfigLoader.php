@@ -264,12 +264,8 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
 
         unset($configKeyParts[0]);
 
+        /** @var string $scope */
         $scope = array_shift($configKeyParts);
-        if (!is_string($scope)) {
-            throw new Mage_Core_Exception(
-                'Invalid configuration key: ' . $configKey . '. Scope is not a string.',
-            );
-        }
 
         return [$configKeyParts, $scope];
     }
@@ -288,14 +284,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
             . self::ENV_KEY_SEPARATOR . $sectionGroupFieldRegexp . '/';
         // /OPENMAGE_CONFIG__(WEBSITES__[A-Z-_]+|DEFAULT|STORES__[A-Z-_]+)__([A-Z-_]*)__([A-Z-_]*)__([A-Z-_]*)/
 
-        $validatedConfigKey = preg_match($regexp, $configKey);
-        if ($validatedConfigKey === false) {
-            throw new Mage_Core_Exception(
-                'Invalid configuration key: ' . $configKey . '. Regex match failed.',
-            );
-        }
-
-        return (bool) $validatedConfigKey;
+        return (bool) preg_match($regexp, $configKey);
     }
 
     /**
