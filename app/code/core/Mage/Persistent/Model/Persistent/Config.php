@@ -120,9 +120,9 @@ class Mage_Persistent_Model_Persistent_Config
             $object->$method($instance);
         } elseif (Mage::getIsDeveloperMode()) {
             if (!$object instanceof Mage_Core_Model_Abstract) {
-                Mage::throwException('Model "' . $info['class'] . '" is not defined"');
+                Mage::throwException(sprintf('Model "%s" is not defined"', $info['class']));
             } else {
-                Mage::throwException('Method "' . $method . '" is not defined in "' . $object::class . '"');
+                Mage::throwException(sprintf('Method "%s" is not defined in "%s"', $method, $object::class));
             }
         }
 
