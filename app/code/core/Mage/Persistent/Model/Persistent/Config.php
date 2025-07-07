@@ -102,6 +102,7 @@ class Mage_Persistent_Model_Persistent_Config
      * @param array $info
      * @param Mage_Core_Block_Abstract|false $instance
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function fireOne($info, $instance = false)
     {
@@ -118,7 +119,11 @@ class Mage_Persistent_Model_Persistent_Config
         if (method_exists($object, $method)) {
             $object->$method($instance);
         } elseif (Mage::getIsDeveloperMode()) {
-            Mage::throwException('Method "' . $method . '" is not defined in "' . $object::class . '"');
+            if (!$object instanceof Mage_Core_Model_Abstract) {
+                Mage::throwException('Model "' . $info['class'] . '" is not defined"');
+            } else {
+                Mage::throwException('Method "' . $method . '" is not defined in "' . $object::class . '"');
+            }
         }
 
         return $this;
