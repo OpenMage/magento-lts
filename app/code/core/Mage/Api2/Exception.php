@@ -33,7 +33,7 @@ class Mage_Api2_Exception extends Exception
             throw new Exception(sprintf('Invalid Exception code "%d"', $code));
         }
 
-        $this->_shouldLog = $shouldLog;
+        $this->shouldLog = $shouldLog;
         parent::__construct($message, $code);
     }
 
