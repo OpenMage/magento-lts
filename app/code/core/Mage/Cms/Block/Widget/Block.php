@@ -47,7 +47,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
     {
         parent::_beforeToHtml();
         $blockId = $this->getData('block_id');
-        $blockHash = get_class($this) . $blockId;
+        $blockHash = static::class . $blockId;
 
         if (isset(self::$_widgetUsageMap[$blockHash])) {
             return $this;
