@@ -55,7 +55,6 @@ try {
             CodeQuality\For_\ForRepeatedCountToOwnVariableRector::class, # todo: TMP
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
             CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
-            CodeQuality\FuncCall\UnwrapSprintfOneArgumentRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP
