@@ -16,7 +16,6 @@ class Mage_Api2_Exception extends Exception
 {
     /**
      * Log the exception in the log file?
-     * @var bool
      */
     protected bool $shouldLog = true;
 
