@@ -178,13 +178,12 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $directive = sprintf('{{media url="%s"}}', $mediaPath);
         if ($renderAsTag) {
             $html = sprintf('<img src="%s" alt="" />', $this->isUsingStaticUrlsAllowed() ? $fileurl : $directive);
+        } elseif ($this->isUsingStaticUrlsAllowed()) {
+            $html = $fileurl;
+            // $mediaPath;
         } else {
-            if ($this->isUsingStaticUrlsAllowed()) {
-                $html = $fileurl; // $mediaPath;
-            } else {
-                $directive = Mage::helper('core')->urlEncode($directive);
-                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
-            }
+            $directive = Mage::helper('core')->urlEncode($directive);
+            $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
         }
         return $html;
     }

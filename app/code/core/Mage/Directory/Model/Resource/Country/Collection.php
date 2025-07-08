@@ -89,16 +89,14 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                 } else {
                     $this->addFieldToFilter("{$iso}_code", ['in' => $countryCode]);
                 }
-            } else {
-                if (is_array($iso)) {
-                    $whereOr = [];
-                    foreach ($iso as $isoType) {
-                        $whereOr[] = $this->_getConditionSql("{$isoType}_code", $countryCode);
-                    }
-                    $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
-                } else {
-                    $this->addFieldToFilter("{$iso}_code", $countryCode);
+            } elseif (is_array($iso)) {
+                $whereOr = [];
+                foreach ($iso as $isoType) {
+                    $whereOr[] = $this->_getConditionSql("{$isoType}_code", $countryCode);
                 }
+                $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
+            } else {
+                $this->addFieldToFilter("{$iso}_code", $countryCode);
             }
         }
         return $this;

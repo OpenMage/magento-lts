@@ -70,10 +70,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Theme extends Mage_Adminh
                 if ($label) {
                     return $label;
                 }
-            } else {
-                if ($option['value'] == $value) {
-                    return $option['label'];
-                }
+            } elseif ($option['value'] == $value) {
+                return $option['label'];
             }
         }
 

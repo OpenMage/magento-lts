@@ -826,12 +826,10 @@ class Varien_Object implements ArrayAccess
             foreach ($this->getData() as $field => $value) {
                 $this->flagDirty($field, $flag);
             }
+        } elseif ($flag) {
+            $this->_dirty[$field] = true;
         } else {
-            if ($flag) {
-                $this->_dirty[$field] = true;
-            } else {
-                unset($this->_dirty[$field]);
-            }
+            unset($this->_dirty[$field]);
         }
         return $this;
     }

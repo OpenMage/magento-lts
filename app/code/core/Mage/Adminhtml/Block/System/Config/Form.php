@@ -426,12 +426,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                                 $optionArray[] = ['label' => $label, 'value' => $value];
                             }
                         }
+                    } elseif (method_exists($sourceModel, 'toOptionArray')) {
+                        $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
                     } else {
-                        if (method_exists($sourceModel, 'toOptionArray')) {
-                            $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
-                        } else {
-                            Mage::throwException("Missing method 'toOptionArray()' in source model '{$factoryName}'");
-                        }
+                        Mage::throwException("Missing method 'toOptionArray()' in source model '{$factoryName}'");
                     }
 
                     $field->setValues($optionArray);
