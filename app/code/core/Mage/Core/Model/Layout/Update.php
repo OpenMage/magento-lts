@@ -207,7 +207,8 @@ class Mage_Core_Model_Layout_Update
 
         // The cache key is just a hash of the real content to de-duplicate the often large XML strings
         // sha1
-        if (strlen($result) === 40 && !$result = Mage::app()->loadCache(self::XML_KEY_PREFIX . $result)) { return false;
+        if (strlen($result) === 40 && !$result = Mage::app()->loadCache(self::XML_KEY_PREFIX . $result)) {
+            return false;
         }
 
         $this->addUpdate($result);
