@@ -192,16 +192,10 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 $mailer = new Zend_Mail('utf-8');
                 foreach ($message->getRecipients() as $recipient) {
                     [$email, $name, $type] = $recipient;
-                    switch ($type) {
-                        case self::EMAIL_TYPE_BCC:
-                            $mailer->addBcc($email, '=?utf-8?B?' . base64_encode($name) . '?=');
-                            break;
-                        case self::EMAIL_TYPE_TO:
-                        case self::EMAIL_TYPE_CC:
-                        default:
-                            $mailer->addTo($email, '=?utf-8?B?' . base64_encode($name) . '?=');
-                            break;
-                    }
+                    match ($type) {
+                        self::EMAIL_TYPE_BCC => $mailer->addBcc($email),
+                        default => $mailer->addTo($email, $this->getBase64EncodedString($name)),
+                    };
                 }
 
                 if ($parameters->getIsPlain()) {
@@ -210,7 +204,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                     $mailer->setBodyHtml($message->getMessageBody());
                 }
 
-                $mailer->setSubject('=?utf-8?B?' . base64_encode($parameters->getSubject()) . '?=');
+                $mailer->setSubject($this->getBase64EncodedString($parameters->getSubject()));
                 $mailer->setFrom($parameters->getFromEmail(), $parameters->getFromName());
                 if ($parameters->getReplyTo() !== null) {
                     $mailer->setReplyTo($parameters->getReplyTo());
@@ -266,5 +260,10 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->removeSentMessages();
         return $this;
+    }
+
+    protected function getBase64EncodedString(string $string): string
+    {
+        return '=?utf-8?B?' . base64_encode($string) . '?=';
     }
 }

@@ -15,7 +15,7 @@ use Mage;
 use Mage_Adminhtml_Helper_Catalog as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CatalogTest extends OpenMageTest
+final class CatalogTest extends OpenMageTest
 {
     private static Subject $subject;
 

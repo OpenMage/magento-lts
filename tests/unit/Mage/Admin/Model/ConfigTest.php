@@ -17,7 +17,7 @@ use Mage_Admin_Model_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-class ConfigTest extends OpenMageTest
+final class ConfigTest extends OpenMageTest
 {
     private static Subject $subject;
 

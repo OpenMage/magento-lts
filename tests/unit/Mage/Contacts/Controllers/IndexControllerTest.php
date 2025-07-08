@@ -17,7 +17,7 @@ use Mage_Customer_Model_Session;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Contacts\Controllers\IndexControllerTrait;
 
-class IndexControllerTest extends OpenMageTest
+final class IndexControllerTest extends OpenMageTest
 {
     use IndexControllerTrait;
 

@@ -17,7 +17,7 @@ use Mage_Core_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\AdminNotification\Model\InboxTrait;
 
-class InboxTest extends OpenMageTest
+final class InboxTest extends OpenMageTest
 {
     use InboxTrait;
 

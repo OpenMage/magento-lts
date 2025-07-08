@@ -377,19 +377,14 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      */
     public function getPeriodUnitLabel($unit)
     {
-        switch ($unit) {
-            case self::PERIOD_UNIT_DAY:
-                return Mage::helper('payment')->__('Day');
-            case self::PERIOD_UNIT_WEEK:
-                return Mage::helper('payment')->__('Week');
-            case self::PERIOD_UNIT_SEMI_MONTH:
-                return Mage::helper('payment')->__('Two Weeks');
-            case self::PERIOD_UNIT_MONTH:
-                return Mage::helper('payment')->__('Month');
-            case self::PERIOD_UNIT_YEAR:
-                return Mage::helper('payment')->__('Year');
-        }
-        return $unit;
+        return match ($unit) {
+            self::PERIOD_UNIT_DAY => Mage::helper('payment')->__('Day'),
+            self::PERIOD_UNIT_WEEK => Mage::helper('payment')->__('Week'),
+            self::PERIOD_UNIT_SEMI_MONTH => Mage::helper('payment')->__('Two Weeks'),
+            self::PERIOD_UNIT_MONTH => Mage::helper('payment')->__('Month'),
+            self::PERIOD_UNIT_YEAR => Mage::helper('payment')->__('Year'),
+            default => $unit,
+        };
     }
 
     /**
@@ -400,51 +395,30 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      */
     public function getFieldLabel($field)
     {
-        switch ($field) {
-            case 'subscriber_name':
-                return Mage::helper('payment')->__('Subscriber Name');
-            case 'start_datetime':
-                return Mage::helper('payment')->__('Start Date');
-            case 'internal_reference_id':
-                return Mage::helper('payment')->__('Internal Reference ID');
-            case 'schedule_description':
-                return Mage::helper('payment')->__('Schedule Description');
-            case 'suspension_threshold':
-                return Mage::helper('payment')->__('Maximum Payment Failures');
-            case 'bill_failed_later':
-                return Mage::helper('payment')->__('Auto Bill on Next Cycle');
-            case 'period_unit':
-                return Mage::helper('payment')->__('Billing Period Unit');
-            case 'period_frequency':
-                return Mage::helper('payment')->__('Billing Frequency');
-            case 'period_max_cycles':
-                return Mage::helper('payment')->__('Maximum Billing Cycles');
-            case 'billing_amount':
-                return Mage::helper('payment')->__('Billing Amount');
-            case 'trial_period_unit':
-                return Mage::helper('payment')->__('Trial Billing Period Unit');
-            case 'trial_period_frequency':
-                return Mage::helper('payment')->__('Trial Billing Frequency');
-            case 'trial_period_max_cycles':
-                return Mage::helper('payment')->__('Maximum Trial Billing Cycles');
-            case 'trial_billing_amount':
-                return Mage::helper('payment')->__('Trial Billing Amount');
-            case 'currency_code':
-                return Mage::helper('payment')->__('Currency');
-            case 'shipping_amount':
-                return Mage::helper('payment')->__('Shipping Amount');
-            case 'tax_amount':
-                return Mage::helper('payment')->__('Tax Amount');
-            case 'init_amount':
-                return Mage::helper('payment')->__('Initial Fee');
-            case 'init_may_fail':
-                return Mage::helper('payment')->__('Allow Initial Fee Failure');
-            case 'method_code':
-                return Mage::helper('payment')->__('Payment Method');
-            case 'reference_id':
-                return Mage::helper('payment')->__('Payment Reference ID');
-        }
-        return null;
+        return match ($field) {
+            'subscriber_name' => Mage::helper('payment')->__('Subscriber Name'),
+            'start_datetime' => Mage::helper('payment')->__('Start Date'),
+            'internal_reference_id' => Mage::helper('payment')->__('Internal Reference ID'),
+            'schedule_description' => Mage::helper('payment')->__('Schedule Description'),
+            'suspension_threshold' => Mage::helper('payment')->__('Maximum Payment Failures'),
+            'bill_failed_later' => Mage::helper('payment')->__('Auto Bill on Next Cycle'),
+            'period_unit' => Mage::helper('payment')->__('Billing Period Unit'),
+            'period_frequency' => Mage::helper('payment')->__('Billing Frequency'),
+            'period_max_cycles' => Mage::helper('payment')->__('Maximum Billing Cycles'),
+            'billing_amount' => Mage::helper('payment')->__('Billing Amount'),
+            'trial_period_unit' => Mage::helper('payment')->__('Trial Billing Period Unit'),
+            'trial_period_frequency' => Mage::helper('payment')->__('Trial Billing Frequency'),
+            'trial_period_max_cycles' => Mage::helper('payment')->__('Maximum Trial Billing Cycles'),
+            'trial_billing_amount' => Mage::helper('payment')->__('Trial Billing Amount'),
+            'currency_code' => Mage::helper('payment')->__('Currency'),
+            'shipping_amount' => Mage::helper('payment')->__('Shipping Amount'),
+            'tax_amount' => Mage::helper('payment')->__('Tax Amount'),
+            'init_amount' => Mage::helper('payment')->__('Initial Fee'),
+            'init_may_fail' => Mage::helper('payment')->__('Allow Initial Fee Failure'),
+            'method_code' => Mage::helper('payment')->__('Payment Method'),
+            'reference_id' => Mage::helper('payment')->__('Payment Reference ID'),
+            default => null,
+        };
     }
 
     /**
@@ -455,29 +429,19 @@ class Mage_Payment_Model_Recurring_Profile extends Mage_Core_Model_Abstract
      */
     public function getFieldComment($field)
     {
-        switch ($field) {
-            case 'subscriber_name':
-                return Mage::helper('payment')->__('Full name of the person receiving the product or service paid for by the recurring payment.');
-            case 'start_datetime':
-                return Mage::helper('payment')->__('The date when billing for the profile begins.');
-            case 'schedule_description':
-                return Mage::helper('payment')->__('Short description of the recurring payment. By default equals to the product name.');
-            case 'suspension_threshold':
-                return Mage::helper('payment')->__('The number of scheduled payments that can fail before the profile is automatically suspended.');
-            case 'bill_failed_later':
-                return Mage::helper('payment')->__('Automatically bill the outstanding balance amount in the next billing cycle (if there were failed payments).');
-            case 'period_unit':
-                return Mage::helper('payment')->__('Unit for billing during the subscription period.');
-            case 'period_frequency':
-                return Mage::helper('payment')->__('Number of billing periods that make up one billing cycle.');
-            case 'period_max_cycles':
-                return Mage::helper('payment')->__('The number of billing cycles for payment period.');
-            case 'init_amount':
-                return Mage::helper('payment')->__('Initial non-recurring payment amount due immediately upon profile creation.');
-            case 'init_may_fail':
-                return Mage::helper('payment')->__('Whether to suspend the payment profile if the initial fee fails or add it to the outstanding balance.');
-        }
-        return null;
+        return match ($field) {
+            'subscriber_name' => Mage::helper('payment')->__('Full name of the person receiving the product or service paid for by the recurring payment.'),
+            'start_datetime' => Mage::helper('payment')->__('The date when billing for the profile begins.'),
+            'schedule_description' => Mage::helper('payment')->__('Short description of the recurring payment. By default equals to the product name.'),
+            'suspension_threshold' => Mage::helper('payment')->__('The number of scheduled payments that can fail before the profile is automatically suspended.'),
+            'bill_failed_later' => Mage::helper('payment')->__('Automatically bill the outstanding balance amount in the next billing cycle (if there were failed payments).'),
+            'period_unit' => Mage::helper('payment')->__('Unit for billing during the subscription period.'),
+            'period_frequency' => Mage::helper('payment')->__('Number of billing periods that make up one billing cycle.'),
+            'period_max_cycles' => Mage::helper('payment')->__('The number of billing cycles for payment period.'),
+            'init_amount' => Mage::helper('payment')->__('Initial non-recurring payment amount due immediately upon profile creation.'),
+            'init_may_fail' => Mage::helper('payment')->__('Whether to suspend the payment profile if the initial fee fails or add it to the outstanding balance.'),
+            default => null,
+        };
     }
 
     /**

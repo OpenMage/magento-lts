@@ -15,7 +15,7 @@ use Mage;
 use Mage_Log_Model_Aggregation as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class AggregationTest extends OpenMageTest
+final class AggregationTest extends OpenMageTest
 {
     private static Subject $subject;
 

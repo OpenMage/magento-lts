@@ -16,7 +16,7 @@ use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Block\Widget\Page\LinkTrait;
 
-class LinkTest extends OpenMageTest
+final class LinkTest extends OpenMageTest
 {
     use LinkTrait;
 

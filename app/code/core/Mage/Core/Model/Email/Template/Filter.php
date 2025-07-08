@@ -401,17 +401,12 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
      */
     public function modifierEscape($value, $type = 'html')
     {
-        switch ($type) {
-            case 'html':
-                return htmlspecialchars($value, ENT_QUOTES);
-
-            case 'htmlentities':
-                return htmlentities($value, ENT_QUOTES);
-
-            case 'url':
-                return rawurlencode($value);
-        }
-        return $value;
+        return match ($type) {
+            'html' => htmlspecialchars($value, ENT_QUOTES),
+            'htmlentities' => htmlentities($value, ENT_QUOTES),
+            'url' => rawurlencode($value),
+            default => $value,
+        };
     }
 
     /**

@@ -41,14 +41,11 @@ try {
         ->withSkipPath(__DIR__ . '/vendor')
         ->withSkip([
             CodeQuality\Assign\CombinedAssignRector::class, # todo: TMP
-            CodeQuality\BooleanAnd\RemoveUselessIsObjectCheckRector::class, # todo: TMP
-            CodeQuality\BooleanAnd\SimplifyEmptyArrayCheckRector::class, # todo: TMP
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class, # todo: TMP
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             CodeQuality\Class_\InlineConstructorDefaultToPropertyRector::class, # todo: TMP
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
-            CodeQuality\ClassMethod\InlineArrayReturnAssignRector::class, # todo: TMP
             CodeQuality\Concat\JoinStringConcatRector::class, # todo: TMP
             CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
@@ -57,9 +54,7 @@ try {
             CodeQuality\For_\ForRepeatedCountToOwnVariableRector::class, # todo: TMP
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
             CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
-            CodeQuality\FuncCall\UnwrapSprintfOneArgumentRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
-            CodeQuality\Identical\FlipTypeControlToUseExclusiveTypeRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP
             CodeQuality\If_\CombineIfRector::class, # todo: TMP<
@@ -89,13 +84,11 @@ try {
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
             CodingStyle\Stmt\NewlineAfterStatementRector::class, # todo: TMP
             CodingStyle\String_\SymplifyQuoteEscapeRector::class, # todo: TMP
-            DeadCode\Assign\RemoveDoubleAssignRector::class, # todo: TMP
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
             DeadCode\ClassMethod\RemoveEmptyClassMethodRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveNullTagValueNodeRector::class, # todo: TMP
-            DeadCode\ClassMethod\RemoveUnusedPrivateMethodRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveUnusedPrivateMethodParameterRector::class, # todo: TMP  (!?!)
             DeadCode\Concat\RemoveConcatAutocastRector::class, # todo: TMP  (!?!)
             DeadCode\Foreach_\RemoveUnusedForeachKeyRector::class, # todo: TMP
@@ -109,7 +102,6 @@ try {
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\Property\RemoveUnusedPrivatePropertyRector::class, # todo: TMP
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
-            DeadCode\Stmt\RemoveUnreachableStatementRector::class, # todo: TMP
             DeadCode\Switch_\RemoveDuplicatedCaseInSwitchRector::class, # todo: TMP  (!?!)
             DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
@@ -137,13 +129,9 @@ try {
             Php80\ClassConstFetch\ClassOnThisVariableObjectRector::class, # todo: TMP
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
             Php80\FuncCall\ClassOnObjectRector::class, # todo: TMP
-            Php80\Switch_\ChangeSwitchToMatchRector::class, # todo: TMP
             Php81\Array_\FirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
-            Privatization\Class_\FinalizeTestCaseClassRector::class, # todo: TMP
-            Renaming\FuncCall\RenameFunctionRector::class, # todo: TMP
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
-            Transform\FuncCall\FuncCallToConstFetchRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
             TypeDeclaration\Empty_\EmptyOnNullableObjectToInstanceOfRector::class, # todo: TMP

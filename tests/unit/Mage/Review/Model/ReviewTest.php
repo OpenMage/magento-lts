@@ -21,7 +21,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\ReviewTrait;
 use Zend_Validate_Exception;
 
-class ReviewTest extends OpenMageTest
+final class ReviewTest extends OpenMageTest
 {
     use ReviewTrait;
 
