@@ -187,13 +187,13 @@ class Varien_Db_Tree
 
     public function getKeys()
     {
-        $keys = [];
-        $keys['id'] = $this->_id;
-        $keys['left'] = $this->_left;
-        $keys['right'] = $this->_right;
-        $keys['pid'] = $this->_pid;
-        $keys['level'] = $this->_level;
-        return $keys;
+        return [
+            'id' => $this->_id,
+            'left' => $this->_left,
+            'right' => $this->_right,
+            'pid' => $this->_pid,
+            'level' => $this->_level,
+        ];
     }
 
     /**

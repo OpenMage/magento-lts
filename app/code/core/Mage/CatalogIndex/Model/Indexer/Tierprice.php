@@ -112,9 +112,6 @@ class Mage_CatalogIndex_Model_Indexer_Tierprice extends Mage_CatalogIndex_Model_
      */
     protected function _getIndexableAttributeConditions()
     {
-        $conditions = [];
-        $conditions['attribute_code'] = 'tier_price';
-
-        return $conditions;
+        return ['attribute_code' => 'tier_price'];
     }
 }
