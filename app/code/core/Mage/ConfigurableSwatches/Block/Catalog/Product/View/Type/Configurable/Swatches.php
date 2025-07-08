@@ -31,11 +31,9 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swa
      */
     public function shouldRender($attribute, $jsonConfig)
     {
-        if (Mage::helper('configurableswatches')->isEnabled()) {
-            if (Mage::helper('configurableswatches')->attrIsSwatchType($attribute->getProductAttribute())) {
-                $this->_init($jsonConfig);
-                return true;
-            }
+        if (Mage::helper('configurableswatches')->isEnabled() && Mage::helper('configurableswatches')->attrIsSwatchType($attribute->getProductAttribute())) {
+            $this->_init($jsonConfig);
+            return true;
         }
         return false;
     }

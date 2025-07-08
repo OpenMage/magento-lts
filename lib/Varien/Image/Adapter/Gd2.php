@@ -350,11 +350,9 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         $dstHeight = $frameHeight;
         if ($this->_keepAspectRatio) {
             // do not make picture bigger, than it is, if required
-            if ($this->_constrainOnly) {
-                if (($frameWidth >= $this->_imageSrcWidth) && ($frameHeight >= $this->_imageSrcHeight)) {
-                    $dstWidth  = $this->_imageSrcWidth;
-                    $dstHeight = $this->_imageSrcHeight;
-                }
+            if ($this->_constrainOnly && ($frameWidth >= $this->_imageSrcWidth && $frameHeight >= $this->_imageSrcHeight)) {
+                $dstWidth  = $this->_imageSrcWidth;
+                $dstHeight = $this->_imageSrcHeight;
             }
             // keep aspect ratio
             if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $frameWidth / $frameHeight) {

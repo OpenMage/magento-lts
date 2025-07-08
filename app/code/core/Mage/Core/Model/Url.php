@@ -668,12 +668,8 @@ class Mage_Core_Model_Url extends Varien_Object
             unset($data['_use_rewrite']);
         }
 
-        if (isset($data['_store_to_url']) && (bool) $data['_store_to_url'] === true) {
-            if (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore())
-                && !Mage::app()->isSingleStoreMode()
-            ) {
-                $this->setQueryParam('___store', $this->getStore()->getCode());
-            }
+        if (isset($data['_store_to_url']) && (bool) $data['_store_to_url'] === true && (!Mage::getStoreConfig(Mage_Core_Model_Store::XML_PATH_STORE_IN_URL, $this->getStore()) && !Mage::app()->isSingleStoreMode())) {
+            $this->setQueryParam('___store', $this->getStore()->getCode());
         }
         unset($data['_store_to_url']);
 

@@ -70,15 +70,13 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                 $selectedAttributes[$attributeId] ?? null,
             );
             $product->setParentId(true);
-            if ($value) {
-                if ($value['pricing_value'] != 0) {
-                    $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
-                    Mage::dispatchEvent(
-                        'catalog_product_type_configurable_price',
-                        ['product' => $product],
-                    );
-                    $price += $product->getConfigurablePrice();
-                }
+            if ($value && $value['pricing_value'] != 0) {
+                $product->setConfigurablePrice($this->_calcSelectionPrice($value, $finalPrice));
+                Mage::dispatchEvent(
+                    'catalog_product_type_configurable_price',
+                    ['product' => $product],
+                );
+                $price += $product->getConfigurablePrice();
             }
         }
         return $price;

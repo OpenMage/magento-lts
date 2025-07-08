@@ -44,12 +44,8 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
             }
         }
 
-        if ($options = $this->getOrderItem()->getProductOptions()) {
-            if (isset($options['shipment_type'])
-                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-            ) {
-                return true;
-            }
+        if (($options = $this->getOrderItem()->getProductOptions()) && (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY)) {
+            return true;
         }
         return false;
     }
@@ -84,12 +80,8 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
             }
         }
 
-        if ($options = $this->getItem()->getProductOptions()) {
-            if (isset($options['product_calculations'])
-                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-            ) {
-                return true;
-            }
+        if (($options = $this->getItem()->getProductOptions()) && (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD)) {
+            return true;
         }
         return false;
     }
@@ -138,15 +130,11 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
     public function getValueHtml($item)
     {
         $result = $this->escapeHtml($item->getName());
-        if (!$this->isShipmentSeparately($item)) {
-            if ($attributes = $this->getSelectionAttributes($item)) {
-                $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
-            }
+        if (!$this->isShipmentSeparately($item) && $attributes = $this->getSelectionAttributes($item)) {
+            $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
         }
-        if (!$this->isChildCalculated($item)) {
-            if ($attributes = $this->getSelectionAttributes($item)) {
-                $result .= ' ' . $this->getItem()->getOrder()->formatPrice($attributes['price']);
-            }
+        if (!$this->isChildCalculated($item) && $attributes = $this->getSelectionAttributes($item)) {
+            $result .= ' ' . $this->getItem()->getOrder()->formatPrice($attributes['price']);
         }
         return $result;
     }

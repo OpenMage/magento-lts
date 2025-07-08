@@ -951,11 +951,9 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         $specialPriceTo,
         $store = null
     ) {
-        if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)) {
-                $specialPrice = Mage::app()->getStore()->roundPrice($finalPrice * $specialPrice / 100);
-                $finalPrice = min($finalPrice, $specialPrice);
-            }
+        if (!is_null($specialPrice) && $specialPrice != false && Mage::app()->getLocale()->isStoreDateInInterval($store, $specialPriceFrom, $specialPriceTo)) {
+            $specialPrice = Mage::app()->getStore()->roundPrice($finalPrice * $specialPrice / 100);
+            $finalPrice = min($finalPrice, $specialPrice);
         }
 
         return $finalPrice;

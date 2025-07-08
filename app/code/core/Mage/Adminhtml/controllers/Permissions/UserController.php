@@ -147,13 +147,11 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 if (Mage::getStoreConfigFlag('admin/security/crate_admin_user_notification') && $isNew) {
                     Mage::getModel('admin/user')->sendAdminNotification($model);
                 }
-                if ($uRoles = $this->getRequest()->getParam('roles', false)) {
-                    if (is_array($uRoles) && (count($uRoles) >= 1)) {
-                        // with fix for previous multi-roles logic
-                        $model->setRoleIds(array_slice($uRoles, 0, 1))
-                            ->setRoleUserId($model->getUserId())
-                            ->saveRelations();
-                    }
+                if (($uRoles = $this->getRequest()->getParam('roles', false)) && (is_array($uRoles) && count($uRoles) >= 1)) {
+                    // with fix for previous multi-roles logic
+                    $model->setRoleIds(array_slice($uRoles, 0, 1))
+                        ->setRoleUserId($model->getUserId())
+                        ->saveRelations();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);

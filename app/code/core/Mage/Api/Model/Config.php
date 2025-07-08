@@ -36,10 +36,8 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
      */
     protected function _construct()
     {
-        if (Mage::app()->useCache('config_api')) {
-            if ($this->loadCache()) {
-                return $this;
-            }
+        if (Mage::app()->useCache('config_api') && $this->loadCache()) {
+            return $this;
         }
 
         $config = Mage::getConfig()->loadModulesConfiguration('api.xml');

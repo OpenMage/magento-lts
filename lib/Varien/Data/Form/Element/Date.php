@@ -90,10 +90,8 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             }
         }
         // last check, if locale was set
-        if (null === $locale) {
-            if (!$locale = $this->getLocale()) {
-                $locale = null;
-            }
+        if (null === $locale && !$locale = $this->getLocale()) {
+            $locale = null;
         }
         try {
             $this->_value = new Zend_Date($value, $format, $locale);

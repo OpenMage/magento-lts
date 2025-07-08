@@ -50,22 +50,18 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
             }
 
             // draw selection attributes
-            if ($orderItem->getOrderItem()->getParentItem()) {
-                if ($_prevOptionId != $attributes['option_id']) {
-                    $line[0] = [
-                        'font'  => 'italic',
-                        'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 38, true, true),
-                        'feed'  => $x,
-                    ];
-
-                    $drawItems[$optionId] = [
-                        'lines'  => [$line],
-                        'height' => 15,
-                    ];
-
-                    $line = [];
-                    $_prevOptionId = $attributes['option_id'];
-                }
+            if ($orderItem->getOrderItem()->getParentItem() && $_prevOptionId != $attributes['option_id']) {
+                $line[0] = [
+                    'font'  => 'italic',
+                    'text'  => Mage::helper('core/string')->str_split($attributes['option_label'], 38, true, true),
+                    'feed'  => $x,
+                ];
+                $drawItems[$optionId] = [
+                    'lines'  => [$line],
+                    'height' => 15,
+                ];
+                $line = [];
+                $_prevOptionId = $attributes['option_id'];
             }
 
             // draw product titles
@@ -161,37 +157,35 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
 
         // custom options
         $options = $item->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['options'])) {
-                foreach ($options['options'] as $option) {
-                    $lines = [];
-                    $lines[][] = [
-                        'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
-                        'font'  => 'italic',
-                        'feed'  => $leftBound,
-                    ];
+        if ($options && isset($options['options'])) {
+            foreach ($options['options'] as $option) {
+                $lines = [];
+                $lines[][] = [
+                    'text'  => Mage::helper('core/string')->str_split(strip_tags($option['label']), 40, true, true),
+                    'font'  => 'italic',
+                    'feed'  => $leftBound,
+                ];
 
-                    if ($option['value']) {
-                        $text = [];
-                        $printValue = $option['print_value'] ?? strip_tags($option['value']);
-                        $values = explode(', ', $printValue);
-                        foreach ($values as $value) {
-                            foreach (Mage::helper('core/string')->str_split($value, 30, true, true) as $str) {
-                                $text[] = $str;
-                            }
+                if ($option['value']) {
+                    $text = [];
+                    $printValue = $option['print_value'] ?? strip_tags($option['value']);
+                    $values = explode(', ', $printValue);
+                    foreach ($values as $value) {
+                        foreach (Mage::helper('core/string')->str_split($value, 30, true, true) as $str) {
+                            $text[] = $str;
                         }
-
-                        $lines[][] = [
-                            'text'  => $text,
-                            'feed'  => $leftBound + 5,
-                        ];
                     }
 
-                    $drawItems[] = [
-                        'lines'  => $lines,
-                        'height' => 15,
+                    $lines[][] = [
+                        'text'  => $text,
+                        'feed'  => $leftBound + 5,
                     ];
                 }
+
+                $drawItems[] = [
+                    'lines'  => $lines,
+                    'height' => 15,
+                ];
             }
         }
 

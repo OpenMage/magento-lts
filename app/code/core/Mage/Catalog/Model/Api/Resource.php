@@ -49,10 +49,8 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
      */
     protected function _isAllowedAttribute($attribute, $attributes = null)
     {
-        if (Mage::getSingleton('api/server')->getApiName() == 'rest') {
-            if (!$this->_checkAttributeAcl($attribute)) {
-                return false;
-            }
+        if (Mage::getSingleton('api/server')->getApiName() == 'rest' && !$this->_checkAttributeAcl($attribute)) {
+            return false;
         }
 
         if (is_array($attributes)

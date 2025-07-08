@@ -170,17 +170,14 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     }
                 }
             } elseif ($attribute->isIndexable()) {
-                if (!is_string($value) || strlen($value) != 0) {
-                    if ($this->_getResource()
-                        ->addIndexableAttributeModifiedFilter(
-                            $this->getProductCollection(),
-                            $attribute,
-                            $value,
-                        )
-                    ) {
-                        $hasConditions = true;
-                        $this->_addSearchCriteria($attribute, $value);
-                    }
+                if ((!is_string($value) || strlen($value) != 0) && $this->_getResource()
+                    ->addIndexableAttributeModifiedFilter(
+                        $this->getProductCollection(),
+                        $attribute,
+                        $value,
+                    )) {
+                    $hasConditions = true;
+                    $this->_addSearchCriteria($attribute, $value);
                 }
             } else {
                 $condition = $this->_prepareCondition($attribute, $value);
@@ -219,33 +216,31 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
     {
         $name = $attribute->getStoreLabel();
 
-        if (is_array($value)) {
-            if (isset($value['from']) && isset($value['to'])) {
-                if (!empty($value['from']) || !empty($value['to'])) {
-                    if (isset($value['currency'])) {
-                        $currencyModel = Mage::getModel('directory/currency')->load($value['currency']);
-                        $from = $currencyModel->format($value['from'], [], false);
-                        $to = $currencyModel->format($value['to'], [], false);
-                    } else {
-                        $currencyModel = null;
-                    }
-
-                    if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
-                        $value = sprintf(
-                            '%s - %s',
-                            ($currencyModel ? $from : $value['from']),
-                            ($currencyModel ? $to : $value['to']),
-                        );
-                    } elseif (strlen($value['from']) > 0) {
-                        // and more
-                        $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
-                    } elseif (strlen($value['to']) > 0) {
-                        // to
-                        $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
-                    }
+        if (is_array($value) && (isset($value['from']) && isset($value['to']))) {
+            if (!empty($value['from']) || !empty($value['to'])) {
+                if (isset($value['currency'])) {
+                    $currencyModel = Mage::getModel('directory/currency')->load($value['currency']);
+                    $from = $currencyModel->format($value['from'], [], false);
+                    $to = $currencyModel->format($value['to'], [], false);
                 } else {
-                    return $this;
+                    $currencyModel = null;
                 }
+
+                if (strlen($value['from']) > 0 && strlen($value['to']) > 0) {
+                    $value = sprintf(
+                        '%s - %s',
+                        ($currencyModel ? $from : $value['from']),
+                        ($currencyModel ? $to : $value['to']),
+                    );
+                } elseif (strlen($value['from']) > 0) {
+                    // and more
+                    $value = Mage::helper('catalogsearch')->__('%s and greater', ($currencyModel ? $from : $value['from']));
+                } elseif (strlen($value['to']) > 0) {
+                    // to
+                    $value = Mage::helper('catalogsearch')->__('up to %s', ($currencyModel ? $to : $value['to']));
+                }
+            } else {
+                return $this;
             }
         }
 

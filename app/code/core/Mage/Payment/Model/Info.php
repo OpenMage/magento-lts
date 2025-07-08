@@ -61,15 +61,11 @@ class Mage_Payment_Model_Info extends Mage_Core_Model_Abstract
      */
     public function getData($key = '', $index = null)
     {
-        if ($key === 'cc_number') {
-            if (empty($this->_data['cc_number']) && !empty($this->_data['cc_number_enc'])) {
-                $this->_data['cc_number'] = $this->decrypt($this->getCcNumberEnc());
-            }
+        if ($key === 'cc_number' && (empty($this->_data['cc_number']) && !empty($this->_data['cc_number_enc']))) {
+            $this->_data['cc_number'] = $this->decrypt($this->getCcNumberEnc());
         }
-        if ($key === 'cc_cid') {
-            if (empty($this->_data['cc_cid']) && !empty($this->_data['cc_cid_enc'])) {
-                $this->_data['cc_cid'] = $this->decrypt($this->getCcCidEnc());
-            }
+        if ($key === 'cc_cid' && (empty($this->_data['cc_cid']) && !empty($this->_data['cc_cid_enc']))) {
+            $this->_data['cc_cid'] = $this->decrypt($this->getCcCidEnc());
         }
         return parent::getData($key, $index);
     }

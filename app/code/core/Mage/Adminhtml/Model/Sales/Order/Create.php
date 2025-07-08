@@ -1598,10 +1598,8 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             }
         }
 
-        if (!$this->getQuote()->isVirtual()) {
-            if (!$this->getQuote()->getShippingAddress()->getShippingMethod()) {
-                $this->_errors[] = Mage::helper('adminhtml')->__('Shipping method must be specified.');
-            }
+        if (!$this->getQuote()->isVirtual() && !$this->getQuote()->getShippingAddress()->getShippingMethod()) {
+            $this->_errors[] = Mage::helper('adminhtml')->__('Shipping method must be specified.');
         }
 
         if (!$this->getQuote()->getPayment()->getMethod()) {

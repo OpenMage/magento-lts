@@ -377,10 +377,8 @@ class Mage_Index_Model_Indexer
             if ($process->getDepends()) {
                 foreach ($process->getDepends() as $processCode) {
                     $dependProcess = $this->getProcessByCode($processCode);
-                    if ($dependProcess && !in_array($processCode, $processed)) {
-                        if ($this->_changeProcessKeyStatus($dependProcess, $enable)) {
-                            $processed[] = $processCode;
-                        }
+                    if ($dependProcess && !in_array($processCode, $processed) && $this->_changeProcessKeyStatus($dependProcess, $enable)) {
+                        $processed[] = $processCode;
                     }
                 }
             }

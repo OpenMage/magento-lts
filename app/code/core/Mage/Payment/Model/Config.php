@@ -29,12 +29,10 @@ class Mage_Payment_Model_Config
         $methods = [];
         $config = Mage::getStoreConfig('payment', $store);
         foreach ($config as $code => $methodConfig) {
-            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store)) {
-                if (array_key_exists('model', $methodConfig)) {
-                    $methodModel = Mage::getModel($methodConfig['model']);
-                    if ($methodModel && $methodModel->getConfigData('active', $store)) {
-                        $methods[$code] = $this->_getMethod($code, $methodConfig);
-                    }
+            if (Mage::getStoreConfigFlag('payment/' . $code . '/active', $store) && array_key_exists('model', $methodConfig)) {
+                $methodModel = Mage::getModel($methodConfig['model']);
+                if ($methodModel && $methodModel->getConfigData('active', $store)) {
+                    $methods[$code] = $this->_getMethod($code, $methodConfig);
                 }
             }
         }

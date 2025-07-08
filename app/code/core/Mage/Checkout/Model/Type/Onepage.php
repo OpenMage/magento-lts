@@ -304,10 +304,8 @@ class Mage_Checkout_Model_Type_Onepage
             return $result;
         }
 
-        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
-            if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
-                return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
-            }
+        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod() && $this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
+            return ['error' => 1, 'message' => $this->_customerEmailExistsMessage];
         }
 
         if (!$this->getQuote()->isVirtual()) {

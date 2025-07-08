@@ -275,11 +275,9 @@ class Mage_Cron_Model_Observer
         $arguments = [];
         $errorStatus = Mage_Cron_Model_Schedule::STATUS_ERROR;
         try {
-            if (!$isAlways) {
-                if ($time < $now - $scheduleLifetime) {
-                    $errorStatus = Mage_Cron_Model_Schedule::STATUS_MISSED;
-                    Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
-                }
+            if (!$isAlways && $time < $now - $scheduleLifetime) {
+                $errorStatus = Mage_Cron_Model_Schedule::STATUS_MISSED;
+                Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
             }
             if ($runConfig->model) {
                 if (!preg_match(self::REGEX_RUN_MODEL, (string) $runConfig->model, $run)) {

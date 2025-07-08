@@ -331,10 +331,8 @@ class Mage_Catalog_Model_Product_Image extends Mage_Core_Model_Abstract
         if ($file == '/no_selection') {
             $file = null;
         }
-        if ($file) {
-            if ((!$this->_fileExists($baseDir . $file))) {
-                $file = null;
-            }
+        if ($file && !$this->_fileExists($baseDir . $file)) {
+            $file = null;
         }
         if (!$file) {
             // check if placeholder defined in config

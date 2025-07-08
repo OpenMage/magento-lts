@@ -1222,15 +1222,13 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     public function getResponse()
     {
         $statuses = '';
-        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result) {
-            if ($trackings = $this->_result->getAllTrackings()) {
-                foreach ($trackings as $tracking) {
-                    if ($data = $tracking->getAllData()) {
-                        if (!empty($data['status'])) {
-                            $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
-                        } else {
-                            $statuses .= Mage::helper('usa')->__('Empty response') . "\n<br/>";
-                        }
+        if ($this->_result instanceof Mage_Shipping_Model_Tracking_Result && $trackings = $this->_result->getAllTrackings()) {
+            foreach ($trackings as $tracking) {
+                if ($data = $tracking->getAllData()) {
+                    if (!empty($data['status'])) {
+                        $statuses .= Mage::helper('usa')->__($data['status']) . "\n<br/>";
+                    } else {
+                        $statuses .= Mage::helper('usa')->__('Empty response') . "\n<br/>";
                     }
                 }
             }

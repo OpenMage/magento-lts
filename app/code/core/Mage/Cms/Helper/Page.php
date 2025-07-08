@@ -62,13 +62,11 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         $inRange = Mage::app()->getLocale()
             ->isStoreDateInInterval(null, $page->getCustomThemeFrom(), $page->getCustomThemeTo());
 
-        if ($page->getCustomTheme()) {
-            if ($inRange) {
-                [$package, $theme] = explode('/', $page->getCustomTheme());
-                Mage::getSingleton('core/design_package')
-                    ->setPackageName($package)
-                    ->setTheme($theme);
-            }
+        if ($page->getCustomTheme() && $inRange) {
+            [$package, $theme] = explode('/', $page->getCustomTheme());
+            Mage::getSingleton('core/design_package')
+                ->setPackageName($package)
+                ->setTheme($theme);
         }
 
         $action->getLayout()->getUpdate()

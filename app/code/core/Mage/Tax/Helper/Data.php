@@ -494,13 +494,11 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         $includingPercent = null;
 
         $taxClassId = $product->getTaxClassId();
-        if (is_null($percent)) {
-            if ($taxClassId) {
-                $request = Mage::getSingleton('tax/calculation')
-                    ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
-                $percent = Mage::getSingleton('tax/calculation')
-                    ->getRate($request->setProductClassId($taxClassId));
-            }
+        if (is_null($percent) && $taxClassId) {
+            $request = Mage::getSingleton('tax/calculation')
+                ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
+            $percent = Mage::getSingleton('tax/calculation')
+                ->getRate($request->setProductClassId($taxClassId));
         }
         if ($taxClassId && $priceIncludesTax) {
             if ($this->isCrossBorderTradeEnabled($store)) {
@@ -512,10 +510,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
 
-        if ($percent === false || is_null($percent)) {
-            if ($priceIncludesTax && !$includingPercent) {
-                return $price;
-            }
+        if (($percent === false || is_null($percent)) && ($priceIncludesTax && !$includingPercent)) {
+            return $price;
         }
 
         $product->setTaxPercent($percent);
@@ -841,10 +837,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 $result .= "+(({$priceField}{$result})*{$currentTaxString})";
             }
         } else {
-            if ($this->displayPriceIncludingTax()) {
-                if ($currentTaxString) {
-                    $result .= "+({$priceField}*{$currentTaxString})";
-                }
+            if ($this->displayPriceIncludingTax() && $currentTaxString) {
+                $result .= "+({$priceField}*{$currentTaxString})";
             }
         }
         return $result;
@@ -1097,16 +1091,14 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $taxClassAmount = [];
-        if ($current && $source) {
-            if ($current->getShippingTaxAmount() != 0 && $current->getBaseShippingTaxAmount() != 0) {
-                $taxClassAmount[0]['tax_amount'] = $current->getShippingTaxAmount();
-                $taxClassAmount[0]['base_tax_amount'] = $current->getBaseShippingTaxAmount();
-                if ($current->getShippingHiddenTaxAmount() > 0) {
-                    $taxClassAmount[0]['hidden_tax_amount'] = $current->getShippingHiddenTaxAmount();
-                }
-                $taxClassAmount[0]['title'] = $this->__('Shipping & Handling Tax');
-                $taxClassAmount[0]['percent'] = null;
+        if ($current && $source && ($current->getShippingTaxAmount() != 0 && $current->getBaseShippingTaxAmount() != 0)) {
+            $taxClassAmount[0]['tax_amount'] = $current->getShippingTaxAmount();
+            $taxClassAmount[0]['base_tax_amount'] = $current->getBaseShippingTaxAmount();
+            if ($current->getShippingHiddenTaxAmount() > 0) {
+                $taxClassAmount[0]['hidden_tax_amount'] = $current->getShippingHiddenTaxAmount();
             }
+            $taxClassAmount[0]['title'] = $this->__('Shipping & Handling Tax');
+            $taxClassAmount[0]['percent'] = null;
         }
 
         return $taxClassAmount;

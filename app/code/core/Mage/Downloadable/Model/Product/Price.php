@@ -32,20 +32,18 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
         /**
          * links prices are added to base product price only if they can be purchased separately
          */
-        if ($product->getLinksPurchasedSeparately()) {
-            if ($linksIds = $product->getCustomOption('downloadable_link_ids')) {
-                $linkPrice = 0;
-                /** @var Mage_Downloadable_Model_Product_Type $productType */
-                $productType = $product->getTypeInstance(true);
-                /** @var Mage_Downloadable_Model_Link[] $links */
-                $links = $productType->getLinks($product);
-                foreach (explode(',', $linksIds->getValue()) as $linkId) {
-                    if (isset($links[$linkId])) {
-                        $linkPrice += $links[$linkId]->getPrice();
-                    }
+        if ($product->getLinksPurchasedSeparately() && $linksIds = $product->getCustomOption('downloadable_link_ids')) {
+            $linkPrice = 0;
+            /** @var Mage_Downloadable_Model_Product_Type $productType */
+            $productType = $product->getTypeInstance(true);
+            /** @var Mage_Downloadable_Model_Link[] $links */
+            $links = $productType->getLinks($product);
+            foreach (explode(',', $linksIds->getValue()) as $linkId) {
+                if (isset($links[$linkId])) {
+                    $linkPrice += $links[$linkId]->getPrice();
                 }
-                $finalPrice += $linkPrice;
             }
+            $finalPrice += $linkPrice;
         }
 
         $product->setData('final_price', $finalPrice);

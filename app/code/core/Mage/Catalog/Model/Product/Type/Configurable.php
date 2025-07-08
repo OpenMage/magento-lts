@@ -717,10 +717,8 @@ class Mage_Catalog_Model_Product_Type_Configurable extends Mage_Catalog_Model_Pr
      */
     public function isVirtual($product = null)
     {
-        if ($productOption = $this->getProduct($product)->getCustomOption('simple_product')) {
-            if ($optionProduct = $productOption->getProduct()) {
-                return $optionProduct->isVirtual();
-            }
+        if (($productOption = $this->getProduct($product)->getCustomOption('simple_product')) && $optionProduct = $productOption->getProduct()) {
+            return $optionProduct->isVirtual();
         }
         return parent::isVirtual($product);
     }

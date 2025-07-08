@@ -488,10 +488,8 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
      */
     public function addHost($host)
     {
-        if ($host === true) {
-            if (!$host = Mage::app()->getFrontController()->getRequest()->getHttpHost()) {
-                return $this;
-            }
+        if ($host === true && !$host = Mage::app()->getFrontController()->getRequest()->getHttpHost()) {
+            return $this;
         }
 
         if (!$host) {

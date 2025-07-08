@@ -76,10 +76,8 @@ class Mage_Checkout_Model_Cart_Coupon_Api extends Mage_Checkout_Model_Api_Resour
             $this->_fault('cannot_apply_coupon_code', $e->getMessage());
         }
 
-        if ($couponCode) {
-            if (!$couponCode == $quote->getCouponCode()) {
-                $this->_fault('coupon_code_is_not_valid');
-            }
+        if ($couponCode && !$couponCode == $quote->getCouponCode()) {
+            $this->_fault('coupon_code_is_not_valid');
         }
 
         return true;

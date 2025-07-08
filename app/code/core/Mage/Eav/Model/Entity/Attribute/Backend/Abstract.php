@@ -241,14 +241,12 @@ abstract class Mage_Eav_Model_Entity_Attribute_Backend_Abstract implements Mage_
             return true;
         }
 
-        if ($this->getAttribute()->getIsUnique()) {
-            if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
-                $label = $this->getAttribute()->getFrontend()->getLabel();
-                throw Mage::exception(
-                    'Mage_Eav',
-                    Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label),
-                );
-            }
+        if ($this->getAttribute()->getIsUnique() && !$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
+            $label = $this->getAttribute()->getFrontend()->getLabel();
+            throw Mage::exception(
+                'Mage_Eav',
+                Mage::helper('eav')->__('The value of attribute "%s" must be unique', $label),
+            );
         }
 
         return true;

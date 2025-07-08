@@ -1085,12 +1085,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         $shouldProtectState = false
     ) {
         // attempt to set the specified state
-        if ($shouldProtectState) {
-            if ($this->isStateProtected($state)) {
-                Mage::throwException(
-                    Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state),
-                );
-            }
+        if ($shouldProtectState && $this->isStateProtected($state)) {
+            Mage::throwException(
+                Mage::helper('sales')->__('The Order State "%s" must not be set manually.', $state),
+            );
         }
         $this->setData('state', $state);
 

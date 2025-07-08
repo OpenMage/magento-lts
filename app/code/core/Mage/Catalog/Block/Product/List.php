@@ -165,10 +165,8 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
      */
     public function getToolbarBlock()
     {
-        if ($blockName = $this->getToolbarBlockName()) {
-            if ($block = $this->getLayout()->getBlock($blockName)) {
-                return $block;
-            }
+        if (($blockName = $this->getToolbarBlockName()) && $block = $this->getLayout()->getBlock($blockName)) {
+            return $block;
         }
         return $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
     }
@@ -244,14 +242,12 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
             $this->setAvailableOrders($category->getAvailableSortByOptions());
         }
         $availableOrders = $this->getAvailableOrders();
-        if (!$this->getSortBy()) {
-            if ($categorySortBy = $category->getDefaultSortBy()) {
-                if (!$availableOrders) {
-                    $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
-                }
-                if (isset($availableOrders[$categorySortBy])) {
-                    $this->setSortBy($categorySortBy);
-                }
+        if (!$this->getSortBy() && $categorySortBy = $category->getDefaultSortBy()) {
+            if (!$availableOrders) {
+                $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
+            }
+            if (isset($availableOrders[$categorySortBy])) {
+                $this->setSortBy($categorySortBy);
             }
         }
 

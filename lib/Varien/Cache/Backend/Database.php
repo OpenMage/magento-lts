@@ -58,10 +58,8 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
     public function __construct($options = [])
     {
         parent::__construct($options);
-        if (empty($this->_options['adapter_callback'])) {
-            if (!($this->_options['adapter'] instanceof Zend_Db_Adapter_Abstract)) {
-                Zend_Cache::throwException('Option "adapter" should be declared and extend Zend_Db_Adapter_Abstract!');
-            }
+        if (empty($this->_options['adapter_callback']) && !($this->_options['adapter'] instanceof Zend_Db_Adapter_Abstract)) {
+            Zend_Cache::throwException('Option "adapter" should be declared and extend Zend_Db_Adapter_Abstract!');
         }
         if (empty($this->_options['data_table']) || empty($this->_options['tags_table'])) {
             Zend_Cache::throwException('Options "data_table" and "tags_table" should be declared!');

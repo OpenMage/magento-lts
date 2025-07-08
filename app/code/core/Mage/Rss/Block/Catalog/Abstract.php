@@ -54,10 +54,8 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
     {
         if (!isset($this->_priceBlock[$productTypeId])) {
             $block = $this->_priceBlockDefaultType;
-            if (isset($this->_priceBlockTypes[$productTypeId])) {
-                if ($this->_priceBlockTypes[$productTypeId]['block'] != '') {
-                    $block = $this->_priceBlockTypes[$productTypeId]['block'];
-                }
+            if (isset($this->_priceBlockTypes[$productTypeId]) && $this->_priceBlockTypes[$productTypeId]['block'] != '') {
+                $block = $this->_priceBlockTypes[$productTypeId]['block'];
             }
             $this->_priceBlock[$productTypeId] = $this->getLayout()->createBlock($block);
         }
@@ -72,10 +70,8 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      */
     protected function _getPriceBlockTemplate($productTypeId)
     {
-        if (isset($this->_priceBlockTypes[$productTypeId])) {
-            if ($this->_priceBlockTypes[$productTypeId]['template'] != '') {
-                return $this->_priceBlockTypes[$productTypeId]['template'];
-            }
+        if (isset($this->_priceBlockTypes[$productTypeId]) && $this->_priceBlockTypes[$productTypeId]['template'] != '') {
+            return $this->_priceBlockTypes[$productTypeId]['template'];
         }
         return $this->_priceBlockDefaultTemplate;
     }

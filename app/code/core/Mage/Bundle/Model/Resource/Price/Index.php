@@ -808,11 +808,9 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         $store              = $website->getDefaultStore();
         $specialPrice       = $priceData['special_price'];
 
-        if (!is_null($specialPrice) && $specialPrice != false) {
-            if (Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
-                $specialPrice   = ($finalPrice * $specialPrice) / 100;
-                $finalPrice     = min($finalPrice, $specialPrice);
-            }
+        if (!is_null($specialPrice) && $specialPrice != false && Mage::app()->getLocale()->isStoreDateInInterval($store, $priceData['special_from_date'], $priceData['special_to_date'])) {
+            $specialPrice   = ($finalPrice * $specialPrice) / 100;
+            $finalPrice     = min($finalPrice, $specialPrice);
         }
 
         return $finalPrice;

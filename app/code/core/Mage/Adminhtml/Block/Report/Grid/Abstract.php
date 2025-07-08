@@ -153,10 +153,8 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $storeIds = $this->_getStoreIds();
 
         $orderStatuses = $filterData->getData('order_statuses');
-        if (is_array($orderStatuses)) {
-            if (count($orderStatuses) == 1 && str_contains($orderStatuses[0], ',')) {
-                $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
-            }
+        if (is_array($orderStatuses) && (count($orderStatuses) == 1 && str_contains($orderStatuses[0], ','))) {
+            $filterData->setData('order_statuses', explode(',', $orderStatuses[0]));
         }
 
         /** @var Mage_Sales_Model_Resource_Report_Collection_Abstract $resourceCollection */

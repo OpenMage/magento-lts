@@ -94,14 +94,12 @@ class Mage_Captcha_Model_Observer
         $formId = 'guest_checkout';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
         $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
-        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST) {
-            if ($captchaModel->isRequired()) {
-                $controller = $observer->getControllerAction();
-                if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
-                    $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
-                    $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-                }
+        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_GUEST && $captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
+                $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
             }
         }
         return $this;
@@ -118,14 +116,12 @@ class Mage_Captcha_Model_Observer
         $formId = 'register_during_checkout';
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
         $checkoutMethod = Mage::getSingleton('checkout/type_onepage')->getQuote()->getCheckoutMethod();
-        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER) {
-            if ($captchaModel->isRequired()) {
-                $controller = $observer->getControllerAction();
-                if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
-                    $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
-                    $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-                }
+        if ($checkoutMethod == Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER && $captchaModel->isRequired()) {
+            $controller = $observer->getControllerAction();
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                $result = ['error' => 1, 'message' => Mage::helper('captcha')->__('Incorrect CAPTCHA.')];
+                $controller->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
             }
         }
         return $this;
@@ -143,11 +139,9 @@ class Mage_Captcha_Model_Observer
         $captchaModel = Mage::helper('captcha')->getCaptcha($formId);
         $loginParams = Mage::app()->getRequest()->getPost('login', []);
         $login = $loginParams['username'] ?? null;
-        if ($captchaModel->isRequired($login)) {
-            if (!$captchaModel->isCorrect($this->_getCaptchaString(Mage::app()->getRequest(), $formId))) {
-                $captchaModel->logAttempt($login);
-                Mage::throwException(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
-            }
+        if ($captchaModel->isRequired($login) && !$captchaModel->isCorrect($this->_getCaptchaString(Mage::app()->getRequest(), $formId))) {
+            $captchaModel->logAttempt($login);
+            Mage::throwException(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
         }
         $captchaModel->logAttempt($login);
         return $this;
@@ -177,14 +171,12 @@ class Mage_Captcha_Model_Observer
         $email = (string) $observer->getControllerAction()->getRequest()->getParam('email');
         $params = $observer->getControllerAction()->getRequest()->getParams();
 
-        if (!empty($email) && !empty($params)) {
-            if ($captchaModel->isRequired()) {
-                if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
-                    $this->_getBackendSession()->setEmail((string) $controller->getRequest()->getPost('email'));
-                    $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
-                    $this->_getBackendSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
-                    $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
-                }
+        if (!empty($email) && !empty($params) && $captchaModel->isRequired()) {
+            if (!$captchaModel->isCorrect($this->_getCaptchaString($controller->getRequest(), $formId))) {
+                $this->_getBackendSession()->setEmail((string) $controller->getRequest()->getPost('email'));
+                $controller->setFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_DISPATCH, true);
+                $this->_getBackendSession()->addError(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
+                $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
             }
         }
         return $this;
@@ -234,10 +226,8 @@ class Mage_Captcha_Model_Observer
             $expire = time() - Mage::helper('captcha')->getConfigNode('timeout', $website->getDefaultStore()) * 60;
             $imageDirectory = Mage::helper('captcha')->getImgDir($website);
             foreach (new DirectoryIterator($imageDirectory) as $file) {
-                if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'png') {
-                    if ($file->getMTime() < $expire) {
-                        unlink($file->getPathname());
-                    }
+                if ($file->isFile() && pathinfo($file->getFilename(), PATHINFO_EXTENSION) == 'png' && $file->getMTime() < $expire) {
+                    unlink($file->getPathname());
                 }
             }
         }

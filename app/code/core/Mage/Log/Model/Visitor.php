@@ -302,11 +302,9 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
     {
         /** @var Mage_Sales_Model_Quote $quote */
         $quote = $observer->getEvent()->getQuote();
-        if ($quote) {
-            if ($quote->getIsCheckoutCart()) {
-                $this->setQuoteId($quote->getId());
-                $this->setDoQuoteCreate(true);
-            }
+        if ($quote && $quote->getIsCheckoutCart()) {
+            $this->setQuoteId($quote->getId());
+            $this->setDoQuoteCreate(true);
         }
         return $this;
     }
