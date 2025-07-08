@@ -178,10 +178,8 @@ class Mage_CurrencySymbol_Model_System_Currencysymbol
     public function setCurrencySymbolsData($symbols = [])
     {
         foreach ($this->getCurrencySymbolsData() as $code => $values) {
-            if (isset($symbols[$code])) {
-                if ($symbols[$code] == $values['parentSymbol'] || empty($symbols[$code])) {
-                    unset($symbols[$code]);
-                }
+            if (isset($symbols[$code]) && ($symbols[$code] == $values['parentSymbol'] || empty($symbols[$code]))) {
+                unset($symbols[$code]);
             }
         }
         if ($symbols) {

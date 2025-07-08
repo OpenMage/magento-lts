@@ -93,10 +93,8 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
             switch ($state) {
                 case Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE:
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (isset($flagData['destination']) && !empty($flagData['destination'])) {
-                            $result['destination'] = $flagData['destination'];
-                        }
+                    if (is_array($flagData) && (isset($flagData['destination']) && !empty($flagData['destination']))) {
+                        $result['destination'] = $flagData['destination'];
                     }
 
                     $state = Mage_Core_Model_File_Storage_Flag::STATE_INACTIVE;
@@ -148,10 +146,8 @@ class Mage_Adminhtml_System_Config_System_StorageController extends Mage_Adminht
                     $result['html'] = $block->toHtml();
 
                     $flagData = $flag->getFlagData();
-                    if (is_array($flagData)) {
-                        if (isset($flagData['has_errors']) && $flagData['has_errors']) {
-                            $result['has_errors'] = true;
-                        }
+                    if (is_array($flagData) && (isset($flagData['has_errors']) && $flagData['has_errors'])) {
+                        $result['has_errors'] = true;
                     }
 
                     break;

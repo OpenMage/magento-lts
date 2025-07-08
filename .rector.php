@@ -58,7 +58,6 @@ try {
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP
-            CodeQuality\If_\CombineIfRector::class, # todo: TMP<
             CodeQuality\If_\CompleteMissingIfElseBracketRector::class, # todo: TMP  (!?!)
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\If_\SimplifyIfElseToTernaryRector::class,

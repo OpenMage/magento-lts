@@ -70,21 +70,18 @@ class Mage_Adminhtml_Controller_Sales_Creditmemo extends Mage_Adminhtml_Controll
      */
     public function emailAction()
     {
-        if ($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) {
-            if ($creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId)) {
-                $creditmemo->sendEmail();
-                $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
-                    ->getUnnotifiedForInstance($creditmemo, Mage_Sales_Model_Order_Creditmemo::HISTORY_ENTITY_NAME);
-                if ($historyItem) {
-                    $historyItem->setIsCustomerNotified(1);
-                    $historyItem->save();
-                }
-
-                $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message was sent.'));
-                $this->_redirect('*/sales_order_creditmemo/view', [
-                    'creditmemo_id' => $creditmemoId,
-                ]);
+        if (($creditmemoId = $this->getRequest()->getParam('creditmemo_id')) && $creditmemo = Mage::getModel('sales/order_creditmemo')->load($creditmemoId)) {
+            $creditmemo->sendEmail();
+            $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
+                ->getUnnotifiedForInstance($creditmemo, Mage_Sales_Model_Order_Creditmemo::HISTORY_ENTITY_NAME);
+            if ($historyItem) {
+                $historyItem->setIsCustomerNotified(1);
+                $historyItem->save();
             }
+            $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message was sent.'));
+            $this->_redirect('*/sales_order_creditmemo/view', [
+                'creditmemo_id' => $creditmemoId,
+            ]);
         }
     }
 

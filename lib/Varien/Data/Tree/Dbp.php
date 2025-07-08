@@ -252,10 +252,8 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         }
 
         foreach ($node->getChildren() as $child) {
-            if ($recursive) {
-                if ($child->getChildren()) {
-                    $result = $this->getChildren($child, $recursive, $result);
-                }
+            if ($recursive && $child->getChildren()) {
+                $result = $this->getChildren($child, $recursive, $result);
             }
             $result[] = $child->getId();
         }

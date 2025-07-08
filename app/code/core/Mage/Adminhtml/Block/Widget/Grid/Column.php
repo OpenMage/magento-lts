@@ -205,10 +205,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column extends Mage_Adminhtml_Block_Widge
      */
     protected function &_applyDecorators($value, $decorators)
     {
-        if (!is_array($decorators)) {
-            if (is_string($decorators)) {
-                $decorators = explode(' ', $decorators);
-            }
+        if (!is_array($decorators) && is_string($decorators)) {
+            $decorators = explode(' ', $decorators);
         }
         if ((!is_array($decorators)) || empty($decorators)) {
             return $value;

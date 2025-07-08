@@ -108,20 +108,16 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             throw new Varien_Io_Exception('Invalid user name or password');
         }
 
-        if (!empty($this->_config['path'])) {
-            if (!@ftp_chdir($this->_conn, $this->_config['path'])) {
-                $this->_error = self::ERROR_INVALID_PATH;
-                $this->close();
-                throw new Varien_Io_Exception('Invalid path');
-            }
+        if (!empty($this->_config['path']) && !@ftp_chdir($this->_conn, $this->_config['path'])) {
+            $this->_error = self::ERROR_INVALID_PATH;
+            $this->close();
+            throw new Varien_Io_Exception('Invalid path');
         }
 
-        if (!empty($this->_config['passive'])) {
-            if (!@ftp_pasv($this->_conn, true)) {
-                $this->_error = self::ERROR_INVALID_MODE;
-                $this->close();
-                throw new Varien_Io_Exception('Invalid file transfer mode');
-            }
+        if (!empty($this->_config['passive']) && !@ftp_pasv($this->_conn, true)) {
+            $this->_error = self::ERROR_INVALID_MODE;
+            $this->close();
+            throw new Varien_Io_Exception('Invalid file transfer mode');
         }
 
         return true;

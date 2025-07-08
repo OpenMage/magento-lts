@@ -124,12 +124,10 @@ try {
 }
 
 // print all errors if there were any
-if ($installer instanceof Mage_Install_Model_Installer_Console) {
-    if ($installer->getErrors()) {
-        echo "\nFAILED\n";
-        foreach ($installer->getErrors() as $error) {
-            echo $error . "\n";
-        }
+if ($installer instanceof Mage_Install_Model_Installer_Console && $installer->getErrors()) {
+    echo "\nFAILED\n";
+    foreach ($installer->getErrors() as $error) {
+        echo $error . "\n";
     }
 }
 exit(1); // don't delete this as this should notify about failed installation

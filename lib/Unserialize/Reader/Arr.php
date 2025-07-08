@@ -99,10 +99,8 @@ class Unserialize_Reader_Arr
             }
         }
 
-        if ($this->_status == self::FINISHED_ARR) {
-            if ($char == '}') {
-                return $this->_result;
-            }
+        if ($this->_status == self::FINISHED_ARR && $char == '}') {
+            return $this->_result;
         }
     }
 }

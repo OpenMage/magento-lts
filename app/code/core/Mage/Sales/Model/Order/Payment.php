@@ -1191,12 +1191,9 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         // if the authorization was untouched, we may assume voided amount = order grand total
         // but only if the payment auth amount equals to order grand total
-        if ($authTransaction && ($order->getBaseGrandTotal() == $this->getBaseAmountAuthorized())
-            && ($this->getBaseAmountCanceled() == 0)
+        if ($authTransaction && $order->getBaseGrandTotal() == $this->getBaseAmountAuthorized() && $this->getBaseAmountCanceled() == 0 && $authTransaction->canVoidAuthorizationCompletely()
         ) {
-            if ($authTransaction->canVoidAuthorizationCompletely()) {
-                $amount = (float) $order->getBaseGrandTotal();
-            }
+            $amount = (float) $order->getBaseGrandTotal();
         }
 
         if ($amount) {

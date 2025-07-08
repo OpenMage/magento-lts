@@ -219,10 +219,8 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             }
         }
         // remove last element, if empty
-        if ($count = count($result)) {
-            if ($result[$count - 1] === '') {
-                unset($result[$count - 1]);
-            }
+        if (($count = count($result)) && $result[$count - 1] === '') {
+            unset($result[$count - 1]);
         }
         // remove first element, if empty
         if (isset($result[0]) && $result[0] === '') {

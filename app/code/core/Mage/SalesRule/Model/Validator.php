@@ -203,11 +203,9 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
             $customerId     = $address->getQuote()->getCustomerId();
             $ruleCustomer   = Mage::getModel('salesrule/rule_customer');
             $ruleCustomer->loadByCustomerRule($customerId, $ruleId);
-            if ($ruleCustomer->getId()) {
-                if ($ruleCustomer->getTimesUsed() >= $rule->getUsesPerCustomer()) {
-                    $rule->setIsValidForAddress($address, false);
-                    return false;
-                }
+            if ($ruleCustomer->getId() && $ruleCustomer->getTimesUsed() >= $rule->getUsesPerCustomer()) {
+                $rule->setIsValidForAddress($address, false);
+                return false;
             }
         }
         $rule->afterLoad();

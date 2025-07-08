@@ -50,11 +50,9 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 
         // Apply custom layout update once layout is loaded
         $layoutUpdates = $settings->getLayoutUpdates();
-        if ($layoutUpdates) {
-            if (is_array($layoutUpdates)) {
-                foreach ($layoutUpdates as $layoutUpdate) {
-                    $update->addUpdate($layoutUpdate);
-                }
+        if ($layoutUpdates && is_array($layoutUpdates)) {
+            foreach ($layoutUpdates as $layoutUpdate) {
+                $update->addUpdate($layoutUpdate);
             }
         }
 

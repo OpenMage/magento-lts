@@ -103,15 +103,11 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
                 Mage::throwException(Mage::helper('catalog')->__('Scope must not be changed, because the attribute is used in configurable products.'));
             }
         }
-        if ($this->getFrontendInput() == 'price') {
-            if (!$this->getBackendModel()) {
-                $this->setBackendModel('catalog/product_attribute_backend_price');
-            }
+        if ($this->getFrontendInput() == 'price' && !$this->getBackendModel()) {
+            $this->setBackendModel('catalog/product_attribute_backend_price');
         }
-        if ($this->getFrontendInput() == 'textarea') {
-            if ($this->getIsWysiwygEnabled()) {
-                $this->setIsHtmlAllowedOnFront(1);
-            }
+        if ($this->getFrontendInput() == 'textarea' && $this->getIsWysiwygEnabled()) {
+            $this->setIsHtmlAllowedOnFront(1);
         }
         return parent::_beforeSave();
     }
@@ -246,10 +242,8 @@ class Mage_Catalog_Model_Resource_Eav_Attribute extends Mage_Eav_Model_Entity_At
     public function getSourceModel()
     {
         $model = $this->getData('source_model');
-        if (empty($model)) {
-            if ($this->getBackendType() == 'int' && $this->getFrontendInput() == 'select') {
-                return $this->_getDefaultSourceModel();
-            }
+        if (empty($model) && ($this->getBackendType() == 'int' && $this->getFrontendInput() == 'select')) {
+            return $this->_getDefaultSourceModel();
         }
         return $model;
     }

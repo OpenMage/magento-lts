@@ -306,10 +306,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 break;
                 // case self::TYPE_PAYMENT?
         }
-        if ($authTransaction) {
-            if (!$dryRun) {
-                $authTransaction->close($shouldSave);
-            }
+        if ($authTransaction && !$dryRun) {
+            $authTransaction->close($shouldSave);
         }
         return $authTransaction;
     }
@@ -761,10 +759,8 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
      */
     protected function _verifyPaymentObject($dryRun = false)
     {
-        if (!$this->_paymentObject || !$this->getOrderId()) {
-            if (!$dryRun) {
-                Mage::throwException(Mage::helper('sales')->__('Proper payment object must be set.'));
-            }
+        if ((!$this->_paymentObject || !$this->getOrderId()) && !$dryRun) {
+            Mage::throwException(Mage::helper('sales')->__('Proper payment object must be set.'));
         }
         return $this->_paymentObject;
     }

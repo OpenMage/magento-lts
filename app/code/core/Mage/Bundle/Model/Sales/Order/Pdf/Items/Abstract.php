@@ -87,12 +87,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         }
 
         $options = $this->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['shipment_type'])
-                && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-            ) {
-                return true;
-            }
+        if ($options && (isset($options['shipment_type']) && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY)) {
+            return true;
         }
         return false;
     }
@@ -137,12 +133,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         }
 
         $options = $this->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['product_calculations'])
-                && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-            ) {
-                return true;
-            }
+        if ($options && (isset($options['product_calculations']) && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD)) {
+            return true;
         }
         return false;
     }
@@ -156,10 +148,8 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
     public function getBundleOptions($item = null)
     {
         $options = $this->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['bundle_options'])) {
-                return $options['bundle_options'];
-            }
+        if ($options && isset($options['bundle_options'])) {
+            return $options['bundle_options'];
         }
         return [];
     }

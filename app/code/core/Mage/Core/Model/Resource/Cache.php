@@ -27,15 +27,13 @@ class Mage_Core_Model_Resource_Cache extends Mage_Core_Model_Resource_Db_Abstrac
     public function getAllOptions()
     {
         $adapter = $this->_getReadAdapter();
-        if ($adapter) {
-            /**
-             * Check if table exist (it protect upgrades. cache settings checked before upgrades)
-             */
-            if ($adapter->isTableExists($this->getMainTable())) {
-                $select = $adapter->select()
-                    ->from($this->getMainTable(), ['code', 'value']);
-                return $adapter->fetchPairs($select);
-            }
+        /**
+         * Check if table exist (it protect upgrades. cache settings checked before upgrades)
+         */
+        if ($adapter && $adapter->isTableExists($this->getMainTable())) {
+            $select = $adapter->select()
+                ->from($this->getMainTable(), ['code', 'value']);
+            return $adapter->fetchPairs($select);
         }
         return false;
     }

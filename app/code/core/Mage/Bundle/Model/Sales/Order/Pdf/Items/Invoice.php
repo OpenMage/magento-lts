@@ -57,23 +57,18 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 ];
             }
 
-            if ($orderItem->getOrderItem()->getParentItem()) {
-                if ($_prevOptionId != $attributes['option_id']) {
-                    $line[0] = [
-                        'font' => 'italic',
-                        'text' => $stringHelper->str_split($attributes['option_label'], 45, true, true),
-                        'feed' => 35,
-                    ];
-
-                    $drawItems[$optionId] = [
-                        'lines'  => [$line],
-                        'height' => 15,
-                    ];
-
-                    $line = [];
-
-                    $_prevOptionId = $attributes['option_id'];
-                }
+            if ($orderItem->getOrderItem()->getParentItem() && $_prevOptionId != $attributes['option_id']) {
+                $line[0] = [
+                    'font' => 'italic',
+                    'text' => $stringHelper->str_split($attributes['option_label'], 45, true, true),
+                    'feed' => 35,
+                ];
+                $drawItems[$optionId] = [
+                    'lines'  => [$line],
+                    'height' => 15,
+                ];
+                $line = [];
+                $_prevOptionId = $attributes['option_id'];
             }
 
             /* in case Product name is longer than 80 chars - it is written in a few lines */
@@ -146,37 +141,35 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
 
         // custom options
         $options = $item->getOrderItem()->getProductOptions();
-        if ($options) {
-            if (isset($options['options'])) {
-                foreach ($options['options'] as $option) {
-                    $lines = [];
-                    $lines[][] = [
-                        'text'  => $stringHelper->str_split(strip_tags($option['label']), 40, true, true),
-                        'font'  => 'italic',
-                        'feed'  => 35,
-                    ];
+        if ($options && isset($options['options'])) {
+            foreach ($options['options'] as $option) {
+                $lines = [];
+                $lines[][] = [
+                    'text'  => $stringHelper->str_split(strip_tags($option['label']), 40, true, true),
+                    'font'  => 'italic',
+                    'feed'  => 35,
+                ];
 
-                    if ($option['value']) {
-                        $text = [];
-                        $printValue = $option['print_value'] ?? strip_tags($option['value']);
-                        $values = explode(', ', $printValue);
-                        foreach ($values as $value) {
-                            foreach ($stringHelper->str_split($value, 30, true, true) as $str) {
-                                $text[] = $str;
-                            }
+                if ($option['value']) {
+                    $text = [];
+                    $printValue = $option['print_value'] ?? strip_tags($option['value']);
+                    $values = explode(', ', $printValue);
+                    foreach ($values as $value) {
+                        foreach ($stringHelper->str_split($value, 30, true, true) as $str) {
+                            $text[] = $str;
                         }
-
-                        $lines[][] = [
-                            'text'  => $text,
-                            'feed'  => 40,
-                        ];
                     }
 
-                    $drawItems[] = [
-                        'lines'  => $lines,
-                        'height' => 15,
+                    $lines[][] = [
+                        'text'  => $text,
+                        'feed'  => 40,
                     ];
                 }
+
+                $drawItems[] = [
+                    'lines'  => $lines,
+                    'height' => 15,
+                ];
             }
         }
 

@@ -339,10 +339,8 @@ class Mage_CatalogRule_Model_Observer
             if ($condition instanceof Mage_CatalogRule_Model_Rule_Condition_Combine) {
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
-            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract) {
-                if ($condition->getAttribute() == $attributeCode) {
-                    unset($conditions[$conditionId]);
-                }
+            if ($condition instanceof Mage_Rule_Model_Condition_Product_Abstract && $condition->getAttribute() == $attributeCode) {
+                unset($conditions[$conditionId]);
             }
         }
         $combine->setConditions($conditions);

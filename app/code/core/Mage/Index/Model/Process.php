@@ -317,10 +317,8 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
         /**
          * Check if process indexer can match entity code and action type
          */
-        if ($entity !== null && $type !== null) {
-            if (!$this->getIndexer()->matchEntityAndType($entity, $type)) {
-                return $this;
-            }
+        if ($entity !== null && $type !== null && !$this->getIndexer()->matchEntityAndType($entity, $type)) {
+            return $this;
         }
 
         if ($this->getMode() == self::MODE_MANUAL) {

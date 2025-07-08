@@ -273,13 +273,9 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 }
             }
             // Check display settings for customers & guests
-            if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
-                // check if product assigned to any website and can be shown
-                if ((!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds()))
-                    || !$productHelper->canShow($product)
-                ) {
-                    $this->_critical(self::RESOURCE_NOT_FOUND);
-                }
+            // check if product assigned to any website and can be shown
+            if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE && (!Mage::app()->isSingleStoreMode() && !count($product->getWebsiteIds()) || !$productHelper->canShow($product))) {
+                $this->_critical(self::RESOURCE_NOT_FOUND);
             }
             $this->_product = $product;
         }
@@ -338,12 +334,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
         $includingPercent = null;
 
         $taxClassId = $product->getTaxClassId();
-        if (is_null($percent)) {
-            if ($taxClassId) {
-                $request = Mage::getSingleton('tax/calculation')
-                    ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
-                $percent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
-            }
+        if (is_null($percent) && $taxClassId) {
+            $request = Mage::getSingleton('tax/calculation')
+                ->getRateRequest($shippingAddress, $billingAddress, $ctc, $store);
+            $percent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
         }
         if ($taxClassId && $priceIncludesTax) {
             $taxHelper = Mage::helper('tax');
@@ -356,10 +350,8 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             }
         }
 
-        if ($percent === false || is_null($percent)) {
-            if ($priceIncludesTax && !$includingPercent) {
-                return $price;
-            }
+        if (($percent === false || is_null($percent)) && ($priceIncludesTax && !$includingPercent)) {
+            return $price;
         }
         $product->setTaxPercent($percent);
 

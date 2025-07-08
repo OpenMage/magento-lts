@@ -362,24 +362,22 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
          */
         if ($this->_configCache === null) {
             $code = $this->getCode();
-            if ($code) {
-                if (Mage::app()->useCache('config')) {
-                    $cacheId = 'store_' . $code . '_config_cache';
-                    $data = Mage::app()->loadCache($cacheId);
-                    if ($data) {
-                        $data = unserialize($data, ['allowed_classes' => false]);
-                    } else {
-                        $data = [];
-                        foreach ($this->_configCacheBaseNodes as $node) {
-                            $data[$node] = $this->getConfig($node);
-                        }
-                        Mage::app()->saveCache(serialize($data), $cacheId, [
-                            self::CACHE_TAG,
-                            Mage_Core_Model_Config::CACHE_TAG,
-                        ]);
+            if ($code && Mage::app()->useCache('config')) {
+                $cacheId = 'store_' . $code . '_config_cache';
+                $data = Mage::app()->loadCache($cacheId);
+                if ($data) {
+                    $data = unserialize($data, ['allowed_classes' => false]);
+                } else {
+                    $data = [];
+                    foreach ($this->_configCacheBaseNodes as $node) {
+                        $data[$node] = $this->getConfig($node);
                     }
-                    $this->_configCache = $data;
+                    Mage::app()->saveCache(serialize($data), $cacheId, [
+                        self::CACHE_TAG,
+                        Mage_Core_Model_Config::CACHE_TAG,
+                    ]);
                 }
+                $this->_configCache = $data;
             }
         }
         return $this;

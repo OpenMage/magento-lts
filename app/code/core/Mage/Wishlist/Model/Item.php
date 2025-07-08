@@ -348,10 +348,8 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
             return false;
         }
 
-        if (!$product->isVisibleInSiteVisibility()) {
-            if ($product->getStoreId() == $storeId) {
-                return false;
-            }
+        if (!$product->isVisibleInSiteVisibility() && $product->getStoreId() == $storeId) {
+            return false;
         }
 
         if (!$product->isSalable()) {

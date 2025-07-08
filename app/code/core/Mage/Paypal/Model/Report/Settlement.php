@@ -158,10 +158,8 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         $this->_dataSaveAllowed = true;
-        if ($this->getId()) {
-            if ($this->getLastModified() == $this->getReportLastModified()) {
-                $this->_dataSaveAllowed = false;
-            }
+        if ($this->getId() && $this->getLastModified() == $this->getReportLastModified()) {
+            $this->_dataSaveAllowed = false;
         }
         $this->setLastModified($this->getReportLastModified());
         return parent::_beforeSave();

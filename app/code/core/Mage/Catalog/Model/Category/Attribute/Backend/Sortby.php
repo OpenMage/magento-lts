@@ -43,11 +43,9 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
             }
         }
 
-        if ($this->getAttribute()->getIsUnique()) {
-            if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
-                $label = $this->getAttribute()->getFrontend()->getLabel();
-                Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
-            }
+        if ($this->getAttribute()->getIsUnique() && !$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
+            $label = $this->getAttribute()->getFrontend()->getLabel();
+            Mage::throwException(Mage::helper('eav')->__('The value of attribute "%s" must be unique.', $label));
         }
 
         if ($attributeCode == 'default_sort_by') {

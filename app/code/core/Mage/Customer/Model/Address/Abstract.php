@@ -242,11 +242,9 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         $regionId = $this->getData('region_id');
         $region   = $this->getData('region');
 
-        if ($regionId) {
-            if ($this->getRegionModel($regionId)->getCountryId() == $this->getCountryId()) {
-                $region = $this->getRegionModel($regionId)->getName();
-                $this->setData('region', $region);
-            }
+        if ($regionId && $this->getRegionModel($regionId)->getCountryId() == $this->getCountryId()) {
+            $region = $this->getRegionModel($regionId)->getName();
+            $this->setData('region', $region);
         }
 
         if (!empty($region) && is_string($region)) {

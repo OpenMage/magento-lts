@@ -58,18 +58,12 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_View extends Mage_Adminhtml_Block
 
         $orderPayment = $this->getInvoice()->getOrder()->getPayment();
 
-        if ($this->_isAllowedAction('creditmemo') && $this->getInvoice()->getOrder()->canCreditmemo()) {
-            if (($orderPayment->canRefundPartialPerInvoice()
-                && $this->getInvoice()->canRefund()
-                && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded())
-                || ($orderPayment->canRefund() && !$this->getInvoice()->getIsUsedForRefund())
-            ) {
-                $this->_addButton('capture', [ // capture?
-                    'label'     => Mage::helper('sales')->__('Credit Memo'),
-                    'class'     => 'go',
-                    'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
-                ]);
-            }
+        if ($this->_isAllowedAction('creditmemo') && $this->getInvoice()->getOrder()->canCreditmemo() && ($orderPayment->canRefundPartialPerInvoice() && $this->getInvoice()->canRefund() && $orderPayment->getAmountPaid() > $orderPayment->getAmountRefunded() || $orderPayment->canRefund() && !$this->getInvoice()->getIsUsedForRefund())) {
+            $this->_addButton('capture', [ // capture?
+                'label'     => Mage::helper('sales')->__('Credit Memo'),
+                'class'     => 'go',
+                'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getCreditMemoUrl()),
+            ]);
         }
 
         if ($this->_isAllowedAction('capture') && $this->getInvoice()->canCapture()) {

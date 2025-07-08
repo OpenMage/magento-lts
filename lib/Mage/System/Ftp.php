@@ -145,10 +145,8 @@ class Mage_System_Ftp
         } else {
             $this->login();
         }
-        if (isset($params['path'])) {
-            if (!$this->chdir($params['path'])) {
-                throw new Exception("Cannot chdir after login to: {$params['path']}");
-            }
+        if (isset($params['path']) && !$this->chdir($params['path'])) {
+            throw new Exception("Cannot chdir after login to: {$params['path']}");
         }
     }
 

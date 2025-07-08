@@ -82,11 +82,9 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
         /** @var Mage_Admin_Model_Rules $item */
         foreach ($rules->getItems() as $item) {
             $itemResourceId = $item->getResource_id();
-            if (array_key_exists(strtolower($itemResourceId), $resources)) {
-                if ($item->isAllowed()) {
-                    $resources[$itemResourceId]['checked'] = true;
-                    $selrids[] = $itemResourceId;
-                }
+            if (array_key_exists(strtolower($itemResourceId), $resources) && $item->isAllowed()) {
+                $resources[$itemResourceId]['checked'] = true;
+                $selrids[] = $itemResourceId;
             }
         }
 

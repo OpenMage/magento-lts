@@ -236,17 +236,15 @@ class Mage_Weee_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getApplied($item)
     {
-        if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract) {
-            if ($item->getHasChildren() && $item->isChildrenCalculated()) {
-                $result = [];
-                foreach ($item->getChildren() as $child) {
-                    $childData = $this->getApplied($child);
-                    if (is_array($childData)) {
-                        $result = array_merge($result, $childData);
-                    }
+        if ($item instanceof Mage_Sales_Model_Quote_Item_Abstract && ($item->getHasChildren() && $item->isChildrenCalculated())) {
+            $result = [];
+            foreach ($item->getChildren() as $child) {
+                $childData = $this->getApplied($child);
+                if (is_array($childData)) {
+                    $result = array_merge($result, $childData);
                 }
-                return $result;
             }
+            return $result;
         }
 
         /**

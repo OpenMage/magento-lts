@@ -775,17 +775,13 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             }
         }
 
-        if (Mage::helper('tax')->discountTax($store) && !Mage::helper('tax')->applyTaxAfterDiscount($store)) {
-            if ($this->getDiscountPercent()) {
-                $baseTaxAmount =  $this->getBaseTaxBeforeDiscount();
-                $taxAmount = $this->getTaxBeforeDiscount();
-
-                $baseDiscountDisposition = $baseTaxAmount / 100 * $this->getDiscountPercent();
-                $discountDisposition = $taxAmount / 100 * $this->getDiscountPercent();
-
-                $this->setDiscountAmount($this->getDiscountAmount() + $discountDisposition);
-                $this->setBaseDiscountAmount($this->getBaseDiscountAmount() + $baseDiscountDisposition);
-            }
+        if (Mage::helper('tax')->discountTax($store) && !Mage::helper('tax')->applyTaxAfterDiscount($store) && $this->getDiscountPercent()) {
+            $baseTaxAmount =  $this->getBaseTaxBeforeDiscount();
+            $taxAmount = $this->getTaxBeforeDiscount();
+            $baseDiscountDisposition = $baseTaxAmount / 100 * $this->getDiscountPercent();
+            $discountDisposition = $taxAmount / 100 * $this->getDiscountPercent();
+            $this->setDiscountAmount($this->getDiscountAmount() + $discountDisposition);
+            $this->setBaseDiscountAmount($this->getBaseDiscountAmount() + $baseDiscountDisposition);
         }
 
         return $this;

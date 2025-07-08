@@ -658,30 +658,20 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
      */
     public function isApplicableToQuote($quote, $checksBitMask)
     {
-        if ($checksBitMask & self::CHECK_USE_FOR_COUNTRY) {
-            if (!$this->canUseForCountry($quote->getBillingAddress()->getCountry())) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_FOR_COUNTRY && !$this->canUseForCountry($quote->getBillingAddress()->getCountry())) {
+            return false;
         }
-        if ($checksBitMask & self::CHECK_USE_FOR_CURRENCY) {
-            if (!$this->canUseForCurrency($quote->getStore()->getBaseCurrencyCode())) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_FOR_CURRENCY && !$this->canUseForCurrency($quote->getStore()->getBaseCurrencyCode())) {
+            return false;
         }
-        if ($checksBitMask & self::CHECK_USE_CHECKOUT) {
-            if (!$this->canUseCheckout()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_CHECKOUT && !$this->canUseCheckout()) {
+            return false;
         }
-        if ($checksBitMask & self::CHECK_USE_FOR_MULTISHIPPING) {
-            if (!$this->canUseForMultishipping()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_FOR_MULTISHIPPING && !$this->canUseForMultishipping()) {
+            return false;
         }
-        if ($checksBitMask & self::CHECK_USE_INTERNAL) {
-            if (!$this->canUseInternal()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_USE_INTERNAL && !$this->canUseInternal()) {
+            return false;
         }
         if ($checksBitMask & self::CHECK_ORDER_TOTAL_MIN_MAX) {
             $total = $quote->getBaseGrandTotal();
@@ -691,10 +681,8 @@ abstract class Mage_Payment_Model_Method_Abstract extends Varien_Object
                 return false;
             }
         }
-        if ($checksBitMask & self::CHECK_RECURRING_PROFILES) {
-            if (!$this->canManageRecurringProfiles() && $quote->hasRecurringItems()) {
-                return false;
-            }
+        if ($checksBitMask & self::CHECK_RECURRING_PROFILES && (!$this->canManageRecurringProfiles() && $quote->hasRecurringItems())) {
+            return false;
         }
         if ($checksBitMask & self::CHECK_ZERO_TOTAL) {
             $total = $quote->getBaseSubtotal() + $quote->getShippingAddress()->getBaseShippingAmount();

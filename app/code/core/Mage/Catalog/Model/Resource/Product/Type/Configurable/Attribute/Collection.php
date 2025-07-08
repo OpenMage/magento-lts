@@ -241,22 +241,20 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 foreach ($productType->getUsedProducts([$productAttributeCode], $this->getProduct()) as $associatedProduct) {
                     $optionValue = $associatedProduct->getData($productAttributeCode);
 
-                    if (array_key_exists($optionValue, $optionsByValue)) {
-                        // If option available in associated product
-                        if (!isset($values[$item->getId() . ':' . $optionValue])) {
-                            // If option not added, we will add it.
-                            $values[$item->getId() . ':' . $optionValue] = [
-                                'product_super_attribute_id' => $item->getId(),
-                                'value_index'                => $optionValue,
-                                'label'                      => $optionsByValue[$optionValue]['label'],
-                                'default_label'              => $optionsByValue[$optionValue]['label'],
-                                'store_label'                => $optionsByValue[$optionValue]['label'],
-                                'is_percent'                 => 0,
-                                'pricing_value'              => null,
-                                'use_default_value'          => true,
-                                'order'                      => $optionsByValue[$optionValue]['order'],
-                            ];
-                        }
+                    // If option available in associated product
+                    if (array_key_exists($optionValue, $optionsByValue) && !isset($values[$item->getId() . ':' . $optionValue])) {
+                        // If option not added, we will add it.
+                        $values[$item->getId() . ':' . $optionValue] = [
+                            'product_super_attribute_id' => $item->getId(),
+                            'value_index'                => $optionValue,
+                            'label'                      => $optionsByValue[$optionValue]['label'],
+                            'default_label'              => $optionsByValue[$optionValue]['label'],
+                            'store_label'                => $optionsByValue[$optionValue]['label'],
+                            'is_percent'                 => 0,
+                            'pricing_value'              => null,
+                            'use_default_value'          => true,
+                            'order'                      => $optionsByValue[$optionValue]['order'],
+                        ];
                     }
                 }
             }

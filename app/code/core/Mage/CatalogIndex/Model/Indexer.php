@@ -587,75 +587,71 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($this->_priceIndexers as $indexerName) {
                     $indexer = $this->_indexers[$indexerName];
                     /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
-                    if ($indexer->isAttributeIndexable($attribute)) {
-                        if ($values[$code]) {
-                            if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                                && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)
-                            ) {
-                                continue;
-                            }
-                            $table = $indexer->getResource()->getMainTable();
-                            if (!isset($filter[$code])) {
-                                $filter[$code] = $this->_getSelect();
-                                $filter[$code]->from($table, ['entity_id']);
-                                $filter[$code]->distinct(true);
-
-                                $response = new Varien_Object();
-                                $response->setAdditionalCalculations([]);
-                                $args = [
-                                    'select' => $filter[$code],
-                                    'table' => $table,
-                                    'store_id' => $store,
-                                    'response_object' => $response,
-                                ];
-                                Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
-                                $additionalCalculations[$code] = $response->getAdditionalCalculations();
-
-                                if ($indexer->isAttributeIdUsed()) {
-                                    //$filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
-                                }
-                            }
-                            if (is_array($values[$code])) {
-                                $rateConversion = 1;
-                                $filter[$code]->distinct(true);
-
-                                if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
-                                    if (isset($values[$code]['currency'])) {
-                                        $rateConversion = $this->_getBaseToSpecifiedCurrencyRate(
-                                            $values[$code]['currency'],
-                                        );
-                                    } else {
-                                        $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
-                                    }
-
-                                    if (strlen($values[$code]['from']) > 0) {
-                                        $filter[$code]->where(
-                                            "($table.min_price"
-                                            . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
-                                            $values[$code]['from'],
-                                        );
-                                    }
-
-                                    if (strlen($values[$code]['to']) > 0) {
-                                        $filter[$code]->where(
-                                            "($table.min_price"
-                                            . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
-                                            $values[$code]['to'],
-                                        );
-                                    }
-                                }
-                            }
-                            $filter[$code]->where("$table.website_id = ?", $website);
-
-                            if ($code == 'price') {
-                                $filter[$code]->where(
-                                    $table . '.customer_group_id = ?',
-                                    Mage::getSingleton('customer/session')->getCustomerGroupId(),
-                                );
-                            }
-
-                            $filteredAttributes[] = $code;
+                    if ($indexer->isAttributeIndexable($attribute) && $values[$code]) {
+                        if (isset($values[$code]['from']) && isset($values[$code]['to'])
+                            && (strlen($values[$code]['from']) == 0 && strlen($values[$code]['to']) == 0)
+                        ) {
+                            continue;
                         }
+                        $table = $indexer->getResource()->getMainTable();
+                        if (!isset($filter[$code])) {
+                            $filter[$code] = $this->_getSelect();
+                            $filter[$code]->from($table, ['entity_id']);
+                            $filter[$code]->distinct(true);
+
+                            $response = new Varien_Object();
+                            $response->setAdditionalCalculations([]);
+                            $args = [
+                                'select' => $filter[$code],
+                                'table' => $table,
+                                'store_id' => $store,
+                                'response_object' => $response,
+                            ];
+                            Mage::dispatchEvent('catalogindex_prepare_price_select', $args);
+                            $additionalCalculations[$code] = $response->getAdditionalCalculations();
+
+                            if ($indexer->isAttributeIdUsed()) {
+                                //$filter[$code]->where("$table.attribute_id = ?", $attribute->getId());
+                            }
+                        }
+                        if (is_array($values[$code])) {
+                            $rateConversion = 1;
+                            $filter[$code]->distinct(true);
+
+                            if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
+                                if (isset($values[$code]['currency'])) {
+                                    $rateConversion = $this->_getBaseToSpecifiedCurrencyRate(
+                                        $values[$code]['currency'],
+                                    );
+                                } else {
+                                    $rateConversion = $this->_getBaseToSpecifiedCurrencyRate($currentStoreCurrency);
+                                }
+
+                                if (strlen($values[$code]['from']) > 0) {
+                                    $filter[$code]->where(
+                                        "($table.min_price"
+                                        . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} >= ?",
+                                        $values[$code]['from'],
+                                    );
+                                }
+
+                                if (strlen($values[$code]['to']) > 0) {
+                                    $filter[$code]->where(
+                                        "($table.min_price"
+                                        . implode('', $additionalCalculations[$code]) . ")*{$rateConversion} <= ?",
+                                        $values[$code]['to'],
+                                    );
+                                }
+                            }
+                        }
+                        $filter[$code]->where("$table.website_id = ?", $website);
+                        if ($code == 'price') {
+                            $filter[$code]->where(
+                                $table . '.customer_group_id = ?',
+                                Mage::getSingleton('customer/session')->getCustomerGroupId(),
+                            );
+                        }
+                        $filteredAttributes[] = $code;
                     }
                 }
             }
@@ -683,48 +679,45 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                 foreach ($this->_attributeIndexers as $indexerName) {
                     $indexer = $this->_indexers[$indexerName];
                     /** @var Mage_CatalogIndex_Model_Indexer_Abstract $indexer */
-                    if ($indexer->isAttributeIndexable($attribute)) {
-                        if ($values[$code]) {
-                            if (isset($values[$code]['from']) && isset($values[$code]['to'])
-                                && (!$values[$code]['from'] && !$values[$code]['to'])
-                            ) {
-                                continue;
-                            }
-
-                            $table = $indexer->getResource()->getMainTable();
-                            if (!isset($filter[$code])) {
-                                $filter[$code] = $this->_getSelect();
-                                $filter[$code]->from($table, ['entity_id']);
-                            }
-                            if ($indexer->isAttributeIdUsed()) {
-                                $filter[$code]->where('attribute_id = ?', $attribute->getId());
-                            }
-                            if (is_array($values[$code])) {
-                                if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
-                                    if ($values[$code]['from']) {
-                                        if (!is_numeric($values[$code]['from'])) {
-                                            $_date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['from']));
-                                            $values[$code]['from'] = $_date;
-                                        }
-
-                                        $filter[$code]->where('value >= ?', $values[$code]['from']);
+                    if ($indexer->isAttributeIndexable($attribute) && $values[$code]) {
+                        if (isset($values[$code]['from']) && isset($values[$code]['to'])
+                            && (!$values[$code]['from'] && !$values[$code]['to'])
+                        ) {
+                            continue;
+                        }
+                        $table = $indexer->getResource()->getMainTable();
+                        if (!isset($filter[$code])) {
+                            $filter[$code] = $this->_getSelect();
+                            $filter[$code]->from($table, ['entity_id']);
+                        }
+                        if ($indexer->isAttributeIdUsed()) {
+                            $filter[$code]->where('attribute_id = ?', $attribute->getId());
+                        }
+                        if (is_array($values[$code])) {
+                            if (isset($values[$code]['from']) && isset($values[$code]['to'])) {
+                                if ($values[$code]['from']) {
+                                    if (!is_numeric($values[$code]['from'])) {
+                                        $_date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['from']));
+                                        $values[$code]['from'] = $_date;
                                     }
 
-                                    if ($values[$code]['to']) {
-                                        if (!is_numeric($values[$code]['to'])) {
-                                            $values[$code]['to'] = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['to']));
-                                        }
-                                        $filter[$code]->where('value <= ?', $values[$code]['to']);
+                                    $filter[$code]->where('value >= ?', $values[$code]['from']);
+                                }
+
+                                if ($values[$code]['to']) {
+                                    if (!is_numeric($values[$code]['to'])) {
+                                        $values[$code]['to'] = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($values[$code]['to']));
                                     }
-                                } else {
-                                    $filter[$code]->where('value in (?)', $values[$code]);
+                                    $filter[$code]->where('value <= ?', $values[$code]['to']);
                                 }
                             } else {
-                                $filter[$code]->where('value = ?', $values[$code]);
+                                $filter[$code]->where('value in (?)', $values[$code]);
                             }
-                            $filter[$code]->where('store_id = ?', $store);
-                            $filteredAttributes[] = $code;
+                        } else {
+                            $filter[$code]->where('value = ?', $values[$code]);
                         }
+                        $filter[$code]->where('store_id = ?', $store);
+                        $filteredAttributes[] = $code;
                     }
                 }
             }

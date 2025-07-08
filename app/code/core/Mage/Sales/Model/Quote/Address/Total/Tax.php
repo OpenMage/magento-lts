@@ -146,30 +146,25 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         $shippingTax      = 0;
         $shippingBaseTax  = 0;
 
-        if ($shippingTaxClass) {
-            if ($rate = $taxCalculationModel->getRate($request->setProductClassId($shippingTaxClass))) {
-                if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
-                    $shippingTax    = $address->getShippingAmount() * $rate / 100;
-                    $shippingBaseTax = $address->getBaseShippingAmount() * $rate / 100;
-                } else {
-                    $shippingTax    = $address->getShippingTaxAmount();
-                    $shippingBaseTax = $address->getBaseShippingTaxAmount();
-                }
-
-                $shippingTax    = $store->roundPrice($shippingTax);
-                $shippingBaseTax = $store->roundPrice($shippingBaseTax);
-
-                $address->setTaxAmount($address->getTaxAmount() + $shippingTax);
-                $address->setBaseTaxAmount($address->getBaseTaxAmount() + $shippingBaseTax);
-
-                $this->_saveAppliedTaxes(
-                    $address,
-                    $taxCalculationModel->getAppliedRates($request),
-                    $shippingTax,
-                    $shippingBaseTax,
-                    $rate,
-                );
+        if ($shippingTaxClass && $rate = $taxCalculationModel->getRate($request->setProductClassId($shippingTaxClass))) {
+            if (!Mage::helper('tax')->shippingPriceIncludesTax()) {
+                $shippingTax    = $address->getShippingAmount() * $rate / 100;
+                $shippingBaseTax = $address->getBaseShippingAmount() * $rate / 100;
+            } else {
+                $shippingTax    = $address->getShippingTaxAmount();
+                $shippingBaseTax = $address->getBaseShippingTaxAmount();
             }
+            $shippingTax    = $store->roundPrice($shippingTax);
+            $shippingBaseTax = $store->roundPrice($shippingBaseTax);
+            $address->setTaxAmount($address->getTaxAmount() + $shippingTax);
+            $address->setBaseTaxAmount($address->getBaseTaxAmount() + $shippingBaseTax);
+            $this->_saveAppliedTaxes(
+                $address,
+                $taxCalculationModel->getAppliedRates($request),
+                $shippingTax,
+                $shippingBaseTax,
+                $rate,
+            );
         }
 
         if (!Mage::helper('tax')->shippingPriceIncludesTax()) {

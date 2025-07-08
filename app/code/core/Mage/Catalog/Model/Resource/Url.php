@@ -285,19 +285,17 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             Mage::throwException(Mage::helper('catalog')->__('An error occurred while saving the URL rewrite'));
         }
 
-        if ($rewrite && $rewrite->getId()) {
-            if ($rewriteData['request_path'] != $rewrite->getRequestPath()) {
-                // Update existing rewrites history and avoid chain redirects
-                $where = ['target_path = ?' => $rewrite->getRequestPath()];
-                if ($rewrite->getStoreId()) {
-                    $where['store_id = ?'] = (int) $rewrite->getStoreId();
-                }
-                $adapter->update(
-                    $this->getMainTable(),
-                    ['target_path' => $rewriteData['request_path']],
-                    $where,
-                );
+        if ($rewrite && $rewrite->getId() && $rewriteData['request_path'] != $rewrite->getRequestPath()) {
+            // Update existing rewrites history and avoid chain redirects
+            $where = ['target_path = ?' => $rewrite->getRequestPath()];
+            if ($rewrite->getStoreId()) {
+                $where['store_id = ?'] = (int) $rewrite->getStoreId();
             }
+            $adapter->update(
+                $this->getMainTable(),
+                ['target_path' => $rewriteData['request_path']],
+                $where,
+            );
         }
         unset($rewriteData);
 
@@ -922,10 +920,8 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
         $products   = [];
         $websiteId  = Mage::app()->getStore($storeId)->getWebsiteId();
         $adapter    = $this->_getReadAdapter();
-        if ($productIds !== null) {
-            if (!is_array($productIds)) {
-                $productIds = [$productIds];
-            }
+        if ($productIds !== null && !is_array($productIds)) {
+            $productIds = [$productIds];
         }
         $bind = [
             'website_id' => (int) $websiteId,

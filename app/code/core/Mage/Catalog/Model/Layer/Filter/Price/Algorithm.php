@@ -431,10 +431,8 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
 
         if (!is_null($roundingFactor)) {
             // Can't separate if prices are equal
-            if ($lowerPrice >= $upperPrice) {
-                if ($lowerPrice > $upperPrice || $returnEmpty) {
-                    return false;
-                }
+            if ($lowerPrice >= $upperPrice && ($lowerPrice > $upperPrice || $returnEmpty)) {
+                return false;
             }
             // round is used for such examples: (1194.32 / 0.02) or (5 / 100000)
             $lowerDivision = ceil(round($lowerPrice / $roundingFactor, self::TEN_POWER_ROUNDING_FACTOR + 3));

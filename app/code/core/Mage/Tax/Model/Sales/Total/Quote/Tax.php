@@ -1203,11 +1203,9 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                     $this->_deltaRound($baseRowTaxBeforeDiscount, $rateKey, $inclTax, 'tax_before_discount_base'),
                 );
 
-                if (!$item->getNoDiscount()) {
-                    if ($item->getWeeeTaxApplied()) {
-                        $item->setDiscountTaxCompensation($item->getDiscountTaxCompensation() +
-                        $taxBeforeDiscountRounded - max(0, $rowTax));
-                    }
+                if (!$item->getNoDiscount() && $item->getWeeeTaxApplied()) {
+                    $item->setDiscountTaxCompensation($item->getDiscountTaxCompensation() +
+                    $taxBeforeDiscountRounded - max(0, $rowTax));
                 }
 
                 if ($inclTax && $discount > 0) {
@@ -1572,10 +1570,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         /*
          * when weee discount is not included in extraTaxAmount, we need to add it to the total tax
          */
-        if ($this->_weeeHelper->isEnabled()) {
-            if (!$this->_weeeHelper->includeInSubtotal()) {
-                $taxAmount += $address->getWeeeDiscount();
-            }
+        if ($this->_weeeHelper->isEnabled() && !$this->_weeeHelper->includeInSubtotal()) {
+            $taxAmount += $address->getWeeeDiscount();
         }
 
         $area = null;

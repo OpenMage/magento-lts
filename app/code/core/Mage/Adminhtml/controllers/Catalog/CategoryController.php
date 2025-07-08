@@ -428,12 +428,10 @@ class Mage_Adminhtml_Catalog_CategoryController extends Mage_Adminhtml_Controlle
         $storeId = (int) $this->getRequest()->getParam('store');
         $categoryId = (int) $this->getRequest()->getParam('id');
 
-        if ($storeId) {
-            if (!$categoryId) {
-                $store = Mage::app()->getStore($storeId);
-                $rootId = $store->getRootCategoryId();
-                $this->getRequest()->setParam('id', $rootId);
-            }
+        if ($storeId && !$categoryId) {
+            $store = Mage::app()->getStore($storeId);
+            $rootId = $store->getRootCategoryId();
+            $this->getRequest()->setParam('id', $rootId);
         }
 
         $category = $this->_initCategory(true);

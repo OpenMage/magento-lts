@@ -82,21 +82,19 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
      */
     public function emailAction()
     {
-        if ($invoiceId = $this->getRequest()->getParam('invoice_id')) {
-            if ($invoice = Mage::getModel('sales/order_invoice')->load($invoiceId)) {
-                $invoice->sendEmail();
-                $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
-                    ->getUnnotifiedForInstance($invoice, Mage_Sales_Model_Order_Invoice::HISTORY_ENTITY_NAME);
-                if ($historyItem) {
-                    $historyItem->setIsCustomerNotified(1);
-                    $historyItem->save();
-                }
-                $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message has been sent.'));
-                $this->_redirect('*/sales_invoice/view', [
-                    'order_id'  => $invoice->getOrder()->getId(),
-                    'invoice_id' => $invoiceId,
-                ]);
+        if (($invoiceId = $this->getRequest()->getParam('invoice_id')) && $invoice = Mage::getModel('sales/order_invoice')->load($invoiceId)) {
+            $invoice->sendEmail();
+            $historyItem = Mage::getResourceModel('sales/order_status_history_collection')
+                ->getUnnotifiedForInstance($invoice, Mage_Sales_Model_Order_Invoice::HISTORY_ENTITY_NAME);
+            if ($historyItem) {
+                $historyItem->setIsCustomerNotified(1);
+                $historyItem->save();
             }
+            $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message has been sent.'));
+            $this->_redirect('*/sales_invoice/view', [
+                'order_id'  => $invoice->getOrder()->getId(),
+                'invoice_id' => $invoiceId,
+            ]);
         }
     }
 

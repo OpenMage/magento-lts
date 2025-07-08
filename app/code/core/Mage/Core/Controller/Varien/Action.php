@@ -399,21 +399,17 @@ abstract class Mage_Core_Controller_Varien_Action
             $this->preDispatch();
             Varien_Profiler::stop(self::PROFILER_KEY . '::predispatch');
 
-            if ($this->getRequest()->isDispatched()) {
-                /**
-                 * preDispatch() didn't change the action, so we can continue
-                 */
-                if (!$this->getFlag('', self::FLAG_NO_DISPATCH)) {
-                    $profilerKey = self::PROFILER_KEY . '::' . $this->getFullActionName();
-
-                    Varien_Profiler::start($profilerKey);
-                    $this->$actionMethodName();
-                    Varien_Profiler::stop($profilerKey);
-
-                    Varien_Profiler::start(self::PROFILER_KEY . '::postdispatch');
-                    $this->postDispatch();
-                    Varien_Profiler::stop(self::PROFILER_KEY . '::postdispatch');
-                }
+            /**
+             * preDispatch() didn't change the action, so we can continue
+             */
+            if ($this->getRequest()->isDispatched() && !$this->getFlag('', self::FLAG_NO_DISPATCH)) {
+                $profilerKey = self::PROFILER_KEY . '::' . $this->getFullActionName();
+                Varien_Profiler::start($profilerKey);
+                $this->$actionMethodName();
+                Varien_Profiler::stop($profilerKey);
+                Varien_Profiler::start(self::PROFILER_KEY . '::postdispatch');
+                $this->postDispatch();
+                Varien_Profiler::stop(self::PROFILER_KEY . '::postdispatch');
             }
         } catch (Mage_Core_Controller_Varien_Exception $e) {
             // set prepared flags
@@ -460,12 +456,10 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     public function preDispatch()
     {
-        if (!$this->getFlag('', self::FLAG_NO_CHECK_INSTALLATION)) {
-            if (!Mage::isInstalled()) {
-                $this->setFlag('', self::FLAG_NO_DISPATCH, true);
-                $this->_redirect('install');
-                return;
-            }
+        if (!$this->getFlag('', self::FLAG_NO_CHECK_INSTALLATION) && !Mage::isInstalled()) {
+            $this->setFlag('', self::FLAG_NO_DISPATCH, true);
+            $this->_redirect('install');
+            return;
         }
 
         // Prohibit disabled store actions
@@ -792,15 +786,11 @@ abstract class Mage_Core_Controller_Varien_Action
      */
     protected function _isUrlInternal($url)
     {
-        if (str_contains($url, 'http')) {
-            /**
-             * Url must start from base secure or base unsecure url
-             */
-            if (str_starts_with($url, Mage::app()->getStore()->getBaseUrl())
-                || str_starts_with($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true))
-            ) {
-                return true;
-            }
+        /**
+         * Url must start from base secure or base unsecure url
+         */
+        if (str_contains($url, 'http') && (str_starts_with($url, Mage::app()->getStore()->getBaseUrl()) || str_starts_with($url, Mage::app()->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true)))) {
+            return true;
         }
         return false;
     }

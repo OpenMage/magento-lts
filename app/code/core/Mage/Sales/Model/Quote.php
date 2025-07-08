@@ -1211,13 +1211,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 
             $items = $this->getAllItems();
             foreach ($items as $item) {
-                if (($item->getProductId() == $productId) && ($item->getId() != $resultItem->getId())) {
-                    if ($resultItem->compare($item)) {
-                        // Product configuration is same as in other quote item
-                        $resultItem->setQty($resultItem->getQty() + $item->getQty());
-                        $this->removeItem($item->getId());
-                        break;
-                    }
+                if ($item->getProductId() == $productId && $item->getId() != $resultItem->getId() && $resultItem->compare($item)) {
+                    // Product configuration is same as in other quote item
+                    $resultItem->setQty($resultItem->getQty() + $item->getQty());
+                    $this->removeItem($item->getId());
+                    break;
                 }
             }
         } else {

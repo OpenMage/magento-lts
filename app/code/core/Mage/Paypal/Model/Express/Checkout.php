@@ -340,13 +340,11 @@ class Mage_Paypal_Model_Express_Checkout
         ;
 
         // add shipping options if needed and line items are available
-        if ($this->_config->lineItemsEnabled && $this->_config->transferShippingOptions && $paypalCart->getItems()) {
-            if (!$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems()) {
-                if ($options = $this->_prepareShippingOptions($address, true)) {
-                    $this->_api->setShippingOptionsCallbackUrl(
-                        Mage::getUrl('*/*/shippingOptionsCallback', ['quote_id' => $this->_quote->getId()]),
-                    )->setShippingOptions($options);
-                }
+        if ($this->_config->lineItemsEnabled && $this->_config->transferShippingOptions && $paypalCart->getItems() && (!$this->_quote->getIsVirtual() && !$this->_quote->hasNominalItems())) {
+            if ($options = $this->_prepareShippingOptions($address, true)) {
+                $this->_api->setShippingOptionsCallbackUrl(
+                    Mage::getUrl('*/*/shippingOptionsCallback', ['quote_id' => $this->_quote->getId()]),
+                )->setShippingOptions($options);
             }
         }
 
@@ -433,11 +431,9 @@ class Mage_Paypal_Model_Express_Checkout
 
                 // import shipping method
                 $code = '';
-                if ($this->_api->getShippingRateCode()) {
-                    if ($code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())) {
-                        // possible bug of double collecting rates :-/
-                        $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
-                    }
+                if ($this->_api->getShippingRateCode() && $code = $this->_matchShippingMethodCode($shippingAddress, $this->_api->getShippingRateCode())) {
+                    // possible bug of double collecting rates :-/
+                    $shippingAddress->setShippingMethod($code)->setCollectShippingRates(true);
                 }
                 $quote->getPayment()->setAdditionalInformation(
                     self::PAYMENT_INFO_TRANSPORT_SHIPPING_METHOD,
@@ -542,12 +538,10 @@ class Mage_Paypal_Model_Express_Checkout
      */
     public function updateShippingMethod($methodCode)
     {
-        if (!$this->_quote->getIsVirtual() && $shippingAddress = $this->_quote->getShippingAddress()) {
-            if ($methodCode != $shippingAddress->getShippingMethod()) {
-                $this->_ignoreAddressValidation();
-                $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
-                $this->_quote->collectTotals()->save();
-            }
+        if (!$this->_quote->getIsVirtual() && ($shippingAddress = $this->_quote->getShippingAddress()) && $methodCode != $shippingAddress->getShippingMethod()) {
+            $this->_ignoreAddressValidation();
+            $shippingAddress->setShippingMethod($methodCode)->setCollectShippingRates(true);
+            $this->_quote->collectTotals()->save();
         }
     }
 
