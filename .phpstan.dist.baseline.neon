@@ -433,6 +433,12 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Widget/Form.php
 
 		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/code/core/Mage/Adminhtml/Block/Widget/Grid/Column.php
+
+		-
 			message: '#^Parameter \#1 \$emptyLabel of method Mage_Directory_Model_Resource_Country_Collection\:\:toOptionArray\(\) expects string, false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4935,7 +4941,7 @@ parameters:
 		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
-			count: 3
+			count: 2
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
@@ -4959,7 +4965,7 @@ parameters:
 		-
 			message: '#^Right side of && is always false\.$#'
 			identifier: booleanAnd.rightAlwaysFalse
-			count: 1
+			count: 2
 			path: app/code/core/Mage/Tax/Helper/Data.php
 
 		-
