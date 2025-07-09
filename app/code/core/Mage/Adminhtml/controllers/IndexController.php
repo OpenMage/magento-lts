@@ -93,39 +93,37 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'description' => Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.'),
             ];
             $totalCount = 1;
+        } elseif (empty($searchModules)) {
+            $items[] = [
+                'id' => 'error',
+                'type' => Mage::helper('adminhtml')->__('Error'),
+                'name' => Mage::helper('adminhtml')->__('No search modules were registered'),
+                'description' => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'),
+            ];
+            $totalCount = 1;
         } else {
-            if (empty($searchModules)) {
-                $items[] = [
-                    'id' => 'error',
-                    'type' => Mage::helper('adminhtml')->__('Error'),
-                    'name' => Mage::helper('adminhtml')->__('No search modules were registered'),
-                    'description' => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'),
-                ];
-                $totalCount = 1;
-            } else {
-                $start = $this->getRequest()->getParam('start', 1);
-                $limit = $this->getRequest()->getParam('limit', 10);
-                $query = $this->getRequest()->getParam('query', '');
-                foreach ($searchModules->children() as $searchConfig) {
-                    if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)) {
-                        continue;
-                    }
-
-                    $className = $searchConfig->getClassName();
-
-                    if (empty($className)) {
-                        continue;
-                    }
-                    $searchInstance = new $className();
-                    $results = $searchInstance->setStart($start)
-                        ->setLimit($limit)
-                        ->setQuery($query)
-                        ->load()
-                        ->getResults();
-                    $items = array_merge_recursive($items, $results);
+            $start = $this->getRequest()->getParam('start', 1);
+            $limit = $this->getRequest()->getParam('limit', 10);
+            $query = $this->getRequest()->getParam('query', '');
+            foreach ($searchModules->children() as $searchConfig) {
+                if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)) {
+                    continue;
                 }
-                $totalCount = count($items);
+
+                $className = $searchConfig->getClassName();
+
+                if (empty($className)) {
+                    continue;
+                }
+                $searchInstance = new $className();
+                $results = $searchInstance->setStart($start)
+                    ->setLimit($limit)
+                    ->setQuery($query)
+                    ->load()
+                    ->getResults();
+                $items = array_merge_recursive($items, $results);
             }
+            $totalCount = count($items);
         }
 
         $block = $this->getLayout()->createBlock('adminhtml/template')

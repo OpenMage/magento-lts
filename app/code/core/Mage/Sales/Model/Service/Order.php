@@ -108,14 +108,12 @@ class Mage_Sales_Model_Service_Order
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
             if ($orderItem->isDummy()) {
                 $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
+            } elseif (isset($qtys[$orderItem->getId()])) {
+                $qty = (float) $qtys[$orderItem->getId()];
+            } elseif (!count($qtys)) {
+                $qty = $orderItem->getQtyToInvoice();
             } else {
-                if (isset($qtys[$orderItem->getId()])) {
-                    $qty = (float) $qtys[$orderItem->getId()];
-                } elseif (!count($qtys)) {
-                    $qty = $orderItem->getQtyToInvoice();
-                } else {
-                    $qty = 0;
-                }
+                $qty = 0;
             }
 
             $totalQty += $qty;
@@ -169,14 +167,12 @@ class Mage_Sales_Model_Service_Order
                 } else {
                     $qty = 1;
                 }
+            } elseif (isset($qtys[$orderItem->getId()])) {
+                $qty = min($qtys[$orderItem->getId()], $orderItem->getQtyToShip());
+            } elseif (empty($qtys)) {
+                $qty = $orderItem->getQtyToShip();
             } else {
-                if (isset($qtys[$orderItem->getId()])) {
-                    $qty = min($qtys[$orderItem->getId()], $orderItem->getQtyToShip());
-                } elseif (empty($qtys)) {
-                    $qty = $orderItem->getQtyToShip();
-                } else {
-                    continue;
-                }
+                continue;
             }
             $totalQty += $qty;
             $item->setQty($qty);
@@ -209,14 +205,12 @@ class Mage_Sales_Model_Service_Order
             if ($orderItem->isDummy()) {
                 $qty = 1;
                 $orderItem->setLockedDoShip(true);
+            } elseif (isset($qtys[$orderItem->getId()])) {
+                $qty = (float) $qtys[$orderItem->getId()];
+            } elseif (!count($qtys)) {
+                $qty = $orderItem->getQtyToRefund();
             } else {
-                if (isset($qtys[$orderItem->getId()])) {
-                    $qty = (float) $qtys[$orderItem->getId()];
-                } elseif (!count($qtys)) {
-                    $qty = $orderItem->getQtyToRefund();
-                } else {
-                    continue;
-                }
+                continue;
             }
             $totalQty += $qty;
             $item->setQty($qty);
@@ -364,10 +358,8 @@ class Mage_Sales_Model_Service_Order
                         if ($child->getQtyToInvoice() > 0) {
                             return true;
                         }
-                    } else {
-                        if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
-                            return true;
-                        }
+                    } elseif (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
+                        return true;
                     }
                 }
                 return false;
@@ -413,10 +405,8 @@ class Mage_Sales_Model_Service_Order
                         if ($child->getQtyToShip() > 0) {
                             return true;
                         }
-                    } else {
-                        if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
-                            return true;
-                        }
+                    } elseif (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
+                        return true;
                     }
                 }
                 return false;
@@ -452,10 +442,8 @@ class Mage_Sales_Model_Service_Order
                         if ($this->_canRefundNoDummyItem($child, $invoiceQtysRefundLimits)) {
                             return true;
                         }
-                    } else {
-                        if (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
-                            return true;
-                        }
+                    } elseif (isset($qtys[$child->getId()]) && $qtys[$child->getId()] > 0) {
+                        return true;
                     }
                 }
                 return false;

@@ -816,15 +816,13 @@ class Mage_Catalog_Model_Resource_Url extends Mage_Core_Model_Resource_Db_Abstra
             }
             if ($child->getParentId() == $category->getId()) {
                 $category->setChilds($category->getChilds() + [$child->getId() => $child]);
-            } else {
-                if (isset($categories[$child->getParentId()])) {
-                    if (!is_array($categories[$child->getParentId()]->getChilds())) {
-                        $categories[$child->getParentId()]->setChilds([]);
-                    }
-                    $categories[$child->getParentId()]->setChilds(
-                        $categories[$child->getParentId()]->getChilds() + [$child->getId() => $child],
-                    );
+            } elseif (isset($categories[$child->getParentId()])) {
+                if (!is_array($categories[$child->getParentId()]->getChilds())) {
+                    $categories[$child->getParentId()]->setChilds([]);
                 }
+                $categories[$child->getParentId()]->setChilds(
+                    $categories[$child->getParentId()]->getChilds() + [$child->getId() => $child],
+                );
             }
         }
         $category->setAllChilds($categories);
