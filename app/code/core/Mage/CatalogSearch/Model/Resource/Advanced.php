@@ -65,13 +65,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             } elseif (!isset($value['from']) && !isset($value['to'])) { // select
                 $condition = ['in' => $value];
             }
-        } else {
-            if (strlen($value) > 0) {
-                if (in_array($attribute->getBackendType(), ['varchar', 'text', 'static'])) {
-                    $condition = ['like' => '%' . $value . '%']; // text search
-                } else {
-                    $condition = $value;
-                }
+        } elseif (strlen($value) > 0) {
+            if (in_array($attribute->getBackendType(), ['varchar', 'text', 'static'])) {
+                $condition = ['like' => '%' . $value . '%']; // text search
+            } else {
+                $condition = $value;
             }
         }
 

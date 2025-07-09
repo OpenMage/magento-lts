@@ -55,10 +55,8 @@ class Mage_Core_Model_Log_Adapter
     {
         if ($data === null) {
             $data = $this->_data;
-        } else {
-            if (!is_array($data)) {
-                $data = [$data];
-            }
+        } elseif (!is_array($data)) {
+            $data = [$data];
         }
         $data = $this->_filterDebugData($data);
         $data['__pid'] = getmypid();
@@ -111,10 +109,8 @@ class Mage_Core_Model_Log_Adapter
             foreach (array_keys($debugData) as $key) {
                 if (in_array($key, $this->_debugReplacePrivateDataKeys)) {
                     $debugData[$key] = '****';
-                } else {
-                    if (is_array($debugData[$key])) {
-                        $debugData[$key] = $this->_filterDebugData($debugData[$key]);
-                    }
+                } elseif (is_array($debugData[$key])) {
+                    $debugData[$key] = $this->_filterDebugData($debugData[$key]);
                 }
             }
         }

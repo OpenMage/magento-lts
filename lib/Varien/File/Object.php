@@ -204,10 +204,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
                         if (!in_array($this->getExtension(), $filter)) {
                             $this->_isCorrect = false;
                         }
-                    } else {
-                        if ($this->getExtension() != $filter) {
-                            $this->_isCorrect = false;
-                        }
+                    } elseif ($this->getExtension() != $filter) {
+                        $this->_isCorrect = false;
                     }
                 }
             }
@@ -218,10 +216,8 @@ class Varien_File_Object extends SplFileObject implements IFactory
                         if (!in_array($this->getName(), $filter)) {
                             $this->_isCorrect = false;
                         }
-                    } else {
-                        if ($this->getName() != $filter) {
-                            $this->_isCorrect = false;
-                        }
+                    } elseif ($this->getName() != $filter) {
+                        $this->_isCorrect = false;
                     }
                 }
             }

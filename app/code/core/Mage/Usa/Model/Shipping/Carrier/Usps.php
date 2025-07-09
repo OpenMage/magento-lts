@@ -465,26 +465,25 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                             }
                             asort($priceArr);
                         }
-                    } else { // International Rates
-                        if (is_object($xml->Package) && is_object($xml->Package->Service)) {
-                            foreach ($xml->Package->Service as $service) {
-                                // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                                if ($service->ServiceErrors->count()) {
-                                    continue;
-                                }
-                                $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
-                                $serviceCode = 'INT_' . (string) $service->attributes()->ID;
-                                $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                                if (in_array($serviceCode, $allowedMethods)) {
-                                    $costArr[$serviceCode] = (string) $service->Postage;
-                                    $priceArr[$serviceCode] = $this->getMethodPrice(
-                                        (float) $service->Postage,
-                                        $serviceCode,
-                                    );
-                                }
+                    } elseif (is_object($xml->Package) && is_object($xml->Package->Service)) {
+                        // International Rates
+                        foreach ($xml->Package->Service as $service) {
+                            // phpcs:ignore Ecg.Performance.Loop.ArraySize
+                            if ($service->ServiceErrors->count()) {
+                                continue;
                             }
-                            asort($priceArr);
+                            $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
+                            $serviceCode = 'INT_' . (string) $service->attributes()->ID;
+                            $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
+                            if (in_array($serviceCode, $allowedMethods)) {
+                                $costArr[$serviceCode] = (string) $service->Postage;
+                                $priceArr[$serviceCode] = $this->getMethodPrice(
+                                    (float) $service->Postage,
+                                    $serviceCode,
+                                );
+                            }
                         }
+                        asort($priceArr);
                     }
                 }
 

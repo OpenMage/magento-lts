@@ -310,11 +310,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
             $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
             $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
-
             $idPath      = $this->generatePath('id', null, $category);
             $targetPath  = $this->generatePath('target', null, $category);
             $requestPath = $this->getCategoryRequestPath($category, $parentPath);
-
             $rewriteData = [
                 'store_id'      => $category->getStoreId(),
                 'category_id'   => $category->getId(),
@@ -324,13 +322,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 'target_path'   => $targetPath,
                 'is_system'     => 1,
             ];
-
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
-
             if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
                 $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
             }
-
             if ($category->getUrlKey() != $urlKey) {
                 $category->setUrlKey($urlKey);
                 $this->getResource()->saveCategoryAttribute($category, 'url_key');
@@ -339,11 +334,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $category->setUrlPath($requestPath);
                 $this->getResource()->saveCategoryAttribute($category, 'url_path');
             }
-        } else {
-            if ($category->getUrlPath() != '') {
-                $category->setUrlPath('');
-                $this->getResource()->saveCategoryAttribute($category, 'url_path');
-            }
+        } elseif ($category->getUrlPath() != '') {
+            $category->setUrlPath('');
+            $this->getResource()->saveCategoryAttribute($category, 'url_path');
         }
 
         if ($refreshProducts) {

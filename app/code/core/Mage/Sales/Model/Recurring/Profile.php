@@ -511,12 +511,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             if (is_array($info) && isset($info[$infoValueKey])) {
                 return $info[$infoValueKey];
             }
-        } else {
-            if ($info instanceof Varien_Object) {
-                return $info->getDataUsingMethod($infoValueKey);
-            } elseif (isset($info->$infoValueKey)) {
-                return $info->$infoValueKey;
-            }
+        } elseif ($info instanceof Varien_Object) {
+            return $info->getDataUsingMethod($infoValueKey);
+        } elseif (isset($info->$infoValueKey)) {
+            return $info->$infoValueKey;
         }
     }
 

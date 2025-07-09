@@ -1288,10 +1288,8 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                             $qty += $child->getQty();
                         }
                     }
-                } else {
-                    if ($item->getProduct()->getIsVirtual()) {
-                        $qty += $item->getQty();
-                    }
+                } elseif ($item->getProduct()->getIsVirtual()) {
+                    $qty += $item->getQty();
                 }
             }
             $this->setData('virtual_items_qty', $qty);
@@ -1721,12 +1719,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
     {
         if (!$this->getReservedOrderId()) {
             $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
-        } else {
+        } elseif ($this->_getResource()->isOrderIncrementIdUsed($this->getReservedOrderId())) {
             //checking if reserved order id was already used for some order
             //if yes reserving new one if not using old one
-            if ($this->_getResource()->isOrderIncrementIdUsed($this->getReservedOrderId())) {
-                $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
-            }
+            $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
         }
         return $this;
     }

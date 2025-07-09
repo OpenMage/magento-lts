@@ -751,19 +751,17 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                         $website->getId(),
                         $group->getId(),
                     ]);
-
                     $selectionPrice = $priceIndex[$priceIndexKey] ?? 0;
                     $selectionPrice = $this->_calculateSpecialPrice($selectionPrice, $priceData, $website);
+                } elseif ($selection['price_type']) {
+                    // percent
+                    $selectionPrice = $basePrice * $selection['price_value'] / 100;
                 } else {
-                    if ($selection['price_type']) { // percent
-                        $selectionPrice = $basePrice * $selection['price_value'] / 100;
-                    } else {
-                        $selectionPrice = $this->_calculateSpecialPrice(
-                            $selection['price_value'],
-                            $priceData,
-                            $website,
-                        );
-                    }
+                    $selectionPrice = $this->_calculateSpecialPrice(
+                        $selection['price_value'],
+                        $priceData,
+                        $website,
+                    );
                 }
 
                 // calculate selection qty
