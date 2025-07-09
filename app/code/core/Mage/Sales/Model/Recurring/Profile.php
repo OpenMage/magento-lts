@@ -487,10 +487,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
     public function renderData($key)
     {
         $value = $this->_getData($key);
-        return match ($key) {
-            'state' => $this->getStateLabel($value),
-            default => parent::renderData($key),
-        };
+        if ($key === 'state') {
+            return $this->getStateLabel($value);
+        }
+        return parent::renderData($key);
     }
 
     /**
