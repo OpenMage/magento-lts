@@ -127,12 +127,10 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     $messages[] = Mage::helper('importexport')->__('File is totally invalid. Please fix errors and re-upload file');
                 } elseif ($this->getErrorsCount() >= $this->getErrorsLimit()) {
                     $messages[] = Mage::helper('importexport')->__('Errors limit (%d) reached. Please fix errors and re-upload file', $this->getErrorsLimit());
+                } elseif ($this->isImportAllowed()) {
+                    $messages[] = Mage::helper('importexport')->__('Please fix errors and re-upload file');
                 } else {
-                    if ($this->isImportAllowed()) {
-                        $messages[] = Mage::helper('importexport')->__('Please fix errors and re-upload file');
-                    } else {
-                        $messages[] = Mage::helper('importexport')->__('File is partially valid, but import is not possible');
-                    }
+                    $messages[] = Mage::helper('importexport')->__('File is partially valid, but import is not possible');
                 }
                 // errors info
                 foreach ($this->getErrors() as $errorCode => $rows) {
@@ -141,12 +139,10 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                         . implode(', ', $rows);
                     $messages[] = $error;
                 }
+            } elseif ($this->isImportAllowed()) {
+                $messages[] = Mage::helper('importexport')->__('Validation finished successfully');
             } else {
-                if ($this->isImportAllowed()) {
-                    $messages[] = Mage::helper('importexport')->__('Validation finished successfully');
-                } else {
-                    $messages[] = Mage::helper('importexport')->__('File is valid, but import is not possible');
-                }
+                $messages[] = Mage::helper('importexport')->__('File is valid, but import is not possible');
             }
             $notices = $this->getNotices();
             if (is_array($notices)) {

@@ -702,10 +702,8 @@ abstract class Mage_Api2_Model_Resource
         $pageSize = $this->getRequest()->getPageSize();
         if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
-        } else {
-            if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
-                $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
-            }
+        } elseif ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
+            $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
         }
 
         $orderField = $this->getRequest()->getOrderField();

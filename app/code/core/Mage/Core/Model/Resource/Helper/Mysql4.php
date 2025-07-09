@@ -91,10 +91,8 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 if (!is_numeric($term[0])) {
                     $orders[]   = sprintf('%s %s', $this->_getReadAdapter()->quoteIdentifier($term[0], true), $term[1]);
                 }
-            } else {
-                if (!is_numeric($term)) {
-                    $orders[] = $this->_getReadAdapter()->quoteIdentifier($term, true);
-                }
+            } elseif (!is_numeric($term)) {
+                $orders[] = $this->_getReadAdapter()->quoteIdentifier($term, true);
             }
         }
 
@@ -254,19 +252,17 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 } else {
                     throw new Zend_Db_Exception("Can't prepare expression without alias");
                 }
-            } else {
-                if ($column == Zend_Db_Select::SQL_WILDCARD) {
-                    if ($tables[$correlationName]['tableName'] instanceof Zend_Db_Expr) {
-                        throw new Zend_Db_Exception("Can't prepare expression when tableName is instance of Zend_Db_Expr");
-                    }
-                    $tableColumns = $this->_getReadAdapter()->describeTable($tables[$correlationName]['tableName']);
-                    foreach (array_keys($tableColumns) as $col) {
-                        $preparedColumns[strtoupper($col)] = [$correlationName, $col, null];
-                    }
-                } else {
-                    $columnKey = is_null($alias) ? $column : $alias;
-                    $preparedColumns[strtoupper($columnKey)] = [$correlationName, $column, $alias];
+            } elseif ($column == Zend_Db_Select::SQL_WILDCARD) {
+                if ($tables[$correlationName]['tableName'] instanceof Zend_Db_Expr) {
+                    throw new Zend_Db_Exception("Can't prepare expression when tableName is instance of Zend_Db_Expr");
                 }
+                $tableColumns = $this->_getReadAdapter()->describeTable($tables[$correlationName]['tableName']);
+                foreach (array_keys($tableColumns) as $col) {
+                    $preparedColumns[strtoupper($col)] = [$correlationName, $col, null];
+                }
+            } else {
+                $columnKey = is_null($alias) ? $column : $alias;
+                $preparedColumns[strtoupper($columnKey)] = [$correlationName, $column, $alias];
             }
         }
 

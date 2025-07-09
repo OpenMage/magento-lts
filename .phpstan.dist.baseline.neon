@@ -1423,9 +1423,15 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
 
 		-
+			message: '#^Elseif condition is always false\.$#'
+			identifier: elseif.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
+
+		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
 		-

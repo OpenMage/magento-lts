@@ -62,7 +62,6 @@ try {
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
-            CodeQuality\If_\ShortenElseIfRector::class, # todo: TMP
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
             CodeQuality\Switch_\SingularSwitchToIfRector::class, # todo: TMP

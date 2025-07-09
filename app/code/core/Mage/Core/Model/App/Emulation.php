@@ -109,12 +109,10 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     {
         if (is_null($storeId)) {
             $newTranslateInline = false;
+        } elseif ($area == Mage_Core_Model_App_Area::AREA_ADMINHTML) {
+            $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active_admin', $storeId);
         } else {
-            if ($area == Mage_Core_Model_App_Area::AREA_ADMINHTML) {
-                $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active_admin', $storeId);
-            } else {
-                $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active', $storeId);
-            }
+            $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active', $storeId);
         }
         $translateModel = Mage::getSingleton('core/translate');
         $initialTranslateInline = $translateModel->getTranslateInline();
