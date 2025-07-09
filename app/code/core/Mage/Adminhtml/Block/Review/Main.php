@@ -42,14 +42,12 @@ class Mage_Adminhtml_Block_Review_Main extends Mage_Adminhtml_Block_Widget_Grid_
                 $this->_headerText = Mage::helper('review')->__('Pending Reviews');
             }
             $this->_removeButton('add');
+        } elseif ($customerName) {
+            $this->_headerText = Mage::helper('review')->__('All Reviews of Customer `%s`', $customerName);
+        } elseif ($productName) {
+            $this->_headerText = Mage::helper('review')->__('All Reviews of Product `%s`', $productName);
         } else {
-            if ($customerName) {
-                $this->_headerText = Mage::helper('review')->__('All Reviews of Customer `%s`', $customerName);
-            } elseif ($productName) {
-                $this->_headerText = Mage::helper('review')->__('All Reviews of Product `%s`', $productName);
-            } else {
-                $this->_headerText = Mage::helper('review')->__('All Reviews');
-            }
+            $this->_headerText = Mage::helper('review')->__('All Reviews');
         }
     }
 }

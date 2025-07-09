@@ -18,7 +18,7 @@ use Mage_Tax_Model_Config;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Tax\TaxTrait;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     use TaxTrait;
 

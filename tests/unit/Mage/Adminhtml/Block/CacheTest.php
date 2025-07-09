@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 use Mage_Adminhtml_Block_Cache as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CacheTest extends OpenMageTest
+final class CacheTest extends OpenMageTest
 {
     private static Subject $subject;
 

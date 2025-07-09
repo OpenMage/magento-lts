@@ -16,7 +16,7 @@ use Mage_Cms_Model_Wysiwyg_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Object;
 
-class ConfigTest extends OpenMageTest
+final class ConfigTest extends OpenMageTest
 {
     public const TEST_STRING = '0123456789';
 

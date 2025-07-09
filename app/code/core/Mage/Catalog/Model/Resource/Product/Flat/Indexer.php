@@ -552,20 +552,12 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
         }
 
         $indexNameQuote = $this->_getReadAdapter()->quoteIdentifier($indexName);
-        switch (strtolower($indexProp['type'])) {
-            case 'primary':
-                $condition = 'PRIMARY KEY';
-                break;
-            case 'unique':
-                $condition = 'UNIQUE ' . $indexNameQuote;
-                break;
-            case 'fulltext':
-                $condition = 'FULLTEXT ' . $indexNameQuote;
-                break;
-            default:
-                $condition = 'INDEX ' . $indexNameQuote;
-                break;
-        }
+        $condition = match (strtolower($indexProp['type'])) {
+            'primary' => 'PRIMARY KEY',
+            'unique' => 'UNIQUE ' . $indexNameQuote,
+            'fulltext' => 'FULLTEXT ' . $indexNameQuote,
+            default => 'INDEX ' . $indexNameQuote,
+        };
 
         return sprintf('%s (%s)', $condition, $fieldSql);
     }

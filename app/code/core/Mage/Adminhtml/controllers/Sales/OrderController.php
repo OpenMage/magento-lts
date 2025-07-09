@@ -647,35 +647,17 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'hold':
-                $aclResource = 'sales/order/actions/hold';
-                break;
-            case 'unhold':
-                $aclResource = 'sales/order/actions/unhold';
-                break;
-            case 'email':
-                $aclResource = 'sales/order/actions/email';
-                break;
-            case 'cancel':
-                $aclResource = 'sales/order/actions/cancel';
-                break;
-            case 'view':
-                $aclResource = 'sales/order/actions/view';
-                break;
-            case 'addcomment':
-                $aclResource = 'sales/order/actions/comment';
-                break;
-            case 'creditmemos':
-                $aclResource = 'sales/order/actions/creditmemo';
-                break;
-            case 'reviewpayment':
-                $aclResource = 'sales/order/actions/review_payment';
-                break;
-            default:
-                $aclResource = 'sales/order';
-                break;
-        }
+        $aclResource = match ($action) {
+            'hold' => 'sales/order/actions/hold',
+            'unhold' => 'sales/order/actions/unhold',
+            'email' => 'sales/order/actions/email',
+            'cancel' => 'sales/order/actions/cancel',
+            'view' => 'sales/order/actions/view',
+            'addcomment' => 'sales/order/actions/comment',
+            'creditmemos' => 'sales/order/actions/creditmemo',
+            'reviewpayment' => 'sales/order/actions/review_payment',
+            default => 'sales/order',
+        };
         return Mage::getSingleton('admin/session')->isAllowed($aclResource);
     }
 

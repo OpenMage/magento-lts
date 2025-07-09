@@ -16,7 +16,7 @@ use Mage_Log_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Log\Helper\DataTrait;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     use DataTrait;
 

@@ -41,14 +41,12 @@ class Mage_Tax_Model_System_Config_Source_Tax_Region
 
         if ($noEmpty) {
             unset($options[0]);
+        } elseif ($options) {
+            $options[0] = ['value' => '0', 'label' => '*'];
         } else {
-            if ($options) {
-                $options[0] = ['value' => '0', 'label' => '*'];
-            } else {
-                $options = [
-                    ['value' => '0', 'label' => '*'],
-                ];
-            }
+            $options = [
+                ['value' => '0', 'label' => '*'],
+            ];
         }
         return $options;
     }

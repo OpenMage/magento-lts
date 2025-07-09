@@ -750,28 +750,22 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $rowTotal       = $this->getRowTotal();
                 $rowBaseTotal   = $this->getBaseRowTotal();
             }
-
             $taxPercent = $this->getTaxPercent() / 100;
-
             $this->setTaxAmount($store->roundPrice($rowTotal * $taxPercent));
             $this->setBaseTaxAmount($store->roundPrice($rowBaseTotal * $taxPercent));
-
             $rowTotal       = $this->getRowTotal();
             $rowBaseTotal   = $this->getBaseRowTotal();
             $this->setTaxBeforeDiscount($store->roundPrice($rowTotal * $taxPercent));
             $this->setBaseTaxBeforeDiscount($store->roundPrice($rowBaseTotal * $taxPercent));
-        } else {
-            if (Mage::helper('tax')->applyTaxAfterDiscount($store)) {
-                $totalBaseTax = $this->getBaseTaxAmount();
-                $totalTax = $this->getTaxAmount();
+        } elseif (Mage::helper('tax')->applyTaxAfterDiscount($store)) {
+            $totalBaseTax = $this->getBaseTaxAmount();
+            $totalTax = $this->getTaxAmount();
+            if ($totalTax && $totalBaseTax) {
+                $totalTax -= $this->getDiscountAmount() * ($this->getTaxPercent() / 100);
+                $totalBaseTax -= $this->getBaseDiscountAmount() * ($this->getTaxPercent() / 100);
 
-                if ($totalTax && $totalBaseTax) {
-                    $totalTax -= $this->getDiscountAmount() * ($this->getTaxPercent() / 100);
-                    $totalBaseTax -= $this->getBaseDiscountAmount() * ($this->getTaxPercent() / 100);
-
-                    $this->setBaseTaxAmount($store->roundPrice($totalBaseTax));
-                    $this->setTaxAmount($store->roundPrice($totalTax));
-                }
+                $this->setBaseTaxAmount($store->roundPrice($totalBaseTax));
+                $this->setTaxAmount($store->roundPrice($totalTax));
             }
         }
 

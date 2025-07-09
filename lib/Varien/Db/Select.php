@@ -121,10 +121,8 @@ class Varien_Db_Select extends Zend_Db_Select
                         ) {
                             $useJoin = true;
                         }
-                    } else {
-                        if ($correlationName == $tableId) {
-                            $useJoin = true;
-                        }
+                    } elseif ($correlationName == $tableId) {
+                        $useJoin = true;
                     }
                 }
                 foreach ($this->_parts[self::WHERE] as $where) {
@@ -216,9 +214,9 @@ class Varien_Db_Select extends Zend_Db_Select
         $position = 0;
         $result   = 0;
         $needle   = [];
-        while (is_integer($result)) {
+        while (is_int($result)) {
             $result = strpos($cond, $table . '.', $position);
-            if (is_integer($result)) {
+            if (is_int($result)) {
                 $needle[] = $result;
                 $position = ($result + strlen($table) + 1);
             }
