@@ -133,9 +133,9 @@ try {
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-            TypeDeclaration\Empty_\EmptyOnNullableObjectToInstanceOfRector::class, # todo: TMP
-            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class, # SKIP
-            # use static methods
+            # skip: cannot be applied to OpenMage codebase - yet
+            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
+            # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',
