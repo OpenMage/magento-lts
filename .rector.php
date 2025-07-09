@@ -90,7 +90,6 @@ try {
             DeadCode\ClassMethod\RemoveNullTagValueNodeRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveUnusedPrivateMethodParameterRector::class, # todo: TMP  (!?!)
             DeadCode\Concat\RemoveConcatAutocastRector::class, # todo: TMP  (!?!)
-            DeadCode\For_\RemoveDeadIfForeachForRector::class, # todo: TMP
             DeadCode\Foreach_\RemoveUnusedForeachKeyRector::class, # todo: TMP
             DeadCode\FunctionLike\RemoveDeadReturnRector::class, # todo: TMP
             DeadCode\If_\ReduceAlwaysFalseIfOrRector::class, # todo: TMP
