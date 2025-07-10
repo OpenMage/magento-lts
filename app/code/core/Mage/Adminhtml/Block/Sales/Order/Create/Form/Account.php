@@ -89,11 +89,9 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Account extends Mage_Adminhtm
      */
     protected function _addAdditionalFormElementData(Varien_Data_Form_Element_Abstract $element)
     {
-        switch ($element->getId()) {
-            case 'email':
-                $element->setRequired(0);
-                $element->setClass('validate-email');
-                break;
+        if ($element->getId() === 'email') {
+            $element->setRequired(0);
+            $element->setClass('validate-email');
         }
         return $this;
     }

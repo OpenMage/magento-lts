@@ -86,10 +86,8 @@ class Mage_Persistent_Model_Persistent_Config
                 continue;
             }
             foreach ($elements as $info) {
-                switch ($type) {
-                    case 'blocks':
-                        $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
-                        break;
+                if ($type === 'blocks') {
+                    $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
                 }
             }
         }

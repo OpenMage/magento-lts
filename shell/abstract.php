@@ -131,12 +131,10 @@ abstract class Mage_Shell_Abstract
             if (preg_match('#^--([\w\d_-]{1,})$#', $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', $arg, $match)) {
                 $current = $match[1];
                 $this->_args[$current] = true;
-            } else {
-                if ($current) {
-                    $this->_args[$current] = $arg;
-                } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
-                    $this->_args[$match[1]] = true;
-                }
+            } elseif ($current) {
+                $this->_args[$current] = $arg;
+            } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
+                $this->_args[$match[1]] = true;
             }
         }
         return $this;

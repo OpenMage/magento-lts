@@ -109,16 +109,14 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             foreach (explode(',', $optionValue) as $value) {
                 if ($_result = $option->getValueById($value)) {
                     $result .= $_result->getTitle() . ', ';
-                } else {
-                    if ($this->getListener()) {
-                        $this->getListener()
-                                ->setHasError(true)
-                                ->setMessage(
-                                    $this->_getWrongConfigurationMessage(),
-                                );
-                        $result = '';
-                        break;
-                    }
+                } elseif ($this->getListener()) {
+                    $this->getListener()
+                            ->setHasError(true)
+                            ->setMessage(
+                                $this->_getWrongConfigurationMessage(),
+                            );
+                    $result = '';
+                    break;
                 }
             }
             $result = Mage::helper('core/string')->substr($result, 0, -2);
@@ -202,15 +200,13 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                         $_result->getPriceType() == 'percent',
                         $basePrice,
                     );
-                } else {
-                    if ($this->getListener()) {
-                        $this->getListener()
-                                ->setHasError(true)
-                                ->setMessage(
-                                    $this->_getWrongConfigurationMessage(),
-                                );
-                        break;
-                    }
+                } elseif ($this->getListener()) {
+                    $this->getListener()
+                            ->setHasError(true)
+                            ->setMessage(
+                                $this->_getWrongConfigurationMessage(),
+                            );
+                    break;
                 }
             }
         } elseif ($this->_isSingleSelection()) {
@@ -220,14 +216,12 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     $_result->getPriceType() == 'percent',
                     $basePrice,
                 );
-            } else {
-                if ($this->getListener()) {
-                    $this->getListener()
-                            ->setHasError(true)
-                            ->setMessage(
-                                $this->_getWrongConfigurationMessage(),
-                            );
-                }
+            } elseif ($this->getListener()) {
+                $this->getListener()
+                        ->setHasError(true)
+                        ->setMessage(
+                            $this->_getWrongConfigurationMessage(),
+                        );
             }
         }
 
@@ -250,15 +244,13 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             foreach (explode(',', $optionValue) as $value) {
                 if ($optionSku = $option->getValueById($value)) {
                     $skus[] = $optionSku->getSku();
-                } else {
-                    if ($this->getListener()) {
-                        $this->getListener()
-                                ->setHasError(true)
-                                ->setMessage(
-                                    $this->_getWrongConfigurationMessage(),
-                                );
-                        break;
-                    }
+                } elseif ($this->getListener()) {
+                    $this->getListener()
+                            ->setHasError(true)
+                            ->setMessage(
+                                $this->_getWrongConfigurationMessage(),
+                            );
+                    break;
                 }
             }
             $result = implode($skuDelimiter, $skus);

@@ -63,12 +63,10 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
                 if ($result !== true) {
                     $errors = $result;
                 }
-            } else {
-                if (!empty($value[$i])) {
-                    $result = parent::validateValue($value[$i]);
-                    if ($result !== true) {
-                        $errors = array_merge($errors, $result);
-                    }
+            } elseif (!empty($value[$i])) {
+                $result = parent::validateValue($value[$i]);
+                if ($result !== true) {
+                    $errors = array_merge($errors, $result);
                 }
             }
         }

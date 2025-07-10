@@ -53,17 +53,15 @@ class Mage_Downloadable_Model_Resource_Sample extends Mage_Core_Model_Resource_D
                     $where,
                 );
             }
-        } else {
-            if (!$sampleObject->getUseDefaultTitle()) {
-                $writeAdapter->insert(
-                    $sampleTitleTable,
-                    [
-                        'sample_id' => $sampleObject->getId(),
-                        'store_id'  => (int) $sampleObject->getStoreId(),
-                        'title'     => $sampleObject->getTitle(),
-                    ],
-                );
-            }
+        } elseif (!$sampleObject->getUseDefaultTitle()) {
+            $writeAdapter->insert(
+                $sampleTitleTable,
+                [
+                    'sample_id' => $sampleObject->getId(),
+                    'store_id'  => (int) $sampleObject->getStoreId(),
+                    'title'     => $sampleObject->getTitle(),
+                ],
+            );
         }
         return $this;
     }

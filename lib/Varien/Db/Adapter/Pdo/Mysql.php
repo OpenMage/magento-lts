@@ -2159,23 +2159,19 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             if ($val instanceof Zend_Db_Expr) {
                 $vals[] = $val->__toString();
                 unset($bind[$col]);
+            } elseif ($this->supportsParameters('positional')) {
+                $vals[] = '?';
+            } elseif ($this->supportsParameters('named')) {
+                unset($bind[$col]);
+                $bind[':col' . $i] = $val;
+                $vals[] = ':col' . $i;
+                $i++;
             } else {
-                if ($this->supportsParameters('positional')) {
-                    $vals[] = '?';
-                } else {
-                    if ($this->supportsParameters('named')) {
-                        unset($bind[$col]);
-                        $bind[':col' . $i] = $val;
-                        $vals[] = ':col' . $i;
-                        $i++;
-                    } else {
-                        /** @see Zend_Db_Adapter_Exception */
-                        #require_once 'Zend/Db/Adapter/Exception.php';
-                        throw new Zend_Db_Adapter_Exception(
-                            static::class . " doesn't support positional or named binding",
-                        );
-                    }
-                }
+                /** @see Zend_Db_Adapter_Exception */
+                #require_once 'Zend/Db/Adapter/Exception.php';
+                throw new Zend_Db_Adapter_Exception(
+                    static::class . " doesn't support positional or named binding",
+                );
             }
         }
 

@@ -551,14 +551,12 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                         $stockItem->setData('use_config_' . $field, 0);
                                     }
                                     $stockItem->setData($field, $value ? $value : 0);
-                                } else {
-                                    if (in_array($field, $this->_configs)) {
-                                        if ($data['use_config_' . $field] == 0) {
-                                            $stockItem->setData($field, $value ? $value : 0);
-                                        }
-                                    } else {
+                                } elseif (in_array($field, $this->_configs)) {
+                                    if ($data['use_config_' . $field] == 0) {
                                         $stockItem->setData($field, $value ? $value : 0);
                                     }
+                                } else {
+                                    $stockItem->setData($field, $value ? $value : 0);
                                 }
                             }
                             // phpcs:ignore Ecg.Performance.Loop.ModelLSD

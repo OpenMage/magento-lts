@@ -136,28 +136,26 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         foreach (array_keys($scopeDescribe) as $columnName) {
             if ($columnName == 'website_id') {
                 $scopeColumns['scope_website_id'] = $columnName;
-            } else {
-                if (isset($mainColumns[$columnName])) {
-                    $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql(
-                        'main_table.%s IS NULL',
-                        'scope_table.%s',
-                        'main_table.%s',
-                    );
-                    $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
-                    $this->addFilterToMap($columnName, $expression);
-                    $scopeColumns[$alias] = $columnName;
-                } elseif (isset($extraColumns[$columnName])) {
-                    $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql(
-                        'additional_table.%s IS NULL',
-                        'scope_table.%s',
-                        'additional_table.%s',
-                    );
-                    $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
-                    $this->addFilterToMap($columnName, $expression);
-                    $scopeColumns[$alias] = $columnName;
-                }
+            } elseif (isset($mainColumns[$columnName])) {
+                $alias = sprintf('scope_%s', $columnName);
+                $expression = $connection->getCheckSql(
+                    'main_table.%s IS NULL',
+                    'scope_table.%s',
+                    'main_table.%s',
+                );
+                $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
+                $this->addFilterToMap($columnName, $expression);
+                $scopeColumns[$alias] = $columnName;
+            } elseif (isset($extraColumns[$columnName])) {
+                $alias = sprintf('scope_%s', $columnName);
+                $expression = $connection->getCheckSql(
+                    'additional_table.%s IS NULL',
+                    'scope_table.%s',
+                    'additional_table.%s',
+                );
+                $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
+                $this->addFilterToMap($columnName, $expression);
+                $scopeColumns[$alias] = $columnName;
             }
         }
 
