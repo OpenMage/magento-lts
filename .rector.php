@@ -124,9 +124,7 @@ try {
             Php80\Class_\AnnotationToAttributeRector::class, # todo: wait for php80
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
-            Php80\ClassConstFetch\ClassOnThisVariableObjectRector::class, # todo: TMP
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
-            Php80\FuncCall\ClassOnObjectRector::class, # todo: TMP
             Php81\Array_\FirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP

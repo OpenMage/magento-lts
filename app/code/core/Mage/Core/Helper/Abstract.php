@@ -108,7 +108,7 @@ abstract class Mage_Core_Helper_Abstract
     protected function _getModuleName()
     {
         if (!$this->_moduleName) {
-            $class = get_class($this);
+            $class = static::class;
             $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
         }
         return $this->_moduleName;
