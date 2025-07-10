@@ -59,7 +59,7 @@ class Mage_Persistent_Model_Observer
             return $this;
         }
 
-        $xPath = '//instances/blocks/*[block_type="' . get_class($block) . '"]';
+        $xPath = '//instances/blocks/*[block_type="' . $block::class . '"]';
         $configFilePath = $observer->getEvent()->getConfigFilePath();
 
         /** @var Mage_Persistent_Model_Persistent_Config $persistentConfig */

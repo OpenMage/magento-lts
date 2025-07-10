@@ -42,7 +42,7 @@ abstract class Mage_Uploader_Model_Config_Abstract extends Varien_Object
             'set' => $this->setData($key, $args[0] ?? null),
             'uns' => $this->unsetData($key),
             'has' => isset($this->_data[$key]),
-            default => throw new Varien_Exception('Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')'),
+            default => throw new Varien_Exception('Invalid method ' . static::class . '::' . $method . '(' . print_r($args, true) . ')'),
         };
     }
 }
