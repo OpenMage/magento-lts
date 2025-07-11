@@ -125,7 +125,6 @@ CREATE TABLE `{$installer->getTable('sales_flat_order')}` (
     `forced_do_shipment_with_invoice` tinyint(1) unsigned default NULL,
     `gift_message_id` int(10) default NULL,
     `payment_authorization_expiration` int(10) default NULL,
-    `paypal_ipn_customer_notified` int(10) default NULL,
     `quote_address_id` int(10) default NULL,
     `quote_id` int(10) default NULL,
     `shipping_address_id` int(10) default NULL,
