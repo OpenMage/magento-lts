@@ -225,12 +225,10 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                         $attributeSetInfo[$setId] = $setInfo[$attribute->getAttributeId()][$setId];
                     }
                     $attribute->setAttributeSetInfo($attributeSetInfo);
+                } elseif (isset($setInfo[$attribute->getAttributeId()])) {
+                    $attribute->setAttributeSetInfo($setInfo[$attribute->getAttributeId()]);
                 } else {
-                    if (isset($setInfo[$attribute->getAttributeId()])) {
-                        $attribute->setAttributeSetInfo($setInfo[$attribute->getAttributeId()]);
-                    } else {
-                        $attribute->setAttributeSetInfo([]);
-                    }
+                    $attribute->setAttributeSetInfo([]);
                 }
             }
         }

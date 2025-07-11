@@ -1178,16 +1178,14 @@ class Mage_Core_Model_Url extends Varien_Object
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()
                 . ($match[3] ?? '');
-        } else {
-            if ($match[1] == '?' && isset($match[3])) {
-                return '?';
-            } elseif ($match[1] == '?' && !isset($match[3])) {
-                return '';
-            } elseif (($match[1] == '&amp;' || $match[1] == '&') && !isset($match[3])) {
-                return '';
-            } elseif (($match[1] == '&amp;' || $match[1] == '&') && isset($match[3])) {
-                return $match[3];
-            }
+        } elseif ($match[1] == '?' && isset($match[3])) {
+            return '?';
+        } elseif ($match[1] == '?' && !isset($match[3])) {
+            return '';
+        } elseif (($match[1] == '&amp;' || $match[1] == '&') && !isset($match[3])) {
+            return '';
+        } elseif (($match[1] == '&amp;' || $match[1] == '&') && isset($match[3])) {
+            return $match[3];
         }
         return '';
     }

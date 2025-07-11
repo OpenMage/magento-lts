@@ -392,24 +392,18 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 } else {
                     $price = $this->_calculatePrice($price, $includingPercent, false);
                 }
-            } else {
-                if ($includingTax) {
-                    $price = $this->_calculatePrice($price, $percent, true);
-                }
+            } elseif ($includingTax) {
+                $price = $this->_calculatePrice($price, $percent, true);
             }
-        } else {
-            if ($priceIncludesTax) {
-                if ($includingTax) {
-                    $price = $this->_calculatePrice($price, $includingPercent, false);
-                    $price = $this->_calculatePrice($price, $percent, true);
-                } else {
-                    $price = $this->_calculatePrice($price, $includingPercent, false);
-                }
+        } elseif ($priceIncludesTax) {
+            if ($includingTax) {
+                $price = $this->_calculatePrice($price, $includingPercent, false);
+                $price = $this->_calculatePrice($price, $percent, true);
             } else {
-                if ($includingTax) {
-                    $price = $this->_calculatePrice($price, $percent, true);
-                }
+                $price = $this->_calculatePrice($price, $includingPercent, false);
             }
+        } elseif ($includingTax) {
+            $price = $this->_calculatePrice($price, $percent, true);
         }
 
         return $store->roundPrice($price);

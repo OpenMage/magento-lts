@@ -426,12 +426,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                                 $optionArray[] = ['label' => $label, 'value' => $value];
                             }
                         }
+                    } elseif (method_exists($sourceModel, 'toOptionArray')) {
+                        $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
                     } else {
-                        if (method_exists($sourceModel, 'toOptionArray')) {
-                            $optionArray = $sourceModel->toOptionArray($fieldType == 'multiselect');
-                        } else {
-                            Mage::throwException("Missing method 'toOptionArray()' in source model '{$factoryName}'");
-                        }
+                        Mage::throwException("Missing method 'toOptionArray()' in source model '{$factoryName}'");
                     }
 
                     $field->setValues($optionArray);
@@ -588,16 +586,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($ifModuleEnabled && !$this->isModuleEnabled($ifModuleEnabled)) {
             return false;
         }
-
-        switch ($this->getScope()) {
-            case self::SCOPE_DEFAULT:
-                return (bool) (int) $field->show_in_default;
-            case self::SCOPE_WEBSITES:
-                return (bool) (int) $field->show_in_website;
-            case self::SCOPE_STORES:
-                return (bool) (int) $field->show_in_store;
-        }
-        return true;
+        return match ($this->getScope()) {
+            self::SCOPE_DEFAULT => (bool) (int) $field->show_in_default,
+            self::SCOPE_WEBSITES => (bool) (int) $field->show_in_website,
+            self::SCOPE_STORES => (bool) (int) $field->show_in_store,
+            default => true,
+        };
     }
 
     /**

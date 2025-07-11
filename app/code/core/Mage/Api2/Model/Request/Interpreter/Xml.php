@@ -98,12 +98,10 @@ class Mage_Api2_Model_Request_Interpreter_Xml implements Mage_Api2_Model_Request
                         $config[$key] = [$config[$key]];
                     }
                     $config[$key][] = $value;
+                } elseif (self::ARRAY_NON_ASSOC_ITEM_NAME != $key) {
+                    $config[$key] = $value;
                 } else {
-                    if (self::ARRAY_NON_ASSOC_ITEM_NAME != $key) {
-                        $config[$key] = $value;
-                    } else {
-                        $config[] = $value;
-                    }
+                    $config[] = $value;
                 }
             }
         }

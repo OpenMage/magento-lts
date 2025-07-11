@@ -277,17 +277,11 @@ class Error_Processor
     protected function _sendHeaders(int $statusCode)
     {
         $serverProtocol = !empty($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
-        switch ($statusCode) {
-            case 404:
-                $description = 'Not Found';
-                break;
-            case 503:
-                $description = 'Service Unavailable';
-                break;
-            default:
-                $description = '';
-                break;
-        }
+        $description = match ($statusCode) {
+            404 => 'Not Found',
+            503 => 'Service Unavailable',
+            default => '',
+        };
 
         header(sprintf('%s %s %s', $serverProtocol, $statusCode, $description), true, $statusCode);
         header(sprintf('Status: %s %s', $statusCode, $description), true, $statusCode);

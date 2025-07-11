@@ -108,7 +108,7 @@ abstract class Mage_Core_Helper_Abstract
     protected function _getModuleName()
     {
         if (!$this->_moduleName) {
-            $class = get_class($this);
+            $class = static::class;
             $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
         }
         return $this->_moduleName;
@@ -202,20 +202,18 @@ abstract class Mage_Core_Helper_Abstract
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
-        } else {
+        } elseif (is_string($data) && strlen($data)) {
             // process single item
-            if (is_string($data) && strlen($data)) {
-                if (is_array($allowedTags) && !empty($allowedTags)) {
-                    $allowed = implode('|', $allowedTags);
-                    $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
-                    $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
-                    $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
-                } else {
-                    $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
-                }
+            if (is_array($allowedTags) && !empty($allowedTags)) {
+                $allowed = implode('|', $allowedTags);
+                $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
+                $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
+                $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
             } else {
-                $result = $data;
+                $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
             }
+        } else {
+            $result = $data;
         }
         return $result;
     }

@@ -134,13 +134,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
             Mage::throwException(Mage::helper('api')->__('Your account has been deactivated.'));
         } elseif (!Mage::getModel('api/user')->hasAssigned2Role($user->getId())) {
             Mage::throwException(Mage::helper('api')->__('Access denied.'));
+        } elseif ($user->getId()) {
+            $this->setUser($user);
+            $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
         } else {
-            if ($user->getId()) {
-                $this->setUser($user);
-                $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
-            } else {
-                Mage::throwException(Mage::helper('api')->__('Unable to login.'));
-            }
+            Mage::throwException(Mage::helper('api')->__('Unable to login.'));
         }
 
         return $user;

@@ -1377,27 +1377,27 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $now = Varien_Date::now();
 
                     // 1. Entity phase
-                    if (isset($this->_oldSku[$rowSku])) { // existing row
+                    if (isset($this->_oldSku[$rowSku])) {
+                        // existing row
                         $entityRowsUp[] = [
                             'updated_at' => $now,
                             'entity_id'  => $this->_oldSku[$rowSku]['entity_id'],
                         ];
-                    } else { // new row
-                        if (!$productLimit || $productsQty < $productLimit) {
-                            $entityRowsIn[$rowSku] = [
-                                'entity_type_id'   => $this->_entityTypeId,
-                                'attribute_set_id' => $this->_newSku[$rowSku]['attr_set_id'],
-                                'type_id'          => $this->_newSku[$rowSku]['type_id'],
-                                'sku'              => $rowSku,
-                                'created_at'       => $now,
-                                'updated_at'       => $now,
-                            ];
-                            $productsQty++;
-                        } else {
-                            $rowSku = null; // sign for child rows to be skipped
-                            $this->_rowsToSkip[$rowNum] = true;
-                            continue;
-                        }
+                    } elseif (!$productLimit || $productsQty < $productLimit) {
+                        // new row
+                        $entityRowsIn[$rowSku] = [
+                            'entity_type_id'   => $this->_entityTypeId,
+                            'attribute_set_id' => $this->_newSku[$rowSku]['attr_set_id'],
+                            'type_id'          => $this->_newSku[$rowSku]['type_id'],
+                            'sku'              => $rowSku,
+                            'created_at'       => $now,
+                            'updated_at'       => $now,
+                        ];
+                        $productsQty++;
+                    } else {
+                        $rowSku = null; // sign for child rows to be skipped
+                        $this->_rowsToSkip[$rowNum] = true;
+                        continue;
                     }
                 } elseif ($rowSku === null) {
                     $this->_rowsToSkip[$rowNum] = true;
@@ -2100,11 +2100,10 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
 
         $this->_validate($rowData, $rowNum, $sku);
 
-        if (self::SCOPE_DEFAULT == $rowScope) { // SKU is specified, row is SCOPE_DEFAULT, new product block begins
+        if (self::SCOPE_DEFAULT == $rowScope) {
+            // SKU is specified, row is SCOPE_DEFAULT, new product block begins
             $this->_processedEntitiesCount++;
-
             $sku = $rowData[self::COL_SKU];
-
             if (isset($this->_oldSku[$sku])) { // can we get all necessary data from existent DB product?
                 // check for supported type of existing product
                 if (isset($this->_productTypeModels[$this->_oldSku[$sku]['type_id']])) {
@@ -2140,14 +2139,12 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                     $sku = false;
                 }
             }
-        } else {
-            if ($sku === null) {
-                $this->addRowError(self::ERROR_SKU_IS_EMPTY, $rowNum);
-            } elseif ($sku === false) {
-                $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
-            } elseif (self::SCOPE_STORE == $rowScope && !isset($this->_storeCodeToId[$rowData[self::COL_STORE]])) {
-                $this->addRowError(self::ERROR_INVALID_STORE, $rowNum);
-            }
+        } elseif ($sku === null) {
+            $this->addRowError(self::ERROR_SKU_IS_EMPTY, $rowNum);
+        } elseif ($sku === false) {
+            $this->addRowError(self::ERROR_ROW_IS_ORPHAN, $rowNum);
+        } elseif (self::SCOPE_STORE == $rowScope && !isset($this->_storeCodeToId[$rowData[self::COL_STORE]])) {
+            $this->addRowError(self::ERROR_INVALID_STORE, $rowNum);
         }
         if (!isset($this->_invalidRows[$rowNum])) {
             // set attribute set code into row data for followed attribute validation in type model

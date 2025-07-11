@@ -152,20 +152,11 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected function _getRangeByType($typeCode)
     {
-        switch ($typeCode) {
-            case 'day':
-                $range = 'DAY';
-                break;
-            case 'hour':
-                $range = 'HOUR';
-                break;
-            case 'minute':
-            default:
-                $range = 'MINUTE';
-                break;
-        }
-
-        return $range;
+        return match ($typeCode) {
+            'day' => 'DAY',
+            'hour' => 'HOUR',
+            default => 'MINUTE',
+        };
     }
 
     /**

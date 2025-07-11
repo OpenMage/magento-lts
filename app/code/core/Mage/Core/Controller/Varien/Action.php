@@ -813,7 +813,7 @@ abstract class Mage_Core_Controller_Varien_Action
     protected function _getRealModuleName()
     {
         if (empty($this->_realModuleName)) {
-            $class = get_class($this);
+            $class = static::class;
             $this->_realModuleName = substr(
                 $class,
                 0,

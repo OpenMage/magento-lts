@@ -41,7 +41,7 @@ class Varien_Filter_Object extends Zend_Filter
         if (!$object instanceof Varien_Object) {
             throw new Exception('Expecting an instance of Varien_Object');
         }
-        $class = get_class($object);
+        $class = $object::class;
         $out = new $class();
         foreach ($object->getData() as $column => $value) {
             $value = parent::filter($value);
