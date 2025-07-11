@@ -214,12 +214,10 @@ class Mage_Tax_Model_Config
             } else {
                 $seq = Mage_Tax_Model_Calculation::CALC_TAX_AFTER_DISCOUNT_ON_EXCL;
             }
+        } elseif ($this->discountTax($store)) {
+            $seq = Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_INCL;
         } else {
-            if ($this->discountTax($store)) {
-                $seq = Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_INCL;
-            } else {
-                $seq = Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_EXCL;
-            }
+            $seq = Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_EXCL;
         }
         return $seq;
     }

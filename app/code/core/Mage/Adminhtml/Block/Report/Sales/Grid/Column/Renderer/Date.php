@@ -27,21 +27,13 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
                 try {
                     $localeCode = Mage::app()->getLocale()->getLocaleCode();
                     $localeData = new Zend_Locale_Data();
-                    switch ($this->getColumn()->getPeriodType()) {
-                        case 'month':
-                            self::$_format = $localeData::getContent($localeCode, 'dateitem', 'yM');
-                            break;
-
-                        case 'year':
-                            self::$_format = $localeData::getContent($localeCode, 'dateitem', 'y');
-                            break;
-
-                        default:
-                            self::$_format = Mage::app()->getLocale()->getDateFormat(
-                                Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
-                            );
-                            break;
-                    }
+                    self::$_format = match ($this->getColumn()->getPeriodType()) {
+                        'month' => $localeData::getContent($localeCode, 'dateitem', 'yM'),
+                        'year' => $localeData::getContent($localeCode, 'dateitem', 'y'),
+                        default => Mage::app()->getLocale()->getDateFormat(
+                            Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM,
+                        ),
+                    };
                 } catch (Exception $e) {
                 }
             }
@@ -58,17 +50,11 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
     public function render(Varien_Object $row)
     {
         if ($data = $row->getData($this->getColumn()->getIndex())) {
-            switch ($this->getColumn()->getPeriodType()) {
-                case 'month':
-                    $dateFormat = 'yyyy-MM';
-                    break;
-                case 'year':
-                    $dateFormat = 'yyyy';
-                    break;
-                default:
-                    $dateFormat = Varien_Date::DATE_INTERNAL_FORMAT;
-                    break;
-            }
+            $dateFormat = match ($this->getColumn()->getPeriodType()) {
+                'month' => 'yyyy-MM',
+                'year' => 'yyyy',
+                default => Varien_Date::DATE_INTERNAL_FORMAT,
+            };
 
             $format = $this->_getFormat();
             try {

@@ -121,10 +121,8 @@ class Varien_Db_Select extends Zend_Db_Select
                         ) {
                             $useJoin = true;
                         }
-                    } else {
-                        if ($correlationName == $tableId) {
-                            $useJoin = true;
-                        }
+                    } elseif ($correlationName == $tableId) {
+                        $useJoin = true;
                     }
                 }
                 foreach ($this->_parts[self::WHERE] as $where) {

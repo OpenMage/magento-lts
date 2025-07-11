@@ -57,17 +57,15 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     $where,
                 );
             }
-        } else {
-            if (!$linkObject->getUseDefaultTitle()) {
-                $writeAdapter->insert(
-                    $linkTitleTable,
-                    [
-                        'link_id'   => $linkObject->getId(),
-                        'store_id'  => (int) $linkObject->getStoreId(),
-                        'title'     => $linkObject->getTitle(),
-                    ],
-                );
-            }
+        } elseif (!$linkObject->getUseDefaultTitle()) {
+            $writeAdapter->insert(
+                $linkTitleTable,
+                [
+                    'link_id'   => $linkObject->getId(),
+                    'store_id'  => (int) $linkObject->getStoreId(),
+                    'title'     => $linkObject->getTitle(),
+                ],
+            );
         }
 
         $select = $writeAdapter->select()
@@ -94,40 +92,38 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     $where,
                 );
             }
-        } else {
-            if (!$linkObject->getUseDefaultPrice()) {
-                $dataToInsert[] = [
-                    'link_id'    => $linkObject->getId(),
-                    'website_id' => (int) $linkObject->getWebsiteId(),
-                    'price'      => (float) $linkObject->getPrice(),
-                ];
-                if ($linkObject->getOrigData('link_id') != $linkObject->getLinkId()) {
-                    $_isNew = true;
-                } else {
-                    $_isNew = false;
-                }
-                if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
-                    $websiteIds = $linkObject->getProductWebsiteIds();
-                    foreach ($websiteIds as $websiteId) {
-                        $baseCurrency = Mage::app()->getBaseCurrencyCode();
-                        $websiteCurrency = Mage::app()->getWebsite($websiteId)->getBaseCurrencyCode();
-                        if ($websiteCurrency == $baseCurrency) {
-                            continue;
-                        }
-                        $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
-                        if (!$rate) {
-                            $rate = 1;
-                        }
-                        $newPrice = $linkObject->getPrice() * $rate;
-                        $dataToInsert[] = [
-                            'link_id'       => $linkObject->getId(),
-                            'website_id'    => (int) $websiteId,
-                            'price'         => $newPrice,
-                        ];
-                    }
-                }
-                $writeAdapter->insertMultiple($linkPriceTable, $dataToInsert);
+        } elseif (!$linkObject->getUseDefaultPrice()) {
+            $dataToInsert[] = [
+                'link_id'    => $linkObject->getId(),
+                'website_id' => (int) $linkObject->getWebsiteId(),
+                'price'      => (float) $linkObject->getPrice(),
+            ];
+            if ($linkObject->getOrigData('link_id') != $linkObject->getLinkId()) {
+                $_isNew = true;
+            } else {
+                $_isNew = false;
             }
+            if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
+                $websiteIds = $linkObject->getProductWebsiteIds();
+                foreach ($websiteIds as $websiteId) {
+                    $baseCurrency = Mage::app()->getBaseCurrencyCode();
+                    $websiteCurrency = Mage::app()->getWebsite($websiteId)->getBaseCurrencyCode();
+                    if ($websiteCurrency == $baseCurrency) {
+                        continue;
+                    }
+                    $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
+                    if (!$rate) {
+                        $rate = 1;
+                    }
+                    $newPrice = $linkObject->getPrice() * $rate;
+                    $dataToInsert[] = [
+                        'link_id'       => $linkObject->getId(),
+                        'website_id'    => (int) $websiteId,
+                        'price'         => $newPrice,
+                    ];
+                }
+            }
+            $writeAdapter->insertMultiple($linkPriceTable, $dataToInsert);
         }
         return $this;
     }

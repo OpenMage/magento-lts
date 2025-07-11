@@ -839,7 +839,7 @@ class Mage_Paypal_Model_Express_Checkout
 
         // Magento will transfer only first 10 cheapest shipping options if there are more than 10 available.
         if (count($options) > 10) {
-            usort($options, [get_class($this),'cmpShippingOptions']);
+            usort($options, [static::class,'cmpShippingOptions']);
             array_splice($options, 10);
             // User selected option will be always included in options list
             if (!is_null($userSelectedOption) && !in_array($userSelectedOption, $options)) {

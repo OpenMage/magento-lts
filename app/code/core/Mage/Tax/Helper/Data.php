@@ -540,55 +540,51 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 } else {
                     $price = $this->_calculatePrice($price, $includingPercent, false);
                 }
-            } else {
-                if ($includingTax) {
+            } elseif ($includingTax) {
+                $appliedRates = $product->getAppliedRates();
+                if (count($appliedRates) > 1) {
+                    $price = $this->_calculatePriceInclTaxWithMultipleRates($price, $appliedRates);
+                } else {
+                    $price = $this->_calculatePrice($price, $percent, true);
+                }
+            }
+        } elseif ($priceIncludesTax) {
+            switch ($this->getPriceDisplayType($store)) {
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
+                    if ($includingPercent != $percent) {
+                        // determine the customer's price that includes tax
+                        $taxablePrice = $this->_calculatePriceInclTax($price, $includingPercent, $percent, $store);
+                        // determine the customer's tax amount,
+                        // round tax unless $roundPrice is set explicitly to false
+                        $tax = $this->getCalculator()->calcTaxAmount($taxablePrice, $percent, true, $roundPrice);
+                        // determine the customer's price without taxes
+                        $price = $taxablePrice - $tax;
+                    } else {
+                        //round tax first unless $roundPrice is set to false explicitly
+                        $price = $this->_calculatePrice($price, $includingPercent, false, $roundPrice);
+                    }
+                    break;
+
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
+                    $price = $this->_calculatePrice($price, $includingPercent, false);
+                    $price = $this->_calculatePrice($price, $percent, true);
+                    break;
+            }
+        } else {
+            switch ($this->getPriceDisplayType($store)) {
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
                     $appliedRates = $product->getAppliedRates();
                     if (count($appliedRates) > 1) {
                         $price = $this->_calculatePriceInclTaxWithMultipleRates($price, $appliedRates);
                     } else {
                         $price = $this->_calculatePrice($price, $percent, true);
                     }
-                }
-            }
-        } else {
-            if ($priceIncludesTax) {
-                switch ($this->getPriceDisplayType($store)) {
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
-                        if ($includingPercent != $percent) {
-                            // determine the customer's price that includes tax
-                            $taxablePrice = $this->_calculatePriceInclTax($price, $includingPercent, $percent, $store);
-                            // determine the customer's tax amount,
-                            // round tax unless $roundPrice is set explicitly to false
-                            $tax = $this->getCalculator()->calcTaxAmount($taxablePrice, $percent, true, $roundPrice);
-                            // determine the customer's price without taxes
-                            $price = $taxablePrice - $tax;
-                        } else {
-                            //round tax first unless $roundPrice is set to false explicitly
-                            $price = $this->_calculatePrice($price, $includingPercent, false, $roundPrice);
-                        }
-                        break;
+                    break;
 
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
-                        $price = $this->_calculatePrice($price, $includingPercent, false);
-                        $price = $this->_calculatePrice($price, $percent, true);
-                        break;
-                }
-            } else {
-                switch ($this->getPriceDisplayType($store)) {
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
-                        $appliedRates = $product->getAppliedRates();
-                        if (count($appliedRates) > 1) {
-                            $price = $this->_calculatePriceInclTaxWithMultipleRates($price, $appliedRates);
-                        } else {
-                            $price = $this->_calculatePrice($price, $percent, true);
-                        }
-                        break;
-
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
-                    case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
-                        break;
-                }
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
+                case Mage_Tax_Model_Config::DISPLAY_TYPE_EXCLUDING_TAX:
+                    break;
             }
         }
         if ($roundPrice) {
@@ -840,11 +836,9 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             if (!$this->displayPriceExcludingTax() && $currentTaxString) {
                 $result .= "+(({$priceField}{$result})*{$currentTaxString})";
             }
-        } else {
-            if ($this->displayPriceIncludingTax()) {
-                if ($currentTaxString) {
-                    $result .= "+({$priceField}*{$currentTaxString})";
-                }
+        } elseif ($this->displayPriceIncludingTax()) {
+            if ($currentTaxString) {
+                $result .= "+({$priceField}*{$currentTaxString})";
             }
         }
         return $result;

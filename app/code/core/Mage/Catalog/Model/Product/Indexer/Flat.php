@@ -192,9 +192,8 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                 break;
             case Mage_Catalog_Model_Product_Flat_Indexer::ENTITY:
-                switch ($event->getType()) {
-                    case Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD:
-                        $event->addNewData('id', $event->getDataObject()->getId());
+                if ($event->getType() === Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD) {
+                    $event->addNewData('id', $event->getDataObject()->getId());
                 }
                 break;
         }
