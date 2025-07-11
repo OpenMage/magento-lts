@@ -188,6 +188,8 @@ class Mage_Paypal_Model_Config
      */
     public const XML_PATH_PAYPAL_EXPRESS_SKIP_ORDER_REVIEW_STEP_FLAG = 'payment/paypal_express/skip_order_review_step';
 
+    public const XML_PATH_PAYMENT_SECTION = 'payment/';
+
     /**
      * Default URL for centinel API (PayPal Direct)
      *
@@ -1172,7 +1174,7 @@ class Mage_Paypal_Model_Config
     public function getPaymentMarkWhatIsPaypalUrl(?Mage_Core_Model_Locale $locale = null)
     {
         $countryCode = 'US';
-        if ($locale !== null) {
+        if ($locale instanceof Mage_Core_Model_Locale) {
             $shouldEmulate = ($this->_storeId !== null) && (Mage::app()->getStore()->getId() != $this->_storeId);
             if ($shouldEmulate) {
                 $locale->emulate($this->_storeId);
@@ -1363,15 +1365,12 @@ class Mage_Paypal_Model_Config
      */
     public function getPaymentAction()
     {
-        switch ($this->paymentAction) {
-            case self::PAYMENT_ACTION_AUTH:
-                return Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE;
-            case self::PAYMENT_ACTION_SALE:
-                return Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE;
-            case self::PAYMENT_ACTION_ORDER:
-                return Mage_Payment_Model_Method_Abstract::ACTION_ORDER;
-        }
-        return null;
+        return match ($this->paymentAction) {
+            self::PAYMENT_ACTION_AUTH => Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE,
+            self::PAYMENT_ACTION_SALE => Mage_Payment_Model_Method_Abstract::ACTION_AUTHORIZE_CAPTURE,
+            self::PAYMENT_ACTION_ORDER => Mage_Payment_Model_Method_Abstract::ACTION_ORDER,
+            default => null,
+        };
     }
 
     /**
@@ -1498,16 +1497,10 @@ class Mage_Paypal_Model_Config
      */
     public static function getIsCreditCardMethod($code)
     {
-        switch ($code) {
-            case self::METHOD_WPP_DIRECT:
-            case self::METHOD_WPP_PE_DIRECT:
-            case self::METHOD_PAYFLOWPRO:
-            case self::METHOD_PAYFLOWLINK:
-            case self::METHOD_PAYFLOWADVANCED:
-            case self::METHOD_HOSTEDPRO:
-                return true;
-        }
-        return false;
+        return match ($code) {
+            self::METHOD_WPP_DIRECT, self::METHOD_WPP_PE_DIRECT, self::METHOD_PAYFLOWPRO, self::METHOD_PAYFLOWLINK, self::METHOD_PAYFLOWADVANCED, self::METHOD_HOSTEDPRO => true,
+            default => false,
+        };
     }
 
     /**
@@ -1654,13 +1647,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapStandardFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'line_items_summary':
-            case 'sandbox_flag':
-                return 'payment/' . self::METHOD_WPS . "/{$fieldName}";
-            default:
-                return $this->_mapMethodFieldset($fieldName);
-        }
+        return match ($fieldName) {
+            'line_items_summary', 'sandbox_flag' => self::XML_PATH_PAYMENT_SECTION . self::METHOD_WPS . "/{$fieldName}",
+            default => $this->_mapMethodFieldset($fieldName),
+        };
     }
 
     /**
@@ -1671,20 +1661,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapExpressFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'transfer_shipping_options':
-            case 'solution_type':
-            case 'visible_on_cart':
-            case 'visible_on_product':
-            case 'require_billing_address':
-            case 'authorization_honor_period':
-            case 'order_valid_period':
-            case 'child_authorization_number':
-            case 'allow_ba_signup':
-                return "payment/{$this->_methodCode}/{$fieldName}";
-            default:
-                return $this->_mapMethodFieldset($fieldName);
-        }
+        return match ($fieldName) {
+            'transfer_shipping_options', 'solution_type', 'visible_on_cart', 'visible_on_product', 'require_billing_address', 'authorization_honor_period', 'order_valid_period', 'child_authorization_number', 'allow_ba_signup' => "payment/{$this->_methodCode}/{$fieldName}",
+            default => $this->_mapMethodFieldset($fieldName),
+        };
     }
 
     /**
@@ -1695,12 +1675,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapBmlFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'allow_ba_signup':
-                return 'payment/' . self::METHOD_WPP_EXPRESS . "/{$fieldName}";
-            default:
-                return $this->_mapExpressFieldset($fieldName);
-        }
+        return match ($fieldName) {
+            'allow_ba_signup' => self::XML_PATH_PAYMENT_SECTION . self::METHOD_WPP_EXPRESS . "/{$fieldName}",
+            default => $this->_mapExpressFieldset($fieldName),
+        };
     }
 
     /**
@@ -1711,12 +1689,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapBmlUkFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'allow_ba_signup':
-                return 'payment/' . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}";
-            default:
-                return $this->_mapExpressFieldset($fieldName);
-        }
+        return match ($fieldName) {
+            'allow_ba_signup' => self::XML_PATH_PAYMENT_SECTION . self::METHOD_WPP_PE_EXPRESS . "/{$fieldName}",
+            default => $this->_mapExpressFieldset($fieldName),
+        };
     }
 
     /**
@@ -1727,15 +1703,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapDirectFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'useccv':
-            case 'centinel':
-            case 'centinel_is_mode_strict':
-            case 'centinel_api_url':
-                return "payment/{$this->_methodCode}/{$fieldName}";
-            default:
-                return $this->_mapMethodFieldset($fieldName);
-        }
+        return match ($fieldName) {
+            'useccv', 'centinel', 'centinel_is_mode_strict', 'centinel_api_url' => "payment/{$this->_methodCode}/{$fieldName}",
+            default => $this->_mapMethodFieldset($fieldName),
+        };
     }
 
     /**
@@ -1746,21 +1717,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapWppFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'api_authentication':
-            case 'api_username':
-            case 'api_password':
-            case 'api_signature':
-            case 'api_cert':
-            case 'sandbox_flag':
-            case 'use_proxy':
-            case 'proxy_host':
-            case 'proxy_port':
-            case 'button_flavor':
-                return "paypal/wpp/{$fieldName}";
-            default:
-                return null;
-        }
+        return match ($fieldName) {
+            'api_authentication', 'api_username', 'api_password', 'api_signature', 'api_cert', 'sandbox_flag', 'use_proxy', 'proxy_host', 'proxy_port', 'button_flavor' => "paypal/wpp/{$fieldName}",
+            default => null,
+        };
     }
 
     /**
@@ -1780,21 +1740,12 @@ class Mage_Paypal_Model_Config
         } elseif ($this->_methodCode == self::METHOD_PAYFLOWADVANCED
             || $this->_methodCode == self::METHOD_PAYFLOWLINK
         ) {
-            $pathPrefix = 'payment/' . $this->_methodCode;
+            $pathPrefix = self::XML_PATH_PAYMENT_SECTION . $this->_methodCode;
         }
-        switch ($fieldName) {
-            case 'partner':
-            case 'user':
-            case 'vendor':
-            case 'pwd':
-            case 'sandbox_flag':
-            case 'use_proxy':
-            case 'proxy_host':
-            case 'proxy_port':
-                return $pathPrefix . '/' . $fieldName;
-            default:
-                return null;
-        }
+        return match ($fieldName) {
+            'partner', 'user', 'vendor', 'pwd', 'sandbox_flag', 'use_proxy', 'proxy_host', 'proxy_port' => $pathPrefix . '/' . $fieldName,
+            default => null,
+        };
     }
 
     /**
@@ -1805,17 +1756,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapGenericStyleFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'logo':
-            case 'page_style':
-            case 'paypal_hdrimg':
-            case 'paypal_hdrbackcolor':
-            case 'paypal_hdrbordercolor':
-            case 'paypal_payflowcolor':
-                return "paypal/style/{$fieldName}";
-            default:
-                return null;
-        }
+        return match ($fieldName) {
+            'logo', 'page_style', 'paypal_hdrimg', 'paypal_hdrbackcolor', 'paypal_hdrbordercolor', 'paypal_payflowcolor' => "paypal/style/{$fieldName}",
+            default => null,
+        };
     }
 
     /**
@@ -1826,13 +1770,10 @@ class Mage_Paypal_Model_Config
      */
     protected function _mapGeneralFieldset($fieldName)
     {
-        switch ($fieldName) {
-            case 'business_account':
-            case 'merchant_country':
-                return "paypal/general/{$fieldName}";
-            default:
-                return null;
-        }
+        return match ($fieldName) {
+            'business_account', 'merchant_country' => "paypal/general/{$fieldName}",
+            default => null,
+        };
     }
 
     /**
@@ -1846,22 +1787,10 @@ class Mage_Paypal_Model_Config
         if (!$this->_methodCode) {
             return null;
         }
-        switch ($fieldName) {
-            case 'active':
-            case 'title':
-            case 'payment_action':
-            case 'allowspecific':
-            case 'specificcountry':
-            case 'line_items_enabled':
-            case 'cctypes':
-            case 'sort_order':
-            case 'debug':
-            case 'verify_peer':
-            case 'mobile_optimized':
-                return "payment/{$this->_methodCode}/{$fieldName}";
-            default:
-                return null;
-        }
+        return match ($fieldName) {
+            'active', 'title', 'payment_action', 'allowspecific', 'specificcountry', 'line_items_enabled', 'cctypes', 'sort_order', 'debug', 'verify_peer', 'mobile_optimized' => "payment/{$this->_methodCode}/{$fieldName}",
+            default => null,
+        };
     }
 
     /**

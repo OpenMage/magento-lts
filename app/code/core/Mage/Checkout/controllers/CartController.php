@@ -429,16 +429,11 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
         $updateAction = (string) $this->getRequest()->getParam('update_cart_action');
 
-        switch ($updateAction) {
-            case 'empty_cart':
-                $this->_emptyShoppingCart();
-                break;
-            case 'update_qty':
-                $this->_updateShoppingCart();
-                break;
-            default:
-                $this->_updateShoppingCart();
-        }
+        match ($updateAction) {
+            'empty_cart' => $this->_emptyShoppingCart(),
+            'update_qty' => $this->_updateShoppingCart(),
+            default => $this->_updateShoppingCart(),
+        };
 
         $this->_goBack();
     }

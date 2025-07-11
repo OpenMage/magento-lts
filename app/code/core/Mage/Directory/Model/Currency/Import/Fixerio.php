@@ -126,14 +126,12 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
         foreach ($currenciesTo as $currencyTo) {
             if ($currencyFrom == $currencyTo) {
                 $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
+            } elseif (empty($response['rates'][$currencyTo])) {
+                $this->_messages[] = Mage::helper('directory')
+                    ->__('We can\'t retrieve a rate from %s for %s.', $url, $currencyTo);
+                $data[$currencyFrom][$currencyTo] = null;
             } else {
-                if (empty($response['rates'][$currencyTo])) {
-                    $this->_messages[] = Mage::helper('directory')
-                        ->__('We can\'t retrieve a rate from %s for %s.', $url, $currencyTo);
-                    $data[$currencyFrom][$currencyTo] = null;
-                } else {
-                    $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response['rates'][$currencyTo]);
-                }
+                $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response['rates'][$currencyTo]);
             }
         }
 

@@ -343,22 +343,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if ($this->getAttributeObject()->getAttributeCode() == 'category_ids') {
             return 'category';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-                return 'select';
-
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            case 'boolean':
-                return 'boolean';
-
-            default:
-                return 'string';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            'boolean' => 'boolean',
+            default => 'string',
+        };
     }
 
     /**
@@ -374,20 +365,12 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if (!is_object($this->getAttributeObject())) {
             return 'text';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-            case 'boolean':
-                return 'select';
-
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            default:
-                return 'text';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select', 'boolean' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            default => 'text',
+        };
     }
 
     /**
@@ -398,12 +381,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getValueElement()
     {
         $element = parent::getValueElement();
-        if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
-                    break;
-            }
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
         }
 
         return $element;
@@ -442,11 +421,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             case 'category_ids':
                 return true;
         }
-        if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    return true;
-            }
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            return true;
         }
         return false;
     }

@@ -80,20 +80,12 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         $giftmessageModel = Mage::getModel('giftmessage/message');
         $entityType = $this->_getMappedType($giftmessage['type']);
 
-        switch ($entityType) {
-            case 'quote':
-                $entityModel = $this->_getQuote();
-                break;
-
-            case 'quote_item':
-                $entityModel = $this->_getQuote()->getItemById($entityId);
-                break;
-
-            default:
-                $entityModel = $giftmessageModel->getEntityModelByType($entityType)
-                    ->load($entityId);
-                break;
-        }
+        $entityModel = match ($entityType) {
+            'quote' => $this->_getQuote(),
+            'quote_item' => $this->_getQuote()->getItemById($entityId),
+            default => $giftmessageModel->getEntityModelByType($entityType)
+                ->load($entityId),
+        };
 
         if (!$entityModel) {
             return $this;

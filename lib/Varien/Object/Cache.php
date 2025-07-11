@@ -150,7 +150,7 @@ class Varien_Object_Cache
         }
 
         if (isset($this->_objects[$idx])) {
-            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . get_class($this->_objects[$idx]) . ', new object class: ' . get_class($object));
+            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . $this->_objects[$idx]::class . ', new object class: ' . $object::class);
         }
 
         $this->_objects[$idx] = $object;

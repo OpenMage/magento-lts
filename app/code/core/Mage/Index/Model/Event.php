@@ -205,7 +205,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             if ($processStatus == Mage_Index_Model_Process::EVENT_STATUS_DONE) {
                 $process = Mage::getSingleton('index/indexer')->getProcessById($processId);
                 if ($process) {
-                    $namespace = get_class($process->getIndexer());
+                    $namespace = $process->getIndexer()::class;
                     if (array_key_exists($namespace, $newData)) {
                         unset($newData[$namespace]);
                     }

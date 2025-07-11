@@ -96,7 +96,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     protected function _setEventNamespace(Mage_Index_Model_Event $event)
     {
-        $namespace = get_class($this->getIndexer());
+        $namespace = $this->getIndexer()::class;
         $event->setDataNamespace($namespace);
         $event->setProcess($this);
         return $this;

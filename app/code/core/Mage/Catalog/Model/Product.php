@@ -1638,11 +1638,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      */
     public function getCustomDesignDate()
     {
-        $result = [];
-        $result['from'] = $this->getData('custom_design_from');
-        $result['to'] = $this->getData('custom_design_to');
-
-        return $result;
+        return [
+            'from' => $this->getData('custom_design_from'),
+            'to' => $this->getData('custom_design_to'),
+        ];
     }
 
     /**

@@ -350,7 +350,7 @@ class Mage_Core_Model_App
         }
 
         // Finish the request explicitly, no output allowed beyond this point
-        if (php_sapi_name() == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
+        if (PHP_SAPI == 'fpm-fcgi' && function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         } else {
             flush();
@@ -1439,7 +1439,7 @@ class Mage_Core_Model_App
             $object->$method($observer);
         } elseif (Mage::getIsDeveloperMode()) {
             if (is_object($object)) {
-                $message = 'Method "' . $method . '" is not defined in "' . get_class($object) . '"';
+                $message = 'Method "' . $method . '" is not defined in "' . $object::class . '"';
             } else {
                 $message = 'Class from observer "' . $observerName . '" is not initialized';
             }
