@@ -115,7 +115,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
         $memoryValue = (int) $memoryValue;
 
-        return $memoryValue > 0 ? $memoryValue : 0;
+        return max($memoryValue, 0);
     }
 
     public function save($destination = null, $newName = null)
