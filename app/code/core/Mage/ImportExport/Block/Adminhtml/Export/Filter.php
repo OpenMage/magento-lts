@@ -104,7 +104,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect',
-                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size))
+                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : (max(2, $size)))
                                 . '" style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
@@ -237,7 +237,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect multiselect-export-filter',
-                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size)),
+                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : (max(2, $size))),
             ]);
             return $selectBlock->setOptions($options)
                 ->setValue($value)

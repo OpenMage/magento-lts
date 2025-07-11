@@ -144,8 +144,8 @@ class Mage_Core_Model_File_Storage_Directory_Database extends Mage_Core_Model_Fi
      */
     public function exportDirectories($offset = 0, $count = 100)
     {
-        $offset = ((int) $offset >= 0) ? (int) $offset : 0;
-        $count  = ((int) $count >= 1) ? (int) $count : 1;
+        $offset = max((int) $offset, 0);
+        $count  = max((int) $count, 1);
 
         $result = $this->_getResource()->exportDirectories($offset, $count);
 

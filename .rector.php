@@ -42,7 +42,10 @@ try {
         ->withSkip([
             CodeQuality\Assign\CombinedAssignRector::class, # todo: TMP
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
-            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class, # todo: TMP
+            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
+            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
+                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
+            ],
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             CodeQuality\Class_\InlineConstructorDefaultToPropertyRector::class, # todo: TMP
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
@@ -51,7 +54,6 @@ try {
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
-            CodeQuality\For_\ForRepeatedCountToOwnVariableRector::class, # todo: TMP
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
             CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
@@ -64,7 +66,6 @@ try {
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Ternary\NumberCompareToMaxFuncCallRector::class, # todo: TMP
             CodeQuality\Ternary\SwitchNegatedTernaryRector::class, # todo: TMP
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class, # todo: TMP

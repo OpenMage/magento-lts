@@ -373,7 +373,8 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         $this->setInterval([$from, $to]);
 
         $priorFilters = [];
-        for ($i = 1; $i < count($filterParams); ++$i) {
+        $counter = count($filterParams);
+        for ($i = 1; $i < $counter; ++$i) {
             $priorFilter = $this->_validateFilter($filterParams[$i]);
             if ($priorFilter) {
                 $priorFilters[] = $priorFilter;
