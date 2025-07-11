@@ -210,7 +210,7 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
                 while ($date = $query->fetchColumn()) {
                     $selectResult[] = $date;
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $selectResult = false;
             }
             $selectResultCache[$cacheKey] = $selectResult;

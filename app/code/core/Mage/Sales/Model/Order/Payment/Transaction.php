@@ -353,7 +353,7 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
                 return false;
             }
             return true;
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception) {
             // jam all logical exceptions, fallback to false
         }
         return false;
