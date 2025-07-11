@@ -100,7 +100,8 @@ class Mage_Archive
     {
         $archivers = $this->_getArchivers($destination);
         $interimSource = '';
-        for ($i = 0; $i < count($archivers); $i++) {
+        $counter = count($archivers);
+        for ($i = 0; $i < $counter; $i++) {
             if ($i == (count($archivers) - 1)) {
                 $packed = $destination;
             } else {
