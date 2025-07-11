@@ -98,13 +98,11 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     public function getStatusLabel()
     {
-        switch ($this->getStatus()) {
-            case self::STATUS_ACTIVE:
-                return Mage::helper('sales')->__('Active');
-            case self::STATUS_CANCELED:
-                return Mage::helper('sales')->__('Canceled');
-        }
-        return '';
+        return match ($this->getStatus()) {
+            self::STATUS_ACTIVE => Mage::helper('sales')->__('Active'),
+            self::STATUS_CANCELED => Mage::helper('sales')->__('Canceled'),
+            default => '',
+        };
     }
 
     /**

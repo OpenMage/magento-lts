@@ -1423,9 +1423,15 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
 
 		-
+			message: '#^Elseif condition is always false\.$#'
+			identifier: elseif.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
+
+		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
 		-
@@ -2627,12 +2633,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/code/core/Mage/Core/Model/Domainpolicy.php
-
-		-
-			message: '#^Method Zend_Mail\:\:addBcc\(\) invoked with 2 parameters, 1 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Queue.php
 
 		-
 			message: '#^Method Mage_Core_Model_Email_Template\:\:getProcessedTemplate\(\) invoked with 2 parameters, 0\-1 required\.$#'

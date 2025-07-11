@@ -388,29 +388,25 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         $basedOn = Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_BASED_ON, $store);
 
         if (($shippingAddress === false && $basedOn == 'shipping')
-            || ($billingAddress === false && $basedOn == 'billing')
-        ) {
+            || ($billingAddress === false && $basedOn == 'billing')) {
             $basedOn = 'default';
-        } else {
-            if ((($billingAddress === false || is_null($billingAddress) || !$billingAddress->getCountryId())
-                && $basedOn == 'billing')
-                || (($shippingAddress === false || is_null($shippingAddress) || !$shippingAddress->getCountryId())
-                    && $basedOn == 'shipping')
-            ) {
-                if ($customer) {
-                    $defBilling = $customer->getDefaultBillingAddress();
-                    $defShipping = $customer->getDefaultShippingAddress();
+        } elseif ((($billingAddress === false || is_null($billingAddress) || !$billingAddress->getCountryId())
+            && $basedOn == 'billing')
+            || (($shippingAddress === false || is_null($shippingAddress) || !$shippingAddress->getCountryId())
+                && $basedOn == 'shipping')) {
+            if ($customer) {
+                $defBilling = $customer->getDefaultBillingAddress();
+                $defShipping = $customer->getDefaultShippingAddress();
 
-                    if ($basedOn == 'billing' && $defBilling && $defBilling->getCountryId()) {
-                        $billingAddress = $defBilling;
-                    } elseif ($basedOn == 'shipping' && $defShipping && $defShipping->getCountryId()) {
-                        $shippingAddress = $defShipping;
-                    } else {
-                        $basedOn = 'default';
-                    }
+                if ($basedOn == 'billing' && $defBilling && $defBilling->getCountryId()) {
+                    $billingAddress = $defBilling;
+                } elseif ($basedOn == 'shipping' && $defShipping && $defShipping->getCountryId()) {
+                    $shippingAddress = $defShipping;
                 } else {
                     $basedOn = 'default';
                 }
+            } else {
+                $basedOn = 'default';
             }
         }
 

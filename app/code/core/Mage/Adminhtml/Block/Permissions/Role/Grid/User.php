@@ -33,10 +33,8 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', ['in' => $inRoleIds]);
-            } else {
-                if ($inRoleIds) {
-                    $this->getCollection()->addFieldToFilter('user_id', ['nin' => $inRoleIds]);
-                }
+            } elseif ($inRoleIds) {
+                $this->getCollection()->addFieldToFilter('user_id', ['nin' => $inRoleIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -148,12 +146,10 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             } else {
                 return array_values($users);
             }
+        } elseif ($json) {
+            return '{}';
         } else {
-            if ($json) {
-                return '{}';
-            } else {
-                return [];
-            }
+            return [];
         }
     }
 }

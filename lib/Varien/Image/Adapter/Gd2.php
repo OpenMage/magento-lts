@@ -333,12 +333,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             } elseif (null === $frameHeight) {
                 $frameHeight = round($frameWidth * ($this->_imageSrcHeight / $this->_imageSrcWidth));
             }
-        } else {
-            if (null === $frameWidth) {
-                $frameWidth = $frameHeight;
-            } elseif (null === $frameHeight) {
-                $frameHeight = $frameWidth;
-            }
+        } elseif (null === $frameWidth) {
+            $frameWidth = $frameHeight;
+        } elseif (null === $frameHeight) {
+            $frameHeight = $frameWidth;
         }
 
         // define coordinates of image inside new frame

@@ -357,7 +357,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         foreach ($this->invalidActions as $action) {
             if ($block instanceof $action['block'] && $action['method'] === strtolower($method)) {
                 Mage::throwException(
-                    sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method),
+                    sprintf('Action with combination block %s and method %s is forbidden.', $block::class, $method),
                 );
             }
         }
@@ -502,7 +502,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             }
         }
         if (!$block instanceof Mage_Core_Block_Abstract) {
-            $block = is_object($block) ? get_class($block) : $block;
+            $block = is_object($block) ? $block::class : $block;
             Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $block));
         }
         return $block;

@@ -192,26 +192,24 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
             foreach (array_keys($saDescribe) as $columnName) {
                 if ($columnName == 'website_id') {
                     $saColumns['scope_website_id'] = $columnName;
-                } else {
-                    if (isset($eaColumns[$columnName])) {
-                        $code = sprintf('scope_%s', $columnName);
-                        $expression = $connection->getCheckSql('sa.%s IS NULL', 'ea.%s', 'sa.%s');
-                        $saColumns[$code] = new Zend_Db_Expr(sprintf(
-                            (string) $expression,
-                            $columnName,
-                            $columnName,
-                            $columnName,
-                        ));
-                    } elseif (isset($caColumns[$columnName])) {
-                        $code = sprintf('scope_%s', $columnName);
-                        $expression = $connection->getCheckSql('sa.%s IS NULL', 'ca.%s', 'sa.%s');
-                        $saColumns[$code] = new Zend_Db_Expr(sprintf(
-                            (string) $expression,
-                            $columnName,
-                            $columnName,
-                            $columnName,
-                        ));
-                    }
+                } elseif (isset($eaColumns[$columnName])) {
+                    $code = sprintf('scope_%s', $columnName);
+                    $expression = $connection->getCheckSql('sa.%s IS NULL', 'ea.%s', 'sa.%s');
+                    $saColumns[$code] = new Zend_Db_Expr(sprintf(
+                        (string) $expression,
+                        $columnName,
+                        $columnName,
+                        $columnName,
+                    ));
+                } elseif (isset($caColumns[$columnName])) {
+                    $code = sprintf('scope_%s', $columnName);
+                    $expression = $connection->getCheckSql('sa.%s IS NULL', 'ca.%s', 'sa.%s');
+                    $saColumns[$code] = new Zend_Db_Expr(sprintf(
+                        (string) $expression,
+                        $columnName,
+                        $columnName,
+                        $columnName,
+                    ));
                 }
             }
 

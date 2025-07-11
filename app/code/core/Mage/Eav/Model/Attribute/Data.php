@@ -45,15 +45,13 @@ class Mage_Eav_Model_Attribute_Data
             } else {
                 $dataModel = self::$_dataModels[$dataModelClass];
             }
+        } elseif (empty(self::$_dataModels[$attribute->getFrontendInput()])) {
+            $dataModelClass = sprintf('eav/attribute_data_%s', $attribute->getFrontendInput());
+            /** @var Mage_Eav_Model_Attribute_Data_Abstract $dataModel */
+            $dataModel      = Mage::getModel($dataModelClass);
+            self::$_dataModels[$attribute->getFrontendInput()] = $dataModel;
         } else {
-            if (empty(self::$_dataModels[$attribute->getFrontendInput()])) {
-                $dataModelClass = sprintf('eav/attribute_data_%s', $attribute->getFrontendInput());
-                /** @var Mage_Eav_Model_Attribute_Data_Abstract $dataModel */
-                $dataModel      = Mage::getModel($dataModelClass);
-                self::$_dataModels[$attribute->getFrontendInput()] = $dataModel;
-            } else {
-                $dataModel = self::$_dataModels[$attribute->getFrontendInput()];
-            }
+            $dataModel = self::$_dataModels[$attribute->getFrontendInput()];
         }
 
         $dataModel->setAttribute($attribute);

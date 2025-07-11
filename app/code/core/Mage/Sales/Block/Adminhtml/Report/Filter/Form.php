@@ -27,7 +27,7 @@ class Mage_Sales_Block_Adminhtml_Report_Filter_Form extends Mage_Adminhtml_Block
         /** @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
-        if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
+        if ($fieldset instanceof Varien_Data_Form_Element_Fieldset) {
             $statuses = Mage::getModel('sales/order_config')->getStatuses();
             $values = [];
             foreach ($statuses as $code => $label) {
