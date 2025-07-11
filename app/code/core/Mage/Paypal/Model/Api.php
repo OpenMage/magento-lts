@@ -259,7 +259,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
      */
     public function getClient(): PaypalServerSdkClient
     {
-        if ($this->client === null) {
+        if (!$this->client instanceof PaypalServerSdkClient) {
             $this->_initializeClient();
         }
         return $this->client;
@@ -297,7 +297,7 @@ class Mage_Paypal_Model_Api extends Varien_Object
                 ->environment($environment)
                 ->build();
         } catch (Exception $e) {
-            throw new Mage_Paypal_Model_Exception('Failed to initialize PayPal client: ' . $e->getMessage());
+            throw new Mage_Paypal_Model_Exception('Failed to initialize PayPal client: ' . $e->getMessage(), [], $e);
         }
     }
 

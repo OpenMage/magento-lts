@@ -133,9 +133,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             $this->getTransactionManager()->createRefundTransaction($payment, $response);
         } catch (Exception $e) {
             Mage::logException($e);
-            throw new Mage_Paypal_Model_Exception(
-                Mage::helper('paypal')->__('Refund error: %s', $e->getMessage()),
-            );
+            throw new Mage_Paypal_Model_Exception(Mage::helper('paypal')->__('Refund error: %s', $e->getMessage()), [], $e);
         }
 
         return $this;
@@ -204,9 +202,7 @@ class Mage_Paypal_Model_Payment extends Mage_Core_Model_Abstract
             )->save();
         } catch (Exception $e) {
             Mage::logException($e);
-            throw new Mage_Paypal_Model_Exception(
-                Mage::helper('paypal')->__('Void error: %s', $e->getMessage()),
-            );
+            throw new Mage_Paypal_Model_Exception(Mage::helper('paypal')->__('Void error: %s', $e->getMessage()), [], $e);
         }
 
         return $this;

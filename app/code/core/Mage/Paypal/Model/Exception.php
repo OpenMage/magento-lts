@@ -16,10 +16,10 @@ class Mage_Paypal_Model_Exception extends Mage_Core_Exception
 {
     protected $_debugData = [];
 
-    public function __construct($message = '', $debugData = [])
+    public function __construct($message = '', $debugData = [], ?\Throwable $previous = null)
     {
         $this->_debugData = $debugData;
-        parent::__construct($message);
+        parent::__construct($message, 0, $previous);
     }
 
     /**
