@@ -22,7 +22,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 
 use function sprintf;
 
-class SecurityTest extends OpenMageTest
+final class SecurityTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -120,7 +120,7 @@ class SecurityTest extends OpenMageTest
         string $method,
         array $args
     ): void {
-        $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method));
+        $this->expectExceptionMessage(sprintf('Action with combination block %s and method %s is forbidden.', $block::class, $method));
         self::$subject->validateAgainstBlockMethodBlacklist($block, $method, $args);
     }
 }

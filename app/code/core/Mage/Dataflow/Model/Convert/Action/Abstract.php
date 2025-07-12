@@ -200,7 +200,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
                 );
             }
 
-            $this->getContainer()->addException('Starting ' . get_class($this->getContainer()) . ' :: ' . $method);
+            $this->getContainer()->addException('Starting ' . $this->getContainer()::class . ' :: ' . $method);
 
             if ($this->getParam('from')) {
                 $this->getContainer()->setData($this->getContainer($this->getParam('from'))->getData());

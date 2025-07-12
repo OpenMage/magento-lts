@@ -88,12 +88,10 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
                 $this->_addError('"State/Province" is required.');
                 return false;
             }
-
             if (!is_string($data['region'])) {
                 $this->_addError('Invalid "State/Province" type.');
                 return false;
             }
-
             $count = $regions->addFieldToFilter(['default_name', 'code'], [$data['region'], $data['region']])
                 ->clear()
                 ->count();
@@ -101,11 +99,9 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
                 $this->_addError('State/Province does not exist.');
                 return false;
             }
-        } else {
-            if (array_key_exists('region', $data) && !is_string($data['region'])) {
-                $this->_addError('Invalid "State/Province" type.');
-                return false;
-            }
+        } elseif (array_key_exists('region', $data) && !is_string($data['region'])) {
+            $this->_addError('Invalid "State/Province" type.');
+            return false;
         }
 
         return true;

@@ -17,7 +17,7 @@ use Mage_Core_Helper_UnserializeArray as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\UnserializeArray as UnserializeArrayDataProvider;
 
-class UnserializeArrayTest extends OpenMageTest
+final class UnserializeArrayTest extends OpenMageTest
 {
     use UnserializeArrayDataProvider;
 

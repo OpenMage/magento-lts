@@ -267,14 +267,19 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 case 'CH': // Section columns.
                     // In case ever the column order is changed, we will have the items recorded properly
                     // anyway. We have named, not numbered columns.
-                    for ($i = 1; $i < count($line); $i++) {
+                    $counter = count($line);
+                    // Section columns.
+                    // In case ever the column order is changed, we will have the items recorded properly
+                    // anyway. We have named, not numbered columns.
+                    for ($i = 1; $i < $counter; $i++) {
                         $sectionColumns[$line[$i]] = $i;
                     }
                     $flippedSectionColumns = array_flip($sectionColumns);
                     break;
                 case 'SB': // Section body.
                     $bodyItem = [];
-                    for ($i = 1; $i < count($line); $i++) {
+                    $counter = count($line);
+                    for ($i = 1; $i < $counter; $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
                     $this->_rows[] = $bodyItem;
@@ -320,40 +325,24 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      */
     public function getFieldLabel($field)
     {
-        switch ($field) {
-            case 'report_date':
-                return Mage::helper('paypal')->__('Report Date');
-            case 'account_id':
-                return Mage::helper('paypal')->__('Merchant Account');
-            case 'transaction_id':
-                return Mage::helper('paypal')->__('Transaction ID');
-            case 'invoice_id':
-                return Mage::helper('paypal')->__('Invoice ID');
-            case 'paypal_reference_id':
-                return Mage::helper('paypal')->__('PayPal Reference ID');
-            case 'paypal_reference_id_type':
-                return Mage::helper('paypal')->__('PayPal Reference ID Type');
-            case 'transaction_event_code':
-                return Mage::helper('paypal')->__('Event Code');
-            case 'transaction_event':
-                return Mage::helper('paypal')->__('Event');
-            case 'transaction_initiation_date':
-                return Mage::helper('paypal')->__('Initiation Date');
-            case 'transaction_completion_date':
-                return Mage::helper('paypal')->__('Completion Date');
-            case 'transaction_debit_or_credit':
-                return Mage::helper('paypal')->__('Debit or Credit');
-            case 'gross_transaction_amount':
-                return Mage::helper('paypal')->__('Gross Amount');
-            case 'fee_debit_or_credit':
-                return Mage::helper('paypal')->__('Fee Debit or Credit');
-            case 'fee_amount':
-                return Mage::helper('paypal')->__('Fee Amount');
-            case 'custom_field':
-                return Mage::helper('paypal')->__('Custom');
-            default:
-                return $field;
-        }
+        return match ($field) {
+            'report_date' => Mage::helper('paypal')->__('Report Date'),
+            'account_id' => Mage::helper('paypal')->__('Merchant Account'),
+            'transaction_id' => Mage::helper('paypal')->__('Transaction ID'),
+            'invoice_id' => Mage::helper('paypal')->__('Invoice ID'),
+            'paypal_reference_id' => Mage::helper('paypal')->__('PayPal Reference ID'),
+            'paypal_reference_id_type' => Mage::helper('paypal')->__('PayPal Reference ID Type'),
+            'transaction_event_code' => Mage::helper('paypal')->__('Event Code'),
+            'transaction_event' => Mage::helper('paypal')->__('Event'),
+            'transaction_initiation_date' => Mage::helper('paypal')->__('Initiation Date'),
+            'transaction_completion_date' => Mage::helper('paypal')->__('Completion Date'),
+            'transaction_debit_or_credit' => Mage::helper('paypal')->__('Debit or Credit'),
+            'gross_transaction_amount' => Mage::helper('paypal')->__('Gross Amount'),
+            'fee_debit_or_credit' => Mage::helper('paypal')->__('Fee Debit or Credit'),
+            'fee_amount' => Mage::helper('paypal')->__('Fee Amount'),
+            'custom_field' => Mage::helper('paypal')->__('Custom'),
+            default => $field,
+        };
     }
 
     /**

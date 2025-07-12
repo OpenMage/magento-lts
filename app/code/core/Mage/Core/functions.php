@@ -126,53 +126,24 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
 
     $errorMessage = '';
 
-    switch ($errno) {
-        case E_ERROR:
-            $errorMessage .= 'Error';
-            break;
-        case E_WARNING:
-            $errorMessage .= 'Warning';
-            break;
-        case E_PARSE:
-            $errorMessage .= 'Parse Error';
-            break;
-        case E_NOTICE:
-            $errorMessage .= 'Notice';
-            break;
-        case E_CORE_ERROR:
-            $errorMessage .= 'Core Error';
-            break;
-        case E_CORE_WARNING:
-            $errorMessage .= 'Core Warning';
-            break;
-        case E_COMPILE_ERROR:
-            $errorMessage .= 'Compile Error';
-            break;
-        case E_COMPILE_WARNING:
-            $errorMessage .= 'Compile Warning';
-            break;
-        case E_USER_ERROR:
-            $errorMessage .= 'User Error';
-            break;
-        case E_USER_WARNING:
-            $errorMessage .= 'User Warning';
-            break;
-        case E_USER_NOTICE:
-            $errorMessage .= 'User Notice';
-            break;
-        case 2048: // E_STRICT prior to PHP8.4
-            $errorMessage .= 'Strict Notice';
-            break;
-        case E_RECOVERABLE_ERROR:
-            $errorMessage .= 'Recoverable Error';
-            break;
-        case E_DEPRECATED:
-            $errorMessage .= 'Deprecated functionality';
-            break;
-        default:
-            $errorMessage .= "Unknown error ($errno)";
-            break;
-    }
+    match ($errno) {
+        E_ERROR => $errorMessage .= 'Error',
+        E_WARNING => $errorMessage .= 'Warning',
+        E_PARSE => $errorMessage .= 'Parse Error',
+        E_NOTICE => $errorMessage .= 'Notice',
+        E_CORE_ERROR => $errorMessage .= 'Core Error',
+        E_CORE_WARNING => $errorMessage .= 'Core Warning',
+        E_COMPILE_ERROR => $errorMessage .= 'Compile Error',
+        E_COMPILE_WARNING => $errorMessage .= 'Compile Warning',
+        E_USER_ERROR => $errorMessage .= 'User Error',
+        E_USER_WARNING => $errorMessage .= 'User Warning',
+        E_USER_NOTICE => $errorMessage .= 'User Notice',
+        // E_STRICT prior to PHP8.4
+        2048 => $errorMessage .= 'Strict Notice',
+        E_RECOVERABLE_ERROR => $errorMessage .= 'Recoverable Error',
+        E_DEPRECATED => $errorMessage .= 'Deprecated functionality',
+        default => $errorMessage .= "Unknown error ($errno)",
+    };
 
     $errorMessage .= ": {$errstr}  in {$errfile} on line {$errline}";
     if (Mage::getIsDeveloperMode()) {
@@ -256,7 +227,8 @@ function mageDelTree($path)
 function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
-    for ($i = 0; $i < count($elements); $i++) {
+    $counter = count($elements);
+    for ($i = 0; $i < $counter; $i++) {
         $nquotes = substr_count($elements[$i], $enclosure);
         if ($nquotes % 2 == 1) {
             for ($j = $i + 1; $j < count($elements); $j++) {

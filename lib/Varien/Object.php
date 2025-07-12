@@ -616,7 +616,7 @@ class Varien_Object implements ArrayAccess
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception(
-            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')',
+            'Invalid method ' . static::class . '::' . $method . '(' . print_r($args, true) . ')',
         );
     }
 
@@ -747,7 +747,7 @@ class Varien_Object implements ArrayAccess
             } elseif (is_array($value)) {
                 $debug[$key] = $this->debug($value, $objects);
             } elseif ($value instanceof Varien_Object) {
-                $debug[$key . ' (' . get_class($value) . ')'] = $value->debug(null, $objects);
+                $debug[$key . ' (' . $value::class . ')'] = $value->debug(null, $objects);
             }
         }
         return $debug;
@@ -826,12 +826,10 @@ class Varien_Object implements ArrayAccess
             foreach ($this->getData() as $field => $value) {
                 $this->flagDirty($field, $flag);
             }
+        } elseif ($flag) {
+            $this->_dirty[$field] = true;
         } else {
-            if ($flag) {
-                $this->_dirty[$field] = true;
-            } else {
-                unset($this->_dirty[$field]);
-            }
+            unset($this->_dirty[$field]);
         }
         return $this;
     }

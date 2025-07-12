@@ -104,7 +104,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect',
-                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size))
+                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : (max(2, $size)))
                                 . '" style="width:280px"',
             ]);
             return $selectBlock->setOptions($options)->getHtml();
@@ -237,7 +237,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
                 'class'        => 'multiselect multiselect-export-filter',
-                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : ($size < 2 ? 2 : $size)),
+                'extra_params' => 'multiple="multiple" size="' . ($size > 5 ? 5 : (max(2, $size))),
             ]);
             return $selectBlock->setOptions($options)
                 ->setValue($value)
@@ -375,23 +375,13 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         if (is_array($values) && isset($values[$row->getAttributeCode()])) {
             $value = $values[$row->getAttributeCode()];
         }
-        switch (Mage_ImportExport_Model_Export::getAttributeFilterType($row)) {
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_SELECT:
-                $cell = $this->_getSelectHtmlWithValue($row, $value);
-                break;
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_INPUT:
-                $cell = $this->_getInputHtmlWithValue($row, $value);
-                break;
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_DATE:
-                $cell = $this->_getDateFromToHtmlWithValue($row, $value);
-                break;
-            case Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER:
-                $cell = $this->_getNumberFromToHtmlWithValue($row, $value);
-                break;
-            default:
-                $cell = Mage::helper('importexport')->__('Unknown attribute filter type');
-        }
-        return $cell;
+        return match (Mage_ImportExport_Model_Export::getAttributeFilterType($row)) {
+            Mage_ImportExport_Model_Export::FILTER_TYPE_SELECT => $this->_getSelectHtmlWithValue($row, $value),
+            Mage_ImportExport_Model_Export::FILTER_TYPE_INPUT => $this->_getInputHtmlWithValue($row, $value),
+            Mage_ImportExport_Model_Export::FILTER_TYPE_DATE => $this->_getDateFromToHtmlWithValue($row, $value),
+            Mage_ImportExport_Model_Export::FILTER_TYPE_NUMBER => $this->_getNumberFromToHtmlWithValue($row, $value),
+            default => Mage::helper('importexport')->__('Unknown attribute filter type'),
+        };
     }
 
     /**

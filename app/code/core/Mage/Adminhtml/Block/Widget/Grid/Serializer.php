@@ -42,10 +42,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Serializer extends Mage_Core_Block_Templa
             foreach ($names as $name) {
                 $this->addColumnInputName($name);
             }
-        } else {
-            if (!in_array($names, $this->_inputsToSerialize)) {
-                $this->_inputsToSerialize[] = $names;
-            }
+        } elseif (!in_array($names, $this->_inputsToSerialize)) {
+            $this->_inputsToSerialize[] = $names;
         }
     }
 

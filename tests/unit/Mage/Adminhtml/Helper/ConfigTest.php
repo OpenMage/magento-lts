@@ -16,7 +16,7 @@ use Mage_Adminhtml_Helper_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Helper\ConfigTrait;
 
-class ConfigTest extends OpenMageTest
+final class ConfigTest extends OpenMageTest
 {
     use ConfigTrait;
 

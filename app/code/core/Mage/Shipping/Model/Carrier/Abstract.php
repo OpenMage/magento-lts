@@ -176,7 +176,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         if (empty($containersAll)) {
             return [];
         }
-        if (empty($params)) {
+        if (!$params instanceof Varien_Object) {
             return $containersAll;
         }
         $containersFilter   = $this->getContainerTypesFilter();

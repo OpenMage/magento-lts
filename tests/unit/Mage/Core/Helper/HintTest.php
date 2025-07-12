@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Helper_Hint as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class HintTest extends OpenMageTest
+final class HintTest extends OpenMageTest
 {
     private static Subject $subject;
 

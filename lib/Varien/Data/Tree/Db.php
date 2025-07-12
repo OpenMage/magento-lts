@@ -232,7 +232,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->commit();
         } catch (Exception $e) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t move tree node');
+            throw new Exception('Can\'t move tree node', $e->getCode(), $e);
         }
     }
 
@@ -305,7 +305,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->commit();
         } catch (Exception $e) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t remove tree node');
+            throw new Exception('Can\'t remove tree node', $e->getCode(), $e);
         }
         parent::removeNode($node);
         return $this;

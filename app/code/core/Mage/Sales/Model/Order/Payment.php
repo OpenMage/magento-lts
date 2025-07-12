@@ -1129,14 +1129,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             if ($this->getIsFraudDetected()) {
                 $status = Mage_Sales_Model_Order::STATUS_FRAUD;
             }
+        } elseif ($this->getIsFraudDetected()) {
+            $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
+            $message = Mage::helper('sales')->__('Order is suspended as its authorizing amount %s is suspected to be fraudulent.', $this->_formatPrice($amount, $this->getCurrencyCode()));
+            $status = Mage_Sales_Model_Order::STATUS_FRAUD;
         } else {
-            if ($this->getIsFraudDetected()) {
-                $state = Mage_Sales_Model_Order::STATE_PAYMENT_REVIEW;
-                $message = Mage::helper('sales')->__('Order is suspended as its authorizing amount %s is suspected to be fraudulent.', $this->_formatPrice($amount, $this->getCurrencyCode()));
-                $status = Mage_Sales_Model_Order::STATUS_FRAUD;
-            } else {
-                $message = Mage::helper('sales')->__('Authorized amount of %s.', $this->_formatPrice($amount));
-            }
+            $message = Mage::helper('sales')->__('Authorized amount of %s.', $this->_formatPrice($amount));
         }
 
         // update transactions, order state and add comments
@@ -1432,8 +1430,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($preparedMessage) {
             if (is_string($preparedMessage)) {
                 return $preparedMessage . ' ' . $messagePrependTo;
-            } elseif (is_object($preparedMessage)
-                && ($preparedMessage instanceof Mage_Sales_Model_Order_Status_History)
+            } elseif ($preparedMessage instanceof Mage_Sales_Model_Order_Status_History
             ) {
                 $comment = $preparedMessage->getComment() . ' ' . $messagePrependTo;
                 $preparedMessage->setComment($comment);

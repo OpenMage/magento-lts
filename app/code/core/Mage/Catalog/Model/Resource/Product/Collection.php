@@ -578,12 +578,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             } else {
                 $condition = ['in' => $productId];
             }
+        } elseif ($exclude) {
+            $condition = ['neq' => $productId];
         } else {
-            if ($exclude) {
-                $condition = ['neq' => $productId];
-            } else {
-                $condition = $productId;
-            }
+            $condition = $productId;
         }
         $this->addFieldToFilter('entity_id', $condition);
 

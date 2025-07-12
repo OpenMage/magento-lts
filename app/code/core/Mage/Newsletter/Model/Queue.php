@@ -230,12 +230,12 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getDataForSave()
     {
-        $data = [];
-        $data['template_id'] = $this->getTemplateId();
-        $data['queue_status'] = $this->getQueueStatus();
-        $data['queue_start_at'] = $this->getQueueStartAt();
-        $data['queue_finish_at'] = $this->getQueueFinishAt();
-        return $data;
+        return [
+            'template_id' => $this->getTemplateId(),
+            'queue_status' => $this->getQueueStatus(),
+            'queue_start_at' => $this->getQueueStartAt(),
+            'queue_finish_at' => $this->getQueueFinishAt(),
+        ];
     }
 
     /**

@@ -549,20 +549,16 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Customer_Helper_Address $helper */
             $helper = $this->_getHelper('customer/address');
             $configAddressType = $helper->getTaxCalculationAddressType();
-            $userPrompt = '';
-            switch ($configAddressType) {
-                case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
-                    $userPrompt = $this->__(
-                        'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation',
-                        $this->_getUrl('customer/address/edit'),
-                    );
-                    break;
-                default:
-                    $userPrompt = $this->__(
-                        'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation',
-                        $this->_getUrl('customer/address/edit'),
-                    );
-            }
+            $userPrompt = match ($configAddressType) {
+                Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => $this->__(
+                    'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation',
+                    $this->_getUrl('customer/address/edit'),
+                ),
+                default => $this->__(
+                    'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation',
+                    $this->_getUrl('customer/address/edit'),
+                ),
+            };
             $this->_getSession()->addSuccess($userPrompt);
         }
 
@@ -604,7 +600,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     throw new Exception('Failed to load customer by id.');
                 }
             } catch (Exception $e) {
-                throw new Exception($this->__('Wrong customer account specified.'));
+                throw new Exception($this->__('Wrong customer account specified.'), $e->getCode(), $e);
             }
 
             // check if it is inactive
@@ -618,7 +614,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $customer->setConfirmation(null);
                     $customer->save();
                 } catch (Exception $e) {
-                    throw new Exception($this->__('Failed to confirm customer account.'));
+                    throw new Exception($this->__('Failed to confirm customer account.'), $e->getCode(), $e);
                 }
 
                 // log in and send greeting email, then die happy

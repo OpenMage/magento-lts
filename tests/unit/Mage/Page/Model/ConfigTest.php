@@ -15,7 +15,7 @@ use Mage;
 use Mage_Page_Model_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ConfigTest extends OpenMageTest
+final class ConfigTest extends OpenMageTest
 {
     private static Subject $subject;
 

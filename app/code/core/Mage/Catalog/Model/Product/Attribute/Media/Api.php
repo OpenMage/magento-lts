@@ -151,7 +151,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 // Remove temporary directory
                 $ioAdapter->rmdir($tmpDirectory, true);
 
-                throw new Mage_Core_Exception($e->getMessage());
+                throw new Mage_Core_Exception($e->getMessage(), $e->getCode(), $e);
             }
 
             // Adding image to gallery

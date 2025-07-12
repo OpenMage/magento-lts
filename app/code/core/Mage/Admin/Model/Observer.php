@@ -54,13 +54,11 @@ class Mage_Admin_Model_Observer
                         $password = $postLogin['password'] ?? '';
                         $session->login($username, $password, $request);
                         $request->setPost('login', null);
-                    } else {
-                        if (!$request->getParam('messageSent')) {
-                            Mage::getSingleton('adminhtml/session')->addError(
-                                Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),
-                            );
-                            $request->setParam('messageSent', true);
-                        }
+                    } elseif (!$request->getParam('messageSent')) {
+                        Mage::getSingleton('adminhtml/session')->addError(
+                            Mage::helper('adminhtml')->__('Invalid Form Key. Please refresh the page.'),
+                        );
+                        $request->setParam('messageSent', true);
                     }
 
                     $coreSession->renewFormKey();
