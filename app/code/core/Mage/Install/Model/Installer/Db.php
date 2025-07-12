@@ -137,7 +137,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
      */
     protected function _getDbResource($model)
     {
-        if (!isset($this->_dbResource)) {
+        if ($this->_dbResource === null) {
             /** @var Mage_Install_Model_Installer_Db_Abstract $resource */
             $resource =  Mage::getSingleton(sprintf('install/installer_db_%s', $model));
             if (!$resource) {

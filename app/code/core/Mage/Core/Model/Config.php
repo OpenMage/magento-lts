@@ -1177,7 +1177,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (is_string($module)) {
                 $module = $this->getModuleConfig($module);
             }
-            if (isset($module->setup)) {
+            if ($module->setup !== null) {
                 $moduleClassName = $module->setup->getClassName();
                 if (!empty($moduleClassName)) {
                     $className = $moduleClassName;

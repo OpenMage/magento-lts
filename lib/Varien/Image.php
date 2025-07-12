@@ -285,7 +285,7 @@ class Varien_Image
      */
     protected function _getAdapter($adapter = null)
     {
-        if (!isset($this->_adapter)) {
+        if ($this->_adapter === null) {
             $this->_adapter = Varien_Image_Adapter::factory($adapter);
         }
         return $this->_adapter;

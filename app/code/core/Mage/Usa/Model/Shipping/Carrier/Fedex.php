@@ -1161,20 +1161,20 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     $resultArr['weight'] = "{$weight} {$unit}";
 
                     $packageProgress = [];
-                    if (isset($xml->Package->Event)) {
+                    if (property_exists($xml->Package, 'Event') && $xml->Package->Event !== null) {
                         foreach ($xml->Package->Event as $event) {
                             $tempArr = [];
                             $tempArr['activity'] = (string) $event->Description;
                             $tempArr['deliverydate'] = (string) $event->Date;//YYYY-MM-DD
                             $tempArr['deliverytime'] = (string) $event->Time;//HH:MM:ss
                             $addArr = [];
-                            if (isset($event->Address->City)) {
+                            if (property_exists($event->Address, 'City') && $event->Address->City !== null) {
                                 $addArr[] = (string) $event->Address->City;
                             }
-                            if (isset($event->Address->StateProvinceCode)) {
+                            if (property_exists($event->Address, 'StateProvinceCode') && $event->Address->StateProvinceCode !== null) {
                                 $addArr[] = (string) $event->Address->StateProvinceCode;
                             }
-                            if (isset($event->Address->CountryCode)) {
+                            if (property_exists($event->Address, 'CountryCode') && $event->Address->CountryCode !== null) {
                                 $addArr[] = (string) $event->Address->CountryCode;
                             }
                             if ($addArr) {

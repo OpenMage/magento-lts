@@ -124,7 +124,7 @@ class Mage_Eav_Model_Config
      */
     protected function _storeId()
     {
-        if (isset($this->_currentStoreId) && $this->_currentStoreId !== false) {
+        if ($this->_currentStoreId !== null && $this->_currentStoreId !== false) {
             return $this->_currentStoreId;
         }
         return Mage::app()->getStore()->getId();
@@ -399,7 +399,7 @@ class Mage_Eav_Model_Config
         }
 
         // initialize entity type cache
-        if (!isset($this->_entityTypes)) {
+        if ($this->_entityTypes === null) {
             $this->_initializeStore();
         }
 

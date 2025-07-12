@@ -239,7 +239,7 @@ class Mage_Cron_Model_Observer
             return;
         }
 
-        $cronExpr = isset($jobConfig->schedule->cron_expr) ? (string) $jobConfig->schedule->cron_expr : '';
+        $cronExpr = property_exists($jobConfig->schedule, 'cron_expr') && $jobConfig->schedule->cron_expr !== null ? (string) $jobConfig->schedule->cron_expr : '';
         if ($cronExpr != 'always') {
             return;
         }

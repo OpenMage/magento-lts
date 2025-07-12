@@ -54,10 +54,10 @@ class Mage_Adminhtml_Helper_Config extends Mage_Core_Helper_Abstract
      */
     public function getBackendModelByFieldConfig(Varien_Simplexml_Element $fieldConfig): ?string
     {
-        if (isset($fieldConfig->backend_model)) {
+        if ($fieldConfig->backend_model !== null) {
             return (string) $fieldConfig->backend_model;
         }
-        if (isset($fieldConfig->frontend_type)) {
+        if ($fieldConfig->frontend_type !== null) {
             return $this->getBackendModelByInputType((string) $fieldConfig->frontend_type);
         }
         return null;
