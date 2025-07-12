@@ -228,7 +228,7 @@ class Mage_Core_Model_Resource
          * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
          * to keep name of previously used nodes, that still may be used by non-updated extensions.
          */
-        if (isset($modelsNode->$model->deprecatedNode)) {
+        if ($modelsNode->$model->deprecatedNode !== null) {
             $deprecatedNode = $modelsNode->$model->deprecatedNode;
             if (isset($modelsNode->$deprecatedNode->entities->$entity)) {
                 $entityConfig = $modelsNode->$deprecatedNode->entities->$entity;

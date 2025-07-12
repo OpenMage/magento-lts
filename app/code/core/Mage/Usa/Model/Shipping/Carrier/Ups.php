@@ -1059,13 +1059,13 @@ XMLAuth;
                     $i = 1;
                     foreach ($activityTags as $activityTag) {
                         $addArr = [];
-                        if (isset($activityTag->ActivityLocation->Address->City)) {
+                        if ($activityTag->ActivityLocation->Address->City !== null) {
                             $addArr[] = (string) $activityTag->ActivityLocation->Address->City;
                         }
-                        if (isset($activityTag->ActivityLocation->Address->StateProvinceCode)) {
+                        if ($activityTag->ActivityLocation->Address->StateProvinceCode !== null) {
                             $addArr[] = (string) $activityTag->ActivityLocation->Address->StateProvinceCode;
                         }
-                        if (isset($activityTag->ActivityLocation->Address->CountryCode)) {
+                        if ($activityTag->ActivityLocation->Address->CountryCode !== null) {
                             $addArr[] = (string) $activityTag->ActivityLocation->Address->CountryCode;
                         }
                         $dateArr = [];
@@ -1581,7 +1581,7 @@ XMLAuth;
             return $result;
         }
 
-        if (isset($response->Error)) {
+        if (property_exists($response, 'Error') && $response->Error !== null) {
             $result->setErrors((string) $response->Error->ErrorDescription);
         } else {
             $shippingLabelContent = (string) $response->ShipmentResults->PackageResults->LabelImage->GraphicImage;
@@ -1989,7 +1989,7 @@ XMLAuth;
             $result->setErrors($e->getMessage());
         }
 
-        if (isset($response->Response->Error)
+        if (property_exists($response->Response, 'Error') && $response->Response->Error !== null
             && in_array($response->Response->Error->ErrorSeverity, ['Hard', 'Transient'])
         ) {
             $result->setErrors((string) $response->Response->Error->ErrorDescription);

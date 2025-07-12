@@ -162,7 +162,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                         if ($acl && Mage::getSingleton('admin/session')->isAllowed($acl)) {
                             continue;
                         }
-                        if (!isset($block->attributes()->ignore)) {
+                        if (!property_exists($block->attributes(), 'ignore') || $block->attributes()->ignore === null) {
                             $block->addAttribute('ignore', '1');
                         }
                     }

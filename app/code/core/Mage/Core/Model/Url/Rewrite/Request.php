@@ -229,7 +229,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             $to   = $this->_processRewriteUrl($to);
 
             $pathInfo = preg_replace($from, $to, $this->_request->getPathInfo());
-            if (isset($rewrite->complete)) {
+            if ($rewrite->complete !== null) {
                 $this->_request->setPathInfo($pathInfo);
             } else {
                 $this->_request->rewritePathInfo($pathInfo);

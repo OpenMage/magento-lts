@@ -154,7 +154,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
      */
     public function hasQuote()
     {
-        return isset($this->_quote);
+        return $this->_quote !== null;
     }
 
     /**
