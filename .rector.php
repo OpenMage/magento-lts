@@ -55,7 +55,6 @@ try {
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
-            CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP

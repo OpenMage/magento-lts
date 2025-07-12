@@ -32,7 +32,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         if (!$height) {
             $height = '';
         }
-        if ($height && preg_match('/[0-9]$/', $height)) {
+        if ($height && preg_match('/\d$/', $height)) {
             $height .= 'px';
         }
         $object->setContentHeight($height);

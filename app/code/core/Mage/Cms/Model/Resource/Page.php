@@ -265,7 +265,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function isNumericPageIdentifier(Mage_Core_Model_Abstract $object)
     {
-        return preg_match('/^[0-9]+$/', $object->getData('identifier'));
+        return preg_match('/^\d+$/', $object->getData('identifier'));
     }
 
     /**
