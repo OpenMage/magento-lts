@@ -85,7 +85,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                     $i = 1;
                     foreach ($options as $key => $optionCode) {
                         $optionModel = Mage::getModel('rating/rating_option');
-                        if (!preg_match('/^add_([0-9]*?)$/', $key)) {
+                        if (!preg_match('/^add_(\d*?)$/', $key)) {
                             $optionModel->setId($key);
                         }
 
