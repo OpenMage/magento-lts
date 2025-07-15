@@ -5353,16 +5353,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.80.0",
+            "version": "v3.82.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "e49ed46b8f7adcc451d4cd2ed34eaae33372bc60"
+                "reference": "684ed3ab41008a2a4848de8bde17eb168c596247"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/e49ed46b8f7adcc451d4cd2ed34eaae33372bc60",
-                "reference": "e49ed46b8f7adcc451d4cd2ed34eaae33372bc60",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/684ed3ab41008a2a4848de8bde17eb168c596247",
+                "reference": "684ed3ab41008a2a4848de8bde17eb168c596247",
                 "shasum": ""
             },
             "require": {
@@ -5446,7 +5446,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.80.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.82.2"
             },
             "funding": [
                 {
@@ -5454,7 +5454,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-06T21:00:51+00:00"
+            "time": "2025-07-08T21:13:15+00:00"
         },
         {
             "name": "macopedia/phpstan-magento1",
@@ -9161,16 +9161,16 @@
         },
         {
             "name": "symplify/vendor-patches",
-            "version": "11.4.1",
+            "version": "11.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/vendor-patches.git",
-                "reference": "085a3a3e456e4d2d9a6b4fe02e86f92ce5b1fe35"
+                "reference": "04941b69734a93ef2736eac1db6d94b6eeee4d19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/085a3a3e456e4d2d9a6b4fe02e86f92ce5b1fe35",
-                "reference": "085a3a3e456e4d2d9a6b4fe02e86f92ce5b1fe35",
+                "url": "https://api.github.com/repos/symplify/vendor-patches/zipball/04941b69734a93ef2736eac1db6d94b6eeee4d19",
+                "reference": "04941b69734a93ef2736eac1db6d94b6eeee4d19",
                 "shasum": ""
             },
             "require": {
@@ -9188,7 +9188,7 @@
             "description": "Generate vendor patches for packages with single command",
             "support": {
                 "issues": "https://github.com/symplify/vendor-patches/issues",
-                "source": "https://github.com/symplify/vendor-patches/tree/11.4.1"
+                "source": "https://github.com/symplify/vendor-patches/tree/11.5.0"
             },
             "funding": [
                 {
@@ -9200,7 +9200,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-18T08:19:39+00:00"
+            "time": "2025-07-10T10:13:07+00:00"
         },
         {
             "name": "theseer/tokenizer",
