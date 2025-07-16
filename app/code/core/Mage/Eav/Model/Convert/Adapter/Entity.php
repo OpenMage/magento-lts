@@ -256,7 +256,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         try {
             $collection = $this->_getCollectionForLoad($entityType);
 
-            if (isset($this->_joinAttr) && is_array($this->_joinAttr)) {
+            if ($this->_joinAttr !== null && is_array($this->_joinAttr)) {
                 foreach ($this->_joinAttr as $val) {
                     $collection->joinAttribute(
                         $val['alias'],

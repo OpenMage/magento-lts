@@ -305,7 +305,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     foreach ($element->depends->children() as $dependent) {
                         /** @var Mage_Core_Model_Config_Element $dependent */
 
-                        if (isset($dependent->fieldset)) {
+                        if ($dependent->fieldset !== null) {
                             $dependentFieldGroupName = (string) $dependent->fieldset;
                             if (!isset($this->_fieldsets[$dependentFieldGroupName])) {
                                 $dependentFieldGroupName = $group->getName();
@@ -387,13 +387,13 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 ]);
                 $this->_prepareFieldOriginalData($field, $element);
 
-                if (isset($element->validate)) {
+                if ($element->validate !== null) {
                     $field->addClass($element->validate);
                 }
 
-                if (isset($element->frontend_type)
+                if ($element->frontend_type !== null
                     && (string) $element->frontend_type === 'multiselect'
-                    && isset($element->can_be_empty)
+                    && $element->can_be_empty !== null
                 ) {
                     $field->setCanBeEmpty(true);
                 }

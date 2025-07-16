@@ -79,7 +79,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
         $adapters = [];
         foreach ($this->getNode('adapters')->children() as $adapterName => $adapter) {
             /** @var Varien_Simplexml_Element $adapter */
-            if (isset($adapter->use)) {
+            if ($adapter->use !== null) {
                 $adapter = $this->getNode('adapters/' . (string) $adapter->use);
             }
             $adapters[$adapterName] = $adapter;
@@ -215,7 +215,7 @@ class Mage_Api_Model_Config extends Varien_Simplexml_Config
     {
         if (is_null($resourceName)
             || !isset($this->getResources()->$resourceName)
-            || !isset($this->getResources()->$resourceName->faults)
+            || (!property_exists($this->getResources()->$resourceName, 'faults') || $this->getResources()->$resourceName->faults === null)
         ) {
             $faultsNode = $this->getNode('faults');
         } else {

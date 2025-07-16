@@ -24,7 +24,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
         $config = $this->getFieldConfig();
 
         $validate = [];
-        if (isset($config->validate)) {
+        if ($config->validate !== null) {
             $validate = array_map('trim', explode(' ', $config->validate));
         }
 
@@ -33,7 +33,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Color extends Mage_Core_Model_C
         }
 
         $withHash = true;
-        if (isset($config->with_hash)) {
+        if ($config->with_hash !== null) {
             $withHash = $config->is('with_hash', true);
         }
 

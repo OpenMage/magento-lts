@@ -153,30 +153,30 @@ class Mage_Adminhtml_Model_Config extends Varien_Simplexml_Config
     {
         $showTab = false;
         if ($storeCode) {
-            if (isset($node->show_in_store)) {
+            if ($node->show_in_store !== null) {
                 if ((int) $node->show_in_store) {
                     $showTab = true;
                 }
             }
         } elseif ($websiteCode) {
-            if (isset($node->show_in_website)) {
+            if ($node->show_in_website !== null) {
                 if ((int) $node->show_in_website) {
                     $showTab = true;
                 }
             }
-        } elseif (isset($node->show_in_default)) {
+        } elseif ($node->show_in_default !== null) {
             if ((int) $node->show_in_default) {
                 $showTab = true;
             }
         }
         if ($showTab) {
-            if (isset($node->groups)) {
+            if ($node->groups !== null) {
                 foreach ($node->groups->children() as $children) {
                     if ($this->hasChildren($children, $websiteCode, $storeCode)) {
                         return true;
                     }
                 }
-            } elseif (isset($node->fields)) {
+            } elseif ($node->fields !== null) {
                 foreach ($node->fields->children() as $children) {
                     if ($this->hasChildren($children, $websiteCode, $storeCode, true)) {
                         return true;
