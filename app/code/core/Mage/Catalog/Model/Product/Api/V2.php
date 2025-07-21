@@ -236,12 +236,14 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (property_exists($productData, 'additional_attributes')) {
             if (property_exists($productData->additional_attributes, 'single_data')) {
                 foreach ($productData->additional_attributes->single_data as $_attribute) {
+                    /** @var string $attributeCode */
                     $attributeCode = $_attribute->key;
                     $productData->$attributeCode = $_attribute->value;
                 }
             }
             if (property_exists($productData->additional_attributes, 'multi_data')) {
                 foreach ($productData->additional_attributes->multi_data as $_attribute) {
+                    /** @var string $attributeCode */
                     $attributeCode = $_attribute->key;
                     $productData->$attributeCode = $_attribute->value;
                 }
@@ -251,6 +253,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         // phpcs:ignore: Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
+            /** @var string $attributeCode */
             $attributeCode = $attribute->getAttributeCode();
 
             //Unset data if object attribute has no value in current store
