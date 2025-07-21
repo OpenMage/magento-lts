@@ -193,7 +193,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         }
 
         $responsePart = "HTTP/1.1 200 Connection established\r\n";
-        if (stripos($response, $responsePart)) {
+        if (stripos($response, $responsePart) === 0) {
             $response = str_ireplace($responsePart, '', $response);
         }
 
