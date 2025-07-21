@@ -17,7 +17,7 @@ use Mage_Core_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\UserTrait;
 
-class UserTest extends OpenMageTest
+final class UserTest extends OpenMageTest
 {
     use UserTrait;
 

@@ -376,7 +376,7 @@ abstract class Mage_Api2_Model_Resource
     public function getVersion()
     {
         if ($this->_version === null) {
-            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
+            if (preg_match('/^.+([1-9]\d*)$/', static::class, $matches)) {
                 $this->setVersion($matches[1]);
             } else {
                 throw new Exception('Can not determine version from class name');
@@ -601,9 +601,10 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $message
      * @param int $code
+     * @param bool $shouldLog Log the error in the log file?
      * @throws Mage_Api2_Exception
      */
-    protected function _critical($message, $code = null)
+    protected function _critical($message, $code = null, $shouldLog = true)
     {
         if ($code === null) {
             $errors = $this->_getCriticalErrors();
@@ -615,7 +616,10 @@ abstract class Mage_Api2_Model_Resource
             }
             $code = $errors[$message];
         }
-        throw new Mage_Api2_Exception($message, $code);
+
+        Mage::dispatchEvent('api2_resource_critical', ['resource' => $this, 'message' => $message, 'code' => $code]);
+
+        throw new Mage_Api2_Exception($message, $code, $shouldLog);
     }
 
     /**
@@ -698,10 +702,8 @@ abstract class Mage_Api2_Model_Resource
         $pageSize = $this->getRequest()->getPageSize();
         if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
-        } else {
-            if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
-                $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
-            }
+        } elseif ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
+            $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
         }
 
         $orderField = $this->getRequest()->getOrderField();
@@ -825,7 +827,7 @@ abstract class Mage_Api2_Model_Resource
         try {
             return $globalAcl->isAllowed($this->getApiUser(), $resourceId, $this->getOperation());
         } catch (Mage_Api2_Exception $e) {
-            throw new Exception('Invalid arguments for isAllowed() call');
+            throw new Exception('Invalid arguments for isAllowed() call', $e->getCode(), $e);
         }
     }
 

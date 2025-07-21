@@ -126,35 +126,31 @@ class Mage_ImportExport_Adminhtml_ImportController extends Mage_Adminhtml_Contro
                             $resultBlock->addNotice(
                                 $this->__('Errors limit (%d) reached. Please fix errors and re-upload file', $import->getErrorsLimit()),
                             );
+                        } elseif ($import->isImportAllowed()) {
+                            $resultBlock->addNotice(
+                                $this->__('Please fix errors and re-upload file or simply press "Import" button to skip rows with errors'),
+                                true,
+                            );
                         } else {
-                            if ($import->isImportAllowed()) {
-                                $resultBlock->addNotice(
-                                    $this->__('Please fix errors and re-upload file or simply press "Import" button to skip rows with errors'),
-                                    true,
-                                );
-                            } else {
-                                $resultBlock->addNotice(
-                                    $this->__('File is partially valid, but import is not possible'),
-                                    false,
-                                );
-                            }
+                            $resultBlock->addNotice(
+                                $this->__('File is partially valid, but import is not possible'),
+                                false,
+                            );
                         }
                         // errors info
                         foreach ($import->getErrors() as $errorCode => $rows) {
                             $error = $errorCode . ' ' . $this->__('in rows:') . ' ' . implode(', ', $rows);
                             $resultBlock->addError($error);
                         }
+                    } elseif ($import->isImportAllowed()) {
+                        $resultBlock->addSuccess(
+                            $this->__('File is valid! To start import process press "Import" button'),
+                            true,
+                        );
                     } else {
-                        if ($import->isImportAllowed()) {
-                            $resultBlock->addSuccess(
-                                $this->__('File is valid! To start import process press "Import" button'),
-                                true,
-                            );
-                        } else {
-                            $resultBlock->addError(
-                                $this->__('File is valid, but import is not possible'),
-                            );
-                        }
+                        $resultBlock->addError(
+                            $this->__('File is valid, but import is not possible'),
+                        );
                     }
                     $resultBlock->addNotice($import->getNotices());
                     $resultBlock->addNotice($this->__('Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d', $import->getProcessedRowsCount(), $import->getProcessedEntitiesCount(), $import->getInvalidRowsCount(), $import->getErrorsCount()));

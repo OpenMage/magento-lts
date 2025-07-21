@@ -17,7 +17,7 @@ use Mage_Admin_Model_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\BlockTrait;
 
-class BlockTest extends OpenMageTest
+final class BlockTest extends OpenMageTest
 {
     use BlockTrait;
 

@@ -248,7 +248,7 @@ text-align:left !important; z-index:998;text-transform: none;" onmouseover="this
 onmouseout="this.style.zIndex='998'" title="{$fileName}">{$fileName}</div>
 HTML;
             if (Mage::app()->getStore()->isAdmin() ? self::$_showTemplateHintsBlocksAdmin : self::$_showTemplateHintsBlocks) {
-                $thisClass = get_class($this);
+                $thisClass = static::class;
                 echo <<<HTML
 <div style="position:absolute; right:0; top:0; padding:2px 5px; background:{$cacheHintStatusColor}; color:blue; font:normal 11px Arial;
 text-align:left !important; z-index:998;text-transform: none;" onmouseover="this.style.zIndex='999'" onmouseout="this.style.zIndex='998'"
@@ -264,7 +264,7 @@ HTML;
             ) {
                 include $this->_viewDir . DS . $fileName;
             } else {
-                $thisClass = get_class($this);
+                $thisClass = static::class;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
         } catch (Throwable $e) {

@@ -130,21 +130,21 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         # return $node[0];
         if (is_array($path)) {
             $pathArr = $path;
-        } else {
+        } elseif (!str_contains($path, '@')) {
             // Simple exploding by / does not suffice,
             // as an attribute value may contain a / inside
             // Note that there are three matches for different kinds of attribute values specification
-            if (!str_contains($path, '@')) {
-                $pathArr = explode('/', $path);
-            } else {
-                $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
-                $pathArr = $pathMatches = [];
-                if (preg_match_all($regex, $path, $pathMatches)) {
-                    $pathArr = $pathMatches[1];
-                }
+            $pathArr = explode('/', $path);
+        } else {
+            $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
+            $pathArr = $pathMatches = [];
+            if (preg_match_all($regex, $path, $pathMatches)) {
+                $pathArr = $pathMatches[1];
             }
         }
         $desc = $this;
+
+        /** @var string[] $pathArr */
         foreach ($pathArr as $nodeName) {
             if (str_contains($nodeName, '@')) {
                 $a = explode('@', $nodeName);
@@ -218,14 +218,12 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             foreach ($this->children() as $childName => $child) {
                 $result[$childName] = $child->_asArray($isCanonical);
             }
+        } elseif (empty($result)) {
+            // return as string, if nothing was found
+            $result = (string) $this;
         } else {
-            if (empty($result)) {
-                // return as string, if nothing was found
-                $result = (string) $this;
-            } else {
-                // value has zero key element
-                $result[0] = (string) $this;
-            }
+            // value has zero key element
+            $result[0] = (string) $this;
         }
         return $result;
     }
@@ -437,12 +435,10 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 if (!isset($node->$nodeName) || $overwrite) {
                     $node->$nodeName = $value;
                 }
+            } elseif (!isset($node->$nodeName)) {
+                $node = $node->addChild($nodeName);
             } else {
-                if (!isset($node->$nodeName)) {
-                    $node = $node->addChild($nodeName);
-                } else {
-                    $node = $node->$nodeName;
-                }
+                $node = $node->$nodeName;
             }
         }
         return $this;

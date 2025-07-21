@@ -64,11 +64,11 @@ class Mage_Adminhtml_ReportController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'search':
-                return Mage::getSingleton('admin/session')->isAllowed('report/search');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report');
-        }
+        $aclPath = match ($action) {
+            'search' => 'report/search',
+            default => 'report',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

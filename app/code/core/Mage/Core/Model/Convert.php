@@ -16,7 +16,7 @@ class Mage_Core_Model_Convert extends Mage_Dataflow_Model_Convert_Profile_Collec
 {
     public function __construct()
     {
-        $classArr = explode('_', get_class($this));
+        $classArr = explode('_', static::class);
         $moduleName = $classArr[0] . '_' . $classArr[1];
         $etcDir = Mage::getConfig()->getModuleDir('etc', $moduleName);
 

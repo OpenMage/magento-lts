@@ -22,7 +22,7 @@ use Mage_Core_Helper_Array as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\ArrayTrait;
 
-class ArrayTest extends OpenMageTest
+final class ArrayTest extends OpenMageTest
 {
     use ArrayTrait;
 

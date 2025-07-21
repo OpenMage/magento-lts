@@ -1423,9 +1423,15 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Api/Resource.php
 
 		-
+			message: '#^Elseif condition is always false\.$#'
+			identifier: elseif.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
+
+		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
-			count: 2
+			count: 1
 			path: app/code/core/Mage/Catalog/Model/Api2/Product/Rest.php
 
 		-
@@ -1931,6 +1937,12 @@ parameters:
 			identifier: nullCoalesce.property
 			count: 1
 			path: app/code/core/Mage/Catalog/Model/Resource/Config.php
+
+		-
+			message: '#^Argument of an invalid type hasOffsetValue\(string, mixed\) supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
 
 		-
 			message: '#^Binary operation "\-" between int and non\-falsy\-string results in an error\.$#'
@@ -2629,12 +2641,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Domainpolicy.php
 
 		-
-			message: '#^Method Zend_Mail\:\:addBcc\(\) invoked with 2 parameters, 1 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/Core/Model/Email/Queue.php
-
-		-
 			message: '#^Method Mage_Core_Model_Email_Template\:\:getProcessedTemplate\(\) invoked with 2 parameters, 0\-1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -2701,7 +2707,7 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Layout.php
 
 		-
-			message: '#^Cannot unset offset ''@attributes'' on \(array\{\}\|array\{\000\*\000_parent\: Varien_Simplexml_Element\}\)\.$#'
+			message: '#^Cannot unset offset ''@attributes'' on \(array\{\}\|array\{''\000\*\000_parent''\: Varien_Simplexml_Element\}\)\.$#'
 			identifier: unset.offset
 			count: 1
 			path: app/code/core/Mage/Core/Model/Layout.php
@@ -3691,12 +3697,6 @@ parameters:
 			path: app/code/core/Mage/Index/Model/Resource/Lock/Resource.php
 
 		-
-			message: '#^Offset ''path'' does not exist on array\{\000\*\000_parent\: Varien_Simplexml_Element\}\|array\{false\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: app/code/core/Mage/Install/Model/Config.php
-
-		-
 			message: '#^Method Mage_Install_Model_Installer\:\:getDataModel\(\) should return Mage_Install_Model_Session but returns Mage_Install_Model_Installer_Data\|null\.$#'
 			identifier: return.type
 			count: 1
@@ -4675,18 +4675,6 @@ parameters:
 			path: app/code/core/Mage/Sales/Model/Recurring/Profile.php
 
 		-
-			message: '#^Parameter \#2 \$attribute of method Mage_Sales_Model_Resource_Order_Abstract\:\:_afterSaveAttribute\(\) expects string, array\<mixed, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
-
-		-
-			message: '#^Parameter \#2 \$attribute of method Mage_Sales_Model_Resource_Order_Abstract\:\:_beforeSaveAttribute\(\) expects string, array\<mixed, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Sales/Model/Resource/Order/Abstract.php
-
-		-
 			message: '#^Cannot call method updateOnRelatedRecordChanged\(\) on Mage_Core_Model_Resource_Db_Collection_Abstract\|false\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -5567,6 +5555,30 @@ parameters:
 			identifier: method.protected
 			count: 1
 			path: app/design/adminhtml/default/default/template/system/config/form/field/array.phtml
+
+		-
+			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts\:\:\$_addAfter\.$#'
+			identifier: property.protected
+			count: 4
+			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
+
+		-
+			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts\:\:\$_addButtonLabel\.$#'
+			identifier: property.protected
+			count: 2
+			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
+
+		-
+			message: '#^Access to protected property Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts\:\:\$_columns\.$#'
+			identifier: property.protected
+			count: 5
+			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
+
+		-
+			message: '#^Call to protected method _renderCellTemplate\(\) of class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts\.$#'
+			identifier: method.protected
+			count: 2
+			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
 
 		-
 			message: '#^Unreachable statement \- code above always terminates\.$#'

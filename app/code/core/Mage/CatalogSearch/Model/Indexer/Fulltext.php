@@ -208,22 +208,20 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogCategoryEvent(Mage_Index_Model_Event $event)
     {
-        switch ($event->getType()) {
-            case Mage_Index_Model_Event::TYPE_SAVE:
-                /** @var Mage_Catalog_Model_Category $category */
-                $category   = $event->getDataObject();
-                $productIds = $category->getAffectedProductIds();
-                if ($productIds) {
-                    $event->addNewData('catalogsearch_category_update_product_ids', $productIds);
-                    $event->addNewData('catalogsearch_category_update_category_ids', [$category->getId()]);
-                } else {
-                    $movedCategoryId = $category->getMovedCategoryId();
-                    if ($movedCategoryId) {
-                        $event->addNewData('catalogsearch_category_update_product_ids', []);
-                        $event->addNewData('catalogsearch_category_update_category_ids', [$movedCategoryId]);
-                    }
+        if ($event->getType() === Mage_Index_Model_Event::TYPE_SAVE) {
+            /** @var Mage_Catalog_Model_Category $category */
+            $category   = $event->getDataObject();
+            $productIds = $category->getAffectedProductIds();
+            if ($productIds) {
+                $event->addNewData('catalogsearch_category_update_product_ids', $productIds);
+                $event->addNewData('catalogsearch_category_update_category_ids', [$category->getId()]);
+            } else {
+                $movedCategoryId = $category->getMovedCategoryId();
+                if ($movedCategoryId) {
+                    $event->addNewData('catalogsearch_category_update_product_ids', []);
+                    $event->addNewData('catalogsearch_category_update_category_ids', [$movedCategoryId]);
                 }
-                break;
+            }
         }
 
         return $this;

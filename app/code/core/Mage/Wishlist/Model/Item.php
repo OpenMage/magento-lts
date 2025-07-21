@@ -270,14 +270,13 @@ class Mage_Wishlist_Model_Item extends Mage_Core_Model_Abstract implements Mage_
      */
     public function getDataForSave()
     {
-        $data = [];
-        $data['product_id']  = $this->getProductId();
-        $data['wishlist_id'] = $this->getWishlistId();
-        $data['added_at']    = $this->getAddedAt() ?: Mage::getSingleton('core/date')->gmtDate();
-        $data['description'] = $this->getDescription();
-        $data['store_id']    = $this->getStoreId() ?: Mage::app()->getStore()->getId();
-
-        return $data;
+        return [
+            'product_id' => $this->getProductId(),
+            'wishlist_id' => $this->getWishlistId(),
+            'added_at' => $this->getAddedAt() ?: Mage::getSingleton('core/date')->gmtDate(),
+            'description' => $this->getDescription(),
+            'store_id' => $this->getStoreId() ?: Mage::app()->getStore()->getId(),
+        ];
     }
 
     /**

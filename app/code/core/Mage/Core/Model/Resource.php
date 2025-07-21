@@ -229,7 +229,7 @@ class Mage_Core_Model_Resource
          * to keep name of previously used nodes, that still may be used by non-updated extensions.
          */
         if (isset($modelsNode->$model->deprecatedNode)) {
-            $deprecatedNode = $modelsNode->$model->deprecatedNode;
+            $deprecatedNode = (string) $modelsNode->$model->deprecatedNode;
             if (isset($modelsNode->$deprecatedNode->entities->$entity)) {
                 $entityConfig = $modelsNode->$deprecatedNode->entities->$entity;
             }

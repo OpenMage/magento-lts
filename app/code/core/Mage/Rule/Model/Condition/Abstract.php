@@ -721,12 +721,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     } else {
                         return false;
                     }
+                } elseif (is_array($validatedValue)) {
+                    $result = count($validatedValue) == 1 && array_shift($validatedValue) == $value;
                 } else {
-                    if (is_array($validatedValue)) {
-                        $result = count($validatedValue) == 1 && array_shift($validatedValue) == $value;
-                    } else {
-                        $result = $this->_compareValues($validatedValue, $value);
-                    }
+                    $result = $this->_compareValues($validatedValue, $value);
                 }
                 break;
 
@@ -764,12 +762,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     } else {
                         return false;
                     }
+                } elseif (is_array($validatedValue)) {
+                    $result = in_array($value, $validatedValue);
                 } else {
-                    if (is_array($validatedValue)) {
-                        $result = in_array($value, $validatedValue);
-                    } else {
-                        $result = $this->_compareValues($value, $validatedValue, false);
-                    }
+                    $result = $this->_compareValues($value, $validatedValue, false);
                 }
                 break;
 

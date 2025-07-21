@@ -17,7 +17,7 @@ use Mage_Cms_Model_Wysiwyg_Images_Storage;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ImagesTest extends OpenMageTest
+final class ImagesTest extends OpenMageTest
 {
     use CmsTrait;
 

@@ -16,7 +16,7 @@ use Mage_Rule_Model_Condition_Combine;
 use Mage_Rule_Model_Rule as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class RuleTest extends OpenMageTest
+final class RuleTest extends OpenMageTest
 {
     private static Subject $subject;
 

@@ -206,10 +206,8 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
      */
     protected function _registerCatalogInventoryStockItemEvent(Mage_Index_Model_Event $event)
     {
-        switch ($event->getType()) {
-            case Mage_Index_Model_Event::TYPE_SAVE:
-                $this->_registerStockItemSaveEvent($event);
-                break;
+        if ($event->getType() === Mage_Index_Model_Event::TYPE_SAVE) {
+            $this->_registerStockItemSaveEvent($event);
         }
     }
 

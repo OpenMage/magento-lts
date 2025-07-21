@@ -120,13 +120,11 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         // get module name
         if ($request->getModuleName()) {
             $module = $request->getModuleName();
+        } elseif (!empty($p[0])) {
+            $module = $p[0];
         } else {
-            if (!empty($p[0])) {
-                $module = $p[0];
-            } else {
-                $module = $this->getFront()->getDefault('module');
-                $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
-            }
+            $module = $this->getFront()->getDefault('module');
+            $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
         }
         if (!$module) {
             if (Mage::app()->getStore()->isAdmin()) {
@@ -160,16 +158,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             // get controller name
             if ($request->getControllerName()) {
                 $controller = $request->getControllerName();
+            } elseif (!empty($p[1])) {
+                $controller = $p[1];
             } else {
-                if (!empty($p[1])) {
-                    $controller = $p[1];
-                } else {
-                    $controller = $front->getDefault('controller');
-                    $request->setAlias(
-                        Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
-                        ltrim($request->getOriginalPathInfo(), '/'),
-                    );
-                }
+                $controller = $front->getDefault('controller');
+                $request->setAlias(
+                    Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS,
+                    ltrim($request->getOriginalPathInfo(), '/'),
+                );
             }
 
             // get action name
@@ -449,7 +445,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @return array
+     * @param string[] $p
+     * @return string[]
      */
     public function rewrite(array $p)
     {

@@ -86,7 +86,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
     public function getLifeTime($store = null)
     {
         $lifeTime = Mage::getStoreConfigAsInt(self::XML_PATH_LIFE_TIME, $store);
-        return ($lifeTime < 0) ? 0 : $lifeTime;
+        return max(0, $lifeTime);
     }
 
     /**

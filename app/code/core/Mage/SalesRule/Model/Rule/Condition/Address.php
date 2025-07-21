@@ -53,19 +53,11 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
      */
     public function getInputType()
     {
-        switch ($this->getAttribute()) {
-            case 'base_subtotal':
-            case 'weight':
-            case 'total_qty':
-                return 'numeric';
-
-            case 'shipping_method':
-            case 'payment_method':
-            case 'country_id':
-            case 'region_id':
-                return 'select';
-        }
-        return 'string';
+        return match ($this->getAttribute()) {
+            'base_subtotal', 'weight', 'total_qty' => 'numeric',
+            'shipping_method', 'payment_method', 'country_id', 'region_id' => 'select',
+            default => 'string',
+        };
     }
 
     /**
@@ -73,14 +65,10 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
      */
     public function getValueElementType()
     {
-        switch ($this->getAttribute()) {
-            case 'shipping_method':
-            case 'payment_method':
-            case 'country_id':
-            case 'region_id':
-                return 'select';
-        }
-        return 'text';
+        return match ($this->getAttribute()) {
+            'shipping_method', 'payment_method', 'country_id', 'region_id' => 'select',
+            default => 'text',
+        };
     }
 
     /**
@@ -89,30 +77,17 @@ class Mage_SalesRule_Model_Rule_Condition_Address extends Mage_Rule_Model_Condit
     public function getValueSelectOptions()
     {
         if (!$this->hasData('value_select_options')) {
-            switch ($this->getAttribute()) {
-                case 'country_id':
-                    $options = Mage::getModel('adminhtml/system_config_source_country')
-                        ->toOptionArray();
-                    break;
-
-                case 'region_id':
-                    $options = Mage::getModel('adminhtml/system_config_source_allregion')
-                        ->toOptionArray();
-                    break;
-
-                case 'shipping_method':
-                    $options = Mage::getModel('adminhtml/system_config_source_shipping_allmethods')
-                        ->toOptionArray();
-                    break;
-
-                case 'payment_method':
-                    $options = Mage::getModel('adminhtml/system_config_source_payment_allmethods')
-                        ->toOptionArray();
-                    break;
-
-                default:
-                    $options = [];
-            }
+            $options = match ($this->getAttribute()) {
+                'country_id' => Mage::getModel('adminhtml/system_config_source_country')
+                    ->toOptionArray(),
+                'region_id' => Mage::getModel('adminhtml/system_config_source_allregion')
+                    ->toOptionArray(),
+                'shipping_method' => Mage::getModel('adminhtml/system_config_source_shipping_allmethods')
+                    ->toOptionArray(),
+                'payment_method' => Mage::getModel('adminhtml/system_config_source_payment_allmethods')
+                    ->toOptionArray(),
+                default => [],
+            };
             $this->setData('value_select_options', $options);
         }
         return $this->getData('value_select_options');

@@ -502,13 +502,11 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
         $searchId = $id;
         if (is_numeric($id)) {
             $searchField = 'attribute_group_id';
+        } elseif (isset($this->defaultGroupIdAssociations[$id])) {
+            $searchField = 'default_id';
+            $searchId = $this->defaultGroupIdAssociations[$id];
         } else {
-            if (isset($this->defaultGroupIdAssociations[$id])) {
-                $searchField = 'default_id';
-                $searchId = $this->defaultGroupIdAssociations[$id];
-            } else {
-                $searchField = 'attribute_group_name';
-            }
+            $searchField = 'attribute_group_name';
         }
 
         return $this->getTableRow(
@@ -846,10 +844,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                 return $this;
             }
             $field = $bind;
-        } else {
-            if (!isset($attributeFields[$field])) {
-                return $this;
-            }
+        } elseif (!isset($attributeFields[$field])) {
+            return $this;
         }
 
         $this->updateTableRow(
@@ -895,10 +891,8 @@ class Mage_Eav_Model_Entity_Setup extends Mage_Core_Model_Resource_Setup
                     return $this;
                 }
                 $field = $bind;
-            } else {
-                if (!isset($attributeFields[$field])) {
-                    return $this;
-                }
+            } elseif (!isset($attributeFields[$field])) {
+                return $this;
             }
             $this->updateTableRow(
                 $this->getTable($additionalTable),

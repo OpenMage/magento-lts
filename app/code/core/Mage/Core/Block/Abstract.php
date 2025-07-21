@@ -714,12 +714,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                     $key++;
                 }
                 array_splice($this->_sortedChildren, $key, 0, $name);
+            } elseif ($after) {
+                $this->_sortedChildren[] = $name;
             } else {
-                if ($after) {
-                    $this->_sortedChildren[] = $name;
-                } else {
-                    array_unshift($this->_sortedChildren, $name);
-                }
+                array_unshift($this->_sortedChildren, $name);
             }
 
             $this->_sortInstructions[$name] = [$siblingName, (bool) $after, $key !== false];
@@ -1155,7 +1153,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         $module = $this->getData('module_name');
         if (is_null($module)) {
-            $class = get_class($this);
+            $class = static::class;
             $module = substr($class, 0, strpos($class, '_Block'));
             $this->setData('module_name', $module);
         }

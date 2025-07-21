@@ -907,12 +907,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (in_array($xml->getName(), ['ErrorResponse', 'ShipmentValidateErrorResponse'])
-                        || isset($xml->GetQuoteResponse->Note->Condition)
-                    ) {
+                        || isset($xml->GetQuoteResponse->Note->Condition)) {
                         $code = null;
                         $data = null;
                         $nodeCondition = $xml->Response->Status->Condition ?? $xml->GetQuoteResponse->Note->Condition;
-
                         if ($this->_isShippingLabelFlag) {
                             foreach ($nodeCondition as $condition) {
                                 $code = isset($condition->ConditionCode) ? (string) $condition->ConditionCode : 0;
@@ -923,28 +921,25 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                             }
                             Mage::throwException(Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data)));
                         }
-
                         $code = isset($nodeCondition->ConditionCode) ? (string) $nodeCondition->ConditionCode : 0;
                         $data = isset($nodeCondition->ConditionData) ? (string) $nodeCondition->ConditionData : '';
                         $this->_errors[$code] = Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data));
-                    } else {
-                        if (isset($xml->GetQuoteResponse->BkgDetails->QtdShp)) {
-                            foreach ($xml->GetQuoteResponse->BkgDetails->QtdShp as $quotedShipment) {
-                                $this->_addRate($quotedShipment);
-                            }
-                        } elseif (isset($xml->AirwayBillNumber)) {
-                            $result = new Varien_Object();
-                            $result->setTrackingNumber((string) $xml->AirwayBillNumber);
-                            try {
-                                $labelContent = (string) $xml->LabelImage->OutputImage;
-                                $result->setShippingLabelContent(base64_decode($labelContent));
-                            } catch (Exception $e) {
-                                Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
-                            }
-                            return $result;
-                        } else {
-                            $this->_errors[] = $responseError;
+                    } elseif (isset($xml->GetQuoteResponse->BkgDetails->QtdShp)) {
+                        foreach ($xml->GetQuoteResponse->BkgDetails->QtdShp as $quotedShipment) {
+                            $this->_addRate($quotedShipment);
                         }
+                    } elseif (isset($xml->AirwayBillNumber)) {
+                        $result = new Varien_Object();
+                        $result->setTrackingNumber((string) $xml->AirwayBillNumber);
+                        try {
+                            $labelContent = (string) $xml->LabelImage->OutputImage;
+                            $result->setShippingLabelContent(base64_decode($labelContent));
+                        } catch (Exception $e) {
+                            Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
+                        }
+                        return $result;
+                    } else {
+                        $this->_errors[] = $responseError;
                     }
                 }
             } else {
