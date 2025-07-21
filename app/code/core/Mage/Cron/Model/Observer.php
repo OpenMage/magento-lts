@@ -43,9 +43,10 @@ class Mage_Cron_Model_Observer
 
         /** @var Mage_Cron_Model_Schedule $schedule */
         foreach ($schedules->getIterator() as $schedule) {
-            $jobConfig = $jobsRoot->{$schedule->getJobCode()};
+            $jobCode = (string) $schedule->getJobCode();
+            $jobConfig = $jobsRoot->{$jobCode};
             if (!$jobConfig || !$jobConfig->run) {
-                $jobConfig = $defaultJobsRoot->{$schedule->getJobCode()};
+                $jobConfig = $defaultJobsRoot->{$jobCode};
                 if (!$jobConfig || !$jobConfig->run) {
                     continue;
                 }
