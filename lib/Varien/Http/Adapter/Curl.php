@@ -130,7 +130,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @deprecated since 1.4.0.0-rc1
      * @param string  $host
      * @param int     $port
-     * @param boolean $secure
+     * @param bool $secure
      * @return Varien_Http_Adapter_Curl
      */
     public function connect($host, $port = 80, $secure = false)

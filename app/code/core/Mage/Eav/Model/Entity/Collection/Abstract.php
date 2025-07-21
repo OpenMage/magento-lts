@@ -394,7 +394,7 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
      *
      * If $attribute=='*' select all attributes
      *
-     * @param   array|string|integer|Mage_Core_Model_Config_Element $attribute
+     * @param   array|string|int|Mage_Core_Model_Config_Element $attribute
      * @param   bool|string $joinType flag for joining attribute
      * @return  $this
      */

@@ -202,7 +202,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Remove a cache record
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return bool True if no problem
      */
     public function remove($id)
     {
@@ -252,7 +252,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
