@@ -192,8 +192,14 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             $response = trim($response[1]);
         }
 
-        if (stripos($response, "Transfer-Encoding: chunked\r\n")) {
-            $response = str_ireplace("Transfer-Encoding: chunked\r\n", '', $response);
+        $responsePart = "HTTP/1.1 200 Connection established\r\n";
+        if (stripos($response, $responsePart)) {
+            $response = str_ireplace($responsePart, '', $response);
+        }
+
+        $responsePart = "Transfer-Encoding: chunked\r\n";
+        if (stripos($response, $responsePart)) {
+            $response = str_ireplace($responsePart, '', $response);
         }
 
         return $response;
