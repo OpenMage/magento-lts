@@ -143,6 +143,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             }
         }
         $desc = $this;
+
+        /** @var string[] $pathArr */
         foreach ($pathArr as $nodeName) {
             if (str_contains($nodeName, '@')) {
                 $a = explode('@', $nodeName);

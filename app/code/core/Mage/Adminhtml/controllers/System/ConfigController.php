@@ -60,8 +60,11 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     {
         $this->_title($this->__('System'))->_title($this->__('Configuration'));
 
+        /** @var string $current */
         $current = $this->getRequest()->getParam('section');
+        /** @var string $website */
         $website = $this->getRequest()->getParam('website');
+        /** @var string $store */
         $store   = $this->getRequest()->getParam('store');
 
         Mage::getSingleton('adminhtml/config_data')
@@ -81,7 +84,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         $this->loadLayout();
 
         $this->_setActiveMenu('system/config');
-        $this->getLayout()->getBlock('menu')->setAdditionalCacheKeyInfo([$current]);
+
+        /** @var Mage_Adminhtml_Block_Page_Menu $block */
+        $block = $this->getLayout()->getBlock('menu');
+        $block->setAdditionalCacheKeyInfo([$current]);
 
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('System'),
@@ -241,6 +247,8 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
     /**
      * Export shipping table rates in csv format
      *
+     * @throws Mage_Core_Exception
+     * @throws Exception
      */
     public function exportTableratesAction()
     {
