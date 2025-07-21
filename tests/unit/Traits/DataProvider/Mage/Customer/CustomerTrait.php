@@ -92,7 +92,7 @@ trait CustomerTrait
         $data['getDob'] = '';
         $data['shouldValidateDob'] = true;
         yield 'missing dob' => [
-            true, # ['The Date of Birth is required.'],
+            ['The Date of Birth is required.'],
             $data,
         ];
 
@@ -100,7 +100,7 @@ trait CustomerTrait
         $data['getDob'] = 'abc';
         $data['shouldValidateDob'] = true;
         yield 'invalid dob' => [
-            true, # ['This value is not a valid date.'],
+            ['This value is not a valid date.'],
             $data,
         ];
 
@@ -108,7 +108,7 @@ trait CustomerTrait
         $data['getTaxvat'] = '';
         $data['shouldValidateTaxvat'] = true;
         yield 'missing taxvat' => [
-            true, # ['The TAX/VAT number is required.'],
+            ['The TAX/VAT number is required.'],
             $data,
         ];
 
@@ -116,7 +116,7 @@ trait CustomerTrait
         $data['getGender'] = '';
         $data['shouldValidateGender'] = true;
         yield 'missing gender' => [
-            true, # ['Gender is required.'],
+            ['Gender is required.'],
             $data,
         ];
     }

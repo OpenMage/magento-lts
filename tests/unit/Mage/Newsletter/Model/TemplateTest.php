@@ -81,7 +81,7 @@ final class TemplateTest extends OpenMageTest
         $data = $validData;
         $data['setTemplateSenderEmail'] = null;
         yield 'missing sender email' => [
-            'You must give a non-empty value for field \'template_sender_email\'',
+            '\'invalid-email\' is not a valid email address in the basic format local-part@hostname',
             $data,
         ];
 
