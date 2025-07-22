@@ -180,7 +180,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Retrieve resource group from config files api2.xml
      *
      * @param string $name
-     * @return Mage_Core_Model_Config_Element|boolean
+     * @return Mage_Core_Model_Config_Element|bool
      */
     public function getResourceGroup($name)
     {
@@ -195,7 +195,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
      * Retrieve resource by type (node)
      *
      * @param string $node
-     * @return Varien_Simplexml_Element|boolean
+     * @return Varien_Simplexml_Element|bool
      */
     public function getResource($node)
     {

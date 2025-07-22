@@ -285,7 +285,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Gives true for a PNG with alpha, false otherwise
      *
      * @param string $fileName
-     * @return boolean
+     * @return bool
      */
     public function checkAlpha($fileName)
     {

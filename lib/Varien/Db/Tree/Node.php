@@ -87,7 +87,7 @@ class Varien_Db_Tree_Node
     /**
      * Return true if node have chield
      *
-     * @return boolean
+     * @return bool
      */
     public function isParent()
     {

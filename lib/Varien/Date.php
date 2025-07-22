@@ -66,8 +66,8 @@ class Varien_Date
      * Convert Zend Date format to local time/date according format
      *
      * @param string $value
-     * @param boolean $convertDate
-     * @param boolean $convertTime
+     * @param bool $convertDate
+     * @param bool $convertTime
      * @return string
      */
     public static function convertZendToStrftime($value, $convertDate = true, $convertTime = true)
@@ -118,7 +118,7 @@ class Varien_Date
     /**
      * Retrieve current date in internal format
      *
-     * @param boolean $withoutTime day only flag
+     * @param bool $withoutTime day only flag
      * @return string
      */
     public static function now($withoutTime = false)

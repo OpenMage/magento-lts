@@ -50,7 +50,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
      * Validate components in the stats
      *
      * @param array $data
-     * @return boolean
+     * @return bool
      */
     public function validateComponents($data)
     {
