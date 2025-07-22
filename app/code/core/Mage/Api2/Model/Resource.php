@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 Abstract Resource
  *
- * @category   Mage
  * @package    Mage_Api2
  *
  * @method string _create() _create(array $filteredData) creation of an entity
@@ -147,16 +139,12 @@ abstract class Mage_Api2_Model_Resource
     protected $_userType;
 
     /**
-     * One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
-     *
-     * @var string
+     * @var Mage_Api2_Model_Resource::ACTION_TYPE_*
      */
     protected $_actionType;
 
     /**
-     * One of Mage_Api2_Model_Resource::OPERATION_... constant
-     *
-     * @var string
+     * @var Mage_Api2_Model_Resource::OPERATION_*
      */
     protected $_operation;
 
@@ -171,6 +159,11 @@ abstract class Mage_Api2_Model_Resource
      * @var Mage_Api2_Model_Multicall
      */
     protected $_multicall;
+
+    /**
+     * @var Mage_Core_Model_Store
+     */
+    protected $_store;
 
     /**
      * Dispatch
@@ -383,7 +376,7 @@ abstract class Mage_Api2_Model_Resource
     public function getVersion()
     {
         if ($this->_version === null) {
-            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
+            if (preg_match('/^.+([1-9]\d*)$/', static::class, $matches)) {
                 $this->setVersion($matches[1]);
             } else {
                 throw new Exception('Can not determine version from class name');
@@ -524,7 +517,7 @@ abstract class Mage_Api2_Model_Resource
      * Get action type
      * If not exists get from Request
      *
-     * @return string One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
+     * @return self::ACTION_TYPE_*
      */
     public function getActionType()
     {
@@ -537,7 +530,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set route type
      *
-     * @param string $actionType One of Mage_Api2_Model_Resource::ACTION_TYPE_... constant
+     * @param self::ACTION_TYPE_* $actionType
      * @return $this
      */
     public function setActionType($actionType)
@@ -550,7 +543,7 @@ abstract class Mage_Api2_Model_Resource
      * Get operation
      * If not exists get from Request
      *
-     * @return string One of Mage_Api2_Model_Resource::OPERATION_... constant
+     * @return self::OPERATION_*
      */
     public function getOperation()
     {
@@ -563,7 +556,7 @@ abstract class Mage_Api2_Model_Resource
     /**
      * Set operation
      *
-     * @param string $operation One of Mage_Api2_Model_Resource::OPERATION_... constant
+     * @param self::OPERATION_* $operation
      * @return $this
      */
     public function setOperation($operation)
@@ -608,9 +601,10 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $message
      * @param int $code
+     * @param bool $shouldLog Log the error in the log file?
      * @throws Mage_Api2_Exception
      */
-    protected function _critical($message, $code = null)
+    protected function _critical($message, $code = null, $shouldLog = true)
     {
         if ($code === null) {
             $errors = $this->_getCriticalErrors();
@@ -622,7 +616,10 @@ abstract class Mage_Api2_Model_Resource
             }
             $code = $errors[$message];
         }
-        throw new Mage_Api2_Exception($message, $code);
+
+        Mage::dispatchEvent('api2_resource_critical', ['resource' => $this, 'message' => $message, 'code' => $code]);
+
+        throw new Mage_Api2_Exception($message, $code, $shouldLog);
     }
 
     /**
@@ -705,10 +702,8 @@ abstract class Mage_Api2_Model_Resource
         $pageSize = $this->getRequest()->getPageSize();
         if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
-        } else {
-            if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
-                $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
-            }
+        } elseif ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
+            $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
         }
 
         $orderField = $this->getRequest()->getOrderField();
@@ -832,7 +827,7 @@ abstract class Mage_Api2_Model_Resource
         try {
             return $globalAcl->isAllowed($this->getApiUser(), $resourceId, $this->getOperation());
         } catch (Mage_Api2_Exception $e) {
-            throw new Exception('Invalid arguments for isAllowed() call');
+            throw new Exception('Invalid arguments for isAllowed() call', $e->getCode(), $e);
         }
     }
 
@@ -942,7 +937,7 @@ abstract class Mage_Api2_Model_Resource
      * Retrieve list of included attributes
      *
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getIncludedAttributes($userType, $operationType)
@@ -954,7 +949,7 @@ abstract class Mage_Api2_Model_Resource
      * Retrieve list of entity only attributes
      *
      * @param string $userType API user type
-     * @param string $operationType Type of operation: one of Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_... constant
+     * @param Mage_Api2_Model_Resource::OPERATION_ATTRIBUTE_* $operationType
      * @return array
      */
     public function getEntityOnlyAttributes($userType, $operationType)
@@ -1029,6 +1024,9 @@ abstract class Mage_Api2_Model_Resource
      */
     protected function _getStore()
     {
+        if ($this->_store) {
+            return $this->_store;
+        }
         $store = $this->getRequest()->getParam('store');
         try {
             if ($this->getUserType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
@@ -1049,6 +1047,7 @@ abstract class Mage_Api2_Model_Resource
             // store does not exist
             $this->_critical('Requested store is invalid', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+        $this->_store = $store;
         return $store;
     }
 }

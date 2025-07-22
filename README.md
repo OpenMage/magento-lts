@@ -23,7 +23,7 @@ See: https://docs.openmage.org/
 
 ## Sponsorship
 
-* [opencollective](https://opencollective.com/openmage) (maintained by [Daniel Fahlke](https://github.com/Flyingmana) and [Colin Mollenhour](https://github.com/colinmollenhour))
+* [opencollective](https://opencollective.com/openmage) (maintained by [Colin Mollenhour](https://github.com/colinmollenhour))
 
 ## License
 
@@ -250,6 +250,31 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ragnese"><img src="https://avatars.githubusercontent.com/u/7927565?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rob Agnese</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://www.cartware.de"><img src="https://avatars.githubusercontent.com/u/1931120?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Alexander Buch</b></sub></a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/mbattistini"><img src="https://avatars.githubusercontent.com/u/276468?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>mbattistini</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/justlife4x4"><img src="https://avatars.githubusercontent.com/u/59994040?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>justlife4x4</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fabianaromagnoli"><img src="https://avatars.githubusercontent.com/u/23638004?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Fabiana Romagnoli</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://arnaudamant.fr"><img src="https://avatars.githubusercontent.com/u/393311?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Arnaud Amant</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/matteotestoni"><img src="https://avatars.githubusercontent.com/u/34275189?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>matteotestoni</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.webgriffe.com"><img src="https://avatars.githubusercontent.com/u/1199914?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Manuele Menozzi</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/darinda"><img src="https://avatars.githubusercontent.com/u/8490373?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Rene Hrdina</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Hanmac"><img src="https://avatars.githubusercontent.com/u/225553?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Hans Mackowiak</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tim-breitenstein-it"><img src="https://avatars.githubusercontent.com/u/65597245?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tim Steinbrecher</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tomekjordan"><img src="https://avatars.githubusercontent.com/u/8250276?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Tomek</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dford-avb"><img src="https://avatars.githubusercontent.com/u/52465239?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>David Ford</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.jandolejs.cz"><img src="https://avatars.githubusercontent.com/u/16374521?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Jan Dolejš</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://twopointzero.eu"><img src="https://avatars.githubusercontent.com/u/25850269?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Nicky</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://alond.com.au/"><img src="https://avatars.githubusercontent.com/u/1549372?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>pauldpauld</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/PapaDragonov"><img src="https://avatars.githubusercontent.com/u/17141028?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>PapaDragonov</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/magentox"><img src="https://avatars.githubusercontent.com/u/44047835?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>magentox</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/stasadev"><img src="https://avatars.githubusercontent.com/u/24270994?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Stanislav Zhuk</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Axepih"><img src="https://avatars.githubusercontent.com/u/95623175?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Axepih</b></sub></a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gdemarsico"><img src="https://avatars.githubusercontent.com/u/2066819?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Gastón De Mársico</b></sub></a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://www.denisahac.xyz"><img src="https://avatars.githubusercontent.com/u/6700576?v=4" loading="lazy" width="100" alt=""/><br /><sub><b>Den Isahac</b></sub></a></td>
     </tr>
   </tbody>
 </table>

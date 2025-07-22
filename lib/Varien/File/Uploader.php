@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_File
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -20,7 +13,6 @@
  * ATTENTION! This class must be used like abstract class and must added
  * validation by protected file extension list to extended class
  *
- * @category   Varien
  * @package    Varien_File
  */
 
@@ -202,7 +194,7 @@ class Varien_File_Uploader
         $this->_result = false;
 
         $destinationFile = $destinationFolder;
-        $fileName = isset($newFileName) ? $newFileName : $this->_file['name'];
+        $fileName = $newFileName ?? $this->_file['name'];
         $fileName = self::getCorrectFileName($fileName);
         if ($this->_enableFilesDispersion) {
             $fileName = $this->correctFileNameCase($fileName);
@@ -475,7 +467,7 @@ class Varien_File_Uploader
      * Check if specified extension is allowed
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function checkAllowedExtension($extension)
     {
@@ -490,16 +482,11 @@ class Varien_File_Uploader
      * @deprecated after 1.5.0.0-beta2
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);
-    }
-
-    private function _getMimeType()
-    {
-        return $this->_file['type'];
     }
 
     private function _setUploadFileId($fileId)
@@ -511,26 +498,21 @@ class Varien_File_Uploader
         if (is_array($fileId)) {
             $this->_uploadType = self::MULTIPLE_STYLE;
             $this->_file = $fileId;
-        } else {
-            if (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
-                array_shift($file);
-                $this->_uploadType = self::MULTIPLE_STYLE;
-
-                $fileAttributes = $_FILES[$file[0]];
-                $tmp_var = [];
-
-                foreach ($fileAttributes as $attributeName => $attributeValue) {
-                    $tmp_var[$attributeName] = $attributeValue[$file[1]];
-                }
-
-                $fileAttributes = $tmp_var;
-                $this->_file = $fileAttributes;
-            } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
-                $this->_uploadType = self::SINGLE_STYLE;
-                $this->_file = $_FILES[$fileId];
-            } elseif ($fileId == '') {
-                throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
+        } elseif (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
+            array_shift($file);
+            $this->_uploadType = self::MULTIPLE_STYLE;
+            $fileAttributes = $_FILES[$file[0]];
+            $tmp_var = [];
+            foreach ($fileAttributes as $attributeName => $attributeValue) {
+                $tmp_var[$attributeName] = $attributeValue[$file[1]];
             }
+            $fileAttributes = $tmp_var;
+            $this->_file = $fileAttributes;
+        } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
+            $this->_uploadType = self::SINGLE_STYLE;
+            $this->_file = $_FILES[$fileId];
+        } elseif ($fileId == '') {
+            throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
         }
     }
 

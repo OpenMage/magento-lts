@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Media
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Media library file image resource model
  *
- * @category   Mage
  * @package    Mage_Media
  */
 class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
@@ -77,7 +69,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Create image resource for operation from file
      *
-     * @return bool|false|resource
+     * @return false|GdImage|resource
      * @throws Mage_Core_Exception
      */
     public function getImage(Mage_Media_Model_Image $object)
@@ -112,7 +104,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Create tmp image resource for operations
      *
-     * @return resource
+     * @return false|GdImage|resource
      */
     public function getTmpImage(Mage_Media_Model_Image $object)
     {
@@ -211,7 +203,7 @@ class Mage_Media_Model_File_Image extends Mage_Core_Model_Resource_Abstract
     /**
      * Destroys resource object
      *
-     * @param resource $resource
+     * @param GdImage|resource $resource
      * @return Mage_Media_Model_File_Image
      */
     public function destroyResource(&$resource)

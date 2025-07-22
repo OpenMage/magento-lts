@@ -14,7 +14,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,5 +33,20 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-*
 
+      - name: Restore result cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .phpcs.result.cache
+          key: phpcs-result-cache-${{ github.run_id }}
+          restore-keys: |
+            phpcs-result-cache-
+
       - name: PHPCodeSniffer
-        run: php vendor/bin/phpcs -s -p --report=full --standard=.phpcs.dist.xml
+        run: php vendor/bin/phpcs -s -p --cache=.phpcs.result.cache --report=full --standard=.phpcs.dist.xml
+
+      - name: Save result cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .phpcs.result.cache
+          key: phpcs-result-cache-${{ github.run_id }}

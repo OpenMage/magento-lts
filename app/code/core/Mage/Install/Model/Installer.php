@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Installer model
  *
- * @category   Mage
  * @package    Mage_Install
  */
 class Mage_Install_Model_Installer extends Varien_Object
@@ -141,9 +133,9 @@ class Mage_Install_Model_Installer extends Varien_Object
         }
 
         if (!empty($data['enable_charts'])) {
-            $setupModel->setConfigData(Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS, 1);
+            $setupModel->setConfigData(Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS, 1);
         } else {
-            $setupModel->setConfigData(Mage_Adminhtml_Block_Dashboard::XML_PATH_ENABLE_CHARTS, 0);
+            $setupModel->setConfigData(Mage_Adminhtml_Helper_Dashboard_Data::XML_PATH_ENABLE_CHARTS, 0);
         }
 
         $unsecureBaseUrl = Mage::getBaseUrl('web');
