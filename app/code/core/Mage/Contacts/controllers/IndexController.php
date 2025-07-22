@@ -7,6 +7,9 @@
  * @package    Mage_Contacts
  */
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Validation;
+
 /**
  * Contacts index controller
  *
@@ -64,17 +67,21 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
-                // check data
-                $error = false;
-                if (!Zend_Validate::is(trim($post['name']), 'NotEmpty')) {
-                    $error = true;
-                } elseif (!Zend_Validate::is(trim($post['comment']), 'NotEmpty')) {
-                    $error = true;
-                } elseif (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
-                    $error = true;
+                $validator  = Validation::createValidator();
+                $violations = [];
+                $errors = new ArrayObject();
+
+                $violations[] = $validator->validate(trim($post['name']), [new Assert\NotBlank()]);
+                $violations[] = $validator->validate(trim($post['comment']), [new Assert\NotBlank()]);
+                $violations[] = $validator->validate(trim($post['email']), [new Assert\NotBlank(), new Assert\Email()]);
+
+                foreach ($violations as $violation) {
+                    foreach ($violation as $error) {
+                        $errors->append($error->getMessage());
+                    }
                 }
 
-                if ($error) {
+                if (count($errors) !== 0) {
                     Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 

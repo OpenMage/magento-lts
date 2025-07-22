@@ -80,7 +80,6 @@ trait UserTrait
         yield 'missing api key' => [
             [
                 $errorLength,
-                $errorAlphaNumeric,
                 $errorIdentical,
             ],
             $data,
