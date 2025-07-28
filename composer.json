@@ -37,7 +37,7 @@
         "mklkj/tinymce-i18n": "^25.2",
         "nnnick/chartjs": "^4.4",
         "openmage/composer-plugin": "^3.0",
-        "pelago/emogrifier": "^7.0",
+        "pelago/emogrifier": "^8.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
