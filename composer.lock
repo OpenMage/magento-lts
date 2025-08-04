@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc23d297baa35628c2150f7facbc2ff5",
+    "content-hash": "a3b95b72632d39c4737ab83eabd26302",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -4253,16 +4253,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "7.9.1",
+            "version": "8.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "3d6219296c9a92c87337bb38fb502a469ac1167f"
+                "reference": "da439f1d4bbfaab97fb59102ad29b325b8313c70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/3d6219296c9a92c87337bb38fb502a469ac1167f",
-                "reference": "3d6219296c9a92c87337bb38fb502a469ac1167f",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/da439f1d4bbfaab97fb59102ad29b325b8313c70",
+                "reference": "da439f1d4bbfaab97fb59102ad29b325b8313c70",
                 "shasum": ""
             },
             "type": "component",
@@ -4306,9 +4306,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/7.9.1"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/8.0.1"
             },
-            "time": "2025-05-29T02:22:36+00:00"
+            "time": "2025-07-28T04:53:13+00:00"
         },
         {
             "name": "voku/portable-ascii",
