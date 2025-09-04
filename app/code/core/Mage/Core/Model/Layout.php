@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2016-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Layout model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Layout extends Varien_Simplexml_Config
@@ -365,7 +357,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         foreach ($this->invalidActions as $action) {
             if ($block instanceof $action['block'] && $action['method'] === strtolower($method)) {
                 Mage::throwException(
-                    sprintf('Action with combination block %s and method %s is forbidden.', get_class($block), $method),
+                    sprintf('Action with combination block %s and method %s is forbidden.', $block::class, $method),
                 );
             }
         }
@@ -510,7 +502,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
             }
         }
         if (!$block instanceof Mage_Core_Block_Abstract) {
-            $block = is_object($block) ? get_class($block) : $block;
+            $block = is_object($block) ? $block::class : $block;
             Mage::throwException(Mage::helper('core')->__('Invalid block type: %s (not instance of Mage_Core_Block_Abstract)', $block));
         }
         return $block;
@@ -586,7 +578,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     public function getMessagesBlock()
     {
         $block = $this->getBlock('messages');
-        if ($block) {
+        if ($block instanceof Mage_Core_Block_Messages) {
             return $block;
         }
         return $this->createBlock('core/messages', 'messages');

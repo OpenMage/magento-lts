@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity attribute model
  *
- * @category   Mage
  * @package    Mage_Eav
  *
  * @method Mage_Eav_Model_Resource_Entity_Attribute _getResource()
@@ -64,21 +56,13 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected function _getDefaultBackendModel()
     {
-        switch ($this->getAttributeCode()) {
-            case 'created_at':
-                return 'eav/entity_attribute_backend_time_created';
-
-            case 'updated_at':
-                return 'eav/entity_attribute_backend_time_updated';
-
-            case 'store_id':
-                return 'eav/entity_attribute_backend_store';
-
-            case 'increment_id':
-                return 'eav/entity_attribute_backend_increment';
-        }
-
-        return parent::_getDefaultBackendModel();
+        return match ($this->getAttributeCode()) {
+            'created_at' => 'eav/entity_attribute_backend_time_created',
+            'updated_at' => 'eav/entity_attribute_backend_time_updated',
+            'store_id' => 'eav/entity_attribute_backend_store',
+            'increment_id' => 'eav/entity_attribute_backend_increment',
+            default => parent::_getDefaultBackendModel(),
+        };
     }
 
     /**
@@ -223,34 +207,15 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     public function getBackendTypeByInput($type)
     {
         $field = null;
-        switch ($type) {
-            case 'text':
-            case 'gallery':
-            case 'media_image':
-                $field = 'varchar';
-                break;
 
-            case 'image':
-            case 'textarea':
-            case 'multiselect':
-                $field = 'text';
-                break;
-
-            case 'date':
-                $field = 'datetime';
-                break;
-
-            case 'select':
-            case 'boolean':
-                $field = 'int';
-                break;
-
-            case 'price':
-                $field = 'decimal';
-                break;
-        }
-
-        return $field;
+        return match ($type) {
+            'text', 'gallery', 'media_image' => 'varchar',
+            'image', 'textarea', 'multiselect' => 'text',
+            'date' => 'datetime',
+            'select', 'boolean' => 'int',
+            'price' => 'decimal',
+            default => $field,
+        };
     }
 
     /**

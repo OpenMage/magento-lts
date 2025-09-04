@@ -1,0 +1,29 @@
+matrix:
+  - name: Markdown
+    expect_match: false
+    apsell:
+      mode: en
+    dictionary:
+      wordlists:
+        - .github/spellcheck-usernames.txt
+        - .github/spellcheck-wordlist.txt
+      output: wordlist.dic
+      encoding: utf-8
+    pipeline:
+      - pyspelling.filters.markdown:
+          markdown_extensions:
+            - markdown.extensions.extra:
+      - pyspelling.filters.html:
+          comments: false
+          attributes:
+            - alt
+          ignores:
+            - ':matches(code, pre)'
+            - ':matches(.magiclink)'
+            - ':matches(.events-list-table + table)'
+            - 'a'
+            - 'code'
+            - 'pre'
+            - 'blockquote'
+    sources:
+      - 'docs/**/*.md'

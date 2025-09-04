@@ -184,6 +184,24 @@ nav:
                   - api/rest/resources/customers.md
           - api/rest/response_formats.md
           - api/rest/testing_rest_resources.md
+      - 'JSON-RPC':
+          - api/jsonrpc/index.md
+          - 'Resources':
+              - 'Products':
+                  - api/jsonrpc/resources/catalog_category.md
+                  - api/jsonrpc/resources/catalog_product.md
+                  - api/jsonrpc/resources/catalog_product_attribute.md
+              - 'Inventory':
+                  - api/jsonrpc/resources/cataloginventory_stock_item.md
+              - 'Customers':
+                  - api/jsonrpc/resources/customer.md
+                  - api/jsonrpc/resources/customer_group.md
+                  - api/jsonrpc/resources/customer_address.md
+              - 'Sales':
+                  - api/jsonrpc/resources/sales_order.md
+                  - api/jsonrpc/resources/sales_order_shipment.md
+                  - api/jsonrpc/resources/sales_order_creditmemo.md
+                  - api/jsonrpc/resources/sales_order_invoice.md
   - 'Development':
       - 'Installation':
           - developers/tools/ddev.md

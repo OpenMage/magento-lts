@@ -13,7 +13,15 @@ const adminPage = {
 }
 
 cy.testRoutes = {
+    api: {},
+    backendLogin: {},
     backend: {
+        dashboard: {
+            _id: '#nav-admin-dashboard',
+            url: 'dashboard/index',
+            h3: 'Dashboard',
+            _h3: adminPage._h3,
+        },
         catalog: {
             products: {
                 _id_parent: adminNav.catalog,
@@ -304,6 +312,34 @@ cy.testRoutes = {
                         }
                     },
                 },
+            }
+        }
+    },
+    frontend: {
+        homepage: {
+            url: '/',
+            newsletter: {
+                _buttonSubmit: '#newsletter-validate-detail button[type="submit"]',
+                _id: '#newsletter'
+            }
+        },
+        customer: {
+            account: {
+                create: {
+                    url: '/customer/account/create',
+                    _buttonSubmit: '#form-validate button[type="submit"]',
+                    _h1: 'h1',
+                    h1: 'Create an Account',
+                    __validation: {
+                        _input: {
+                            firstname: '#firstname',
+                            lastname: '#lastname',
+                            email_address: '#email_address',
+                            password: '#password',
+                            confirmation: '#confirmation',
+                        }
+                    }
+                }
             }
         }
     }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Helper for fetching properties by product configurational item
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstract implements Mage_Catalog_Helper_Product_Configuration_Interface
@@ -148,13 +140,11 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
     public function getOptions(Mage_Catalog_Model_Product_Configuration_Item_Interface $item)
     {
         $typeId = $item->getProduct()->getTypeId();
-        switch ($typeId) {
-            case Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE:
-                return $this->getConfigurableOptions($item);
-            case Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE:
-                return $this->getGroupedOptions($item);
-        }
-        return $this->getCustomOptions($item);
+        return match ($typeId) {
+            Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE => $this->getConfigurableOptions($item),
+            Mage_Catalog_Model_Product_Type_Grouped::TYPE_CODE => $this->getGroupedOptions($item),
+            default => $this->getCustomOptions($item),
+        };
     }
 
     /**

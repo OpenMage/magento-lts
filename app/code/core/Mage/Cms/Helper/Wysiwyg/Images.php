@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Cms
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Wysiwyg Images Helper
  *
- * @category   Mage
  * @package    Mage_Cms
  */
 class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
@@ -186,13 +178,12 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $directive = sprintf('{{media url="%s"}}', $mediaPath);
         if ($renderAsTag) {
             $html = sprintf('<img src="%s" alt="" />', $this->isUsingStaticUrlsAllowed() ? $fileurl : $directive);
+        } elseif ($this->isUsingStaticUrlsAllowed()) {
+            $html = $fileurl;
+            // $mediaPath;
         } else {
-            if ($this->isUsingStaticUrlsAllowed()) {
-                $html = $fileurl; // $mediaPath;
-            } else {
-                $directive = Mage::helper('core')->urlEncode($directive);
-                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
-            }
+            $directive = Mage::helper('core')->urlEncode($directive);
+            $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
         }
         return $html;
     }

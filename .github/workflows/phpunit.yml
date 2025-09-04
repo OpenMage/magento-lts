@@ -46,7 +46,7 @@ jobs:
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Get composer cache directory
         id: composer-cache
@@ -99,7 +99,7 @@ jobs:
             phpunit-result-cache-
 
       - name: Run phpUnit
-        run: php vendor/bin/phpunit --configuration .phpunit.dist.xml
+        run: php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien
 
       - name: Save result cache
         uses: actions/cache/save@v4
