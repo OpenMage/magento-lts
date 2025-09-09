@@ -13,6 +13,18 @@ level of backwards compatibility to the official releases.
 
 **Pull requests with bug fixes and security patches from the community are encouraged and welcome!**
 
+## Important Changes
+
+### Mage_Captcha Module Removed
+
+The legacy `Mage_Captcha` module has been removed from OpenMage LTS due to security and maintenance concerns. For CAPTCHA functionality, we recommend using modern alternatives:
+
+- **[Cloudflare Turnstile](https://github.com/fballiano/openmage-cloudflare-turnstile)** - Modern, accessible CAPTCHA alternative
+- **[Google reCaptcha](https://github.com/empiricompany/reCaptcha)** - Well-established CAPTCHA solution
+- **[HoneySpam](https://github.com/magento-hackathon/HoneySpam)** - Honey pot-based spam protection
+
+The legacy module code is preserved in the [openmage/module-mage-captcha](https://github.com/openmage/module-mage-captcha) repository for reference.
+
 ---
 
 ## Documentation

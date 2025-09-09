@@ -4,7 +4,21 @@ tags:
 - Modules
 ---
 
+---
+title: Captcha
+tags:
+- Modules
+---
+
 # Captcha modules
+
+!!! info "Mage_Captcha Module Removed"
+
+    As of OpenMage LTS, the legacy `Mage_Captcha` module has been removed due to security and maintenance concerns. We recommend using one of the modern alternatives listed below for better security and user experience.
+
+    The legacy module code is preserved in the [openmage/module-mage-captcha](https://github.com/openmage/module-mage-captcha) repository for reference purposes.
+
+## Recommended Modern Alternatives
 
 ## `fballiano/openmage-cloudflare-turnstile`
 Turnstile is a Cloudflare CAPTCHA alternative.
