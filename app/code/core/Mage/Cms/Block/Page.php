@@ -93,6 +93,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());
             $head->setDescription($page->getMetaDescription());
+            $head->addLinkRel('canonical', Mage::getUrl(null, ['_direct' => $page->getIdentifier()]));
         }
 
         return parent::_prepareLayout();
