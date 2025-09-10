@@ -445,18 +445,18 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Fedex RestAPI need a seperate project for tracking, it's different with project that collect rate.</comment>
+                            <comment>Fedex RestAPI need a separate project for tracking, it's different with project that collect rate.</comment>
                         </rest_track_key>
-                        <rest_track_secrete translate="label">
-                            <label>RestAPI Track Secrete</label>
+                        <rest_track_secret translate="label">
+                            <label>RestAPI Track Secret</label>
                             <frontend_type>obscure</frontend_type>
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <sort_order>18</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                            <comment>Fedex RestAPI need a seperate project for tracking, it's different with project that collect rate.</comment>
-                        </rest_track_secrete>
+                            <comment>Fedex RestAPI need a separate project for tracking, it's different with project that collect rate.</comment>
+                        </rest_track_secret>
                         <title translate="label">
                             <label>Title</label>
                             <sort_order>20</sort_order>
@@ -507,7 +507,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <depends><active>1</active></depends>
-                            <comment>WebService Password. For Fedex RestAPI, this is the Secrete Key</comment>
+                            <comment>WebService Password. For Fedex RestAPI, this is the Secret Key</comment>
                         </password>
                         <sandbox_mode translate="label">
                             <label>Sandbox Mode</label>

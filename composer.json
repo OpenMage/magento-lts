@@ -139,7 +139,7 @@
             "openmage/composer-plugin": true
         },
         "platform": {
-            "php": "8.1.28"
+            "php": "8.1"
         },
         "sort-packages": true
     },

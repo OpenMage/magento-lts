@@ -997,7 +997,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             if ($this->getConfigData('use_rest_api')) {
                 $this->_getRestApiTracking($tracking);
             }
-            else{
+            else {
                 $this->_getXMLTracking($tracking);
             }
         }
@@ -1661,6 +1661,9 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         // Step 1: Create an AccountNumber object
         $accountNumber = new AccountNumber(value: $this->getConfigData('account'));
 
+        // Calculate the number of boxes requested, and get the weight of the one box.  Fedex code will calculate the total price based on the number of boxes calculated here later.
+        $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
+
         // Step 2: Create a RequestedShipment object with shipment details
         $requestedShipment = new RequestedShipment(
             shipper: new RateParty(
@@ -1686,7 +1689,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                 new RequestedPackageLineItem(
                     weight: new Weight(
                         units: $this->getConfigData('unit_of_measure'),
-                        value: $this->getTotalNumOfBoxes($request->getPackageWeight()),
+                        value: $weight,
                 )),
             ],
             rateRequestType: ['ACCOUNT']  //['LIST', 'ACCOUNT']
@@ -1861,7 +1864,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         // Initialize FedEx SDK connector
         $connector = new FedEx(
             clientId: $this->getConfigData('rest_track_key'),
-            clientSecret: $this->getConfigData('rest_track_secrete'),
+            clientSecret: $this->getConfigData('rest_track_secret'),
             endpoint: $this->getConfigFlag('sandbox_mode') ? Endpoint::SANDBOX : Endpoint::PROD
         );
     
@@ -1923,7 +1926,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         // Handle delivery date and time
         if($trackInfo->dateAndTimes){
             if($trackInfo->dateAndTimes[0]->type == 'ACTUAL_DELIVERY' || $trackInfo->dateAndTimes[0]->type == 'ACTUAL_PICKUP' ||
-              $trackInfo->dateAndTimes[0]->type == 'ESTIMATED_DELIVERY' || $trackInfo->dateAndTimes[0]->type == 'ESTIMATED_DELIVERY') {
+              $trackInfo->dateAndTimes[0]->type == 'ESTIMATED_DELIVERY' || $trackInfo->dateAndTimes[0]->type == 'ESTIMATED_PICKUP') {
                 $timestamp = strtotime((string) $trackInfo->dateAndTimes[0]->dateTime);
                 $resultArray['deliverydate'] = date('Y-m-d', $timestamp);
                 $resultArray['deliverytime'] = date('H:i:s', $timestamp);
