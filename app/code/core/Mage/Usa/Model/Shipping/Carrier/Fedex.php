@@ -1157,6 +1157,18 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             }
         }
 
+        $this->_appendTrackingResult($trackingValue, $resultArray ?? null, $errorTitle ?? null);
+    }
+
+    /**
+     * Internal helper to append tracking result or error
+     *
+     * @param string $trackingValue
+     * @param array|null $resultArray
+     * @param string|null $errorTitle
+     */
+    private function _appendTrackingResult($trackingValue, $resultArray, $errorTitle)
+    {
         if (!$this->_result) {
             $this->_result = Mage::getModel('shipping/tracking_result');
         }
@@ -1993,26 +2005,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         }
         $resultArray['progressdetail'] = $packageProgress;
     
-        // Prepare tracking result
-        if (!$this->_result) {
-            $this->_result = Mage::getModel('shipping/tracking_result');
-        }
-    
-        if (isset($resultArray)) {
-            $tracking = Mage::getModel('shipping/tracking_result_status');
-            $tracking->setCarrier('fedex');
-            $tracking->setCarrierTitle($this->getConfigData('title'));
-            $tracking->setTracking($trackingValue);
-            $tracking->addData($resultArray);
-            $this->_result->append($tracking);
-        } else {
-            $error = Mage::getModel('shipping/tracking_result_error');
-            $error->setCarrier('fedex');
-            $error->setCarrierTitle($this->getConfigData('title'));
-            $error->setTracking($trackingValue);
-            $error->setErrorMessage(Mage::helper('usa')->__('Unable to retrieve tracking'));
-            $this->_result->append($error);
-        }
+        $this->_appendTrackingResult($trackingValue, $resultArray ?? null, null);
     }
 
 }
