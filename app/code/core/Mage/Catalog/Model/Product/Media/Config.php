@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product media config
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_Config_Interface
@@ -106,7 +98,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             return $this->getBaseMediaUrl() . $file;
         }
 
@@ -136,7 +128,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             $file = substr($file, 1);
         }
 
@@ -154,7 +146,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             $file = substr($file, 1);
         }
 
@@ -171,7 +163,7 @@ class Mage_Catalog_Model_Product_Media_Config implements Mage_Media_Model_Image_
     {
         $file = $this->_prepareFileForUrl($file);
 
-        if (substr($file, 0, 1) == '/') {
+        if (str_starts_with($file, '/')) {
             $file = substr($file, 1);
         }
 

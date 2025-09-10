@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Model  for flex reports
  *
- * @category   Mage
  * @package    Mage_Reports
  */
 class Mage_Reports_Model_Test extends Varien_Object
@@ -84,7 +76,7 @@ class Mage_Reports_Model_Test extends Varien_Object
         $allData = [];
         $countOfStartData = 12;
         for ($i = 1; $i <= $countOfStartData; $i++) {
-            $allData[] = ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)];
+            $allData[] = ['time' => date('Y-m-d H:i', $startPoint), 'value' => random_int(1, 100)];
             $startPoint += 30 * 60;
         }
 
@@ -107,7 +99,7 @@ class Mage_Reports_Model_Test extends Varien_Object
         $reset = 12;
 
         $newData  = [
-            ['time' => date('Y-m-d H:i', $startPoint), 'value' => rand(1, 100)],
+            ['time' => date('Y-m-d H:i', $startPoint), 'value' => random_int(1, 100)],
         ];
 
         $startPoint += 30 * 60;

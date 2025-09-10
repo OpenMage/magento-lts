@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Page
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Page
  *
  * @deprecated after 1.4.0.1
@@ -96,10 +88,8 @@ class Mage_Page_Block_Html_Toplinks extends Mage_Core_Block_Template
     protected function _toHtml()
     {
         if (is_array($this->_toplinks) && $this->_toplinks) {
-            reset($this->_toplinks);
-            $this->_toplinks[key($this->_toplinks)]['first'] = true;
-            end($this->_toplinks);
-            $this->_toplinks[key($this->_toplinks)]['last'] = true;
+            $this->_toplinks[array_key_first($this->_toplinks)]['first'] = true;
+            $this->_toplinks[array_key_last($this->_toplinks)]['last'] = true;
         }
         $this->assign('toplinks', $this->_toplinks);
         return parent::_toHtml();
