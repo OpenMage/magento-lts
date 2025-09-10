@@ -1,5 +1,4 @@
 # Make packagist / composer download smaller
-/.ddev export-ignore
 /.github export-ignore
 /dev export-ignore
 /docs export-ignore
@@ -23,6 +22,8 @@
 /CNAME export-ignore
 
 /README.md export-ignore
+
+/Makefile export-ignore
 
 # Enforce checkout with linux lf consistent over all platforms
 *.html text eol=lf
