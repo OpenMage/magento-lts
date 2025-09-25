@@ -1939,12 +1939,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Config.php
 
 		-
-			message: '#^Argument of an invalid type hasOffsetValue\(string, mixed\) supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Layer/Filter/Price.php
-
-		-
 			message: '#^Binary operation "\-" between int and non\-falsy\-string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
@@ -5449,12 +5443,6 @@ parameters:
 			path: app/design/adminhtml/default/default/template/sales/order/create/items/grid.phtml
 
 		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 1
-			path: app/design/adminhtml/default/default/template/sales/order/shipment/packaging/grid.phtml
-
-		-
 			message: '#^Access to an undefined property Mage_Adminhtml_Block_Sales_Order_Shipment_Tracking_Info\:\:\$trackingInfo\.$#'
 			identifier: property.notFound
 			count: 1
@@ -5509,20 +5497,8 @@ parameters:
 			path: app/design/adminhtml/default/default/template/system/config/form/field/csp.phtml
 
 		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 1
-			path: app/design/adminhtml/default/default/template/system/config/switcher.phtml
-
-		-
 			message: '#^Negated boolean expression is always true\.$#'
 			identifier: booleanNot.alwaysTrue
-			count: 2
-			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
-
-		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
 			count: 2
 			path: app/design/adminhtml/default/default/template/system/store/tree.phtml
 
@@ -5597,12 +5573,6 @@ parameters:
 			identifier: method.protected
 			count: 1
 			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/select.phtml
-
-		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
-			count: 1
-			path: app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/options.phtml
 
 		-
 			message: '#^Call to method escapeUrl\(\) on an unknown class Mage_Catalog_Block_Layer_Filter\.$#'
