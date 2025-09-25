@@ -1267,18 +1267,6 @@ parameters:
 			path: app/code/core/Mage/Bundle/Model/Resource/Option/Collection.php
 
 		-
-			message: '#^Property Mage_Captcha_Model_Zend\:\:\$_helper \(Mage_Captcha_Helper_Data\) in empty\(\) is not falsy\.$#'
-			identifier: empty.property
-			count: 1
-			path: app/code/core/Mage/Captcha/Model/Zend.php
-
-		-
-			message: '#^Return type \(Mage_Customer_Model_Session\) of method Mage_Captcha_Model_Zend\:\:getSession\(\) should be compatible with return type \(Zend_Session_Namespace\) of method Zend_Captcha_Word\:\:getSession\(\)$#'
-			identifier: method.childReturnType
-			count: 1
-			path: app/code/core/Mage/Captcha/Model/Zend.php
-
-		-
 			message: '#^Argument of an invalid type string supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
