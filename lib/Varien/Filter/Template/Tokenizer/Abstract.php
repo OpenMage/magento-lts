@@ -31,7 +31,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      *
      * If index out of bounds returns false
      *
-     * @return boolean
+     * @return bool
      */
     public function next()
     {
@@ -48,7 +48,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
      *
      * If index out of bounds returns false
      *
-     * @return boolean
+     * @return bool
      */
     public function prev()
     {
@@ -90,7 +90,7 @@ abstract class Varien_Filter_Template_Tokenizer_Abstract
     /**
      * Return true if current char is white-space
      *
-     * @return boolean
+     * @return bool
      */
     public function isWhiteSpace()
     {

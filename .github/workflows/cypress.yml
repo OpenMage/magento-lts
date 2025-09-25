@@ -14,7 +14,7 @@ jobs:
         webserver: ['apache-fpm', 'nginx-fpm']
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup DDEV
         uses: ddev/github-action-setup-ddev@v1
         with:

@@ -243,7 +243,7 @@ class Varien_Data_Form_Element_Editor extends Varien_Data_Form_Element_Textarea
      * Check if plugin button options have required values
      *
      * @param array $pluginOptions
-     * @return boolean
+     * @return bool
      */
     protected function _checkPluginButtonOptions($pluginOptions)
     {
