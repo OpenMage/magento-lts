@@ -721,7 +721,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 $this->_redirect('*/*/forgotpassword');
                 return;
             }
-            
+
             $flowPassword = Mage::getModel('customer/flowpassword');
             $flowPassword->setEmail($email)->save();
 
