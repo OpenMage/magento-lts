@@ -204,7 +204,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
     }
 
     /**
-     * @param array|string|integer|Mage_Core_Model_Config_Element $code
+     * @param array|string|int|Mage_Core_Model_Config_Element $code
      * @return $this
      * @throws Mage_Core_Exception
      */

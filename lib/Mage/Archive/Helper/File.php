@@ -123,7 +123,7 @@ class Mage_Archive_Helper_File
      * Read data from file
      *
      * @param int $length
-     * @return string|boolean
+     * @return string|bool
      */
     public function read($length = 4096)
     {
@@ -139,7 +139,7 @@ class Mage_Archive_Helper_File
     /**
      * Check whether end of file reached
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {
@@ -214,7 +214,7 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of EOF indicator
      *
-     * @return boolean
+     * @return bool
      */
     protected function _eof()
     {

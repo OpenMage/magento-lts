@@ -25,7 +25,7 @@ class Varien_Object_Cache
     /**
      * Running object index for anonymous objects
      *
-     * @var integer
+     * @var int
      */
     protected $_idx = 0;
 
@@ -177,7 +177,7 @@ class Varien_Object_Cache
      *
      * @param string|array $refName
      * @param string $idx
-     * @return boolean
+     * @return bool
      */
     public function reference($refName, $idx)
     {
@@ -201,7 +201,7 @@ class Varien_Object_Cache
      * Delete an object from registry
      *
      * @param string|object $idx
-     * @return boolean
+     * @return bool
      */
     public function delete($idx)
     {
@@ -278,7 +278,7 @@ class Varien_Object_Cache
      * Check whether object id exists in registry
      *
      * @param string $idx
-     * @return boolean
+     * @return bool
      */
     public function has($idx)
     {
@@ -289,7 +289,7 @@ class Varien_Object_Cache
      * Find an object id
      *
      * @param object $object
-     * @return string|boolean
+     * @return string|bool
      */
     public function find($object)
     {

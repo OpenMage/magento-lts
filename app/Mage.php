@@ -634,7 +634,7 @@ final class Mage
      *
      * @param string $module
      * @param string $message
-     * @param integer $code
+     * @param int $code
      * @return Mage_Core_Exception
      */
     public static function exception($module = 'Mage_Core', $message = '', $code = 0)

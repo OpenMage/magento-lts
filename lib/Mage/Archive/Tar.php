@@ -236,7 +236,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * Result is packed string on TAR format.
      *
      * @deprecated after 1.7.0.0
-     * @param boolean $skipRoot
+     * @param bool $skipRoot
      * @return string
      */
     protected function _packToTar($skipRoot = false)
@@ -268,8 +268,8 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Recursively walk through file tree and create tarball
      *
-     * @param boolean $skipRoot
-     * @param boolean $finalize
+     * @param bool $skipRoot
+     * @param bool $finalize
      * @throws Mage_Exception
      */
     protected function _createTar($skipRoot = false, $finalize = false)
@@ -335,7 +335,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      * method breaks header into two pieces. First contains
      * header and data with long name. Second contain only header.
      *
-     * @param boolean $long
+     * @param bool $long
      * @return string
      */
     protected function _composeHeader($long = false)
@@ -503,7 +503,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
     /**
      * Read and decode file header information from tarball
      *
-     * @return array|boolean
+     * @return array|bool
      */
     protected function _extractFileHeader()
     {
@@ -587,7 +587,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
      *
      * @param string $source
      * @param string $destination
-     * @param boolean $skipRoot
+     * @param bool $skipRoot
      * @return string
      */
     public function pack($source, $destination, $skipRoot = false)

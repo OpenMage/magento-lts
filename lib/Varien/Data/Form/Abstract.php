@@ -71,8 +71,8 @@ class Varien_Data_Form_Abstract extends Varien_Object
     /**
      * Disable elements
      *
-     * @param boolean $readonly
-     * @param boolean $useDisabled
+     * @param bool $readonly
+     * @param bool $useDisabled
      * @return $this
      */
     public function setReadonly($readonly, $useDisabled = false)
