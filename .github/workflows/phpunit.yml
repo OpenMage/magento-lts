@@ -116,7 +116,7 @@ jobs:
           files: tests/logging/*.xml
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
         continue-on-error: true
         if: ${{ (matrix.php-versions == '8.1') && (matrix.mysql-version == '5.7') }}
         with:
