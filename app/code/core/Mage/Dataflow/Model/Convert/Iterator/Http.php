@@ -33,7 +33,7 @@ class Mage_Dataflow_Model_Convert_Iterator_Http extends Mage_Dataflow_Model_Conv
             $uploader->save($path);
             if ($uploadFile = $uploader->getUploadedFileName()) {
                 $fp = fopen($uploadFile, 'rb');
-                while ($row = fgetcsv($fp)) {
+                while ($row = fgetcsv($fp, 0, ',', '"', '\\')) {
                     // check csv
                 }
                 fclose($fp);
