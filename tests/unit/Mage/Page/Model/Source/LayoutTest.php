@@ -30,6 +30,6 @@ final class LayoutTest extends OpenMageTest
      */
     public function testToOptionArray(): void
     {
-        static::assertIsArray(self::$subject->toOptionArray(true));
+        self::assertIsArray(self::$subject->toOptionArray(true));
     }
 }

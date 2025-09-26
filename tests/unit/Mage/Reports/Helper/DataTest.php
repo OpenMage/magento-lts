@@ -36,7 +36,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsModuleEnabled(): void
     {
-        static::assertTrue(self::$subject->isModuleEnabled());
+        self::assertTrue(self::$subject->isModuleEnabled());
     }
 
     /**
@@ -45,7 +45,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsReportsEnabled(): void
     {
-        static::assertTrue(self::$subject->isReportsEnabled());
+        self::assertTrue(self::$subject->isReportsEnabled());
     }
 
     /**
@@ -60,9 +60,9 @@ final class DataTest extends OpenMageTest
         }
 
         try {
-            static::assertCount($expectedResult, self::$subject->getIntervals($from, $to, $period));
+            self::assertCount($expectedResult, self::$subject->getIntervals($from, $to, $period));
         } catch (Zend_Date_Exception $exception) {
-            static::assertSame("No date part in '' found.", $exception->getMessage());
+            self::assertSame("No date part in '' found.", $exception->getMessage());
         }
     }
 
@@ -77,9 +77,9 @@ final class DataTest extends OpenMageTest
 
         try {
             self::$subject->prepareIntervalsCollection($collection, $from, $to, $period);
-            static::assertGreaterThanOrEqual(0, $collection->count());
+            self::assertGreaterThanOrEqual(0, $collection->count());
         } catch (\Zend_Date_Exception $exception) {
-            static::assertSame($expectedResult, $exception->getMessage());
+            self::assertSame($expectedResult, $exception->getMessage());
         }
     }
 }

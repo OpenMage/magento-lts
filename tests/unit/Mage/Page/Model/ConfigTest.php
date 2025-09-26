@@ -30,6 +30,6 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetPageLayoutHandles(): void
     {
-        static::assertIsArray(self::$subject->getPageLayoutHandles());
+        self::assertIsArray(self::$subject->getPageLayoutHandles());
     }
 }

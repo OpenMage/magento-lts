@@ -35,7 +35,7 @@ final class DataTest extends OpenMageTest
      */
     public function testSplitSku(array $expectedResult, string $sku, int $length = 30): void
     {
-        static::assertSame($expectedResult, self::$subject->splitSku($sku, $length));
+        self::assertSame($expectedResult, self::$subject->splitSku($sku, $length));
     }
 
     /**
@@ -43,7 +43,7 @@ final class DataTest extends OpenMageTest
      */
     public function testShouldSaveUrlRewritesHistory(): void
     {
-        static::assertIsBool(self::$subject->shouldSaveUrlRewritesHistory());
+        self::assertIsBool(self::$subject->shouldSaveUrlRewritesHistory());
     }
 
     /**
@@ -51,7 +51,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsUsingStaticUrlsAllowed(): void
     {
-        static::assertIsBool(self::$subject->isUsingStaticUrlsAllowed());
+        self::assertIsBool(self::$subject->isUsingStaticUrlsAllowed());
     }
 
     /**
@@ -59,7 +59,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsUrlDirectivesParsingAllowed(): void
     {
-        static::assertIsBool(self::$subject->isUrlDirectivesParsingAllowed());
+        self::assertIsBool(self::$subject->isUrlDirectivesParsingAllowed());
     }
 
     /**
@@ -67,7 +67,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPageTemplateProcessor(): void
     {
-        static::assertInstanceOf(Mage_Catalog_Model_Template_Filter::class, self::$subject->getPageTemplateProcessor());
+        self::assertInstanceOf(Mage_Catalog_Model_Template_Filter::class, self::$subject->getPageTemplateProcessor());
     }
 
     /**
@@ -75,6 +75,6 @@ final class DataTest extends OpenMageTest
      */
     public function testGetOldFieldMap(): void
     {
-        static::assertSame([], self::$subject->getOldFieldMap());
+        self::assertSame([], self::$subject->getOldFieldMap());
     }
 }

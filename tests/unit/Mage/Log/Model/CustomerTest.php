@@ -39,7 +39,7 @@ final class CustomerTest extends OpenMageTest
 
         $result = $mock->loadByCustomer($input);
 
-        static::assertSame($mock, $result);
+        self::assertSame($mock, $result);
     }
 
     public function loadByCustomerDataProvider(): Generator
@@ -67,11 +67,11 @@ final class CustomerTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock);
         if ($expectedResult) {
-            static::assertIsInt($mock->getLoginAtTimestamp());
+            self::assertIsInt($mock->getLoginAtTimestamp());
         } else {
-            static::assertNull($mock->getLoginAtTimestamp());
+            self::assertNull($mock->getLoginAtTimestamp());
         }
     }
 }
