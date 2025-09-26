@@ -182,6 +182,9 @@
     </global>
     <default>
         <web>
+            <seo>
+                <cms_canonical_tag>1</cms_canonical_tag>
+            </seo>
             <default>
                 <cms_home_page>home</cms_home_page>
                 <cms_no_route>no-route</cms_no_route>

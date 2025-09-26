@@ -93,11 +93,13 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());
             $head->setDescription($page->getMetaDescription());
-
-            if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'cms_index_index') {
-                $head->addLinkRel('canonical', Mage::getUrl());
-            } else {
-                $head->addLinkRel('canonical', Mage::getUrl(null, ['_direct' => $page->getIdentifier()]));
+            
+            // Add canonical tag if enabled
+            if (Mage::helper('cms')->canUseCanonicalTag()) {
+                $canonicalUrl = $this->_getCanonicalUrl($page);
+                if ($canonicalUrl) {
+                    $head->addLinkRel('canonical', $canonicalUrl);
+                }
             }
         }
 
@@ -118,5 +120,44 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         $processor = $helper->getPageTemplateProcessor();
         $html = $processor->filter($this->getPage()->getContent());
         return $this->getMessagesBlock()->toHtml() . $html;
+    }
+
+    /**
+     * Get canonical URL for CMS page
+     *
+     * @param Mage_Cms_Model_Page $page
+     * @return string|null
+     */
+    protected function _getCanonicalUrl($page)
+    {
+        if (!$page->getId()) {
+            return null;
+        }
+
+        // Check if page is active
+        if (!$page->getIsActive()) {
+            return null;
+        }
+
+        // Get the page identifier
+        $identifier = $page->getIdentifier();
+        
+        // Handle special pages differently
+        $homePageId = Mage::getStoreConfig('web/default/cms_home_page');
+        $noRoutePageId = Mage::getStoreConfig('web/default/cms_no_route');
+        $noCookiesPageId = Mage::getStoreConfig('web/default/cms_no_cookies');
+        
+        // For homepage, use base URL
+        if ($identifier === $homePageId) {
+            return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+        }
+        
+        // For special pages that shouldn't have canonical tags
+        if (in_array($identifier, [$noRoutePageId, $noCookiesPageId])) {
+            return null;
+        }
+        
+        // For regular CMS pages, use the standard CMS page URL
+        return Mage::getUrl(null, ['_direct' => $identifier, '_nosid' => true]);
     }
 }
