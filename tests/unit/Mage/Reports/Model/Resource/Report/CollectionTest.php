@@ -124,7 +124,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetReportFull(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReportFull(1, 1));
     }
@@ -134,7 +134,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetReport(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReport(1, 1));
     }
@@ -144,7 +144,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testTimeShift(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertSame(self::$subject->timeShift(''));
     }

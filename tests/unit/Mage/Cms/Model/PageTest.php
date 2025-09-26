@@ -49,7 +49,7 @@ final class PageTest extends OpenMageTest
     public function testGetCmsPageTitleByIdentifier(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
         self::assertSame('Home page', self::$subject->getCmsPageTitleByIdentifier('home'));
     }
@@ -60,7 +60,7 @@ final class PageTest extends OpenMageTest
     public function testGetCmsPageTitleById(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
         self::assertSame('Home page', self::$subject->getCmsPageTitleById(2));
     }

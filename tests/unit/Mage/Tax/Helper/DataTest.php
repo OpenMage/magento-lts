@@ -66,7 +66,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetProductPrice(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertSame('', self::$subject->getProductPrice());
     }
@@ -113,7 +113,7 @@ final class DataTest extends OpenMageTest
      */
     public function testNeedPriceConversion(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertSame(1, self::$subject->needPriceConversion());
     }
@@ -126,7 +126,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPriceFormat(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertSame('', self::$subject->getPriceFormat());
     }
@@ -137,7 +137,7 @@ final class DataTest extends OpenMageTest
     public function testGetTaxRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
         self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getTaxRatesByProductClass());
     }
@@ -148,7 +148,7 @@ final class DataTest extends OpenMageTest
     public function testGetAllRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
         self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getAllRatesByProductClass());
     }
@@ -159,7 +159,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPrice(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
         self::assertFalse(self::$subject->getPrice());
     }

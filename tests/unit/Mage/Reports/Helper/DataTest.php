@@ -56,7 +56,7 @@ final class DataTest extends OpenMageTest
     public function testGetIntervals(int|string $expectedResult, string $from, string $to, string $period): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
-            static::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
+            self::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
 
         try {

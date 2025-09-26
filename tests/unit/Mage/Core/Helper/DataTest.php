@@ -136,7 +136,7 @@ final class DataTest extends OpenMageTest
     public function testIsDevAllowed(): void
     {
         self::assertIsBool(self::$subject->isDevAllowed());
-        static::markTestIncomplete('add tests for IPS');
+        self::markTestIncomplete('add tests for IPS');
     }
 
     /**

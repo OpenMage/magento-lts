@@ -32,7 +32,7 @@ final class CustomerTest extends OpenMageTest
             ->onlyMethods(['load'])
             ->getMock();
 
-        $mock->expects(static::once())
+        $mock->expects(self::once())
             ->method('load')
             ->with($expectedCustomerId, 'customer_id')
             ->willReturnSelf();

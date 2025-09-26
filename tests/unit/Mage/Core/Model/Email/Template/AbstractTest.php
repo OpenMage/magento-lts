@@ -45,7 +45,7 @@ final class AbstractTest extends OpenMageTest
             self::assertFileDoesNotExist($filePath);
         }
 
-        static::markTestSkipped('wait...');
+        self::markTestSkipped('wait...');
         /** @phpstan-ignore deadCode.unreachable */
         self::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
     }

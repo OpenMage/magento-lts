@@ -240,7 +240,7 @@ final class ObjectTest extends TestCase
         try {
             /** @phpstan-ignore-next-line */
             $this->subject->notData();
-            static::fail('Invalid __call');
+            self::fail('Invalid __call');
         } catch (Varien_Exception $exception) {
             self::assertStringStartsWith('Invalid method', $exception->getMessage());
         }
