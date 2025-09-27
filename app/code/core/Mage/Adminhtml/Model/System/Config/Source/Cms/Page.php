@@ -12,18 +12,25 @@
  */
 class Mage_Adminhtml_Model_System_Config_Source_Cms_Page
 {
-    protected $_options;
-
     public function toOptionArray()
     {
-        if (!$this->_options) {
-            $storeId = Mage::app()->getRequest()->getParam('store', 0);
-            $collection = Mage::getResourceModel('cms/page_collection')
-                ->addFieldToFilter('is_active', 1)
-                ->addStoreFilter($storeId)
-                ->load();
-            $this->_options = $collection->toOptionIdArray();
+        $storeCode = Mage::app()->getRequest()->getParam('store');
+        $store = Mage::app()->getStore($storeCode);
+        $storeId = $store->getId();
+
+        $collection = Mage::getModel('cms/page')->getCollection()
+            ->addFieldToFilter('is_active', 1)
+            ->addStoreFilter($storeId);
+
+        $options = array();
+
+        foreach ($collection as $page) {
+            $options[] = array(
+                'value' => $page->getIdentifier(),
+                'label' => $page->getTitle()
+            );
         }
-        return $this->_options;
+
+        return $options;
     }
 }
