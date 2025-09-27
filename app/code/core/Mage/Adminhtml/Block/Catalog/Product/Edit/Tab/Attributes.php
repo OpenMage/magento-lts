@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Product attributes tab
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Adminhtml_Block_Catalog_Form
@@ -57,32 +49,21 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
 
             $this->_setFieldset($attributes, $fieldset, ['gallery']);
 
-            $urlKey = $form->getElement('url_key');
-            if ($urlKey) {
-                $urlKey->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_form_renderer_attribute_urlkey'),
-                );
-            }
+            $rendererBlocks = [
+                'url_key'           => 'adminhtml/catalog_form_renderer_attribute_urlkey',
+                'tier_price'        => 'adminhtml/catalog_product_edit_tab_price_tier',
+                'group_price'       => 'adminhtml/catalog_product_edit_tab_price_group',
+                'recurring_profile' => 'adminhtml/catalog_product_edit_tab_price_recurring',
+            ];
 
-            $tierPrice = $form->getElement('tier_price');
-            if ($tierPrice) {
-                $tierPrice->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_tier'),
-                );
-            }
-
-            $groupPrice = $form->getElement('group_price');
-            if ($groupPrice) {
-                $groupPrice->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_group'),
-                );
-            }
-
-            $recurringProfile = $form->getElement('recurring_profile');
-            if ($recurringProfile) {
-                $recurringProfile->setRenderer(
-                    $this->getLayout()->createBlock('adminhtml/catalog_product_edit_tab_price_recurring'),
-                );
+            foreach ($rendererBlocks as $elementId => $rendererBlock) {
+                $element = $form->getElement($elementId);
+                if ($element) {
+                    $renderer = $this->getLayout()->createBlock($rendererBlock);
+                    if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                        $element->setRenderer($renderer);
+                    }
+                }
             }
 
             // Add new attribute button if it is not an image tab

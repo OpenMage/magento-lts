@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -89,7 +82,6 @@
  *  ));
  * </code>
  *
- * @category   Mage
  * @package    Mage_Core
  * @see Mage_Core_Model_Input_FilterTest See this class for manual
  */
@@ -105,8 +97,8 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Add filter
      *
-     * @param string $name
-     * @param array|Zend_Filter_Interface $filter
+     * @param string|Zend_Filter_Interface $name
+     * @param string|Zend_Filter_Interface $filter
      * @param string $placement
      * @return $this
      */
@@ -123,7 +115,6 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     /**
      * Add a filter to the end of the chain
      *
-     * @param  array|Zend_Filter_Interface $filter
      * @return $this
      */
     public function appendFilter(Zend_Filter_Interface $filter)
@@ -288,7 +279,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
     protected function _getZendFilter($filterData)
     {
         $zendFilter = false;
-        if (is_object($filterData) && $filterData instanceof Zend_Filter_Interface) {
+        if ($filterData instanceof Zend_Filter_Interface) {
             $zendFilter = $filterData;
         } elseif (isset($filterData['model'])) {
             $zendFilter = $this->_createCustomZendFilter($filterData);

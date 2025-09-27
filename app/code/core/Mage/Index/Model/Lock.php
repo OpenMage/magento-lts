@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Lock model
  *
- * @category   Mage
  * @package    Mage_Index
  */
 class Mage_Index_Model_Lock
@@ -267,7 +259,9 @@ class Mage_Index_Model_Lock
     {
         if (!$this->_storage instanceof Mage_Index_Model_Lock_Storage_Interface) {
             $config = Mage::getConfig()->getNode(self::STORAGE_CONFIG_PATH);
-            $this->_storage = Mage::getModel($config->model);
+            /** @var Mage_Index_Model_Lock_Storage_Interface $model */
+            $model = Mage::getModel($config->model);
+            $this->_storage = $model;
         }
         return $this->_storage;
     }

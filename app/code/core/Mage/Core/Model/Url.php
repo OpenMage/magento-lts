@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -62,7 +55,6 @@
  * - G: route_path
  * - H: route_url
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method $this setType(string $value)
@@ -505,7 +497,7 @@ class Mage_Core_Model_Url extends Varien_Object
                     $routePath .= $key . '/' . $value . '/';
                 }
             }
-            if ($routePath != '' && substr($routePath, -1, 1) !== '/') {
+            if ($routePath != '' && !str_ends_with($routePath, '/')) {
                 $routePath .= '/';
             }
             $this->setData('route_path', $routePath);
@@ -1008,7 +1000,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery($escapeQuery);
         if ($query) {
-            $mark = (strpos($url, '?') === false) ? '?' : ($escapeQuery ? '&amp;' : '&');
+            $mark = (!str_contains($url, '?')) ? '?' : ($escapeQuery ? '&amp;' : '&');
             $url .= $mark . $query;
         }
 
@@ -1186,16 +1178,14 @@ class Mage_Core_Model_Url extends Varien_Object
                 . $session->getSessionIdQueryParam()
                 . '=' . $session->getEncryptedSessionId()
                 . ($match[3] ?? '');
-        } else {
-            if ($match[1] == '?' && isset($match[3])) {
-                return '?';
-            } elseif ($match[1] == '?' && !isset($match[3])) {
-                return '';
-            } elseif (($match[1] == '&amp;' || $match[1] == '&') && !isset($match[3])) {
-                return '';
-            } elseif (($match[1] == '&amp;' || $match[1] == '&') && isset($match[3])) {
-                return $match[3];
-            }
+        } elseif ($match[1] == '?' && isset($match[3])) {
+            return '?';
+        } elseif ($match[1] == '?' && !isset($match[3])) {
+            return '';
+        } elseif (($match[1] == '&amp;' || $match[1] == '&') && !isset($match[3])) {
+            return '';
+        } elseif (($match[1] == '&amp;' || $match[1] == '&') && isset($match[3])) {
+            return $match[3];
         }
         return '';
     }
@@ -1240,7 +1230,7 @@ class Mage_Core_Model_Url extends Varien_Object
 
         $query = $this->getQuery(false);
         if ($query) {
-            $url .= (strpos($url, '?') === false ? '?' : '&') . $query;
+            $url .= (!str_contains($url, '?') ? '?' : '&') . $query;
         }
 
         return $url;
