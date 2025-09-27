@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Dataflow
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Convert csv parser
  *
- * @category   Mage
  * @package    Mage_Dataflow
  */
 class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert_Parser_Abstract
@@ -241,10 +233,10 @@ class Mage_Dataflow_Model_Convert_Parser_Csv extends Mage_Dataflow_Model_Convert
             if (str_contains($value, $delimiter) ||
                 empty($enclosure) ||
                 str_contains($value, $enclosure) ||
-                strpos($value, "\n") !== false ||
-                strpos($value, "\r") !== false ||
-                strpos($value, "\t") !== false ||
-                strpos($value, ' ') !== false
+                str_contains($value, "\n") ||
+                str_contains($value, "\r") ||
+                str_contains($value, "\t") ||
+                str_contains($value, ' ')
             ) {
                 $str2 = $enclosure;
                 $escaped = 0;

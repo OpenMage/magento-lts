@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order create model
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method int getSendConfirmation()
@@ -907,7 +899,7 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
                             Mage::helper('adminhtml')->__('There is an error in one of the option rows.'),
                         );
                     }
-                    list($label, $value) = explode(':', $additionalOption, 2);
+                    [$label, $value] = explode(':', $additionalOption, 2);
                 } catch (Exception $e) {
                     Mage::throwException(Mage::helper('adminhtml')->__('There is an error in one of the option rows.'));
                 }
@@ -1618,15 +1610,13 @@ class Mage_Adminhtml_Model_Sales_Order_Create extends Varien_Object implements M
             $method = $this->getQuote()->getPayment()->getMethodInstance();
             if (!$method) {
                 $this->_errors[] = Mage::helper('adminhtml')->__('Payment method instance is not available.');
+            } elseif (!$method->isAvailable($this->getQuote())) {
+                $this->_errors[] = Mage::helper('adminhtml')->__('Payment method is not available.');
             } else {
-                if (!$method->isAvailable($this->getQuote())) {
-                    $this->_errors[] = Mage::helper('adminhtml')->__('Payment method is not available.');
-                } else {
-                    try {
-                        $method->validate();
-                    } catch (Mage_Core_Exception $e) {
-                        $this->_errors[] = $e->getMessage();
-                    }
+                try {
+                    $method->validate();
+                } catch (Mage_Core_Exception $e) {
+                    $this->_errors[] = $e->getMessage();
                 }
             }
         }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * DHL International (API v1.4)
  *
- * @category   Mage
  * @package    Mage_Usa
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract implements Mage_Shipping_Model_Carrier_Interface
@@ -911,16 +903,14 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $responseError =  Mage::helper('usa')->__('The response is in wrong format.');
 
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (in_array($xml->getName(), ['ErrorResponse', 'ShipmentValidateErrorResponse'])
-                        || isset($xml->GetQuoteResponse->Note->Condition)
-                    ) {
+                        || isset($xml->GetQuoteResponse->Note->Condition)) {
                         $code = null;
                         $data = null;
                         $nodeCondition = $xml->Response->Status->Condition ?? $xml->GetQuoteResponse->Note->Condition;
-
                         if ($this->_isShippingLabelFlag) {
                             foreach ($nodeCondition as $condition) {
                                 $code = isset($condition->ConditionCode) ? (string) $condition->ConditionCode : 0;
@@ -931,28 +921,25 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                             }
                             Mage::throwException(Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data)));
                         }
-
                         $code = isset($nodeCondition->ConditionCode) ? (string) $nodeCondition->ConditionCode : 0;
                         $data = isset($nodeCondition->ConditionData) ? (string) $nodeCondition->ConditionData : '';
                         $this->_errors[$code] = Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data));
-                    } else {
-                        if (isset($xml->GetQuoteResponse->BkgDetails->QtdShp)) {
-                            foreach ($xml->GetQuoteResponse->BkgDetails->QtdShp as $quotedShipment) {
-                                $this->_addRate($quotedShipment);
-                            }
-                        } elseif (isset($xml->AirwayBillNumber)) {
-                            $result = new Varien_Object();
-                            $result->setTrackingNumber((string) $xml->AirwayBillNumber);
-                            try {
-                                $labelContent = (string) $xml->LabelImage->OutputImage;
-                                $result->setShippingLabelContent(base64_decode($labelContent));
-                            } catch (Exception $e) {
-                                Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
-                            }
-                            return $result;
-                        } else {
-                            $this->_errors[] = $responseError;
+                    } elseif (isset($xml->GetQuoteResponse->BkgDetails->QtdShp)) {
+                        foreach ($xml->GetQuoteResponse->BkgDetails->QtdShp as $quotedShipment) {
+                            $this->_addRate($quotedShipment);
                         }
+                    } elseif (isset($xml->AirwayBillNumber)) {
+                        $result = new Varien_Object();
+                        $result->setTrackingNumber((string) $xml->AirwayBillNumber);
+                        try {
+                            $labelContent = (string) $xml->LabelImage->OutputImage;
+                            $result->setShippingLabelContent(base64_decode($labelContent));
+                        } catch (Exception $e) {
+                            Mage::throwException(Mage::helper('usa')->__($e->getMessage()));
+                        }
+                        return $result;
+                    } else {
+                        $this->_errors[] = $responseError;
                     }
                 }
             } else {

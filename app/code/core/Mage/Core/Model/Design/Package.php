@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Design_Package
@@ -39,7 +31,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Current Store for generation ofr base_dir and base_url
      *
-     * @var string|integer|Mage_Core_Model_Store
+     * @var string|int|Mage_Core_Model_Store
      */
     protected $_store = null;
 
@@ -125,7 +117,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Retrieve store
      *
-     * @return string|integer|Mage_Core_Model_Store
+     * @return string|int|Mage_Core_Model_Store
      */
     public function getStore()
     {
@@ -359,8 +351,10 @@ class Mage_Core_Model_Design_Package
     {
         $params['_type'] = 'skin';
         $this->updateParamDefaults($params);
-        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null)
-            . $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        $urlPath = $params['_area'] . '/' . $params['_package'] . '/' . $params['_theme'] . '/';
+        // Prevent XSS through malformed configuration
+        $urlPath = htmlspecialchars($urlPath, ENT_HTML5 | ENT_QUOTES, 'UTF-8');
+        return Mage::getBaseUrl('skin', isset($params['_secure']) ? (bool) $params['_secure'] : null) . $urlPath;
     }
 
     /**
@@ -394,19 +388,11 @@ class Mage_Core_Model_Design_Package
      */
     protected function _renderFilename($file, array $params)
     {
-        switch ($params['_type']) {
-            case 'skin':
-                $dir = $this->getSkinBaseDir($params);
-                break;
-
-            case 'locale':
-                $dir = $this->getLocaleBaseDir($params);
-                break;
-
-            default:
-                $dir = $this->getBaseDir($params);
-                break;
-        }
+        $dir = match ($params['_type']) {
+            'skin' => $this->getSkinBaseDir($params),
+            'locale' => $this->getLocaleBaseDir($params),
+            default => $this->getBaseDir($params),
+        };
         return $dir . DS . $file;
     }
 
@@ -524,7 +510,8 @@ class Mage_Core_Model_Design_Package
         }
         $this->updateParamDefaults($params);
         if (!empty($file)) {
-            $result = $this->_fallback(
+            // This updates $params with the base package and default theme if the file is not found
+            $this->_fallback(
                 $file,
                 $params,
                 $this->_fallback->getFallbackScheme(
@@ -584,7 +571,7 @@ class Mage_Core_Model_Design_Package
         $dir = opendir($path);
         if ($dir) {
             while ($entry = readdir($dir)) {
-                if (substr($entry, 0, 1) == '.' || !is_dir($path . DS . $entry)) {
+                if (str_starts_with($entry, '.') || !is_dir($path . DS . $entry)) {
                     continue;
                 }
                 if ($fullPath) {

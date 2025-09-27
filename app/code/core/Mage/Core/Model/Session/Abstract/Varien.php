@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Core
  *
  * @method bool|null getSkipEmptySessionCheck()
@@ -114,6 +106,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             'domain'   => $cookie->getConfigDomain(),
             'secure'   => $cookie->isSecure(),
             'httponly' => $cookie->getHttponly(),
+            'samesite' => $cookie->getSameSite(),
         ];
 
         if (!$cookieParams['httponly']) {
@@ -130,7 +123,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $cookieParams['domain'] = $cookie->getDomain();
         }
 
-        call_user_func_array('session_set_cookie_params', array_values($cookieParams));
+        session_set_cookie_params($cookieParams);
 
         if (!empty($sessionName)) {
             $this->setSessionName($sessionName);
@@ -203,7 +196,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
                 $currentCookieDomain = $cookie->getDomain();
                 foreach (array_keys($sessionHosts) as $host) {
                     // Delete cookies with the same name for parent domains
-                    if (strpos($currentCookieDomain, $host) > 0) {
+                    if (strpos($currentCookieDomain, (string) $host) > 0) {
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $cookie->delete($this->getSessionName(), null, $host);
                     }

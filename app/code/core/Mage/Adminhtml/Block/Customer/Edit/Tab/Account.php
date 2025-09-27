@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Customer account form block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Block_Widget_Form
@@ -165,7 +157,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                             ->__('Password must be at least of %d characters.', $minPasswordLength),
                     ],
                 );
-                $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
+
+                $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
+                if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                    $field->setRenderer($renderer);
+                }
 
                 // Prepare customer confirmation control (only for existing customers)
                 $confirmationKey = $customer->getConfirmation();
@@ -202,7 +198,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                             'required' => true,
                         ],
                     );
-                    $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_adminpass'));
+
+                    $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_adminpass');
+                    if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                        $field->setRenderer($renderer);
+                    }
                 }
             }
         } else {
@@ -222,7 +222,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                         ->__('Password must be at least of %d characters.', $minPasswordLength),
                 ],
             );
-            $field->setRenderer($this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass'));
+
+            $renderer = $this->getLayout()->createBlock('adminhtml/customer_edit_renderer_newpass');
+            if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+                $field->setRenderer($renderer);
+            }
 
             // Prepare send welcome email checkbox
             $fieldset->addField('sendemail', 'checkbox', [

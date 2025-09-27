@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Unserialize
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Unserialize_Reader
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -38,11 +32,11 @@ class Unserialize_Reader_Arr
      */
     protected $_reader = null;
 
-    const READING_LENGTH = 1;
-    const FINISHED_LENGTH = 2;
-    const READING_KEY = 3;
-    const READING_VALUE = 4;
-    const FINISHED_ARR = 5;
+    public const READING_LENGTH = 1;
+    public const FINISHED_LENGTH = 2;
+    public const READING_KEY = 3;
+    public const READING_VALUE = 4;
+    public const FINISHED_ARR = 5;
 
     /**
      * @param $char
@@ -52,7 +46,7 @@ class Unserialize_Reader_Arr
      */
     public function read($char, $prevChar)
     {
-        $this->_result = !is_null($this->_result) ? $this->_result : array();
+        $this->_result = !is_null($this->_result) ? $this->_result : [];
 
         if (is_null($this->_status) && $prevChar == Unserialize_Parser::SYMBOL_COLON) {
             $this->_length .= $char;
@@ -62,7 +56,7 @@ class Unserialize_Reader_Arr
 
         if ($this->_status == self::READING_LENGTH) {
             if ($char == Unserialize_Parser::SYMBOL_COLON) {
-                $this->_length = (int)$this->_length;
+                $this->_length = (int) $this->_length;
                 if ($this->_length == 0) {
                     $this->_status = self::FINISHED_ARR;
                     return null;

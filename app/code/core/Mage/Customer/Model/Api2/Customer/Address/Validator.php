@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 class for customer address rest
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Model_Resource_Validator_Eav
@@ -96,12 +88,10 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
                 $this->_addError('"State/Province" is required.');
                 return false;
             }
-
             if (!is_string($data['region'])) {
                 $this->_addError('Invalid "State/Province" type.');
                 return false;
             }
-
             $count = $regions->addFieldToFilter(['default_name', 'code'], [$data['region'], $data['region']])
                 ->clear()
                 ->count();
@@ -109,11 +99,9 @@ class Mage_Customer_Model_Api2_Customer_Address_Validator extends Mage_Api2_Mode
                 $this->_addError('State/Province does not exist.');
                 return false;
             }
-        } else {
-            if (array_key_exists('region', $data) && !is_string($data['region'])) {
-                $this->_addError('Invalid "State/Province" type.');
-                return false;
-            }
+        } elseif (array_key_exists('region', $data) && !is_string($data['region'])) {
+            $this->_addError('Invalid "State/Province" type.');
+            return false;
         }
 
         return true;
