@@ -1,56 +1,45 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 
-use Mage;
-use Mage_Adminhtml_Block_Cache;
-use PHPUnit\Framework\TestCase;
+use Mage_Adminhtml_Block_Cache as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class CacheTest extends TestCase
+final class CacheTest extends OpenMageTest
 {
-    public Mage_Adminhtml_Block_Cache $subject;
+    private static Subject $subject;
 
     public function setUp(): void
     {
-        Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_Cache();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetFlushStorageUrl(): void
     {
-        $this->assertStringStartsWith('http', $this->subject->getFlushStorageUrl());
+        static::assertStringStartsWith('http', self::$subject->getFlushStorageUrl());
     }
 
     /**
-     * @group Mage_Adminhtml
-     * @group Mage_Adminhtml_Block
+     * @group Block
      * @group runInSeparateProcess
      * @runInSeparateProcess
      */
     public function testGetFlushSystemUrl(): void
     {
-        $this->assertStringStartsWith('http', $this->subject->getFlushSystemUrl());
+        static::assertStringStartsWith('http', self::$subject->getFlushSystemUrl());
     }
 }

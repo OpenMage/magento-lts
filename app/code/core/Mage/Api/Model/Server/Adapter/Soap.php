@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice soap adapter
  *
- * @category   Mage
  * @package    Mage_Api
  */
 class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_Api_Model_Server_Adapter_Interface
@@ -32,7 +24,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
     /**
      * Soap server
      *
-     * @var SoapServer
+     * @var Zend_Soap_Server
      */
     protected $_soap = null;
 
@@ -160,9 +152,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                             $this->_soap->handle(),
                         ),
                     );
-            } catch (Zend_Soap_Server_Exception $e) {
-                $this->fault($e->getCode(), $e->getMessage());
-            } catch (Exception $e) {
+            } catch (Zend_Soap_Server_Exception|Exception $e) {
                 $this->fault($e->getCode(), $e->getMessage());
             }
         }
@@ -265,7 +255,7 @@ class Mage_Api_Model_Server_Adapter_Soap extends Varien_Object implements Mage_A
                     ['encoding' => $apiConfigCharset],
                 );
             } catch (SoapFault $e) {
-                if (strpos($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'") !== false) {
+                if (str_contains($e->getMessage(), "can't import schema from 'http://schemas.xmlsoap.org/soap/encoding/'")) {
                     $retry = true;
                     sleep(1);
                 } else {

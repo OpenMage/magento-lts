@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Simplexml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Base class for simplexml based configurations
  *
- * @category   Varien
  * @package    Varien_Simplexml
  */
 class Varien_Simplexml_Config
@@ -50,7 +42,7 @@ class Varien_Simplexml_Config
     protected $_cacheChecksum = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $_cacheSaved = false;
 
@@ -168,7 +160,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setCacheSaved($flag)
@@ -396,7 +388,7 @@ class Varien_Simplexml_Config
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int|boolean $lifetime
+     * @param int|bool $lifetime
      * @return bool
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -481,7 +473,7 @@ class Varien_Simplexml_Config
      *
      * @param string $path separated by slashes
      * @param string $value
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return $this
      */
     public function setNode($path, $value, $overwrite = true)
@@ -525,7 +517,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return $this
      */
     public function extend(Varien_Simplexml_Config $config, $overwrite = true)

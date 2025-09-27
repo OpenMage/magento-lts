@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml grid widget block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method $this setSortable(bool $value)
@@ -25,6 +17,12 @@
  */
 class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 {
+    public const PATTERN_SEVERITY           = '<span class="%s"><span>%s</span></span>';
+    public const CSS_SEVERITY_CRITICAL      = 'grid-severity-critical';
+    public const CSS_SEVERITY_MAJOR         = 'grid-severity-major';
+    public const CSS_SEVERITY_MINOR         = 'grid-severity-minor';
+    public const CSS_SEVERITY_NOTICE        = 'grid-severity-notice';
+
     /**
      * Columns array
      *
@@ -345,7 +343,10 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         $config = $this->getConfigDefaultColumnSettings();
         $columnHasIndex = array_key_exists('index', $column);
-        if ($columnHasIndex && array_key_exists($column['index'], $config['index'])) {
+        if ($columnHasIndex &&
+            !is_array($column['index']) &&
+            array_key_exists($column['index'], $config['index'])
+        ) {
             $column += $config['index'][$column['index']];
         }
 
@@ -479,9 +480,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
                 $this->_columns = array_combine($keys, $values);
             }
         }
-
-        end($this->_columns);
-        $this->_lastColumnId = key($this->_columns);
+        $this->_lastColumnId = array_key_last($this->_columns);
         return $this;
     }
 
@@ -1804,7 +1803,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
 
     /**
      * @param string|object $column
-     * @param string $value
+     * @param string|bool $value
      * @return bool|$this
      */
     public function isColumnGrouped($column, $value = null)

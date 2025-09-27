@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product attribute api
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Resource
@@ -289,46 +281,32 @@ class Mage_Catalog_Model_Product_Attribute_Api extends Mage_Catalog_Model_Api_Re
         }
 
         // set additional fields to different types
-        switch ($model->getFrontendInput()) {
-            case 'text':
-                $result['additional_fields'] = [
-                    'frontend_class' => $model->getFrontendClass(),
-                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                    'used_for_sort_by' => $model->getUsedForSortBy(),
-                ];
-                break;
-            case 'textarea':
-                $result['additional_fields'] = [
-                    'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
-                    'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
-                ];
-                break;
-            case 'date':
-            case 'boolean':
-                $result['additional_fields'] = [
-                    'used_for_sort_by' => $model->getUsedForSortBy(),
-                ];
-                break;
-            case 'multiselect':
-                $result['additional_fields'] = [
-                    'is_filterable' => $model->getIsFilterable(),
-                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                    'position' => $model->getPosition(),
-                ];
-                break;
-            case 'select':
-            case 'price':
-                $result['additional_fields'] = [
-                    'is_filterable' => $model->getIsFilterable(),
-                    'is_filterable_in_search' => $model->getIsFilterableInSearch(),
-                    'position' => $model->getPosition(),
-                    'used_for_sort_by' => $model->getUsedForSortBy(),
-                ];
-                break;
-            default:
-                $result['additional_fields'] = [];
-                break;
-        }
+        $result['additional_fields'] = match ($model->getFrontendInput()) {
+            'text' => [
+                'frontend_class' => $model->getFrontendClass(),
+                'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+                'used_for_sort_by' => $model->getUsedForSortBy(),
+            ],
+            'textarea' => [
+                'is_wysiwyg_enabled' => $model->getIsWysiwygEnabled(),
+                'is_html_allowed_on_front' => $model->getIsHtmlAllowedOnFront(),
+            ],
+            'date', 'boolean' => [
+                'used_for_sort_by' => $model->getUsedForSortBy(),
+            ],
+            'multiselect' => [
+                'is_filterable' => $model->getIsFilterable(),
+                'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                'position' => $model->getPosition(),
+            ],
+            'select', 'price' => [
+                'is_filterable' => $model->getIsFilterable(),
+                'is_filterable_in_search' => $model->getIsFilterableInSearch(),
+                'position' => $model->getPosition(),
+                'used_for_sort_by' => $model->getUsedForSortBy(),
+            ],
+            default => [],
+        };
 
         // set options
         $options = $this->options($model->getId());
