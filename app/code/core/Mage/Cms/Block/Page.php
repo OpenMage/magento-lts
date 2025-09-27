@@ -124,9 +124,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
     /**
      * Get canonical URL for CMS page
-     *
-     * @param Mage_Cms_Model_Page $page
-     * @return string|null
      */
     protected function getCanonicalUrl(Mage_Cms_Model_Page $page): ?string
     {

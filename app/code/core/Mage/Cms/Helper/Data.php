@@ -74,7 +74,6 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
      * Check if <link rel="canonical"> can be used for CMS pages
      *
      * @param int|string|null|Mage_Core_Model_Store $store
-     * @return bool
      */
     public function canUseCanonicalTag($store = null): bool
     {
