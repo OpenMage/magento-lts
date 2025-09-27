@@ -7,18 +7,18 @@
  * @package    Mage_Usa
  */
 
- use ShipStream\FedEx\FedEx;
- use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\FullSchemaQuoteRate;
- use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\AccountNumber;
- use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\RequestedShipment;
- use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\RateParty;
- use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\Address;
- use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\RequestedPackageLineItem;
- use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\Weight;
- use ShipStream\FedEx\Enums\Endpoint;
- use ShipStream\FedEx\Api\TrackV1\Dto\FullSchemaTrackingNumbers;
- use ShipStream\FedEx\Api\TrackV1\Dto\TrackingInfo;
- use ShipStream\FedEx\Api\TrackV1\Dto\TrackingNumberInfo;
+use ShipStream\FedEx\FedEx;
+use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\FullSchemaQuoteRate;
+use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\AccountNumber;
+use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\RequestedShipment;
+use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\RateParty;
+use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\Address;
+use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\RequestedPackageLineItem;
+use ShipStream\FedEx\Api\RatesAndTransitTimesV1\Dto\Weight;
+use ShipStream\FedEx\Enums\Endpoint;
+use ShipStream\FedEx\Api\TrackV1\Dto\FullSchemaTrackingNumbers;
+use ShipStream\FedEx\Api\TrackV1\Dto\TrackingInfo;
+use ShipStream\FedEx\Api\TrackV1\Dto\TrackingNumberInfo;
  
 /**
  * Fedex shipping implementation
@@ -1665,7 +1665,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $this->_request = $request;
 
         // Step 1: Create an AccountNumber object
-        $accountNumber = new AccountNumber(value: $this->getConfigData('account'));
+        $accountNumber = new AccountNumber($this->getConfigData('account'));
 
         // Calculate the number of boxes requested, and get the weight of the one box.  Fedex code will calculate the total price based on the number of boxes calculated here later.
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
@@ -1769,8 +1769,8 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
                     $error->setErrorMessage($this->getConfigData('specificerrmsg'));
                     $this->_result->append($error);
                 } else {
-                    // Optional: wait before retrying
-                    sleep(1);
+                    // Optional: wait before retrying with exponential backoff (max 32 seconds)
+                    sleep(min(32, pow(2, $attempt)));
                 }
             }
         }
@@ -1842,7 +1842,12 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
             if($storeCurrencyCode != $currencyCode){    
                 $currencyStore = Mage::getModel('directory/currency')->load($storeCurrencyCode);
                 $currencyCurrent = Mage::getModel('directory/currency')->load($currencyCode);
-                $rate = round($rate / $currencyStore->getRate($currencyCurrent));
+                $exchangeRate = $currencyStore->getRate($currencyCurrent);
+                if ($exchangeRate === null || $exchangeRate <= 0) {
+                    // Skip this rate detail if exchange rate is invalid
+                    continue;
+                }
+                $rate = round($rate / $exchangeRate);
             }
             
             $method = Mage::getModel('shipping/rate_result_method');
@@ -1930,7 +1935,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $resultArray['service'] = (string)$trackInfo->serviceDetail->description;
     
         // Handle delivery date and time
-        if($trackInfo->dateAndTimes){
+        if($trackInfo->dateAndTimes && count($trackInfo->dateAndTimes) > 0){
             if($trackInfo->dateAndTimes[0]->type == 'ACTUAL_DELIVERY' || $trackInfo->dateAndTimes[0]->type == 'ACTUAL_PICKUP' ||
               $trackInfo->dateAndTimes[0]->type == 'ESTIMATED_DELIVERY' || $trackInfo->dateAndTimes[0]->type == 'ESTIMATED_PICKUP') {
                 $timestamp = strtotime((string) $trackInfo->dateAndTimes[0]->dateTime);
