@@ -403,7 +403,7 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set the _allowRenameFiles value
+     * Used to set the @see _allowRenameFiles value
      *
      * @param mixed $flag
      * @access public
