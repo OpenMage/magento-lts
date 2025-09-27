@@ -18,6 +18,7 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     public const XML_NODE_BLOCK_TEMPLATE_FILTER    = 'global/cms/block/tempate_filter';
     public const XML_NODE_ALLOWED_STREAM_WRAPPERS  = 'global/cms/allowed_stream_wrappers';
     public const XML_NODE_ALLOWED_MEDIA_EXT_SWF    = 'adminhtml/cms/browser/extensions/media_allowed/swf';
+    public const XML_PATH_USE_CMS_CANONICAL_TAG    = 'web/seo/cms_canonical_tag';
 
     protected $_moduleName = 'Mage_Cms';
 
@@ -67,5 +68,15 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     public function isSwfDisabled()
     {
         return true;
+    }
+
+    /**
+     * Check if <link rel="canonical"> can be used for CMS pages
+     *
+     * @param int|string|null|Mage_Core_Model_Store $store
+     */
+    public function canUseCanonicalTag($store = null): bool
+    {
+        return Mage::getStoreConfigFlag(self::XML_PATH_USE_CMS_CANONICAL_TAG, $store);
     }
 }
