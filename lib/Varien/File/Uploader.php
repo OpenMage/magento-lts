@@ -416,7 +416,7 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set the _enableFilesDispersion value
+     * Used to set the @see _enableFilesDispersion value
      *
      * @param mixed $flag
      * @access public
