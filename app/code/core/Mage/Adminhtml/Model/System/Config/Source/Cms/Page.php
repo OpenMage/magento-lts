@@ -17,8 +17,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Page
     public function toOptionArray()
     {
         if (!$this->_options) {
-            $this->_options = Mage::getResourceModel('cms/page_collection')
-                ->load()->toOptionIdArray();
+            $storeId = Mage::app()->getRequest()->getParam('store', 0);
+            $collection = Mage::getResourceModel('cms/page_collection')
+                ->addFieldToFilter('is_active', 1)
+                ->addStoreFilter($storeId)
+                ->load();
+            $this->_options = $collection->toOptionIdArray();
         }
         return $this->_options;
     }
