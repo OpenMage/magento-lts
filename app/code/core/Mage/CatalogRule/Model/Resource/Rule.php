@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog rules resource model
  *
- * @category   Mage
  * @package    Mage_CatalogRule
  */
 class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract
@@ -219,14 +211,14 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                             'cg.customer_group_id',
                             'p.entity_id',
                             new Zend_Db_Expr($rule->getId()),
-                            new Zend_Db_Expr($fromTime),
-                            new Zend_Db_Expr($toTime),
+                            new Zend_Db_Expr((string) $fromTime),
+                            new Zend_Db_Expr((string) $toTime),
                             new Zend_Db_Expr("'" . $actionOperator . "'"),
-                            new Zend_Db_Expr($actionAmount),
-                            new Zend_Db_Expr($actionStop),
-                            new Zend_Db_Expr($sortOrder),
+                            new Zend_Db_Expr((string) $actionAmount),
+                            new Zend_Db_Expr((string) $actionStop),
+                            new Zend_Db_Expr((string) $sortOrder),
                             new Zend_Db_Expr("'" . $subActionOperator . "'"),
-                            new Zend_Db_Expr($subActionAmount),
+                            new Zend_Db_Expr((string) $subActionAmount),
                         ]);
 
                     // phpcs:ignore Ecg.Performance.Loop.ArraySize

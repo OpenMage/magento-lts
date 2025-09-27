@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Recurring profile editing form
  * Can work in scope of product edit form
  *
- * @category   Mage
  * @package    Mage_Sales
  */
 class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminhtml_Block_Abstract
@@ -104,9 +96,16 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();
-        $form::setFieldsetRenderer($this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset'));
-        $form::setFieldsetElementRenderer($this->getLayout()
-            ->createBlock('adminhtml/widget_form_renderer_fieldset_element'));
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetRenderer($renderer);
+        }
+
+        $renderer = $this->getLayout()->createBlock('adminhtml/widget_form_renderer_fieldset_element');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $form::setFieldsetElementRenderer($renderer);
+        }
 
         /**
          * if there is a parent element defined, it will be replaced by a hidden element with the same name

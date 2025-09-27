@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule condition data model
  *
- * @category   Mage
  * @package    Mage_Rule
  *
  * @method string|false getAttribute()
@@ -508,12 +500,20 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
             }
         }
-        return $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__attribute', 'select', [
+
+        $element = $this->getForm()->addField($this->getPrefix() . '__' . $this->getId() . '__attribute', 'select', [
             'name'       => 'rule[' . $this->getPrefix() . '][' . $this->getId() . '][attribute]',
             'values'     => $this->getAttributeSelectOptions(),
             'value'      => $this->getAttribute(),
             'value_name' => $this->getAttributeName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/editable'));
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**
@@ -548,7 +548,11 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             'value'         => $this->getOperator(),
             'value_name'    => $this->getOperatorName(),
         ]);
-        $element->setRenderer(Mage::getBlockSingleton('rule/editable'));
+
+        $renderer = Mage::getBlockSingleton('rule/editable');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
 
         return $element;
     }
@@ -717,12 +721,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     } else {
                         return false;
                     }
+                } elseif (is_array($validatedValue)) {
+                    $result = count($validatedValue) == 1 && array_shift($validatedValue) == $value;
                 } else {
-                    if (is_array($validatedValue)) {
-                        $result = count($validatedValue) == 1 && array_shift($validatedValue) == $value;
-                    } else {
-                        $result = $this->_compareValues($validatedValue, $value);
-                    }
+                    $result = $this->_compareValues($validatedValue, $value);
                 }
                 break;
 
@@ -748,7 +750,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             case '!{}':
                 if (is_scalar($validatedValue) && is_array($value)) {
                     foreach ($value as $item) {
-                        if (stripos($validatedValue, $item) !== false) {
+                        if (stripos($validatedValue, (string) $item) !== false) {
                             $result = true;
                             break;
                         }
@@ -760,12 +762,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                     } else {
                         return false;
                     }
+                } elseif (is_array($validatedValue)) {
+                    $result = in_array($value, $validatedValue);
                 } else {
-                    if (is_array($validatedValue)) {
-                        $result = in_array($value, $validatedValue);
-                    } else {
-                        $result = $this->_compareValues($value, $validatedValue, false);
-                    }
+                    $result = $this->_compareValues($value, $validatedValue, false);
                 }
                 break;
 

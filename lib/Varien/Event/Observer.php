@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Event
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Event observer object
  *
- * @category   Varien
  * @package    Varien_Event
  */
 class Varien_Event_Observer extends Varien_Object
@@ -25,7 +17,7 @@ class Varien_Event_Observer extends Varien_Object
     /**
      * Checks the observer's event_regex against event's name
      *
-     * @return boolean
+     * @return bool
      */
     public function isValidFor(Varien_Event $event)
     {
@@ -46,7 +38,7 @@ class Varien_Event_Observer extends Varien_Object
         $callback = $this->getCallback();
         $this->setEvent($event);
 
-        $profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? get_class($callback[0]) : (string) $callback[0]) . ' -> ' . $callback[1];
+        $profilerKey = 'OBSERVER: ' . (is_object($callback[0]) ? $callback[0]::class : (string) $callback[0]) . ' -> ' . $callback[1];
         Varien_Profiler::start($profilerKey);
         call_user_func($callback, $this);
         Varien_Profiler::stop($profilerKey);

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Rule_Model_Action_Collection
  *
- * @category   Mage
  * @package    Mage_Rule
  *
  * @method array getActions()
@@ -108,11 +100,18 @@ class Mage_Rule_Model_Action_Collection extends Mage_Rule_Model_Action_Abstract
      */
     public function getNewChildElement()
     {
-        return $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
+        $element = $this->getForm()->addField('action:' . $this->getId() . ':new_child', 'select', [
             'name' => 'rule[actions][' . $this->getId() . '][new_child]',
             'values' => $this->getNewChildSelectOptions(),
             'value_name' => $this->getNewChildName(),
-        ])->setRenderer(Mage::getBlockSingleton('rule/newchild'));
+        ]);
+
+        $renderer = Mage::getBlockSingleton('rule/newchild');
+        if ($renderer instanceof Varien_Data_Form_Element_Renderer_Interface) {
+            $element->setRenderer($renderer);
+        }
+
+        return $element;
     }
 
     /**

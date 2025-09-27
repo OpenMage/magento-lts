@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Object
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -48,14 +41,14 @@ class Varien_Object_Mapper
     {
         $get = 'getData';
         if (is_array($from) && isset($from[0]) && is_object($from[0]) && isset($from[1]) && is_string($from[1]) && is_callable($from)) {
-            list($from, $get) = $from;
+            [$from, $get] = $from;
         }
         $fromIsArray = is_array($from);
         $fromIsVO    = $from instanceof Varien_Object;
 
         $set = 'setData';
         if (is_array($to) && isset($to[0]) && is_object($to[0]) && isset($to[1]) && is_string($to[1]) && is_callable($to)) {
-            list($to, $set) = $to;
+            [$to, $set] = $to;
         }
         $toIsArray = is_array($to);
         $toIsVO    = $to instanceof Varien_Object;

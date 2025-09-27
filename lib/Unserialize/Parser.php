@@ -1,16 +1,10 @@
 <?php
+
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Unserialize
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Unserialize_Parser
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -18,16 +12,16 @@
  */
 class Unserialize_Parser
 {
-    const TYPE_STRING = 's';
-    const TYPE_INT = 'i';
-    const TYPE_DOUBLE = 'd';
-    const TYPE_ARRAY = 'a';
-    const TYPE_BOOL = 'b';
-    const TYPE_NULL = 'N';
+    public const TYPE_STRING = 's';
+    public const TYPE_INT = 'i';
+    public const TYPE_DOUBLE = 'd';
+    public const TYPE_ARRAY = 'a';
+    public const TYPE_BOOL = 'b';
+    public const TYPE_NULL = 'N';
 
-    const SYMBOL_QUOTE = '"';
-    const SYMBOL_SEMICOLON = ';';
-    const SYMBOL_COLON = ':';
+    public const SYMBOL_QUOTE = '"';
+    public const SYMBOL_SEMICOLON = ';';
+    public const SYMBOL_COLON = ':';
 
     /**
      * @param $str
