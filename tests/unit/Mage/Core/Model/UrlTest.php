@@ -30,7 +30,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testEscape(): void
     {
-        static::assertSame('%22%27%3E%3C', self::$subject->escape('"\'><'));
+        self::assertSame('%22%27%3E%3C', self::$subject->escape('"\'><'));
     }
 
     /**
@@ -38,6 +38,6 @@ final class UrlTest extends OpenMageTest
      */
     public function testGetSecure(): void
     {
-        static::assertIsBool(self::$subject->getSecure());
+        self::assertIsBool(self::$subject->getSecure());
     }
 }

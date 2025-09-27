@@ -41,12 +41,12 @@ final class UserTest extends OpenMageTest
         $methods = array_merge($defaultMethods, $methods);
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock);
 
         try {
-            static::assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
+            self::assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
         } catch (Mage_Core_Exception $exception) {
-            static::assertSame($expectedResult, $exception->getMessage());
+            self::assertSame($expectedResult, $exception->getMessage());
         }
     }
 
@@ -59,8 +59,8 @@ final class UserTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->validate());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->validate());
     }
 
 
@@ -70,8 +70,8 @@ final class UserTest extends OpenMageTest
      */
     public function testValidateCurrentPassword(): void
     {
-        static::assertIsArray(self::$subject->validateCurrentPassword(''));
-        static::assertIsArray(self::$subject->validateCurrentPassword('123'));
+        self::assertIsArray(self::$subject->validateCurrentPassword(''));
+        self::assertIsArray(self::$subject->validateCurrentPassword('123'));
     }
 
     /**
@@ -79,7 +79,7 @@ final class UserTest extends OpenMageTest
      */
     public function testLoadByUsername(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->loadByUsername('invalid-user'));
+        self::assertInstanceOf(Subject::class, self::$subject->loadByUsername('invalid-user'));
     }
 
     /**
@@ -87,7 +87,7 @@ final class UserTest extends OpenMageTest
      */
     public function testHasAssigned2Role(): void
     {
-        static::assertIsArray(self::$subject->hasAssigned2Role(1));
+        self::assertIsArray(self::$subject->hasAssigned2Role(1));
     }
 
     /**
@@ -95,7 +95,7 @@ final class UserTest extends OpenMageTest
      */
     public function testChangeResetPasswordLinkToken(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->changeResetPasswordLinkToken('123'));
+        self::assertInstanceOf(Subject::class, self::$subject->changeResetPasswordLinkToken('123'));
     }
 
     /**
@@ -106,8 +106,8 @@ final class UserTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->isResetPasswordLinkTokenExpired());
     }
 
     /**
@@ -115,7 +115,7 @@ final class UserTest extends OpenMageTest
      */
     public function testSendPasswordResetConfirmationEmail(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
+        self::assertInstanceOf(Subject::class, self::$subject->sendPasswordResetConfirmationEmail());
     }
 
     /**
@@ -130,10 +130,10 @@ final class UserTest extends OpenMageTest
 
         self::$subject->cleanPasswordsValidationData();
 
-        static::assertNull(self::$subject->getData('password'));
-        static::assertNull(self::$subject->getData('current_password'));
-        static::assertNull(self::$subject->getData('new_password'));
-        static::assertNull(self::$subject->getData('password_confirmation'));
+        self::assertNull(self::$subject->getData('password'));
+        self::assertNull(self::$subject->getData('current_password'));
+        self::assertNull(self::$subject->getData('new_password'));
+        self::assertNull(self::$subject->getData('password_confirmation'));
     }
 
     /**
@@ -144,8 +144,8 @@ final class UserTest extends OpenMageTest
         $methods = ['getStoreConfigAsInt' => 10];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame(14, $mock->getMinAdminPasswordLength());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame(14, $mock->getMinAdminPasswordLength());
     }
 
     /**
@@ -156,7 +156,7 @@ final class UserTest extends OpenMageTest
         $methods = ['getUserCreateAdditionalEmail' => ['test@example.com']];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock->sendAdminNotification(self::$subject));
     }
 }

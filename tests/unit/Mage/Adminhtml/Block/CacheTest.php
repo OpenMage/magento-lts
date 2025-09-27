@@ -30,7 +30,7 @@ final class CacheTest extends OpenMageTest
      */
     public function testGetFlushStorageUrl(): void
     {
-        static::assertStringStartsWith('http', self::$subject->getFlushStorageUrl());
+        self::assertStringStartsWith('http', self::$subject->getFlushStorageUrl());
     }
 
     /**
@@ -40,6 +40,6 @@ final class CacheTest extends OpenMageTest
      */
     public function testGetFlushSystemUrl(): void
     {
-        static::assertStringStartsWith('http', self::$subject->getFlushSystemUrl());
+        self::assertStringStartsWith('http', self::$subject->getFlushSystemUrl());
     }
 }

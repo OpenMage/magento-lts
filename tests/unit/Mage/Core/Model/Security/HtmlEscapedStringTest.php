@@ -30,7 +30,7 @@ final class HtmlEscapedStringTest extends OpenMageTest
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
         self::$subject = new Subject($string, $allowedTags);
-        static::assertSame($expectedResult, self::$subject->__toString());
+        self::assertSame($expectedResult, self::$subject->__toString());
     }
 
     /**
@@ -42,6 +42,6 @@ final class HtmlEscapedStringTest extends OpenMageTest
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
         self::$subject = new Subject($string, $allowedTags);
-        static::assertSame($expectedResult, self::$subject->getUnescapedValue());
+        self::assertSame($expectedResult, self::$subject->getUnescapedValue());
     }
 }

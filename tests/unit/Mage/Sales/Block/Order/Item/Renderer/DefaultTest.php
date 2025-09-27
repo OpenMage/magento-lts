@@ -31,6 +31,6 @@ final class DefaultTest extends OpenMageTest
      */
     public function testSetItem(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setItem(new Varien_Object()));
+        self::assertInstanceOf(Subject::class, self::$subject->setItem(new Varien_Object()));
     }
 }

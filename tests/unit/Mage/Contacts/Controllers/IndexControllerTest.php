@@ -51,16 +51,16 @@ final class IndexControllerTest extends OpenMageTest
         Mage::register('_singleton/customer/session', $sessionMock);
 
         if ($expectedErrorMessage) {
-            $sessionMock->expects(static::once())
+            $sessionMock->expects(self::once())
                 ->method('addError')
                 ->with($expectedErrorMessage);
         } else {
-            $sessionMock->expects(static::once())
+            $sessionMock->expects(self::once())
                 ->method('addSuccess')
                 ->with('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.');
         }
 
-        $subject->expects(static::once())->method('_redirect')->with('*/*/');
+        $subject->expects(self::once())->method('_redirect')->with('*/*/');
         $subject->postAction();
 
         Mage::unregister('_singleton/customer/session');

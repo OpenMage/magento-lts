@@ -39,7 +39,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPostCodeSubStringLength(): void
     {
-        static::assertSame(10, self::$subject->getPostCodeSubStringLength());
+        self::assertSame(10, self::$subject->getPostCodeSubStringLength());
     }
 
     /**
@@ -48,7 +48,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetConfig(): void
     {
-        static::assertInstanceOf(Mage_Tax_Model_Config::class, self::$subject->getConfig());
+        self::assertInstanceOf(Mage_Tax_Model_Config::class, self::$subject->getConfig());
     }
 
     /**
@@ -57,7 +57,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCalculator(): void
     {
-        static::assertInstanceOf(Mage_Tax_Model_Calculation::class, self::$subject->getCalculator());
+        self::assertInstanceOf(Mage_Tax_Model_Calculation::class, self::$subject->getCalculator());
     }
 
     /**
@@ -66,9 +66,9 @@ final class DataTest extends OpenMageTest
      */
     public function testGetProductPrice(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertSame('', self::$subject->getProductPrice());
+        self::assertSame('', self::$subject->getProductPrice());
     }
 
     /**
@@ -76,7 +76,7 @@ final class DataTest extends OpenMageTest
      */
     public function testPriceIncludesTax(): void
     {
-        static::assertFalse(self::$subject->priceIncludesTax());
+        self::assertFalse(self::$subject->priceIncludesTax());
     }
 
     /**
@@ -85,7 +85,7 @@ final class DataTest extends OpenMageTest
      */
     public function testApplyTaxAfterDiscount(): void
     {
-        static::assertTrue(self::$subject->applyTaxAfterDiscount());
+        self::assertTrue(self::$subject->applyTaxAfterDiscount());
     }
 
     /**
@@ -95,7 +95,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetIncExcText(string $expectedResult, bool $flag): void
     {
-        static::assertStringContainsString($expectedResult, self::$subject->getIncExcText($flag));
+        self::assertStringContainsString($expectedResult, self::$subject->getIncExcText($flag));
     }
 
     /**
@@ -104,7 +104,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPriceDisplayType(): void
     {
-        static::assertSame(1, self::$subject->getPriceDisplayType());
+        self::assertSame(1, self::$subject->getPriceDisplayType());
     }
 
     /**
@@ -113,9 +113,9 @@ final class DataTest extends OpenMageTest
      */
     public function testNeedPriceConversion(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertSame(1, self::$subject->needPriceConversion());
+        self::assertSame(1, self::$subject->needPriceConversion());
     }
 
     /**
@@ -126,9 +126,9 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPriceFormat(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertSame('', self::$subject->getPriceFormat());
+        self::assertSame('', self::$subject->getPriceFormat());
     }
 
     /**
@@ -137,9 +137,9 @@ final class DataTest extends OpenMageTest
     public function testGetTaxRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        static::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getTaxRatesByProductClass());
+        self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getTaxRatesByProductClass());
     }
 
     /**
@@ -148,9 +148,9 @@ final class DataTest extends OpenMageTest
     public function testGetAllRatesByProductClass(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        static::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getAllRatesByProductClass());
+        self::assertSame('{"value_2":8.25,"value_4":0}', self::$subject->getAllRatesByProductClass());
     }
 
     /**
@@ -159,9 +159,9 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPrice(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE);
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertFalse(self::$subject->getPrice());
+        self::assertFalse(self::$subject->getPrice());
     }
 
     /**
@@ -170,7 +170,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDisplayPriceIncludingTax(): void
     {
-        static::assertFalse(self::$subject->displayPriceIncludingTax());
+        self::assertFalse(self::$subject->displayPriceIncludingTax());
     }
 
     /**
@@ -179,7 +179,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDisplayPriceExcludingTax(): void
     {
-        static::assertTrue(self::$subject->displayPriceExcludingTax());
+        self::assertTrue(self::$subject->displayPriceExcludingTax());
     }
 
     /**
@@ -188,7 +188,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDisplayBothPrices(): void
     {
-        static::assertFalse(self::$subject->displayBothPrices());
+        self::assertFalse(self::$subject->displayBothPrices());
     }
 
     /**
@@ -197,7 +197,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetIncExcTaxLabel(string $expectedResult, bool $flag): void
     {
-        static::assertStringContainsString($expectedResult, self::$subject->getIncExcTaxLabel($flag));
+        self::assertStringContainsString($expectedResult, self::$subject->getIncExcTaxLabel($flag));
     }
 
     /**
@@ -206,7 +206,7 @@ final class DataTest extends OpenMageTest
      */
     public function testShippingPriceIncludesTax(): void
     {
-        static::assertFalse(self::$subject->shippingPriceIncludesTax());
+        self::assertFalse(self::$subject->shippingPriceIncludesTax());
     }
 
     /**
@@ -215,7 +215,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetShippingPriceDisplayType(): void
     {
-        static::assertSame(1, self::$subject->getShippingPriceDisplayType());
+        self::assertSame(1, self::$subject->getShippingPriceDisplayType());
     }
 
     /**
@@ -224,7 +224,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDisplayShippingPriceIncludingTax(): void
     {
-        static::assertFalse(self::$subject->displayShippingPriceIncludingTax());
+        self::assertFalse(self::$subject->displayShippingPriceIncludingTax());
     }
 
     /**
@@ -233,7 +233,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDisplayShippingPriceExcludingTax(): void
     {
-        static::assertTrue(self::$subject->displayShippingPriceExcludingTax());
+        self::assertTrue(self::$subject->displayShippingPriceExcludingTax());
     }
 
     /**
@@ -242,7 +242,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDisplayShippingBothPrices(): void
     {
-        static::assertFalse(self::$subject->displayShippingBothPrices());
+        self::assertFalse(self::$subject->displayShippingBothPrices());
     }
 
     /**
@@ -251,7 +251,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetShippingTaxClass(): void
     {
-        static::assertSame(0, self::$subject->getShippingTaxClass(null));
+        self::assertSame(0, self::$subject->getShippingTaxClass(null));
     }
 
     /**
@@ -259,7 +259,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetShippingPrice(): void
     {
-        static::assertEqualsWithDelta(100.0, self::$subject->getShippingPrice(100.0), PHP_FLOAT_EPSILON);
+        self::assertEqualsWithDelta(100.0, self::$subject->getShippingPrice(100.0), PHP_FLOAT_EPSILON);
     }
 
     /**
@@ -268,7 +268,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDiscountTax(): void
     {
-        static::assertFalse(self::$subject->discountTax());
+        self::assertFalse(self::$subject->discountTax());
     }
 
     /**
@@ -277,7 +277,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetTaxBasedOn(): void
     {
-        static::assertSame('shipping', self::$subject->getTaxBasedOn());
+        self::assertSame('shipping', self::$subject->getTaxBasedOn());
     }
 
     /**
@@ -286,7 +286,7 @@ final class DataTest extends OpenMageTest
      */
     public function testApplyTaxOnCustomPrice(): void
     {
-        static::assertTrue(self::$subject->applyTaxOnCustomPrice());
+        self::assertTrue(self::$subject->applyTaxOnCustomPrice());
     }
 
     /**
@@ -295,7 +295,7 @@ final class DataTest extends OpenMageTest
      */
     public function testApplyTaxOnOriginalPrice(): void
     {
-        static::assertFalse(self::$subject->applyTaxOnOriginalPrice());
+        self::assertFalse(self::$subject->applyTaxOnOriginalPrice());
     }
 
     /**
@@ -303,7 +303,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCalculationSequence(): void
     {
-        static::assertSame('1_0', self::$subject->getCalculationSequence());
+        self::assertSame('1_0', self::$subject->getCalculationSequence());
     }
 
     /**
@@ -312,7 +312,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCalculationAgorithm(): void
     {
-        static::assertSame('TOTAL_BASE_CALCULATION', self::$subject->getCalculationAgorithm());
+        self::assertSame('TOTAL_BASE_CALCULATION', self::$subject->getCalculationAgorithm());
     }
 
     /**
@@ -320,7 +320,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsWrongDisplaySettingsIgnored(): void
     {
-        static::assertFalse(self::$subject->isWrongDisplaySettingsIgnored());
+        self::assertFalse(self::$subject->isWrongDisplaySettingsIgnored());
     }
 
     /**
@@ -328,7 +328,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsWrongDiscountSettingsIgnored(): void
     {
-        static::assertFalse(self::$subject->isWrongDiscountSettingsIgnored());
+        self::assertFalse(self::$subject->isWrongDiscountSettingsIgnored());
     }
 
     /**
@@ -336,7 +336,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsConflictingFptTaxConfigurationSettingsIgnored(): void
     {
-        static::assertFalse(self::$subject->isConflictingFptTaxConfigurationSettingsIgnored());
+        self::assertFalse(self::$subject->isConflictingFptTaxConfigurationSettingsIgnored());
     }
 
     /**
@@ -345,6 +345,6 @@ final class DataTest extends OpenMageTest
      */
     public function testIsCrossBorderTradeEnabled(): void
     {
-        static::assertFalse(self::$subject->isCrossBorderTradeEnabled());
+        self::assertFalse(self::$subject->isCrossBorderTradeEnabled());
     }
 }

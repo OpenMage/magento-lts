@@ -30,7 +30,7 @@ final class FeedTest extends OpenMageTest
      */
     public function testGetFeedUrl(): void
     {
-        static::assertIsString(self::$subject->getFeedUrl());
+        self::assertIsString(self::$subject->getFeedUrl());
     }
 
     /**
@@ -38,7 +38,7 @@ final class FeedTest extends OpenMageTest
      */
     public function testCheckUpdate(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->checkUpdate());
+        self::assertInstanceOf(Subject::class, self::$subject->checkUpdate());
     }
 
     /**
@@ -46,7 +46,7 @@ final class FeedTest extends OpenMageTest
      */
     public function testGetFeedData(): void
     {
-        static::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedData());
+        self::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedData());
     }
 
     /**
@@ -54,6 +54,6 @@ final class FeedTest extends OpenMageTest
      */
     public function testGetFeedXml(): void
     {
-        static::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedXml());
+        self::assertInstanceOf(SimpleXMLElement::class, self::$subject->getFeedXml());
     }
 }

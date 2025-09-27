@@ -35,7 +35,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetInputTypes(array $expectedResult, ?string $inputType): void
     {
-        static::assertSame($expectedResult, self::$subject->getInputTypes($inputType));
+        self::assertSame($expectedResult, self::$subject->getInputTypes($inputType));
     }
 
     /**
@@ -45,6 +45,6 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetBackendModelByInputType(?string $expectedResult, string $inputType): void
     {
-        static::assertSame($expectedResult, self::$subject->getBackendModelByInputType($inputType));
+        self::assertSame($expectedResult, self::$subject->getBackendModelByInputType($inputType));
     }
 }

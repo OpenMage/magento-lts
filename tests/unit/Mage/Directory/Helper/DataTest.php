@@ -35,7 +35,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetRegionCollection(): void
     {
-        static::assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, self::$subject->getRegionCollection());
+        self::assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, self::$subject->getRegionCollection());
     }
 
     /**
@@ -43,7 +43,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCountryCollection(): void
     {
-        static::assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, self::$subject->getCountryCollection());
+        self::assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, self::$subject->getCountryCollection());
     }
 
     /**
@@ -51,7 +51,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetRegionJsonByStore(): void
     {
-        static::assertIsString(self::$subject->getRegionJson());
+        self::assertIsString(self::$subject->getRegionJson());
     }
 
     /**
@@ -61,7 +61,7 @@ final class DataTest extends OpenMageTest
      */
     public function testCurrencyConvert(): void
     {
-        static::assertSame(10, self::$subject->currencyConvert(10, 'USD'));
+        self::assertSame(10, self::$subject->currencyConvert(10, 'USD'));
     }
 
     /**
@@ -71,7 +71,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCountriesWithOptionalZip(array|string $expectedResult, bool $asJson): void
     {
-        static::assertSame($expectedResult, self::$subject->getCountriesWithOptionalZip($asJson));
+        self::assertSame($expectedResult, self::$subject->getCountriesWithOptionalZip($asJson));
     }
 
     /**
@@ -80,7 +80,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsZipCodeOptional(): void
     {
-        static::assertIsBool(self::$subject->isZipCodeOptional(''));
+        self::assertIsBool(self::$subject->isZipCodeOptional(''));
     }
 
     /**
@@ -92,9 +92,9 @@ final class DataTest extends OpenMageTest
     {
         $result = self::$subject->getCountriesWithStatesRequired($asJson);
         if (defined('DATA_MAY_CHANGED')) {
-            $asJson ? static::assertIsString($result) : static::assertIsArray($result);
+            $asJson ? self::assertIsString($result) : self::assertIsArray($result);
         } else {
-            static::assertSame($expectedResult, $result);
+            self::assertSame($expectedResult, $result);
         }
     }
 
@@ -104,7 +104,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetShowNonRequiredState(): void
     {
-        static::assertTrue(self::$subject->getShowNonRequiredState());
+        self::assertTrue(self::$subject->getShowNonRequiredState());
     }
 
     /**
@@ -113,6 +113,6 @@ final class DataTest extends OpenMageTest
      */
     public function testGetConfigCurrencyBase(): void
     {
-        static::assertSame('USD', self::$subject->getConfigCurrencyBase());
+        self::assertSame('USD', self::$subject->getConfigCurrencyBase());
     }
 }

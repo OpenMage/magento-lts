@@ -30,6 +30,6 @@ final class DataTest extends OpenMageTest
      */
     public function testIsModuleEnabled(): void
     {
-        static::assertIsBool(self::$subject->isModuleEnabled());
+        self::assertIsBool(self::$subject->isModuleEnabled());
     }
 }

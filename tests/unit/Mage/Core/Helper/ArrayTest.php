@@ -41,6 +41,6 @@ final class ArrayTest extends OpenMageTest
      */
     public function testMergeRecursiveWithoutOverwriteNumKeys(array $expectedResult, array $baseArray, array $mergeArray): void
     {
-        static::assertSame($expectedResult, self::$subject->mergeRecursiveWithoutOverwriteNumKeys($baseArray, $mergeArray));
+        self::assertSame($expectedResult, self::$subject->mergeRecursiveWithoutOverwriteNumKeys($baseArray, $mergeArray));
     }
 }

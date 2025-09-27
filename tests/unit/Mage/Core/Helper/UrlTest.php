@@ -35,7 +35,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testGetCurrentBase64Url(): void
     {
-        static::assertIsString(self::$subject->getCurrentBase64Url());
+        self::assertIsString(self::$subject->getCurrentBase64Url());
     }
 
     /**
@@ -45,7 +45,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testGetEncodedUrl(string $expectedResult, ?string $url): void
     {
-        static::assertSame($expectedResult, self::$subject->getEncodedUrl($url));
+        self::assertSame($expectedResult, self::$subject->getEncodedUrl($url));
     }
 
     /**
@@ -54,7 +54,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testGetHomeUrl(): void
     {
-        static::assertIsString(self::$subject->getHomeUrl());
+        self::assertIsString(self::$subject->getHomeUrl());
     }
 
     /**
@@ -64,7 +64,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testAddRequestParam(string $expectedResult, string $url, array $param): void
     {
-        static::assertSame($expectedResult, self::$subject->addRequestParam($url, $param));
+        self::assertSame($expectedResult, self::$subject->addRequestParam($url, $param));
     }
 
     /**
@@ -74,7 +74,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testRemoveRequestParam(string $expectedResult, string $url, string $paramKey, bool $caseSensitive = false): void
     {
-        static::assertSame($expectedResult, self::$subject->removeRequestParam($url, $paramKey, $caseSensitive));
+        self::assertSame($expectedResult, self::$subject->removeRequestParam($url, $paramKey, $caseSensitive));
     }
 
     /**
@@ -83,8 +83,8 @@ final class UrlTest extends OpenMageTest
      */
     public function testEncodePunycode(): void
     {
-        static::assertSame(self::$testUrlBase, self::$subject->encodePunycode(self::$testUrlBase));
-        static::assertSame(self::$testUrlPuny, self::$subject->encodePunycode(self::$testUrlPuny));
+        self::assertSame(self::$testUrlBase, self::$subject->encodePunycode(self::$testUrlBase));
+        self::assertSame(self::$testUrlPuny, self::$subject->encodePunycode(self::$testUrlPuny));
     }
 
     /**
@@ -94,7 +94,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testDecodePunycode(): void
     {
-        static::assertSame(self::$testUrlBase, self::$subject->decodePunycode(self::$testUrlBase));
-        static::assertSame('https://?foo=bar&BOO=baz', self::$subject->decodePunycode(self::$testUrlPuny));
+        self::assertSame(self::$testUrlBase, self::$subject->decodePunycode(self::$testUrlBase));
+        self::assertSame('https://?foo=bar&BOO=baz', self::$subject->decodePunycode(self::$testUrlPuny));
     }
 }

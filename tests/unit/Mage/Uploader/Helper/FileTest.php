@@ -42,7 +42,7 @@ final class FileTest extends OpenMageTest
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        static::assertSame($expectedResult, self::$subject->getMimeTypeFromExtensionList($extensionsList));
+        self::assertSame($expectedResult, self::$subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
     /**
@@ -50,7 +50,7 @@ final class FileTest extends OpenMageTest
      */
     public function testGetPostMaxSize(): void
     {
-        static::assertIsString(self::$subject->getPostMaxSize());
+        self::assertIsString(self::$subject->getPostMaxSize());
     }
 
     /**
@@ -58,7 +58,7 @@ final class FileTest extends OpenMageTest
      */
     public function testGetUploadMaxSize(): void
     {
-        static::assertIsString(self::$subject->getUploadMaxSize());
+        self::assertIsString(self::$subject->getUploadMaxSize());
     }
 
     /**
@@ -69,8 +69,8 @@ final class FileTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->getDataMaxSize());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->getDataMaxSize());
     }
 
     /**
@@ -81,7 +81,7 @@ final class FileTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 }

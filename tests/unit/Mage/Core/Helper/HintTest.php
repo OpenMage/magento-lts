@@ -31,7 +31,7 @@ final class HintTest extends OpenMageTest
      */
     public function testGetAvailableHints(): void
     {
-        static::assertSame([], self::$subject->getAvailableHints());
+        self::assertSame([], self::$subject->getAvailableHints());
     }
 
     /**
@@ -40,6 +40,6 @@ final class HintTest extends OpenMageTest
      */
     public function testGetHintByCode(): void
     {
-        static::assertNull(self::$subject->getHintByCode('test'));
+        self::assertNull(self::$subject->getHintByCode('test'));
     }
 }

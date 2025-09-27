@@ -40,8 +40,8 @@ final class BlockTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertEquals($expectedResult, $mock->validate());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertEquals($expectedResult, $mock->validate());
     }
 
     /**
@@ -49,6 +49,6 @@ final class BlockTest extends OpenMageTest
      */
     public function testIsTypeAllowed(): void
     {
-        static::assertIsBool(self::$subject->isTypeAllowed('invalid-type'));
+        self::assertIsBool(self::$subject->isTypeAllowed('invalid-type'));
     }
 }

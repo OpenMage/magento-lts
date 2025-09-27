@@ -31,6 +31,6 @@ final class LayoutTest extends OpenMageTest
      */
     public function testApplyTemplate(): void
     {
-        static::assertTrue(self::$subject->isModuleEnabled());
+        self::assertTrue(self::$subject->isModuleEnabled());
     }
 }

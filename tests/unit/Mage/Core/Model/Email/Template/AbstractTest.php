@@ -40,13 +40,13 @@ final class AbstractTest extends OpenMageTest
     public function testValidateFileExension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
     {
         if ($fileExists) {
-            static::assertFileExists($filePath);
+            self::assertFileExists($filePath);
         } else {
-            static::assertFileDoesNotExist($filePath);
+            self::assertFileDoesNotExist($filePath);
         }
 
-        static::markTestSkipped('wait...');
+        self::markTestSkipped('wait...');
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
+        self::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
     }
 }

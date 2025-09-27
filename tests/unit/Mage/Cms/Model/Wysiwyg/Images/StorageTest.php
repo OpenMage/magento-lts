@@ -32,7 +32,7 @@ final class StorageTest extends OpenMageTest
      */
     public function testGetThumbsPath(): void
     {
-        static::assertIsString(self::$subject->getThumbsPath());
+        self::assertIsString(self::$subject->getThumbsPath());
     }
 
     /**
@@ -42,7 +42,7 @@ final class StorageTest extends OpenMageTest
      */
     public function testResizeOnTheFly(): void
     {
-        static::assertFalse(self::$subject->resizeOnTheFly('not-existing.jpeg'));
+        self::assertFalse(self::$subject->resizeOnTheFly('not-existing.jpeg'));
     }
 
     /**
@@ -50,7 +50,7 @@ final class StorageTest extends OpenMageTest
      */
     public function testGetHelper(): void
     {
-        static::assertInstanceOf(Mage_Cms_Helper_Wysiwyg_Images::class, self::$subject->getHelper());
+        self::assertInstanceOf(Mage_Cms_Helper_Wysiwyg_Images::class, self::$subject->getHelper());
     }
 
     /**
@@ -60,7 +60,7 @@ final class StorageTest extends OpenMageTest
      */
     public function testGetSession(): void
     {
-        static::assertInstanceOf(Mage_Adminhtml_Model_Session::class, self::$subject->getSession());
+        self::assertInstanceOf(Mage_Adminhtml_Model_Session::class, self::$subject->getSession());
     }
 
     /**
@@ -68,7 +68,7 @@ final class StorageTest extends OpenMageTest
      */
     public function testGetThumbnailRoot(): void
     {
-        static::assertIsString(self::$subject->getThumbnailRoot());
+        self::assertIsString(self::$subject->getThumbnailRoot());
     }
 
     /**
@@ -76,6 +76,6 @@ final class StorageTest extends OpenMageTest
      */
     public function testIsImage(): void
     {
-        static::assertIsBool(self::$subject->isImage('test.jpeg'));
+        self::assertIsBool(self::$subject->isImage('test.jpeg'));
     }
 }

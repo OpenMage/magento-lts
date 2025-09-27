@@ -137,6 +137,6 @@ final class CustomerTest extends OpenMageTest
             'firstname' => 'John',
             'lastname'  => 'Doe',
         ];
-        static::assertInstanceOf(Subject::class, self::$subject->saveRow($data));
+        self::assertInstanceOf(Subject::class, self::$subject->saveRow($data));
     }
 }

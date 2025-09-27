@@ -39,7 +39,7 @@ final class LinkTest extends OpenMageTest
         self::$subject->setData($data);
 
         $result = self::$subject->getHref();
-        static::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -52,7 +52,7 @@ final class LinkTest extends OpenMageTest
         self::$subject->setData($data);
 
         $result = self::$subject->getTitle();
-        static::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -65,6 +65,6 @@ final class LinkTest extends OpenMageTest
         self::$subject->setData($data);
 
         $result = self::$subject->getAnchorText();
-        static::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

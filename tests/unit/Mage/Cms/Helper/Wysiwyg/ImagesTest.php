@@ -34,7 +34,7 @@ final class ImagesTest extends OpenMageTest
      */
     public function testGetCurrentPath(): void
     {
-        static::assertIsString(self::$subject->getCurrentPath());
+        self::assertIsString(self::$subject->getCurrentPath());
     }
 
     /**
@@ -42,7 +42,7 @@ final class ImagesTest extends OpenMageTest
      */
     public function testGetCurrentUrl(): void
     {
-        static::assertIsString(self::$subject->getCurrentUrl());
+        self::assertIsString(self::$subject->getCurrentUrl());
     }
 
     /**
@@ -50,7 +50,7 @@ final class ImagesTest extends OpenMageTest
      */
     public function testGetStorage(): void
     {
-        static::assertInstanceOf(Mage_Cms_Model_Wysiwyg_Images_Storage::class, self::$subject->getStorage());
+        self::assertInstanceOf(Mage_Cms_Model_Wysiwyg_Images_Storage::class, self::$subject->getStorage());
     }
 
     /**
@@ -58,7 +58,7 @@ final class ImagesTest extends OpenMageTest
      */
     public function testIdEncode(): void
     {
-        static::assertIsString(self::$subject->idEncode($this->getTestString()));
+        self::assertIsString(self::$subject->idEncode($this->getTestString()));
     }
 
     /**
@@ -66,7 +66,7 @@ final class ImagesTest extends OpenMageTest
      */
     public function testIdDecode(): void
     {
-        static::assertIsString(self::$subject->idDecode($this->getTestString()));
+        self::assertIsString(self::$subject->idDecode($this->getTestString()));
     }
 
     /**
@@ -75,6 +75,6 @@ final class ImagesTest extends OpenMageTest
      */
     public function testGetShortFilename(string $expectedResult, string $filename, int $maxLength): void
     {
-        static::assertSame($expectedResult, self::$subject->getShortFilename($filename, $maxLength));
+        self::assertSame($expectedResult, self::$subject->getShortFilename($filename, $maxLength));
     }
 }

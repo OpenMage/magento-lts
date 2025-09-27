@@ -33,7 +33,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetUrl(): void
     {
-        static::assertIsString(self::$subject->getUrl());
+        self::assertIsString(self::$subject->getUrl());
     }
 
     /**
@@ -44,7 +44,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCurrentUserId(): void
     {
-        static::assertFalse(self::$subject->getCurrentUserId());
+        self::assertFalse(self::$subject->getCurrentUserId());
     }
 
     /**
@@ -53,7 +53,7 @@ final class DataTest extends OpenMageTest
      */
     public function testPrepareFilterString(): void
     {
-        static::assertIsArray(self::$subject->prepareFilterString(''));
+        self::assertIsArray(self::$subject->prepareFilterString(''));
     }
 
     /**
@@ -64,7 +64,7 @@ final class DataTest extends OpenMageTest
     {
         $string = '';
         self::$subject->decodeFilter($string);
-        static::assertSame('', $string);
+        self::assertSame('', $string);
     }
 
     /**
@@ -73,6 +73,6 @@ final class DataTest extends OpenMageTest
      */
     public function testIsEnabledSecurityKeyUrl(): void
     {
-        static::assertTrue(self::$subject->isEnabledSecurityKeyUrl());
+        self::assertTrue(self::$subject->isEnabledSecurityKeyUrl());
     }
 }

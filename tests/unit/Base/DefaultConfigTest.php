@@ -24,7 +24,7 @@ final class DefaultConfigTest extends TestCase
      */
     public function testGetStoreConfig(string $expectedResult, string $path, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {
-        static::assertSame($expectedResult, Mage::getStoreConfig($path, $store));
+        self::assertSame($expectedResult, Mage::getStoreConfig($path, $store));
     }
 
 

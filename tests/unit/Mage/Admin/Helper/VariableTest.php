@@ -31,6 +31,6 @@ final class VariableTest extends OpenMageTest
      */
     public function testIsPathAllowed(): void
     {
-        static::assertIsBool(self::$subject->isPathAllowed(''));
+        self::assertIsBool(self::$subject->isPathAllowed(''));
     }
 }

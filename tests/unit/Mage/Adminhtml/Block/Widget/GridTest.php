@@ -33,6 +33,6 @@ final class GridTest extends OpenMageTest
      */
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
-        static::assertSame($expectedResult, self::$subject->addColumnDefaultData($column));
+        self::assertSame($expectedResult, self::$subject->addColumnDefaultData($column));
     }
 }

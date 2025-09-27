@@ -30,7 +30,7 @@ final class HtmlTest extends OpenMageTest
      */
     public function testGetBaseUrl(): void
     {
-        static::assertIsString(self::$subject->getBaseUrl());
+        self::assertIsString(self::$subject->getBaseUrl());
     }
 
     /**
@@ -38,7 +38,7 @@ final class HtmlTest extends OpenMageTest
      */
     public function testGetBaseSecureUrl(): void
     {
-        static::assertIsString(self::$subject->getBaseSecureUrl());
+        self::assertIsString(self::$subject->getBaseSecureUrl());
     }
 
     /**
@@ -54,6 +54,6 @@ final class HtmlTest extends OpenMageTest
      */
     public function testGetPrintLogoUrl(): void
     {
-        static::assertIsString(self::$subject->getPrintLogoUrl());
+        self::assertIsString(self::$subject->getPrintLogoUrl());
     }
 }

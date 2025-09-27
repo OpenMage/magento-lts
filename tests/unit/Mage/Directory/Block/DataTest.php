@@ -32,7 +32,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetCountryCollection(): void
     {
-        static::assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, self::$subject->getCountryCollection());
+        self::assertInstanceOf(Mage_Directory_Model_Resource_Country_Collection::class, self::$subject->getCountryCollection());
     }
 
     /**
@@ -40,6 +40,6 @@ final class DataTest extends OpenMageTest
      */
     public function testGetRegionCollection(): void
     {
-        static::assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, self::$subject->getRegionCollection());
+        self::assertInstanceOf(Mage_Directory_Model_Resource_Region_Collection::class, self::$subject->getRegionCollection());
     }
 }

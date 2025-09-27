@@ -37,9 +37,9 @@ final class ProcessTest extends OpenMageTest
         self::$subject->setIndexerCode('html');
 
         try {
-            static::assertInstanceOf(Subject::class, self::$subject->reindexEverything());
+            self::assertInstanceOf(Subject::class, self::$subject->reindexEverything());
         } catch (Mage_Core_Exception $exception) {
-            static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
     }
 
@@ -51,9 +51,9 @@ final class ProcessTest extends OpenMageTest
         self::$subject->setIndexerCode('html');
 
         try {
-            static::assertInstanceOf(Subject::class, self::$subject->disableIndexerKeys());
+            self::assertInstanceOf(Subject::class, self::$subject->disableIndexerKeys());
         } catch (Mage_Core_Exception $exception) {
-            static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
 
     }
@@ -66,9 +66,9 @@ final class ProcessTest extends OpenMageTest
         self::$subject->setIndexerCode('html');
 
         try {
-            static::assertInstanceOf(Subject::class, self::$subject->enableIndexerKeys());
+            self::assertInstanceOf(Subject::class, self::$subject->enableIndexerKeys());
         } catch (Mage_Core_Exception $exception) {
-            static::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
         }
     }
 
@@ -78,6 +78,6 @@ final class ProcessTest extends OpenMageTest
     public function testGetUnprocessedEventsCollection(): void
     {
         self::$subject->setIndexerCode('html');
-        static::assertInstanceOf(Mage_Index_Model_Resource_Event_Collection::class, self::$subject->getUnprocessedEventsCollection());
+        self::assertInstanceOf(Mage_Index_Model_Resource_Event_Collection::class, self::$subject->getUnprocessedEventsCollection());
     }
 }

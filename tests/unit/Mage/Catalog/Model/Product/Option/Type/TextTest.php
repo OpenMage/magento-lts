@@ -35,7 +35,7 @@ final class TextTest extends OpenMageTest
     public function testValidateUserValue(): void
     {
         self::$subject->setOption(new Mage_Catalog_Model_Product_Option());
-        static::assertInstanceOf(Subject::class, self::$subject->validateUserValue([]));
+        self::assertInstanceOf(Subject::class, self::$subject->validateUserValue([]));
     }
 
 
@@ -46,7 +46,7 @@ final class TextTest extends OpenMageTest
     public function testPrepareForCart(?string $expectedResult, bool $setIsValid = true, ?string $setUserValue = null): void
     {
         self::$subject->setIsValid($setIsValid)->setUserValue($setUserValue);
-        static::assertSame($expectedResult, self::$subject->prepareForCart());
+        self::assertSame($expectedResult, self::$subject->prepareForCart());
     }
 
     public function providePrepareForCart(): Generator
@@ -67,6 +67,6 @@ final class TextTest extends OpenMageTest
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        static::assertIsString(self::$subject->getFormattedOptionValue(''));
+        self::assertIsString(self::$subject->getFormattedOptionValue(''));
     }
 }

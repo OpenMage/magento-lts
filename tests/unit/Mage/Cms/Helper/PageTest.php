@@ -25,6 +25,6 @@ final class PageTest extends OpenMageTest
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
-        static::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
+        self::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
     }
 }

@@ -31,7 +31,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetLatestNotice(): void
     {
-        static::assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, self::$subject->getLatestNotice());
+        self::assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, self::$subject->getLatestNotice());
     }
 
     /**
@@ -39,7 +39,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetUnreadNoticeCount(): void
     {
-        static::assertIsInt(self::$subject->getUnreadNoticeCount(99));
+        self::assertIsInt(self::$subject->getUnreadNoticeCount(99));
     }
 
     /**
@@ -48,6 +48,6 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPopupObjectUrl(): void
     {
-        static::assertSame('', self::$subject->getPopupObjectUrl());
+        self::assertSame('', self::$subject->getPopupObjectUrl());
     }
 }

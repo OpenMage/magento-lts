@@ -35,6 +35,6 @@ final class AttributeTest extends OpenMageTest
         if ($withStoreId) {
             self::$subject->setStoreId($withStoreId);
         }
-        static::assertSame($expectedResult, self::$subject->getStoreId());
+        self::assertSame($expectedResult, self::$subject->getStoreId());
     }
 }

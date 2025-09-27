@@ -36,9 +36,9 @@ final class UnserializeArrayTest extends OpenMageTest
     public function testUnserialize(array|string $expectedTesult, ?string $string): void
     {
         try {
-            static::assertSame($expectedTesult, self::$subject->unserialize($string));
+            self::assertSame($expectedTesult, self::$subject->unserialize($string));
         } catch (Exception $exception) {
-            static::assertSame($expectedTesult, $exception->getMessage());
+            self::assertSame($expectedTesult, $exception->getMessage());
         }
     }
 }

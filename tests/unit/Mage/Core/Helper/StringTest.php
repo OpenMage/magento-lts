@@ -35,16 +35,16 @@ final class StringTest extends OpenMageTest
      */
     public function testTruncate(): void
     {
-        static::assertSame('', self::$subject->truncate(null));
-        static::assertSame('', self::$subject->truncate(self::TEST_STRING, 0));
+        self::assertSame('', self::$subject->truncate(null));
+        self::assertSame('', self::$subject->truncate(self::TEST_STRING, 0));
 
-        static::assertSame('', self::$subject->truncate(self::TEST_STRING, 3));
+        self::assertSame('', self::$subject->truncate(self::TEST_STRING, 3));
 
         $remainder = '';
-        static::assertSame('12...', self::$subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));
+        self::assertSame('12...', self::$subject->truncate(self::TEST_STRING, 5, '...', $remainder, false));
 
         $resultString = self::$subject->truncate(self::TEST_STRING, 5, '...');
-        static::assertSame('12...', $resultString);
+        self::assertSame('12...', $resultString);
     }
 
     /**
@@ -53,7 +53,7 @@ final class StringTest extends OpenMageTest
     public function testSubstr(): void
     {
         $resultString = self::$subject->substr(self::TEST_STRING, 2, 2);
-        static::assertSame('34', $resultString);
+        self::assertSame('34', $resultString);
     }
 
     /**
@@ -63,7 +63,7 @@ final class StringTest extends OpenMageTest
     {
         $resultString = self::$subject->splitInjection(self::TEST_STRING, 1, '-', ' ');
         #$this->assertSame('1-2-3-4-5-6-7-8-9-0-', $resultString);
-        static::assertIsString($resultString);
+        self::assertIsString($resultString);
     }
 
     /**
@@ -71,7 +71,7 @@ final class StringTest extends OpenMageTest
      */
     public function testStrlen(): void
     {
-        static::assertSame(10, self::$subject->strlen(self::TEST_STRING));
+        self::assertSame(10, self::$subject->strlen(self::TEST_STRING));
     }
 
     /**
@@ -79,10 +79,10 @@ final class StringTest extends OpenMageTest
      */
     public function testStrSplit(): void
     {
-        static::assertIsArray(self::$subject->str_split(''));
-        static::assertIsArray(self::$subject->str_split(self::TEST_STRING));
-        static::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3));
-        static::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3, true, true));
+        self::assertIsArray(self::$subject->str_split(''));
+        self::assertIsArray(self::$subject->str_split(self::TEST_STRING));
+        self::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3));
+        self::assertIsArray(self::$subject->str_split(self::TEST_STRING, 3, true, true));
     }
 
     /**
@@ -90,11 +90,11 @@ final class StringTest extends OpenMageTest
      */
     public function testSplitWords(): void
     {
-        static::assertIsArray(self::$subject->splitWords(null));
-        static::assertIsArray(self::$subject->splitWords(''));
-        static::assertIsArray(self::$subject->splitWords(self::TEST_STRING));
-        static::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true));
-        static::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true, 1));
+        self::assertIsArray(self::$subject->splitWords(null));
+        self::assertIsArray(self::$subject->splitWords(''));
+        self::assertIsArray(self::$subject->splitWords(self::TEST_STRING));
+        self::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true));
+        self::assertIsArray(self::$subject->splitWords(self::TEST_STRING, true, 1));
     }
 
     /**
@@ -102,7 +102,7 @@ final class StringTest extends OpenMageTest
      */
     public function testParseQueryStr(): void
     {
-        static::assertIsArray(self::$subject->parseQueryStr(self::TEST_STRING));
+        self::assertIsArray(self::$subject->parseQueryStr(self::TEST_STRING));
     }
 
     /**
@@ -110,7 +110,7 @@ final class StringTest extends OpenMageTest
      */
     public function testGetArrayHelper(): void
     {
-        static::assertInstanceOf(Mage_Core_Helper_Array::class, self::$subject->getArrayHelper());
+        self::assertInstanceOf(Mage_Core_Helper_Array::class, self::$subject->getArrayHelper());
     }
 
     /**
@@ -118,7 +118,7 @@ final class StringTest extends OpenMageTest
      */
     public function testUnserialize(): void
     {
-        static::assertNull(self::$subject->unserialize(null));
+        self::assertNull(self::$subject->unserialize(null));
     }
 
     /**
@@ -126,7 +126,7 @@ final class StringTest extends OpenMageTest
      */
     public function testValidateSerializedObject(): void
     {
-        static::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING));
-        static::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING_JSON));
+        self::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING));
+        self::assertIsBool(self::$subject->validateSerializedObject(self::TEST_STRING_JSON));
     }
 }

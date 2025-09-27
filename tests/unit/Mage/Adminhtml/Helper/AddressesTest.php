@@ -40,6 +40,6 @@ final class AddressesTest extends OpenMageTest
         $attribute->setScopeMultilineCount($lines);
 
         $result = self::$subject->processStreetAttribute($attribute);
-        static::assertSame($expectedResult, $result->getScopeMultilineCount());
+        self::assertSame($expectedResult, $result->getScopeMultilineCount());
     }
 }

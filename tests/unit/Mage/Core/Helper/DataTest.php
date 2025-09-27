@@ -38,7 +38,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetEncryptor(): void
     {
-        static::assertInstanceOf(Mage_Core_Model_Encryption::class, self::$subject->getEncryptor());
+        self::assertInstanceOf(Mage_Core_Model_Encryption::class, self::$subject->getEncryptor());
     }
 
     /**
@@ -46,7 +46,7 @@ final class DataTest extends OpenMageTest
      */
     public function testEncrypt(): void
     {
-        static::assertIsString(self::$subject->encrypt('test'));
+        self::assertIsString(self::$subject->encrypt('test'));
     }
 
     /**
@@ -54,7 +54,7 @@ final class DataTest extends OpenMageTest
      */
     public function testDecrypt(): void
     {
-        static::assertIsString(self::$subject->decrypt('test'));
+        self::assertIsString(self::$subject->decrypt('test'));
     }
 
     /**
@@ -62,7 +62,7 @@ final class DataTest extends OpenMageTest
      */
     public function testValidateKey(): void
     {
-        static::assertInstanceOf(Varien_Crypt_Mcrypt::class, self::$subject->validateKey('test'));
+        self::assertInstanceOf(Varien_Crypt_Mcrypt::class, self::$subject->validateKey('test'));
     }
 
     /**
@@ -76,7 +76,7 @@ final class DataTest extends OpenMageTest
         bool $showTime = false,
         bool $useTimezone = false # disable timezone by default for tests
     ): void {
-        static::assertSame($expectedResult, self::$subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
+        self::assertSame($expectedResult, self::$subject->formatTimezoneDate($data, $format, $showTime, $useTimezone));
     }
 
     /**
@@ -84,7 +84,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetRandomString(): void
     {
-        static::assertIsString(self::$subject->getRandomString(5));
+        self::assertIsString(self::$subject->getRandomString(5));
     }
 
     /**
@@ -92,7 +92,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetHash(): void
     {
-        static::assertIsString(self::$subject->getHash('test'));
+        self::assertIsString(self::$subject->getHash('test'));
     }
 
     /**
@@ -100,7 +100,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetHashPassword(): void
     {
-        static::assertIsString(self::$subject->getHashPassword('test', 1));
+        self::assertIsString(self::$subject->getHashPassword('test', 1));
     }
 
     /**
@@ -108,7 +108,7 @@ final class DataTest extends OpenMageTest
      */
     public function testValidateHash(): void
     {
-        static::assertIsBool(self::$subject->validateHash('test', '1'));
+        self::assertIsBool(self::$subject->validateHash('test', '1'));
     }
 
     /**
@@ -116,7 +116,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetStoreId(): void
     {
-        static::assertIsInt(self::$subject->getStoreId());
+        self::assertIsInt(self::$subject->getStoreId());
     }
 
     /**
@@ -126,7 +126,7 @@ final class DataTest extends OpenMageTest
      */
     public function testRemoveAccents(string $expectedResult, string $string, bool $german): void
     {
-        static::assertSame($expectedResult, self::$subject->removeAccents($string, $german));
+        self::assertSame($expectedResult, self::$subject->removeAccents($string, $german));
     }
 
     /**
@@ -135,8 +135,8 @@ final class DataTest extends OpenMageTest
      */
     public function testIsDevAllowed(): void
     {
-        static::assertIsBool(self::$subject->isDevAllowed());
-        static::markTestIncomplete('add tests for IPS');
+        self::assertIsBool(self::$subject->isDevAllowed());
+        self::markTestIncomplete('add tests for IPS');
     }
 
     /**
@@ -156,7 +156,7 @@ final class DataTest extends OpenMageTest
             'config_api2' => 'Web Services Configuration',
 
         ];
-        static::assertSame($expectedResult, self::$subject->getCacheTypes());
+        self::assertSame($expectedResult, self::$subject->getCacheTypes());
     }
     /**
      * @covers Mage_Core_Helper_Data::getCacheBetaTypes()
@@ -166,7 +166,7 @@ final class DataTest extends OpenMageTest
     public function testGetCacheBetaTypes(): void
     {
         $expectedResult = [];
-        static::assertSame($expectedResult, self::$subject->getCacheBetaTypes());
+        self::assertSame($expectedResult, self::$subject->getCacheBetaTypes());
     }
 
     /**
@@ -176,7 +176,7 @@ final class DataTest extends OpenMageTest
     public function testUniqHash(): void
     {
         $prefix = 'string';
-        static::assertStringStartsWith($prefix, self::$subject->uniqHash($prefix));
+        self::assertStringStartsWith($prefix, self::$subject->uniqHash($prefix));
     }
 
     /**
@@ -185,7 +185,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetDefaultCountry(): void
     {
-        static::assertSame('US', self::$subject->getDefaultCountry());
+        self::assertSame('US', self::$subject->getDefaultCountry());
     }
 
     /**
@@ -213,7 +213,7 @@ final class DataTest extends OpenMageTest
             'phtml' => 'phtml',
             'shtml' => 'shtml',
         ];
-        static::assertSame($expectedResult, self::$subject->getProtectedFileExtensions());
+        self::assertSame($expectedResult, self::$subject->getProtectedFileExtensions());
     }
 
     /**
@@ -233,7 +233,7 @@ final class DataTest extends OpenMageTest
                 'skin' => '/skin/*/*',
             ],
         ];
-        static::assertSame($expectedResult, self::$subject->getPublicFilesValidPath());
+        self::assertSame($expectedResult, self::$subject->getPublicFilesValidPath());
     }
 
     /**
@@ -242,7 +242,7 @@ final class DataTest extends OpenMageTest
      */
     public function testUseDbCompatibleMode(): void
     {
-        static::assertTrue(self::$subject->useDbCompatibleMode());
+        self::assertTrue(self::$subject->useDbCompatibleMode());
     }
 
     /**
@@ -251,7 +251,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetMerchantCountryCode(): void
     {
-        static::assertIsString(self::$subject->getMerchantCountryCode());
+        self::assertIsString(self::$subject->getMerchantCountryCode());
     }
 
     /**
@@ -260,7 +260,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetMerchantVatNumber(): void
     {
-        static::assertIsString(self::$subject->getMerchantVatNumber());
+        self::assertIsString(self::$subject->getMerchantVatNumber());
     }
 
     /**
@@ -270,6 +270,6 @@ final class DataTest extends OpenMageTest
      */
     public function testIsCountryInEU(bool $expectedResult, string $value): void
     {
-        static::assertSame($expectedResult, self::$subject->isCountryInEU($value));
+        self::assertSame($expectedResult, self::$subject->isCountryInEU($value));
     }
 }

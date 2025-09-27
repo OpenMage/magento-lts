@@ -33,7 +33,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testCanUseCanonicalTag(): void
     {
-        static::assertIsBool(self::$subject->canUseCanonicalTag());
+        self::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 
     /**
@@ -42,7 +42,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
-        static::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
+        self::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
     }
 
     /**
@@ -51,7 +51,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetAttributeBackendModelByInputType(string $expectedResult, string $inputType): void
     {
-        static::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
+        self::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
     }
 
     /**
@@ -60,6 +60,6 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetAttributeSourceModelByInputType(string $expectedResult, string $inputType): void
     {
-        static::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
+        self::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
     }
 }

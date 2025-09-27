@@ -32,7 +32,7 @@ final class BlockTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertIsArray($mock->getCacheKeyInfo());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertIsArray($mock->getCacheKeyInfo());
     }
 }

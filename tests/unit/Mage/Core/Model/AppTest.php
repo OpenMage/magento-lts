@@ -35,10 +35,10 @@ final class AppTest extends OpenMageTest
     public function testGetStore(Mage_Core_Model_Store|int|string|bool|null $id): void
     {
         try {
-            static::assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getStore($id));
+            self::assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getStore($id));
         } catch (Mage_Core_Model_Store_Exception $e) {
-            static::assertNotEmpty($e->getMessage());
-            static::assertSame('Invalid store code requested.', $e->getMessage());
+            self::assertNotEmpty($e->getMessage());
+            self::assertSame('Invalid store code requested.', $e->getMessage());
         }
     }
 
@@ -50,10 +50,10 @@ final class AppTest extends OpenMageTest
     public function testGetWebsite(Mage_Core_Model_Website|int|string|bool|null $id): void
     {
         try {
-            static::assertInstanceOf(Mage_Core_Model_Website::class, self::$subject->getWebsite($id));
+            self::assertInstanceOf(Mage_Core_Model_Website::class, self::$subject->getWebsite($id));
         } catch (Mage_Core_Exception $exception) {
-            static::assertNotEmpty($exception->getMessage());
-            static::assertSame('Invalid website id requested.', $exception->getMessage());
+            self::assertNotEmpty($exception->getMessage());
+            self::assertSame('Invalid website id requested.', $exception->getMessage());
         }
     }
 
@@ -65,10 +65,10 @@ final class AppTest extends OpenMageTest
     public function testGetGroup(Mage_Core_Model_Store_Group|int|string|bool|null $id): void
     {
         try {
-            static::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));
+            self::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));
         } catch (Mage_Core_Exception $e) {
-            static::assertNotEmpty($e->getMessage());
-            static::assertSame('Invalid store group id requested.', $e->getMessage());
+            self::assertNotEmpty($e->getMessage());
+            self::assertSame('Invalid store group id requested.', $e->getMessage());
         }
     }
 }

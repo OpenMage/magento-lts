@@ -30,6 +30,6 @@ final class CronTest extends OpenMageTest
      */
     public function testLogClean(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->logClean());
+        self::assertInstanceOf(Subject::class, self::$subject->logClean());
     }
 }

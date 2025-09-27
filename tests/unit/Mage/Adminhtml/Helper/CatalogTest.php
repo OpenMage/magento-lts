@@ -31,7 +31,7 @@ final class CatalogTest extends OpenMageTest
      */
     public function testSetAttributeTabBlock(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setAttributeTabBlock(''));
+        self::assertInstanceOf(Subject::class, self::$subject->setAttributeTabBlock(''));
     }
 
     /**
@@ -40,7 +40,7 @@ final class CatalogTest extends OpenMageTest
      */
     public function testSetCategoryAttributeTabBlock(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setCategoryAttributeTabBlock(''));
+        self::assertInstanceOf(Subject::class, self::$subject->setCategoryAttributeTabBlock(''));
     }
 
     /**
@@ -63,6 +63,6 @@ final class CatalogTest extends OpenMageTest
                 'skin'      => '/skin/*/*',
             ],
         ];
-        static::assertSame($assert, self::$subject->getSitemapValidPaths());
+        self::assertSame($assert, self::$subject->getSitemapValidPaths());
     }
 }
