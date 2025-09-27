@@ -390,7 +390,7 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set the _allowCreateFolders value
+     * Used to set the @see _allowCreateFolders value
      *
      * @param mixed $flag
      * @access public
