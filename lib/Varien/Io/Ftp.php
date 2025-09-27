@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Io
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * FTP client
  *
- * @category   Varien
  * @package    Varien_Io
  */
 class Varien_Io_Ftp extends Varien_Io_Abstract
@@ -40,7 +32,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * An FTP connection
      *
-     * @var resource
+     * @var FTP\Connection|false
      */
     protected $_conn;
 
@@ -67,7 +59,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * - path        default empty
      * - file_mode   default FTP_BINARY
      *
-     * @return boolean
+     * @return bool
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function open(array $args = [])
@@ -138,7 +130,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Close a connection
      *
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -153,8 +145,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @todo implement $mode and $recursive
      * @param string $dir
      * @param int $mode
-     * @param boolean $recursive
-     * @return boolean
+     * @param bool $recursive
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -167,7 +159,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -192,7 +184,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -239,7 +231,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource $src filename, string data or source stream
-     * @return int|boolean
+     * @return int|bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -250,7 +242,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         } else {
             if (is_string($src)) {
                 $stream = tmpfile();
-                fputs($stream, $src);
+                fwrite($stream, $src);
                 fseek($stream, 0);
             } elseif (is_resource($src)) {
                 $stream = $src;
@@ -271,7 +263,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a file
      *
      * @param string $filename
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -285,7 +277,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $src
      * @param string $dest
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -299,7 +291,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param int $mode
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -329,7 +321,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     protected function _tmpFilename($new = false)
     {
         if ($new || !$this->_tmpFilename) {
-            $this->_tmpFilename = tempnam(md5(uniqid(rand(), true)), '');
+            $this->_tmpFilename = tempnam(md5(uniqid((string) random_int(0, mt_getrandmax()), true)), '');
         }
         return $this->_tmpFilename;
     }

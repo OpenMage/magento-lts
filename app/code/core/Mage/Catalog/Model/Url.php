@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -19,7 +12,6 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 /**
  * Catalog url model
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Url extends Varien_Object
@@ -318,11 +310,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
             $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
             $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
-
             $idPath      = $this->generatePath('id', null, $category);
             $targetPath  = $this->generatePath('target', null, $category);
             $requestPath = $this->getCategoryRequestPath($category, $parentPath);
-
             $rewriteData = [
                 'store_id'      => $category->getStoreId(),
                 'category_id'   => $category->getId(),
@@ -332,13 +322,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 'target_path'   => $targetPath,
                 'is_system'     => 1,
             ];
-
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
-
             if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
                 $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
             }
-
             if ($category->getUrlKey() != $urlKey) {
                 $category->setUrlKey($urlKey);
                 $this->getResource()->saveCategoryAttribute($category, 'url_key');
@@ -347,11 +334,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $category->setUrlPath($requestPath);
                 $this->getResource()->saveCategoryAttribute($category, 'url_path');
             }
-        } else {
-            if ($category->getUrlPath() != '') {
-                $category->setUrlPath('');
-                $this->getResource()->saveCategoryAttribute($category, 'url_path');
-            }
+        } elseif ($category->getUrlPath() != '') {
+            $category->setUrlPath('');
+            $this->getResource()->saveCategoryAttribute($category, 'url_path');
         }
 
         if ($refreshProducts) {
@@ -606,7 +591,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $this->_refreshProductRewrite($product, $this->_categories[$storeRootCategoryId]);
                 foreach ($product->getCategoryIds() as $categoryId) {
                     if ($categoryId != $storeRootCategoryId && isset($this->_categories[$categoryId])) {
-                        if (strpos($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/') !== 0) {
+                        if (!str_starts_with($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/')) {
                             continue;
                         }
                         $this->_refreshProductRewrite($product, $this->_categories[$categoryId]);

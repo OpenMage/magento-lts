@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Bundle
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Order item render block
  *
- * @category   Mage
  * @package    Mage_Bundle
  */
 class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Order_Item_Renderer_Default
@@ -42,15 +34,13 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                         return false;
                     }
                 }
-            } else {
-                if ($options = $item->getProductOptions()) {
-                    if (isset($options['shipment_type'])
-                        && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
-                    ) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+            } elseif ($options = $item->getProductOptions()) {
+                if (isset($options['shipment_type'])
+                    && $options['shipment_type'] == Mage_Catalog_Model_Product_Type_Abstract::SHIPMENT_SEPARATELY
+                ) {
+                    return false;
+                } else {
+                    return true;
                 }
             }
         }
@@ -85,15 +75,13 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                         return false;
                     }
                 }
-            } else {
-                if ($options = $item->getProductOptions()) {
-                    if (isset($options['product_calculations'])
-                        && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
-                    ) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+            } elseif ($options = $item->getProductOptions()) {
+                if (isset($options['product_calculations'])
+                    && $options['product_calculations'] == Mage_Catalog_Model_Product_Type_Abstract::CALCULATE_CHILD
+                ) {
+                    return false;
+                } else {
+                    return true;
                 }
             }
         }
