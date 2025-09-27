@@ -5,6 +5,8 @@ tags:
 
 # Events list
 
+<div class="events-list-table"></div>
+
 | Event name                                                       | With Magento or since OpenMage |
 |------------------------------------------------------------------|--------------------------------|
 | `[eventPrefix]`_after                                            | 1.9.4.5                        |

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Shell
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shell scripts abstract class
  *
- * @category   Mage
  * @package    Mage_Shell
  */
 abstract class Mage_Shell_Abstract
@@ -139,12 +131,10 @@ abstract class Mage_Shell_Abstract
             if (preg_match('#^--([\w\d_-]{1,})$#', $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', $arg, $match)) {
                 $current = $match[1];
                 $this->_args[$current] = true;
-            } else {
-                if ($current) {
-                    $this->_args[$current] = $arg;
-                } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
-                    $this->_args[$match[1]] = true;
-                }
+            } elseif ($current) {
+                $this->_args[$current] = $arg;
+            } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
+                $this->_args[$match[1]] = true;
             }
         }
         return $this;

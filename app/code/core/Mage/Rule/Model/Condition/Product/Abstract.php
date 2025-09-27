@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Rule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Rule product condition data model
  *
- * @category   Mage
  * @package    Mage_Rule
  *
  * @method $this setAttributeOption(array $value)
@@ -351,22 +343,13 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if ($this->getAttributeObject()->getAttributeCode() == 'category_ids') {
             return 'category';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-                return 'select';
-
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            case 'boolean':
-                return 'boolean';
-
-            default:
-                return 'string';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            'boolean' => 'boolean',
+            default => 'string',
+        };
     }
 
     /**
@@ -382,20 +365,12 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if (!is_object($this->getAttributeObject())) {
             return 'text';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-            case 'boolean':
-                return 'select';
-
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            default:
-                return 'text';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select', 'boolean' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            default => 'text',
+        };
     }
 
     /**
@@ -406,12 +381,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getValueElement()
     {
         $element = parent::getValueElement();
-        if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
-                    break;
-            }
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
         }
 
         return $element;
@@ -450,11 +421,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             case 'category_ids':
                 return true;
         }
-        if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    return true;
-            }
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            return true;
         }
         return false;
     }
