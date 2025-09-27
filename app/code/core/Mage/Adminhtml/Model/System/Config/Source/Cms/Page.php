@@ -21,7 +21,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Page
         $collection = Mage::getModel('cms/page')->getCollection()
             ->addFieldToFilter('is_active', 1)
             ->addStoreFilter($storeId)
-            ->setOrder('title', 'ASC'); // <-- sortare după titlu
+            ->setOrder('title', 'ASC');
 
         $options = array();
 
