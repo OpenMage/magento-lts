@@ -239,7 +239,7 @@ class Varien_Db_Select extends Zend_Db_Select
     }
 
     /**
-     * Populate the $_parts 'join' key
+     * Populate the @see $_parts 'join' key
      *
      * Does the dirty work of populating the join key.
      *
