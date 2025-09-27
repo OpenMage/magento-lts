@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Database Adapter Interface
  *
- * @category   Varien
  * @package    Varien_Db
  */
 interface Varien_Db_Adapter_Interface
@@ -50,6 +42,7 @@ interface Varien_Db_Adapter_Interface
      * Error message for DDL query in transactions
      */
     public const ERROR_DDL_MESSAGE = 'DDL statements are not allowed in transactions';
+    public const ERROR_TRANSACTION_NOT_COMMITTED = 'Some transactions have not been committed or rolled back';
 
     /**
      * Begin new DB transaction for connection
@@ -102,7 +95,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function dropTable($tableName, $schemaName = null);
 
@@ -111,7 +104,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function dropTemporaryTable($tableName, $schemaName = null);
 
@@ -129,7 +122,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function isTableExists($tableName, $schemaName = null);
 
@@ -187,7 +180,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param array|string $definition
-     * @param boolean $flushData
+     * @param bool $flushData
      * @param string $schemaName
      * @return Varien_Db_Adapter_Pdo_Mysql
      */
@@ -199,7 +192,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $oldTableName
      * @param string $newTableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function renameTable($oldTableName, $newTableName, $schemaName = null);
 
@@ -208,7 +201,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param array $tablePairs array('oldName' => 'Name1', 'newName' => 'Name2')
      *
-     * @return boolean
+     * @return bool
      * @throws Zend_Db_Exception
      */
     public function renameTablesBatch(array $tablePairs);
@@ -236,7 +229,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $oldColumnName
      * @param string $newColumnName
      * @param array|string $definition
-     * @param boolean $flushData        flush table statistic
+     * @param bool $flushData        flush table statistic
      * @param string $schemaName
      * @return Varien_Db_Adapter_Interface
      */
@@ -255,7 +248,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param array|string $definition
-     * @param boolean $flushData
+     * @param bool $flushData
      * @param string $schemaName
      * @return Varien_Db_Adapter_Interface
      */
@@ -267,7 +260,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function dropColumn($tableName, $columnName, $schemaName = null);
 
@@ -277,7 +270,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $tableName
      * @param string $columnName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function tableColumnExists($tableName, $columnName, $schemaName = null);
 
@@ -338,7 +331,7 @@ interface Varien_Db_Adapter_Interface
      * @param string $refColumnName
      * @param string $onDelete
      * @param string $onUpdate
-     * @param boolean $purge            trying remove invalid data
+     * @param bool $purge            trying remove invalid data
      * @param string $schemaName
      * @param string $refSchemaName
      * @return Varien_Db_Adapter_Interface
@@ -611,7 +604,7 @@ interface Varien_Db_Adapter_Interface
      * the adapter.
      *
      * @param string|array|Zend_Db_Expr $ident The identifier.
-     * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
+     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier.
      */
     public function quoteIdentifier($ident, $auto = false);
@@ -621,7 +614,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string|array|Zend_Db_Expr $ident The identifier or expression.
      * @param string $alias An alias for the column.
-     * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
+     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
     public function quoteColumnAs($ident, $alias, $auto = false);
@@ -631,7 +624,7 @@ interface Varien_Db_Adapter_Interface
      *
      * @param string|array|Zend_Db_Expr $ident The identifier or expression.
      * @param string $alias An alias for the table.
-     * @param boolean $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
+     * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
     public function quoteTableAs($ident, $alias = null, $auto = false);
@@ -640,7 +633,7 @@ interface Varien_Db_Adapter_Interface
      * Format Date to internal database date format
      *
      * @param int|string|Zend_Date $date
-     * @param boolean $includeTime
+     * @param bool $includeTime
      * @return Zend_Db_Expr
      */
     public function formatDate($date, $includeTime = true);
@@ -738,7 +731,7 @@ interface Varien_Db_Adapter_Interface
      * will be built using above mentioned structure
      *
      * @param string $fieldName
-     * @param integer|string|array $condition
+     * @param int|string|array $condition
      * @return string
      */
     public function prepareSqlCondition($fieldName, $condition);
@@ -1001,7 +994,7 @@ interface Varien_Db_Adapter_Interface
     /**
      * Check if the database support STRAIGHT JOIN
      *
-     * @return boolean
+     * @return bool
      */
     public function supportStraightJoin();
 

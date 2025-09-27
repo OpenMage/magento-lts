@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_CatalogRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog Rule Product Aggregated Price per date Resource Model
  *
- * @category   Mage
  * @package    Mage_CatalogRule
  */
 class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model_Resource_Db_Abstract
@@ -67,10 +59,12 @@ class Mage_CatalogRule_Model_Resource_Rule_Product_Price extends Mage_Core_Model
         $select->join(['rp' => $this->getMainTable()], "rp.rule_date = {$websiteDate}", [])
                ->where("rp.product_id = {$entityId} AND rp.website_id = {$websiteId} AND rp.customer_group_id = {$customerGroupId}");
 
-        foreach ($updateFields as $priceField) {
-            $priceCond = $this->_getWriteAdapter()->quoteIdentifier([$indexAlias, $priceField]);
-            $priceExpr = $this->_getWriteAdapter()->getCheckSql("rp.rule_price < {$priceCond}", 'rp.rule_price', $priceCond);
-            $select->columns([$priceField => $priceExpr]);
+        if (isset($indexAlias)) {
+            foreach ($updateFields as $priceField) {
+                $priceCond = $this->_getWriteAdapter()->quoteIdentifier([$indexAlias, $priceField]);
+                $priceExpr = $this->_getWriteAdapter()->getCheckSql("rp.rule_price < {$priceCond}", 'rp.rule_price', $priceCond);
+                $select->columns([$priceField => $priceExpr]);
+            }
         }
 
         $query = $select->crossUpdateFromSelect($indexTable);

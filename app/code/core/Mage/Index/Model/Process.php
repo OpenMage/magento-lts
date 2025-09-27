@@ -1,21 +1,13 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
- * @category   Mage
  * @package    Mage_Index
  *
  * @method Mage_Index_Model_Resource_Process _getResource()
@@ -23,6 +15,10 @@
  * @method string getIndexCode()
  * @method string getIndexerCode()
  * @method $this setIndexerCode(string $value)
+ * @method string getName()
+ * @method $this setName(string $value)
+ * @method string getDescription()
+ * @method $this setDescription(string $value)
  * @method string getStatus()
  * @method $this setStatus(string $value)
  * @method string getStartedAt()
@@ -33,6 +29,8 @@
  * @method $this setMode(string $value)
  * @method bool getForcePartialReindex()
  * @method $this setForcePartialReindex(bool $value)
+ * @method int getUpdateRequired()
+ * @method $this setUpdateRequired(int $value)
  */
 class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 {
@@ -98,7 +96,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      */
     protected function _setEventNamespace(Mage_Index_Model_Event $event)
     {
-        $namespace = get_class($this->getIndexer());
+        $namespace = $this->getIndexer()::class;
         $event->setDataNamespace($namespace);
         $event->setProcess($this);
         return $this;
@@ -219,6 +217,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Check and using depends processes
      *
      * @return $this
+     * @throws Exception
      */
     public function reindexEverything()
     {
@@ -282,6 +281,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Get Indexer strategy object
      *
      * @return Mage_Index_Model_Indexer_Abstract
+     * @throws Mage_Core_Exception
      */
     public function getIndexer()
     {
@@ -561,6 +561,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Disable keys in index table
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function disableIndexerKeys()
     {
@@ -575,6 +576,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
      * Enable keys in index table
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function enableIndexerKeys()
     {

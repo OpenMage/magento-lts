@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Layer price filter
  *
- * @category   Mage
  * @package    Mage_Catalog
  *
  * @method array getInterval()
@@ -100,7 +92,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                 if ($calculation == self::RANGE_CALCULATION_AUTO) {
                     $index = 1;
                     do {
-                        $range = pow(10, (strlen(floor($maxPrice)) - $index));
+                        $range = 10 ** (strlen(floor($maxPrice)) - $index);
                         $items = $this->getRangeItemCounts($range);
                         $index++;
                     } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
@@ -376,12 +368,13 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             return $this;
         }
 
-        list($from, $to) = $filter;
+        [$from, $to] = $filter;
 
         $this->setInterval([$from, $to]);
 
         $priorFilters = [];
-        for ($i = 1; $i < count($filterParams); ++$i) {
+        $counter = count($filterParams);
+        for ($i = 1; $i < $counter; ++$i) {
             $priorFilter = $this->_validateFilter($filterParams[$i]);
             if ($priorFilter) {
                 $priorFilters[] = $priorFilter;
@@ -529,9 +522,9 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * Load range of product prices
      *
      * @param int $limit
-     * @param null|int $offset
-     * @param null|int $lowerPrice
-     * @param null|int $upperPrice
+     * @param int|null $offset
+     * @param float|null $lowerPrice
+     * @param float|null $upperPrice
      * @return array
      */
     public function loadPrices($limit, $offset = null, $lowerPrice = null, $upperPrice = null)
@@ -549,7 +542,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      *
      * @param float $price
      * @param int $index
-     * @param null|int $lowerPrice
+     * @param float|null $lowerPrice
      * @return array|false
      */
     public function loadPreviousPrices($price, $index, $lowerPrice = null)
@@ -567,7 +560,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      *
      * @param float $price
      * @param int $rightIndex
-     * @param null|int $upperPrice
+     * @param float|null $upperPrice
      * @return array|false
      */
     public function loadNextPrices($price, $rightIndex, $upperPrice = null)

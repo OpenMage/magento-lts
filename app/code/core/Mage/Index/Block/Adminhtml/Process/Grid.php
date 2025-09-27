@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Index
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 
 /**
- * @category   Mage
  * @package    Mage_Index
  */
 class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widget_Grid
@@ -52,6 +44,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Prepare grid collection
      *
      * @return $this
+     * @throws Exception
      */
     protected function _prepareCollection()
     {
@@ -66,6 +59,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Add name and description to collection elements
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _afterLoadCollection()
     {
@@ -89,10 +83,10 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
      * Prepare grid columns
      *
      * @return $this
+     * @throws Exception
      */
     protected function _prepareColumns()
     {
-        $baseUrl = $this->getUrl();
         $this->addColumn('indexer_code', [
             'header'    => Mage::helper('index')->__('Index'),
             'width'     => '180',
@@ -183,16 +177,16 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $class = '';
         switch ($row->getStatus()) {
             case Mage_Index_Model_Process::STATUS_PENDING:
-                $class = 'grid-severity-notice';
+                $class = self::CSS_SEVERITY_NOTICE;
                 break;
             case Mage_Index_Model_Process::STATUS_RUNNING:
-                $class = 'grid-severity-major';
+                $class = self::CSS_SEVERITY_MAJOR;
                 break;
             case Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX:
-                $class = 'grid-severity-critical';
+                $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
-        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
+        return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
     /**
@@ -210,13 +204,13 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         $class = '';
         switch ($row->getUpdateRequired()) {
             case 0:
-                $class = 'grid-severity-notice';
+                $class = self::CSS_SEVERITY_NOTICE;
                 break;
             case 1:
-                $class = 'grid-severity-critical';
+                $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
-        return '<span class="' . $class . '"><span>' . $value . '</span></span>';
+        return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
     /**

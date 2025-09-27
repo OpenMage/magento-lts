@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV additional attribute resource collection (Using Forms)
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Model_Resource_Entity_Attribute_Collection
@@ -144,28 +136,26 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         foreach (array_keys($scopeDescribe) as $columnName) {
             if ($columnName == 'website_id') {
                 $scopeColumns['scope_website_id'] = $columnName;
-            } else {
-                if (isset($mainColumns[$columnName])) {
-                    $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql(
-                        'main_table.%s IS NULL',
-                        'scope_table.%s',
-                        'main_table.%s',
-                    );
-                    $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
-                    $this->addFilterToMap($columnName, $expression);
-                    $scopeColumns[$alias] = $columnName;
-                } elseif (isset($extraColumns[$columnName])) {
-                    $alias = sprintf('scope_%s', $columnName);
-                    $expression = $connection->getCheckSql(
-                        'additional_table.%s IS NULL',
-                        'scope_table.%s',
-                        'additional_table.%s',
-                    );
-                    $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
-                    $this->addFilterToMap($columnName, $expression);
-                    $scopeColumns[$alias] = $columnName;
-                }
+            } elseif (isset($mainColumns[$columnName])) {
+                $alias = sprintf('scope_%s', $columnName);
+                $expression = $connection->getCheckSql(
+                    'main_table.%s IS NULL',
+                    'scope_table.%s',
+                    'main_table.%s',
+                );
+                $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
+                $this->addFilterToMap($columnName, $expression);
+                $scopeColumns[$alias] = $columnName;
+            } elseif (isset($extraColumns[$columnName])) {
+                $alias = sprintf('scope_%s', $columnName);
+                $expression = $connection->getCheckSql(
+                    'additional_table.%s IS NULL',
+                    'scope_table.%s',
+                    'additional_table.%s',
+                );
+                $expression = sprintf((string) $expression, $columnName, $columnName, $columnName);
+                $this->addFilterToMap($columnName, $expression);
+                $scopeColumns[$alias] = $columnName;
             }
         }
 

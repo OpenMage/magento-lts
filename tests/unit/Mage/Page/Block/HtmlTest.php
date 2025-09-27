@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -18,53 +12,48 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Mage\Page\Block;
 
 use Mage;
-use Mage_Page_Block_Html;
-use PHPUnit\Framework\TestCase;
+use Mage_Page_Block_Html as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class HtmlTest extends TestCase
+final class HtmlTest extends OpenMageTest
 {
-    public Mage_Page_Block_Html $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Page_Block_Html();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetBaseUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseUrl());
+        static::assertIsString(self::$subject->getBaseUrl());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetBaseSecureUrl(): void
     {
-        $this->assertIsString($this->subject->getBaseSecureUrl());
+        static::assertIsString(self::$subject->getBaseSecureUrl());
     }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     //    public function testGetCurrentUrl(): void
     //    {
-    //        $this->assertIsString($this->subject->getCurrentUrl());
+    //        $this->assertIsString(self::$subject->getCurrentUrl());
     //    }
 
     /**
-     * @group Mage_Page
-     * @group Mage_Page_Block
+     * @group Block
      */
     public function testGetPrintLogoUrl(): void
     {
-        $this->assertIsString($this->subject->getPrintLogoUrl());
+        static::assertIsString(self::$subject->getPrintLogoUrl());
     }
 }

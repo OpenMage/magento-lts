@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Db
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -321,7 +314,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $hostInfo->setAddressType(self::ADDRESS_TYPE_IPV6_ADDRESS)
                 ->setHostName($hostName);
         } elseif (str_contains($hostName, ':')) {
-            list($hostAddress, $hostPort) = explode(':', $hostName);
+            [$hostAddress, $hostPort] = explode(':', $hostName);
             $hostInfo->setAddressType(
                 filter_var($hostAddress, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)
                     ? self::ADDRESS_TYPE_IPV4_ADDRESS
@@ -429,7 +422,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $sql
      * @param string|int $field
-     * @return boolean
+     * @return bool
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
     public function raw_fetchRow($sql, $field = null)
@@ -464,7 +457,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             if (in_array($startSql, $this->_ddlRoutines)
                 && (preg_match($this->_tempRoutines, $sql) !== 1)
             ) {
-                trigger_error(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE, E_USER_ERROR);
+                throw new Varien_Db_Exception(Varien_Db_Adapter_Interface::ERROR_DDL_MESSAGE);
             }
         }
     }
@@ -560,9 +553,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         if (isset($matches[6])
             && (
-                strpos($matches[6], "'") !== false
-                || strpos($matches[6], ':') !== false
-                || strpos($matches[6], '?') !== false
+                str_contains($matches[6], "'")
+                || str_contains($matches[6], ':')
+                || str_contains($matches[6], '?')
             )
         ) {
             $bindName = ':_mage_bind_var_' . (++$this->_bindIncrement);
@@ -776,7 +769,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $foreignKeys = $this->getForeignKeys($tableName, $schemaName);
         $fkName = strtoupper($fkName);
-        if (substr($fkName, 0, 3) == 'FK_') {
+        if (str_starts_with($fkName, 'FK_')) {
             $fkName = substr($fkName, 3);
         }
         foreach ([$fkName, 'FK_' . $fkName] as $key) {
@@ -895,7 +888,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $tableName
      * @param string $columnName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function tableColumnExists($tableName, $columnName, $schemaName = null)
     {
@@ -919,7 +912,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param   string $columnName
      * @param   array|string $definition  string specific or universal array DB Server definition
      * @param   string $schemaName
-     * @return  int|boolean|Zend_Db_Statement_Interface
+     * @return  int|bool|Zend_Db_Statement_Interface
      * @throws  Zend_Db_Exception
      */
     public function addColumn($tableName, $columnName, $definition, $schemaName = null)
@@ -1000,7 +993,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $oldColumnName
      * @param string $newColumnName
      * @param array $definition
-     * @param boolean $flushData        flush table statistic
+     * @param bool $flushData        flush table statistic
      * @param string $schemaName
      * @return Zend_Db_Statement_Interface|Zend_Db_Statement_Pdo
      * @throws Zend_Db_Exception
@@ -1049,7 +1042,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $tableName
      * @param string $columnName
      * @param array|string $definition
-     * @param boolean $flushData
+     * @param bool $flushData
      * @param string $schemaName
      * @return $this
      * @throws Zend_Db_Exception
@@ -1537,7 +1530,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     public function quoteInto($text, $value, $type = null, $count = null)
     {
-        if (is_array($value) && empty($value)) {
+        if ($value === []) {
             $value = new Zend_Db_Expr('NULL');
         }
 
@@ -1687,7 +1680,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     {
         $matches = [];
         if (preg_match('/^((?:var)?binary)\((\d+)\)/', $tableColumnInfo['DATA_TYPE'], $matches)) {
-            list($fieldFullDescription, $fieldType, $fieldLength) = $matches;
+            [$fieldFullDescription, $fieldType, $fieldLength] = $matches;
             $tableColumnInfo['DATA_TYPE'] = $fieldType;
             $tableColumnInfo['LENGTH'] = $fieldLength;
         }
@@ -1875,7 +1868,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $tableName
      * @param string $columnName
      * @param array $definition
-     * @param boolean $flushData
+     * @param bool $flushData
      * @param string $schemaName
      * @return $this
      */
@@ -2166,23 +2159,19 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             if ($val instanceof Zend_Db_Expr) {
                 $vals[] = $val->__toString();
                 unset($bind[$col]);
+            } elseif ($this->supportsParameters('positional')) {
+                $vals[] = '?';
+            } elseif ($this->supportsParameters('named')) {
+                unset($bind[$col]);
+                $bind[':col' . $i] = $val;
+                $vals[] = ':col' . $i;
+                $i++;
             } else {
-                if ($this->supportsParameters('positional')) {
-                    $vals[] = '?';
-                } else {
-                    if ($this->supportsParameters('named')) {
-                        unset($bind[$col]);
-                        $bind[':col' . $i] = $val;
-                        $vals[] = ':col' . $i;
-                        $i++;
-                    } else {
-                        /** @see Zend_Db_Adapter_Exception */
-                        #require_once 'Zend/Db/Adapter/Exception.php';
-                        throw new Zend_Db_Adapter_Exception(
-                            get_class($this) . " doesn't support positional or named binding",
-                        );
-                    }
-                }
+                /** @see Zend_Db_Adapter_Exception */
+                #require_once 'Zend/Db/Adapter/Exception.php';
+                throw new Zend_Db_Adapter_Exception(
+                    static::class . " doesn't support positional or named binding",
+                );
             }
         }
 
@@ -2597,7 +2586,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function dropTable($tableName, $schemaName = null)
     {
@@ -2650,7 +2639,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param string $tableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      */
     public function isTableExists($tableName, $schemaName = null)
     {
@@ -2678,7 +2667,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $oldTableName
      * @param string $newTableName
      * @param string $schemaName
-     * @return boolean
+     * @return bool
      * @throws Zend_Db_Exception
      */
     public function renameTable($oldTableName, $newTableName, $schemaName = null)
@@ -2706,7 +2695,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      *
      * @param array $tablePairs array('oldName' => 'Name1', 'newName' => 'Name2')
      *
-     * @return boolean
+     * @return bool
      * @throws Zend_Db_Exception
      */
     public function renameTablesBatch(array $tablePairs)
@@ -2784,20 +2773,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
         $fieldSql = implode(',', $fieldSql);
 
-        switch (strtolower($indexType)) {
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY:
-                $condition = 'PRIMARY KEY';
-                break;
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE:
-                $condition = 'UNIQUE ' . $this->quoteIdentifier($indexName);
-                break;
-            case Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT:
-                $condition = 'FULLTEXT ' . $this->quoteIdentifier($indexName);
-                break;
-            default:
-                $condition = 'INDEX ' . $this->quoteIdentifier($indexName);
-                break;
-        }
+        $condition = match (strtolower($indexType)) {
+            Varien_Db_Adapter_Interface::INDEX_TYPE_PRIMARY => 'PRIMARY KEY',
+            Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE => 'UNIQUE ' . $this->quoteIdentifier($indexName),
+            Varien_Db_Adapter_Interface::INDEX_TYPE_FULLTEXT => 'FULLTEXT ' . $this->quoteIdentifier($indexName),
+            default => 'INDEX ' . $this->quoteIdentifier($indexName),
+        };
 
         $query .= sprintf(' ADD %s (%s)', $condition, $fieldSql);
 
@@ -2867,7 +2848,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * @param string $refColumnName
      * @param string $onDelete
      * @param string $onUpdate
-     * @param boolean $purge            trying remove invalid data
+     * @param bool $purge            trying remove invalid data
      * @param string $schemaName
      * @param string $refSchemaName
      * @return Zend_Db_Statement_Interface|Zend_Db_Statement_Pdo
@@ -2915,7 +2896,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * Format Date to internal database date format
      *
      * @param int|string|Zend_Date $date
-     * @param boolean $includeTime
+     * @param bool $includeTime
      * @return Zend_Db_Expr
      */
     public function formatDate($date, $includeTime = true)
@@ -2983,7 +2964,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      * will be built using above mentioned structure
      *
      * @param string|array $fieldName
-     * @param integer|string|array $condition
+     * @param int|string|array $condition
      * @return string
      */
     public function prepareSqlCondition($fieldName, $condition)
@@ -3113,7 +3094,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 $value = (int) $value;
                 break;
             case 'bigint':
-                if (!is_integer($value)) {
+                if (!is_int($value)) {
                     $value = sprintf('%.0f', (float) $value);
                 }
                 break;
@@ -3751,7 +3732,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         // render UPDATE SET
         $columns = [];
         foreach ($select->getPart(Zend_Db_Select::COLUMNS) as $columnEntry) {
-            list($correlationName, $column, $alias) = $columnEntry;
+            [$correlationName, $column, $alias] = $columnEntry;
             if (empty($alias)) {
                 $alias = $column;
             }
@@ -3815,7 +3796,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     /**
      * Check if the database support STRAIGHT JOIN
      *
-     * @return boolean
+     * @return bool
      */
     public function supportStraightJoin()
     {
@@ -3926,16 +3907,12 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _getDdlAction($action)
     {
-        switch ($action) {
-            case Varien_Db_Adapter_Interface::FK_ACTION_CASCADE:
-                return Varien_Db_Ddl_Table::ACTION_CASCADE;
-            case Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL:
-                return Varien_Db_Ddl_Table::ACTION_SET_NULL;
-            case Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT:
-                return Varien_Db_Ddl_Table::ACTION_RESTRICT;
-            default:
-                return Varien_Db_Ddl_Table::ACTION_NO_ACTION;
-        }
+        return match ($action) {
+            Varien_Db_Adapter_Interface::FK_ACTION_CASCADE => Varien_Db_Ddl_Table::ACTION_CASCADE,
+            Varien_Db_Adapter_Interface::FK_ACTION_SET_NULL => Varien_Db_Ddl_Table::ACTION_SET_NULL,
+            Varien_Db_Adapter_Interface::FK_ACTION_RESTRICT => Varien_Db_Ddl_Table::ACTION_RESTRICT,
+            default => Varien_Db_Ddl_Table::ACTION_NO_ACTION,
+        };
     }
 
     /**
@@ -4048,7 +4025,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
      */
     protected function _getForeignKeyName($fkName)
     {
-        if (substr($fkName, 0, 3) != 'FK_') {
+        if (!str_starts_with($fkName, 'FK_')) {
             $fkName = 'FK_' . $fkName;
         }
 
@@ -4094,7 +4071,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
     public function __destruct()
     {
         if ($this->_transactionLevel > 0) {
-            trigger_error('Some transactions have not been committed or rolled back', E_USER_ERROR);
+            throw new RuntimeException(Varien_Db_Adapter_Interface::ERROR_TRANSACTION_NOT_COMMITTED);
         }
     }
 }
