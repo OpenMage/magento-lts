@@ -93,10 +93,10 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());
             $head->setDescription($page->getMetaDescription());
-            
+
             // Add canonical tag if enabled
             if (Mage::helper('cms')->canUseCanonicalTag()) {
-                $canonicalUrl = $this->_getCanonicalUrl($page);
+                $canonicalUrl = $this->getCanonicalUrl($page);
                 if ($canonicalUrl) {
                     $head->addLinkRel('canonical', $canonicalUrl);
                 }
@@ -128,7 +128,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
      * @param Mage_Cms_Model_Page $page
      * @return string|null
      */
-    protected function _getCanonicalUrl($page)
+    protected function getCanonicalUrl(Mage_Cms_Model_Page $page): ?string
     {
         if (!$page->getId()) {
             return null;
@@ -141,23 +141,23 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
 
         // Get the page identifier
         $identifier = $page->getIdentifier();
-        
+
         // Handle special pages differently
         $homePageId = Mage::getStoreConfig('web/default/cms_home_page');
         $noRoutePageId = Mage::getStoreConfig('web/default/cms_no_route');
         $noCookiesPageId = Mage::getStoreConfig('web/default/cms_no_cookies');
-        
+
         // For homepage, use base URL
         if ($identifier === $homePageId) {
             return Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
         }
-        
+
         // For special pages that shouldn't have canonical tags
         if (in_array($identifier, [$noRoutePageId, $noCookiesPageId])) {
             return null;
         }
-        
+
         // For regular CMS pages, use the standard CMS page URL
-        return Mage::getUrl(null, ['_direct' => $identifier, '_nosid' => true]);
+        return $this->getUrl(null, ['_direct' => $identifier, '_nosid' => true]);
     }
 }

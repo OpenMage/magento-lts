@@ -76,7 +76,7 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
      * @param int|string|null|Mage_Core_Model_Store $store
      * @return bool
      */
-    public function canUseCanonicalTag($store = null)
+    public function canUseCanonicalTag($store = null): bool
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_USE_CMS_CANONICAL_TAG, $store);
     }
