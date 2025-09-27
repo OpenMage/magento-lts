@@ -51,6 +51,19 @@
                         </show_cms_breadcrumbs>
                     </fields>
                 </default>
+                <seo translate="label" module="cms">
+                    <fields>
+                        <cms_canonical_tag translate="label">
+                            <label>Use Canonical Link Meta Tag For CMS Pages</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cms_canonical_tag>
+                    </fields>
+                </seo>
             </groups>
         </web>
         <cms translate="label" module="cms">
