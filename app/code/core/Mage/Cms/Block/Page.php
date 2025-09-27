@@ -158,6 +158,6 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         }
 
         // For regular CMS pages, use the standard CMS page URL
-        return $this->getUrl(null, ['_direct' => $identifier, '_nosid' => true]);
+        return $this->getUrl('', ['_direct' => $identifier, '_nosid' => true]);
     }
 }
