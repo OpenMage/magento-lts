@@ -121,7 +121,6 @@ try {
             # skip: causes issues
             Php74\Assign\NullCoalescingOperatorRector::class,
             Php80\Catch_\RemoveUnusedVariableInCatchRector::class, # todo: TMP
-            Php80\Class_\AnnotationToAttributeRector::class, # todo: wait for php80
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
@@ -137,6 +136,10 @@ try {
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',
             __DIR__ . '/tests/unit/Mage/Reports/Model/Resource/Report/CollectionTest.php',
+            # skip: files with processing issues
+            __DIR__ . '/lib/Varien/Db/Select.php',
+            __DIR__ . '/lib/Varien/File/Uploader.php',
+            __DIR__ . '/lib/Varien/Io/File.php',            
         ])
         ->withPreparedSets(
             deadCode: true,
