@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * USPS shipping rates estimation
  *
  * @link       http://www.usps.com/webtools/htm/Development-Guide-v3-0b.htm
- * @category   Mage
  * @package    Mage_Usa
  */
 class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
@@ -440,8 +432,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $costArr = [];
         $priceArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
-                if (strpos($response, '<?xml version="1.0"?>') !== false) {
+            if (str_starts_with(trim($response), '<?xml')) {
+                if (str_contains($response, '<?xml version="1.0"?>')) {
                     $response = str_replace(
                         '<?xml version="1.0"?>',
                         '<?xml version="1.0" encoding="ISO-8859-1"?>',
@@ -473,26 +465,25 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                             }
                             asort($priceArr);
                         }
-                    } else { // International Rates
-                        if (is_object($xml->Package) && is_object($xml->Package->Service)) {
-                            foreach ($xml->Package->Service as $service) {
-                                // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                                if ($service->ServiceErrors->count()) {
-                                    continue;
-                                }
-                                $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
-                                $serviceCode = 'INT_' . (string) $service->attributes()->ID;
-                                $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
-                                if (in_array($serviceCode, $allowedMethods)) {
-                                    $costArr[$serviceCode] = (string) $service->Postage;
-                                    $priceArr[$serviceCode] = $this->getMethodPrice(
-                                        (float) $service->Postage,
-                                        $serviceCode,
-                                    );
-                                }
+                    } elseif (is_object($xml->Package) && is_object($xml->Package->Service)) {
+                        // International Rates
+                        foreach ($xml->Package->Service as $service) {
+                            // phpcs:ignore Ecg.Performance.Loop.ArraySize
+                            if ($service->ServiceErrors->count()) {
+                                continue;
                             }
-                            asort($priceArr);
+                            $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
+                            $serviceCode = 'INT_' . (string) $service->attributes()->ID;
+                            $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
+                            if (in_array($serviceCode, $allowedMethods)) {
+                                $costArr[$serviceCode] = (string) $service->Postage;
+                                $priceArr[$serviceCode] = $this->getMethodPrice(
+                                    (float) $service->Postage,
+                                    $serviceCode,
+                                );
+                            }
                         }
+                        asort($priceArr);
                     }
                 }
 
@@ -976,7 +967,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
         if (strlen(trim($response)) > 0) {
-            if (strpos(trim($response), '<?xml') === 0) {
+            if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (isset($xml->Number) && isset($xml->Description) && (string) $xml->Description != '') {
@@ -1295,11 +1286,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             'US' => 'United States',
         ];
 
-        if (isset($countries[$countryId])) {
-            return $countries[$countryId];
-        }
-
-        return false;
+        return $countries[$countryId] ?? false;
     }
 
     /**
@@ -1341,8 +1328,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ));
         }
 
-        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
-        list($toZip5, $toZip4) = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
+        [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
+        [$toZip5, $toZip4] = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
         $rootNode = 'ExpressMailLabelRequest';
         // the wrap node needs for remove xml declaration above
@@ -1394,31 +1381,14 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
      */
     protected function _formUsSignatureConfirmationShipmentRequest(Varien_Object $request, $serviceType)
     {
-        switch ($serviceType) {
-            case 'PRIORITY':
-            case 'Priority':
-                $serviceType = 'Priority';
-                break;
-            case 'FIRST CLASS':
-            case 'First Class':
-                $serviceType = 'First Class';
-                break;
-            case 'STANDARD':
-            case 'Standard Post':
-            case 'Retail Ground':
-                $serviceType = 'Retail Ground';
-                break;
-            case 'MEDIA':
-            case 'Media':
-                $serviceType = 'Media Mail';
-                break;
-            case 'LIBRARY':
-            case 'Library':
-                $serviceType = 'Library Mail';
-                break;
-            default:
-                throw new Exception(Mage::helper('usa')->__('Service type does not match'));
-        }
+        $serviceType = match ($serviceType) {
+            'PRIORITY', 'Priority' => 'Priority',
+            'FIRST CLASS', 'First Class' => 'First Class',
+            'STANDARD', 'Standard Post', 'Retail Ground' => 'Retail Ground',
+            'MEDIA', 'Media' => 'Media Mail',
+            'LIBRARY', 'Library' => 'Library Mail',
+            default => throw new Exception(Mage::helper('usa')->__('Service type does not match')),
+        };
         $packageParams = $request->getPackageParams();
         $packageWeight = $request->getPackageWeight();
         if ($packageParams->getWeightUnits() != Zend_Measure_Weight::OUNCE) {
@@ -1429,8 +1399,8 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             ));
         }
 
-        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
-        list($toZip5, $toZip4) = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
+        [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
+        [$toZip5, $toZip4] = $this->_parseZip($request->getRecipientAddressPostalCode(), true);
 
         if ($this->getConfigData('mode')) {
             $rootNode = 'SignatureConfirmationV3.0Request';
@@ -1530,27 +1500,16 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         }
 
         $container = $request->getPackagingType();
-        switch ($container) {
-            case 'VARIABLE':
-                $container = 'VARIABLE';
-                break;
-            case 'FLAT RATE ENVELOPE':
-                $container = 'FLATRATEENV';
-                break;
-            case 'FLAT RATE BOX':
-                $container = 'FLATRATEBOX';
-                break;
-            case 'RECTANGULAR':
-                $container = 'RECTANGULAR';
-                break;
-            case 'NONRECTANGULAR':
-                $container = 'NONRECTANGULAR';
-                break;
-            default:
-                $container = 'VARIABLE';
-        }
+        $container = match ($container) {
+            'VARIABLE' => 'VARIABLE',
+            'FLAT RATE ENVELOPE' => 'FLATRATEENV',
+            'FLAT RATE BOX' => 'FLATRATEBOX',
+            'RECTANGULAR' => 'RECTANGULAR',
+            'NONRECTANGULAR' => 'NONRECTANGULAR',
+            default => 'VARIABLE',
+        };
         $shippingMethod = $request->getShippingMethod();
-        list($fromZip5, $fromZip4) = $this->_parseZip($request->getShipperAddressPostalCode());
+        [$fromZip5, $fromZip4] = $this->_parseZip($request->getShipperAddressPostalCode());
 
         // the wrap node needs for remove xml declaration above
         $xmlWrap = new SimpleXMLElement('<?xml version = "1.0" encoding = "UTF-8"?><wrap/>');
@@ -1672,13 +1631,13 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             $individualItemWeight = $itemWeight / $ceiledQty;
             $itemDetail->addChild('Quantity', (string) $ceiledQty);
             $itemDetail->addChild('Value', (string) ($item->getCustomsValue() * $item->getQty()));
-            list($individualPoundsWeight, $individualOuncesWeight) = $this->_convertPoundOunces($individualItemWeight);
+            [$individualPoundsWeight, $individualOuncesWeight] = $this->_convertPoundOunces($individualItemWeight);
             $itemDetail->addChild('NetPounds', $individualPoundsWeight);
             $itemDetail->addChild('NetOunces', $individualOuncesWeight);
             $itemDetail->addChild('HSTariffNumber', '0');
             $itemDetail->addChild('CountryOfOrigin', $countryOfManufacture);
 
-            list($itemPoundsWeight, $itemOuncesWeight) = $this->_convertPoundOunces($itemWeight);
+            [$itemPoundsWeight, $itemOuncesWeight] = $this->_convertPoundOunces($itemWeight);
             $packagePoundsWeight += $itemPoundsWeight;
             $packageOuncesWeight += $itemOuncesWeight;
         }
@@ -1686,7 +1645,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $packagePoundsWeight += $additionalPackagePoundsWeight;
         $packageOuncesWeight -= $additionalPackagePoundsWeight * self::OUNCES_POUND;
         if ($packagePoundsWeight + $packageOuncesWeight / self::OUNCES_POUND < $packageWeight) {
-            list($packagePoundsWeight, $packageOuncesWeight) = $this->_convertPoundOunces($packageWeight);
+            [$packagePoundsWeight, $packageOuncesWeight] = $this->_convertPoundOunces($packageWeight);
         }
 
         $xml->addChild('GrossPounds', $packagePoundsWeight);

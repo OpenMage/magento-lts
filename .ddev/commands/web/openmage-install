@@ -53,7 +53,7 @@ if [ -f "${LOCALXML}" ]; then
   fi
 
   if [[ "${DELETE}" =~ ^(yes|y) ]]; then
-    mysql -u db -h db -e "DROP SCHEMA IF EXISTS db; CREATE SCHEMA db;";
+    mysql -u db -pdb -h db -e "DROP SCHEMA IF EXISTS db; CREATE SCHEMA db;";
     rm "${LOCALXML}"
   else
     exit 1
@@ -96,7 +96,7 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   rm -rf "${ROOT}"/"${DDEV_DOCROOT}/var/cache/"*
 
   echo "Importing Sample Data into the database..."
-  mysql -u db -h db db < "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql
+  mysql -u db -pdb -h db db < "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql
 
   # remove sample data
   if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then

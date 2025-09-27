@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tag
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tag Indexer Model
  *
- * @category   Mage
  * @package    Mage_Tag
  */
 class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resource_Product_Indexer_Abstract
@@ -151,9 +143,9 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
                                 '0',
                             ) . ')',
                         ),
-                        'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                        'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                        'base_popularity'   => new Zend_Db_Expr(0),  // deprecated since 1.4.0.1
+                        'uses'              => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                        'historical_uses'   => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                        'base_popularity'   => new Zend_Db_Expr('0'),  // deprecated since 1.4.0.1
                     ],
                 )
                 ->joinInner(
@@ -215,13 +207,13 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
 
             $selectedFields = [
                 'tag_id'            => 'tag_id',
-                'store_id'          => new Zend_Db_Expr(0),
+                'store_id'          => new Zend_Db_Expr('0'),
                 'customers'         => 'COUNT(DISTINCT customer_id)',
                 'products'          => 'COUNT(DISTINCT product_id)',
                 'popularity'        => 'COUNT(customer_id)',
-                'uses'              => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                'historical_uses'   => new Zend_Db_Expr(0), // deprecated since 1.4.0.1
-                'base_popularity'   => new Zend_Db_Expr(0),  // deprecated since 1.4.0.1
+                'uses'              => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                'historical_uses'   => new Zend_Db_Expr('0'), // deprecated since 1.4.0.1
+                'base_popularity'   => new Zend_Db_Expr('0'),  // deprecated since 1.4.0.1
             ];
 
             $agregateSelect = $writeAdapter->select();

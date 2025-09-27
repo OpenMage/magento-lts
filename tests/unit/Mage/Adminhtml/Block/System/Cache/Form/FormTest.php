@@ -1,42 +1,34 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
 
 namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Cache\Form;
 
-use Mage;
-use Mage_Adminhtml_Block_System_Cache_Form;
-use PHPUnit\Framework\TestCase;
+use Mage_Adminhtml_Block_System_Cache_Form as Subject;
+use OpenMage\Tests\Unit\OpenMageTest;
 
-class FormTest extends TestCase
+final class FormTest extends OpenMageTest
 {
-    public Mage_Adminhtml_Block_System_Cache_Form $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        // phpcs:ignore Ecg.Classes.ObjectInstantiation.DirectInstantiation
-        $this->subject = new Mage_Adminhtml_Block_System_Cache_Form();
+        parent::setUpBeforeClass();
+        self::$subject = new Subject();
     }
 
     /**
-     * @group Mage_Adminhtml
+     * @group Block
      */
     public function testInitForm(): void
     {
-        $this->assertInstanceOf(Mage_Adminhtml_Block_System_Cache_Form::class, $this->subject->initForm());
+        static::assertInstanceOf(Subject::class, self::$subject->initForm());
     }
 }
