@@ -310,7 +310,7 @@ class Varien_Io_File extends Varien_Io_Abstract
     }
 
     /**
-     * Used to set {@link _allowCreateFolders} value
+     * Used to set the _allowCreateFolders} value
      *
      * @param bool $flag
      * @access public
