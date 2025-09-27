@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Reports
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Reports orders collection
  *
- * @category   Mage
  * @package    Mage_Reports
  *
  * @method Mage_Sales_Model_Order getFirstItem()
@@ -227,26 +219,14 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      */
     protected function _getRangeExpression($range)
     {
-        switch ($range) {
-            case Mage_Reports_Helper_Data::PERIOD_24_HOURS:
-                $expression = $this->getConnection()->getConcatSql([
-                    $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
-                    $this->getConnection()->quote('00'),
-                ]);
-                break;
-            case Mage_Reports_Helper_Data::PERIOD_7_DAYS:
-            case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
-                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d');
-                break;
-            case Mage_Reports_Helper_Data::PERIOD_1_YEAR:
-            case Mage_Reports_Helper_Data::PERIOD_2_YEARS:
-            case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
-            default:
-                $expression = $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m');
-                break;
-        }
-
-        return $expression;
+        return match ($range) {
+            Mage_Reports_Helper_Data::PERIOD_24_HOURS => $this->getConnection()->getConcatSql([
+                $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d %H:'),
+                $this->getConnection()->quote('00'),
+            ]),
+            Mage_Reports_Helper_Data::PERIOD_7_DAYS, Mage_Reports_Helper_Data::PERIOD_1_MONTH, Mage_Reports_Helper_Data::PERIOD_3_MONTHS, Mage_Reports_Helper_Data::PERIOD_6_MONTHS => $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m-%d'),
+            default => $this->getConnection()->getDateFormatSql('{{attribute}}', '%Y-%m'),
+        };
     }
 
     /**
@@ -341,7 +321,14 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_1_MONTH:
+            case Mage_Reports_Helper_Data::PERIOD_3_MONTHS:
+            case Mage_Reports_Helper_Data::PERIOD_6_MONTHS:
                 $dateStart->setDay(Mage::getStoreConfig('reports/dashboard/mtd_start'));
+                if ($range === Mage_Reports_Helper_Data::PERIOD_3_MONTHS) {
+                    $dateStart->subMonth(2);
+                } elseif ($range === Mage_Reports_Helper_Data::PERIOD_6_MONTHS) {
+                    $dateStart->subMonth(5);
+                }
                 break;
 
             case Mage_Reports_Helper_Data::PERIOD_CUSTOM:
@@ -797,7 +784,7 @@ class Mage_Reports_Model_Resource_Order_Collection extends Mage_Sales_Model_Reso
      */
     public function addCreateAtPeriodFilter($period)
     {
-        list($from, $to) = $this->getDateRange($period, 0, 0, true);
+        [$from, $to] = $this->getDateRange($period, 0, 0, true);
 
         $this->checkIsLive($period);
 

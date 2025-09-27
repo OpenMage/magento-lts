@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Object
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Object
  *
- * @category   Varien
  * @package    Varien_Object
  */
 class Varien_Object implements ArrayAccess
@@ -52,7 +44,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Object delete flag
      *
-     * @var boolean
+     * @var bool
      */
     protected $_isDeleted = false;
 
@@ -138,8 +130,8 @@ class Varien_Object implements ArrayAccess
     /**
      * Set _isDeleted flag value (if $isDeleted param is defined) and return current flag value
      *
-     * @param boolean $isDeleted
-     * @return boolean
+     * @param bool $isDeleted
+     * @return bool
      */
     public function isDeleted($isDeleted = null)
     {
@@ -319,7 +311,7 @@ class Varien_Object implements ArrayAccess
         }
 
         $data = $this->_data[$key] ?? null;
-        if ($data === null && $key !== null && strpos($key, '/') !== false) {
+        if ($data === null && $key !== null && str_contains($key, '/')) {
             /* process a/b/c key as ['a']['b']['c'] */
             $data = $this->getDataByPath($key);
         }
@@ -433,7 +425,7 @@ class Varien_Object implements ArrayAccess
      * Otherwise checks if the specified attribute is set.
      *
      * @param string $key
-     * @return boolean
+     * @return bool
      */
     public function hasData($key = '')
     {
@@ -624,7 +616,7 @@ class Varien_Object implements ArrayAccess
                 return isset($this->_data[$key]);
         }
         throw new Varien_Exception(
-            'Invalid method ' . get_class($this) . '::' . $method . '(' . print_r($args, true) . ')',
+            'Invalid method ' . static::class . '::' . $method . '(' . print_r($args, true) . ')',
         );
     }
 
@@ -655,7 +647,7 @@ class Varien_Object implements ArrayAccess
     /**
      * checks whether the object is empty
      *
-     * @return boolean
+     * @return bool
      */
     public function isEmpty()
     {
@@ -722,7 +714,7 @@ class Varien_Object implements ArrayAccess
     /**
      * Clears data changes status
      *
-     * @param boolean $value
+     * @param bool $value
      * @return $this
      */
     public function setDataChanges($value)
@@ -755,7 +747,7 @@ class Varien_Object implements ArrayAccess
             } elseif (is_array($value)) {
                 $debug[$key] = $this->debug($value, $objects);
             } elseif ($value instanceof Varien_Object) {
-                $debug[$key . ' (' . get_class($value) . ')'] = $value->debug(null, $objects);
+                $debug[$key . ' (' . $value::class . ')'] = $value->debug(null, $objects);
             }
         }
         return $debug;
@@ -810,7 +802,7 @@ class Varien_Object implements ArrayAccess
 
     /**
      * @param string $field
-     * @return boolean
+     * @return bool
      */
     public function isDirty($field = null)
     {
@@ -825,7 +817,7 @@ class Varien_Object implements ArrayAccess
 
     /**
      * @param string $field
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function flagDirty($field, $flag = true)
@@ -834,12 +826,10 @@ class Varien_Object implements ArrayAccess
             foreach ($this->getData() as $field => $value) {
                 $this->flagDirty($field, $flag);
             }
+        } elseif ($flag) {
+            $this->_dirty[$field] = true;
         } else {
-            if ($flag) {
-                $this->_dirty[$field] = true;
-            } else {
-                unset($this->_dirty[$field]);
-            }
+            unset($this->_dirty[$field]);
         }
         return $this;
     }

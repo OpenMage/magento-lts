@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Shopping Cart Rule data model
  *
- * @category   Mage
  * @package    Mage_SalesRule
  *
  * @method Mage_SalesRule_Model_Resource_Rule _getResource()
@@ -424,7 +416,7 @@ class Mage_SalesRule_Model_Rule extends Mage_Rule_Model_Abstract
                     $coupon->setCode(
                         $couponCode .
                         self::getCouponCodeGenerator()->getDelimiter() .
-                        sprintf('%04u', rand(0, 9999)),
+                        sprintf('%04u', random_int(0, 9999)),
                     );
                     continue;
                 }

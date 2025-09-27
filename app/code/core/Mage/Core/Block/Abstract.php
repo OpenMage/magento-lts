@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -20,7 +13,6 @@
  * For block generation you must define Data source class, data source class method,
  * parameters array and block template
  *
- * @category   Mage
  * @package    Mage_Core
  *
  * @method $this setAdditionalHtml(string $value)
@@ -722,12 +714,10 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
                     $key++;
                 }
                 array_splice($this->_sortedChildren, $key, 0, $name);
+            } elseif ($after) {
+                $this->_sortedChildren[] = $name;
             } else {
-                if ($after) {
-                    $this->_sortedChildren[] = $name;
-                } else {
-                    array_unshift($this->_sortedChildren, $name);
-                }
+                array_unshift($this->_sortedChildren, $name);
             }
 
             $this->_sortInstructions[$name] = [$siblingName, (bool) $after, $key !== false];
@@ -745,7 +735,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     public function sortChildren($force = false)
     {
         foreach ($this->_sortInstructions as $name => $list) {
-            list($siblingName, $after, $exists) = $list;
+            [$siblingName, $after, $exists] = $list;
             if ($exists && !$force) {
                 continue;
             }
@@ -1163,7 +1153,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         $module = $this->getData('module_name');
         if (is_null($module)) {
-            $class = get_class($this);
+            $class = static::class;
             $module = substr($class, 0, strpos($class, '_Block'));
             $this->setData('module_name', $module);
         }
@@ -1374,7 +1364,7 @@ abstract class Mage_Core_Block_Abstract extends Varien_Object
     {
         if ($this->hasData('cache_key')) {
             $cacheKey = $this->getData('cache_key');
-            if (strpos($cacheKey, self::CACHE_KEY_PREFIX) !== 0) {
+            if (!str_starts_with($cacheKey, self::CACHE_KEY_PREFIX)) {
                 $cacheKey = self::CACHE_KEY_PREFIX . $cacheKey;
                 $this->setData('cache_key', $cacheKey);
             }

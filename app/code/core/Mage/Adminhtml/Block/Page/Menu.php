@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml menu block
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
@@ -133,6 +125,8 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
 
             $menuArr = [];
 
+            $menuArr['id'] = str_replace(['/'], ['-'], $aclResource);
+
             $menuArr['label'] = $this->_getHelperValue($child);
 
             $menuArr['sort_order'] = $child->sort_order ? (int) $child->sort_order : $sortOrder;
@@ -145,7 +139,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
             }
 
             $menuArr['active'] = ($this->getActive() == $path . $childName)
-                || (strpos((string) $this->getActive(), $path . $childName . '/') === 0);
+                || (str_starts_with((string) $this->getActive(), $path . $childName . '/'));
 
             $menuArr['level'] = $level;
 
@@ -180,7 +174,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
      */
     protected function _sortMenu($a, $b)
     {
-        return $a['sort_order'] < $b['sort_order'] ? -1 : ($a['sort_order'] > $b['sort_order'] ? 1 : 0);
+        return $a['sort_order'] <=> $b['sort_order'];
     }
 
     /**
@@ -269,6 +263,7 @@ class Mage_Adminhtml_Block_Page_Menu extends Mage_Adminhtml_Block_Template
                 . (!empty($item['children']) ? ' parent' : '')
                 . (!empty($level) && !empty($item['last']) ? ' last' : '')
                 . ' level' . $level . '"> <a href="' . $item['url'] . '" '
+                . (!empty($item['id']) ? 'id="nav-' . $item['id'] . '"' : '') . ' '
                 . (!empty($item['title']) ? 'title="' . $item['title'] . '"' : '') . ' '
                 . (!empty($item['target']) ? 'target="' . $item['target'] . '"' : '') . ' '
                 . (!empty($item['click']) ? 'onclick="' . $item['click'] . '"' : '') . ' class="'

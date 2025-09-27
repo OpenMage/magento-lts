@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Core configuration class
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
@@ -443,7 +435,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Reinitialize configuration
      *
-     * @param   array $options
+     * @param   Mage_Core_Model_Config_Options|array $options
      * @return  $this
      */
     public function reinit($options = [])
@@ -1248,26 +1240,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $codePool = (string) $this->getModuleConfig($moduleName)->codePool;
         $dir = $this->getOptions()->getCodeDir() . DS . $codePool . DS . uc_words($moduleName, DS);
 
-        switch ($type) {
-            case 'etc':
-                $dir .= DS . 'etc';
-                break;
-
-            case 'controllers':
-                $dir .= DS . 'controllers';
-                break;
-
-            case 'sql':
-                $dir .= DS . 'sql';
-                break;
-            case 'data':
-                $dir .= DS . 'data';
-                break;
-
-            case 'locale':
-                $dir .= DS . 'locale';
-                break;
+        $dirs = ['etc', 'controllers', 'sql', 'data', 'locale'];
+        if (in_array($type, $dirs)) {
+            $dir .= DS . $type;
         }
+
         return str_replace('/', DS, $dir);
     }
 
@@ -1290,24 +1267,17 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $eventName = strtolower($event->getName());
             $observers = $event->observers->children();
             foreach ($observers as $observer) {
-                switch ((string) $observer->type) {
-                    case 'singleton':
-                        $callback = [
-                            Mage::getSingleton((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    case 'object':
-                    case 'model':
-                        $callback = [
-                            Mage::getModel((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    default:
-                        $callback = [$observer->getClassName(), (string) $observer->method];
-                        break;
-                }
+                $callback = match ((string) $observer->type) {
+                    'singleton' => [
+                        Mage::getSingleton((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    'object', 'model' => [
+                        Mage::getModel((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    default => [$observer->getClassName(), (string) $observer->method],
+                };
 
                 $args = (array) $observer->args;
                 $observerClass = $observer->observer_class ? (string) $observer->observer_class : '';
@@ -1327,12 +1297,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getPathVars($args = null)
     {
-        $path = [];
-
-        $path['baseUrl'] = Mage::getBaseUrl();
-        $path['baseSecureUrl'] = Mage::getBaseUrl('link', true);
-
-        return $path;
+        return [
+            'baseUrl' => Mage::getBaseUrl(),
+            'baseSecureUrl' => Mage::getBaseUrl('link', true),
+        ];
     }
 
     /**
@@ -1363,18 +1331,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
-        } else {
+        } elseif (isset($config->deprecatedNode)) {
             /**
              * Backwards compatibility for pre-MMDB extensions.
              * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
              * to keep name of previously used nodes, that still may be used by non-updated extensions.
              */
-            if (isset($config->deprecatedNode)) {
-                $deprecatedNode = $config->deprecatedNode;
-                $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-                if (isset($configOld->rewrite->$class)) {
-                    $className = (string) $configOld->rewrite->$class;
-                }
+            $deprecatedNode = (string) $config->deprecatedNode;
+            $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
+            if (isset($configOld->rewrite->$class)) {
+                $className = (string) $configOld->rewrite->$class;
             }
         }
 
@@ -1598,7 +1564,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 case 'name':
                     $key = (string) $store->descend('system/store/name');
             }
-            if ($key === false) {
+            if (!isset($key) || $key === false) {
                 continue;
             }
 
@@ -1765,7 +1731,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             return false;
         }
 
-        list($module, $model) = $classArray;
+        [$module, $model] = $classArray;
         if (!isset($this->_xml->global->models->{$module})) {
             return false;
         }

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Index admin controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
@@ -101,39 +93,37 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'description' => Mage::helper('adminhtml')->__('You have not enough permissions to use this functionality.'),
             ];
             $totalCount = 1;
+        } elseif (empty($searchModules)) {
+            $items[] = [
+                'id' => 'error',
+                'type' => Mage::helper('adminhtml')->__('Error'),
+                'name' => Mage::helper('adminhtml')->__('No search modules were registered'),
+                'description' => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'),
+            ];
+            $totalCount = 1;
         } else {
-            if (empty($searchModules)) {
-                $items[] = [
-                    'id' => 'error',
-                    'type' => Mage::helper('adminhtml')->__('Error'),
-                    'name' => Mage::helper('adminhtml')->__('No search modules were registered'),
-                    'description' => Mage::helper('adminhtml')->__('Please make sure that all global admin search modules are installed and activated.'),
-                ];
-                $totalCount = 1;
-            } else {
-                $start = $this->getRequest()->getParam('start', 1);
-                $limit = $this->getRequest()->getParam('limit', 10);
-                $query = $this->getRequest()->getParam('query', '');
-                foreach ($searchModules->children() as $searchConfig) {
-                    if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)) {
-                        continue;
-                    }
-
-                    $className = $searchConfig->getClassName();
-
-                    if (empty($className)) {
-                        continue;
-                    }
-                    $searchInstance = new $className();
-                    $results = $searchInstance->setStart($start)
-                        ->setLimit($limit)
-                        ->setQuery($query)
-                        ->load()
-                        ->getResults();
-                    $items = array_merge_recursive($items, $results);
+            $start = $this->getRequest()->getParam('start', 1);
+            $limit = $this->getRequest()->getParam('limit', 10);
+            $query = $this->getRequest()->getParam('query', '');
+            foreach ($searchModules->children() as $searchConfig) {
+                if ($searchConfig->acl && !Mage::getSingleton('admin/session')->isAllowed($searchConfig->acl)) {
+                    continue;
                 }
-                $totalCount = count($items);
+
+                $className = $searchConfig->getClassName();
+
+                if (empty($className)) {
+                    continue;
+                }
+                $searchInstance = new $className();
+                $results = $searchInstance->setStart($start)
+                    ->setLimit($limit)
+                    ->setQuery($query)
+                    ->load()
+                    ->getResults();
+                $items = array_merge_recursive($items, $results);
             }
+            $totalCount = count($items);
         }
 
         $block = $this->getLayout()->createBlock('adminhtml/template')
