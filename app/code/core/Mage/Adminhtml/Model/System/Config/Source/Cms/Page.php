@@ -23,13 +23,13 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Page
             ->addStoreFilter($storeId)
             ->setOrder('title', 'ASC');
 
-        $options = array();
+        $options = [];
 
         foreach ($collection as $page) {
-            $options[] = array(
+            $options[] = [
                 'value' => $page->getIdentifier(),
                 'label' => $page->getTitle()
-            );
+            ];
         }
 
         return $options;
