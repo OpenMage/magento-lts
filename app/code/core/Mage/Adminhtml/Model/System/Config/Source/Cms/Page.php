@@ -28,7 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Page
         foreach ($collection as $page) {
             $options[] = [
                 'value' => $page->getIdentifier(),
-                'label' => $page->getTitle()
+                'label' => $page->getTitle(),
             ];
         }
 
