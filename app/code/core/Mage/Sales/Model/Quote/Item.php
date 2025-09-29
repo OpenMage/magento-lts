@@ -446,7 +446,10 @@ class Mage_Sales_Model_Quote_Item extends Mage_Sales_Model_Quote_Item_Abstract
             /**
              * Bypass custom options checks for bundled child items
              * This prevents cases of adding an additional child item to the quote
-             * when an existing child product is modified while the bundled item is in a cart
+             * when an existing child product is modified while the bundled item is in a cart.
+             *
+             * Note: This may result in outdated prices being displayed in admin order views,
+             * as the bundle_selection_attributes won't be updated.
              */
             return true;
         }
