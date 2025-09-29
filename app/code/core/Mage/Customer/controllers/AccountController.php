@@ -723,7 +723,6 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             }
 
             $flowPassword = Mage::getModel('customer/flowpassword');
-            $flowPassword->setEmail($email)->save();
 
             if (!$flowPassword->checkCustomerForgotPasswordFlowEmail($email)) {
                 $this->_getSession()
@@ -743,21 +742,23 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 ->loadByEmail($email);
 
             $customerId = $customer->getId();
-            if ($customerId) {
-                try {
-                    /** @var Helper $helper */
+
+            try {
+                $flowPassword->setEmail($email)->save();
+                if ($customerId) {
                     $helper = $this->_getHelper('customer');
                     $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
                     $newResetPasswordLinkCustomerId = $helper->generateResetPasswordLinkCustomerId($customerId);
                     $customer->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
                     $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
                     $customer->sendPasswordResetConfirmationEmail();
-                } catch (Exception $exception) {
-                    $this->_getSession()->addError($exception->getMessage());
-                    $this->_redirect('*/*/forgotpassword');
-                    return;
                 }
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
+                $this->_redirect('*/*/forgotpassword');
+                return;
             }
+
             $this->_getSession()
                 ->addSuccess($this->_getHelper('customer')
                 ->__(
