@@ -43,9 +43,9 @@ final class AbstractTest extends OpenMageTest
     public function testGetProductFlatSelect(): void
     {
         try {
-            static::assertInstanceOf(Varien_Db_Select::class, self::$subject->getProductFlatSelect(0));
+            self::assertInstanceOf(Varien_Db_Select::class, self::$subject->getProductFlatSelect(0));
         } catch (Mage_Core_Exception $exception) {
-            static::assertSame('Resource is not set.', $exception->getMessage());
+            self::assertSame('Resource is not set.', $exception->getMessage());
         }
     }
 
@@ -60,9 +60,9 @@ final class AbstractTest extends OpenMageTest
         }
 
         try {
-            static::assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, self::$subject->getConditions());
+            self::assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, self::$subject->getConditions());
         } catch (Error $error) {
-            static::assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
+            self::assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
         }
     }
 
@@ -77,9 +77,9 @@ final class AbstractTest extends OpenMageTest
         }
 
         try {
-            static::assertInstanceOf(Mage_Rule_Model_Action_Collection::class, self::$subject->getActions());
+            self::assertInstanceOf(Mage_Rule_Model_Action_Collection::class, self::$subject->getActions());
         } catch (Error $error) {
-            static::assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
+            self::assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testGetForm(): void
     {
-        static::assertInstanceOf(Varien_Data_Form::class, self::$subject->getForm());
+        self::assertInstanceOf(Varien_Data_Form::class, self::$subject->getForm());
     }
 
     /**
@@ -96,7 +96,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testLoadPost(array $data = []): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->loadPost($data));
+        self::assertInstanceOf(Subject::class, self::$subject->loadPost($data));
     }
 
     /**
@@ -108,9 +108,9 @@ final class AbstractTest extends OpenMageTest
     {
         $object = new Varien_Object($data);
         try {
-            static::assertSame($expectedResul, self::$subject->validate($object));
+            self::assertSame($expectedResul, self::$subject->validate($object));
         } catch (Error $error) {
-            static::assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
+            self::assertSame(self::CALL_TO_A_MEMBER_FUNCTION_SET_RULE_ON_NULL, $error->getMessage());
         }
 
     }
@@ -122,10 +122,10 @@ final class AbstractTest extends OpenMageTest
     public function testValidateData(bool|array $expectedResul, ?array $data = null): void
     {
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
-            static::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
+            self::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
         $object = new Varien_Object($data);
-        static::assertSame($expectedResul, self::$subject->validateData($object));
+        self::assertSame($expectedResul, self::$subject->validateData($object));
     }
 
     /**
@@ -134,7 +134,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testIsDeleteable(): void
     {
-        static::assertIsBool(self::$subject->isDeleteable());
+        self::assertIsBool(self::$subject->isDeleteable());
     }
 
     /**
@@ -144,7 +144,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testSetIsDeleteable(bool $value): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setIsDeleteable($value));
+        self::assertInstanceOf(Subject::class, self::$subject->setIsDeleteable($value));
     }
 
     /**
@@ -153,7 +153,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testIsReadonly(): void
     {
-        static::assertIsBool(self::$subject->isReadonly());
+        self::assertIsBool(self::$subject->isReadonly());
     }
 
     /**
@@ -163,7 +163,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testSetIsReadonly(bool $value): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setIsReadonly($value));
+        self::assertInstanceOf(Subject::class, self::$subject->setIsReadonly($value));
     }
 
     /**
@@ -172,9 +172,9 @@ final class AbstractTest extends OpenMageTest
     public function testGetWebsiteIds(): void
     {
         try {
-            static::assertIsArray(self::$subject->getWebsiteIds());
+            self::assertIsArray(self::$subject->getWebsiteIds());
         } catch (Mage_Core_Exception $exception) {
-            static::assertSame('Resource is not set.', $exception->getMessage());
+            self::assertSame('Resource is not set.', $exception->getMessage());
         }
     }
 
@@ -184,7 +184,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testAsString(): void
     {
-        static::assertSame('', self::$subject->asString());
+        self::assertSame('', self::$subject->asString());
     }
 
     /**
@@ -193,7 +193,7 @@ final class AbstractTest extends OpenMageTest
      */
     public function testAsHtml(): void
     {
-        static::assertSame('', self::$subject->asHtml());
+        self::assertSame('', self::$subject->asHtml());
     }
 
     /**
@@ -202,6 +202,6 @@ final class AbstractTest extends OpenMageTest
      */
     public function testAsArray(): void
     {
-        static::assertSame([], self::$subject->asArray());
+        self::assertSame([], self::$subject->asArray());
     }
 }

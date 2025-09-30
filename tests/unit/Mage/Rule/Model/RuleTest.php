@@ -32,7 +32,7 @@ final class RuleTest extends OpenMageTest
      */
     public function testGetConditionsInstance(): void
     {
-        static::assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, self::$subject->getConditionsInstance());
+        self::assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, self::$subject->getConditionsInstance());
     }
 
     /**
@@ -41,6 +41,6 @@ final class RuleTest extends OpenMageTest
      */
     public function testGetActionsInstance(): void
     {
-        static::assertInstanceOf(Mage_Rule_Model_Action_Collection::class, self::$subject->getActionsInstance());
+        self::assertInstanceOf(Mage_Rule_Model_Action_Collection::class, self::$subject->getActionsInstance());
     }
 }
