@@ -19,7 +19,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php-versions: ['8.1', '8.5']
-        mysql-version: ['5.7', '8.0', '8.4']
+        mysql-version: ['5.7', '8.1', '8.4']
 
     services:
       mysql:
