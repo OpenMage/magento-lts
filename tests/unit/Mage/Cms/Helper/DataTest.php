@@ -33,7 +33,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetAllowedStreamWrappers(): void
     {
-        static::assertIsArray(self::$subject->getAllowedStreamWrappers());
+        self::assertIsArray(self::$subject->getAllowedStreamWrappers());
     }
 
     /**
@@ -41,7 +41,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetBlockTemplateProcessor(): void
     {
-        static::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getBlockTemplateProcessor());
+        self::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getBlockTemplateProcessor());
     }
 
     /**
@@ -49,7 +49,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGetPageTemplateProcessor(): void
     {
-        static::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getPageTemplateProcessor());
+        self::assertInstanceOf(Varien_Filter_Template::class, self::$subject->getPageTemplateProcessor());
     }
 
     /**
@@ -57,6 +57,6 @@ final class DataTest extends OpenMageTest
      */
     public function testIsSwfDisabled(): void
     {
-        static::assertTrue(self::$subject->isSwfDisabled());
+        self::assertTrue(self::$subject->isSwfDisabled());
     }
 }

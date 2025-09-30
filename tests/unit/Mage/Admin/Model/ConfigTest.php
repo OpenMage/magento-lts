@@ -32,7 +32,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetAclAssert(): void
     {
-        static::assertFalse(self::$subject->getAclAssert(''));
+        self::assertFalse(self::$subject->getAclAssert(''));
     }
 
     /**
@@ -40,7 +40,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetAclPrivilegeSet(): void
     {
-        static::assertFalse(self::$subject->getAclPrivilegeSet());
+        self::assertFalse(self::$subject->getAclPrivilegeSet());
     }
 
     /**
@@ -48,7 +48,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testLoadAclResources(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->loadAclResources(new Mage_Admin_Model_Acl()));
+        self::assertInstanceOf(Subject::class, self::$subject->loadAclResources(new Mage_Admin_Model_Acl()));
     }
 
     /**
@@ -56,6 +56,6 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetAdminhtmlConfig(): void
     {
-        static::assertInstanceOf(Varien_Simplexml_Config::class, self::$subject->getAdminhtmlConfig());
+        self::assertInstanceOf(Varien_Simplexml_Config::class, self::$subject->getAdminhtmlConfig());
     }
 }
