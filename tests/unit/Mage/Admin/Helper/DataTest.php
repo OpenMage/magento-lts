@@ -31,7 +31,7 @@ final class DataTest extends OpenMageTest
      */
     public function testGenerateResetPasswordLinkToken(): void
     {
-        static::assertIsString(self::$subject->generateResetPasswordLinkToken());
+        self::assertIsString(self::$subject->generateResetPasswordLinkToken());
     }
 
     /**
@@ -40,6 +40,6 @@ final class DataTest extends OpenMageTest
      */
     public function testGetResetPasswordLinkExpirationPeriod(): void
     {
-        static::assertIsInt(self::$subject->getResetPasswordLinkExpirationPeriod());
+        self::assertIsInt(self::$subject->getResetPasswordLinkExpirationPeriod());
     }
 }
