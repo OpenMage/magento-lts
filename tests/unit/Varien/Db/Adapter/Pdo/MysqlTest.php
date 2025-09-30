@@ -159,7 +159,7 @@ final class MysqlTest extends TestCase
         self::assertNull($hostInfo->getUnixSocket());
     }
 
-    protected function getHostInfo(string $str): Varien_Object
+    private function getHostInfo(string $str): Varien_Object
     {
         $method = new ReflectionMethod(Varien_Db_Adapter_Pdo_Mysql::class, '_getHostInfo');
 
