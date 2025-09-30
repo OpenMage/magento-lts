@@ -30,6 +30,6 @@ final class EnvironmentTest extends OpenMageTest
      */
     public function testGetConditionsInstance(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->collect());
+        self::assertInstanceOf(Subject::class, self::$subject->collect());
     }
 }

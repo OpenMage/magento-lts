@@ -35,6 +35,6 @@ final class SalesTest extends OpenMageTest
      */
     public function testEscapeHtmlWithLinks(string $expectedResult, string $data): void
     {
-        static::assertSame($expectedResult, self::$subject->escapeHtmlWithLinks($data, ['a']));
+        self::assertSame($expectedResult, self::$subject->escapeHtmlWithLinks($data, ['a']));
     }
 }

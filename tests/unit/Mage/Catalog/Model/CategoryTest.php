@@ -36,7 +36,7 @@ final class CategoryTest extends OpenMageTest
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        static::assertIsInt(self::$subject->getDefaultAttributeSetId());
+        self::assertIsInt(self::$subject->getDefaultAttributeSetId());
     }
 
     /**
@@ -44,7 +44,7 @@ final class CategoryTest extends OpenMageTest
      */
     public function testGetProductCollection(): void
     {
-        static::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, self::$subject->getProductCollection());
+        self::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, self::$subject->getProductCollection());
     }
 
     /**
@@ -52,7 +52,7 @@ final class CategoryTest extends OpenMageTest
      */
     public function testGetAvailableSortByOptions(): void
     {
-        static::assertIsArray(self::$subject->getAvailableSortByOptions());
+        self::assertIsArray(self::$subject->getAvailableSortByOptions());
     }
 
     /**
@@ -60,7 +60,7 @@ final class CategoryTest extends OpenMageTest
      */
     public function testGetDefaultSortBy(): void
     {
-        static::assertSame('position', self::$subject->getDefaultSortBy());
+        self::assertSame('position', self::$subject->getDefaultSortBy());
     }
 
     /**
@@ -68,7 +68,7 @@ final class CategoryTest extends OpenMageTest
      */
     public function testValidate(): void
     {
-        static::assertIsArray(self::$subject->validate());
+        self::assertIsArray(self::$subject->validate());
     }
 
     /**
@@ -76,7 +76,7 @@ final class CategoryTest extends OpenMageTest
      */
     public function testAfterCommitCallback(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
+        self::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
     }
 
     /**
@@ -84,8 +84,8 @@ final class CategoryTest extends OpenMageTest
      */
     public function testGetUrlModel(): void
     {
-        static::assertInstanceOf(Mage_Catalog_Model_Url::class, self::$subject->getUrlModel());
-        static::assertInstanceOf(Mage_Catalog_Model_Category_Url::class, self::$subject->getUrlModel());
+        self::assertInstanceOf(Mage_Catalog_Model_Url::class, self::$subject->getUrlModel());
+        self::assertInstanceOf(Mage_Catalog_Model_Category_Url::class, self::$subject->getUrlModel());
     }
 
     /**
@@ -107,6 +107,6 @@ final class CategoryTest extends OpenMageTest
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
         self::$subject->setLocale($locale);
-        static::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
+        self::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
     }
 }

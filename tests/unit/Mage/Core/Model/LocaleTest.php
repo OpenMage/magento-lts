@@ -36,6 +36,6 @@ final class LocaleTest extends OpenMageTest
      */
     public function testGetNumber(?float $expectedResult, $value): void
     {
-        static::assertSame($expectedResult, self::$subject->getNumber($value));
+        self::assertSame($expectedResult, self::$subject->getNumber($value));
     }
 }
