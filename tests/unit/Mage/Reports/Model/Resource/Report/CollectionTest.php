@@ -37,7 +37,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testSetPeriod(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setPeriod('1m'));
+        self::assertInstanceOf(Subject::class, self::$subject->setPeriod('1m'));
     }
 
     /**
@@ -46,7 +46,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testSetIntervals(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setInterval(new Zend_Date(), new Zend_Date()));
+        self::assertInstanceOf(Subject::class, self::$subject->setInterval(new Zend_Date(), new Zend_Date()));
     }
 
     /**
@@ -59,9 +59,9 @@ class CollectionTest extends OpenMageTest
         self::$subject->setPeriod($period);
 
         try {
-            static::assertIsArray(self::$subject->getIntervals());
+            self::assertIsArray(self::$subject->getIntervals());
         } catch (Zend_Date_Exception $exception) {
-            static::assertSame("No date part in '' found.", $exception->getMessage());
+            self::assertSame("No date part in '' found.", $exception->getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetPeriods(): void
     {
-        static::assertIsArray(self::$subject->getPeriods());
+        self::assertIsArray(self::$subject->getPeriods());
     }
 
     /**
@@ -82,7 +82,7 @@ class CollectionTest extends OpenMageTest
     public function testStoreIds(): void
     {
         self::$subject->setStoreIds([]);
-        static::assertSame([], self::$subject->getStoreIds());
+        self::assertSame([], self::$subject->getStoreIds());
     }
 
     /**
@@ -91,7 +91,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetSize(): void
     {
-        static::assertIsInt(self::$subject->getSize());
+        self::assertIsInt(self::$subject->getSize());
     }
     /**
      * @covers Mage_Reports_Model_Resource_Report_Collection::setPageSize()
@@ -99,7 +99,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testSetPageSize(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setPageSize(1));
+        self::assertInstanceOf(Subject::class, self::$subject->setPageSize(1));
     }
 
     /**
@@ -108,7 +108,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetPageSize(): void
     {
-        static::assertNull(self::$subject->getPageSize());
+        self::assertNull(self::$subject->getPageSize());
     }
 
     /**
@@ -116,7 +116,7 @@ class CollectionTest extends OpenMageTest
      */
     public function testInitReport(string $modelClass = ''): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->initReport($modelClass));
+        self::assertInstanceOf(Subject::class, self::$subject->initReport($modelClass));
     }
 
     /**
@@ -124,9 +124,9 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetReportFull(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReportFull(1, 1));
+        self::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReportFull(1, 1));
     }
 
     /**
@@ -134,9 +134,9 @@ class CollectionTest extends OpenMageTest
      */
     public function testGetReport(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReport(1, 1));
+        self::assertInstanceOf(Mage_Reports_Model_Report::class, self::$subject->getReport(1, 1));
     }
 
     /**
@@ -144,8 +144,8 @@ class CollectionTest extends OpenMageTest
      */
     public function testTimeShift(): void
     {
-        static::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
+        self::markTestSkipped(self::SKIP_INCOMPLETE_MESSAGE);
         /** @phpstan-ignore deadCode.unreachable */
-        static::assertSame(self::$subject->timeShift(''));
+        self::assertSame(self::$subject->timeShift(''));
     }
 }

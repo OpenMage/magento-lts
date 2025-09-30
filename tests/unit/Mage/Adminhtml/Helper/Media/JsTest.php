@@ -30,6 +30,6 @@ final class JsTest extends OpenMageTest
      */
     public function testDecodeGridSerializedInput(): void
     {
-        static::assertIsString(self::$subject->getTranslatorScript());
+        self::assertIsString(self::$subject->getTranslatorScript());
     }
 }

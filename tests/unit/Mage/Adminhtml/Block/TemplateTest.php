@@ -35,7 +35,7 @@ final class TemplateTest extends OpenMageTest
      */
     public function testGetFormKey(): void
     {
-        static::assertIsString(self::$subject->getFormKey());
+        self::assertIsString(self::$subject->getFormKey());
     }
 
     /**
@@ -45,7 +45,7 @@ final class TemplateTest extends OpenMageTest
      */
     public function testIsOutputEnabled(bool $expectedResult, ?string $moduleName): void
     {
-        static::assertSame($expectedResult, self::$subject->isOutputEnabled($moduleName));
+        self::assertSame($expectedResult, self::$subject->isOutputEnabled($moduleName));
     }
 
     /**
@@ -53,7 +53,7 @@ final class TemplateTest extends OpenMageTest
      */
     public function testGetModuleName(): void
     {
-        static::assertSame('Mage_Adminhtml', self::$subject->getModuleName());
+        self::assertSame('Mage_Adminhtml', self::$subject->getModuleName());
     }
 
     /**
@@ -62,6 +62,6 @@ final class TemplateTest extends OpenMageTest
      */
     public function testMaliciousCodeFilter(): void
     {
-        static::assertIsString(self::$subject->maliciousCodeFilter(''));
+        self::assertIsString(self::$subject->maliciousCodeFilter(''));
     }
 }

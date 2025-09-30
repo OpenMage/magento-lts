@@ -35,6 +35,6 @@ final class JsTest extends OpenMageTest
      */
     public function testDecodeGridSerializedInput(array $expectedResult, string $encoded): void
     {
-        static::assertSame($expectedResult, self::$subject->decodeGridSerializedInput($encoded));
+        self::assertSame($expectedResult, self::$subject->decodeGridSerializedInput($encoded));
     }
 }

@@ -30,7 +30,7 @@ final class SwitchTest extends OpenMageTest
      */
     public function testGetCurrentWebsiteId(): void
     {
-        static::assertIsInt(self::$subject->getCurrentWebsiteId());
+        self::assertIsInt(self::$subject->getCurrentWebsiteId());
     }
 
     /**
@@ -38,7 +38,7 @@ final class SwitchTest extends OpenMageTest
      */
     public function testGetCurrentGroupId(): void
     {
-        static::assertIsInt(self::$subject->getCurrentGroupId());
+        self::assertIsInt(self::$subject->getCurrentGroupId());
     }
 
     /**
@@ -46,7 +46,7 @@ final class SwitchTest extends OpenMageTest
      */
     public function testGetCurrentStoreId(): void
     {
-        static::assertIsInt(self::$subject->getCurrentStoreId());
+        self::assertIsInt(self::$subject->getCurrentStoreId());
     }
 
     /**
@@ -54,7 +54,7 @@ final class SwitchTest extends OpenMageTest
      */
     public function testGetCurrentStoreCode(): void
     {
-        static::assertIsString(self::$subject->getCurrentStoreCode());
+        self::assertIsString(self::$subject->getCurrentStoreCode());
     }
 
     /**
@@ -62,7 +62,7 @@ final class SwitchTest extends OpenMageTest
      */
     public function testGetRawGroups(): void
     {
-        static::assertIsArray(self::$subject->getRawGroups());
+        self::assertIsArray(self::$subject->getRawGroups());
     }
 
     /**
@@ -94,6 +94,6 @@ final class SwitchTest extends OpenMageTest
      */
     public function testIsStoreInUrl(): void
     {
-        static::assertIsBool(self::$subject->isStoreInUrl());
+        self::assertIsBool(self::$subject->isStoreInUrl());
     }
 }
