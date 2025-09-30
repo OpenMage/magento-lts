@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2017-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller_Action
@@ -923,22 +915,20 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         $productIds = $this->getRequest()->getParam('product');
         if (!is_array($productIds)) {
             $this->_getSession()->addError($this->__('Please select product(s).'));
-        } else {
-            if (!empty($productIds)) {
-                try {
-                    foreach ($productIds as $productId) {
-                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                        $product = Mage::getSingleton('catalog/product')->load($productId);
-                        Mage::dispatchEvent('catalog_controller_product_delete', ['product' => $product]);
-                        // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                        $product->delete();
-                    }
-                    $this->_getSession()->addSuccess(
-                        $this->__('Total of %d record(s) have been deleted.', count($productIds)),
-                    );
-                } catch (Exception $e) {
-                    $this->_getSession()->addError($e->getMessage());
+        } elseif (!empty($productIds)) {
+            try {
+                foreach ($productIds as $productId) {
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $product = Mage::getSingleton('catalog/product')->load($productId);
+                    Mage::dispatchEvent('catalog_controller_product_delete', ['product' => $product]);
+                    // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+                    $product->delete();
                 }
+                $this->_getSession()->addSuccess(
+                    $this->__('Total of %d record(s) have been deleted.', count($productIds)),
+                );
+            } catch (Exception $e) {
+                $this->_getSession()->addError($e->getMessage());
             }
         }
         $this->_redirect('*/*/index');

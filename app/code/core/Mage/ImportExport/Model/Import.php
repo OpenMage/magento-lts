@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_ImportExport
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Import model
  *
- * @category   Mage
  * @package    Mage_ImportExport
  */
 class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
@@ -135,12 +127,10 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                     $messages[] = Mage::helper('importexport')->__('File is totally invalid. Please fix errors and re-upload file');
                 } elseif ($this->getErrorsCount() >= $this->getErrorsLimit()) {
                     $messages[] = Mage::helper('importexport')->__('Errors limit (%d) reached. Please fix errors and re-upload file', $this->getErrorsLimit());
+                } elseif ($this->isImportAllowed()) {
+                    $messages[] = Mage::helper('importexport')->__('Please fix errors and re-upload file');
                 } else {
-                    if ($this->isImportAllowed()) {
-                        $messages[] = Mage::helper('importexport')->__('Please fix errors and re-upload file');
-                    } else {
-                        $messages[] = Mage::helper('importexport')->__('File is partially valid, but import is not possible');
-                    }
+                    $messages[] = Mage::helper('importexport')->__('File is partially valid, but import is not possible');
                 }
                 // errors info
                 foreach ($this->getErrors() as $errorCode => $rows) {
@@ -149,12 +139,10 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
                         . implode(', ', $rows);
                     $messages[] = $error;
                 }
+            } elseif ($this->isImportAllowed()) {
+                $messages[] = Mage::helper('importexport')->__('Validation finished successfully');
             } else {
-                if ($this->isImportAllowed()) {
-                    $messages[] = Mage::helper('importexport')->__('Validation finished successfully');
-                } else {
-                    $messages[] = Mage::helper('importexport')->__('File is valid, but import is not possible');
-                }
+                $messages[] = Mage::helper('importexport')->__('File is valid, but import is not possible');
             }
             $notices = $this->getNotices();
             if (is_array($notices)) {

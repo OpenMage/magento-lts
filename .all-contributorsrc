@@ -1689,6 +1689,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "denisahac",
+      "name": "Den Isahac",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6700576?v=4",
+      "profile": "http://www.denisahac.xyz",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "commitType": "docs"

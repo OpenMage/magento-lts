@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 Abstract Resource
  *
- * @category   Mage
  * @package    Mage_Api2
  *
  * @method string _create() _create(array $filteredData) creation of an entity
@@ -384,7 +376,7 @@ abstract class Mage_Api2_Model_Resource
     public function getVersion()
     {
         if ($this->_version === null) {
-            if (preg_match('/^.+([1-9]\d*)$/', get_class($this), $matches)) {
+            if (preg_match('/^.+([1-9]\d*)$/', static::class, $matches)) {
                 $this->setVersion($matches[1]);
             } else {
                 throw new Exception('Can not determine version from class name');
@@ -609,9 +601,10 @@ abstract class Mage_Api2_Model_Resource
      *
      * @param string $message
      * @param int $code
+     * @param bool $shouldLog Log the error in the log file?
      * @throws Mage_Api2_Exception
      */
-    protected function _critical($message, $code = null)
+    protected function _critical($message, $code = null, $shouldLog = true)
     {
         if ($code === null) {
             $errors = $this->_getCriticalErrors();
@@ -623,7 +616,10 @@ abstract class Mage_Api2_Model_Resource
             }
             $code = $errors[$message];
         }
-        throw new Mage_Api2_Exception($message, $code);
+
+        Mage::dispatchEvent('api2_resource_critical', ['resource' => $this, 'message' => $message, 'code' => $code]);
+
+        throw new Mage_Api2_Exception($message, $code, $shouldLog);
     }
 
     /**
@@ -706,10 +702,8 @@ abstract class Mage_Api2_Model_Resource
         $pageSize = $this->getRequest()->getPageSize();
         if ($pageSize == null) {
             $pageSize = self::PAGE_SIZE_DEFAULT;
-        } else {
-            if ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
-                $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
-            }
+        } elseif ($pageSize != abs($pageSize) || $pageSize > self::PAGE_SIZE_MAX) {
+            $this->_critical(self::RESOURCE_COLLECTION_PAGING_LIMIT_ERROR);
         }
 
         $orderField = $this->getRequest()->getOrderField();
@@ -833,7 +827,7 @@ abstract class Mage_Api2_Model_Resource
         try {
             return $globalAcl->isAllowed($this->getApiUser(), $resourceId, $this->getOperation());
         } catch (Mage_Api2_Exception $e) {
-            throw new Exception('Invalid arguments for isAllowed() call');
+            throw new Exception('Invalid arguments for isAllowed() call', $e->getCode(), $e);
         }
     }
 

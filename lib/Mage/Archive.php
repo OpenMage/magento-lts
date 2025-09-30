@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Archive
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class to work with archives
  *
- * @category   Mage
  * @package    Mage_Archive
  */
 class Mage_Archive
@@ -101,14 +93,15 @@ class Mage_Archive
     *
     * @param string $source
     * @param string $destination
-    * @param boolean $skipRoot skip first level parent
+    * @param bool $skipRoot skip first level parent
     * @return string Path to file
     */
     public function pack($source, $destination = 'packed.tgz', $skipRoot = false)
     {
         $archivers = $this->_getArchivers($destination);
         $interimSource = '';
-        for ($i = 0; $i < count($archivers); $i++) {
+        $counter = count($archivers);
+        for ($i = 0; $i < $counter; $i++) {
             if ($i == (count($archivers) - 1)) {
                 $packed = $destination;
             } else {
@@ -179,7 +172,7 @@ class Mage_Archive
     * Check file is archive.
     *
     * @param string $file
-    * @return boolean
+    * @return bool
     */
     public function isArchive($file)
     {
@@ -194,7 +187,7 @@ class Mage_Archive
     * Check file is TAR.
     *
     * @param mixed $file
-    * @return boolean
+    * @return bool
     */
     public function isTar($file)
     {

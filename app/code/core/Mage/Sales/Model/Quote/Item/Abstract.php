@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -24,7 +17,6 @@
  *  - custom_price - new price that can be declared by user and recalculated during calculation process
  *  - original_custom_price - original defined value of custom price without any conversion
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Quote_Address getAddress()
@@ -758,28 +750,22 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $rowTotal       = $this->getRowTotal();
                 $rowBaseTotal   = $this->getBaseRowTotal();
             }
-
             $taxPercent = $this->getTaxPercent() / 100;
-
             $this->setTaxAmount($store->roundPrice($rowTotal * $taxPercent));
             $this->setBaseTaxAmount($store->roundPrice($rowBaseTotal * $taxPercent));
-
             $rowTotal       = $this->getRowTotal();
             $rowBaseTotal   = $this->getBaseRowTotal();
             $this->setTaxBeforeDiscount($store->roundPrice($rowTotal * $taxPercent));
             $this->setBaseTaxBeforeDiscount($store->roundPrice($rowBaseTotal * $taxPercent));
-        } else {
-            if (Mage::helper('tax')->applyTaxAfterDiscount($store)) {
-                $totalBaseTax = $this->getBaseTaxAmount();
-                $totalTax = $this->getTaxAmount();
+        } elseif (Mage::helper('tax')->applyTaxAfterDiscount($store)) {
+            $totalBaseTax = $this->getBaseTaxAmount();
+            $totalTax = $this->getTaxAmount();
+            if ($totalTax && $totalBaseTax) {
+                $totalTax -= $this->getDiscountAmount() * ($this->getTaxPercent() / 100);
+                $totalBaseTax -= $this->getBaseDiscountAmount() * ($this->getTaxPercent() / 100);
 
-                if ($totalTax && $totalBaseTax) {
-                    $totalTax -= $this->getDiscountAmount() * ($this->getTaxPercent() / 100);
-                    $totalBaseTax -= $this->getBaseDiscountAmount() * ($this->getTaxPercent() / 100);
-
-                    $this->setBaseTaxAmount($store->roundPrice($totalBaseTax));
-                    $this->setTaxAmount($store->roundPrice($totalTax));
-                }
+                $this->setBaseTaxAmount($store->roundPrice($totalBaseTax));
+                $this->setTaxAmount($store->roundPrice($totalTax));
             }
         }
 

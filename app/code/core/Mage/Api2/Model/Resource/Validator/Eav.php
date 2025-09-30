@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api2
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * API2 EAV Validator
  *
- * @category   Mage
  * @package    Mage_Api2
  */
 class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Validator
@@ -95,15 +87,19 @@ class Mage_Api2_Model_Resource_Validator_Eav extends Mage_Api2_Model_Resource_Va
         if (empty($validationConfig[$userType]['entity_model'])) {
             throw new Exception("Config parameter 'entity' is wrong.");
         }
-        $this->_entity = Mage::getModel($validationConfig[$userType]['entity_model']);
-        if (empty($this->_entity) || !$this->_entity instanceof Mage_Core_Model_Abstract) {
+
+        $entityModel = Mage::getModel($validationConfig[$userType]['entity_model']);
+        if (empty($entityModel) || !$entityModel instanceof Mage_Core_Model_Abstract) {
             throw new Exception('Entity is not model.');
         }
+        $this->_entity = $entityModel;
 
-        $this->_eavForm = Mage::getModel($this->_formPath);
-        if (empty($this->_eavForm) || !$this->_eavForm instanceof Mage_Eav_Model_Form) {
-            throw new Exception("Eav form '{$this->_formPath}' is not found.");
+        $formModel = Mage::getModel($this->_formPath);
+        if (empty($formModel) || !$formModel instanceof Mage_Eav_Model_Form) {
+            throw new Exception("Eav form '{$formModel}' is not found.");
         }
+        $this->_eavForm = $formModel;
+
         $this->_eavForm->setEntity($this->_entity)
             ->setFormCode($this->_formCode)
             ->ignoreInvisible(false);

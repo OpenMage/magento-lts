@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Acl role user grid
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Block_Widget_Grid
@@ -41,10 +33,8 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', ['in' => $inRoleIds]);
-            } else {
-                if ($inRoleIds) {
-                    $this->getCollection()->addFieldToFilter('user_id', ['nin' => $inRoleIds]);
-                }
+            } elseif ($inRoleIds) {
+                $this->getCollection()->addFieldToFilter('user_id', ['nin' => $inRoleIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
@@ -156,12 +146,10 @@ class Mage_Adminhtml_Block_Permissions_Role_Grid_User extends Mage_Adminhtml_Blo
             } else {
                 return array_values($users);
             }
+        } elseif ($json) {
+            return '{}';
         } else {
-            if ($json) {
-                return '{}';
-            } else {
-                return [];
-            }
+            return [];
         }
     }
 }

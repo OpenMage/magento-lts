@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Sales
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Class Mage_Sales_Model_Order_Item
  *
- * @category   Mage
  * @package    Mage_Sales
  *
  * @method Mage_Sales_Model_Resource_Order_Item _getResource()
@@ -318,7 +310,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for ship
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToShip()
     {
@@ -332,7 +324,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for ship
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getSimpleQtyToShip()
     {
@@ -346,7 +338,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for invoice
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToInvoice()
     {
@@ -363,7 +355,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for refund
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToRefund()
     {
@@ -376,7 +368,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for cancel
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToCancel()
     {
@@ -396,7 +388,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Retrieve Bundle item qty available for cancel
      * getQtyToInvoice() will always deliver 0 for Bundle
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToCancelBundle()
     {
@@ -413,7 +405,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Retrieve Bundle child item qty available for cancel
      * getQtyToShip() always returns 0 for BundleItems that ship together
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToCancelBundleItem()
     {
@@ -628,7 +620,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * If code is null return all options
      *
      * @param string $code
-     * @return array|null
+     * @return array|string|null
      */
     public function getProductOptionByCode($code = null)
     {

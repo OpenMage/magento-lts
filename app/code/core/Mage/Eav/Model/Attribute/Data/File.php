@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Eav
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * EAV Entity Attribute File Data Model
  *
- * @category   Mage
  * @package    Mage_Eav
  */
 class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_Abstract
@@ -53,7 +45,6 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                 $mainScope  = $this->_requestScope;
                 $scopes     = [];
             }
-
             if (!empty($_FILES[$mainScope])) {
                 foreach ($_FILES[$mainScope] as $fileKey => $scopeData) {
                     foreach ($scopes as $scopeName) {
@@ -71,12 +62,10 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             } else {
                 $value = [];
             }
+        } elseif (isset($_FILES[$attrCode])) {
+            $value = $_FILES[$attrCode];
         } else {
-            if (isset($_FILES[$attrCode])) {
-                $value = $_FILES[$attrCode];
-            } else {
-                $value = [];
-            }
+            $value = [];
         }
 
         if (!empty($extend['delete'])) {
@@ -263,15 +252,11 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     {
         $output = '';
         $value  = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
-        if ($value) {
-            switch ($format) {
-                case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
-                    $output = [
-                        'value'     => $value,
-                        'url_key'   => Mage::helper('core')->urlEncode($value),
-                    ];
-                    break;
-            }
+        if ($value && $format === Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON) {
+            $output = [
+                'value'     => $value,
+                'url_key'   => Mage::helper('core')->urlEncode($value),
+            ];
         }
 
         return $output;

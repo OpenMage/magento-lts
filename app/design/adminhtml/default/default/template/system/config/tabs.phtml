@@ -1,16 +1,9 @@
 <?php
 /**
- * OpenMage
- *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * that is bundled with this package in the file LICENSE_AFL.txt.
- * It is also available at https://opensource.org/license/afl-3-0-php
- *
- * @category    design
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Academic Free License (AFL 3.0)
  * @package     default_default
- * @copyright   Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright   Copyright (c) 2021-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license     https://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
 /** @var Mage_Adminhtml_Block_System_Config_Tabs $this */
@@ -28,7 +21,7 @@
         <?php $_iterator = 1; ?>
         <?php foreach ($_tab->getSections() as $_section): ?>
             <dd>
-                <a href="<?php echo $_section->getUrl() ?>" class="<?php echo $_section->getClass() ?><?php if($_section->getId()==$this->getActiveSection()): ?> active<?php endif ?> <?php echo $_section->getIsLast()?'last':'' ?>">
+                <a href="<?php echo $_section->getUrl() ?>" id="section-<?php echo $_section->getId() ?>" class="<?php echo $_section->getClass() ?><?php if($_section->getId()==$this->getActiveSection()): ?> active<?php endif ?> <?php echo $_section->getIsLast()?'last':'' ?>">
                     <span <?php if($_tab->getId()==$this->getActiveTab()): ?>class="active"<?php endif ?>>
                         <?php echo $_section->getLabel() ?>
                     </span>

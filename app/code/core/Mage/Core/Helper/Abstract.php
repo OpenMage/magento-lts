@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 abstract class Mage_Core_Helper_Abstract
@@ -32,7 +24,7 @@ abstract class Mage_Core_Helper_Abstract
     /**
      * Request object
      *
-     * @var Zend_Controller_Request_Http
+     * @var Mage_Core_Controller_Request_Http
      */
     protected $_request;
 
@@ -116,7 +108,7 @@ abstract class Mage_Core_Helper_Abstract
     protected function _getModuleName()
     {
         if (!$this->_moduleName) {
-            $class = get_class($this);
+            $class = static::class;
             $this->_moduleName = implode('_', array_slice(explode('_', $class), 0, 2));
         }
         return $this->_moduleName;
@@ -210,20 +202,18 @@ abstract class Mage_Core_Helper_Abstract
             foreach ($data as $item) {
                 $result[] = $this->escapeHtml($item);
             }
-        } else {
+        } elseif (is_string($data) && strlen($data)) {
             // process single item
-            if (is_string($data) && strlen($data)) {
-                if (is_array($allowedTags) && !empty($allowedTags)) {
-                    $allowed = implode('|', $allowedTags);
-                    $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
-                    $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
-                    $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
-                } else {
-                    $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
-                }
+            if (is_array($allowedTags) && !empty($allowedTags)) {
+                $allowed = implode('|', $allowedTags);
+                $result = preg_replace('/<([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)>/si', '##$1$2$3##', $data);
+                $result = htmlspecialchars($result, ENT_COMPAT, 'UTF-8', false);
+                $result = preg_replace('/##([\/\s\r\n]*)(' . $allowed . ')([\/\s\r\n]*)##/si', '<$1$2$3>', $result);
             } else {
-                $result = $data;
+                $result = htmlspecialchars($data, ENT_COMPAT, 'UTF-8', false);
             }
+        } else {
+            $result = $data;
         }
         return $result;
     }

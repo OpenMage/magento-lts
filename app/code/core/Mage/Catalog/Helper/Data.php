@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog data helper
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
@@ -268,12 +260,14 @@ class Mage_Catalog_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Retrieve template processor for catalog content
      *
-     * @return false|Mage_Core_Model_Abstract
+     * @return Varien_Filter_Template
      */
     public function getPageTemplateProcessor()
     {
         $model = (string) Mage::getConfig()->getNode(self::XML_PATH_CONTENT_TEMPLATE_FILTER);
-        return Mage::getModel($model);
+        /** @var Varien_Filter_Template $model */
+        $model = Mage::getModel($model);
+        return $model;
     }
 
     /**

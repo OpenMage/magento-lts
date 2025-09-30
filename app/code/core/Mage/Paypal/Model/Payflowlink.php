@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Payflow Link payment gateway model
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
@@ -473,13 +465,11 @@ class Mage_Paypal_Model_Payflowlink extends Mage_Paypal_Model_Payflowpro
       */
     protected function _getTrxTokenType()
     {
-        switch ($this->getConfigData('payment_action')) {
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH:
-                return self::TRXTYPE_AUTH_ONLY;
-            case Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE:
-                return self::TRXTYPE_SALE;
-        }
-        return '';
+        return match ($this->getConfigData('payment_action')) {
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_AUTH => self::TRXTYPE_AUTH_ONLY,
+            Mage_Paypal_Model_Config::PAYMENT_ACTION_SALE => self::TRXTYPE_SALE,
+            default => '',
+        };
     }
 
     /**

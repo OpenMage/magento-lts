@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * New products widget
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_New implements Mage_Widget_Block_Interface
@@ -73,15 +65,10 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
      */
     protected function _getProductCollection()
     {
-        switch ($this->getDisplayType()) {
-            case self::DISPLAY_TYPE_NEW_PRODUCTS:
-                $collection = parent::_getProductCollection();
-                break;
-            default:
-                $collection = $this->_getRecentlyAddedProductsCollection();
-                break;
-        }
-        return $collection;
+        return match ($this->getDisplayType()) {
+            self::DISPLAY_TYPE_NEW_PRODUCTS => parent::_getProductCollection(),
+            default => $this->_getRecentlyAddedProductsCollection(),
+        };
     }
 
     /**
@@ -176,9 +163,11 @@ class Mage_Catalog_Block_Product_Widget_New extends Mage_Catalog_Block_Product_N
     {
         if ($this->showPager()) {
             if (!$this->_pager) {
-                $this->_pager = $this->getLayout()
+                /** @var Mage_Catalog_Block_Product_Widget_Html_Pager $block */
+                $block = $this->getLayout()
                     ->createBlock('catalog/product_widget_html_pager', 'widget.new.product.list.pager');
 
+                $this->_pager = $block;
                 $this->_pager->setUseContainer(true)
                     ->setShowAmounts(true)
                     ->setShowPerPage(false)

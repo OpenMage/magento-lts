@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Url rewrite helper
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
@@ -95,9 +87,9 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
             // Make message saying about suffix, not request path
             switch ($e->getCode()) {
                 case self::VERR_MANYSLASHES:
-                    throw new Mage_Core_Exception($this->__('Two and more slashes together are not permitted in url rewrite suffix'));
+                    throw new Mage_Core_Exception($this->__('Two and more slashes together are not permitted in url rewrite suffix'), $e->getCode(), $e);
                 case self::VERR_ANCHOR:
-                    throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'));
+                    throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'), $e->getCode(), $e);
             }
             throw $e;
         }

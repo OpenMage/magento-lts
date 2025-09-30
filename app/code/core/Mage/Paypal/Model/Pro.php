@@ -1,24 +1,16 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * PayPal Website Payments Pro implementation for payment method instances
  * This model was created because right now PayPal Direct and PayPal Express payment methods cannot have same abstract
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 class Mage_Paypal_Model_Pro
@@ -80,7 +72,10 @@ class Mage_Paypal_Model_Pro
             if ($storeId !== null) {
                 $params[] = $storeId;
             }
-            $this->_config = Mage::getModel($this->_configType, $params);
+
+            /** @var Mage_Paypal_Model_Config $model */
+            $model = Mage::getModel($this->_configType, $params);
+            $this->_config = $model;
         } else {
             $this->_config->setMethod($code);
             if ($storeId !== null) {

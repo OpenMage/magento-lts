@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Persistent
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Persistent Config Model
  *
- * @category   Mage
  * @package    Mage_Persistent
  */
 class Mage_Persistent_Model_Persistent_Config
@@ -94,10 +86,8 @@ class Mage_Persistent_Model_Persistent_Config
                 continue;
             }
             foreach ($elements as $info) {
-                switch ($type) {
-                    case 'blocks':
-                        $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
-                        break;
+                if ($type === 'blocks') {
+                    $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
                 }
             }
         }
@@ -110,6 +100,7 @@ class Mage_Persistent_Model_Persistent_Config
      * @param array $info
      * @param Mage_Core_Block_Abstract|false $instance
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function fireOne($info, $instance = false)
     {
@@ -126,7 +117,11 @@ class Mage_Persistent_Model_Persistent_Config
         if (method_exists($object, $method)) {
             $object->$method($instance);
         } elseif (Mage::getIsDeveloperMode()) {
-            Mage::throwException('Method "' . $method . '" is not defined in "' . get_class($object) . '"');
+            if (!$object instanceof Mage_Core_Model_Abstract) {
+                Mage::throwException(sprintf('Model "%s" is not defined"', $info['class']));
+            } else {
+                Mage::throwException(sprintf('Method "%s" is not defined in "%s"', $method, $object::class));
+            }
         }
 
         return $this;

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax totals calculation model
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Address_Total_Abstract
@@ -314,19 +306,19 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 break;
         }
 
-        if ($this->_config->getAlgorithm($this->_store) == Mage_Tax_Model_Calculation::CALC_TOTAL_BASE) {
+        if (isset($tax, $baseTax) && $this->_config->getAlgorithm($this->_store) == Mage_Tax_Model_Calculation::CALC_TOTAL_BASE) {
             $tax = $this->_deltaRound($tax, $rateKey, $inclTax);
             $baseTax = $this->_deltaRound($baseTax, $rateKey, $inclTax, 'base');
             $this->_addAmount(max(0, $tax));
             $this->_addBaseAmount(max(0, $baseTax));
-        } else {
+        } elseif (isset($tax, $baseTax)) {
             $tax = $this->_calculator->round($tax);
             $baseTax = $this->_calculator->round($baseTax);
             $this->_addAmount(max(0, $tax));
             $this->_addBaseAmount(max(0, $baseTax));
         }
 
-        if ($inclTax && !empty($discountAmount)) {
+        if (isset($tax, $baseTax) && $inclTax && !empty($discountAmount)) {
             $taxBeforeDiscount = $this->_calculator->calcTaxAmount(
                 $shipping,
                 $rate,
@@ -358,9 +350,11 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             ];
         }
 
-        $address->setShippingTaxAmount($address->getShippingTaxAmount() + max(0, $tax));
-        $address->setBaseShippingTaxAmount($address->getBaseShippingTaxAmount() + max(0, $baseTax));
-        $this->_saveAppliedTaxes($address, $appliedRates, $tax, $baseTax, $rate);
+        if (isset($tax, $baseTax)) {
+            $address->setShippingTaxAmount($address->getShippingTaxAmount() + max(0, $tax));
+            $address->setBaseShippingTaxAmount($address->getBaseShippingTaxAmount() + max(0, $baseTax));
+            $this->_saveAppliedTaxes($address, $appliedRates, $tax, $baseTax, $rate);
+        }
     }
 
     /**
@@ -641,13 +635,15 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 break;
         }
 
-        $rowTax = $this->_store->roundPrice(max(0, $qty * $unitTax));
-        $baseRowTax = $this->_store->roundPrice(max(0, $qty * $baseUnitTax));
-        $item->setTaxAmount($item->getTaxAmount() + $rowTax);
-        $item->setBaseTaxAmount($item->getBaseTaxAmount() + $baseRowTax);
-        if (is_array($taxGroups)) {
-            $taxGroups[$rateKey]['tax'] = max(0, $rowTax);
-            $taxGroups[$rateKey]['base_tax'] = max(0, $baseRowTax);
+        if (isset($unitTax, $baseUnitTax)) {
+            $rowTax = $this->_store->roundPrice(max(0, $qty * $unitTax));
+            $baseRowTax = $this->_store->roundPrice(max(0, $qty * $baseUnitTax));
+            $item->setTaxAmount($item->getTaxAmount() + $rowTax);
+            $item->setBaseTaxAmount($item->getBaseTaxAmount() + $baseRowTax);
+            if (is_array($taxGroups)) {
+                $taxGroups[$rateKey]['tax'] = max(0, $rowTax);
+                $taxGroups[$rateKey]['base_tax'] = max(0, $baseRowTax);
+            }
         }
 
         $rowTotalInclTax = $item->getRowTotalInclTax();
@@ -919,11 +915,14 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 }
                 break;
         }
-        $item->setTaxAmount($item->getTaxAmount() + max(0, $rowTax));
-        $item->setBaseTaxAmount($item->getBaseTaxAmount() + max(0, $baseRowTax));
-        if (is_array($taxGroups)) {
-            $taxGroups[$rateKey]['tax'] = max(0, $rowTax);
-            $taxGroups[$rateKey]['base_tax'] = max(0, $baseRowTax);
+
+        if (isset($rowTax, $baseRowTax)) {
+            $item->setTaxAmount($item->getTaxAmount() + max(0, $rowTax));
+            $item->setBaseTaxAmount($item->getBaseTaxAmount() + max(0, $baseRowTax));
+            if (is_array($taxGroups)) {
+                $taxGroups[$rateKey]['tax'] = max(0, $rowTax);
+                $taxGroups[$rateKey]['base_tax'] = max(0, $baseRowTax);
+            }
         }
 
         $rowTotalInclTax = $item->getRowTotalInclTax();
@@ -1099,15 +1098,12 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
             $taxGroups[$rateKey]['base_weee_tax'] = [];
         }
 
-        $hiddenTax = null;
-        $baseHiddenTax = null;
-        $weeeTax = null;
-        $baseWeeeTax = null;
-        $discount = 0;
-        $rowTaxBeforeDiscount = 0;
-        $baseRowTaxBeforeDiscount = 0;
-        $weeeRowTaxBeforeDiscount = 0;
+        $baseRowTax = 0;
+        $baseTaxBeforeDiscountRounded = 0;
         $baseWeeeRowTaxBeforeDiscount = 0;
+        $rowTax = 0;
+        $taxBeforeDiscountRounded = 0;
+        $weeeRowTaxBeforeDiscount = 0;
 
         switch ($this->_helper->getCalculationSequence($this->_store)) {
             case Mage_Tax_Model_Calculation::CALC_TAX_BEFORE_DISCOUNT_ON_EXCL:
@@ -1263,9 +1259,6 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     protected function _calculateWeeeAmountInclTax($item, $appliedRates, $base = true)
     {
         foreach ($this->_weeeHelper->getApplied($item) as $tax) {
-            $weeeAmountInclTax = 0;
-            $weeeAmountExclTax = 0;
-
             if ($base) {
                 $weeeAmountInclTax = $tax['base_amount_incl_tax'] ?? 0;
                 $weeeAmountExclTax = $tax['base_amount'] ?? 0;

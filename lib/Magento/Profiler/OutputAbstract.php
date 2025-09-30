@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Magento
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Magento_Profiler
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -122,7 +115,8 @@ abstract class Magento_Profiler_OutputAbstract
 
         $prevTimerId = $timerIds[0];
         $result = [$prevTimerId];
-        for ($i = 1; $i < count($timerIds); $i++) {
+        $counter = count($timerIds);
+        for ($i = 1; $i < $counter; $i++) {
             $timerId = $timerIds[$i];
             /* Skip already added timer */
             if (!$timerId) {

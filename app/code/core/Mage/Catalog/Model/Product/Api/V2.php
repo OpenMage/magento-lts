@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Catalog
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Catalog product api V2
  *
- * @category   Mage
  * @package    Mage_Catalog
  */
 class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
@@ -244,12 +236,14 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
         if (property_exists($productData, 'additional_attributes')) {
             if (property_exists($productData->additional_attributes, 'single_data')) {
                 foreach ($productData->additional_attributes->single_data as $_attribute) {
+                    /** @var string $attributeCode */
                     $attributeCode = $_attribute->key;
                     $productData->$attributeCode = $_attribute->value;
                 }
             }
             if (property_exists($productData->additional_attributes, 'multi_data')) {
                 foreach ($productData->additional_attributes->multi_data as $_attribute) {
+                    /** @var string $attributeCode */
                     $attributeCode = $_attribute->key;
                     $productData->$attributeCode = $_attribute->value;
                 }
@@ -259,6 +253,7 @@ class Mage_Catalog_Model_Product_Api_V2 extends Mage_Catalog_Model_Product_Api
 
         // phpcs:ignore: Ecg.Performance.Loop.DataLoad
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
+            /** @var string $attributeCode */
             $attributeCode = $attribute->getAttributeCode();
 
             //Unset data if object attribute has no value in current store

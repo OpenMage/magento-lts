@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Archive
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -130,7 +123,7 @@ class Mage_Archive_Helper_File
      * Read data from file
      *
      * @param int $length
-     * @return string|boolean
+     * @return string|bool
      */
     public function read($length = 4096)
     {
@@ -146,7 +139,7 @@ class Mage_Archive_Helper_File
     /**
      * Check whether end of file reached
      *
-     * @return boolean
+     * @return bool
      */
     public function eof()
     {
@@ -221,7 +214,7 @@ class Mage_Archive_Helper_File
     /**
      * Implementation of EOF indicator
      *
-     * @return boolean
+     * @return bool
      */
     protected function _eof()
     {

@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Tax
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Tax Calculation Resource Model
  *
- * @category   Mage
  * @package    Mage_Tax
  */
 class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Abstract
@@ -323,10 +315,10 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
                         "rate.tax_postcode IS NULL OR rate.tax_postcode IN('*', '', ?)",
                         $postcodeIsRange ? $postcode : $this->_createSearchPostCodeTemplates($postcode),
                     );
-                if ($postcodeIsNumeric) {
+                if (isset($selectClone) && $postcodeIsNumeric) {
                     $selectClone
                         ->where('? BETWEEN rate.zip_from AND rate.zip_to', $postcode);
-                } elseif ($postcodeIsRange) {
+                } elseif (isset($selectClone, $zipFrom, $zipTo) && $postcodeIsRange) {
                     $selectClone->where('rate.zip_from >= ?', $zipFrom)
                         ->where('rate.zip_to <= ?', $zipTo);
                 }
@@ -335,7 +327,7 @@ class Mage_Tax_Model_Resource_Calculation extends Mage_Core_Model_Resource_Db_Ab
             /**
              * @see ZF-7592 issue http://framework.zend.com/issues/browse/ZF-7592
              */
-            if ($postcodeIsNumeric || $postcodeIsRange) {
+            if (isset($selectClone) && ($postcodeIsNumeric || $postcodeIsRange)) {
                 $select = $this->_getReadAdapter()->select()->union(
                     [
                         '(' . $select . ')',

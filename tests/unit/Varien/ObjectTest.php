@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -23,7 +17,7 @@ use stdClass;
 use Varien_Exception;
 use Varien_Object;
 
-class ObjectTest extends TestCase
+final class ObjectTest extends TestCase
 {
     public Varien_Object $subject;
 
@@ -44,7 +38,7 @@ class ObjectTest extends TestCase
     public function testGetData($expectedResult, $setKey, $setValue, string $key, $index = null): void
     {
         $this->subject->setData($setKey, $setValue);
-        $this->assertSame($expectedResult, $this->subject->getData($key, $index));
+        self::assertSame($expectedResult, $this->subject->getData($key, $index));
     }
 
     public function provideGetDataData(): Generator
@@ -176,7 +170,7 @@ class ObjectTest extends TestCase
         $this->subject->setString2('two');
         $this->subject->setString3('three');
 
-        $this->assertSame($expectedResult, $this->subject->toString($format));
+        self::assertSame($expectedResult, $this->subject->toString($format));
     }
 
     public function provideToString(): Generator
@@ -200,7 +194,7 @@ class ObjectTest extends TestCase
      */
     public function testGetSetUnsData(): void
     {
-        $this->assertTrue($this->subject->isEmpty());
+        self::assertTrue($this->subject->isEmpty());
         $this->subject->setABC('abc');
         $this->subject->setData('efg', 'efg');
         $this->subject->set123('123');
@@ -209,46 +203,46 @@ class ObjectTest extends TestCase
         $this->subject->setData('key_a_2nd', 'value_a_2nd');
         $this->subject->setKeyA3rd('value_a_3rd');
         $this->subject->setData('left', 'over');
-        $this->assertFalse($this->subject->isEmpty());
+        self::assertFalse($this->subject->isEmpty());
 
-        $this->assertSame('abc', $this->subject->getData('a_b_c'));
-        $this->assertSame('abc', $this->subject->getABC());
+        self::assertSame('abc', $this->subject->getData('a_b_c'));
+        self::assertSame('abc', $this->subject->getABC());
         $this->subject->unsetData('a_b_c');
 
-        $this->assertSame('efg', $this->subject->getData('efg'));
-        $this->assertSame('efg', $this->subject->getEfg());
+        self::assertSame('efg', $this->subject->getData('efg'));
+        self::assertSame('efg', $this->subject->getEfg());
         $this->subject->unsEfg();
 
-        $this->assertSame('123', $this->subject->getData('123'));
-        $this->assertSame('123', $this->subject->get123());
+        self::assertSame('123', $this->subject->getData('123'));
+        self::assertSame('123', $this->subject->get123());
         $this->subject->uns123();
 
         $this->subject->unsetData('345');
 
-        $this->assertSame('value_a_first', $this->subject->getData('key_a_first'));
-        $this->assertSame('value_a_first', $this->subject->getKeyAFirst());
+        self::assertSame('value_a_first', $this->subject->getData('key_a_first'));
+        self::assertSame('value_a_first', $this->subject->getKeyAFirst());
         $this->subject->unsetData('key_a_first');
 
-        $this->assertSame('value_a_2nd', $this->subject->getData('key_a_2nd'));
-        $this->assertSame('value_a_2nd', $this->subject->getKeyA_2nd());
+        self::assertSame('value_a_2nd', $this->subject->getData('key_a_2nd'));
+        self::assertSame('value_a_2nd', $this->subject->getKeyA_2nd());
         $this->subject->unsetData('key_a_2nd');
 
-        $this->assertSame('value_a_3rd', $this->subject->getData('key_a3rd'));
-        $this->assertSame('value_a_3rd', $this->subject->getKeyA3rd());
+        self::assertSame('value_a_3rd', $this->subject->getData('key_a3rd'));
+        self::assertSame('value_a_3rd', $this->subject->getKeyA3rd());
         $this->subject->unsetData('key_a3rd');
 
-        $this->assertSame(['left' => 'over'], $this->subject->getData());
+        self::assertSame(['left' => 'over'], $this->subject->getData());
 
         $this->subject->unsetData();
-        $this->assertSame([], $this->subject->getData());
-        $this->assertTrue($this->subject->isEmpty());
+        self::assertSame([], $this->subject->getData());
+        self::assertTrue($this->subject->isEmpty());
 
         try {
             /** @phpstan-ignore-next-line */
             $this->subject->notData();
-            $this->fail('Invalid __call');
+            self::fail('Invalid __call');
         } catch (Varien_Exception $exception) {
-            $this->assertStringStartsWith('Invalid method', $exception->getMessage());
+            self::assertStringStartsWith('Invalid method', $exception->getMessage());
         }
     }
 
@@ -257,14 +251,14 @@ class ObjectTest extends TestCase
      */
     public function testOffset(): void
     {
-        $this->assertFalse($this->subject->offsetExists('off'));
+        self::assertFalse($this->subject->offsetExists('off'));
 
         $this->subject->offsetSet('off', 'set');
-        $this->assertTrue($this->subject->offsetExists('off'));
-        $this->assertSame('set', $this->subject->offsetGet('off'));
-        $this->assertNull($this->subject->offsetGet('not-exists'));
+        self::assertTrue($this->subject->offsetExists('off'));
+        self::assertSame('set', $this->subject->offsetGet('off'));
+        self::assertNull($this->subject->offsetGet('not-exists'));
 
         $this->subject->offsetUnset('off');
-        $this->assertFalse($this->subject->offsetExists('off'));
+        self::assertFalse($this->subject->offsetExists('off'));
     }
 }

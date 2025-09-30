@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Widget
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * WYSIWYG widget options form
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  *
  * @method $this setConfig(Varien_Object $value)
@@ -65,7 +57,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         $config = new Varien_Object();
         $this->setConfig($config);
         if (!is_array($configArray)) {
-            return $this->_getData('config');
+            /** @var Varien_Object $configData */
+            $configData = $this->_getData('config');
+            return $configData;
         }
 
         // define chooser label
@@ -85,7 +79,9 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         }
         $config->setButtons($buttons);
 
-        return $this->_getData('config');
+        /** @var Varien_Object $configData */
+        $configData = $this->_getData('config');
+        return $configData;
     }
 
     /**

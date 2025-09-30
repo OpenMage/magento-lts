@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Usa
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * DHL shipping implementation
  *
- * @category   Mage
  * @package    Mage_Usa
  */
 class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrier_Dhl_Abstract implements Mage_Shipping_Model_Carrier_Interface
@@ -494,7 +486,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                     $shippingDuty->addChild('CustomsValue', $customsValue);
                     $shippingDuty->addChild('IsSEDReqd', 'N');
                 }
-                if ($shipment !== false) {
+                if (isset($shipKey) && $shipment !== false) {
                     $hasShipCode = true;
                     $this->_createShipmentXml($shipment, $shipKey);
                 }
@@ -649,12 +641,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             $specialServices = $shipmentDetail->addChild('SpecialServices');
         }
 
-        if ($isHaz) {
+        if (isset($specialServices) && $isHaz) {
             $hazardousMaterials = $specialServices->addChild('SpecialService');
             $hazardousMaterials->addChild('Code', 'HAZ');
         }
 
-        if ($rawRequest->getExtendedService()) {
+        if (isset($specialServices) && $rawRequest->getExtendedService()) {
             $extendedService = $specialServices->addChild('SpecialService');
             $extendedService->addChild('Code', $rawRequest->getExtendedService());
         }
@@ -773,7 +765,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
             if (!empty($this->_errors)) {
                 $result->setErrors(implode('; ', $this->_errors));
             } else {
-                if ($xml !== false) {
+                if (isset($xml) && $xml !== false) {
                     if ($r->getDestCountryId() == self::USA_COUNTRY_ID) {
                         $shippingLabelContent = base64_decode((string) $xml->Shipment->Label->Image);
                         $trackingNumber = (string) $xml->Shipment->ShipmentDetail->AirbillNbr;
@@ -782,8 +774,12 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                         $trackingNumber = (string) $xml->IntlShipment->ShipmentDetail->AirbillNbr;
                     }
                 }
-                $result->setShippingLabelContent($shippingLabelContent);
-                $result->setTrackingNumber($trackingNumber);
+                if (isset($shippingLabelContent)) {
+                    $result->setShippingLabelContent($shippingLabelContent);
+                }
+                if (isset($trackingNumber)) {
+                    $result->setTrackingNumber($trackingNumber);
+                }
             }
             return $result;
         } else {

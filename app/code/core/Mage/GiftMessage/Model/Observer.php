@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_GiftMessage
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Gift Message Observer Model
  *
- * @category   Mage
  * @package    Mage_GiftMessage
  */
 class Mage_GiftMessage_Model_Observer extends Varien_Object
@@ -75,7 +67,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * Geter for available gift messages value from product
      *
      * @deprecated after 1.5.0.0
-     * @param Mage_Catalog_Model_Product|integer $product
+     * @param Mage_Catalog_Model_Product|int $product
      * @return int|null
      */
     protected function _getAvailable($product)
@@ -100,23 +92,13 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             foreach ($giftMessages as $entityId => $message) {
                 $giftMessage = Mage::getModel('giftmessage/message');
 
-                switch ($message['type']) {
-                    case 'quote':
-                        $entity = $quote;
-                        break;
-                    case 'quote_item':
-                        $entity = $quote->getItemById($entityId);
-                        break;
-                    case 'quote_address':
-                        $entity = $quote->getAddressById($entityId);
-                        break;
-                    case 'quote_address_item':
-                        $entity = $quote->getAddressById($message['address'])->getItemById($entityId);
-                        break;
-                    default:
-                        $entity = $quote;
-                        break;
-                }
+                $entity = match ($message['type']) {
+                    'quote' => $quote,
+                    'quote_item' => $quote->getItemById($entityId),
+                    'quote_address' => $quote->getAddressById($entityId),
+                    'quote_address_item' => $quote->getAddressById($message['address'])->getItemById($entityId),
+                    default => $quote,
+                };
 
                 if ($entity->getGiftMessageId()) {
                     $giftMessage->load($entity->getGiftMessageId());

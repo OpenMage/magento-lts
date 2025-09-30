@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Api
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Webservice default handler
  *
- * @category   Mage
  * @package    Mage_Api
  */
 abstract class Mage_Api_Model_Server_Handler_Abstract
@@ -295,7 +287,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 if ($model instanceof Mage_Api_Model_Resource_Abstract) {
                     $model->setResourceConfig($resources->$resourceName);
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 throw new Mage_Api_Exception('resource_path_not_callable');
             }
 
@@ -418,7 +410,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
                 try {
                     $model = Mage::getModel($modelName);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     throw new Mage_Api_Exception('resource_path_not_callable');
                 }
 

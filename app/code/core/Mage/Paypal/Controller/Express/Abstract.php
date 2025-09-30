@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paypal
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Abstract Express Checkout Controller
  *
- * @category   Mage
  * @package    Mage_Paypal
  */
 abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Controller_Front_Action
@@ -279,7 +271,7 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_getSession()->addError($this->__('Unable to update shipping method.'));
             Mage::logException($e);
         }
-        if ($isAjax) {
+        if (isset($isAjax) && $isAjax) {
             $this->getResponse()->setBody('<script type="text/javascript">window.location.href = '
                 . Mage::getUrl('*/*/review') . ';</script>');
         } else {

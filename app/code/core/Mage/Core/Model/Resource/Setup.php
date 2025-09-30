@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Core
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Resource Setup Model
  *
- * @category   Mage
  * @package    Mage_Core
  */
 class Mage_Core_Model_Resource_Setup
@@ -71,7 +63,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Setup Connection
      *
-     * @var Varien_Db_Adapter_Pdo_Mysql
+     * @var Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql|Zend_Db_Adapter_Pdo_Abstract
      */
     protected $_conn;
     /**
@@ -140,7 +132,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Get connection object
      *
-     * @return Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql
+     * @return Varien_Db_Adapter_Interface|Varien_Db_Adapter_Pdo_Mysql|Zend_Db_Adapter_Pdo_Abstract
      */
     public function getConnection()
     {
@@ -554,16 +546,11 @@ class Mage_Core_Model_Resource_Setup
      */
     protected function _setResourceVersion($actionType, $version)
     {
-        switch ($actionType) {
-            case self::TYPE_DB_INSTALL:
-            case self::TYPE_DB_UPGRADE:
-                $this->_getResource()->setDbVersion($this->_resourceName, $version);
-                break;
-            case self::TYPE_DATA_INSTALL:
-            case self::TYPE_DATA_UPGRADE:
-                $this->_getResource()->setDataVersion($this->_resourceName, $version);
-                break;
-        }
+        match ($actionType) {
+            self::TYPE_DB_INSTALL, self::TYPE_DB_UPGRADE => $this->_getResource()->setDbVersion($this->_resourceName, $version),
+            self::TYPE_DATA_INSTALL, self::TYPE_DATA_UPGRADE => $this->_getResource()->setDataVersion($this->_resourceName, $version),
+            default => $this,
+        };
 
         return $this;
     }
@@ -580,19 +567,11 @@ class Mage_Core_Model_Resource_Setup
 
     protected function _modifyResourceDb($actionType, $fromVersion, $toVersion)
     {
-        switch ($actionType) {
-            case self::TYPE_DB_INSTALL:
-            case self::TYPE_DB_UPGRADE:
-                $files = $this->_getAvailableDbFiles($actionType, $fromVersion, $toVersion);
-                break;
-            case self::TYPE_DATA_INSTALL:
-            case self::TYPE_DATA_UPGRADE:
-                $files = $this->_getAvailableDataFiles($actionType, $fromVersion, $toVersion);
-                break;
-            default:
-                $files = [];
-                break;
-        }
+        $files = match ($actionType) {
+            self::TYPE_DB_INSTALL, self::TYPE_DB_UPGRADE => $this->_getAvailableDbFiles($actionType, $fromVersion, $toVersion),
+            self::TYPE_DATA_INSTALL, self::TYPE_DATA_UPGRADE => $this->_getAvailableDataFiles($actionType, $fromVersion, $toVersion),
+            default => [],
+        };
         if (empty($files) || !$this->getConnection()) {
             return false;
         }
@@ -704,7 +683,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string $field
      * @param string $parentField
      * @param string|int $parentId
-     * @return mixed|boolean
+     * @return mixed|bool
      */
     public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {
@@ -939,7 +918,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve 32bit UNIQUE HASH for a Table index
      *
-     * @param string $tableName
+     * @param array|string $tableName
      * @param array|string $fields
      * @param string $indexType
      * @return string
@@ -952,7 +931,7 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Retrieve 32bit UNIQUE HASH for a Table foreign key
      *
-     * @param string $priTableName  the target table name
+     * @param array|string $priTableName  the target table name
      * @param string $priColumnName the target table column name
      * @param string $refTableName  the reference table name
      * @param string $refColumnName the reference table column name

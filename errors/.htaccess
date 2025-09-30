@@ -1,3 +1,12 @@
 <FilesMatch "\.(xml|phtml)$">
-    Deny from all
+    <IfModule mod_authz_host.c>
+        <IfModule !mod_authz_core.c>
+            #Apache 2.2
+            deny from all
+        </IfModule>
+        <IfModule mod_authz_core.c>
+            #Apache 2.3+
+            Require all denied
+        </IfModule>
+    </IfModule>
 </FilesMatch>

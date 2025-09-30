@@ -1,16 +1,9 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
- * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -51,23 +44,49 @@ trait UploaderTrait
         ];
     }
 
+    public function provideGetDataMaxSizeData(): Generator
+    {
+        yield 'larger post max size' => [
+            '1M',
+            [
+                'getPostMaxSize' => '1G',
+                'getUploadMaxSize' => '1M',
+            ],
+        ];
+        yield 'larger upload max size' => [
+            '1M',
+            [
+                'getPostMaxSize' => '1M',
+                'getUploadMaxSize' => '1G',
+            ],
+        ];
+    }
+
     public function provideGetDataMaxSizeInBytesData(): Generator
     {
         yield 'no unit' => [
             1024,
-            '1024',
+            [
+                'getDataMaxSize' => '1024',
+            ],
         ];
         yield 'kilobyte' => [
             1024,
-            '1K',
+            [
+                'getDataMaxSize' => '1K',
+            ],
         ];
         yield 'megabyte' => [
             1048576,
-            '1M',
+            [
+                'getDataMaxSize' => '1M',
+            ],
         ];
         yield 'gigabyte' => [
             1073741824,
-            '1G',
+            [
+                'getDataMaxSize' => '1G',
+            ],
         ];
     }
 }

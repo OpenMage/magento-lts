@@ -1,29 +1,21 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Install
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * DB Installer
  *
- * @category   Mage
  * @package    Mage_Install
  */
 class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstract
 {
     /**
-     * @var resource database
+     * @var Mage_Install_Model_Installer_Db_Abstract|null database
      */
     protected $_dbResource;
 
@@ -141,10 +133,12 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
      *
      * @param  string $model database type
      * @return Mage_Install_Model_Installer_Db_Abstract
+     * @throws Mage_Core_Exception
      */
     protected function _getDbResource($model)
     {
         if (!isset($this->_dbResource)) {
+            /** @var Mage_Install_Model_Installer_Db_Abstract $resource */
             $resource =  Mage::getSingleton(sprintf('install/installer_db_%s', $model));
             if (!$resource) {
                 Mage::throwException(

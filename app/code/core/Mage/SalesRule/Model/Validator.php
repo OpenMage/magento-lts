@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_SalesRule
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -19,7 +12,6 @@
  *
  * Allows dispatching before and after events for each controller action
  *
- * @category   Mage
  * @package    Mage_SalesRule
  *
  * @method string getCouponCode()
@@ -594,17 +586,15 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                                         $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
                                         $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
                                     }
+                                } elseif ($discountTax) {
+                                    $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
+                                    $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
+                                    $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
+                                    $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
+                                        * $rulePercent / 100;
                                 } else {
-                                    if ($discountTax) {
-                                        $weeeTax = $weeeTaxAppliedRowAmount * $rate / 100;
-                                        $baseWeeeTax = $baseWeeeTaxAppliedRowAmount * $rate / 100;
-                                        $weeeDiscount = ($weeeTaxAppliedRowAmount + $weeeTax) * $rulePercent / 100;
-                                        $baseWeeeDiscount = ($baseWeeeTaxAppliedRowAmount + $baseWeeeTax)
-                                            * $rulePercent / 100;
-                                    } else {
-                                        $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
-                                        $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
-                                    }
+                                    $weeeDiscount = $weeeTaxAppliedRowAmount * $rulePercent / 100;
+                                    $baseWeeeDiscount = $baseWeeeTaxAppliedRowAmount * $rulePercent / 100;
                                 }
                             } else {
                                 // weee is not taxable
@@ -676,25 +666,23 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
                             $item->setBaseDiscountAmount($item->getBaseDiscountAmount() + $totalBaseWeeeDiscount);
                             $address->addTotalAmount('discount', -$totalWeeeDiscount);
                             $address->addBaseTotalAmount('discount', -$totalBaseWeeeDiscount);
+                        } elseif ($applyTaxAfterDiscount) {
+                            $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
+                            $address->setBaseExtraTaxAmount(
+                                $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount,
+                            );
+                            $address->setWeeeDiscount($address->getWeeeDiscount() + $totalWeeeDiscount);
+                            $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
                         } else {
-                            if ($applyTaxAfterDiscount) {
-                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
-                                $address->setBaseExtraTaxAmount(
-                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount,
-                                );
-                                $address->setWeeeDiscount($address->getWeeeDiscount() + $totalWeeeDiscount);
-                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
-                            } else {
-                                //tax has already been calculated, we need to remove weeeDiscount from total tax
-                                $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
-                                $address->setBaseExtraTaxAmount(
-                                    $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount,
-                                );
-                                $address->addTotalAmount('tax', -$totalWeeeDiscount);
-                                $address->addBaseTotalAmount('tax', -$totalBaseWeeeDiscount);
-                                $address->setWeeeDiscount($address->getWeeeDiscount() + $totalWeeeDiscount);
-                                $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
-                            }
+                            //tax has already been calculated, we need to remove weeeDiscount from total tax
+                            $address->setExtraTaxAmount($address->getExtraTaxAmount() - $totalWeeeDiscount);
+                            $address->setBaseExtraTaxAmount(
+                                $address->getBaseExtraTaxAmount() - $totalBaseWeeeDiscount,
+                            );
+                            $address->addTotalAmount('tax', -$totalWeeeDiscount);
+                            $address->addBaseTotalAmount('tax', -$totalBaseWeeeDiscount);
+                            $address->setWeeeDiscount($address->getWeeeDiscount() + $totalWeeeDiscount);
+                            $address->setBaseWeeeDiscount($address->getBaseWeeeDiscount() + $totalBaseWeeeDiscount);
                         }
                     }
                     break;

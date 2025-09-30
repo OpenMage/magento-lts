@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Adminhtml sales orders creation process controller
  *
- * @category   Mage
  * @package    Mage_Adminhtml
  */
 class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Controller_Action
@@ -548,22 +540,12 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         if (in_array($action, ['index', 'save']) && $this->_getSession()->getReordered()) {
             $action = 'reorder';
         }
-        switch ($action) {
-            case 'index':
-            case 'save':
-                $aclResource = 'sales/order/actions/create';
-                break;
-            case 'reorder':
-                $aclResource = 'sales/order/actions/reorder';
-                break;
-            case 'cancel':
-                $aclResource = 'sales/order/actions/cancel';
-                break;
-            default:
-                $aclResource = 'sales/order/actions';
-                break;
-        }
-        return $aclResource;
+        return match ($action) {
+            'index', 'save' => 'sales/order/actions/create',
+            'reorder' => 'sales/order/actions/reorder',
+            'cancel' => 'sales/order/actions/cancel',
+            default => 'sales/order/actions',
+        };
     }
 
     /**
