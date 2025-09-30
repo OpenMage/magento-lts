@@ -34,7 +34,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsVisitorLogEnabled(): void
     {
-        static::assertTrue(self::$subject->isVisitorLogEnabled());
+        self::assertTrue(self::$subject->isVisitorLogEnabled());
     }
 
     /**
@@ -43,7 +43,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsLogEnabled(): void
     {
-        static::assertFalse(self::$subject->isLogEnabled());
+        self::assertFalse(self::$subject->isLogEnabled());
     }
 
     /**
@@ -52,7 +52,7 @@ final class DataTest extends OpenMageTest
      */
     public function testIsLogDisabled(): void
     {
-        static::assertFalse(self::$subject->isLogDisabled());
+        self::assertFalse(self::$subject->isLogDisabled());
     }
 
     /**
@@ -62,6 +62,6 @@ final class DataTest extends OpenMageTest
      */
     public function testIsLogFileExtensionValid(bool $expectedResult, string $file): void
     {
-        static::assertSame($expectedResult, self::$subject->isLogFileExtensionValid($file));
+        self::assertSame($expectedResult, self::$subject->isLogFileExtensionValid($file));
     }
 }

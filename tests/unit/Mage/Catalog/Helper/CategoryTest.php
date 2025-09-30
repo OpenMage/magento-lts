@@ -30,6 +30,6 @@ final class CategoryTest extends OpenMageTest
      */
     public function testCanUseCanonicalTag(): void
     {
-        static::assertIsBool(self::$subject->canUseCanonicalTag());
+        self::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 }

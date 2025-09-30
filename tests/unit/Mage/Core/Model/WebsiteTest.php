@@ -34,8 +34,8 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testLoad(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->load(1));
-        static::assertInstanceOf(Subject::class, self::$subject->load('default'));
+        self::assertInstanceOf(Subject::class, self::$subject->load(1));
+        self::assertInstanceOf(Subject::class, self::$subject->load('default'));
     }
 
     /**
@@ -43,8 +43,8 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testLoadConfig(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->loadConfig('1'));
-        static::assertInstanceOf(Subject::class, self::$subject->loadConfig('default'));
+        self::assertInstanceOf(Subject::class, self::$subject->loadConfig('1'));
+        self::assertInstanceOf(Subject::class, self::$subject->loadConfig('default'));
     }
 
     /**
@@ -52,7 +52,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetStoreCollection(): void
     {
-        static::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, self::$subject->getStoreCollection());
+        self::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, self::$subject->getStoreCollection());
     }
 
     /**
@@ -60,7 +60,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetGroupCollection(): void
     {
-        static::assertInstanceOf(Mage_Core_Model_Resource_Store_Group_Collection::class, self::$subject->getGroupCollection());
+        self::assertInstanceOf(Mage_Core_Model_Resource_Store_Group_Collection::class, self::$subject->getGroupCollection());
     }
 
     /**
@@ -68,7 +68,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetStores(): void
     {
-        static::assertIsArray(self::$subject->getStores());
+        self::assertIsArray(self::$subject->getStores());
     }
 
     /**
@@ -76,7 +76,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetStoreIds(): void
     {
-        static::assertIsArray(self::$subject->getStoreIds());
+        self::assertIsArray(self::$subject->getStoreIds());
     }
 
     /**
@@ -84,7 +84,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetStoreCodes(): void
     {
-        static::assertIsArray(self::$subject->getStoreCodes());
+        self::assertIsArray(self::$subject->getStoreCodes());
     }
 
     /**
@@ -92,7 +92,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetStoresCount(): void
     {
-        static::assertIsInt(self::$subject->getStoresCount());
+        self::assertIsInt(self::$subject->getStoresCount());
     }
 
     /**
@@ -100,7 +100,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetGroups(): void
     {
-        static::assertIsArray(self::$subject->getGroups());
+        self::assertIsArray(self::$subject->getGroups());
     }
 
     /**
@@ -108,7 +108,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetGroupIds(): void
     {
-        static::assertIsArray(self::$subject->getGroupIds());
+        self::assertIsArray(self::$subject->getGroupIds());
     }
 
     /**
@@ -116,7 +116,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetGroupsCount(): void
     {
-        static::assertIsInt(self::$subject->getGroupsCount());
+        self::assertIsInt(self::$subject->getGroupsCount());
     }
 
     /**
@@ -124,8 +124,8 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetBaseCurrency(): void
     {
-        static::assertIsObject(self::$subject->getBaseCurrency());
-        static::assertInstanceOf(Mage_Directory_Model_Currency::class, self::$subject->getBaseCurrency());
+        self::assertIsObject(self::$subject->getBaseCurrency());
+        self::assertInstanceOf(Mage_Directory_Model_Currency::class, self::$subject->getBaseCurrency());
     }
 
     //    /**
@@ -142,8 +142,8 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testGetDefaultStoresSelect(): void
     {
-        static::assertIsObject(self::$subject->getDefaultStoresSelect());
-        static::assertInstanceOf(Varien_Db_Select::class, self::$subject->getDefaultStoresSelect(true));
+        self::assertIsObject(self::$subject->getDefaultStoresSelect());
+        self::assertInstanceOf(Varien_Db_Select::class, self::$subject->getDefaultStoresSelect(true));
     }
 
     /**
@@ -151,7 +151,7 @@ final class WebsiteTest extends OpenMageTest
      */
     public function testIsReadOnly(): void
     {
-        static::assertFalse(self::$subject->isReadOnly());
-        static::assertTrue(self::$subject->isReadOnly(true));
+        self::assertFalse(self::$subject->isReadOnly());
+        self::assertTrue(self::$subject->isReadOnly(true));
     }
 }
