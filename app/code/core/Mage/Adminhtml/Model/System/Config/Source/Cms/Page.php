@@ -16,10 +16,24 @@ class Mage_Adminhtml_Model_System_Config_Source_Cms_Page
 
     public function toOptionArray()
     {
-        if (!$this->_options) {
-            $this->_options = Mage::getResourceModel('cms/page_collection')
-                ->load()->toOptionIdArray();
+        $storeCode = Mage::app()->getRequest()->getParam('store');
+        $store = Mage::app()->getStore($storeCode);
+        $storeId = $store->getId();
+
+        $collection = Mage::getModel('cms/page')->getCollection()
+            ->addFieldToFilter('is_active', 1)
+            ->addStoreFilter($storeId)
+            ->setOrder('title', 'ASC');
+
+        $options = [];
+
+        foreach ($collection as $page) {
+            $options[] = [
+                'value' => $page->getIdentifier(),
+                'label' => $page->getTitle(),
+            ];
         }
-        return $this->_options;
+
+        return $options;
     }
 }
