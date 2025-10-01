@@ -71,12 +71,12 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
     {
         // Trim whitespace for all relevant fields before validation and save
         $this->setCode(trim((string)$this->getCode()));
-        $this->setTaxCountryId(trim((string)$this->getTaxCountryId()));
-        $this->setTaxRegionId(trim((string)$this->getTaxRegionId()));
-        $this->setTaxPostcode(trim((string)$this->getTaxPostcode()));
-        $this->setRate(trim((string)$this->getRate()));
-        $this->setZipFrom(trim((string)$this->getZipFrom()));
-        $this->setZipTo(trim((string)$this->getZipTo()));
+        $this->setTaxCountryId(trim((string) $this->getTaxCountryId()));
+        $this->setTaxRegionId(trim((string) $this->getTaxRegionId()));
+        $this->setTaxPostcode(trim((string) $this->getTaxPostcode()));
+        $this->setRate(trim((string) $this->getRate()));
+        $this->setZipFrom(trim((string) $this->getZipFrom()));
+        $this->setZipTo(trim((string) $this->getZipTo()));
 
         if ($this->getCode() === '' || $this->getTaxCountryId() === '' || $this->getRate() === ''
             || $this->getZipIsRange() && ($this->getZipFrom() === '' || $this->getZipTo() === '')

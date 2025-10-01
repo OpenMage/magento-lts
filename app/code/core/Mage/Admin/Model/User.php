@@ -130,9 +130,9 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         $data = [
-            'firstname' => trim((string)$this->getFirstname()),
-            'lastname'  => trim((string)$this->getLastname()),
-            'email'     => trim((string)$this->getEmail()),
+            'firstname' => trim((string) $this->getFirstname()),
+            'lastname'  => trim((string) $this->getLastname()),
+            'email'     => trim((string) $this->getEmail()),
             'modified'  => $this->_getDateNow(),
             'extra'     => serialize($this->getExtra()),
         ];

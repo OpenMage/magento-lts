@@ -604,7 +604,7 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
 
         // For array values, trim each string element
         if (is_array($value)) {
-            $value = array_map(function($v) {
+            $value = array_map(function ($v) {
                 return is_string($v) ? trim($v) : $v;
             }, $value);
         }
