@@ -122,11 +122,6 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
 
     /**
      * Before object save manipulations
-     *
-     * @return $this
-     */
-    /**
-     * Before object save manipulations
      * Trim whitespace for all string data to prevent unwanted spaces on save
      *
      * @return $this
