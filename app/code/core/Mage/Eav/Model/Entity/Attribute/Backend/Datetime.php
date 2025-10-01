@@ -59,7 +59,7 @@ class Mage_Eav_Model_Entity_Attribute_Backend_Datetime extends Mage_Eav_Model_En
             return null;
         }
         // unix timestamp given - simply instantiate date object
-        if (preg_match('/^[0-9]+$/', $date)) {
+        if (preg_match('/^\d+$/', $date)) {
             $date = new Zend_Date((int) $date);
         } elseif (preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?$#', $date)) {
             // international format

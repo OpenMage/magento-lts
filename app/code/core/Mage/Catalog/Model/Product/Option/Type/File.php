@@ -573,7 +573,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     public function parseOptionValue($optionValue, $productOptionValues)
     {
         // search quote item option Id in option value
-        if (preg_match('/\[([0-9]+)\]/', $optionValue, $matches)) {
+        if (preg_match('/\[(\d+)\]/', $optionValue, $matches)) {
             $confItemOptionId = $matches[1];
             $option = Mage::getModel('sales/quote_item_option')->load($confItemOptionId);
             try {

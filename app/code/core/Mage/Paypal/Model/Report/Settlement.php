@@ -246,7 +246,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
         $flippedSectionColumns = array_flip($sectionColumns);
         $fp = fopen($localCsv, 'r');
-        while ($line = fgetcsv($fp)) {
+        while ($line = fgetcsv($fp, 0, ',', '"', '\\')) {
             if (empty($line)) { // The line was empty, so skip it.
                 continue;
             }
@@ -267,14 +267,19 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 case 'CH': // Section columns.
                     // In case ever the column order is changed, we will have the items recorded properly
                     // anyway. We have named, not numbered columns.
-                    for ($i = 1; $i < count($line); $i++) {
+                    $counter = count($line);
+                    // Section columns.
+                    // In case ever the column order is changed, we will have the items recorded properly
+                    // anyway. We have named, not numbered columns.
+                    for ($i = 1; $i < $counter; $i++) {
                         $sectionColumns[$line[$i]] = $i;
                     }
                     $flippedSectionColumns = array_flip($sectionColumns);
                     break;
                 case 'SB': // Section body.
                     $bodyItem = [];
-                    for ($i = 1; $i < count($line); $i++) {
+                    $counter = count($line);
+                    for ($i = 1; $i < $counter; $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
                     $this->_rows[] = $bodyItem;

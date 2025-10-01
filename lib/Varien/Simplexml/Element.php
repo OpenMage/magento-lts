@@ -54,7 +54,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     #[ReturnTypeWillChange]
     public function hasChildren()
@@ -143,6 +143,8 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             }
         }
         $desc = $this;
+
+        /** @var string[] $pathArr */
         foreach ($pathArr as $nodeName) {
             if (str_contains($nodeName, '@')) {
                 $a = explode('@', $nodeName);
@@ -230,7 +232,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Makes nicely formatted XML from the node
      *
      * @param string $filename
-     * @param int|boolean $level if false
+     * @param int|bool $level if false
      * @return string
      */
     public function asNiceXml($filename = '', $level = 0)
@@ -340,7 +342,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Otherwise will overwrite existing nodes
      *
      * @param Varien_Simplexml_Element $source
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extend($source, $overwrite = false)
@@ -360,7 +362,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Extends one node
      *
      * @param Varien_Simplexml_Element $source
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extendChild($source, $overwrite = false)

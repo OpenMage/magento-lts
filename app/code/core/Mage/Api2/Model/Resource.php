@@ -826,8 +826,8 @@ abstract class Mage_Api2_Model_Resource
 
         try {
             return $globalAcl->isAllowed($this->getApiUser(), $resourceId, $this->getOperation());
-        } catch (Mage_Api2_Exception) {
-            throw new Exception('Invalid arguments for isAllowed() call');
+        } catch (Mage_Api2_Exception $e) {
+            throw new Exception('Invalid arguments for isAllowed() call', $e->getCode(), $e);
         }
     }
 

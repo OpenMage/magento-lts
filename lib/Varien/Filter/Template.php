@@ -269,7 +269,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $last = 0;
         /** @var Mage_Adminhtml_Model_Email_PathValidator $emailPathValidator */
         $emailPathValidator = $this->getEmailPathValidator();
-        for ($i = 0; $i < count($stackVars); $i++) {
+        $counter = count($stackVars);
+        for ($i = 0; $i < $counter; $i++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
                 $stackVars[$i]['variable'] = & $this->_templateVars[$stackVars[$i]['name']];

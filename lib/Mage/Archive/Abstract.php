@@ -19,7 +19,7 @@ class Mage_Archive_Abstract
      *
      * @param string $destination
      * @param string $data
-     * @return boolean
+     * @return bool
      * @throws Mage_Exception
      */
     protected function _writeFile($destination, $data)

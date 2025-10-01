@@ -87,9 +87,9 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
             // Make message saying about suffix, not request path
             switch ($e->getCode()) {
                 case self::VERR_MANYSLASHES:
-                    throw new Mage_Core_Exception($this->__('Two and more slashes together are not permitted in url rewrite suffix'));
+                    throw new Mage_Core_Exception($this->__('Two and more slashes together are not permitted in url rewrite suffix'), $e->getCode(), $e);
                 case self::VERR_ANCHOR:
-                    throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'));
+                    throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'), $e->getCode(), $e);
             }
             throw $e;
         }

@@ -63,7 +63,8 @@ class Mage_System_Ftp
         $dir = explode('/', $path);
         $path = '';
         $ret = true;
-        for ($i = 0; $i < count($dir); $i++) {
+        $counter = count($dir);
+        for ($i = 0; $i < $counter; $i++) {
             $path .= '/' . $dir[$i];
             if (!@ftp_chdir($this->_conn, $path)) {
                 @ftp_chdir($this->_conn, '/');

@@ -30,6 +30,6 @@ final class LogTest extends OpenMageTest
      */
     public function testClean(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->clean());
+        self::assertInstanceOf(Subject::class, self::$subject->clean());
     }
 }

@@ -310,7 +310,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for ship
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToShip()
     {
@@ -324,7 +324,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for ship
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getSimpleQtyToShip()
     {
@@ -338,7 +338,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for invoice
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToInvoice()
     {
@@ -355,7 +355,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for refund
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToRefund()
     {
@@ -368,7 +368,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
     /**
      * Retrieve item qty available for cancel
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToCancel()
     {
@@ -388,7 +388,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Retrieve Bundle item qty available for cancel
      * getQtyToInvoice() will always deliver 0 for Bundle
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToCancelBundle()
     {
@@ -405,7 +405,7 @@ class Mage_Sales_Model_Order_Item extends Mage_Core_Model_Abstract
      * Retrieve Bundle child item qty available for cancel
      * getQtyToShip() always returns 0 for BundleItems that ship together
      *
-     * @return float|integer
+     * @return float|int
      */
     public function getQtyToCancelBundleItem()
     {

@@ -44,8 +44,10 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
 
         $links[(int) $linkedProductId] = [];
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
-            if (isset($data->{$attribute['code']})) {
-                $links[(int) $linkedProductId][$attribute['code']] = $data->{$attribute['code']};
+            /** @var string $attributeCode */
+            $attributeCode = $attribute['code'];
+            if (isset($data->{$attributeCode})) {
+                $links[(int) $linkedProductId][$attributeCode] = $data->{$attributeCode};
             }
         }
 
@@ -102,8 +104,10 @@ class Mage_Catalog_Model_Product_Link_Api_V2 extends Mage_Catalog_Model_Product_
         }
 
         foreach ($collection->getLinkModel()->getAttributes() as $attribute) {
-            if (isset($data->{$attribute['code']})) {
-                $links[(int) $linkedProductId][$attribute['code']] = $data->{$attribute['code']};
+            /** @var string $attributeCode */
+            $attributeCode = $attribute['code'];
+            if (isset($data->{$attributeCode})) {
+                $links[(int) $linkedProductId][$attributeCode] = $data->{$attributeCode};
             }
         }
 

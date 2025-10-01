@@ -227,7 +227,8 @@ function mageDelTree($path)
 function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\')
 {
     $elements = explode($delimiter, $string);
-    for ($i = 0; $i < count($elements); $i++) {
+    $counter = count($elements);
+    for ($i = 0; $i < $counter; $i++) {
         $nquotes = substr_count($elements[$i], $enclosure);
         if ($nquotes % 2 == 1) {
             for ($j = $i + 1; $j < count($elements); $j++) {

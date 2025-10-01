@@ -33,7 +33,7 @@ final class JsTest extends OpenMageTest
      */
     public function testGetTranslateJson(): void
     {
-        static::assertIsString(self::$subject->getTranslateJson());
+        self::assertIsString(self::$subject->getTranslateJson());
     }
 
     /**
@@ -42,7 +42,7 @@ final class JsTest extends OpenMageTest
      */
     public function testGetTranslatorScript(): void
     {
-        static::assertIsString(self::$subject->getTranslatorScript());
+        self::assertIsString(self::$subject->getTranslatorScript());
     }
 
     /**
@@ -50,7 +50,7 @@ final class JsTest extends OpenMageTest
      */
     public function testIncludeScript(): void
     {
-        static::assertStringContainsString(self::TEST_URL, self::$subject->includeScript(self::TEST_URL));
+        self::assertStringContainsString(self::TEST_URL, self::$subject->includeScript(self::TEST_URL));
     }
 
     /**
@@ -58,7 +58,7 @@ final class JsTest extends OpenMageTest
      */
     public function testIncludeSkinScript(): void
     {
-        static::assertStringContainsString(self::TEST_URL, self::$subject->includeSkinScript(self::TEST_URL));
+        self::assertStringContainsString(self::TEST_URL, self::$subject->includeSkinScript(self::TEST_URL));
     }
 
     /**
@@ -66,8 +66,8 @@ final class JsTest extends OpenMageTest
      */
     public function testGetDeleteConfirmJs(): void
     {
-        static::assertStringStartsWith('deleteConfirm', self::$subject->getDeleteConfirmJs('foo'));
-        static::assertStringStartsWith('deleteConfirm', self::$subject->getDeleteConfirmJs('foo', 'bar'));
+        self::assertStringStartsWith('deleteConfirm', self::$subject->getDeleteConfirmJs('foo'));
+        self::assertStringStartsWith('deleteConfirm', self::$subject->getDeleteConfirmJs('foo', 'bar'));
     }
 
     /**
@@ -75,8 +75,8 @@ final class JsTest extends OpenMageTest
      */
     public function testGetConfirmSetLocationJs(): void
     {
-        static::assertStringStartsWith('confirmSetLocation', self::$subject->getConfirmSetLocationJs('foo'));
-        static::assertStringStartsWith('confirmSetLocation', self::$subject->getConfirmSetLocationJs('foo', 'bar'));
+        self::assertStringStartsWith('confirmSetLocation', self::$subject->getConfirmSetLocationJs('foo'));
+        self::assertStringStartsWith('confirmSetLocation', self::$subject->getConfirmSetLocationJs('foo', 'bar'));
     }
 
     /**
@@ -85,8 +85,8 @@ final class JsTest extends OpenMageTest
     public function testGetSetLocationJs(): void
     {
         $result = self::$subject->getSetLocationJs(self::TEST_URL);
-        static::assertStringStartsWith('setLocation', $result);
-        static::assertStringContainsString(self::TEST_URL, $result);
+        self::assertStringStartsWith('setLocation', $result);
+        self::assertStringContainsString(self::TEST_URL, $result);
     }
 
     /**
@@ -96,7 +96,7 @@ final class JsTest extends OpenMageTest
     public function testGetSaveAndContinueEditJs(): void
     {
         $result = self::$subject->getSaveAndContinueEditJs(self::TEST_URL);
-        static::assertStringStartsWith('saveAndContinueEdit', $result);
-        static::assertStringContainsString(self::TEST_URL, $result);
+        self::assertStringStartsWith('saveAndContinueEdit', $result);
+        self::assertStringContainsString(self::TEST_URL, $result);
     }
 }

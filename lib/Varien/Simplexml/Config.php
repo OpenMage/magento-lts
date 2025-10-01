@@ -42,7 +42,7 @@ class Varien_Simplexml_Config
     protected $_cacheChecksum = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $_cacheSaved = false;
 
@@ -160,7 +160,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setCacheSaved($flag)
@@ -388,7 +388,7 @@ class Varien_Simplexml_Config
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int|boolean $lifetime
+     * @param int|bool $lifetime
      * @return bool
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -473,7 +473,7 @@ class Varien_Simplexml_Config
      *
      * @param string $path separated by slashes
      * @param string $value
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return $this
      */
     public function setNode($path, $value, $overwrite = true)
@@ -517,7 +517,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return $this
      */
     public function extend(Varien_Simplexml_Config $config, $overwrite = true)

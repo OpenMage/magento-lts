@@ -31,7 +31,7 @@ final class BlockTest extends OpenMageTest
      */
     public function testIsTypeAllowed(): void
     {
-        static::assertFalse(self::$subject->isTypeAllowed('some-type'));
+        self::assertFalse(self::$subject->isTypeAllowed('some-type'));
     }
 
     /**
@@ -40,6 +40,6 @@ final class BlockTest extends OpenMageTest
      */
     public function testGetDisallowedBlockNames(): void
     {
-        static::assertSame(['install/end'], self::$subject->getDisallowedBlockNames());
+        self::assertSame(['install/end'], self::$subject->getDisallowedBlockNames());
     }
 }
