@@ -192,6 +192,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @param Varien_Data_Tree_Node $node
      * @param Varien_Data_Tree_Node $parentNode
      * @param Varien_Data_Tree_Node $prevNode
+     * @throws Exception
      */
     public function moveNodeTo($node, $parentNode, $prevNode = null)
     {
@@ -230,9 +231,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_updateChildLevels($node->getId(), $data[$this->_levelField]);
             $this->_conn->commit();
-        } catch (Exception) {
+        } catch (Exception $exception) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t move tree node', $e->getCode(), $e);
+            throw new Exception('Can\'t move tree node', $exception->getCode(), $exception);
         }
     }
 
@@ -303,9 +304,9 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             // Update old node branch
             $this->_conn->update($this->_table, $dataReorderOld, $conditionReorderOld);
             $this->_conn->commit();
-        } catch (Exception) {
+        } catch (Exception $exception) {
             $this->_conn->rollBack();
-            throw new Exception('Can\'t remove tree node', $e->getCode(), $e);
+            throw new Exception('Can\'t remove tree node', $exception->getCode(), $exception);
         }
         parent::removeNode($node);
         return $this;
