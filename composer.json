@@ -116,6 +116,12 @@
     },
     "extra": {
         "patches": {
+            "magento-ecg/coding-standard": {
+                "ECG-72 - Fix LoopSniff": ".vendor-patches/ECG-72.patch"
+            },
+            "phpseclib/mcrypt_compat": {
+                "OM-4891 - PHP 8.5 compability": ".vendor-patches/OM-4891.patch"
+            },
             "shardj/zf1-future": {
                 "MAG-1.1.1": ".vendor-patches/MAG-1.1.1.patch",
                 "MAG-1.9.3.0": ".vendor-patches/MAG-1.9.3.0.patch",
@@ -125,12 +131,6 @@
                 "OM-2047 - Pass delimiter char to preg_quote": ".vendor-patches/OM-2047.patch",
                 "OM-2050 - Prevent checking known date codes": ".vendor-patches/OM-2050.patch",
                 "OM-4297 - PHP 8.4 compability": ".vendor-patches/OM-4297.patch"
-            },
-            "magento-ecg/coding-standard": {
-                "ECG-72 - Fix LoopSniff": ".vendor-patches/ECG-72.patch"
-            },
-            "phpseclib/mcrypt_compat": {
-                "OM-4891 - PHP 8.5 compability": ".vendor-patches/OM-4891.patch"
             }
         },
         "magento-root-dir": ".",
