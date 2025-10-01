@@ -142,7 +142,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         }
 
         if ($this->getUsername()) {
-            $data['username'] = trim((string)$this->getUsername());
+            $data['username'] = trim((string) $this->getUsername());
         }
 
         if ($this->getNewPassword()) {
