@@ -584,4 +584,30 @@ class Mage_Core_Controller_Request_Http extends Zend_Controller_Request_Http
     {
         return $this->_internallyForwarded;
     }
+
+    /**
+     * Retrieve a parameter from request (GET/POST) and trim whitespace for string and array values.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getParam($key, $default = null)
+    {
+        // Get the parameter value from parent (Zend_Controller_Request_Http)
+        $value = parent::getParam($key, $default);
+
+        // Trim whitespace for string values
+        if (is_string($value)) {
+            $value = trim($value);
+        }
+
+        // For array values, trim each string element
+        if (is_array($value)) {
+            $value = array_map(function($v) {
+                return is_string($v) ? trim($v) : $v;
+            }, $value);
+        }
+        return $value;
+    }
 }
