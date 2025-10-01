@@ -31,8 +31,8 @@ final class PageTest extends OpenMageTest
      */
     public function testLoad(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->load(null));
-        static::assertInstanceOf(Subject::class, self::$subject->load(2));
+        self::assertInstanceOf(Subject::class, self::$subject->load(null));
+        self::assertInstanceOf(Subject::class, self::$subject->load(2));
     }
 
     /**
@@ -40,7 +40,7 @@ final class PageTest extends OpenMageTest
      */
     public function testCheckIdentifier(): void
     {
-        static::assertIsString(self::$subject->checkIdentifier('home', 1));
+        self::assertIsString(self::$subject->checkIdentifier('home', 1));
     }
 
     /**
@@ -49,9 +49,9 @@ final class PageTest extends OpenMageTest
     public function testGetCmsPageTitleByIdentifier(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        static::assertSame('Home page', self::$subject->getCmsPageTitleByIdentifier('home'));
+        self::assertSame('Home page', self::$subject->getCmsPageTitleByIdentifier('home'));
     }
 
     /**
@@ -60,9 +60,9 @@ final class PageTest extends OpenMageTest
     public function testGetCmsPageTitleById(): void
     {
         if (defined('DATA_MAY_CHANGED')) {
-            static::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
+            self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
-        static::assertSame('Home page', self::$subject->getCmsPageTitleById(2));
+        self::assertSame('Home page', self::$subject->getCmsPageTitleById(2));
     }
 
     /**
@@ -70,7 +70,7 @@ final class PageTest extends OpenMageTest
      */
     public function testGetCmsPageIdentifierById(): void
     {
-        static::assertSame('home', self::$subject->getCmsPageIdentifierById(2));
+        self::assertSame('home', self::$subject->getCmsPageIdentifierById(2));
     }
 
     /**
@@ -78,7 +78,7 @@ final class PageTest extends OpenMageTest
      */
     public function testGetAvailableStatuses(): void
     {
-        static::assertIsArray(self::$subject->getAvailableStatuses());
+        self::assertIsArray(self::$subject->getAvailableStatuses());
     }
 
     /**
@@ -95,6 +95,6 @@ final class PageTest extends OpenMageTest
      */
     public function testIsUsedInStoreConfig(): void
     {
-        static::assertFalse(self::$subject->isUsedInStoreConfig());
+        self::assertFalse(self::$subject->isUsedInStoreConfig());
     }
 }

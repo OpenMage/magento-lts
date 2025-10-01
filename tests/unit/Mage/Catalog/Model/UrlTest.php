@@ -39,7 +39,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testGetStoreRootCategory(): void
     {
-        static::assertInstanceOf(Varien_Object::class, self::$subject->getStoreRootCategory(1));
+        self::assertInstanceOf(Varien_Object::class, self::$subject->getStoreRootCategory(1));
     }
 
     /**
@@ -48,7 +48,7 @@ final class UrlTest extends OpenMageTest
      */
     public function testRefreshRewrites(?int $storeId): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->refreshRewrites($storeId));
+        self::assertInstanceOf(Subject::class, self::$subject->refreshRewrites($storeId));
     }
 
     /**
@@ -64,9 +64,9 @@ final class UrlTest extends OpenMageTest
         ?string $parentPath = null
     ): void {
         try {
-            static::assertSame($expectedResult, self::$subject->generatePath($type, $product, $category, $parentPath));
+            self::assertSame($expectedResult, self::$subject->generatePath($type, $product, $category, $parentPath));
         } catch (Mage_Core_Exception $e) {
-            static::assertSame($expectedResult, $e->getMessage());
+            self::assertSame($expectedResult, $e->getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ final class UrlTest extends OpenMageTest
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
         self::$subject->setLocale($locale);
-        static::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
+        self::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
     }
 
     /**
@@ -97,14 +97,14 @@ final class UrlTest extends OpenMageTest
     {
         $result = self::$subject->getSluggerConfig($locale);
 
-        static::assertArrayHasKey($locale, $result);
+        self::assertArrayHasKey($locale, $result);
 
-        static::assertArrayHasKey('%', $result[$locale]);
-        static::assertArrayHasKey('&', $result[$locale]);
+        self::assertArrayHasKey('%', $result[$locale]);
+        self::assertArrayHasKey('&', $result[$locale]);
 
-        static::assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
-        static::assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
+        self::assertSame($expectedResult[$locale]['%'], $result[$locale]['%']);
+        self::assertSame($expectedResult[$locale]['&'], $result[$locale]['&']);
 
-        static::assertSame('at', $result[$locale]['@']);
+        self::assertSame('at', $result[$locale]['@']);
     }
 }

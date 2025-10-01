@@ -40,7 +40,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetStoreId(): void
     {
-        static::assertIsInt(self::$subject->getStoreId());
+        self::assertIsInt(self::$subject->getStoreId());
     }
 
     /**
@@ -48,7 +48,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetResourceCollection(): void
     {
-        static::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, self::$subject->getResourceCollection());
+        self::assertInstanceOf(Mage_Catalog_Model_Resource_Product_Collection::class, self::$subject->getResourceCollection());
     }
 
     /**
@@ -56,8 +56,8 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetUrlModel(): void
     {
-        static::assertInstanceOf(Mage_Catalog_Model_Url::class, self::$subject->getUrlModel());
-        static::assertInstanceOf(Mage_Catalog_Model_Product_Url::class, self::$subject->getUrlModel());
+        self::assertInstanceOf(Mage_Catalog_Model_Url::class, self::$subject->getUrlModel());
+        self::assertInstanceOf(Mage_Catalog_Model_Product_Url::class, self::$subject->getUrlModel());
     }
 
     /**
@@ -65,7 +65,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testValidate(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->validate());
+        self::assertInstanceOf(Subject::class, self::$subject->validate());
     }
 
     /**
@@ -90,7 +90,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testSetPriceCalculation(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setPriceCalculation());
+        self::assertInstanceOf(Subject::class, self::$subject->setPriceCalculation());
     }
 
     /**
@@ -106,7 +106,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetStatus(): void
     {
-        static::assertSame(1, self::$subject->getStatus());
+        self::assertSame(1, self::$subject->getStatus());
     }
 
     /**
@@ -115,7 +115,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetTypeInstance(bool $singleton): void
     {
-        static::assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, self::$subject->getTypeInstance($singleton));
+        self::assertInstanceOf(Mage_Catalog_Model_Product_Type_Abstract::class, self::$subject->getTypeInstance($singleton));
     }
 
     /**
@@ -123,7 +123,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetLinkInstance(): void
     {
-        static::assertInstanceOf(Mage_Catalog_Model_Product_Link::class, self::$subject->getLinkInstance());
+        self::assertInstanceOf(Mage_Catalog_Model_Product_Link::class, self::$subject->getLinkInstance());
     }
 
     /**
@@ -131,7 +131,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testGetDefaultAttributeSetId(): void
     {
-        static::assertIsInt(self::$subject->getDefaultAttributeSetId());
+        self::assertIsInt(self::$subject->getDefaultAttributeSetId());
     }
 
     /**
@@ -139,7 +139,7 @@ final class ProductTest extends OpenMageTest
      */
     public function testAfterCommitCallback(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
+        self::assertInstanceOf(Subject::class, self::$subject->afterCommitCallback());
     }
 
     /**
@@ -149,6 +149,6 @@ final class ProductTest extends OpenMageTest
     public function testFormatUrlKey(string $expectedResult, string $locale): void
     {
         self::$subject->setLocale($locale);
-        static::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
+        self::assertSame($expectedResult, self::$subject->formatUrlKey($this->getTestString()));
     }
 }

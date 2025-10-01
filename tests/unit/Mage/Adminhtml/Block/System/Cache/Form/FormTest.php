@@ -29,6 +29,6 @@ final class FormTest extends OpenMageTest
      */
     public function testInitForm(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->initForm());
+        self::assertInstanceOf(Subject::class, self::$subject->initForm());
     }
 }
