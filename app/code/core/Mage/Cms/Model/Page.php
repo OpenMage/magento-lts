@@ -306,7 +306,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
                             $labels[] = $websiteName;
                         }
                         // Store views
-                        foreach ($storeViews as $storeViewName => $dummy) {
+                        foreach (array_keys($storeViews) as $storeViewName) {
                             $fullLabel = $websiteName . $labelDelimiter . $storeViewName;
                             if (array_key_exists($fullLabel, $scopeLabels)) {
                                 $labels[] = $fullLabel;
