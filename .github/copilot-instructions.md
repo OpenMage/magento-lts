@@ -12,7 +12,7 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - `/app/design/adminhtml`: Contains the template and layout files for admin view.
 - `/app/design/frontend`: Contains the template and layout files for frontend view.
 - `/app/design/install`: Contains the template and layout files for installer.
-- `/app/etc/modules`: Contains modules confguration.
+- `/app/etc/modules`: Contains modules configuration.
 - `/app/locale`: Contains localization files.
 - `/cypress`: Contains cypress frontend test files.
 - `/docs`: Contains documentation for the project, including API specifications and user guides.
