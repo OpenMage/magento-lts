@@ -41,7 +41,7 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - Use PER2 coding standards for PHP.
 - Use PHP-CodeSniffer to enforce coding standards.
 - Use PHP-CS-Fixer for automatic code formatting.
-- Use PHPMD massive detector to find potential issues.
+- Use PHPMD mess detector to find potential issues.
 - Use PHPStan for static analysis.
 - Use PHPUnit for unit testing.
 - Use Rector for automated refactoring.
