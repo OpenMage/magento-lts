@@ -31,7 +31,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Current Store for generation ofr base_dir and base_url
      *
-     * @var string|integer|Mage_Core_Model_Store
+     * @var string|int|Mage_Core_Model_Store
      */
     protected $_store = null;
 
@@ -117,7 +117,7 @@ class Mage_Core_Model_Design_Package
     /**
      * Retrieve store
      *
-     * @return string|integer|Mage_Core_Model_Store
+     * @return string|int|Mage_Core_Model_Store
      */
     public function getStore()
     {

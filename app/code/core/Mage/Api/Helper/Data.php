@@ -148,7 +148,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
      * Corrects data representation.
      *
      * @param Object $obj - Link to Object
-     * @return array
+     * @return string[]
      */
     public function clearWsiFootprints(&$obj)
     {

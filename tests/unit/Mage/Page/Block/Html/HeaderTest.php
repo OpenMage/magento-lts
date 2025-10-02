@@ -38,7 +38,7 @@ final class HeaderTest extends OpenMageTest
      */
     public function testSetLogo(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setLogo('src', 'alt'));
+        self::assertInstanceOf(Subject::class, self::$subject->setLogo('src', 'alt'));
     }
 
     /**
@@ -46,7 +46,7 @@ final class HeaderTest extends OpenMageTest
      */
     public function testGetLogoSrc(): void
     {
-        static::assertIsString(self::$subject->getLogoSrc());
+        self::assertIsString(self::$subject->getLogoSrc());
     }
 
     /**
@@ -54,7 +54,7 @@ final class HeaderTest extends OpenMageTest
      */
     public function testGetLogoSrcSmall(): void
     {
-        static::assertIsString(self::$subject->getLogoSrcSmall());
+        self::assertIsString(self::$subject->getLogoSrcSmall());
     }
 
     /**
@@ -62,6 +62,6 @@ final class HeaderTest extends OpenMageTest
      */
     public function testGetLogoAlt(): void
     {
-        static::assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, self::$subject->getLogoAlt());
+        self::assertInstanceOf(Mage_Core_Model_Security_HtmlEscapedString::class, self::$subject->getLogoAlt());
     }
 }

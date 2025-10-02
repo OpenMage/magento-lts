@@ -30,7 +30,7 @@ final class CookieTest extends OpenMageTest
      */
     public function testIsUserNotAllowSaveCookie(): void
     {
-        static::assertIsBool(self::$subject->isUserNotAllowSaveCookie());
+        self::assertIsBool(self::$subject->isUserNotAllowSaveCookie());
     }
 
     /**
@@ -38,7 +38,7 @@ final class CookieTest extends OpenMageTest
      */
     public function testGetAcceptedSaveCookiesWebsiteIds(): void
     {
-        static::assertSame('{"1":1}', self::$subject->getAcceptedSaveCookiesWebsiteIds());
+        self::assertSame('{"1":1}', self::$subject->getAcceptedSaveCookiesWebsiteIds());
     }
 
     /**
@@ -47,7 +47,7 @@ final class CookieTest extends OpenMageTest
      */
     public function testGetCookieRestrictionLifetime(): void
     {
-        static::assertSame(31536000, self::$subject->getCookieRestrictionLifetime());
+        self::assertSame(31536000, self::$subject->getCookieRestrictionLifetime());
     }
 
     /**
@@ -56,6 +56,6 @@ final class CookieTest extends OpenMageTest
      */
     public function testGetCookieRestrictionNoticeCmsBlockIdentifier(): void
     {
-        static::assertSame('cookie_restriction_notice_block', self::$subject->getCookieRestrictionNoticeCmsBlockIdentifier());
+        self::assertSame('cookie_restriction_notice_block', self::$subject->getCookieRestrictionNoticeCmsBlockIdentifier());
     }
 }

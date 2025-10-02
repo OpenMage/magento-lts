@@ -2,6 +2,10 @@
 namespace PHPSTORM_META {
     override( \Mage_Admin_Model_User::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -191,6 +195,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Adminhtml_Controller_Rss_Abstract::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -380,6 +388,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Adminhtml_Tax_RuleController::_getHelperModel(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -569,6 +581,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Api_Model_User::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -758,6 +774,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Bundle_Model_Product_Price::_getHelperData(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -947,6 +967,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Core_Block_Abstract::helper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -1136,6 +1160,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Core_Model_App::getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -1325,6 +1353,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Core_Model_Factory::getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -1514,6 +1546,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Core_Model_Layout::helper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -1703,6 +1739,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Customer_AccountController::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -1892,6 +1932,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Customer_Model_Customer::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -2081,6 +2125,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_ImportExport_Model_Import_Entity_Product::getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -2270,6 +2318,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Rss_Controller_Abstract::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -2459,6 +2511,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_SalesRule_Model_Validator::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -2648,6 +2704,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Weee_Helper_Data::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,
@@ -2837,6 +2897,10 @@ namespace PHPSTORM_META {
     );
     override( \Mage_Weee_Model_Config_Source_Fpt_Tax::_getHelper(0),
         map( [
+            'mm_ignition' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/data' => \MM_Ignition_Helper_Data::class,
+            'mm_ignition/flare' => \MM_Ignition_Helper_Flare::class,
+            'mm_ignition/openAi' => \MM_Ignition_Helper_OpenAi::class,
             'adminnotification' => \Mage_AdminNotification_Helper_Data::class,
             'adminnotification/data' => \Mage_AdminNotification_Helper_Data::class,
             'admin/block' => \Mage_Admin_Helper_Block::class,

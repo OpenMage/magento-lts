@@ -445,7 +445,8 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
     }
 
     /**
-     * @return array
+     * @param string[] $p
+     * @return string[]
      */
     public function rewrite(array $p)
     {

@@ -39,7 +39,7 @@ final class IndexerTest extends OpenMageTest
      */
     public function testGetProcessesCollection(): void
     {
-        static::assertInstanceOf(Mage_Index_Model_Resource_Process_Collection::class, self::$subject->getProcessesCollection());
+        self::assertInstanceOf(Mage_Index_Model_Resource_Process_Collection::class, self::$subject->getProcessesCollection());
     }
 
     /**
@@ -48,7 +48,7 @@ final class IndexerTest extends OpenMageTest
      */
     public function testHasErrors(): void
     {
-        static::assertIsBool(self::$subject->hasErrors());
+        self::assertIsBool(self::$subject->hasErrors());
     }
 
     /**
@@ -57,7 +57,7 @@ final class IndexerTest extends OpenMageTest
      */
     public function testGetErrors(): void
     {
-        static::assertIsArray(self::$subject->getErrors());
+        self::assertIsArray(self::$subject->getErrors());
     }
 
     /**
@@ -66,7 +66,7 @@ final class IndexerTest extends OpenMageTest
      */
     public function testLockIndexer(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->lockIndexer());
+        self::assertInstanceOf(Subject::class, self::$subject->lockIndexer());
     }
 
     /**
@@ -75,7 +75,7 @@ final class IndexerTest extends OpenMageTest
      */
     public function testUnlockIndexer(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->unlockIndexer());
+        self::assertInstanceOf(Subject::class, self::$subject->unlockIndexer());
     }
 
     /**
@@ -84,7 +84,7 @@ final class IndexerTest extends OpenMageTest
     public function testIndexEvent(): void
     {
         $event = new Mage_Index_Model_Event();
-        static::assertInstanceOf(Subject::class, self::$subject->indexEvent($event));
+        self::assertInstanceOf(Subject::class, self::$subject->indexEvent($event));
     }
 
     /**
@@ -93,7 +93,7 @@ final class IndexerTest extends OpenMageTest
     public function testRegisterEvent(): void
     {
         $event = new Mage_Index_Model_Event();
-        static::assertInstanceOf(Subject::class, self::$subject->registerEvent($event));
+        self::assertInstanceOf(Subject::class, self::$subject->registerEvent($event));
     }
 
     /**
@@ -102,7 +102,7 @@ final class IndexerTest extends OpenMageTest
      */
     public function testAllowTableChanges(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->allowTableChanges());
+        self::assertInstanceOf(Subject::class, self::$subject->allowTableChanges());
     }
 
     /**
@@ -111,6 +111,6 @@ final class IndexerTest extends OpenMageTest
      */
     public function testDisallowTableChanges(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->disallowTableChanges());
+        self::assertInstanceOf(Subject::class, self::$subject->disallowTableChanges());
     }
 }

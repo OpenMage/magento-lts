@@ -195,7 +195,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @param mixed $data
+     * @param string $data
      * @return $this
      */
     public function setAttributeCode($data)
@@ -204,7 +204,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAttributeCode()
     {
