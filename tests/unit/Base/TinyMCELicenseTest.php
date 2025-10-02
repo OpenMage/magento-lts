@@ -43,8 +43,8 @@ final class TinyMCELicenseTest extends TestCase
     public function testVendorLicenseFilesExists(): void
     {
         if (InstalledVersions::isInstalled(self::TINY_MCE_NAMESPACE)) {
-            // @todo find a better way to get vendor dir
-            $filename = 'vendor/tinymce/tinymce/LICENSE_TINYMCE_OPENMAGE.txt';
+            $vendorPath = InstalledVersions::getInstallPath(self::TINY_MCE_NAMESPACE);
+            $filename = $vendorPath . DIRECTORY_SEPARATOR . 'LICENSE_TINYMCE_OPENMAGE.txt';
             self::assertFileExists($filename, self::ERROR_MESSAGE);
         } else {
             self::markTestSkipped(self::SKIP_MESSAGE);
