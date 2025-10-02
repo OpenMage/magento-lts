@@ -188,6 +188,7 @@
         "phpunit:coverage-local": "Run PHPUnit with local HTML code coverage (requires XDEBUG enabled)",
         "rector:test": "Run rector",
         "rector:fix": "Run rector and fix issues",
+        "vendor:patch": "Create vendor-patch file",
         "test": "Run php-cs-fixer, phpstan & phpunit"
     }
 }
