@@ -15,7 +15,7 @@ use Mage_Adminhtml_Block_Customer_Edit_Tab_Newsletter as Subject;
 use Mage_Customer_Model_Customer;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class NewsletterTest extends OpenMageTest
+final class NewsletterTest extends OpenMageTest
 {
     /**
      * @group Block
@@ -27,7 +27,7 @@ class NewsletterTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertInstanceOf(Subject::class, $mock->initForm());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

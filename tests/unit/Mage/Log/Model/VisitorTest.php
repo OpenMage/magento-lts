@@ -15,7 +15,7 @@ use Mage;
 use Mage_Log_Model_Visitor as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class VisitorTest extends OpenMageTest
+final class VisitorTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,7 +31,7 @@ class VisitorTest extends OpenMageTest
      */
     public function testInitServerData(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->initServerData());
+        self::assertInstanceOf(Subject::class, self::$subject->initServerData());
     }
 
     /**
@@ -41,7 +41,7 @@ class VisitorTest extends OpenMageTest
      */
     public function testGetOnlineMinutesInterval(): void
     {
-        static::assertIsInt(self::$subject->getOnlineMinutesInterval());
+        self::assertIsInt(self::$subject->getOnlineMinutesInterval());
     }
 
     /**
@@ -51,7 +51,7 @@ class VisitorTest extends OpenMageTest
      */
     public function testGetUrl(): void
     {
-        static::assertIsString(self::$subject->getUrl());
+        self::assertIsString(self::$subject->getUrl());
     }
 
     /**
@@ -61,7 +61,7 @@ class VisitorTest extends OpenMageTest
      */
     public function testGetFirstVisitAt(): void
     {
-        static::assertIsString(self::$subject->getFirstVisitAt());
+        self::assertIsString(self::$subject->getFirstVisitAt());
     }
 
     /**
@@ -71,6 +71,6 @@ class VisitorTest extends OpenMageTest
      */
     public function testGetLastVisitAt(): void
     {
-        static::assertIsString(self::$subject->getLastVisitAt());
+        self::assertIsString(self::$subject->getLastVisitAt());
     }
 }

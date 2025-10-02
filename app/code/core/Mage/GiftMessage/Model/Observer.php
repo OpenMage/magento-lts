@@ -67,7 +67,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * Geter for available gift messages value from product
      *
      * @deprecated after 1.5.0.0
-     * @param Mage_Catalog_Model_Product|integer $product
+     * @param Mage_Catalog_Model_Product|int $product
      * @return int|null
      */
     protected function _getAvailable($product)
@@ -92,23 +92,13 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             foreach ($giftMessages as $entityId => $message) {
                 $giftMessage = Mage::getModel('giftmessage/message');
 
-                switch ($message['type']) {
-                    case 'quote':
-                        $entity = $quote;
-                        break;
-                    case 'quote_item':
-                        $entity = $quote->getItemById($entityId);
-                        break;
-                    case 'quote_address':
-                        $entity = $quote->getAddressById($entityId);
-                        break;
-                    case 'quote_address_item':
-                        $entity = $quote->getAddressById($message['address'])->getItemById($entityId);
-                        break;
-                    default:
-                        $entity = $quote;
-                        break;
-                }
+                $entity = match ($message['type']) {
+                    'quote' => $quote,
+                    'quote_item' => $quote->getItemById($entityId),
+                    'quote_address' => $quote->getAddressById($entityId),
+                    'quote_address_item' => $quote->getAddressById($message['address'])->getItemById($entityId),
+                    default => $quote,
+                };
 
                 if ($entity->getGiftMessageId()) {
                     $giftMessage->load($entity->getGiftMessageId());

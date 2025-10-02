@@ -202,7 +202,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      * Remove a cache record
      *
      * @param  string $id Cache id
-     * @return boolean True if no problem
+     * @return bool True if no problem
      */
     public function remove($id)
     {
@@ -252,7 +252,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
      *
      * @param  string $mode Clean mode
      * @param  array  $tags Array of tags
-     * @return boolean true if no problem
+     * @return bool true if no problem
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -547,22 +547,14 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         $result = true;
         $select = $adapter->select()
             ->from($this->_getTagsTable(), 'cache_id');
-        switch ($mode) {
-            case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
-                $select->where('tag IN (?)', $tags)
-                    ->group('cache_id')
-                    ->having('COUNT(cache_id) = ' . count($tags));
-                break;
-            case Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG:
-                $select->where('tag NOT IN (?)', $tags);
-                break;
-            case Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG:
-                $select->where('tag IN (?)', $tags);
-                break;
-            default:
-                Zend_Cache::throwException('Invalid mode for _cleanByTags() method');
-                break;
-        }
+        match ($mode) {
+            Zend_Cache::CLEANING_MODE_MATCHING_TAG => $select->where('tag IN (?)', $tags)
+                ->group('cache_id')
+                ->having('COUNT(cache_id) = ' . count($tags)),
+            Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG => $select->where('tag NOT IN (?)', $tags),
+            Zend_Cache::CLEANING_MODE_MATCHING_ANY_TAG => $select->where('tag IN (?)', $tags),
+            default => Zend_Cache::throwException('Invalid mode for _cleanByTags() method'),
+        };
 
         $cacheIdsToRemove = [];
         $counter = 0;

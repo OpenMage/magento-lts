@@ -15,7 +15,7 @@ use Mage_Core_Model_Security_HtmlEscapedString as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\SecurityTrait;
 
-class HtmlEscapedStringTest extends OpenMageTest
+final class HtmlEscapedStringTest extends OpenMageTest
 {
     use SecurityTrait;
 
@@ -30,7 +30,7 @@ class HtmlEscapedStringTest extends OpenMageTest
     public function testToSting(string $expectedResult, string $string, ?array $allowedTags): void
     {
         self::$subject = new Subject($string, $allowedTags);
-        static::assertSame($expectedResult, self::$subject->__toString());
+        self::assertSame($expectedResult, self::$subject->__toString());
     }
 
     /**
@@ -42,6 +42,6 @@ class HtmlEscapedStringTest extends OpenMageTest
     public function testGetUnescapedValue(string $expectedResult, string $string, ?array $allowedTags): void
     {
         self::$subject = new Subject($string, $allowedTags);
-        static::assertSame($expectedResult, self::$subject->getUnescapedValue());
+        self::assertSame($expectedResult, self::$subject->getUnescapedValue());
     }
 }

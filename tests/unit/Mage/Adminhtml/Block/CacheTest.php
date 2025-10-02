@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block;
 use Mage_Adminhtml_Block_Cache as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CacheTest extends OpenMageTest
+final class CacheTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,7 +30,7 @@ class CacheTest extends OpenMageTest
      */
     public function testGetFlushStorageUrl(): void
     {
-        static::assertStringStartsWith('http', self::$subject->getFlushStorageUrl());
+        self::assertStringStartsWith('http', self::$subject->getFlushStorageUrl());
     }
 
     /**
@@ -40,6 +40,6 @@ class CacheTest extends OpenMageTest
      */
     public function testGetFlushSystemUrl(): void
     {
-        static::assertStringStartsWith('http', self::$subject->getFlushSystemUrl());
+        self::assertStringStartsWith('http', self::$subject->getFlushSystemUrl());
     }
 }

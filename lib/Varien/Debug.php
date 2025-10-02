@@ -86,8 +86,8 @@ class Varien_Debug
             // prepare method's name
             $methodName = '';
             if (isset($data['class']) && isset($data['function'])) {
-                if (isset($data['object']) && get_class($data['object']) != $data['class']) {
-                    $className = get_class($data['object']) . '[' . $data['class'] . ']';
+                if (isset($data['object']) && $data['object']::class != $data['class']) {
+                    $className = $data['object']::class . '[' . $data['class'] . ']';
                 } else {
                     $className = $data['class'];
                 }
@@ -146,7 +146,7 @@ class Varien_Debug
     {
         $out = '';
         if (is_object($arg)) {
-            $out .= sprintf('&%s#%s#', get_class($arg), spl_object_hash($arg));
+            $out .= sprintf('&%s#%s#', $arg::class, spl_object_hash($arg));
         } elseif (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
         } elseif (is_array($arg)) {

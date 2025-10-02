@@ -564,11 +564,9 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      */
     public function isMultipleType()
     {
-        switch ($this->getType()) {
-            case self::OPTION_TYPE_MULTIPLE:
-            case self::OPTION_TYPE_CHECKBOX:
-                return true;
-        }
-        return false;
+        return match ($this->getType()) {
+            self::OPTION_TYPE_MULTIPLE, self::OPTION_TYPE_CHECKBOX => true,
+            default => false,
+        };
     }
 }

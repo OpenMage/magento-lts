@@ -16,7 +16,7 @@ use Mage_Core_Exception;
 use Mage_Customer_Model_Customer;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class AddressesTest extends OpenMageTest
+final class AddressesTest extends OpenMageTest
 {
     /**
      * @group Block
@@ -30,7 +30,7 @@ class AddressesTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertInstanceOf(Subject::class, $mock->initForm());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

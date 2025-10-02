@@ -15,7 +15,7 @@ use Mage;
 use Mage_Catalog_Helper_Category as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CategoryTest extends OpenMageTest
+final class CategoryTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,6 +30,6 @@ class CategoryTest extends OpenMageTest
      */
     public function testCanUseCanonicalTag(): void
     {
-        static::assertIsBool(self::$subject->canUseCanonicalTag());
+        self::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 }

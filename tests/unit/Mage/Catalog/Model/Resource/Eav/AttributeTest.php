@@ -15,7 +15,7 @@ use Mage_Catalog_Model_Resource_Eav_Attribute as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class AttributeTest extends OpenMageTest
+final class AttributeTest extends OpenMageTest
 {
     use CoreTrait;
 
@@ -35,6 +35,6 @@ class AttributeTest extends OpenMageTest
         if ($withStoreId) {
             self::$subject->setStoreId($withStoreId);
         }
-        static::assertSame($expectedResult, self::$subject->getStoreId());
+        self::assertSame($expectedResult, self::$subject->getStoreId());
     }
 }

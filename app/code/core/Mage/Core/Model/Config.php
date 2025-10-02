@@ -1240,26 +1240,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $codePool = (string) $this->getModuleConfig($moduleName)->codePool;
         $dir = $this->getOptions()->getCodeDir() . DS . $codePool . DS . uc_words($moduleName, DS);
 
-        switch ($type) {
-            case 'etc':
-                $dir .= DS . 'etc';
-                break;
-
-            case 'controllers':
-                $dir .= DS . 'controllers';
-                break;
-
-            case 'sql':
-                $dir .= DS . 'sql';
-                break;
-            case 'data':
-                $dir .= DS . 'data';
-                break;
-
-            case 'locale':
-                $dir .= DS . 'locale';
-                break;
+        $dirs = ['etc', 'controllers', 'sql', 'data', 'locale'];
+        if (in_array($type, $dirs)) {
+            $dir .= DS . $type;
         }
+
         return str_replace('/', DS, $dir);
     }
 
@@ -1282,24 +1267,17 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $eventName = strtolower($event->getName());
             $observers = $event->observers->children();
             foreach ($observers as $observer) {
-                switch ((string) $observer->type) {
-                    case 'singleton':
-                        $callback = [
-                            Mage::getSingleton((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    case 'object':
-                    case 'model':
-                        $callback = [
-                            Mage::getModel((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    default:
-                        $callback = [$observer->getClassName(), (string) $observer->method];
-                        break;
-                }
+                $callback = match ((string) $observer->type) {
+                    'singleton' => [
+                        Mage::getSingleton((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    'object', 'model' => [
+                        Mage::getModel((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    default => [$observer->getClassName(), (string) $observer->method],
+                };
 
                 $args = (array) $observer->args;
                 $observerClass = $observer->observer_class ? (string) $observer->observer_class : '';
@@ -1319,12 +1297,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getPathVars($args = null)
     {
-        $path = [];
-
-        $path['baseUrl'] = Mage::getBaseUrl();
-        $path['baseSecureUrl'] = Mage::getBaseUrl('link', true);
-
-        return $path;
+        return [
+            'baseUrl' => Mage::getBaseUrl(),
+            'baseSecureUrl' => Mage::getBaseUrl('link', true),
+        ];
     }
 
     /**
@@ -1355,18 +1331,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
-        } else {
+        } elseif (isset($config->deprecatedNode)) {
             /**
              * Backwards compatibility for pre-MMDB extensions.
              * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
              * to keep name of previously used nodes, that still may be used by non-updated extensions.
              */
-            if (isset($config->deprecatedNode)) {
-                $deprecatedNode = $config->deprecatedNode;
-                $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-                if (isset($configOld->rewrite->$class)) {
-                    $className = (string) $configOld->rewrite->$class;
-                }
+            $deprecatedNode = (string) $config->deprecatedNode;
+            $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
+            if (isset($configOld->rewrite->$class)) {
+                $className = (string) $configOld->rewrite->$class;
             }
         }
 

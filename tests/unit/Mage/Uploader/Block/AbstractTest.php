@@ -17,7 +17,7 @@ use Mage_Uploader_Model_Config_Misc;
 use Mage_Uploader_Model_Config_Uploader;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class AbstractTest extends OpenMageTest
+final class AbstractTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,7 +31,7 @@ class AbstractTest extends OpenMageTest
      */
     public function testGetMiscConfig(): void
     {
-        static::assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, self::$subject->getMiscConfig());
+        self::assertInstanceOf(Mage_Uploader_Model_Config_Misc::class, self::$subject->getMiscConfig());
     }
 
     /**
@@ -41,7 +41,7 @@ class AbstractTest extends OpenMageTest
      */
     public function testGetUploaderConfig(): void
     {
-        static::assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, self::$subject->getUploaderConfig());
+        self::assertInstanceOf(Mage_Uploader_Model_Config_Uploader::class, self::$subject->getUploaderConfig());
     }
 
     /**
@@ -49,7 +49,7 @@ class AbstractTest extends OpenMageTest
      */
     public function testGetButtonConfig(): void
     {
-        static::assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, self::$subject->getButtonConfig());
+        self::assertInstanceOf(Mage_Uploader_Model_Config_Browsebutton::class, self::$subject->getButtonConfig());
     }
 
     /**
@@ -59,7 +59,7 @@ class AbstractTest extends OpenMageTest
     {
         $suffix = 'test';
         $result = self::$subject->getElementId($suffix);
-        static::assertStringStartsWith('id_', $result);
-        static::assertStringEndsWith('-' . $suffix, $result);
+        self::assertStringStartsWith('id_', $result);
+        self::assertStringEndsWith('-' . $suffix, $result);
     }
 }

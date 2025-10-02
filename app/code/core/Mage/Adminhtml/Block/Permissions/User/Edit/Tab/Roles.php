@@ -32,10 +32,8 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('role_id', ['in' => $userRoles]);
-            } else {
-                if ($userRoles) {
-                    $this->getCollection()->addFieldToFilter('role_id', ['nin' => $userRoles]);
-                }
+            } elseif ($userRoles) {
+                $this->getCollection()->addFieldToFilter('role_id', ['nin' => $userRoles]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);

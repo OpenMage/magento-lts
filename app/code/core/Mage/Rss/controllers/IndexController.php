@@ -111,10 +111,8 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
             $wishlistId = $this->getRequest()->getParam('wishlist_id');
             if ($wishlistId) {
                 $this->_wishlist->load($wishlistId);
-            } else {
-                if ($this->_getCustomer()->getId()) {
-                    $this->_wishlist->loadByCustomer($this->_getCustomer());
-                }
+            } elseif ($this->_getCustomer()->getId()) {
+                $this->_wishlist->loadByCustomer($this->_getCustomer());
             }
         }
         return $this->_wishlist;

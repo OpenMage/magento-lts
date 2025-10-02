@@ -115,7 +115,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         }
         $memoryValue = (int) $memoryValue;
 
-        return $memoryValue > 0 ? $memoryValue : 0;
+        return max($memoryValue, 0);
     }
 
     public function save($destination = null, $newName = null)
@@ -141,7 +141,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 $io = new Varien_Io_File();
                 $io->mkdir($destination);
             } catch (Exception $e) {
-                throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.");
+                throw new Exception("Unable to write file into directory '{$destinationDir}'. Access forbidden.", $e->getCode(), $e);
             }
         }
 
@@ -285,7 +285,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
      * Gives true for a PNG with alpha, false otherwise
      *
      * @param string $fileName
-     * @return boolean
+     * @return bool
      */
     public function checkAlpha($fileName)
     {
@@ -333,12 +333,10 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
             } elseif (null === $frameHeight) {
                 $frameHeight = round($frameWidth * ($this->_imageSrcHeight / $this->_imageSrcWidth));
             }
-        } else {
-            if (null === $frameWidth) {
-                $frameWidth = $frameHeight;
-            } elseif (null === $frameHeight) {
-                $frameHeight = $frameWidth;
-            }
+        } elseif (null === $frameWidth) {
+            $frameWidth = $frameHeight;
+        } elseif (null === $frameHeight) {
+            $frameHeight = $frameWidth;
         }
 
         // define coordinates of image inside new frame

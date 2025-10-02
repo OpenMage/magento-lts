@@ -62,7 +62,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
     /**
      * Prevents unnecessary checks
      *
-     *  @var boolean
+     * @var bool
      */
     protected $_isTagDirChecked;
 
@@ -159,7 +159,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  bool|int $specificLifetime If != false, set a specific lifetime for this cache record
      *                                    (null => infinite lifetime)
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function save($data, $id, $tags = [], $specificLifetime = false)
     {
@@ -195,7 +195,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      *
      * @param  string $id Cache id
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function remove($id)
     {
@@ -227,19 +227,16 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $mode
      * @param  array $tags
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function clean($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
         // We use this protected method to hide the recursive stuff
         clearstatcache();
-        switch ($mode) {
-            case Zend_Cache::CLEANING_MODE_ALL:
-            case Zend_Cache::CLEANING_MODE_OLD:
-                return $this->_clean($this->_options['cache_dir'], $mode);
-            default:
-                return $this->_cleanNew($mode, $tags);
-        }
+        return match ($mode) {
+            Zend_Cache::CLEANING_MODE_ALL, Zend_Cache::CLEANING_MODE_OLD => $this->_clean($this->_options['cache_dir'], $mode),
+            default => $this->_cleanNew($mode, $tags),
+        };
     }
 
     /**
@@ -331,7 +328,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $id Cache id
      * @param  int $extraLifetime
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     public function touch($id, $extraLifetime)
     {
@@ -414,7 +411,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  array   $metadatas Associative array of metadatas
      * @param  boolean $save      Optional pass false to disable saving to file
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     protected function _setMetadatas($id, $metadatas, $save = true)
     {
@@ -465,7 +462,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param array  $tags
      *
      * @throws Zend_Cache_Exception
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -542,7 +539,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  array  $tags Array of tags
      *
      * @throws Zend_Cache_Exception
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      */
     protected function _cleanNew($mode = Zend_Cache::CLEANING_MODE_ALL, $tags = [])
     {
@@ -686,7 +683,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param array  $tags
      * @param string $mode
      *
-     * @return boolean
+     * @return bool
      */
     protected function _updateIdsTags($ids, $tags, $mode)
     {
@@ -734,7 +731,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * @param  string $file   File complete path
      * @param  string $string String to put in file
      *
-     * @return boolean In case of success returns true
+     * @return bool In case of success returns true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -752,7 +749,7 @@ class Mage_Cache_Backend_File extends Zend_Cache_Backend_File
      * Make the directory structure for the given id
      *
      * @param string $id cache id
-     * @return boolean true
+     * @return bool true
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

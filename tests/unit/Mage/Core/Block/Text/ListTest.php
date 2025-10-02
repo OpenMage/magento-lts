@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Core\Block\Text;
 use Mage;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ListTest extends OpenMageTest
+final class ListTest extends OpenMageTest
 {
     /**
      * @group Block
@@ -31,7 +31,7 @@ class ListTest extends OpenMageTest
         $childBlockA = $layout->createBlock('core/text', 'child_a')->setText('A2');
         $parentBlock->append($childBlockA);
 
-        static::assertSame('A2', $parentBlock->toHtml());
+        self::assertSame('A2', $parentBlock->toHtml());
     }
 
     /**
@@ -57,7 +57,7 @@ class ListTest extends OpenMageTest
         $childBlockB = $layout->createBlock('core/text', 'child_b')->setText('B');
         $parentBlock->insert($childBlockB, 'child_c', false);
 
-        static::assertSame('ABC', $parentBlock->toHtml());
+        self::assertSame('ABC', $parentBlock->toHtml());
     }
 
     /**
@@ -84,7 +84,7 @@ class ListTest extends OpenMageTest
         $parentBlock->unsetChild('child_a');
         $parentBlock->unsetChild('child_b');
 
-        static::assertSame('CD', $parentBlock->toHtml());
+        self::assertSame('CD', $parentBlock->toHtml());
     }
 
     public function testSortInstructionsAfterReplaceChild(): void
@@ -103,6 +103,6 @@ class ListTest extends OpenMageTest
         $layout->setBlock('target_block', $childBlockB);
         $parentBlock->setChild('child', $childBlockB);
 
-        static::assertSame('B', $parentBlock->toHtml());
+        self::assertSame('B', $parentBlock->toHtml());
     }
 }

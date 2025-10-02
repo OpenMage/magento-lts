@@ -25,7 +25,7 @@ class Varien_Object_Cache
     /**
      * Running object index for anonymous objects
      *
-     * @var integer
+     * @var int
      */
     protected $_idx = 0;
 
@@ -150,7 +150,7 @@ class Varien_Object_Cache
         }
 
         if (isset($this->_objects[$idx])) {
-            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . get_class($this->_objects[$idx]) . ', new object class: ' . get_class($object));
+            throw new Varien_Exception('Object already exists in registry (' . $idx . '). Old object class: ' . $this->_objects[$idx]::class . ', new object class: ' . $object::class);
         }
 
         $this->_objects[$idx] = $object;
@@ -177,7 +177,7 @@ class Varien_Object_Cache
      *
      * @param string|array $refName
      * @param string $idx
-     * @return boolean
+     * @return bool
      */
     public function reference($refName, $idx)
     {
@@ -201,7 +201,7 @@ class Varien_Object_Cache
      * Delete an object from registry
      *
      * @param string|object $idx
-     * @return boolean
+     * @return bool
      */
     public function delete($idx)
     {
@@ -278,7 +278,7 @@ class Varien_Object_Cache
      * Check whether object id exists in registry
      *
      * @param string $idx
-     * @return boolean
+     * @return bool
      */
     public function has($idx)
     {
@@ -289,7 +289,7 @@ class Varien_Object_Cache
      * Find an object id
      *
      * @param object $object
-     * @return string|boolean
+     * @return string|bool
      */
     public function find($object)
     {

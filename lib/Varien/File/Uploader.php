@@ -467,7 +467,7 @@ class Varien_File_Uploader
      * Check if specified extension is allowed
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function checkAllowedExtension($extension)
     {
@@ -482,16 +482,11 @@ class Varien_File_Uploader
      * @deprecated after 1.5.0.0-beta2
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);
-    }
-
-    private function _getMimeType()
-    {
-        return $this->_file['type'];
     }
 
     private function _setUploadFileId($fileId)
@@ -503,26 +498,21 @@ class Varien_File_Uploader
         if (is_array($fileId)) {
             $this->_uploadType = self::MULTIPLE_STYLE;
             $this->_file = $fileId;
-        } else {
-            if (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
-                array_shift($file);
-                $this->_uploadType = self::MULTIPLE_STYLE;
-
-                $fileAttributes = $_FILES[$file[0]];
-                $tmp_var = [];
-
-                foreach ($fileAttributes as $attributeName => $attributeValue) {
-                    $tmp_var[$attributeName] = $attributeValue[$file[1]];
-                }
-
-                $fileAttributes = $tmp_var;
-                $this->_file = $fileAttributes;
-            } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
-                $this->_uploadType = self::SINGLE_STYLE;
-                $this->_file = $_FILES[$fileId];
-            } elseif ($fileId == '') {
-                throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
+        } elseif (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
+            array_shift($file);
+            $this->_uploadType = self::MULTIPLE_STYLE;
+            $fileAttributes = $_FILES[$file[0]];
+            $tmp_var = [];
+            foreach ($fileAttributes as $attributeName => $attributeValue) {
+                $tmp_var[$attributeName] = $attributeValue[$file[1]];
             }
+            $fileAttributes = $tmp_var;
+            $this->_file = $fileAttributes;
+        } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
+            $this->_uploadType = self::SINGLE_STYLE;
+            $this->_file = $_FILES[$fileId];
+        } elseif ($fileId == '') {
+            throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
         }
     }
 

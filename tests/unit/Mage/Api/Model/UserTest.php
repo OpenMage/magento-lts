@@ -15,7 +15,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Api\Model\UserTrait;
 use Zend_Validate_Exception;
 
-class UserTest extends OpenMageTest
+final class UserTest extends OpenMageTest
 {
     use UserTrait;
 
@@ -29,7 +29,7 @@ class UserTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->validate());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->validate());
     }
 }

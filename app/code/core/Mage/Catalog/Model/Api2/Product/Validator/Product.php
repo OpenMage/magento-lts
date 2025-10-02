@@ -418,14 +418,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
     {
         if (!isset($data['cust_group'])) {
             $this->_addError(sprintf('The "cust_group" value in the "%s" set is a required field.', $fieldSet));
+        } elseif (!is_numeric($data['cust_group'])) {
+            $this->_addError(sprintf('Invalid "cust_group" value in the "%s" set', $fieldSet));
         } else {
-            if (!is_numeric($data['cust_group'])) {
+            $customerGroup = Mage::getModel('customer/group')->load($data['cust_group']);
+            if (is_null($customerGroup->getId())) {
                 $this->_addError(sprintf('Invalid "cust_group" value in the "%s" set', $fieldSet));
-            } else {
-                $customerGroup = Mage::getModel('customer/group')->load($data['cust_group']);
-                if (is_null($customerGroup->getId())) {
-                    $this->_addError(sprintf('Invalid "cust_group" value in the "%s" set', $fieldSet));
-                }
             }
         }
     }

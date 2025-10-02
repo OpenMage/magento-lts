@@ -15,7 +15,7 @@ use Mage;
 use Mage_Catalog_Helper_Map as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class MapTest extends OpenMageTest
+final class MapTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -32,7 +32,7 @@ class MapTest extends OpenMageTest
      */
     public function testGetCategoryUrl(): void
     {
-        static::assertStringEndsWith('/catalog/seo_sitemap/category/', self::$subject->getCategoryUrl());
+        self::assertStringEndsWith('/catalog/seo_sitemap/category/', self::$subject->getCategoryUrl());
     }
 
     /**
@@ -42,7 +42,7 @@ class MapTest extends OpenMageTest
      */
     public function testGetProductUrl(): void
     {
-        static::assertStringEndsWith('/catalog/seo_sitemap/product/', self::$subject->getProductUrl());
+        self::assertStringEndsWith('/catalog/seo_sitemap/product/', self::$subject->getProductUrl());
     }
 
     /**
@@ -50,6 +50,6 @@ class MapTest extends OpenMageTest
      */
     public function testGetIsUseCategoryTreeMode(): void
     {
-        static::assertIsBool(self::$subject->getIsUseCategoryTreeMode());
+        self::assertIsBool(self::$subject->getIsUseCategoryTreeMode());
     }
 }

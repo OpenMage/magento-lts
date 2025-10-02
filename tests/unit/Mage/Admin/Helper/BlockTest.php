@@ -15,7 +15,7 @@ use Mage;
 use Mage_Admin_Helper_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class BlockTest extends OpenMageTest
+final class BlockTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,7 +31,7 @@ class BlockTest extends OpenMageTest
      */
     public function testIsTypeAllowed(): void
     {
-        static::assertFalse(self::$subject->isTypeAllowed('some-type'));
+        self::assertFalse(self::$subject->isTypeAllowed('some-type'));
     }
 
     /**
@@ -40,6 +40,6 @@ class BlockTest extends OpenMageTest
      */
     public function testGetDisallowedBlockNames(): void
     {
-        static::assertSame(['install/end'], self::$subject->getDisallowedBlockNames());
+        self::assertSame(['install/end'], self::$subject->getDisallowedBlockNames());
     }
 }

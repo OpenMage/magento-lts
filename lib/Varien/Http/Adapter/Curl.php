@@ -130,7 +130,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
      * @deprecated since 1.4.0.0-rc1
      * @param string  $host
      * @param int     $port
-     * @param boolean $secure
+     * @param bool $secure
      * @return Varien_Http_Adapter_Curl
      */
     public function connect($host, $port = 80, $secure = false)
@@ -192,8 +192,14 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             $response = trim($response[1]);
         }
 
-        if (stripos($response, "Transfer-Encoding: chunked\r\n")) {
-            $response = str_ireplace("Transfer-Encoding: chunked\r\n", '', $response);
+        $responsePart = "HTTP/1.1 200 Connection established\r\n";
+        if (stripos($response, $responsePart) === 0) {
+            $response = str_ireplace($responsePart, '', $response);
+        }
+
+        $responsePart = "Transfer-Encoding: chunked\r\n";
+        if (stripos($response, $responsePart)) {
+            $response = str_ireplace($responsePart, '', $response);
         }
 
         return $response;

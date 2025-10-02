@@ -17,7 +17,7 @@ use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
 
-class PageTest extends OpenMageTest
+final class PageTest extends OpenMageTest
 {
     use NumericStringTrait;
 
@@ -33,7 +33,7 @@ class PageTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Mage_Cms_Model_Page::class, $mock->getPage());
     }
 }

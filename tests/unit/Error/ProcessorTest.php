@@ -15,7 +15,7 @@ use Error_Processor as Subject;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-class ProcessorTest extends TestCase
+final class ProcessorTest extends TestCase
 {
     public Subject $subject;
     public array $server;
@@ -39,7 +39,7 @@ class ProcessorTest extends TestCase
         foreach ($serverVars as $serverVar => $value) {
             $_SERVER[$serverVar] = $value;
         }
-        static::assertSame($expectedResult, $this->subject->getHostUrl());
+        self::assertSame($expectedResult, $this->subject->getHostUrl());
     }
 
     public function provideGetHostUrl(): Generator

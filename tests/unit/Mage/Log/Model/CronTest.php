@@ -15,7 +15,7 @@ use Mage;
 use Mage_Log_Model_Cron as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CronTest extends OpenMageTest
+final class CronTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,6 +30,6 @@ class CronTest extends OpenMageTest
      */
     public function testLogClean(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->logClean());
+        self::assertInstanceOf(Subject::class, self::$subject->logClean());
     }
 }

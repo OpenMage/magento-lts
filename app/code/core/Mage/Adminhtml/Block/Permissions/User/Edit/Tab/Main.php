@@ -28,10 +28,8 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Main extends Mage_Adminhtml
             $fieldset->addField('user_id', 'hidden', [
                 'name' => 'user_id',
             ]);
-        } else {
-            if (!$model->hasData('is_active')) {
-                $model->setIsActive(1);
-            }
+        } elseif (!$model->hasData('is_active')) {
+            $model->setIsActive(1);
         }
 
         $fieldset->addField('username', 'text', [

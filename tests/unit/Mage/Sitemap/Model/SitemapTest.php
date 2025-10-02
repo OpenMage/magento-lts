@@ -16,7 +16,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Sitemap\SitemapTrait;
 use Throwable;
 
-class SitemapTest extends OpenMageTest
+final class SitemapTest extends OpenMageTest
 {
     use SitemapTrait;
 
@@ -28,8 +28,8 @@ class SitemapTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertIsString($mock->getPreparedFilename());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertIsString($mock->getPreparedFilename());
     }
 
     /**
@@ -42,14 +42,14 @@ class SitemapTest extends OpenMageTest
     public function testGenerateXml(array $methods): void
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
-        static::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock);
 
         $result = $mock->generateXml();
-        static::assertInstanceOf(Subject::class, $result);
+        self::assertInstanceOf(Subject::class, $result);
 
         /** @var string $file */
         $file = $methods['getSitemapFilename'];
-        static::assertFileExists($file);
+        self::assertFileExists($file);
         unlink($file);
     }
 }

@@ -49,7 +49,7 @@ abstract class OpenMageTest extends TestCase
 
         foreach ($methods as $key => $value) {
             if ($expectOnce) {
-                $mockMethod = $mock->expects(static::once())->method($key);
+                $mockMethod = $mock->expects(self::once())->method($key);
             } else {
                 $mockMethod = $mock->method($key);
             }

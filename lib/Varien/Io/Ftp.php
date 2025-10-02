@@ -59,7 +59,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * - path        default empty
      * - file_mode   default FTP_BINARY
      *
-     * @return boolean
+     * @return bool
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function open(array $args = [])
@@ -130,7 +130,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Close a connection
      *
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -145,8 +145,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @todo implement $mode and $recursive
      * @param string $dir
      * @param int $mode
-     * @param boolean $recursive
-     * @return boolean
+     * @param bool $recursive
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -159,7 +159,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -184,7 +184,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -231,7 +231,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource $src filename, string data or source stream
-     * @return int|boolean
+     * @return int|bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -242,7 +242,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         } else {
             if (is_string($src)) {
                 $stream = tmpfile();
-                fputs($stream, $src);
+                fwrite($stream, $src);
                 fseek($stream, 0);
             } elseif (is_resource($src)) {
                 $stream = $src;
@@ -263,7 +263,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a file
      *
      * @param string $filename
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -277,7 +277,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $src
      * @param string $dest
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -291,7 +291,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param int $mode
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */

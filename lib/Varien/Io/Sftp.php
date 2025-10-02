@@ -46,7 +46,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
         }
         $this->_connection = new \phpseclib3\Net\SFTP($host, $port, $args['timeout']);
         if (!$this->_connection->login($args['username'], $args['password'])) {
-            throw new Exception(sprintf(__('Unable to open SFTP connection as %s@%s', $args['username'], $args['host'])));
+            throw new Exception(__('Unable to open SFTP connection as %s@%s', $args['username'], $args['host']));
         }
     }
 
@@ -212,7 +212,7 @@ class Varien_Io_Sftp extends Varien_Io_Abstract implements Varien_Io_Interface
      * Write a file
      * @param  string $filename remote filename
      * @param  string $src local filename
-     * @return boolean
+     * @return bool
      */
     public function writeFile($filename, $src)
     {

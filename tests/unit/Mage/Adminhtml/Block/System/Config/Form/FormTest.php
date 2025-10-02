@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Adminhtml\Block\System\Config\Form;
 use Mage_Adminhtml_Block_System_Config_Form as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class FormTest extends OpenMageTest
+final class FormTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -29,6 +29,6 @@ class FormTest extends OpenMageTest
      */
     public function testInitForm(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->initForm());
+        self::assertInstanceOf(Subject::class, self::$subject->initForm());
     }
 }

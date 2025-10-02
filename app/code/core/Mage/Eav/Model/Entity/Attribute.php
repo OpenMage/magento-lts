@@ -56,21 +56,13 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
      */
     protected function _getDefaultBackendModel()
     {
-        switch ($this->getAttributeCode()) {
-            case 'created_at':
-                return 'eav/entity_attribute_backend_time_created';
-
-            case 'updated_at':
-                return 'eav/entity_attribute_backend_time_updated';
-
-            case 'store_id':
-                return 'eav/entity_attribute_backend_store';
-
-            case 'increment_id':
-                return 'eav/entity_attribute_backend_increment';
-        }
-
-        return parent::_getDefaultBackendModel();
+        return match ($this->getAttributeCode()) {
+            'created_at' => 'eav/entity_attribute_backend_time_created',
+            'updated_at' => 'eav/entity_attribute_backend_time_updated',
+            'store_id' => 'eav/entity_attribute_backend_store',
+            'increment_id' => 'eav/entity_attribute_backend_increment',
+            default => parent::_getDefaultBackendModel(),
+        };
     }
 
     /**
@@ -215,34 +207,15 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
     public function getBackendTypeByInput($type)
     {
         $field = null;
-        switch ($type) {
-            case 'text':
-            case 'gallery':
-            case 'media_image':
-                $field = 'varchar';
-                break;
 
-            case 'image':
-            case 'textarea':
-            case 'multiselect':
-                $field = 'text';
-                break;
-
-            case 'date':
-                $field = 'datetime';
-                break;
-
-            case 'select':
-            case 'boolean':
-                $field = 'int';
-                break;
-
-            case 'price':
-                $field = 'decimal';
-                break;
-        }
-
-        return $field;
+        return match ($type) {
+            'text', 'gallery', 'media_image' => 'varchar',
+            'image', 'textarea', 'multiselect' => 'text',
+            'date' => 'datetime',
+            'select', 'boolean' => 'int',
+            'price' => 'decimal',
+            default => $field,
+        };
     }
 
     /**

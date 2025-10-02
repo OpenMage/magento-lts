@@ -247,7 +247,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for onepage checkout items
      *
      * @param Mage_Sales_Model_Quote $quote
-     * @param Mage_Core_Model_Store|integer $store
+     * @param Mage_Core_Model_Store|int $store
      * @return bool
      */
     public function getAvailableForQuoteItems($quote, $store = null)
@@ -265,7 +265,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      * Check availability for multishiping checkout items
      *
      * @param array $items
-     * @param Mage_Core_Model_Store|integer $store
+     * @param Mage_Core_Model_Store|int $store
      * @return bool
      */
     public function getAvailableForAddressItems($items, $store = null)

@@ -21,7 +21,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Review\ReviewTrait;
 use Zend_Validate_Exception;
 
-class ReviewTest extends OpenMageTest
+final class ReviewTest extends OpenMageTest
 {
     use ReviewTrait;
 
@@ -35,7 +35,7 @@ class ReviewTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->validate());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->validate());
     }
 }

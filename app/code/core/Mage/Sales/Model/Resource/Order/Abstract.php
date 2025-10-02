@@ -259,7 +259,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * Before save object attribute
      *
-     * @param string $attribute
+     * @param string[] $attribute
      * @return $this
      */
     protected function _beforeSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)
@@ -277,7 +277,7 @@ abstract class Mage_Sales_Model_Resource_Order_Abstract extends Mage_Sales_Model
     /**
      * After save object attribute
      *
-     * @param string $attribute
+     * @param string[] $attribute
      * @return $this
      */
     protected function _afterSaveAttribute(Mage_Core_Model_Abstract $object, $attribute)

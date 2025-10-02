@@ -790,6 +790,6 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
     {
         $minLength = Mage::getStoreConfigAsInt(self::XML_PATH_MIN_ADMIN_PASSWORD_LENGTH);
         $absoluteMinLength = Mage_Core_Model_App::ABSOLUTE_MIN_PASSWORD_LENGTH;
-        return ($minLength < $absoluteMinLength) ? $absoluteMinLength : $minLength;
+        return max($absoluteMinLength, $minLength);
     }
 }

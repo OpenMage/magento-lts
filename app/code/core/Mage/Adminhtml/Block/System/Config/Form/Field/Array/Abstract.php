@@ -17,7 +17,7 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     /**
      * Grid columns
      *
-     * @var array
+     * @var array<string, array{label: string, size: string|false, style: ?string, class: ?string, renderer: Mage_Core_Block_Abstract|false}>
      */
     protected $_columns = [];
 
@@ -38,9 +38,9 @@ abstract class Mage_Adminhtml_Block_System_Config_Form_Field_Array_Abstract exte
     /**
      * Rows cache
      *
-     * @var array|null
+     * @var array<string, Varien_Object>|null
      */
-    private $_arrayRowsCache;
+    protected $_arrayRowsCache;
 
     /**
      * Indication whether block is prepared to render or no

@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Helper_Cookie as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class CookieTest extends OpenMageTest
+final class CookieTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,7 +30,7 @@ class CookieTest extends OpenMageTest
      */
     public function testIsUserNotAllowSaveCookie(): void
     {
-        static::assertIsBool(self::$subject->isUserNotAllowSaveCookie());
+        self::assertIsBool(self::$subject->isUserNotAllowSaveCookie());
     }
 
     /**
@@ -38,7 +38,7 @@ class CookieTest extends OpenMageTest
      */
     public function testGetAcceptedSaveCookiesWebsiteIds(): void
     {
-        static::assertSame('{"1":1}', self::$subject->getAcceptedSaveCookiesWebsiteIds());
+        self::assertSame('{"1":1}', self::$subject->getAcceptedSaveCookiesWebsiteIds());
     }
 
     /**
@@ -47,7 +47,7 @@ class CookieTest extends OpenMageTest
      */
     public function testGetCookieRestrictionLifetime(): void
     {
-        static::assertSame(31536000, self::$subject->getCookieRestrictionLifetime());
+        self::assertSame(31536000, self::$subject->getCookieRestrictionLifetime());
     }
 
     /**
@@ -56,6 +56,6 @@ class CookieTest extends OpenMageTest
      */
     public function testGetCookieRestrictionNoticeCmsBlockIdentifier(): void
     {
-        static::assertSame('cookie_restriction_notice_block', self::$subject->getCookieRestrictionNoticeCmsBlockIdentifier());
+        self::assertSame('cookie_restriction_notice_block', self::$subject->getCookieRestrictionNoticeCmsBlockIdentifier());
     }
 }

@@ -16,7 +16,7 @@ use Mage_Core_Model_Store_Exception;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\Block\Widget\Page\LinkTrait;
 
-class LinkTest extends OpenMageTest
+final class LinkTest extends OpenMageTest
 {
     use LinkTrait;
 
@@ -39,7 +39,7 @@ class LinkTest extends OpenMageTest
         self::$subject->setData($data);
 
         $result = self::$subject->getHref();
-        static::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -52,7 +52,7 @@ class LinkTest extends OpenMageTest
         self::$subject->setData($data);
 
         $result = self::$subject->getTitle();
-        static::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
     /**
@@ -65,6 +65,6 @@ class LinkTest extends OpenMageTest
         self::$subject->setData($data);
 
         $result = self::$subject->getAnchorText();
-        static::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

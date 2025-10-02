@@ -18,7 +18,7 @@ use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\GiftMessage\GiftMessageTrait;
 use Varien_Object;
 
-class MessageTest extends OpenMageTest
+final class MessageTest extends OpenMageTest
 {
     use GiftMessageTrait;
 
@@ -37,6 +37,6 @@ class MessageTest extends OpenMageTest
      */
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {
-        static::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));
+        self::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));
     }
 }

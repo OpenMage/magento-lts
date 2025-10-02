@@ -15,7 +15,7 @@ use Mage;
 use Mage_Admin_Helper_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class VariableTest extends OpenMageTest
+final class VariableTest extends OpenMageTest
 {
     public static Subject $subject;
 
@@ -31,6 +31,6 @@ class VariableTest extends OpenMageTest
      */
     public function testIsPathAllowed(): void
     {
-        static::assertIsBool(self::$subject->isPathAllowed(''));
+        self::assertIsBool(self::$subject->isPathAllowed(''));
     }
 }

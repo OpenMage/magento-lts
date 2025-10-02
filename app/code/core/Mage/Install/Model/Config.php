@@ -88,6 +88,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         $paths = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
         foreach ($items as $nodeKey => $item) {
+            /** @var array{path: string, existence: string, recursive: string} $value */
             $value = (array) $item;
             if (isset($this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey])) {
                 $configKey = $this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey];

@@ -15,7 +15,7 @@ use Mage_Core_Exception;
 use Mage_Wishlist_Model_Item as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ItemTest extends OpenMageTest
+final class ItemTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -32,7 +32,7 @@ class ItemTest extends OpenMageTest
     public function testSetQty(int $expectedQty, int $inputQty): void
     {
         self::$subject->setQty($inputQty);
-        static::assertEquals($expectedQty, self::$subject->getQty());
+        self::assertEquals($expectedQty, self::$subject->getQty());
     }
 
     public function qtyDataProvider(): \Generator
@@ -68,7 +68,7 @@ class ItemTest extends OpenMageTest
         $result = self::$subject->validate();
 
         if (!$expectedExceptionMessage) {
-            static::assertTrue($result);
+            self::assertTrue($result);
         }
     }
 
