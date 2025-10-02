@@ -333,9 +333,9 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
                     $this->_joinWithCommaAnd($usedIn),
                 );
                 $message .= ' ' . Mage::helper('cms')->__(
-                        'Please change the %s configuration per scope before disabling.',
-                        $configLink,
-                    );
+                    'Please change the %s configuration per scope before disabling.',
+                    $configLink,
+                );
                 Mage::throwException($message);
             }
         }
