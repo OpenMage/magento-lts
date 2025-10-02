@@ -21,7 +21,7 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - `/lib`: Contains third-party libraries and frameworks.
 - `/media`: Contains media files, such as product images.
 - `/shell`: Contains shell scripts for various tasks, such as database backups.
-- `/skin`: Contains CSS and image files for the frontend.'
+- `/skin`: Contains CSS and image files for the frontend.
 - `/var`: Contains cache, logs, and session files.
 
 ## Libraries and Frameworks
