@@ -12,7 +12,7 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - `/app/design/adminhtml`: Contains the template and layout files for admin view.
 - `/app/design/frontend`: Contains the template and layout files for frontend view.
 - `/app/design/install`: Contains the template and layout files for installer.
-- `/app/etc/modules`: Contains modules confguration.
+- `/app/etc/modules`: Contains modules configuration.
 - `/app/locale`: Contains localization files.
 - `/cypress`: Contains cypress frontend test files.
 - `/docs`: Contains documentation for the project, including API specifications and user guides.
@@ -21,7 +21,7 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - `/lib`: Contains third-party libraries and frameworks.
 - `/media`: Contains media files, such as product images.
 - `/shell`: Contains shell scripts for various tasks, such as database backups.
-- `/skin`: Contains CSS and image files for the frontend.'
+- `/skin`: Contains CSS and image files for the frontend.
 - `/var`: Contains cache, logs, and session files.
 
 ## Libraries and Frameworks
@@ -41,7 +41,7 @@ This project aims to provide a stable and secure version of Magento 1.x, with on
 - Use PER2 coding standards for PHP.
 - Use PHP-CodeSniffer to enforce coding standards.
 - Use PHP-CS-Fixer for automatic code formatting.
-- Use PHPMD massive detector to find potential issues.
+- Use PHPMD mess detector to find potential issues.
 - Use PHPStan for static analysis.
 - Use PHPUnit for unit testing.
 - Use Rector for automated refactoring.
