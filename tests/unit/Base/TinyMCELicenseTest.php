@@ -29,7 +29,8 @@ final class TinyMCELicenseTest extends TestCase
     public function testRootLicenseFilesExists(): void
     {
         if (InstalledVersions::isInstalled(self::TINY_MCE_NAMESPACE)) {
-            $filename = 'LICENSE_TINYMCE.txt';
+            $rootDir = dirname(__DIR__, 3);
+            $filename = $rootDir . DIRECTORY_SEPARATOR . 'LICENSE_TINYMCE.txt';
             self::assertFileExists($filename, self::ERROR_MESSAGE);
         } else {
             self::markTestSkipped(self::SKIP_MESSAGE);
