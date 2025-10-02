@@ -148,7 +148,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 $paymentSourceBuilder->sofort(SofortPaymentRequestBuilder::init($name, $country)->build());
                 break;
 
-            // Payment methods requiring name, email, and country
+                // Payment methods requiring name, email, and country
             case 'p24':
                 $paymentSourceBuilder->p24(P24PaymentRequestBuilder::init($name, $email, $country)->build());
                 break;
@@ -156,7 +156,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 $paymentSourceBuilder->trustly(TrustlyPaymentRequestBuilder::init($name, $country, $email)->build());
                 break;
 
-            // Payment methods requiring no init parameters
+                // Payment methods requiring no init parameters
             case 'applepay':
                 $paymentSourceBuilder->applePay(ApplePayRequestBuilder::init()->build());
                 break;
@@ -167,7 +167,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 $paymentSourceBuilder->venmo(VenmoWalletRequestBuilder::init()->build());
                 break;
 
-            // Default payment methods (PayPal, card) don't need explicit payment source
+                // Default payment methods (PayPal, card) don't need explicit payment source
             case 'paypal':
             case 'card':
             default:
@@ -322,7 +322,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
             $roundingItem = ItemBuilder::init(
                 Mage::helper('paypal')->__('Rounding Adjustment'),
                 $moneyBuilder,
-                quantity: '1'
+                quantity: '1',
             )
                 ->sku(Mage::helper('paypal')->__('rounding'))
                 ->category(ItemCategory::DIGITAL_GOODS)
@@ -338,7 +338,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
         if ($discountAmount > 0) {
             $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT] = MoneyBuilder::init(
                 $currency,
-                number_format($discountAmount, 2, '.', '')
+                number_format($discountAmount, 2, '.', ''),
             )->build();
         }
 
