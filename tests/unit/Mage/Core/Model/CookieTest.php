@@ -28,7 +28,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testSetStore(): void
     {
@@ -37,7 +36,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGetStore(): void
     {
@@ -46,7 +44,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGetDomain(): void
     {
@@ -55,7 +52,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGetConfigDomain(): void
     {
@@ -64,7 +60,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGetPath(): void
     {
@@ -73,7 +68,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGetLifetime(): void
     {
@@ -82,7 +76,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testSetLifetime(): void
     {
@@ -91,7 +84,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGetHttponly(): void
     {
@@ -100,7 +92,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGetSameSite(): void
     {
@@ -109,7 +100,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testIsSecure(): void
     {
@@ -118,7 +108,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      * @runInSeparateProcess
      */
     public function testSet(): void
@@ -128,7 +117,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testRenew(): void
     {
@@ -137,7 +125,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      */
     public function testGet(): void
     {
@@ -146,7 +133,6 @@ final class CookieTest extends OpenMageTest
 
     /**
      * @group Model
-     * @group test
      * @runInSeparateProcess
      */
     public function testDelete(): void
