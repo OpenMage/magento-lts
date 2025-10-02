@@ -33,11 +33,11 @@ final class DateTest extends TestCase
     public function testInputFilter(?string $expectedResult, ?string $value): void
     {
         try {
-            static::assertSame($expectedResult, $this->subject->inputFilter($value));
+            self::assertSame($expectedResult, $this->subject->inputFilter($value));
         } catch (Throwable $e) {
             // PHP7: bcsub(): bcmath function argument is not well-formed
             // PHP8: bcsub(): Argument #1 ($num1) is not well-formed
-            static::assertStringStartsWith((string) $expectedResult, $e->getMessage());
+            self::assertStringStartsWith((string) $expectedResult, $e->getMessage());
         }
     }
 

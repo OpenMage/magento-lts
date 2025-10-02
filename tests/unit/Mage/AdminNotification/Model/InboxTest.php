@@ -39,7 +39,7 @@ final class InboxTest extends OpenMageTest
      */
     public function testGetSeverities(array|string|null $expectedResult, ?int $severity): void
     {
-        static::assertSame($expectedResult, self::$subject->getSeverities($severity));
+        self::assertSame($expectedResult, self::$subject->getSeverities($severity));
     }
 
     /**
@@ -48,7 +48,7 @@ final class InboxTest extends OpenMageTest
     public function testLoadLatestNotice(bool $delete = false): void
     {
         $result = self::$subject->loadLatestNotice();
-        static::assertInstanceOf(Subject::class, $result);
+        self::assertInstanceOf(Subject::class, $result);
         if ($delete) {
             $result->delete();
         }
@@ -59,7 +59,7 @@ final class InboxTest extends OpenMageTest
      */
     public function testAdd(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->add(
+        self::assertInstanceOf(Subject::class, self::$subject->add(
             Subject::SEVERITY_CRITICAL,
             self::TITLE,
             [__METHOD__],
@@ -77,7 +77,7 @@ final class InboxTest extends OpenMageTest
         try {
             self::$subject->add(0, self::TITLE, __METHOD__);
         } catch (Mage_Core_Exception $e) {
-            static::assertSame('Wrong message type', $e->getMessage());
+            self::assertSame('Wrong message type', $e->getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ final class InboxTest extends OpenMageTest
      */
     public function testAddCritical(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addCritical(self::TITLE, __METHOD__));
+        self::assertInstanceOf(Subject::class, self::$subject->addCritical(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -97,7 +97,7 @@ final class InboxTest extends OpenMageTest
      */
     public function testAddMajor(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addMajor(self::TITLE, __METHOD__));
+        self::assertInstanceOf(Subject::class, self::$subject->addMajor(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -107,7 +107,7 @@ final class InboxTest extends OpenMageTest
      */
     public function testAddMinor(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addMinor(self::TITLE, __METHOD__));
+        self::assertInstanceOf(Subject::class, self::$subject->addMinor(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 
@@ -117,7 +117,7 @@ final class InboxTest extends OpenMageTest
      */
     public function testAddNotice(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->addNotice(self::TITLE, __METHOD__));
+        self::assertInstanceOf(Subject::class, self::$subject->addNotice(self::TITLE, __METHOD__));
         $this->testLoadLatestNotice(true);
     }
 }

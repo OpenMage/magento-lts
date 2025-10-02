@@ -28,9 +28,9 @@ final class ColumnTest extends OpenMageTest
      */
     public function testGetType(): void
     {
-        static::assertSame('', self::$subject->getType());
+        self::assertSame('', self::$subject->getType());
 
         self::$subject->setType('text');
-        static::assertSame('text', self::$subject->getType());
+        self::assertSame('text', self::$subject->getType());
     }
 }

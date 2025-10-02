@@ -35,7 +35,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetConfig(): void
     {
-        static::assertInstanceOf(Varien_Object::class, self::$subject->getConfig());
+        self::assertInstanceOf(Varien_Object::class, self::$subject->getConfig());
     }
 
     /**
@@ -43,7 +43,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetSkinImagePlaceholderUrl(): void
     {
-        static::assertIsString(self::$subject->getSkinImagePlaceholderUrl());
+        self::assertIsString(self::$subject->getSkinImagePlaceholderUrl());
     }
 
     /**
@@ -51,7 +51,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testGetSkinImagePlaceholderPath(): void
     {
-        static::assertIsString(self::$subject->getSkinImagePlaceholderPath());
+        self::assertIsString(self::$subject->getSkinImagePlaceholderPath());
     }
 
     /**
@@ -59,7 +59,7 @@ final class ConfigTest extends OpenMageTest
      */
     public function testIsEnabled(): void
     {
-        static::assertIsBool(self::$subject->isEnabled());
+        self::assertIsBool(self::$subject->isEnabled());
     }
 
     /**
@@ -67,6 +67,6 @@ final class ConfigTest extends OpenMageTest
      */
     public function testIsHidden(): void
     {
-        static::assertIsBool(self::$subject->isHidden());
+        self::assertIsBool(self::$subject->isHidden());
     }
 }

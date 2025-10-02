@@ -30,6 +30,6 @@ final class VariableTest extends OpenMageTest
      */
     public function testGetVariablesOptionArray(): void
     {
-        static::assertIsArray(self::$subject->getVariablesOptionArray());
+        self::assertIsArray(self::$subject->getVariablesOptionArray());
     }
 }
