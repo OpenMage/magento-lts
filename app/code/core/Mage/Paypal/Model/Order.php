@@ -148,7 +148,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 $paymentSourceBuilder->sofort(SofortPaymentRequestBuilder::init($name, $country)->build());
                 break;
 
-                // Payment methods requiring name, email, and country
+            // Payment methods requiring name, email, and country
             case 'p24':
                 $paymentSourceBuilder->p24(P24PaymentRequestBuilder::init($name, $email, $country)->build());
                 break;
@@ -156,7 +156,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 $paymentSourceBuilder->trustly(TrustlyPaymentRequestBuilder::init($name, $country, $email)->build());
                 break;
 
-                // Payment methods requiring no init parameters
+            // Payment methods requiring no init parameters
             case 'applepay':
                 $paymentSourceBuilder->applePay(ApplePayRequestBuilder::init()->build());
                 break;
@@ -167,7 +167,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
                 $paymentSourceBuilder->venmo(VenmoWalletRequestBuilder::init()->build());
                 break;
 
-                // Default payment methods (PayPal, card) don't need explicit payment source
+            // Default payment methods (PayPal, card) don't need explicit payment source
             case 'paypal':
             case 'card':
             default:
@@ -185,7 +185,7 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
         $cart = Mage::getModel('paypal/cart', [$quote]);
         $currency = $quote->getOrderCurrencyCode() ?: $quote->getQuoteCurrencyCode();
 
-        $adjustedCartData = $this->adjustCartTotalsForTaxDiscrepancy($cart, $currency);
+        $adjustedCartData = $this->adjustCartTotalsForRounding($cart, $currency);
         $totals = $adjustedCartData['totals'];
         $items  = $adjustedCartData['items'];
 
@@ -282,54 +282,64 @@ class Mage_Paypal_Model_Order extends Mage_Core_Model_Abstract
      *
      * @return array{totals: array, items: array}
      */
-    public function adjustCartTotalsForTaxDiscrepancy(Mage_Paypal_Model_Cart $cart, string $currency): array
+    public function adjustCartTotalsForRounding(Mage_Paypal_Model_Cart $cart, string $currency): array
     {
         $totals = $cart->getAmounts();
         $items  = $cart->getAllItems();
 
-        $taxCalculated = 0.00;
-        $taxAmount     = isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])
-            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->getValue()
-            : 0.00;
+        $itemsTotal = 0.00;
+        $itemsTaxTotal = 0.00;
 
         foreach ($items as $item) {
             /** @var PaypalServerSdkLib\Models\Item $item */
-            if ($item->getTax()) {
-                $qty        = (int) $item->getQuantity();
-                $taxValue   = (float) $item->getTax()->getValue();
-                $taxCalculated += $taxValue * $qty;
-            }
+            $qty = (int) $item->getQuantity();
+            $unitPrice = (float) $item->getUnitAmount()->getValue();
+            $unitTax   = $item->getTax() ? (float) $item->getTax()->getValue() : 0;
+
+            $itemsTotal += $unitPrice * $qty;
+            $itemsTaxTotal += $unitTax * $qty;
         }
 
-        $taxDifference = round($taxAmount - $taxCalculated, 2);
+        $cartItemTotal = isset($totals[Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_SUBTOTAL]->getValue()
+            : 0.00;
+        $cartTaxTotal = isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->getValue()
+            : 0.00;
 
-        if ($taxDifference < 0) {
-            $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(number_format($taxCalculated, 2, '.', ''));
+        $priceRoundingDiff = round($cartItemTotal - $itemsTotal, 2);
+        $taxRoundingDiff   = round($cartTaxTotal - $itemsTaxTotal, 2);
+        $totalRoundingDiff = $priceRoundingDiff + $taxRoundingDiff;
 
-            if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT])) {
-                $totalDiscount = (float) $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->getValue();
-                $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->setValue(
-                    number_format(abs($taxDifference) + $totalDiscount, 2, '.', ''),
-                );
-            } else {
-                $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT] = MoneyBuilder::init(
-                    $currency,
-                    number_format(abs($taxDifference), 2, '.', ''),
-                )->build();
-            }
-        } elseif ($taxDifference > 0) {
-            $moneyBuilder = MoneyBuilder::init($currency, number_format(abs($taxDifference), 2, '.', ''));
+        $discountAmount = isset($totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT])
+            ? (float) $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT]->getValue()
+            : 0.00;
+
+        if ($totalRoundingDiff < 0) {
+            $discountAmount += abs($totalRoundingDiff);
+        } elseif ($totalRoundingDiff > 0) {
+            $moneyBuilder = MoneyBuilder::init($currency, number_format($totalRoundingDiff, 2, '.', ''))->build();
             $roundingItem = ItemBuilder::init(
-                Mage::helper('paypal')->__('Rounding'),
-                $moneyBuilder->build(),
-                '1',
+                Mage::helper('paypal')->__('Rounding Adjustment'),
+                $moneyBuilder,
+                quantity: '1'
             )
-                ->sku(Mage::helper('paypal')->__('Rounding'))
+                ->sku(Mage::helper('paypal')->__('rounding'))
                 ->category(ItemCategory::DIGITAL_GOODS)
                 ->build();
 
             $items[] = $roundingItem;
-            $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(number_format($taxCalculated, 2, '.', ''));
+        }
+
+        if (isset($totals[Mage_Paypal_Model_Cart::TOTAL_TAX])) {
+            $totals[Mage_Paypal_Model_Cart::TOTAL_TAX]->setValue(number_format($itemsTaxTotal, 2, '.', ''));
+        }
+
+        if ($discountAmount > 0) {
+            $totals[Mage_Paypal_Model_Cart::TOTAL_DISCOUNT] = MoneyBuilder::init(
+                $currency,
+                number_format($discountAmount, 2, '.', '')
+            )->build();
         }
 
         return ['totals' => $totals, 'items' => $items];
