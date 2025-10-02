@@ -235,7 +235,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
             ];
 
             $collection = Mage::getModel('core/config_data')->getCollection()
-                ->addFieldToFilter('path', array('in' => array_keys($configPaths)))
+                ->addFieldToFilter('path', ['in' => array_keys($configPaths)])
                 ->addFieldToFilter('value', $this->getIdentifier());
 
             // Build associative array by website for grouping
@@ -318,7 +318,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
                         '%s%s(%s)',
                         $configPaths[$path],
                         $delimiter,
-                        implode(', ', $labels)
+                        implode(', ', $labels),
                     );
                 }
             }
@@ -330,11 +330,11 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
                 $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
                 $message = Mage::helper('cms')->__(
                     'This page is used as %s.',
-                    $this->_joinWithCommaAnd($usedIn)
+                    $this->_joinWithCommaAnd($usedIn),
                 );
                 $message .= ' ' . Mage::helper('cms')->__(
                         'Please change the %s configuration per scope before disabling.',
-                        $configLink
+                        $configLink,
                     );
                 Mage::throwException($message);
             }
