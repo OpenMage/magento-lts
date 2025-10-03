@@ -297,8 +297,6 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
                     );
                 }
             }
-            $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
-            $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
 
             if (count($usedIn)) {
                 $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
