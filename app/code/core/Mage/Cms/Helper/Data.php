@@ -181,7 +181,7 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
                     // Note: array_keys($storeViews) may contain null when a website-level configuration exists.
                     // Skip null store view names to avoid invalid labels like "Website Name > ".
                     foreach (array_keys($storeViews) as $storeViewName) {
-                        if ($storeViewName === null) {
+                        if ($storeViewName === '') {
                             continue;
                         }
                         $fullLabel = $websiteName . $labelDelimiter . $storeViewName;
