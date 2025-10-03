@@ -177,7 +177,9 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
                     if (array_key_exists($websiteName, $scopeLabels)) {
                         $labels[] = $websiteName;
                     }
-                    // Store views
+                    // Iterate store view names for each website.
+                    // Note: array_keys($storeViews) may contain null when a website-level configuration exists.
+                    // Skip null store view names to avoid invalid labels like "Website Name > ".
                     foreach (array_keys($storeViews) as $storeViewName) {
                         $fullLabel = $websiteName . $labelDelimiter . $storeViewName;
                         if (array_key_exists($fullLabel, $scopeLabels)) {
