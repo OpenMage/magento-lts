@@ -122,7 +122,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                             $labels[] = $websiteName;
                         }
                         // Store views
-                        foreach ($storeViews as $storeViewName => $dummy) {
+                        foreach (array_keys($storeViews) as $storeViewName) {
                             $fullLabel = $websiteName . $labelDelimiter . $storeViewName;
                             if (array_key_exists($fullLabel, $scopeLabels)) {
                                 $labels[] = $fullLabel;
