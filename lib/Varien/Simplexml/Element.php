@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Simplexml
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Extends SimpleXML to add valuable functionality to SimpleXMLElement class
  *
- * @category   Varien
  * @package    Varien_Simplexml
  */
 class Varien_Simplexml_Element extends SimpleXMLElement
@@ -62,7 +54,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     #[ReturnTypeWillChange]
     public function hasChildren()
@@ -138,21 +130,21 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         # return $node[0];
         if (is_array($path)) {
             $pathArr = $path;
-        } else {
+        } elseif (!str_contains($path, '@')) {
             // Simple exploding by / does not suffice,
             // as an attribute value may contain a / inside
             // Note that there are three matches for different kinds of attribute values specification
-            if (!str_contains($path, '@')) {
-                $pathArr = explode('/', $path);
-            } else {
-                $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
-                $pathArr = $pathMatches = [];
-                if (preg_match_all($regex, $path, $pathMatches)) {
-                    $pathArr = $pathMatches[1];
-                }
+            $pathArr = explode('/', $path);
+        } else {
+            $regex = '#([^@/\\"]+(?:@[^=/]+=(?:\\"[^\\"]*\\"|[^/]*))?)/?#';
+            $pathArr = $pathMatches = [];
+            if (preg_match_all($regex, $path, $pathMatches)) {
+                $pathArr = $pathMatches[1];
             }
         }
         $desc = $this;
+
+        /** @var string[] $pathArr */
         foreach ($pathArr as $nodeName) {
             if (str_contains($nodeName, '@')) {
                 $a = explode('@', $nodeName);
@@ -226,14 +218,12 @@ class Varien_Simplexml_Element extends SimpleXMLElement
             foreach ($this->children() as $childName => $child) {
                 $result[$childName] = $child->_asArray($isCanonical);
             }
+        } elseif (empty($result)) {
+            // return as string, if nothing was found
+            $result = (string) $this;
         } else {
-            if (empty($result)) {
-                // return as string, if nothing was found
-                $result = (string) $this;
-            } else {
-                // value has zero key element
-                $result[0] = (string) $this;
-            }
+            // value has zero key element
+            $result[0] = (string) $this;
         }
         return $result;
     }
@@ -242,7 +232,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Makes nicely formatted XML from the node
      *
      * @param string $filename
-     * @param int|boolean $level if false
+     * @param int|bool $level if false
      * @return string
      */
     public function asNiceXml($filename = '', $level = 0)
@@ -352,7 +342,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Otherwise will overwrite existing nodes
      *
      * @param Varien_Simplexml_Element $source
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extend($source, $overwrite = false)
@@ -372,7 +362,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
      * Extends one node
      *
      * @param Varien_Simplexml_Element $source
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return Varien_Simplexml_Element
      */
     public function extendChild($source, $overwrite = false)
@@ -445,12 +435,10 @@ class Varien_Simplexml_Element extends SimpleXMLElement
                 if (!isset($node->$nodeName) || $overwrite) {
                     $node->$nodeName = $value;
                 }
+            } elseif (!isset($node->$nodeName)) {
+                $node = $node->addChild($nodeName);
             } else {
-                if (!isset($node->$nodeName)) {
-                    $node = $node->addChild($nodeName);
-                } else {
-                    $node = $node->$nodeName;
-                }
+                $node = $node->$nodeName;
             }
         }
         return $this;

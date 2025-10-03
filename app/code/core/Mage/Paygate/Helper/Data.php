@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Paygate
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Paygate data helper
  *
- * @category   Mage
  * @package    Mage_Paygate
  */
 class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
@@ -129,20 +121,14 @@ class Mage_Paygate_Helper_Data extends Mage_Core_Helper_Abstract
      */
     protected function _getOperation($requestType)
     {
-        switch ($requestType) {
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_ONLY:
-                return $this->__('authorize');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_CAPTURE:
-                return $this->__('authorize and capture');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_PRIOR_AUTH_CAPTURE:
-                return $this->__('capture');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_CREDIT:
-                return $this->__('refund');
-            case Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_VOID:
-                return $this->__('void');
-            default:
-                return false;
-        }
+        return match ($requestType) {
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_ONLY => $this->__('authorize'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_AUTH_CAPTURE => $this->__('authorize and capture'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_PRIOR_AUTH_CAPTURE => $this->__('capture'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_CREDIT => $this->__('refund'),
+            Mage_Paygate_Model_Authorizenet::REQUEST_TYPE_VOID => $this->__('void'),
+            default => false,
+        };
     }
 
     /**

@@ -1,16 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   OpenMage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    OpenMage_Tests
- * @copyright  Copyright (c) 2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 declare(strict_types=1);
@@ -22,156 +16,142 @@ use Mage_Core_Model_Resource_Store_Collection;
 use Mage_Core_Model_Resource_Store_Group_Collection;
 use Mage_Core_Model_Website as Subject;
 use Mage_Directory_Model_Currency;
-use PHPUnit\Framework\TestCase;
+use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Db_Select;
 
-class WebsiteTest extends TestCase
+final class WebsiteTest extends OpenMageTest
 {
-    public Subject $subject;
+    private static Subject $subject;
 
-    public function setUp(): void
+    public static function setUpBeforeClass(): void
     {
-        Mage::app();
-        $this->subject = Mage::getModel('core/website');
+        parent::setUpBeforeClass();
+        self::$subject = Mage::getModel('core/website');
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testLoad(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->load(1));
-        $this->assertInstanceOf(Subject::class, $this->subject->load('default'));
+        self::assertInstanceOf(Subject::class, self::$subject->load(1));
+        self::assertInstanceOf(Subject::class, self::$subject->load('default'));
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testLoadConfig(): void
     {
-        $this->assertInstanceOf(Subject::class, $this->subject->loadConfig('1'));
-        $this->assertInstanceOf(Subject::class, $this->subject->loadConfig('default'));
+        self::assertInstanceOf(Subject::class, self::$subject->loadConfig('1'));
+        self::assertInstanceOf(Subject::class, self::$subject->loadConfig('default'));
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoreCollection(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, $this->subject->getStoreCollection());
+        self::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, self::$subject->getStoreCollection());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroupCollection(): void
     {
-        $this->assertInstanceOf(Mage_Core_Model_Resource_Store_Group_Collection::class, $this->subject->getGroupCollection());
+        self::assertInstanceOf(Mage_Core_Model_Resource_Store_Group_Collection::class, self::$subject->getGroupCollection());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStores(): void
     {
-        $this->assertIsArray($this->subject->getStores());
+        self::assertIsArray(self::$subject->getStores());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoreIds(): void
     {
-        $this->assertIsArray($this->subject->getStoreIds());
+        self::assertIsArray(self::$subject->getStoreIds());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoreCodes(): void
     {
-        $this->assertIsArray($this->subject->getStoreCodes());
+        self::assertIsArray(self::$subject->getStoreCodes());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetStoresCount(): void
     {
-        $this->assertIsInt($this->subject->getStoresCount());
+        self::assertIsInt(self::$subject->getStoresCount());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroups(): void
     {
-        $this->assertIsArray($this->subject->getGroups());
+        self::assertIsArray(self::$subject->getGroups());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroupIds(): void
     {
-        $this->assertIsArray($this->subject->getGroupIds());
+        self::assertIsArray(self::$subject->getGroupIds());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetGroupsCount(): void
     {
-        $this->assertIsInt($this->subject->getGroupsCount());
+        self::assertIsInt(self::$subject->getGroupsCount());
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testGetBaseCurrency(): void
     {
-        $this->assertIsObject($this->subject->getBaseCurrency());
-        $this->assertInstanceOf(Mage_Directory_Model_Currency::class, $this->subject->getBaseCurrency());
+        self::assertIsObject(self::$subject->getBaseCurrency());
+        self::assertInstanceOf(Mage_Directory_Model_Currency::class, self::$subject->getBaseCurrency());
     }
 
     //    /**
-    //     * @group Mage_Core
-    //     * @group Mage_Core_Model
+    //     * @group Model
     //     */
     //    public function testGetDefaultStore(): void
     //    {
-    //        $this->assertIsObject($this->subject->getDefaultStore());
-    //        $this->assertInstanceOf(Mage_Core_Model_Store::class, $this->subject->getDefaultStore());
+    //        $this->assertIsObject(self::$subject->getDefaultStore());
+    //        $this->assertInstanceOf(Mage_Core_Model_Store::class, self::$subject->getDefaultStore());
     //    }
 
     /**
-     * @group Mage_Core
+     * @group Model
      */
     public function testGetDefaultStoresSelect(): void
     {
-        $this->assertIsObject($this->subject->getDefaultStoresSelect());
-        $this->assertInstanceOf(Varien_Db_Select::class, $this->subject->getDefaultStoresSelect(true));
+        self::assertIsObject(self::$subject->getDefaultStoresSelect());
+        self::assertInstanceOf(Varien_Db_Select::class, self::$subject->getDefaultStoresSelect(true));
     }
 
     /**
-     * @group Mage_Core
-     * @group Mage_Core_Model
+     * @group Model
      */
     public function testIsReadOnly(): void
     {
-        $this->assertFalse($this->subject->isReadOnly());
-        $this->assertTrue($this->subject->isReadOnly(true));
+        self::assertFalse(self::$subject->isReadOnly());
+        self::assertTrue(self::$subject->isReadOnly(true));
     }
 }

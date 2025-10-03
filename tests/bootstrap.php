@@ -7,3 +7,5 @@ require_once __DIR__ . '/../app/Mage.php';
 require_once __DIR__ . '/../errors/processor.php';
 
 ini_set('error_reporting', -1);
+
+$_SERVER['TEST_ROOT'] = __DIR__;

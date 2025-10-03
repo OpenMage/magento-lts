@@ -28,15 +28,16 @@
         "composer-runtime-api": "^2",
         "colinmollenhour/cache-backend-redis": "^1.14",
         "colinmollenhour/magento-redis-session": "^3.2.0",
-        "components/jquery": "1.12.4",
+        "components/jquery": "^3.7.1",
         "cweagans/composer-patches": "^1.7",
+        "empiricompany/openmage_ignition": "^1.5",
         "ezyang/htmlpurifier": "^4.17",
         "flowjs/flowjs": "dev-master",
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^25.2",
         "nnnick/chartjs": "^4.4",
         "openmage/composer-plugin": "^3.0",
-        "pelago/emogrifier": "^7.0",
+        "pelago/emogrifier": "^8.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
         "shardj/zf1-future": "^1.24.1",
@@ -45,23 +46,25 @@
         "symfony/polyfill-php84": "^1.31",
         "symfony/string": "^6.4",
         "symfony/translation-contracts": "^3.5",
-        "tinymce/tinymce": "^7.5"
+        "tinymce/tinymce": "^8.0"
     },
     "require-dev": {
         "ext-xmlreader": "*",
+        "composer/composer": "^2.8",
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0.0",
         "friendsofphp/php-cs-fixer": "^3.6",
         "macopedia/phpstan-magento1": "^1.1",
         "magento-ecg/coding-standard": "^4.5",
+        "n98/magerun": "dev-develop",
         "openmage/dev-meta-package": "^1.0.5",
         "perftools/php-profiler": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.13",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan": "^2.1.18",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^9.6",
-        "rector/rector": "^2.0",
+        "rector/rector": "^2.1.2",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
@@ -79,7 +82,7 @@
         {
             "name": "Daniel Fahlke aka Flyingmana",
             "email": "flyingmana@googlemail.com",
-            "role": "Maintainer"
+            "role": "retired Maintainer"
         },
         {
             "name": "David Robinson",
@@ -103,6 +106,7 @@
         }
     ],
     "autoload-dev": {
+        "classmap": ["app/code/*/*/*/controllers"],
         "psr-4": {
             "OpenMage\\Tests\\Unit\\": "tests/unit"
         }
@@ -154,9 +158,9 @@
         "phpmd": "vendor/bin/phpmd app/code/core/Mage text .phpmd.dist.xml --color --cache --baseline-file .phpmd.dist.baseline.xml",
         "phpstan": "XDEBUG_MODE=off php vendor/bin/phpstan analyze",
         "phpstan:baseline": "XDEBUG_MODE=off php vendor/bin/phpstan analyze -b .phpstan.dist.baseline.neon",
-        "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --no-coverage",
-        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testdox",
-        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --coverage-html build/coverage",
+        "phpunit:test": "XDEBUG_MODE=off php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --no-coverage",
+        "phpunit:coverage": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --testdox",
+        "phpunit:coverage-local": "XDEBUG_MODE=coverage php vendor/bin/phpunit --configuration .phpunit.dist.xml --testsuite Base,Error,Mage,Varien --coverage-html build/coverage",
         "rector:test": "vendor/bin/rector process --config .rector.php --dry-run",
         "rector:fix": "vendor/bin/rector process --config .rector.php",
         "test": [

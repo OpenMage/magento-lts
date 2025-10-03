@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Customer
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2018-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 use Mage_Customer_Helper_Data as Helper;
@@ -19,7 +12,6 @@ use Mage_Customer_Helper_Data as Helper;
 /**
  * Customer account controller
  *
- * @category   Mage
  * @package    Mage_Customer
  */
 class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
@@ -557,20 +549,16 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             /** @var Mage_Customer_Helper_Address $helper */
             $helper = $this->_getHelper('customer/address');
             $configAddressType = $helper->getTaxCalculationAddressType();
-            $userPrompt = '';
-            switch ($configAddressType) {
-                case Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING:
-                    $userPrompt = $this->__(
-                        'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation',
-                        $this->_getUrl('customer/address/edit'),
-                    );
-                    break;
-                default:
-                    $userPrompt = $this->__(
-                        'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation',
-                        $this->_getUrl('customer/address/edit'),
-                    );
-            }
+            $userPrompt = match ($configAddressType) {
+                Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING => $this->__(
+                    'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you shipping address for proper VAT calculation',
+                    $this->_getUrl('customer/address/edit'),
+                ),
+                default => $this->__(
+                    'If you are a registered VAT customer, please click <a href="%s">here</a> to enter you billing address for proper VAT calculation',
+                    $this->_getUrl('customer/address/edit'),
+                ),
+            };
             $this->_getSession()->addSuccess($userPrompt);
         }
 
@@ -612,7 +600,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     throw new Exception('Failed to load customer by id.');
                 }
             } catch (Exception $e) {
-                throw new Exception($this->__('Wrong customer account specified.'));
+                throw new Exception($this->__('Wrong customer account specified.'), $e->getCode(), $e);
             }
 
             // check if it is inactive
@@ -626,7 +614,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $customer->setConfirmation(null);
                     $customer->save();
                 } catch (Exception $e) {
-                    throw new Exception($this->__('Failed to confirm customer account.'));
+                    throw new Exception($this->__('Failed to confirm customer account.'), $e->getCode(), $e);
                 }
 
                 // log in and send greeting email, then die happy
@@ -727,8 +715,14 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $email = (string) $this->getRequest()->getPost('email');
         if ($email) {
+            if (!Zend_Validate::is($email, 'EmailAddress')) {
+                $this->_getSession()->setForgottenEmail($email);
+                $this->_getSession()->addError($this->__('Invalid email address.'));
+                $this->_redirect('*/*/forgotpassword');
+                return;
+            }
+
             $flowPassword = Mage::getModel('customer/flowpassword');
-            $flowPassword->setEmail($email)->save();
 
             if (!$flowPassword->checkCustomerForgotPasswordFlowEmail($email)) {
                 $this->_getSession()
@@ -743,20 +737,15 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
-                $this->_getSession()->setForgottenEmail($email);
-                $this->_getSession()->addError($this->__('Invalid email address.'));
-                $this->_redirect('*/*/forgotpassword');
-                return;
-            }
-
             $customer = Mage::getModel('customer/customer')
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
                 ->loadByEmail($email);
 
             $customerId = $customer->getId();
-            if ($customerId) {
-                try {
+
+            try {
+                $flowPassword->setEmail($email)->save();
+                if ($customerId) {
                     /** @var Helper $helper */
                     $helper = $this->_getHelper('customer');
                     $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
@@ -764,12 +753,13 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $customer->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
                     $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
                     $customer->sendPasswordResetConfirmationEmail();
-                } catch (Exception $exception) {
-                    $this->_getSession()->addError($exception->getMessage());
-                    $this->_redirect('*/*/forgotpassword');
-                    return;
                 }
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
+                $this->_redirect('*/*/forgotpassword');
+                return;
             }
+
             $this->_getSession()
                 ->addSuccess($this->_getHelper('customer')
                 ->__(

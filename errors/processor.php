@@ -1,17 +1,10 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Errors
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2025 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
@@ -284,17 +277,11 @@ class Error_Processor
     protected function _sendHeaders(int $statusCode)
     {
         $serverProtocol = !empty($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0';
-        switch ($statusCode) {
-            case 404:
-                $description = 'Not Found';
-                break;
-            case 503:
-                $description = 'Service Unavailable';
-                break;
-            default:
-                $description = '';
-                break;
-        }
+        $description = match ($statusCode) {
+            404 => 'Not Found',
+            503 => 'Service Unavailable',
+            default => '',
+        };
 
         header(sprintf('%s %s %s', $serverProtocol, $statusCode, $description), true, $statusCode);
         header(sprintf('Status: %s %s', $statusCode, $description), true, $statusCode);

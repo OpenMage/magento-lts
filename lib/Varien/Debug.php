@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Debug
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2022-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Varien Debug methods
  *
- * @category   Varien
  * @package    Varien_Debug
  */
 class Varien_Debug
@@ -94,8 +86,8 @@ class Varien_Debug
             // prepare method's name
             $methodName = '';
             if (isset($data['class']) && isset($data['function'])) {
-                if (isset($data['object']) && get_class($data['object']) != $data['class']) {
-                    $className = get_class($data['object']) . '[' . $data['class'] . ']';
+                if (isset($data['object']) && $data['object']::class != $data['class']) {
+                    $className = $data['object']::class . '[' . $data['class'] . ']';
                 } else {
                     $className = $data['class'];
                 }
@@ -154,7 +146,7 @@ class Varien_Debug
     {
         $out = '';
         if (is_object($arg)) {
-            $out .= sprintf('&%s#%s#', get_class($arg), spl_object_hash($arg));
+            $out .= sprintf('&%s#%s#', $arg::class, spl_object_hash($arg));
         } elseif (is_resource($arg)) {
             $out .= '#[' . get_resource_type($arg) . ']';
         } elseif (is_array($arg)) {

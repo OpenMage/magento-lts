@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Varien
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Varien_Filter
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2020-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Template constructions filter
  *
- * @category   Varien
  * @package    Varien_Filter
  */
 
@@ -277,7 +269,8 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         $last = 0;
         /** @var Mage_Adminhtml_Model_Email_PathValidator $emailPathValidator */
         $emailPathValidator = $this->getEmailPathValidator();
-        for ($i = 0; $i < count($stackVars); $i++) {
+        $counter = count($stackVars);
+        for ($i = 0; $i < $counter; $i++) {
             if ($i == 0 && isset($this->_templateVars[$stackVars[$i]['name']])) {
                 // Getting of template value
                 $stackVars[$i]['variable'] = & $this->_templateVars[$stackVars[$i]['name']];
