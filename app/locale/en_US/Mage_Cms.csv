@@ -125,3 +125,4 @@
 "Unable to find a page to delete.","Unable to find a page to delete."
 "WYSIWYG Options","WYSIWYG Options"
 "px.","px."
+"Relative to Website Base URL. Please note this change may require updating references in CMS blocks, widgets, layouts, templates, external/internal links, and any custom extensions or modules.","Relative to Website Base URL. Please note this change may require updating references in CMS blocks, widgets, layouts, templates, external/internal links, and any custom extensions or modules."
