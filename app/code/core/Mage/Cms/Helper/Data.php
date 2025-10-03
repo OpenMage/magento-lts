@@ -81,16 +81,6 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * Check if <link rel="canonical"> can be used for CMS pages
-     *
-     * @param int|string|null|Mage_Core_Model_Store $store
-     */
-    public function canUseCanonicalTag($store = null): bool
-    {
-        return Mage::getStoreConfigFlag(self::XML_PATH_USE_CMS_CANONICAL_TAG, $store);
-    }
-
-    /**
      * Joins an array of strings into a grammatically correct English list using commas and 'and'.
      *
      * Examples:
