@@ -219,9 +219,9 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif ($count === 1) {
             return $items[0];
         } elseif ($count === 2) {
-            return $items[0] . ' and ' . $items[1];
+            return $items[0] . $this->__(' and ') . $items[1];
         } else {
-            return implode(', ', array_slice($items, 0, -1)) . ', and ' . $items[$count - 1];
+            return implode(', ', array_slice($items, 0, -1)) . $this->__(', and ') . $items[$count - 1];
         }
     }
 }
