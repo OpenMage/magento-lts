@@ -172,4 +172,63 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->isUsedInStoreConfig($this, $paths);
     }
+
+    /**
+     * Checks if the CMS page is used as a default page (Home, No Route, No Cookies) for any store view or website,
+     * and prevents disabling or changing the URL key with a warning message and blocks save.
+     *
+     * - For disabling, blocks if the page is referenced in config and shows detailed warning.
+     * - For URL Key change, blocks if the old identifier is referenced in config and shows detailed warning.
+     *
+     * The list of usages is formatted using Mage_Cms_Helper_Data::getUsageScopes for proper English grammar.
+     *
+     * Throws a Mage_Core_Exception if the page is in use as a default page and disabling or changing URL key is attempted.
+     *
+     * @return Mage_Cms_Model_Page
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        // Prevent disabling if the page is used in store configuration as Home Page, No Route Page, or No Cookies Page
+        if ($this->getIsActive() == self::STATUS_DISABLED) {
+            $usedIn = Mage::helper('cms')->getUsageScopes($this->getIdentifier());
+            if (count($usedIn)) {
+                $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
+                $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
+                $message = Mage::helper('cms')->__(
+                    'This page is used as %s.',
+                    Mage::helper('cms')->joinWithCommaAnd($usedIn),
+                );
+                $message .= ' ' . Mage::helper('cms')->__(
+                    'Please change the %s configuration per scope before disabling.',
+                    $configLink,
+                );
+                Mage::throwException($message);
+            }
+        }
+
+        // Prevent changing the URL key if the page is used in store configuration as Home Page, No Route Page, or No Cookies Page
+        $origIdentifier = $this->getOrigData('identifier');
+        $newIdentifier = $this->getIdentifier();
+        if ($origIdentifier !== null && $origIdentifier !== $newIdentifier) {
+            $usedIn = Mage::helper('cms')->getUsageScopes($origIdentifier);
+            if (count($usedIn)) {
+                $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
+                $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
+                $message = Mage::helper('cms')->__(
+                    'This page is used as %s.',
+                    Mage::helper('cms')->joinWithCommaAnd($usedIn),
+                );
+                $message .= ' ' . Mage::helper('cms')->__(
+                    'Please change the %s configuration per scope before changing.',
+                    $configLink,
+                );
+                Mage::throwException($message);
+            }
+        }
+
+        return $this;
+    }
 }
