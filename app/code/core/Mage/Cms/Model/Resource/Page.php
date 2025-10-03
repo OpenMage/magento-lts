@@ -32,17 +32,125 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeDelete(Mage_Core_Model_Abstract $object)
     {
+        // Delimiters (easy to edit)
+        $delimiter        = ' ';   // Between page type and scope label, it can be used ' in '
+        $labelDelimiter   = ' > '; // Between website and store view
+
         if ($object instanceof Mage_Cms_Model_Page) {
-            $isUsedInConfig = $this->getUsedInStoreConfigCollection($object);
-            if ($isUsedInConfig->count()) {
-                // prevent delete
-                $object->setId(null);
-                Mage::throwException(
-                    Mage::helper('cms')->__(
-                        'Cannot delete page, it is used in "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
-                    ),
+            /** @var array<string, array<string, bool>> $usage */
+            $usage = [
+                'web/default/cms_home_page'    => [],
+                'web/default/cms_no_route'     => [],
+                'web/default/cms_no_cookies'   => [],
+            ];
+
+            $configPaths = [
+                'web/default/cms_home_page'    => Mage::helper('cms')->__('Home Page'),
+                'web/default/cms_no_route'     => Mage::helper('cms')->__('No Route Page'),
+                'web/default/cms_no_cookies'   => Mage::helper('cms')->__('No Cookies Page'),
+            ];
+
+            $collection = Mage::getModel('core/config_data')->getCollection()
+                ->addFieldToFilter('path', ['in' => array_keys($configPaths)])
+                ->addFieldToFilter('value', $object->getIdentifier());
+
+            // Build associative array by website for grouping
+            $scopesByType = [
+                'Default Config' => [],
+                // website name => [null => true, store view name => true]
+            ];
+
+            foreach ($collection as $item) {
+                $scope = $item->getScope();
+                $scopeId = $item->getScopeId();
+                $path = $item->getPath();
+
+                if ($scope === 'stores') {
+                    $store = Mage::app()->getStore($scopeId);
+                    $website = $store->getWebsite();
+                    $websiteName = $website->getName();
+                    $storeViewName = $store->getName();
+
+                    if (!isset($scopesByType[$websiteName])) {
+                        $scopesByType[$websiteName] = [];
+                    }
+                    $scopesByType[$websiteName][$storeViewName] = true;
+
+                    if (isset($usage[$path])) {
+                        $usage[$path][$websiteName . $labelDelimiter . $storeViewName] = true;
+                    }
+                } elseif ($scope === 'websites') {
+                    $website = Mage::app()->getWebsite($scopeId);
+                    $websiteName = $website->getName();
+
+                    if (!isset($scopesByType[$websiteName])) {
+                        $scopesByType[$websiteName] = [];
+                    }
+                    $scopesByType[$websiteName][null] = true;
+
+                    if (isset($usage[$path])) {
+                        $usage[$path][$websiteName] = true;
+                    }
+                } else {
+                    // Default Config
+                    $scopesByType['Default Config'][null] = true;
+
+                    if (isset($usage[$path])) {
+                        $usage[$path]['Default Config'] = true;
+                    }
+                }
+            }
+
+            $usedIn = [];
+            // Build ordered labels for each page type.
+            // Ordered as follows: "Default Config" first, then for each website, the website name, followed by each store view under that website.
+            foreach ($usage as $path => $scopeLabels) {
+                if ($scopeLabels) {
+                    $labels = [];
+                    // Default Config first
+                    if (array_key_exists('Default Config', $scopeLabels)) {
+                        $labels[] = 'Default Config';
+                    }
+
+                    // Then each website, first website name, then store views
+                    foreach ($scopesByType as $websiteName => $storeViews) {
+                        if ($websiteName === 'Default Config') {
+                            continue;
+                        }
+                        // Website only
+                        if (array_key_exists($websiteName, $scopeLabels)) {
+                            $labels[] = $websiteName;
+                        }
+                        // Store views
+                        foreach ($storeViews as $storeViewName => $dummy) {
+                            $fullLabel = $websiteName . $labelDelimiter . $storeViewName;
+                            if (array_key_exists($fullLabel, $scopeLabels)) {
+                                $labels[] = $fullLabel;
+                            }
+                        }
+                    }
+
+                    $usedIn[] = sprintf(
+                        '%s%s(%s)',
+                        $configPaths[$path],
+                        $delimiter,
+                        implode(', ', $labels),
+                    );
+                }
+            }
+
+            if (count($usedIn)) {
+                $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
+                $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
+                $message = Mage::helper('cms')->__(
+                    'This page is used as %s.',
+                    Mage::helper('cms')->joinWithCommaAnd($usedIn),
                 );
+                $message .= ' ' . Mage::helper('cms')->__(
+                    'Please change the %s configuration per scope before deleting.',
+                    $configLink,
+                );
+                Mage::throwException($message);
             }
         }
 
