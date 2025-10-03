@@ -174,31 +174,6 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Joins an array of strings into a grammatically correct English list using commas and 'and'.
-     *
-     * Examples:
-     * - ['A']         => 'A'
-     * - ['A', 'B']    => 'A and B'
-     * - ['A', 'B', 'C'] => 'A, B, and C'
-     *
-     * @param array $items Array of strings to join
-     * @return string
-     */
-    protected function _joinWithCommaAnd(array $items)
-    {
-        $count = count($items);
-        if ($count === 0) {
-            return '';
-        } elseif ($count === 1) {
-            return $items[0];
-        } elseif ($count === 2) {
-            return $items[0] . ' and ' . $items[1];
-        } else {
-            return implode(', ', array_slice($items, 0, -1)) . ', and ' . $items[$count - 1];
-        }
-    }
-
-    /**
      * Checks if the CMS page is used as a default page (Home, No Route, No Cookies) for any store view or website,
      * and prevents disabling it with a warning message.
      *
@@ -330,7 +305,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
                 $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
                 $message = Mage::helper('cms')->__(
                     'This page is used as %s.',
-                    $this->_joinWithCommaAnd($usedIn),
+                    Mage::helper('cms')->joinWithCommaAnd($usedIn),
                 );
                 $message .= ' ' . Mage::helper('cms')->__(
                     'Please change the %s configuration per scope before disabling.',
