@@ -37,12 +37,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             if ($isUsedInConfig->count()) {
                 // prevent delete
                 $object->setId(null);
-                Mage::throwException(
-                    Mage::helper('cms')->__(
-                        'Cannot delete page, it is used in "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
-                    ),
-                );
+                $message = Mage::helper('cms')->__('Cannot delete page, it is used in configuration. ')
+                    . Mage::helper('cms')->buildConfigUsageMessage($isUsedInConfig, 'deleting');
+                Mage::throwException($message);
             }
         }
 
@@ -77,12 +74,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
             $isUsedInConfig = $this->getUsedInStoreConfigCollection($object);
             if ($isUsedInConfig->count()) {
                 $object->setIsActive(true);
-                Mage::getSingleton('adminhtml/session')->addWarning(
-                    Mage::helper('cms')->__(
-                        'Cannot disable page, it is used in configuration "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
-                    ),
-                );
+                $message = Mage::helper('cms')->__('Cannot disable page, it is used in configuration. ')
+                    . Mage::helper('cms')->buildConfigUsageMessage($isUsedInConfig, 'disabling');
+                Mage::getSingleton('adminhtml/session')->addWarning($message);
             }
         }
 
@@ -279,7 +273,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         return preg_match('/^[a-z0-9][a-z0-9_\/-]+(\.[a-z0-9_-]+)?$/', $object->getData('identifier'));
     }
 
-    public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
+    public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Config_Data_Collection
     {
         $storeIds   = (array) $page->getStoreId();
         $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
