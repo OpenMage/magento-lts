@@ -195,21 +195,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         if ($this->getIsActive() == self::STATUS_DISABLED) {
             $usedIn = Mage::helper('cms')->getUsageScopes($this->getIdentifier());
             if (count($usedIn)) {
-                $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
-                $configLink = sprintf(
-                    '<a href="%s" target="_blank">%s</a>',
-                    $configUrl,
-                    Mage::helper('cms')->__('Default Pages'),
-                );
-                $message = sprintf(
-                    Mage::helper('cms')->__('This page is used as %s.'),
-                    Mage::helper('cms')->joinWithCommaAnd($usedIn),
-                );
-                $message .= ' ' . sprintf(
-                    Mage::helper('cms')->__('Please change the %s configuration per scope before disabling.'),
-                    $configLink,
-                );
-                Mage::throwException($message);
+                $this->_throwPageUsedException($usedIn, 'disabling');
             }
         }
 
@@ -219,24 +205,39 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
         if ($origIdentifier !== null && $origIdentifier !== $newIdentifier) {
             $usedIn = Mage::helper('cms')->getUsageScopes($origIdentifier);
             if (count($usedIn)) {
-                $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
-                $configLink = sprintf(
-                    '<a href="%s" target="_blank">%s</a>',
-                    $configUrl,
-                    Mage::helper('cms')->__('Default Pages'),
-                );
-                $message = sprintf(
-                    Mage::helper('cms')->__('This page is used as %s.'),
-                    Mage::helper('cms')->joinWithCommaAnd($usedIn),
-                );
-                $message .= ' ' . sprintf(
-                    Mage::helper('cms')->__('Please change the %s configuration per scope before changing.'),
-                    $configLink,
-                );
-                Mage::throwException($message);
+                $this->_throwPageUsedException($usedIn, 'changing');
             }
         }
 
         return $this;
     }
+
+    /**
+     * Throws an exception if a CMS page is used in store configuration (e.g. Home Page, No Route Page, No Cookies Page).
+     * Builds and formats the exception message including usage scopes and configuration link.
+     *
+     * @param array $usedIn Array of usage scopes (strings) where the page is currently set
+     * @param string $action Action attempted on the page (e.g. "disabling", "changing")
+     * @throws Mage_Core_Exception
+     */
+    protected function _throwPageUsedException(array $usedIn, $action) :void
+    {
+        $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
+        $configLink = sprintf(
+            '<a href="%s" target="_blank">%s</a>',
+            $configUrl,
+            Mage::helper('cms')->__('Default Pages')
+        );
+        $message = sprintf(
+            Mage::helper('cms')->__('This page is used as %s.'),
+            Mage::helper('cms')->joinWithCommaAnd($usedIn)
+        );
+        $message .= ' ' . sprintf(
+                Mage::helper('cms')->__('Please change the %s configuration per scope before %s.'),
+                $configLink,
+                $action
+            );
+        Mage::throwException($message);
+    }
+
 }
