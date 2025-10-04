@@ -83,11 +83,8 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Returns an array of usages for a CMS page identifier in critical config (Home, No Route, No Cookies)
      * Each entry describes where the page is used (Default Config, Website, Store View), ordered like in admin config.
-     *
-     * @param string $identifier
-     * @return array
      */
-    public function getUsageScopes($identifier)
+    public function getUsageScopes(string $identifier): array
     {
         // Delimiters (easy to edit)
         $delimiter      = ' '; // Between page type and scope label, it can be
@@ -212,9 +209,8 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
      * - ['A', 'B', 'C'] => 'A, B, and C'
      *
      * @param array $items Array of strings to join
-     * @return string
      */
-    public function joinWithCommaAnd(array $items)
+    public function joinWithCommaAnd(array $items): string
     {
         $count = count($items);
         if ($count === 0) {

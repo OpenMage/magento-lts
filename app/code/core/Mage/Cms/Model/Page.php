@@ -196,13 +196,17 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
             $usedIn = Mage::helper('cms')->getUsageScopes($this->getIdentifier());
             if (count($usedIn)) {
                 $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
-                $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
-                $message = Mage::helper('cms')->__(
-                    'This page is used as %s.',
+                $configLink = sprintf(
+                    '<a href="%s" target="_blank">%s</a>',
+                    $configUrl,
+                    Mage::helper('cms')->__('Default Pages'),
+                );
+                $message = sprintf(
+                    Mage::helper('cms')->__('This page is used as %s.'),
                     Mage::helper('cms')->joinWithCommaAnd($usedIn),
                 );
-                $message .= ' ' . Mage::helper('cms')->__(
-                    'Please change the %s configuration per scope before disabling.',
+                $message .= ' ' . sprintf(
+                    Mage::helper('cms')->__('Please change the %s configuration per scope before disabling.'),
                     $configLink,
                 );
                 Mage::throwException($message);
@@ -216,13 +220,17 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
             $usedIn = Mage::helper('cms')->getUsageScopes($origIdentifier);
             if (count($usedIn)) {
                 $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
-                $configLink = '<a href="' . $configUrl . '" target="_blank">' . Mage::helper('cms')->__('Default Pages') . '</a>';
-                $message = Mage::helper('cms')->__(
-                    'This page is used as %s.',
+                $configLink = sprintf(
+                    '<a href="%s" target="_blank">%s</a>',
+                    $configUrl,
+                    Mage::helper('cms')->__('Default Pages'),
+                );
+                $message = sprintf(
+                    Mage::helper('cms')->__('This page is used as %s.'),
                     Mage::helper('cms')->joinWithCommaAnd($usedIn),
                 );
-                $message .= ' ' . Mage::helper('cms')->__(
-                    'Please change the %s configuration per scope before changing.',
+                $message .= ' ' . sprintf(
+                    Mage::helper('cms')->__('Please change the %s configuration per scope before changing.'),
                     $configLink,
                 );
                 Mage::throwException($message);
