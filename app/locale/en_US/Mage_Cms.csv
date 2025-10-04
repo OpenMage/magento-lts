@@ -128,7 +128,6 @@
 "This page is used as %s.","This page is used as %s."
 "Please change the %s configuration per scope before disabling.","Please change the %s configuration per scope before disabling."
 "Please change the %s configuration per scope before changing.","Please change the %s configuration per scope before changing."
-"Cannot delete page, it is used in \"%s\".","Cannot delete page, it is used in \"%s\"."
 "Default Pages","Default Pages"
 "Home Page","Home Page"
 "No Route Page","No Route Page"
