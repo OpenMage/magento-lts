@@ -37,6 +37,7 @@ describe(`Checks admin system "${route.h3}"`, () => {
             .select(4);
 
         validation.saveAction(route._buttonSaveAndContinue);
+        // @todo: fix needed - this test passes because of a Magento bug
         cy.get(validation._successMessage).should('include.text', 'The page has been saved.');
 
         cy.log('Restore the default store to the CMS page');
@@ -44,7 +45,6 @@ describe(`Checks admin system "${route.h3}"`, () => {
             .select([1, 2, 3]);
 
         validation.saveAction(route._buttonSaveAndContinue);
-        // @todo: fix needed - this test passes because of a Magento bug
         cy.get(validation._successMessage).should('include.text', 'The page has been saved.');
 
     });
