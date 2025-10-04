@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a379a4ec7e3f7b249a91881618f67c9",
+    "content-hash": "132128cf56c404549e5451faed640451",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1357,16 +1357,16 @@
         },
         {
             "name": "openmage/composer-plugin",
-            "version": "v3.0.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/OpenMage/composer-plugin.git",
-                "reference": "a20c2f24c6bacb693a02768f10d447c9bb40e299"
+                "reference": "5ea8f5d3dc2119f74699ace4d5ee5b50e3627a37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/a20c2f24c6bacb693a02768f10d447c9bb40e299",
-                "reference": "a20c2f24c6bacb693a02768f10d447c9bb40e299",
+                "url": "https://api.github.com/repos/OpenMage/composer-plugin/zipball/5ea8f5d3dc2119f74699ace4d5ee5b50e3627a37",
+                "reference": "5ea8f5d3dc2119f74699ace4d5ee5b50e3627a37",
                 "shasum": ""
             },
             "require": {
@@ -1376,7 +1376,15 @@
                 "symfony/finder": "*"
             },
             "require-dev": {
-                "composer/composer": "^2.7"
+                "composer/composer": "^2.8",
+                "friendsofphp/php-cs-fixer": "^3.67",
+                "phpmd/phpmd": "^2.15",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-strict-rules": "^2.0",
+                "phpstan/phpstan-symfony": "^2.0",
+                "phpunit/phpunit": "^9.6",
+                "rector/rector": "^2.1.2"
             },
             "type": "composer-plugin",
             "extra": {
@@ -1405,7 +1413,7 @@
             ],
             "support": {
                 "issues": "https://github.com/OpenMage/composer-plugin/issues",
-                "source": "https://github.com/OpenMage/composer-plugin/tree/v3.0.0"
+                "source": "https://github.com/OpenMage/composer-plugin/tree/v3.1.0"
             },
             "funding": [
                 {
@@ -1417,7 +1425,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2025-01-13T01:08:07+00:00"
+            "time": "2025-10-02T01:15:46+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",

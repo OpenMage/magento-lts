@@ -36,7 +36,7 @@
         "magento-hackathon/magento-composer-installer": "^3.1 || ^2.1 || ^4.0",
         "mklkj/tinymce-i18n": "^25.2",
         "nnnick/chartjs": "^4.4",
-        "openmage/composer-plugin": "^3.0",
+        "openmage/composer-plugin": "^3.1",
         "pelago/emogrifier": "^8.0",
         "phpseclib/mcrypt_compat": "^2.0.3",
         "phpseclib/phpseclib": "^3.0.14",
