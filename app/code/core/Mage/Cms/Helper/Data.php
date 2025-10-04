@@ -79,4 +79,29 @@ class Mage_Cms_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfigFlag(self::XML_PATH_USE_CMS_CANONICAL_TAG, $store);
     }
+
+    /**
+     * Joins an array of strings into a grammatically correct English list using commas and 'and'.
+     *
+     * Examples:
+     * - ['A']         => 'A'
+     * - ['A', 'B']    => 'A and B'
+     * - ['A', 'B', 'C'] => 'A, B, and C'
+     *
+     * @param array $items Array of strings to join
+     * @return string
+     */
+    public function joinWithCommaAnd(array $items)
+    {
+        $count = count($items);
+        if ($count === 0) {
+            return '';
+        } elseif ($count === 1) {
+            return $items[0];
+        } elseif ($count === 2) {
+            return $items[0] . ' and ' . $items[1];
+        } else {
+            return implode(', ', array_slice($items, 0, -1)) . ', and ' . $items[$count - 1];
+        }
+    }
 }
