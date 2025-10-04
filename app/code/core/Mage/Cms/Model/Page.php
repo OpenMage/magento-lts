@@ -172,4 +172,72 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     {
         return $this->_getResource()->isUsedInStoreConfig($this, $paths);
     }
+
+    /**
+     * Checks if the CMS page is used as a default page (Home, No Route, No Cookies) for any store view or website,
+     * and prevents disabling or changing the URL key with a warning message and blocks save.
+     *
+     * - For disabling, blocks if the page is referenced in config and shows detailed warning.
+     * - For URL Key change, blocks if the old identifier is referenced in config and shows detailed warning.
+     *
+     * The list of usages is formatted using Mage_Cms_Helper_Data::getUsageScopes for proper English grammar.
+     *
+     * Throws a Mage_Core_Exception if the page is in use as a default page and disabling or changing URL key is attempted.
+     *
+     * @return Mage_Cms_Model_Page
+     * @throws Mage_Core_Exception
+     */
+    protected function _beforeSave()
+    {
+        parent::_beforeSave();
+
+        // Prevent disabling if the page is used in store configuration as Home Page, No Route Page, or No Cookies Page
+        if ($this->getIsActive() == self::STATUS_DISABLED) {
+            $usedIn = Mage::helper('cms')->getUsageScopes($this->getIdentifier());
+            if (count($usedIn)) {
+                $this->_throwPageUsedException($usedIn, 'disabling');
+            }
+        }
+
+        // Prevent changing the URL key if the page is used in store configuration as Home Page, No Route Page, or No Cookies Page
+        $origIdentifier = $this->getOrigData('identifier');
+        $newIdentifier = $this->getIdentifier();
+        if ($origIdentifier !== null && $origIdentifier !== $newIdentifier) {
+            $usedIn = Mage::helper('cms')->getUsageScopes($origIdentifier);
+            if (count($usedIn)) {
+                $this->_throwPageUsedException($usedIn, 'changing');
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Throws an exception if a CMS page is used in store configuration (e.g. Home Page, No Route Page, No Cookies Page).
+     * Builds and formats the exception message including usage scopes and configuration link.
+     *
+     * @param array $usedIn Array of usage scopes (strings) where the page is currently set
+     * @param string $action Action attempted on the page (e.g. "disabling", "changing")
+     * @throws Mage_Core_Exception
+     */
+    protected function _throwPageUsedException(array $usedIn, $action): void
+    {
+        $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
+        $configLink = sprintf(
+            '<a href="%s" target="_blank">%s</a>',
+            $configUrl,
+            Mage::helper('cms')->__('Default Pages'),
+        );
+        $message = sprintf(
+            Mage::helper('cms')->__('This page is used as %s.'),
+            Mage::helper('cms')->joinWithCommaAnd($usedIn),
+        );
+        $message .= ' ' . sprintf(
+            Mage::helper('cms')->__('Please change the %s configuration per scope before %s.'),
+            $configLink,
+            $action,
+        );
+        Mage::throwException($message);
+    }
+
 }
