@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -19,12 +21,27 @@ require_once 'abstract.php';
  *
  * By default, unread notifications are protected and will NOT be deleted unless
  * --include-unread is explicitly specified.
- * If --all is used without --include-unread, the script aborts with an error.
+ * If --all is used without --include-unread, the script aborts with an error and reports the count of unread messages.
  *
  * @package    Mage_Shell
  */
 class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
 {
+    /**
+     * Maximum number of notifications to display in dry-run/table output.
+     */
+    private const DRY_RUN_LIMIT = 50;
+
+    /**
+     * Table width for dry-run output formatting.
+     */
+    private const TABLE_WIDTH = 140;
+
+    /**
+     * Maximum length for title/description truncation in dry-run output.
+     */
+    private const COLUMN_TRUNCATE_LENGTH = 40;
+
     /**
      * Severity mapping based on OpenMage/Magento LTS conventions.
      *
@@ -118,30 +135,30 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                     $select->where('severity IN (?)', $severities);
                 }
             }
-            $select->limit(50);
+            $select->limit(self::DRY_RUN_LIMIT);
 
             $rows = $conn->fetchAll($select);
 
             if (count($rows)) {
                 // Print table header
                 printf("%-5s | %-40s | %-40s | %-20s | %-6s | %-8s\n", 'ID', 'Title', 'Description', 'Date Added', 'Read', 'Severity');
-                printf("%s\n", str_repeat('-', 140));
+                printf("%s\n", str_repeat('-', self::TABLE_WIDTH));
                 foreach ($rows as $row) {
-                    // Truncate description for display
-                    $desc = isset($row['description']) ? substr((string) $row['description'], 0, 40) : '';
+                    // Truncate title and description for display
+                    $desc = isset($row['description']) ? substr((string) $row['description'], 0, self::COLUMN_TRUNCATE_LENGTH) : '';
                     $severityLabel = isset($this->severityMap[(int) $row['severity']]) ? $this->severityMap[(int) $row['severity']] : (string) $row['severity'];
                     printf(
                         "%-5d | %-40s | %-40s | %-20s | %-6s | %-8s\n",
                         (int) $row['notification_id'],
-                        substr((string) $row['title'], 0, 40),
+                        substr((string) $row['title'], 0, self::COLUMN_TRUNCATE_LENGTH),
                         $desc,
                         (string) $row['date_added'],
                         ((int) $row['is_read'] === 1 ? 'Yes' : 'No'),
                         $severityLabel,
                     );
                 }
-                if (count($rows) == 50) {
-                    echo "(Showing first 50 results)\n";
+                if (count($rows) == self::DRY_RUN_LIMIT) {
+                    echo '(Showing first ' . self::DRY_RUN_LIMIT . " results)\n";
                 }
                 // Show total count of matching notifications
                 $selectCount = $conn->select()->from($table, 'COUNT(*)');
