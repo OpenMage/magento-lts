@@ -36,6 +36,6 @@ final class FileTest extends OpenMageTest
     public function testGetFilePath(string $expectedResult, string $path, ?string $file): void
     {
         $result = self::$subject->getFilePath($path, $file);
-        static::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }
