@@ -279,8 +279,10 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
         $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
         $config     = Mage::getResourceModel('core/config_data_collection')
             ->addFieldToFilter('value', [
-                'eq' => $page->getIdentifier(),
-                'eq' => $page->getIdentifier() . '|' . $page->getId()
+                'in' => [
+                    $page->getIdentifier(),
+                    $page->getIdentifier() . '|' . $page->getId()
+                ]
             ]);
 
         if (!is_null($paths)) {
