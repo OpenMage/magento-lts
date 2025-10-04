@@ -38,8 +38,6 @@ namespace PHPSTORM_META {
             'bundle/catalog_product_configuration' => \Mage_Bundle_Helper_Catalog_Product_Configuration::class,
             'bundle' => \Mage_Bundle_Helper_Data::class,
             'bundle/data' => \Mage_Bundle_Helper_Data::class,
-            'captcha' => \Mage_Captcha_Helper_Data::class,
-            'captcha/data' => \Mage_Captcha_Helper_Data::class,
             'cataloginventory' => \Mage_CatalogInventory_Helper_Data::class,
             'cataloginventory/data' => \Mage_CatalogInventory_Helper_Data::class,
             'cataloginventory/minsaleqty' => \Mage_CatalogInventory_Helper_Minsaleqty::class,
