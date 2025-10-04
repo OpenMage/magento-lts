@@ -57,7 +57,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Main extends Mage_Adminhtml_Block_W
             'title'     => Mage::helper('cms')->__('URL Key'),
             'required'  => true,
             'class'     => 'validate-identifier',
-            'note'      => Mage::helper('cms')->__('Relative to Website Base URL'),
+            'note'      => Mage::helper('cms')->__('Relative to Website Base URL. Please note this change may require updating references in CMS blocks, widgets, layouts, templates, external/internal links, and any custom extensions or modules.'),
             'disabled'  => $isElementDisabled,
         ]);
 
