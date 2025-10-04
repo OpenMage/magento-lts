@@ -192,7 +192,7 @@ class Mage_Dataflow_Model_Profile extends Mage_Core_Model_Abstract
                             foreach ($cells as $cell) {
                                 $fileData[] = $this->getNode($cell, 'Data')->item(0)->nodeValue;
                             }
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                             foreach ($newUploadedFilenames as $k => $v) {
                                 unlink($path . $v);
                             }

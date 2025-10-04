@@ -192,7 +192,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
             $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
 
             return $dateObj;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }

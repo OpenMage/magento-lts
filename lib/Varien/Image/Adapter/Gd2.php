@@ -268,7 +268,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     imagecolortransparent($imageResourceTo, $transparentColor);
                     return $transparentColor;
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // fallback to default background color
             }
         }

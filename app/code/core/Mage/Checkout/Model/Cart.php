@@ -298,7 +298,7 @@ class Mage_Checkout_Model_Cart extends Varien_Object implements Mage_Checkout_Mo
                 if ($product->getId() && $product->isVisibleInCatalog()) {
                     try {
                         $this->getQuote()->addProduct($product);
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                         $allAdded = false;
                     }
                 } else {
