@@ -69,7 +69,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
      *  --dry-run         Show notifications that would be deleted (table output)
      *  help              Display usage information
      *
-     * Example: php shell/cleanAdminNotifications.php --before 2024-01-01 --severity-0 --dry-run
+     * Example: php shell/notifications.php --before 2024-01-01 --severity-0 --dry-run
      */
     public function run(): void
     {
@@ -108,7 +108,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                 echo "Unread notifications are protected by default.\n";
             }
             echo "To delete all notifications, including unread, use:\n";
-            echo "  php shell/cleanAdminNotifications.php --all --include-unread\n";
+            echo "  php shell/notifications.php --all --include-unread\n";
             return;
         }
 
@@ -221,7 +221,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
     public function usageHelp(): string
     {
         return
-            "Usage:  php -f cleanAdminNotifications.php [options]\n" .
+            "Usage:  php -f notifications.php [options]\n" .
             "  --before YYYY-MM-DD    Delete notifications before this date (space, not =)\n" .
             "  --only-read            Delete only notifications marked as read (default: ON unless --include-unread is used)\n" .
             "  --include-unread       Allows deletion of unread notifications (use with caution!)\n" .
@@ -233,8 +233,8 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
             "  --dry-run              Show what would be deleted, no changes\n" .
             "  help                   This help message\n" .
             "\nIMPORTANT: For options with values, use space (not =) between option and value!\n" .
-            "Example: php shell/cleanAdminNotifications.php --before 2024-01-01 --severity-0 --dry-run\n" .
-            "         php shell/cleanAdminNotifications.php --all --include-unread\n";
+            "Example: php shell/notifications.php --before 2024-01-01 --severity-0 --dry-run\n" .
+            "         php shell/notifications.php --all --include-unread\n";
     }
 }
 
