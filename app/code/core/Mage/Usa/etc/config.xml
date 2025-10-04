@@ -119,6 +119,8 @@
                 <meter_number backend_model="adminhtml/system_config_backend_encrypted"/>
                 <key backend_model="adminhtml/system_config_backend_encrypted"/>
                 <password backend_model="adminhtml/system_config_backend_encrypted"/>
+                <rest_track_key backend_model="adminhtml/system_config_backend_encrypted"/>
+                <rest_track_secret backend_model="adminhtml/system_config_backend_encrypted"/>
                 <sandbox_mode>0</sandbox_mode>
                 <shipment_requesttype>0</shipment_requesttype>
                 <active>0</active>
