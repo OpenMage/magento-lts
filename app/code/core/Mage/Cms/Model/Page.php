@@ -220,23 +220,23 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
      * @param string $action Action attempted on the page (e.g. "disabling", "changing")
      * @throws Mage_Core_Exception
      */
-    protected function _throwPageUsedException(array $usedIn, $action) :void
+    protected function _throwPageUsedException(array $usedIn, $action): void
     {
         $configUrl = Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit/section/web');
         $configLink = sprintf(
             '<a href="%s" target="_blank">%s</a>',
             $configUrl,
-            Mage::helper('cms')->__('Default Pages')
+            Mage::helper('cms')->__('Default Pages'),
         );
         $message = sprintf(
             Mage::helper('cms')->__('This page is used as %s.'),
-            Mage::helper('cms')->joinWithCommaAnd($usedIn)
+            Mage::helper('cms')->joinWithCommaAnd($usedIn),
         );
         $message .= ' ' . sprintf(
-                Mage::helper('cms')->__('Please change the %s configuration per scope before %s.'),
-                $configLink,
-                $action
-            );
+            Mage::helper('cms')->__('Please change the %s configuration per scope before %s.'),
+            $configLink,
+            $action,
+        );
         Mage::throwException($message);
     }
 
