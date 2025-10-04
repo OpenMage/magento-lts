@@ -193,7 +193,16 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                     $where[] = $conn->quoteInto('severity IN (?)', $severities);
                 }
             }
-            $whereClause = $all ? '' : (count($where) ? implode(' AND ', $where) : '');
+
+            // Refactored for clarity, as per suggestion:
+            if ($all) {
+                $whereClause = '';
+            } elseif (count($where)) {
+                $whereClause = implode(' AND ', $where);
+            } else {
+                $whereClause = '';
+            }
+
             if ($all) {
                 $count = $conn->delete($table); // Delete everything (only possible if --include-unread)
             } elseif ($whereClause !== '') {
