@@ -78,10 +78,10 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
         if (!$before && isset($this->_args['before'])) {
             $before = $this->_args['before'];
         }
-        $onlyRead = $this->getArg('only-read') ?: (isset($this->_args['only-read']) ? $this->_args['only-read'] : null);
-        $includeUnread = $this->getArg('include-unread') ?: (isset($this->_args['include-unread']) ? $this->_args['include-unread'] : null);
-        $all = $this->getArg('all') ?: (isset($this->_args['all']) ? $this->_args['all'] : null);
-        $dryRun = $this->getArg('dry-run') ?: (isset($this->_args['dry-run']) ? $this->_args['dry-run'] : null);
+        $onlyRead = $this->getArg('only-read') ?: ($this->_args['only-read'] ?? null);
+        $includeUnread = $this->getArg('include-unread') ?: ($this->_args['include-unread'] ?? null);
+        $all = $this->getArg('all') ?: ($this->_args['all'] ?? null);
+        $dryRun = $this->getArg('dry-run') ?: ($this->_args['dry-run'] ?? null);
 
         // Parse severity options
         $severities = [];
@@ -146,7 +146,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                 foreach ($rows as $row) {
                     // Truncate title and description for display
                     $desc = isset($row['description']) ? substr((string) $row['description'], 0, self::COLUMN_TRUNCATE_LENGTH) : '';
-                    $severityLabel = isset($this->severityMap[(int) $row['severity']]) ? $this->severityMap[(int) $row['severity']] : (string) $row['severity'];
+                    $severityLabel = $this->severityMap[(int) $row['severity']] ?? (string) $row['severity'];
                     printf(
                         "%-5d | %-40s | %-40s | %-20s | %-6s | %-8s\n",
                         (int) $row['notification_id'],
