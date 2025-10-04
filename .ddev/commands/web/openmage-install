@@ -3,8 +3,8 @@
 ## ProjectTypes: magento
 ## Description: Install OpenMage
 ## Usage: openmage-install [-d|--default] [-s|--sampledata] [-k|--keep] [-q|--quiet]
-## Example: ddev openmage-install -d -s -k
-## Flags: [{"Name":"default","Shorthand":"d","Usage":"use default values"},{"Name":"sampledata","Shorthand":"s","Usage":"install sample data"},{"Name":"keep","Shorthand":"k","Usage":"keep sample data package"},{"Name":"quiet","Shorthand":"q","Usage":"silent install with sample data"}]
+## Example: ddev openmage-install -d -s -k -x
+## Flags: [{"Name":"default","Shorthand":"d","Usage":"use default values"},{"Name":"sampledata","Shorthand":"s","Usage":"install sample data"},{"Name":"keep","Shorthand":"k","Usage":"keep sample data package"},{"Name":"quiet","Shorthand":"q","Usage":"silent install with sample data"},{"Name":"extra","Shorthand":"x","Usage":"install with updated sample data (ddev)"}]
 
 ROOT="${PWD}"
 
@@ -26,6 +26,8 @@ while :; do
             USE_DEFAULT_FLAG='true'
             SAMPLE_DATA_FLAG='true'
             ;;
+         -x|--extra)
+            SAMPLE_DATA_EXTRA_FLAG='true' ;;
          --)              # End of all options.
              shift
              break
@@ -69,9 +71,13 @@ else
 fi
 
 if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
-  SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
   SAMPLE_DATA_DIRECTORY="${ROOT}/.ddev/.sampleData"
+
+  SAMPLE_DATA_URL=https://github.com/Vinai/compressed-magento-sample-data/raw/master/compressed-magento-sample-data-1.9.2.4.tgz
   SAMPLE_DATA_FILE=sample_data.tgz
+
+  SAMPLE_DATA_OM_URL=https://github.com/sreichel/openmage-sample-data/blob/main/src/sample-data.sql?raw=true
+  SAMPLE_DATA_OM_FILE=sample_data_om.sql
 
   if [[ ! -d "${SAMPLE_DATA_DIRECTORY}" ]]; then
     echo "Creating Sample Data directory..."
@@ -83,6 +89,13 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
     echo "Downloading Sample Data..."
     wget "${SAMPLE_DATA_URL}" -O "${SAMPLE_DATA_FILE}"
   fi
+
+if [[ "${SAMPLE_DATA_EXTRA_FLAG}" ]]; then
+  if [[ ! -f "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_OM_FILE}" ]]; then
+    echo "Downloading extra Sample Data..."
+    wget "${SAMPLE_DATA_OM_URL}" -O "${SAMPLE_DATA_OM_FILE}"
+  fi
+fi
 
   echo "Uncompressing Sample Data..."
   tar xf "${SAMPLE_DATA_FILE}"
@@ -96,14 +109,18 @@ if [[ $INSTALL_SAMPLE_DATA =~ ^(yes|y) ]]; then
   rm -rf "${ROOT}"/"${DDEV_DOCROOT}/var/cache/"*
 
   echo "Importing Sample Data into the database..."
-  mysql -u db -pdb -h db db < "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql
+  if [[ "${SAMPLE_DATA_EXTRA_FLAG}" ]]; then
+    mysql -u db -pdb -h db db < "${SAMPLE_DATA_DIRECTORY}/${SAMPLE_DATA_OM_FILE}"
+  else
+    mysql -u db -pdb -h db db < "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/magento_sample_data_for_1.9.2.4.sql
+  fi
 
   # remove sample data
   if [[ "${SAMPLE_DATA_KEEP_FLAG}" ]]; then
     # shellcheck disable=SC2046
     cd "${ROOT}" || exit
     echo "Removing uncompressed files..."
-    rm -rf magento-sample-data-1.9.2.4/
+    rm -rf "${SAMPLE_DATA_DIRECTORY}"/magento-sample-data-1.9.2.4/
   else
     cd "${ROOT}" || exit
     echo "Removing sample data..."
