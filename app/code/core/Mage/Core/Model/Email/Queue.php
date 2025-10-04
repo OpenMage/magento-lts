@@ -192,7 +192,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 $mailer = new Zend_Mail('utf-8');
                 foreach ($message->getRecipients() as $recipient) {
                     [$email, $name, $type] = $recipient;
-                    match ($type) {
+                    match ((int) $type) {
                         self::EMAIL_TYPE_BCC => $mailer->addBcc($email),
                         default => $mailer->addTo($email, $this->getBase64EncodedString($name)),
                     };

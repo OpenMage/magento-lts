@@ -1698,6 +1698,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "lc-excell",
+      "name": "lc-excell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/158118232?v=4",
+      "profile": "https://github.com/lc-excell",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "commitType": "docs"
