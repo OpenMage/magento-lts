@@ -1,0 +1,12 @@
+--- /dev/null
++++ ../library/Zend/Date.php
+@@ -541,7 +541,8 @@
+         }
+
+         if (($part !== null) && !defined($part)
+-            && ($part != 'ee') && ($part != 'ss') && ($part != 'GG') && ($part != 'MM') && ($part != 'EE') && ($part != 'TT')
++            && ($part !== 'ee') && ($part !== 'ss') && ($part !== 'GG') && ($part !== 'MM') && ($part !== 'EE') && ($part !== 'TT')
++            && ($part !== 'U') && ($part !== 'X') && ($part !== 'c')
+             && Zend_Locale::isLocale($part, null, false)) {
+             $locale = $part;
+             $part = null;
