@@ -16,4 +16,13 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import './openmage'
-import './openmage/config/paths'
+import './openmage/backend/catalog'
+import './openmage/backend/cms'
+import './openmage/backend/customer'
+import './openmage/backend/dashboard'
+import './openmage/backend/newsletter'
+import './openmage/backend/promo'
+import './openmage/backend/sales'
+import './openmage/backend/system'
+
+import './openmage/frontend/paths'

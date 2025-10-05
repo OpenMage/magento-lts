@@ -1,15 +1,16 @@
-const route = cy.testRoutes.backend.system.config.customers.promo;
-const saveButton = cy.testRoutes.backend.system.config._buttonSave;
+const test = cy.testBackendSystem.config.customers.promo;
+const saveButton = cy.testBackendSystem.config._buttonSave;
+const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
-describe(`Checks admin system "${route.h3}" settings`, () => {
+describe(`Checks admin system "${test.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
         cy.adminLogIn();
-        cy.adminGetConfiguration(route);
+        cy.adminGetConfiguration(test);
     });
 
     it(`tests invalid string input`, () => {
-        const fieldset = route.__validation.__groups.couponCodes;
+        const fieldset = test.__validation.__groups.couponCodes;
         cy.get('body').then($body => {
             if (!$body.find(fieldset._id).hasClass('open')) {
                 cy.get(fieldset._id).click({force: true});
@@ -19,7 +20,7 @@ describe(`Checks admin system "${route.h3}" settings`, () => {
         const fields = fieldset._input;
         const validate = validation.digits;
         validation.fillFields(fields, validate, validation.test.string);
-        validation.saveAction(saveButton);
+        tools.clickAction(saveButton);
         validation.validateFields(fields, validate);
     });
 });

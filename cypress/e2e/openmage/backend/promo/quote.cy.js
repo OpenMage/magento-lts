@@ -1,4 +1,4 @@
-const test = cy.testBackendSales.invoice;
+const test = cy.testBackendPromo.quote;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 
@@ -12,8 +12,13 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         check.pageElements(test, test.index);
     });
 
-    it(`tests view route`, () => {
-        tools.clickGridRow(test.index._grid, 'td', '100000040');
-        check.pageElements(test, test.view);
+    it(`tests edit route`, () => {
+        tools.clickGridRow(test.index._grid, 'td', '$500');
+        check.pageElements(test, test.edit);
+    });
+
+    it(`tests new route`, () => {
+        tools.clickAction(test.index.__buttons.add);
+        check.pageElements(test, test.new);
     });
 });

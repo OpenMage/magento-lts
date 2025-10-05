@@ -1,26 +1,27 @@
-const route = cy.testRoutes.frontend.customer.account.create;
-const fields = route.__validation._input;
+const test = cy.testFrontend.customer.account.create;
+const fields = test.__validation._input;
+const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe('Checks customer account create', () => {
     beforeEach('Go to page', () => {
-        cy.visit(route.url);
+        cy.visit(test.url);
     });
 
     it('Checks the Create Account page title', () => {
-        cy.get(route._h1).should('include.text', route.h1);
+        cy.get(test._h1).should('include.text', test.h1);
     });
 
     it('Submits empty form', () => {
         validation.fillFields(fields, validation.requiredEntry);
-        validation.saveAction(route._buttonSubmit);
+        tools.clickAction(test._buttonSubmit);
         validation.validateFields(fields, validation.requiredEntry);
     });
 
     it('Submits empty form, no js', () => {
         validation.fillFields(fields, validation.requiredEntry);
         validation.removeClasses(fields);
-        validation.saveAction(route._buttonSubmit);
+        tools.clickAction(test._buttonSubmit);
         cy.get(validation._errorMessage)
             .should('include.text', '"First Name" is a required value.')
             .should('include.text', '"First Name" length must be equal or greater than 1 characters.')
@@ -32,7 +33,7 @@ describe('Checks customer account create', () => {
     it('Submits form with short password and wrong confirmation', () => {
         cy.get(fields.password).type('123').should('have.value', '123');
         cy.get(fields.confirmation).type('abc').should('have.value', 'abc');
-        cy.get(route._buttonSubmit).click();
+        tools.clickAction(test._buttonSubmit);
         cy.get('#advice-validate-password-password').should('include.text', 'Please enter more characters or clean leading or trailing spaces.');
         cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
     });
@@ -48,7 +49,7 @@ describe('Checks customer account create', () => {
         cy.get(fields.email_address).type(email).should('have.value', email);
         cy.get(fields.password).type(password).should('have.value', password);
         cy.get(fields.confirmation).type(password).should('have.value', password);
-        cy.get(route._buttonSubmit).click();
-        cy.get(validation._successMessage).should('include.text', successMsg);
+        tools.clickAction(test._buttonSubmit);
+        validation.hasSuccessMessage(successMsg);
     });
 });

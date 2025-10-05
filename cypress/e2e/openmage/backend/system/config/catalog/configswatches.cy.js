@@ -1,4 +1,4 @@
-const route = cy.testRoutes.backend.system.config.catalog.configswatches;
+const test = cy.testBackendSystem.config.catalog.configswatches;
 const validate = {
     dimension: {
         _input: {
@@ -18,10 +18,10 @@ const validate = {
     }
 }
 
-describe(`Checks admin system "${route.h3}" settings`, () => {
+describe(`Checks admin system "${test.h3}" settings`, () => {
     beforeEach('Log in the user', () => {
         cy.adminLogIn();
-        cy.adminGetConfiguration(route);
+        cy.adminGetConfiguration(test);
     });
 
     it(`tests non-digit dimensions`, () => {

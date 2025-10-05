@@ -14,7 +14,45 @@ cy.openmage = {
             }
         }
     },
+    check: {
+        buttons: (path) => {
+            cy.log('Checking for existing buttons');
+            Object.keys(path.__buttons).forEach(button => {
+                cy.get(path.__buttons[button]).should('exist');
+            });
+        },
+        pageElements: (test, path) => {
+            cy.log('Checking for title');
+            cy.get(test._h3).should('include.text', path.title);
+
+            cy.log('Checking for active parent class');
+            cy.get(test._id_parent).should('have.class', 'active');
+
+            cy.log('Checking for active class');
+            cy.get(test._id).should('have.class', 'active');
+
+            cy.log('Checking for existing grid');
+            if (path._grid !== undefined) {
+                cy.get(path._grid).should('exist');
+            }
+
+            cy.log('Checking for existing buttons');
+            if (path.__buttons !== undefined) {
+                Object.keys(path.__buttons).forEach(button => {
+                    cy.get(path.__buttons[button]).should('exist');
+                });
+            }
+        },
+    },
     tools: {
+        clickAction: (selector, log = 'Clicking on button') => {
+            cy.log(log);
+            cy.get(selector).first().click({force: true, multiple: false});
+        },
+        clickGridRow: (grid, selector, content, log = 'Clicking on grid') => {
+            cy.log(log);
+            cy.get(grid).contains(selector, content).first().click({force: true, multiple: false});
+        },
         generateRandomEmail: () => {
             const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
             let email = '';
@@ -22,7 +60,7 @@ cy.openmage = {
                 email += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             return email + '-cypress-test@example.com';
-        }
+        },
     },
     validation: {
         test: {
@@ -80,16 +118,24 @@ cy.openmage = {
                     .invoke('removeClass');
             });
         },
-        saveAction: (selector) => {
-            cy.log('Clicking on Save button');
-            cy.get(selector).first().click({force: true, multiple: false});
-        },
         validateFields: (fields, validation) =>{
             cy.log('Checking for error messages');
             Object.keys(fields).forEach(field => {
                 const selector = validation._error + fields[field].replace(/^\#/, "");
                 cy.get(selector).should('include.text', validation.error);
             });
+        },
+        hasErrorMessage: (message) =>{
+            cy.log('Checking for error messages');
+            cy.get('.error-msg').should('include.text', message);
+        },
+        hasSuccessMessage: (message) =>{
+            cy.log('Checking for success messages');
+            cy.get('.success-msg').should('include.text', message);
+        },
+        hasWarningMessage: (message) =>{
+            cy.log('Checking for warning messages');
+            cy.get('.warning-msg').should('include.text', message);
         },
     }
 }
