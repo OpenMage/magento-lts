@@ -73,6 +73,11 @@ cy.testRoutes = {
                 url: 'cms_page/index',
                 h3: 'Manage Pages',
                 _h3: adminPage._h3,
+                _gridTable: '#cmsPageGrid_table',
+                _buttonDelete: '.form-buttons button[title="Delete Page"]',
+                _buttonReset: '.form-buttons button[title="Rest"]',
+                _buttonSave: '.form-buttons button[title="Save Page"]',
+                _buttonSaveAndContinue: '.form-buttons button[title="Save and Continue Edit"]',
             },
             widget: {
                 _id_parent: adminNav.cms,
