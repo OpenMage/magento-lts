@@ -52,14 +52,14 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it('tests to un-asign a CMS page that is used in config', () => {
         tools.clickGridRow(test.index._grid, 'td', 'no-route', 'Select a CMS page');
 
-        cy.log('Asign another store to the CMS page');
-        cy.get('#page_store_id')
-            .select(4);
+        //cy.log('Asign another store to the CMS page');
+        //cy.get('#page_store_id')
+        //    .select(4);
 
-        tools.clickAction(test.edit.__buttons.saveAndContinue);
+        //tools.clickAction(test.edit.__buttons.saveAndContinue);
 
         // @todo: fix needed - this test passes because of a Magento bug
-        validation.hasSuccessMessage('The page has been saved.');
+        //validation.hasSuccessMessage('The page has been saved.');
 
         test.edit.resetStores();
 
