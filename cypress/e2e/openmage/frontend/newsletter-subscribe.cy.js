@@ -1,27 +1,29 @@
-const route = cy.testRoutes.frontend.homepage;
+const test = cy.testFrontend.homepage;
+const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
 describe('Check newsletter subribe', () => {
     beforeEach('Go to page', () => {
-        cy.visit(route.url);
+        cy.visit(test.url);
     });
 
     it('tests empty input', () => {
-        const error = cy.openmage.validation.requiredEntry.error;
-        cy.get(route.newsletter._id).should('have.value', '');
-        cy.get(route.newsletter._buttonSubmit).click();
+        const error = validation.requiredEntry.error;
+        cy.get(test.newsletter._id).should('have.value', '');
+        tools.clickAction(test.newsletter._buttonSubmit);
         cy.get('#advice-required-entry-newsletter').should('include.text', error);
     })
 
     it('Test valid input twice', () => {
-        const email = cy.openmage.tools.generateRandomEmail();
+        const email = tools.generateRandomEmail();
         cy.log('Test first valid input');
-        cy.get(route.newsletter._id).type(email).should('have.value', email);
-        cy.get(route.newsletter._buttonSubmit).click();
-        cy.get(cy.openmage.validation._successMessage).should('include.text', 'Thank you for your subscription.');
+        cy.get(test.newsletter._id).type(email).should('have.value', email);
+        tools.clickAction(test.newsletter._buttonSubmit);
+        validation.hasSuccessMessage('Thank you for your subscription.');
 
         cy.log('Test second valid input');
-        cy.get(route.newsletter._id).type(email).should('have.value', email);
-        cy.get(route.newsletter._buttonSubmit).click();
-        cy.get(cy.openmage.validation._errorMessage).should('include.text', 'There was a problem with the subscription: This email address is already registered.');
+        cy.get(test.newsletter._id).type(email).should('have.value', email);
+        tools.clickAction(test.newsletter._buttonSubmit);
+        validation.hasErrorMessage('There was a problem with the subscription: This email address is already registered.');
     })
 })

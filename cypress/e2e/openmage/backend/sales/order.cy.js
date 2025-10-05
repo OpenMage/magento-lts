@@ -1,12 +1,19 @@
-const route = cy.testRoutes.backend.sales.order;
+const test = cy.testBackendSales.order;
+const check = cy.openmage.check;
+const tools = cy.openmage.tools;
 
-describe(`Checks admin system "${route.h3}"`, () => {
+describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.adminLogIn();
-        cy.adminGoToTestRoute(route);
+        cy.adminGoToTestRoute(test, test.index);
     });
 
-    it(`tests classes and title`, () => {
-        cy.adminTestRoute(route);
+    it(`tests index route`, () => {
+        check.pageElements(test, test.index);
+    });
+
+    it(`tests view route`, () => {
+        tools.clickGridRow(test.index._grid, 'td', '145000004');
+        check.pageElements(test, test.view);
     });
 });

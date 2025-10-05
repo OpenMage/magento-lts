@@ -1,12 +1,13 @@
-const route = cy.testRoutes.backend.system.indexes;
+const test = cy.testBackendSystem.indexes;
+const check = cy.openmage.check;
 
-describe(`Checks admin system "${route.h3}"`, () => {
+describe(`Checks admin system "${test.list.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.adminLogIn();
-        cy.adminGoToTestRoute(route);
+        cy.adminGoToTestRoute(test, test.list);
     });
 
-    it(`tests classes and title`, () => {
-        cy.adminTestRoute(route);
+    it(`tests index route`, () => {
+        check.pageElements(test, test.list);
     });
 });

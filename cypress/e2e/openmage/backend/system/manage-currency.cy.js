@@ -1,14 +1,16 @@
-const route = cy.testRoutes.backend.system.manage_curreny;
+const test = cy.testBackendSystem.manage_curreny;
+const check = cy.openmage.check;
+const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
-describe(`Checks admin system "${route.h3}"`, () => {
+describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.adminLogIn();
-        cy.adminGoToTestRoute(route);
+        cy.adminGoToTestRoute(test, test.index);
     });
 
-    it(`tests classes and title`, () => {
-        cy.adminTestRoute(route);
+    it(`tests index route`, () => {
+        check.pageElements(test, test.index);
     });
 
     const warning = 'Invalid input data for USD => EUR rate';
@@ -16,22 +18,22 @@ describe(`Checks admin system "${route.h3}"`, () => {
 
     it(`tests empty currency`, () => {
         cy.get('body').then($body => {
-            if ($body.find(route.__validation._input.from).length > 0) {
-                cy.get(route.__validation._input.from).clear();
-                validation.saveAction(route._buttonSave);
-                cy.get(validation._warningMessage).should('include.text', warning);
-                cy.get(validation._successMessage).should('include.text', success);
+            if ($body.find(test.index.__validation._input.from).length > 0) {
+                cy.get(test.index.__validation._input.from).clear();
+                tools.clickAction(test.index.__buttons.save);
+                validation.hasWarningMessage(warning);
+                validation.hasSuccessMessage(success);
             }
         });
     });
 
     it(`tests string currency`, () => {
         cy.get('body').then($body => {
-            if ($body.find(route.__validation._input.from).length > 0) {
-                cy.get(route.__validation._input.from).clear().type('abc');
-                validation.saveAction(route._buttonSave);
-                cy.get(validation._warningMessage).should('include.text', warning);
-                cy.get(validation._successMessage).should('include.text', success);
+            if ($body.find(test.index.__validation._input.from).length > 0) {
+                cy.get(test.index.__validation._input.from).clear().type('abc');
+                tools.clickAction(test.index.__buttons.save);
+                validation.hasWarningMessage(warning);
+                validation.hasSuccessMessage(success);
             }
         });
     });
