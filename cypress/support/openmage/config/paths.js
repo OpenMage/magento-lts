@@ -75,7 +75,7 @@ cy.testRoutes = {
                 _h3: adminPage._h3,
                 _gridTable: '#cmsPageGrid_table',
                 _buttonDelete: '.form-buttons button[title="Delete Page"]',
-                _buttonReset: '.form-buttons button[title="Rest"]',
+                _buttonReset: '.form-buttons button[title="Reset"]',
                 _buttonSave: '.form-buttons button[title="Save Page"]',
                 _buttonSaveAndContinue: '.form-buttons button[title="Save and Continue Edit"]',
             },
