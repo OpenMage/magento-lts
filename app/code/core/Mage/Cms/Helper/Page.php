@@ -175,7 +175,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         return $searchPaths;
     }
 
-    public static function getConfigNameFromPath(string $paths): string
+    public static function getConfigLabelFromConfigPath(string $paths): string
     {
         return match ($paths) {
             self::XML_PATH_NO_ROUTE_PAGE => Mage::helper('cms')->__('No Route Page'),
@@ -189,7 +189,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
      * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
      * @throws Mage_Core_Exception
      */
-    public static function getConfigStoreFromScope(string $scope, string $scopeId): string
+    public static function getScopeInfoFromConfigScope(string $scope, string $scopeId): string
     {
         return match ($scope) {
             Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
@@ -224,12 +224,12 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         foreach ($data as $path => $items) {
             $scopes = [];
             foreach ($items as $item) {
-                $scopes[] = self::getConfigStoreFromScope($item['scope'], $item['scope_id']);
+                $scopes[] = self::getScopeInfoFromConfigScope($item['scope'], $item['scope_id']);
             }
 
             $messages[] = sprintf(
                 '"%s" (%s)',
-                self::getConfigNameFromPath($path),
+                self::getConfigLabelFromConfigPath($path),
                 implode(', ', $scopes),
             );
         }
