@@ -176,15 +176,15 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param self::XML_PATH_* $paths
+     * @param self::XML_PATH_* $path
      */
-    public static function getConfigLabelFromConfigPath(string $paths): string
+    public static function getConfigLabelFromConfigPath(string $path): string
     {
-        return match ($paths) {
+        return match ($path) {
             self::XML_PATH_NO_ROUTE_PAGE => Mage::helper('cms')->__('No Route Page'),
             self::XML_PATH_NO_COOKIES_PAGE => Mage::helper('cms')->__('No Cookies Page'),
             self::XML_PATH_HOME_PAGE => Mage::helper('cms')->__('Home Page'),
-            default => $paths,
+            default => $path,
         };
     }
 
