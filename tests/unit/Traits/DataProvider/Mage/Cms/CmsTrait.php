@@ -46,7 +46,25 @@ trait CmsTrait
         ];
     }
 
-    public function provideGetConfigStoreFromScope(): Generator
+    public function provideGetConfigLabelFromConfigPath(): Generator
+    {
+        yield 'home page' => [
+            'Home Page',
+            Mage_Cms_Helper_Page::XML_PATH_HOME_PAGE,
+        ];
+
+        yield 'no cookie page' => [
+            'No Cookies Page',
+            Mage_Cms_Helper_Page::XML_PATH_NO_COOKIES_PAGE,
+        ];
+
+        yield 'no route page' => [
+            'No Route Page',
+            Mage_Cms_Helper_Page::XML_PATH_NO_ROUTE_PAGE,
+        ];
+    }
+
+    public function provideGetScopeInfoFromConfigScope(): Generator
     {
         yield 'default' => [
             'Default Config',
