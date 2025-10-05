@@ -73,13 +73,13 @@ trait CmsTrait
         ];
 
         yield 'websites' => [
-            'Website',
+            'Main Website',
             Mage_Adminhtml_Block_System_Config_Form::SCOPE_WEBSITES,
             '1',
         ];
 
         yield 'stores' => [
-            'Store View',
+            'Main Website',
             Mage_Adminhtml_Block_System_Config_Form::SCOPE_STORES,
             '1',
         ];
