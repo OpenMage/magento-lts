@@ -283,7 +283,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
     {
         $storeId    = (array) $page->getStoreId(); # null on save
         $stores     = (array) $page->getStores(); # null on delete
-        $storeIds   = $storeId + $stores;
+        $storeIds   = array_merge($storeId, $stores);
         $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
         $config     = Mage::getResourceModel('core/config_data_collection')
             ->addFieldToFilter('value', $page->getIdentifier())
