@@ -17,9 +17,11 @@ cy.openmage = {
     check: {
         buttons: (path) => {
             cy.log('Checking for existing buttons');
-            Object.keys(path.__buttons).forEach(button => {
-                cy.get(path.__buttons[button]).should('exist');
-            });
+            if (path.__buttons !== undefined) {
+                Object.keys(path.__buttons).forEach(button => {
+                    cy.get(path.__buttons[button]).should('exist');
+                });
+            }
         },
         pageElements: (test, path) => {
             cy.log('Checking for title');

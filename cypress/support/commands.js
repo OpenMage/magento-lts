@@ -27,25 +27,6 @@ Cypress.Commands.add('adminGoToTestRoute', (route, path) => {
     cy.url().should('include', path.url);
 })
 
-/**
- * @deprecated Use cy.openmage.check.pageElements(test, path) instead
- */
-Cypress.Commands.add('adminTestRoute', (route, path) => {
-    cy.log('Checking for title');
-    cy.get(route._h3).should('include.text', path.title);
-
-    cy.log('Checking for active parent class');
-    cy.get(route._id_parent).should('have.class', 'active');
-
-    cy.log('Checking for active class');
-    cy.get(route._id).should('have.class', 'active');
-
-    cy.log('Checking for existing buttons');
-    Object.keys(path.__buttons).forEach(button => {
-        cy.get(path.__buttons[button]).should('exist');
-    });
-})
-
 Cypress.Commands.add('adminGetConfiguration', (route) => {
     cy.get('#nav-admin-system-config').click({force: true});
     cy.url().should('include', 'system_config/index');

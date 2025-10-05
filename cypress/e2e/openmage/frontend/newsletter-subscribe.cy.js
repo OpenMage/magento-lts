@@ -2,7 +2,7 @@ const test = cy.testFrontend.homepage;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
-describe('Check newsletter subribe', () => {
+describe('Check newsletter subscribe', () => {
     beforeEach('Go to page', () => {
         cy.visit(test.url);
     });

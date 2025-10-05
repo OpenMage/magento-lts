@@ -28,7 +28,7 @@ cy.testBackendCms = {
         },
         edit: {
             title: 'Edit Block',
-            url: 'cms_block/new',
+            url: 'cms_block/edit',
         },
         new: {
             title: 'New Block',
@@ -91,7 +91,7 @@ cy.testBackendCms = {
         },
         edit: {
             title: 'Widget',
-            url: 'widget_instance/new',
+            url: 'widget_instance/edit',
         },
         new: {
             title: 'New Widget Instance',
