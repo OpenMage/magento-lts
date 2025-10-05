@@ -39,7 +39,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setId(null);
                 Mage::throwException(
                     Mage::helper('cms')->__(
-                        'Cannot delete page, it is used in configuration %s.',
+                        'Cannot delete page, it is used in <a href="%s">configuration</a> for %s.',
+                        Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit', ['section' => 'web']),
                         Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
                 );
