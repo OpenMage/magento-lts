@@ -40,7 +40,7 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 Mage::throwException(
                     Mage::helper('cms')->__(
                         'Cannot delete page, it is used in configuration %s.',
-                        Mage_Cms_Helper_Page::getDeleteErrorMessage($isUsedInConfig),
+                        Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
                 );
             }
@@ -79,8 +79,8 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setIsActive(true);
                 Mage::getSingleton('adminhtml/session')->addWarning(
                     Mage::helper('cms')->__(
-                        'Cannot disable page, it is used in configuration "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
+                        'Cannot disable page, it is used in configuration %s.',
+                        Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
                 );
             }

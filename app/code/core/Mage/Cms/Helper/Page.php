@@ -212,7 +212,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     /**
      * @throws Mage_Core_Exception
      */
-    public static function getDeleteErrorMessage(Mage_Core_Model_Resource_Db_Collection_Abstract $isUsedInConfig): string
+    public static function getValidateConfigErrorMessage(Mage_Core_Model_Resource_Db_Collection_Abstract $isUsedInConfig): string
     {
         $messages = [];
 
