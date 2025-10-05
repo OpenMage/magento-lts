@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms;
 
 use Generator;
+use Mage_Adminhtml_Block_System_Config_Form;
 use Mage_Cms_Helper_Page;
 
 trait CmsTrait
@@ -42,6 +43,27 @@ trait CmsTrait
         yield 'custom paths' => [
             array_merge($default, $custom),
             $custom,
+        ];
+    }
+
+    public function provideGetConfigStoreFromScope(): Generator
+    {
+        yield 'default' => [
+            'Default Config',
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT,
+            '1',
+        ];
+
+        yield 'websites' => [
+            'Website',
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_WEBSITES,
+            '1',
+        ];
+
+        yield 'stores' => [
+            'Store View',
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_STORES,
+            '1',
         ];
     }
 

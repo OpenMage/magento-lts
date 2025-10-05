@@ -27,4 +27,13 @@ final class PageTest extends OpenMageTest
     {
         self::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
     }
+
+    /**
+     * @dataProvider provideGetConfigStoreFromScope
+     * @group Helper
+     */
+    public function testGetConfigStoreFromScope(string $expectedResult, string $scope, string $scopeId): void
+    {
+        self::assertStringStartsWith($expectedResult, Subject::getConfigStoreFromScope($scope, $scopeId));
+    }
 }

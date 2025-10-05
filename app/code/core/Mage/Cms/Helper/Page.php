@@ -174,4 +174,67 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         return $searchPaths;
     }
+
+    public static function getConfigNameFromPath(string $paths): string
+    {
+        return match ($paths) {
+            self::XML_PATH_NO_ROUTE_PAGE => Mage::helper('cms')->__('No Route Page'),
+            self::XML_PATH_NO_COOKIES_PAGE => Mage::helper('cms')->__('No Cookies Page'),
+            self::XML_PATH_HOME_PAGE => Mage::helper('cms')->__('Home Page'),
+            default => $paths,
+        };
+    }
+
+    /**
+     * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
+     * @throws Mage_Core_Exception
+     */
+    public static function getConfigStoreFromScope(string $scope, string $scopeId): string
+    {
+        return match ($scope) {
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_WEBSITES => sprintf(
+                '%s "%s"',
+                Mage::helper('cms')->__('Website'),
+                Mage::app()->getWebsite($scopeId)->getName(),
+            ),
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_STORES => sprintf(
+                '%s "%s"',
+                Mage::helper('cms')->__('Store View'),
+                Mage::app()->getStore($scopeId)->getName(),
+            ),
+        };
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public static function getDeleteErrorMessage(Mage_Core_Model_Resource_Db_Collection_Abstract $isUsedInConfig): string
+    {
+        $messages = [];
+
+        $data = $isUsedInConfig->getData();
+        foreach ($data as $key => $item) {
+            $path = $item['path'];
+            unset($item['config_id'], $item['path'], $item['updated_at'], $item['value']);
+            $data[$path][] = $item;
+            unset($data[$key], $key, $path);
+        }
+
+        foreach ($data as $path => $items) {
+            $scopes = [];
+            foreach ($items as $item) {
+                $scopes[] = self::getConfigStoreFromScope($item['scope'], $item['scope_id']);
+            }
+
+            $messages[] = sprintf(
+                '"%s" (%s)',
+                self::getConfigNameFromPath($path),
+                implode(', ', $scopes),
+            );
+        }
+        unset($data, $path, $items, $item, $scopes);
+
+        return implode(', ', $messages);
+    }
 }
