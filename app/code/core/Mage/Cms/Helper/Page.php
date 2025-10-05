@@ -175,6 +175,9 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
         return $searchPaths;
     }
 
+    /**
+     * @param self::XML_PATH_* $paths
+     */
     public static function getConfigLabelFromConfigPath(string $paths): string
     {
         return match ($paths) {
