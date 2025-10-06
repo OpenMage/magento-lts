@@ -1,5 +1,5 @@
-const test = cy.testBackendSystem.config.customers.promo;
-const saveButton = cy.testBackendSystem.config._buttonSave;
+const test = cy.testBackendSystemConfig.customers.promo;
+const saveButton = cy.testBackendSystemConfig._buttonSave;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
