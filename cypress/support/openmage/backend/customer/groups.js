@@ -13,7 +13,7 @@ cy.testBackendCustomerGroups = {
             url: 'customer_group/index',
             _grid: '#customerGroupGrid_table',
             __buttons: {
-                save: defaultConfig._button + '[title="Add New Customer Group"]',
+                add: defaultConfig._button + '[title="Add New Customer Group"]',
             },
         },
         edit: {
