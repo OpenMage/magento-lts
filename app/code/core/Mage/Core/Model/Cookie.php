@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSameSite;
+
 /**
  * Core cookie model
  *
@@ -115,7 +117,7 @@ class Mage_Core_Model_Cookie
     /**
      * Retrieve cookie lifetime
      *
-     * @return int
+     * @return int|string
      */
     public function getLifetime()
     {
@@ -163,7 +165,7 @@ class Mage_Core_Model_Cookie
     {
         $sameSite = Mage::getStoreConfig(self::XML_PATH_COOKIE_SAMESITE, $this->getStore());
         if (is_null($sameSite)) {
-            return 'None';
+            return CookieSameSite::NONE;
         }
         return (string) $sameSite;
     }
@@ -173,6 +175,7 @@ class Mage_Core_Model_Cookie
      * Use secure on adminhtml only
      *
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function isSecure()
     {
@@ -180,7 +183,7 @@ class Mage_Core_Model_Cookie
             return $this->_getRequest()->isSecure();
         }
         // Use secure cookie if unsecure base url is actually secure
-        if (preg_match('/^https:/', $this->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, false))) {
+        if (str_starts_with($this->getStore()->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, false), 'https:')) {
             return true;
         }
         return false;
@@ -198,6 +201,8 @@ class Mage_Core_Model_Cookie
      * @param bool $httponly
      * @param string $sameSite
      * @return $this
+     * @throws Zend_Controller_Response_Exception
+     * @throws Mage_Core_Exception
      */
     public function set($name, $value, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
@@ -235,7 +240,7 @@ class Mage_Core_Model_Cookie
             $sameSite = $this->getSameSite();
         }
 
-        if ($sameSite === 'None') {
+        if ($sameSite === CookieSameSite::NONE) {
             // Enforce specification SameSite None requires secure
             $secure = true;
         }
@@ -267,6 +272,8 @@ class Mage_Core_Model_Cookie
      * @param bool $httponly
      * @param string $sameSite
      * @return $this
+     * @throws Zend_Controller_Response_Exception
+     * @throws Mage_Core_Exception
      */
     public function renew($name, $period = null, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
@@ -284,7 +291,7 @@ class Mage_Core_Model_Cookie
      * Retrieve cookie or false if not exists
      *
      * @param string $name The cookie name
-     * @return mixed
+     * @return mixed|false
      */
     public function get($name = null)
     {
@@ -301,6 +308,8 @@ class Mage_Core_Model_Cookie
      * @param int|bool $httponly
      * @param string $sameSite
      * @return $this
+     * @throws Zend_Controller_Response_Exception
+     * @throws Mage_Core_Exception
      */
     public function delete($name, $path = null, $domain = null, $secure = null, $httponly = null, $sameSite = null)
     {
