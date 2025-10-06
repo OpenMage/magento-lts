@@ -35,6 +35,9 @@ cy.openmage = {
             cy.log('Checking for title');
             cy.get(test._h3).should('include.text', path.title);
 
+            cy.log('Checkinng for URL')
+            cy.url().should('include', path.url);
+
             cy.log('Checking for active parent class');
             cy.get(test._id_parent).should('have.class', 'active');
 
@@ -47,6 +50,8 @@ cy.openmage = {
             }
 
             if (path.__buttons !== undefined) {
+                cy.get(test._button).filter(':visible').should('have.length', Object.keys(path.__buttons).length);
+
                 cy.log('Checking for existing buttons');
                 Object.keys(path.__buttons).forEach(button => {
                     cy.get(path.__buttons[button]).should('exist');

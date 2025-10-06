@@ -18,7 +18,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        tools.clickAction(test.index.__buttons.add);
+        tools.clickAction(test.index.__buttons.save);
         check.pageElements(test, test.new);
     });
 });

@@ -1,19 +1,19 @@
 const defaultConfig = {
-    _id_parent: '#nav-admin-catalog',
-    _h3: 'h3.icon-head',
+    _button: '.form-buttons button'
 }
 
 cy.testBackendCatalogSitemap = {
     config: {
         _id: '#nav-admin-catalog-sitemap',
-        _id_parent: defaultConfig._id_parent,
-        _h3: defaultConfig._h3,
+        _id_parent: '#nav-admin-catalog',
+        _h3: 'h3.icon-head',
+        _button: defaultConfig._button,
         index: {
             title: 'Google Sitemap',
             url: 'sitemap/index',
             _grid: '#sitemapGrid_table',
             __buttons: {
-                add: '.form-buttons button[title="Add Sitemap"]',
+                add: defaultConfig._button + '[title="Add Sitemap"]',
             },
         },
         edit: {
@@ -22,7 +22,7 @@ cy.testBackendCatalogSitemap = {
         },
         new: {
             title: 'New Sitemap',
-            url: 'sitemap/edit',
+            url: 'sitemap/new',
         },
     },
 }

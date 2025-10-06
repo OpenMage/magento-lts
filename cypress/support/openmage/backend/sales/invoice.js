@@ -1,13 +1,13 @@
 const defaultConfig = {
-    _id_parent: '#nav-admin-sales',
-    _h3: 'h3.icon-head',
+    _button: '.form-buttons button',
 }
 
 cy.testBackendSalesInvoice = {
     config: {
         _id: '#nav-admin-sales-invoice',
-        _id_parent: defaultConfig._id_parent,
-        _h3: defaultConfig._h3,
+        _id_parent: '#nav-admin-sales',
+        _h3: 'h3.icon-head',
+        _button: defaultConfig._button,
         index: {
             title: 'Invoice',
             url: 'sales_invoice/index',
@@ -16,6 +16,11 @@ cy.testBackendSalesInvoice = {
         view: {
             title: 'Invoice #',
             url: 'sales_invoice/view',
+            __buttons: {
+                print: defaultConfig._button + '[title="Print"]',
+                email: defaultConfig._button + '[title="Send Email"]',
+                back: defaultConfig._button + '[title="Back"]',
+            },
         },
     },
 }

@@ -1,13 +1,13 @@
 const defaultConfig = {
-    _id_parent: '#nav-admin-sales',
-    _h3: 'h3.icon-head',
+    _button: '.form-buttons button',
 }
 
 cy.testBackendSalesCreditmemo = {
     config: {
         _id: '#nav-admin-sales-creditmemo',
-        _id_parent: defaultConfig._id_parent,
-        _h3: defaultConfig._h3,
+        _id_parent: '#nav-admin-sales',
+        _h3: 'h3.icon-head',
+        _button: defaultConfig._button,
         index: {
             title: 'Credit Memos',
             url: 'sales_creditmemo/index',
@@ -15,7 +15,12 @@ cy.testBackendSalesCreditmemo = {
         },
         view: {
             title: 'Credit Memo #',
-            url: 'sales_creditmemo/edit',
+            url: 'sales_creditmemo/view',
+            __buttons: {
+                print: defaultConfig._button + '[title="Print"]',
+                email: defaultConfig._button + '[title="Send Email"]',
+                back: defaultConfig._button + '[title="Back"]',
+            },
         },
     },
 }

@@ -1,13 +1,13 @@
 const defaultConfig = {
-    _id_parent: '#nav-admin-sales',
-    _h3: 'h3.icon-head',
+    _button: '.form-buttons button',
 }
 
 cy.testBackendSalesOrderShipment = {
     config: {
         _id: '#nav-admin-sales-shipment',
-        _id_parent: defaultConfig._id_parent,
-        _h3: defaultConfig._h3,
+        _id_parent: '#nav-admin-sales',
+        _h3: 'h3.icon-head',
+        _button: defaultConfig._button,
         index: {
             title: 'Shipments',
             url: 'sales_shipment/index',
@@ -16,6 +16,11 @@ cy.testBackendSalesOrderShipment = {
         view: {
             title: 'Shipment #',
             url: 'sales_shipment/view',
+            __buttons: {
+                print: defaultConfig._button + '[title="Print"]',
+                tracking: defaultConfig._button + '[title="Send Tracking Information"]',
+                back: defaultConfig._button + '[title="Back"]',
+            },
         },
     },
 }
