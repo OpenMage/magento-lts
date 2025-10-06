@@ -1,4 +1,4 @@
-const test = cy.testBackendNewsletter.subscriber;
+const test = cy.testBackendNewsletterSubscriber.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

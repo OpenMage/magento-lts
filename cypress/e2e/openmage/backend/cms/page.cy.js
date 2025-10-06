@@ -1,4 +1,4 @@
-const test = cy.testBackendCms.page;
+const test = cy.testBackendCmsPage.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;

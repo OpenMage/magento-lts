@@ -1,4 +1,4 @@
-const test = cy.testBackendSales.shipment;
+const test = cy.testBackendSalesOrderShipment.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

@@ -1,4 +1,4 @@
-const test = cy.testBackendCustomer.customer;
+const test = cy.testBackendCustomerCustomer.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

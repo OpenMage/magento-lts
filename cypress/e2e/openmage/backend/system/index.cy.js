@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.indexes;
+const test = cy.testBackendSystemIndex.config;
 const check = cy.openmage.check;
 
 describe(`Checks admin system "${test.list.title}"`, () => {

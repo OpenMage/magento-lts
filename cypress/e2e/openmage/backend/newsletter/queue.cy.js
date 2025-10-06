@@ -1,4 +1,4 @@
-const test = cy.testBackendNewsletter.queue;
+const test = cy.testBackendNewsletterQueue.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

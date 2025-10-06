@@ -1,4 +1,4 @@
-const test = cy.testBackendSales.transactions;
+const test = cy.testBackendSalesTransactions.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

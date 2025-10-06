@@ -1,4 +1,4 @@
-const test = cy.testBackendCms.widget;
+const test = cy.testBackendCmsWidget.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

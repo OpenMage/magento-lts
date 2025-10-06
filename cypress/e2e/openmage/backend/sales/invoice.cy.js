@@ -1,4 +1,4 @@
-const test = cy.testBackendSales.invoice;
+const test = cy.testBackendSalesInvoice.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

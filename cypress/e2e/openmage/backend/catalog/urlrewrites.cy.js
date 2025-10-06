@@ -1,4 +1,4 @@
-const test = cy.testBackendCatalog.urlrewrite;
+const test = cy.testBackendUrlrewrite.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.manage_curreny;
+const test = cy.testBackendSystemCurrencyRates.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;

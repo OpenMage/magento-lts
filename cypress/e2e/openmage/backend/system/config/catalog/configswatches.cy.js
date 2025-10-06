@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.config.catalog.configswatches;
+const test = cy.testBackendSystemConfig.config.catalog.configswatches;
 const validate = {
     dimension: {
         _input: {

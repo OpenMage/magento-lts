@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.design;
+const test = cy.testBackendSystemDesign.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.cache;
+const test = cy.testBackendSystemCache.config;
 const check = cy.openmage.check;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
@@ -10,10 +10,4 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it(`tests index route`, () => {
         check.pageElements(test, test.index);
     });
-
-    //it(`tests edit route`, () => {
-    //});
-
-    //it(`tests new route`, () => {
-    //});
 });

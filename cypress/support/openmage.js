@@ -15,11 +15,19 @@ cy.openmage = {
         }
     },
     check: {
-        buttons: (path) => {
-            cy.log('Checking for existing buttons');
+        buttons: (path, log = 'Checking for existing buttons') => {
+            cy.log(log);
             if (path.__buttons !== undefined) {
                 Object.keys(path.__buttons).forEach(button => {
                     cy.get(path.__buttons[button]).should('exist');
+                });
+            }
+        },
+        fields: (path, log = 'Checking for existing fields') => {
+            cy.log(log);
+            if (path.__fields !== undefined) {
+                Object.keys(path.__fields).forEach(field => {
+                    cy.get(path.__fields[field]).should('exist');
                 });
             }
         },
@@ -33,15 +41,22 @@ cy.openmage = {
             cy.log('Checking for active class');
             cy.get(test._id).should('have.class', 'active');
 
-            cy.log('Checking for existing grid');
             if (path._grid !== undefined) {
+                cy.log('Checking for existing grid');
                 cy.get(path._grid).should('exist');
             }
 
-            cy.log('Checking for existing buttons');
             if (path.__buttons !== undefined) {
+                cy.log('Checking for existing buttons');
                 Object.keys(path.__buttons).forEach(button => {
                     cy.get(path.__buttons[button]).should('exist');
+                });
+            }
+
+            if (path.__fields !== undefined) {
+                cy.log('Checking for existing fields');
+                Object.keys(path.__fields).forEach(field => {
+                    cy.get(path.__fields[field].selector).should('exist');
                 });
             }
         },

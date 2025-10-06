@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.notification;
+const test = cy.testBackendSystemAdminnotification.config;
 const check = cy.openmage.check;
 
 describe(`Checks admin system "${test.index.title}"`, () => {

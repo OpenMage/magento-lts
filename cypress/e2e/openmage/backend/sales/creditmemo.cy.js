@@ -1,4 +1,4 @@
-const test = cy.testBackendSales.creditmemo;
+const test = cy.testBackendSalesCreditmemo.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

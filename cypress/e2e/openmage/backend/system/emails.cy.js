@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.email;
+const test = cy.testBackendSystemEmailTemplate.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

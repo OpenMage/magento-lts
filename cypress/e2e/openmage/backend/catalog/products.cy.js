@@ -1,4 +1,4 @@
-const test = cy.testBackendCatalog.products;
+const test = cy.testBackendCatalogProducts.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

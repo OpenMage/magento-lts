@@ -1,4 +1,4 @@
-const test = cy.testBackendSystem.myaccount;
+const test = cy.testBackendSystemMyAccount.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;

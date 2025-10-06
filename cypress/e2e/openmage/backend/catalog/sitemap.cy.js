@@ -1,4 +1,4 @@
-const test = cy.testBackendCatalog.sitemap;
+const test = cy.testBackendCatalogSitemap.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 

@@ -1,4 +1,4 @@
-const test = cy.testBackendPromo.quote;
+const test = cy.testBackendPromoQuote.config;
 const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 
