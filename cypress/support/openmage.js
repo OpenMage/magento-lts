@@ -18,17 +18,17 @@ cy.openmage = {
         buttons: (path, log = 'Checking for existing buttons') => {
             cy.log(log);
             if (path.__buttons !== undefined) {
-                Object.keys(path.__buttons).forEach(button => {
+                for (const button of Object.keys(path.__buttons)) {
                     cy.get(path.__buttons[button]).should('exist');
-                });
+                };
             }
         },
         fields: (path, log = 'Checking for existing fields') => {
             cy.log(log);
             if (path.__fields !== undefined) {
-                Object.keys(path.__fields).forEach(field => {
+                for (const field of Object.keys(path.__fields)) {
                     cy.get(path.__fields[field]).should('exist');
-                });
+                };
             }
         },
         pageElements: (test, path) => {
@@ -53,16 +53,16 @@ cy.openmage = {
                 cy.get(test._button).filter(':visible').should('have.length', Object.keys(path.__buttons).length);
 
                 cy.log('Checking for existing buttons');
-                Object.keys(path.__buttons).forEach(button => {
+                for (const button of Object.keys(path.__buttons)) {
                     cy.get(path.__buttons[button]).should('exist');
-                });
+                };
             }
 
             if (path.__fields !== undefined) {
                 cy.log('Checking for existing fields');
-                Object.keys(path.__fields).forEach(field => {
+                for (const field of Object.keys(path.__fields)) {
                     cy.get(path.__fields[field].selector).should('exist');
-                });
+                };
             }
         },
     },
