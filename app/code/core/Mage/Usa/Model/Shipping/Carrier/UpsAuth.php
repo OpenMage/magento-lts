@@ -53,7 +53,7 @@ class Mage_Usa_Model_Shipping_Carrier_UpsAuth extends Mage_Usa_Model_Shipping_Ca
         try {
             if ($responseData === false) {
                 $code = curl_errno($ch);
-                $description = curl_strerror($ch);
+                $description = curl_strerror($code);
                 $message = curl_error($ch);
                 Mage::throwException("cURL Error: ($code) $description - \"$message\"");
             }
