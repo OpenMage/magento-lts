@@ -13,8 +13,8 @@ const defaultConfig = {
         block_is_active : {
             selector: '#block_is_active',
         },
-        block_is_active : {
-            selector: '#block_is_active',
+        block_content : {
+            selector: '#block_content',
         },
     },
 }
