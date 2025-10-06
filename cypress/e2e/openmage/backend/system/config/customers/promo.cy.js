@@ -20,7 +20,7 @@ describe(`Checks admin system "${test.h3}" settings`, () => {
         const fields = fieldset._input;
         const validate = validation.digits;
         validation.fillFields(fields, validate, validation.test.string);
-        tools.clickAction(saveButton);
+        tools.click(saveButton);
         validation.validateFields(fields, validate);
     });
 });

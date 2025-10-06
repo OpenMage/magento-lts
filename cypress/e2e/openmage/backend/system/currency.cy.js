@@ -20,7 +20,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.get('body').then($body => {
             if ($body.find(test.index.__validation._input.from).length > 0) {
                 cy.get(test.index.__validation._input.from).clear();
-                tools.clickAction(test.index.__buttons.save);
+                tools.click(test.index.__buttons.save);
                 validation.hasWarningMessage(warning);
                 validation.hasSuccessMessage(success);
             }
@@ -31,7 +31,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.get('body').then($body => {
             if ($body.find(test.index.__validation._input.from).length > 0) {
                 cy.get(test.index.__validation._input.from).clear().type('abc');
-                tools.clickAction(test.index.__buttons.save);
+                tools.click(test.index.__buttons.save);
                 validation.hasWarningMessage(warning);
                 validation.hasSuccessMessage(success);
             }

@@ -16,7 +16,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it(`tests empty input`, () => {
         const validate = validation.requiredEntry;
         validation.fillFields(test.index.__validation._input, validate);
-        tools.clickAction(test.index.__buttons.save);
+        tools.click(test.index.__buttons.save);
         validation.validateFields(test.index.__validation._input, validate);
     });
 });

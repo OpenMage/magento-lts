@@ -13,19 +13,19 @@ describe(`Checks admin system "${test.h3}" settings`, () => {
 
     it(`tests invalid string priority`, () => {
         validation.fillFields(priority, validation.number, validation.test.string);
-        tools.clickAction(saveButton);
+        tools.click(saveButton);
         validation.validateFields(priority, validation.number);
     });
 
     it(`tests invalid number priority`, () => {
         validation.fillFields(priority, validation.numberRange, validation.test.numberGreater1);
-        tools.clickAction(saveButton);
+        tools.click(saveButton);
         validation.validateFields(priority, validation.numberRange);
      });
 
     it(`tests empty priority`, () => {
         validation.fillFields(priority, validation.requiredEntry);
-        tools.clickAction(saveButton);
+        tools.click(saveButton);
         validation.validateFields(priority, validation.requiredEntry);
     });
 
@@ -33,7 +33,7 @@ describe(`Checks admin system "${test.h3}" settings`, () => {
         const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
         validation.fillFields(priority, validation.requiredEntry);
         validation.removeClasses(priority);
-        tools.clickAction(saveButton);
+        tools.click(saveButton);
         validation.hasErrorMessage(error);
     });
 });

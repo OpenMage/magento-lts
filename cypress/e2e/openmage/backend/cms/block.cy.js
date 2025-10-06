@@ -13,12 +13,12 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        tools.clickGridRow(test.index._grid, 'td', 'category-landingpage-home');
+        tools.clickContains(test.index._grid, 'td', 'category-landingpage-home');
         check.pageElements(test, test.edit);
     });
 
     it(`tests new route`, () => {
-        tools.clickAction(test.index.__buttons.add);
+        tools.click(test.index.__buttons.add);
         check.pageElements(test, test.new);
     });
 });

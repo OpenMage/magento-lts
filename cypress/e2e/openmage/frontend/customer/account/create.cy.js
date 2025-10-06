@@ -14,14 +14,14 @@ describe('Checks customer account create', () => {
 
     it('Submits empty form', () => {
         validation.fillFields(fields, validation.requiredEntry);
-        tools.clickAction(test._buttonSubmit);
+        tools.click(test._buttonSubmit);
         validation.validateFields(fields, validation.requiredEntry);
     });
 
     it('Submits empty form, no js', () => {
         validation.fillFields(fields, validation.requiredEntry);
         validation.removeClasses(fields);
-        tools.clickAction(test._buttonSubmit);
+        tools.click(test._buttonSubmit);
         cy.get(validation._errorMessage)
             .should('include.text', '"First Name" is a required value.')
             .should('include.text', '"First Name" length must be equal or greater than 1 characters.')
@@ -33,13 +33,13 @@ describe('Checks customer account create', () => {
     it('Submits form with short password and wrong confirmation', () => {
         cy.get(fields.password).type('123').should('have.value', '123');
         cy.get(fields.confirmation).type('abc').should('have.value', 'abc');
-        tools.clickAction(test._buttonSubmit);
+        tools.click(test._buttonSubmit);
         cy.get('#advice-validate-password-password').should('include.text', 'Please enter more characters or clean leading or trailing spaces.');
         cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
     });
 
     it('Submits valid form with random email', () => {
-        const email = cy.openmage.tools.generateRandomEmail();
+        const email = cy.openmage.utils.generateRandomEmail();
         const firstname = 'John';
         const lastname = 'Doe';
         const password = '12345678';
@@ -49,7 +49,7 @@ describe('Checks customer account create', () => {
         cy.get(fields.email_address).type(email).should('have.value', email);
         cy.get(fields.password).type(password).should('have.value', password);
         cy.get(fields.confirmation).type(password).should('have.value', password);
-        tools.clickAction(test._buttonSubmit);
+        tools.click(test._buttonSubmit);
         validation.hasSuccessMessage(successMsg);
     });
 });
