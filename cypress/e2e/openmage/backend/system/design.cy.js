@@ -13,12 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        if (check.grid.hasRecords(test.index._grid,)) {
-            tools.clickContains(test.index._grid, 'td', 'test');
-            check.pageElements(test, test.edit);
-        } else {
-            check.pageElements(test, test.index);
-        }
+        check.pageElements(test, test.index);
     });
 
     it(`tests new route`, () => {

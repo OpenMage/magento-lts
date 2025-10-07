@@ -67,12 +67,6 @@ cy.openmage.check = {
             };
         }
     },
-    grid: {
-        hasRecords: (element, log = 'Checking for existing records in grid') => {
-            cy.log(log);
-            return cy.get(element).find('td').innerText !== 'No records found.';
-        }
-    },
 },
 
 cy.openmage.tools = {
