@@ -16,7 +16,7 @@ cy.testBackendSystemVariable.config.index = {
     url: 'system_variable/index',
     _grid: '#customVariablesGrid',
     __buttons: {
-        add: '.form-buttons button[title="Add New Variable"]',
+        add: base._button + '[title="Add New Variable"]',
     },
 }
 

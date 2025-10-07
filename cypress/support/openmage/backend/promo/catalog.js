@@ -14,7 +14,7 @@ cy.testBackendPromoCatalog.config = {
 cy.testBackendPromoCatalog.config.index = {
     title: 'Catalog Price Rules',
     url: 'promo_catalog/index',
-    _grid: '#promo_catalog_grid',
+    _grid: '#promo_catalog_grid_table',
     __buttons: {
         add: base._button + '[title="Add New Rule"]',
         apply: base._button + '[title="Apply Rules"]',
