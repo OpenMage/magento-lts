@@ -145,7 +145,7 @@ cy.openmage.validation = {
     pageElements: (test, path) => {
         cy.openmage.check.buttons(test, path);
         cy.openmage.check.fields(path);
-        cy.openmage.check.grid(test);
+        cy.openmage.check.grid(path);
         cy.openmage.check.navigation(test);
         cy.openmage.check.tabs(path);
         cy.openmage.check.title(test, path);
