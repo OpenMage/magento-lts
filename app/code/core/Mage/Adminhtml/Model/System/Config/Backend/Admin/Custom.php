@@ -23,16 +23,62 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_
     public const XML_PATH_SECURE_BASE_LINK_URL     = 'web/secure/base_link_url';
 
     /**
-     * Validate value before save
+     * Validate custom admin URL before save
      *
      * @return $this
+     * @throws Mage_Core_Exception
      */
     protected function _beforeSave()
     {
-        $value = $this->getValue();
+        $value = trim($this->getValue());
 
-        if (!empty($value) && !str_ends_with($value, '}}')) {
-            $value = rtrim($value, '/') . '/';
+        // Empty is allowed (disabled custom admin URL)
+        if (empty($value)) {
+            $this->setValue($value);
+            return $this;
+        }
+
+        // Whitelist: only allow valid base URL characters
+        // Valid for base URL: letters, numbers, and URL-safe characters (: / . - _ [ ])
+        if (!preg_match('/^[a-zA-Z0-9:\/.\-_\[\]]+$/', $value)) {
+            Mage::throwException(
+                Mage::helper('adminhtml')->__('Custom Admin URL contains invalid characters.')
+            );
+        }
+
+        // Parse the URL
+        $urlParts = parse_url($value);
+
+        if ($urlParts === false) {
+            Mage::throwException(
+                Mage::helper('adminhtml')->__('Invalid Custom Admin URL format.')
+            );
+        }
+
+        // Must have protocol
+        if (!isset($urlParts['scheme'])) {
+            Mage::throwException(
+                Mage::helper('adminhtml')->__('Custom Admin URL must include protocol (http:// or https://).')
+            );
+        }
+
+        // Only allow http and https
+        if (!in_array($urlParts['scheme'], ['http', 'https'])) {
+            Mage::throwException(
+                Mage::helper('adminhtml')->__('Custom Admin URL must use http:// or https:// protocol.')
+            );
+        }
+
+        // Must have hostname
+        if (!isset($urlParts['host']) || empty($urlParts['host'])) {
+            Mage::throwException(
+                Mage::helper('adminhtml')->__('Custom Admin URL must include a hostname.')
+            );
+        }
+
+        // Ensure trailing slash
+        if (!str_ends_with($value, '/')) {
+            $value .= '/';
         }
 
         $this->setValue($value);
