@@ -52,6 +52,14 @@ cy.openmage.check = {
         cy.log(log)
         cy.url().should('include', path.url);
     },
+    tabs: (path, log = 'Checkinng for tabs') => {
+        cy.log(log);
+        if (path.__tabs !== undefined) {
+            for (const tab of Object.keys(path.__tabs)) {
+                cy.get(path.__tabs[tab]).should('exist');
+            };
+        }
+    },
     title: (test, path, log = 'Checkinng for title') => {
         cy.log(log)
         cy.get(test._h3).should('include.text', path.title);
@@ -141,6 +149,7 @@ cy.openmage.validation = {
         cy.openmage.check.fields(path);
         cy.openmage.check.grid(test);
         cy.openmage.check.navigation(test);
+        cy.openmage.check.tabs(path);
         cy.openmage.check.title(test, path);
         cy.openmage.check.url(path);
     },
