@@ -1,4 +1,4 @@
-const defaultConfig = {
+const base = {
     _button: '.form-buttons button',
     __fields: {
         block_title : {
@@ -19,42 +19,45 @@ const defaultConfig = {
     },
 }
 
-cy.testBackendCmsBlock = {
-    config: {
-        _id: '#nav-admin-cms-block',
-        _id_parent: '#nav-admin-cms',
-        _h3: 'h3.icon-head',
-        _button: defaultConfig._button,
-        index: {
-            title: 'Static Blocks',
-            url: 'cms_block/index',
-            _grid: '#cmsBlockGrid_table',
-            __buttons: {
-                add: defaultConfig._button + '[title="Add New Block"]',
-            },
-        },
-        edit: {
-            title: 'Edit Block',
-            url: 'cms_block/edit',
-            __buttons: {
-                save: defaultConfig._button + '[title="Save Block"]',
-                saveAndContinue: defaultConfig._button + '[title="Save and Continue Edit"]',
-                delete: defaultConfig._button + '[title="Delete Block"]',
-                back: defaultConfig._button + '[title="Back"]',
-                reset: defaultConfig._button + '[title="Reset"]',
-            },
-            __fields: defaultConfig.__fields,
-        },
-        new: {
-            title: 'New Block',
-            url: 'cms_block/new',
-            __buttons: {
-                save: defaultConfig._button + '[title="Save Block"]',
-                saveAndContinue: defaultConfig._button + '[title="Save and Continue Edit"]',
-                back: defaultConfig._button + '[title="Back"]',
-                reset: defaultConfig._button + '[title="Reset"]',
-            },
-            __fields: defaultConfig.__fields,
-        },
+cy.testBackendCmsBlock = {};
+
+cy.testBackendCmsBlock.config = {
+    _id: '#nav-admin-cms-block',
+    _id_parent: '#nav-admin-cms',
+    _h3: 'h3.icon-head',
+    _button: base._button,
+}
+
+cy.testBackendCmsBlock.config.index = {
+    title: 'Static Blocks',
+    url: 'cms_block/index',
+    _grid: '#cmsBlockGrid_table',
+    __buttons: {
+        add: base._button + '[title="Add New Block"]',
     },
+}
+
+cy.testBackendCmsBlock.config.edit = {
+    title: 'Edit Block',
+    url: 'cms_block/edit',
+    __buttons: {
+        save: base._button + '[title="Save Block"]',
+        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
+        delete: base._button + '[title="Delete Block"]',
+        back: base._button + '[title="Back"]',
+        reset: base._button + '[title="Reset"]',
+    },
+    __fields: base.__fields,
+}
+
+cy.testBackendCmsBlock.config.new = {
+    title: 'New Block',
+    url: 'cms_block/new',
+    __buttons: {
+        save: base._button + '[title="Save Block"]',
+        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
+        back: base._button + '[title="Back"]',
+        reset: base._button + '[title="Reset"]',
+    },
+    __fields: base.__fields,
 }

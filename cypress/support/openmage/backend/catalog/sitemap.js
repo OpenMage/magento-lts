@@ -1,28 +1,31 @@
-const defaultConfig = {
+const base = {
     _button: '.form-buttons button'
 }
 
-cy.testBackendCatalogSitemap = {
-    config: {
-        _id: '#nav-admin-catalog-sitemap',
-        _id_parent: '#nav-admin-catalog',
-        _h3: 'h3.icon-head',
-        _button: defaultConfig._button,
-        index: {
-            title: 'Google Sitemap',
-            url: 'sitemap/index',
-            _grid: '#sitemapGrid_table',
-            __buttons: {
-                add: defaultConfig._button + '[title="Add Sitemap"]',
-            },
-        },
-        edit: {
-            title: 'Edit Sitemap',
-            url: 'sitemap/edit',
-        },
-        new: {
-            title: 'New Sitemap',
-            url: 'sitemap/new',
-        },
+cy.testBackendCatalogSitemap = {};
+
+cy.testBackendCatalogSitemap.config = {
+    _id: '#nav-admin-catalog-sitemap',
+    _id_parent: '#nav-admin-catalog',
+    _h3: 'h3.icon-head',
+    _button: base._button,
+}
+
+cy.testBackendCatalogSitemap.config.index = {
+    title: 'Google Sitemap',
+    url: 'sitemap/index',
+    _grid: '#sitemapGrid_table',
+    __buttons: {
+        add: base._button + '[title="Add Sitemap"]',
     },
+}
+
+cy.testBackendCatalogSitemap.config.edit = {
+    title: 'Edit Sitemap',
+    url: 'sitemap/edit',
+}
+
+cy.testBackendCatalogSitemap.config.new = {
+    title: 'New Sitemap',
+    url: 'sitemap/new',
 }

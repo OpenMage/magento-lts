@@ -1,4 +1,4 @@
-const test = cy.testBackendDashboard.dashboard;
+const test = cy.testBackendDashboard.config;
 const check = cy.openmage.check;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
