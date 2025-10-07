@@ -109,7 +109,7 @@ cy.testBackendCmsPage.config.edit = {
     __tabs: base.__tabs,
     disablePage: () => {
         cy.log('Disable the CMS page');
-        cy.get('#page_is_active')
+        cy.get(base.__fields.page_is_active.selector)
             .select('Disabled');
     },
     resetStores: () => {
