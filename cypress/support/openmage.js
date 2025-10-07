@@ -41,18 +41,16 @@ cy.openmage.check = {
             cy.get(path._grid).should('exist');
         }
     },
-    navigation: (test, log = 'Checkinng for URL') => {
-        cy.log('Checking for active class');
+    navigation: (test, log = 'Checking for active navigation') => {
+        cy.log(log);
         cy.get(test._id).should('have.class', 'active');
-
-        cy.log('Checking for active parent class');
         cy.get(test._id_parent).should('have.class', 'active');
     },
-    url: (path, log = 'Checkinng for URL') => {
+    url: (path, log = 'Checking for URL') => {
         cy.log(log)
         cy.url().should('include', path.url);
     },
-    tabs: (path, log = 'Checkinng for tabs') => {
+    tabs: (path, log = 'Checking for tabs') => {
         cy.log(log);
         if (path.__tabs !== undefined) {
             for (const tab of Object.keys(path.__tabs)) {
@@ -60,7 +58,7 @@ cy.openmage.check = {
             };
         }
     },
-    title: (test, path, log = 'Checkinng for title') => {
+    title: (test, path, log = 'Checking for title') => {
         cy.log(log)
         cy.get(test._h3).should('include.text', path.title);
     },

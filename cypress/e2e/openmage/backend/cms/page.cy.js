@@ -49,7 +49,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // @todo add validation for required fields
     });
 
-    it('tests to un-asign a CMS page that is used in config', () => {
+    it('tests to unassign a CMS page that is used in config', () => {
         test.index.clickGridRow();
 
         //cy.log('Asign another store to the CMS page');

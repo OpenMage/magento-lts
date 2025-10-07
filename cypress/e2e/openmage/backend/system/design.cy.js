@@ -13,7 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        // TODO: There is no edit route for system variables
+        // TODO: There is no edit route for design updates
         validation.pageElements(test, test.index);
     });
 
