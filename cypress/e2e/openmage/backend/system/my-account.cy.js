@@ -1,5 +1,4 @@
 const test = cy.testBackendSystemMyAccount.config;
-const check = cy.openmage.check;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
@@ -10,7 +9,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests empty input`, () => {

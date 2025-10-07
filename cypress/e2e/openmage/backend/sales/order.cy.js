@@ -1,6 +1,6 @@
 const test = cy.testBackendSalesOrder.config;
-const check = cy.openmage.check;
 const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
@@ -9,11 +9,11 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests view route`, () => {
         tools.clickContains(test.index._grid, 'td', '145000004');
-        check.pageElements(test, test.view);
+        validation.pageElements(test, test.view);
     });
 });

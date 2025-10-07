@@ -17,9 +17,11 @@ cy.openmage.login = {
 }
 
 cy.openmage.check = {
-    buttons: (path, log = 'Checking for existing buttons') => {
+    buttons: (test, path, log = 'Checking for existing buttons') => {
         cy.log(log);
         if (path.__buttons !== undefined) {
+            cy.get(test._button).filter(':visible').should('have.length', Object.keys(path.__buttons).length);
+
             for (const button of Object.keys(path.__buttons)) {
                 cy.get(path.__buttons[button]).should('exist');
             };
@@ -29,43 +31,30 @@ cy.openmage.check = {
         cy.log(log);
         if (path.__fields !== undefined) {
             for (const field of Object.keys(path.__fields)) {
-                cy.get(path.__fields[field]).should('exist');
-            };
-        }
-    },
-    pageElements: (test, path) => {
-        cy.log('Checking for title');
-        cy.get(test._h3).should('include.text', path.title);
-
-        cy.log('Checkinng for URL')
-        cy.url().should('include', path.url);
-
-        cy.log('Checking for active parent class');
-        cy.get(test._id_parent).should('have.class', 'active');
-
-        cy.log('Checking for active class');
-        cy.get(test._id).should('have.class', 'active');
-
-        if (path._grid !== undefined) {
-            cy.log('Checking for existing grid');
-            cy.get(path._grid).should('exist');
-        }
-
-        if (path.__buttons !== undefined) {
-            cy.get(test._button).filter(':visible').should('have.length', Object.keys(path.__buttons).length);
-
-            cy.log('Checking for existing buttons');
-            for (const button of Object.keys(path.__buttons)) {
-                cy.get(path.__buttons[button]).should('exist');
-            };
-        }
-
-        if (path.__fields !== undefined) {
-            cy.log('Checking for existing fields');
-            for (const field of Object.keys(path.__fields)) {
                 cy.get(path.__fields[field].selector).should('exist');
             };
         }
+    },
+    grid: (path, log = 'Checking for existing grid') => {
+        if (path._grid !== undefined) {
+            cy.log(log);
+            cy.get(path._grid).should('exist');
+        }
+    },
+    navigation: (test, log = 'Checkinng for URL') => {
+        cy.log('Checking for active class');
+        cy.get(test._id).should('have.class', 'active');
+
+        cy.log('Checking for active parent class');
+        cy.get(test._id_parent).should('have.class', 'active');
+    },
+    url: (path, log = 'Checkinng for URL') => {
+        cy.log(log)
+        cy.url().should('include', path.url);
+    },
+    title: (test, path, log = 'Checkinng for title') => {
+        cy.log(log)
+        cy.get(test._h3).should('include.text', path.title);
     },
 },
 
@@ -147,6 +136,14 @@ cy.openmage.validation = {
                 .invoke('removeClass');
         });
     },
+    pageElements: (test, path) => {
+        cy.openmage.check.buttons(test, path);
+        cy.openmage.check.fields(path);
+        cy.openmage.check.grid(test);
+        cy.openmage.check.navigation(test);
+        cy.openmage.check.title(test, path);
+        cy.openmage.check.url(path);
+    },
     validateFields: (fields, validation) =>{
         cy.log('Checking for error messages');
         Object.keys(fields).forEach(field => {
@@ -156,14 +153,14 @@ cy.openmage.validation = {
     },
     hasErrorMessage: (message) =>{
         cy.log('Checking for error messages');
-        cy.get('.error-msg').should('include.text', message);
+        cy.get(cy.openmage.validation._errorMessage).should('include.text', message);
     },
     hasSuccessMessage: (message) =>{
         cy.log('Checking for success messages');
-        cy.get('.success-msg').should('include.text', message);
+        cy.get(cy.openmage.validation._successMessage).should('include.text', message);
     },
     hasWarningMessage: (message) =>{
         cy.log('Checking for warning messages');
-        cy.get('.warning-msg').should('include.text', message);
+        cy.get(cy.openmage.validation._warningMessage).should('include.text', message);
     },
 }

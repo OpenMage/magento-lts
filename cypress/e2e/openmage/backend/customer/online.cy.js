@@ -1,6 +1,6 @@
 const test = cy.testBackendCustomerOnline.config;
-const check = cy.openmage.check;
 const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
@@ -9,6 +9,6 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 });

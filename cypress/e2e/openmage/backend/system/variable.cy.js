@@ -1,6 +1,6 @@
 const test = cy.testBackendSystemVariable.config;
-const check = cy.openmage.check;
 const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
@@ -9,16 +9,16 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests edit route`, () => {
         // TODO: There is no edit route for system variables
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests new route`, () => {
         tools.click(test.index.__buttons.add);
-        check.pageElements(test, test.new);
+        validation.pageElements(test, test.new);
     });
 });
