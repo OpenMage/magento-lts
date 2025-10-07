@@ -154,10 +154,11 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
      */
     public function match(Zend_Controller_Request_Http $request)
     {
-        if (($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl())
-            && !str_contains($adminUrl, $request->getHttpHost())
-        ) {
-            return false;
+        if ($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl()) {
+            $adminHost = parse_url($adminUrl, PHP_URL_HOST);
+            if ($adminHost && $adminHost !== $request->getHttpHost()) {
+                return false;
+            }
         }
 
         return parent::match($request);
