@@ -1,11 +1,23 @@
 const test = cy.testBackendCmsPage.config;
-const tools = cy.testBackendCmsPage.tools;
+const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.adminLogIn();
         cy.adminGoToTestRoute(test, test.index);
+    });
+
+    it(`tests save empty values, no js`, () => {
+        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
+
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        test.new.clickSaveAndContinue();
+        //validation.hasErrorMessage(error);
+        // screenshot with error message
+        cy.get('body').screenshot('saveEmptyWithoutJs.message.cms.page', { overwrite: true, padding: 10 });
     });
 
     it(`tests index route`, () => {
@@ -22,18 +34,15 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.pageElements(test, test.new);
     });
 
-    it(`tests save empty, no js`, () => {
-        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
-
+    it('tests to add a CMS page', () => {
         test.index.clickAdd();
-        validation.removeClasses(test.new);
+        test.edit.clickSaveAndContinue();
 
-        test.new.clickSaveAndContinue();
-        validation.hasErrorMessage(error);
+        // @todo add validation for required fields
     });
 
     it('tests to disable a CMS page that is used in config', () => {
-        test.index.clickGridRow('td', 'no-root', 'Select "no-root"" CMS page');
+        test.index.clickGridRow('td', 'no-route', 'Select "no-route"" CMS page');
 
         test.edit.disablePage();
         test.edit.clickSaveAndContinue();
@@ -44,22 +53,15 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it('tests to delete a CMS page that is used in config', () => {
-        test.index.clickGridRow('td', 'no-root', 'Select "no-root"" CMS page');
+        test.index.clickGridRow('td', 'no-route', 'Select "no-route"" CMS page');
         test.edit.clickDelete();
 
         validation.hasErrorMessage('Cannot delete page');
         cy.get('#messages').screenshot('cms.page.deleteActivePage', { overwrite: true, padding: 10 });
     });
 
-    it('tests to add a CMS page', () => {
-        test.index.clickAdd();
-        test.edit.clickSaveAndContinue();
-
-        // @todo add validation for required fields
-    });
-
     it('tests to unassign a CMS page that is used in config', () => {
-        test.index.clickGridRow('td', 'no-root', 'Select "no-root"" CMS page');
+        test.index.clickGridRow('td', 'no-route', 'Select "no-route"" CMS page');
 
         //cy.log('Assign another store to the CMS page');
         //cy.get(test.edit.__fields.page_store_id.selector)

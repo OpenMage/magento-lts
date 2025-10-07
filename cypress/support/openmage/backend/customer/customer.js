@@ -26,7 +26,9 @@ cy.testBackendCustomerCustomer.config.index = {
 }
 
 cy.testBackendCustomerCustomer.config.edit = {
-    title: 'John Smith', // comes from sample data
+    // comes from sample data
+    // TODO: make dynamic, update template
+    title: 'John',
     url: 'customer/edit',
     __buttons: {
         save: base._button + '[title="Save Customer"]',

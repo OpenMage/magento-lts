@@ -1,3 +1,5 @@
+const tools = cy.openmage.tools;
+
 const base = {
     _button: '.content-header button'
 }
@@ -17,6 +19,9 @@ cy.testBackendCatalogProducts.config.index = {
     _grid: '#productGrid_table',
     __buttons: {
         add: base._button + '[title="Add Product"]',
+    },
+    clickAdd: () => {
+        tools.click(cy.testBackendCatalogProducts.config.index.__buttons.add, 'Add New Products button clicked');
     },
 }
 

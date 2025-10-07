@@ -25,5 +25,22 @@ cy.testFrontend.customer.account.create = {
             password: '#password',
             confirmation: '#confirmation',
         }
+    },
+    __fields: {
+        firstname: {
+            selector: '#firstname',
+        },
+        lastname: {
+            selector: '#lastname',
+        },
+        email_address: {
+            selector: '#email_address',
+        },
+        password: {
+            selector: '#password',
+        },
+        confirmation: {
+            selector: '#confirmation',
+        },
     }
 }

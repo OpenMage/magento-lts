@@ -24,16 +24,21 @@ cy.testBackendSystemConfig.config.catalog.sitemap = {
     url: 'system_config/edit/section/sitemap',
     h3: 'Google Sitemap',
     _h3: base._h3,
-    __validation: {
-        priority: {
-            _input: {
-                category: '#sitemap_category_priority',
-                product: '#sitemap_product_priority',
-                page: '#sitemap_page_priority',
-            }
-        }
-    }
 }
+
+cy.testBackendSystemConfig.config.catalog.sitemap.priority = {
+    __fields: {
+        category: {
+            selector: '#sitemap_category_priority',
+        },
+        product: {
+            selector: '#sitemap_product_priority',
+        },
+        page: {
+            selector: '#sitemap_page_priority',
+        },
+    }
+};
 
 cy.testBackendSystemConfig.config.customers.promo = {
     _id: '#section-promo',

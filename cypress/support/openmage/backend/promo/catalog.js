@@ -1,3 +1,5 @@
+const tools = cy.openmage.tools;
+
 const base = {
     _button: '.form-buttons button',
 }

@@ -1,3 +1,5 @@
+const tools = cy.openmage.tools;
+
 const base = {
     _button: '.form-buttons button',
 }
@@ -17,6 +19,9 @@ cy.testBackendCmsWidget.config.index = {
     _grid: '#widgetInstanceGrid_table',
     __buttons: {
         add: base._button + '[title="Add New Widget Instance"]',
+    },
+    clickAdd: () => {
+        tools.click(cy.testBackendCmsWidget.config.index.__buttons.add, 'Add New Widget Instances button clicked');
     },
 }
 

@@ -8,7 +8,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.adminGoToTestRoute(test, test.index);
     });
 
-    it(`tests save empty, no js`, () => {
+    it(`tests save empty values, no js`, () => {
         const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
 
         test.index.clickAdd();
@@ -20,6 +20,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // TODO: fit it
         // validation.hasErrorMessage(error);
         validation.hasSuccessMessage('You saved the search term.');
+        cy.get('body').screenshot('saveEmptyWithoutJs.message.catalog.search', { overwrite: true, padding: 10 });
     });
 
     it(`tests index route`, () => {

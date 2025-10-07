@@ -9,32 +9,32 @@ describe(`Checks admin system "${test.h3}" settings`, () => {
         cy.adminGetConfiguration(test);
     });
 
-    const priority = test.__validation.priority._input;
+    const fields = test.priority.__fields;
 
-    it(`tests invalid string priority`, () => {
-        validation.fillFields(priority, validation.number, validation.test.string);
-        tools.click(saveButton);
-        validation.validateFields(priority, validation.number);
-    });
-
-    it(`tests invalid number priority`, () => {
-        validation.fillFields(priority, validation.numberRange, validation.test.numberGreater1);
-        tools.click(saveButton);
-        validation.validateFields(priority, validation.numberRange);
-     });
-
-    it(`tests empty priority`, () => {
-        validation.fillFields(priority, validation.requiredEntry);
-        tools.click(saveButton);
-        validation.validateFields(priority, validation.requiredEntry);
-    });
-
-    it(`tests empty priority, no js`, () => {
-        validation.fillFields(priority, validation.requiredEntry);
-        validation.removeClasses(priority);
+    it(`tests save empty, no js`, () => {
+        validation.fillFields(fields, validation.requiredEntry);
+        validation.removeClasses(fields);
 
         const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
         tools.click(saveButton);
         validation.hasErrorMessage(error);
+    });
+
+    it(`tests invalid string priority`, () => {
+        validation.fillFields(fields, validation.number, validation.test.string);
+        tools.click(saveButton);
+        validation.validateFields(fields, validation.number);
+    });
+
+    it(`tests invalid number priority`, () => {
+        validation.fillFields(fields, validation.numberRange, validation.test.numberGreater1);
+        tools.click(saveButton);
+        validation.validateFields(fields, validation.numberRange);
+     });
+
+    it(`tests empty priority`, () => {
+        validation.fillFields(fields, validation.requiredEntry);
+        tools.click(saveButton);
+        validation.validateFields(fields, validation.requiredEntry);
     });
 });

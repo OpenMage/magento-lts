@@ -16,6 +16,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         const error = 'Your design change for the specified store intersects with another one, please specify another date range.';
         test.new.clickSave();
         validation.hasErrorMessage(error,'have.text');
+        cy.get('#messages').screenshot('saveEmptyWithoutJs.message.system.design', { overwrite: true, padding: 10 });
     });
 
     it(`tests index route`, () => {

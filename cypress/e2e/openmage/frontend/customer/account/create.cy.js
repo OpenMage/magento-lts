@@ -18,7 +18,7 @@ describe('Checks customer account create', () => {
         validation.validateFields(fields, validation.requiredEntry);
     });
 
-    it('Submits empty form, no js', () => {
+    it('tests save empty, no js', () => {
         validation.fillFields(fields, validation.requiredEntry);
         validation.removeClasses(fields);
         tools.click(test._buttonSubmit);

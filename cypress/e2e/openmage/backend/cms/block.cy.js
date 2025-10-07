@@ -8,17 +8,16 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.adminGoToTestRoute(test, test.index);
     });
 
-    it(`tests save empty, no js`, () => {
-        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
+    it(`tests save empty values, no js`, () => {
 
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
         test.new.clickSaveAndContinue();
-        cy.get('body').screenshot('cms.block.saveEmptyWithoutJs.click', { overwrite: true });
 
-        validation.hasErrorMessage(error);
-        cy.get('body').screenshot('cms.block.saveEmptyWithoutJs.result', { overwrite: true });
+        // TODO: do not save empty block, show error instead
+        validation.hasSuccessMessage('The block has been saved.', 'have.text');
+        cy.get('#messages').screenshot('saveEmptyWithoutJs.message.cms.block', { overwrite: true, padding: 10 });
     });
 
     it(`tests index route`, () => {

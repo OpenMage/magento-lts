@@ -54,6 +54,21 @@ cy.testBackendCmsBlock.config.edit = {
         reset: base._button + '[title="Reset"]',
     },
     __fields: base.__fields,
+    clickSave: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.save, 'Save button clicked');
+    },
+    clickSaveAndContinue: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.saveAndContinue, 'Save and Continue button clicked');
+    },
+    clickDelete: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.back, 'Delete button clicked');
+    },
+    clickBack: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.back, 'Back button clicked');
+    },
+    clickReset: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.reset, 'Reset button clicked');
+    },
 }
 
 cy.testBackendCmsBlock.config.new = {
@@ -66,4 +81,16 @@ cy.testBackendCmsBlock.config.new = {
         reset: base._button + '[title="Reset"]',
     },
     __fields: base.__fields,
+    clickSave: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.save, 'Save button clicked');
+    },
+    clickSaveAndContinue: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.saveAndContinue, 'Save and Continue button clicked');
+    },
+    clickBack: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.back, 'Back button clicked');
+    },
+    clickReset: () => {
+        tools.click(cy.testBackendCmsBlock.config.new.__buttons.reset, 'Reset button clicked');
+    },
 }
