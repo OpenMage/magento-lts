@@ -1,22 +1,22 @@
-const test = cy.testBackendCustomerGroups.config;
+const test = cy.openmage.test.backend.customer.group.config;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
-    it(`tests save empty, no js`, () => {
+    it(`tests save empty values, no js`, () => {
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         // TODO fix it
-        const error = 'substr(): Passing null to parameter #1 ($string) of type string is deprecated';
+        const message = 'substr(): Passing null to parameter #1 ($string) of type string is deprecated';
         test.new.clickSave();
-        validation.hasErrorMessage(error, 'have.text');
+        validation.hasErrorMessage(message, { screenshot: true, filename: 'message.customer.groups.saveEmptyWithoutJs'});
     });
 
     it(`tests index route`, () => {

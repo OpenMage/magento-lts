@@ -1,13 +1,23 @@
-cy.testBackendNewsletterQueue = {};
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.newsletter.queue;
 
-cy.testBackendNewsletterQueue.config = {
+/**
+ * Configuration for "Newsletter Queue" menu item
+ * @type {{_title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-newsletter-queue',
     _id_parent: '#nav-admin-newsletter',
-    _h3: 'h3.icon-head',
+    _title: base._title,
+    url: 'newsletter_queue/index',
 }
 
-cy.testBackendNewsletterQueue.config.index = {
+/**
+ * Configuration for "Newsletter Queue" page
+ * @type {{title: string, url: string, _grid: string}}
+ */
+test.config.index = {
     title: 'Newsletter Queue',
-    url: 'newsletter_queue/index',
+    url: test.config.url,
     _grid: '#queueGrid_table',
 }

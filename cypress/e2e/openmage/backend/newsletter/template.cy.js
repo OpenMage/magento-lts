@@ -1,11 +1,11 @@
-const test = cy.testBackendNewsletterTemplates.config;
+const test = cy.openmage.test.backend.newsletter.template.config;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
     it(`tests index route`, () => {

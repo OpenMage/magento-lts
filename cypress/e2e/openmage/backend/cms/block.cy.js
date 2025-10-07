@@ -1,23 +1,21 @@
-const test = cy.testBackendCmsBlock.config;
+const test = cy.openmage.test.backend.cms.block.config;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
     it(`tests save empty values, no js`, () => {
-
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
-        test.new.clickSaveAndContinue();
-
         // TODO: do not save empty block, show error instead
-        validation.hasSuccessMessage('The block has been saved.', 'have.text');
-        cy.get('#messages').screenshot('saveEmptyWithoutJs.message.cms.block', { overwrite: true, padding: 10 });
+        const message = 'The block has been saved.';
+        test.new.clickSaveAndContinue();
+        validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: 'message.cms.block.saveEmptyWithoutJs' });
     });
 
     it(`tests index route`, () => {

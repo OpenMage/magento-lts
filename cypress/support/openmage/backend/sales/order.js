@@ -1,26 +1,36 @@
-const base = {
-    _button: '.form-buttons button',
-}
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.sales.order;
 
-cy.testBackendSalesOrder = {};
-
-cy.testBackendSalesOrder.config = {
+/**
+ * Configuration for "Orders" menu item
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-sales-order',
     _id_parent: '#nav-admin-sales',
-    _h3: 'h3.icon-head',
+    _title: base._title,
     _button: base._button,
+    url: 'sales_order/index',
 };
 
-cy.testBackendSalesOrder.config.index = {
+/**
+ * Configuration for "Orders" page
+ * @type {{__buttons: {new: string}, title: string, url: string, _grid: string}}
+ */
+test.config.index = {
     title: 'Orders',
-    url: 'sales_order/index',
+    url: test.config.url,
     _grid: '#sales_order_grid_table',
     __buttons: {
         new: '.form-buttons button[title="Create New Order"]',
     },
 }
 
-cy.testBackendSalesOrder.config.view = {
+/**
+ * Configuration for "View Order" page
+ * @type {{__buttons: {back: string, reorder: string}, title: string, url: string}}
+ */
+test.config.view = {
     title: 'Order #',
     url: 'sales_order/view',
     __buttons: {

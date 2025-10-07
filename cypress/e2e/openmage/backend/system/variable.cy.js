@@ -1,19 +1,20 @@
-const test = cy.testBackendSystemVariable.config;
+const test = cy.openmage.test.backend.system.variable.config;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
-    it(`tests save empty, no js`, () => {
+    it(`tests save empty values, no js`, () => {
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
+        const message = 'Validation has failed.';
         test.new.clickSave();
-        validation.hasErrorMessage('Validation has failed.', 'have.text');
+        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: 'message.system.variable.saveEmptyWithoutJs' });
     });
 
     it(`tests index route`, () => {

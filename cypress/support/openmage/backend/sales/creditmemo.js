@@ -1,23 +1,33 @@
-const base = {
-    _button: '.form-buttons button',
-}
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.sales.creditmemo;
 
-cy.testBackendSalesCreditmemo = {};
-
-cy.testBackendSalesCreditmemo.config = {
+/**
+ * Configuration for "Credit Memos" in the Admin menu
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-sales-creditmemo',
     _id_parent: '#nav-admin-sales',
-    _h3: 'h3.icon-head',
+    _title: base._title,
     _button: base._button,
+    url: 'sales_creditmemo/index',
 };
 
-cy.testBackendSalesCreditmemo.config.index = {
+/**
+ * Configuration for "Credit Memos" page
+ * @type {{title: string, url: string, _grid: string}}
+ */
+test.config.index = {
     title: 'Credit Memos',
-    url: 'sales_creditmemo/index',
+    url: test.config.url,
     _grid: '#sales_creditmemo_grid_table',
 }
 
-cy.testBackendSalesCreditmemo.config.view = {
+/**
+ * Configuration for "View Credit Memo" page
+ * @type {{__buttons: {print: string, back: string, email: string}, title: string, url: string}}
+ */
+test.config.view = {
     title: 'Credit Memo #',
     url: 'sales_creditmemo/view',
     __buttons: {

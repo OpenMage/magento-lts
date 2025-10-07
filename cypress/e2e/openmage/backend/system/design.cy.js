@@ -1,22 +1,21 @@
-const test = cy.testBackendSystemDesign.config;
+const test = cy.openmage.test.backend.system.design.config;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
-    it(`tests save empty, no js`, () => {
+    it(`tests save empty values, no js`, () => {
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        const error = 'Your design change for the specified store intersects with another one, please specify another date range.';
+        const message = 'Your design change for the specified store intersects with another one, please specify another date range.';
         test.new.clickSave();
-        validation.hasErrorMessage(error,'have.text');
-        cy.get('#messages').screenshot('saveEmptyWithoutJs.message.system.design', { overwrite: true, padding: 10 });
+        validation.hasErrorMessage(message,{ match: 'have.text', screenshot: true, filename: 'message.system.design.saveEmptyWithoutJs'});
     });
 
     it(`tests index route`, () => {

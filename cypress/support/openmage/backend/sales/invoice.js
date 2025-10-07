@@ -1,23 +1,33 @@
-const base = {
-    _button: '.form-buttons button',
-}
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.sales.invoice;
 
-cy.testBackendSalesInvoice = {};
-
-cy.testBackendSalesInvoice.config = {
+/**
+ * Configuration for "Invoices" in the Admin menu
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-sales-invoice',
     _id_parent: '#nav-admin-sales',
-    _h3: 'h3.icon-head',
+    _title: base._title,
     _button: base._button,
+    url: 'sales_invoice/index',
 };
 
-cy.testBackendSalesInvoice.config.index = {
+/**
+ * Configuration for "Invoices" page
+ * @type {{title: string, url: string, _grid: string}}
+ */
+test.config.index = {
     title: 'Invoice',
-    url: 'sales_invoice/index',
+    url: test.config.url,
     _grid: '#sales_invoice_grid_table',
 }
 
-cy.testBackendSalesInvoice.config.view = {
+/**
+ * Configuration for "View Invoice" page
+ * @type {{__buttons: {print: string, back: string, email: string}, title: string, url: string}}
+ */
+test.config.view = {
     title: 'Invoice #',
     url: 'sales_invoice/view',
     __buttons: {

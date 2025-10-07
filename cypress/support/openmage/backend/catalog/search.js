@@ -1,10 +1,13 @@
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.catalog.search;
 const tools = cy.openmage.tools;
 
-const base = {
-    _button: '.form-buttons button',
-}
-
-base.__fields = {
+/**
+ * Configuration for fields in "Search Terms" edit and new pages
+ * @type {{store_id: {selector: string}, display_in_terms: {selector: string}, page_is_active: {selector: string}, synonym_for: {selector: string}, query_text: {selector: string}}}
+ * @private
+ */
+test.__fields = {
     query_text : {
         selector: '#query_text',
     },
@@ -22,28 +25,39 @@ base.__fields = {
     },
 };
 
-cy.testBackendCatalogSearch = {};
-
-cy.testBackendCatalogSearch.config = {
+/**
+ * Configuration for "Search Terms" menu item
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-catalog-search',
     _id_parent: '#nav-admin-catalog',
-    _h3: 'h3.icon-head',
+    _title: base._title,
     _button: base._button,
+    url: 'catalog_search/index',
 }
 
-cy.testBackendCatalogSearch.config.index = {
+/**
+ * Configuration for "Search Terms" page
+ * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.catalog.search.config.index.clickAdd}}
+ */
+test.config.index = {
     title: 'Search',
-    url: 'catalog_search/index',
+    url: test.config.url,
     _grid: '#catalog_search_grid_table',
     __buttons: {
         add: base._button + '[title="Add New Search Term"]',
     },
     clickAdd: (log = 'Add Search Term button clicked') => {
-        tools.click(cy.testBackendCatalogSearch.config.index.__buttons.add, log);
+        tools.click(test.config.index.__buttons.add, log);
     },
 }
 
-cy.testBackendCatalogSearch.config.edit = {
+/**
+ * Configuration for "Edit Search Term" page
+ * @type {{clickReset: cy.openmage.test.backend.catalog.search.config.edit.clickReset, __buttons: {save: string, back: string, reset: string, delete: string}, clickBack: cy.openmage.test.backend.catalog.search.config.edit.clickBack, clickDelete: cy.openmage.test.backend.catalog.search.config.edit.clickDelete, clickSave: cy.openmage.test.backend.catalog.search.config.edit.clickSave, title: string, url: string}}
+ */
+test.config.edit = {
     title: 'Edit Search',
     url: 'catalog_search/edit',
     __buttons: {
@@ -53,20 +67,24 @@ cy.testBackendCatalogSearch.config.edit = {
         reset: base._button + '[title="Reset"]',
     },
     clickDelete: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.delete, 'Delete button clicked');
+        tools.click(test.config.edit.__buttons.delete, 'Delete button clicked');
     },
     clickSave: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.save, 'Save button clicked');
+        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
     },
     clickBack: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.back, 'Back button clicked');
+        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
     },
     clickReset: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.reset, 'Reset button clicked');
+        tools.click(test.config.edit.__buttons.reset, 'Reset button clicked');
     },
 }
 
-cy.testBackendCatalogSearch.config.new = {
+/**
+ * Configuration for "New Search Term" page
+ * @type {{clickReset: cy.openmage.test.backend.catalog.search.config.new.clickReset, __buttons: {save: string, back: string, reset: string}, clickBack: cy.openmage.test.backend.catalog.search.config.new.clickBack, clickSave: cy.openmage.test.backend.catalog.search.config.new.clickSave, title: string, __fields, url: string}}
+ */
+test.config.new = {
     title: 'New Search',
     url: 'catalog_search/new',
     __buttons: {
@@ -74,14 +92,14 @@ cy.testBackendCatalogSearch.config.new = {
         back: base._button + '[title="Back"]',
         reset: base._button + '[title="Reset"]',
     },
-    __fields: base.__fields,
+    __fields: test.__fields,
     clickSave: () => {
-        tools.click(cy.testBackendCatalogSearch.config.new.__buttons.save, 'Save button clicked');
+        tools.click(test.config.new.__buttons.save, 'Save button clicked');
     },
     clickBack: () => {
-        tools.click(cy.testBackendCatalogSearch.config.new.__buttons.back, 'Back button clicked');
+        tools.click(test.config.new.__buttons.back, 'Back button clicked');
     },
     clickReset: () => {
-        tools.click(cy.testBackendCatalogSearch.config.new.__buttons.reset, 'Reset button clicked');
+        tools.click(test.config.new.__buttons.reset, 'Reset button clicked');
     },
 }

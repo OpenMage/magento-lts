@@ -1,31 +1,40 @@
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.newsletter.template;
 const tools = cy.openmage.tools;
 
-const base = {
-    _button: '.form-buttons button',
-}
-
-cy.testBackendNewsletterTemplates = {};
-
-cy.testBackendNewsletterTemplates.config = {
+/**
+ * Configuration for "Newsletter Templates" menu item
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-newsletter-template',
     _id_parent: '#nav-admin-newsletter',
-    _h3: 'h3.icon-head',
+    _title: base._title,
     _button: base._button,
+    url: 'newsletter_template/index',
 };
 
-cy.testBackendNewsletterTemplates.config.index = {
+/**
+ * Configuration for "Newsletter Templates" page
+ * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.newsletter.template.config.index.clickAdd}}
+ */
+test.config.index = {
     title: 'Newsletter Templates',
-    url: 'newsletter_template/index',
+    url: test.config.url,
     _grid: '#newsletterTemplateGrid_table',
     __buttons: {
         add: '.form-buttons button[title="Add New Template"]',
     },
     clickAdd: () => {
-        tools.click(cy.testBackendNewsletterTemplates.config.index.__buttons.add, 'Add New Newsletter Templates button clicked');
+        tools.click(test.config.index.__buttons.add, 'Add New Newsletter Templates button clicked');
     },
 }
 
-cy.testBackendNewsletterTemplates.config.edit = {
+/**
+ * Configuration for "Edit Newsletter Template" page
+ * @type {{__buttons: {preview: string, saveAs: string, save: string, back: string, reset: string, convert: string, delete: string}, title: string, url: string}}
+ */
+test.config.edit = {
     title: 'Edit Newsletter Template',
     url: 'newsletter_template/edit',
     __buttons: {
@@ -39,7 +48,11 @@ cy.testBackendNewsletterTemplates.config.edit = {
     },
 }
 
-cy.testBackendNewsletterTemplates.config.new = {
+/**
+ * Configuration for "New Newsletter Template" page
+ * @type {{__buttons: {preview: string, save: string, back: string, reset: string, convert: string}, title: string, url: string}}
+ */
+test.config.new = {
     title: 'New Newsletter Template',
     url: 'newsletter_template/new',
     __buttons: {

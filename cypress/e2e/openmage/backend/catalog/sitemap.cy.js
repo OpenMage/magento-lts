@@ -1,20 +1,20 @@
-const test = cy.testBackendCatalogSitemap.config;
+const test = cy.openmage.test.backend.catalog.sitemap.config;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
-    it(`tests save empty, no js`, () => {
+    it(`tests save empty values, no js`, () => {
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        const error = 'Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.';
+        const message = 'Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.';
         test.new.clickSave();
-        validation.hasErrorMessage(error);
+        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: 'message.catalog.sitemap.saveEmptyWithoutJs'});
     });
 
     it(`tests index route`, () => {

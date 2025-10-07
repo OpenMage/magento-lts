@@ -1,49 +1,51 @@
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.promo.quote;
 const tools = cy.openmage.tools;
 
-const base = {
-    _button: '.form-buttons button',
-}
-
-cy.testBackendPromoQuote = {};
-
-cy.testBackendPromoQuote.config = {
+/**
+ * Configuration for "Shopping Cart Price Rules" menu item
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-promo-quote',
     _id_parent: '#nav-admin-promo',
-    _h3: 'h3.icon-head',
+    _title: base._title,
     _button: base._button,
+    url: 'promo_quote/index',
 };
 
-cy.testBackendPromoQuote.config.index = {
+/**
+ * Configuration for "Shopping Cart Price Rules" page
+ * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.promo.quote.config.index.clickAdd}}
+ */
+test.config.index = {
     title: 'Shopping Cart Price Rules',
-    url: 'promo_quote/index',
+    url: test.config.url,
     _grid: '#promo_quote_grid_table',
     __buttons: {
-        add: '.form-buttons button[title="Add New Rule"]',
+        add: base._button + '[title="Add New Rule"]',
     },
     clickAdd: () => {
-        tools.click(cy.testBackendPromoQuote.config.index.__buttons.add, 'Add New Shopping Cart Price Rules button clicked');
+        tools.click(test.config.index.__buttons.add, 'Add New Shopping Cart Price Rules button clicked');
     },
 }
 
-cy.testBackendPromoQuote.config.edit = {
+/**
+ * Configuration for "Edit Rule" page
+ * @type {{__buttons: *, title: string, url: string}}
+ */
+test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_quote/edit',
-    __buttons: {
-        save: base._button + '[title="Save"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        delete: base._button + '[title="Delete"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
-    },
+    __buttons: base.__buttons,
 }
 
-cy.testBackendPromoQuote.config.new = {
+/**
+ * Configuration for "New Rule" page
+ * @type {{__buttons: *, title: string, url: string}}
+ */
+test.config.new = {
     title: 'New Rule',
     url: 'promo_quote/new',
-    __buttons: {
-        save: base._button + '[title="Save"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
-    },
+    __buttons: base.__buttonsNew,
 }

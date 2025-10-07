@@ -1,11 +1,11 @@
-const test = cy.testBackendSystemMyAccount.config;
+const test = cy.openmage.test.backend.system.account.config;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
     it(`tests index route`, () => {
@@ -14,8 +14,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
     it(`tests empty input`, () => {
         const validate = validation.requiredEntry;
-        validation.fillFields(test.index.__validation._input, validate);
+        validation.fillFields(test.index, validate);
         tools.click(test.index.__buttons.save);
-        validation.validateFields(test.index.__validation._input, validate);
+        validation.validateFields(test.index, validate);
     });
 });

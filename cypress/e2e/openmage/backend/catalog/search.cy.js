@@ -1,16 +1,14 @@
-const test = cy.testBackendCatalogSearch.config;
+const test = cy.openmage.test.backend.catalog.search.config;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
     it(`tests save empty values, no js`, () => {
-        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
-
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
@@ -19,8 +17,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: fit it
         // validation.hasErrorMessage(error);
-        validation.hasSuccessMessage('You saved the search term.');
-        cy.get('body').screenshot('saveEmptyWithoutJs.message.catalog.search', { overwrite: true, padding: 10 });
+        validation.hasSuccessMessage('You saved the search term.', { screenshot: true, filename: 'message.catalog.search.saveEmptyWithoutJs' });
     });
 
     it(`tests index route`, () => {

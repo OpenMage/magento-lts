@@ -1,26 +1,19 @@
-const test = cy.testFrontend.customer.account.create;
-const fields = test.__validation._input;
+const test = cy.openmage.test.frontend.customer.account.config;
 const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe('Checks customer account create', () => {
     beforeEach('Go to page', () => {
-        cy.visit(test.url);
+        cy.visit(test.create);
     });
 
     it('Checks the Create Account page title', () => {
-        cy.get(test._h1).should('include.text', test.h1);
-    });
-
-    it('Submits empty form', () => {
-        validation.fillFields(fields, validation.requiredEntry);
-        tools.click(test._buttonSubmit);
-        validation.validateFields(fields, validation.requiredEntry);
+        cy.get(test._title).should('include.text', test.create.title);
     });
 
     it('tests save empty, no js', () => {
-        validation.fillFields(fields, validation.requiredEntry);
-        validation.removeClasses(fields);
+        validation.fillFields(test.create, validation.requiredEntry);
+        validation.removeClasses(test.create);
         tools.click(test._buttonSubmit);
         cy.get(validation._errorMessage)
             .should('include.text', '"First Name" is a required value.')
@@ -31,11 +24,17 @@ describe('Checks customer account create', () => {
     });
 
     it('Submits form with short password and wrong confirmation', () => {
-        cy.get(fields.password).type('123').should('have.value', '123');
-        cy.get(fields.confirmation).type('abc').should('have.value', 'abc');
+        cy.get(test.create.__fields.password.selector).type('123').should('have.value', '123');
+        cy.get(test.create.__fields.confirmation.selector).type('abc').should('have.value', 'abc');
         tools.click(test._buttonSubmit);
         cy.get('#advice-validate-password-password').should('include.text', 'Please enter more characters or clean leading or trailing spaces.');
         cy.get('#advice-validate-cpassword-confirmation').should('include.text', 'Please make sure your passwords match.');
+    });
+
+    it('Submits empty form', () => {
+        validation.fillFields(test.create, validation.requiredEntry);
+        tools.click(test._buttonSubmit);
+        validation.validateFields(test.create, validation.requiredEntry);
     });
 
     it('Submits valid form with random email', () => {
@@ -43,13 +42,14 @@ describe('Checks customer account create', () => {
         const firstname = 'John';
         const lastname = 'Doe';
         const password = '12345678';
-        const successMsg = 'Thank you for registering with Madison Island.';
-        cy.get(fields.firstname).type(firstname).should('have.value', firstname);
-        cy.get(fields.lastname).type(lastname).should('have.value', lastname);
-        cy.get(fields.email_address).type(email).should('have.value', email);
-        cy.get(fields.password).type(password).should('have.value', password);
-        cy.get(fields.confirmation).type(password).should('have.value', password);
+
+        const message = 'Thank you for registering with Madison Island.';
+        cy.get(test.create.__fields.firstname.selector).type(firstname).should('have.value', firstname);
+        cy.get(test.create.__fields.lastname.selector).type(lastname).should('have.value', lastname);
+        cy.get(test.create.__fields.email_address.selector).type(email).should('have.value', email);
+        cy.get(test.create.__fields.password.selector).type(password).should('have.value', password);
+        cy.get(test.create.__fields.confirmation.selector).type(password).should('have.value', password);
         tools.click(test._buttonSubmit);
-        validation.hasSuccessMessage(successMsg);
+        validation.hasSuccessMessage(message, {screenshot: false, filename: 'message.customer.account.create.success'});
     });
 });

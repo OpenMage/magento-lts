@@ -3,7 +3,7 @@ describe('Check admin login', () => {
         cy.visit('/admin');
     });
 
-    const login = cy.openmage.login.admin;
+    const login = cy.openmage.admin;
 
     it('tests valid login', () => {
         const username = login.username.value;

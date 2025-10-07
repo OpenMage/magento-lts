@@ -1,13 +1,23 @@
-cy.testBackendSystemIndex = {};
+const base = cy.openmage.test.backend.__base;
+const test = cy.openmage.test.backend.system.indexer;
 
-cy.testBackendSystemIndex.config = {
+/**
+ * Configuration for "Index Management" menu item
+ * @type {{_title: string, _id: string, _id_parent: string, url: string}}
+ */
+test.config = {
     _id: '#nav-admin-system-index',
     _id_parent: '#nav-admin-system',
-    _h3: 'h3.icon-head',
+    _title: base._title,
+    url: 'process/list',
 }
 
-cy.testBackendSystemIndex.config.index = {
+/**
+ * Configuration for "Index Management" page
+ * @type {{title: string, url: string, _grid: string}}
+ */
+test.config.index = {
     title: 'Index Management',
-    url: 'process/list',
+    url: test.config.url,
     _grid: '#indexer_processes_grid_table',
 }

@@ -37,3 +37,9 @@ jobs:
 
         # run cypress
       - run: ddev cypress-run --config-file .cypress.config.js
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
