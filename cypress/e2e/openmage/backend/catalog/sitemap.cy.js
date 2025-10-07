@@ -13,7 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        //tools.clickGridRow(test.index._grid, 'td', 'test');
+        // TODO: There is no edit route for system variables
         check.pageElements(test, test.index);
     });
 
