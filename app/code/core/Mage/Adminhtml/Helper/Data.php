@@ -89,7 +89,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
             return '';
         }
 
-        return trim((string) $config->getNode(self::XML_PATH_CUSTOM_ADMIN_URL));
+        return (string) $config->getNode(self::XML_PATH_CUSTOM_ADMIN_URL);
     }
 
     /**
