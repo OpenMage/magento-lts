@@ -88,7 +88,7 @@ cy.testBackendCmsPage.config.index = {
         add: base._button + '[title="Add New Page"]',
     },
     clickAdd: () => {
-        tools.click(cy.testBackendCmsPage.config.index.__buttons.add);
+        tools.click(cy.testBackendCmsPage.config.index.__buttons.add), 'Add New Page button clicked';
     },
     clickGridRow: (selector = 'td', content = 'no-route') => {
         tools.clickContains(cy.testBackendCmsPage.config.index._grid, selector, content, 'Select a CMS page');
@@ -118,19 +118,19 @@ cy.testBackendCmsPage.config.edit = {
             .select([1, 2, 3]);
     },
     clickDelete: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.delete);
+        tools.click(cy.testBackendCmsPage.config.edit.__buttons.delete, 'Delete button clicked');
     },
     clickSave: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.save);
+        tools.click(cy.testBackendCmsPage.config.edit.__buttons.save, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.saveAndContinue);
+        tools.click(cy.testBackendCmsPage.config.edit.__buttons.saveAndContinue, 'Save and Continue Edit button clicked');
     },
     clickBack: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.back);
+        tools.click(cy.testBackendCmsPage.config.edit.__buttons.back, 'Back button clicked');
     },
     clickReset: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.reset);
+        tools.click(cy.testBackendCmsPage.config.edit.__buttons.reset, 'Reset button clicked');
     },
 }
 
@@ -146,15 +146,15 @@ cy.testBackendCmsPage.config.new = {
     __fields: base.__fields,
     __tabs: base.__tabs,
     clickSave: () => {
-        tools.click(cy.testBackendCmsPage.config.new.__buttons.save);
+        tools.click(cy.testBackendCmsPage.config.new.__buttons.save, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
-        tools.click(cy.testBackendCmsPage.config.new.__buttons.saveAndContinue);
+        tools.click(cy.testBackendCmsPage.config.new.__buttons.saveAndContinue, 'Save and Continue Edit button clicked');
     },
     clickBack: () => {
-        tools.click(cy.testBackendCmsPage.config.new.__buttons.back);
+        tools.click(cy.testBackendCmsPage.config.new.__buttons.back, 'Back button clicked');
     },
     clickReset: () => {
-        tools.click(cy.testBackendCmsPage.config.new.__buttons.reset);
+        tools.click(cy.testBackendCmsPage.config.new.__buttons.reset, 'Reset button clicked');
     },
 }

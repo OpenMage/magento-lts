@@ -64,7 +64,7 @@ cy.openmage.check = {
         cy.log(log)
         cy.get(test._h3).should('include.text', path.title);
     },
-},
+}
 
 cy.openmage.tools = {
     click: (selector, log = 'Clicking on something') => {
@@ -75,7 +75,7 @@ cy.openmage.tools = {
         cy.log(log);
         cy.get(element).contains(selector, content).first().click({force: true, multiple: false});
     },
-},
+}
 
 cy.openmage.utils = {
     generateRandomEmail: () => {
@@ -86,7 +86,7 @@ cy.openmage.utils = {
         }
         return email + '-cypress-test@example.com';
     },
-},
+}
 
 cy.openmage.validation = {
     test: {
