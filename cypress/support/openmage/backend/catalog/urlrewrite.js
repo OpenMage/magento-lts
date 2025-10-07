@@ -18,6 +18,9 @@ cy.testBackendUrlrewrite.config.index = {
     __buttons: {
         add: base._button + '[title="Add URL Rewrite"]',
     },
+    clickAdd: () => {
+        tools.click(cy.testBackendUrlrewrite.config.index.__buttons.add, 'Add URL Rewrite button clicked');
+    },
 }
 
 cy.testBackendUrlrewrite.config.edit = {

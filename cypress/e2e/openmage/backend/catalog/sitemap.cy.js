@@ -1,5 +1,4 @@
 const test = cy.testBackendCatalogSitemap.config;
-const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
@@ -18,7 +17,17 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        tools.click(test.index.__buttons.add);
+        test.index.clickAdd();
         validation.pageElements(test, test.new);
+    });
+
+    it(`tests save empty, no js`, () => {
+        const error = 'Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.';
+
+        test.index.clickAdd();
+        validation.removeClasses(test.new.__fields);
+
+        test.new.clickSave();
+        validation.hasErrorMessage(error);
     });
 });

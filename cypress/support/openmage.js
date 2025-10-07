@@ -65,24 +65,30 @@ cy.openmage.check = {
 }
 
 cy.openmage.tools = {
+    grid: {
+        clickFirstRow: (path, log = 'Clicking on first grid content') => {
+            cy.log(log);
+            cy.get(path._grid).first().find('td').first().click({ force: true, multiple: false });
+        },
+    },
     click: (selector, log = 'Clicking on something') => {
         cy.log(log);
         cy.get(selector).first().click({force: true, multiple: false});
     },
-    clickContains: (element, selector, content, log = 'Clicking on some content') => {
+    clickContains: (element, selector = 'td', content, log = 'Clicking on some grid content') => {
         cy.log(log);
-        cy.get(element).contains(selector, content).first().click({force: true, multiple: false});
+        cy.get(element).contains(selector, content).first().click({ force: true, multiple: false });
     },
 }
 
 cy.openmage.utils = {
-    generateRandomEmail: () => {
+    generateRandomEmail: (suffix = '-cypress-test', domain = '@example.com') => {
         const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
         let email = '';
         for (let i = 0; i < 16; i++) {
             email += chars.charAt(Math.floor(Math.random() * chars.length));
         }
-        return email + '-cypress-test@example.com';
+        return email + suffix + domain;
     },
 }
 
@@ -136,7 +142,7 @@ cy.openmage.validation = {
     removeClasses: (fields) =>{
         cy.log('Removing classes from fields');
         Object.keys(fields).forEach(field => {
-            const selector = fields[field];
+            const selector = fields[field].selector;
             cy
                 .get(selector)
                 .invoke('removeClass');
@@ -151,23 +157,23 @@ cy.openmage.validation = {
         cy.openmage.check.title(test, path);
         cy.openmage.check.url(path);
     },
-    validateFields: (fields, validation) =>{
-        cy.log('Checking for error messages');
+    validateFields: (fields, validation, match = 'include.text', log = 'Checking for fields') =>{
+        cy.log(log);
         Object.keys(fields).forEach(field => {
             const selector = validation._error + fields[field].replace(/^\#/, "");
-            cy.get(selector).should('include.text', validation.error);
+            cy.get(selector).should(match, validation.error);
         });
     },
-    hasErrorMessage: (message) =>{
-        cy.log('Checking for error messages');
-        cy.get(cy.openmage.validation._errorMessage).should('include.text', message);
+    hasErrorMessage: (message, match = 'include.text', log = 'Checking for error messages') =>{
+        cy.log(log);
+        cy.get(cy.openmage.validation._errorMessage).should(match, message);
     },
-    hasSuccessMessage: (message) =>{
-        cy.log('Checking for success messages');
-        cy.get(cy.openmage.validation._successMessage).should('include.text', message);
+    hasSuccessMessage: (message, match = 'include.text', log = 'Checking for success messages') =>{
+        cy.log(log);
+        cy.get(cy.openmage.validation._successMessage).should(match, message);
     },
-    hasWarningMessage: (message) =>{
-        cy.log('Checking for warning messages');
-        cy.get(cy.openmage.validation._warningMessage).should('include.text', message);
+    hasWarningMessage: (message, match = 'include.text', log = 'Checking for warning messages') =>{
+        cy.log(log);
+        cy.get(cy.openmage.validation._warningMessage).should(match, message);
     },
 }
