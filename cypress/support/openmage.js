@@ -14,7 +14,7 @@ cy.openmage.login = {
             __selector: '.form-button',
         }
     }
-},
+}
 
 cy.openmage.check = {
     buttons: (path, log = 'Checking for existing buttons') => {
@@ -65,6 +65,12 @@ cy.openmage.check = {
             for (const field of Object.keys(path.__fields)) {
                 cy.get(path.__fields[field].selector).should('exist');
             };
+        }
+    },
+    grid: {
+        hasRecords: (element, log = 'Checking for existing records in grid') => {
+            cy.log(log);
+            return cy.get(element).find('td').innerText !== 'No records found.';
         }
     },
 },
