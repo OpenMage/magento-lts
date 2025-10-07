@@ -88,7 +88,7 @@ cy.testBackendCmsPage.config.index = {
         add: base._button + '[title="Add New Page"]',
     },
     clickAdd: () => {
-        tools.click(cy.testBackendCmsPage.config.index.__buttons.add), 'Add New Page button clicked';
+        tools.click(cy.testBackendCmsPage.config.index.__buttons.add, 'Add New Page button clicked');
     },
     clickGridRow: (selector = 'td', content = 'no-route') => {
         tools.clickContains(cy.testBackendCmsPage.config.index._grid, selector, content, 'Select a CMS page');

@@ -1,5 +1,4 @@
 const test = cy.testBackendCustomerOnline.config;
-const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
