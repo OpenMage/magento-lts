@@ -8,6 +8,16 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.adminGoToTestRoute(test, test.index);
     });
 
+    it(`tests save empty, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
+        const error = 'Your design change for the specified store intersects with another one, please specify another date range.';
+        test.new.clickSave();
+        validation.hasErrorMessage(error,'have.text');
+    });
+
     it(`tests index route`, () => {
         validation.pageElements(test, test.index);
     });
@@ -18,7 +28,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        tools.click(test.index.__buttons.add);
+        test.index.clickAdd();
         validation.pageElements(test, test.new);
     });
 });

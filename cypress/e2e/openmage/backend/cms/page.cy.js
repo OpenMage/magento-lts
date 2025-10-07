@@ -1,4 +1,5 @@
 const test = cy.testBackendCmsPage.config;
+const tools = cy.testBackendCmsPage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
@@ -12,7 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        test.index.clickGridRow();
+        tools.grid.clickFirstRow(test.index);
         validation.pageElements(test, test.edit);
     });
 
@@ -21,25 +22,33 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.pageElements(test, test.new);
     });
 
+    it(`tests save empty, no js`, () => {
+        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
+
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        test.new.clickSaveAndContinue();
+        validation.hasErrorMessage(error);
+    });
+
     it('tests to disable a CMS page that is used in config', () => {
-        test.index.clickGridRow();
+        test.index.clickGridRow('td', 'no-root', 'Select "no-root"" CMS page');
 
         test.edit.disablePage();
         test.edit.clickSaveAndContinue();
 
         validation.hasWarningMessage('Cannot disable page, it is used in configuration');
         validation.hasSuccessMessage('The page has been saved.');
-
-        cy.get('#messages').screenshot('error-disable-active-page', { overwrite: true, padding: 10 });
+        cy.get('#messages').screenshot('cms.page.disableActivePage', { overwrite: true, padding: 10 });
     });
 
     it('tests to delete a CMS page that is used in config', () => {
-        test.index.clickGridRow();
+        test.index.clickGridRow('td', 'no-root', 'Select "no-root"" CMS page');
         test.edit.clickDelete();
 
         validation.hasErrorMessage('Cannot delete page');
-
-        cy.get('#messages').screenshot('error-delete-active-page', { overwrite: true, padding: 10 });
+        cy.get('#messages').screenshot('cms.page.deleteActivePage', { overwrite: true, padding: 10 });
     });
 
     it('tests to add a CMS page', () => {
@@ -50,7 +59,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it('tests to unassign a CMS page that is used in config', () => {
-        test.index.clickGridRow();
+        test.index.clickGridRow('td', 'no-root', 'Select "no-root"" CMS page');
 
         //cy.log('Assign another store to the CMS page');
         //cy.get(test.edit.__fields.page_store_id.selector)

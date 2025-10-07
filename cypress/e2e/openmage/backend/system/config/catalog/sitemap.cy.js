@@ -30,9 +30,10 @@ describe(`Checks admin system "${test.h3}" settings`, () => {
     });
 
     it(`tests empty priority, no js`, () => {
-        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
         validation.fillFields(priority, validation.requiredEntry);
         validation.removeClasses(priority);
+
+        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
         tools.click(saveButton);
         validation.hasErrorMessage(error);
     });

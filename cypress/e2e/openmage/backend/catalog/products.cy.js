@@ -13,7 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        tools.clickContains(test.index._grid, 'td', '905');
+        tools.grid.clickFirstRow(test.index);
         validation.pageElements(test, test.edit);
     });
 

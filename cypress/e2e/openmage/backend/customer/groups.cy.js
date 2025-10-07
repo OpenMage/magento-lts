@@ -8,17 +8,28 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.adminGoToTestRoute(test, test.index);
     });
 
+    it(`tests save empty, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
+        // TODO fix it
+        const error = 'substr(): Passing null to parameter #1 ($string) of type string is deprecated';
+        test.new.clickSave();
+        validation.hasErrorMessage(error, 'have.text');
+    });
+
     it(`tests index route`, () => {
         validation.pageElements(test, test.index);
     });
 
     it(`tests edit route`, () => {
-        tools.clickContains(test.index._grid, 'td', 'General');
+        tools.grid.clickFirstRow(test.index);
         validation.pageElements(test, test.edit);
     });
 
     it(`tests new route`, () => {
-        tools.click(test.index.__buttons.add);
+        test.index.clickAdd();
         validation.pageElements(test, test.new);
     });
 });

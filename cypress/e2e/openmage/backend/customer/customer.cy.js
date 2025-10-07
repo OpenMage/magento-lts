@@ -8,17 +8,29 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.adminGoToTestRoute(test, test.index);
     });
 
+    it(`tests save empty, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        test.new.clickSaveAndContinue();
+        validation.hasErrorMessage('"First Name" is a required value.');
+        validation.hasErrorMessage('"First Name" length must be equal or greater than 1 characters.');
+        validation.hasErrorMessage('"Last Name" is a required value.');
+        validation.hasErrorMessage('"Last Name" length must be equal or greater than 1 characters.');
+        validation.hasErrorMessage('"Email" is a required value.');
+    });
+
     it(`tests index route`, () => {
         validation.pageElements(test, test.index);
     });
 
     it(`tests edit route`, () => {
-        tools.clickContains(test.index._grid, 'td', '424-555-0000');
+        tools.grid.clickFirstRow(test.index);
         validation.pageElements(test, test.edit);
     });
 
     it(`tests new route`, () => {
-        tools.click(test.index.__buttons.add);
+        test.index.clickAdd();
         validation.pageElements(test, test.new);
     });
 });

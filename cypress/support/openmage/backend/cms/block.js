@@ -1,21 +1,24 @@
+const tools = cy.openmage.tools;
+
 const base = {
     _button: '.form-buttons button',
-    __fields: {
-        block_title : {
-            selector: '#block_title',
-        },
-        block_identifier : {
-            selector: '#block_identifier',
-        },
-        block_store_id : {
-            selector: '#block_store_id',
-        },
-        block_is_active : {
-            selector: '#block_is_active',
-        },
-        block_content : {
-            selector: '#block_content',
-        },
+};
+
+base.__fields = {
+    block_title : {
+        selector: '#block_title',
+    },
+    block_identifier : {
+        selector: '#block_identifier',
+    },
+    block_store_id : {
+        selector: '#block_store_id',
+    },
+    block_is_active : {
+        selector: '#block_is_active',
+    },
+    block_content : {
+        selector: '#block_content',
     },
 }
 
@@ -34,6 +37,9 @@ cy.testBackendCmsBlock.config.index = {
     _grid: '#cmsBlockGrid_table',
     __buttons: {
         add: base._button + '[title="Add New Block"]',
+    },
+    clickAdd: (log = 'Add CMS Blocks button clicked') => {
+        tools.click(cy.testBackendCmsBlock.config.index.__buttons.add, log);
     },
 }
 

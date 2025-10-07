@@ -18,6 +18,9 @@ cy.testBackendNewsletterTemplates.config.index = {
     __buttons: {
         add: '.form-buttons button[title="Add New Template"]',
     },
+    clickAdd: () => {
+        tools.click(cy.testBackendNewsletterTemplates.config.index.__buttons.add, 'Add New Newsletter Templates button clicked');
+    },
 }
 
 cy.testBackendNewsletterTemplates.config.edit = {

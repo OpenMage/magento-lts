@@ -19,6 +19,9 @@ cy.testBackendPromoCatalog.config.index = {
         add: base._button + '[title="Add New Rule"]',
         apply: base._button + '[title="Apply Rules"]',
     },
+    clickAdd: () => {
+        tools.click(cy.testBackendPromoCatalog.config.index.__buttons.add, 'Add New Catalog Price Rule button clicked');
+    },
 }
 
 cy.testBackendPromoCatalog.config.edit = {

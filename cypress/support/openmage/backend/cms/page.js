@@ -87,11 +87,11 @@ cy.testBackendCmsPage.config.index = {
     __buttons: {
         add: base._button + '[title="Add New Page"]',
     },
-    clickAdd: () => {
-        tools.click(cy.testBackendCmsPage.config.index.__buttons.add, 'Add New Page button clicked');
+    clickAdd: (log = 'Add New Page button clicked') => {
+        tools.click(cy.testBackendCmsPage.config.index.__buttons.add, log);
     },
-    clickGridRow: (selector = 'td', content = 'no-route') => {
-        tools.clickContains(cy.testBackendCmsPage.config.index._grid, selector, content, 'Select a CMS page');
+    clickGridRow: (selector = 'td', content = '', log = 'Select a CMS page') => {
+        tools.clickContains(cy.testBackendCmsPage.config.index._grid, selector, content, log);
     },
 }
 
@@ -117,14 +117,14 @@ cy.testBackendCmsPage.config.edit = {
         cy.get(base.__fields.page_store_id.selector)
             .select([1, 2, 3]);
     },
-    clickDelete: () => {
-        tools.click(cy.testBackendCmsPage.config.edit.__buttons.delete, 'Delete button clicked');
-    },
     clickSave: () => {
         tools.click(cy.testBackendCmsPage.config.edit.__buttons.save, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
         tools.click(cy.testBackendCmsPage.config.edit.__buttons.saveAndContinue, 'Save and Continue Edit button clicked');
+    },
+    clickDelete: () => {
+        tools.click(cy.testBackendCmsPage.config.edit.__buttons.delete, 'Delete button clicked');
     },
     clickBack: () => {
         tools.click(cy.testBackendCmsPage.config.edit.__buttons.back, 'Back button clicked');

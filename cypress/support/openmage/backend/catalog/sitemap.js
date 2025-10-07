@@ -33,7 +33,7 @@ cy.testBackendCatalogSitemap.config.index = {
         add: base._button + '[title="Add Sitemap"]',
     },
     clickAdd: () => {
-        tools.click(cy.testBackendCatalogSitemap.config.index.__buttons.add, 'Add Sitemap button clicked');
+        tools.click(cy.testBackendCatalogSitemap.config.index.__buttons.add, 'Add New Sitemap button clicked');
     },
 }
 

@@ -18,6 +18,9 @@ cy.testBackendPromoQuote.config.index = {
     __buttons: {
         add: '.form-buttons button[title="Add New Rule"]',
     },
+    clickAdd: () => {
+        tools.click(cy.testBackendPromoQuote.config.index.__buttons.add, 'Add New Shopping Cart Price Rules button clicked');
+    },
 }
 
 cy.testBackendPromoQuote.config.edit = {

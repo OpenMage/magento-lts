@@ -1,11 +1,20 @@
 const test = cy.testBackendSystemEmailTemplate.config;
-const tools = cy.openmage.tools;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
         cy.adminLogIn();
         cy.adminGoToTestRoute(test, test.index);
+    });
+
+    it(`tests save empty, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
+        const error = 'The template Name must not be empty.';
+        test.new.clickSave();
+        validation.hasErrorMessage(error, 'have.text');
     });
 
     it(`tests index route`, () => {
@@ -18,7 +27,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        tools.click(test.index.__buttons.add);
+        test.index.clickAdd();
         validation.pageElements(test, test.new);
     });
 });

@@ -68,7 +68,7 @@ cy.openmage.tools = {
     grid: {
         clickFirstRow: (path, log = 'Clicking on first grid content') => {
             cy.log(log);
-            cy.get(path._grid).first().find('td').first().click({ force: true, multiple: false });
+            cy.get(path._grid + ' tbody').find('td.sorted').first().click({ force: true, multiple: false });
         },
     },
     click: (selector, log = 'Clicking on something') => {
@@ -139,10 +139,10 @@ cy.openmage.validation = {
             }
         });
     },
-    removeClasses: (fields) =>{
-        cy.log('Removing classes from fields');
-        Object.keys(fields).forEach(field => {
-            const selector = fields[field].selector;
+    removeClasses: (path, log = 'Removing classes from fields') =>{
+        cy.log(log);
+        Object.keys(path.__fields).forEach(field => {
+            const selector = path.__fields[field].selector;
             cy
                 .get(selector)
                 .invoke('removeClass');
