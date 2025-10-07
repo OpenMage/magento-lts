@@ -80,18 +80,16 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
     }
 
     /**
-     * @return string|false
+     * Get custom admin URL (validated and normalized when saved via admin panel)
      */
-    public static function getCustomAdminUrl()
+    public static function getCustomAdminUrl(): string
     {
         $config = Mage::getConfig();
-        if ($config->getNode(self::XML_PATH_USE_CUSTOM_ADMIN_URL)
-            && $config->getNode(self::XML_PATH_CUSTOM_ADMIN_URL)
-        ) {
-            return (string) $config->getNode(self::XML_PATH_CUSTOM_ADMIN_URL);
+        if (!$config->getNode(self::XML_PATH_USE_CUSTOM_ADMIN_URL)) {
+            return '';
         }
 
-        return false;
+        return trim((string) $config->getNode(self::XML_PATH_CUSTOM_ADMIN_URL));
     }
 
     /**

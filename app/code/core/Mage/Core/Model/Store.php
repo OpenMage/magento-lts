@@ -610,15 +610,7 @@ class Mage_Core_Model_Store extends Mage_Core_Model_Abstract
                 $url = str_replace('{{base_url}}', $baseUrl, $url);
             }
 
-            $url = rtrim($url, '/') . '/';
-            $adminUrl = $this->isAdmin() ? Mage_Adminhtml_Helper_Data::getCustomAdminUrl() : false;
-            if ($adminUrl) {
-                $adminUrl = rtrim($adminUrl, '/') . '/';
-                $baseUrl = str_starts_with($url, 'https://') ? $this->getConfig(self::XML_PATH_SECURE_BASE_URL) : $this->getConfig(self::XML_PATH_UNSECURE_BASE_URL);
-                $url = str_replace($baseUrl, $adminUrl, $url);
-            }
-
-            $this->_baseUrlCache[$cacheKey] = $url;
+            $this->_baseUrlCache[$cacheKey] = rtrim($url, '/') . '/';
         }
 
         return $this->_baseUrlCache[$cacheKey];
