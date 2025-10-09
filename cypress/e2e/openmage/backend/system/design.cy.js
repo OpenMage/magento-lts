@@ -13,9 +13,27 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
-        const message = 'Your design change for the specified store intersects with another one, please specify another date range.';
+        const success = 'The design change has been saved.';
         test.new.clickSave();
-        validation.hasErrorMessage(message,{ match: 'have.text', screenshot: true, filename: 'message.system.design.saveEmptyWithoutJs'});
+        validation.hasSuccessMessage(success,{ match: 'have.text', screenshot: true, filename: 'message.system.design.saveEmptyWithoutJs-1'});
+    });
+
+    it(`tests save empty values, no js, 2nd time`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
+        const error = 'Your design change for the specified store intersects with another one, please specify another date range.';
+        test.new.clickSave();
+        validation.hasErrorMessage(error, { match: 'have.text', screenshot: true, filename: 'message.system.design.saveEmptyWithoutJs-2'});
+    });
+
+    it(`tests delete last added design`, () => {
+        tools.grid.clickFirstRow(test.index);
+
+        const success = 'The design change has been deleted.';
+        test.edit.clickDelete();
+        validation.hasSuccessMessage(success, { match: 'have.text', screenshot: true, filename: 'message.system.design.deleteLastAddedDesign' });
     });
 
     it(`tests index route`, () => {
@@ -23,7 +41,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        // TODO: There is no edit route for design updates
+        // TODO: There is no edit route for design updates, update sample data?
         validation.pageElements(test, test.index);
     });
 

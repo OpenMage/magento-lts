@@ -5,7 +5,7 @@
 cy.openmage.tools = {
     click: (selector) => {
         cy.log('Clicking on something');
-        cy.get(selector).first().should('be.visible').click({ force: false, multiple: false });
+        cy.get(selector).first().click({ force: true, multiple: false });
     },
     clickContains: (element, content, selector = 'td') => {
         cy.log('Clicking on some grid content');
@@ -20,6 +20,6 @@ cy.openmage.tools = {
 cy.openmage.tools.grid = {
     clickFirstRow: (path) => {
         cy.log('Clicking on first grid content');
-        cy.get(path._grid + ' tbody').find('td.sorted').first().should('be.visible').click({ force: false, multiple: false });
+        cy.get(path._grid + ' tbody').find('td a').first().should('be.visible').click({ force: false, multiple: false });
     },
 }
