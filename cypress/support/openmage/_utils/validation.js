@@ -56,10 +56,10 @@ cy.openmage.validation = {
     hasErrorMessage: (
         message,
         options = {
-            match: 'include.text',
-            screenshot: false,
-            filename: ''
-        },
+            match = 'include.text',
+            screenshot = false,
+            filename = ''
+        } = {},
     ) =>{
         cy.log('Checking for error messages');
         cy.openmage.validation._hasMessage(cy.openmage.validation._errorMessage, message, options);
@@ -67,10 +67,10 @@ cy.openmage.validation = {
     hasSuccessMessage: (
         message,
         options = {
-            match: 'include.text',
-            screenshot: false,
-            filename: ''
-        },
+            match = 'include.text',
+            screenshot = false,
+            filename = ''
+        } = {},
     ) =>{
         cy.log('Checking for success messages');
         cy.openmage.validation._hasMessage(cy.openmage.validation._successMessage, message, options);
@@ -78,10 +78,10 @@ cy.openmage.validation = {
     hasWarningMessage: (
         message,
         options = {
-            match: 'include.text',
-            screenshot: false,
-            filename: ''
-        },
+            match = 'include.text',
+            screenshot = false,
+            filename = ''
+        } = {},
     ) =>{
         cy.log('Checking for warning messages');
         cy.openmage.validation._hasMessage(cy.openmage.validation._warningMessage, message, options);
@@ -90,16 +90,12 @@ cy.openmage.validation = {
         element,
         message,
         options = {
-            match: 'include.text',
-            screenshot: false,
-            filename: ''
-        },
+            match = 'include.text',
+            screenshot = false,
+            filename = ''
+        } = {},
     ) =>{
         cy.log('Process message');
-
-        if (!options.match) {
-            options.match = 'include.text';
-        }
 
         cy.get(element).should(options.match, message);
 

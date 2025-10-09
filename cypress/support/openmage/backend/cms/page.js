@@ -105,8 +105,8 @@ test.config.index = {
     clickAdd: (log = 'Add New Page button clicked') => {
         tools.click(test.config.index.__buttons.add, log);
     },
-    clickGridRow: (selector = 'td', content = '', log = 'Select a CMS page') => {
-        tools.clickContains(test.config.index._grid, selector, content, log);
+    clickGridRow: (content = '', selector = 'td') => {
+        tools.clickContains(test.config.index._grid, content, selector);
     },
 }
 
