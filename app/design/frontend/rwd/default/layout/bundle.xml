@@ -155,27 +155,6 @@ Onepage Checkout Review Page
         </reference>
     </checkout_multishipping_overview>
 
-    <paypal_express_review>
-        <reference name="paypal.express.review.details">
-            <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypal_express_review>
-    <paypal_express_review_details>
-        <reference name="root">
-            <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypal_express_review_details>
-
-    <paypaluk_express_review>
-        <reference name="paypal.express.review.details">
-            <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypaluk_express_review>
-    <paypaluk_express_review_details>
-        <reference name="root">
-            <action method="addItemRender"><type>bundle</type><block>bundle/checkout_cart_item_renderer</block><template>checkout/onepage/review/item.phtml</template></action>
-        </reference>
-    </paypaluk_express_review_details>
 
 <!--
 Additional block for bundle product type
