@@ -56,17 +56,17 @@ cy.openmage.validation = {
     hasErrorMessage: (
         message,
         options = {
-            match = 'include.text',
-            screenshot = false,
-            filename = ''
-        } = {},
+            match: 'include.text',
+            screenshot: false,
+            filename: ''
+        },
     ) =>{
         cy.log('Checking for error messages');
         cy.openmage.validation._hasMessage(cy.openmage.validation._errorMessage, message, options);
     },
     hasSuccessMessage: (
         message,
-        options: {
+        options = {
             match: 'include.text',
             screenshot: false,
             filename: ''
@@ -77,7 +77,7 @@ cy.openmage.validation = {
     },
     hasWarningMessage: (
         message,
-        options: {
+        options = {
             match: 'include.text',
             screenshot: false,
             filename: ''
@@ -89,7 +89,7 @@ cy.openmage.validation = {
     _hasMessage: (
         element,
         message,
-        options: {
+        options = {
             match: 'include.text',
             screenshot: false,
             filename: ''
