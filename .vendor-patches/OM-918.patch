@@ -1,0 +1,82 @@
+--- /dev/null
++++ ../library/Zend/Locale/Data.php
+@@ -75,6 +75,13 @@
+     private static $_cacheDisabled = false;
+
+     /**
++     * Internal cache, prevent repeated cache requests
++     *
++     * @var array
++     */
++    private static $_localCache = [];
++
++    /**
+      * Read the content from locale
+      *
+      * Can be called like:
+@@ -335,8 +342,15 @@
+
+         $val = urlencode((string) $val);
+         $id  = self::_filterCacheId('Zend_LocaleL_' . $locale . '_' . $path . '_' . $val);
++
++        // add runtime cache to avoid calling cache backend multiple times during one request
++        if (isset(self::$_localCache[$id])) {
++            return self::$_localCache[$id];
++        }
+         if (!self::$_cacheDisabled && ($result = self::$_cache->load($id))) {
+-            return unserialize($result);
++            $result = unserialize($result);
++            self::$_localCache[$id] = $result;
++            return $result;
+         }
+
+         $temp = [];
+@@ -946,11 +960,13 @@
+         }
+
+         if (isset(self::$_cache)) {
++            $data = serialize($temp);
+             if (self::$_cacheTags) {
+-                self::$_cache->save( serialize($temp), $id, ['Zend_Locale']);
++                self::$_cache->save( $data, $id, ['Zend_Locale']);
+             } else {
+-                self::$_cache->save( serialize($temp), $id);
++                self::$_cache->save( $data, $id);
+             }
++            static::$_localCache[$id] = $temp;
+         }
+
+         return $temp;
+@@ -984,8 +1000,15 @@
+         }
+         $val = urlencode((string) $val);
+         $id  = self::_filterCacheId('Zend_LocaleC_' . $locale . '_' . $path . '_' . $val);
++
++        // add runtime cache to avoid calling cache backend multiple times during one request
++        if (isset(self::$_localCache[$id])) {
++            return self::$_localCache[$id];
++        }
+         if (!self::$_cacheDisabled && ($result = self::$_cache->load($id))) {
+-            return unserialize($result);
++            $result = unserialize($result);
++            self::$_localCache[$id] = $result;
++            return $result;
+         }
+
+         switch(strtolower($path)) {
+@@ -1499,11 +1522,13 @@
+             $temp = current($temp);
+         }
+         if (isset(self::$_cache)) {
++            $data = serialize($temp);
+             if (self::$_cacheTags) {
+-                self::$_cache->save( serialize($temp), $id, ['Zend_Locale']);
++                self::$_cache->save( $data, $id, ['Zend_Locale']);
+             } else {
+-                self::$_cache->save( serialize($temp), $id);
++                self::$_cache->save( $data, $id);
+             }
++            static::$_localCache[$id] = $temp;
+         }
+
+         return $temp;
