@@ -105,9 +105,6 @@ test.config.new = {
         password : {
             selector: '#_accountpassword',
         },
-        group_id: {
-            selector: '#_accountgroup_id',
-        },
         send_pass: {
             selector: '#account-send-pass',
         },

@@ -13,7 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
-        const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
+        //const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
         test.new.clickSaveAndContinue();
         // TODO: fix it
         //validation.hasErrorMessage(message);
@@ -43,7 +43,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it('tests to disable a CMS page that is used in config', () => {
-        test.index.clickGridRow('td', 'no-route', 'Select "no-route"" CMS page');
+        test.index.clickGridRow('no-route');
 
         test.edit.disablePage();
         test.edit.clickSaveAndContinue();
@@ -56,7 +56,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it('tests to delete a CMS page that is used in config', () => {
-        test.index.clickGridRow('td', 'no-route', 'Select "no-route"" CMS page');
+        test.index.clickGridRow('no-route');
         test.edit.clickDelete();
 
         const message = 'Cannot delete page';
@@ -64,7 +64,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it('tests to unassign a CMS page that is used in config', () => {
-        test.index.clickGridRow('td', 'no-route', 'Select "no-route"" CMS page');
+        test.index.clickGridRow('no-route');
 
         // TODO: fix needed - this test passes because of a Magento bug
         // TODO: update sample data

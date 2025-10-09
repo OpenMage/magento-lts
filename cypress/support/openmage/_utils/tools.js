@@ -7,7 +7,7 @@ cy.openmage.tools = {
         cy.log('Clicking on something');
         cy.get(selector).first().should('be.visible').click({ force: false, multiple: false });
     },
-    clickContains: (element, selector = 'td', content) => {
+    clickContains: (element, content, selector = 'td') => {
         cy.log('Clicking on some grid content');
         cy.get(element).contains(selector, content).first().should('be.visible').click({ force: false, multiple: false });
     },

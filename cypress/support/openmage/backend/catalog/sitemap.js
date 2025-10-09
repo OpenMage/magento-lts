@@ -54,7 +54,6 @@ test.config.index = {
 test.config.edit = {
     title: 'Edit Sitemap',
     url: 'sitemap/edit',
-    __fields: test.__fields,
     __buttons: {
         save: base._button + '[title="Save"]',
         delete: base._button + '[title="Delete"]',
@@ -62,7 +61,7 @@ test.config.edit = {
         back: base._button + '[title="Back"]',
         reset: base._button + '[title="Reset"]',
     },
-    __fields: base.__fields,
+    __fields: test.__fields,
     clickSave: () => {
         tools.click(test.config.edit.__buttons.save, 'Save button clicked');
     },
