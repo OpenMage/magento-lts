@@ -1715,7 +1715,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
         try {
             $res = $this->_getUploader()->move($fileName);
             return $res['file'];
-        } catch (Exception $e) {
+        } catch (Exception) {
             return '';
         }
     }
@@ -1789,7 +1789,7 @@ class Mage_ImportExport_Model_Import_Entity_Product extends Mage_ImportExport_Mo
                 try {
                     $this->_connection
                             ->insertOnDuplicate($mediaValueTableName, $valueArr, ['value_id']);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $this->_connection->delete(
                         $mediaGalleryTableName,
                         $this->_connection->quoteInto('value_id IN (?)', $newMediaValues),

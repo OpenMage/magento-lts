@@ -166,7 +166,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         }
         try {
             $method = $this->getMethodInstance();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception) {
             return parent::_beforeSave();
         }
         $method->prepareSave();
