@@ -5,11 +5,17 @@
 cy.openmage.tools = {
     click: (selector) => {
         cy.log('Clicking on something');
-        cy.get(selector).first().should('be.visible').click({ force: false, multiple: false });
+        cy.get(selector)
+            .first()
+            .click({ force: true, multiple: false });
     },
     clickContains: (element, content, selector = 'td') => {
         cy.log('Clicking on some grid content');
-        cy.get(element).contains(selector, content).first().should('be.visible').click({ force: false, multiple: false });
+        cy.get(element)
+            .contains(selector, content)
+            .first()
+            .should('be.visible')
+            .click({ force: false, multiple: false });
     },
 }
 
@@ -20,6 +26,10 @@ cy.openmage.tools = {
 cy.openmage.tools.grid = {
     clickFirstRow: (path) => {
         cy.log('Clicking on first grid content');
-        cy.get(path._grid + ' tbody').find('td.sorted').first().should('be.visible').click({ force: false, multiple: false });
+        cy.get(path._grid + ' tbody')
+            .find('td')
+            .eq(2) // Click on the 3rd column, first can be a checkbox
+            .should('be.visible')
+            .click({ force: false, multiple: false });
     },
 }

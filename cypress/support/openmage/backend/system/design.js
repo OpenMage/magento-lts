@@ -64,13 +64,13 @@ test.config.edit = {
     },
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.new.__buttons.save, 'Save button clicked');
+        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
     },
     clickDelete: () => {
-        tools.click(test.config.new.__buttons.generate, 'Delete button clicked');
+        tools.click(test.config.edit.__buttons.delete, 'Delete button clicked');
     },
     clickBack: () => {
-        tools.click(test.config.new.__buttons.back, 'Back button clicked');
+        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
     },
 }
 
