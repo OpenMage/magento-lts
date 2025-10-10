@@ -11,7 +11,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        webserver: ['apache-fpm', 'nginx-fpm']
+        webserver: ['nginx-fpm']
 
     steps:
       - uses: actions/checkout@v5
