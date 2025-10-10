@@ -82,7 +82,7 @@ cy.openmage = {
         },
         saveAction: (selector) => {
             cy.log('Clicking on Save button');
-            cy.get(selector).click({force: true, multiple: true});
+            cy.get(selector).first().click({force: true, multiple: false});
         },
         validateFields: (fields, validation) =>{
             cy.log('Checking for error messages');
