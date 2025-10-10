@@ -40,7 +40,7 @@ jobs:
 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+        if: ${{ !always() }}
         with:
           name: cypress-screenshots
           path: cypress/screenshots
