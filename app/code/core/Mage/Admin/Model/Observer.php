@@ -35,7 +35,6 @@ class Mage_Admin_Model_Observer
             'resetpassword',
             'resetpasswordpost',
             'logout',
-            'refresh', // captcha refresh
         ];
         if (in_array($requestedActionName, $openActions)) {
             $request->setDispatched(true);

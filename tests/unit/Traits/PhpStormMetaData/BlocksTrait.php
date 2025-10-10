@@ -827,8 +827,6 @@ trait BlocksTrait
             'bundle/catalog_product_view_type_bundle_option_select' => \Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Select::class,
             'bundle/checkout_cart_item_renderer' => \Mage_Bundle_Block_Checkout_Cart_Item_Renderer::class,
             'bundle/sales_order_items_renderer' => \Mage_Bundle_Block_Sales_Order_Items_Renderer::class,
-            'captcha/captcha' => \Mage_Captcha_Block_Captcha::class,
-            'captcha/captcha_zend' => \Mage_Captcha_Block_Captcha_Zend::class,
             'cataloginventory/adminhtml_form_field_customergroup' => \Mage_CatalogInventory_Block_Adminhtml_Form_Field_Customergroup::class,
             'cataloginventory/adminhtml_form_field_minsaleqty' => \Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty::class,
             'cataloginventory/qtyincrements' => \Mage_CatalogInventory_Block_Qtyincrements::class,

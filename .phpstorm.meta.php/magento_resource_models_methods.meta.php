@@ -54,7 +54,6 @@ namespace PHPSTORM_META {
             'bundle/price_index' => \Mage_Bundle_Model_Resource_Price_Index::class,
             'bundle/selection' => \Mage_Bundle_Model_Resource_Selection::class,
             'bundle/selection_collection' => \Mage_Bundle_Model_Resource_Selection_Collection::class,
-            'captcha/log' => \Mage_Captcha_Model_Resource_Log::class,
             'catalogindex/abstract' => \Mage_CatalogIndex_Model_Resource_Abstract::class,
             'catalogindex/aggregation' => \Mage_CatalogIndex_Model_Resource_Aggregation::class,
             'catalogindex/attribute' => \Mage_CatalogIndex_Model_Resource_Attribute::class,
