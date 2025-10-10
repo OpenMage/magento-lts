@@ -27,7 +27,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests edit route`, () => {
-        tools.grid.clickFirstRow(test.index);
+        test.index.clickGridRow('John Doe');
         validation.pageElements(test, test.edit);
     });
 

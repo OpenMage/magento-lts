@@ -106,7 +106,7 @@ test.config.index = {
         tools.click(test.config.index.__buttons.add, log);
     },
     clickGridRow: (content = '', selector = 'td') => {
-        tools.clickContains(test.config.index._grid, content, selector);
+        tools.grid.clickContains(test.config.index, content, selector);
     },
 }
 

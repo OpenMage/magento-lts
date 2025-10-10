@@ -28,6 +28,9 @@ test.config.index = {
     clickAdd: () => {
         tools.click(test.config.index.__buttons.add, 'Add New Customers button clicked');
     },
+    clickGridRow: (content = '', selector = 'td') => {
+        tools.grid.clickContains(test.config.index, content, selector);
+    },
 }
 
 /**
@@ -37,7 +40,7 @@ test.config.index = {
 test.config.edit = {
     // comes from sample data
     // TODO: make dynamic, update template
-    title: 'John',
+    title: 'John Doe',
     url: 'customer/edit',
     __buttons: {
         save: base._button + '[title="Save Customer"]',

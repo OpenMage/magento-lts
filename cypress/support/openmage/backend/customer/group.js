@@ -53,11 +53,15 @@ test.config.index = {
     clickAdd: () => {
         tools.click(test.config.index.__buttons.add, 'Add New Customer Groups button clicked');
     },
+    clickGridRow: (content = '', selector = 'td') => {
+        tools.grid.clickContains(test.config.index, content, selector);
+    },
 }
 
 /**
  * Configuration for "Edit Customer Group" page
  * @type {{clickReset: cy.openmage.test.backend.customer.group.config.edit.clickReset, __buttons, clickBack: cy.openmage.test.backend.customer.group.config.edit.clickBack, clickSave: cy.openmage.test.backend.customer.group.config.edit.clickSave, title: string, __fields, url: string}}
+ * TODO: there can be 4 buttons, when group is deletable
  */
 test.config.edit = {
     title: 'Edit Customer Group',
