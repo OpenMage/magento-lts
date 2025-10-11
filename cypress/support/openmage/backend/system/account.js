@@ -1,9 +1,10 @@
 const base = cy.openmage.test.backend.__base;
 const test = cy.openmage.test.backend.system.account;
+const tools = cy.openmage.tools;
 
 /**
  * Configuration for "My Account" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-system-myaccount',
@@ -11,6 +12,7 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'system_account/index',
+    index: {},
 }
 
 /**
@@ -21,24 +23,34 @@ test.config.index = {
     title: 'My Account',
     url: test.config.url,
     __buttons: {
-        save: base._button + '[title="Save Account"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Account"]',
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
+    },
+    clickSave: () => {
+        tools.click(test.config.index.__buttons.save, 'Save button clicked');
+    },
+    clickReset: () => {
+        base.__buttons.reset.click();
     },
     __fields: {
         username: {
-            selector: '#username',
+            _: '#username',
         },
         firstname: {
-            selector: '#firstname',
+            _: '#firstname',
         },
         lastname: {
-            selector: '#lastname',
+            _: '#lastname',
         },
         email: {
-            selector: '#email',
+            _: '#email',
         },
         current_password: {
-            selector: '#current_password',
+            _: '#current_password',
         },
     }
 }

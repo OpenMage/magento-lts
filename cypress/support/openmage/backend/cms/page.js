@@ -3,60 +3,60 @@ const test = cy.openmage.test.backend.cms.page;
 const tools = cy.openmage.tools;
 
 /**
- * Selectors for CMS page fields
- * @type {{page_identifier: {selector: string}, page_title: {selector: string}, page_meta_description: {selector: string}, page_root_template: {selector: string}, page_content_heading: {selector: string}, page_custom_root_template: {selector: string}, page_is_active: {selector: string}, page_meta_keywords: {selector: string}, page_store_id: {selector: string}, page_layout_update_xml: {selector: string}, page_custom_layout_update_xml: {selector: string}, page_content: {selector: string}, page_custom_theme: {selector: string}, page_custom_theme_from: {selector: string}, page_custom_theme_to: {selector: string}}}
+ * _s for CMS page fields
+ * @type {{page_identifier: {_: string}, page_title: {_: string}, page_meta_description: {_: string}, page_root_template: {_: string}, page_content_heading: {_: string}, page_custom_root_template: {_: string}, page_is_active: {_: string}, page_meta_keywords: {_: string}, page_store_id: {_: string}, page_layout_update_xml: {_: string}, page_custom_layout_update_xml: {_: string}, page_content: {_: string}, page_custom_theme: {_: string}, page_custom_theme_from: {_: string}, page_custom_theme_to: {_: string}}}
  * @private
  */
 test.__fields = {
     page_title : {
-        selector: '#page_title',
+        _: '#page_title',
     },
     page_identifier : {
-        selector: '#page_identifier',
+        _: '#page_identifier',
     },
     page_store_id : {
-        selector: '#page_store_id',
+        _: '#page_store_id',
     },
     page_is_active : {
-        selector: '#page_is_active',
+        _: '#page_is_active',
     },
     page_content_heading : {
-        selector: '#page_content_heading',
+        _: '#page_content_heading',
     },
     page_content : {
-        selector: '#page_content',
+        _: '#page_content',
     },
     page_root_template : {
-        selector: '#page_root_template',
+        _: '#page_root_template',
     },
     page_layout_update_xml : {
-        selector: '#page_layout_update_xml',
+        _: '#page_layout_update_xml',
     },
     page_custom_theme_from : {
-        selector: '#page_custom_theme_from',
+        _: '#page_custom_theme_from',
     },
     page_custom_theme_to : {
-        selector: '#page_custom_theme_to',
+        _: '#page_custom_theme_to',
     },
     page_custom_theme : {
-        selector: '#page_custom_theme',
+        _: '#page_custom_theme',
     },
     page_custom_root_template : {
-        selector: '#page_custom_root_template',
+        _: '#page_custom_root_template',
     },
     page_custom_layout_update_xml : {
-        selector: '#page_custom_layout_update_xml',
+        _: '#page_custom_layout_update_xml',
     },
     page_meta_keywords : {
-        selector: '#page_meta_keywords',
+        _: '#page_meta_keywords',
     },
     page_meta_description : {
-        selector: '#page_meta_description',
+        _: '#page_meta_description',
     },
 };
 
 /**
- * Selectors for CMS page tabs
+ * _s for CMS page tabs
  * @type {{general: string, metaData: string, design: string, content: string}}
  * @private
  */
@@ -69,7 +69,7 @@ test.__tabs = {
 
 /**
  * Configuration for "Pages" menu item
- * @type {{clickTabContent: cy.openmage.test.backend.cms.page.config.clickTabContent, _button: string, clickTabDesign: cy.openmage.test.backend.cms.page.config.clickTabDesign, _title: string, _id: string, clickTabMain: cy.openmage.test.backend.cms.page.config.clickTabMain, clickTabMetaData: cy.openmage.test.backend.cms.page.config.clickTabMetaData, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}, clickTabMain: cy.openmage.test.backend.cms.page.config.clickTabMain, clickTabContent: cy.openmage.test.backend.cms.page.config.clickTabContent, clickTabDesign: cy.openmage.test.backend.cms.page.config.clickTabDesign, clickTabMetaData: cy.openmage.test.backend.cms.page.config.clickTabMetaData}}
  */
 test.config = {
     _id: '#nav-admin-cms-page',
@@ -77,6 +77,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'cms_page/index',
+    index: {},
+    edit: {},
+    new: {},
     clickTabMain: () => {
         tools.click(test.__tabs.general, 'Clicking on General tab');
     },
@@ -100,13 +103,15 @@ test.config.index = {
     url: test.config.url,
     _grid: '#cmsPageGrid',
     __buttons: {
-        add: base._button + '[title="Add New Page"]',
+        add: {
+            _: base._button + '[title="Add New Page"]',
+        },
     },
     clickAdd: (log = 'Add New Page button clicked') => {
-        tools.click(test.config.index.__buttons.add, log);
+        tools.click(test.config.index.__buttons.add._, log);
     },
-    clickGridRow: (content = '', selector = 'td') => {
-        tools.grid.clickContains(test.config.index, content, selector);
+    clickGridRow: (content = '', _ = 'td') => {
+        tools.grid.clickContains(test.config.index, content, _);
     },
 }
 
@@ -118,38 +123,48 @@ test.config.edit = {
     title: 'Edit Page',
     url: 'cms_page/edit',
     __buttons: {
-        save: base._button + '[title="Save Page"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        delete: base._button + '[title="Delete Page"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Page"]',
+        },
+        saveAndContinue: {
+            _: base.__buttons.saveAndContinue._,
+        },
+        delete: {
+            _: base._button + '[title="Delete Page"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     __tabs: test.__tabs,
     disablePage: () => {
         cy.log('Disable the CMS page');
-        cy.get(test.__fields.page_is_active.selector)
+        cy.get(test.__fields.page_is_active._)
             .select('Disabled');
     },
     resetStores: () => {
         cy.log('Restore the default store to the CMS page');
-        cy.get(test.__fields.page_store_id.selector)
+        cy.get(test.__fields.page_store_id._)
             .select([1, 2, 3]);
     },
     clickSave: () => {
-        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
+        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
-        tools.click(test.config.edit.__buttons.saveAndContinue, 'Save and Continue Edit button clicked');
+        base.__buttons.saveAndContinue.click();
     },
     clickDelete: () => {
-        tools.click(test.config.edit.__buttons.delete, 'Delete button clicked');
+        tools.click(test.config.edit.__buttons.delete._, 'Delete button clicked');
     },
     clickBack: () => {
-        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.edit.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }
 
@@ -161,10 +176,18 @@ test.config.new = {
     title: 'New Page',
     url: 'cms_page/new',
     __buttons: {
-        save: base._button + '[title="Save Page"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Page"]'
+        },
+        saveAndContinue: {
+            _: base.__buttons.saveAndContinue._,
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     __tabs: test.__tabs,
@@ -172,12 +195,12 @@ test.config.new = {
         tools.click(test.config.new.__buttons.save, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
-        tools.click(test.config.new.__buttons.saveAndContinue, 'Save and Continue Edit button clicked');
+        base.__buttons.saveAndContinue.click();
     },
     clickBack: () => {
-        tools.click(test.config.new.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.new.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }

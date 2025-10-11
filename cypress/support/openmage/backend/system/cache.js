@@ -3,7 +3,7 @@ const test = cy.openmage.test.backend.system.cache;
 
 /**
  * Configuration for "Cache Storage Management" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-system-cache',
@@ -11,6 +11,7 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'cache/index',
+    index: {},
 }
 
 /**
@@ -22,7 +23,11 @@ test.config.index = {
     url: test.config.url,
     _grid: '#cache_grid_table',
     __buttons: {
-        flushApply: base._button + '[title="Flush & Apply Updates"]',
-        flushCache: base._button + '[title="Flush Cache Storage"]',
+        flushApply: {
+            _: base._button + '[title="Flush & Apply Updates"]',
+        },
+        flushCache: {
+            _: base._button + '[title="Flush Cache Storage"]',
+        },
     },
 }

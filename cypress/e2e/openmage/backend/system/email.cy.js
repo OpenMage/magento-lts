@@ -13,8 +13,9 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         const message = 'The template Name must not be empty.';
+        const screenshot = 'message.system.email.saveEmptyWithoutJs';
         test.new.clickSave();
-        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: 'message.sytem.email.saveEmptyWithoutJs' });
+        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {

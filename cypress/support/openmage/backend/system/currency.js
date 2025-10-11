@@ -3,7 +3,7 @@ const test = cy.openmage.test.backend.system.currency;
 
 /**
  * Configuration for "Currency Rates" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-system-currency-rates',
@@ -11,6 +11,7 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'system_currency/index',
+    index: {},
 }
 
 /**
@@ -21,9 +22,15 @@ test.config.index = {
     title: 'Manage Currency Rates',
     url: test.config.url,
     __buttons: {
-        save: base._button + '[title="Save Currency Rates"]',
-        import: base._button + '[title="Import"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Currency Rates"]',
+        },
+        import: {
+            _: base._button + '[title="Import"]',
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __validation: {
         _input: {

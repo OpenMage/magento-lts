@@ -8,6 +8,17 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.openmage.admin.goToPage(test, test.index);
     });
 
+    it(`tests save empty values, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClassesAll();
+
+        // TODO: add save and continue functionality
+        const message = 'You must give a non-empty value for field \'template_code\'';
+        const filename = 'message.newsletter.template.saveEmptyWithoutJs';
+        test.new.clickSave();
+        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: filename });
+    });
+
     it(`tests index route`, () => {
         validation.pageElements(test, test.index);
     });

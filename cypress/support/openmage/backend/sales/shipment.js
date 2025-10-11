@@ -3,7 +3,7 @@ const test = cy.openmage.test.backend.sales.shipment;
 
 /**
  * Configuration for "Shipments" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, view: {}}}
  */
 test.config = {
     _id: '#nav-admin-sales-shipment',
@@ -11,6 +11,8 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'sales_shipment/index',
+    index: {},
+    view: {},
 };
 
 /**
@@ -31,8 +33,14 @@ test.config.view = {
     title: 'Shipment #',
     url: 'sales_shipment/view',
     __buttons: {
-        print: base._button + '[title="Print"]',
-        tracking: base._button + '[title="Send Tracking Information"]',
-        back: base._button + '[title="Back"]',
+        print: {
+            _: base._button + '[title="Print"]',
+        },
+        tracking: {
+            _: base._button + '[title="Send Tracking Information"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
     },
 }

@@ -3,13 +3,14 @@ const test = cy.openmage.test.backend.newsletter.subscriber;
 
 /**
  * Configuration for "Newsletter Subscribers" menu item
- * @type {{_title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_title: string, _id: string, _id_parent: string, url: string, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-newsletter-subscriber',
     _id_parent: '#nav-admin-newsletter',
     _title: base._title,
     url: 'newsletter_subscriber/index',
+    index: {},
 }
 
 /**

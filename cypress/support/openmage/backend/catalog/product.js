@@ -4,7 +4,7 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "Products" menu item
- * @type {{_button: string, _title: string, _id_parent: string, _id: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-catalog-products',
@@ -12,6 +12,9 @@ test.config = {
     _title: base._title,
     _button: '.content-header button', // Custom base button selector
     url: 'catalog_product/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -23,28 +26,42 @@ test.config.index = {
     url: test.config.url,
     _grid: '#productGrid_table',
     __buttons: {
-        add: test.config._button + '[title="Add Product"]',
+        add: {
+            _: test.config._button + '[title="Add Product"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New Products button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
     },
 }
 
 /**
  * Configuration for "Edit Product" page
- * @type {{title: string, url: string, __buttons: {save: string, reset: string, delete: string, back: string, duplicate: string}}}
+ * @type {{title: string, url: string, __buttons: {save: {_: string}, saveAndContinue: {_: string}, delete: {_: string}, back: {_: string}, reset: {_: string}, duplicate: {_: string}}}}
  * TODO: rmove dupluctate require-entry class from fields
  */
 test.config.edit = {
     title: 'Plaid Cotton',
     url: 'catalog_product/edit',
     __buttons: {
-        save: test.config._button + '[title="Save"]',
-        saveAndContinue: test.config._button + '[title="Save and Continue Edit"]',
-        delete: test.config._button + '[title="Delete"]',
-        back: test.config._button + '[title="Back"]',
-        reset: test.config._button + '[title="Reset"]',
-        duplicate: test.config._button + '[title="Duplicate"]'
+        save: {
+            _: test.config._button + '[title="Save"]',
+        },
+        saveAndContinue: {
+            _: test.config._button + '[title="Save and Continue Edit"]',
+        },
+        delete: {
+            _: test.config._button + '[title="Delete"]',
+        },
+        back: {
+            _: test.config._button + '[title="Back"]',
+        },
+        reset: {
+            _: test.config._button + '[title="Reset"]',
+        },
+        duplicate: {
+            _: test.config._button + '[title="Duplicate"]',
+        }
     },
 }
 

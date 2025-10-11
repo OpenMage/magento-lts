@@ -9,25 +9,25 @@ const tools = cy.openmage.tools;
  */
 test.__fields = {
     block_title : {
-        selector: '#block_title',
+        _: '#block_title',
     },
     block_identifier : {
-        selector: '#block_identifier',
+        _: '#block_identifier',
     },
     block_store_id : {
-        selector: '#block_store_id',
+        _: '#block_store_id',
     },
     block_is_active : {
-        selector: '#block_is_active',
+        _: '#block_is_active',
     },
     block_content : {
-        selector: '#block_content',
+        _: '#block_content',
     },
 }
 
 /**
  * Configuration for "Static Blocks" menu item
- * @type {{_button: string, _title: string, _id_parent: string, _id: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-cms-block',
@@ -35,6 +35,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'cms_block/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -46,10 +49,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#cmsBlockGrid_table',
     __buttons: {
-        add: base._button + '[title="Add New Block"]',
+        add: {
+            _: base._button + '[title="Add New Block"]',
+        },
     },
     clickAdd: (log = 'Add CMS Blocks button clicked') => {
-        tools.click(test.config.index.__buttons.add, log);
+        tools.click(test.config.index.__buttons.add._, log);
     },
 }
 
@@ -61,27 +66,37 @@ test.config.edit = {
     title: 'Edit Block',
     url: 'cms_block/edit',
     __buttons: {
-        save: base._button + '[title="Save Block"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        delete: base._button + '[title="Delete Block"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Block"]',
+        },
+        saveAndContinue: {
+            _: base.__buttons.saveAndContinue._,
+        },
+        delete: {
+            _: base._button + '[title="Delete Block"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.new.__buttons.save, 'Save button clicked');
+        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
-        tools.click(test.config.new.__buttons.saveAndContinue, 'Save and Continue button clicked');
+        base.__buttons.saveAndContinue.click();
     },
     clickDelete: () => {
-        tools.click(test.config.new.__buttons.back, 'Delete button clicked');
+        tools.click(test.config.edit.__buttons.back._, 'Delete button clicked');
     },
     clickBack: () => {
-        tools.click(test.config.new.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.new.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }
 
@@ -93,22 +108,30 @@ test.config.new = {
     title: 'New Block',
     url: 'cms_block/new',
     __buttons: {
-        save: base._button + '[title="Save Block"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Block"]',
+        },
+        saveAndContinue: {
+            _: base.__buttons.saveAndContinue._,
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     clickSave: () => {
         tools.click(test.config.new.__buttons.save, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
-        tools.click(test.config.new.__buttons.saveAndContinue, 'Save and Continue button clicked');
+        base.__buttons.saveAndContinue.click();
     },
     clickBack: () => {
-        tools.click(test.config.new.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.new.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }

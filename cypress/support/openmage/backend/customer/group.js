@@ -8,28 +8,34 @@ const tools = cy.openmage.tools;
  * @private
  */
 test.__buttons = {
-    save: base._button + '[title="Save Customer Group"]',
-    back: base._button + '[title="Back"]',
-    reset: base._button + '[title="Reset"]',
+    save: {
+        _: base._button + '[title="Save Customer Group"]',
+    },
+    back: {
+        _: base.__buttons.back._,
+    },
+    reset: {
+        _: base.__buttons.reset._,
+    },
 };
 
 /**
  * Fields selectors for Edit and New page
- * @type {{customer_group_code: {selector: string}, tax_class_id: {selector: string}}}
+ * @type {{customer_group_code: {_: string}, tax_class_id: {_: string}}}
  * @private
  */
 test.__fields = {
     customer_group_code : {
-        selector: '#customer_group_code',
+        _: '#customer_group_code',
     },
     tax_class_id : {
-        selector: '#tax_class_id',
+        _: '#tax_class_id',
     },
 };
 
 /**
  * Configuration for "Customer Groups" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-customer-group',
@@ -37,21 +43,26 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'customer_group/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
  * Configuration for "Customer Groups" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.customer.group.config.index.clickAdd}}
+ * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.customer.group.config.index.clickAdd, clickGridRow: cy.openmage.test.backend.customer.group.config.index.clickGridRow}}
  */
 test.config.index = {
     title: 'Customer Groups',
     url: test.config.url,
     _grid: '#customerGroupGrid_table',
     __buttons: {
-        add: base._button + '[title="Add New Customer Group"]',
+        add: {
+            _: base._button + '[title="Add New Customer Group"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New Customer Groups button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Customer Groups button clicked');
     },
     clickGridRow: (content = '', selector = 'td') => {
         tools.grid.clickContains(test.config.index, content, selector);
@@ -69,13 +80,13 @@ test.config.edit = {
     __buttons: test.__buttons,
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.__buttons.save, 'Save button clicked');
+        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
     },
     clickBack: () => {
-        tools.click(test.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.__buttons .reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }
 
@@ -89,12 +100,12 @@ test.config.new = {
     __buttons: test.__buttons,
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.__buttons.save, 'Save button clicked');
+        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
     },
     clickBack: () => {
-        tools.click(test.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.__buttons .reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }

@@ -7,10 +7,19 @@ cy.openmage.validation = {
     _errorMessage: '.error-msg',
     _successMessage: '.success-msg',
     _warningMessage: '.warning-msg',
+    emptyFields: (path, value = '') =>{
+        cy.log('Empty fields');
+        Object.keys(path.__fields).forEach(field => {
+            const selector = path.__fields[field]._;
+            cy
+                .get(selector)
+                .clear({ force: true });
+        });
+    },
     fillFields: (path, validation, value = '') =>{
         cy.log('Filling fields with invalid values');
         Object.keys(path.__fields).forEach(field => {
-            const selector = path.__fields[field].selector;
+            const selector = path.__fields[field]._;
             cy
                 .get(selector)
                 .clear({ force: true })
@@ -27,7 +36,7 @@ cy.openmage.validation = {
     removeClasses: (path, log = 'Removing validation classes from fields') =>{
         cy.log(log);
         Object.keys(path.__fields).forEach(field => {
-            const selector = path.__fields[field].selector;
+            const selector = path.__fields[field]._;
             cy
                 .get(selector)
                 .invoke('removeClass');
@@ -35,7 +44,21 @@ cy.openmage.validation = {
     },
     removeClassesAll: () =>{
         cy.log('Removing validation classes from all fields');
-        cy.get('.form-list .value').invoke('removeClass');
+
+        const input = '.form-list .value input';
+        if (input !== undefined) {
+            cy.get(input).invoke('removeClass');
+        }
+
+        const select = '.form-list .value select';
+        if (select !== undefined) {
+            cy.get(select).invoke('removeClass');
+        }
+
+        const textarea = '.form-list .value textarea';
+        if (textarea !== undefined) {
+            cy.get(textarea).invoke('removeClass');
+        }
     },
     pageElements: (config, path) => {
         cy.openmage.check.buttons(config, path);
@@ -49,7 +72,7 @@ cy.openmage.validation = {
     validateFields: (path, validation, match = 'include.text') =>{
         cy.log('Checking for fields');
         Object.keys(path.__fields).forEach(field => {
-            const selector = validation._error + path.__fields[field].selector.replace(/^\#/, "");
+            const selector = validation._error + path.__fields[field]._.replace(/^\#/, "");
             cy.get(selector).should(match, validation.error);
         });
     },

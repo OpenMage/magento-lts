@@ -11,10 +11,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
-        // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         const message = 'Validation has failed.';
-        test.new.clickSave();
-        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: 'message.system.variable.saveEmptyWithoutJs' });
+        const screenshot = 'message.system.variable.saveEmptyWithoutJs';
+        test.new.clickSaveAndContinue();
+        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {

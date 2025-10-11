@@ -9,7 +9,7 @@ cy.openmage.check = {
             cy.get(config._button).filter(':visible').should('have.length', Object.keys(path.__buttons).length);
 
             for (const button of Object.keys(path.__buttons)) {
-                cy.get(path.__buttons[button]).should('exist');
+                cy.get(path.__buttons[button]._).should('exist');
             };
         }
     },
@@ -17,7 +17,7 @@ cy.openmage.check = {
         cy.log('Checking for existing fields');
         if (path.__fields !== undefined) {
             for (const field of Object.keys(path.__fields)) {
-                cy.get(path.__fields[field].selector).should('exist');
+                cy.get(path.__fields[field]._).should('exist');
             };
         }
     },

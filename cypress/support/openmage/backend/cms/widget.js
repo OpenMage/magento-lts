@@ -4,7 +4,7 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "Widget Instance" section
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-cms-widget_instance',
@@ -12,6 +12,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'widget_instance/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -23,10 +26,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#widgetInstanceGrid_table',
     __buttons: {
-        add: base._button + '[title="Add New Widget Instance"]',
+        add: {
+            _: base._button + '[title="Add New Widget Instance"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New Widget Instances button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Widget Instances button clicked');
     },
 }
 
@@ -37,13 +42,7 @@ test.config.index = {
 test.config.edit = {
     title: 'Widget',
     url: 'widget_instance/edit',
-    __buttons: {
-        save: base._button + '[title="Save"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        delete: base._button + '[title="Delete"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
-    },
+    __buttons: base.__buttons,
 }
 
 /**
@@ -54,7 +53,11 @@ test.config.new = {
     title: 'New Widget Instance',
     url: 'widget_instance/new',
     __buttons: {
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
 }

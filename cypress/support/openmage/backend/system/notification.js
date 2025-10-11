@@ -3,13 +3,14 @@ const test = cy.openmage.test.backend.system.notification;
 
 /**
  * Configuration for "System > Notifications" menu item
- * @type {{_title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_title: string, _id: string, _id_parent: string, url: string, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-system-adminnotification',
     _id_parent: '#nav-admin-system',
     _title: base._title,
     url: 'notification/index',
+    index: {},
 }
 
 /**

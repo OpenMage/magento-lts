@@ -4,7 +4,7 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "Shopping Cart Price Rules" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_id_parent: string, _id: string, _title: string, _button: string, url: string, new: {}, edit: {}, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-promo-quote',
@@ -12,6 +12,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'promo_quote/index',
+    index: {},
+    edit: {},
+    new: {},
 };
 
 /**
@@ -23,10 +26,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#promo_quote_grid_table',
     __buttons: {
-        add: base._button + '[title="Add New Rule"]',
+        add: {
+            _: base._button + '[title="Add New Rule"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New Shopping Cart Price Rules button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Shopping Cart Price Rules button clicked');
     },
 }
 
@@ -38,6 +43,12 @@ test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_quote/edit',
     __buttons: base.__buttons,
+    clickSave: () => {
+        base.__buttons.save.click();
+    },
+    clickSaveAndContinue: () => {
+        base.__buttons.saveAndContinue.click();
+    },
 }
 
 /**
@@ -48,4 +59,7 @@ test.config.new = {
     title: 'New Rule',
     url: 'promo_quote/new',
     __buttons: base.__buttonsNew,
+    clickSaveAndContinue: () => {
+        base.__buttons.saveAndContinue.click();
+    },
 }

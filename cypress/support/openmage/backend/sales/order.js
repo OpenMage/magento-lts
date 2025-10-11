@@ -3,7 +3,7 @@ const test = cy.openmage.test.backend.sales.order;
 
 /**
  * Configuration for "Orders" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, view: {}}}
  */
 test.config = {
     _id: '#nav-admin-sales-order',
@@ -11,6 +11,8 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'sales_order/index',
+    index: {},
+    view: {},
 };
 
 /**
@@ -22,7 +24,9 @@ test.config.index = {
     url: test.config.url,
     _grid: '#sales_order_grid_table',
     __buttons: {
-        new: '.form-buttons button[title="Create New Order"]',
+        new: {
+            _: base._button + '[title="Create New Order"]',
+        },
     },
 }
 
@@ -34,7 +38,11 @@ test.config.view = {
     title: 'Order #',
     url: 'sales_order/view',
     __buttons: {
-        reorder: base._button + '[title="Reorder"]',
-        back: base._button + '[title="Back"]',
+        reorder: {
+            _: base._button + '[title="Reorder"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
     },
 }

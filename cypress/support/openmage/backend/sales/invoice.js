@@ -3,7 +3,7 @@ const test = cy.openmage.test.backend.sales.invoice;
 
 /**
  * Configuration for "Invoices" in the Admin menu
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, view: {}}}
  */
 test.config = {
     _id: '#nav-admin-sales-invoice',
@@ -11,6 +11,8 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'sales_invoice/index',
+    index: {},
+    view: {},
 };
 
 /**
@@ -31,8 +33,14 @@ test.config.view = {
     title: 'Invoice #',
     url: 'sales_invoice/view',
     __buttons: {
-        print: base._button + '[title="Print"]',
-        email: base._button + '[title="Send Email"]',
-        back: base._button + '[title="Back"]',
+        print: {
+            _: base._button + '[title="Print"]',
+        },
+        email: {
+            _: base._button + '[title="Send Email"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
     },
 }

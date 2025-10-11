@@ -4,27 +4,27 @@ const tools = cy.openmage.tools;
 
 /**
  * Selectors for fields in "Custom Variable" form
- * @type {{code: {selector: string}, plain_value: {selector: string}, name: {selector: string}, html_value: {selector: string}}}
+ * @type {{code: {_: string}, plain_value: {_: string}, name: {_: string}, html_value: {_: string}}}
  * @private
  */
 test.__fields = {
     code : {
-        selector: '#code',
+        _: '#code',
     },
     name : {
-        selector: '#name',
+        _: '#name',
     },
     html_value : {
-        selector: '#html_value',
+        _: '#html_value',
     },
     plain_value : {
-        selector: '#plain_value',
+        _: '#plain_value',
     },
 };
 
 /**
  * Configuration for "Custom Variables" section
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-system-variable',
@@ -32,6 +32,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'system_variable/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -43,10 +46,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#customVariablesGrid',
     __buttons: {
-        add: base._button + '[title="Add New Variable"]',
+        add: {
+            _: base._button + '[title="Add New Variable"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New Custom Variable button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Custom Variable button clicked');
     },
 }
 
@@ -57,28 +62,22 @@ test.config.index = {
 test.config.edit = {
     title: 'Custom Variable',
     url: 'system_variable/edit',
-    __buttons: {
-        save: base._button + '[title="Save"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        delete: base._button + '[title="Delete"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
-    },
+    __buttons: base.__buttons,
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
+        base.__buttons.save.click();
     },
     clickSaveAndContinue: () => {
-        tools.click(test.config.edit.__buttons.saveAndContinue, 'Save & Generate button clicked');
+        base.__buttons.saveAndContinue.click();
     },
     clickDelete: () => {
-        tools.click(test.config.edit.__buttons.delete, 'Delete button clicked');
+        base.__buttons.delete.click();
     },
     clickBack: () => {
-        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.edit.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }
 
@@ -89,23 +88,18 @@ test.config.edit = {
 test.config.new = {
     title: 'New Custom Variable',
     url: 'system_variable/new',
-    __buttons: {
-        save: base._button + '[title="Save"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
-    },
+    __buttons: base.__buttonsNew,
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.new.__buttons.save, 'Save button clicked');
+        base.__buttons.save.click();
     },
     clickSaveAndContinue: () => {
-        tools.click(test.config.new.__buttons.saveAndContinue, 'Save and Continue Edit button clicked');
+        base.__buttons.saveAndContinue.click();
     },
     clickBack: () => {
-        tools.click(test.config.new.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.new.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }

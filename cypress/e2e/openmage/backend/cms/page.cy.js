@@ -60,7 +60,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.edit.clickDelete();
 
         const message = 'Cannot delete page';
-        validation.hasErrorMessage(message, {screenshot: true, filename: 'message.cms.page.deleteActivePage'});
+        const screenshot = 'message.cms.page.deleteActivePage';
+        validation.hasErrorMessage(message, { screenshot: true, filename: screenshot });
     });
 
     it('tests to unassign a CMS page that is used in config', () => {

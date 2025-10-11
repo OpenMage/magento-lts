@@ -4,7 +4,7 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "URL Rewrite" menu item
- * @type {{_id: string, _id_parent: string, _title: string, _button: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-catalog-urlrewrite',
@@ -12,6 +12,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'urlrewrite/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -23,10 +26,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#urlrewriteGrid_table',
     __buttons: {
-        add: base._button + '[title="Add URL Rewrite"]',
+        add: {
+            _: base._button + '[title="Add URL Rewrite"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add URL Rewrite button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add URL Rewrite button clicked');
     },
 }
 
@@ -39,16 +44,16 @@ test.config.edit = {
     url: 'urlrewrite/edit',
     __buttons: base.__buttonsNoContinue,
     clickSave: () => {
-        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
+        base.__buttons.save.click();
     },
     clickDelete: () => {
-        tools.click(test.config.edit.__buttons.delete, 'Delete button clicked');
+        base.__buttons.delete.click();
     },
     clickBack: () => {
-        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.edit.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }
 
@@ -60,9 +65,11 @@ test.config.new = {
     title: 'Add New URL Rewrite',
     url: 'urlrewrite/edit',
     __buttons: {
-        back: base._button + '[title="Back"]',
+        back: {
+            _: base.__buttons.back._,
+        },
     },
     clickBack: () => {
-        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
 }

@@ -18,10 +18,10 @@ test.config.section = {
                 _id: '#promo_auto_generated_coupon_codes-head',
                 __fields: {
                     length: {
-                        selector: '#promo_auto_generated_coupon_codes_length',
+                        _: '#promo_auto_generated_coupon_codes_length',
                     },
                     dashes: {
-                        selector: '#promo_auto_generated_coupon_codes_dash',
+                        _: '#promo_auto_generated_coupon_codes_dash',
                     },
                 }
             }

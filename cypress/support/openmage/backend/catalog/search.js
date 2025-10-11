@@ -4,30 +4,30 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for fields in "Search Terms" edit and new pages
- * @type {{store_id: {selector: string}, display_in_terms: {selector: string}, page_is_active: {selector: string}, synonym_for: {selector: string}, query_text: {selector: string}}}
+ * @type {query_text: {_: string}, store_id: {_: string}, synonym_for: {_: string}, page_is_active: {_: string}, display_in_terms: {_: string}}
  * @private
  */
 test.__fields = {
     query_text : {
-        selector: '#query_text',
+        _: '#query_text',
     },
     store_id : {
-        selector: '#store_id',
+        _: '#store_id',
     },
     synonym_for : {
-        selector: '#synonym_for',
+        _: '#synonym_for',
     },
     page_is_active : {
-        selector: '#redirect',
+        _: '#redirect',
     },
     display_in_terms : {
-        selector: '#display_in_terms',
+        _: '#display_in_terms',
     },
 };
 
 /**
  * Configuration for "Search Terms" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-catalog-search',
@@ -35,6 +35,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'catalog_search/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -46,10 +49,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#catalog_search_grid_table',
     __buttons: {
-        add: base._button + '[title="Add New Search Term"]',
+        add: {
+            _: base._button + '[title="Add New Search Term"]',
+        },
     },
     clickAdd: (log = 'Add Search Term button clicked') => {
-        tools.click(test.config.index.__buttons.add, log);
+        tools.click(test.config.index.__buttons.add._, log);
     },
 }
 
@@ -61,22 +66,30 @@ test.config.edit = {
     title: 'Edit Search',
     url: 'catalog_search/edit',
     __buttons: {
-        save: base._button + '[title="Save Search"]',
-        delete: base._button + '[title="Delete Search"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Search"]',
+        },
+        delete: {
+            _: base._button + '[title="Delete Search"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     clickDelete: () => {
-        tools.click(test.config.edit.__buttons.delete, 'Delete button clicked');
+        tools.click(test.config.edit.__buttons.delete._, 'Delete button clicked');
     },
     clickSave: () => {
-        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
+        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
     },
     clickBack: () => {
-        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
+        tools.click(test.config.edit.__buttons.back._, 'Back button clicked');
     },
     clickReset: () => {
-        tools.click(test.config.edit.__buttons.reset, 'Reset button clicked');
+        tools.click(test.config.edit.__buttons.reset._, 'Reset button clicked');
     },
 }
 
@@ -88,18 +101,24 @@ test.config.new = {
     title: 'New Search',
     url: 'catalog_search/new',
     __buttons: {
-        save: base._button + '[title="Save Search"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Search"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.new.__buttons.save, 'Save button clicked');
+        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
     },
     clickBack: () => {
-        tools.click(test.config.new.__buttons.back, 'Back button clicked');
+        tools.click(test.config.new.__buttons.back._, 'Back button clicked');
     },
     clickReset: () => {
-        tools.click(test.config.new.__buttons.reset, 'Reset button clicked');
+        tools.click(test.config.new.__buttons.reset._, 'Reset button clicked');
     },
 }

@@ -15,8 +15,9 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         // TODO fix it
         const message = 'substr(): Passing null to parameter #1 ($string) of type string is deprecated';
+        const screenshot = 'message.customer.groups.saveEmptyWithoutJs';
         test.new.clickSave();
-        validation.hasErrorMessage(message, { screenshot: true, filename: 'message.customer.groups.saveEmptyWithoutJs'});
+        validation.hasErrorMessage(message, { screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {

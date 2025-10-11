@@ -4,24 +4,24 @@ const tools = cy.openmage.tools;
 
 /**
  * Selectors for fields on "New Sitemap" and "Edit Sitemap" pages
- * @type {{sitemap_path: {selector: string}, page_store_id: {selector: string}, sitemap_filename: {selector: string}}}
+ * @type {{sitemap_filename: {_: string}, sitemap_path: {_: string}, page_store_id: {_: string}}}
  * @private
  */
 test.__fields = {
     sitemap_filename : {
-        selector: '#sitemap_filename',
+        _: '#sitemap_filename',
     },
     sitemap_path : {
-        selector: '#sitemap_path',
+        _: '#sitemap_path',
     },
     page_store_id : {
-        selector: '#store_id',
+        _: '#store_id',
     },
 };
 
 /**
  * Configuration for "Google Sitemap" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-catalog-sitemap',
@@ -29,6 +29,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'sitemap/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -40,10 +43,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#sitemapGrid_table',
     __buttons: {
-        add: base._button + '[title="Add Sitemap"]',
+        add: {
+            _: base._button + '[title="Add Sitemap"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New Sitemap button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Sitemap button clicked');
     },
 }
 
@@ -55,27 +60,37 @@ test.config.edit = {
     title: 'Edit Sitemap',
     url: 'sitemap/edit',
     __buttons: {
-        save: base._button + '[title="Save"]',
-        delete: base._button + '[title="Delete"]',
-        generate: base._button + '[title="Save & Generate"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base.__buttons.save._,
+        },
+        delete: {
+            _: base.__buttons.delete._,
+        },
+        generate: {
+            _: base._button + '[title="Save & Generate"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
+        base.__buttons.save.click();
     },
     clickSaveAndGenerate: () => {
-        tools.click(test.config.edit.__buttons.generate, 'Save & Generate button clicked');
+        tools.click(test.config.edit.__buttons.generate._, 'Save & Generate button clicked');
     },
     clickDelete: () => {
-        tools.click(test.config.edit.__buttons.delete, 'Delete button clicked');
+        base.__buttons.delete.click();
     },
     clickBack: () => {
-        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.edit.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }
 
@@ -87,22 +102,30 @@ test.config.new = {
     title: 'New Sitemap',
     url: 'sitemap/new',
     __buttons: {
-        save: base._button + '[title="Save"]',
-        generate: base._button + '[title="Save & Generate"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base.__buttons.save._,
+        },
+        generate: {
+            _: base._button + '[title="Save & Generate"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.new.__buttons.save, 'Save button clicked');
+        base.__buttons.save.click();
     },
     clickSaveAndGenerate: () => {
-        tools.click(test.config.new.__buttons.generate, 'Save & Generate button clicked');
+        tools.click(test.config.new.__buttons.generate._, 'Save & Generate button clicked');
     },
     clickBack: () => {
-        tools.click(test.config.new.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.new.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }

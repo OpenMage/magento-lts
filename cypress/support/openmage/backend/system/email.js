@@ -4,30 +4,30 @@ const tools = cy.openmage.tools;
 
 /**
  * Common fields for "Edit Email Template" and "New Email Template" pages
- * @type {{template_subject: {selector: string}, locale_select: {selector: string}, template_text: {selector: string}, template_select: {selector: string}, template_code: {selector: string}}}
+ * @type {{template_subject: {_: string}, locale_select: {_: string}, template_text: {_: string}, template_select: {_: string}, template_code: {_: string}}}
  * @private
  */
 test.__fields = {
     template_select : {
-        selector: '#template_select',
+        _: '#template_select',
     },
     locale_select : {
-        selector: '#locale_select',
+        _: '#locale_select',
     },
     template_code : {
-        selector: '#template_code',
+        _: '#template_code',
     },
     template_subject : {
-        selector: '#template_subject',
+        _: '#template_subject',
     },
     template_text : {
-        selector: '#template_text',
+        _: '#template_text',
     },
 }
 
 /**
  * Configuration for "Transactional Emails" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
     _id: '#nav-admin-system-email_template',
@@ -35,6 +35,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'system_email_template/index',
+    index: {},
+    edit: {},
+    new: {},
 }
 
 /**
@@ -46,10 +49,12 @@ test.config.index = {
     url: test.config.url,
     _grid: '#systemEmailTemplateGrid_table',
     __buttons: {
-        add: base._button + '[title="Add New Template"]',
+        add: {
+            _: base._button + '[title="Add New Template"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New ransactional Emails button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New ransactional Emails button clicked');
     },
 }
 
@@ -61,11 +66,21 @@ test.config.edit = {
     title: 'Edit Email Template',
     url: 'system_email_template/edit',
     __buttons: {
-        save: base._button + '[title="Save Template"]',
-        convert: base._button + '[title="Convert to Plain Text"]',
-        preview: base._button + '[title="Preview Template"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Template"]',
+        },
+        convert: {
+            _: base._button + '[title="Convert to Plain Text"]',
+        },
+        preview: {
+            _: base._button + '[title="Preview Template"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
 }
@@ -78,26 +93,36 @@ test.config.new = {
     title: 'New Email Template',
     url: 'system_email_template/new',
     __buttons: {
-        save: base._button + '[title="Save Template"]',
-        convert: base._button + '[title="Convert to Plain Text"]',
-        preview: base._button + '[title="Preview Template"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Template"]',
+        },
+        convert: {
+            _: base._button + '[title="Convert to Plain Text"]',
+        },
+        preview: {
+            _: base._button + '[title="Preview Template"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.edit.__buttons.save, 'Save button clicked');
+        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
     },
     clickCovert: () => {
-        tools.click(test.config.edit.__buttons.convert, 'Covert button clicked');
+        tools.click(test.config.edit.__buttons.convert._, 'Covert button clicked');
     },
     clickPreview: () => {
-        tools.click(test.config.edit.__buttons.preview, 'Prieview button clicked');
+        tools.click(test.config.edit.__buttons.preview._, 'Prieview button clicked');
     },
     clickBack: () => {
-        tools.click(test.config.edit.__buttons.back, 'Back button clicked');
+        base.__buttons.back.click();
     },
     clickReset: () => {
-        tools.click(test.config.edit.__buttons.reset, 'Reset button clicked');
+        base.__buttons.reset.click();
     },
 }

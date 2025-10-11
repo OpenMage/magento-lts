@@ -8,6 +8,17 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         cy.openmage.admin.goToPage(test, test.index);
     });
 
+    it(`tests save empty values, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClassesAll();
+
+        // TODO: fix it
+        const message = 'The rule has been saved.';
+        const screenshotFilename = 'message.promo.quote.saveEmptyWithoutJs';
+        test.new.clickSaveAndContinue();
+        validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: screenshotFilename });
+    });
+
     it(`tests index route`, () => {
         validation.pageElements(test, test.index);
     });

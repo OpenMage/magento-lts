@@ -14,8 +14,9 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         const success = 'The design change has been saved.';
+        const screenshot = 'message.system.design.saveEmptyWithoutJs-1';
         test.new.clickSave();
-        validation.hasSuccessMessage(success,{ match: 'have.text', screenshot: true, filename: 'message.system.design.saveEmptyWithoutJs-1'});
+        validation.hasSuccessMessage(success,{ match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests save empty values, no js, 2nd time`, () => {
@@ -24,16 +25,18 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         const error = 'Your design change for the specified store intersects with another one, please specify another date range.';
+        const screenshot = 'message.system.design.saveEmptyWithoutJs-2';
         test.new.clickSave();
-        validation.hasErrorMessage(error, { match: 'have.text', screenshot: true, filename: 'message.system.design.saveEmptyWithoutJs-2'});
+        validation.hasErrorMessage(error, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests delete last added design`, () => {
         tools.grid.clickFirstRow(test.index);
 
         const success = 'The design change has been deleted.';
+        const screenshot = 'message.system.design.deleteLastAddedDesign';
         test.edit.clickDelete();
-        validation.hasSuccessMessage(success, { match: 'have.text', screenshot: true, filename: 'message.system.design.deleteLastAddedDesign' });
+        validation.hasSuccessMessage(success, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {

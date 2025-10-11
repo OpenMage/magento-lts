@@ -13,8 +13,9 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         const message = 'Please use only letters (a-z or A-Z), numbers (0-9) or underscore (_) in the filename. No spaces or other characters are allowed.';
+        const screenshot = 'message.catalog.sitemap.saveEmptyWithoutJs';
         test.new.clickSave();
-        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: 'message.catalog.sitemap.saveEmptyWithoutJs'});
+        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {

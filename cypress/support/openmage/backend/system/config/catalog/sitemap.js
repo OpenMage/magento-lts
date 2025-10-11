@@ -29,13 +29,13 @@ test.config.section = {
 test.config.section.priority = {
     __fields: {
         category: {
-            selector: '#sitemap_category_priority',
+            _: '#sitemap_category_priority',
         },
         product: {
-            selector: '#sitemap_product_priority',
+            _: '#sitemap_product_priority',
         },
         page: {
-            selector: '#sitemap_page_priority',
+            _: '#sitemap_page_priority',
         },
     }
 };

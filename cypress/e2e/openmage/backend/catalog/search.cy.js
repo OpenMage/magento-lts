@@ -16,8 +16,10 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.new.clickSave();
 
         // TODO: fit it
+        const message = 'You saved the search term.';
+        const screenshot = 'message.catalog.search.saveEmptyWithoutJs';
         // validation.hasErrorMessage(error);
-        validation.hasSuccessMessage('You saved the search term.', { screenshot: true, filename: 'message.catalog.search.saveEmptyWithoutJs' });
+        validation.hasSuccessMessage(message, { screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {

@@ -13,14 +13,17 @@ describe('Checks customer account create', () => {
 
     it('tests save empty, no js', () => {
         validation.fillFields(test.create, validation.requiredEntry);
+
         validation.removeClasses(test.create);
         tools.click(test._buttonSubmit);
-        cy.get(validation._errorMessage)
-            .should('include.text', '"First Name" is a required value.')
-            .should('include.text', '"First Name" length must be equal or greater than 1 characters.')
-            .should('include.text', '"Last Name" is a required value.')
-            .should('include.text', '"Last Name" length must be equal or greater than 1 characters.')
-            .should('include.text', '"Email" is a required value.');
+        cy.get(validation._errorMessage);
+        validation.hasErrorMessage('"First Name" is a required value.')
+        validation.hasErrorMessage('"First Name" length must be equal or greater than 1 characters.')
+        validation.hasErrorMessage('"Last Name" is a required value.')
+        validation.hasErrorMessage('"Last Name" length must be equal or greater than 1 characters.')
+        validation.hasErrorMessage('"Email" is a required value.');
+        validation.hasErrorMessage('"Email" is a required value.');
+        utils.screenshot(cy.openmage.validation._messagesContainer, 'message.system.account.saveEmptyWithoutJs');
     });
 
     it('Submits form with short password and wrong confirmation', () => {

@@ -4,7 +4,7 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "Catalog Price Rules" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_id_parent: string, _id: string, _title: string, _button: string, url: string, new: {}, edit: {}, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-promo-catalog',
@@ -12,6 +12,9 @@ test.config = {
     _title: base._title,
     _button: base._button,
     url: 'promo_catalog/index',
+    index: {},
+    edit: {},
+    new: {},
 };
 
 /**
@@ -23,11 +26,18 @@ test.config.index = {
     url: test.config.url,
     _grid: '#promo_catalog_grid_table',
     __buttons: {
-        add: base._button + '[title="Add New Rule"]',
-        apply: base._button + '[title="Apply Rules"]',
+        add: {
+            _: base._button + '[title="Add New Rule"]',
+        },
+        apply: {
+            _: base._button + '[title="Apply Rules"]',
+        },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add, 'Add New Catalog Price Rule button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Catalog Price Rule button clicked');
+    },
+    clickApply: () => {
+        tools.click(test.config.index.__buttons.apply._, 'Apply Rules button clicked');
     },
 }
 
@@ -39,12 +49,42 @@ test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_catalog/edit',
     __buttons: {
-        save: base._button + '[title="Save"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        saveAndApply: base._button + '[title="Save and Apply"]',
-        delete: base._button + '[title="Delete"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base.__buttons.save._,
+        },
+        saveAndContinue: {
+            _: base.__buttons.saveAndContinue._,
+        },
+        saveAndApply: {
+            _: base._button + '[title="Save and Apply"]',
+        },
+        delete: {
+            _: base.__buttons.delete._,
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
+    },
+    clickSave: () => {
+        base.__buttons.save.click();
+    },
+    clickSaveAndContinue: () => {
+        base.__buttons.saveAndContinue.click();
+    },
+    clickSaveAndApply: () => {
+        tools.click(test.config.edit.__buttons.saveAndApply._, 'Save and Apply button clicked');
+    },
+    clickDelete: () => {
+        base.__buttons.delete.click();
+    },
+    clickBack: () => {
+        base.__buttons.back.click();
+    },
+    clickReset: () => {
+        base.__buttons.reset.click();
     },
 }
 
@@ -56,10 +96,35 @@ test.config.new = {
     title: 'New Rule',
     url: 'promo_catalog/new',
     __buttons: {
-        save: base._button + '[title="Save"]',
-        saveAndContinue: base._button + '[title="Save and Continue Edit"]',
-        saveAndApply: base._button + '[title="Save and Apply"]',
-        back: base._button + '[title="Back"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base.__buttons.save._,
+        },
+        saveAndContinue: {
+            _: base.__buttons.saveAndContinue._,
+        },
+        saveAndApply: {
+            _: base._button + '[title="Save and Apply"]',
+        },
+        back: {
+            _: base.__buttons.back._,
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
+    },
+    clickSave: () => {
+        base.__buttons.save.click();
+    },
+    clickSaveAndContinue: () => {
+        base.__buttons.saveAndContinue.click();
+    },
+    clickSaveAndApply: () => {
+        tools.click(test.config.new.__buttons.saveAndApply._, 'Save and Apply button clicked');
+    },
+    clickBack: () => {
+        base.__buttons.back.click();
+    },
+    clickReset: () => {
+        base.__buttons.reset.click();
     },
 }

@@ -14,8 +14,9 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
         // TODO: do not save empty block, show error instead
         const message = 'The block has been saved.';
+        const screenshot = 'message.cms.block.saveEmptyWithoutJs';
         test.new.clickSaveAndContinue();
-        validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: 'message.cms.block.saveEmptyWithoutJs' });
+        validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {

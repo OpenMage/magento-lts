@@ -2,11 +2,12 @@ const test = cy.openmage.test.frontend.customer.account;
 
 /**
  * Selectors for "Account" page
- * @type {{_buttonSubmit: string, _title: string}}
+ * @type {{_buttonSubmit: string, _title: string, create: {}}}
  */
 test.config = {
     _title: 'h1',
     _buttonSubmit: '#form-validate button[type="submit"]',
+    create: {},
 }
 
 /**
@@ -18,19 +19,19 @@ test.config.create = {
     url: '/customer/account/create',
     __fields: {
         firstname: {
-            selector: '#firstname',
+            _: '#firstname',
         },
         lastname: {
-            selector: '#lastname',
+            _: '#lastname',
         },
         email_address: {
-            selector: '#email_address',
+            _: '#email_address',
         },
         password: {
-            selector: '#password',
+            _: '#password',
         },
         confirmation: {
-            selector: '#confirmation',
+            _: '#confirmation',
         },
     }
 }

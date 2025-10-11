@@ -3,7 +3,7 @@ const test = cy.openmage.test.backend.catalog.category;
 
 /**
  * Configuration for category tests
- * @type {{_button: string, _title: string, _id_parent: string, _id: string, url: string}}
+ * @type {{_id: string, _id_parent: string, _title: string, _button: string, url: string, index: {}}}
  */
 test.config = {
     _id: '#nav-admin-catalog-categories',
@@ -11,11 +11,12 @@ test.config = {
     _title: '#category-edit-container h3.icon-head',
     _button: base._button,
     url: 'catalog_category/index',
+    index: {},
 }
 
 /**
  * Configuration for category index page
- * @type {{__buttons: {save: string, reset: string}, title: string, url: string}}
+ * @type {{__buttons: {save: {_: string}, reset: {_: string}}, title: string, url: string}}
  * TODO: add back button
  * TODO: rename to "Save"
  */
@@ -23,7 +24,11 @@ test.config.index = {
     title: 'New Root Category',
     url: test.config.url,
     __buttons: {
-        save: base._button + '[title="Save Category"]',
-        reset: base._button + '[title="Reset"]',
+        save: {
+            _: base._button + '[title="Save Category"]',
+        },
+        reset: {
+            _: base.__buttons.reset._,
+        },
     },
 }
