@@ -1,23 +1,15 @@
 <?php
 
 /**
- * OpenMage
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available at https://opensource.org/license/osl-3-0-php
- *
- * @category   Mage
+ * @copyright  For copyright and license information, read the COPYING.txt file.
+ * @link       /COPYING.txt
+ * @license    Open Software License (OSL 3.0)
  * @package    Mage_Downloadable
- * @copyright  Copyright (c) 2006-2020 Magento, Inc. (https://www.magento.com)
- * @copyright  Copyright (c) 2019-2024 The OpenMage Contributors (https://www.openmage.org)
- * @license    https://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
 /**
  * Downloadable Product  Samples resource model
  *
- * @category   Mage
  * @package    Mage_Downloadable
  */
 class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_Abstract
@@ -65,17 +57,15 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     $where,
                 );
             }
-        } else {
-            if (!$linkObject->getUseDefaultTitle()) {
-                $writeAdapter->insert(
-                    $linkTitleTable,
-                    [
-                        'link_id'   => $linkObject->getId(),
-                        'store_id'  => (int) $linkObject->getStoreId(),
-                        'title'     => $linkObject->getTitle(),
-                    ],
-                );
-            }
+        } elseif (!$linkObject->getUseDefaultTitle()) {
+            $writeAdapter->insert(
+                $linkTitleTable,
+                [
+                    'link_id'   => $linkObject->getId(),
+                    'store_id'  => (int) $linkObject->getStoreId(),
+                    'title'     => $linkObject->getTitle(),
+                ],
+            );
         }
 
         $select = $writeAdapter->select()
@@ -102,40 +92,38 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     $where,
                 );
             }
-        } else {
-            if (!$linkObject->getUseDefaultPrice()) {
-                $dataToInsert[] = [
-                    'link_id'    => $linkObject->getId(),
-                    'website_id' => (int) $linkObject->getWebsiteId(),
-                    'price'      => (float) $linkObject->getPrice(),
-                ];
-                if ($linkObject->getOrigData('link_id') != $linkObject->getLinkId()) {
-                    $_isNew = true;
-                } else {
-                    $_isNew = false;
-                }
-                if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
-                    $websiteIds = $linkObject->getProductWebsiteIds();
-                    foreach ($websiteIds as $websiteId) {
-                        $baseCurrency = Mage::app()->getBaseCurrencyCode();
-                        $websiteCurrency = Mage::app()->getWebsite($websiteId)->getBaseCurrencyCode();
-                        if ($websiteCurrency == $baseCurrency) {
-                            continue;
-                        }
-                        $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
-                        if (!$rate) {
-                            $rate = 1;
-                        }
-                        $newPrice = $linkObject->getPrice() * $rate;
-                        $dataToInsert[] = [
-                            'link_id'       => $linkObject->getId(),
-                            'website_id'    => (int) $websiteId,
-                            'price'         => $newPrice,
-                        ];
-                    }
-                }
-                $writeAdapter->insertMultiple($linkPriceTable, $dataToInsert);
+        } elseif (!$linkObject->getUseDefaultPrice()) {
+            $dataToInsert[] = [
+                'link_id'    => $linkObject->getId(),
+                'website_id' => (int) $linkObject->getWebsiteId(),
+                'price'      => (float) $linkObject->getPrice(),
+            ];
+            if ($linkObject->getOrigData('link_id') != $linkObject->getLinkId()) {
+                $_isNew = true;
+            } else {
+                $_isNew = false;
             }
+            if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
+                $websiteIds = $linkObject->getProductWebsiteIds();
+                foreach ($websiteIds as $websiteId) {
+                    $baseCurrency = Mage::app()->getBaseCurrencyCode();
+                    $websiteCurrency = Mage::app()->getWebsite($websiteId)->getBaseCurrencyCode();
+                    if ($websiteCurrency == $baseCurrency) {
+                        continue;
+                    }
+                    $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
+                    if (!$rate) {
+                        $rate = 1;
+                    }
+                    $newPrice = $linkObject->getPrice() * $rate;
+                    $dataToInsert[] = [
+                        'link_id'       => $linkObject->getId(),
+                        'website_id'    => (int) $websiteId,
+                        'price'         => $newPrice,
+                    ];
+                }
+            }
+            $writeAdapter->insertMultiple($linkPriceTable, $dataToInsert);
         }
         return $this;
     }

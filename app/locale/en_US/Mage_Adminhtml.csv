@@ -527,6 +527,8 @@
 "Key %s does not contain scalar value","Key %s does not contain scalar value"
 "Key %s does not exist in array","Key %s does not exist in array"
 "Last 24 Hours","Last 24 Hours"
+"Last 3 Months","Last 3 Months"
+"Last 6 Months","Last 6 Months"
 "Last 5 Orders","Last 5 Orders"
 "Last 5 Search Terms","Last 5 Search Terms"
 "Last 7 Days","Last 7 Days"
