@@ -51,6 +51,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Block"]',
+            __class: ['scalable', 'add'],
         },
     },
     clickAdd: (log = 'Add CMS Blocks button clicked') => {
@@ -68,18 +69,23 @@ test.config.edit = {
     __buttons: {
         save: {
             _: base._button + '[title="Save Block"]',
+            __class: base.__buttons.save.__class,
         },
         saveAndContinue: {
             _: base.__buttons.saveAndContinue._,
+            __class: base.__buttons.saveAndContinue.__class,
         },
         delete: {
             _: base._button + '[title="Delete Block"]',
+            __class: base.__buttons.delete.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     __fields: test.__fields,
@@ -110,15 +116,19 @@ test.config.new = {
     __buttons: {
         save: {
             _: base._button + '[title="Save Block"]',
+            __class: base.__buttons.save.__class,
         },
         saveAndContinue: {
             _: base.__buttons.saveAndContinue._,
+            __class: base.__buttons.saveAndContinue.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     __fields: test.__fields,

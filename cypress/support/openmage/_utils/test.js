@@ -37,6 +37,7 @@ cy.openmage.test.backend.__base.__buttons = {
  */
 cy.openmage.test.backend.__base.__buttons.save = {
     _: cy.openmage.test.backend.__base._button + '[title="Save"]',
+    __class: ['scalable', 'save'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.save._, 'Save button clicked');
     },
@@ -48,6 +49,8 @@ cy.openmage.test.backend.__base.__buttons.save = {
  */
 cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
     _: cy.openmage.test.backend.__base._button + '[title="Save and Continue Edit"]',
+    // TODO: add class 'save-continue' to the button in OpenMage
+    __class: ['scalable', 'save', 'save-continue'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.saveAndContinue._, 'Save and Continue button clicked');
     },
@@ -59,6 +62,7 @@ cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
  */
 cy.openmage.test.backend.__base.__buttons.delete = {
     _: cy.openmage.test.backend.__base._button + '[title="Delete"]',
+    __class: ['scalable', 'delete'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.delete._, 'Delete button clicked');
     },
@@ -70,6 +74,7 @@ cy.openmage.test.backend.__base.__buttons.delete = {
  */
 cy.openmage.test.backend.__base.__buttons.back = {
     _: cy.openmage.test.backend.__base._button + '[title="Back"]',
+    __class: ['scalable', 'back'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.back._, 'Back button clicked');
     },
@@ -81,6 +86,8 @@ cy.openmage.test.backend.__base.__buttons.back = {
  */
 cy.openmage.test.backend.__base.__buttons.reset = {
     _: cy.openmage.test.backend.__base._button + '[title="Reset"]',
+    // TODO: add class 'reset' to the button in OpenMage
+    __class: ['scalable, reset'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.reset._, 'Reset button clicked');
     },
