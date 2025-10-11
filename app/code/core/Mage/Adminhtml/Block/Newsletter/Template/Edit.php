@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
             'save_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Save Template'),
+                    'label'     => Mage::helper('newsletter')->__('Save'),
                     'onclick'   => 'templateControl.save();',
                     'class'     => 'save',
                 ]),
@@ -118,7 +118,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
             'delete_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
-                    'label'     => Mage::helper('newsletter')->__('Delete Template'),
+                    'label'     => Mage::helper('newsletter')->__('Delete'),
                     'onclick'   => 'templateControl.deleteTemplate();',
                     'class'     => 'delete',
                 ]),

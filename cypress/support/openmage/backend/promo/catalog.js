@@ -51,48 +51,18 @@ test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_catalog/edit',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-            __class: base.__buttons.save.__class,
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-            __class: base.__buttons.saveAndContinue.__class,
-        },
+        save: base.__buttons.save,
+        saveAndContinue: base.__buttons.saveAndContinue,
         saveAndApply: {
             _: base._button + '[title="Save and Apply"]',
             __class: ['scalable', 'apply'],
         },
-        delete: {
-            _: base.__buttons.delete._,
-            __class: base.__buttons.delete.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
-    },
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
+        delete: base.__buttons.delete,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     clickSaveAndApply: () => {
         tools.click(test.config.edit.__buttons.saveAndApply._, 'Save and Apply button clicked');
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
     },
 }
 
@@ -104,40 +74,16 @@ test.config.new = {
     title: 'New Rule',
     url: 'promo_catalog/new',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-            __class: base.__buttons.save.__class,
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-            __class: base.__buttons.saveAndContinue.__class,
-        },
+        save: base.__buttons.save,
+        saveAndContinue: base.__buttons.saveAndContinue,
         saveAndApply: {
             _: base._button + '[title="Save and Apply"]',
             __class: ['scalable', 'apply'],
         },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
-    },
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     clickSaveAndApply: () => {
         tools.click(test.config.new.__buttons.saveAndApply._, 'Save and Apply button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
     },
 }

@@ -27,23 +27,10 @@ test.config.index = {
 
 /**
  * Configuration for "View Credit Memo" page
- * @type {{__buttons: {print: string, back: string, email: string}, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.sales}}
  */
 test.config.view = {
     title: 'Credit Memo #',
     url: 'sales_creditmemo/view',
-    __buttons: {
-        print: {
-            _: base._button + '[title="Print"]',
-            __class: ['scalable', 'save', 'print'],
-        },
-        email: {
-            _: base._button + '[title="Send Email"]',
-            __class: ['scalable', 'send-email'],
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-    },
+    __buttons: base.__buttonsSets.sales,
 }

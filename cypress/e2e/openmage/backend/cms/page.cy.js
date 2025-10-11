@@ -14,7 +14,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         validation.removeClasses(test.new);
 
         //const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
-        test.new.clickSaveAndContinue();
+        test.new.__buttons.saveAndContinue.click();
         // TODO: fix it
         //validation.hasErrorMessage(message);
         // screenshot with error message
@@ -28,16 +28,28 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it(`tests edit route`, () => {
         tools.grid.clickFirstRow(test.index);
         validation.pageElements(test, test.edit);
+
+        test.edit.__buttons.reset.click();
+        cy.url().should('include', test.edit.url);
+
+        test.edit.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 
     it(`tests new route`, () => {
         test.index.clickAdd();
         validation.pageElements(test, test.new);
+
+        test.new.__buttons.reset.click();
+        cy.url().should('include', test.new.url);
+
+        test.new.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 
     it('tests to add a CMS page', () => {
         test.index.clickAdd();
-        test.edit.clickSaveAndContinue();
+        test.edit.__buttons.saveAndContinue.click();
 
         // @todo add validation for required fields
     });
@@ -46,7 +58,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickGridRow('no-route');
 
         test.edit.disablePage();
-        test.edit.clickSaveAndContinue();
+        test.edit.__buttons.saveAndContinue.click();
 
         const success = 'The page has been saved.';
         const warning = 'Cannot disable page, it is used in configuration';
@@ -57,7 +69,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
     it('tests to delete a CMS page that is used in config', () => {
         test.index.clickGridRow('no-route');
-        test.edit.clickDelete();
+        test.edit.__buttons.delete.click();
 
         const message = 'Cannot delete page';
         const screenshot = 'message.cms.page.deleteActivePage';
@@ -73,12 +85,12 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         //cy.log('Assign another store to the CMS page');
         //cy.get(test.edit.__fields.page_store_id.selector)
         //    .select(4);
-        //test.edit.clickSaveAndContinue();
+        //test.edit.__buttons.saveAndContinue.click();
         //validation.hasSuccessMessage(message);
         //utils.screenshot(cy.get('#messages'), 'cms.page.unassignActivePage');
 
         test.edit.resetStores();
-        test.edit.clickSaveAndContinue();
+        test.edit.__buttons.saveAndContinue.click();
         validation.hasSuccessMessage(message);
     });
 });

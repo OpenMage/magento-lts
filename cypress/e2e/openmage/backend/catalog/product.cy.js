@@ -15,11 +15,23 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it(`tests edit route`, () => {
         tools.grid.clickFirstRow(test.index);
         validation.pageElements(test, test.edit);
+
+        test.edit.__buttons.reset.click();
+        cy.url().should('include', test.edit.url);
+
+        test.edit.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 
     it(`tests new route`, () => {
         test.index.clickAdd();
         validation.pageElements(test, test.new);
+
+        test.new.__buttons.reset.click();
+        cy.url().should('include', test.new.url);
+
+        test.new.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 
     it(`tests filter options`, () => {

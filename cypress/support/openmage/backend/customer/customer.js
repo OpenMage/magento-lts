@@ -3,6 +3,58 @@ const test = cy.openmage.test.backend.customer.customer;
 const tools = cy.openmage.tools;
 
 /**
+ *
+ * @type {{firstname: {_: string}, gender: {_: string}, prefix: {_: string}, middlename: {_: string}, suffix: {_: string}, lastname: {_: string}, password: {_: string}, group_id: {_: string}, sendemail_store_id: {_: string}, dob: {_: string}, sendemail: {_: string}, website_id: {_: string}, send_pass: {_: string}, email: {_: string}, taxvat: {_: string}}}
+ */
+test.__fields = {
+    website_id : {
+        _: '#_accountwebsite_id',
+    },
+    group_id : {
+        _: '#_accountgroup_id',
+    },
+    prefix : {
+        _: '#_accountprefix',
+    },
+    firstname : {
+        _: '#_accountfirstname',
+    },
+    middlename : {
+        _: '#_accountmiddlename',
+    },
+    lastname : {
+        _: '#_accountlastname',
+    },
+    suffix : {
+        _: '#_accountsuffix',
+    },
+    email : {
+        _: '#_accountemail',
+    },
+    dob : {
+        _: '#_accountdob',
+    },
+    taxvat : {
+        _: '#_accounttaxvat',
+    },
+    gender : {
+        _: '#_accountgender',
+    },
+    sendemail : {
+        _: '#_accountsendemail',
+    },
+    sendemail_store_id : {
+        _: '#_accountsendemail_store_id',
+    },
+    password : {
+        _: '#_accountpassword',
+    },
+    send_pass: {
+        _: '#account-send-pass',
+    },
+}
+
+/**
  * Configuration for "Manage Customers" menu item
  * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
@@ -49,26 +101,11 @@ test.config.edit = {
     title: 'John Doe',
     url: 'customer/edit',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Customer"]',
-            __class: base.__buttons.save.__class,
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-            __class: base.__buttons.saveAndContinue.__class,
-        },
-        delete: {
-            _: base._button + '[title="Delete Customer"]',
-            __class: base.__buttons.delete.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        save: base.__buttons.save,
+        saveAndContinue: base.__buttons.saveAndContinue,
+        delete: base.__buttons.delete,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
         createOrder: {
             _: base._button + '[title="Create Order"]',
             __class: ['scalable', 'add', 'create-order'],
@@ -78,82 +115,11 @@ test.config.edit = {
 
 /**
  * Configuration for "New Customer" page
- * @type {{clickReset: cy.openmage.test.backend.customer.customer.config.new.clickReset, __buttons: {save: string, back: string, reset: string, saveAndContinue: string}, clickBack: cy.openmage.test.backend.customer.customer.config.new.clickBack, clickSave: cy.openmage.test.backend.customer.customer.config.new.clickSave, title: string, __fields: {firstname: {_: string}, gender: {_: string}, prefix: {_: string}, middlename: {_: string}, suffix: {_: string}, lastname: {_: string}, password: {_: string}, group_id: {_: string}, sendemail_store_id: {_: string}, dob: {_: string}, sendemail: {_: string}, website_id: {_: string}, send_pass: {_: string}, email: {_: string}, taxvat: {_: string}}, clickSaveAndContinue: cy.openmage.test.backend.customer.customer.config.new.clickSaveAndContinue, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new, __fields: test.config.new.__fields}}
  */
 test.config.new = {
     title: 'New Customer',
     url: 'customer/new',
-    __buttons: {
-        save: {
-            _: base._button + '[title="Save Customer"]',
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
-    },
-    __fields: {
-        website_id : {
-            _: '#_accountwebsite_id',
-        },
-        group_id : {
-            _: '#_accountgroup_id',
-        },
-        prefix : {
-            _: '#_accountprefix',
-        },
-        firstname : {
-            _: '#_accountfirstname',
-        },
-        middlename : {
-            _: '#_accountmiddlename',
-        },
-        lastname : {
-            _: '#_accountlastname',
-        },
-        suffix : {
-            _: '#_accountsuffix',
-        },
-        email : {
-            _: '#_accountemail',
-        },
-        dob : {
-            _: '#_accountdob',
-        },
-        taxvat : {
-            _: '#_accounttaxvat',
-        },
-        gender : {
-            _: '#_accountgender',
-        },
-        sendemail : {
-            _: '#_accountsendemail',
-        },
-        sendemail_store_id : {
-            _: '#_accountsendemail_store_id',
-        },
-        password : {
-            _: '#_accountpassword',
-        },
-        send_pass: {
-            _: '#account-send-pass',
-        },
-    },
-    clickSave: () => {
-        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
+    __buttons: base.__buttonsSets.new,
+    __fields: test.__fields,
 }

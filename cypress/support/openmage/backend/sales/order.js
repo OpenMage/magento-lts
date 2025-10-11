@@ -43,9 +43,6 @@ test.config.view = {
             _: base._button + '[title="Reorder"]',
             __class: ['go'],
         },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
+        back: base.__buttons.back,
     },
 }

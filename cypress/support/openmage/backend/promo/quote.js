@@ -38,29 +38,20 @@ test.config.index = {
 
 /**
  * Configuration for "Edit Rule" page
- * @type {{__buttons: *, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.edit}}
  */
 test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_quote/edit',
-    __buttons: base.__buttonsEdit,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
+    __buttons: base.__buttonsSets.edit,
 }
 
 /**
  * Configuration for "New Rule" page
- * @type {{__buttons: *, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new}}
  */
 test.config.new = {
     title: 'New Rule',
     url: 'promo_quote/new',
-    __buttons: base.__buttonsNew,
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
+    __buttons: base.__buttonsSets.new,
 }

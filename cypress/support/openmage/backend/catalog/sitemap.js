@@ -61,42 +61,18 @@ test.config.edit = {
     title: 'Edit Sitemap',
     url: 'sitemap/edit',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-            __class: base.__buttons.save.__class,
-        },
-        delete: {
-            _: base.__buttons.delete._,
-            __class: base.__buttons.delete.__class,
-        },
+        save: base.__buttons.save,
+        delete: base.__buttons.delete,
         generate: {
             _: base._button + '[title="Save & Generate"]',
             __class: ['scalable', 'add', 'add-generate'],
         },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
     clickSaveAndGenerate: () => {
         tools.click(test.config.edit.__buttons.generate._, 'Save & Generate button clicked');
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
     },
 }
 
@@ -108,34 +84,16 @@ test.config.new = {
     title: 'New Sitemap',
     url: 'sitemap/new',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-            __class: base.__buttons.save.__class,
-        },
+        save: base.__buttons.save,
         generate: {
             _: base._button + '[title="Save & Generate"]',
             __class: ['scalable', 'add', 'add-generate'],
         },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
     clickSaveAndGenerate: () => {
         tools.click(test.config.new.__buttons.generate._, 'Save & Generate button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
     },
 }

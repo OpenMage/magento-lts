@@ -32,9 +32,6 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
 
         parent::__construct();
 
-        $this->_updateButton('save', 'label', Mage::helper('customer')->__('Save Customer'));
-        $this->_updateButton('delete', 'label', Mage::helper('customer')->__('Delete Customer'));
-
         if (Mage::registry('current_customer')->isReadonly()) {
             $this->_removeButton('save');
             $this->_removeButton('reset');

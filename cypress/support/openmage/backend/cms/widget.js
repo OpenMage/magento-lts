@@ -38,12 +38,12 @@ test.config.index = {
 
 /**
  * Configuration for "Edit Widget Instance" page
- * @type {{__buttons: {save: string, back: string, reset: string, saveAndContinue: string, delete: string}, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.edit}}
  */
 test.config.edit = {
     title: 'Widget',
     url: 'widget_instance/edit',
-    __buttons: base.__buttonsEdit,
+    __buttons: base.__buttonsSets.edit,
 }
 
 /**
@@ -54,13 +54,7 @@ test.config.new = {
     title: 'New Widget Instance',
     url: 'widget_instance/new',
     __buttons: {
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
 }

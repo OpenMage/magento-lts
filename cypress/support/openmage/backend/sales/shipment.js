@@ -41,9 +41,6 @@ test.config.view = {
             _: base._button + '[title="Send Tracking Information"]',
             __class: ['scalable', 'send-email'],
         },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
+        back: base.__buttons.back,
     },
 }

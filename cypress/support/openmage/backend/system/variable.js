@@ -58,49 +58,22 @@ test.config.index = {
 
 /**
  * Configuration for "Edit Custom Variable" page
- * @type {{clickReset: cy.openmage.test.backend.system.variable.config.edit.clickReset, __buttons: {save: string, back: string, reset: string, saveAndContinue: string, delete: string}, clickBack: cy.openmage.test.backend.system.variable.config.edit.clickBack, clickSave: cy.openmage.test.backend.system.variable.config.edit.clickSave, clickDelete: cy.openmage.test.backend.system.variable.config.edit.clickDelete, title: string, __fields: *, clickSaveAndContinue: cy.openmage.test.backend.system.variable.config.edit.clickSaveAndContinue, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.edit, __fields: test.config.edit.__fields}}
  */
 test.config.edit = {
     title: 'Custom Variable',
     url: 'system_variable/edit',
-    __buttons: base.__buttons,
+    __buttons: base.__buttonsSets.edit,
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }
 
 /**
  * Configuration for "New Custom Variable" page
- * @type {{clickReset: cy.openmage.test.backend.system.variable.config.new.clickReset, __buttons: {save: string, back: string, reset: string, saveAndContinue: string}, clickBack: cy.openmage.test.backend.system.variable.config.new.clickBack, clickSave: cy.openmage.test.backend.system.variable.config.new.clickSave, title: string, __fields: *, clickSaveAndContinue: cy.openmage.test.backend.system.variable.config.new.clickSaveAndContinue, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new, __fields: test.config.new.__fields}}
  */
 test.config.new = {
     title: 'New Custom Variable',
     url: 'system_variable/new',
-    __buttons: base.__buttonsNew,
+    __buttons: base.__buttonsSets.new,
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }

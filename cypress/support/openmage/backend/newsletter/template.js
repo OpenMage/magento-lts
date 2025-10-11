@@ -44,26 +44,14 @@ test.config.edit = {
     title: 'Edit Newsletter Template',
     url: 'newsletter_template/edit',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-            __class: base.__buttons.save.__class,
-        },
+        save: base.__buttons.save,
         saveAs: {
             _: base._button + '[title="Save As"]',
             __class: ['scalable', 'save', 'save-as'],
         },
-        delete: {
-            _: base._button + '[title="Delete Template"]',
-            __class: base.__buttons.delete.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        delete: base.__buttons.delete,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
         convertToPlain: {
             _: base._button + '[title="Convert to Plain Text"]',
             __class: ['scalable', 'task', 'to-plain'],
@@ -83,18 +71,9 @@ test.config.new = {
     title: 'New Newsletter Template',
     url: 'newsletter_template/new',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-            __class: base.__buttons.save.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        save: base.__buttons.save,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
         convertToPlain: {
             _: base._button + '[title="Convert to Plain Text"]',
             __class: ['scalable', 'task', 'to-plain'],
@@ -103,8 +82,5 @@ test.config.new = {
             _: base._button + '[title="Preview Template"]',
             __class: ['scalable', 'task', 'preview'],
         },
-    },
-    clickSave: () => {
-        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
     },
 }

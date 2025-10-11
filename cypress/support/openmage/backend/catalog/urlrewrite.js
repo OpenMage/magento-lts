@@ -28,6 +28,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add URL Rewrite"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: () => {
@@ -37,40 +38,22 @@ test.config.index = {
 
 /**
  * Configuration for "Edit URL Rewrite" page
- * @type {{title: string, url: string, __buttons: {save: string, delete: string, back: string, reset: string}, clickSave: cy.openmage.test.backend.cagtalog.urlRewrite.config.edit.clickSave, clickDelete: cy.openmage.test.backend.cagtalog.urlRewrite.config.edit.clickDelete, clickBack: cy.openmage.test.backend.cagtalog.urlRewrite.config.edit.clickBack, clickReset: cy.openmage.test.backend.cagtalog.urlRewrite.config.edit.clickReset}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.editNoContinue}}
  */
 test.config.edit = {
     title: 'Edit URL Rewrite',
     url: 'urlrewrite/edit',
-    __buttons: base.__buttonsNoContinue,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
+    __buttons: base.__buttonsSets.editNoContinue,
 }
 
 /**
  * Configuration for "Add New URL Rewrite" page
- * @type {{title: string, url: string, __buttons: {back: string}, clickBack: cy.openmage.test.backend.cagtalog.urlRewrite.config.new.clickBack}}
+ * @type {{title: string, url: string, __buttons: {back: cy.openmage.test.backend.__base.__buttons.back}}}
  */
 test.config.new = {
     title: 'Add New URL Rewrite',
     url: 'urlrewrite/edit',
     __buttons: {
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
+        back: base.__buttons.back,
     },
 }

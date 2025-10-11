@@ -3,26 +3,6 @@ const test = cy.openmage.test.backend.customer.group;
 const tools = cy.openmage.tools;
 
 /**
- * Buttons selectors for Edit and New page
- * @type {{save: string, back: string, reset: string}}
- * @private
- */
-test.__buttons = {
-    save: {
-        _: base._button + '[title="Save Customer Group"]',
-        __class: base.__buttons.save.__class,
-    },
-    back: {
-        _: base.__buttons.back._,
-        __class: base.__buttons.back.__class,
-    },
-    reset: {
-        _: base.__buttons.reset._,
-        __class: base.__buttons.reset.__class,
-    },
-};
-
-/**
  * Fields selectors for Edit and New page
  * @type {{customer_group_code: {_: string}, tax_class_id: {_: string}}}
  * @private
@@ -75,41 +55,23 @@ test.config.index = {
 
 /**
  * Configuration for "Edit Customer Group" page
- * @type {{clickReset: cy.openmage.test.backend.customer.group.config.edit.clickReset, __buttons, clickBack: cy.openmage.test.backend.customer.group.config.edit.clickBack, clickSave: cy.openmage.test.backend.customer.group.config.edit.clickSave, title: string, __fields, url: string}}
- * TODO: there can be 4 buttons, when group is deletable
+  * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.editNoContinue, __fields: test.config.edit.__fields}}
+ * TODO: there can be 3 buttons, when group is deletable
  */
 test.config.edit = {
     title: 'Edit Customer Group',
     url: 'customer_group/edit',
-    __buttons: test.__buttons,
+    __buttons: base.__buttonsSets.editNoContinue,
     __fields: test.__fields,
-    clickSave: () => {
-        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }
 
 /**
  * Configuration for "New Customer Group" page
- * @type {{clickReset: cy.openmage.test.backend.customer.group.config.new.clickReset, __buttons, clickBack: cy.openmage.test.backend.customer.group.config.new.clickBack, clickSave: cy.openmage.test.backend.customer.group.config.new.clickSave, title: string, __fields, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue, __fields: test.config.new.__fields}}
  */
 test.config.new = {
     title: 'New Customer Group',
     url: 'customer_group/new',
-    __buttons: test.__buttons,
+    __buttons: base.__buttonsSets.newNoContinue,
     __fields: test.__fields,
-    clickSave: () => {
-        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }

@@ -10,7 +10,7 @@ test.config = {
     _: '#nav-admin-catalog-products',
     _nav: '#nav-admin-catalog',
     _title: base._title,
-    _button: '.content-header button', // Custom base button selector
+    _button: base._button,
     url: 'catalog_product/index',
     index: {},
     edit: {},
@@ -45,26 +45,11 @@ test.config.edit = {
     title: 'Plaid Cotton',
     url: 'catalog_product/edit',
     __buttons: {
-        save: {
-            _: test.config._button + '[title="Save"]',
-            __class: base.__buttons.save.__class,
-        },
-        saveAndContinue: {
-            _: test.config._button + '[title="Save and Continue Edit"]',
-            __class: base.__buttons.saveAndContinue.__class,
-        },
-        delete: {
-            _: test.config._button + '[title="Delete"]',
-            __class: base.__buttons.delete.__class,
-        },
-        back: {
-            _: test.config._button + '[title="Back"]',
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: test.config._button + '[title="Reset"]',
-            __class: base.__buttons.reset.__class,
-        },
+        save: base.__buttons.save,
+        saveAndContinue: base.__buttons.saveAndContinue,
+        delete: base.__buttons.delete,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
         duplicate: {
             _: test.config._button + '[title="Duplicate"]',
             __class: ['scalable', 'add', 'duplicate'],

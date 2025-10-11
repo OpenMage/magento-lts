@@ -13,7 +13,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         test.index.clickAdd();
         validation.removeClasses(test.new);
 
-        test.new.clickSaveAndContinue();
+        test.new.__buttons.saveAndContinue.click();
         validation.hasErrorMessage('"First Name" is a required value.');
         validation.hasErrorMessage('"First Name" length must be equal or greater than 1 characters.');
         validation.hasErrorMessage('"Last Name" is a required value.');
@@ -29,10 +29,22 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it(`tests edit route`, () => {
         test.index.clickGridRow('John Doe');
         validation.pageElements(test, test.edit);
+
+        test.edit.__buttons.reset.click();
+        cy.url().should('include', test.edit.url);
+
+        test.edit.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 
     it(`tests new route`, () => {
         test.index.clickAdd();
         validation.pageElements(test, test.new);
+
+        test.new.__buttons.reset.click();
+        cy.url().should('include', test.new.url);
+
+        test.new.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 });

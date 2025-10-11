@@ -67,10 +67,7 @@ test.config.edit = {
     title: 'Edit Email Template',
     url: 'system_email_template/edit',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-            __class: base.__buttons.save.__class,
-        },
+        save: base.__buttons.save,
         convert: {
             _: base._button + '[title="Convert to Plain Text"]',
             __class: ['scalable', 'save', 'convert'],
@@ -79,30 +76,21 @@ test.config.edit = {
             _: base._button + '[title="Preview Template"]',
             __class: ['scalable', 'task', 'preview'],
         },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
 }
 
 /**
  * Configuration for "New Email Template" page
- * @type {{clickCovert: cy.openmage.test.backend.system.email.config.new.clickCovert, clickPreview: cy.openmage.test.backend.system.email.config.new.clickPreview, clickReset: cy.openmage.test.backend.system.email.config.new.clickReset, __buttons: {preview: string, save: string, back: string, reset: string, convert: string}, clickBack: cy.openmage.test.backend.system.email.config.new.clickBack, clickSave: cy.openmage.test.backend.system.email.config.new.clickSave, title: string, __fields: *, url: string}}
+ * @type {{clickPreview: cy.openmage.test.backend.system.email.config.new.clickPreview, __buttons: {preview: string, save: string, back: string, reset: string, convertToPlain: string}, clickCovert: cy.openmage.test.backend.system.email.config.new.clickCovert, title: string, __fields: *, url: string}}
  */
 test.config.new = {
     title: 'New Email Template',
     url: 'system_email_template/new',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-            __class: base.__buttons.save.__class,
-        },
+        save: base.__buttons.save,
         convertToPlain: {
             _: base._button + '[title="Convert to Plain Text"]',
             __class: ['scalable', 'task', 'to-plain'],
@@ -111,27 +99,14 @@ test.config.new = {
             _: base._button + '[title="Preview Template"]',
             __class: ['scalable', 'task', 'preview'],
         },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
-    clickSave: () => {
-        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
-    },
     clickCovert: () => {
         tools.click(test.config.edit.__buttons.convert._, 'Convert button clicked');
     },
     clickPreview: () => {
         tools.click(test.config.edit.__buttons.preview._, 'Preview button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
     },
 }

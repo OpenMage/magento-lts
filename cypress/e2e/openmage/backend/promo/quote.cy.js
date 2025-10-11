@@ -15,7 +15,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         // TODO: fix it
         const message = 'The rule has been saved.';
         const screenshotFilename = 'message.promo.quote.saveEmptyWithoutJs';
-        test.new.clickSaveAndContinue();
+        test.new.__buttons.saveAndContinue.click();
         validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: screenshotFilename });
     });
 

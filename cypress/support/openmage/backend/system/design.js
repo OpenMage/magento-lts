@@ -58,59 +58,22 @@ test.config.index = {
 
 /**
  * Configuration for "Edit Design Change" page
- * @type {{__buttons: {save: string, back: string, delete: string}, clickBack: cy.openmage.test.backend.system.design.config.edit.clickBack, clickSave: cy.openmage.test.backend.system.design.config.edit.clickSave, clickDelete: cy.openmage.test.backend.system.design.config.edit.clickDelete, title: string, __fields: (*|{store_id: {_: string}, design: {_: string}, date_to: {_: string}, date_from: {_: string}}), url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.editNoContinue, __fields: test.config.new.__fields}}
  */
 test.config.edit = {
     title: 'Edit Design Change',
     url: 'system_design/edit',
-    __buttons: {
-        save: {
-            _: base.__buttons.save._,
-            __class: base.__buttons.save.__class,
-        },
-        delete: {
-            _: base.__buttons.delete._,
-            __class: base.__buttons.delete.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-    },
+    __buttons: base.__buttonsSets.editNoContinue,
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
 }
 
 /**
  * Configuration for "New Design Change" page
- * @type {{__buttons: {save: string, back: string}, clickBack: cy.openmage.test.backend.system.design.config.new.clickBack, clickSave: cy.openmage.test.backend.system.design.config.new.clickSave, title: string, __fields: (*|{store_id: {_: string}, design: {_: string}, date_to: {_: string}, date_from: {_: string}}), url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue, __fields: test.config.new.__fields}}
  */
 test.config.new = {
     title: 'New Design Change',
     url: 'system_design/new',
-    __buttons: {
-        save: {
-            _: base.__buttons.save._,
-            __class: base.__buttons.save.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-    },
+    __buttons: base.__buttonsSets.newNoContinue,
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
 }

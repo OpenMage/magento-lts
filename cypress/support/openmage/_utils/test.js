@@ -6,17 +6,14 @@ cy.openmage.test.backend = {};
 
 /**
  * Base configuration for backend tests
- * @type {{_button: string, _title: string, __buttons: {add: {}, save: {}, saveAndContinue: {}, delete: {}, back: {}, reset: {}}, __buttonsEdit: {save: string, saveAndContinue: string, delete: string, back: string, reset: string}, __buttonsEditNoContinue: {save: string, delete: string, back: string, reset: string}, __buttonsNew: {save: string, saveAndContinue: string, back: string, reset: string}, __buttonsNewNoContinue: {save: string, back: string, reset: string}}}
+ * @type {{_button: string, _title: string, __buttons: {}, __buttonsSets: {}}}
  * @private
  */
 cy.openmage.test.backend.__base = {
-    _button: '.form-buttons button',
+    _button: 'div.content-header .form-buttons button',
     _title: 'h3.icon-head',
     __buttons: {},
-    __buttonsEdit: {},
-    __buttonsEditNoContinue: {},
-    __buttonsNew: {},
-    __buttonsNewNoContinue: {},
+    __buttonsSets: {},
 };
 
 /**
@@ -43,7 +40,7 @@ cy.openmage.test.backend.__base.__buttons.add = {
 
 /**
  * Configuration for "Save" button
- * @type {{_: string, click: cy.openmage.test.backend.__base.__buttons.save.click}}
+ * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.save.click}}
  */
 cy.openmage.test.backend.__base.__buttons.save = {
     _: cy.openmage.test.backend.__base._button + '[title="Save"]',
@@ -55,7 +52,7 @@ cy.openmage.test.backend.__base.__buttons.save = {
 
 /**
  * Configuration for "Save and Continue Edit" button
- * @type {{_: string, click: cy.openmage.test.backend.__base.__buttons.saveAndContinue.click}}
+ * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.saveAndContinue.click}}
  */
 cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
     _: cy.openmage.test.backend.__base._button + '[title="Save and Continue Edit"]',
@@ -67,7 +64,7 @@ cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
 
 /**
  * Configuration for "Delete" button
- * @type {{_: string, click: cy.openmage.test.backend.__base.__buttons.delete.click}}
+ * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.delete.click}}
  */
 cy.openmage.test.backend.__base.__buttons.delete = {
     _: cy.openmage.test.backend.__base._button + '[title="Delete"]',
@@ -79,7 +76,7 @@ cy.openmage.test.backend.__base.__buttons.delete = {
 
 /**
  * Configuration for "Back" button
- * @type {{_: string, click: cy.openmage.test.backend.__base.__buttons.back.click}}
+ * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.back.click}}
  */
 cy.openmage.test.backend.__base.__buttons.back = {
     _: cy.openmage.test.backend.__base._button + '[title="Back"]',
@@ -91,7 +88,7 @@ cy.openmage.test.backend.__base.__buttons.back = {
 
 /**
  * Configuration for "Reset" button
- * @type {{_: string, click: cy.openmage.test.backend.__base.__buttons.reset.click}}
+ * @type {{_: string, __class: string[], click: cy.openmage.test.backend.__base.__buttons.reset.click}}
  */
 cy.openmage.test.backend.__base.__buttons.reset = {
     _: cy.openmage.test.backend.__base._button + '[title="Reset"]',
@@ -101,13 +98,41 @@ cy.openmage.test.backend.__base.__buttons.reset = {
     },
 };
 
-// TODO: fix that pages ... add buttons with continue
+/**
+ * Configuration for "Print" button
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.print.click, _: string}}
+ */
+cy.openmage.test.backend.__base.__buttons.print = {
+    _: cy.openmage.test.backend.__base._button + '[title="Print"]',
+    __class: ['scalable', 'save', 'print'],
+    click: () => {
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.reset._, 'Reset button clicked');
+    },
+};
+
+/**
+ * Configuration for "Send Email" button
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.enail.click, _: string}}
+ */
+cy.openmage.test.backend.__base.__buttons.enail = {
+    _: cy.openmage.test.backend.__base._button + '[title="Send Email"]',
+    __class: ['scalable', 'send-email'],
+    click: () => {
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.reset._, 'Reset button clicked');
+    },
+};
+
 /**
  * Base buttons configuration for backend tests
- * @type {{save: string, back: string, reset: string, saveAndContinue: string, delete: string}}
- * @private
+ * @type {{
+ *      save: cy.openmage.test.backend.__base.__buttons.save,
+ *      saveAndContinue: cy.openmage.test.backend.__base.__buttons.saveAndContinue,
+ *      delete: cy.openmage.test.backend.__base.__buttons.delete,
+ *      back: cy.openmage.test.backend.__base.__buttons.back,
+ *      reset: cy.openmage.test.backend.__base.__buttons.reset,
+ * }}
  */
-cy.openmage.test.backend.__base.__buttonsEdit = {
+cy.openmage.test.backend.__base.__buttonsSets.edit = {
     save: cy.openmage.test.backend.__base.__buttons.save,
     saveAndContinue: cy.openmage.test.backend.__base.__buttons.saveAndContinue,
     delete: cy.openmage.test.backend.__base.__buttons.delete,
@@ -117,10 +142,14 @@ cy.openmage.test.backend.__base.__buttonsEdit = {
 
 /**
  * Base buttons configuration for backend tests without "Save and Continue Edit" button
- * @type {{save: string, back: string, reset: string, delete: string}}
- * @private
+ * @type {{
+ *      save: cy.openmage.test.backend.__base.__buttons.save,
+ *      delete: cy.openmage.test.backend.__base.__buttons.delete,
+ *      back: cy.openmage.test.backend.__base.__buttons.back,
+ *      reset: cy.openmage.test.backend.__base.__buttons.reset,
+ * }}
  */
-cy.openmage.test.backend.__base.__buttonsEditNoContinue = {
+cy.openmage.test.backend.__base.__buttonsSets.editNoContinue = {
     save: cy.openmage.test.backend.__base.__buttons.save,
     delete: cy.openmage.test.backend.__base.__buttons.delete,
     back: cy.openmage.test.backend.__base.__buttons.back,
@@ -129,10 +158,14 @@ cy.openmage.test.backend.__base.__buttonsEditNoContinue = {
 
 /**
  * Base buttons configuration for backend tests for "New" pages
- * @type {{save: string, back: string, reset: string, saveAndContinue: string}}
- * @private
+ * @type {{
+ *      save: cy.openmage.test.backend.__base.__buttons.save,
+ *      saveAndContinue: cy.openmage.test.backend.__base.__buttons.saveAndContinue,
+ *      back: cy.openmage.test.backend.__base.__buttons.back,
+ *      reset: cy.openmage.test.backend.__base.__buttons.reset,
+ * }}
  */
-cy.openmage.test.backend.__base.__buttonsNew = {
+cy.openmage.test.backend.__base.__buttonsSets.new = {
     save: cy.openmage.test.backend.__base.__buttons.save,
     saveAndContinue: cy.openmage.test.backend.__base.__buttons.saveAndContinue,
     back: cy.openmage.test.backend.__base.__buttons.back,
@@ -142,13 +175,30 @@ cy.openmage.test.backend.__base.__buttonsNew = {
 // TODO: fix that pages ... add buttons with continue
 /**
  * Base buttons configuration for backend tests for "New" pages without "Save and Continue Edit" button
- * @type {{save: string, back: string, reset: string}}
- * @private
+ * @type {{
+ *      save: cy.openmage.test.backend.__base.__buttons.save,
+ *      back: cy.openmage.test.backend.__base.__buttons.back,
+ *      reset: cy.openmage.test.backend.__base.__buttons.reset,
+ * }}
  */
-cy.openmage.test.backend.__base.__buttonsNewNoContinue = {
+cy.openmage.test.backend.__base.__buttonsSets.newNoContinue = {
     save: cy.openmage.test.backend.__base.__buttons.save,
-    back: cy.openmage.test.backend.__base.__buttons.saveAndContinue,
+    back: cy.openmage.test.backend.__base.__buttons.back,
     reset: cy.openmage.test.backend.__base.__buttons.reset,
+};
+
+/**
+ * Buttons configuration for backend sales pages
+ * @type {{
+ *      save: cy.openmage.test.backend.__base.__buttons.print,
+ *      back: cy.openmage.test.backend.__base.__buttons.enail,
+ *      reset: cy.openmage.test.backend.__base.__buttons.back,
+ * }}
+ */
+cy.openmage.test.backend.__base.__buttonsSets.sales = {
+    print: cy.openmage.test.backend.__base.__buttons.print,
+    email: cy.openmage.test.backend.__base.__buttons.enail,
+    back: cy.openmage.test.backend.__base.__buttons.back,
 };
 
 /**

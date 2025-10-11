@@ -30,10 +30,7 @@ test.config.index = {
             _: base._button + '[title="Import"]',
             __class: ['scalable', 'add', 'import'],
         },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
+        reset: base.__buttons.reset,
     },
     __validation: {
         _input: {

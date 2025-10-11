@@ -54,7 +54,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
-                        'label'   => Mage::helper('adminhtml')->__('Delete Template'),
+                        'label'   => Mage::helper('adminhtml')->__('Delete'),
                         'onclick' => 'templateControl.deleteTemplate();',
                         'class'   => 'delete',
                     ],
@@ -117,7 +117,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
-                        'label'   => Mage::helper('adminhtml')->__('Save Template'),
+                        'label'   => Mage::helper('adminhtml')->__('Save'),
                         'onclick' => 'templateControl.save();',
                         'class'   => 'save',
                     ],

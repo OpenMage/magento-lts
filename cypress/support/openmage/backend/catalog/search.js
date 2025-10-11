@@ -61,72 +61,21 @@ test.config.index = {
 
 /**
  * Configuration for "Edit Search Term" page
- * @type {{clickReset: cy.openmage.test.backend.catalog.search.config.edit.clickReset, __buttons: {save: string, back: string, reset: string, delete: string}, clickBack: cy.openmage.test.backend.catalog.search.config.edit.clickBack, clickDelete: cy.openmage.test.backend.catalog.search.config.edit.clickDelete, clickSave: cy.openmage.test.backend.catalog.search.config.edit.clickSave, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.editNoContinue}}
  */
 test.config.edit = {
     title: 'Edit Search',
     url: 'catalog_search/edit',
-    __buttons: {
-        save: {
-            _: base._button + '[title="Save Search"]',
-            __class: base.__buttons.save.__class,
-        },
-        delete: {
-            _: base._button + '[title="Delete Search"]',
-            __class: base.__buttons.delete.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
-    },
-    clickDelete: () => {
-        tools.click(test.config.edit.__buttons.delete._, 'Delete button clicked');
-    },
-    clickSave: () => {
-        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
-    },
-    clickBack: () => {
-        tools.click(test.config.edit.__buttons.back._, 'Back button clicked');
-    },
-    clickReset: () => {
-        tools.click(test.config.edit.__buttons.reset._, 'Reset button clicked');
-    },
+    __buttons: base.__buttonsSets.editNoContinue,
 }
 
 /**
  * Configuration for "New Search Term" page
- * @type {{clickReset: cy.openmage.test.backend.catalog.search.config.new.clickReset, __buttons: {save: string, back: string, reset: string}, clickBack: cy.openmage.test.backend.catalog.search.config.new.clickBack, clickSave: cy.openmage.test.backend.catalog.search.config.new.clickSave, title: string, __fields, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue, __fields: test.config.new.__fields}}
  */
 test.config.new = {
     title: 'New Search',
     url: 'catalog_search/new',
-    __buttons: {
-        save: {
-            _: base._button + '[title="Save Search"]',
-            __class: base.__buttons.save.__class,
-        },
-        back: {
-            _: base.__buttons.back._,
-            __class: base.__buttons.back.__class,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-            __class: base.__buttons.reset.__class,
-        },
-    },
+    __buttons: base.__buttonsSets.newNoContinue,
     __fields: test.__fields,
-    clickSave: () => {
-        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
-    },
-    clickBack: () => {
-        tools.click(test.config.new.__buttons.back._, 'Back button clicked');
-    },
-    clickReset: () => {
-        tools.click(test.config.new.__buttons.reset._, 'Reset button clicked');
-    },
 }
