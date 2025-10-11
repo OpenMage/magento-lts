@@ -31,7 +31,7 @@ class Mage_Catalog_Helper_Price extends Mage_Core_Helper_Abstract
     /**
      * @SuppressWarnings("PHPMD.StaticAccess")
      */
-    public function getRoundingPresision(): int
+    public function getRoundingPrecision(): int
     {
         /** @var int<0,4> $precision */
         $precision = Mage::getStoreConfigAsInt(self::XML_PATH_ROUNDING_PRECISION);
