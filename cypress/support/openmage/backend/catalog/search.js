@@ -51,6 +51,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Search Term"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: (log = 'Add Search Term button clicked') => {
@@ -68,15 +69,19 @@ test.config.edit = {
     __buttons: {
         save: {
             _: base._button + '[title="Save Search"]',
+            __class: base.__buttons.save.__class,
         },
         delete: {
             _: base._button + '[title="Delete Search"]',
+            __class: base.__buttons.delete.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     clickDelete: () => {
@@ -103,12 +108,15 @@ test.config.new = {
     __buttons: {
         save: {
             _: base._button + '[title="Save Search"]',
+            __class: base.__buttons.save.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     __fields: test.__fields,

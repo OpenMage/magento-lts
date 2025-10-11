@@ -48,6 +48,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Variable"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: () => {

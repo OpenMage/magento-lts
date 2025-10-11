@@ -20,15 +20,24 @@ cy.openmage.test.backend.__base = {
 
 /**
  * Base buttons configuration for backend tests
- * @type {{save: *, saveAndContinue: *, delete: *, back: *, reset: *}}
+ * @type {{add: {}, save: {}, saveAndContinue: {}, delete: {}, back: {}, reset: {}}}
  * @private
  */
 cy.openmage.test.backend.__base.__buttons = {
+    add: {},
     save: {},
     saveAndContinue: {},
     delete: {},
     back: {},
     reset: {},
+};
+
+/**
+ * Configuration for "Add" button
+ * @type {{__class: string[]}}
+ */
+cy.openmage.test.backend.__base.__buttons.add = {
+    __class: ['scalable', 'add'],
 };
 
 /**

@@ -28,9 +28,11 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Rule"]',
+            __class: base.__buttons.add.__class,
         },
         apply: {
             _: base._button + '[title="Apply Rules"]',
+            __class: ['scalable', 'apply'],
         },
     },
     clickAdd: () => {
@@ -51,21 +53,27 @@ test.config.edit = {
     __buttons: {
         save: {
             _: base.__buttons.save._,
+            __class: base.__buttons.save.__class,
         },
         saveAndContinue: {
             _: base.__buttons.saveAndContinue._,
+            __class: base.__buttons.saveAndContinue.__class,
         },
         saveAndApply: {
             _: base._button + '[title="Save and Apply"]',
+            __class: ['scalable', 'apply'],
         },
         delete: {
             _: base.__buttons.delete._,
+            __class: base.__buttons.delete.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     clickSave: () => {
@@ -98,18 +106,23 @@ test.config.new = {
     __buttons: {
         save: {
             _: base.__buttons.save._,
+            __class: base.__buttons.save.__class,
         },
         saveAndContinue: {
             _: base.__buttons.saveAndContinue._,
+            __class: base.__buttons.saveAndContinue.__class,
         },
         saveAndApply: {
             _: base._button + '[title="Save and Apply"]',
+            __class: ['scalable', 'apply'],
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     clickSave: () => {

@@ -28,6 +28,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Rule"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: () => {

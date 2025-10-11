@@ -24,12 +24,15 @@ test.config.index = {
     __buttons: {
         save: {
             _: base._button + '[title="Save Currency Rates"]',
+            __class: base.__buttons.save.__class,
         },
         import: {
             _: base._button + '[title="Import"]',
+            __class: ['scalable', 'add', 'import'],
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     __validation: {

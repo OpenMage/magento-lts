@@ -28,6 +28,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Template"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: () => {
@@ -45,24 +46,31 @@ test.config.edit = {
     __buttons: {
         save: {
             _: base._button + '[title="Save Template"]',
+            __class: base.__buttons.save.__class,
         },
         saveAs: {
             _: base._button + '[title="Save As"]',
+            __class: ['scalable', 'save', 'save-as'],
         },
         delete: {
             _: base._button + '[title="Delete Template"]',
+            __class: base.__buttons.delete.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
         convert: {
             _: base._button + '[title="Convert to Plain Text"]',
+            __class: ['scalable', 'save', 'convert'],
         },
         preview: {
             _: base._button + '[title="Preview Template"]',
+            __class: ['scalable', 'save', 'preview'],
         },
     },
 }

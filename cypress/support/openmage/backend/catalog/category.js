@@ -26,9 +26,11 @@ test.config.index = {
     __buttons: {
         save: {
             _: base._button + '[title="Save Category"]',
+            __class: base.__buttons.save.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
 }

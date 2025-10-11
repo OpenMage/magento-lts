@@ -24,12 +24,15 @@ test.config.index = {
     __buttons: {
         addWebsite: {
             _: base._button + '[title="Create Website"]',
+            __class: ['scalable', 'add', 'website'],
         },
         addStore: {
             _: base._button + '[title="Create Store"]',
+            __class: ['scalable', 'add', 'store'],
         },
         addStoreView: {
             _: base._button + '[title="Create Store View"]',
+            __class: ['scalable', 'add', 'store_view'],
         },
     },
 }

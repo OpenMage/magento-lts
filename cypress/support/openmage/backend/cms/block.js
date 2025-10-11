@@ -51,7 +51,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Block"]',
-            __class: ['scalable', 'add'],
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: (log = 'Add CMS Blocks button clicked') => {

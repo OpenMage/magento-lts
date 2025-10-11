@@ -67,6 +67,7 @@ test.config.new = {
     __buttons: {
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
     },
     clickBack: () => {
