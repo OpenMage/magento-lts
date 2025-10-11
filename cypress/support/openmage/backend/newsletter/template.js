@@ -64,7 +64,7 @@ test.config.edit = {
             _: base.__buttons.reset._,
             __class: base.__buttons.reset.__class,
         },
-        convert: {
+        convertToPlain: {
             _: base._button + '[title="Convert to Plain Text"]',
             __class: ['scalable', 'task', 'to-plain'],
         },
@@ -95,7 +95,7 @@ test.config.new = {
             _: base.__buttons.reset._,
             __class: base.__buttons.reset.__class,
         },
-        convert: {
+        convertToPlain: {
             _: base._button + '[title="Convert to Plain Text"]',
             __class: ['scalable', 'task', 'to-plain'],
         },

@@ -103,7 +103,7 @@ test.config.new = {
             _: base._button + '[title="Save Template"]',
             __class: base.__buttons.save.__class,
         },
-        convert: {
+        convertToPlain: {
             _: base._button + '[title="Convert to Plain Text"]',
             __class: ['scalable', 'task', 'to-plain'],
         },
