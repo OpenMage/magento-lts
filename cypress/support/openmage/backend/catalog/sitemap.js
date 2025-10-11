@@ -45,6 +45,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add Sitemap"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: () => {
@@ -62,18 +63,23 @@ test.config.edit = {
     __buttons: {
         save: {
             _: base.__buttons.save._,
+            __class: base.__buttons.save.__class,
         },
         delete: {
             _: base.__buttons.delete._,
+            __class: base.__buttons.delete.__class,
         },
         generate: {
             _: base._button + '[title="Save & Generate"]',
+            __class: ['scalable', 'add', 'add-generate'],
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     __fields: test.__fields,
@@ -104,15 +110,19 @@ test.config.new = {
     __buttons: {
         save: {
             _: base.__buttons.save._,
+            __class: base.__buttons.save.__class,
         },
         generate: {
             _: base._button + '[title="Save & Generate"]',
+            __class: ['scalable', 'add', 'add-generate'],
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
     __fields: test.__fields,

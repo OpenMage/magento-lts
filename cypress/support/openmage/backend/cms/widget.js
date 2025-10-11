@@ -28,6 +28,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Widget Instance"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: () => {
@@ -55,9 +56,11 @@ test.config.new = {
     __buttons: {
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
         reset: {
             _: base.__buttons.reset._,
+            __class: base.__buttons.reset.__class,
         },
     },
 }

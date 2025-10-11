@@ -48,6 +48,7 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add Design Change"]',
+            __class: base.__buttons.add.__class,
         },
     },
     clickAdd: () => {
@@ -65,12 +66,15 @@ test.config.edit = {
     __buttons: {
         save: {
             _: base.__buttons.save._,
+            __class: base.__buttons.save.__class,
         },
         delete: {
             _: base.__buttons.delete._,
+            __class: base.__buttons.delete.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
     },
     __fields: test.__fields,
@@ -95,9 +99,11 @@ test.config.new = {
     __buttons: {
         save: {
             _: base.__buttons.save._,
+            __class: base.__buttons.save.__class,
         },
         back: {
             _: base.__buttons.back._,
+            __class: base.__buttons.back.__class,
         },
     },
     __fields: test.__fields,
