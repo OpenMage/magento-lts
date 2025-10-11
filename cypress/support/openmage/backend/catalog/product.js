@@ -67,7 +67,7 @@ test.config.edit = {
         },
         duplicate: {
             _: test.config._button + '[title="Duplicate"]',
-            __class: ['scalable', 'save', 'duplicate'],
+            __class: ['scalable', 'add', 'duplicate'],
         }
     },
 }

@@ -6,14 +6,15 @@ cy.openmage.test.backend = {};
 
 /**
  * Base configuration for backend tests
- * @type {{_button: string, _title: string, __buttons: {save: string, back: string, reset: string, saveAndContinue: string, delete: string}, __buttonsNoContinue: {save: string, back: string, reset: string, delete: string}, __buttonsNew: {save: string, back: string, reset: string, saveAndContinue: string}, __buttonsNewNoContinue: {save: string, back: string, reset: string}}}
+ * @type {{_button: string, _title: string, __buttons: {add: {}, save: {}, saveAndContinue: {}, delete: {}, back: {}, reset: {}}, __buttonsEdit: {save: string, saveAndContinue: string, delete: string, back: string, reset: string}, __buttonsEditNoContinue: {save: string, delete: string, back: string, reset: string}, __buttonsNew: {save: string, saveAndContinue: string, back: string, reset: string}, __buttonsNewNoContinue: {save: string, back: string, reset: string}}}
  * @private
  */
 cy.openmage.test.backend.__base = {
     _button: '.form-buttons button',
     _title: 'h3.icon-head',
     __buttons: {},
-    __buttonsNoContinue: {},
+    __buttonsEdit: {},
+    __buttonsEditNoContinue: {},
     __buttonsNew: {},
     __buttonsNewNoContinue: {},
 };
@@ -58,8 +59,7 @@ cy.openmage.test.backend.__base.__buttons.save = {
  */
 cy.openmage.test.backend.__base.__buttons.saveAndContinue = {
     _: cy.openmage.test.backend.__base._button + '[title="Save and Continue Edit"]',
-    // TODO: add class 'save-continue' to the button in OpenMage
-    __class: ['scalable', 'save', 'save-continue'],
+    __class: ['scalable', 'save', 'continue'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.saveAndContinue._, 'Save and Continue button clicked');
     },
@@ -95,8 +95,7 @@ cy.openmage.test.backend.__base.__buttons.back = {
  */
 cy.openmage.test.backend.__base.__buttons.reset = {
     _: cy.openmage.test.backend.__base._button + '[title="Reset"]',
-    // TODO: add class 'reset' to the button in OpenMage
-    __class: ['scalable, reset'],
+    __class: ['scalable', 'reset'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.reset._, 'Reset button clicked');
     },
@@ -104,11 +103,24 @@ cy.openmage.test.backend.__base.__buttons.reset = {
 
 // TODO: fix that pages ... add buttons with continue
 /**
+ * Base buttons configuration for backend tests
+ * @type {{save: string, back: string, reset: string, saveAndContinue: string, delete: string}}
+ * @private
+ */
+cy.openmage.test.backend.__base.__buttonsEdit = {
+    save: cy.openmage.test.backend.__base.__buttons.save,
+    saveAndContinue: cy.openmage.test.backend.__base.__buttons.saveAndContinue,
+    delete: cy.openmage.test.backend.__base.__buttons.delete,
+    back: cy.openmage.test.backend.__base.__buttons.back,
+    reset: cy.openmage.test.backend.__base.__buttons.reset,
+};
+
+/**
  * Base buttons configuration for backend tests without "Save and Continue Edit" button
  * @type {{save: string, back: string, reset: string, delete: string}}
  * @private
  */
-cy.openmage.test.backend.__base.__buttonsNoContinue = {
+cy.openmage.test.backend.__base.__buttonsEditNoContinue = {
     save: cy.openmage.test.backend.__base.__buttons.save,
     delete: cy.openmage.test.backend.__base.__buttons.delete,
     back: cy.openmage.test.backend.__base.__buttons.back,

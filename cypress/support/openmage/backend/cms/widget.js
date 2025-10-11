@@ -43,7 +43,7 @@ test.config.index = {
 test.config.edit = {
     title: 'Widget',
     url: 'widget_instance/edit',
-    __buttons: base.__buttons,
+    __buttons: base.__buttonsEdit,
 }
 
 /**

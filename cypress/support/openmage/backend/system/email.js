@@ -77,7 +77,7 @@ test.config.edit = {
         },
         preview: {
             _: base._button + '[title="Preview Template"]',
-            __class: ['scalable', 'save', 'preview'],
+            __class: ['scalable', 'task', 'preview'],
         },
         back: {
             _: base.__buttons.back._,
@@ -105,11 +105,11 @@ test.config.new = {
         },
         convert: {
             _: base._button + '[title="Convert to Plain Text"]',
-            __class: ['scalable', 'save', 'convert'],
+            __class: ['scalable', 'task', 'to-plain'],
         },
         preview: {
             _: base._button + '[title="Preview Template"]',
-            __class: ['scalable', 'save', 'preview'],
+            __class: ['scalable', 'task', 'preview'],
         },
         back: {
             _: base.__buttons.back._,

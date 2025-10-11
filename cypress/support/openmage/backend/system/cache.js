@@ -25,11 +25,11 @@ test.config.index = {
     __buttons: {
         flushApply: {
             _: base._button + '[title="Flush & Apply Updates"]',
-            __class: ['scalable', 'delete', 'flush-apply'],
+            __class: ['scalable', 'delete', 'cache'],
         },
         flushCache: {
             _: base._button + '[title="Flush Cache Storage"]',
-            __class: ['scalable', 'delete', 'flush-cache'],
+            __class: ['scalable', 'delete', 'flush'],
         },
     },
 }

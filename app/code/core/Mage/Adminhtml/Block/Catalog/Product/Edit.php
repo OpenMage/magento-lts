@@ -7,7 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-
 /**
  * Customer edit block
  *
@@ -66,6 +65,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
                         'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/*/*', ['_current' => true])),
+                        'class'     => 'reset',
                     ]),
             );
 
@@ -88,7 +88,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                         ->setData([
                             'label'     => Mage::helper('catalog')->__('Save and Continue Edit'),
                             'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
-                            'class'     => 'save',
+                            'class'     => 'save continue',
                         ]),
                 );
             }
@@ -108,11 +108,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 $this->setChild(
                     'duplicate_button',
                     $this->getLayout()->createBlock('adminhtml/widget_button')
-                    ->setData([
-                        'label'     => Mage::helper('catalog')->__('Duplicate'),
-                        'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
-                        'class'     => 'add',
-                    ]),
+                        ->setData([
+                            'label'     => Mage::helper('catalog')->__('Duplicate'),
+                            'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getDuplicateUrl()),
+                            'class'     => 'add duplicate',
+                        ]),
                 );
             }
         }
@@ -206,7 +206,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
     {
         $setId = false;
         if (!($setId = $this->getProduct()->getAttributeSetId()) && $this->getRequest()) {
-            $setId = $this->getRequest()->getParam('set', null);
+            $setId = $this->getRequest()->getParam('set');
         }
         return $setId;
     }

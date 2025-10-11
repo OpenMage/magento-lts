@@ -27,6 +27,11 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         $this->setTemplate('catalog/category/edit/form.phtml');
     }
 
+    /**
+     * Prepare Global Layout
+     *
+     * @return $this
+     */
     protected function _prepareLayout()
     {
         $category = $this->getCategory();
@@ -45,7 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Save Category'),
                         'onclick'   => "categorySubmit('" . $this->getSaveUrl() . "', true)",
-                        'class' => 'save',
+                        'class'     => 'save',
                     ]),
             );
         }
@@ -58,7 +63,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Delete Category'),
                         'onclick'   => "categoryDelete('" . $this->getUrl('*/*/delete', ['_current' => true]) . "', true, {$categoryId})",
-                        'class' => 'delete',
+                        'class'     => 'delete',
                     ]),
             );
         }
@@ -72,6 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                     ->setData([
                         'label'     => Mage::helper('catalog')->__('Reset'),
                         'onclick'   => "categoryReset('" . $this->getUrl($resetPath, ['_current' => true]) . "',true)",
+                        'class'     => 'reset',
                     ]),
             );
         }
@@ -79,6 +85,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     * @throws Mage_Core_Model_Store_Exception
+     */
     public function getStoreConfigurationUrl()
     {
         $storeId = (int) $this->getRequest()->getParam('store');
@@ -92,11 +102,17 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         return $this->getUrl('*/system_store', $params);
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteButtonHtml()
     {
         return $this->getChildHtml('delete_button');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         if ($this->hasStoreRootCategory()) {
@@ -105,6 +121,9 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         return '';
     }
 
+    /**
+     * @return string
+     */
     public function getResetButtonHtml()
     {
         if ($this->hasStoreRootCategory()) {

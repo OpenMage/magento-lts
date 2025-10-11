@@ -32,7 +32,7 @@ test.config.index = {
         },
         addStoreView: {
             _: base._button + '[title="Create Store View"]',
-            __class: ['scalable', 'add', 'store_view'],
+            __class: ['scalable', 'add', 'storeview'],
         },
     },
 }

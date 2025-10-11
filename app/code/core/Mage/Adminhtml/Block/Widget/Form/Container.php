@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         $this->_addButton('reset', [
             'label'     => Mage::helper('adminhtml')->__('Reset'),
             'onclick'   => 'setLocation(window.location.href)',
+            'class'     => 'reset',
         ], -1);
 
         $objId = $this->getRequest()->getParam($this->_objectId);

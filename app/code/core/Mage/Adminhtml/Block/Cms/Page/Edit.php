@@ -30,7 +30,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
             $this->_addButton('saveandcontinue', [
                 'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
                 'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
-                'class'     => 'save',
+                'class'     => 'save continue',
             ], -100);
         } else {
             $this->_removeButton('save');

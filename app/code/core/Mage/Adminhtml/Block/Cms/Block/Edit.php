@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         $this->_addButton('saveandcontinue', [
             'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
             'onclick'   => 'saveAndContinueEdit()',
-            'class'     => 'save',
+            'class'     => 'save continue',
         ], -100);
 
         $this->_formScripts[] = "

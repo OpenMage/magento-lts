@@ -43,7 +43,7 @@ test.config.index = {
 test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_quote/edit',
-    __buttons: base.__buttons,
+    __buttons: base.__buttonsEdit,
     clickSave: () => {
         base.__buttons.save.click();
     },
