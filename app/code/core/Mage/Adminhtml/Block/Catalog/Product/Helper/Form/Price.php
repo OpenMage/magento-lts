@@ -80,6 +80,6 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
         /** @var Mage_Catalog_Helper_Price $helper */
         $helper = Mage::helper('catalog/price');
 
-        return number_format((float) $value, $helper->getRoundingPresision(), null, '');
+        return number_format((float) $value, $helper->getRoundingPrecision(), null, '');
     }
 }
