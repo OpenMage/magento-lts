@@ -14,7 +14,7 @@
  */
 
 /**
- * Catalog search helper
+ * Catalog price helper
  *
  * @category   Mage
  * @package    Mage_Catalog
