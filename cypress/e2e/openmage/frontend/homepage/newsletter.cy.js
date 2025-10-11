@@ -5,7 +5,7 @@ const validation = cy.openmage.validation;
 
 describe('Check newsletter subscribe', () => {
     beforeEach('Go to page', () => {
-        cy.visit(test);
+        cy.visit(test.url);
     });
 
     it('tests empty input', () => {

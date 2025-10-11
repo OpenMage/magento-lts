@@ -54,7 +54,7 @@ test.config.index = {
         },
     },
     clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New ransactional Emails button clicked');
+        tools.click(test.config.index.__buttons.add._, 'Add New Transactional Emails button clicked');
     },
 }
 
@@ -114,10 +114,10 @@ test.config.new = {
         tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
     },
     clickCovert: () => {
-        tools.click(test.config.edit.__buttons.convert._, 'Covert button clicked');
+        tools.click(test.config.edit.__buttons.convert._, 'Convert button clicked');
     },
     clickPreview: () => {
-        tools.click(test.config.edit.__buttons.preview._, 'Prieview button clicked');
+        tools.click(test.config.edit.__buttons.preview._, 'Preview button clicked');
     },
     clickBack: () => {
         base.__buttons.back.click();

@@ -90,7 +90,7 @@ test.config.edit = {
         base.__buttons.saveAndContinue.click();
     },
     clickDelete: () => {
-        tools.click(test.config.edit.__buttons.back._, 'Delete button clicked');
+        tools.click(test.config.edit.__buttons.delete._, 'Delete button clicked');
     },
     clickBack: () => {
         base.__buttons.back.click();
@@ -123,7 +123,7 @@ test.config.new = {
     },
     __fields: test.__fields,
     clickSave: () => {
-        tools.click(test.config.new.__buttons.save, 'Save button clicked');
+        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
         base.__buttons.saveAndContinue.click();

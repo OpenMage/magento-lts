@@ -5,7 +5,7 @@ const validation = cy.openmage.validation;
 
 describe('Checks customer account create', () => {
     beforeEach('Go to page', () => {
-        cy.visit(test.create);
+        cy.visit(test.create.url);
     });
 
     it('Checks the Create Account page title', () => {

@@ -192,7 +192,7 @@ test.config.new = {
     __fields: test.__fields,
     __tabs: test.__tabs,
     clickSave: () => {
-        tools.click(test.config.new.__buttons.save, 'Save button clicked');
+        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
     },
     clickSaveAndContinue: () => {
         base.__buttons.saveAndContinue.click();
