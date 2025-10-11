@@ -4,11 +4,11 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "Products" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-catalog-products',
-    _id_parent: '#nav-admin-catalog',
+    _: '#nav-admin-catalog-products',
+    _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: '.content-header button', // Custom base button selector
     url: 'catalog_product/index',
@@ -19,7 +19,7 @@ test.config = {
 
 /**
  * Configuration for "Manage Products" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: test.products.config.index.clickAdd}}
+ * @type {{__buttons: {add: {_: string}}, title: string, url: string, _grid: string, clickAdd: (function(): void)}}
  */
 test.config.index = {
     title: 'Manage Products',

@@ -4,11 +4,11 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "Shopping Cart Price Rules" menu item
- * @type {{_id_parent: string, _id: string, _title: string, _button: string, url: string, new: {}, edit: {}, index: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-promo-quote',
-    _id_parent: '#nav-admin-promo',
+    _: '#nav-admin-promo-quote',
+    _nav: '#nav-admin-promo',
     _title: base._title,
     _button: base._button,
     url: 'promo_quote/index',

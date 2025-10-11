@@ -21,7 +21,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
         /// with filling password
         validation.removeClasses(test.index);
         validation.emptyFields(test.index);
-        cy.get(test.index.__fields.current_password.selector)
+        cy.get(test.index.__fields.current_password._)
             .type(cy.openmage.admin.password.value)
             .should('have.value', cy.openmage.admin.password.value);
         test.index.clickSave();

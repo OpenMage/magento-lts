@@ -3,28 +3,29 @@ const test = cy.openmage.test.backend.system.config.catalog.sitemap;
 
 /**
  * Configuration for admin system "Google Sitemap" settings
- * @type {{_id: string, _id_parent: string, _title: string, url: string}}
+ * @type {{_: string, _nav: string, _title: string, url: string, section: {}}}
  */
 test.config = {
-    _id: '#nav-admin-system-config',
-    _id_parent: '#nav-admin-system',
+    _: '#nav-admin-system-config',
+    _nav: '#nav-admin-system',
     _title: base._title,
     url: 'system_config/index',
+    section: {},
 }
 
 /**
  * Section "Google Sitemap"
- * @type {{_id: string, title: string, url: string}}
+ * @type {{_: string, title: string, url: string}}
  */
 test.config.section = {
-    _id: '#section-sitemap',
+    _: '#section-sitemap',
     title: 'Google Sitemap',
     url: 'system_config/edit/section/sitemap',
 }
 
 /**
  * Fields for "Priority" group
- * @type {{__fields: {product: {selector: string}, page: {selector: string}, category: {selector: string}}}}
+ * @type {{__fields: {product: {_: string}, page: {_: string}, category: {_: string}}}}
  */
 test.config.section.priority = {
     __fields: {

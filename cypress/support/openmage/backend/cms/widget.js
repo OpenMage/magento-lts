@@ -4,11 +4,11 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "Widget Instance" section
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-cms-widget_instance',
-    _id_parent: '#nav-admin-cms',
+    _: '#nav-admin-cms-widget_instance',
+    _nav: '#nav-admin-cms',
     _title: base._title,
     _button: base._button,
     url: 'widget_instance/index',

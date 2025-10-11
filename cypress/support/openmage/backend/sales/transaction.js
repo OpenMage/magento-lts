@@ -3,12 +3,13 @@ const test = cy.openmage.test.backend.sales.transaction;
 
 /**
  * Configuration for "Transactions" section
- * @type {{_title: string, _id: string, _id_parent: string, url: string, index: {}}}
+ * @type {{_: string, _nav: string, _title: string, url: string, index: {}}}
  */
 test.config = {
-    _id: '#nav-admin-sales-transactions',
-    _id_parent: '#nav-admin-sales',
+    _: '#nav-admin-sales-transactions',
+    _nav: '#nav-admin-sales',
     _title: base._title,
+    title: '',
     url: 'sales_transactions/index',
     index: {},
 };

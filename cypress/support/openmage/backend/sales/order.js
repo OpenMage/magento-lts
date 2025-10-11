@@ -3,11 +3,11 @@ const test = cy.openmage.test.backend.sales.order;
 
 /**
  * Configuration for "Orders" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, view: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, view: {}}}
  */
 test.config = {
-    _id: '#nav-admin-sales-order',
-    _id_parent: '#nav-admin-sales',
+    _: '#nav-admin-sales-order',
+    _nav: '#nav-admin-sales',
     _title: base._title,
     _button: base._button,
     url: 'sales_order/index',

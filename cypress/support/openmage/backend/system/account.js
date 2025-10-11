@@ -4,11 +4,11 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "My Account" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}}}
  */
 test.config = {
-    _id: '#nav-admin-system-myaccount',
-    _id_parent: '#nav-admin-system',
+    _: '#nav-admin-system-myaccount',
+    _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
     url: 'system_account/index',
@@ -31,7 +31,7 @@ test.config.index = {
         },
     },
     clickSave: () => {
-        tools.click(test.config.index.__buttons.save, 'Save button clicked');
+        tools.click(test.config.index.__buttons.save._, 'Save button clicked');
     },
     clickReset: () => {
         base.__buttons.reset.click();

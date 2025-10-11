@@ -69,11 +69,11 @@ test.__tabs = {
 
 /**
  * Configuration for "Pages" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}, clickTabMain: cy.openmage.test.backend.cms.page.config.clickTabMain, clickTabContent: cy.openmage.test.backend.cms.page.config.clickTabContent, clickTabDesign: cy.openmage.test.backend.cms.page.config.clickTabDesign, clickTabMetaData: cy.openmage.test.backend.cms.page.config.clickTabMetaData}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-cms-page',
-    _id_parent: '#nav-admin-cms',
+    _: '#nav-admin-cms-page',
+    _nav: '#nav-admin-cms',
     _title: base._title,
     _button: base._button,
     url: 'cms_page/index',

@@ -27,11 +27,11 @@ test.__fields = {
 
 /**
  * Configuration for "Search Terms" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-catalog-search',
-    _id_parent: '#nav-admin-catalog',
+    _: '#nav-admin-catalog-search',
+    _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
     url: 'catalog_search/index',

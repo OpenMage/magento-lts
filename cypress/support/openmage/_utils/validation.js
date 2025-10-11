@@ -42,23 +42,30 @@ cy.openmage.validation = {
                 .invoke('removeClass');
         });
     },
+    removeClassesFromInput: () =>{
+        cy.log('Removing validation classes from all input fields');
+
+        const input = '.form-list .value input';
+        cy.get(input).invoke('removeClass');
+    },
+    removeClassesFromSelect: () =>{
+        cy.log('Removing validation classes from all select fields');
+
+        const select = '.form-list .value select';
+        cy.get(select).invoke('removeClass');
+    },
+    removeClassesFromTextarea: () =>{
+        cy.log('Removing validation classes from all fields');
+
+        const textarea = '.form-list .value textarea';
+        cy.get(textarea).invoke('removeClass');
+    },
     removeClassesAll: () =>{
         cy.log('Removing validation classes from all fields');
 
-        const input = '.form-list .value input';
-        if (input !== undefined) {
-            cy.get(input).invoke('removeClass');
-        }
-
-        const select = '.form-list .value select';
-        if (select !== undefined) {
-            cy.get(select).invoke('removeClass');
-        }
-
-        const textarea = '.form-list .value textarea';
-        if (textarea !== undefined) {
-            cy.get(textarea).invoke('removeClass');
-        }
+        cy.openmage.validation.removeClassesFromInput();
+        cy.openmage.validation.removeClassesFromSelect();
+        cy.openmage.validation.removeClassesFromTextarea();
     },
     pageElements: (config, path) => {
         cy.openmage.check.buttons(config, path);

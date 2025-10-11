@@ -27,11 +27,11 @@ test.__fields = {
 
 /**
  * Configuration for "Transactional Emails" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-system-email_template',
-    _id_parent: '#nav-admin-system',
+    _: '#nav-admin-system-email_template',
+    _nav: '#nav-admin-system',
     _title: base._title,
     _button: base._button,
     url: 'system_email_template/index',

@@ -3,11 +3,11 @@ const test = cy.openmage.test.backend.newsletter.report;
 
 /**
  * Configuration for "Newsletter Problem Reports" menu item
- * @type {{_title: string, _id: string, _id_parent: string, url: string, index: {}}}
+ * @type {{_: string, _nav: string, _title: string, url: string, index: {}}}
  */
 test.config = {
-    _id: '#nav-admin-newsletter-problem',
-    _id_parent: '#nav-admin-newsletter',
+    _: '#nav-admin-newsletter-problem',
+    _nav: '#nav-admin-newsletter',
     _title: base._title,
     url: 'newsletter_problem/index',
     index: {},

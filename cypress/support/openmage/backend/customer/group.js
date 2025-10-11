@@ -35,11 +35,11 @@ test.__fields = {
 
 /**
  * Configuration for "Customer Groups" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-customer-group',
-    _id_parent: '#nav-admin-customer',
+    _: '#nav-admin-customer-group',
+    _nav: '#nav-admin-customer',
     _title: base._title,
     _button: base._button,
     url: 'customer_group/index',

@@ -3,13 +3,14 @@ const test = cy.openmage.test.backend.dashbord;
 
 /**
  * Configuration for "Dashboard" menu item
- * @type {{_title: string, _id: string, _id_parent: string, url: string}}
+ * @type {{_: string, _nav: string, _title: string, url: string, index: {}}}
  */
 test.config = {
-    _id: '#nav-admin-dashboard',
-    _id_parent: '#nav-admin-dashboard',
+    _: '#nav-admin-dashboard',
+    _nav: '#nav-admin-dashboard',
     _title: 'h3.head-dashboard',
     url: 'dashboard/index',
+    index: {},
 }
 
 /**

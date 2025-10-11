@@ -4,11 +4,11 @@ const tools = cy.openmage.tools;
 
 /**
  * Configuration for "URL Rewrite" menu item
- * @type {{_button: string, _title: string, _id: string, _id_parent: string, url: string, index: {}, edit: {}, new: {}}}
+ * @type {{_: string, _nav: string, _title: string, _button: string, url: string, index: {}, edit: {}, new: {}}}
  */
 test.config = {
-    _id: '#nav-admin-catalog-urlrewrite',
-    _id_parent: '#nav-admin-catalog',
+    _: '#nav-admin-catalog-urlrewrite',
+    _nav: '#nav-admin-catalog',
     _title: base._title,
     _button: base._button,
     url: 'urlrewrite/index',

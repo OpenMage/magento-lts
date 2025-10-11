@@ -9,10 +9,10 @@ describe(`Checks admin system "${test.section.title}" settings`, () => {
     });
 
     it(`tests invalid string input`, () => {
-        const fieldset = test.section.__validation.__groups.couponCodes;
+        const fieldset = test.section.couponCodes;
         cy.get('body').then($body => {
-            if (!$body.find(fieldset._id).hasClass('open')) {
-                cy.get(fieldset._id).click({ force: true });
+            if (!$body.find(fieldset._).hasClass('open')) {
+                cy.get(fieldset._).click({ force: true });
             }
         });
 

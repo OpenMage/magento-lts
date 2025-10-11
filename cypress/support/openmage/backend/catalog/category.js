@@ -3,11 +3,11 @@ const test = cy.openmage.test.backend.catalog.category;
 
 /**
  * Configuration for category tests
- * @type {{_id: string, _id_parent: string, _title: string, _button: string, url: string, index: {}}}
+ * @type {{_: string, _id_parent: string, _title: string, _button: string, url: string, index: {}}}
  */
 test.config = {
-    _id: '#nav-admin-catalog-categories',
-    _id_parent: '#nav-admin-catalog',
+    _: '#nav-admin-catalog-categories',
+    _nav: '#nav-admin-catalog',
     _title: '#category-edit-container h3.icon-head',
     _button: base._button,
     url: 'catalog_category/index',

@@ -10,7 +10,8 @@ describe(`Checks admin system "${test.index.title}"`, () => {
 
     it(`tests save empty values, no js`, () => {
         test.index.clickAdd();
-        validation.removeClassesAll();
+        validation.removeClassesFromInput();
+        validation.removeClassesFromTextarea();
 
         // TODO: add save and continue functionality
         const message = 'You must give a non-empty value for field \'template_code\'';

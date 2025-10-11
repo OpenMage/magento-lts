@@ -3,11 +3,11 @@ const test = cy.openmage.test.backend.customer.online;
 
 /**
  * Configuration for "Online Customers" menu item
- * @type {{_title: string, _id: string, _id_parent: string, url: string, index: {}}}
+ * @type {{_: string, _nav: string, _title: string, url: string, index: {}}}
  */
 test.config = {
-    _id: '#nav-admin-customer-online',
-    _id_parent: '#nav-admin-customer',
+    _: '#nav-admin-customer-online',
+    _nav: '#nav-admin-customer',
     _title: base._title,
     url: 'customer_online/index',
     index: {},

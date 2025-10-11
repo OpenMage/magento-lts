@@ -29,8 +29,8 @@ cy.openmage.check = {
     },
     navigation: (config, path) => {
         cy.log('Checking for active navigation');
-        cy.get(config._id).should('have.class', 'active');
-        cy.get(config._id_parent).should('have.class', 'active');
+        cy.get(config._).should('have.class', 'active');
+        cy.get(config._nav).should('have.class', 'active');
     },
     url: (config, path) => {
         cy.log('Checking for URL')
