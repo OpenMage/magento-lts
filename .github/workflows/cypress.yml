@@ -21,7 +21,7 @@ jobs:
           autostart: false
 
       # install DDEV configuration
-      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=${{ matrix.webserver }}
+      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=${{ matrix.webserver }} --web-environment="MAGE_IS_DEVELOPER_MODE=1"
 
       # install composer dependencies
       - run: ddev composer install
