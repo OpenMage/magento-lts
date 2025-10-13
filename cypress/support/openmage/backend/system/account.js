@@ -43,7 +43,7 @@ test.config = {
 
 /**
  * Configuration for "My Account" page
- * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.newNoContinue.new, __fields: test.config.index.__fields}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue, __fields: test.config.index.__fields}}
  */
 test.config.index = {
     title: 'My Account',
