@@ -1045,9 +1045,9 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             // add/update
             foreach ($addStores as $storeId => $storeCategoryIds) {
                 $attributeValues = $this->_getAttributeValues(array_keys($storeCategoryIds), $storeId);
-                foreach ($storeCategoryIds as $row) {
-                    $data = new Varien_Object($row);
-                    $data->addData($attributeValues[$row['entity_id']])
+                foreach ($storeCategoryIds as $storeCategoryId) {
+                    $data = new Varien_Object($storeCategoryId);
+                    $data->addData($attributeValues[$storeCategoryId['entity_id']])
                         ->setStoreId($storeId);
                     $this->_synchronize($data);
                 }

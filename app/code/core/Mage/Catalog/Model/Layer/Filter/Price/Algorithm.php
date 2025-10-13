@@ -160,7 +160,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
         }
 
         $separator = floor(($limits[0] + $limits[1]) / 2);
-        if ($this->_prices[$separator] < $value) {
+        if ($this->_prices[(string) $separator] < $value) {
             $limits[0] = $separator + 1;
         } else {
             $limits[1] = $separator;
@@ -470,7 +470,7 @@ class Mage_Catalog_Model_Layer_Filter_Price_Algorithm
                 if ($roundPrices) {
                     $index = round($roundingFactorCoefficient
                         / Mage_Catalog_Model_Resource_Layer_Filter_Price::MIN_POSSIBLE_PRICE);
-                    $result[$index] = $roundPrices;
+                    $result[(string) $index] = $roundPrices;
                 }
             }
             $tenPower /= 10;
