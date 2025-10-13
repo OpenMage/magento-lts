@@ -250,6 +250,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
 
         $weight = $this->getTotalNumOfBoxes($request->getPackageWeight());
         $weight = $this->_getCorrectWeight($weight);
+
         $r->setWeight($weight);
         if ($request->getFreeMethodWeight() != $request->getPackageWeight()) {
             $r->setFreeMethodWeight($request->getFreeMethodWeight());
@@ -275,6 +276,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
 
         $r->setIsReturn($request->getIsReturn());
         $r->setBaseSubtotalInclTax($request->getBaseSubtotalInclTax());
+
         $this->_rawRequest = $r;
 
         return $this;
@@ -342,6 +344,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups extends Mage_Usa_Model_Shipping_Carrie
 
         $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
         $weight = $this->_getCorrectWeight($weight);
+
         $r->setWeight($weight);
         $r->setAction($this->getCode('action', 'single'));
         $r->setProduct($freeMethod);
@@ -1479,6 +1482,7 @@ XMLAuth;
 
         $servicePart = $shipmentPart->addChild('Service');
         $servicePart->addChild('Code', $request->getShippingMethod());
+
         $packagePart = $shipmentPart->addChild('Package');
         // Package description is same as shipment description because it's one package
         $packagePart->addChild('Description', $shipmentDescription);
@@ -1573,6 +1577,7 @@ XMLAuth;
         $xmlRequest = new SimpleXMLElement('<?xml version = "1.0" ?><ShipmentAcceptRequest/>');
         $request = $xmlRequest->addChild('Request');
         $request->addChild('RequestAction', 'ShipAccept');
+
         $xmlRequest->addChild('ShipmentDigest', $shipmentConfirmResponse->ShipmentDigest);
 
         $debugData = ['request' => $xmlRequest->asXML()];

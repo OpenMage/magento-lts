@@ -59,6 +59,7 @@ class Mage_Adminhtml_Block_Notification_Security extends Mage_Adminhtml_Block_Te
         $http = new Varien_Http_Adapter_Curl();
         $http->setConfig(['timeout' => $this->_verificationTimeOut]);
         $http->write(Zend_Http_Client::POST, $defaultUnsecureBaseURL . $this->_filePath);
+
         $responseBody = $http->read();
         $responseCode = Zend_Http_Response::extractCode($responseBody);
         $http->close();

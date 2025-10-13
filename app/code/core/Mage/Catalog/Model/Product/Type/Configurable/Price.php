@@ -55,6 +55,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
         $productType->setStoreFilter($product->getStore(), $product);
+
         $attributes = $productType->getConfigurableAttributes($product);
 
         $selectedAttributes = [];

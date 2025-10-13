@@ -289,6 +289,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $newPath = $newParent->getData($this->_pathField);
 
         $newPath = $newPath . '/' . $node->getId();
+
         $oldPathLength = strlen($oldPath);
 
         $newLevel = $newParent->getLevel() + 1;

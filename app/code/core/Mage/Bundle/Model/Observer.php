@@ -188,6 +188,7 @@ class Mage_Bundle_Model_Observer
         $productType = $product->getTypeInstance(true);
 
         $productType->setStoreFilter($product->getStoreId(), $product);
+
         $optionCollection = $productType->getOptionsCollection($product);
         $selectionCollection = $productType->getSelectionsCollection(
             $productType->getOptionsIds($product),

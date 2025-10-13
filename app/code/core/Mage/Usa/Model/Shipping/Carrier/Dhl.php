@@ -338,6 +338,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $r->setOrigEmail(Mage::getStoreConfig('trans_email/ident_general/email', $r->getStoreId()));
         $r->setOrigCity($request->getOrigCity());
         $r->setOrigPostal($request->getOrigPostal());
+
         $originStreet1 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS1, $r->getStoreId());
         $originStreet2 = Mage::getStoreConfig(Mage_Shipping_Model_Shipping::XML_PATH_STORE_ADDRESS2, $r->getStoreId());
         $r->setOrigStreet($request->getOrigStreet() ? $request->getOrigStreet() : $originStreet2);
@@ -414,6 +415,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $r = $this->_rawRequest;
 
         $r->setFreeMethodRequest(true);
+
         $weight = $this->getTotalNumOfBoxes($r->getFreeMethodWeight());
         $freeWeight = round(max(1, $weight), 0);
         $r->setWeight($freeWeight);
@@ -526,6 +528,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
 
         $request = $xml->asXML();
         $request = mb_convert_encoding($request, 'UTF-8', 'ISO-8859-1');
+
         $responseBody = $this->_getCachedQuotes($request);
         if ($responseBody === null) {
             $debugData = ['request' => $request];
@@ -656,6 +659,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $shipmentDetail->addChild('ShipmentType')->addChild('Code', $rawRequest->getShipmentType());
         $shipmentDetail->addChild('Weight', $rawRequest->getWeight());
         $shipmentDetail->addChild('ContentDesc', $rawRequest->getContentDesc());
+
         $additionalProtection = $shipmentDetail->addChild('AdditionalProtection');
         $additionalProtection->addChild('Code', $apCode);
         $additionalProtection->addChild('Value', floor($apValue));

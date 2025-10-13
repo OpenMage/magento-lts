@@ -30,6 +30,7 @@ final class FileTest extends OpenMageTest
         /** @var Mage_Core_Model_Config $config */
         $config = Mage::getConfig();
         $config->setNode('global/mime/types/test-new-node', 'application/octet-stream');
+
         self::$subject = Mage::helper('uploader/file');
     }
 

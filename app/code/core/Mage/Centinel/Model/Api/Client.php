@@ -59,6 +59,7 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
 
         $parser = new XMLParser();
         $parser->deserializeXml($result);
+
         $this->response = $parser->deserializedResponse;
     }
 }

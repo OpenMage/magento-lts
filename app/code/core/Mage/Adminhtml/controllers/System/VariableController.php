@@ -103,6 +103,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
         $response = new Varien_Object(['error' => false]);
         $variable = $this->_initVariable();
         $variable->addData($this->getRequest()->getPost('variable'));
+
         $result = $variable->validate();
         if ($result !== true && is_string($result)) {
             $this->_getSession()->addError($result);

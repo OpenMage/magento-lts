@@ -913,6 +913,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $unsortedConfig = new Mage_Core_Model_Config_Base();
         $unsortedConfig->loadString('<config/>');
+
         $fileConfig = new Mage_Core_Model_Config_Base();
 
         // load modules declarations

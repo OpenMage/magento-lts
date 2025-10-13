@@ -53,6 +53,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
 
         $backendLocale = $this->getRequest()->getParam('backend_locale', false);
         $backendLocale = $backendLocale == 0 ? null : $backendLocale;
+
         $user->setBackendLocale($backendLocale);
 
         //Validate current admin password

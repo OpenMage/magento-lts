@@ -100,6 +100,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             ->setBillingType($this->_pro->getApi()->getBillingAgreementType());
 
         $api->callSetCustomerBillingAgreement();
+
         $agreement->setRedirectUrl(
             $this->_pro->getConfig()->getStartBillingAgreementUrl($api->getToken()),
         );
@@ -116,6 +117,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $api = $this->_pro->getApi()
             ->setToken($agreement->getToken());
         $api->callGetBillingAgreementCustomerDetails();
+
         $responseData = [
             'token'         => $api->getData('token'),
             'email'         => $api->getData('email'),
@@ -136,6 +138,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         $api = $this->_pro->getApi()
             ->setToken($agreement->getToken());
         $api->callCreateBillingAgreement();
+
         $agreement->setBillingAgreementId($api->getData('billing_agreement_id'));
         return $this;
     }
@@ -304,6 +307,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
 
         // call api and import transaction and other payment information
         $api->callDoReferenceTransaction();
+
         $this->_pro->importPaymentInfo($api, $payment);
         $api->callGetTransactionDetails();
         $this->_pro->importPaymentInfo($api, $payment);

@@ -931,8 +931,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $productSelections  = $this->getSelectionsCollection($productOptionIds, $product);
         $selectionIds       = $product->getCustomOption('bundle_selection_ids');
         $selectionIds       = (array) unserialize($selectionIds->getValue(), ['allowed_classes' => false]);
+
         $buyRequest         = $product->getCustomOption('info_buyRequest');
         $buyRequest         = new Varien_Object(unserialize($buyRequest->getValue(), ['allowed_classes' => false]));
+
         $bundleOption       = $buyRequest->getBundleOption();
 
         if (empty($bundleOption) && empty($selectionIds)) {

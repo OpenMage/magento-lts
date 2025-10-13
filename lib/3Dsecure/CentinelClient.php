@@ -133,6 +133,7 @@ class CentinelClient
 
         $parser = new XMLParser();
         $parser->deserializeXml($result);
+
         $this->response = $parser->deserializedResponse;
     }
 

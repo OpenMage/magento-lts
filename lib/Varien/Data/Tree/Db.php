@@ -140,6 +140,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
 
         $select = clone $this->_select;
         $select->order($this->_table . '.' . $this->_orderField . ' ASC');
+
         $condition = $this->_conn->quoteInto("$this->_table.$this->_parentField=?", $parentId);
         $select->where($condition);
         $arrNodes = $this->_conn->fetchAll($select);

@@ -186,6 +186,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             'password' => $config['password'],
         ]);
         $connection->cd($config['path']);
+
         $fetched = 0;
         $listing = $this->_filterReportsList($connection->rawls());
         foreach ($listing as $filename => $attributes) {

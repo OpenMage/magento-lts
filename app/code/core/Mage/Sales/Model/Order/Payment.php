@@ -345,6 +345,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         $methodInstance = $this->getMethodInstance();
         $methodInstance->setStore($order->getStoreId());
+
         $orderState = Mage_Sales_Model_Order::STATE_NEW;
         $stateObject = new Varien_Object();
 
@@ -580,6 +581,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE, $invoice, true);
         $message = $this->_prependMessage($message);
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState($state, $status, $message);
         return $this;
     }
@@ -769,6 +771,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         $message = $this->_prependMessage($message);
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
 
         Mage::dispatchEvent('sales_order_payment_refund', ['payment' => $this, 'creditmemo' => $creditmemo]);
@@ -871,6 +874,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             Mage::helper('sales')->__('Registered notification about refunded amount of %s.', $this->_formatPrice($amount)),
         );
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
         return $this;
     }
@@ -1114,6 +1118,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER);
         $message = $this->_prependMessage($message);
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState($state, $status, $message);
         return $this;
     }

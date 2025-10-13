@@ -300,6 +300,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
         $item->setDiscountAmount(0);
         $item->setBaseDiscountAmount(0);
         $item->setDiscountPercent(0);
+
         $quote      = $item->getQuote();
         $address    = $this->_getAddress($item);
 

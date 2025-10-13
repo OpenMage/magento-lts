@@ -168,6 +168,7 @@ class Mage_CatalogInventory_Model_Observer
         $newProduct = $observer->getEvent()->getNewProduct();
 
         $newProduct->unsStockItem();
+
         $stockData = [
             'use_config_min_qty'        => 1,
             'use_config_min_sale_qty'   => 1,

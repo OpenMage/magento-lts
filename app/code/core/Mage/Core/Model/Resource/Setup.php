@@ -361,6 +361,7 @@ class Mage_Core_Model_Resource_Setup
         /** @var Varien_Db_Adapter_Pdo_Mysql $adapter */
         $adapter = $this->getConnection();
         $adapter->setQueryHook(null);
+
         $this->_queriesHooked = false;
         return $this;
     }

@@ -339,6 +339,7 @@ class Mage_DB_Mysqli
     {
         $keys = $this->escapeFieldNames(array_keys($data));
         $keys = '(' . implode(',', $keys) . ')';
+
         $table = $this->escapeTableName($table);
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $values = $this->escapeFieldValues(array_values($data));

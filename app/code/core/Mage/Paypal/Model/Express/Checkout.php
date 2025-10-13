@@ -599,6 +599,7 @@ class Mage_Paypal_Model_Express_Checkout
         $this->_quote->collectTotals();
         $service = Mage::getModel('sales/service_quote', $this->_quote);
         $service->submitAll();
+
         $this->_quote->save();
 
         if ($isNewCustomer) {
@@ -1004,6 +1005,7 @@ class Mage_Paypal_Model_Express_Checkout
         $customer->setPasswordHash($customer->hashPassword($customer->getPassword()));
         $customer->setPasswordCreatedAt(time());
         $customer->save();
+
         $quote->setCustomer($customer);
         $quote->setPasswordHash('');
 

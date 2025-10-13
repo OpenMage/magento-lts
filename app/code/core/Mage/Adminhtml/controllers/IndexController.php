@@ -320,6 +320,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
 
         $user->setNewPassword($password);
         $user->setPasswordConfirmation($passwordConfirmation);
+
         $validationErrorMessages = $user->validate();
         if (is_array($validationErrorMessages)) {
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);

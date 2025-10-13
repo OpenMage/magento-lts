@@ -157,6 +157,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
 
         $filename = $this->getRequest()->getParam('filename');
         $filename = $helper->idDecode($filename);
+
         $asIs = $this->getRequest()->getParam('as_is');
 
         Mage::helper('catalog')->setStoreId($storeId);
@@ -173,6 +174,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
     {
         $file = $this->getRequest()->getParam('file');
         $file = Mage::helper('cms/wysiwyg_images')->idDecode($file);
+
         $thumb = $this->getStorage()->resizeOnTheFly($file);
         if ($thumb !== false) {
             $image = Varien_Image_Adapter::factory('GD2');

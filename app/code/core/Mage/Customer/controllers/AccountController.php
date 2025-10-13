@@ -866,6 +866,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
 
         $customer->setPassword($password);
         $customer->setPasswordConfirmation($passwordConfirmation);
+
         $validationErrorMessages = $customer->validateResetPassword();
         if (is_array($validationErrorMessages)) {
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);

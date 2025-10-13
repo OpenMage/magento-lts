@@ -228,6 +228,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
     {
         $response = new Varien_Object();
         $response->setError(false);
+
         $attributesData = $this->getRequest()->getParam('attributes', []);
         $data = new Varien_Object();
 

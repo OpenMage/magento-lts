@@ -162,10 +162,13 @@ class Mage_Log_Model_Resource_Visitor extends Mage_Core_Model_Resource_Db_Abstra
 
         $referer    = $stringHelper->cleanString($visitor->getHttpReferer());
         $referer    = $stringHelper->substr($referer, 0, 255);
+
         $userAgent  = $stringHelper->cleanString($visitor->getHttpUserAgent());
         $userAgent  = $stringHelper->substr($userAgent, 0, 255);
+
         $charset    = $stringHelper->cleanString($visitor->getHttpAcceptCharset());
         $charset    = $stringHelper->substr($charset, 0, 255);
+
         $language   = $stringHelper->cleanString($visitor->getHttpAcceptLanguage());
         $language   = $stringHelper->substr($language, 0, 255);
 

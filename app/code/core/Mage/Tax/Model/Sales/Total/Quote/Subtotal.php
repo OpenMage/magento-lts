@@ -869,6 +869,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
         $store = $address->getQuote()->getStore();
         $request = $this->_getStoreTaxRequest($address);
         $request->setProductClassId($item->getProduct()->getTaxClassId());
+
         $rate = $this->_calculator->getRate($request);
         $qty = $item->getTotalQty();
 

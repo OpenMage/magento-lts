@@ -398,6 +398,7 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
 
         $uploader  = Mage::getModel('core/file_uploader', self::FIELD_NAME_SOURCE_FILE);
         $uploader->skipDbProcessing(true);
+
         $result    = $uploader->save(self::getWorkingDir());
         $extension = pathinfo($result['file'], PATHINFO_EXTENSION);
 

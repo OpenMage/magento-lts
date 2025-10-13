@@ -16,6 +16,7 @@ class Mage_Xml_Generator
     {
         $this->_dom = new DOMDocument('1.0');
         $this->_dom->formatOutput = true;
+
         $this->_currentDom = $this->_dom;
     }
 

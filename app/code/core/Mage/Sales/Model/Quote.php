@@ -1229,6 +1229,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
         $buyRequest->setResetCount(true);
+
         $resultItem = $this->addProduct($product, $buyRequest);
 
         if (is_string($resultItem)) {

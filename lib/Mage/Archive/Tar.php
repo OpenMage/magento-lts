@@ -349,6 +349,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $infoFile = stat($file);
         $nameFile = str_replace($path, '', $file);
         $nameFile = str_replace('\\', '/', $nameFile);
+
         $packedHeader = '';
         $longHeader = '';
         if (!$long && strlen($nameFile) > 100) {
