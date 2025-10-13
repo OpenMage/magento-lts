@@ -18,6 +18,7 @@ use Rector\Php81\Rector as Php81;
 use Rector\Php82\Rector as Php82;
 use Rector\Php83\Rector as Php83;
 use Rector\Php84\Rector as Php84;
+use Rector\Php85\Rector as Php85;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
@@ -39,6 +40,9 @@ try {
             __DIR__,
         ])
         ->withSkipPath(__DIR__ . '/vendor')
+        ->withRules([
+            Php85\ArrayDimFetch\ArrayFirstLastRector::class,
+        ])
         ->withSkip([
             CodeQuality\Assign\CombinedAssignRector::class, # todo: TMP
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
@@ -55,7 +59,6 @@ try {
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
-            CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP

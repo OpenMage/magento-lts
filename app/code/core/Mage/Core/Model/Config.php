@@ -1337,7 +1337,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
              * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
              * to keep name of previously used nodes, that still may be used by non-updated extensions.
              */
-            $deprecatedNode = $config->deprecatedNode;
+            $deprecatedNode = (string) $config->deprecatedNode;
             $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
             if (isset($configOld->rewrite->$class)) {
                 $className = (string) $configOld->rewrite->$class;

@@ -136,7 +136,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
      * Compare object data with original data
      *
      * @param string $field
-     * @return boolean
+     * @return bool
      */
     public function dataHasChangedFor($field)
     {

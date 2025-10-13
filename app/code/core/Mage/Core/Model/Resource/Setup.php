@@ -683,7 +683,7 @@ class Mage_Core_Model_Resource_Setup
      * @param string $field
      * @param string $parentField
      * @param string|int $parentId
-     * @return mixed|boolean
+     * @return mixed|bool
      */
     public function getTableRow($table, $idField, $id, $field = null, $parentField = null, $parentId = 0)
     {

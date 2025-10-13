@@ -206,7 +206,7 @@ final class Mage
         if (self::getOpenMageMajorVersion() === 20) {
             return [
                 'major'     => '20',
-                'minor'     => '14',
+                'minor'     => '15',
                 'patch'     => '0',
                 'stability' => '', // beta,alpha,rc
                 'number'    => '', // 1,2,3,0.3.7,x.7.z.92 @see https://semver.org/#spec-item-9
@@ -634,7 +634,7 @@ final class Mage
      *
      * @param string $module
      * @param string $message
-     * @param integer $code
+     * @param int $code
      * @return Mage_Core_Exception
      */
     public static function exception($module = 'Mage_Core', $message = '', $code = 0)
@@ -703,7 +703,7 @@ final class Mage
             } else {
                 self::$_app->init($code, $type, $options);
             }
-        } catch (Mage_Core_Model_Session_Exception $e) {
+        } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die;
         } catch (Mage_Core_Model_Store_Exception $e) {
@@ -746,7 +746,7 @@ final class Mage
                 'options'    => $options,
             ]);
             Varien_Profiler::stop('mage');
-        } catch (Mage_Core_Model_Session_Exception $e) {
+        } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die();
         } catch (Mage_Core_Model_Store_Exception $e) {
@@ -857,7 +857,7 @@ final class Mage
             if (empty($file)) {
                 $file = self::getStoreConfig('dev/log/file');
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $logActive = true;
         }
 
@@ -869,7 +869,7 @@ final class Mage
 
         try {
             $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             $maxLogLevel = Zend_Log::DEBUG;
         }
 
@@ -924,7 +924,7 @@ final class Mage
 
             $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
     }
 

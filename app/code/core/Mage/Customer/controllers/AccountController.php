@@ -161,7 +161,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     }
                     $session->addError($message);
                     $session->setUsername($login['username']);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     // Mage::logException($e); // PA DSS violation: this exception log can disclose customer password
                 }
             } else {
@@ -715,8 +715,14 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     {
         $email = (string) $this->getRequest()->getPost('email');
         if ($email) {
+            if (!Zend_Validate::is($email, 'EmailAddress')) {
+                $this->_getSession()->setForgottenEmail($email);
+                $this->_getSession()->addError($this->__('Invalid email address.'));
+                $this->_redirect('*/*/forgotpassword');
+                return;
+            }
+
             $flowPassword = Mage::getModel('customer/flowpassword');
-            $flowPassword->setEmail($email)->save();
 
             if (!$flowPassword->checkCustomerForgotPasswordFlowEmail($email)) {
                 $this->_getSession()
@@ -731,20 +737,15 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 return;
             }
 
-            if (!Zend_Validate::is($email, 'EmailAddress')) {
-                $this->_getSession()->setForgottenEmail($email);
-                $this->_getSession()->addError($this->__('Invalid email address.'));
-                $this->_redirect('*/*/forgotpassword');
-                return;
-            }
-
             $customer = Mage::getModel('customer/customer')
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
                 ->loadByEmail($email);
 
             $customerId = $customer->getId();
-            if ($customerId) {
-                try {
+
+            try {
+                $flowPassword->setEmail($email)->save();
+                if ($customerId) {
                     /** @var Helper $helper */
                     $helper = $this->_getHelper('customer');
                     $newResetPasswordLinkToken = $helper->generateResetPasswordLinkToken();
@@ -752,12 +753,13 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     $customer->changeResetPasswordLinkCustomerId($newResetPasswordLinkCustomerId);
                     $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
                     $customer->sendPasswordResetConfirmationEmail();
-                } catch (Exception $exception) {
-                    $this->_getSession()->addError($exception->getMessage());
-                    $this->_redirect('*/*/forgotpassword');
-                    return;
                 }
+            } catch (Exception $exception) {
+                $this->_getSession()->addError($exception->getMessage());
+                $this->_redirect('*/*/forgotpassword');
+                return;
             }
+
             $this->_getSession()
                 ->addSuccess($this->_getHelper('customer')
                 ->__(
@@ -784,7 +786,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
             $this->loadLayout();
             $this->renderLayout();
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->_getSession()->addError($this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword');
         }
@@ -805,7 +807,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
             $this->_saveRestorePasswordParameters($customerId, $resetPasswordLinkToken)
                 ->_redirect('*/*/changeforgotten');
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->_getSession()->addError($this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword');
         }

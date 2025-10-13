@@ -889,7 +889,7 @@ class Mage_Core_Model_App
     {
         try {
             return $this->getStore($id);
-        } catch (Exception $e) {
+        } catch (Exception) {
             if ($this->_currentStore) {
                 $this->getRequest()->setActionName('noRoute');
                 return new Varien_Object();

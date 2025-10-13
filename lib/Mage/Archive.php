@@ -93,7 +93,7 @@ class Mage_Archive
     *
     * @param string $source
     * @param string $destination
-    * @param boolean $skipRoot skip first level parent
+    * @param bool $skipRoot skip first level parent
     * @return string Path to file
     */
     public function pack($source, $destination = 'packed.tgz', $skipRoot = false)
@@ -172,7 +172,7 @@ class Mage_Archive
     * Check file is archive.
     *
     * @param string $file
-    * @return boolean
+    * @return bool
     */
     public function isArchive($file)
     {
@@ -187,7 +187,7 @@ class Mage_Archive
     * Check file is TAR.
     *
     * @param mixed $file
-    * @return boolean
+    * @return bool
     */
     public function isTar($file)
     {

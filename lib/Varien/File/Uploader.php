@@ -373,7 +373,7 @@ class Varien_File_Uploader
                 return $validator->isValid($this->_file['tmp_name']);
             }
             return true;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -467,7 +467,7 @@ class Varien_File_Uploader
      * Check if specified extension is allowed
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function checkAllowedExtension($extension)
     {
@@ -482,7 +482,7 @@ class Varien_File_Uploader
      * @deprecated after 1.5.0.0-beta2
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function chechAllowedExtension($extension)
     {

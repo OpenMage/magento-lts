@@ -472,7 +472,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
     /**
      *  Return weight in pounds
      *
-     *  @param integer $weight Weight in someone measure
+     *  @param int $weight Weight in someone measure
      *  @return float Weight in pounds
      */
     public function convertWeightToLbs($weight)

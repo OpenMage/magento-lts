@@ -507,7 +507,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
      * will be built using above mentioned structure
      *
      * @param string $fieldName Field name must be already escaped with Varien_Db_Adapter_Interface::quoteIdentifier()
-     * @param integer|string|array $condition
+     * @param int|string|array $condition
      * @return string
      */
     protected function _getConditionSql($fieldName, $condition)

@@ -7,6 +7,8 @@
  * @package    Mage_Core
  */
 
+use Mage_Adminhtml_Model_System_Config_Source_Cookie_Samesite as CookieSamesite;
+
 /**
  * @package    Mage_Core
  *
@@ -109,6 +111,11 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             'samesite' => $cookie->getSameSite(),
         ];
 
+        if (!$cookie->isSecure() && $cookieParams['samesite'] === CookieSamesite::NONE) {
+            // PHP doesn't allow to set SameSite=None for non-secure cookies
+            unset($cookieParams['samesite']);
+        }
+
         if (!$cookieParams['httponly']) {
             unset($cookieParams['httponly']);
             if (!$cookieParams['secure']) {
@@ -129,12 +136,12 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
             $this->setSessionName($sessionName);
 
             // Migrate old cookie from 'frontend'
-            if ($sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
+            if ($sessionName === Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
                 && $cookie->get('frontend')
-                && ! $cookie->get(\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE)
+                && ! $cookie->get(Mage_Core_Controller_Front_Action::SESSION_NAMESPACE)
             ) {
                 $frontendValue = $cookie->get('frontend');
-                $_COOKIE[\Mage_Core_Controller_Front_Action::SESSION_NAMESPACE] = $frontendValue;
+                $_COOKIE[Mage_Core_Controller_Front_Action::SESSION_NAMESPACE] = $frontendValue;
                 $cookie->set(Mage_Core_Controller_Front_Action::SESSION_NAMESPACE, $frontendValue);
                 $cookie->delete('frontend');
             }
@@ -172,7 +179,7 @@ class Mage_Core_Model_Session_Abstract_Varien extends Varien_Object
 
             // Migrate old cookie from 'frontend'
             if (!$cookieValue
-                && $sessionName === \Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
+                && $sessionName === Mage_Core_Controller_Front_Action::SESSION_NAMESPACE
                 && $cookie->get('frontend_cid')
             ) {
                 $cookieValue = $cookie->get('frontend_cid');

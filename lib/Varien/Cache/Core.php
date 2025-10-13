@@ -103,7 +103,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  array $tags           Cache tags
      * @param bool|int $specificLifetime If != false, set a specific lifetime for this cache record (null => infinite lifetime)
      * @param  int $priority         integer between 0 (very low priority) and 10 (maximum priority) used by some particular backends
-     * @return boolean True if no problem
+     * @return bool True if no problem
      */
     public function save($data, $id = null, $tags = [], $specificLifetime = false, $priority = 8)
     {
@@ -185,7 +185,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
      * @param  string       $mode
      * @param  array|string $tags
      * @throws Zend_Cache_Exception
-     * @return boolean True if ok
+     * @return bool True if ok
      */
     public function clean($mode = 'all', $tags = [])
     {

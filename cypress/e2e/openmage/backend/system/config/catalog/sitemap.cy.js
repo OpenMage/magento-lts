@@ -1,38 +1,40 @@
-const route = cy.testRoutes.backend.system.config.catalog.sitemap;
-const saveButton = cy.testRoutes.backend.system.config._buttonSave;
+const test = cy.openmage.test.backend.system.config.catalog.sitemap.config;
 const validation = cy.openmage.validation;
 
-describe(`Checks admin system "${route.h3}" settings`, () => {
+describe(`Checks admin system "${test.section.title}" settings`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGetConfiguration(route);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.section);
+        cy.openmage.admin.goToSection(test.section);
     });
 
-    const priority = route.__validation.priority._input;
+    const fields = test.section.priority;
+
+    it(`tests save empty values, no js`, () => {
+        validation.fillFields(fields, validation.requiredEntry);
+        validation.removeClasses(fields);
+
+        const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
+        const screenshot = 'message.sytem.config.catalog.sitemap.saveEmptyWithoutJs';
+        cy.openmage.test.backend.system.config.clickSave();
+        validation.hasErrorMessage(message, { screenshot: true, filename: screenshot });
+    });
 
     it(`tests invalid string priority`, () => {
-        validation.fillFields(priority, validation.number, validation.test.string);
-        validation.saveAction(saveButton);
-        validation.validateFields(priority, validation.number);
+        validation.fillFields(fields, validation.number, validation.test.string);
+        cy.openmage.test.backend.system.config.clickSave();
+        validation.validateFields(fields, validation.number);
     });
 
     it(`tests invalid number priority`, () => {
-        validation.fillFields(priority, validation.numberRange, validation.test.numberGreater1);
-        validation.saveAction(saveButton);
-        validation.validateFields(priority, validation.numberRange);
+        validation.fillFields(fields, validation.numberRange, validation.test.numberGreater1);
+        cy.openmage.test.backend.system.config.clickSave();
+        validation.validateFields(fields, validation.numberRange);
      });
 
     it(`tests empty priority`, () => {
-        validation.fillFields(priority, validation.requiredEntry);
-        validation.saveAction(saveButton);
-        validation.validateFields(priority, validation.requiredEntry);
-    });
-
-    it(`tests empty priority, no js`, () => {
-        const error = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
-        validation.fillFields(priority, validation.requiredEntry);
-        validation.removeClasses(priority);
-        validation.saveAction(saveButton);
-        cy.get(cy.openmage.validation._errorMessage).should('include.text', error);
+        validation.fillFields(fields, validation.requiredEntry);
+        cy.openmage.test.backend.system.config.clickSave();
+        validation.validateFields(fields, validation.requiredEntry);
     });
 });

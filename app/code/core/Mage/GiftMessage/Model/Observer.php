@@ -67,7 +67,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
      * Geter for available gift messages value from product
      *
      * @deprecated after 1.5.0.0
-     * @param Mage_Catalog_Model_Product|integer $product
+     * @param Mage_Catalog_Model_Product|int $product
      * @return int|null
      */
     protected function _getAvailable($product)
@@ -110,7 +110,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                             $giftMessage->delete();
                             $entity->setGiftMessageId(0)
                                 ->save();
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                         }
                     }
                     continue;
@@ -124,7 +124,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
 
                     $entity->setGiftMessageId($giftMessage->getId())
                         ->save();
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
         }
