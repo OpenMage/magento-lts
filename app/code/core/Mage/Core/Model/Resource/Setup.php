@@ -208,7 +208,7 @@ class Mage_Core_Model_Resource_Setup
                 continue;
             }
             $className = self::class;
-            if (isset($resource->setup->class)) {
+            if ($resource->setup->class !== null) {
                 $className = $resource->setup->getClassName();
             }
             /** @var Mage_Core_Model_Resource_Setup $setupClass */
@@ -243,7 +243,7 @@ class Mage_Core_Model_Resource_Setup
                 continue;
             }
             $className = self::class;
-            if (isset($resource->setup->class)) {
+            if ($resource->setup->class !== null) {
                 $className = $resource->setup->getClassName();
             }
             /** @var Mage_Core_Model_Resource_Setup $setupClass */

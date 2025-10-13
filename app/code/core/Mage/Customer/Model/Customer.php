@@ -1307,7 +1307,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function unsetSubscription()
     {
-        if (isset($this->_isSubscribed)) {
+        if (property_exists($this, '_isSubscribed') && $this->_isSubscribed !== null) {
             unset($this->_isSubscribed);
         }
         return $this;

@@ -190,7 +190,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      */
     public function resetFlatCollection()
     {
-        if (isset($this->_forceFlatStatusOld)) {
+        if ($this->_forceFlatStatusOld !== null) {
             $this->_forceFlatStatus = $this->_forceFlatStatusOld;
         } else {
             $this->_forceFlatStatus = false;

@@ -1057,17 +1057,17 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                         * Code 0== airbill  found
                                         */
                                         $rArr['service'] = (string) $txml->Service->Desc;
-                                        if (isset($txml->Weight)) {
+                                        if (property_exists($txml, 'Weight') && $txml->Weight !== null) {
                                             $rArr['weight'] = (string) $txml->Weight . ' lbs';
                                         }
-                                        if (isset($txml->Delivery)) {
+                                        if (property_exists($txml, 'Delivery') && $txml->Delivery !== null) {
                                             $rArr['deliverydate'] = (string) $txml->Delivery->Date;
                                             $rArr['deliverytime'] = (string) $txml->Delivery->Time . ':00';
                                             $rArr['status'] = Mage::helper('usa')->__('Delivered');
-                                            if (isset($txml->Delivery->Location->Desc)) {
+                                            if (property_exists($txml->Delivery->Location, 'Desc') && $txml->Delivery->Location->Desc !== null) {
                                                 $rArr['deliverylocation'] = (string) $txml->Delivery->Location->Desc;
                                             }
-                                        } elseif (isset($txml->Pickup)) {
+                                        } elseif (property_exists($txml, 'Pickup') && $txml->Pickup !== null) {
                                             $rArr['deliverydate'] = (string) $txml->Pickup->Date;
                                             $rArr['deliverytime'] = (string) $txml->Pickup->Time . ':00';
                                             $rArr['status'] = Mage::helper('usa')->__('Shipment picked up');
@@ -1077,20 +1077,20 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                         }
 
                                         $packageProgress = [];
-                                        if (isset($txml->TrackingHistory) && isset($txml->TrackingHistory->Status)) {
+                                        if (property_exists($txml, 'TrackingHistory') && $txml->TrackingHistory !== null && (property_exists($txml->TrackingHistory, 'Status') && $txml->TrackingHistory->Status !== null)) {
                                             foreach ($txml->TrackingHistory->Status as $thistory) {
                                                 $tempArr = [];
                                                 $tempArr['activity'] = (string) $thistory->StatusDesc;
                                                 $tempArr['deliverydate'] = (string) $thistory->Date; //YYYY-MM-DD
                                                 $tempArr['deliverytime'] = (string) $thistory->Time . ':00'; //HH:MM:ss
                                                 $addArr = [];
-                                                if (isset($thistory->Location->City)) {
+                                                if (property_exists($thistory->Location, 'City') && $thistory->Location->City !== null) {
                                                     $addArr[] = (string) $thistory->Location->City;
                                                 }
-                                                if (isset($thistory->Location->State)) {
+                                                if (property_exists($thistory->Location, 'State') && $thistory->Location->State !== null) {
                                                     $addArr[] = (string) $thistory->Location->State;
                                                 }
-                                                if (isset($thistory->Location->CountryCode)) {
+                                                if (property_exists($thistory->Location, 'CountryCode') && $thistory->Location->CountryCode !== null) {
                                                     $addArr[] = (string) $thistory->Location->Country;
                                                 }
                                                 if ($addArr) {
@@ -1103,13 +1103,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                                     * city, state and country
                                                     */
                                                     $addArr = [];
-                                                    if (isset($txml->Receiver->City)) {
+                                                    if (property_exists($txml->Receiver, 'City') && $txml->Receiver->City !== null) {
                                                         $addArr[] = (string) $txml->Receiver->City;
                                                     }
-                                                    if (isset($thistory->Receiver->State)) {
+                                                    if (property_exists($thistory->Receiver, 'State') && $thistory->Receiver->State !== null) {
                                                         $addArr[] = (string) $txml->Receiver->State;
                                                     }
-                                                    if (isset($thistory->Receiver->CountryCode)) {
+                                                    if (property_exists($thistory->Receiver, 'CountryCode') && $thistory->Receiver->CountryCode !== null) {
                                                         $addArr[] = (string) $txml->Receiver->Country;
                                                     }
                                                     $tempArr['deliverylocation'] = implode(', ', $addArr);

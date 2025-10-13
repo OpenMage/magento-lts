@@ -970,11 +970,11 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
             if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
-                    if (isset($xml->Number) && isset($xml->Description) && (string) $xml->Description != '') {
+                    if (property_exists($xml, 'Number') && $xml->Number !== null && (property_exists($xml, 'Description') && $xml->Description !== null) && (string) $xml->Description != '') {
                         $errorTitle = (string) $xml->Description;
-                    } elseif (isset($xml->TrackInfo)
-                          && isset($xml->TrackInfo->Error)
-                          && isset($xml->TrackInfo->Error->Description)
+                    } elseif (property_exists($xml, 'TrackInfo') && $xml->TrackInfo !== null
+                          && (property_exists($xml->TrackInfo, 'Error') && $xml->TrackInfo->Error !== null)
+                          && (property_exists($xml->TrackInfo->Error, 'Description') && $xml->TrackInfo->Error->Description !== null)
                           && (string) $xml->TrackInfo->Error->Description != ''
                     ) {
                         $errorTitle = (string) $xml->TrackInfo->Error->Description;
@@ -982,7 +982,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                         $errorTitle = Mage::helper('usa')->__('Unknown error');
                     }
 
-                    if (isset($xml->TrackInfo) && isset($xml->TrackInfo->TrackSummary)) {
+                    if (property_exists($xml, 'TrackInfo') && $xml->TrackInfo !== null && (property_exists($xml->TrackInfo, 'TrackSummary') && $xml->TrackInfo->TrackSummary !== null)) {
                         $resultArr['tracksummary'] = (string) $xml->TrackInfo->TrackSummary;
                     }
                 }

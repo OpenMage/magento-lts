@@ -87,7 +87,7 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
     public function setPath($path, $isRecursion = '')
     {
         if (is_dir($path)) {
-            if (isset($this->_path) && $this->_path != $path && $this->_path != '') {
+            if ($this->_path !== null && $this->_path != $path && $this->_path != '') {
                 $this->_path = $path;
                 if ($isRecursion != '') {
                     $this->_isRecursion = $isRecursion;

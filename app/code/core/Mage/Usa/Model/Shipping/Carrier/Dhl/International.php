@@ -907,28 +907,28 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
                     if (in_array($xml->getName(), ['ErrorResponse', 'ShipmentValidateErrorResponse'])
-                        || isset($xml->GetQuoteResponse->Note->Condition)) {
+                        || property_exists($xml->GetQuoteResponse->Note, 'Condition') && $xml->GetQuoteResponse->Note->Condition !== null) {
                         $code = null;
                         $data = null;
                         $nodeCondition = $xml->Response->Status->Condition ?? $xml->GetQuoteResponse->Note->Condition;
                         if ($this->_isShippingLabelFlag) {
                             foreach ($nodeCondition as $condition) {
-                                $code = isset($condition->ConditionCode) ? (string) $condition->ConditionCode : 0;
-                                $data = isset($condition->ConditionData) ? (string) $condition->ConditionData : '';
+                                $code = property_exists($condition, 'ConditionCode') && $condition->ConditionCode !== null ? (string) $condition->ConditionCode : 0;
+                                $data = property_exists($condition, 'ConditionData') && $condition->ConditionData !== null ? (string) $condition->ConditionData : '';
                                 if (!empty($code) && !empty($data)) {
                                     break;
                                 }
                             }
                             Mage::throwException(Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data)));
                         }
-                        $code = isset($nodeCondition->ConditionCode) ? (string) $nodeCondition->ConditionCode : 0;
-                        $data = isset($nodeCondition->ConditionData) ? (string) $nodeCondition->ConditionData : '';
+                        $code = property_exists($nodeCondition, 'ConditionCode') && $nodeCondition->ConditionCode !== null ? (string) $nodeCondition->ConditionCode : 0;
+                        $data = property_exists($nodeCondition, 'ConditionData') && $nodeCondition->ConditionData !== null ? (string) $nodeCondition->ConditionData : '';
                         $this->_errors[$code] = Mage::helper('usa')->__('Error #%s : %s', trim($code), trim($data));
-                    } elseif (isset($xml->GetQuoteResponse->BkgDetails->QtdShp)) {
+                    } elseif (property_exists($xml->GetQuoteResponse->BkgDetails, 'QtdShp') && $xml->GetQuoteResponse->BkgDetails->QtdShp !== null) {
                         foreach ($xml->GetQuoteResponse->BkgDetails->QtdShp as $quotedShipment) {
                             $this->_addRate($quotedShipment);
                         }
-                    } elseif (isset($xml->AirwayBillNumber)) {
+                    } elseif (property_exists($xml, 'AirwayBillNumber') && $xml->AirwayBillNumber !== null) {
                         $result = new Varien_Object();
                         $result->setTrackingNumber((string) $xml->AirwayBillNumber);
                         try {
@@ -981,10 +981,10 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
      */
     protected function _addRate(SimpleXMLElement $shipmentDetails)
     {
-        if (isset($shipmentDetails->ProductShortName)
-            && isset($shipmentDetails->ShippingCharge)
-            && isset($shipmentDetails->GlobalProductCode)
-            && isset($shipmentDetails->CurrencyCode)
+        if (property_exists($shipmentDetails, 'ProductShortName') && $shipmentDetails->ProductShortName !== null
+            && (property_exists($shipmentDetails, 'ShippingCharge') && $shipmentDetails->ShippingCharge !== null)
+            && (property_exists($shipmentDetails, 'GlobalProductCode') && $shipmentDetails->GlobalProductCode !== null)
+            && (property_exists($shipmentDetails, 'CurrencyCode') && $shipmentDetails->CurrencyCode !== null)
             && array_key_exists((string) $shipmentDetails->GlobalProductCode, $this->getAllowedMethods())
         ) {
             // DHL product code, e.g. '3', 'A', 'Q', etc.
@@ -1030,7 +1030,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             }
         } else {
             $dhlProductDescription = false;
-            if (isset($shipmentDetails->GlobalProductCode)) {
+            if (property_exists($shipmentDetails, 'GlobalProductCode') && $shipmentDetails->GlobalProductCode !== null) {
                 $dhlProductDescription  = $this->getDhlProductTitle((string) $shipmentDetails->GlobalProductCode);
             }
             $dhlProductDescription = $dhlProductDescription ? $dhlProductDescription : Mage::helper('usa')->__('DHL');
@@ -1613,21 +1613,21 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if (!is_object($xml)) {
                 $errorTitle = Mage::helper('usa')->__('Response is in the wrong format');
             }
-            if (is_object($xml) && ((isset($xml->Response->Status->ActionStatus)
+            if (is_object($xml) && ((property_exists($xml->Response->Status, 'ActionStatus') && $xml->Response->Status->ActionStatus !== null
                 && $xml->Response->Status->ActionStatus == 'Failure')
-                || isset($xml->GetQuoteResponse->Note->Condition))
+                || property_exists($xml->GetQuoteResponse->Note, 'Condition') && $xml->GetQuoteResponse->Note->Condition !== null)
             ) {
-                if (isset($xml->Response->Status->Condition)) {
+                if (property_exists($xml->Response->Status, 'Condition') && $xml->Response->Status->Condition !== null) {
                     $nodeCondition = $xml->Response->Status->Condition;
                 }
 
-                $code = isset($nodeCondition->ConditionCode) ? (string) $nodeCondition->ConditionCode : 0;
-                $data = isset($nodeCondition->ConditionData) ? (string) $nodeCondition->ConditionData : '';
+                $code = property_exists($nodeCondition, 'ConditionCode') && $nodeCondition->ConditionCode !== null ? (string) $nodeCondition->ConditionCode : 0;
+                $data = property_exists($nodeCondition, 'ConditionData') && $nodeCondition->ConditionData !== null ? (string) $nodeCondition->ConditionData : '';
                 $this->_errors[$code] = Mage::helper('usa')->__('Error #%s : %s', $code, $data);
             } elseif (is_object($xml) && is_object($xml->AWBInfo)) {
                 foreach ($xml->AWBInfo as $awbinfo) {
                     $awbinfoData = [];
-                    $trackNum = isset($awbinfo->AWBNumber) ? (string) $awbinfo->AWBNumber : '';
+                    $trackNum = property_exists($awbinfo, 'AWBNumber') && $awbinfo->AWBNumber !== null ? (string) $awbinfo->AWBNumber : '';
                     if (!is_object($awbinfo) || !$awbinfo->ShipmentInfo) {
                         $this->_errors[$trackNum] = Mage::helper('usa')->__('Unable to retrieve tracking');
                         continue;
@@ -1641,7 +1641,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                     $awbinfoData['weight'] = (string) $shipmentInfo->Weight . ' ' . (string) $shipmentInfo->WeightUnit;
 
                     $packageProgress = [];
-                    if (isset($shipmentInfo->ShipmentEvent)) {
+                    if (property_exists($shipmentInfo, 'ShipmentEvent') && $shipmentInfo->ShipmentEvent !== null) {
                         foreach ($shipmentInfo->ShipmentEvent as $shipmentEvent) {
                             $shipmentEventArray = [];
                             $shipmentEventArray['activity'] = (string) $shipmentEvent->ServiceEvent->EventCode

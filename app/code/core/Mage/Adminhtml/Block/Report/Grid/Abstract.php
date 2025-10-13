@@ -33,7 +33,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         $this->setFilterVisibility(false);
         $this->setPagerVisibility(false);
         $this->setUseAjax(false);
-        if (isset($this->_columnGroupBy)) {
+        if ($this->_columnGroupBy !== null) {
             $this->isColumnGrouped($this->_columnGroupBy, true);
         }
         $this->setEmptyCellLabel(Mage::helper('adminhtml')->__('No records found for this period.'));

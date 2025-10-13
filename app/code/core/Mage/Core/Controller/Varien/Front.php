@@ -280,7 +280,7 @@ class Mage_Core_Controller_Varien_Front extends Varien_Object
 
             $pathInfo = preg_replace($from, $to, $request->getPathInfo());
 
-            if (isset($rewrite->complete)) {
+            if ($rewrite->complete !== null) {
                 $request->setPathInfo($pathInfo);
             } else {
                 $request->rewritePathInfo($pathInfo);

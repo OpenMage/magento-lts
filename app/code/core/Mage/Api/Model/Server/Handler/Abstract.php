@@ -257,8 +257,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return;
         }
 
-        if (!isset($resources->$resourceName->public)
-            && isset($resources->$resourceName->acl)
+        if ((!property_exists($resources->$resourceName, 'public') || $resources->$resourceName->public === null)
+            && (property_exists($resources->$resourceName, 'acl') && $resources->$resourceName->acl !== null)
             && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
             $this->_fault('access_denied');
@@ -276,7 +276,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         $methodInfo = $resources->$resourceName->methods->$methodName;
         $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
 
-        if (!isset($resources->$resourceName->model)) {
+        if (!property_exists($resources->$resourceName, 'model') || $resources->$resourceName->model === null) {
             throw new Mage_Api_Exception('resource_path_not_callable');
         }
 
@@ -374,8 +374,8 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 }
             }
 
-            if (!isset($resources->$resourceName->public)
-                && isset($resources->$resourceName->acl)
+            if ((!property_exists($resources->$resourceName, 'public') || $resources->$resourceName->public === null)
+                && (property_exists($resources->$resourceName, 'acl') && $resources->$resourceName->acl !== null)
                 && !$this->_isAllowed((string) $resources->$resourceName->acl)
             ) {
                 $result[] = $this->_faultAsArray('access_denied');
@@ -401,7 +401,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $methodInfo = $resources->$resourceName->methods->$methodName;
             $method = (isset($methodInfo->method) ? (string) $methodInfo->method : $methodName);
 
-            if (!isset($resources->$resourceName->model)) {
+            if (!property_exists($resources->$resourceName, 'model') || $resources->$resourceName->model === null) {
                 throw new Mage_Api_Exception('resource_path_not_callable');
             }
 
@@ -471,13 +471,13 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         }
 
         foreach ($this->_getConfig()->getResources() as $resourceName => $resource) {
-            if (isset($resource->acl) && !$this->_isAllowed((string) $resource->acl)) {
+            if (property_exists($resource, 'acl') && $resource->acl !== null && !$this->_isAllowed((string) $resource->acl)) {
                 continue;
             }
 
             $methods = [];
             foreach ($resource->methods->children() as $methodName => $method) {
-                if (isset($method->acl) && !$this->_isAllowed((string) $method->acl)) {
+                if (property_exists($method, 'acl') && $method->acl !== null && !$this->_isAllowed((string) $method->acl)) {
                     continue;
                 }
                 $methodAliases = [];
@@ -489,7 +489,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
                 $methods[] = [
                     'title'       => (string) $method->title,
-                    'description' => (isset($method->description) ? (string) $method->description : null),
+                    'description' => (property_exists($method, 'description') && $method->description !== null ? (string) $method->description : null),
                     'path'        => $resourceName . '.' . $methodName,
                     'name'        => $methodName,
                     'aliases'     => $methodAliases,
@@ -502,7 +502,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
 
             $resources[] = [
                 'title'       => (string) $resource->title,
-                'description' => (isset($resource->description) ? (string) $resource->description : null),
+                'description' => (property_exists($resource, 'description') && $resource->description !== null ? (string) $resource->description : null),
                 'name'        => $resourceName,
                 'aliases'     => $resourcesAlias[$resourceName] ?? [],
                 'methods'     => $methods,
@@ -543,7 +543,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             return;
         }
 
-        if (isset($resources->$resourceName->acl)
+        if (property_exists($resources->$resourceName, 'acl') && $resources->$resourceName->acl !== null
             && !$this->_isAllowed((string) $resources->$resourceName->acl)
         ) {
             $this->_fault('access_denied');

@@ -1614,12 +1614,12 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             ->setTransactionStatus((string) $responseTransactionXmlDocument->transactionStatus)
         ;
         //some additional fields:
-        isset($responseTransactionXmlDocument->responseReasonDescription) && $response->setResponseReasonDescription((string) $responseTransactionXmlDocument->responseReasonDescription);
-        isset($responseTransactionXmlDocument->FDSFilterAction)           && $response->setFdsFilterAction((string) $responseTransactionXmlDocument->FDSFilterAction);
-        isset($responseTransactionXmlDocument->FDSFilters)                && $response->setFdsFilters(serialize($responseTransactionXmlDocument->FDSFilters->asArray()));
-        isset($responseTransactionXmlDocument->transactionType)           && $response->setTransactionType((string) $responseTransactionXmlDocument->transactionType);
-        isset($responseTransactionXmlDocument->submitTimeUTC)             && $response->setSubmitTimeUtc((string) $responseTransactionXmlDocument->submitTimeUTC);
-        isset($responseTransactionXmlDocument->submitTimeLocal)           && $response->setSubmitTimeLocal((string) $responseTransactionXmlDocument->submitTimeLocal);
+        $responseTransactionXmlDocument->responseReasonDescription !== null && $response->setResponseReasonDescription((string) $responseTransactionXmlDocument->responseReasonDescription);
+        $responseTransactionXmlDocument->FDSFilterAction !== null           && $response->setFdsFilterAction((string) $responseTransactionXmlDocument->FDSFilterAction);
+        $responseTransactionXmlDocument->FDSFilters !== null                && $response->setFdsFilters(serialize($responseTransactionXmlDocument->FDSFilters->asArray()));
+        $responseTransactionXmlDocument->transactionType !== null           && $response->setTransactionType((string) $responseTransactionXmlDocument->transactionType);
+        $responseTransactionXmlDocument->submitTimeUTC !== null             && $response->setSubmitTimeUtc((string) $responseTransactionXmlDocument->submitTimeUTC);
+        $responseTransactionXmlDocument->submitTimeLocal !== null           && $response->setSubmitTimeLocal((string) $responseTransactionXmlDocument->submitTimeLocal);
 
         return $response;
     }
