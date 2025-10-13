@@ -19,19 +19,26 @@ test.config = {
 
 /**
  * Configuration for "Newsletter Templates" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.newsletter.template.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Newsletter Templates',
     url: test.config.url,
     _grid: '#newsletterTemplateGrid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Template"]',
-            __class: base.__buttons.add.__class,
-            click: () => {
-                tools.click(test.config.index.__buttons.add._, 'Add New Newsletter Templates button clicked');
-            },
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Newsletter Templates" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.newsletter.template.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Template"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Newsletter Templates button clicked');
         },
     },
 }

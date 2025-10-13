@@ -19,19 +19,26 @@ test.config = {
 
 /**
  * Configuration for "Manage Products" page
- * @type {{__buttons: {add: {_: string}}, title: string, url: string, _grid: string, clickAdd: (function(): void)}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {})}}
  */
 test.config.index = {
     title: 'Manage Products',
     url: test.config.url,
     _grid: '#productGrid_table',
-    __buttons: {
-        add: {
-            _: test.config._button + '[title="Add Product"]',
-            __class: base.__buttons.add.__class,
-            click: () => {
-                tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
-            },
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Manage Products" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.catalog.product.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: test.config._button + '[title="Add Product"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
         },
     },
 }

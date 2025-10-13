@@ -112,7 +112,7 @@ cy.openmage.test.backend.__base.__buttons.print = {
 
 /**
  * Configuration for "Send Email" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.enail.click, _: string}}
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.email.click, _: string}}
  */
 cy.openmage.test.backend.__base.__buttons.email = {
     _: cy.openmage.test.backend.__base._button + '[title="Send Email"]',
@@ -124,7 +124,7 @@ cy.openmage.test.backend.__base.__buttons.email = {
 
 /**
  * Configuration for "Convert to Plain Text" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.enail.click, _: string}}
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.convertToPlain.click, _: string}}
  */
 cy.openmage.test.backend.__base.__buttons.convertToPlain = {
     _: cy.openmage.test.backend.__base._button + '[title="Convert to Plain Text"]',
@@ -136,13 +136,25 @@ cy.openmage.test.backend.__base.__buttons.convertToPlain = {
 
 /**
  * Configuration for "Convert to Plain Text" button
- * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.enail.click, _: string}}
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.preview.click, _: string}}
  */
 cy.openmage.test.backend.__base.__buttons.preview = {
     _: cy.openmage.test.backend.__base._button + '[title="Preview Template"]',
     __class: ['scalable', 'task', 'preview'],
     click: () => {
         cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.preview._, 'Preview Text button clicked');
+    },
+};
+
+/**
+ * Configuration for "Save and Apply" button
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.saveAndApply.click, _: string}}
+ */
+cy.openmage.test.backend.__base.__buttons.saveAndApply = {
+    _: cy.openmage.test.backend.__base._button + '[title="Save and Apply"]',
+    __class: ['scalable', 'apply'],
+    click: () => {
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.saveAndApply._, 'Save and Apply button clicked');
     },
 };
 
@@ -215,13 +227,13 @@ cy.openmage.test.backend.__base.__buttonsSets.newNoContinue = {
  * Buttons configuration for backend sales pages
  * @type {{
  *      save: cy.openmage.test.backend.__base.__buttons.print,
- *      back: cy.openmage.test.backend.__base.__buttons.enail,
+ *      back: cy.openmage.test.backend.__base.__buttons.email,
  *      reset: cy.openmage.test.backend.__base.__buttons.back,
  * }}
  */
 cy.openmage.test.backend.__base.__buttonsSets.sales = {
     print: cy.openmage.test.backend.__base.__buttons.print,
-    email: cy.openmage.test.backend.__base.__buttons.enail,
+    email: cy.openmage.test.backend.__base.__buttons.email,
     back: cy.openmage.test.backend.__base.__buttons.back,
 };
 

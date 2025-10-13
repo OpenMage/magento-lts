@@ -9,7 +9,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.removeClassesAll();
 
         // TODO: fix it
@@ -29,7 +29,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
     });
 });

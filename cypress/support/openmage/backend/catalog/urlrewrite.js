@@ -19,20 +19,27 @@ test.config = {
 
 /**
  * Configuration for "URL Rewrite Management" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.cagtalog.urlRewrite.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'URL Rewrite Management',
     url: test.config.url,
     _grid: '#urlrewriteGrid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add URL Rewrite"]',
-            __class: base.__buttons.add.__class,
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "URL Rewrite Management" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.catalog.urlRewrite.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add URL Rewrite"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add URL Rewrite button clicked');
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add URL Rewrite button clicked');
     },
 }
 

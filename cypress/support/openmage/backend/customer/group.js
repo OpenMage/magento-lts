@@ -33,23 +33,30 @@ test.config = {
 
 /**
  * Configuration for "Customer Groups" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.customer.group.config.index.clickAdd, clickGridRow: cy.openmage.test.backend.customer.group.config.index.clickGridRow}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}, , clickGridRow: (function(*=, *=): void)}}
  */
 test.config.index = {
     title: 'Customer Groups',
     url: test.config.url,
     _grid: '#customerGroupGrid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Customer Group"]',
-            __class: base.__buttons.add.__class,
-        },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Customer Groups button clicked');
-    },
+    __buttons: {},
     clickGridRow: (content = '', selector = 'td') => {
         tools.grid.clickContains(test.config.index, content, selector);
+    },
+}
+
+/**
+ * Configuration for buttons on "Customer Groups" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.customer.group.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Customer Group"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Customer Groups button clicked');
+        },
     },
 }
 

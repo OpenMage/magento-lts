@@ -9,7 +9,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
@@ -38,7 +38,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
 
         test.new.__buttons.reset.click();

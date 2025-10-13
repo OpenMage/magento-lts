@@ -10,7 +10,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.removeClasses(test.new);
 
         //const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
@@ -37,7 +37,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
 
         test.new.__buttons.reset.click();
@@ -48,7 +48,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it('tests to add a CMS page', () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         test.edit.__buttons.saveAndContinue.click();
 
         // @todo add validation for required fields

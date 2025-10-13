@@ -42,19 +42,25 @@ test.config = {
 
 /**
  * Configuration for "Search Terms" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.catalog.search.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Search',
     url: test.config.url,
     _grid: '#catalog_search_grid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Search Term"]',
-            __class: base.__buttons.add.__class,
-            click: (log = 'Add Search Term button clicked') => {
-                tools.click(test.config.index.__buttons.add._, log);
-            },
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Search Terms" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.catalog.search.config.index.__buttons.add.click, _: string}}}
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Search Term"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add Search Term button clicked');
         },
     },
 }

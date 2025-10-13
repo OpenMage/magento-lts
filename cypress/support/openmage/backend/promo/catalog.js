@@ -19,27 +19,34 @@ test.config = {
 
 /**
  * Configuration for "Catalog Price Rules" page
- * @type {{__buttons: {add: string, apply: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.promo.catalog.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Catalog Price Rules',
     url: test.config.url,
     _grid: '#promo_catalog_grid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Rule"]',
-            __class: base.__buttons.add.__class,
-        },
-        apply: {
-            _: base._button + '[title="Apply Rules"]',
-            __class: ['scalable', 'apply'],
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Catalog Price Rules" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.promo.catalog.config.index.__buttons.add.click, _: string}, apply: {__class: string[], click: cy.openmage.test.backend.promo.catalog.config.index.__buttons.apply.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Rule"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Catalog Price Rule button clicked');
         },
     },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Catalog Price Rule button clicked');
-    },
-    clickApply: () => {
-        tools.click(test.config.index.__buttons.apply._, 'Apply Rules button clicked');
+    apply: {
+        _: base._button + '[title="Apply Rules"]',
+        __class: ['scalable', 'apply'],
+        click: () => {
+            tools.click(test.config.index.__buttons.apply._, 'Apply Rules button clicked');
+        },
     },
 }
 
@@ -53,16 +60,10 @@ test.config.edit = {
     __buttons: {
         save: base.__buttons.save,
         saveAndContinue: base.__buttons.saveAndContinue,
-        saveAndApply: {
-            _: base._button + '[title="Save and Apply"]',
-            __class: ['scalable', 'apply'],
-        },
+        saveAndApply: base.__buttons.saveAndApply,
         delete: base.__buttons.delete,
         back: base.__buttons.back,
         reset: base.__buttons.reset,
-    },
-    clickSaveAndApply: () => {
-        tools.click(test.config.edit.__buttons.saveAndApply._, 'Save and Apply button clicked');
     },
 }
 
@@ -76,14 +77,8 @@ test.config.new = {
     __buttons: {
         save: base.__buttons.save,
         saveAndContinue: base.__buttons.saveAndContinue,
-        saveAndApply: {
-            _: base._button + '[title="Save and Apply"]',
-            __class: ['scalable', 'apply'],
-        },
+        saveAndApply: base.__buttons.saveAndApply,
         back: base.__buttons.back,
         reset: base.__buttons.reset,
-    },
-    clickSaveAndApply: () => {
-        tools.click(test.config.new.__buttons.saveAndApply._, 'Save and Apply button clicked');
     },
 }

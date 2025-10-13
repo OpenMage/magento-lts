@@ -96,23 +96,30 @@ test.config = {
 
 /**
  * Configuration for "Pages" page
- * @type {{__buttons: {add: string}, clickGridRow: cy.openmage.test.backend.cms.page.config.index.clickGridRow, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.cms.page.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}, clickGridRow: cy.openmage.test.backend.cms.page.config.index.clickGridRow}}
  */
 test.config.index = {
     title: 'Manage Pages',
     url: test.config.url,
     _grid: '#cmsPageGrid',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Page"]',
-            __class: base.__buttons.add.__class,
-        },
-    },
-    clickAdd: (log = 'Add New Page button clicked') => {
-        tools.click(test.config.index.__buttons.add._, log);
-    },
+    __buttons: {},
     clickGridRow: (content = '', _ = 'td') => {
         tools.grid.clickContains(test.config.index, content, _);
+    },
+}
+
+/**
+ * Configuration for buttons on "Pages" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.cms.page.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Page"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Page button clicked');
+        },
     },
 }
 
