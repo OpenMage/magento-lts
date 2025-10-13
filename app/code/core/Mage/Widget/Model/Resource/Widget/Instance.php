@@ -56,7 +56,7 @@ class Mage_Widget_Model_Resource_Widget_Instance extends Mage_Core_Model_Resourc
 
         $removePageIds = array_diff($pageIds, $object->getData('page_group_ids'));
 
-        if (is_array($pageIds) && count($pageIds) > 0) {
+        if (is_array($pageIds) && $pageIds !== []) {
             $inCond = $readAdapter->prepareSqlCondition('page_id', ['in' => $pageIds]);
 
             $select = $readAdapter->select()

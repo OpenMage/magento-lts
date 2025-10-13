@@ -959,7 +959,7 @@ class Mage_Core_Model_Design_Package
                 }
             }
 
-            if (count($fileDirParts)) {
+            if ($fileDirParts !== []) {
                 $fileDir = implode('/', $fileDirParts) . '/';
             }
 

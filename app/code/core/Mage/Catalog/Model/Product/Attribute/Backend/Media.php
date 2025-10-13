@@ -72,7 +72,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if ($this->getAttribute()->getIsRequired()) {
             $value = $object->getData($this->getAttribute()->getAttributeCode());
             if ($this->getAttribute()->isValueEmpty($value)) {
-                if (!(is_array($value) && count($value) > 0)) {
+                if (!(is_array($value) && $value !== [])) {
                     return false;
                 }
             }

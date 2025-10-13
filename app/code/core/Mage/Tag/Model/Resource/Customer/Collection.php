@@ -272,7 +272,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $productsId = array_unique($productsId);
 
         /* small fix */
-        if (!count($productsId)) {
+        if ($productsId === []) {
             return $this;
         }
 

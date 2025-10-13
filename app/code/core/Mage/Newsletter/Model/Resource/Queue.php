@@ -123,7 +123,7 @@ class Mage_Newsletter_Model_Resource_Queue extends Mage_Core_Model_Resource_Db_A
             $subscriberIds[] = $subscriber->getId();
         }
 
-        if (count($subscriberIds) > 0) {
+        if ($subscriberIds !== []) {
             $this->addSubscribersToQueue($queue, $subscriberIds);
         }
 

@@ -103,7 +103,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
                 'entity.attribute_group_id = attribute_group.attribute_group_id',
                 ['group_sort_order' => 'sort_order'],
             );
-        if (count($attributeIds) > 0) {
+        if ($attributeIds !== []) {
             $select->where('entity.attribute_id IN (?)', $attributeIds);
         }
 
@@ -124,7 +124,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
             $attributeToSetInfo[$row['attribute_id']][$row['attribute_set_id']] = $data;
         }
 
-        if (count($attributeIds)) {
+        if ($attributeIds !== []) {
             foreach ($attributeIds as $atttibuteId) {
                 $setInfo[$atttibuteId] = $attributeToSetInfo[$atttibuteId] ?? [];
             }

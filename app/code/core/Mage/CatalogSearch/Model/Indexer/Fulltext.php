@@ -278,7 +278,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     $searchableAttributes = array_intersect($this->_getSearchableAttributes(), array_keys($attrData));
                 }
 
-                if (count($searchableAttributes) > 0) {
+                if ($searchableAttributes !== []) {
                     $rebuildIndex = true;
                     $reindexData['catalogsearch_force_reindex'] = true;
                 }

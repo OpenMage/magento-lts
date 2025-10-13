@@ -428,7 +428,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $parts = explode('_', $realModule);
         $realModule = implode('_', array_splice($parts, 0, 2));
         $file = Mage::getModuleDir('controllers', $realModule);
-        if (count($parts)) {
+        if ($parts !== []) {
             $file .= DS . implode(DS, $parts);
         }
 

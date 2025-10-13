@@ -101,7 +101,7 @@ try {
             }
         }
 
-        if (!count($insertQueryItems)) {
+        if ($insertQueryItems === []) {
             continue;
         }
 

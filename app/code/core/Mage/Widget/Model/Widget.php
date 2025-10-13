@@ -153,7 +153,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = clone $widgets;
 
         // filter widgets by params
-        if (is_array($filters) && count($filters) > 0) {
+        if (is_array($filters) && $filters !== []) {
             foreach ($widgets as $code => $widget) {
                 try {
                     $reflection = new ReflectionObject($widget);

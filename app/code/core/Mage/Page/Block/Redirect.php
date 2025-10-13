@@ -95,7 +95,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      */
     public function isHtmlFormRedirect()
     {
-        return is_array($this->_getFormFields()) && count($this->_getFormFields()) > 0;
+        return is_array($this->_getFormFields()) && $this->_getFormFields() !== [];
     }
 
     /**

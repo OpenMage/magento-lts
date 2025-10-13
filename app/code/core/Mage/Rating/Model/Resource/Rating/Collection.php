@@ -249,7 +249,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             ->where($inCond);
 
         $data = $adapter->fetchAll($this->_select);
-        if (is_array($data) && count($data) > 0) {
+        if (is_array($data) && $data !== []) {
             foreach ($data as $row) {
                 $item = $this->getItemById($row['rating_id']);
                 $item->setStores(array_merge($item->getStores(), [$row['store_id']]));

@@ -457,7 +457,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 $tracks = $shipment->getAllTracks();
             }
 
-            if (count($tracks)) {
+            if ($tracks !== []) {
                 $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
                 $page->setLineWidth(0.5);
                 $page->drawRectangle(285, $yShipments, 510, $yShipments - 10);

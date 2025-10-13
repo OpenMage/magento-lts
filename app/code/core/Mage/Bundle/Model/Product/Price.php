@@ -925,7 +925,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     $prices[] = $value->getPrice();
                 }
 
-                if (count($prices)) {
+                if ($prices !== []) {
                     $finalPrice += min($prices);
                 }
             } else {

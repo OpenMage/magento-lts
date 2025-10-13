@@ -240,7 +240,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                     $flatAttributes = array_intersect($this->_getFlatAttributes(), array_keys($attrData));
                 }
 
-                if (count($flatAttributes) > 0) {
+                if ($flatAttributes !== []) {
                     $reindexFlat = true;
                     $reindexData['catalog_product_flat_force_update'] = true;
                 }

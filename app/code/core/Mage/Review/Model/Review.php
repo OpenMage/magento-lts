@@ -183,7 +183,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             $entityIds[] = $item->getId();
         }
 
-        if (!count($entityIds)) {
+        if ($entityIds === []) {
             return $this;
         }
 

@@ -154,7 +154,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         if (isset($data['types']) && is_array($data['types'])) {
             $assignedTypes = $this->_getImageTypesAssignedToProduct($imageFileUri);
             $typesToBeCleared = array_diff($assignedTypes, $data['types']);
-            if (count($typesToBeCleared) > 0) {
+            if ($typesToBeCleared !== []) {
                 $this->_getMediaGallery()->clearMediaAttribute($product, $typesToBeCleared);
             }
 

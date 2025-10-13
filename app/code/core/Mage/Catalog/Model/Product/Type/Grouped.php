@@ -344,7 +344,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                 $products[] = $product;
             }
 
-            if (count($products)) {
+            if ($products !== []) {
                 return $products;
             }
         }

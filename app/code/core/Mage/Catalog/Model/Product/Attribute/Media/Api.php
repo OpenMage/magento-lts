@@ -241,7 +241,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
             $clear = array_diff($oldTypes, $data['types']);
 
-            if (count($clear) > 0) {
+            if ($clear !== []) {
                 $gallery->getBackend()->clearMediaAttribute($product, $clear);
             }
 

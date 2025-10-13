@@ -168,7 +168,7 @@ class Mage_Shipping_Model_Rate_Result
      */
     public function sortRatesByPrice()
     {
-        if (!is_array($this->_rates) || !count($this->_rates)) {
+        if (!is_array($this->_rates) || $this->_rates === []) {
             return $this;
         }
 

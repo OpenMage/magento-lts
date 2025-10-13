@@ -135,7 +135,7 @@ class Mage_ConfigurableSwatches_Helper_Mediafallback extends Mage_Core_Helper_Ab
                 $mapping[$key]['product_ids'] = array_unique($mapping[$key]['product_ids']);
             }
 
-            if (count($listSwatchValues)) {
+            if ($listSwatchValues !== []) {
                 $listSwatchValues = array_replace(
                     array_intersect_key($optionLabels, $listSwatchValues),
                     $listSwatchValues,

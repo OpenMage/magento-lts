@@ -390,7 +390,7 @@ class Mage_Catalog_Model_Convert_Parser_Product extends Mage_Eav_Model_Convert_P
         }
 
         // set importinted to adaptor
-        if (count($inventoryFields)) {
+        if ($inventoryFields !== []) {
             Mage::register('current_imported_inventory', $inventoryFields);
             //$this->setInventoryItems($inventoryFields);
         } // end setting imported to adaptor
