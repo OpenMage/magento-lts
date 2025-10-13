@@ -1,0 +1,22 @@
+From 8450a6e8c01f1f594641a53c45419e32e51fb749 Mon Sep 17 00:00:00 2001
+From: Fabrizio Balliano <fabrizio.balliano@gmail.com>
+Date: Wed, 21 Feb 2024 19:35:08 +0000
+Subject: [PATCH] Fixed undefined array key "parenthesis_opener"
+
+---
+ Ecg/Sniffs/Performance/LoopSniff.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Ecg/Sniffs/Performance/LoopSniff.php b/Ecg/Sniffs/Performance/LoopSniff.php
+index 3e9f9ec..3d4efed 100644
+--- a/Ecg/Sniffs/Performance/LoopSniff.php
++++ b/Ecg/Sniffs/Performance/LoopSniff.php
+@@ -70,7 +70,7 @@ public function process(File $phpcsFile, $stackPtr)
+             return;
+         }
+
+-        for ($ptr = $tokens[$stackPtr]['parenthesis_opener'] + 1; $ptr < $tokens[$stackPtr]['scope_closer']; $ptr++) {
++        for ($ptr = ($tokens[$stackPtr]['parenthesis_opener'] ?? 0) + 1; $ptr < $tokens[$stackPtr]['scope_closer']; $ptr++) {
+             $content = $tokens[$ptr]['content'];
+             if ($tokens[$ptr]['code'] !== T_STRING || in_array($ptr, $this->processedStackPointers)) {
+                 continue;
