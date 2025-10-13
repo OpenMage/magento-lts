@@ -31,6 +31,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
+
         $orderId = $this->getRequest()->getParam('order_id');
         if ($orderId) {
             $txn->setOrderUrl(
@@ -70,6 +71,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         if (!$txn) {
             return;
         }
+
         $this->_title($this->__('Sales'))
             ->_title($this->__('Transactions'))
             ->_title(sprintf('#%s', $txn->getTxnId()));
@@ -88,6 +90,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
         if (!$txn) {
             return;
         }
+
         try {
             $txn->getOrderPaymentObject()
                 ->setOrder($txn->getOrder())
@@ -104,6 +107,7 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
             );
             Mage::logException($e);
         }
+
         $this->_redirect('*/sales_transactions/view', ['_current' => true]);
     }
 
@@ -113,11 +117,11 @@ class Mage_Adminhtml_Sales_TransactionsController extends Mage_Adminhtml_Control
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'fetch':
-                return Mage::getSingleton('admin/session')->isAllowed('sales/transactions/fetch');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('sales/transactions');
-        }
+        $aclPath = match ($action) {
+            'fetch' => 'sales/transactions/fetch',
+            default => 'sales/transactions',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

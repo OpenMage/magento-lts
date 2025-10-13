@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Model_Url as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class UrlTest extends OpenMageTest
+final class UrlTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,7 +30,7 @@ class UrlTest extends OpenMageTest
      */
     public function testEscape(): void
     {
-        static::assertSame('%22%27%3E%3C', self::$subject->escape('"\'><'));
+        self::assertSame('%22%27%3E%3C', self::$subject->escape('"\'><'));
     }
 
     /**
@@ -38,6 +38,6 @@ class UrlTest extends OpenMageTest
      */
     public function testGetSecure(): void
     {
-        static::assertIsBool(self::$subject->getSecure());
+        self::assertIsBool(self::$subject->getSecure());
     }
 }

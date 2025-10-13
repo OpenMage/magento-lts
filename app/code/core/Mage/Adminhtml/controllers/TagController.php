@@ -276,6 +276,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                     $tag = Mage::getModel('tag/tag')->load($tagId);
                     $tag->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($tagIds)),
                 );
@@ -306,6 +307,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                         ->setStatus($this->getRequest()->getParam('status'));
                     $tag->save();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     $this->__('Total of %d record(s) have been updated.', count($tagIds)),
                 );
@@ -313,6 +315,7 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $ret = $this->getRequest()->getParam('ret') ? $this->getRequest()->getParam('ret') : 'index';
         $this->_redirect('*/*/' . $ret);
     }
@@ -323,13 +326,12 @@ class Mage_Adminhtml_TagController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'pending':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/pending');
-            case 'all':
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag/all');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('catalog/tag');
-        }
+        $aclPath = match ($action) {
+            'pending' => 'catalog/tag/pending',
+            'all' => 'catalog/tag/all',
+            default => 'catalog/tag',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

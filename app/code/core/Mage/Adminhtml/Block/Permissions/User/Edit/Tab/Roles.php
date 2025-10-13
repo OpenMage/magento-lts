@@ -30,16 +30,16 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             if (empty($userRoles)) {
                 $userRoles = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('role_id', ['in' => $userRoles]);
-            } else {
-                if ($userRoles) {
-                    $this->getCollection()->addFieldToFilter('role_id', ['nin' => $userRoles]);
-                }
+            } elseif ($userRoles) {
+                $this->getCollection()->addFieldToFilter('role_id', ['nin' => $userRoles]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -88,6 +88,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
         if ($this->getRequest()->getParam('user_roles') != '') {
             return $this->getRequest()->getParam('user_roles');
         }
+
         /** @var Mage_Admin_Model_User $user */
         $user = Mage::registry('permissions_user');
         //checking if we have this data and we
@@ -103,6 +104,7 @@ class Mage_Adminhtml_Block_Permissions_User_Edit_Tab_Roles extends Mage_Adminhtm
             foreach ($uRoles as $urid) {
                 $jsonRoles[$urid] = 0;
             }
+
             return Mage::helper('core')->jsonEncode((object) $jsonRoles);
         } else {
             return $uRoles;

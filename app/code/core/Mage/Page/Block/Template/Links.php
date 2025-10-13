@@ -78,6 +78,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
         if (is_null($label) || $label === false) {
             return $this;
         }
+
         $link = new Varien_Object([
             'label'         => $label,
             'url'           => ($prepare ? $this->getUrl($url, (is_array($urlParams) ? $urlParams : [])) : $url),
@@ -124,6 +125,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             $position = (int) $block->getPosition();
             $this->_addIntoPosition($block, $position);
         }
+
         return $this;
     }
 
@@ -140,6 +142,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
                 unset($this->_links[$key]);
             }
         }
+
         return $this;
     }
 
@@ -177,6 +180,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
                     }
                 }
             }
+
             $this->_cacheKeyInfo = parent::getCacheKeyInfo() + [
                 'links' => base64_encode(serialize($links)),
                 'name' => $this->getNameInLayout(),
@@ -201,8 +205,10 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
+
             return $result;
         }
+
         return '';
     }
 
@@ -217,6 +223,7 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             $this->_links[array_key_first($this->_links)]->setIsFirst(true);
             $this->_links[array_key_last($this->_links)]->setIsLast(true);
         }
+
         return parent::_beforeToHtml();
     }
 
@@ -237,8 +244,10 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
             foreach (array_keys($this->_links) as $k) {
                 $position = $k;
             }
+
             $position += 10;
         }
+
         return $position;
     }
 

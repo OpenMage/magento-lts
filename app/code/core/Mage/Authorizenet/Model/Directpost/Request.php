@@ -176,6 +176,7 @@ class Mage_Authorizenet_Model_Directpost_Request extends Varien_Object
                 $fpTimestamp,
             );
         }
+
         $this->setXFpTimestamp($fpTimestamp);
         $this->setXFpHash($hash);
         return $this;

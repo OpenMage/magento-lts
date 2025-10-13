@@ -27,6 +27,7 @@ class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
         if ($storeId == null) {
             $storeId = Mage::app()->getStore()->getId();
         }
+
         return $storeId;
     }
 
@@ -41,6 +42,7 @@ class Mage_Rss_Block_Abstract extends Mage_Core_Block_Template
         if ($custGroupID == null) {
             $custGroupID = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
+
         return $custGroupID;
     }
 }

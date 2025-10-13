@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_defaultWidth = 55;
+
     protected $_values;
 
     /**
@@ -27,8 +28,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
         if (is_null($this->_values)) {
             $this->_values = $this->getColumn()->getData('values') ? $this->getColumn()->getData('values') : [];
         }
+
         return $this->_values;
     }
+
     /**
      * Renders grid column
      *
@@ -96,6 +99,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Checkbox extends Mage_Adm
         if ($this->getColumn()->getDisabled()) {
             $disabled = ' disabled="disabled"';
         }
+
         $html = '<input type="checkbox" ';
         $html .= 'name="' . $this->getColumn()->getFieldName() . '" ';
         $html .= 'onclick="' . $this->getColumn()->getGrid()->getJsObjectName() . '.checkCheckboxes(this)" ';

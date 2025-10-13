@@ -212,6 +212,7 @@ abstract class Mage_Adminhtml_Helper_Help_Mapping extends Mage_Core_Helper_Abstr
         } else {
             $targetToFind = $controllerName . '/' . $actionName;
         }
+
         if (isset($this->_moduleMappings[$frontModule])
             && isset($this->_moduleMappings[$frontModule][$targetToFind])
         ) {

@@ -38,11 +38,13 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
         if (!$connection) {
             return $this;
         }
+
         $indexes = Mage::getConfig()->getNode(Mage_Index_Model_Process::XML_PATH_INDEXER_DATA);
         $indexCodes = [];
         foreach ($indexes->children() as $code => $index) {
             $indexCodes[] = $code;
         }
+
         $table = $this->getTable('index/process');
         $select = $connection->select()->from($table, 'indexer_code');
         $existingIndexes = $connection->fetchCol($select);
@@ -52,6 +54,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
         if (!empty($delete)) {
             $connection->delete($table, $connection->quoteInto('indexer_code IN (?)', $delete));
         }
+
         if (!empty($insert)) {
             $insertData = [];
             foreach ($insert as $code) {
@@ -60,6 +63,7 @@ class Mage_Index_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
                     'status' => Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX,
                 ];
             }
+
             if (method_exists($connection, 'insertArray')) {
                 $connection->insertArray($table, ['indexer_code', 'status'], $insertData);
             }

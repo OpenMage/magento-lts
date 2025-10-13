@@ -15,7 +15,7 @@ use Mage_Adminhtml_Block_Widget_Grid as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Adminhtml\Block\Widget\GridTrait;
 
-class GridTest extends OpenMageTest
+final class GridTest extends OpenMageTest
 {
     use GridTrait;
 
@@ -33,6 +33,6 @@ class GridTest extends OpenMageTest
      */
     public function testAddColumnDefaultData(array $expectedResult, array $column): void
     {
-        static::assertSame($expectedResult, self::$subject->addColumnDefaultData($column));
+        self::assertSame($expectedResult, self::$subject->addColumnDefaultData($column));
     }
 }

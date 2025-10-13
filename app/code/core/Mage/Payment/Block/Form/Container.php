@@ -78,6 +78,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
                 $block->setTemplate($template);
             }
         }
+
         return $this;
     }
 
@@ -104,8 +105,10 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
                     $methods[] = $method;
                 }
             }
+
             $this->setData('methods', $methods);
         }
+
         return $methods;
     }
 
@@ -121,6 +124,7 @@ class Mage_Payment_Block_Form_Container extends Mage_Core_Block_Template
             reset($methods);
             return current($methods)->getCode();
         }
+
         return false;
     }
 }

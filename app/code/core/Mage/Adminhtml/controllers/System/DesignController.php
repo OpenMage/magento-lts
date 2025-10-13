@@ -92,6 +92,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
             if ($id) {
                 $design->setId($id);
             }
+
             try {
                 $design->save();
 
@@ -126,6 +127,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
                     ->addException($e, $this->__('Cannot delete the design change.'));
             }
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
     }
 }

@@ -176,23 +176,20 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
      */
     protected function _registerCatalogCategoryEvent(Event $event)
     {
-        switch ($event->getType()) {
-            case Event::TYPE_SAVE:
-                /** @var Category $category */
-                $category = $event->getDataObject();
-
-                /**
-                 * Check if category has another affected category ids (category move result)
-                 */
-                $affectedCategoryIds = $category->getAffectedCategoryIds();
-                if ($affectedCategoryIds) {
-                    $event->addNewData('catalog_category_flat_affected_category_ids', $affectedCategoryIds);
-                } else {
-                    $event->addNewData('catalog_category_flat_category_id', $category->getId());
-                }
-
-                break;
+        if ($event->getType() === Event::TYPE_SAVE) {
+            /** @var Category $category */
+            $category = $event->getDataObject();
+            /**
+             * Check if category has another affected category ids (category move result)
+             */
+            $affectedCategoryIds = $category->getAffectedCategoryIds();
+            if ($affectedCategoryIds) {
+                $event->addNewData('catalog_category_flat_affected_category_ids', $affectedCategoryIds);
+            } else {
+                $event->addNewData('catalog_category_flat_category_id', $category->getId());
+            }
         }
+
         return $this;
     }
 
@@ -208,6 +205,7 @@ class Mage_Catalog_Model_Category_Indexer_Flat extends Mage_Index_Model_Indexer_
             $store = $event->getDataObject();
             $event->addNewData('catalog_category_flat_delete_store_id', $store->getId());
         }
+
         return $this;
     }
 

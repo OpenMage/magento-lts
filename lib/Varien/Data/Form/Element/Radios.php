@@ -33,6 +33,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
         if (is_null($separator)) {
             $separator = '&nbsp;';
         }
+
         return $separator;
     }
 
@@ -48,6 +49,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
                 $html .= $this->_optionToHtml($option, $value);
             }
         }
+
         return $html . $this->getAfterElementHtml();
     }
 
@@ -64,6 +66,7 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
             if ($option['value'] == $selected) {
                 $html .= ' checked="checked"';
             }
+
             $html .= ' />';
             $html .= '<label class="inline" for="' . $this->getHtmlId() . $option['value'] . '">' . $option['label'] . '</label>';
         } elseif ($option instanceof Varien_Object) {
@@ -71,9 +74,11 @@ class Varien_Data_Form_Element_Radios extends Varien_Data_Form_Element_Abstract
             if (in_array($option->getValue(), $selected)) {
                 $html .= ' checked="checked"';
             }
+
             $html .= ' />';
             $html .= '<label class="inline" for="' . $this->getHtmlId() . $option->getValue() . '">' . $option->getLabel() . '</label>';
         }
+
         return $html . ($this->getSeparator() . "\n");
     }
 }

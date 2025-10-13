@@ -192,10 +192,10 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                 $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                 break;
             case Mage_Catalog_Model_Product_Flat_Indexer::ENTITY:
-                switch ($event->getType()) {
-                    case Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD:
-                        $event->addNewData('id', $event->getDataObject()->getId());
+                if ($event->getType() === Mage_Catalog_Model_Product_Flat_Indexer::EVENT_TYPE_REBUILD) {
+                    $event->addNewData('id', $event->getDataObject()->getId());
                 }
+
                 break;
         }
     }
@@ -240,7 +240,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                     $flatAttributes = array_intersect($this->_getFlatAttributes(), array_keys($attrData));
                 }
 
-                if (count($flatAttributes) > 0) {
+                if ($flatAttributes !== []) {
                     $reindexFlat = true;
                     $reindexData['catalog_product_flat_force_update'] = true;
                 }
@@ -252,6 +252,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
                         $event->addNewData($k, $v);
                     }
                 }
+
                 break;
         }
 
@@ -270,6 +271,7 @@ class Mage_Catalog_Model_Product_Indexer_Flat extends Mage_Index_Model_Indexer_A
             $store = $event->getDataObject();
             $event->addNewData('catalog_product_flat_delete_store_id', $store->getId());
         }
+
         return $this;
     }
 

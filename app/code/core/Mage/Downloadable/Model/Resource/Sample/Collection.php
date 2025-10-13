@@ -25,7 +25,7 @@ class Mage_Downloadable_Model_Resource_Sample_Collection extends Mage_Core_Model
     /**
      * Method for product filter
      *
-     * @param Mage_Catalog_Model_Product|array|integer|null $product
+     * @param Mage_Catalog_Model_Product|array|int|null $product
      * @return $this
      */
     public function addProductToFilter($product)

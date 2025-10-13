@@ -33,6 +33,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Identifier constant for Tax calculation before discount excluding TAX
      */
     public const CALC_TAX_BEFORE_DISCOUNT_ON_EXCL      = '0_0';
+
     /***/
 
     /**
@@ -54,10 +55,12 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
      * Identifier constant for unit based calculation
      */
     protected $_rates                           = [];
+
     /**
      * Identifier constant for row based calculation
      */
     protected $_ctc                             = [];
+
     /**
      * Identifier constant for total based calculation
      */
@@ -150,6 +153,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             $defaultCustomerGroup = Mage::helper('customer')->getDefaultCustomerGroupId($store);
             $this->_defaultCustomerTaxClass = Mage::getModel('customer/group')->getTaxClassId($defaultCustomerGroup);
         }
+
         return $this->_defaultCustomerTaxClass;
     }
 
@@ -170,6 +174,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
                 $this->_customer = false;
             }
         }
+
         return $this->_customer;
     }
 
@@ -196,6 +201,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if (!isset($this->_rates[$ruleId])) {
             $this->_rates[$ruleId] = $this->_getResource()->getDistinct('tax_calculation_rate_id', $ruleId);
         }
+
         return $this->_rates[$ruleId];
     }
 
@@ -210,6 +216,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if (!isset($this->_ctc[$ruleId])) {
             $this->_ctc[$ruleId] = $this->_getResource()->getDistinct('customer_tax_class_id', $ruleId);
         }
+
         return $this->_ctc[$ruleId];
     }
 
@@ -224,6 +231,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if (!isset($this->_ptc[$ruleId])) {
             $this->_ptc[$ruleId] = $this->getResource()->getDistinct('product_tax_class_id', $ruleId);
         }
+
         return $this->_ptc[$ruleId];
     }
 
@@ -275,9 +283,11 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
             } else {
                 $this->setCalculationProcess($this->_formCalculationProcess());
             }
+
             $this->_rateCache[$cacheKey] = $this->getRateValue();
             $this->_rateCalculationProcess[$cacheKey] = $this->getCalculationProcess();
         }
+
         return $this->_rateCache[$cacheKey];
     }
 
@@ -383,34 +393,31 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if ($shippingAddress === false && $billingAddress === false && $customerTaxClass === false) {
             return $this->getRateOriginRequest($store);
         }
+
         $address = new Varien_Object();
         $customer = $this->getCustomer();
         $basedOn = Mage::getStoreConfig(Mage_Tax_Model_Config::CONFIG_XML_PATH_BASED_ON, $store);
 
         if (($shippingAddress === false && $basedOn == 'shipping')
-            || ($billingAddress === false && $basedOn == 'billing')
-        ) {
+            || ($billingAddress === false && $basedOn == 'billing')) {
             $basedOn = 'default';
-        } else {
-            if ((($billingAddress === false || is_null($billingAddress) || !$billingAddress->getCountryId())
-                && $basedOn == 'billing')
-                || (($shippingAddress === false || is_null($shippingAddress) || !$shippingAddress->getCountryId())
-                    && $basedOn == 'shipping')
-            ) {
-                if ($customer) {
-                    $defBilling = $customer->getDefaultBillingAddress();
-                    $defShipping = $customer->getDefaultShippingAddress();
+        } elseif ((($billingAddress === false || is_null($billingAddress) || !$billingAddress->getCountryId())
+            && $basedOn == 'billing')
+            || (($shippingAddress === false || is_null($shippingAddress) || !$shippingAddress->getCountryId())
+                && $basedOn == 'shipping')) {
+            if ($customer) {
+                $defBilling = $customer->getDefaultBillingAddress();
+                $defShipping = $customer->getDefaultShippingAddress();
 
-                    if ($basedOn == 'billing' && $defBilling && $defBilling->getCountryId()) {
-                        $billingAddress = $defBilling;
-                    } elseif ($basedOn == 'shipping' && $defShipping && $defShipping->getCountryId()) {
-                        $shippingAddress = $defShipping;
-                    } else {
-                        $basedOn = 'default';
-                    }
+                if ($basedOn == 'billing' && $defBilling && $defBilling->getCountryId()) {
+                    $billingAddress = $defBilling;
+                } elseif ($basedOn == 'shipping' && $defShipping && $defShipping->getCountryId()) {
+                    $shippingAddress = $defShipping;
                 } else {
                     $basedOn = 'default';
                 }
+            } else {
+                $basedOn = 'default';
             }
         }
 
@@ -479,6 +486,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if ($country && $region && $postcode && $taxClass) {
             return true;
         }
+
         /**
          * Compare available tax rates for both requests
          */
@@ -578,6 +586,7 @@ class Mage_Tax_Model_Calculation extends Mage_Core_Model_Abstract
         if (!isset($this->_rateCalculationProcess[$cacheKey])) {
             $this->_rateCalculationProcess[$cacheKey] = $this->_getResource()->getCalculationProcess($request);
         }
+
         return $this->_rateCalculationProcess[$cacheKey];
     }
 

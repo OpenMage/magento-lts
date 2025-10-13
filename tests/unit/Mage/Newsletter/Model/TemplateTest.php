@@ -22,7 +22,7 @@ use Mage_Core_Exception;
 use Mage_Newsletter_Model_Template as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class TemplateTest extends OpenMageTest
+final class TemplateTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -126,7 +126,7 @@ class TemplateTest extends OpenMageTest
      */
     public function testLoadByCode(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->loadByCode('test_code'));
+        self::assertInstanceOf(Subject::class, self::$subject->loadByCode('test_code'));
     }
 
     /**
@@ -134,7 +134,7 @@ class TemplateTest extends OpenMageTest
      */
     public function testIsValidForSend(): void
     {
-        static::assertIsBool(self::$subject->isValidForSend());
+        self::assertIsBool(self::$subject->isValidForSend());
     }
 
     /**
@@ -142,6 +142,6 @@ class TemplateTest extends OpenMageTest
      */
     public function testGetProcessedTemplate(): void
     {
-        static::assertIsString(self::$subject->getProcessedTemplate(['key' => 'value']));
+        self::assertIsString(self::$subject->getProcessedTemplate(['key' => 'value']));
     }
 }

@@ -15,7 +15,9 @@
 class Mage_Install_Model_Config extends Varien_Simplexml_Config
 {
     public const XML_PATH_WIZARD_STEPS     = 'wizard/steps';
+
     public const XML_PATH_CHECK_WRITEABLE  = 'check/filesystem/writeable';
+
     public const XML_PATH_CHECK_EXTENSIONS = 'check/php/extensions';
 
     protected $_optionsMapping = [self::XML_PATH_CHECK_WRITEABLE => [
@@ -46,6 +48,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
             $stepObject->setName($stepName);
             $steps[] = $stepObject;
         }
+
         return $steps;
     }
 
@@ -88,6 +91,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
         $paths = [];
         $items = (array) $this->getNode(self::XML_PATH_CHECK_WRITEABLE);
         foreach ($items as $nodeKey => $item) {
+            /** @var array{path: string, existence: string, recursive: string} $value */
             $value = (array) $item;
             if (isset($this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey])) {
                 $configKey = $this->_optionsMapping[self::XML_PATH_CHECK_WRITEABLE][$nodeKey];
@@ -95,6 +99,7 @@ class Mage_Install_Model_Config extends Varien_Simplexml_Config
             } else {
                 $value['path'] = dirname(Mage::getRoot()) . $value['path'];
             }
+
             $paths[$nodeKey] = $value;
         }
 

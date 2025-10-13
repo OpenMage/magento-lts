@@ -16,7 +16,7 @@ use Mage_AdminNotification_Helper_Data as Subject;
 use Mage_AdminNotification_Model_Inbox;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,7 +31,7 @@ class DataTest extends OpenMageTest
      */
     public function testGetLatestNotice(): void
     {
-        static::assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, self::$subject->getLatestNotice());
+        self::assertInstanceOf(Mage_AdminNotification_Model_Inbox::class, self::$subject->getLatestNotice());
     }
 
     /**
@@ -39,7 +39,7 @@ class DataTest extends OpenMageTest
      */
     public function testGetUnreadNoticeCount(): void
     {
-        static::assertIsInt(self::$subject->getUnreadNoticeCount(99));
+        self::assertIsInt(self::$subject->getUnreadNoticeCount(99));
     }
 
     /**
@@ -48,6 +48,6 @@ class DataTest extends OpenMageTest
      */
     public function testGetPopupObjectUrl(): void
     {
-        static::assertSame('', self::$subject->getPopupObjectUrl());
+        self::assertSame('', self::$subject->getPopupObjectUrl());
     }
 }

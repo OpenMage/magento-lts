@@ -109,6 +109,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
             $size = $this->_getProductCollection()->getSize();
             $this->setResultCount($size);
         }
+
         return $this->getData('result_count');
     }
 
@@ -120,6 +121,7 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
         if ($this->getTag()->getName()) {
             return Mage::helper('tag')->__("Products tagged with '%s'", $this->escapeHtml($this->getTag()->getName()));
         }
+
         return false;
     }
 

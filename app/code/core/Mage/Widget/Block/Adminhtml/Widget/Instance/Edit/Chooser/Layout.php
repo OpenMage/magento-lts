@@ -66,6 +66,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('area')) {
             return Mage_Core_Model_Design_Package::DEFAULT_AREA;
         }
+
         return $this->_getData('area');
     }
 
@@ -79,6 +80,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('package')) {
             return Mage_Core_Model_Design_Package::DEFAULT_PACKAGE;
         }
+
         return $this->_getData('package');
     }
 
@@ -92,6 +94,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (!$this->_getData('theme')) {
             return Mage_Core_Model_Design_Package::DEFAULT_THEME;
         }
+
         return $this->_getData('theme');
     }
 
@@ -132,6 +135,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
             $this->_layoutHandles[''] = Mage::helper('widget')->__('-- Please Select --');
             $this->_collectLayoutHandles($update->getFileLayoutUpdatesXml($area, $package, $theme));
         }
+
         return $this->_layoutHandles;
     }
 
@@ -152,6 +156,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
                     );
                 }
             }
+
             asort($this->_layoutHandles, SORT_STRING);
         }
     }
@@ -168,6 +173,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Chooser_Layout extends Ma
         if (preg_match($wildCard, $layoutHandle)) {
             return false;
         }
+
         return true;
     }
 }

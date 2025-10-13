@@ -16,7 +16,7 @@ use Mage_Core_Model_Store as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\CoreTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class StoreTest extends OpenMageTest
+final class StoreTest extends OpenMageTest
 {
     use CoreTrait;
 
@@ -38,6 +38,7 @@ class StoreTest extends OpenMageTest
         if ($withStore) {
             self::$subject->setData('store_id', $withStore);
         }
-        static::assertSame($expectedResult, self::$subject->getId());
+
+        self::assertSame($expectedResult, self::$subject->getId());
     }
 }

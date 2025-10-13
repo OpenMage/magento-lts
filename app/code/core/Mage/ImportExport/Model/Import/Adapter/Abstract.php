@@ -62,9 +62,11 @@ abstract class Mage_ImportExport_Model_Import_Adapter_Abstract implements Seekab
         if (!is_string($source)) {
             Mage::throwException(Mage::helper('importexport')->__('Source file path must be a string'));
         }
+
         if (!is_readable($source)) {
             Mage::throwException(Mage::helper('importexport')->__('%s file does not exists or is not readable', $source));
         }
+
         $this->_source = $source;
 
         $this->_init();

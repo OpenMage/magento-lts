@@ -98,6 +98,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
                 && Mage::getSingleton('customer/session')->isLoggedIn();
             $this->setIsWishlistActive($isActive);
         }
+
         return $isActive;
     }
 
@@ -130,8 +131,10 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
             if (!$url) {
                 $url = Mage::getUrl();
             }
+
             $this->setData('continue_shopping_url', $url);
         }
+
         return $url;
     }
 
@@ -156,6 +159,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if ($this->getChild($nameInLayout) instanceof Mage_Core_Block_Abstract) {
             return $this->getChild($nameInLayout)->getSortedChildren();
         }
+
         return [];
     }
 
@@ -172,6 +176,7 @@ class Mage_Checkout_Block_Cart extends Mage_Checkout_Block_Cart_Abstract
         if (!$block) {
             Mage::throwException(Mage::helper('checkout')->__('Invalid method: %s', $name));
         }
+
         return $block->toHtml();
     }
 

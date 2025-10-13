@@ -66,6 +66,7 @@ abstract class Mage_Shell_Abstract
             require_once $this->_getRootPath() . 'app' . DIRECTORY_SEPARATOR . 'Mage.php';
             Mage::app($this->_appCode, $this->_appType);
         }
+
         $this->_factory = new Mage_Core_Model_Factory();
 
         $this->_applyPhpVariables();
@@ -85,6 +86,7 @@ abstract class Mage_Shell_Abstract
         if (is_null($this->_rootPath)) {
             $this->_rootPath = dirname(__DIR__) . DIRECTORY_SEPARATOR;
         }
+
         return $this->_rootPath;
     }
 
@@ -105,6 +107,7 @@ abstract class Mage_Shell_Abstract
                     @ini_set($match[1], str_replace("\r", '', $match[2]));
                 }
             }
+
             preg_match_all('#^\s+?php_flag\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
             if ($matches) {
                 foreach ($matches as $match) {
@@ -131,14 +134,13 @@ abstract class Mage_Shell_Abstract
             if (preg_match('#^--([\w\d_-]{1,})$#', $arg, $match) || preg_match('#^-([\w\d_]{1,})$#', $arg, $match)) {
                 $current = $match[1];
                 $this->_args[$current] = true;
-            } else {
-                if ($current) {
-                    $this->_args[$current] = $arg;
-                } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
-                    $this->_args[$match[1]] = true;
-                }
+            } elseif ($current) {
+                $this->_args[$current] = $arg;
+            } elseif (preg_match('#^([\w\d_]{1,})$#', $arg, $match)) {
+                $this->_args[$match[1]] = true;
             }
         }
+
         return $this;
     }
 

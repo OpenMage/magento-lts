@@ -44,12 +44,11 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($this->_wishlist->getCustomerId() != $this->_getCustomer()->getId()) {
                     $this->_wishlist->unsetData();
                 }
-            } else {
-                if ($this->_getCustomer()->getId()) {
-                    $this->_wishlist->loadByCustomer($this->_getCustomer());
-                }
+            } elseif ($this->_getCustomer()->getId()) {
+                $this->_wishlist->loadByCustomer($this->_getCustomer());
             }
         }
+
         return $this->_wishlist;
     }
 
@@ -144,6 +143,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($product->getAllowedPriceInRss()) {
                     $description .= $this->getPriceHtml($product, true);
                 }
+
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')

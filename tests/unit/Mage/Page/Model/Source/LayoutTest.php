@@ -15,7 +15,7 @@ use Mage;
 use Mage_Page_Model_Source_Layout as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends OpenMageTest
+final class LayoutTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,6 +30,6 @@ class LayoutTest extends OpenMageTest
      */
     public function testToOptionArray(): void
     {
-        static::assertIsArray(self::$subject->toOptionArray(true));
+        self::assertIsArray(self::$subject->toOptionArray(true));
     }
 }

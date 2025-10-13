@@ -30,6 +30,7 @@ foreach ($statuses as $code => $info) {
         'label'     => $info['label'],
     ];
 }
+
 $installer->getConnection()->insertArray($statusTable, ['status', 'label'], $data);
 
 $installer->run("
@@ -55,6 +56,7 @@ foreach ($states as $code => $info) {
         }
     }
 }
+
 $installer->getConnection()->insertArray(
     $statusStateTable,
     ['status', 'state', 'is_default'],

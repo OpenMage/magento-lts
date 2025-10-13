@@ -63,6 +63,7 @@ class Mage_Core_Model_Email extends Varien_Object
         } else {
             $this->_tplVars[$var] = $value;
         }
+
         return $this;
     }
 
@@ -87,10 +88,12 @@ class Mage_Core_Model_Email extends Varien_Object
             foreach ($this->getTemplateVars() as $var => $value) {
                 $this->_block->assign($var, $value);
             }
+
             $this->_block->assign('_type', strtolower($this->getType()))
                 ->assign('_section', 'body');
             $body = $this->_block->toHtml();
         }
+
         return $body;
     }
 
@@ -104,6 +107,7 @@ class Mage_Core_Model_Email extends Varien_Object
             $this->_block->assign('_section', 'subject');
             $subject = $this->_block->toHtml();
         }
+
         return $subject;
     }
 

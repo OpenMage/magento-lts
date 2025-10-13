@@ -64,6 +64,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                 $this->_models[$totalCode] = $this->_initModelInstance($class, $totalCode, $totalConfig);
             }
         }
+
         return $this;
     }
 
@@ -93,11 +94,13 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         } else {
             $totalConfig['before'] = [];
         }
+
         if (isset($totalConfig['after'])) {
             $totalConfig['after'] = explode(',', $totalConfig['after']);
         } else {
             $totalConfig['after'] = [];
         }
+
         $totalConfig['_code'] = $code;
         return $totalConfig;
     }
@@ -115,6 +118,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                 return unserialize($cachedData, ['allowed_classes' => false]);
             }
         }
+
         $configArray = $this->_modelsConfig;
         // invoke simple sorting if the first element contains the "sort_order" key
         reset($configArray);
@@ -127,6 +131,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                     if (!isset($configArray[$beforeCode])) {
                         continue;
                     }
+
                     $configArray[$code]['before'] = array_unique(array_merge(
                         $configArray[$code]['before'],
                         $configArray[$beforeCode]['before'],
@@ -138,10 +143,12 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                     );
                     $configArray[$beforeCode]['after'] = array_unique($configArray[$beforeCode]['after']);
                 }
+
                 foreach ($data['after'] as $afterCode) {
                     if (!isset($configArray[$afterCode])) {
                         continue;
                     }
+
                     $configArray[$code]['after'] = array_unique(array_merge(
                         $configArray[$code]['after'],
                         $configArray[$afterCode]['after'],
@@ -154,14 +161,17 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
                     $configArray[$afterCode]['before'] = array_unique($configArray[$afterCode]['before']);
                 }
             }
+
             uasort($configArray, [$this, '_compareTotals']);
         }
+
         $sortedCollectors = array_keys($configArray);
         if (Mage::app()->useCache('config')) {
             Mage::app()->saveCache(serialize($sortedCollectors), $this->_collectorsCacheKey, [
                 Mage_Core_Model_Config::CACHE_TAG,
             ]);
         }
+
         return $sortedCollectors;
     }
 
@@ -199,6 +209,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         } else {
             $res = 0;
         }
+
         return $res;
     }
 
@@ -214,6 +225,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         if (!isset($a['sort_order']) || !isset($b['sort_order'])) {
             return 0;
         }
+
         if ($a['sort_order'] > $b['sort_order']) {
             $res = 1;
         } elseif ($a['sort_order'] < $b['sort_order']) {
@@ -221,6 +233,7 @@ abstract class Mage_Sales_Model_Config_Ordered extends Mage_Core_Model_Config_Ba
         } else {
             $res = 0;
         }
+
         return $res;
     }
 }

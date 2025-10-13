@@ -52,6 +52,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         if (!array_key_exists($fieldId, $this->_fieldVisibility)) {
             return $defaultVisibility;
         }
+
         return $this->_fieldVisibility[$fieldId];
     }
 
@@ -69,9 +70,11 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         } else {
             $options = [$option => $value];
         }
+
         if (!array_key_exists($fieldId, $this->_fieldOptions)) {
             $this->_fieldOptions[$fieldId] = [];
         }
+
         foreach ($options as $k => $v) {
             $this->_fieldOptions[$fieldId][$k] = $v;
         }
@@ -176,6 +179,7 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
                 $data[$key] = explode(',', $value[0]);
             }
         }
+
         $this->getForm()->addValues($data);
         return parent::_initFormValues();
     }
@@ -192,13 +196,14 @@ class Mage_Adminhtml_Block_Report_Filter_Form extends Mage_Adminhtml_Block_Widge
         /** @var Varien_Data_Form_Element_Fieldset $fieldset */
         $fieldset = $this->getForm()->getElement('base_fieldset');
 
-        if (is_object($fieldset) && $fieldset instanceof Varien_Data_Form_Element_Fieldset) {
+        if ($fieldset instanceof Varien_Data_Form_Element_Fieldset) {
             // apply field visibility
             foreach ($fieldset->getElements() as $field) {
                 if (!$this->getFieldVisibility($field->getId())) {
                     $fieldset->removeField($field->getId());
                 }
             }
+
             // apply field options
             foreach ($this->_fieldOptions as $fieldId => $fieldOptions) {
                 $field = $fieldset->getElements()->searchById($fieldId);

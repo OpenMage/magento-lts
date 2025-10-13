@@ -123,6 +123,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
             if (!$this->isModuleEnabled('Mage_Customer', 'catalog')) {
                 return [];
             }
+
             $collection = Mage::getModel('customer/group')->getCollection();
             $this->_customerGroups = $this->_getInitialCustomerGroups();
 
@@ -202,6 +203,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
                 if (!in_array($website->getId(), $productWebsiteIds)) {
                     continue;
                 }
+
                 $this->_websites[$website->getId()] = [
                     'name' => $website->getName(),
                     'currency' => $website->getBaseCurrencyCode(),
@@ -232,6 +234,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         if ($this->isShowWebsiteColumn() && !$this->isAllowChangeWebsite()) {
             return Mage::app()->getStore($this->getProduct()->getStoreId())->getWebsiteId();
         }
+
         return 0;
     }
 
@@ -256,6 +259,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         if ($this->hasData('price_column_header')) {
             return $this->getData('price_column_header');
         }
+
         return $default;
     }
 
@@ -270,6 +274,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         if ($this->hasData('price_validation')) {
             return $this->getData('price_validation');
         }
+
         return $default;
     }
 
@@ -303,6 +308,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         if ($this->isScopeGlobal() || Mage::app()->isSingleStoreMode()) {
             return false;
         }
+
         return true;
     }
 
@@ -316,6 +322,7 @@ abstract class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Price_Group_Abstrac
         if (!$this->isShowWebsiteColumn() || $this->getProduct()->getStoreId()) {
             return false;
         }
+
         return true;
     }
 }

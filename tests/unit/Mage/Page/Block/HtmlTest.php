@@ -15,7 +15,7 @@ use Mage;
 use Mage_Page_Block_Html as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class HtmlTest extends OpenMageTest
+final class HtmlTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,7 +30,7 @@ class HtmlTest extends OpenMageTest
      */
     public function testGetBaseUrl(): void
     {
-        static::assertIsString(self::$subject->getBaseUrl());
+        self::assertIsString(self::$subject->getBaseUrl());
     }
 
     /**
@@ -38,7 +38,7 @@ class HtmlTest extends OpenMageTest
      */
     public function testGetBaseSecureUrl(): void
     {
-        static::assertIsString(self::$subject->getBaseSecureUrl());
+        self::assertIsString(self::$subject->getBaseSecureUrl());
     }
 
     /**
@@ -54,6 +54,6 @@ class HtmlTest extends OpenMageTest
      */
     public function testGetPrintLogoUrl(): void
     {
-        static::assertIsString(self::$subject->getPrintLogoUrl());
+        self::assertIsString(self::$subject->getPrintLogoUrl());
     }
 }

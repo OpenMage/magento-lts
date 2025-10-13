@@ -55,11 +55,13 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
         if (is_null($area)) {
             $area = Mage_Core_Model_App_Area::AREA_FRONTEND;
         }
+
         if ($emulateStoreInlineTranslation) {
             $initialTranslateInline = $this->_emulateInlineTranslation($storeId, $area);
         } else {
             $initialTranslateInline = $this->_emulateInlineTranslation();
         }
+
         $initialDesign = $this->_emulateDesign($storeId, $area);
         // Current store needs to be changed right before locale change and after design change
         $this->_app->setCurrentStore($storeId);
@@ -109,13 +111,12 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
     {
         if (is_null($storeId)) {
             $newTranslateInline = false;
+        } elseif ($area == Mage_Core_Model_App_Area::AREA_ADMINHTML) {
+            $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active_admin', $storeId);
         } else {
-            if ($area == Mage_Core_Model_App_Area::AREA_ADMINHTML) {
-                $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active_admin', $storeId);
-            } else {
-                $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active', $storeId);
-            }
+            $newTranslateInline = Mage::getStoreConfigFlag('dev/translate_inline/active', $storeId);
         }
+
         $translateModel = Mage::getSingleton('core/translate');
         $initialTranslateInline = $translateModel->getTranslateInline();
         $translateModel->setTranslateInline($newTranslateInline);
@@ -158,6 +159,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
             $this->_app->getLocale()->setLocaleCode($newLocaleCode);
             $this->_factory->getSingleton('core/translate')->setLocale($newLocaleCode)->init($area, true);
         }
+
         return $initialLocaleCode;
     }
 
@@ -218,6 +220,7 @@ class Mage_Core_Model_App_Emulation extends Varien_Object
             $this->_app->getLocale()->setLocaleCode($initialLocaleCode);
             $this->_factory->getSingleton('core/translate')->setLocale($initialLocaleCode)->init($initialArea, true);
         }
+
         return $this;
     }
 }

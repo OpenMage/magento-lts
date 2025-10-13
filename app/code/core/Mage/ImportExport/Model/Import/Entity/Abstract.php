@@ -19,8 +19,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
      *
      */
     public const DB_MAX_PACKET_COEFFICIENT = 900000;
+
     public const DB_MAX_PACKET_DATA        = 1048576;
+
     public const DB_MAX_VARCHAR_LENGTH     = 256;
+
     public const DB_MAX_TEXT_LENGTH        = 65536;
 
     /**
@@ -195,6 +198,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         if (!$this->_source) {
             Mage::throwException(Mage::helper('importexport')->__('No source specified'));
         }
+
         return $this->_source;
     }
 
@@ -233,6 +237,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $rowData[$key] = null;
             }
         }
+
         return $rowData;
     }
 
@@ -268,10 +273,12 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $startNewBunch   = false;
                 $nextRowBackup   = [];
             }
+
             if ($source->valid()) {
                 if ($this->_errorsCount >= $this->_errorsLimit) { // errors limit check
                     return;
                 }
+
                 $rowData = $coreHelper->unEscapeCSVData($source->current());
 
                 $this->_processedRowsCount++;
@@ -291,9 +298,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         $productDataSize += $rowSize;
                     }
                 }
+
                 $source->next();
             }
         }
+
         return $this;
     }
 
@@ -357,10 +366,11 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // ignore exceptions connected with source models
             }
         }
+
         return $options;
     }
 
@@ -378,6 +388,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         ) {
             return Mage_ImportExport_Model_Import::getDefaultBehavior();
         }
+
         return $this->_parameters['behavior'];
     }
 
@@ -413,11 +424,13 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
             if (isset($this->_messageTemplates[$errorCode])) {
                 $errorCode = $translator->__($this->_messageTemplates[$errorCode]);
             }
+
             foreach ($errorRows as $errorRowData) {
                 $key = $errorRowData[1] ? sprintf($errorCode, $errorRowData[1]) : $errorCode;
                 $messages[$key][] = $errorRowData[0];
             }
         }
+
         return $messages;
     }
 
@@ -492,6 +505,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
         if (!$this->_source) {
             Mage::throwException(Mage::helper('importexport')->__('Source is not set'));
         }
+
         return $this->_source;
     }
 
@@ -565,8 +579,10 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                 $this->addRowError(Mage::helper('importexport')->__("Duplicate Unique Attribute for '%s'"), $rowNum, $attrCode);
                 return false;
             }
+
             $this->_uniqueAttributes[$attrCode][$rowData[$attrCode]] = true;
         }
+
         return (bool) $valid;
     }
 
@@ -663,15 +679,18 @@ abstract class Mage_ImportExport_Model_Import_Entity_Abstract
                     $invalidColumns[] = $colName;
                 }
             }
+
             if ($invalidColumns) {
                 Mage::throwException(
                     Mage::helper('importexport')->__('Column names: "%s" are invalid', implode('", "', $invalidColumns)),
                 );
             }
+
             $this->_saveValidatedBunches();
 
             $this->_dataValidated = true;
         }
+
         return $this;
     }
 }

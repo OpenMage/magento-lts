@@ -33,6 +33,7 @@ class Mage_ProductAlert_Model_Resource_Price_Customer_Collection extends Mage_Cu
         if ($websiteId) {
             $this->getSelect()->where('alert.website_id=?', $websiteId);
         }
+
         $this->_setIdFieldName('alert_price_id');
         $this->addAttributeToSelect('*');
 

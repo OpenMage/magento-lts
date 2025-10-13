@@ -92,6 +92,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
         if (is_object($this->getForm())) {
             return $this->getForm()->getHtml();
         }
+
         return '';
     }
 
@@ -163,6 +164,7 @@ class Mage_Adminhtml_Block_Widget_Form extends Mage_Adminhtml_Block_Widget
             if (!$attribute || ($attribute->hasIsVisible() && !$attribute->getIsVisible())) {
                 continue;
             }
+
             if (($inputType = $attribute->getFrontend()->getInputType())
                  && !in_array($attribute->getAttributeCode(), $exclude)
                  && ($inputType != 'media_image')

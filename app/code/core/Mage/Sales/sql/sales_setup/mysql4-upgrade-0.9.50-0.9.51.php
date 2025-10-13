@@ -101,7 +101,7 @@ try {
             }
         }
 
-        if (!count($insertQueryItems)) {
+        if ($insertQueryItems === []) {
             continue;
         }
 
@@ -115,6 +115,7 @@ try {
     $connection->rollBack();
     throw $e;
 }
+
 $connection->commit();
 
 $installer->endSetup();

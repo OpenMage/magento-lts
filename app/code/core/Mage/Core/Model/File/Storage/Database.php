@@ -160,8 +160,8 @@ class Mage_Core_Model_File_Storage_Database extends Mage_Core_Model_File_Storage
      */
     public function exportFiles($offset = 0, $count = 100)
     {
-        $offset = ((int) $offset >= 0) ? (int) $offset : 0;
-        $count  = ((int) $count >= 1) ? (int) $count : 1;
+        $offset = max((int) $offset, 0);
+        $count  = max((int) $count, 1);
 
         $result = $this->_getResource()->getFiles($offset, $count);
         if (empty($result)) {

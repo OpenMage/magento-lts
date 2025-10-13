@@ -20,9 +20,11 @@ class Varien_Date
      *
      */
     public const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
+
     public const DATE_INTERNAL_FORMAT = 'yyyy-MM-dd';
 
     public const DATETIME_PHP_FORMAT       = 'Y-m-d H:i:s';
+
     public const DATE_PHP_FORMAT           = 'Y-m-d';
 
     /**
@@ -45,6 +47,7 @@ class Varien_Date
         'yy'   => '%Y',
         'y'    => '%Y',
     ];
+
     /**
      * Zend Date To local time according Map array
      *
@@ -66,8 +69,8 @@ class Varien_Date
      * Convert Zend Date format to local time/date according format
      *
      * @param string $value
-     * @param boolean $convertDate
-     * @param boolean $convertTime
+     * @param bool $convertDate
+     * @param bool $convertTime
      * @return string
      */
     public static function convertZendToStrftime($value, $convertDate = true, $convertTime = true)
@@ -75,9 +78,11 @@ class Varien_Date
         if ($convertTime) {
             $value = self::_convert($value, self::$_convertZendToStrftimeTime);
         }
+
         if ($convertDate) {
             $value = self::_convert($value, self::$_convertZendToStrftimeDate);
         }
+
         return $value;
     }
 
@@ -93,8 +98,10 @@ class Varien_Date
         foreach ($dictionary as $search => $replace) {
             $value = preg_replace('/(^|[^%])' . $search . '/', '$1' . $replace, $value);
         }
+
         return $value;
     }
+
     /**
      * Convert date to UNIX timestamp
      * Returns current UNIX timestamp if date is true
@@ -118,7 +125,7 @@ class Varien_Date
     /**
      * Retrieve current date in internal format
      *
-     * @param boolean $withoutTime day only flag
+     * @param bool $withoutTime day only flag
      * @return string
      */
     public static function now($withoutTime = false)

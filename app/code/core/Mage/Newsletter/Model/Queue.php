@@ -75,9 +75,13 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
     protected $_stores = [];
 
     public const STATUS_NEVER = 0;
+
     public const STATUS_SENDING = 1;
+
     public const STATUS_CANCEL = 2;
+
     public const STATUS_SENT = 3;
+
     public const STATUS_PAUSE = 4;
 
     protected function _construct()
@@ -143,6 +147,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $time = $locale->date($startAt, $format)->getTimestamp();
             $this->setQueueStartAt(Mage::getModel('core/date')->gmtDate(null, $time));
         }
+
         return $this;
     }
 
@@ -206,6 +211,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
         if (count($collection->getItems()) < $count - 1 || count($collection->getItems()) == 0) {
             $this->_finishQueue();
         }
+
         return $this;
     }
 
@@ -230,12 +236,12 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
      */
     public function getDataForSave()
     {
-        $data = [];
-        $data['template_id'] = $this->getTemplateId();
-        $data['queue_status'] = $this->getQueueStatus();
-        $data['queue_start_at'] = $this->getQueueStartAt();
-        $data['queue_finish_at'] = $this->getQueueFinishAt();
-        return $data;
+        return [
+            'template_id' => $this->getTemplateId(),
+            'queue_status' => $this->getQueueStatus(),
+            'queue_start_at' => $this->getQueueStartAt(),
+            'queue_finish_at' => $this->getQueueFinishAt(),
+        ];
     }
 
     /**
@@ -332,6 +338,7 @@ class Mage_Newsletter_Model_Queue extends Mage_Core_Model_Template
             $this->_template = Mage::getModel('newsletter/template')
                 ->load($this->getTemplateId());
         }
+
         return $this->_template;
     }
 

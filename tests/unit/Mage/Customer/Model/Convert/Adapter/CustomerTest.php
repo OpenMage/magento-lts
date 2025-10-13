@@ -16,7 +16,7 @@ use Mage_Customer_Model_Convert_Adapter_Customer as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Throwable;
 
-class CustomerTest extends OpenMageTest
+final class CustomerTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -137,6 +137,6 @@ class CustomerTest extends OpenMageTest
             'firstname' => 'John',
             'lastname'  => 'Doe',
         ];
-        static::assertInstanceOf(Subject::class, self::$subject->saveRow($data));
+        self::assertInstanceOf(Subject::class, self::$subject->saveRow($data));
     }
 }

@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         if ($this->getCategory()) {
             return $this->getCategory()->getId();
         }
+
         return Mage_Catalog_Model_Category::TREE_ROOT_ID;
     }
 
@@ -42,6 +43,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         if ($this->getCategory()) {
             return $this->getCategory()->getPath();
         }
+
         return Mage_Catalog_Model_Category::TREE_ROOT_ID;
     }
 
@@ -51,6 +53,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         if ($root && $root->getId()) {
             return true;
         }
+
         return false;
     }
 
@@ -65,6 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
         if (!is_null($parentNodeCategory) && $parentNodeCategory->getId()) {
             return $this->getNode($parentNodeCategory, $recursionLevel);
         }
+
         $root = Mage::registry('root');
         if (is_null($root)) {
             $storeId = (int) $this->getRequest()->getParam('store');
@@ -125,6 +129,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             $tree->addCollectionData($this->getCategoryCollection());
             Mage::register('root', $root);
         }
+
         return $root;
     }
 
@@ -172,8 +177,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Abstract extends Mage_Adminhtml_Bloc
             foreach (Mage::app()->getGroups() as $store) {
                 $ids[] = $store->getRootCategoryId();
             }
+
             $this->setData('root_ids', $ids);
         }
+
         return $ids;
     }
 }

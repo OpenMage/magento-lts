@@ -18,6 +18,7 @@ use Rector\Php81\Rector as Php81;
 use Rector\Php82\Rector as Php82;
 use Rector\Php83\Rector as Php83;
 use Rector\Php84\Rector as Php84;
+use Rector\Php85\Rector as Php85;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
@@ -39,27 +40,26 @@ try {
             __DIR__,
         ])
         ->withSkipPath(__DIR__ . '/vendor')
+        ->withRules([
+            Php85\ArrayDimFetch\ArrayFirstLastRector::class,
+        ])
         ->withSkip([
             CodeQuality\Assign\CombinedAssignRector::class, # todo: TMP
-            CodeQuality\BooleanAnd\RemoveUselessIsObjectCheckRector::class, # todo: TMP
-            CodeQuality\BooleanAnd\SimplifyEmptyArrayCheckRector::class, # todo: TMP
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
-            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class, # todo: TMP
+            # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
+            CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
+                __DIR__ . '/app/code/core/Mage/Api2/Model/Auth/Adapter/Oauth.php',
+            ],
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             CodeQuality\Class_\InlineConstructorDefaultToPropertyRector::class, # todo: TMP
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
-            CodeQuality\ClassMethod\InlineArrayReturnAssignRector::class, # todo: TMP
             CodeQuality\Concat\JoinStringConcatRector::class, # todo: TMP
             CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
             CodeQuality\Expression\TernaryFalseExpressionToIfRector::class, # todo: TMP (!?!)
-            CodeQuality\For_\ForRepeatedCountToOwnVariableRector::class, # todo: TMP
             CodeQuality\Foreach_\ForeachItemsAssignToEmptyArrayToAssignRector::class, # todo: TMP
-            CodeQuality\FuncCall\SimplifyRegexPatternRector::class, # todo: TMP
-            CodeQuality\FuncCall\UnwrapSprintfOneArgumentRector::class, # todo: TMP
             CodeQuality\FunctionLike\SimplifyUselessVariableRector::class, # todo: TMP
-            CodeQuality\Identical\FlipTypeControlToUseExclusiveTypeRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyBoolIdenticalTrueRector::class, # todo: TMP
             CodeQuality\Identical\SimplifyConditionsRector::class, # todo: TMP
             CodeQuality\If_\CombineIfRector::class, # todo: TMP<
@@ -67,11 +67,8 @@ try {
             CodeQuality\If_\ExplicitBoolCompareRector::class, # todo: TMP
             CodeQuality\If_\SimplifyIfElseToTernaryRector::class,
             CodeQuality\If_\SimplifyIfReturnBoolRector::class,
-            CodeQuality\If_\ShortenElseIfRector::class, # todo: TMP
             CodeQuality\Include_\AbsolutizeRequireAndIncludePathRector::class, # todo: TMP
             CodeQuality\Isset_\IssetOnPropertyObjectToPropertyExistsRector::class, # todo: TMP
-            CodeQuality\Switch_\SingularSwitchToIfRector::class, # todo: TMP
-            CodeQuality\Ternary\NumberCompareToMaxFuncCallRector::class, # todo: TMP
             CodeQuality\Ternary\SwitchNegatedTernaryRector::class, # todo: TMP
             CodeQuality\Ternary\TernaryEmptyArrayArrayDimFetchToCoalesceRector::class, # todo: TMP
             CodeQuality\Ternary\UnnecessaryTernaryExpressionRector::class, # todo: TMP
@@ -79,37 +76,28 @@ try {
             CodingStyle\Catch_\CatchExceptionNameMatchingTypeRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector::class, # todo: TMP
-            CodingStyle\ClassMethod\NewlineBeforeNewAssignSetRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
             CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
             CodingStyle\FuncCall\CallUserFuncArrayToVariadicRector::class, # todo: TMP
-            CodingStyle\FuncCall\CountArrayToEmptyArrayComparisonRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
-            CodingStyle\Stmt\NewlineAfterStatementRector::class, # todo: TMP
             CodingStyle\String_\SymplifyQuoteEscapeRector::class, # todo: TMP
-            DeadCode\Assign\RemoveDoubleAssignRector::class, # todo: TMP
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)
             DeadCode\ClassMethod\RemoveUnusedConstructorParamRector::class, # todo: TMP (!?!)
             DeadCode\ClassMethod\RemoveEmptyClassMethodRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveNullTagValueNodeRector::class, # todo: TMP
-            DeadCode\ClassMethod\RemoveUnusedPrivateMethodRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveUnusedPrivateMethodParameterRector::class, # todo: TMP  (!?!)
             DeadCode\Concat\RemoveConcatAutocastRector::class, # todo: TMP  (!?!)
-            DeadCode\Foreach_\RemoveUnusedForeachKeyRector::class, # todo: TMP
             DeadCode\FunctionLike\RemoveDeadReturnRector::class, # todo: TMP
             DeadCode\If_\ReduceAlwaysFalseIfOrRector::class, # todo: TMP
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
-            DeadCode\If_\RemoveDeadInstanceOfRector::class, # todo: TMP
             DeadCode\If_\RemoveUnusedNonEmptyArrayBeforeForeachRector::class, # todo: TMP
             DeadCode\If_\SimplifyIfElseWithSameContentRector::class, # todo: TMP
-            DeadCode\Node\RemoveNonExistingVarAnnotationRector::class, # todo: TMP  (!?!)
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\Property\RemoveUnusedPrivatePropertyRector::class, # todo: TMP
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
-            DeadCode\Stmt\RemoveUnreachableStatementRector::class, # todo: TMP
             DeadCode\Switch_\RemoveDuplicatedCaseInSwitchRector::class, # todo: TMP  (!?!)
             DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
             DeadCode\TryCatch\RemoveDeadTryCatchRector::class, # todo: TMP  (!?!)
@@ -134,21 +122,15 @@ try {
             Php80\Class_\AnnotationToAttributeRector::class, # todo: wait for php80
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
-            Php80\ClassConstFetch\ClassOnThisVariableObjectRector::class, # todo: TMP
             Php80\ClassMethod\AddParamBasedOnParentClassMethodRector::class, # todo: TMP
-            Php80\FuncCall\ClassOnObjectRector::class, # todo: TMP
-            Php80\Switch_\ChangeSwitchToMatchRector::class, # todo: TMP
             Php81\Array_\FirstClassCallableRector::class, # todo: TMP
             Php81\FuncCall\NullToStrictStringFuncCallArgRector::class, # todo: check later
-            Privatization\Class_\FinalizeTestCaseClassRector::class, # todo: TMP
-            Renaming\FuncCall\RenameFunctionRector::class, # todo: TMP
             Strict\Empty_\DisallowedEmptyRuleFixerRector::class, # todo: TMP
-            Transform\FuncCall\FuncCallToConstFetchRector::class, # todo: TMP
             TypeDeclaration\BooleanAnd\BinaryOpNullableToInstanceofRector::class, # todo: TMP
             TypeDeclaration\ClassMethod\ReturnNeverTypeRector::class,
-            TypeDeclaration\Empty_\EmptyOnNullableObjectToInstanceOfRector::class, # todo: TMP
-            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class, # SKIP
-            # use static methods
+            # skip: cannot be applied to OpenMage codebase - yet
+            TypeDeclaration\StmtsAwareInterface\DeclareStrictTypesRector::class,
+            # skip: use static methods
             PreferPHPUnitThisCallRector::class,
             __DIR__ . '/shell/translations.php',
             __DIR__ . '/shell/update-copyright.php',

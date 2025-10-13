@@ -47,6 +47,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
         if (!empty($allowCountries)) {
             $this->addFieldToFilter('country_id', ['in' => $allowCountries]);
         }
+
         return $this;
     }
 
@@ -63,6 +64,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                 return $country;
             }
         }
+
         return Mage::getResourceModel('directory/country');
     }
 
@@ -85,22 +87,23 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                     foreach ($iso as $isoType) {
                         $whereOr[] = $this->_getConditionSql("{$isoType}_code", ['in' => $countryCode]);
                     }
+
                     $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
                 } else {
                     $this->addFieldToFilter("{$iso}_code", ['in' => $countryCode]);
                 }
-            } else {
-                if (is_array($iso)) {
-                    $whereOr = [];
-                    foreach ($iso as $isoType) {
-                        $whereOr[] = $this->_getConditionSql("{$isoType}_code", $countryCode);
-                    }
-                    $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
-                } else {
-                    $this->addFieldToFilter("{$iso}_code", $countryCode);
+            } elseif (is_array($iso)) {
+                $whereOr = [];
+                foreach ($iso as $isoType) {
+                    $whereOr[] = $this->_getConditionSql("{$isoType}_code", $countryCode);
                 }
+
+                $this->_select->where('(' . implode(') OR (', $whereOr) . ')');
+            } else {
+                $this->addFieldToFilter("{$iso}_code", $countryCode);
             }
         }
+
         return $this;
     }
 
@@ -119,6 +122,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
                 $this->addFieldToFilter('country_id', $countryId);
             }
         }
+
         return $this;
     }
 
@@ -149,7 +153,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
             ];
         }
 
-        if (count($options) > 0 && $emptyLabel !== false) {
+        if ($options !== [] && $emptyLabel !== false) {
             array_unshift($options, ['value' => '', 'label' => $emptyLabel]);
         }
 

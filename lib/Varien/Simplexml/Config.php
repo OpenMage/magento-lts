@@ -42,7 +42,7 @@ class Varien_Simplexml_Config
     protected $_cacheChecksum = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $_cacheSaved = false;
 
@@ -80,6 +80,7 @@ class Varien_Simplexml_Config
         if (is_null($sourceData)) {
             return;
         }
+
         if ($sourceData instanceof Varien_Simplexml_Element) {
             $this->setXml($sourceData);
         } elseif (is_string($sourceData) && !empty($sourceData)) {
@@ -160,7 +161,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param boolean $flag
+     * @param bool $flag
      * @return $this
      */
     public function setCacheSaved($flag)
@@ -244,6 +245,7 @@ class Varien_Simplexml_Config
         } else {
             $this->_cacheChecksum = md5($data);
         }
+
         return $this;
     }
 
@@ -256,11 +258,13 @@ class Varien_Simplexml_Config
         if (false === $this->getCacheChecksum()) {
             return $this;
         }
+
         if (false === $data || 0 === $data) {
             $this->_cacheChecksum = false;
         } else {
             $this->setCacheChecksum($this->getCacheChecksum() . ':' . $data);
         }
+
         return $this;
     }
 
@@ -297,9 +301,11 @@ class Varien_Simplexml_Config
         if (false === $newChecksum) {
             return false;
         }
+
         if (is_null($newChecksum)) {
             return true;
         }
+
         $cachedChecksum = $this->getCache()->load($this->getCacheChecksumId());
         return $newChecksum === false && $cachedChecksum === false || $newChecksum === $cachedChecksum;
     }
@@ -335,6 +341,7 @@ class Varien_Simplexml_Config
         if ($this->getCacheSaved()) {
             return $this;
         }
+
         if (false === $this->getCacheChecksum()) {
             return $this;
         }
@@ -388,7 +395,7 @@ class Varien_Simplexml_Config
      * @param string $data
      * @param string $id
      * @param array $tags
-     * @param int|boolean $lifetime
+     * @param int|bool $lifetime
      * @return bool
      */
     protected function _saveCache($data, $id, $tags = [], $lifetime = false)
@@ -421,11 +428,13 @@ class Varien_Simplexml_Config
 
         $fileData = file_get_contents($filePath);
         $fileData = $this->processFileData($fileData);
+
         $success = $this->loadString($fileData, $this->_elementClass);
 
         if ($success === false) {
             Mage::throwException('Cannot parse XML file at ' . $filePath);
         }
+
         return $success;
     }
 
@@ -447,6 +456,7 @@ class Varien_Simplexml_Config
         } else {
             Mage::logException(new InvalidArgumentException('"$string" parameter for simplexml_load_string is not a string'));
         }
+
         return false;
     }
 
@@ -473,7 +483,7 @@ class Varien_Simplexml_Config
      *
      * @param string $path separated by slashes
      * @param string $value
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return $this
      */
     public function setNode($path, $value, $overwrite = true)
@@ -502,6 +512,7 @@ class Varien_Simplexml_Config
                 }
             }
         }
+
         return $this;
     }
 
@@ -517,7 +528,7 @@ class Varien_Simplexml_Config
     }
 
     /**
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return $this
      */
     public function extend(Varien_Simplexml_Config $config, $overwrite = true)

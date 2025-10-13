@@ -19,6 +19,7 @@
 class Mage_Page_Block_Html extends Mage_Core_Block_Template
 {
     protected $_urls = [];
+
     protected $_title = '';
 
     public function __construct()
@@ -146,6 +147,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         if (!$this->hasData('lang')) {
             $this->setData('lang', substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2));
         }
+
         return $this->getData('lang');
     }
 
@@ -162,6 +164,7 @@ class Mage_Page_Block_Html extends Mage_Core_Block_Template
         } else {
             Mage::getDesign()->setTheme($theme);
         }
+
         return $this;
     }
 

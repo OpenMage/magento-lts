@@ -72,8 +72,9 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
 
         $pathParts = explode('/', $pathTokP);
         $realPathParts = [];
+        $counter = count($pathParts);
 
-        for ($i = 0, $realPathParts = []; $i < count($pathParts); $i++) {
+        for ($i = 0, $realPathParts = []; $i < $counter; $i++) {
             if ($pathParts[$i] == '.') {
                 continue;
             } elseif ($pathParts[$i] == '..') {
@@ -107,6 +108,7 @@ abstract class Varien_Io_Abstract implements Varien_Io_Interface
         if ($position !== false && $position < 1) {
             $path = substr_replace($path, '.', 0, strlen($dir));
         }
+
         return $path;
     }
 }

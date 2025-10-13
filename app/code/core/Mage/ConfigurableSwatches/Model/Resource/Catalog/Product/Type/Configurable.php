@@ -39,6 +39,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Type_Configurable
                     $childrenIds[$row['parent_id']][$row['product_id']] = $row['product_id'];
                 }
             }
+
             return $childrenIds;
         } else {
             return parent::getChildrenIds($parentId, $required);

@@ -28,8 +28,10 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
                     Mage::logException($e);
                 }
             }
+
             $this->setValue($unserializedValue);
         }
+
         return $this;
     }
 
@@ -41,6 +43,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized extends Mage_Core_Mo
         if (is_array($this->getValue())) {
             $this->setValue(serialize($this->getValue()));
         }
+
         return $this;
     }
 }

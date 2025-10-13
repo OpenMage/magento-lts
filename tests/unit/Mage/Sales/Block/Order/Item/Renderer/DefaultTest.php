@@ -15,7 +15,7 @@ use Mage_Sales_Block_Order_Item_Renderer_Default as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Object;
 
-class DefaultTest extends OpenMageTest
+final class DefaultTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,6 +31,6 @@ class DefaultTest extends OpenMageTest
      */
     public function testSetItem(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->setItem(new Varien_Object()));
+        self::assertInstanceOf(Subject::class, self::$subject->setItem(new Varien_Object()));
     }
 }

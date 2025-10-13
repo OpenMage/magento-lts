@@ -18,7 +18,9 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
      * Catalog Product Flat Config
      */
     public const XML_PATH_USE_PRODUCT_FLAT          = 'catalog/frontend/flat_catalog_product';
+
     public const XML_NODE_ADD_FILTERABLE_ATTRIBUTES = 'global/catalog/product/flat/add_filterable_attributes';
+
     public const XML_NODE_ADD_CHILD_DATA            = 'global/catalog/product/flat/add_child_data';
 
     /**
@@ -94,6 +96,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
             $this->_flagObject = $classInstance;
             $this->_flagObject->loadSelf();
         }
+
         return $this->_flagObject;
     }
 
@@ -120,6 +123,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
         if ($store !== null) {
             return $this->getFlag()->isStoreBuilt(Mage::app()->getStore($store)->getId());
         }
+
         return $this->getFlag()->getIsBuilt();
     }
 
@@ -134,6 +138,7 @@ class Mage_Catalog_Helper_Product_Flat extends Mage_Catalog_Helper_Flat_Abstract
         foreach (Mage::app()->getStores(false) as $store) {
             $isBuildAll = $isBuildAll && $this->isBuilt($store->getId());
         }
+
         return $isBuildAll;
     }
 

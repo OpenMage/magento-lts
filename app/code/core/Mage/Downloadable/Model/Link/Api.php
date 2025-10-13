@@ -97,6 +97,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             if (isset($resource['file'])) {
                 $resource['file'] = $this->_uploadFile($resource['file'], $resourceType);
             }
+
             unset($resource[$resourceType . '_url']);
         } elseif ($resource['type'] == 'url') {
             unset($resource['file']);
@@ -106,6 +107,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             if (isset($resource['sample']['file'])) {
                 $resource['sample']['file'] = $this->_uploadFile($resource['sample']['file'], 'link_samples');
             }
+
             unset($resource['sample']['url']);
         } elseif ($resourceType == 'link' && $resource['sample']['type'] == 'url') {
             $resource['sample']['file'] = null;
@@ -173,6 +175,7 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                         'status' => 'old',
                     ]];
             }
+
             $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                 Mage_Downloadable_Model_Link::getBaseSamplePath(),
                 $item->getSampleFile(),
@@ -186,17 +189,22 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                         'status' => 'old',
                     ]];
             }
+
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = 1;
             }
+
             if ($product->getStoreId() && $item->getStoreTitle()) {
                 $tmpLinkItem['store_title'] = $item->getStoreTitle();
             }
+
             if ($product->getStoreId() && $downloadHelper->getIsPriceWebsiteScope()) {
                 $tmpLinkItem['website_price'] = $item->getWebsitePrice();
             }
+
             $linkArr[] = $tmpLinkItem;
         }
+
         unset($item);
         unset($tmpLinkItem);
         unset($links);

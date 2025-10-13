@@ -134,6 +134,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $model = $this->_factory->getModel('core/url');
             $this->_url = $model;
         }
+
         return $this->_url;
     }
 
@@ -147,6 +148,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         if ($this->_urlRewrite === null) {
             $this->_urlRewrite = $this->_factory->getUrlRewriteInstance();
         }
+
         return $this->_urlRewrite;
     }
 
@@ -203,6 +205,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         if (is_null($this->_resourceModel)) {
             $this->_resourceModel = Mage::getResourceModel('catalog/url');
         }
+
         return $this->_resourceModel;
     }
 
@@ -241,8 +244,10 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $rootCategoryId = $store->getRootCategoryId();
                 $category = $this->getResource()->getCategory($rootCategoryId, $storeId);
             }
+
             $this->_rootCategories[$storeId] = $category;
         }
+
         return $this->_rootCategories[$storeId];
     }
 
@@ -283,6 +288,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             foreach ($this->getStores() as $store) {
                 $this->refreshRewrites($store->getId());
             }
+
             return $this;
         }
 
@@ -291,6 +297,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         if ($store instanceof Mage_Core_Model_Store) {
             $this->refreshCategoryRewrite($store->getRootCategoryId(), $storeId, false);
         }
+
         $this->refreshProductRewrites($storeId);
         $this->getResource()->clearCategoryProduct($storeId);
 
@@ -310,11 +317,9 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $locale = Mage::getStoreConfig(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $category->getStoreId());
             $urlKey = $category->getUrlKey() == '' ? $category->getName() : $category->getUrlKey();
             $urlKey = $this->getCategoryModel()->setLocale($locale)->formatUrlKey($urlKey);
-
             $idPath      = $this->generatePath('id', null, $category);
             $targetPath  = $this->generatePath('target', null, $category);
             $requestPath = $this->getCategoryRequestPath($category, $parentPath);
-
             $rewriteData = [
                 'store_id'      => $category->getStoreId(),
                 'category_id'   => $category->getId(),
@@ -324,9 +329,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 'target_path'   => $targetPath,
                 'is_system'     => 1,
             ];
-
             $this->getResource()->saveRewrite($rewriteData, $this->_rewrite);
-
             if ($this->getShouldSaveRewritesHistory($category->getStoreId())) {
                 $this->_saveRewriteHistory($rewriteData, $this->_rewrite);
             }
@@ -335,15 +338,14 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $category->setUrlKey($urlKey);
                 $this->getResource()->saveCategoryAttribute($category, 'url_key');
             }
+
             if ($category->getUrlPath() != $requestPath) {
                 $category->setUrlPath($requestPath);
                 $this->getResource()->saveCategoryAttribute($category, 'url_path');
             }
-        } else {
-            if ($category->getUrlPath() != '') {
-                $category->setUrlPath('');
-                $this->getResource()->saveCategoryAttribute($category, 'url_path');
-            }
+        } elseif ($category->getUrlPath() != '') {
+            $category->setUrlPath('');
+            $this->getResource()->saveCategoryAttribute($category, 'url_path');
         }
 
         if ($refreshProducts) {
@@ -404,6 +406,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             $product->setUrlKey($urlKey);
             $this->getResource()->saveProductAttribute($product, 'url_key');
         }
+
         if ($updateKeys && $product->getUrlPath() != $requestPath) {
             $product->setUrlPath($requestPath);
             $this->getResource()->saveProductAttribute($product, 'url_path');
@@ -433,6 +436,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                         $category->getStoreId(),
                     );
                 }
+
                 $process = false;
                 break;
             }
@@ -451,9 +455,11 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $this->_refreshProductRewrite($product, $rootCategory);
                 $this->_refreshProductRewrite($product, $category);
             }
+
             $firstIteration = false;
             unset($products);
         }
+
         $this->_rewrites = $originalRewrites;
         return $this;
     }
@@ -473,6 +479,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             foreach ($this->getStores() as $store) {
                 $this->refreshCategoryRewrite($categoryId, $store->getId(), $refreshProducts);
             }
+
             return $this;
         }
 
@@ -487,6 +494,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         if ($category->getAllChilds()) {
             $categoryIds = array_merge($categoryIds, array_keys($category->getAllChilds()));
         }
+
         $this->_rewrites = $this->getResource()->prepareRewrites($storeId, $categoryIds);
         $this->_refreshCategoryRewrites($category, null, $refreshProducts);
 
@@ -510,6 +518,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             foreach ($this->getStores() as $store) {
                 $this->refreshProductRewrite($productId, $store->getId());
             }
+
             return $this;
         }
 
@@ -601,6 +610,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                         if (!str_starts_with($this->_categories[$categoryId]['path'], $storeRootCategoryPath . '/')) {
                             continue;
                         }
+
                         $this->_refreshProductRewrite($product, $this->_categories[$categoryId]);
                     }
                 }
@@ -626,6 +636,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             foreach ($this->getStores() as $store) {
                 $this->clearStoreInvalidRewrites($store->getId());
             }
+
             return $this;
         }
 
@@ -667,6 +678,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         } else {
             $suffix = $this->getCategoryUrlSuffix($storeId);
         }
+
         if (empty($requestPath)) {
             $requestPath = '-';
         } elseif ($requestPath == $suffix) {
@@ -695,6 +707,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 $this->_rewrite = $rewrite;
                 return $requestPath;
             }
+
             // match request_url abcdef1234(-12)(.html) pattern
             $match = [];
             $regularExpression = '#(?P<prefix>(.*/)?' . preg_quote($urlKey, '#') . ')(-(?P<increment>[0-9]+))?(?P<suffix>'
@@ -702,6 +715,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             if (!preg_match($regularExpression, $requestPath, $match)) {
                 return $this->getUnusedPathByUrlKey($storeId, '-', $idPath, $urlKey);
             }
+
             $match['prefix'] = $match['prefix'] . '-';
             $match['suffix'] = $match['suffix'] ?? '';
 
@@ -710,6 +724,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
             if ($lastRequestPath) {
                 $match['increment'] = $lastRequestPath;
             }
+
             return $match['prefix']
                 . (!empty($match['increment']) ? ((int) $match['increment'] + 1) : '1')
                 . $match['suffix'];
@@ -767,6 +782,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         } elseif ($parentPath == '/') {
             $parentPath = '';
         }
+
         $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath($parentPath, true, $storeId);
 
         $requestPath = $parentPath . $urlKey;
@@ -873,6 +889,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 return $fullPath;
             }
         }
+
         /**
          * Check 2 variants: $requestPath and $requestPath . '-' . $productId
          */
@@ -884,6 +901,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
         if ($validatedPath) {
             return $validatedPath;
         }
+
         /**
          * Use unique path generator
          */
@@ -915,9 +933,11 @@ class Mage_Catalog_Model_Url extends Varien_Object
             if (!$product) {
                 return 'category/' . $category->getId();
             }
+
             if ($category && $category->getLevel() > 1) {
                 return 'product/' . $product->getId() . '/' . $category->getId();
             }
+
             return 'product/' . $product->getId();
         }
 
@@ -935,6 +955,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                 } elseif ($parentPath == '/') {
                     $parentPath = '';
                 }
+
                 $parentPath = Mage::helper('catalog/category')->getCategoryUrlPath(
                     $parentPath,
                     true,
@@ -988,9 +1009,11 @@ class Mage_Catalog_Model_Url extends Varien_Object
         if (!$product) {
             return 'catalog/category/view/id/' . $category->getId();
         }
+
         if ($category && $category->getLevel() > 1) {
             return 'catalog/product/view/id/' . $product->getId() . '/category/' . $category->getId();
         }
+
         return 'catalog/product/view/id/' . $product->getId();
     }
 
@@ -1065,6 +1088,7 @@ class Mage_Catalog_Model_Url extends Varien_Object
                         $localeConfig[(string) $node->from] = (string) $node->to;
                     }
                 }
+
                 $config = [$locale => $config + $localeConfig];
             }
         }

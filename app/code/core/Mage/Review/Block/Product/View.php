@@ -66,6 +66,7 @@ class Mage_Review_Block_Product_View extends Mage_Catalog_Block_Product_View
                 ->addEntityFilter('product', $this->getProduct()->getId())
                 ->setDateOrder();
         }
+
         return $this->_reviewsCollection;
     }
 

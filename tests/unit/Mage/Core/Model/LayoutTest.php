@@ -20,7 +20,7 @@ use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Model\LayoutTrait;
 use OpenMage\Tests\Unit\Traits\PhpStormMetaData\BlocksTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends OpenMageTest
+final class LayoutTest extends OpenMageTest
 {
     use BlocksTrait;
     use LayoutTrait;
@@ -44,9 +44,9 @@ class LayoutTest extends OpenMageTest
         $result = self::$subject->createBlock($type, $name, $attributes);
 
         if ($willReturnBlock && is_string($expectedResult)) {
-            static::assertInstanceOf($expectedResult, $result);
+            self::assertInstanceOf($expectedResult, $result);
         } else {
-            static::assertFalse($result);
+            self::assertFalse($result);
         }
     }
 
@@ -61,12 +61,12 @@ class LayoutTest extends OpenMageTest
     {
         $result = self::$subject->getBlockSingleton($type);
 
-        static::assertInstanceOf($expectedResult, $result);
+        self::assertInstanceOf($expectedResult, $result);
 
         if ($isAbstractBlock) {
-            static::assertInstanceOf(Mage_Core_Block_Abstract::class, $result);
+            self::assertInstanceOf(Mage_Core_Block_Abstract::class, $result);
         } else {
-            static::assertNotInstanceOf(Mage_Core_Block_Abstract::class, $result);
+            self::assertNotInstanceOf(Mage_Core_Block_Abstract::class, $result);
         }
     }
 

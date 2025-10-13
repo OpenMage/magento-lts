@@ -169,6 +169,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             return $weight;
         }
     }
@@ -191,10 +192,12 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     $virtualCount++;
                 }
             }
+
             if ($virtualCount == count($selections)) {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -243,6 +246,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
         }
+
         return $this;
     }
 
@@ -287,7 +291,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $selections = $product->getBundleSelectionsData();
             if ($selections) {
                 foreach ($selections as $index => $group) {
-                    foreach ($group as $key => $selection) {
+                    foreach ($group as $selection) {
                         if (isset($selection['selection_id']) && $selection['selection_id'] == '') {
                             unset($selection['selection_id']);
                         }
@@ -369,6 +373,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $optionsCollection->joinValues($storeId);
             $this->getProduct($product)->setData($this->_keyOptionsCollection, $optionsCollection);
         }
+
         return $this->getProduct($product)->getData($this->_keyOptionsCollection);
     }
 
@@ -403,6 +408,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
 
             $this->getProduct($product)->setData($key, $selectionsCollection);
         }
+
         return $this->getProduct($product)->getData($key);
     }
 
@@ -487,6 +493,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         if (!count($selectionCollection->getItems())) {
             return false;
         }
+
         $salableSelectionCount = 0;
         /** @var Mage_Bundle_Model_Selection $selection */
         foreach ($selectionCollection as $selection) {
@@ -531,6 +538,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     unset($options[$_optionId]);
                 }
             }
+
             $optionIds = array_keys($options);
 
             if (empty($optionIds) && $isStrictProcessMode) {
@@ -546,9 +554,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             $selectionIds = [];
 
-            foreach ($options as $optionId => $selectionId) {
+            foreach ($options as $selectionId) {
                 if (!is_array($selectionId)) {
                     if ($selectionId != '') {
                         $selectionIds[] = (int) $selectionId;
@@ -561,6 +570,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                     }
                 }
             }
+
             // If product has not been configured yet then $selections array should be empty
             if (!empty($selectionIds)) {
                 $selections = $this->getSelectionsByIds($selectionIds, $product);
@@ -574,6 +584,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                         } else {
                             $moreSelections = false;
                         }
+
                         if ($selectedOption->getRequired()
                             && (!$selectedOption->isMultiSelection() || ($selectedOption->isMultiSelection() && !$moreSelections))
                         ) {
@@ -615,6 +626,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 }
             }
         }
+
         if (count($selections) > 0 || !$isStrictProcessMode) {
             $uniqueKey = [$product->getId()];
             $selectionIds = [];
@@ -628,6 +640,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 } else {
                     $qty = (float) $selection->getSelectionQty() ? $selection->getSelectionQty() : 1;
                 }
+
                 $qty = (float) $qty;
 
                 $product->addCustomOption('selection_qty_' . $selection->getSelectionId(), $qty, $selection);
@@ -673,6 +686,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             foreach ($result as $item) {
                 $item->addCustomOption('bundle_identity', $uniqueKey);
             }
+
             $product->addCustomOption('bundle_option_ids', serialize(array_map('\intval', $optionIds)));
             $product->addCustomOption('bundle_selection_ids', serialize($selectionIds));
 
@@ -722,9 +736,11 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $websiteId = Mage::app()->getStore($storeId)->getWebsiteId();
                 $usedSelections->joinPrices($websiteId);
             }
+
             $this->getProduct($product)->setData($this->_keyUsedSelections, $usedSelections);
             $this->getProduct($product)->setData($this->_keyUsedSelectionsIds, $selectionIds);
         }
+
         return $usedSelections;
     }
 
@@ -751,6 +767,7 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
             $this->getProduct($product)->setData($this->_keyUsedOptions, $usedOptions);
             $this->getProduct($product)->setData($this->_keyUsedOptionsIds, $optionIds);
         }
+
         return $usedOptions;
     }
 
@@ -914,8 +931,10 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
         $productSelections  = $this->getSelectionsCollection($productOptionIds, $product);
         $selectionIds       = $product->getCustomOption('bundle_selection_ids');
         $selectionIds       = (array) unserialize($selectionIds->getValue(), ['allowed_classes' => false]);
+
         $buyRequest         = $product->getCustomOption('info_buyRequest');
         $buyRequest         = new Varien_Object(unserialize($buyRequest->getValue(), ['allowed_classes' => false]));
+
         $bundleOption       = $buyRequest->getBundleOption();
 
         if (empty($bundleOption) && empty($selectionIds)) {
@@ -965,14 +984,17 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
                 $groupProducts[] = $childProduct;
                 $allProducts[] = $childProduct;
             }
+
             if ($option->getRequired()) {
                 $groups[] = $groupProducts;
                 $hasRequiredOptions = true;
             }
         }
+
         if (!$hasRequiredOptions) {
             $groups = [$allProducts];
         }
+
         return $groups;
     }
 

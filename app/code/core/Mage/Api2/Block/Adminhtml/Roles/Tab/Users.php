@@ -159,6 +159,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
         if (!$this->isHidden()) {
             return parent::_toHtml();
         }
+
         return '';
     }
 
@@ -176,14 +177,13 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
 
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('user_id', ['in' => $inRoleIds]);
-            } else {
-                if ($inRoleIds) {
-                    $this->getCollection()->addFieldToFilter('user_id', ['nin' => $inRoleIds]);
-                }
+            } elseif ($inRoleIds) {
+                $this->getCollection()->addFieldToFilter('user_id', ['nin' => $inRoleIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -201,10 +201,12 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Users extends Mage_Adminhtml_Block_Wid
             if ($users === []) {
                 return '{}';
             }
+
             $jsonUsers = [];
             foreach ($users as $usrId) {
                 $jsonUsers[$usrId] = 0;
             }
+
             /** @var Mage_Core_Helper_Data $helper */
             $helper = Mage::helper('core');
             $result = $helper->jsonEncode((object) $jsonUsers);

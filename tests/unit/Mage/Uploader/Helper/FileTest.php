@@ -17,7 +17,7 @@ use Mage_Uploader_Helper_File as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Uploader\UploaderTrait;
 
-class FileTest extends OpenMageTest
+final class FileTest extends OpenMageTest
 {
     use UploaderTrait;
 
@@ -30,6 +30,7 @@ class FileTest extends OpenMageTest
         /** @var Mage_Core_Model_Config $config */
         $config = Mage::getConfig();
         $config->setNode('global/mime/types/test-new-node', 'application/octet-stream');
+
         self::$subject = Mage::helper('uploader/file');
     }
 
@@ -42,7 +43,7 @@ class FileTest extends OpenMageTest
      */
     public function testGetMimeTypeFromExtensionList(array $expectedResult, $extensionsList): void
     {
-        static::assertSame($expectedResult, self::$subject->getMimeTypeFromExtensionList($extensionsList));
+        self::assertSame($expectedResult, self::$subject->getMimeTypeFromExtensionList($extensionsList));
     }
 
     /**
@@ -50,7 +51,7 @@ class FileTest extends OpenMageTest
      */
     public function testGetPostMaxSize(): void
     {
-        static::assertIsString(self::$subject->getPostMaxSize());
+        self::assertIsString(self::$subject->getPostMaxSize());
     }
 
     /**
@@ -58,7 +59,7 @@ class FileTest extends OpenMageTest
      */
     public function testGetUploadMaxSize(): void
     {
-        static::assertIsString(self::$subject->getUploadMaxSize());
+        self::assertIsString(self::$subject->getUploadMaxSize());
     }
 
     /**
@@ -69,8 +70,8 @@ class FileTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->getDataMaxSize());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->getDataMaxSize());
     }
 
     /**
@@ -81,7 +82,7 @@ class FileTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods, true);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->getDataMaxSizeInBytes());
     }
 }

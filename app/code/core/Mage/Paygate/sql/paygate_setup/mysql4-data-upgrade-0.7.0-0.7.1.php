@@ -59,6 +59,7 @@ try {
         if (isset($additionalInformation['authorize_cards'])) {
             continue;
         }
+
         $additionalInformation['authorize_cards'] = [
             (string) md5(microtime(1)) => $card,
         ];

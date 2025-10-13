@@ -142,6 +142,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                     $this->_redirect('*/*/edit', ['page_id' => $model->getId(), '_current' => true]);
                     return;
                 }
+
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
@@ -158,6 +159,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*/*/edit', ['page_id' => $this->getRequest()->getParam('page_id')]);
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -192,6 +194,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
         // display error message
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a page to delete.'));
         // go to grid
@@ -215,15 +218,13 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'new':
-            case 'save':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/save');
-            case 'delete':
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('cms/page');
-        }
+        $aclPath = match ($action) {
+            'new', 'save' => 'cms/page/save',
+            'delete' => 'cms/page/delete',
+            default => 'cms/page',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 
     /**
@@ -252,15 +253,18 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
             if (!empty($data['layout_update_xml']) && !$validatorCustomLayout->isValid($data['layout_update_xml'])) {
                 $errorNo = false;
             }
+
             if (!empty($data['custom_layout_update_xml'])
                 && !$validatorCustomLayout->isValid($data['custom_layout_update_xml'])
             ) {
                 $errorNo = false;
             }
+
             foreach ($validatorCustomLayout->getMessages() as $message) {
                 $this->_getSession()->addError($message);
             }
         }
+
         return $errorNo;
     }
 }

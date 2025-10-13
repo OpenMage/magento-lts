@@ -32,7 +32,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
             return $this;
         }
 
-        if (str_starts_with(php_sapi_name(), 'cgi')) {
+        if (str_starts_with(PHP_SAPI, 'cgi')) {
             $statusSent = false;
             foreach ($this->_headersRaw as $i => $header) {
                 if (stripos($header, 'status:') === 0) {
@@ -43,6 +43,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
                     }
                 }
             }
+
             foreach ($this->_headers as $i => $header) {
                 if (strcasecmp($header['name'], 'status') === 0) {
                     if ($statusSent) {
@@ -79,6 +80,7 @@ class Mage_Core_Controller_Response_Http extends Zend_Controller_Response_Http
         if (self::$_transportObject === null) {
             self::$_transportObject = new Varien_Object();
         }
+
         self::$_transportObject->setUrl($url);
         self::$_transportObject->setCode($code);
         Mage::dispatchEvent(

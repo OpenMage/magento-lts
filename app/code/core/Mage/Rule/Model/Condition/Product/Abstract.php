@@ -64,6 +64,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             $this->_defaultOperatorInputByType['category'] = ['==', '!=', '{}', '!{}', '()', '!()'];
             $this->_arrayInputTypes[] = 'category';
         }
+
         return $this->_defaultOperatorInputByType;
     }
 
@@ -124,6 +125,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if (!$this->_ruleResourceHelper) {
             $this->_ruleResourceHelper = Mage::getModel('rule/resource_rule_condition_sqlBuilder');
         }
+
         return $this->_ruleResourceHelper;
     }
 
@@ -137,11 +139,12 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         try {
             $obj = Mage::getSingleton('eav/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $this->getAttribute());
-        } catch (Exception $e) {
+        } catch (Exception) {
             $obj = new Varien_Object();
             $obj->setEntity(Mage::getResourceSingleton('catalog/product'))
                 ->setFrontendInput('text');
         }
+
         return $obj;
     }
 
@@ -173,6 +176,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             ) {
                 continue;
             }
+
             $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
         }
 
@@ -218,6 +222,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 } else {
                     $addEmptyOption = true;
                 }
+
                 $selectOptions = $attributeObject->getSource()->getAllOptions($addEmptyOption);
             }
         }
@@ -228,14 +233,17 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (!$selectReady) {
                 $this->setData('value_select_options', $selectOptions);
             }
+
             if (!$hashedReady) {
                 $hashedOptions = [];
                 foreach ($selectOptions as $o) {
                     if (is_array($o['value'])) {
                         continue; // We cannot use array as index
                     }
+
                     $hashedOptions[$o['value']] = $o['label'];
                 }
+
                 $this->setData('value_option', $hashedOptions);
             }
         }
@@ -289,6 +297,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 . Mage::helper('core')->quoteEscape(Mage::helper('rule')->__('Open Chooser'))
                 . '" /></a>';
         }
+
         return $html;
     }
 
@@ -337,28 +346,22 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if ($this->getAttribute() === 'attribute_set_id') {
             return 'select';
         }
+
         if (!is_object($this->getAttributeObject())) {
             return 'string';
         }
+
         if ($this->getAttributeObject()->getAttributeCode() == 'category_ids') {
             return 'category';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-                return 'select';
 
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            case 'boolean':
-                return 'boolean';
-
-            default:
-                return 'string';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            'boolean' => 'boolean',
+            default => 'string',
+        };
     }
 
     /**
@@ -371,23 +374,17 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
         if ($this->getAttribute() === 'attribute_set_id') {
             return 'select';
         }
+
         if (!is_object($this->getAttributeObject())) {
             return 'text';
         }
-        switch ($this->getAttributeObject()->getFrontendInput()) {
-            case 'select':
-            case 'boolean':
-                return 'select';
 
-            case 'multiselect':
-                return 'multiselect';
-
-            case 'date':
-                return 'date';
-
-            default:
-                return 'text';
-        }
+        return match ($this->getAttributeObject()->getFrontendInput()) {
+            'select', 'boolean' => 'select',
+            'multiselect' => 'multiselect',
+            'date' => 'date',
+            default => 'text',
+        };
     }
 
     /**
@@ -398,12 +395,8 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
     public function getValueElement()
     {
         $element = parent::getValueElement();
-        if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
-                    break;
-            }
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            $element->setImage(Mage::getDesign()->getSkinUrl('images/grid-cal.gif'));
         }
 
         return $element;
@@ -425,8 +418,10 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                 if ($this->getJsFormObject()) {
                     $url .= '/form/' . $this->getJsFormObject();
                 }
+
                 break;
         }
+
         return $url !== false ? Mage::helper('adminhtml')->getUrl($url) : '';
     }
 
@@ -442,12 +437,11 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             case 'category_ids':
                 return true;
         }
-        if (is_object($this->getAttributeObject())) {
-            switch ($this->getAttributeObject()->getFrontendInput()) {
-                case 'date':
-                    return true;
-            }
+
+        if (is_object($this->getAttributeObject()) && $this->getAttributeObject()->getFrontendInput() === 'date') {
+            return true;
         }
+
         return false;
     }
 
@@ -472,6 +466,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
                     foreach (explode(',', $arr['value']) as $value) {
                         $tmp[] = Mage::app()->getLocale()->getNumber($value);
                     }
+
                     $arr['value'] =  implode(',', $tmp);
                 } else {
                     $arr['value'] =  Mage::app()->getLocale()->getNumber($arr['value']);
@@ -479,6 +474,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             } else {
                 $arr['value'] = false;
             }
+
             $arr['is_value_parsed'] = isset($arr['is_value_parsed'])
                 ? Mage::app()->getLocale()->getNumber($arr['is_value_parsed']) : false;
         }
@@ -504,6 +500,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             if (!$object->getResource()) {
                 return false;
             }
+
             $attr = $object->getResource()->getAttribute($attrCode);
 
             if ($attr && $attr->getBackendType() == 'datetime' && !is_int($this->getValue())) {
@@ -524,7 +521,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             // remember old attribute state
             $oldAttrValue = $object->hasData($attrCode) ? $object->getData($attrCode) : null;
 
-            foreach ($this->_entityAttributeValues[$object->getId()] as $storeId => $value) {
+            foreach ($this->_entityAttributeValues[$object->getId()] as $value) {
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
                     $value = strtotime($value);

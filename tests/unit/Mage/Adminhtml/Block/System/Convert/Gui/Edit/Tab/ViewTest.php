@@ -15,7 +15,7 @@ use Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_View as Subject;
 use Mage_Dataflow_Model_Profile;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ViewTest extends OpenMageTest
+final class ViewTest extends OpenMageTest
 {
     /**
      * @group Block
@@ -27,7 +27,7 @@ class ViewTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertInstanceOf(Subject::class, $mock->initForm());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertInstanceOf(Subject::class, $mock->initForm());
     }
 }

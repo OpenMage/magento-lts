@@ -18,7 +18,7 @@ use Mage_Core_Helper_EnvironmentConfigLoader;
 use OpenMage\Tests\Unit\OpenMageTest;
 use Varien_Simplexml_Config;
 
-class EnvironmentConfigLoaderTest extends OpenMageTest
+final class EnvironmentConfigLoaderTest extends OpenMageTest
 {
     public const XML_PATH_GENERAL = 'general/store_information/name';
 
@@ -43,7 +43,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $path = $environmentConfigLoaderHelper->exposedBuildPath('GENERAL', 'STORE_INFORMATION', 'NAME');
-        static::assertSame(self::XML_PATH_GENERAL, $path);
+        self::assertSame(self::XML_PATH_GENERAL, $path);
     }
 
     /**
@@ -53,7 +53,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
     {
         $environmentConfigLoaderHelper = new EnvironmentConfigLoaderTestHelper();
         $nodePath = $environmentConfigLoaderHelper->exposedBuildNodePath('DEFAULT', self::XML_PATH_GENERAL);
-        static::assertSame(self::XML_PATH_DEFAULT, $nodePath);
+        self::assertSame(self::XML_PATH_DEFAULT, $nodePath);
     }
 
     /**
@@ -64,9 +64,9 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $xmlStruct = $this->getTestXml();
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
-        static::assertSame('test_default', (string) $xml->getNode(self::XML_PATH_DEFAULT));
-        static::assertSame('test_website', (string) $xml->getNode(self::XML_PATH_WEBSITE));
-        static::assertSame('test_store', (string) $xml->getNode(self::XML_PATH_STORE));
+        self::assertSame('test_default', (string) $xml->getNode(self::XML_PATH_DEFAULT));
+        self::assertSame('test_website', (string) $xml->getNode(self::XML_PATH_WEBSITE));
+        self::assertSame('test_store', (string) $xml->getNode(self::XML_PATH_STORE));
     }
 
     /**
@@ -81,6 +81,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
         $xmlDefault = new Varien_Simplexml_Config();
         $xmlDefault->loadString($xmlStruct);
+
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
@@ -96,7 +97,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $valueAfterOverride = $xml->getNode($configPath);
 
         // assert
-        static::assertNotSame((string) $defaultValue, (string) $valueAfterOverride, 'Default value was not overridden.');
+        self::assertNotSame((string) $defaultValue, (string) $valueAfterOverride, 'Default value was not overridden.');
     }
 
     public function envOverridesCorrectConfigKeysDataProvider(): Generator
@@ -181,15 +182,16 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
         $xmlDefault = new Varien_Simplexml_Config();
         $xmlDefault->loadString($xmlStruct);
+
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
         $defaultValue = 'test_default';
-        static::assertSame($defaultValue, (string) $xml->getNode(self::XML_PATH_DEFAULT));
+        self::assertSame($defaultValue, (string) $xml->getNode(self::XML_PATH_DEFAULT));
         $defaultWebsiteValue = 'test_website';
-        static::assertSame($defaultWebsiteValue, (string) $xml->getNode(self::XML_PATH_WEBSITE));
+        self::assertSame($defaultWebsiteValue, (string) $xml->getNode(self::XML_PATH_WEBSITE));
         $defaultStoreValue = 'test_store';
-        static::assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
+        self::assertSame($defaultStoreValue, (string) $xml->getNode(self::XML_PATH_STORE));
 
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
@@ -212,7 +214,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         }
 
         // assert
-        static::assertStringNotContainsString((string) $valueAfterCheck, 'value_will_not_be_changed', 'Default value was wrongfully overridden.');
+        self::assertStringNotContainsString((string) $valueAfterCheck, 'value_will_not_be_changed', 'Default value was wrongfully overridden.');
     }
 
     public function envDoesNotOverrideOnWrongConfigKeysDataProvider(): Generator

@@ -35,6 +35,7 @@
 class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
 {
     public const CACHE_TAG     = 'cms_block';
+
     protected $_cacheTag = 'cms_block';
 
     protected function _construct()
@@ -54,6 +55,7 @@ class Mage_Cms_Model_Block extends Mage_Core_Model_Abstract
         if (!strstr($this->getContent(), $needle)) {
             return parent::_beforeSave();
         }
+
         Mage::throwException(
             Mage::helper('cms')->__('The static block content cannot contain  directive with its self.'),
         );

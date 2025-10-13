@@ -39,9 +39,10 @@ class Mage_Admin_Model_Redirectpolicy
         ?Zend_Controller_Request_Http $request = null,
         $alternativeUrl = null
     ) {
-        if (empty($request)) {
+        if (!$request instanceof Zend_Controller_Request_Http) {
             return null;
         }
+
         $countRequiredParams = ($this->_urlModel->useSecretKey()
             && $request->getParam(Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME)) ? 1 : 0;
         $countGetParams = count($request->getUserParams()) + count($request->getQuery());

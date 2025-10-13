@@ -16,6 +16,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
      * Option values
      */
     public const VALUE_YES = 1;
+
     public const VALUE_NO = 0;
 
     /**
@@ -37,6 +38,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
                 ],
             ];
         }
+
         return $this->_options;
     }
 
@@ -51,6 +53,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
         foreach ($this->getAllOptions() as $option) {
             $_options[$option['value']] = $option['label'];
         }
+
         return $_options;
     }
 
@@ -78,6 +81,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Boolean extends Mage_Eav_Model_Enti
                 return $option['label'];
             }
         }
+
         return false;
     }
 

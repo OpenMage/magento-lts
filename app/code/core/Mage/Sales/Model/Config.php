@@ -50,6 +50,7 @@ class Mage_Sales_Model_Config
         foreach ($states->$state->statuses->children() as $status => $node) {
             $statuses[] = $status;
         }
+
         return $statuses;
     }
 }

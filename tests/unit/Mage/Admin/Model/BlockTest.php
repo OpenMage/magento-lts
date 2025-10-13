@@ -17,7 +17,7 @@ use Mage_Admin_Model_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\BlockTrait;
 
-class BlockTest extends OpenMageTest
+final class BlockTest extends OpenMageTest
 {
     use BlockTrait;
 
@@ -40,8 +40,8 @@ class BlockTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertEquals($expectedResult, $mock->validate());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertEquals($expectedResult, $mock->validate());
     }
 
     /**
@@ -49,6 +49,6 @@ class BlockTest extends OpenMageTest
      */
     public function testIsTypeAllowed(): void
     {
-        static::assertIsBool(self::$subject->isTypeAllowed('invalid-type'));
+        self::assertIsBool(self::$subject->isTypeAllowed('invalid-type'));
     }
 }

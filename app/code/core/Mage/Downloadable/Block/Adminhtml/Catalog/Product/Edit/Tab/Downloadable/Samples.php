@@ -86,6 +86,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
             if ($item->getSampleFile() && !is_file($file)) {
                 Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
             }
+
             if ($item->getSampleFile() && is_file($file)) {
                 $tmpSampleItem['file_save'] = [
                     [
@@ -95,9 +96,11 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Sa
                         'status' => 'old',
                     ]];
             }
+
             if ($this->getProduct() && $item->getStoreTitle()) {
                 $tmpSampleItem['store_title'] = $item->getStoreTitle();
             }
+
             $samplesArr[] = new Varien_Object($tmpSampleItem);
         }
 

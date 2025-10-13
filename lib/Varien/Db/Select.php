@@ -89,6 +89,7 @@ class Varien_Db_Select extends Zend_Db_Select
         if (is_null($value) && is_null($type)) {
             $value = '';
         }
+
         /**
          * Additional internal type used for really null value
          * cast to string, to prevent false matching 0 == "TYPE_CONDITION"
@@ -96,10 +97,12 @@ class Varien_Db_Select extends Zend_Db_Select
         if ((string) $type === self::TYPE_CONDITION) {
             $type = null;
         }
+
         if (is_array($value)) {
             $cond = $this->_adapter->quoteInto($cond, $value, $type);
             $value = null;
         }
+
         return parent::where($cond, $value, $type);
     }
 
@@ -121,12 +124,11 @@ class Varien_Db_Select extends Zend_Db_Select
                         ) {
                             $useJoin = true;
                         }
-                    } else {
-                        if ($correlationName == $tableId) {
-                            $useJoin = true;
-                        }
+                    } elseif ($correlationName == $tableId) {
+                        $useJoin = true;
                     }
                 }
+
                 foreach ($this->_parts[self::WHERE] as $where) {
                     if ($this->_findTableInCond($tableId, $where)
                         || $this->_findTableInCond($tableProp['tableName'], $where)
@@ -142,6 +144,7 @@ class Varien_Db_Select extends Zend_Db_Select
                     if ($tableCorrelationName == $tableId) {
                         continue;
                     }
+
                     if (!empty($table['joinCondition'])) {
                         if ($this->_findTableInCond($tableId, $table['joinCondition'])
                             || $this->_findTableInCond($tableProp['tableName'], $table['joinCondition'])
@@ -216,9 +219,9 @@ class Varien_Db_Select extends Zend_Db_Select
         $position = 0;
         $result   = 0;
         $needle   = [];
-        while (is_integer($result)) {
+        while (is_int($result)) {
             $result = strpos($cond, $table . '.', $position);
-            if (is_integer($result)) {
+            if (is_int($result)) {
                 $needle[] = $result;
                 $position = ($result + strlen($table) + 1);
             }
@@ -232,6 +235,7 @@ class Varien_Db_Select extends Zend_Db_Select
             if ($position == 0) {
                 return true;
             }
+
             if (!preg_match('#[a-z0-9_]#is', substr($cond, $position - 1, 1))) {
                 return true;
             }
@@ -261,6 +265,7 @@ class Varien_Db_Select extends Zend_Db_Select
         if ($type == self::INNER_JOIN && empty($cond)) {
             $type = self::CROSS_JOIN;
         }
+
         return parent::_join($type, $name, $cond, $cols, $schema);
     }
 
@@ -278,11 +283,13 @@ class Varien_Db_Select extends Zend_Db_Select
         } else {
             $this->_parts[self::LIMIT_COUNT]  = (int) $count;
         }
+
         if ($offset === null) {
             $this->reset(self::LIMIT_OFFSET);
         } else {
             $this->_parts[self::LIMIT_OFFSET] = (int) $offset;
         }
+
         return $this;
     }
 
@@ -349,6 +356,7 @@ class Varien_Db_Select extends Zend_Db_Select
         if (!array_key_exists($part, $this->_parts)) {
             throw new Zend_Db_Select_Exception("Invalid Select part '{$part}'");
         }
+
         $this->_parts[$part] = $value;
         return $this;
     }
@@ -424,6 +432,7 @@ class Varien_Db_Select extends Zend_Db_Select
 
         return $sql;
     }
+
     /**
      * Add EXISTS clause
      *
@@ -439,6 +448,7 @@ class Varien_Db_Select extends Zend_Db_Select
         } else {
             $exists = 'NOT EXISTS (%s)';
         }
+
         $select->reset(self::COLUMNS)
             ->columns([new Zend_Db_Expr('1')])
             ->where($joinCondition);

@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Sales_Transactions_Grid extends Mage_Adminhtml_Block_
         if ($order) {
             $collection->addOrderIdFilter($order->getId());
         }
+
         $collection->addOrderInformation(['increment_id']);
         $collection->addPaymentInformation(['method']);
         $this->setCollection($collection);

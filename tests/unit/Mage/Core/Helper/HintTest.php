@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Helper_Hint as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class HintTest extends OpenMageTest
+final class HintTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,7 +31,7 @@ class HintTest extends OpenMageTest
      */
     public function testGetAvailableHints(): void
     {
-        static::assertSame([], self::$subject->getAvailableHints());
+        self::assertSame([], self::$subject->getAvailableHints());
     }
 
     /**
@@ -40,6 +40,6 @@ class HintTest extends OpenMageTest
      */
     public function testGetHintByCode(): void
     {
-        static::assertNull(self::$subject->getHintByCode('test'));
+        self::assertNull(self::$subject->getHintByCode('test'));
     }
 }

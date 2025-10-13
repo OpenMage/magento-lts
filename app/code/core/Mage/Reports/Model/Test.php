@@ -120,12 +120,14 @@ class Mage_Reports_Model_Test extends Varien_Object
         $dom = new DOMDocument();
         $dom -> preserveWhiteSpace = false;
         $dom -> loadXML('<' . '?xml version="1.0" encoding="UTF-8"?' . ">\n<dataSource></dataSource>");
+
         $root = $dom ->documentElement;
         if ($reset) {
             $resetItem = $dom -> createElement('reset');
             $resetItem -> nodeValue = $reset;
             $root->appendChild($resetItem);
         }
+
         foreach ($array as $item) {
             $row = $dom->createElement('row');
             foreach ($item as $key => $val) {

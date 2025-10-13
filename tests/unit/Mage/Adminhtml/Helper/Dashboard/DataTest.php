@@ -16,7 +16,7 @@ use Mage_Adminhtml_Helper_Dashboard_Data as Subject;
 use Mage_Core_Model_Resource_Store_Collection;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -32,7 +32,7 @@ class DataTest extends OpenMageTest
      */
     public function testGetStores(): void
     {
-        static::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, self::$subject->getStores());
+        self::assertInstanceOf(Mage_Core_Model_Resource_Store_Collection::class, self::$subject->getStores());
     }
 
     /**
@@ -41,7 +41,7 @@ class DataTest extends OpenMageTest
      */
     public function testCountStores(): void
     {
-        static::assertIsInt(self::$subject->countStores());
+        self::assertIsInt(self::$subject->countStores());
     }
 
     /**
@@ -59,7 +59,7 @@ class DataTest extends OpenMageTest
             '1y'  => self::$subject->__('YTD'),
             '2y'  => self::$subject->__('2YTD'),
         ];
-        static::assertSame($expectedResult, self::$subject->getDatePeriods());
+        self::assertSame($expectedResult, self::$subject->getDatePeriods());
     }
 
     /**
@@ -68,6 +68,6 @@ class DataTest extends OpenMageTest
      */
     public function testGetChartDataHash(): void
     {
-        static::assertIsString(self::$subject->getChartDataHash(''));
+        self::assertIsString(self::$subject->getChartDataHash(''));
     }
 }

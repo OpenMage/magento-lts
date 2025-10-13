@@ -32,6 +32,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             $this->setIsValid(false);
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
         }
+
         if (!$this->_isSingleSelection()) {
             $valuesCollection = $option->getOptionValuesByOptionId($value, $this->getProduct()->getStoreId())
                 ->load();
@@ -41,6 +42,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                 Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
             }
         }
+
         return $this;
     }
 
@@ -71,6 +73,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                 $this->getEditableOptionValue($optionValue),
             );
         }
+
         return $this->_formattedOptionValue;
     }
 
@@ -109,18 +112,17 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             foreach (explode(',', $optionValue) as $value) {
                 if ($_result = $option->getValueById($value)) {
                     $result .= $_result->getTitle() . ', ';
-                } else {
-                    if ($this->getListener()) {
-                        $this->getListener()
-                                ->setHasError(true)
-                                ->setMessage(
-                                    $this->_getWrongConfigurationMessage(),
-                                );
-                        $result = '';
-                        break;
-                    }
+                } elseif ($this->getListener()) {
+                    $this->getListener()
+                            ->setHasError(true)
+                            ->setMessage(
+                                $this->_getWrongConfigurationMessage(),
+                            );
+                    $result = '';
+                    break;
                 }
             }
+
             $result = Mage::helper('core/string')->substr($result, 0, -2);
         } elseif ($this->_isSingleSelection()) {
             if ($_result = $option->getValueById($optionValue)) {
@@ -133,11 +135,13 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                                 $this->_getWrongConfigurationMessage(),
                             );
                 }
+
                 $result = '';
             }
         } else {
             $result = $optionValue;
         }
+
         return $result;
     }
 
@@ -161,7 +165,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         } elseif ($this->_isSingleSelection() && array_key_exists($optionValue, $productOptionValues)) {
             $_values[] = $productOptionValues[$optionValue];
         }
-        if (count($_values)) {
+
+        if ($_values !== []) {
             return implode(',', $_values);
         } else {
             return null;
@@ -179,6 +184,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         if (!$this->_isSingleSelection()) {
             return explode(',', $optionValue);
         }
+
         return $optionValue;
     }
 
@@ -202,15 +208,13 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                         $_result->getPriceType() == 'percent',
                         $basePrice,
                     );
-                } else {
-                    if ($this->getListener()) {
-                        $this->getListener()
-                                ->setHasError(true)
-                                ->setMessage(
-                                    $this->_getWrongConfigurationMessage(),
-                                );
-                        break;
-                    }
+                } elseif ($this->getListener()) {
+                    $this->getListener()
+                            ->setHasError(true)
+                            ->setMessage(
+                                $this->_getWrongConfigurationMessage(),
+                            );
+                    break;
                 }
             }
         } elseif ($this->_isSingleSelection()) {
@@ -220,14 +224,12 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     $_result->getPriceType() == 'percent',
                     $basePrice,
                 );
-            } else {
-                if ($this->getListener()) {
-                    $this->getListener()
-                            ->setHasError(true)
-                            ->setMessage(
-                                $this->_getWrongConfigurationMessage(),
-                            );
-                }
+            } elseif ($this->getListener()) {
+                $this->getListener()
+                        ->setHasError(true)
+                        ->setMessage(
+                            $this->_getWrongConfigurationMessage(),
+                        );
             }
         }
 
@@ -250,17 +252,16 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             foreach (explode(',', $optionValue) as $value) {
                 if ($optionSku = $option->getValueById($value)) {
                     $skus[] = $optionSku->getSku();
-                } else {
-                    if ($this->getListener()) {
-                        $this->getListener()
-                                ->setHasError(true)
-                                ->setMessage(
-                                    $this->_getWrongConfigurationMessage(),
-                                );
-                        break;
-                    }
+                } elseif ($this->getListener()) {
+                    $this->getListener()
+                            ->setHasError(true)
+                            ->setMessage(
+                                $this->_getWrongConfigurationMessage(),
+                            );
+                    break;
                 }
             }
+
             $result = implode($skuDelimiter, $skus);
         } elseif ($this->_isSingleSelection()) {
             if ($result = $option->getValueById($optionValue)) {
@@ -273,6 +274,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                                 $this->_getWrongConfigurationMessage(),
                             );
                 }
+
                 return '';
             }
         } else {

@@ -115,6 +115,7 @@ class Mage_Adminhtml_Customer_Wishlist_Product_Composite_WishlistController exte
             $updateResult->setError(true);
             $updateResult->setMessage($e->getMessage());
         }
+
         $updateResult->setJsVarName($this->getRequest()->getParam('as_js_varname'));
         Mage::getSingleton('adminhtml/session')->setCompositeProductResult($updateResult);
         $this->_redirect('*/catalog_product/showUpdateResult');

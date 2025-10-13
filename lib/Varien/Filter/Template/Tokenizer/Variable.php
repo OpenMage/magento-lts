@@ -49,6 +49,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
                     $actions[] = ['type' => 'variable',
                         'name' => $parameterName];
                 }
+
                 $parameterName = '';
             }
         } while ($this->next());
@@ -77,6 +78,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
         if ($this->isWhiteSpace()) {
             return $value;
         }
+
         $qouteStart = $this->isQuote();
 
         if ($qouteStart) {
@@ -106,7 +108,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     /**
      * Return true if current char is a number
      *
-     * @return boolean
+     * @return bool
      */
     public function isNumeric()
     {
@@ -116,7 +118,7 @@ class Varien_Filter_Template_Tokenizer_Variable extends Varien_Filter_Template_T
     /**
      * Return true if current char is quote or apostrophe
      *
-     * @return boolean
+     * @return bool
      */
     public function isQuote()
     {

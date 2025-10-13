@@ -33,6 +33,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
         if ($data) {
             $item->setData($data);
         }
+
         $this->_afterLoad($item);
         return $this;
     }
@@ -99,6 +100,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item extends Mage_Core_Model_Re
                 $data['qty'] = new Zend_Db_Expr('qty+' . $object->getQtyCorrection());
             }
         }
+
         return $data;
     }
 }

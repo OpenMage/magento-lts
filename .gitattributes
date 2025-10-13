@@ -8,15 +8,14 @@
 /.all-contributorsrc export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
-
+/.cypress.config.js export-ignore
 /.php-cs-fixer.dist.php export-ignore
-/.phpcs.ecg.xml.dist export-ignore
-/.phpcs.php.xml.dist export-ignore
-/.phpcs.xml.dist export-ignore
+/.phpcs.dist.xml export-ignore
 /.phpmd.dist.baseline.xml export-ignore
 /.phpmd.dist.xml export-ignore
 /.phpstan.dist.baseline.neon export-ignore
 /.phpstan.dist.neon export-ignore
+/.phpstorm.meta.php export-ignore
 /.rector.php export-ignore
 
 /CNAME export-ignore

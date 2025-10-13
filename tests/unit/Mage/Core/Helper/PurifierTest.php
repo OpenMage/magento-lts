@@ -16,7 +16,7 @@ use Mage_Core_Helper_Purifier as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\PurifierTrait;
 
-class PurifierTest extends OpenMageTest
+final class PurifierTest extends OpenMageTest
 {
     use PurifierTrait;
 
@@ -34,6 +34,6 @@ class PurifierTest extends OpenMageTest
      */
     public function testPurify(array|string $expectedResult, array|string $content): void
     {
-        static::assertSame($expectedResult, self::$subject->purify($content));
+        self::assertSame($expectedResult, self::$subject->purify($content));
     }
 }

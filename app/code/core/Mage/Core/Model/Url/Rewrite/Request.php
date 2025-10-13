@@ -219,12 +219,14 @@ class Mage_Core_Model_Url_Rewrite_Request
         if (!$config) {
             return false;
         }
+
         foreach ($config->children() as $rewrite) {
             $from = (string) $rewrite->from;
             $to = (string) $rewrite->to;
             if (empty($from) || empty($to)) {
                 continue;
             }
+
             $from = $this->_processRewriteUrl($from);
             $to   = $this->_processRewriteUrl($to);
 
@@ -235,6 +237,7 @@ class Mage_Core_Model_Url_Rewrite_Request
                 $this->_request->rewritePathInfo($pathInfo);
             }
         }
+
         return true;
     }
 
@@ -263,6 +266,7 @@ class Mage_Core_Model_Url_Rewrite_Request
             $requestCases[] = $requestPath . $origSlash . '?' . $queryString;
             $requestCases[] = $requestPath . $altSlash . '?' . $queryString;
         }
+
         $requestCases[] = $requestPath . $origSlash;
         $requestCases[] = $requestPath . $altSlash;
         return $requestCases;
@@ -305,12 +309,14 @@ class Mage_Core_Model_Url_Rewrite_Request
                     $hasChanges = true;
                 }
             }
+
             if ($hasChanges) {
                 return http_build_query($queryParams);
             } else {
                 return $_SERVER['QUERY_STRING'];
             }
         }
+
         return false;
     }
 
@@ -332,6 +338,7 @@ class Mage_Core_Model_Url_Rewrite_Request
                 $url = str_replace('{' . $routeName . '}', $frontName, $url);
             }
         }
+
         return $url;
     }
 
@@ -371,6 +378,7 @@ class Mage_Core_Model_Url_Rewrite_Request
                 $router = $this->_getRouter('default');
             }
         }
+
         return $router;
     }
 }

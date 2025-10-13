@@ -62,6 +62,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                             foreach ($conditionValue['in_set'] as $value) {
                                 $conditionParts[] = ['finset' => $value];
                             }
+
                             $conditionData[] = $conditionParts;
                         } elseif (isset($conditionValue['like'])) {
                             $conditionData[] = ['like' => $conditionValue['like']];
@@ -71,6 +72,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                 if (!Zend_Date::isDate($conditionValue['from'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
+
                                 if (!is_numeric($conditionValue['from'])) {
                                     $conditionValue['from'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['from']);
@@ -78,12 +80,15 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['from'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
+
                                 $conditionData[] = ['gteq' => $conditionValue['from']];
                             }
+
                             if ($conditionValue['to']) {
                                 if (!Zend_Date::isDate($conditionValue['to'])) {
                                     Mage::throwException($invalidDateMessage);
                                 }
+
                                 if (!is_numeric($conditionValue['to'])) {
                                     $conditionValue['to'] = Mage::getSingleton('core/date')
                                         ->gmtDate(null, $conditionValue['to']);
@@ -91,6 +96,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                                         $conditionValue['to'] = Mage::getSingleton('core/date')->gmtDate();
                                     }
                                 }
+
                                 $conditionData[] = ['lteq' => $conditionValue['to']];
                             }
                         }
@@ -105,9 +111,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced_Collection extends Mage_Catalog
                     if (!is_null($previousSelect)) {
                         $select->where('t1.entity_id IN (?)', new Zend_Db_Expr($previousSelect));
                     }
+
                     $previousSelect = $select;
                 }
             }
+
             if (isset($select)) {
                 $this->addFieldToFilter('entity_id', ['in' => new Zend_Db_Expr($select)]);
             }

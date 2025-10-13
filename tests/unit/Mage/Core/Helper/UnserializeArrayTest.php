@@ -17,7 +17,7 @@ use Mage_Core_Helper_UnserializeArray as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\UnserializeArray as UnserializeArrayDataProvider;
 
-class UnserializeArrayTest extends OpenMageTest
+final class UnserializeArrayTest extends OpenMageTest
 {
     use UnserializeArrayDataProvider;
 
@@ -36,9 +36,9 @@ class UnserializeArrayTest extends OpenMageTest
     public function testUnserialize(array|string $expectedTesult, ?string $string): void
     {
         try {
-            static::assertSame($expectedTesult, self::$subject->unserialize($string));
+            self::assertSame($expectedTesult, self::$subject->unserialize($string));
         } catch (Exception $exception) {
-            static::assertSame($expectedTesult, $exception->getMessage());
+            self::assertSame($expectedTesult, $exception->getMessage());
         }
     }
 }

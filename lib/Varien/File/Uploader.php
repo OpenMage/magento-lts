@@ -131,6 +131,7 @@ class Varien_File_Uploader
     protected $_validateCallbacks = [];
 
     public const SINGLE_STYLE = 0;
+
     public const MULTIPLE_STYLE = 1;
 
     /**
@@ -221,6 +222,7 @@ class Varien_File_Uploader
                     self::_addDirSeparator($this->_dispretionPath),
                 ) . $fileName;
             }
+
             $this->_uploadedFileName = $fileName;
             $this->_uploadedFileDir = $destinationFolder;
             $this->_result = $this->_file;
@@ -316,6 +318,7 @@ class Varien_File_Uploader
         if (isset($this->_validateCallbacks[$callbackName])) {
             unset($this->_validateCallbacks[$callbackName]);
         }
+
         return $this;
     }
 
@@ -333,6 +336,7 @@ class Varien_File_Uploader
         if (preg_match('/^_+$/', $fileInfo['filename'])) {
             $fileName = 'file.' . $fileInfo['extension'];
         }
+
         return $fileName;
     }
 
@@ -347,6 +351,7 @@ class Varien_File_Uploader
         if ($this->_caseInsensitiveFilenames) {
             return strtolower($fileName);
         }
+
         return $fileName;
     }
 
@@ -355,6 +360,7 @@ class Varien_File_Uploader
         if (substr($dir, -1) != DIRECTORY_SEPARATOR) {
             $dir .= DIRECTORY_SEPARATOR;
         }
+
         return $dir;
     }
 
@@ -372,8 +378,9 @@ class Varien_File_Uploader
                 $validator = new Zend_Validate_File_MimeType($validTypes);
                 return $validator->isValid($this->_file['tmp_name']);
             }
+
             return true;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }
@@ -445,6 +452,7 @@ class Varien_File_Uploader
         foreach ((array) $extensions as $extension) {
             $this->_allowedExtensions[] = strtolower($extension);
         }
+
         return $this;
     }
 
@@ -460,6 +468,7 @@ class Varien_File_Uploader
         foreach ((array) $mimeTypes as $mimeType) {
             $this->_validMimeTypes[] = $mimeType;
         }
+
         return $this;
     }
 
@@ -467,7 +476,7 @@ class Varien_File_Uploader
      * Check if specified extension is allowed
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function checkAllowedExtension($extension)
     {
@@ -482,16 +491,11 @@ class Varien_File_Uploader
      * @deprecated after 1.5.0.0-beta2
      *
      * @param string $extension
-     * @return boolean
+     * @return bool
      */
     public function chechAllowedExtension($extension)
     {
         return $this->checkAllowedExtension($extension);
-    }
-
-    private function _getMimeType()
-    {
-        return $this->_file['type'];
     }
 
     private function _setUploadFileId($fileId)
@@ -503,26 +507,22 @@ class Varien_File_Uploader
         if (is_array($fileId)) {
             $this->_uploadType = self::MULTIPLE_STYLE;
             $this->_file = $fileId;
-        } else {
-            if (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
-                array_shift($file);
-                $this->_uploadType = self::MULTIPLE_STYLE;
-
-                $fileAttributes = $_FILES[$file[0]];
-                $tmp_var = [];
-
-                foreach ($fileAttributes as $attributeName => $attributeValue) {
-                    $tmp_var[$attributeName] = $attributeValue[$file[1]];
-                }
-
-                $fileAttributes = $tmp_var;
-                $this->_file = $fileAttributes;
-            } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
-                $this->_uploadType = self::SINGLE_STYLE;
-                $this->_file = $_FILES[$fileId];
-            } elseif ($fileId == '') {
-                throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
+        } elseif (preg_match('/^(\w+)\[(\w+)\]$/', $fileId, $file)) {
+            array_shift($file);
+            $this->_uploadType = self::MULTIPLE_STYLE;
+            $fileAttributes = $_FILES[$file[0]];
+            $tmp_var = [];
+            foreach ($fileAttributes as $attributeName => $attributeValue) {
+                $tmp_var[$attributeName] = $attributeValue[$file[1]];
             }
+
+            $fileAttributes = $tmp_var;
+            $this->_file = $fileAttributes;
+        } elseif (!empty($fileId) && isset($_FILES[$fileId])) {
+            $this->_uploadType = self::SINGLE_STYLE;
+            $this->_file = $_FILES[$fileId];
+        } elseif ($fileId == '') {
+            throw new Exception('Invalid parameter given. A valid $_FILES[] identifier is expected.');
         }
     }
 
@@ -542,6 +542,7 @@ class Varien_File_Uploader
         if (!(@is_dir($destinationFolder) || @mkdir($destinationFolder, 0777, true))) {
             throw new Exception("Unable to create directory '{$destinationFolder}'.");
         }
+
         return $this;
     }
 
@@ -555,6 +556,7 @@ class Varien_File_Uploader
                 $baseName = $fileInfo['filename'] . '_' . $index . '.' . $fileInfo['extension'];
                 $index++;
             }
+
             $destFileName = $baseName;
         } else {
             return $fileInfo['basename'];
@@ -575,8 +577,10 @@ class Varien_File_Uploader
                 $dispretionPath = self::_addDirSeparator($dispretionPath)
                       . ('.' == $fileName[$char] ? '_' : $fileName[$char]);
             }
+
             $char++;
         }
+
         return $dispretionPath;
     }
 }

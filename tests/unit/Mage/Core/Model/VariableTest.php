@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Model_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class VariableTest extends OpenMageTest
+final class VariableTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,6 +30,6 @@ class VariableTest extends OpenMageTest
      */
     public function testGetVariablesOptionArray(): void
     {
-        static::assertIsArray(self::$subject->getVariablesOptionArray());
+        self::assertIsArray(self::$subject->getVariablesOptionArray());
     }
 }

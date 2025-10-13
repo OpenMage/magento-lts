@@ -118,17 +118,19 @@ class Varien_Io_File extends Varien_Io_Abstract
     public function streamOpen($fileName, $mode = 'w+', $chmod = 0666)
     {
         $writeableMode = preg_match('#^[wax]#i', $mode);
-        if ($writeableMode && !is_writeable($this->_cwd)) {
+        if ($writeableMode && !is_writable($this->_cwd)) {
             throw new Exception('Permission denied for write to ' . $this->getFilteredPath($this->_cwd));
         }
 
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $this->_streamHandler = @fopen($fileName, $mode);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         if ($this->_streamHandler === false) {
             throw new Exception('Error write to file ' . $this->getFilteredPath($fileName));
         }
@@ -148,6 +150,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler) {
             return false;
         }
+
         $this->_streamLocked = true;
         $lock = $exclusive ? LOCK_EX : LOCK_SH;
         return flock($this->_streamHandler, $lock);
@@ -163,6 +166,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler || !$this->_streamLocked) {
             return false;
         }
+
         $this->_streamLocked = false;
         return flock($this->_streamHandler, LOCK_UN);
     }
@@ -180,9 +184,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler) {
             return false;
         }
+
         if (feof($this->_streamHandler)) {
             return false;
         }
+
         return @fgets($this->_streamHandler, $length);
     }
 
@@ -198,7 +204,8 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler) {
             return false;
         }
-        return @fgetcsv($this->_streamHandler, 0, $delimiter, $enclosure);
+
+        return @fgetcsv($this->_streamHandler, 0, $delimiter, $enclosure, '\\');
     }
 
     /**
@@ -214,6 +221,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler) {
             return false;
         }
+
         return @fwrite($this->_streamHandler, $str);
     }
 
@@ -251,9 +259,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_streamLocked) {
             $this->streamUnlock();
         }
+
         if ($this->_isValidSource($this->_streamHandler)) {
             @fclose($this->_streamHandler);
         }
+
         $this->_streamHandler = null;
         $this->chmod($this->_streamFileName, $this->_streamChmod);
         return true;
@@ -273,10 +283,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_streamHandler) {
             return false;
         }
+
         $stat = @fstat($this->_streamHandler);
         if (!is_null($part)) {
             return $stat[$part] ?? $default;
         }
+
         return $stat;
     }
 
@@ -352,9 +364,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($result) {
             @chmod($dir, $mode);
         }
+
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -371,10 +385,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = self::rmdirRecursive($dir, $recursive);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -395,8 +411,10 @@ class Varien_Io_File extends Varien_Io_Abstract
                     if (!strcmp($item, '.') || !strcmp($item, '..')) {
                         continue;
                     }
+
                     self::rmdirRecursive($dir . '/' . $item, $recursive);
                 }
+
                 $result = @rmdir($dir);
             } elseif (file_exists($dir)) {
                 $result = @unlink($dir);
@@ -404,6 +422,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         } else {
             $result = @rmdir($dir);
         }
+
         return $result;
     }
 
@@ -540,8 +559,9 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         if (file_exists($filename)) {
-            if (!is_writeable($filename)) {
+            if (!is_writable($filename)) {
                 $error = "File '{$this->getFilteredPath($filename)}' isn't writeable";
             }
         } else {
@@ -550,6 +570,7 @@ class Varien_Io_File extends Varien_Io_Abstract
                 $error = "Folder '{$this->getFilteredPath($folder)}' isn't writeable";
             }
         }
+
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
@@ -557,6 +578,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($error) {
             throw new Varien_Io_Exception($error);
         }
+
         return true;
     }
 
@@ -593,6 +615,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = @file_put_contents($filename, $src);
         if ($this->_iwd) {
             chdir($this->_iwd);
@@ -609,13 +632,16 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = file_exists($file);
         if ($result && $onlyFile) {
             $result = is_file($file);
         }
+
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -627,10 +653,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
-        $result = is_writeable($path);
+
+        $result = is_writable($path);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -651,6 +679,7 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (!$this->_allowCreateFolders) {
             return false;
         }
+
         return $this->checkAndCreateFolder($this->getCleanPath($path));
     }
 
@@ -667,12 +696,15 @@ class Varien_Io_File extends Varien_Io_Abstract
         if (is_dir($folder)) {
             return true;
         }
+
         if (!is_dir(dirname($folder))) {
             $this->checkAndCreateFolder(dirname($folder), $mode);
         }
+
         if (!is_dir($folder) && !$this->mkdir($folder, $mode)) {
             throw new Exception("Unable to create directory '{$this->getFilteredPath($folder)}'. Access forbidden.");
         }
+
         return true;
     }
 
@@ -689,10 +721,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = @unlink($filename);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -710,10 +744,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             chdir($this->_cwd);
         }
+
         $result = @rename($src, $dest);
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -731,10 +767,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             @chdir($this->_cwd);
         }
+
         $result = @copy($src, $dest);
         if ($this->_iwd) {
             @chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -752,10 +790,12 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($this->_cwd) {
             chdir($this->_cwd);
         }
+
         $result = file_exists($filename) ? @chmod($filename, $mode) : false;
         if ($this->_iwd) {
             chdir($this->_iwd);
         }
+
         return $result;
     }
 
@@ -833,6 +873,7 @@ class Varien_Io_File extends Varien_Io_Abstract
 
                 $list[] = $list_item;
             }
+
             closedir($dh);
         } else {
             throw new Exception('Unable to list current working directory. Access forbidden.');
@@ -883,9 +924,11 @@ class Varien_Io_File extends Varien_Io_Abstract
         if ($mode & 0x800) {
             $owner['execute'] = ($owner['execute'] == 'x') ? 's' : 'S';
         }
+
         if ($mode & 0x400) {
             $group['execute'] = ($group['execute'] == 'x') ? 's' : 'S';
         }
+
         if ($mode & 0x200) {
             $world['execute'] = ($world['execute'] == 'x') ? 't' : 'T';
         }

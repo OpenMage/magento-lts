@@ -181,6 +181,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
             $statuses = array_flip(Mage::helper('review')->getReviewStatuses());
             $status = $statuses[$status] ?? 0;
         }
+
         if (is_numeric($status)) {
             $this->addFilter(
                 'status',
@@ -188,6 +189,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
                 'string',
             );
         }
+
         return $this;
     }
 
@@ -257,11 +259,13 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
         if ($this->isLoaded()) {
             return $this;
         }
+
         Mage::dispatchEvent('review_review_collection_load_before', ['collection' => $this]);
         parent::load($printQuery, $logQuery);
         if ($this->_addStoreDataFlag) {
             $this->_addStoreData();
         }
+
         return $this;
     }
 
@@ -285,6 +289,7 @@ class Mage_Review_Model_Resource_Review_Collection extends Mage_Core_Model_Resou
                 if (!isset($storesToReviews[$row['review_id']])) {
                     $storesToReviews[$row['review_id']] = [];
                 }
+
                 $storesToReviews[$row['review_id']][] = $row['store_id'];
             }
         }

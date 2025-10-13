@@ -105,6 +105,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Subselect extends Mage_SalesRu
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
+
         return $html;
     }
 

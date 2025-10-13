@@ -63,12 +63,10 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             } else {
                 $value = [];
             }
+        } elseif (isset($_FILES[$attrCode])) {
+            $value = $_FILES[$attrCode];
         } else {
-            if (isset($_FILES[$attrCode])) {
-                $value = $_FILES[$attrCode];
-            } else {
-                $value = [];
-            }
+            $value = [];
         }
 
         if (!empty($extend['delete'])) {
@@ -156,6 +154,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             if ($toDelete) {
                 $attribute->setAttributeValidationAsPassed();
             }
+
             return true;
         }
 
@@ -199,6 +198,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             if (!$attribute->getIsRequired() && !empty($value['delete'])) {
                 $toDelete  = true;
             }
+
             if (!empty($value['tmp_name'])) {
                 $toDelete  = true;
             }
@@ -255,15 +255,11 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
     {
         $output = '';
         $value  = $this->getEntity()->getData($this->getAttribute()->getAttributeCode());
-        if ($value) {
-            switch ($format) {
-                case Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON:
-                    $output = [
-                        'value'     => $value,
-                        'url_key'   => Mage::helper('core')->urlEncode($value),
-                    ];
-                    break;
-            }
+        if ($value && $format === Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_JSON) {
+            $output = [
+                'value'     => $value,
+                'url_key'   => Mage::helper('core')->urlEncode($value),
+            ];
         }
 
         return $output;

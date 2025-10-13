@@ -15,13 +15,19 @@
 class Mage_Cron_Model_Observer
 {
     public const CACHE_KEY_LAST_SCHEDULE_GENERATE_AT   = 'cron_last_schedule_generate_at';
+
     public const CACHE_KEY_LAST_HISTORY_CLEANUP_AT     = 'cron_last_history_cleanup_at';
 
     public const XML_PATH_SCHEDULE_GENERATE_EVERY  = 'system/cron/schedule_generate_every';
+
     public const XML_PATH_SCHEDULE_AHEAD_FOR       = 'system/cron/schedule_ahead_for';
+
     public const XML_PATH_SCHEDULE_LIFETIME        = 'system/cron/schedule_lifetime';
+
     public const XML_PATH_HISTORY_CLEANUP_EVERY    = 'system/cron/history_cleanup_every';
+
     public const XML_PATH_HISTORY_SUCCESS          = 'system/cron/history_success_lifetime';
+
     public const XML_PATH_HISTORY_FAILURE          = 'system/cron/history_failure_lifetime';
 
     public const REGEX_RUN_MODEL = '#^([a-z0-9_]+/[a-z0-9_]+)::([a-z0-9_]+)$#i';
@@ -43,13 +49,15 @@ class Mage_Cron_Model_Observer
 
         /** @var Mage_Cron_Model_Schedule $schedule */
         foreach ($schedules->getIterator() as $schedule) {
-            $jobConfig = $jobsRoot->{$schedule->getJobCode()};
+            $jobCode = (string) $schedule->getJobCode();
+            $jobConfig = $jobsRoot->{$jobCode};
             if (!$jobConfig || !$jobConfig->run) {
-                $jobConfig = $defaultJobsRoot->{$schedule->getJobCode()};
+                $jobConfig = $defaultJobsRoot->{$jobCode};
                 if (!$jobConfig || !$jobConfig->run) {
                     continue;
                 }
             }
+
             $this->_processJob($schedule, $jobConfig);
         }
 
@@ -90,6 +98,7 @@ class Mage_Cron_Model_Observer
                 ->orderByScheduledAt()
                 ->load();
         }
+
         return $this->_pendingSchedules;
     }
 
@@ -155,9 +164,11 @@ class Mage_Cron_Model_Observer
             if ($jobConfig->schedule->config_path) {
                 $cronExpr = Mage::getStoreConfig((string) $jobConfig->schedule->config_path);
             }
+
             if (empty($cronExpr) && $jobConfig->schedule->cron_expr) {
                 $cronExpr = (string) $jobConfig->schedule->cron_expr;
             }
+
             if (!$cronExpr || $cronExpr == 'always') {
                 continue;
             }
@@ -174,13 +185,16 @@ class Mage_Cron_Model_Observer
                     // already scheduled
                     continue;
                 }
+
                 if (!$schedule->trySchedule($time)) {
                     // time does not match cron expression
                     continue;
                 }
+
                 $schedule->unsScheduleId()->save();
             }
         }
+
         return $this;
     }
 
@@ -281,16 +295,20 @@ class Mage_Cron_Model_Observer
                     Mage::throwException(Mage::helper('cron')->__('Too late for the schedule.'));
                 }
             }
+
             if ($runConfig->model) {
                 if (!preg_match(self::REGEX_RUN_MODEL, (string) $runConfig->model, $run)) {
                     Mage::throwException(Mage::helper('cron')->__('Invalid model/method definition, expecting "model/class::method".'));
                 }
+
                 if (!($model = Mage::getModel($run[1])) || !method_exists($model, $run[2])) {
                     Mage::throwException(Mage::helper('cron')->__('Invalid callback: %s::%s does not exist', $run[1], $run[2]));
                 }
+
                 $callback = [$model, $run[2]];
                 $arguments = [$schedule];
             }
+
             if (empty($callback)) {
                 Mage::throwException(Mage::helper('cron')->__('No callbacks found'));
             }
@@ -300,6 +318,7 @@ class Mage_Cron_Model_Observer
                     // another cron started this job intermittently, so skip it
                     return;
                 }
+
                 /**
                 though running status is set in tryLockJob we must set it here because the object
                 was loaded with a pending status and will set it back to pending if we don't set it here
@@ -346,6 +365,7 @@ class Mage_Cron_Model_Observer
                 ->setCreatedAt($ts)
                 ->setScheduledAt($ts);
         }
+
         $schedule->setStatus(Mage_Cron_Model_Schedule::STATUS_RUNNING)->save();
         return $schedule;
     }

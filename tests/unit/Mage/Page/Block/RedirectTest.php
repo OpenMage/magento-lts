@@ -14,7 +14,7 @@ namespace OpenMage\Tests\Unit\Mage\Page\Block;
 use Mage_Page_Block_Redirect as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class RedirectTest extends OpenMageTest
+final class RedirectTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -29,7 +29,7 @@ class RedirectTest extends OpenMageTest
      */
     public function testGetTargetUrl(): void
     {
-        static::assertSame('', self::$subject->getTargetURL());
+        self::assertSame('', self::$subject->getTargetURL());
     }
 
     /**
@@ -37,7 +37,7 @@ class RedirectTest extends OpenMageTest
      */
     public function testGetMessage(): void
     {
-        static::assertSame('', self::$subject->getMessage());
+        self::assertSame('', self::$subject->getMessage());
     }
 
     /**
@@ -45,7 +45,7 @@ class RedirectTest extends OpenMageTest
      */
     public function testGetRedirectOutput(): void
     {
-        static::assertIsString(self::$subject->getRedirectOutput());
+        self::assertIsString(self::$subject->getRedirectOutput());
     }
 
     /**
@@ -53,7 +53,7 @@ class RedirectTest extends OpenMageTest
      */
     public function testGetJsRedirect(): void
     {
-        static::assertIsString(self::$subject->getJsRedirect());
+        self::assertIsString(self::$subject->getJsRedirect());
     }
 
     /**
@@ -61,7 +61,7 @@ class RedirectTest extends OpenMageTest
      */
     public function testGetHtmlFormRedirect(): void
     {
-        static::assertIsString(self::$subject->getHtmlFormRedirect());
+        self::assertIsString(self::$subject->getHtmlFormRedirect());
     }
 
     /**
@@ -69,7 +69,7 @@ class RedirectTest extends OpenMageTest
      */
     public function testIsHtmlFormRedirect(): void
     {
-        static::assertIsBool(self::$subject->isHtmlFormRedirect());
+        self::assertIsBool(self::$subject->isHtmlFormRedirect());
     }
 
     /**
@@ -77,7 +77,7 @@ class RedirectTest extends OpenMageTest
      */
     public function testGetFormId(): void
     {
-        static::assertSame('', self::$subject->getFormId());
+        self::assertSame('', self::$subject->getFormId());
     }
 
     /**
@@ -85,6 +85,6 @@ class RedirectTest extends OpenMageTest
      */
     public function testGetFormMethod(): void
     {
-        static::assertSame('POST', self::$subject->getFormMethod());
+        self::assertSame('POST', self::$subject->getFormMethod());
     }
 }

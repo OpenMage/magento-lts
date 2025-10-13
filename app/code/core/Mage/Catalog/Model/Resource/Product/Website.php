@@ -91,6 +91,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
                     if (!$productId) {
                         continue;
                     }
+
                     $this->_getWriteAdapter()->insert($this->getMainTable(), [
                         'product_id' => (int) $productId,
                         'website_id' => (int) $websiteId,
@@ -110,6 +111,7 @@ class Mage_Catalog_Model_Resource_Product_Website extends Mage_Core_Model_Resour
             $this->_getWriteAdapter()->rollBack();
             throw $e;
         }
+
         return $this;
     }
 

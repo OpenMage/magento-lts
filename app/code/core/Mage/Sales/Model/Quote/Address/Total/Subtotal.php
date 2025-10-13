@@ -69,6 +69,7 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
         } else {
             $quoteItem = $item;
         }
+
         $product = $quoteItem->getProduct();
         $product->setCustomerGroupId($quoteItem->getQuote()->getCustomerGroupId());
 
@@ -79,10 +80,8 @@ class Mage_Sales_Model_Quote_Address_Total_Subtotal extends Mage_Sales_Model_Quo
             if (!$product) {
                 return false;
             }
-        } else {
-            if (!$product || !$product->isVisibleInCatalog()) {
-                return false;
-            }
+        } elseif (!$product || !$product->isVisibleInCatalog()) {
+            return false;
         }
 
         if ($quoteItem->getParentItem() && $quoteItem->isChildrenCalculated()) {

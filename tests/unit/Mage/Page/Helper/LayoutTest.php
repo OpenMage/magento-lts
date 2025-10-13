@@ -15,7 +15,7 @@ use Mage;
 use Mage_Page_Helper_Layout as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LayoutTest extends OpenMageTest
+final class LayoutTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,6 +31,6 @@ class LayoutTest extends OpenMageTest
      */
     public function testApplyTemplate(): void
     {
-        static::assertTrue(self::$subject->isModuleEnabled());
+        self::assertTrue(self::$subject->isModuleEnabled());
     }
 }

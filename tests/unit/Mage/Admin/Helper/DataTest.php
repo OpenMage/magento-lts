@@ -15,7 +15,7 @@ use Mage;
 use Mage_Admin_Helper_Data as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class DataTest extends OpenMageTest
+final class DataTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -31,7 +31,7 @@ class DataTest extends OpenMageTest
      */
     public function testGenerateResetPasswordLinkToken(): void
     {
-        static::assertIsString(self::$subject->generateResetPasswordLinkToken());
+        self::assertIsString(self::$subject->generateResetPasswordLinkToken());
     }
 
     /**
@@ -40,6 +40,6 @@ class DataTest extends OpenMageTest
      */
     public function testGetResetPasswordLinkExpirationPeriod(): void
     {
-        static::assertIsInt(self::$subject->getResetPasswordLinkExpirationPeriod());
+        self::assertIsInt(self::$subject->getResetPasswordLinkExpirationPeriod());
     }
 }

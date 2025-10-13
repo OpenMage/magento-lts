@@ -36,7 +36,9 @@
 class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
 {
     public const ENTITY    = 'core_website';
+
     public const CACHE_TAG = 'website';
+
     protected $_cacheTag = true;
 
     /**
@@ -150,6 +152,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             $this->_getResource()->load($this, $id, 'code');
             return $this;
         }
+
         return parent::load($id, $field);
     }
 
@@ -164,6 +167,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (!Mage::getConfig()->getNode('websites')) {
             return $this;
         }
+
         if (is_numeric($code)) {
             foreach (Mage::getConfig()->getNode('websites')->children() as $websiteCode => $website) {
                 if ((int) $website->system->website->id == $code) {
@@ -174,11 +178,13 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         } else {
             $website = Mage::getConfig()->getNode('websites/' . $code);
         }
+
         if (!empty($website)) {
             $this->setCode($code);
             $id = (int) $website->system->website->id;
             $this->setId($id)->setStoreId($id);
         }
+
         return $this;
     }
 
@@ -196,6 +202,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
                 return false;
                 #throw Mage::exception('Mage_Core', Mage::helper('core')->__('Invalid website\'s configuration path: %s', $path));
             }
+
             if ($config->hasChildren()) {
                 $value = [];
                 foreach ($config->children() as $k => $v) {
@@ -204,8 +211,10 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             } else {
                 $value = (string) $config;
             }
+
             $this->_configCache[$path] = $value;
         }
+
         return $this->_configCache[$path];
     }
 
@@ -224,6 +233,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
+
             $this->_groupsCount++;
         }
     }
@@ -245,8 +255,10 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroupId() == $groupId) {
                 $this->_defaultGroup = $group;
             }
+
             $this->_groupsCount++;
         }
+
         return $this;
     }
 
@@ -272,6 +284,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_groups;
     }
 
@@ -285,6 +298,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_groupIds;
     }
 
@@ -298,6 +312,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_groupsCount;
     }
 
@@ -311,9 +326,11 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (!$this->hasDefaultGroupId()) {
             return false;
         }
+
         if (is_null($this->_groups)) {
             $this->_loadGroups();
         }
+
         return $this->_defaultGroup;
     }
 
@@ -333,6 +350,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -354,6 +372,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             if ($this->getDefaultGroup() && $this->getDefaultGroup()->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -380,6 +399,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_stores;
     }
 
@@ -393,6 +413,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeIds;
     }
 
@@ -406,6 +427,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeCodes;
     }
 
@@ -419,6 +441,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storesCount;
     }
 
@@ -432,10 +455,12 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if ($this->_isReadOnly || !$this->getId()) {
             return false;
         }
+
         if (is_null($this->_isCanDelete)) {
             $this->_isCanDelete = (Mage::getModel('core/website')->getCollection()->getSize() > 2)
                 && !$this->getIsDefault();
         }
+
         return $this->_isCanDelete;
     }
 
@@ -516,6 +541,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
             $currency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
             $this->setData('base_currency', $currency);
         }
+
         return $currency;
     }
 
@@ -554,6 +580,7 @@ class Mage_Core_Model_Website extends Mage_Core_Model_Abstract
         if ($value !== null) {
             $this->_isReadOnly = (bool) $value;
         }
+
         return $this->_isReadOnly;
     }
 }

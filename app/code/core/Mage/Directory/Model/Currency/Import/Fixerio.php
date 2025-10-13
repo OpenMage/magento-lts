@@ -114,7 +114,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
         @set_time_limit($timeLimitCalculated);
         try {
             $response = $this->_getServiceResponse($url);
-        } catch (Exception $e) {
+        } catch (Exception) {
             ini_restore('max_execution_time');
         }
 
@@ -126,14 +126,12 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
         foreach ($currenciesTo as $currencyTo) {
             if ($currencyFrom == $currencyTo) {
                 $data[$currencyFrom][$currencyTo] = $this->_numberFormat(1);
+            } elseif (empty($response['rates'][$currencyTo])) {
+                $this->_messages[] = Mage::helper('directory')
+                    ->__('We can\'t retrieve a rate from %s for %s.', $url, $currencyTo);
+                $data[$currencyFrom][$currencyTo] = null;
             } else {
-                if (empty($response['rates'][$currencyTo])) {
-                    $this->_messages[] = Mage::helper('directory')
-                        ->__('We can\'t retrieve a rate from %s for %s.', $url, $currencyTo);
-                    $data[$currencyFrom][$currencyTo] = null;
-                } else {
-                    $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response['rates'][$currencyTo]);
-                }
+                $data[$currencyFrom][$currencyTo] = $this->_numberFormat((float) $response['rates'][$currencyTo]);
             }
         }
 
@@ -158,7 +156,7 @@ class Mage_Directory_Model_Currency_Import_Fixerio extends Mage_Directory_Model_
                 ->getBody();
 
             $response = json_decode($jsonResponse, true);
-        } catch (Exception $e) {
+        } catch (Exception) {
             if ($retry === 0) {
                 $response = $this->_getServiceResponse($url, 1);
             }

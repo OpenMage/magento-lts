@@ -22,7 +22,7 @@ use Mage_Core_Helper_Array as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Core\Helper\ArrayTrait;
 
-class ArrayTest extends OpenMageTest
+final class ArrayTest extends OpenMageTest
 {
     use ArrayTrait;
 
@@ -41,6 +41,6 @@ class ArrayTest extends OpenMageTest
      */
     public function testMergeRecursiveWithoutOverwriteNumKeys(array $expectedResult, array $baseArray, array $mergeArray): void
     {
-        static::assertSame($expectedResult, self::$subject->mergeRecursiveWithoutOverwriteNumKeys($baseArray, $mergeArray));
+        self::assertSame($expectedResult, self::$subject->mergeRecursiveWithoutOverwriteNumKeys($baseArray, $mergeArray));
     }
 }

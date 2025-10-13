@@ -14,7 +14,9 @@
 class Mage_Catalog_Model_Mysql4_Convert
 {
     protected $_productsBySku;
+
     protected $_productEntity;
+
     protected $_skuAttribute;
 
     public function getConnection()
@@ -38,6 +40,7 @@ class Mage_Catalog_Model_Mysql4_Convert
             $this->_productEntity = Mage::getResourceModel('catalog/product')
                 ->loadAllAttributes();
         }
+
         return is_null($field) ? $this->_productEntity : $this->_productEntity->getData($field);
     }
 
@@ -46,6 +49,7 @@ class Mage_Catalog_Model_Mysql4_Convert
         if (!$this->_skuAttribute) {
             $this->_skuAttribute = $this->getProductEntity()->getAttribute('sku');
         }
+
         return $this->_skuAttribute->getData($field);
     }
 
@@ -61,6 +65,7 @@ class Mage_Catalog_Model_Mysql4_Convert
                 $this->_productsBySku[$p['sku']] = $p['entity_id'];
             }
         }
+
         return $this->_productsBySku[$sku] ?? false;
     }
 
@@ -75,6 +80,7 @@ class Mage_Catalog_Model_Mysql4_Convert
         } catch (Exception $e) {
             throw $e;
         }
+
         return $this;
     }
 

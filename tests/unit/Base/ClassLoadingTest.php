@@ -14,14 +14,14 @@ namespace OpenMage\Tests\Unit\Base;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-class ClassLoadingTest extends TestCase
+final class ClassLoadingTest extends TestCase
 {
     /**
      * @dataProvider provideClassExistsData
      */
     public function testClassExists(bool $expectedResult, string $class): void
     {
-        static::assertSame($expectedResult, class_exists($class));
+        self::assertSame($expectedResult, class_exists($class));
     }
 
     public function provideClassExistsData(): Generator

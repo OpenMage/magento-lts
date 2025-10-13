@@ -15,7 +15,7 @@ use Mage;
 use Mage_Core_Model_Config as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class ConfigTest extends OpenMageTest
+final class ConfigTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -33,12 +33,12 @@ class ConfigTest extends OpenMageTest
         $path = 'test/config';
         $value = 'foo';
 
-        static::assertFalse(self::$subject->getConfig($path));
+        self::assertFalse(self::$subject->getConfig($path));
 
         self::$subject->saveConfig($path, $value);
-        static::assertSame($value, self::$subject->getConfig($path));
+        self::assertSame($value, self::$subject->getConfig($path));
 
         self::$subject->deleteConfig($path);
-        static::assertFalse(self::$subject->getConfig($path));
+        self::assertFalse(self::$subject->getConfig($path));
     }
 }

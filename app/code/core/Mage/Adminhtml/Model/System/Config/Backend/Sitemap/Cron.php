@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_Model_Config_Data
 {
     public const CRON_STRING_PATH = 'crontab/jobs/sitemap_generate/schedule/cron_expr';
+
     public const CRON_MODEL_PATH = 'crontab/jobs/sitemap_generate/run/model';
 
     protected function _afterSave()
@@ -47,8 +48,9 @@ class Mage_Adminhtml_Model_System_Config_Backend_Sitemap_Cron extends Mage_Core_
                 ->setPath(self::CRON_MODEL_PATH)
                 ->save();
         } catch (Exception $e) {
-            throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'));
+            throw new Exception(Mage::helper('cron')->__('Unable to save the cron expression.'), $e->getCode(), $e);
         }
+
         return $this;
     }
 }

@@ -33,11 +33,13 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
 
         if ($this->getAttribute()->getIsRequired()) {
             $attributeValue = $object->getData($attributeCode);
-            if ($this->getAttribute()->isValueEmpty($attributeValue) &&
-                !(is_array($attributeValue) && count($attributeValue) > 0) &&
-                !$isUseConfig
-            ) {
-                return false;
+            if ($this->getAttribute()->isValueEmpty($attributeValue)) {
+                if (is_array($attributeValue) && count($attributeValue) > 0) {
+                } else {
+                    if (!$isUseConfig) {
+                        return false;
+                    }
+                }
             }
         }
 
@@ -53,15 +55,14 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
                 if (!is_array($available)) {
                     $available = explode(',', $available);
                 }
+
                 $data = (!in_array('default_sort_by', $postDataConfig)) ? $object->getData($attributeCode) :
                        Mage::getStoreConfig('catalog/frontend/default_sort_by');
                 if (!in_array($data, $available)) {
                     Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by does not exist in Available Product Listing Sort By.'));
                 }
-            } else {
-                if (!in_array('available_sort_by', $postDataConfig)) {
-                    Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by does not exist in Available Product Listing Sort By.'));
-                }
+            } elseif (!in_array('available_sort_by', $postDataConfig)) {
+                Mage::throwException(Mage::helper('eav')->__('Default Product Listing Sort by does not exist in Available Product Listing Sort By.'));
             }
         }
 
@@ -82,11 +83,14 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
             if (!is_array($data)) {
                 $data = [];
             }
+
             $object->setData($attributeCode, implode(',', $data));
         }
+
         if (is_null($object->getData($attributeCode))) {
             $object->setData($attributeCode, false);
         }
+
         return $this;
     }
 
@@ -103,6 +107,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
                 $object->setData($attributeCode, explode(',', $data));
             }
         }
+
         return $this;
     }
 }

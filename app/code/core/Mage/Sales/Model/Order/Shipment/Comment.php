@@ -72,6 +72,7 @@ class Mage_Sales_Model_Order_Shipment_Comment extends Mage_Sales_Model_Abstract
         if ($this->getShipment()) {
             return $this->getShipment()->getStore();
         }
+
         return Mage::app()->getStore();
     }
 

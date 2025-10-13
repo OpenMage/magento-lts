@@ -99,6 +99,7 @@ class Mage_Media_Model_Image extends Mage_Core_Model_Abstract
         if (!$this->getData('dimensions')) {
             $this->setData('dimensions', $this->_getResource()->getDimensions($this));
         }
+
         return $this->getData('dimensions');
     }
 

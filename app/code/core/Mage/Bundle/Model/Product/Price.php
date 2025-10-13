@@ -52,6 +52,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         if ($product->getPriceType() == self::PRICE_TYPE_FIXED) {
             return $product->getData('price');
         }
+
         return 0;
     }
 
@@ -93,6 +94,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 }
             }
         }
+
         return $price;
     }
 
@@ -305,6 +307,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 }
             }
         }
+
         // condition is TRUE when all product options are NOT required
         if (!$hasRequiredOptions) {
             $minimalPrice = empty($selectionMinimalPrices) ? 0 : min($selectionMinimalPrices);
@@ -326,6 +329,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             $roundedTax = $this->_getApp()->getStore()->roundPrice($tax);
             $minimalPrice = $minimalPriceWithTax - $roundedTax;
         }
+
         return $minimalPrice;
     }
 
@@ -355,6 +359,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     : max($selectionPrices);
             }
         }
+
         return $maximalPrice;
     }
 
@@ -422,6 +427,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 $selectionPrices[] = $selectionPrice;
             }
         }
+
         return $selectionPrices;
     }
 
@@ -558,18 +564,17 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
 
         if ($bundleProduct->getPriceType() == self::PRICE_TYPE_DYNAMIC) {
             $price = $selectionProduct->getFinalPrice($takeTierPrice ? $selectionQty : 1);
-        } else {
-            if ($selectionProduct->getSelectionPriceType()) { // percent
-                $product = clone $bundleProduct;
-                $product->setFinalPrice($this->getPrice($product));
-                Mage::dispatchEvent(
-                    'catalog_product_get_final_price',
-                    ['product' => $product, 'qty' => $bundleQty],
-                );
-                $price = $product->getData('final_price') * ($selectionProduct->getSelectionPriceValue() / 100);
-            } else { // fixed
-                $price = $selectionProduct->getSelectionPriceValue();
-            }
+        } elseif ($selectionProduct->getSelectionPriceType()) {
+            // percent
+            $product = clone $bundleProduct;
+            $product->setFinalPrice($this->getPrice($product));
+            Mage::dispatchEvent(
+                'catalog_product_get_final_price',
+                ['product' => $product, 'qty' => $bundleQty],
+            );
+            $price = $product->getData('final_price') * ($selectionProduct->getSelectionPriceValue() / 100);
+        } else { // fixed
+            $price = $selectionProduct->getSelectionPriceValue();
         }
 
         $price = $this->getLowestPrice($bundleProduct, $price, $bundleQty);
@@ -711,6 +716,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
             if (!is_null($qty)) {
                 return 0;
             }
+
             return [[
                 'price' => 0,
                 'website_price' => 0,
@@ -730,14 +736,17 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     // tier not for current customer group nor is for all groups
                     continue;
                 }
+
                 if ($qty < $price['price_qty']) {
                     // tier is higher than product qty
                     continue;
                 }
+
                 if ($price['price_qty'] < $prevQty) {
                     // higher tier qty already found
                     continue;
                 }
+
                 if ($price['price_qty'] == $prevQty && $prevGroup != $allGroups && $price['cust_group'] == $allGroups) {
                     // found tier qty is same as current tier qty but current tier group is ALL_GROUPS
                     continue;
@@ -857,12 +866,14 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                     $options[$result['option_id']] = $selectionPrice;
                 }
             }
+
             $basePrice = array_sum($options);
         } else {
             foreach ($results as $result) {
                 if (!$result['product_id']) {
                     continue;
                 }
+
                 if ($result['selection_price_type']) {
                     $selectionPrice = $basePrice * $result['selection_price_value'] / 100;
                 } else {
@@ -913,7 +924,8 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 foreach ($values as $value) {
                     $prices[] = $value->getPrice();
                 }
-                if (count($prices)) {
+
+                if ($prices !== []) {
                     $finalPrice += min($prices);
                 }
             } else {
@@ -1008,6 +1020,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 }
             }
         }
+
         return false;
     }
 
@@ -1038,6 +1051,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
         } else {
             $maximalPrice = (float) ($option->getPrice(true));
         }
+
         return $maximalPrice;
     }
 
@@ -1056,6 +1070,7 @@ class Mage_Bundle_Model_Product_Price extends Mage_Catalog_Model_Product_Type_Pr
                 $prices[] = $value->getPrice(true);
             }
         }
+
         return $prices;
     }
 }

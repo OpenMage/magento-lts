@@ -16,10 +16,15 @@
 class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
 {
     protected $_code  = Mage_Paypal_Model_Config::METHOD_WPS;
+
     protected $_formBlockType = 'paypal/standard_form';
+
     protected $_infoBlockType = 'paypal/payment_info';
+
     protected $_isInitializeNeeded      = true;
+
     protected $_canUseInternal          = false;
+
     protected $_canUseForMultishipping  = false;
 
     /**
@@ -154,8 +159,10 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
             if ($store = $this->getStore()) {
                 $params[] = is_object($store) ? $store->getId() : $store;
             }
+
             $this->_config = Mage::getModel('paypal/config', $params);
         }
+
         return $this->_config;
     }
 
@@ -169,6 +176,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         if (parent::isAvailable($quote) && $this->getConfig()->isMethodAvailable()) {
             return true;
         }
+
         return false;
     }
 
@@ -194,6 +202,7 @@ class Mage_Paypal_Model_Standard extends Mage_Payment_Model_Method_Abstract
         if ($this->_config->lineItemsSummary) {
             return $this->_config->lineItemsSummary;
         }
+
         return Mage::app()->getStore($this->getStore())->getFrontendName();
     }
 }

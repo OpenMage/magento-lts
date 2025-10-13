@@ -42,6 +42,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Collection extends Mage_Eav_
                 $retColumns[$labelColumn] = $helper->castField('main_table.' . $labelColumn);
             }
         }
+
         $this->getSelect()
             ->from(['main_table' => $this->getResource()->getMainTable()], $retColumns)
             ->join(

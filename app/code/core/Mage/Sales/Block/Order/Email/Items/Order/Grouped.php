@@ -28,11 +28,13 @@ class Mage_Sales_Block_Order_Email_Items_Order_Grouped extends Mage_Sales_Block_
         } else {
             $item = $this->getItem();
         }
+
         if ($productType = $item->getRealProductType()) {
             $renderer = $this->getRenderedBlock()->getItemRenderer($productType);
             $renderer->setItem($this->getItem());
             return $renderer->toHtml();
         }
+
         return parent::_toHtml();
     }
 }

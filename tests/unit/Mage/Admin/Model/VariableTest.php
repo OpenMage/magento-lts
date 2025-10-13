@@ -17,7 +17,7 @@ use Mage_Admin_Model_Variable as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Admin\Model\VariableTrait;
 
-class VariableTest extends OpenMageTest
+final class VariableTest extends OpenMageTest
 {
     use VariableTrait;
 
@@ -38,12 +38,12 @@ class VariableTest extends OpenMageTest
     {
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertSame($expectedResult, $mock->validate());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertSame($expectedResult, $mock->validate());
     }
 
     public function testIsPathAllowed(): void
     {
-        static::assertIsBool(self::$subject->isPathAllowed('invalid-path'));
+        self::assertIsBool(self::$subject->isPathAllowed('invalid-path'));
     }
 }

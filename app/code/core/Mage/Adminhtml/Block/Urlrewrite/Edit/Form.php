@@ -92,11 +92,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                     $stores = []; //reset the stores
                     $noStoreError = $this->__('Chosen product does not associated with any website, so url rewrite is not possible.');
                 }
+
                 //if category is chosen, reset stores which are not related with this category
                 if ($category && $category->getId()) {
                     $categoryStores = $category->getStoreIds() ? $category->getStoreIds() : [];
                     $entityStores = array_intersect($entityStores, $categoryStores);
                 }
+
                 $isFilterAllowed = true;
             } elseif ($category && $category->getId()) {
                 $entityStores = $category->getStoreIds() ? $category->getStoreIds() : [];
@@ -104,6 +106,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                     $stores = []; //reset the stores
                     $noStoreError = $this->__('Chosen category does not associated with any website, so url rewrite is not possible.');
                 }
+
                 $isFilterAllowed = true;
             }
 
@@ -122,6 +125,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                                 unset($stores[$index]['value'][$key]);
                             }
                         }
+
                         if (!$found) {
                             unset($stores[$index]);
                         }
@@ -143,6 +147,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
             if ($noStoreError) {
                 $element->setAfterElementHtml($noStoreError);
             }
+
             if (!$model->getIsSystem()) {
                 $element->unsetData('disabled');
             }
@@ -197,16 +202,15 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit_Form extends Mage_Adminhtml_Block_Wid
                 if (!isset($sessionData['request_path'])) {
                     $requestPath->setValue($catalogUrlModel->generatePath('request', $newProduct, $newCategory, ''));
                 }
+
                 $targetPath->setValue($catalogUrlModel->generatePath('target', $newProduct, $newCategory));
             } else {
                 $idPath->unsetData('disabled');
                 $targetPath->unsetData('disabled');
             }
-        } else {
-            if (!$model->getProductId() && !$model->getCategoryId()) {
-                $idPath->unsetData('disabled');
-                $targetPath->unsetData('disabled');
-            }
+        } elseif (!$model->getProductId() && !$model->getCategoryId()) {
+            $idPath->unsetData('disabled');
+            $targetPath->unsetData('disabled');
         }
 
         $fieldset->addField('options', 'select', [

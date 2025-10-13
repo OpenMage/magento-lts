@@ -15,7 +15,7 @@ use Mage_Cms_Helper_Page as Subject;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Cms\CmsTrait;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class PageTest extends OpenMageTest
+final class PageTest extends OpenMageTest
 {
     use CmsTrait;
 
@@ -25,6 +25,6 @@ class PageTest extends OpenMageTest
      */
     public function testGetUsedInStoreConfigPaths(array $expectedResult, ?array $path): void
     {
-        static::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
+        self::assertSame($expectedResult, Subject::getUsedInStoreConfigPaths($path));
     }
 }

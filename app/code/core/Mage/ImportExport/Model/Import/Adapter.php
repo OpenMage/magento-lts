@@ -27,11 +27,13 @@ class Mage_ImportExport_Model_Import_Adapter
         if (!is_string($type) || !$type) {
             Mage::throwException(Mage::helper('importexport')->__('Adapter type must be a non empty string'));
         }
+
         $adapterClass = self::class . '_' . ucfirst(strtolower($type));
 
         if (!class_exists($adapterClass)) {
             Mage::throwException("'{$type}' file extension is not supported");
         }
+
         $adapter = new $adapterClass($options);
 
         if (!$adapter instanceof Mage_ImportExport_Model_Import_Adapter_Abstract) {
@@ -39,6 +41,7 @@ class Mage_ImportExport_Model_Import_Adapter
                 Mage::helper('importexport')->__('Adapter must be an instance of Mage_ImportExport_Model_Import_Adapter_Abstract'),
             );
         }
+
         return $adapter;
     }
 

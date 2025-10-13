@@ -15,7 +15,7 @@ use Mage;
 use Mage_Log_Model_Log as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class LogTest extends OpenMageTest
+final class LogTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -30,6 +30,6 @@ class LogTest extends OpenMageTest
      */
     public function testClean(): void
     {
-        static::assertInstanceOf(Subject::class, self::$subject->clean());
+        self::assertInstanceOf(Subject::class, self::$subject->clean());
     }
 }

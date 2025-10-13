@@ -37,7 +37,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Email types
      */
     public const EMAIL_TYPE_TO  = 0;
+
     public const EMAIL_TYPE_CC  = 1;
+
     public const EMAIL_TYPE_BCC = 2;
 
     /**
@@ -82,6 +84,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
             $error = Mage::helper('core')->__('Message recipients data must be set.');
             Mage::throwException("{$error} - ID: " . $this->getId());
         }
+
         return parent::_beforeSave();
     }
 
@@ -95,6 +98,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         if ($this->getIsForceCheck() && $this->_getResource()->wasEmailQueued($this)) {
             return $this;
         }
+
         try {
             $this->save();
             $this->setId(null);
@@ -128,6 +132,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         foreach ($emails as $key => $email) {
             $this->_recipients[] = [$email, $names[$key] ?? '', $type];
         }
+
         return $this;
     }
 
@@ -192,16 +197,10 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 $mailer = new Zend_Mail('utf-8');
                 foreach ($message->getRecipients() as $recipient) {
                     [$email, $name, $type] = $recipient;
-                    switch ($type) {
-                        case self::EMAIL_TYPE_BCC:
-                            $mailer->addBcc($email, '=?utf-8?B?' . base64_encode($name) . '?=');
-                            break;
-                        case self::EMAIL_TYPE_TO:
-                        case self::EMAIL_TYPE_CC:
-                        default:
-                            $mailer->addTo($email, '=?utf-8?B?' . base64_encode($name) . '?=');
-                            break;
-                    }
+                    match ((int) $type) {
+                        self::EMAIL_TYPE_BCC => $mailer->addBcc($email),
+                        default => $mailer->addTo($email, $this->getBase64EncodedString($name)),
+                    };
                 }
 
                 if ($parameters->getIsPlain()) {
@@ -210,11 +209,12 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                     $mailer->setBodyHtml($message->getMessageBody());
                 }
 
-                $mailer->setSubject('=?utf-8?B?' . base64_encode($parameters->getSubject()) . '?=');
+                $mailer->setSubject($this->getBase64EncodedString($parameters->getSubject()));
                 $mailer->setFrom($parameters->getFromEmail(), $parameters->getFromName());
                 if ($parameters->getReplyTo() !== null) {
                     $mailer->setReplyTo($parameters->getReplyTo());
                 }
+
                 if ($parameters->getReturnTo() !== null) {
                     $mailer->setReturnPath($parameters->getReturnTo());
                 }
@@ -266,5 +266,10 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
     {
         $this->_getResource()->removeSentMessages();
         return $this;
+    }
+
+    protected function getBase64EncodedString(string $string): string
+    {
+        return '=?utf-8?B?' . base64_encode($string) . '?=';
     }
 }

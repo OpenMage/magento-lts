@@ -13,13 +13,17 @@
 class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const CONFIG_PATH_BASE = 'configswatches';
+
     public const CONFIG_PATH_ENABLED = 'configswatches/general/enabled';
+
     public const CONFIG_PATH_SWATCH_ATTRIBUTES = 'configswatches/general/swatch_attributes';
+
     public const CONFIG_PATH_LIST_SWATCH_ATTRIBUTE = 'configswatches/general/product_list_attribute';
 
     protected $_moduleName = 'Mage_ConfigurableSwatches';
 
     protected $_enabled = null;
+
     protected $_configAttributeIds = null;
 
     /**
@@ -35,6 +39,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
                 && Mage::helper('configurableswatches/productlist')->getSwatchAttributeId()
             );
         }
+
         return $this->_enabled;
     }
 
@@ -71,9 +76,11 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
         if ($key === null || $key === '') {
             return '';
         }
+
         if (function_exists('mb_strtolower')) {
             return trim(mb_strtolower($key, 'UTF-8'));
         }
+
         return trim(strtolower($key));
     }
 
@@ -90,6 +97,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_configAttributeIds = explode(',', Mage::getStoreConfig(self::CONFIG_PATH_SWATCH_ATTRIBUTES));
             }
         }
+
         return $this->_configAttributeIds;
     }
 
@@ -104,6 +112,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
         if ($attr instanceof Varien_Object) {
             $attr = $attr->getId();
         }
+
         $configAttrs = $this->getSwatchAttributeIds();
         return in_array($attr, $configAttrs);
     }
@@ -128,6 +137,7 @@ class Mage_ConfigurableSwatches_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return null;
     }
 }

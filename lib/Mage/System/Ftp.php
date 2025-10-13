@@ -63,7 +63,8 @@ class Mage_System_Ftp
         $dir = explode('/', $path);
         $path = '';
         $ret = true;
-        for ($i = 0; $i < count($dir); $i++) {
+        $counter = count($dir);
+        for ($i = 0; $i < $counter; $i++) {
             $path .= '/' . $dir[$i];
             if (!@ftp_chdir($this->_conn, $path)) {
                 @ftp_chdir($this->_conn, '/');
@@ -75,6 +76,7 @@ class Mage_System_Ftp
                 }
             }
         }
+
         return $ret;
     }
 
@@ -98,6 +100,7 @@ class Mage_System_Ftp
         if (!$res) {
             throw new Exception('Invalid login credentials');
         }
+
         return $res;
     }
 
@@ -116,9 +119,11 @@ class Mage_System_Ftp
         if (false === $data) {
             throw new Exception("Connection string invalid: '{$string}'");
         }
+
         if ($data['scheme'] != 'ftp') {
             throw new Exception("Support for scheme unsupported: '{$data['scheme']}'");
         }
+
         return $data;
     }
 
@@ -140,11 +145,13 @@ class Mage_System_Ftp
         if (!$this->_conn) {
             throw new Exception("Cannot connect to host: {$params['host']}");
         }
+
         if (isset($params['user']) && isset($params['pass'])) {
             $this->login($params['user'], $params['pass']);
         } else {
             $this->login();
         }
+
         if (isset($params['path'])) {
             if (!$this->chdir($params['path'])) {
                 throw new Exception("Cannot chdir after login to: {$params['path']}");
@@ -196,13 +203,16 @@ class Mage_System_Ftp
         if (empty($data[1])) {
             return false;
         }
+
         if ((int) $data[0] != 257) {
             return false;
         }
+
         $out = trim($data[1], '"');
         if ($out !== '/') {
             $out = rtrim($out, '/');
         }
+
         return $out;
     }
 
@@ -239,9 +249,11 @@ class Mage_System_Ftp
         if (!file_exists($local)) {
             throw new Exception("Local file doesn't exist: {$local}");
         }
+
         if (!is_readable($local)) {
             throw new Exception("Local file is not readable: {$local}");
         }
+
         if (is_dir($local)) {
             throw new Exception("Directory given instead of file: {$local}");
         }
@@ -257,12 +269,14 @@ class Mage_System_Ftp
             $dirname = $cwd . '/' . $dirname;
             $remote = $cwd . '/' . $remote;
         }
+
         $res = $this->mkdirRecursive($dirname, $dirMode);
         $this->chdir($cwd);
 
         if (!$res) {
             return false;
         }
+
         return $this->put($remote, $local, $ftpMode);
     }
 
@@ -446,9 +460,11 @@ class Mage_System_Ftp
                 if ($excludeIfIsDir && $row['dir']) {
                     continue;
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -489,6 +505,7 @@ class Mage_System_Ftp
                 ];
             }
         }
+
         return $structure;
     }
 

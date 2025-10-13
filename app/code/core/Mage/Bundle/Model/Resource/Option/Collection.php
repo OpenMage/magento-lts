@@ -73,6 +73,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     [],
                 );
         }
+
         return $this;
     }
 
@@ -127,6 +128,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
                     }
                 }
             }
+
             $this->_selectionsAppended = true;
         }
 
@@ -143,6 +145,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         foreach ($this->getItems() as $option) {
             $option->setSelections([]);
         }
+
         $this->_selectionsAppended = false;
         return $this;
     }
@@ -160,6 +163,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         } elseif ($ids != '') {
             $this->addFieldToFilter('main_table.option_id', $ids);
         }
+
         return $this;
     }
 
@@ -184,6 +188,7 @@ class Mage_Bundle_Model_Resource_Option_Collection extends Mage_Core_Model_Resou
         if (is_null($this->_itemIds)) {
             $this->_itemIds = parent::getAllIds();
         }
+
         return $this->_itemIds;
     }
 }

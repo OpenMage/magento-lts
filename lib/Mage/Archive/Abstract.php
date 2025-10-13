@@ -19,7 +19,7 @@ class Mage_Archive_Abstract
      *
      * @param string $destination
      * @param string $data
-     * @return boolean
+     * @return bool
      * @throws Mage_Exception
      */
     protected function _writeFile($destination, $data)
@@ -28,6 +28,7 @@ class Mage_Archive_Abstract
         if (false === file_put_contents($destination, $data)) {
             throw new Mage_Exception("Can't write to file: " . $destination);
         }
+
         return true;
     }
 
@@ -49,6 +50,7 @@ class Mage_Archive_Abstract
                 throw new Mage_Exception("Can't get contents from: " . $source);
             }
         }
+
         return $data;
     }
 
@@ -65,6 +67,7 @@ class Mage_Archive_Abstract
         if (!$withExtension) {
             $file = substr($file, 0, strrpos($file, '.'));
         }
+
         return $file;
     }
 }

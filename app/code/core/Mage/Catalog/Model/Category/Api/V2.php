@@ -39,6 +39,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                 $result[$attribute->getAttributeCode()] = $category->getDataUsingMethod($attribute->getAttributeCode());
             }
         }
+
         $result['parent_id']   = $category->getParentId();
         $result['children']           = $category->getChildren();
         $result['all_children']       = $category->getAllChildren();
@@ -55,6 +56,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @return int
      * @throws Mage_Api_Exception
      * @throws Mage_Eav_Model_Entity_Attribute_Exception
+     * @throws Mage_Core_Exception
      */
     public function create($parentId, $categoryData, $store = null)
     {
@@ -79,6 +81,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                 );
             }
         }
+
         $category->setParentId($parentCategory->getId());
         try {
             $validate = $category->validate();
@@ -107,6 +110,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
      * @param array $categoryData
      * @param string|int $store
      * @return bool
+     * @throws Mage_Core_Exception
      */
     public function update($categoryId, $categoryData, $store = null)
     {
@@ -135,6 +139,7 @@ class Mage_Catalog_Model_Category_Api_V2 extends Mage_Catalog_Model_Category_Api
                     }
                 }
             }
+
             $category->save();
         } catch (Mage_Core_Exception|Mage_Eav_Model_Entity_Attribute_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());

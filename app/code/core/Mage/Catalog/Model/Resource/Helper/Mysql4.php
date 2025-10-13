@@ -42,6 +42,7 @@ class Mage_Catalog_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Resource_
         } else {
             $type = $type[0];
         }
+
         $length     = null;
         $precision  = null;
         $scale      = null;

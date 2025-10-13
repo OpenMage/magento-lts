@@ -163,6 +163,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 $this->_dataSaveAllowed = false;
             }
         }
+
         $this->setLastModified($this->getReportLastModified());
         return parent::_beforeSave();
     }
@@ -185,6 +186,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             'password' => $config['password'],
         ]);
         $connection->cd($config['path']);
+
         $fetched = 0;
         $listing = $this->_filterReportsList($connection->rawls());
         foreach ($listing as $filename => $attributes) {
@@ -222,11 +224,13 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 if ($this->_dataSaveAllowed) {
                     $fetched += count($this->_rows);
                 }
+
                 // clean object and remove parsed file
                 $this->unsetData();
                 unlink($localCsv);
             }
         }
+
         return $fetched;
     }
 
@@ -246,10 +250,11 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
 
         $flippedSectionColumns = array_flip($sectionColumns);
         $fp = fopen($localCsv, 'r');
-        while ($line = fgetcsv($fp)) {
+        while ($line = fgetcsv($fp, 0, ',', '"', '\\')) {
             if (empty($line)) { // The line was empty, so skip it.
                 continue;
             }
+
             $lineType = $line[0];
             switch ($lineType) {
                 case 'RH': // Report header.
@@ -267,16 +272,23 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 case 'CH': // Section columns.
                     // In case ever the column order is changed, we will have the items recorded properly
                     // anyway. We have named, not numbered columns.
-                    for ($i = 1; $i < count($line); $i++) {
+                    $counter = count($line);
+                    // Section columns.
+                    // In case ever the column order is changed, we will have the items recorded properly
+                    // anyway. We have named, not numbered columns.
+                    for ($i = 1; $i < $counter; $i++) {
                         $sectionColumns[$line[$i]] = $i;
                     }
+
                     $flippedSectionColumns = array_flip($sectionColumns);
                     break;
                 case 'SB': // Section body.
                     $bodyItem = [];
-                    for ($i = 1; $i < count($line); $i++) {
+                    $counter = count($line);
+                    for ($i = 1; $i < $counter; $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
+
                     $this->_rows[] = $bodyItem;
                     break;
                 case 'SC': // Section records count.
@@ -288,6 +300,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     break;
             }
         }
+
         return $this;
     }
 
@@ -320,40 +333,24 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
      */
     public function getFieldLabel($field)
     {
-        switch ($field) {
-            case 'report_date':
-                return Mage::helper('paypal')->__('Report Date');
-            case 'account_id':
-                return Mage::helper('paypal')->__('Merchant Account');
-            case 'transaction_id':
-                return Mage::helper('paypal')->__('Transaction ID');
-            case 'invoice_id':
-                return Mage::helper('paypal')->__('Invoice ID');
-            case 'paypal_reference_id':
-                return Mage::helper('paypal')->__('PayPal Reference ID');
-            case 'paypal_reference_id_type':
-                return Mage::helper('paypal')->__('PayPal Reference ID Type');
-            case 'transaction_event_code':
-                return Mage::helper('paypal')->__('Event Code');
-            case 'transaction_event':
-                return Mage::helper('paypal')->__('Event');
-            case 'transaction_initiation_date':
-                return Mage::helper('paypal')->__('Initiation Date');
-            case 'transaction_completion_date':
-                return Mage::helper('paypal')->__('Completion Date');
-            case 'transaction_debit_or_credit':
-                return Mage::helper('paypal')->__('Debit or Credit');
-            case 'gross_transaction_amount':
-                return Mage::helper('paypal')->__('Gross Amount');
-            case 'fee_debit_or_credit':
-                return Mage::helper('paypal')->__('Fee Debit or Credit');
-            case 'fee_amount':
-                return Mage::helper('paypal')->__('Fee Amount');
-            case 'custom_field':
-                return Mage::helper('paypal')->__('Custom');
-            default:
-                return $field;
-        }
+        return match ($field) {
+            'report_date' => Mage::helper('paypal')->__('Report Date'),
+            'account_id' => Mage::helper('paypal')->__('Merchant Account'),
+            'transaction_id' => Mage::helper('paypal')->__('Transaction ID'),
+            'invoice_id' => Mage::helper('paypal')->__('Invoice ID'),
+            'paypal_reference_id' => Mage::helper('paypal')->__('PayPal Reference ID'),
+            'paypal_reference_id_type' => Mage::helper('paypal')->__('PayPal Reference ID Type'),
+            'transaction_event_code' => Mage::helper('paypal')->__('Event Code'),
+            'transaction_event' => Mage::helper('paypal')->__('Event'),
+            'transaction_initiation_date' => Mage::helper('paypal')->__('Initiation Date'),
+            'transaction_completion_date' => Mage::helper('paypal')->__('Completion Date'),
+            'transaction_debit_or_credit' => Mage::helper('paypal')->__('Debit or Credit'),
+            'gross_transaction_amount' => Mage::helper('paypal')->__('Gross Amount'),
+            'fee_debit_or_credit' => Mage::helper('paypal')->__('Fee Debit or Credit'),
+            'fee_amount' => Mage::helper('paypal')->__('Fee Amount'),
+            'custom_field' => Mage::helper('paypal')->__('Custom'),
+            default => $field,
+        };
     }
 
     /**
@@ -373,6 +370,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             if (!$active && $automaticMode) {
                 continue;
             }
+
             $cfg = [
                 'hostname'  => $store->getConfig('paypal/fetch_reports/ftp_ip'),
                 'path'      => $store->getConfig('paypal/fetch_reports/ftp_path'),
@@ -383,19 +381,24 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             if (empty($cfg['username']) || empty($cfg['password'])) {
                 continue;
             }
+
             if (empty($cfg['hostname']) || $cfg['sandbox']) {
                 $cfg['hostname'] = $cfg['sandbox'] ? self::SANDBOX_REPORTS_HOSTNAME : self::REPORTS_HOSTNAME;
             }
+
             if (empty($cfg['path']) || $cfg['sandbox']) {
                 $cfg['path'] = self::REPORTS_PATH;
             }
+
             // avoid duplicates
             if (in_array(serialize($cfg), $uniques)) {
                 continue;
             }
+
             $uniques[] = serialize($cfg);
             $configs[] = $cfg;
         }
+
         return $configs;
     }
 
@@ -427,6 +430,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 $result[$filename] = $data;
             }
         }
+
         return $result;
     }
 }

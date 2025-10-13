@@ -32,6 +32,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
         if ($withEmpty) {
             array_unshift($options, ['value' => '', 'label' => Mage::helper('tax')->__('-- Please Select --')]);
         }
+
         return $options;
     }
 
@@ -50,6 +51,7 @@ class Mage_Tax_Model_Class_Source_Product extends Mage_Eav_Model_Entity_Attribut
                 return $item['label'];
             }
         }
+
         return false;
     }
 

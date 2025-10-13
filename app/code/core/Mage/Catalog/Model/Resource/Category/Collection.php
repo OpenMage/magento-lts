@@ -117,6 +117,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                 $condition = ['in' => $ids];
             }
         }
+
         $this->addFieldToFilter('entity_id', $condition);
         return $this;
     }
@@ -184,6 +185,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if (is_null($this->_productStoreId)) {
             $this->_productStoreId = Mage_Catalog_Model_Abstract::DEFAULT_STORE_ID;
         }
+
         return $this->_productStoreId;
     }
 
@@ -264,6 +266,7 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                     )
                     ->where('w.website_id = ?', $websiteId);
                 }
+
                 $counts = $this->_conn->fetchPairs($select);
                 foreach ($regular as $item) {
                     if (isset($counts[$item->getId()])) {
@@ -303,12 +306,14 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
                         )
                         ->where('w.website_id = ?', $websiteId);
                     }
+
                     $item->setProductCount((int) $this->_conn->fetchOne($select, $bind));
                 } else {
                     $item->setProductCount(0);
                 }
             }
         }
+
         return $this;
     }
 
@@ -418,13 +423,16 @@ class Mage_Catalog_Model_Resource_Category_Collection extends Mage_Catalog_Model
         if (!is_array($paths)) {
             $paths = [$paths];
         }
+
         $cond   = [];
         foreach ($paths as $path) {
             $cond[] = $this->getResource()->getReadConnection()->quoteInto('e.path LIKE ?', "$path%");
         }
+
         if ($cond) {
             $this->getSelect()->where(implode(' OR ', $cond));
         }
+
         return $this;
     }
 

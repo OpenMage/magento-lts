@@ -46,6 +46,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             $this->_redirect('*/*/');
             return;
         }
+
         Mage::register('current_transaction', $row);
         $this->_initAction()
             ->_title($this->__('View Transaction'))
@@ -65,6 +66,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             if (empty($credentials)) {
                 Mage::throwException(Mage::helper('paypal')->__('Nothing to fetch because of an empty configuration.'));
             }
+
             foreach ($credentials as $config) {
                 try {
                     $fetched = $reports->fetchAndSave($config);
@@ -83,6 +85,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -107,14 +110,12 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
     protected function _isAllowed()
     {
         $action = strtolower($this->getRequest()->getActionName());
-        switch ($action) {
-            case 'index':
-            case 'details':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports/view');
-            case 'fetch':
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports/fetch');
-            default:
-                return Mage::getSingleton('admin/session')->isAllowed('report/salesroot/paypal_settlement_reports');
-        }
+        $aclPath = match ($action) {
+            'index', 'details' => 'report/salesroot/paypal_settlement_reports/view',
+            'fetch' => 'report/salesroot/paypal_settlement_reports/fetch',
+            default => 'report/salesroot/paypal_settlement_reports',
+        };
+
+        return Mage::getSingleton('admin/session')->isAllowed($aclPath);
     }
 }

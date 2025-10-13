@@ -34,7 +34,6 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         $value = $this->getValue();
         if (!empty($_FILES['groups']['tmp_name'][$this->getGroupId()]['fields'][$this->getField()]['value'])) {
             $uploadDir = $this->_getUploadDir();
-
             try {
                 $file = [];
                 $tmpName = $_FILES['groups']['tmp_name'];
@@ -55,17 +54,16 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 if ($this->_addWhetherScopeInfo()) {
                     $filename = $this->_prependScopeInfo($filename);
                 }
+
                 $this->setValue($filename);
             }
+        } elseif (is_array($value) && !empty($value['delete'])) {
+            // Delete record before it is saved
+            $this->delete();
+            // Prevent record from being saved, since it was just deleted
+            $this->_dataSaveAllowed = false;
         } else {
-            if (is_array($value) && !empty($value['delete'])) {
-                // Delete record before it is saved
-                $this->delete();
-                // Prevent record from being saved, since it was just deleted
-                $this->_dataSaveAllowed = false;
-            } else {
-                $this->unsValue();
-            }
+            $this->unsValue();
         }
 
         return $this;
@@ -129,6 +127,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             $uploadRoot = $this->_getUploadRoot((string) $el['config']);
             $uploadDir = $uploadRoot . '/' . $uploadDir;
         }
+
         return $uploadDir;
     }
 
@@ -146,6 +145,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             $path = str_replace('/', DS, $matches[2]);
             return Mage::getConfig()->getOptions()->getData($dir) . $path;
         }
+
         return Mage::getBaseDir('media');
     }
 
@@ -163,6 +163,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         if ($this->getScope() != 'default') {
             $scopeInfo .= '/' . $this->getScopeId();
         }
+
         return $scopeInfo . '/' . $path;
     }
 
@@ -180,6 +181,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         if ($this->getScope() != 'default') {
             $path .= '/' . $this->getScopeId();
         }
+
         return $path;
     }
 
@@ -197,6 +199,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             $allowedExtensions = (string) $el['allowed_extensions'];
             return explode(',', $allowedExtensions);
         }
+
         return [];
     }
 

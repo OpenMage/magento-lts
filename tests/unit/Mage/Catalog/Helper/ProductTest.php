@@ -16,7 +16,7 @@ use Mage_Catalog_Helper_Product as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Mage\Catalog\Helper\ProductTrait;
 
-class ProductTest extends OpenMageTest
+final class ProductTest extends OpenMageTest
 {
     use ProductTrait;
 
@@ -33,7 +33,7 @@ class ProductTest extends OpenMageTest
      */
     public function testCanUseCanonicalTag(): void
     {
-        static::assertIsBool(self::$subject->canUseCanonicalTag());
+        self::assertIsBool(self::$subject->canUseCanonicalTag());
     }
 
     /**
@@ -42,7 +42,7 @@ class ProductTest extends OpenMageTest
      */
     public function testGetAttributeInputTypes(int $expectedResult, ?string $inputType = null): void
     {
-        static::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
+        self::assertCount($expectedResult, self::$subject->getAttributeInputTypes($inputType));
     }
 
     /**
@@ -51,7 +51,7 @@ class ProductTest extends OpenMageTest
      */
     public function testGetAttributeBackendModelByInputType(string $expectedResult, string $inputType): void
     {
-        static::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
+        self::assertSame($expectedResult, self::$subject->getAttributeBackendModelByInputType($inputType));
     }
 
     /**
@@ -60,6 +60,6 @@ class ProductTest extends OpenMageTest
      */
     public function testGetAttributeSourceModelByInputType(string $expectedResult, string $inputType): void
     {
-        static::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
+        self::assertSame($expectedResult, self::$subject->getAttributeSourceModelByInputType($inputType));
     }
 }

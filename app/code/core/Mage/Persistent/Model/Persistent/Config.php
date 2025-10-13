@@ -57,9 +57,11 @@ class Mage_Persistent_Model_Persistent_Config
                     $io->getFilteredPath($filePath),
                 ));
             }
+
             $xml = file_get_contents($filePath);
             $this->_xmlConfig = new Varien_Simplexml_Element($xml);
         }
+
         return $this->_xmlConfig;
     }
 
@@ -85,14 +87,14 @@ class Mage_Persistent_Model_Persistent_Config
             if (!is_array($elements)) {
                 continue;
             }
+
             foreach ($elements as $info) {
-                switch ($type) {
-                    case 'blocks':
-                        $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
-                        break;
+                if ($type === 'blocks') {
+                    $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
                 }
             }
         }
+
         return $this;
     }
 
@@ -102,6 +104,7 @@ class Mage_Persistent_Model_Persistent_Config
      * @param array $info
      * @param Mage_Core_Block_Abstract|false $instance
      * @return $this
+     * @throws Mage_Core_Exception
      */
     public function fireOne($info, $instance = false)
     {
@@ -112,13 +115,18 @@ class Mage_Persistent_Model_Persistent_Config
         ) {
             return $this;
         }
+
         $object     = Mage::getModel($info['class']);
         $method     = $info['method'];
 
         if (method_exists($object, $method)) {
             $object->$method($instance);
         } elseif (Mage::getIsDeveloperMode()) {
-            Mage::throwException('Method "' . $method . '" is not defined in "' . get_class($object) . '"');
+            if (!$object instanceof Mage_Core_Model_Abstract) {
+                Mage::throwException(sprintf('Model "%s" is not defined"', $info['class']));
+            } else {
+                Mage::throwException(sprintf('Method "%s" is not defined in "%s"', $method, $object::class));
+            }
         }
 
         return $this;

@@ -15,7 +15,7 @@ use Mage_Cms_Block_Widget_Block as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 use OpenMage\Tests\Unit\Traits\DataProvider\Base\NumericStringTrait;
 
-class BlockTest extends OpenMageTest
+final class BlockTest extends OpenMageTest
 {
     use NumericStringTrait;
 
@@ -38,8 +38,8 @@ class BlockTest extends OpenMageTest
         ];
         $mock = $this->getMockWithCalledMethods(Subject::class, $methods);
 
-        static::assertInstanceOf(Subject::class, $mock);
-        static::assertIsArray($mock->getCacheKeyInfo());
+        self::assertInstanceOf(Subject::class, $mock);
+        self::assertIsArray($mock->getCacheKeyInfo());
     }
 
     /**
@@ -47,6 +47,6 @@ class BlockTest extends OpenMageTest
      */
     public function testIsRequestFromAdminArea(): void
     {
-        static::assertIsBool(self::$subject->isRequestFromAdminArea());
+        self::assertIsBool(self::$subject->isRequestFromAdminArea());
     }
 }

@@ -17,14 +17,14 @@ use Mage_Adminhtml_Helper_Dashboard_Data;
 use Mage_Core_Model_Store;
 use PHPUnit\Framework\TestCase;
 
-class DefaultConfigTest extends TestCase
+final class DefaultConfigTest extends TestCase
 {
     /**
      * @dataProvider provideGetStoreConfig
      */
     public function testGetStoreConfig(string $expectedResult, string $path, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {
-        static::assertSame($expectedResult, Mage::getStoreConfig($path, $store));
+        self::assertSame($expectedResult, Mage::getStoreConfig($path, $store));
     }
 
 

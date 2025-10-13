@@ -219,6 +219,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      * @deprecated
      */
     protected $_baseDirCache = [];
+
     protected $_customEtcDir = null;
 
     /**
@@ -267,6 +268,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (is_null($this->_resourceModel)) {
             $this->_resourceModel = Mage::getResourceModel('core/config');
         }
+
         return $this->_resourceModel;
     }
 
@@ -291,6 +293,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (is_array($options)) {
             $this->getOptions()->addData($options);
         }
+
         return $this;
     }
 
@@ -321,6 +324,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $this->releaseCacheSaveLock();
             }
         }
+
         return $this;
     }
 
@@ -339,9 +343,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $merge->loadFile($file);
             $this->extend($merge);
         }
+
         if (in_array($etcDir . DS . 'local.xml', $files)) {
             $this->_isLocalConfigLoaded = true;
         }
+
         return $this;
     }
 
@@ -361,6 +367,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 return true;
             }
         }
+
         return false;
     }
 
@@ -414,6 +421,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $dbConf->loadToXml($this);
             Varien_Profiler::stop('config/load-db');
         }
+
         return $this;
     }
 
@@ -429,6 +437,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $environmentConfigLoaderHelper->overrideEnvironment($this);
             Varien_Profiler::stop('config/load-env');
         }
+
         return $this;
     }
 
@@ -474,6 +483,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 Mage::registry('original_include_path'),
             );
         }
+
         $this->_canUseLocalModules = !$disableLocalModules;
         return $this->_canUseLocalModules;
     }
@@ -516,11 +526,13 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!Mage::app()->useCache('config')) {
             return;
         }
+
         $waitTime = $waitTime ?: (getenv('MAGE_CONFIG_CACHE_LOCK_WAIT') ?: (PHP_SAPI === 'cli' ? 60 : 3));
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
         if (!$connection) {
             return;
         }
+
         if (!$connection->fetchOne("SELECT GET_LOCK('core_config_cache_save_lock', ?)", [$waitTime])) {
             if ($ignoreFailure) {
                 return;
@@ -544,10 +556,12 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!Mage::app()->useCache('config')) {
             return;
         }
+
         $connection = Mage::getSingleton('core/resource')->getConnection('core_write');
         if (!$connection) {
             return;
         }
+
         $connection->fetchOne("SELECT RELEASE_LOCK('core_config_cache_save_lock')");
     }
 
@@ -562,6 +576,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!Mage::app()->useCache('config')) {
             return $this;
         }
+
         if (!in_array(self::CACHE_TAG, $tags)) {
             $tags[] = self::CACHE_TAG;
         }
@@ -572,6 +587,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $this->_saveSectionCache($this->getCacheId(), $sectionName, $xml, $level, $tags);
                 unset($xml->$sectionName);
             }
+
             $this->_cachePartsForSave[$this->getCacheId()] = $xml->asNiceXml('', false);
         } else {
             parent::saveCache($tags);
@@ -581,6 +597,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         foreach ($this->_cachePartsForSave as $cacheId => $cacheData) {
             $this->_saveCache($cacheData, $cacheId, $tags, $this->getCacheLifetime());
         }
+
         unset($this->_cachePartsForSave);
 
         return $this;
@@ -611,8 +628,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     );
                 }
             }
+
             $this->_cachePartsForSave[$cacheId] = $source->$sectionName->asNiceXml('', false);
         }
+
         return $this;
     }
 
@@ -708,6 +727,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!isset($this->_cacheSections[$section])) {
             return false;
         }
+
         $sectionPath = array_slice($path, 0, $this->_cacheSections[$section] + 1);
         $sectionKey = implode('_', $sectionPath);
 
@@ -716,6 +736,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $this->_cacheLoadedSections[$sectionKey] = $this->_loadSectionCache($sectionKey);
             Varien_Profiler::stop('init_config_section:' . $sectionKey);
         }
+
         return $this->_cacheLoadedSections[$sectionKey];
     }
 
@@ -733,6 +754,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($config) {
             return $config->descend($path);
         }
+
         return false;
     }
 
@@ -748,6 +770,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (($scope === 'store') || ($scope === 'website')) {
                 $scope .= 's';
             }
+
             if (($scope !== 'default') && is_int($scopeCode)) {
                 if ($scope == 'stores') {
                     $scopeCode = Mage::app()->getStore($scopeCode)->getCode();
@@ -757,6 +780,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     Mage::throwException(Mage::helper('core')->__('Unknown scope "%s".', $scope));
                 }
             }
+
             $path = $scope . ($scopeCode ? '/' . $scopeCode : '') . (empty($path) ? '' : '/' . $path);
         }
 
@@ -773,6 +797,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         return parent::getNode($path);
     }
 
@@ -795,6 +820,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $config->setNode($sectionPath, $value, $overwrite);
             }
         }
+
         return parent::setNode($path, $value, $overwrite);
     }
 
@@ -887,6 +913,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
 
         $unsortedConfig = new Mage_Core_Model_Config_Base();
         $unsortedConfig->loadString('<config/>');
+
         $fileConfig = new Mage_Core_Model_Config_Base();
 
         // load modules declarations
@@ -907,6 +934,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     $depends[$depend->getName()] = true;
                 }
             }
+
             $moduleDepends[$moduleName] = [
                 'module'    => $moduleName,
                 'depends'   => $depends,
@@ -955,11 +983,14 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                             Mage::helper('core')->__('Module "%1$s" requires module "%2$s".', $moduleName, $depend),
                         );
                     }
+
                     $depends = array_merge($depends, $modules[$depend]['depends']);
                 }
+
                 $modules[$moduleName]['depends'] = $depends;
             }
         }
+
         $modules = array_values($modules);
 
         $size = count($modules) - 1;
@@ -983,6 +1014,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                         );
                     }
                 }
+
                 $definedModules[$moduleProp['module']] = true;
             }
         }
@@ -1023,6 +1055,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                     return $asFullModuleName ? $namespace[$defaultNS] : $name[0]; // return omitted as well
                 }
             }
+
             // assume namespace is qualified
             if (isset($name[1])) {
                 $fullNS = $name[0] . '_' . $name[1];
@@ -1031,6 +1064,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         return '';
     }
 
@@ -1051,15 +1085,18 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $mergeToObject = clone $this->_prototype;
             $mergeToObject->loadString('<config/>');
         }
+
         if ($mergeModel === null) {
             $mergeModel = clone $this->_prototype;
         }
+
         $modules = $this->getNode('modules')->children();
         foreach ($modules as $modName => $module) {
             if ($module->is('active')) {
                 if ($disableLocalModules && ((string) $module->codePool === 'local')) {
                     continue;
                 }
+
                 if (!is_array($fileName)) {
                     $fileName = [$fileName];
                 }
@@ -1077,6 +1114,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         return $mergeToObject;
     }
 
@@ -1129,6 +1167,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $this->_substServerVars['{{' . $k . '}}'] = $v;
             }
         }
+
         return $this->_distroServerVars;
     }
 
@@ -1177,6 +1216,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (is_string($module)) {
                 $module = $this->getModuleConfig($module);
             }
+
             if (isset($module->setup)) {
                 $moduleClassName = $module->setup->getClassName();
                 if (!empty($moduleClassName)) {
@@ -1184,6 +1224,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         return new $className($module);
     }
 
@@ -1216,6 +1257,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!$this->createDirIfNotExists($dir)) {
             return false;
         }
+
         return $dir;
     }
 
@@ -1240,26 +1282,11 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $codePool = (string) $this->getModuleConfig($moduleName)->codePool;
         $dir = $this->getOptions()->getCodeDir() . DS . $codePool . DS . uc_words($moduleName, DS);
 
-        switch ($type) {
-            case 'etc':
-                $dir .= DS . 'etc';
-                break;
-
-            case 'controllers':
-                $dir .= DS . 'controllers';
-                break;
-
-            case 'sql':
-                $dir .= DS . 'sql';
-                break;
-            case 'data':
-                $dir .= DS . 'data';
-                break;
-
-            case 'locale':
-                $dir .= DS . 'locale';
-                break;
+        $dirs = ['etc', 'controllers', 'sql', 'data', 'locale'];
+        if (in_array($type, $dirs)) {
+            $dir .= DS . $type;
         }
+
         return str_replace('/', DS, $dir);
     }
 
@@ -1282,30 +1309,24 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $eventName = strtolower($event->getName());
             $observers = $event->observers->children();
             foreach ($observers as $observer) {
-                switch ((string) $observer->type) {
-                    case 'singleton':
-                        $callback = [
-                            Mage::getSingleton((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    case 'object':
-                    case 'model':
-                        $callback = [
-                            Mage::getModel((string) $observer->class),
-                            (string) $observer->method,
-                        ];
-                        break;
-                    default:
-                        $callback = [$observer->getClassName(), (string) $observer->method];
-                        break;
-                }
+                $callback = match ((string) $observer->type) {
+                    'singleton' => [
+                        Mage::getSingleton((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    'object', 'model' => [
+                        Mage::getModel((string) $observer->class),
+                        (string) $observer->method,
+                    ],
+                    default => [$observer->getClassName(), (string) $observer->method],
+                };
 
                 $args = (array) $observer->args;
                 $observerClass = $observer->observer_class ? (string) $observer->observer_class : '';
                 Mage::addObserver($eventName, $callback, $args, $observer->getName(), $observerClass);
             }
         }
+
         return true;
     }
 
@@ -1319,12 +1340,10 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
      */
     public function getPathVars($args = null)
     {
-        $path = [];
-
-        $path['baseUrl'] = Mage::getBaseUrl();
-        $path['baseSecureUrl'] = Mage::getBaseUrl('link', true);
-
-        return $path;
+        return [
+            'baseUrl' => Mage::getBaseUrl(),
+            'baseSecureUrl' => Mage::getBaseUrl('link', true),
+        ];
     }
 
     /**
@@ -1355,18 +1374,16 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         $className = '';
         if (isset($config->rewrite->$class)) {
             $className = (string) $config->rewrite->$class;
-        } else {
+        } elseif (isset($config->deprecatedNode)) {
             /**
              * Backwards compatibility for pre-MMDB extensions.
              * In MMDB release resource nodes <..._mysql4> were renamed to <..._resource>. So <deprecatedNode> is left
              * to keep name of previously used nodes, that still may be used by non-updated extensions.
              */
-            if (isset($config->deprecatedNode)) {
-                $deprecatedNode = $config->deprecatedNode;
-                $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
-                if (isset($configOld->rewrite->$class)) {
-                    $className = (string) $configOld->rewrite->$class;
-                }
+            $deprecatedNode = (string) $config->deprecatedNode;
+            $configOld = $this->_xml->global->{$groupType . 's'}->$deprecatedNode;
+            if (isset($configOld->rewrite->$class)) {
+                $className = (string) $configOld->rewrite->$class;
             }
         }
 
@@ -1377,12 +1394,15 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             if (!empty($config)) {
                 $className = $config->getClassName();
             }
+
             if (empty($className)) {
                 $className = 'mage_' . $group . '_' . $groupType;
             }
+
             if (!empty($class)) {
                 $className .= '_' . $class;
             }
+
             $className = uc_words($className);
         }
 
@@ -1401,6 +1421,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!str_contains($blockType, '/')) {
             return $blockType;
         }
+
         return $this->getGroupedClassName('block', $blockType);
     }
 
@@ -1415,6 +1436,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!str_contains($helperName, '/')) {
             $helperName .= '/data';
         }
+
         return $this->getGroupedClassName('helper', $helperName);
     }
 
@@ -1452,6 +1474,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!str_contains($modelClass, '/')) {
             return $modelClass;
         }
+
         return $this->getGroupedClassName('model', $modelClass);
     }
 
@@ -1509,6 +1532,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!$factoryName) {
             return false;
         }
+
         return $this->getModelInstance($factoryName, $constructArguments);
     }
 
@@ -1543,6 +1567,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 }
             }
         }
+
         return false;
     }
 
@@ -1590,6 +1615,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 case 'name':
                     $key = (string) $store->descend('system/store/name');
             }
+
             if (!isset($key) || $key === false) {
                 continue;
             }
@@ -1602,6 +1628,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                 $storeValues[$key] = $pathValue;
             }
         }
+
         return $storeValues;
     }
 
@@ -1660,6 +1687,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!isset($this->_eventAreas[$area])) {
             $this->_eventAreas[$area] = $this->getNode($area)->events;
         }
+
         return $this->_eventAreas[$area]->{$eventName};
     }
 
@@ -1721,6 +1749,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if (!$rootNode) {
             return null;
         }
+
         return $rootNode->$name ? $rootNode->$name->children() : null;
     }
 
@@ -1737,6 +1766,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
             $setupResource = $moduleName . '_setup';
             $config        = $this->getResourceConnectionConfig($setupResource);
         }
+
         if (!$config) {
             $config = $this->getResourceConnectionConfig(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE);
         }
@@ -1784,6 +1814,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
         if ($factoryName) {
             return $this->getModelClassName($factoryName);
         }
+
         return false;
     }
 
@@ -1807,6 +1838,7 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
                         $newNode = $events->addChild($newEventName, (string) $event);
                         $newNode->extend($event);
                     }
+
                     unset($events->$oldName);
                 }
             }

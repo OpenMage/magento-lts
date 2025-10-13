@@ -45,6 +45,7 @@
 class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_AgreementAbstract
 {
     public const STATUS_ACTIVE     = 'active';
+
     public const STATUS_CANCELED   = 'canceled';
 
     /**
@@ -75,6 +76,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
         } else {
             $this->setUpdatedAt($date);
         }
+
         return parent::_beforeSave();
     }
 
@@ -88,6 +90,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
         if (!empty($this->_relatedOrders)) {
             $this->_saveOrderRelations();
         }
+
         return parent::_afterSave();
     }
 
@@ -98,13 +101,11 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
      */
     public function getStatusLabel()
     {
-        switch ($this->getStatus()) {
-            case self::STATUS_ACTIVE:
-                return Mage::helper('sales')->__('Active');
-            case self::STATUS_CANCELED:
-                return Mage::helper('sales')->__('Canceled');
-        }
-        return '';
+        return match ($this->getStatus()) {
+            self::STATUS_ACTIVE => Mage::helper('sales')->__('Active'),
+            self::STATUS_CANCELED => Mage::helper('sales')->__('Canceled'),
+            default => '',
+        };
     }
 
     /**
@@ -211,9 +212,11 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
         if (!$this->getCustomerId()) {
             $this->_errors[] = Mage::helper('payment')->__('Customer ID is not set.');
         }
+
         if (!$this->getStatus()) {
             $this->_errors[] = Mage::helper('payment')->__('Billing Agreement status is not set.');
         }
+
         return $result && empty($this->_errors);
     }
 
@@ -240,6 +243,7 @@ class Mage_Sales_Model_Billing_Agreement extends Mage_Payment_Model_Billing_Agre
                 ->setReferenceId($baData['billing_agreement_id'])
                 ->setStatus(self::STATUS_ACTIVE);
         }
+
         return $this;
     }
 

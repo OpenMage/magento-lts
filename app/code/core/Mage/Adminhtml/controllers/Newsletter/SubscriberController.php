@@ -101,6 +101,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);
                     $subscriber->unsubscribe();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were updated', count($subscribersIds)),
                 );
@@ -123,6 +124,7 @@ class Mage_Adminhtml_Newsletter_SubscriberController extends Mage_Adminhtml_Cont
                     $subscriber = Mage::getModel('newsletter/subscriber')->load($subscriberId);
                     $subscriber->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted', count($subscribersIds)),
                 );

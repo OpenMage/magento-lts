@@ -26,6 +26,7 @@ class Mage_Dataflow_Model_Convert_Iterator_Http extends Mage_Dataflow_Model_Conv
             echo '</form>';
             exit;
         }
+
         if (!empty($_FILES['io_file']['tmp_name'])) {
             $uploader = Mage::getModel('core/file_uploader', 'io_file');
             $uploader->setAllowedExtensions(['csv','xml']);
@@ -33,12 +34,14 @@ class Mage_Dataflow_Model_Convert_Iterator_Http extends Mage_Dataflow_Model_Conv
             $uploader->save($path);
             if ($uploadFile = $uploader->getUploadedFileName()) {
                 $fp = fopen($uploadFile, 'rb');
-                while ($row = fgetcsv($fp)) {
+                while ($row = fgetcsv($fp, 0, ',', '"', '\\')) {
                     // check csv
                 }
+
                 fclose($fp);
             }
         }
+
         return $this;
     }
 }

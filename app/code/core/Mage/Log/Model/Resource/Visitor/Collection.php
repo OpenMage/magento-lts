@@ -140,6 +140,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
                 $format = '%Y-%m-%d %H';
                 break;
         }
+
         return $format;
     }
 
@@ -152,20 +153,11 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
      */
     protected function _getRangeByType($typeCode)
     {
-        switch ($typeCode) {
-            case 'day':
-                $range = 'DAY';
-                break;
-            case 'hour':
-                $range = 'HOUR';
-                break;
-            case 'minute':
-            default:
-                $range = 'MINUTE';
-                break;
-        }
-
-        return $range;
+        return match ($typeCode) {
+            'day' => 'DAY',
+            'hour' => 'HOUR',
+            default => 'MINUTE',
+        };
     }
 
     /**
@@ -183,6 +175,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
                 $condition = ['moreq' => 1];
             }
         }
+
         return parent::addFieldToFilter($this->_getFieldMap($fieldName), $condition);
     }
 
@@ -209,6 +202,7 @@ class Mage_Log_Model_Resource_Visitor_Collection extends Mage_Core_Model_Resourc
         if ($this->isLoaded()) {
             return $this;
         }
+
         Mage::dispatchEvent('log_visitor_collection_load_before', ['collection' => $this]);
         return parent::load($printQuery, $logQuery);
     }

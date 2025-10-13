@@ -22,6 +22,7 @@ class Varien_Filter_Object_Grid extends Varien_Filter_Object
                 $out[$i] = parent::filter($array);
             }
         }
+
         return $out;
     }
 }

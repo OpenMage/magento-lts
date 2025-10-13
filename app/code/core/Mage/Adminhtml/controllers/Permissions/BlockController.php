@@ -93,6 +93,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
         } else {
             $breadcrumb = $this->__('New Block');
         }
+
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
 
@@ -122,6 +123,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
             if ($id) {
                 $model->setId($id);
             }
+
             $result = $model->validate();
 
             if (is_array($result)) {
@@ -129,9 +131,11 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 foreach ($result as $message) {
                     Mage::getSingleton('adminhtml/session')->addError($message);
                 }
+
                 $this->_redirect('*/*/edit', ['block_id' => $id]);
                 return $this;
             }
+
             try {
                 $model->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The block has been saved.'));
@@ -150,6 +154,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -173,6 +178,7 @@ class Mage_Adminhtml_Permissions_BlockController extends Mage_Adminhtml_Controll
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find a block to delete.'));
         $this->_redirect('*/*/');
     }

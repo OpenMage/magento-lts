@@ -46,6 +46,7 @@ $describe = $installer->getConnection()->describeTable($installer->getTable('cat
 foreach ($describe as $columnData) {
     $fields[] = $columnData['COLUMN_NAME'];
 }
+
 $stmt = $installer->getConnection()->select()
     ->from($installer->getTable('eav/attribute'), $fields)
     ->where('entity_type_id = ?', $installer->getEntityTypeId('catalog_category'))
@@ -61,6 +62,7 @@ foreach ($describe as $columnData) {
     if ($columnData['COLUMN_NAME'] == 'attribute_id') {
         continue;
     }
+
     $installer->getConnection()->dropColumn($installer->getTable('eav/attribute'), $columnData['COLUMN_NAME']);
 }
 

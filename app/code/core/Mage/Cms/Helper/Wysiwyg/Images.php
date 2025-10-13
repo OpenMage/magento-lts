@@ -67,8 +67,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             if (!$this->_storageRoot) {
                 $this->_storageRoot = $path;
             }
+
             $this->_storageRoot .= DS;
         }
+
         return $this->_storageRoot;
     }
 
@@ -118,6 +120,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if (!strstr($path, (string) $storageRoot)) {
             $path = $storageRoot . DS . $path;
         }
+
         return $path;
     }
 
@@ -134,6 +137,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if ($trim) {
             $path = trim($path, DS);
         }
+
         return $path;
     }
 
@@ -178,14 +182,14 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         $directive = sprintf('{{media url="%s"}}', $mediaPath);
         if ($renderAsTag) {
             $html = sprintf('<img src="%s" alt="" />', $this->isUsingStaticUrlsAllowed() ? $fileurl : $directive);
+        } elseif ($this->isUsingStaticUrlsAllowed()) {
+            $html = $fileurl;
+            // $mediaPath;
         } else {
-            if ($this->isUsingStaticUrlsAllowed()) {
-                $html = $fileurl; // $mediaPath;
-            } else {
-                $directive = Mage::helper('core')->urlEncode($directive);
-                $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
-            }
+            $directive = Mage::helper('core')->urlEncode($directive);
+            $html = Mage::helper('adminhtml')->getUrl('*/cms_wysiwyg/directive', ['___directive' => $directive]);
         }
+
         return $html;
     }
 
@@ -207,6 +211,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
                     $currentPath = $path;
                 }
             }
+
             $io = new Varien_Io_File();
             if (!$io->isWriteable($currentPath) && !$io->mkdir($currentPath)) {
                 $message = Mage::helper('cms')->__(
@@ -215,8 +220,10 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
                 );
                 Mage::throwException($message);
             }
+
             $this->_currentPath = $currentPath;
         }
+
         return $this->_currentPath;
     }
 
@@ -234,6 +241,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
             $this->_currentUrl = Mage::app()->getStore($this->_storeId)->getBaseUrl('media') .
                                  $this->convertPathToUrl($path) . '/';
         }
+
         return $this->_currentUrl;
     }
 
@@ -282,6 +290,7 @@ class Mage_Cms_Helper_Wysiwyg_Images extends Mage_Core_Helper_Abstract
         if (strlen($filename) <= $maxLength) {
             return $filename;
         }
+
         return substr($filename, 0, $maxLength) . '...';
     }
 }

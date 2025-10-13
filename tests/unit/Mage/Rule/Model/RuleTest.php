@@ -16,7 +16,7 @@ use Mage_Rule_Model_Condition_Combine;
 use Mage_Rule_Model_Rule as Subject;
 use OpenMage\Tests\Unit\OpenMageTest;
 
-class RuleTest extends OpenMageTest
+final class RuleTest extends OpenMageTest
 {
     private static Subject $subject;
 
@@ -32,7 +32,7 @@ class RuleTest extends OpenMageTest
      */
     public function testGetConditionsInstance(): void
     {
-        static::assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, self::$subject->getConditionsInstance());
+        self::assertInstanceOf(Mage_Rule_Model_Condition_Combine::class, self::$subject->getConditionsInstance());
     }
 
     /**
@@ -41,6 +41,6 @@ class RuleTest extends OpenMageTest
      */
     public function testGetActionsInstance(): void
     {
-        static::assertInstanceOf(Mage_Rule_Model_Action_Collection::class, self::$subject->getActionsInstance());
+        self::assertInstanceOf(Mage_Rule_Model_Action_Collection::class, self::$subject->getActionsInstance());
     }
 }

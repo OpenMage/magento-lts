@@ -13,6 +13,7 @@
 abstract class Mage_Core_Model_Resource_Entity_Abstract
 {
     protected $_name = null;
+
     /**
      * Configuration object
      *
@@ -34,7 +35,7 @@ abstract class Mage_Core_Model_Resource_Entity_Abstract
      * Get config by key
      *
      * @param string $key
-     * @return string|boolean
+     * @return string|bool
      */
     public function getConfig($key = '')
     {

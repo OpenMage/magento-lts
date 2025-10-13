@@ -35,10 +35,12 @@ class Mage_ProductAlert_Model_Resource_Stock extends Mage_ProductAlert_Model_Res
                 $object->setStatus(0);
             }
         }
+
         if (is_null($object->getAddDate())) {
             $object->setAddDate(Mage::getModel('core/date')->gmtDate());
             $object->setStatus(0);
         }
+
         return parent::_beforeSave($object);
     }
 }

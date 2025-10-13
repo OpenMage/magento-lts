@@ -15,12 +15,12 @@ class Mage_Adminhtml_Model_System_Config_Source_Date_Short
 {
     public function toOptionArray()
     {
-        $arr = [];
-        $arr[] = ['label' => '', 'value' => ''];
-        $arr[] = ['label' => sprintf('MM/DD/YY (%s)', date('m/d/y')), 'value' => '%m/%d/%y'];
-        $arr[] = ['label' => sprintf('MM/DD/YYYY (%s)', date('m/d/Y')), 'value' => '%m/%d/%Y'];
-        $arr[] = ['label' => sprintf('DD/MM/YY (%s)', date('d/m/y')), 'value' => '%d/%m/%y'];
-        $arr[] = ['label' => sprintf('DD/MM/YYYY (%s)', date('d/m/Y')), 'value' => '%d/%m/%Y'];
-        return $arr;
+        return [
+            ['label' => '', 'value' => ''],
+            ['label' => sprintf('MM/DD/YY (%s)', date('m/d/y')), 'value' => '%m/%d/%y'],
+            ['label' => sprintf('MM/DD/YYYY (%s)', date('m/d/Y')), 'value' => '%m/%d/%Y'],
+            ['label' => sprintf('DD/MM/YY (%s)', date('d/m/y')), 'value' => '%d/%m/%y'],
+            ['label' => sprintf('DD/MM/YYYY (%s)', date('d/m/Y')), 'value' => '%d/%m/%Y'],
+        ];
     }
 }
