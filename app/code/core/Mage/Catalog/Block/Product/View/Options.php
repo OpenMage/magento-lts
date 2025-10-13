@@ -125,6 +125,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
      *
      * @param Mage_Catalog_Model_Product_Option_Value|Mage_Catalog_Model_Product_Option $option
      * @return array
+     * @throws Mage_Core_Model_Store_Exception
      */
     protected function _getPriceConfiguration($option)
     {
