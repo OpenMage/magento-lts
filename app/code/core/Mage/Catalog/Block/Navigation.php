@@ -286,9 +286,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
 
         // prepare list item attributes
         $attributes = [];
-        if (count($classes) > 0) {
-            $attributes['class'] = implode(' ', $classes);
-        }
+        $attributes['class'] = implode(' ', $classes);
 
         if ($hasActiveChildren && !$noEventAttributes) {
             $attributes['onmouseover'] = 'toggleMenu(this,1)';

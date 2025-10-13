@@ -108,7 +108,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      */
     public function deleteGallery($valueId)
     {
-        if (is_array($valueId) && count($valueId) > 0) {
+        if (is_array($valueId) && $valueId !== []) {
             $condition = $this->_getWriteAdapter()->quoteInto('value_id IN(?) ', $valueId);
         } elseif (!is_array($valueId)) {
             $condition = $this->_getWriteAdapter()->quoteInto('value_id = ? ', $valueId);

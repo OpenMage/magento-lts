@@ -112,7 +112,7 @@ class Mage_Sales_Model_Service_Order
                 $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
             } elseif (isset($qtys[$orderItem->getId()])) {
                 $qty = (float) $qtys[$orderItem->getId()];
-            } elseif (!count($qtys)) {
+            } elseif ($qtys === []) {
                 $qty = $orderItem->getQtyToInvoice();
             } else {
                 $qty = 0;
@@ -210,7 +210,7 @@ class Mage_Sales_Model_Service_Order
                 $orderItem->setLockedDoShip(true);
             } elseif (isset($qtys[$orderItem->getId()])) {
                 $qty = (float) $qtys[$orderItem->getId()];
-            } elseif (!count($qtys)) {
+            } elseif ($qtys === []) {
                 $qty = $orderItem->getQtyToRefund();
             } else {
                 continue;
@@ -285,7 +285,7 @@ class Mage_Sales_Model_Service_Order
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
-                } elseif (!count($qtys)) {
+                } elseif ($qtys === []) {
                     $qty = $orderItem->getQtyToRefund();
                 } else {
                     continue;

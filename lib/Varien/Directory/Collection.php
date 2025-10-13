@@ -417,19 +417,19 @@ class Varien_Directory_Collection extends Varien_Data_Collection implements IFac
         }
 
         $filter = [];
-        if (count($exts) > 0) {
+        if ($exts !== []) {
             $filter['extension'] = $exts;
         } else {
             $filter['extension'] = null;
         }
 
-        if (count($names) > 0) {
+        if ($names !== []) {
             $filter['name'] = $names;
         } else {
             $filter['name'] = null;
         }
 
-        if (count($regName) > 0) {
+        if ($regName !== []) {
             $filter['regName'] = $regName;
         } else {
             $filter['regName'] = null;

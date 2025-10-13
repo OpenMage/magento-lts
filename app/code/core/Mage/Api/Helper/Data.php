@@ -130,7 +130,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
 
-            if (count($tmpArr)) {
+            if ($tmpArr !== []) {
                 $mixed = $tmpArr;
             }
         }

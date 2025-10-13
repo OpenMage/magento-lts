@@ -90,7 +90,7 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
             }
 
             $diff = array_diff_key($newEmails, $oldEmails);
-            if (count($diff)) {
+            if ($diff !== []) {
                 $queue->clearRecipients();
                 foreach ($diff as $recipient) {
                     [$email, $name, $type] = $recipient;

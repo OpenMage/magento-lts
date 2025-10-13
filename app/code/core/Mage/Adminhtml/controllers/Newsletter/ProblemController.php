@@ -49,7 +49,7 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
     {
         if ($this->getRequest()->getParam('_unsubscribe')) {
             $problems = (array) $this->getRequest()->getParam('problem', []);
-            if (count($problems) > 0) {
+            if ($problems !== []) {
                 $collection = Mage::getResourceModel('newsletter/problem_collection');
                 $collection
                     ->addSubscriberInfo()
@@ -68,7 +68,7 @@ class Mage_Adminhtml_Newsletter_ProblemController extends Mage_Adminhtml_Control
 
         if ($this->getRequest()->getParam('_delete')) {
             $problems = (array) $this->getRequest()->getParam('problem', []);
-            if (count($problems) > 0) {
+            if ($problems !== []) {
                 $collection = Mage::getResourceModel('newsletter/problem_collection');
                 $collection
                     ->addFieldToFilter(

@@ -400,7 +400,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
                 $argumentHierarchy = explode('.', $translatableArgumentName);
                 $argumentStack = &$args;
                 $canTranslate = true;
-                while (is_array($argumentStack) && count($argumentStack) > 0) {
+                while (is_array($argumentStack) && $argumentStack !== []) {
                     $argumentName = array_shift($argumentHierarchy);
                     if (isset($argumentStack[$argumentName])) {
                         /*

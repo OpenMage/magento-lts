@@ -153,7 +153,7 @@ class Mage_Directory_Model_Resource_Country_Collection extends Mage_Core_Model_R
             ];
         }
 
-        if (count($options) > 0 && $emptyLabel !== false) {
+        if ($options !== [] && $emptyLabel !== false) {
             array_unshift($options, ['value' => '', 'label' => $emptyLabel]);
         }
 

@@ -80,7 +80,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Billing_Method_Form extends Mage_P
     {
         $availableTypes = explode(',', $this->getQuote()->getPayment()->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && count($ssPresenations) > 0) {
+        if ($availableTypes && $ssPresenations !== []) {
             return true;
         }
 

@@ -114,7 +114,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && count($ssPresenations) > 0) {
+        if ($availableTypes && $ssPresenations !== []) {
             return true;
         }
 

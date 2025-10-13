@@ -79,7 +79,6 @@ try {
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
             CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
             CodingStyle\FuncCall\CallUserFuncArrayToVariadicRector::class, # todo: TMP
-            CodingStyle\FuncCall\CountArrayToEmptyArrayComparisonRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP

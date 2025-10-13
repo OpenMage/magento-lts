@@ -166,7 +166,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             $_values[] = $productOptionValues[$optionValue];
         }
 
-        if (count($_values)) {
+        if ($_values !== []) {
             return implode(',', $_values);
         } else {
             return null;

@@ -55,7 +55,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Giftmessage extends Mage_Adminhtml
             }
         }
 
-        if (count($items)) {
+        if ($items !== []) {
             return $items;
         }
 

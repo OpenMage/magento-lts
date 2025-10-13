@@ -257,7 +257,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         /**
          * Proceed with $useConfig set into category model for processing through validation
          */
-        if (count($useConfig) > 0) {
+        if ($useConfig !== []) {
             $category->setData('use_post_data_config', $useConfig);
         }
 

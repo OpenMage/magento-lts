@@ -95,7 +95,7 @@ class Mage_Widget_Model_Widget_Config extends Varien_Object
             }
         }
 
-        if (count($skipped) > 0) {
+        if ($skipped !== []) {
             $params['skip_widgets'] = $this->encodeWidgetsToQuery($skipped);
         }
 

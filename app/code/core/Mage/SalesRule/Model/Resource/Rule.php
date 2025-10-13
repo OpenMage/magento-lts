@@ -119,7 +119,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
             $this->getProductAttributes(serialize($object->getConditions()->asArray())),
             $this->getProductAttributes(serialize($object->getActions()->asArray())),
         );
-        if (count($ruleProductAttributes)) {
+        if ($ruleProductAttributes !== []) {
             $this->setActualProductAttributes($object, $ruleProductAttributes);
         }
 

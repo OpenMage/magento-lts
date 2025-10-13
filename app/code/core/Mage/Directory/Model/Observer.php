@@ -61,7 +61,7 @@ class Mage_Directory_Model_Observer
             }
         }
 
-        if (!count($importWarnings)) {
+        if ($importWarnings === []) {
             Mage::getModel('directory/currency')->saveRates($rates);
         } else {
             $translate = Mage::getSingleton('core/translate');

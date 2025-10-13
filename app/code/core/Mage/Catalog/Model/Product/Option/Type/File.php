@@ -211,7 +211,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $_dimentions['maxheight'] = $option->getImageSizeY();
         }
 
-        if (count($_dimentions) > 0) {
+        if ($_dimentions !== []) {
             $upload->addValidator('ImageSize', false, $_dimentions);
         }
 
@@ -349,11 +349,11 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
             $_dimentions['maxheight'] = $option->getImageSizeY();
         }
 
-        if (count($_dimentions) > 0 && !$this->_isImage($fileFullPath)) {
+        if ($_dimentions !== [] && !$this->_isImage($fileFullPath)) {
             return false;
         }
 
-        if (count($_dimentions) > 0) {
+        if ($_dimentions !== []) {
             $validatorChain->addValidator(
                 new Zend_Validate_File_ImageSize($_dimentions),
             );
@@ -767,7 +767,7 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
     protected function _parseExtensionsString($extensions)
     {
         preg_match_all('/[a-z0-9]+/si', strtolower($extensions), $matches);
-        if (count($matches[0]) > 0) {
+        if ($matches[0] !== []) {
             return $matches[0];
         }
 

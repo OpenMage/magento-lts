@@ -134,7 +134,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
         $conditions = ['rule_id = ?' => $ruleId];
 
-        if (count($productIds) > 0) {
+        if ($productIds !== []) {
             $conditions['product_id IN (?)'] = $productIds;
         }
 
@@ -226,7 +226,7 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
                         ]);
 
                     // phpcs:ignore Ecg.Performance.Loop.ArraySize
-                    if (count($productIds) > 0) {
+                    if ($productIds !== []) {
                         $selectByStore->where('p.entity_id IN (?)', array_keys($productIds));
                     }
 
