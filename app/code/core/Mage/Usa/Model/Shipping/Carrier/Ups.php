@@ -2024,11 +2024,10 @@ XMLAuth;
             && $method == '11' // UPS Standard
         ) {
             $containerTypes = [];
-            if ($method == '07' // Worldwide Express
-                || $method == '08' // Worldwide Expedited
-                || $method == '65' // Worldwide Saver
-            ) {
-                // Worldwide Expedited
+            // 07: UPS Worldwide Express
+            // 08: UPS Worldwide Expedited
+            // 65: UPS Worldwide Saver
+            if (in_array($method, ['07', '08', '65'])) {
                 if ($method != '08') {
                     $containerTypes = [
                         '01'   => Mage::helper('usa')->__('UPS Letter Envelope'),
@@ -2046,11 +2045,10 @@ XMLAuth;
             }
             return ['00' => Mage::helper('usa')->__('Customer Packaging')] + $containerTypes;
         } elseif ($countryShipper == self::USA_COUNTRY_ID && $countryRecipient == self::PUERTORICO_COUNTRY_ID
-            && (
-                $method == '03' // UPS Ground
-                || $method == '02' // UPS Second Day Air
-                || $method == '01' // UPS Next Day Air
-            )
+            // 03: UPS Ground
+            // 02: UPS Second Day Air
+            // 01: UPS Next Day Air
+            && (in_array($method, ['03', '02', '01']))
         ) {
             // Container types should be the same as for domestic
             $params->setCountryRecipient(self::USA_COUNTRY_ID);

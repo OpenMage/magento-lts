@@ -546,7 +546,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         $type = $attribute->getBackendType();
-        if (($type === 'int' || $type === 'decimal' || $type === 'datetime') && $value === '') {
+        if ((in_array($type, ['int', 'decimal', 'datetime'], true)) && $value === '') {
             $value = null;
         }
 

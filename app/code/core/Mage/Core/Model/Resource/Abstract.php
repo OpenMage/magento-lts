@@ -215,7 +215,7 @@ abstract class Mage_Core_Model_Resource_Abstract
      */
     protected function _prepareTableValueForSave($value, $type)
     {
-        if ($type == 'decimal' || $type == 'numeric' || $type == 'float') {
+        if (in_array($type, ['decimal', 'numeric', 'float'])) {
             return Mage::app()->getLocale()->getNumber($value);
         }
         return $value;

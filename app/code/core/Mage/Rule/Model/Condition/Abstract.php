@@ -794,7 +794,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
         }
 
-        if ($op == '!=' || $op == '>' || $op == '<' || $op == '!{}' || $op == '!()' || $op == '![]') {
+        if (in_array($op, ['!=', '>', '<', '!{}', '!()', '![]'])) {
             $result = !$result;
         }
 
