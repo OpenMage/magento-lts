@@ -227,7 +227,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
                 ->limit(1);
             try {
                 $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_isBuilt[$storeId] = false;
             }
         }

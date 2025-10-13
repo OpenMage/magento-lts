@@ -43,7 +43,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
                 $validator->authenticate($data);
                 Mage::register('current_centinel_validator', $validator);
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::register('current_centinel_validator', false);
         }
         $this->loadLayout()->renderLayout();

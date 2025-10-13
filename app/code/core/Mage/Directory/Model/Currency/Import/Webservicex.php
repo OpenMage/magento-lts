@@ -54,7 +54,7 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
                 return null;
             }
             return (float) $xml;
-        } catch (Exception $e) {
+        } catch (Exception) {
             if ($retry == 0) {
                 $this->_convert($currencyFrom, $currencyTo, 1);
             } else {
