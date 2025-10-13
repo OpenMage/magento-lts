@@ -137,7 +137,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
             'priceValue' => $option->getPrice(false),
             'type' => $option->getPriceType(),
             'excludeTax' => Mage::helper('tax')->getPrice($option->getProduct(), $price, false),
-            'includeTax' => Mage::helper('tax')->getPrice($option->getProduct(), $price, true)
+            'includeTax' => Mage::helper('tax')->getPrice($option->getProduct(), $price, true),
         ];
     }
 

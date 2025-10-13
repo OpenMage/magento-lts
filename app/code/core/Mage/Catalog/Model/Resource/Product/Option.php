@@ -54,7 +54,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_FILE,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE,
             Mage_Catalog_Model_Product_Option::OPTION_TYPE_DATE_TIME,
-            Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME
+            Mage_Catalog_Model_Product_Option::OPTION_TYPE_TIME,
         ])) {
             //save for store_id = 0
             if (!$object->getData('scope', 'price')) {
