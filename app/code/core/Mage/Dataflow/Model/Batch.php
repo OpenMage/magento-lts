@@ -90,6 +90,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
                 $this->_fieldList[$fieldName] = $fieldName;
             }
         }
+
         unset($fieldName, $row);
     }
 
@@ -104,6 +105,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
             $this->_ioAdapter = Mage::getModel('dataflow/batch_io');
             $this->_ioAdapter->init($this);
         }
+
         return $this->_ioAdapter;
     }
 
@@ -112,6 +114,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
         if (is_null($this->getData('created_at'))) {
             $this->setData('created_at', Mage::getSingleton('core/date')->gmtDate());
         }
+
         return $this;
     }
 
@@ -133,6 +136,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
             $object->setBatchId($this->getId());
             $this->_batchExport = Varien_Object_Cache::singleton()->save($object);
         }
+
         return Varien_Object_Cache::singleton()->load($this->_batchExport);
     }
 
@@ -148,6 +152,7 @@ class Mage_Dataflow_Model_Batch extends Mage_Core_Model_Abstract
             $object->setBatchId($this->getId());
             $this->_batchImport = Varien_Object_Cache::singleton()->save($object);
         }
+
         return Varien_Object_Cache::singleton()->load($this->_batchImport);
     }
 

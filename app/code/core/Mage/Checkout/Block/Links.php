@@ -40,6 +40,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
             $parentBlock->removeLinkByUrl($this->getUrl('checkout/cart'));
             $parentBlock->addLink($text, 'checkout/cart', $text, true, [], 50, null, 'class="top-link-cart"');
         }
+
         return $this;
     }
 
@@ -70,6 +71,7 @@ class Mage_Checkout_Block_Links extends Mage_Core_Block_Template
                 'class="top-link-checkout"',
             );
         }
+
         return $this;
     }
 }

@@ -190,6 +190,7 @@ class Mage_Core_Model_Date
                 $result = $result / 60 / 60;
                 break;
         }
+
         return $result;
     }
 
@@ -208,12 +209,14 @@ class Mage_Core_Model_Date
         if (!checkdate($month, $day, $year)) {
             return false;
         }
+
         foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
             $value = (int) ${$var};
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -249,6 +252,7 @@ class Mage_Core_Model_Date
                 break;
             }
         }
+
         if (!$isSupportedFormatFound) {
             Mage::throwException(Mage::helper('core')->__('Date/time format "%s" is not supported.', $dateTimeFormat));
         }
@@ -267,6 +271,7 @@ class Mage_Core_Model_Date
             if (isset($mask[$key]) && isset($matches[$mask[$key]])) {
                 $value = (int) $matches[$mask[$key]];
             }
+
             $result[] = $value;
         }
 

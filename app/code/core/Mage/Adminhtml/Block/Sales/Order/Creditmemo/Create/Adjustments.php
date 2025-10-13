@@ -58,6 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
         } else {
             $shipping = $source->getBaseShippingAmount();
         }
+
         return Mage::app()->getStore()->roundPrice($shipping) * 1;
     }
 
@@ -76,6 +77,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Adjustments extends Mag
         } else {
             $label = $this->helper('sales')->__('Refund Shipping');
         }
+
         return $label;
     }
 }

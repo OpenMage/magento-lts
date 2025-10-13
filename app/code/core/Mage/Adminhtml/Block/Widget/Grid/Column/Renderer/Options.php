@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
                         $res[] = $this->escapeHtml($item);
                     }
                 }
+
                 return implode(', ', $res);
             } elseif (isset($options[$value])) {
                 return $this->escapeHtml($options[$value]);
@@ -41,6 +42,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Options extends Mage_Admi
                 return $this->escapeHtml($value);
             }
         }
+
         return '';
     }
 }

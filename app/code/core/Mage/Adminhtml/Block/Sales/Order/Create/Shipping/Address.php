@@ -113,6 +113,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Address extends Mage_Admi
         } else {
             $address = $this->getCreateOrderModel()->getShippingAddress();
         }
+
         return $address;
     }
 

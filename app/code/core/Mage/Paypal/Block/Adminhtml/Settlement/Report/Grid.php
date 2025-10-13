@@ -42,6 +42,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Report_Grid extends Mage_Adminhtml_
         if (!$this->getParam($this->getVarNameSort())) {
             $collection->setOrder('row_id', 'desc');
         }
+
         return parent::_prepareCollection();
     }
 

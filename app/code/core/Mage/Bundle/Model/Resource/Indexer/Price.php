@@ -58,6 +58,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/price_indexer_idx');
         }
+
         return $this->getTable('bundle/price_indexer_tmp');
     }
 
@@ -71,6 +72,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/selection_indexer_idx');
         }
+
         return $this->getTable('bundle/selection_indexer_tmp');
     }
 
@@ -84,6 +86,7 @@ class Mage_Bundle_Model_Resource_Indexer_Price extends Mage_Catalog_Model_Resour
         if ($this->useIdxTable()) {
             return $this->getTable('bundle/option_indexer_idx');
         }
+
         return $this->getTable('bundle/option_indexer_tmp');
     }
 

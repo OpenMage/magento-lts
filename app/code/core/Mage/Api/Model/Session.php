@@ -20,6 +20,7 @@
 class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 {
     public $sessionIds = [];
+
     protected $_currentSessId = null;
 
     /**
@@ -43,6 +44,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($this->_currentSessId)) {
             $this->start();
         }
+
         return $this;
     }
 
@@ -63,6 +65,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!is_null($sessId)) {
             $this->_currentSessId = $sessId;
         }
+
         return $this;
     }
 
@@ -82,10 +85,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($sessId = $this->getSessionId()) {
             try {
                 Mage::getModel('api/user')->logoutBySessId($sessId);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -153,16 +157,20 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($user)) {
             $user = $this->getUser();
         }
+
         if (!$user) {
             return $this;
         }
+
         if (!$this->getAcl() || $user->getReloadAclFlag()) {
             $this->setAcl(Mage::getResourceModel('api/acl')->loadAcl());
         }
+
         if ($user->getReloadAclFlag()) {
             $user->unsetData('api_key');
             $user->setReloadAclFlag('0')->save();
         }
+
         return $this;
     }
 
@@ -190,10 +198,11 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
             try {
                 return $acl->isAllowed($user->getAclRole(), $resource, $privilege);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }
+
         return false;
     }
 
@@ -208,6 +217,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$user->getId()) {
             return true;
         }
+
         $timeout = strtotime(Varien_Date::now()) - strtotime($user->getLogdate());
         return $timeout > Mage::getStoreConfig('api/config/session_timeout');
     }
@@ -228,6 +238,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($userExists) {
             Mage::register('isSecureArea', true, true);
         }
+
         return $userExists;
     }
 
@@ -253,6 +264,7 @@ class Mage_Api_Model_Session extends Mage_Core_Model_Session_Abstract
 
             return true;
         }
+
         return false;
     }
 }

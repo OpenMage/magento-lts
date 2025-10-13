@@ -67,6 +67,7 @@ class Mage_Catalog_Model_Product_Type_Price
         $finalPrice = $product->getData('final_price');
         $finalPrice = $this->_applyOptionsPrice($product, $qty, $finalPrice);
         $finalPrice = max(0, $finalPrice);
+
         $product->setFinalPrice($finalPrice);
 
         return $finalPrice;
@@ -97,6 +98,7 @@ class Mage_Catalog_Model_Product_Type_Price
         if (is_numeric($groupPrice)) {
             $finalPrice = min($finalPrice, $groupPrice);
         }
+
         return $finalPrice;
     }
 
@@ -153,6 +155,7 @@ class Mage_Catalog_Model_Product_Type_Price
         if (is_numeric($tierPrice)) {
             $finalPrice = min($finalPrice, $tierPrice);
         }
+
         return $finalPrice;
     }
 
@@ -180,6 +183,7 @@ class Mage_Catalog_Model_Product_Type_Price
             if (!is_null($qty)) {
                 return $product->getPrice();
             }
+
             return [[
                 'price'         => $product->getPrice(),
                 'website_price' => $product->getPrice(),
@@ -199,24 +203,29 @@ class Mage_Catalog_Model_Product_Type_Price
                     // tier not for current customer group nor is for all groups
                     continue;
                 }
+
                 if ($qty < $price['price_qty']) {
                     // tier is higher than product qty
                     continue;
                 }
+
                 if ($price['price_qty'] < $prevQty) {
                     // higher tier qty already found
                     continue;
                 }
+
                 if ($price['price_qty'] == $prevQty && $prevGroup != $allGroups && $price['cust_group'] == $allGroups) {
                     // found tier qty is same as current tier qty but current tier group is ALL_GROUPS
                     continue;
                 }
+
                 if ($price['website_price'] < $prevPrice) {
                     $prevPrice  = $price['website_price'];
                     $prevQty    = $price['price_qty'];
                     $prevGroup  = $price['cust_group'];
                 }
             }
+
             return $prevPrice;
         } else {
             $qtyCache = [];
@@ -249,6 +258,7 @@ class Mage_Catalog_Model_Product_Type_Price
         if ($product->getCustomerGroupId()) {
             return $product->getCustomerGroupId();
         }
+
         return Mage::getSingleton('customer/session')->getCustomerGroupId();
     }
 
@@ -420,6 +430,7 @@ class Mage_Catalog_Model_Product_Type_Price
                 $finalPrice     = min($finalPrice, $specialPrice);
             }
         }
+
         return $finalPrice;
     }
 

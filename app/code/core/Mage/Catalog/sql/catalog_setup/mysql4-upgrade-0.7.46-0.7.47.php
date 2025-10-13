@@ -92,6 +92,7 @@ foreach ($websiteIds as $websiteId) {
         if (!$storeId) {
             continue;
         }
+
         $installer->run("
 INSERT INTO {$installer->getTable('catalog_product_enabled_index')}
     SELECT t_v_default.entity_id, {$storeId}, IFNULL(t_v.value, t_v_default.value)

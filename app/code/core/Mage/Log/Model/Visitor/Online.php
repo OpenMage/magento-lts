@@ -31,6 +31,7 @@
 class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_ONLINE_INTERVAL      = 'customer/online_customers/online_minutes_interval';
+
     public const XML_PATH_UPDATE_FREQUENCY     = 'log/visitor/online_update_frequency';
 
     protected function _construct()
@@ -70,6 +71,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
         if (is_null($time)) {
             $time = time();
         }
+
         Mage::app()->saveCache($time, 'log_visitor_online_prepare_at');
         return $this;
     }
@@ -95,6 +97,7 @@ class Mage_Log_Model_Visitor_Online extends Mage_Core_Model_Abstract
         if (!$value) {
             $value = Mage_Log_Model_Visitor::DEFAULT_ONLINE_MINUTES_INTERVAL;
         }
+
         return $value;
     }
 }

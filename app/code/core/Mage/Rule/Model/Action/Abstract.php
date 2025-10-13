@@ -49,6 +49,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
             $this->setAttribute($attr);
             break;
         }
+
         foreach (array_keys($this->getOperatorOption()) as $operator) {
             $this->setOperator($operator);
             break;
@@ -122,6 +123,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         foreach ($this->getAttributeOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -154,6 +156,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         foreach ($this->getOperatorOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -183,6 +186,7 @@ abstract class Mage_Rule_Model_Action_Abstract extends Varien_Object implements 
         foreach ($this->getValueOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 

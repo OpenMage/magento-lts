@@ -19,6 +19,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Pickup
         foreach ($ups->getCode('pickup') as $k => $v) {
             $arr[] = ['value' => $k, 'label' => Mage::helper('usa')->__($v['label'])];
         }
+
         return $arr;
     }
 }

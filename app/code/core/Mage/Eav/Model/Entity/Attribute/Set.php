@@ -81,9 +81,11 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                     ->setSortOrder($attribute->getSortOrder());
                 $newAttributes[] = $newAttribute;
             }
+
             $newGroup->setAttributes($newAttributes);
             $newGroups[] = $newGroup;
         }
+
         $this->setGroups($newGroups);
 
         return $this;
@@ -105,9 +107,11 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
             foreach ($data['attributes'] as $attribute) {
                 $ids[] = $attribute[0];
             }
+
             $attributeIds = Mage::getResourceSingleton('eav/entity_attribute')
                 ->getValidAttributeIds($ids);
         }
+
         if ($data['groups']) {
             foreach ($data['groups'] as $group) {
                 $modelGroup = Mage::getModel('eav/entity_attribute_group');
@@ -128,11 +132,14 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                             $modelAttributeArray[] = $modelAttribute;
                         }
                     }
+
                     $modelGroup->setAttributes($modelAttributeArray);
                     $modelAttributeArray = [];
                 }
+
                 $modelGroupArray[] = $modelGroup;
             }
+
             $this->setGroups($modelGroupArray);
         }
 
@@ -144,6 +151,7 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                 $modelAttribute->setEntityAttributeId($attributeId);
                 $modelAttributeArray[] = $modelAttribute;
             }
+
             $this->setRemoveAttributes($modelAttributeArray);
         }
 
@@ -155,8 +163,10 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
 
                 $modelGroupArray[] = $modelGroup;
             }
+
             $this->setRemoveGroups($modelGroupArray);
         }
+
         $this->setAttributeSetName($data['attribute_set_name'])
             ->setEntityTypeId($this->getEntityTypeId());
 
@@ -198,9 +208,11 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
             if ($setId && is_array($attribute->getAttributeSetInfo($setId))) {
                 continue;
             }
+
             if (!$attribute->getAttributeId()) {
                 continue;
             }
+
             $attributeIds[] = $attribute->getAttributeId();
         }
 
@@ -213,17 +225,21 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
                 if (!$attribute->getAttributeId()) {
                     continue;
                 }
+
                 if (!in_array($attribute->getAttributeId(), $attributeIds)) {
                     continue;
                 }
+
                 if (is_numeric($setId)) {
                     $attributeSetInfo = $attribute->getAttributeSetInfo();
                     if (!is_array($attributeSetInfo)) {
                         $attributeSetInfo = [];
                     }
+
                     if (isset($setInfo[$attribute->getAttributeId()][$setId])) {
                         $attributeSetInfo[$setId] = $setInfo[$attribute->getAttributeId()][$setId];
                     }
+
                     $attribute->setAttributeSetInfo($attributeSetInfo);
                 } elseif (isset($setInfo[$attribute->getAttributeId()])) {
                     $attribute->setAttributeSetInfo($setInfo[$attribute->getAttributeId()]);
@@ -247,11 +263,13 @@ class Mage_Eav_Model_Entity_Attribute_Set extends Mage_Core_Model_Abstract
         if ($setId === null) {
             $setId = $this->getId();
         }
+
         if ($setId) {
             $groupId = $this->_getResource()->getDefaultGroupId($setId);
         } else {
             $groupId = null;
         }
+
         return $groupId;
     }
 }

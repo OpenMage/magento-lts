@@ -49,6 +49,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return self::$_shouldAskToCreateBillingAgreement;
     }
 
@@ -63,13 +64,16 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$config) {
             return false;
         }
+
         $config = $config->asCanonicalArray();
         if (isset($config['enable_for_countries'])) {
             $config['enable_for_countries'] = explode(',', str_replace(' ', '', $config['enable_for_countries']));
         }
+
         if (isset($config['disable_for_countries'])) {
             $config['disable_for_countries'] = explode(',', str_replace(' ', '', $config['disable_for_countries']));
         }
+
         return Mage::helper('core')->jsonEncode($config);
     }
 
@@ -86,9 +90,11 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
             $countryCode = (string) Mage::getSingleton('adminhtml/config_data')
                 ->getConfigDataValue(self::MERCHANT_COUNTRY_CONFIG_PATH);
         }
+
         if (empty($countryCode)) {
             $countryCode = Mage::helper('core')->getDefaultCountry();
         }
+
         return $countryCode;
     }
 
@@ -114,6 +120,7 @@ class Mage_Paypal_Helper_Data extends Mage_Core_Helper_Abstract
                 . 'paypal.com/cgi-bin/webscr?cmd=_view-a-trans&id=' . $txnId;
             return '<a target="_blank" href="' . $url . '">' . $txnId . '</a>';
         }
+
         return $txnId;
     }
 }

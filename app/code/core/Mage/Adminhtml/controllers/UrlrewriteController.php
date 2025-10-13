@@ -130,6 +130,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                 if (!$model->getId()) {
                     $model->setIsSystem(0);
                 }
+
                 if (!$model->getIsSystem()) {
                     $model->setStoreId($this->getRequest()->getParam('store_id', 0));
                 }
@@ -139,10 +140,12 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                 if ($category) {
                     $model->setCategoryId($category->getId());
                 }
+
                 $product  = Mage::registry('current_product')->getId() ? Mage::registry('current_product') : null;
                 if ($product) {
                     $model->setProductId($product->getId());
                 }
+
                 if ($product || $category) {
                     $catalogUrlModel = Mage::getSingleton('catalog/url');
                     $idPath = $catalogUrlModel->generatePath('id', $product, $category);
@@ -156,6 +159,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                             $exceptionTxt = 'Chosen product does not associated with the chosen store or category.';
                             Mage::throwException($exceptionTxt);
                         }
+
                         if ($rewrite->getId() && $rewrite->getId() != $model->getId()) {
                             $model->setIdPath($idPath);
                             $model->setTargetPath($rewrite->getRequestPath());
@@ -183,6 +187,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                 // return intentionally omitted
             }
         }
+
         $this->_redirectReferer();
     }
 
@@ -207,6 +212,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 }

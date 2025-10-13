@@ -72,6 +72,7 @@ class Mage_GiftMessage_Block_Adminhtml_Sales_Order_Create_Items extends Mage_Adm
             $model = $helper->getGiftMessage($this->getItem()->getGiftMessageId());
             return $this->escapeHtml($model->getMessage());
         }
+
         return '';
     }
 }

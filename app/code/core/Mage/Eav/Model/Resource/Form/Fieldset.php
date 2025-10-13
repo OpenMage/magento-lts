@@ -57,12 +57,14 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                     if (empty($label)) {
                         continue;
                     }
+
                     $data[] = [
                         'fieldset_id'   => (int) $object->getId(),
                         'store_id'      => (int) $storeId,
                         'label'         => $label,
                     ];
                 }
+
                 if ($data) {
                     $adapter->insertMultiple($this->getTable('eav/form_fieldset_label'), $data);
                 }
@@ -103,6 +105,7 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
         if (!$objectId) {
             return [];
         }
+
         $adapter = $this->_getReadAdapter();
         $bind    = [':fieldset_id' => $objectId];
         $select  = $adapter->select()

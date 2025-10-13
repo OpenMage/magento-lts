@@ -20,6 +20,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
      * @var string
      */
     protected $_idFieldName    = 'link_id';
+
     /**
      * Add downloads summary grouping by product
      *
@@ -76,6 +77,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
         } else {
             parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 
@@ -94,6 +96,7 @@ class Mage_Reports_Model_Resource_Product_Downloads_Collection extends Mage_Cata
         } else {
             parent::addFieldToFilter($field, $condition);
         }
+
         return $this;
     }
 }

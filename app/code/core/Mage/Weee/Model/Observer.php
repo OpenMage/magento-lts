@@ -103,6 +103,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 [],
             );
         }
+
         $checkDiscountField = $select->getAdapter()->getCheckSql(
             'discount_percent.value IS NULL',
             '0',
@@ -117,6 +118,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 $additionalCalculations[] = "+($checkAdditionalCalculation)";
             }
         }
+
         $response->setAdditionalCalculations($additionalCalculations);
 
         /** @var Varien_Object $rateRequest */
@@ -149,6 +151,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                 [],
             );
         }
+
         return $this;
     }
 
@@ -214,8 +217,10 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
                     if ($option['value'] == Mage_Catalog_Model_Product_Type::TYPE_GROUPED) {
                         continue;
                     }
+
                     $applyTo[] = $option['value'];
                 }
+
                 $object->setApplyTo($applyTo);
             }
         }
@@ -254,6 +259,7 @@ class Mage_Weee_Model_Observer extends Mage_Core_Model_Abstract
         } else {
             $eventProduct = $observer->getEvent()->getProduct();
         }
+
         Mage::getModel('weee/tax')->updateProductsDiscountPercent($eventProduct);
 
         return $this;

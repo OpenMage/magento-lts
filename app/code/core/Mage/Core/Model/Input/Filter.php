@@ -109,6 +109,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
         } else {
             $this->_filters[$name][] = $filter;
         }
+
         return $this;
     }
 
@@ -202,6 +203,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
         if ($filters === null) {
             $filters = &$this->_filters;
         }
+
         foreach ($data as $key => $value) {
             if (!$isFilterListSimple && !empty($filters[$key])) {
                 $itemFilters = $filters[$key];
@@ -223,8 +225,10 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
                     }
                 }
             }
+
             $data[$key] = $value;
         }
+
         return $data;
     }
 
@@ -239,9 +243,11 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
         if (!isset($filterData['method']) || empty($filterData['method'])) {
             throw new Exception('Helper filtration method is not set');
         }
+
         if (!isset($filterData['args']) || empty($filterData['args'])) {
             $filterData['args'] = [];
         }
+
         $filterData['args'] = [-100 => $value] + $filterData['args'];
         // apply filter
         $value = call_user_func_array([$helper, $filterData['method']], $filterData['args']);
@@ -263,10 +269,12 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
             if (is_string($helper)) {
                 $helper = Mage::helper($helper);
             }
+
             if (!($helper instanceof Mage_Core_Helper_Abstract)) {
                 throw new Exception("Filter '{$filterData['helper']}' not found");
             }
         }
+
         return $helper;
     }
 
@@ -286,6 +294,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
         } elseif (isset($filterData['zend'])) {
             $zendFilter = $this->_createNativeZendFilter($filterData);
         }
+
         return $zendFilter;
     }
 
@@ -305,12 +314,15 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
             //use only first element because Mage factory cannot get more
             $filterData['args'] = $filterData['args'][0];
         }
+
         if (is_string($filterData['model'])) {
             $filter = Mage::getModel($filterData['model'], $filterData['args']);
         }
+
         if (!($filter instanceof Zend_Filter_Interface)) {
             throw new Exception('Filter is not instance of Zend_Filter_Interface');
         }
+
         return $filter;
     }
 
@@ -336,6 +348,7 @@ class Mage_Core_Model_Input_Filter implements Zend_Filter_Interface
                 throw new Exception('Filter is not instance of Zend_Filter_Interface');
             }
         }
+
         return $filter;
     }
 }

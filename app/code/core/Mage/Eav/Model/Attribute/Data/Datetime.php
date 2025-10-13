@@ -32,8 +32,10 @@ class Mage_Eav_Model_Attribute_Data_Datetime extends Mage_Eav_Model_Attribute_Da
             } else {
                 $filter = new $filterClass();
             }
+
             return $filter;
         }
+
         return false;
     }
 

@@ -191,7 +191,7 @@
         "rector:test": "Run rector",
         "rector:test:debug": "Run rector with debug option",
         "rector:fix": "Run rector and fix issues",
-        "vendor:patch": "Create vendor-patch file",
+        "vendor:patch": "Create patch file",
         "test": "Run php-cs-fixer, phpstan & phpunit"
     }
 }

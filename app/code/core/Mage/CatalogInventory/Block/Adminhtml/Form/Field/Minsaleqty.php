@@ -37,6 +37,7 @@ class Mage_CatalogInventory_Block_Adminhtml_Form_Field_Minsaleqty extends Mage_A
             $this->_groupRenderer->setClass('customer_group_select');
             $this->_groupRenderer->setExtraParams('style="width:120px"');
         }
+
         return $this->_groupRenderer;
     }
 

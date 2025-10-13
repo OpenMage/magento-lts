@@ -20,11 +20,13 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
      * Location of the "Enable Chart" config param
      */
     public const XML_PATH_ENABLE_CHARTS = 'admin/dashboard/enable_charts';
+
     public const XML_PATH_CHART_TYPE    = 'admin/dashboard/chart_type';
 
     protected $_moduleName = 'Mage_Adminhtml';
 
     protected $_locale = null;
+
     protected $_stores = null;
 
     public function isChartEnabled(): bool
@@ -32,6 +34,7 @@ class Mage_Adminhtml_Helper_Dashboard_Data extends Mage_Core_Helper_Data
         if (!InstalledVersions::isInstalled('nnnick/chartjs')) {
             return false;
         }
+
         return Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_CHARTS);
     }
 

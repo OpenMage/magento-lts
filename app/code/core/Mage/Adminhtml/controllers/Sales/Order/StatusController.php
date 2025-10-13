@@ -41,6 +41,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         } else {
             $status = false;
         }
+
         return $status;
     }
 
@@ -64,6 +65,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                 ->setData($data);
             Mage::register('current_status', $status);
         }
+
         $this->_title($this->__('Sales'))->_title($this->__('Create New Order Status'));
         $this->loadLayout()
             ->_setActiveMenu('system/order_statuses')
@@ -106,6 +108,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             if ($isNew) {
                 $statusCode = $data['status'] = $helper->stripTags($data['status']);
             }
+
             $data['label'] = $helper->stripTags($data['label']);
             foreach ($data['store_labels'] as &$label) {
                 $label = $helper->stripTags($label);
@@ -138,14 +141,17 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
                     Mage::helper('sales')->__('An error occurred while saving order status. The status has not been added.'),
                 );
             }
+
             $this->_getSession()->setFormData($data);
             if ($isNew) {
                 $this->_redirect('*/*/new');
             } else {
                 $this->_redirect('*/*/edit', ['status' => $this->getRequest()->getParam('status')]);
             }
+
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -187,9 +193,11 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
             } else {
                 $this->_getSession()->addError(Mage::helper('sales')->__('Order status does not exist.'));
             }
+
             $this->_redirect('*/*/assign');
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -219,6 +227,7 @@ class Mage_Adminhtml_Sales_Order_StatusController extends Mage_Adminhtml_Control
         } else {
             $this->_getSession()->addError(Mage::helper('sales')->__('Order status does not exist.'));
         }
+
         $this->_redirect('*/*/');
     }
 }

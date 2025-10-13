@@ -20,12 +20,14 @@ class Mage_Sales_Block_Order_Email_Items extends Mage_Sales_Block_Items_Abstract
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         $_order = $this->getOrder();
         if ($helper->isMessagesAvailable('order', $_order, $_order->getStore()) && $_order->getGiftMessageId()) {
             return $helper->getGiftMessage($_order->getGiftMessageId());
         }
+
         return null;
     }
 }

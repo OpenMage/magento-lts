@@ -94,6 +94,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return true;
             }
         }
+
         return false;
     }
 
@@ -144,6 +145,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return true;
             }
         }
+
         return false;
     }
 
@@ -161,6 +163,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 return $options['bundle_options'];
             }
         }
+
         return [];
     }
 
@@ -177,9 +180,11 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         } else {
             $options = $item->getOrderItem()->getProductOptions();
         }
+
         if (isset($options['bundle_selection_attributes'])) {
             return unserialize($options['bundle_selection_attributes'], ['allowed_classes' => false]);
         }
+
         return null;
     }
 
@@ -198,13 +203,16 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (!empty($options['attributes_info'])) {
                 $result = array_merge($options['attributes_info'], $result);
             }
         }
+
         return $result;
     }
 
@@ -234,12 +242,14 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
                 $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
             }
         }
+
         if (!$this->isChildCalculated($item)) {
             $attributes = $this->getSelectionAttributes($item);
             if ($attributes) {
                 $result .= ' ' . strip_tags($this->getOrderItem()->getOrder()->formatPrice($attributes['price']));
             }
         }
+
         return $result;
     }
 
@@ -256,6 +266,7 @@ abstract class Mage_Bundle_Model_Sales_Order_Pdf_Items_Abstract extends Mage_Sal
         ) {
             return true;
         }
+
         return false;
     }
 }

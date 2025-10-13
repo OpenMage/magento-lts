@@ -95,10 +95,12 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
                 $feed = 60;
                 $name = $orderItem->getName();
             }
+
             $text = [];
             foreach (Mage::helper('core/string')->str_split($name, 60, true, true) as $part) {
                 $text[] = $part;
             }
+
             $line[] = [
                 'text'  => $text,
                 'feed'  => $feed,
@@ -109,6 +111,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Shipment extends Mage_Bundle_Model
             foreach (Mage::helper('core/string')->str_split($orderItem->getSku(), 25) as $part) {
                 $text[] = $part;
             }
+
             $line[] = [
                 'text'  => $text,
                 'feed'  => 440,

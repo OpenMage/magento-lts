@@ -112,6 +112,7 @@ class Mage_Adminhtml_Block_Review_Edit extends Mage_Adminhtml_Block_Widget_Form_
         if (Mage::registry('review_data') && Mage::registry('review_data')->getId()) {
             return Mage::helper('review')->__("Edit Review '%s'", $this->escapeHtml(Mage::registry('review_data')->getTitle()));
         }
+
         return Mage::helper('review')->__('New Review');
     }
 }

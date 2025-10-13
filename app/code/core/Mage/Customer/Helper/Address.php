@@ -18,9 +18,13 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      * VAT Validation parameters XML paths
      */
     public const XML_PATH_VIV_DISABLE_AUTO_ASSIGN_DEFAULT  = 'customer/create_account/viv_disable_auto_group_assign_default';
+
     public const XML_PATH_VIV_ON_EACH_TRANSACTION          = 'customer/create_account/viv_on_each_transaction';
+
     public const XML_PATH_VAT_VALIDATION_ENABLED           = 'customer/create_account/auto_group_assign';
+
     public const XML_PATH_VIV_TAX_CALCULATION_ADDRESS_TYPE = 'customer/create_account/tax_calculation_address_type';
+
     public const XML_PATH_VAT_FRONTEND_VISIBILITY          = 'customer/create_account/vat_frontend_visibility';
 
     protected $_moduleName = 'Mage_Customer';
@@ -45,6 +49,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
      * @var array
      */
     protected $_streetLines     = [];
+
     protected $_formatTemplate  = [];
 
     /**
@@ -85,6 +90,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
         if (!isset($this->_config[$websiteId])) {
             $this->_config[$websiteId] = Mage::getStoreConfig('customer/address', $store);
         }
+
         return isset($this->_config[$websiteId][$key]) ? (string) $this->_config[$websiteId][$key] : null;
     }
 
@@ -104,6 +110,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
             if ($lines <= 0) {
                 $lines = 2;
             }
+
             $this->_streetLines[$websiteId] = min(20, $lines);
         }
 
@@ -146,6 +153,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
                 $this->_attributes[$attributeCode] = $config->getAttribute('customer_address', $attributeCode);
             }
         }
+
         return $this->_attributes;
     }
 
@@ -206,6 +214,7 @@ class Mage_Customer_Helper_Address extends Mage_Core_Helper_Abstract
                     ++$neededLinesCount;
                     --$modulo;
                 }
+
                 $values = array_slice($origStreets, $offset, $neededLinesCount);
                 $lines[] = implode(' ', $values);
             }

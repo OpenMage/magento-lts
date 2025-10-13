@@ -49,6 +49,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
                 return true;
             }
         }
+
         return false;
     }
 
@@ -87,6 +88,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
                 return true;
             }
         }
+
         return false;
     }
 
@@ -101,9 +103,11 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
         } else {
             $options = $item->getOrderItem()->getProductOptions();
         }
+
         if (isset($options['bundle_selection_attributes'])) {
             return unserialize($options['bundle_selection_attributes'], ['allowed_classes' => false]);
         }
+
         return null;
     }
 
@@ -117,13 +121,16 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (!empty($options['attributes_info'])) {
                 $result = array_merge($options['attributes_info'], $result);
             }
         }
+
         return $result;
     }
 
@@ -139,11 +146,13 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
                 $result =  sprintf('%d', $attributes['qty']) . ' x ' . $result;
             }
         }
+
         if (!$this->isChildCalculated($item)) {
             if ($attributes = $this->getSelectionAttributes($item)) {
                 $result .= ' ' . $this->getItem()->getOrder()->formatPrice($attributes['price']);
             }
         }
+
         return $result;
     }
 
@@ -158,6 +167,7 @@ class Mage_Bundle_Block_Adminhtml_Sales_Order_View_Items_Renderer extends Mage_A
         ) {
             return true;
         }
+
         return false;
     }
 }

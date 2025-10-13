@@ -42,6 +42,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if ($this->isCustomerLoggedIn()) {
             $this->getCheckout()->setStepData('billing', 'allow', true);
         }
+
         parent::_construct();
     }
 
@@ -55,6 +56,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -91,9 +93,11 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
                 if (!$this->_address->getFirstname()) {
                     $this->_address->setFirstname($this->getQuote()->getCustomer()->getFirstname());
                 }
+
                 if (!$this->_address->getMiddlename()) {
                     $this->_address->setMiddlename($this->getQuote()->getCustomer()->getMiddlename());
                 }
+
                 if (!$this->_address->getLastname()) {
                     $this->_address->setLastname($this->getQuote()->getCustomer()->getLastname());
                 }
@@ -117,6 +121,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if (empty($firstname) && $this->getQuote()->getCustomer()) {
             return $this->getQuote()->getCustomer()->getFirstname();
         }
+
         return $firstname;
     }
 
@@ -132,6 +137,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if (empty($lastname) && $this->getQuote()->getCustomer()) {
             return $this->getQuote()->getCustomer()->getLastname();
         }
+
         return $lastname;
     }
 
@@ -147,6 +153,7 @@ class Mage_Checkout_Block_Onepage_Billing extends Mage_Checkout_Block_Onepage_Ab
         if (empty($middlename) && $this->getQuote()->getCustomer()) {
             return $this->getQuote()->getCustomer()->getMiddlename();
         }
+
         return $middlename;
     }
 

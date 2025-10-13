@@ -24,6 +24,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
     {
         return $field;
     }
+
     /**
      * Returns analytic expression for database column
      *
@@ -248,6 +249,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                     if (preg_match('/(^|[^a-zA-Z_])^(SELECT)?(SUM|MIN|MAX|AVG|COUNT)\s*\(/i', (string) $column, $matches)) {
                         $column = $this->prepareColumn($column, $groupByCondition);
                     }
+
                     $preparedColumns[strtoupper($alias)] = [null, $column, $alias];
                 } else {
                     throw new Zend_Db_Exception("Can't prepare expression without alias");
@@ -256,6 +258,7 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
                 if ($tables[$correlationName]['tableName'] instanceof Zend_Db_Expr) {
                     throw new Zend_Db_Exception("Can't prepare expression when tableName is instance of Zend_Db_Expr");
                 }
+
                 $tableColumns = $this->_getReadAdapter()->describeTable($tables[$correlationName]['tableName']);
                 foreach (array_keys($tableColumns) as $col) {
                     $preparedColumns[strtoupper($col)] = [$correlationName, $col, null];
@@ -287,9 +290,11 @@ class Mage_Core_Model_Resource_Helper_Mysql4 extends Mage_Core_Model_Resource_He
         } else {
             $fieldExpr = $fields;
         }
+
         if ($additionalWhere) {
             $fieldExpr = $this->_getReadAdapter()->getCheckSql($additionalWhere, $fieldExpr, "''");
         }
+
         $separator = '';
         if ($groupConcatDelimiter) {
             $separator = sprintf(" SEPARATOR '%s'", $groupConcatDelimiter);

@@ -15,6 +15,7 @@
 class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
 {
     public const APPLY_FOR_PRODUCT     = 1;
+
     public const APPLY_FOR_CATEGORY    = 2;
 
     /**
@@ -22,8 +23,11 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
      * Category / Custom Design / Apply To constants
      */
     public const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_RECURSIVE = 1;
+
     public const CATEGORY_APPLY_CATEGORY_ONLY                  = 2;
+
     public const CATEGORY_APPLY_CATEGORY_AND_PRODUCT_ONLY      = 3;
+
     public const CATEGORY_APPLY_CATEGORY_RECURSIVE             = 4;
 
     /**
@@ -76,6 +80,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         if (count($designInfo) != 2) {
             return false;
         }
+
         $package = $designInfo[0];
         $theme   = $designInfo[1];
         $this->_apply($package, $theme);
@@ -107,6 +112,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     if ($applyTo && !in_array($applyTo, $validApplyTo)) {
                         $hasError = true;
                     }
+
                     break;
                 default:
                     $hasError = true;
@@ -122,6 +128,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     if ($applyTo && !in_array($applyTo, $validApplyTo)) {
                         $hasError = true;
                     }
+
                     break;
                 case self::APPLY_FOR_PRODUCT:
                     $validApplyTo = [
@@ -130,6 +137,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     if ($applyTo && !in_array($applyTo, $validApplyTo)) {
                         $hasError = true;
                     }
+
                     break;
                 default:
                     $hasError = true;
@@ -278,6 +286,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         } elseif (is_array($designUpdateData)) {
             $objects = &$designUpdateData;
         }
+
         foreach ($objects as $object) {
             $design  = $object->getCustomDesign();
             $date    = $object->getCustomDesignDate();
@@ -304,6 +313,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
             } elseif ($designUpdateData instanceof Mage_Catalog_Model_Category) {
                 $_category = &$designUpdateData;
             }
+
             if (isset($_category) && $_category->getId()) {
                 $_designUpdateData = array_merge(
                     $_designUpdateData,
@@ -312,6 +322,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                 $this->_applyDesign($_designUpdateData, $calledFrom, true, $pass);
             }
         }
+
         return $this;
     }
 
@@ -357,6 +368,7 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         if (!$object) {
             return $settings;
         }
+
         $date = $object->getCustomDesignDate();
         if (array_key_exists('from', $date) && array_key_exists('to', $date)
             && Mage::app()->getLocale()->isStoreDateInInterval(null, $date['from'], $date['to'])
@@ -367,14 +379,16 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
                     if (!Mage::getModel('core/layout_validator')->isValid($customLayout)) {
                         $customLayout = '';
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $customLayout = '';
                 }
             }
+
             $settings->setCustomDesign($object->getCustomDesign())
                 ->setPageLayout($object->getPageLayout())
                 ->setLayoutUpdates((array) $customLayout);
         }
+
         return $settings;
     }
 
@@ -390,13 +404,16 @@ class Mage_Catalog_Model_Design extends Mage_Core_Model_Abstract
         if ($productSettings->getCustomDesign()) {
             $categorySettings->setCustomDesign($productSettings->getCustomDesign());
         }
+
         if ($productSettings->getPageLayout()) {
             $categorySettings->setPageLayout($productSettings->getPageLayout());
         }
+
         if ($productSettings->getLayoutUpdates()) {
             $update = array_merge($categorySettings->getLayoutUpdates(), $productSettings->getLayoutUpdates());
             $categorySettings->setLayoutUpdates($update);
         }
+
         return $categorySettings;
     }
 }

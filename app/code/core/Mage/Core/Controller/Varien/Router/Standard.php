@@ -13,7 +13,9 @@
 class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_Varien_Router_Abstract
 {
     protected $_modules = [];
+
     protected $_routes = [];
+
     protected $_dispatchData = [];
 
     /**
@@ -27,6 +29,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if ($routersConfigNode) {
             $routers = $routersConfigNode->children();
         }
+
         foreach ($routers as $routerName => $routerConfig) {
             $use = (string) $routerConfig->use;
             if ($use == $useRouterName) {
@@ -40,12 +43,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                                 if ($position === false) {
                                     $position = 0;
                                 }
+
                                 array_splice($modules, $position, 0, (string) $customModule);
                             } elseif ($after = $customModule->getAttribute('after')) {
                                 $position = array_search($after, $modules);
                                 if ($position === false) {
                                     $position = count($modules);
                                 }
+
                                 array_splice($modules, $position + 1, 0, (string) $customModule);
                             } else {
                                 $modules[] = (string) $customModule;
@@ -79,6 +84,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if (Mage::app()->getStore()->isAdmin()) {
             return false;
         }
+
         return true;
     }
 
@@ -126,6 +132,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             $module = $this->getFront()->getDefault('module');
             $request->setAlias(Mage_Core_Model_Url_Rewrite::REWRITE_REQUEST_PATH_ALIAS, '');
         }
+
         if (!$module) {
             if (Mage::app()->getStore()->isAdmin()) {
                 $module = 'admin';
@@ -234,9 +241,11 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if (isset($controller)) {
             $request->setControllerName($controller);
         }
+
         if (isset($action)) {
             $request->setActionName($action);
         }
+
         if (isset($realModule)) {
             $request->setControllerModule($realModule);
         }
@@ -340,12 +349,14 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
             if (!file_exists($controllerFileName)) {
                 return false;
             }
+
             include $controllerFileName;
 
             if (!class_exists($controllerClassName, false)) {
                 throw Mage::exception('Mage_Core', Mage::helper('core')->__('Controller file was loaded but class does not exist'));
             }
         }
+
         return true;
     }
 
@@ -385,6 +396,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 return true;
             }
         }
+
         return false;
     }
 
@@ -416,9 +428,10 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         $parts = explode('_', $realModule);
         $realModule = implode('_', array_splice($parts, 0, 2));
         $file = Mage::getModuleDir('controllers', $realModule);
-        if (count($parts)) {
+        if ($parts !== []) {
             $file .= DS . implode(DS, $parts);
         }
+
         return $file . (DS . uc_words($controller, DS) . 'Controller.php');
     }
 
@@ -431,6 +444,7 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
         if ($fileName && is_readable($fileName) && !str_contains($fileName, '//')) {
             return true;
         }
+
         return false;
     }
 
@@ -456,11 +470,13 @@ class Mage_Core_Controller_Varien_Router_Standard extends Mage_Core_Controller_V
                 $p[0] = trim((string) $module);
             }
         }
+
         if (isset($p[1]) && ($controller = $rewrite->{$p[0]}->{$p[1]})) {
             if (!$controller->children()) {
                 $p[1] = trim((string) $controller);
             }
         }
+
         if (isset($p[2]) && ($action = $rewrite->{$p[0]}->{$p[1]}->{$p[2]})) {
             if (!$action->children()) {
                 $p[2] = trim((string) $action);

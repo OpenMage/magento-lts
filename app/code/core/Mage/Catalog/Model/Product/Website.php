@@ -38,11 +38,12 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->removeProducts($websiteIds, $productIds);
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(
                 Mage::helper('catalog')->__('An error occurred while removing products from websites.'),
             );
         }
+
         return $this;
     }
 
@@ -57,11 +58,12 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
     {
         try {
             $this->_getResource()->addProducts($websiteIds, $productIds);
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::throwException(
                 Mage::helper('catalog')->__('An error occurred while adding products to websites.'),
             );
         }
+
         return $this;
     }
 

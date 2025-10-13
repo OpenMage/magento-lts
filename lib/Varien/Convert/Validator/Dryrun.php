@@ -21,6 +21,7 @@ class Varien_Convert_Validator_Dryrun extends Varien_Convert_Validator_Abstract
         if ($this->getVar('dry_run') || $this->getProfile()->getDryRun()) {
             $this->addException('Dry run set, stopping execution', Varien_Convert_Exception::FATAL);
         }
+
         return $this;
     }
 }

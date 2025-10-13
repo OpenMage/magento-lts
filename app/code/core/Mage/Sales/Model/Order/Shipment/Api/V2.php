@@ -26,6 +26,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
                 $_data[$item->order_item_id] = $item->qty;
             }
         }
+
         return $_data;
     }
 
@@ -70,6 +71,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
             if ($email) {
                 $shipment->setEmailSent(true);
             }
+
             $shipment->getOrder()->setIsInProcess(true);
             try {
                 $transactionSave = Mage::getModel('core/resource_transaction')
@@ -80,8 +82,10 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('data_invalid', $e->getMessage());
             }
+
             return $shipment->getIncrementId();
         }
+
         return null;
     }
 
@@ -101,6 +105,7 @@ class Mage_Sales_Model_Order_Shipment_Api_V2 extends Mage_Sales_Model_Order_Ship
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
+
         $carriers = [];
         foreach ($this->_getCarriers($order) as $key => $value) {
             $carriers[] = ['key' => $key, 'value' => $value];

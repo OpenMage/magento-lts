@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Notification_Baseurl extends Mage_Adminhtml_Block_Tem
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
                 $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'store' => $code]);
             }
+
             if ($data->getScope() === 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
                 $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'website' => $code]);
@@ -45,6 +46,7 @@ class Mage_Adminhtml_Block_Notification_Baseurl extends Mage_Adminhtml_Block_Tem
                 return $url;
             }
         }
+
         return $url;
     }
 }

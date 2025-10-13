@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         } else {
             $storeId = (int) $this->getParam('store');
         }
+
         $collection = Mage::getResourceModel('reports/product_collection')
             ->addAttributeToSelect('*')
             ->addViewsCount()
@@ -84,6 +85,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Viewed extends Mage_Adminhtml_
         if ($this->getRequest()->getParam('store')) {
             $params['store'] = $this->getRequest()->getParam('store');
         }
+
         return $this->getUrl('*/catalog_product/edit', $params);
     }
 }

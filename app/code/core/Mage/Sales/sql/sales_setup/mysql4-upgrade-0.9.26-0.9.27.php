@@ -115,6 +115,7 @@ try {
         } else {
             $storeToOrderRateTable = $this->getTable($entity['entity_table']) . '_' . $storeToOrderRate['backend_type'];
         }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //copy data from base_currency_code into global_currency_code

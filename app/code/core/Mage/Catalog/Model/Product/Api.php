@@ -83,6 +83,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         $result = [];
         /** @var Mage_Catalog_Model_Product $product */
         foreach ($collection as $product) {
@@ -96,6 +97,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 'website_ids'  => $product->getWebsiteIds(),
             ];
         }
+
         return $result;
     }
 
@@ -186,8 +188,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                     if ($error === true) {
                         $error = Mage::helper('catalog')->__('Attribute "%s" is invalid.', $code);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
@@ -229,8 +233,10 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                     } else {
                         $error = Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                     }
+
                     $strErrors[] = $error;
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
@@ -293,10 +299,11 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
                 if (is_string($website)) {
                     try {
                         $website = Mage::app()->getWebsite($website)->getId();
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                     }
                 }
             }
+
             $product->setWebsiteIds($productData['websites']);
         }
 
@@ -443,6 +450,7 @@ class Mage_Catalog_Model_Product_Api extends Mage_Catalog_Model_Api_Resource
         if (is_null($attributeSet->getId())) {
             $this->_fault('product_attribute_set_not_exists');
         }
+
         if (Mage::getModel('catalog/product')->getResource()->getTypeId() != $attributeSet->getEntityTypeId()) {
             $this->_fault('product_attribute_set_not_valid');
         }

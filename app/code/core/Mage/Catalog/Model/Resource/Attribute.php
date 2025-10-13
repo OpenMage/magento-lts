@@ -25,6 +25,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
         if (is_array($applyTo)) {
             $object->setApplyTo(implode(',', $applyTo));
         }
+
         return parent::_beforeSave($object);
     }
 
@@ -90,6 +91,7 @@ class Mage_Catalog_Model_Resource_Attribute extends Mage_Eav_Model_Resource_Enti
             if ($this->isUsedBySuperProducts($attribute, $result['attribute_set_id'])) {
                 Mage::throwException(Mage::helper('eav')->__("Attribute '%s' used in configurable products", $attribute->getAttributeCode()));
             }
+
             $backendTable = $attribute->getBackend()->getTable();
             if ($backendTable) {
                 $select = $this->_getWriteAdapter()->select()

@@ -82,6 +82,7 @@ class Varien_Object implements ArrayAccess
         if (empty($args[0])) {
             $args[0] = [];
         }
+
         $this->_data = $args[0];
         $this->_addFullNames();
 
@@ -139,6 +140,7 @@ class Varien_Object implements ArrayAccess
         if (!is_null($isDeleted)) {
             $this->_isDeleted = $isDeleted;
         }
+
         return $result;
     }
 
@@ -184,6 +186,7 @@ class Varien_Object implements ArrayAccess
         if ($this->getIdFieldName()) {
             return $this->_getData($this->getIdFieldName());
         }
+
         return $this->_getData('id');
     }
 
@@ -200,6 +203,7 @@ class Varien_Object implements ArrayAccess
         } else {
             $this->setData('id', $value);
         }
+
         return $this;
     }
 
@@ -215,6 +219,7 @@ class Varien_Object implements ArrayAccess
         foreach ($arr as $index => $value) {
             $this->setData($index, $value);
         }
+
         return $this;
     }
 
@@ -243,6 +248,7 @@ class Varien_Object implements ArrayAccess
                 $this->_data[$fullFieldName] = $value;
             }
         }
+
         return $this;
     }
 
@@ -266,6 +272,7 @@ class Varien_Object implements ArrayAccess
                 unset($this->_data[$fullFieldName]);
             }
         }
+
         return $this;
     }
 
@@ -286,6 +293,7 @@ class Varien_Object implements ArrayAccess
         } else {
             unset($this->_data[$key]);
         }
+
         return $this;
     }
 
@@ -328,6 +336,7 @@ class Varien_Object implements ArrayAccess
                 $data = null;
             }
         }
+
         return $data;
     }
 
@@ -353,6 +362,7 @@ class Varien_Object implements ArrayAccess
                 return null;
             }
         }
+
         return $data;
     }
 
@@ -417,6 +427,7 @@ class Varien_Object implements ArrayAccess
         if (!isset($this->_data[$key])) {
             $this->_data[$key] = $default;
         }
+
         return $this->_data[$key];
     }
 
@@ -432,6 +443,7 @@ class Varien_Object implements ArrayAccess
         if (empty($key) || !is_string($key)) {
             return !empty($this->_data);
         }
+
         return array_key_exists($key, $this->_data);
     }
 
@@ -455,6 +467,7 @@ class Varien_Object implements ArrayAccess
                 $arrRes[$attribute] = null;
             }
         }
+
         return $arrRes;
     }
 
@@ -481,6 +494,7 @@ class Varien_Object implements ArrayAccess
                 $arr[$element] = null;
             }
         }
+
         return $arr;
     }
 
@@ -499,9 +513,11 @@ class Varien_Object implements ArrayAccess
         if ($addOpenTag) {
             $xml .= '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         }
+
         if (!empty($rootName)) {
             $xml .= '<' . $rootName . '>' . "\n";
         }
+
         $xmlModel = new Varien_Simplexml_Element('<node></node>');
         $arrData = $this->toArray($arrAttributes);
         foreach ($arrData as $fieldName => $fieldValue) {
@@ -510,11 +526,14 @@ class Varien_Object implements ArrayAccess
             } else {
                 $fieldValue = $xmlModel->xmlentities($fieldValue);
             }
+
             $xml .= "<$fieldName>$fieldValue</$fieldName>" . "\n";
         }
+
         if (!empty($rootName)) {
             $xml .= '</' . $rootName . '>' . "\n";
         }
+
         return $xml;
     }
 
@@ -584,8 +603,10 @@ class Varien_Object implements ArrayAccess
                 $replace = is_null($this->getData($var)) ? '' : $this->getData($var);
                 $format = str_replace('{{' . $var . '}}', $replace, $format);
             }
+
             $str = $format;
         }
+
         return $str;
     }
 
@@ -615,6 +636,7 @@ class Varien_Object implements ArrayAccess
                 $key = $this->_underscore(substr($method, 3));
                 return isset($this->_data[$key]);
         }
+
         throw new Varien_Exception(
             'Invalid method ' . static::class . '::' . $method . '(' . print_r($args, true) . ')',
         );
@@ -654,6 +676,7 @@ class Varien_Object implements ArrayAccess
         if (empty($this->_data)) {
             return true;
         }
+
         return false;
     }
 
@@ -671,6 +694,7 @@ class Varien_Object implements ArrayAccess
         if (isset(self::$_underscoreCache[$name])) {
             return self::$_underscoreCache[$name];
         }
+
         #Varien_Profiler::start('underscore');
         $result = strtolower(preg_replace('/([A-Z])/', '_$1', lcfirst($name)));
         #Varien_Profiler::stop('underscore');
@@ -708,6 +732,7 @@ class Varien_Object implements ArrayAccess
                 $data[] = $key . $valueSeparator . $quote . $value . $quote;
             }
         }
+
         return implode($fieldSeparator, $data);
     }
 
@@ -737,9 +762,11 @@ class Varien_Object implements ArrayAccess
             if (!empty($objects[$hash])) {
                 return '*** RECURSION ***';
             }
+
             $objects[$hash] = true;
             $data = $this->getData();
         }
+
         $debug = [];
         foreach ($data as $key => $value) {
             if (is_scalar($value)) {
@@ -750,6 +777,7 @@ class Varien_Object implements ArrayAccess
                 $debug[$key . ' (' . $value::class . ')'] = $value->debug(null, $objects);
             }
         }
+
         return $debug;
     }
 
@@ -809,9 +837,11 @@ class Varien_Object implements ArrayAccess
         if (empty($this->_dirty)) {
             return false;
         }
+
         if (is_null($field)) {
             return true;
         }
+
         return isset($this->_dirty[$field]);
     }
 
@@ -831,6 +861,7 @@ class Varien_Object implements ArrayAccess
         } else {
             unset($this->_dirty[$field]);
         }
+
         return $this;
     }
 }

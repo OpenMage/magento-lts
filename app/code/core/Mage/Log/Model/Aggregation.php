@@ -73,6 +73,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
             $lastDateRecord = $date;
             $date = $to;
         }
+
         return $lastDateRecord;
     }
 
@@ -144,6 +145,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         if (is_numeric($in)) {
             $out = date(Varien_Date::DATETIME_PHP_FORMAT, $in);
         }
+
         return $out;
     }
 
@@ -158,6 +160,7 @@ class Mage_Log_Model_Aggregation extends Mage_Core_Model_Abstract
         if (!is_numeric($in)) {
             $out = strtotime($in);
         }
+
         return $out;
     }
 

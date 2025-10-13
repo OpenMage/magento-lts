@@ -40,6 +40,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
             $htmlId = $element->getHtmlId();
             $this->_elements[$htmlId] = $element;
         }
+
         $originalData = $fieldset->getOriginalData();
         $this->addData([
             'fieldset_label' => $fieldset->getLegend(),
@@ -82,6 +83,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Global extends Mage_Adm
         } else {
             $element->setValue('1');
         }
+
         if ($element->getCanUseDefaultValue() && $element->getInherit()) {
             $element->setDisabled(true);
         }

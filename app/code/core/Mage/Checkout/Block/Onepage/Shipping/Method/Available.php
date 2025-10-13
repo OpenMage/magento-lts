@@ -15,6 +15,7 @@
 class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkout_Block_Onepage_Abstract
 {
     protected $_rates;
+
     protected $_address;
 
     /**
@@ -41,6 +42,7 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         if (empty($this->_address)) {
             $this->_address = $this->getQuote()->getShippingAddress();
         }
+
         return $this->_address;
     }
 
@@ -53,6 +55,7 @@ class Mage_Checkout_Block_Onepage_Shipping_Method_Available extends Mage_Checkou
         if ($name = Mage::getStoreConfig('carriers/' . $carrierCode . '/title')) {
             return $name;
         }
+
         return $carrierCode;
     }
 

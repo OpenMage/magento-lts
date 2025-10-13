@@ -70,6 +70,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
                 $this->_checkStoreTo($website, $storeData);
             }
         }
+
         return $this;
     }
 
@@ -165,6 +166,7 @@ class Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website extends Ma
                 $website->getId(),
             ));
         }
+
         return !count($this->getErrors());
     }
 }

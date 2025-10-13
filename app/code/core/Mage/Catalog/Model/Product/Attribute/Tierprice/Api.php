@@ -84,6 +84,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 foreach ($errors as $code => $error) {
                     $strErrors[] = ($error === true) ? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 
@@ -123,7 +124,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
             } else {
                 try {
                     $tierPrice['website'] = Mage::app()->getWebsite($tierPrice['website'])->getId();
-                } catch (Mage_Core_Exception $e) {
+                } catch (Mage_Core_Exception) {
                     $tierPrice['website'] = 0;
                 }
             }

@@ -84,6 +84,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
         if ($resourceName) {
             $this->_resourceName = $resourceName;
         }
+
         return parent::_getResource();
     }
 
@@ -107,8 +108,10 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             foreach ($attributes as $attribute) {
                 $attribute->setEntity($product->getResource());
             }
+
             $this->setData('attributes', $attributes);
         }
+
         return $attributes;
     }
 
@@ -143,6 +146,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!isset($values[$attribute->getAttributeCode()])) {
                 continue;
             }
+
             $value = $values[$attribute->getAttributeCode()];
             if (!is_array($value)) {
                 $value = trim($value);
@@ -157,6 +161,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     } else {
                         $rate = 1;
                     }
+
                     if ($this->_getResource()
                         ->addRatedPriceFilter(
                             $this->getProductCollection(),
@@ -196,9 +201,11 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                 } else {
                     $attributeId = $attribute->getId();
                 }
+
                 $allConditions[$table][$attributeId] = $condition;
             }
         }
+
         if ($allConditions) {
             $this->getProductCollection()->addFieldsToFilter($allConditions);
         } elseif (!$hasConditions) {
@@ -259,6 +266,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
                     $value[$key] = $value[$key]['label'];
                 }
             }
+
             $value = implode(', ', $value);
         } elseif ($attribute->getFrontendInput() == 'select' || $attribute->getFrontendInput() == 'multiselect') {
             $value = $attribute->getSource()->getOptionText($value);
@@ -298,6 +306,7 @@ class Mage_CatalogSearch_Model_Advanced extends Mage_Core_Model_Abstract
             if (!$collection) {
                 return $collection;
             }
+
             $this->_productCollection = $collection;
         }
 

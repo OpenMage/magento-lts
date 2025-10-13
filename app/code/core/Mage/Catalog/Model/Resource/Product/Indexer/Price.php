@@ -219,6 +219,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if ($pCount * 0.3 < count($processIds) + $aCount + $bCount) {
             return $this->reindexAll();
         }
+
         $this->reindexProductIds($processIds);
         return $this;
     }
@@ -234,9 +235,11 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if (empty($ids)) {
             return $this;
         }
+
         if (!is_array($ids)) {
             $ids = [$ids];
         }
+
         $this->clearTemporaryIndexTable();
         $write  = $this->_getWriteAdapter();
         // retrieve products types
@@ -311,6 +314,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if (!isset($types[$productTypeId])) {
             Mage::throwException(Mage::helper('catalog')->__('Unsupported product type "%s".', $productTypeId));
         }
+
         return $types[$productTypeId];
     }
 
@@ -365,6 +369,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -579,6 +584,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
             if ($data) {
                 $write->insertMultiple($table, $data);
             }
+
             $write->commit();
         } catch (Exception $e) {
             $write->rollBack();
@@ -599,6 +605,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price extends Mage_Index_Model
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

@@ -29,6 +29,7 @@ class Mage_Sales_Model_Api2_Order_Comment_Rest_Customer_V1 extends Mage_Sales_Mo
         if ($this->getApiUser()->getUserId() !== $order->getCustomerId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return $order;
     }
 

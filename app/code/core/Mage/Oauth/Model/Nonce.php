@@ -41,6 +41,7 @@ class Mage_Oauth_Model_Nonce extends Mage_Core_Model_Abstract
         if ($helper->isCleanupProbability()) {
             $this->_getResource()->deleteOldEntries($helper->getCleanupExpirationPeriod());
         }
+
         return $this;
     }
 }

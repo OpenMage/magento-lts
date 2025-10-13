@@ -67,6 +67,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
         if (empty($this->_clientInstance)) {
             $this->_clientInstance = new Mage_Centinel_Model_Api_Client();
         }
+
         return $this->_clientInstance;
     }
 
@@ -136,6 +137,7 @@ class Mage_Centinel_Model_Api extends Varien_Object
             foreach ($request as $key => $val) {
                 $client->add($key, $val);
             }
+
             $client->sendHttp($this->_getApiEndpointUrl(), $this->_getTimeoutConnect(), $this->_getTimeoutRead());
         } catch (Exception $e) {
             $debugData['response'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
@@ -160,10 +162,12 @@ class Mage_Centinel_Model_Api extends Varien_Object
         if ($this->getIsTestMode()) {
             return 'https://centineltest.cardinalcommerce.com/maps/txns.asp';
         }
+
         $url = $this->getApiEndpointUrl();
         if (!$url) {
             throw new Exception('Centinel API endpoint URL is not configured properly.');
         }
+
         return $url;
     }
 

@@ -30,6 +30,7 @@ class Mage_HTTP_Client
         if (false === $frontend) {
             $frontend = self::detectFrontend();
         }
+
         if (false === $frontend) {
             throw new Exception('Cannot find frontend automatically, set it manually');
         }
@@ -49,9 +50,11 @@ class Mage_HTTP_Client
         if (function_exists('curl_init')) {
             return 'curl';
         }
+
         if (function_exists('fsockopen')) {
             return 'socket';
         }
+
         return false;
     }
 }

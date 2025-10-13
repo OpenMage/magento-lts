@@ -38,6 +38,7 @@ class Mage_Payment_Model_Config
                 }
             }
         }
+
         return $methods;
     }
 
@@ -57,6 +58,7 @@ class Mage_Payment_Model_Config
                 $methods[$code] = $data;
             }
         }
+
         return $methods;
     }
 
@@ -71,14 +73,17 @@ class Mage_Payment_Model_Config
         if (isset(self::$_methods[$code])) {
             return self::$_methods[$code];
         }
+
         if (empty($config['model'])) {
             return false;
         }
+
         $modelName = $config['model'];
         $method = Mage::getModel($modelName);
         if (!$method) {
             return false;
         }
+
         $method->setId($code)->setStore($store);
         self::$_methods[$code] = $method;
         return self::$_methods[$code];
@@ -101,6 +106,7 @@ class Mage_Payment_Model_Config
                 $types[$data['code']] = $data['name'];
             }
         }
+
         return $types;
     }
 
@@ -116,6 +122,7 @@ class Mage_Payment_Model_Config
             $monthNum = ($key < 10) ? '0' . $key : $key;
             $data[$key] = $monthNum . ' - ' . $value;
         }
+
         return $data;
     }
 
@@ -133,6 +140,7 @@ class Mage_Payment_Model_Config
             $year = $first + $index;
             $years[$year] = $year;
         }
+
         return $years;
     }
 

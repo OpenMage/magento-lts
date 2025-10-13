@@ -39,4 +39,5 @@ if ($data) {
         throw $e;
     }
 }
+
 $installer->endSetup();

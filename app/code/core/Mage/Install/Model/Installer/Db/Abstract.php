@@ -82,6 +82,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
             ];
             $this->_connectionData = $connectionData;
         }
+
         return $this->_connectionData;
     }
 
@@ -107,6 +108,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
             $connection = $resource->createConnection('install', $this->getType(), $this->getConnectionData());
             $this->_connection = $connection;
         }
+
         return $this->_connection;
     }
 
@@ -132,6 +134,7 @@ abstract class Mage_Install_Model_Installer_Db_Abstract
         foreach (array_keys($configExt) as $name) {
             $extensions[] = $name;
         }
+
         return $extensions;
     }
 }

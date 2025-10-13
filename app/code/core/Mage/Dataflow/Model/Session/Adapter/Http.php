@@ -47,6 +47,7 @@ class Mage_Dataflow_Model_Session_Adapter_Http extends Mage_Dataflow_Model_Conve
                 Mage::register('current_dataflow_session_id', $sessionId);
             }
         }
+
         return $this;
     }
 }

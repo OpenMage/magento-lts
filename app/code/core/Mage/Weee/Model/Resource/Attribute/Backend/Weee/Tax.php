@@ -49,6 +49,7 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
                 $select->where('website_id IN (?)', [0, Mage::app()->getStore($storeId)->getWebsiteId()]);
             }
         }
+
         return $this->_getReadAdapter()->fetchAll($select);
     }
 
@@ -73,6 +74,7 @@ class Mage_Weee_Model_Resource_Attribute_Backend_Weee_Tax extends Mage_Core_Mode
                 $where['website_id IN(?)'] =  [0, Mage::app()->getStore($storeId)->getWebsiteId()];
             }
         }
+
         $adapter->delete($this->getMainTable(), $where);
         return $this;
     }

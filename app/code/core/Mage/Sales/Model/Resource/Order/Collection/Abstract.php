@@ -78,6 +78,7 @@ abstract class Mage_Sales_Model_Resource_Order_Collection_Abstract extends Mage_
         } else {
             $this->addFieldToFilter($this->_orderField, $order);
         }
+
         return $this;
     }
 }

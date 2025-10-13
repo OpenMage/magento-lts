@@ -29,6 +29,7 @@ class Mage_Tax_Model_Observer
             if (is_array($order->getAppliedTaxes())) {
                 $taxes = array_merge($order->getAppliedTaxes(), $taxes);
             }
+
             $order->setAppliedTaxes($taxes);
             $order->setConvertingFromQuote(true);
         }
@@ -53,6 +54,7 @@ class Mage_Tax_Model_Observer
         if (!is_array($getTaxesForItems)) {
             $getTaxesForItems = [];
         }
+
         foreach ($getTaxesForItems as $quoteItemId => $taxesArray) {
             foreach ($taxesArray as $rates) {
                 if (count($rates['rates']) == 1) {
@@ -94,8 +96,10 @@ class Mage_Tax_Model_Observer
                     if ($row['percent'] == 0 || $tax['percent'] == 0) {
                         continue;
                     }
+
                     $baseRealAmount = $row['base_amount'] / $row['percent'] * $tax['percent'];
                 }
+
                 $hidden = $row['hidden'] ?? 0;
                 $data = [
                     'order_id'          => $order->getId(),
@@ -186,13 +190,16 @@ class Mage_Tax_Model_Observer
                 if ($item->getTaxClassId() === null) {
                     $item->setTaxClassId($item->getMinimalTaxClassId());
                 }
+
                 if (!isset($classToRate[$item->getTaxClassId()])) {
                     $request->setProductClassId($item->getTaxClassId());
                     $classToRate[$item->getTaxClassId()] = Mage::getSingleton('tax/calculation')->getRate($request);
                 }
+
                 $item->setTaxPercent($classToRate[$item->getTaxClassId()]);
             }
         }
+
         return $this;
     }
 
@@ -225,6 +232,7 @@ class Mage_Tax_Model_Observer
             $address->setExtraTaxAmount(0);
             $address->setBaseExtraTaxAmount(0);
         }
+
         return $this;
     }
 }

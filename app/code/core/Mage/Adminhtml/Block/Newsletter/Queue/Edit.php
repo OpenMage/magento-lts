@@ -62,6 +62,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
         } else {
             $params = ['id' => $this->getRequest()->getParam('id')];
         }
+
         return $this->getUrl('*/*/save', $params);
     }
 

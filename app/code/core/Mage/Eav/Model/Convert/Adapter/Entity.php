@@ -20,9 +20,13 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
     protected $_store;
 
     protected $_filter = [];
+
     protected $_joinFilter = [];
+
     protected $_joinAttr = [];
+
     protected $_attrToDb;
+
     protected $_joinField = [];
 
     /**
@@ -41,6 +45,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 throw $e;
             }
         }
+
         return $this->_store->getId();
     }
 
@@ -57,6 +62,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 $filters[$keys[1]] = $val;
             }
         }
+
         return $filters;
     }
 
@@ -73,6 +79,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         if (is_null($bind)) {
             $defBind = 'entity_id';
         }
+
         if (is_null($joinType)) {
             $joinType = 'LEFT';
         }
@@ -110,13 +117,16 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 } else {
                     $val = null;
                 }
+
                 $keyDB = str_replace('/', '_', $keyDB);
             } else {
                 $val = $filters[$key] ?? null;
             }
+
             if (is_null($val)) {
                 continue;
             }
+
             $attr = [];
             switch ($type) {
                 case 'eq':
@@ -163,6 +173,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 default:
                     break;
             }
+
             $this->_filter[] = $attr;
         }
 
@@ -192,10 +203,12 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                     $result[$exp[1]] = $value;
                 }
             }
+
             if ($result) {
                 return $result;
             }
         }
+
         return false;
     }
 
@@ -253,6 +266,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         ) {
             $this->addException(Mage::helper('eav')->__('Invalid entity specified'), Varien_Convert_Exception::FATAL);
         }
+
         try {
             $collection = $this->_getCollectionForLoad($entityType);
 
@@ -338,6 +352,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
         if (!$collection instanceof Mage_Eav_Model_Entity_Collection_Abstract) {
             $this->addException(Mage::helper('eav')->__('Entity collection expected.'), Varien_Convert_Exception::FATAL);
         }
+
         try {
             $i = 0;
             foreach ($collection->getIterator() as $model) {
@@ -345,6 +360,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 $model->save();
                 $i++;
             }
+
             $this->addException(Mage::helper('eav')->__('Saved %d record(s).', $i));
         } catch (Varien_Convert_Exception $e) {
             throw $e;
@@ -354,6 +370,7 @@ class Mage_Eav_Model_Convert_Adapter_Entity extends Mage_Dataflow_Model_Convert_
                 Varien_Convert_Exception::FATAL,
             );
         }
+
         return $this;
     }
 }

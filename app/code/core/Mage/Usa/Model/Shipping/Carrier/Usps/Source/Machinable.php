@@ -19,6 +19,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps_Source_Machinable
         foreach ($usps->getCode('machinable') as $k => $v) {
             $arr[] = ['value' => $k, 'label' => $v];
         }
+
         return $arr;
     }
 }

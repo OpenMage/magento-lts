@@ -40,6 +40,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
         if (is_null($this->_behavior)) {
             $this->_behavior = Mage_ImportExport_Model_Import::getDataSourceModel()->getBehavior();
         }
+
         return $this->_behavior;
     }
 
@@ -73,6 +74,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 'table' => $resource->getAttributeTypeTable($row['type']),
             ];
         }
+
         while ($bunch = $this->_entityModel->getNextBunch()) {
             $linksData     = [
                 'product_ids'      => [],
@@ -88,6 +90,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                 ) {
                     continue;
                 }
+
                 if (isset($newSku[$rowData['_associated_sku']])) {
                     $linkedProductId = $newSku[$rowData['_associated_sku']]['entity_id'];
                 } elseif (isset($oldSku[$rowData['_associated_sku']])) {
@@ -104,11 +107,13 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     $rowData[$colAttrSet] = $productData['attr_set_code'];
                     $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_TYPE] = $productData['type_id'];
                 }
+
                 $productId = $productData['entity_id'];
 
                 if ($this->_type != $rowData[Mage_ImportExport_Model_Import_Entity_Product::COL_TYPE]) {
                     continue;
                 }
+
                 $linksData['product_ids'][$productId] = true;
                 $linksData['links'][$productId][$linkedProductId] = $groupedLinkId;
                 $linksData['relation'][] = ['parent_id' => $productId, 'child_id' => $linkedProductId];
@@ -123,6 +128,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                             'value' => $pos,
                         ];
                     }
+
                     if ($qty) {
                         $linksData['qty']["{$productId} {$linkedProductId}"] = [
                             'product_link_attribute_id' => $attributes['qty']['id'],
@@ -131,6 +137,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     }
                 }
             }
+
             // save links and relations
             if ($linksData['product_ids'] && $this->getBehavior() != Mage_ImportExport_Model_Import::BEHAVIOR_APPEND) {
                 $connection->delete(
@@ -141,6 +148,7 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     ),
                 );
             }
+
             if ($linksData['links']) {
                 $mainData = [];
 
@@ -153,9 +161,11 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                         ];
                     }
                 }
+
                 $connection->insertOnDuplicate($mainTable, $mainData);
                 $connection->insertOnDuplicate($relationTable, $linksData['relation']);
             }
+
             // save positions and default quantity
             if ($linksData['attr_product_ids']) {
                 $savedData = $connection->fetchPairs($connection->select()
@@ -170,18 +180,22 @@ class Mage_ImportExport_Model_Import_Entity_Product_Type_Grouped extends Mage_Im
                     if (isset($linksData['position'][$pseudoKey])) {
                         $linksData['position'][$pseudoKey]['link_id'] = $linkId;
                     }
+
                     if (isset($linksData['qty'][$pseudoKey])) {
                         $linksData['qty'][$pseudoKey]['link_id'] = $linkId;
                     }
                 }
+
                 if ($linksData['position']) {
                     $connection->insertOnDuplicate($attributes['position']['table'], $linksData['position']);
                 }
+
                 if ($linksData['qty']) {
                     $connection->insertOnDuplicate($attributes['qty']['table'], $linksData['qty']);
                 }
             }
         }
+
         return $this;
     }
 }

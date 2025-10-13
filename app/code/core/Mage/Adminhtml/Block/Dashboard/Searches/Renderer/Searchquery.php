@@ -23,6 +23,7 @@ class Mage_Adminhtml_Block_Dashboard_Searches_Renderer_Searchquery extends Mage_
         } else {
             $value = $this->escapeHtml($value);
         }
+
         return $value;
     }
 }

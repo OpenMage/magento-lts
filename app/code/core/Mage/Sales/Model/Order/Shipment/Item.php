@@ -41,9 +41,11 @@
 class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix = 'sales_shipment_item';
+
     protected $_eventObject = 'shipment_item';
 
     protected $_shipment = null;
+
     protected $_orderItem = null;
 
     public function _construct()
@@ -83,6 +85,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         if ($this->getOrderItemId() != $item->getId()) {
             $this->setOrderItemId($item->getId());
         }
+
         return $this;
     }
 
@@ -101,6 +104,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
                     ->load($this->getOrderItemId());
             }
         }
+
         return $this->_orderItem;
     }
 
@@ -118,6 +122,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
         } else {
             $qty = (int) $qty;
         }
+
         $qty = $qty > 0 ? $qty : 0;
         /**
          * Check qty availability
@@ -129,6 +134,7 @@ class Mage_Sales_Model_Order_Shipment_Item extends Mage_Core_Model_Abstract
                 Mage::helper('sales')->__('Invalid qty to ship for item "%s"', $this->getName()),
             );
         }
+
         return $this;
     }
 

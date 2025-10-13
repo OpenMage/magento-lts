@@ -78,6 +78,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
         if (!in_array($type, $this->getResourceTypes())) {
             throw new Exception('unknown_resource_type');
         }
+
         return true;
     }
 
@@ -107,21 +108,26 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
             if ($resource['type'] == 'file') {
                 $this->validateFileDetails($resource['file']);
             }
+
             if ($resource['type'] == 'url' && empty($resource['link_url'])) {
                 throw new Exception('empty_url');
             }
+
             // sample
             if ($resource['sample']['type'] == 'file') {
                 $this->validateFileDetails($resource['sample']['file']);
             }
+
             if ($resource['sample']['type'] == 'url' && empty($resource['sample']['url'])) {
                 throw new Exception('empty_url');
             }
         }
+
         if ($resourceType == 'sample') {
             if ($resource['type'] == 'file') {
                 $this->validateFileDetails($resource['file']);
             }
+
             if ($resource['type'] == 'url' && empty($resource['sample_url'])) {
                 throw new Exception('empty_url');
             }
@@ -138,6 +144,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
         if (!isset($var['name']) || !is_string($var['name']) || $var['name'] === '') {
             throw new Exception('no_filename');
         }
+
         if (!isset($var['base64_content'])
             || !is_string($var['base64_content'])
             || $var['base64_content'] === ''
@@ -159,6 +166,7 @@ class Mage_Downloadable_Model_Link_Api_Validator //extends Mage_Api_Model_Resour
                 $call = 'validate' . $validator;
                 $this->$call($resource[$name]);
             }
+
             if (is_array($validator)) {
                 $this->_dispatch($resource[$name], $validator);
             }

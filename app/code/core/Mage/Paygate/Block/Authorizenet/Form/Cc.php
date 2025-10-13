@@ -105,6 +105,7 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
             return Mage::helper('paygate')->__('Your credit card has been declined. Click OK to specify another credit card to complete your purchase. Click Cancel to release the amount on hold and select another payment method.');
         }
+
         return false;
     }
 
@@ -128,9 +129,11 @@ class Mage_Paygate_Block_Authorizenet_Form_Cc extends Mage_Payment_Block_Form
                 $message = Mage::helper('paygate')->__('Your order has not been placed, because contents of the shopping cart and/or address has been changed. Authorized amounts from your previous payment that were left pending are now released. Please go through the checkout process for your recent cart contents.');
                 break;
         }
+
         if ($message) {
             $this->getMethod()->unsetPartialAuthorizationLastActionState();
         }
+
         return $message;
     }
 

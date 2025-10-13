@@ -29,6 +29,7 @@ class Mage_Catalog_Model_Product_Attribute_Group extends Mage_Eav_Model_Entity_A
                 break;
             }
         }
+
         return $result;
     }
 
@@ -49,6 +50,7 @@ class Mage_Catalog_Model_Product_Attribute_Group extends Mage_Eav_Model_Entity_A
                 break;
             }
         }
+
         return $result;
     }
 }

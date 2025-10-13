@@ -31,12 +31,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Range extends Mage_Adminhtm
         if ($index) {
             return $this->getData('value', $index);
         }
+
         $value = $this->getData('value');
         if ((isset($value['from']) && (string) $value['from'] !== '')
             || (isset($value['to']) && (string) $value['to'] !== '')
         ) {
             return $value;
         }
+
         return null;
     }
 

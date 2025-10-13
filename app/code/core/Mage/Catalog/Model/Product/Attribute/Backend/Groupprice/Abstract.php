@@ -60,6 +60,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                     if (!$rate) {
                         $rate = 1;
                     }
+
                     $this->_rates[$website->getId()] = [
                         'code' => $website->getBaseCurrencyCode(),
                         'rate' => $rate,
@@ -72,6 +73,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
                 }
             }
         }
+
         return $this->_rates;
     }
 
@@ -118,6 +120,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if (!empty($priceRow['delete'])) {
                 continue;
             }
+
             $compare = implode('-', array_merge(
                 [$priceRow['website_id'], $priceRow['cust_group']],
                 $this->_getAdditionalUniqueFields($priceRow),
@@ -125,6 +128,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if (isset($duplicates[$compare])) {
                 Mage::throwException($this->_getDuplicateErrorMessage());
             }
+
             $duplicates[$compare] = true;
         }
 
@@ -150,6 +154,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if (!empty($priceRow['delete'])) {
                 continue;
             }
+
             if ($priceRow['website_id'] == 0) {
                 continue;
             }
@@ -255,6 +260,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             } else {
                 $this->_getResource()->deletePriceData($object->getId(), $websiteId);
             }
+
             return $this;
         }
 
@@ -266,6 +272,7 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         if (!is_array($origGroupPrices)) {
             $origGroupPrices = [];
         }
+
         foreach ($origGroupPrices as $data) {
             if ($data['website_id'] > 0 || ($data['website_id'] == '0' && $isGlobal)) {
                 $key = implode('-', array_merge(
@@ -289,9 +296,11 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
             if ($hasEmptyData || !isset($data['cust_group']) || !empty($data['delete'])) {
                 continue;
             }
+
             if ($this->getAttribute()->isScopeGlobal() && $data['website_id'] > 0) {
                 continue;
             }
+
             if (!$isGlobal && (int) $data['website_id'] == 0) {
                 continue;
             }

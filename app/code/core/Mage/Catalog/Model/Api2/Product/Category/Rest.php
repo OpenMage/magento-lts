@@ -42,6 +42,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Category_Rest extends Mage_Catalo
         foreach ($this->_getCategoryIds() as $categoryId) {
             $return[] = ['category_id' => $categoryId];
         }
+
         return $return;
     }
 
