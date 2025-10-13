@@ -64,4 +64,8 @@ test.config.edit = {
 test.config.new = {
     title: 'New Product',
     url: 'catalog_product/new',
+    __buttons: {
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
+    },
 }
