@@ -33,7 +33,7 @@ test.config = {
 
 /**
  * Configuration for "Customer Groups" page
- * @type {{title: string, url: string, _grid: string, __buttons: {}, , clickGridRow: (function(*=, *=): void)}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}, clickGridRow: (function(*=, *=): void)}}
  */
 test.config.index = {
     title: 'Customer Groups',
