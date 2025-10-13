@@ -1789,12 +1789,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
-			rawMessage: 'Parameter #1 $attribute of method Mage_Eav_Model_Entity_Abstract::getAttribute() expects int|Mage_Core_Model_Config_Element|string, Mage_Catalog_Model_Entity_Attribute given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $object of method Mage_Catalog_Model_Resource_Abstract::load() expects Mage_Core_Model_Abstract, Varien_Object given.'
 			identifier: argument.type
 			count: 1
