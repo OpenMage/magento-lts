@@ -403,7 +403,7 @@ class Mage_Core_Model_Translate
 
         try {
             $result = !empty($args) ? vsprintf($translated, $args) : false;
-        } catch (ValueError $e) {
+        } catch (ValueError) {
             $result = false;
         }
 

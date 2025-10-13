@@ -939,5 +939,6 @@
 'cypress':
   - changed-files:
       - any-glob-to-any-file: [
-        cypress/*
+        cypress/*,
+        cypress/**/*
       ]

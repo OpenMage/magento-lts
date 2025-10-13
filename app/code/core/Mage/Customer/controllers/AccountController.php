@@ -161,7 +161,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                     }
                     $session->addError($message);
                     $session->setUsername($login['username']);
-                } catch (Exception $e) {
+                } catch (Exception) {
                     // Mage::logException($e); // PA DSS violation: this exception log can disclose customer password
                 }
             } else {
@@ -786,7 +786,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
             $this->loadLayout();
             $this->renderLayout();
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->_getSession()->addError($this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword');
         }
@@ -807,7 +807,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $this->_validateResetPasswordLinkToken($customerId, $resetPasswordLinkToken);
             $this->_saveRestorePasswordParameters($customerId, $resetPasswordLinkToken)
                 ->_redirect('*/*/changeforgotten');
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->_getSession()->addError($this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword');
         }

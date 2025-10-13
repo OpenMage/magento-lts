@@ -1164,7 +1164,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         }
         try {
             $return = Mage::helper('core/unserializeArray')->unserialize($tax);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $return = [];
         }
         return $return;

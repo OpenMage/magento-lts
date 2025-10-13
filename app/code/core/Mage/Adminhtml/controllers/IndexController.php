@@ -269,7 +269,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength(),
             ];
             $this->_outTemplate('resetforgottenpassword', $data);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword', ['_nosecret' => true]);
         }

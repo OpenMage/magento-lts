@@ -453,7 +453,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 ->limit(1);
             try {
                 $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_isBuilt[$storeId] = false;
             }
         }

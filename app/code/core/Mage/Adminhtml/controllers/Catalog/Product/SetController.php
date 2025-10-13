@@ -193,7 +193,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
             $this->_getSession()->addSuccess($this->__('The attribute set has been removed.'));
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_getSession()->addError($this->__('An error occurred while deleting this set.'));
             $this->_redirectReferer();
         }
