@@ -316,6 +316,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             ->setIsSecureMode(true)
             ->toPdf();
         $paymentInfo = htmlspecialchars_decode($paymentInfo, ENT_QUOTES);
+
         $payment = explode('{{pdf_row_separator}}', $paymentInfo);
         foreach ($payment as $key => $value) {
             if (strip_tags(trim($value)) == '') {

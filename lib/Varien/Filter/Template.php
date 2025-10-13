@@ -253,6 +253,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         $tokenizer = new Varien_Filter_Template_Tokenizer_Parameter();
         $tokenizer->setString($value);
+
         $params = $tokenizer->tokenize();
         foreach ($params as $key => $value) {
             if (str_starts_with($value, '$')) {
@@ -275,6 +276,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         Varien_Profiler::start('email_template_proccessing_variables');
         $tokenizer = new Varien_Filter_Template_Tokenizer_Variable();
         $tokenizer->setString($value);
+
         $stackVars = $tokenizer->tokenize();
         $result = $default;
         $last = 0;

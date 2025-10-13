@@ -428,6 +428,7 @@ class Varien_Simplexml_Config
 
         $fileData = file_get_contents($filePath);
         $fileData = $this->processFileData($fileData);
+
         $success = $this->loadString($fileData, $this->_elementClass);
 
         if ($success === false) {

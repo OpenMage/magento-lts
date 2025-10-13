@@ -283,9 +283,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         $phonePattern = '/[\s\_\-\(\)]+/';
         $phoneNumber = $request->getShipperContactPhoneNumber();
         $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
+
         $request->setShipperContactPhoneNumber($phoneNumber);
         $phoneNumber = $request->getRecipientContactPhoneNumber();
         $phoneNumber = preg_replace($phonePattern, '', $phoneNumber);
+
         $request->setRecipientContactPhoneNumber($phoneNumber);
     }
 

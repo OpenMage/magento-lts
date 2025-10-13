@@ -186,6 +186,7 @@ class Mage_Core_Model_Resource_File_Storage_Database extends Mage_Core_Model_Res
 
         $contentParam = new Varien_Db_Statement_Parameter($file['content']);
         $contentParam->setIsBlob(true);
+
         $data = [
             'content'        => $contentParam,
             'upload_time'    => $file['update_time'],

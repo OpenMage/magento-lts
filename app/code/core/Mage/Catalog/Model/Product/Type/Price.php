@@ -67,6 +67,7 @@ class Mage_Catalog_Model_Product_Type_Price
         $finalPrice = $product->getData('final_price');
         $finalPrice = $this->_applyOptionsPrice($product, $qty, $finalPrice);
         $finalPrice = max(0, $finalPrice);
+
         $product->setFinalPrice($finalPrice);
 
         return $finalPrice;

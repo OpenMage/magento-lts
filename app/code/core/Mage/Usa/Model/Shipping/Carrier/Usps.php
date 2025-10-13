@@ -1772,6 +1772,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
         $client->setConfig(['maxredirects' => 0, 'timeout' => 30]);
         $client->setParameterGet('API', $api);
         $client->setParameterGet('XML', $requestXml);
+
         $response = $client->request()->getBody();
 
         $response = simplexml_load_string($response);

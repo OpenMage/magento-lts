@@ -25,10 +25,12 @@ class Mage_Bundle_Block_Catalog_Product_Price extends Mage_Catalog_Block_Product
     {
         $_request = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
         $_request->setProductClassId($this->getProduct()->getTaxClassId());
+
         $defaultTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         $_request = Mage::getSingleton('tax/calculation')->getRateRequest();
         $_request->setProductClassId($this->getProduct()->getTaxClassId());
+
         $currentTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         return ((float) $defaultTax > 0 || (float) $currentTax > 0);

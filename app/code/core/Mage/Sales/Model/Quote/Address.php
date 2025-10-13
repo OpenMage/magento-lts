@@ -999,6 +999,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
         $request->setPackageValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal());
+
         $packageValueWithDiscount = $item
             ? $item->getBaseRowTotal() - $item->getBaseDiscountAmount()
             : $this->getBaseSubtotalWithDiscount();

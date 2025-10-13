@@ -224,6 +224,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
         $rawRequest = $this->_rawRequest;
 
         $rawRequest->setFreeMethodRequest(true);
+
         $freeWeight = $this->getTotalNumOfBoxes($rawRequest->getFreeMethodWeight());
         $rawRequest->setWeight($freeWeight);
         $rawRequest->setService($freeMethod);

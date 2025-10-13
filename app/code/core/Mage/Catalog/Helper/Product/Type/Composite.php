@@ -131,10 +131,12 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
     {
         $_request = Mage::getSingleton('tax/calculation')->getDefaultRateRequest();
         $_request->setProductClassId($product->getTaxClassId());
+
         $defaultTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         $_request = Mage::getSingleton('tax/calculation')->getRateRequest();
         $_request->setProductClassId($product->getTaxClassId());
+
         $currentTax = Mage::getSingleton('tax/calculation')->getRate($_request);
 
         $_regularPrice = $product->getPrice();

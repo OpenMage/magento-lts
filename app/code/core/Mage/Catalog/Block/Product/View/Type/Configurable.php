@@ -236,10 +236,12 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
 
         $_request = $taxCalculation->getDefaultRateRequest();
         $_request->setProductClassId($currentProduct->getTaxClassId());
+
         $defaultTax = $taxCalculation->getRate($_request);
 
         $_request = $taxCalculation->getRateRequest();
         $_request->setProductClassId($currentProduct->getTaxClassId());
+
         $currentTax = $taxCalculation->getRate($_request);
 
         $taxConfig = [

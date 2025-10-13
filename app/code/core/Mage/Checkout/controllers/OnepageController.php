@@ -108,6 +108,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
         $update->load('checkout_onepage_shippingmethod');
+
         $layout->generateXml();
         $layout->generateBlocks();
         return $layout->getOutput();
@@ -123,6 +124,7 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
         $update->load('checkout_onepage_paymentmethod');
+
         $layout->generateXml();
         $layout->generateBlocks();
         return $layout->getOutput();
@@ -139,8 +141,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $layout = $this->getLayout();
         $update = $layout->getUpdate();
         $update->load('checkout_onepage_additional');
+
         $layout->generateXml();
         $layout->generateBlocks();
+
         $output = $layout->getOutput();
         Mage::getSingleton('core/translate_inline')->processResponseBody($output);
         return $output;
@@ -225,8 +229,10 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $update = $layout->getUpdate();
         /* Load the block belonging to the current step*/
         $update->load('checkout_onepage_progress_' . $prevStep);
+
         $layout->generateXml();
         $layout->generateBlocks();
+
         $output = $layout->getOutput();
         $this->getResponse()->setBody($output);
         return $output;

@@ -44,6 +44,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Customer_V1 extends Mage_Catalog_Mode
         /** @var Mage_Customer_Model_Session $session */
         $session = Mage::getSingleton('customer/session');
         $session->setCustomerId($customer->getId());
+
         $price = $this->_getPrice(
             $price,
             $withTax,

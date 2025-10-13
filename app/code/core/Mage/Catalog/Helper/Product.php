@@ -389,6 +389,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     {
         $optionValues = $product->processBuyRequest($buyRequest);
         $optionValues->setQty($buyRequest->getQty());
+
         $product->setPreconfiguredValues($optionValues);
 
         return $this;

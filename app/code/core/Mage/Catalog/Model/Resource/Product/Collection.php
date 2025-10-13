@@ -228,6 +228,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         // prepare response object for event
         $response = new Varien_Object();
         $response->setAdditionalCalculations([]);
+
         $tableAliases = array_keys($select->getPart(Zend_Db_Select::FROM));
         if (in_array(self::INDEX_TABLE_ALIAS, $tableAliases)) {
             $table = self::INDEX_TABLE_ALIAS;
@@ -918,6 +919,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             'std' => $this->getConnection()->getStandardDeviationSql('ROUND((' . $priceExpression . $sqlEndPart),
         ]);
         $select->where($this->getPriceExpression($select) . ' IS NOT NULL');
+
         $row = $this->getConnection()->fetchRow($select, $this->_bindParams, Zend_Db::FETCH_NUM);
         $this->_pricesCount = (int) $row[0];
         $this->_maxPrice = (float) $row[1];

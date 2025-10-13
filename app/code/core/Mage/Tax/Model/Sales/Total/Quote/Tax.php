@@ -378,6 +378,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $address->setBaseShippingTaxAmount(0);
         $address->setShippingHiddenTaxAmount(0);
         $address->setBaseShippingHiddenTaxAmount(0);
+
         $appliedRates = $this->_calculator->getAppliedRates($taxRateRequest);
         if ($inclTax) {
             $this->_calculateShippingTaxByRate($address, $rate, $appliedRates);
@@ -465,6 +466,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $item->setBaseHiddenTaxAmount(0);
         $item->setTaxPercent($rate);
         $item->setDiscountTaxCompensation(0);
+
         $rowTotalInclTax = $item->getRowTotalInclTax();
         $recalculateRowTotalInclTax = false;
         if (!isset($rowTotalInclTax)) {
@@ -748,6 +750,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $item->setBaseHiddenTaxAmount(0);
         $item->setTaxPercent($rate);
         $item->setDiscountTaxCompensation(0);
+
         $rowTotalInclTax = $item->getRowTotalInclTax();
         $recalculateRowTotalInclTax = false;
         if (!isset($rowTotalInclTax)) {
@@ -1059,6 +1062,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
         $item->setBaseHiddenTaxAmount(0);
         $item->setTaxPercent($rate);
         $item->setDiscountTaxCompensation(0);
+
         $rowTotalInclTax = $item->getRowTotalInclTax();
         $recalculateRowTotalInclTax = false;
         if (!isset($rowTotalInclTax)) {

@@ -620,6 +620,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
         $imageFile = trim($importData['_media_image']);
         $imageFile = ltrim($imageFile, DS);
+
         $imageFilePath = Mage::getBaseDir('media') . DS . 'import' . DS . $imageFile;
 
         $updatedFileName = $this->_galleryBackendModel->addImage(

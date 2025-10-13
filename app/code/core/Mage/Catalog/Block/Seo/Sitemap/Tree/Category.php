@@ -151,6 +151,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
 
         $collection = $this->getCollection();
         $collection->addPathsFilter($pathFilter);
+
         $this->_to = $_to;
         $this->_from = $_to - $collection->count();
         return $this;

@@ -85,6 +85,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 
         // remove credit card number delimiters such as "-" and space
         $ccNumber = preg_replace('/[\-\s]+/', '', $ccNumber);
+
         $info->setCcNumber($ccNumber);
 
         $ccType = '';

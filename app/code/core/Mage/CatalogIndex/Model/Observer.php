@@ -300,6 +300,7 @@ class Mage_CatalogIndex_Model_Observer extends Mage_Core_Model_Abstract
         /** @var Mage_Catalog_Model_Product $product */
         $product = $observer->getEvent()->getProduct();
         $product->loadParentProductIds();
+
         $productIds = [$product->getId()];
         $productIds = array_merge($productIds, $product->getParentProductIds());
         $this->_getAggregator()->clearProductData($productIds);

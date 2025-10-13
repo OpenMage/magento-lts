@@ -29,6 +29,7 @@ class Mage_Adminhtml_Cms_WysiwygController extends Mage_Adminhtml_Controller_Act
     {
         $directive = $this->getRequest()->getParam('___directive');
         $directive = Mage::helper('core')->urlDecode($directive);
+
         $url = Mage::getModel('cms/adminhtml_template_filter')->filter($directive);
         try {
             $allowedStreamWrappers = Mage::helper('cms')->getAllowedStreamWrappers();

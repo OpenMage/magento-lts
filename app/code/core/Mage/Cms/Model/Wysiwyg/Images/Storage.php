@@ -383,6 +383,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         $image = Varien_Image_Adapter::factory('GD2');
         $image->open($source);
+
         $width = $this->getConfigData('resize_width');
         $height = $this->getConfigData('resize_height');
 
@@ -392,6 +393,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         $image->keepAspectRatio($keepRation);
         $image->resize($width, $height);
+
         $dest = $targetDir
             . DS
             . Mage_Core_Model_File_Uploader::getCorrectFileName(pathinfo($source, PATHINFO_BASENAME));

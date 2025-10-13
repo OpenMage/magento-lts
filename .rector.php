@@ -76,7 +76,6 @@ try {
             CodingStyle\Catch_\CatchExceptionNameMatchingTypeRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector::class, # todo: TMP
-            CodingStyle\ClassMethod\NewlineBeforeNewAssignSetRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
             CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
             CodingStyle\FuncCall\CallUserFuncArrayToVariadicRector::class, # todo: TMP

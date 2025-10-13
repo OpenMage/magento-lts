@@ -1158,6 +1158,7 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
         $staticFields   = $this->_getReadAdapter()->describeTable($this->getEntityTable());
         $staticFields   = array_keys($staticFields);
+
         $attributeCodes = array_keys($this->_attributesByCode);
 
         foreach ($newData as $k => $v) {

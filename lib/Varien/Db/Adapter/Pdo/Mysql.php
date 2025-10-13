@@ -3980,6 +3980,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         $tableName = $this->quoteIdentifier($tableName, true);
         $columns   = array_map([$this, 'quoteIdentifier'], $columns);
         $columns   = implode(',', $columns);
+
         $values    = implode(', ', $values);
 
         return sprintf('INSERT INTO %s (%s) VALUES %s', $tableName, $columns, $values);

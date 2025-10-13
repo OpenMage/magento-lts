@@ -68,6 +68,7 @@ class Mage_Checkout_Block_Cart_Item_Renderer_Grouped extends Mage_Checkout_Block
         $renderer = $this->getRenderedBlock()->getItemRenderer($this->getItem()->getRealProductType());
         $renderer->setItem($this->getItem());
         $renderer->overrideProductThumbnail($this->getProductThumbnail());
+
         $rendererHtml = $renderer->toHtml();
         $renderer->overrideProductThumbnail(null);
         return $rendererHtml;

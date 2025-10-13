@@ -579,6 +579,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $tableName = $this->getMainStoreTable($store);
         $_writeAdapter = $this->_getWriteAdapter();
         $_writeAdapter->dropTable($tableName);
+
         $table = $this->_getWriteAdapter()
             ->newTable($tableName)
             ->setComment(sprintf('Catalog Category Flat (Store %d)', $store));

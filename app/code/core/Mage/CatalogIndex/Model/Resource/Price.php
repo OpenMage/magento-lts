@@ -122,6 +122,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
 
         $select->join(['price_table' => $this->getMainTable()], 'price_table.entity_id=e.entity_id', []);
+
         $response = new Varien_Object();
         $response->setAdditionalCalculations([]);
 

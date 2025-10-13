@@ -134,6 +134,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
             $adapter->quoteInto('product_name.attribute_id = ?', $nameAttribute->getAttributeId()),
         ];
         $joinExprProductName        = implode(' AND ', $joinExprProductName);
+
         $joinExprProductDefaultName = [
             'product_default_name.entity_id = product.entity_id',
             'product_default_name.store_id = 0',
@@ -188,6 +189,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         $select->having(implode(' AND ', $havingPart));
 
         $select->useStraightJoin();
+
         $insertQuery = $helper->getInsertFromSelectUsingAnalytic(
             $select,
             $this->getMainTable(),

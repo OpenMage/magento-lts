@@ -603,6 +603,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
     {
         $response       = new Varien_Object();
         $response->setError(0);
+
         $websiteId      = Mage::app()->getStore()->getWebsiteId();
         $accountData    = $this->getRequest()->getPost('account');
 
@@ -813,6 +814,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
 
         $ioFile = new Varien_Io_File();
         $ioFile->open(['path' => $path]);
+
         $fileName   = $ioFile->getCleanPath($path . $file);
         $path       = $ioFile->getCleanPath($path);
 

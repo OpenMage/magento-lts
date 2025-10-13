@@ -567,6 +567,7 @@ class Mage_Adminhtml_Sales_Order_CreateController extends Mage_Adminhtml_Control
         $configureResult = new Varien_Object();
         $configureResult->setOk(true);
         $configureResult->setProductId($productId);
+
         $sessionQuote = Mage::getSingleton('adminhtml/session_quote');
         $configureResult->setCurrentStoreId($sessionQuote->getStore()->getId());
         $configureResult->setCurrentCustomerId($sessionQuote->getCustomerId());

@@ -319,6 +319,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
 
         $ioAdapter = new Varien_Io_File();
         $ioAdapter->setAllowCreateFolders(true);
+
         $distanationDirectory = dirname($this->_getConfig()->getTmpMediaPath($fileName));
 
         try {
