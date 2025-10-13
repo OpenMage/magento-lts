@@ -25,6 +25,7 @@ class Varien_File_Object extends SplFileObject implements IFactory
     protected $_filter;
 
     protected $_isCorrect = true;
+
     # - pass or not filter checking
     protected $filtered;
 

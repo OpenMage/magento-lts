@@ -62,6 +62,7 @@ abstract class Mage_Api2_Model_Resource
     public const RESOURCE_DATA_PRE_VALIDATION_ERROR = 'Resource data pre-validation error.';
 
     public const RESOURCE_DATA_INVALID = 'Resource data invalid.';
+
     //error while checking data inside method
     public const RESOURCE_UNKNOWN_ERROR = 'Resource unknown error.';
 

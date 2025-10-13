@@ -62,10 +62,13 @@ class Mage_Oauth_Model_Server
      * Request Types
      */
     public const REQUEST_INITIATE  = 'initiate';
+
     // ask for temporary credentials
     public const REQUEST_AUTHORIZE = 'authorize';
+
     // display authorize form
     public const REQUEST_TOKEN     = 'token';
+
     // ask for permanent credentials
     public const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
 

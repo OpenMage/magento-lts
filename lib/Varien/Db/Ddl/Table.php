@@ -34,33 +34,45 @@ class Varien_Db_Ddl_Table
     public const TYPE_DATE             = 'date';
 
     public const TYPE_TIMESTAMP        = 'timestamp';
+
     // Capable to support date-time from 1970 + auto-triggers in some RDBMS
     public const TYPE_DATETIME         = 'datetime';
+
     // Capable to support long date-time before 1970
     public const TYPE_TEXT             = 'text';
 
     public const TYPE_BLOB             = 'blob';
+
     // Used for back compatibility, when query param can't use statement options
     public const TYPE_VARBINARY        = 'varbinary'; // A real blob, stored as binary inside DB
 
     // Deprecated column types, support is left only in MySQL adapter.
     public const TYPE_TINYINT          = 'tinyint';
+
     // Internally converted to TYPE_SMALLINT
     public const TYPE_CHAR             = 'char';
+
     // Internally converted to TYPE_TEXT
     public const TYPE_VARCHAR          = 'varchar';
+
     // Internally converted to TYPE_TEXT
     public const TYPE_LONGVARCHAR      = 'longvarchar';
+
     // Internally converted to TYPE_TEXT
     public const TYPE_CLOB             = 'cblob';
+
     // Internally converted to TYPE_TEXT
     public const TYPE_DOUBLE           = 'double';
+
     // Internally converted to TYPE_FLOAT
     public const TYPE_REAL             = 'real';
+
     // Internally converted to TYPE_FLOAT
     public const TYPE_TIME             = 'time';
+
     // Internally converted to TYPE_TIMESTAMP
     public const TYPE_BINARY           = 'binary';
+
     // Internally converted to TYPE_BLOB
     public const TYPE_LONGVARBINARY    = 'longvarbinary';  // Internally converted to TYPE_BLOB
 
