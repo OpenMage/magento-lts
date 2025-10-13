@@ -45,6 +45,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
         if ($shipment->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
+
         return $pdf;
     }
 
@@ -78,6 +79,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
         } else {
             $packaging = Mage::getBlockSingleton('adminhtml/sales_order_shipment_packaging');
         }
+
         $packages = $packaging->getPackages();
 
         $packageNum = 1;
@@ -108,6 +110,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
             } else {
                 $lengthText = '--';
             }
+
             $lengthText = Mage::helper('sales')->__('Length') . ' : ' . $lengthText;
             $page->drawText($lengthText, 200, $this->y, 'UTF-8');
 
@@ -126,11 +129,13 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                     . $packaging->displayPrice($params->getCustomsValue());
                 $page->drawText($customsValueText, 35, $this->y, 'UTF-8');
             }
+
             if ($params->getWidth() != null) {
                 $widthText = $params->getWidth() . ' ' . $dimensionUnits;
             } else {
                 $widthText = '--';
             }
+
             $widthText = Mage::helper('sales')->__('Width') . ' : ' . $widthText;
             $page->drawText($widthText, 200, $this->y, 'UTF-8');
 
@@ -140,6 +145,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 } else {
                     $contentsValue = $packaging->getContentTypeByCode($params->getContentType());
                 }
+
                 $contentsText = Mage::helper('sales')->__('Contents')
                     . ' : '
                     . $contentsValue;
@@ -157,6 +163,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
             } else {
                 $heightText = '--';
             }
+
             $heightText = Mage::helper('sales')->__('Height') . ' : ' . $heightText;
             $page->drawText($heightText, 200, $this->y, 'UTF-8');
 
@@ -166,6 +173,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 $sizeText = Mage::helper('sales')->__('Size') . ' : ' . ucfirst(strtolower($params->getSize()));
                 $page->drawText($sizeText, 35, $this->y, 'UTF-8');
             }
+
             if ($params->getGirth() != null) {
                 $dimensionGirthUnits = Mage::helper('usa')->getMeasureDimensionName($params->getGirthDimensionUnits());
                 $girthText = Mage::helper('sales')->__('Girth')
@@ -214,6 +222,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                     'UTF-8',
                 );
             }
+
             $page->drawText(
                 Mage::helper('sales')->__('Qty Ordered'),
                 $itemCollsX[++$i] + $txtIndent,
@@ -247,6 +256,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                         'UTF-8',
                     );
                 }
+
                 $page->drawText(
                     $packaging->getQtyOrderedItem($item->getOrderItemId()),
                     $itemCollsX[++$i] + $txtIndent,
@@ -255,8 +265,10 @@ class Mage_Sales_Model_Order_Pdf_Shipment_Packaging extends Mage_Sales_Model_Ord
                 );
                 $page->drawText($item->getQty() * 1, $itemCollsX[++$i] + $txtIndent, $this->y, 'UTF-8');
             }
+
             $this->y = $this->y - 30;
         }
+
         return $this;
     }
 }

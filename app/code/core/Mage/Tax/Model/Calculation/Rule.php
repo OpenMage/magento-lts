@@ -145,6 +145,7 @@ class Mage_Tax_Model_Calculation_Rule extends Mage_Core_Model_Abstract
         if (is_null($this->_calculationModel)) {
             $this->_calculationModel = Mage::getSingleton('tax/calculation');
         }
+
         return $this->_calculationModel;
     }
 

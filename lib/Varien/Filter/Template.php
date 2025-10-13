@@ -24,6 +24,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Cunstruction logic regular expression
      */
     public const CONSTRUCTION_DEPEND_PATTERN = '/{{depend\s*(.*?)}}(.*?){{\\/depend\s*}}/si';
+
     public const CONSTRUCTION_IF_PATTERN = '/{{if\s*(.*?)}}(.*?)({{else}}(.*?))?{{\\/if\s*}}/si';
 
     /**
@@ -55,6 +56,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         foreach ($variables as $name => $value) {
             $this->_templateVars[$name] = $value;
         }
+
         return $this;
     }
 
@@ -128,6 +130,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                     } catch (Exception $e) {
                         throw $e;
                     }
+
                     $value = str_replace($construction[0], $replacedValue, $value);
                 }
             }
@@ -140,14 +143,17 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 if (!is_callable($callback)) {
                     continue;
                 }
+
                 try {
                     $replacedValue = call_user_func($callback, $construction);
                 } catch (Exception $e) {
                     throw $e;
                 }
+
                 $value = str_replace($construction[0], $replacedValue, $value);
             }
         }
+
         return $value;
     }
 
@@ -157,6 +163,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If template preprocessing
             return $construction[0];
         }
+
         return $this->_getVariable($construction[2], '');
     }
 
@@ -174,6 +181,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             $includeParameters = array_merge_recursive($includeParameters, $this->_templateVars);
             $replacedValue = call_user_func($this->getIncludeProcessor(), $templateCode, $includeParameters);
         }
+
         return $replacedValue;
     }
 
@@ -200,6 +208,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             $templateParameters = array_merge_recursive($templateParameters, $this->_templateVars);
             $replacedValue = call_user_func($this->getTemplateProcessor(), $configPath, $templateParameters);
         }
+
         return $replacedValue;
     }
 
@@ -227,6 +236,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             if (isset($construction[3]) && isset($construction[4])) {
                 return $construction[4];
             }
+
             return '';
         } else {
             return $construction[2];
@@ -249,6 +259,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                 $params[$key] = $this->_getVariable(substr($value, 1), null);
             }
         }
+
         return $params;
     }
 
@@ -290,12 +301,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                         if ($stackVars[$i]['name'] == 'getConfig') {
                             $isEncrypted = $emailPathValidator->isValid($stackVars[$i]['args']);
                         }
+
                         $stackVars[$i]['variable'] = call_user_func_array(
                             [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
                             !$isEncrypted ? $stackVars[$i]['args'] : [null],
                         );
                     }
                 }
+
                 $last = $i;
             }
         }
@@ -304,6 +317,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If value for construction exists set it
             $result = $stackVars[$last]['variable'];
         }
+
         Varien_Profiler::stop('email_template_proccessing_variables');
         return $result;
     }

@@ -363,35 +363,53 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Event type names for order emails
      */
     public const EMAIL_EVENT_NAME_NEW_ORDER    = 'new_order';
+
     public const EMAIL_EVENT_NAME_UPDATE_ORDER = 'update_order';
 
     /**
      * XML configuration paths
      */
     public const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/order/template';
+
     public const XML_PATH_EMAIL_GUEST_TEMPLATE         = 'sales_email/order/guest_template';
+
     public const XML_PATH_EMAIL_IDENTITY               = 'sales_email/order/identity';
+
     public const XML_PATH_EMAIL_COPY_TO                = 'sales_email/order/copy_to';
+
     public const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/order/copy_method';
+
     public const XML_PATH_EMAIL_ENABLED                = 'sales_email/order/enabled';
 
     public const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/order_comment/template';
+
     public const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/order_comment/guest_template';
+
     public const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/order_comment/identity';
+
     public const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/order_comment/copy_to';
+
     public const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/order_comment/copy_method';
+
     public const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/order_comment/enabled';
 
     /**
      * Order states
      */
     public const STATE_NEW             = 'new';
+
     public const STATE_PENDING_PAYMENT = 'pending_payment';
+
     public const STATE_PROCESSING      = 'processing';
+
     public const STATE_COMPLETE        = 'complete';
+
     public const STATE_CLOSED          = 'closed';
+
     public const STATE_CANCELED        = 'canceled';
+
     public const STATE_HOLDED          = 'holded';
+
     public const STATE_PAYMENT_REVIEW  = 'payment_review';
 
     /**
@@ -403,27 +421,39 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
      * Order flags
      */
     public const ACTION_FLAG_CANCEL                    = 'cancel';
+
     public const ACTION_FLAG_HOLD                      = 'hold';
+
     public const ACTION_FLAG_UNHOLD                    = 'unhold';
+
     public const ACTION_FLAG_EDIT                      = 'edit';
+
     public const ACTION_FLAG_CREDITMEMO                = 'creditmemo';
+
     public const ACTION_FLAG_INVOICE                   = 'invoice';
+
     public const ACTION_FLAG_REORDER                   = 'reorder';
+
     public const ACTION_FLAG_SHIP                      = 'ship';
+
     public const ACTION_FLAG_COMMENT                   = 'comment';
+
     public const ACTION_FLAG_PRODUCTS_PERMISSION_DENIED = 'product_permission_denied';
 
     /**
      * Report date types
      */
     public const REPORT_DATE_TYPE_CREATED = 'created';
+
     public const REPORT_DATE_TYPE_UPDATED = 'updated';
+
     /**
      * Identifier for history item
      */
     public const HISTORY_ENTITY_NAME = 'order';
 
     protected $_eventPrefix = 'sales_order';
+
     protected $_eventObject = 'order';
 
     /**
@@ -467,7 +497,9 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
     protected $_creditmemos;
 
     protected $_relatedObjects  = [];
+
     protected $_orderCurrency   = null;
+
     protected $_baseCurrency    = null;
 
     /**
@@ -525,6 +557,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (is_null($key)) {
             $this->_items = null;
         }
+
         return $this;
     }
 
@@ -609,6 +642,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($storeId) {
             return Mage::app()->getStore($storeId);
         }
+
         return Mage::app()->getStore();
     }
 
@@ -622,6 +656,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->_canVoidOrder()) {
             return false;
         }
+
         if ($this->canUnhold()) {  // $this->isPaymentReview()
             return false;
         }
@@ -633,6 +668,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 break;
             }
         }
+
         if ($allInvoiced) {
             return false;
         }
@@ -645,6 +681,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getActionFlag(self::ACTION_FLAG_CANCEL) === false) {
             return false;
         }
+
         /**
          * Use only state for availability detect
          */
@@ -677,6 +714,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
+
         return true;
     }
 
@@ -690,6 +728,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->canUnhold() || $this->isPaymentReview()) {
             return false;
         }
+
         $state = $this->getState();
         if ($this->isCanceled() || $state === self::STATE_COMPLETE || $state === self::STATE_CLOSED) {
             return false;
@@ -704,6 +743,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -738,6 +778,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getActionFlag(self::ACTION_FLAG_EDIT) === false) {
             return false;
         }
+
         return true;
     }
 
@@ -758,6 +799,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getActionFlag(self::ACTION_FLAG_HOLD) === false) {
             return false;
         }
+
         return true;
     }
 
@@ -771,6 +813,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getActionFlag(self::ACTION_FLAG_UNHOLD) === false || $this->isPaymentReview()) {
             return false;
         }
+
         return $this->getState() === self::STATE_HOLDED;
     }
 
@@ -784,6 +827,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getActionFlag(self::ACTION_FLAG_COMMENT) === false) {
             return false;
         }
+
         return true;
     }
 
@@ -813,6 +857,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -986,6 +1031,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return $payment;
             }
         }
+
         return false;
     }
 
@@ -1000,6 +1046,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!empty($old)) {
             $address->setId($old->getId());
         }
+
         $this->addAddress($address->setAddressType('billing'));
         return $this;
     }
@@ -1015,6 +1062,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!empty($old)) {
             $address->setId($old->getId());
         }
+
         $this->addAddress($address->setAddressType('shipping'));
         return $this;
     }
@@ -1031,6 +1079,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
@@ -1046,6 +1095,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
@@ -1092,6 +1142,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 );
             }
         }
+
         $this->setData('state', $state);
 
         // add status history
@@ -1099,10 +1150,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if ($status === true) {
                 $status = $this->getConfig()->getStateDefaultStatus($state);
             }
+
             $this->setStatus($status);
             $history = $this->addStatusHistoryComment($comment, false); // no sense to set $status again
             $history->setIsCustomerNotified($isCustomerNotified); // for backwards compatibility
         }
+
         return $this;
     }
 
@@ -1116,6 +1169,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (empty($state)) {
             return false;
         }
+
         return self::STATE_COMPLETE == $state || self::STATE_CLOSED == $state;
     }
 
@@ -1162,6 +1216,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         } else {
             $this->setStatus($status);
         }
+
         $history = Mage::getModel('sales/order_status_history')
             ->setStatus($status)
             ->setComment($comment)
@@ -1204,6 +1259,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->canHold()) {
             Mage::throwException(Mage::helper('sales')->__('Hold action is not available.'));
         }
+
         $this->setHoldBeforeState($this->getState());
         $this->setHoldBeforeStatus($this->getStatus());
         $this->setState(self::STATE_HOLDED, true);
@@ -1221,6 +1277,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->canUnhold()) {
             Mage::throwException(Mage::helper('sales')->__('Unhold action is not available.'));
         }
+
         $this->setState($this->getHoldBeforeState(), $this->getHoldBeforeStatus());
         $this->setHoldBeforeState(null);
         $this->setHoldBeforeStatus(null);
@@ -1262,6 +1319,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                         $cancelState = self::STATE_COMPLETE;
                     }
                 }
+
                 $item->cancel();
             }
 
@@ -1284,6 +1342,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         } elseif (!$graceful) {
             Mage::throwException(Mage::helper('sales')->__('Order does not allow to be canceled.'));
         }
+
         return $this;
     }
 
@@ -1297,6 +1356,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getData('tracking_numbers')) {
             return explode(',', $this->getData('tracking_numbers'));
         }
+
         return [];
     }
 
@@ -1320,8 +1380,10 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                     $carrierModel = Mage::getModel($className);
                 }
             }
+
             $this->setData('shipping_carrier', $carrierModel);
         }
+
         return $carrierModel;
     }
 
@@ -1341,6 +1403,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if (!isset($segments[1])) {
                 $segments[1] = $segments[0];
             }
+
             [$carrierCode, $method] = $segments;
             return new Varien_Object([
                 'carrier_code' => $carrierCode,
@@ -1362,10 +1425,12 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             } elseif ($this->getCustomerId()) {
                 $email = Mage::getResourceSingleton('customer/customer')->getEmail($this->getCustomerId());
             }
+
             // Guest checkout or customer was deleted.
             if (empty($email)) {
                 $email = $this->getCustomerEmail();
             }
+
             $this->setData('current_customer_email', $email);
         }
 
@@ -1410,6 +1475,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if (isset($appEmulation, $initialEnvironmentInfo)) {
                 $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
             }
+
             throw $e;
         }
 
@@ -1438,6 +1504,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $emailInfo->addBcc($email);
             }
         }
+
         $mailer->addEmailInfo($emailInfo);
 
         // Email copies are sent as separated emails if their copy method is 'copy'
@@ -1501,6 +1568,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!Mage::helper('sales')->canSendOrderCommentEmail($storeId)) {
             return $this;
         }
+
         // Get the destination email addresses to send copies to
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
@@ -1530,6 +1598,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                     $emailInfo->addBcc($email);
                 }
             }
+
             $mailer->addEmailInfo($emailInfo);
         }
 
@@ -1588,6 +1657,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!empty($data)) {
             return explode(',', $data);
         }
+
         return false;
     }
 
@@ -1623,6 +1693,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
@@ -1636,6 +1707,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$address->getId()) {
             $this->getAddressesCollection()->addItem($address);
         }
+
         return $this;
     }
 
@@ -1653,6 +1725,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             if ($filterByTypes) {
                 $this->_items->filterByTypes($filterByTypes);
             }
+
             if ($nonChildrenOnly) {
                 $this->_items->filterByParent();
             }
@@ -1663,6 +1736,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
         return $this->_items;
     }
 
@@ -1704,6 +1778,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($nonChildrenOnly) {
             $collection->filterByParent();
         }
+
         $products = [];
         /** @var Mage_Sales_Model_Order_Item $item */
         foreach ($collection as $item) {
@@ -1740,6 +1815,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $items[] =  $item;
             }
         }
+
         return $items;
     }
 
@@ -1754,6 +1830,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
@@ -1777,6 +1854,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return $item;
             }
         }
+
         return null;
     }
 
@@ -1790,6 +1868,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$item->getId()) {
             $this->getItemsCollection()->addItem($item);
         }
+
         return $this;
     }
 
@@ -1805,6 +1884,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -1825,6 +1905,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
         return $this->_payments;
     }
 
@@ -1839,6 +1920,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $payments[] =  $payment;
             }
         }
+
         return $payments;
     }
 
@@ -1853,6 +1935,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return $payment;
             }
         }
+
         return false;
     }
 
@@ -1867,6 +1950,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$payment->getId()) {
             $this->getPaymentsCollection()->addItem($payment);
         }
+
         return $this;
     }
 
@@ -1878,6 +1962,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$this->getIsMultiPayment() && ($old = $this->getPayment())) {
             $payment->setId($old->getId());
         }
+
         $this->addPayment($payment);
         return $payment;
     }
@@ -1902,6 +1987,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
         return $this->_statusHistory;
     }
 
@@ -1918,6 +2004,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $history[] =  $status;
             }
         }
+
         return $history;
     }
 
@@ -1934,6 +2021,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $history[] =  $status;
             }
         }
+
         return $history;
     }
 
@@ -1948,6 +2036,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return $status;
             }
         }
+
         return false;
     }
 
@@ -1966,6 +2055,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (!$history->getId()) {
             $this->getStatusHistoryCollection()->addItem($history);
         }
+
         return $this;
     }
 
@@ -1978,6 +2068,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (is_null($id)) {
             $id = $this->getIncrementId();
         }
+
         return $id;
     }
 
@@ -1991,6 +2082,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (is_null($this->_orderCurrency)) {
             $this->_orderCurrency = Mage::getModel('directory/currency')->load($this->getOrderCurrencyCode());
         }
+
         return $this->_orderCurrency;
     }
 
@@ -2039,6 +2131,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (is_null($this->_baseCurrency)) {
             $this->_baseCurrency = Mage::getModel('directory/currency')->load($this->getBaseCurrencyCode());
         }
+
         return $this->_baseCurrency;
     }
 
@@ -2114,9 +2207,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($key == 'total_due') {
             return $this->getTotalDue();
         }
+
         if ($key == 'base_total_due') {
             return $this->getBaseTotalDue();
         }
+
         return parent::getData($key, $index);
     }
 
@@ -2137,6 +2232,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
         return $this->_invoices;
     }
 
@@ -2166,6 +2262,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return false;
             }
         }
+
         return $this->_shipments;
     }
 
@@ -2185,6 +2282,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 return false;
             }
         }
+
         return $this->_creditmemos;
     }
 
@@ -2203,6 +2301,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $this->_tracks->load();
             }
         }
+
         return $this->_tracks;
     }
 
@@ -2228,6 +2327,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($shipmentsCollection) {
             $result = (bool) $shipmentsCollection->count();
         }
+
         return $result;
     }
 
@@ -2243,6 +2343,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($creditmemosCollection) {
             $result = (bool) $creditmemosCollection->count();
         }
+
         return $result;
     }
 
@@ -2270,6 +2371,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         } else {
             $customerName = Mage::helper('sales')->__('Guest');
         }
+
         return $customerName;
     }
 
@@ -2303,6 +2405,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getCustomerNoteNotify()) {
             return $this->getCustomerNote();
         }
+
         return '';
     }
 
@@ -2341,9 +2444,11 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                     $itemsCount++;
                 }
             }
+
             // Set items count
             $this->setTotalItemCount($itemsCount);
         }
+
         if ($this->getCustomer()) {
             $this->setCustomerId($this->getCustomer()->getId());
         }
@@ -2403,6 +2508,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if ($this->getState() == self::STATE_NEW && $this->getIsInProcess()) {
             $this->setState(self::STATE_PROCESSING, true, '', $userNotification);
         }
+
         return $this;
     }
 
@@ -2432,18 +2538,23 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
                 $this->_getResource()->saveAttribute($this, $attributesForSave);
             }
         }
+
         if ($this->_items !== null) {
             $this->_items->save();
         }
+
         if ($this->_payments !== null) {
             $this->_payments->save();
         }
+
         if ($this->_statusHistory !== null) {
             $this->_statusHistory->save();
         }
+
         foreach ($this->getRelatedObjects() as $object) {
             $object->save();
         }
+
         return parent::_afterSave();
     }
 
@@ -2456,6 +2567,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
         if (is_null($storeId)) {
             return $this->getStoreName(1); // 0 - website name, 1 - store group name, 2 - store name
         }
+
         return $this->getStore()->getGroup()->getName();
     }
 

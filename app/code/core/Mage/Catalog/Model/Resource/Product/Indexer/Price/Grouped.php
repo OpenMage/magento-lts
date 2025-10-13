@@ -30,6 +30,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Grouped extends Mage_Cat
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 

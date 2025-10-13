@@ -93,6 +93,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
         if (!$address->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         $address->addData($this->_getDefaultAddressesInfo($address));
 
         return $address;
@@ -112,6 +113,7 @@ class Mage_Customer_Model_Api2_Customer_Address extends Mage_Api2_Model_Resource
         if (!$customer->getId()) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return $customer;
     }
 }

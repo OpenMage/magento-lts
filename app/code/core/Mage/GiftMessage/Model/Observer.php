@@ -48,6 +48,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
             $observer->getEvent()->getOrder()
                 ->setGiftMessageId($observer->getEvent()->getAddress()->getGiftMessageId());
         }
+
         return $this;
     }
 
@@ -75,6 +76,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         if (is_object($product)) {
             return $product->getGiftMessageAvailable();
         }
+
         return Mage::getModel('catalog/product')->load($product)->getGiftMessageAvailable();
     }
 
@@ -113,6 +115,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                         } catch (Exception) {
                         }
                     }
+
                     continue;
                 }
 
@@ -128,6 +131,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                 }
             }
         }
+
         return $this;
     }
 
@@ -160,6 +164,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
         if (!Mage::helper('giftmessage/message')->isMessagesAvailable('order', $order, $order->getStore())) {
             return $this;
         }
+
         $giftMessageId = $order->getGiftMessageId();
         if ($giftMessageId) {
             $giftMessage = Mage::getModel('giftmessage/message')->load($giftMessageId)
@@ -203,6 +208,7 @@ class Mage_GiftMessage_Model_Observer extends Varien_Object
                 ->save();
             $quoteItem->setGiftMessageId($giftMessage->getId());
         }
+
         return $this;
     }
 }

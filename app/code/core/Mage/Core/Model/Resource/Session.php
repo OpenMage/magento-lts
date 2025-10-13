@@ -97,6 +97,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 $this->_lifeTime = self::SEESION_MAX_COOKIE_LIFETIME; // 100 years
             }
         }
+
         return $this->_lifeTime;
     }
 
@@ -110,6 +111,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         if (!$this->_read) {
             return false;
         }
+
         if (!$this->_read->isTableExists($this->_sessionTable)) {
             return false;
         }
@@ -136,6 +138,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
         } else {
             session_save_path(Mage::getBaseDir('session'));
         }
+
         return $this;
     }
 
@@ -264,6 +267,7 @@ class Mage_Core_Model_Resource_Session implements SessionHandlerInterface
                 $this->_write->delete($this->_sessionTable, $where);
             }
         }
+
         return true;
     }
 }

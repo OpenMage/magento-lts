@@ -15,11 +15,15 @@
 class Mage_Adminhtml_Model_System_Config_Backend_Admin_Custom extends Mage_Core_Model_Config_Data
 {
     public const CONFIG_SCOPE                      = 'stores';
+
     public const CONFIG_SCOPE_ID                   = 0;
 
     public const XML_PATH_UNSECURE_BASE_URL        = 'web/unsecure/base_url';
+
     public const XML_PATH_SECURE_BASE_URL          = 'web/secure/base_url';
+
     public const XML_PATH_UNSECURE_BASE_LINK_URL   = 'web/unsecure/base_link_url';
+
     public const XML_PATH_SECURE_BASE_LINK_URL     = 'web/secure/base_link_url';
 
     /**

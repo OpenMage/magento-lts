@@ -143,6 +143,7 @@ T: {{telephone}}';
                 }
             }
         }
+
         return null;
     }
 
@@ -157,6 +158,7 @@ T: {{telephone}}';
                 Mage::app()->getLocale()->getCountryTranslation($this->getId()),
             );
         }
+
         return $this->getData('name');
     }
 }

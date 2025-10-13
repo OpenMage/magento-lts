@@ -59,6 +59,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
         } else {
             $this->_store = Mage::app()->getStore();
         }
+
         $this->_initModels()
             ->_initCollectors()
             ->_initRetrievers();
@@ -127,6 +128,7 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 $this->_models[$totalCode] = $this->_initModelInstance($class, $totalCode, $totalConfig);
             }
         }
+
         return $this;
     }
 
@@ -146,14 +148,17 @@ class Mage_Sales_Model_Quote_Address_Total_Collector extends Mage_Sales_Model_Co
                 while (isset($this->_retrievers[$retrieverId])) {
                     $retrieverId++;
                 }
+
                 $this->_retrievers[$retrieverId] = $this->_models[$code];
             }
         }
+
         ksort($this->_retrievers);
         $notSorted = array_diff(array_keys($this->_models), array_keys($sorts));
         foreach ($notSorted as $code) {
             $this->_retrievers[] = $this->_models[$code];
         }
+
         return $this;
     }
 }

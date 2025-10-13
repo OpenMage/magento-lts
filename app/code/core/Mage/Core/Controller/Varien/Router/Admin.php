@@ -80,6 +80,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 ->sendResponse();
             exit;
         }
+
         return true;
     }
 
@@ -134,6 +135,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 Mage::getConfig()->setNode($xmlPath, $customUrl, true);
             }
         }
+
         parent::collectRoutes($configArea, $useRouterName);
     }
 

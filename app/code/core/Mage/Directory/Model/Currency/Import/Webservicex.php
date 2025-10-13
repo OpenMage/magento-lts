@@ -16,6 +16,7 @@
 class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Model_Currency_Import_Abstract
 {
     protected $_url = 'http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate?FromCurrency={{CURRENCY_FROM}}&ToCurrency={{CURRENCY_TO}}';
+
     protected $_messages = [];
 
     /**
@@ -53,6 +54,7 @@ class Mage_Directory_Model_Currency_Import_Webservicex extends Mage_Directory_Mo
                 $this->_messages[] = Mage::helper('directory')->__('Cannot retrieve rate from %s.', $url);
                 return null;
             }
+
             return (float) $xml;
         } catch (Exception) {
             if ($retry == 0) {

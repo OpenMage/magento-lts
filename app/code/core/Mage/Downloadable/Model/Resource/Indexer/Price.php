@@ -33,6 +33,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -64,6 +65,7 @@ class Mage_Downloadable_Model_Resource_Indexer_Price extends Mage_Catalog_Model_
         if ($this->useIdxTable()) {
             return $this->getTable('downloadable/product_price_indexer_idx');
         }
+
         return $this->getTable('downloadable/product_price_indexer_tmp');
     }
 

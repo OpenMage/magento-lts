@@ -15,11 +15,15 @@
 class Mage_Directory_Model_Observer
 {
     public const CRON_STRING_PATH = 'crontab/jobs/currency_rates_update/schedule/cron_expr';
+
     public const IMPORT_ENABLE = 'currency/import/enabled';
+
     public const IMPORT_SERVICE = 'currency/import/service';
 
     public const XML_PATH_ERROR_TEMPLATE = 'currency/import/error_email_template';
+
     public const XML_PATH_ERROR_IDENTITY = 'currency/import/error_email_identity';
+
     public const XML_PATH_ERROR_RECIPIENT = 'currency/import/error_email';
 
     /**

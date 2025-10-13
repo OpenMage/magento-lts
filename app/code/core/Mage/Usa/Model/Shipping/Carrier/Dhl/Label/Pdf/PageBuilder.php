@@ -156,6 +156,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($name)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Product name is missing'));
         }
+
         $this->_page->drawText($name, $this->_x(8), $this->_y(12));
         $this->_page->restoreGS();
         return $this;
@@ -179,6 +180,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!array_key_exists($code, $codes)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Product content code is invalid'));
         }
+
         $font = null;
         if ($codes[$code]) {
             $this->_page->drawRectangle(
@@ -193,6 +195,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         } else {
             $font = $this->_fontNormal;
         }
+
         $this->_page->setFont($font, 17);
         $this->_page->drawText($code, $this->_x(146), $this->_y(21));
         $this->_page->restoreGS();
@@ -247,6 +250,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!$contactName) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender contact name is missing'));
         }
+
         $this->_page->drawText($contactName, $this->_x(25), $this->_y(36));
 
         $phoneNumber = implode(' ', array_filter([(string) $sender->Contact->PhoneNumber,
@@ -259,6 +263,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($cityInfo)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender city info is missing'));
         }
+
         $this->_page->drawText($cityInfo, $this->_x(25), $pageY);
 
         $this->_page->setFont($this->_fontBold, 6);
@@ -266,6 +271,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($countryInfo)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Sender country info is missing'));
         }
+
         $this->_page->drawText($countryInfo, $this->_x(25), $pageY - $this->_page->getFontSize());
 
         $this->_page->restoreGS();
@@ -315,6 +321,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (strlen(!$serviceAreaCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Origin serviceAreaCode is missing'));
         }
+
         $this->_page->saveGS();
         $this->_page->setFont($this->_fontNormal, 6);
         $this->_page->drawText('Origin:', $this->_x(260), $this->_y(36));
@@ -387,6 +394,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($code)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Destination facility code is empty'));
         }
+
         $this->_page->drawText(
             $code,
             $this->_x(144),
@@ -453,6 +461,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!$refCode) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Reference code is missing'));
         }
+
         $this->_page->drawText(
             'Ref Code: ' . Mage::helper('usa')->__('Order #%s', $refCode),
             $this->_x(8),
@@ -495,6 +504,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!isset($units[$unit])) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Weight unit is invalid'));
         }
+
         $unit = $units[$unit];
 
         $this->_page->setFont($this->_fontNormal, 6);
@@ -532,6 +542,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
                 break;
             }
         }
+
         $this->_page->restoreGS();
         return $this;
     }
@@ -551,6 +562,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_PageBuilder
         if (!strlen($number) || !strlen($barCode)) {
             throw new InvalidArgumentException(Mage::helper('usa')->__('Waybill barcode information is missing'));
         }
+
         $image = new Zend_Pdf_Resource_Image_Png('data://image/png;base64,' . $barCode);
         $this->_page->drawImage($image, $this->_x(0), $this->_y(296), $this->_x(232), $this->_y(375));
 

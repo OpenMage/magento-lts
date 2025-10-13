@@ -69,6 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Pcompared extends Mage_Adm
             $productCollection->load();
             $this->setData('item_collection', $productCollection);
         }
+
         return $productCollection;
     }
 

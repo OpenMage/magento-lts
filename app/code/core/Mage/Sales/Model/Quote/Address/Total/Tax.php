@@ -36,6 +36,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
         if (!count($items)) {
             return $this;
         }
+
         $custTaxClassId = $address->getQuote()->getCustomerTaxClassId();
 
         $taxCalculationModel = Mage::getSingleton('tax/calculation');
@@ -54,6 +55,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
             if ($item->getParentItemId()) {
                 continue;
             }
+
             /**
              * We calculate parent tax amount as sum of children's tax amounts
              */
@@ -94,6 +96,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                         $rate,
                     );
                 }
+
                 $itemTaxAmount = $item->getTaxAmount() + $item->getDiscountTaxCompensation();
                 $address->setTaxAmount($address->getTaxAmount() + $itemTaxAmount);
                 $itemBaseTaxAmount = $item->getBaseTaxAmount() + $item->getBaseDiscountTaxCompensation();
@@ -223,6 +226,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                 unset($previouslyAppliedTaxes[$row['id']]);
             }
         }
+
         $address->setAppliedTaxes($previouslyAppliedTaxes);
     }
 
@@ -243,6 +247,7 @@ class Mage_Sales_Model_Quote_Address_Total_Tax extends Mage_Sales_Model_Quote_Ad
                 'value' => $amount,
             ]);
         }
+
         return $this;
     }
 }

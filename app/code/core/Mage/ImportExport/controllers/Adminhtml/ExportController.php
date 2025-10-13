@@ -73,6 +73,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
+
         return $this->_redirect('*/*/index');
     }
 
@@ -115,6 +116,7 @@ class Mage_ImportExport_Adminhtml_ExportController extends Mage_Adminhtml_Contro
         } else {
             $this->_getSession()->addError($this->__('No valid data sent'));
         }
+
         $this->_redirect('*/*/index');
     }
 }

@@ -35,13 +35,16 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
                         }
                     }
                 }
+
                 if (!empty($assocArr)) {
                     $arr[$key] = $assocArr;
                 }
             }
+
             $arr = $this->_prepareProductsData($arr);
             return parent::_prepareProductsData($arr);
         }
+
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 if (is_object($value) || is_array($value)) {
@@ -50,8 +53,10 @@ class Mage_Checkout_Model_Cart_Product_Api_V2 extends Mage_Checkout_Model_Cart_P
                     $data[$key] = $value;
                 }
             }
+
             return parent::_prepareProductsData($data);
         }
+
         return $data;
     }
 }

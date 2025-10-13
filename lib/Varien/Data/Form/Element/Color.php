@@ -15,6 +15,7 @@
 class Varien_Data_Form_Element_Color extends Varien_Data_Form_Element_Abstract
 {
     public const VALIDATION_REGEX_WITH_HASH = '/^#[a-f0-9]{6}$/i';
+
     public const VALIDATION_REGEX_WITHOUT_HASH = '/^[a-f0-9]{6}$/i';
 
     /**

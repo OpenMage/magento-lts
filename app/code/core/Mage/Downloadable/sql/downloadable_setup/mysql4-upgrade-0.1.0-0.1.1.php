@@ -20,6 +20,7 @@ if (in_array('downloadable', $applyTo)) {
             $newApplyTo[] = $value;
         }
     }
+
     $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $newApplyTo));
 } else {
     $installer->updateAttribute('catalog_product', 'weight', 'apply_to', implode(',', $applyTo));

@@ -131,6 +131,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         } else {
             $fileName  = 'image';
         }
+
         $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
 
         $ioAdapter = new Varien_Io_File();

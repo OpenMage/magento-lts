@@ -124,6 +124,7 @@ class Mage_Paypal_PayflowadvancedController extends Mage_Paypal_Controller_Expre
         if ($helper->restoreQuote()) {
             $gotoSection = 'payment';
         }
+
         return $gotoSection;
     }
 

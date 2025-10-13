@@ -42,6 +42,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                     $image[$localAttribute . '_use_default'] = false;
                 }
             }
+
             $value['images'][] = $image;
         }
 
@@ -76,6 +77,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 }
             }
         }
+
         if ($this->getAttribute()->getIsUnique()) {
             if (!$this->getAttribute()->getEntity()->checkAttributeUniqueValue($this->getAttribute(), $object)) {
                 $label = $this->getAttribute()->getFrontend()->getLabel();
@@ -139,6 +141,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (!isset($image['value_id'])) {
                     continue;
                 }
+
                 $newFile = $this->_copyImage($image['file']);
                 $newImages[$image['file']] = [
                     'new_file' => $newFile,
@@ -230,6 +233,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (isset($image['value_id']) && !isset($picturesInOtherStores[$image['file']])) {
                     $toDelete[] = $image['value_id'];
                 }
+
                 continue;
             }
 
@@ -248,6 +252,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 if (!isset($image['label_use_default'])) {
                     $image['label_use_default'] = null;
                 }
+
                 if (!isset($image['position_use_default'])) {
                     $image['position_use_default'] = null;
                 }
@@ -586,6 +591,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if (strrpos($file, '.tmp') == strlen($file) - 4) {
             $file = substr($file, 0, -4);
         }
+
         $destFile = $this->_getUniqueFileName($file, $ioObject->dirsep());
 
         /** @var Mage_Core_Helper_File_Storage_Database $storageHelper */

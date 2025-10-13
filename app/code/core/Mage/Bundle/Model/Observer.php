@@ -41,6 +41,7 @@ class Mage_Bundle_Model_Observer
                 foreach (array_keys($customOptions) as $key) {
                     $customOptions[$key]['is_delete'] = 1;
                 }
+
                 $product->setProductOptions($customOptions);
             }
         }
@@ -106,6 +107,7 @@ class Mage_Bundle_Model_Observer
         if (!is_null($limit)) {
             $bundleCollection->setPageSize($limit);
         }
+
         $bundleCollection->addFieldToFilter('entity_id', ['in' => $bundleIds])
             ->setFlag('do_not_use_category_id', true);
 
@@ -118,6 +120,7 @@ class Mage_Bundle_Model_Observer
             foreach ($bundleCollection as $item) {
                 $items[$item->getEntityId()] = $item;
             }
+
             $collection->setItems($items);
         }
 
@@ -216,6 +219,7 @@ class Mage_Bundle_Model_Observer
                     'delete' => '',
                 ];
             }
+
             $i++;
         }
 
@@ -238,6 +242,7 @@ class Mage_Bundle_Model_Observer
             Mage::helper('adminhtml/catalog')
                 ->setAttributeTabBlock('bundle/adminhtml_catalog_product_edit_tab_attributes');
         }
+
         return $this;
     }
 

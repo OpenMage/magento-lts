@@ -35,6 +35,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
         if (!$this->_checkFilesystem()) {
             throw new Exception();
         }
+
         return $this;
     }
 
@@ -56,6 +57,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
                 $res = $res && $checkRes;
             }
         }
+
         return $res;
     }
 
@@ -104,6 +106,7 @@ class Mage_Install_Model_Installer_Filesystem extends Mage_Install_Model_Install
                 }
             }
         }
+
         return $res;
     }
 }

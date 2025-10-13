@@ -44,6 +44,7 @@ class Unserialize_Reader_Bool
                 return (bool) $this->_value;
             }
         }
+
         return null;
     }
 }

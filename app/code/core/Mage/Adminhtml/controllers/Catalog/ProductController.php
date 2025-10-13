@@ -168,6 +168,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         foreach ($blocks as $block) {
             $output->insert($block, '', true);
         }
+
         $this->getResponse()->setBody($output->toHtml());
     }
 
@@ -205,6 +206,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                     $additionalLayoutPart = '_new';
                 }
             }
+
             $this->loadLayout([
                 'default',
                 strtolower($this->getFullActionName()),
@@ -505,18 +507,22 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             if ($productData && !isset($productData['stock_data']['use_config_manage_stock'])) {
                 $productData['stock_data']['use_config_manage_stock'] = 0;
             }
+
             /** @var Mage_Catalog_Model_Product $product */
             $product = Mage::getModel('catalog/product');
             $product->setData('_edit_mode', true);
             if ($storeId = $this->getRequest()->getParam('store')) {
                 $product->setStoreId($storeId);
             }
+
             if ($setId = $this->getRequest()->getParam('set')) {
                 $product->setAttributeSetId($setId);
             }
+
             if ($typeId = $this->getRequest()->getParam('type')) {
                 $product->setTypeId($typeId);
             }
+
             if ($productId = $this->getRequest()->getParam('id')) {
                 $product->load($productId);
             }
@@ -530,6 +536,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                     }
                 }
             }
+
             $productData = $this->_filterDates($productData, $dateFields);
             $product->addData($productData);
 
@@ -615,13 +622,16 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if (isset($links['related']) && !$product->getRelatedReadonly()) {
             $product->setRelatedLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['related']));
         }
+
         if (isset($links['upsell']) && !$product->getUpsellReadonly()) {
             $product->setUpSellLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['upsell']));
         }
+
         if (isset($links['crosssell']) && !$product->getCrosssellReadonly()) {
             $product->setCrossSellLinkData(Mage::helper('adminhtml/js')
                 ->decodeGridSerializedInput($links['crosssell']));
         }
+
         if (isset($links['grouped']) && !$product->getGroupedReadonly()) {
             $product->setGroupedLinkData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['grouped']));
         }
@@ -634,6 +644,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             if (empty($categoryIds)) {
                 $categoryIds = [];
             }
+
             $product->setCategoryIds($categoryIds);
         }
 
@@ -645,6 +656,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         ) {
             $product->setConfigurableProductsData(Mage::helper('core')->jsonDecode($data));
         }
+
         if (($data = $this->getRequest()->getPost('configurable_attributes_data'))
             && !$product->getConfigurableReadonly()
         ) {
@@ -686,15 +698,19 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         if (is_null($stockData)) {
             return;
         }
+
         if (!isset($stockData['use_config_manage_stock'])) {
             $stockData['use_config_manage_stock'] = 0;
         }
+
         if (isset($stockData['qty']) && (float) $stockData['qty'] > self::MAX_QTY_VALUE) {
             $stockData['qty'] = self::MAX_QTY_VALUE;
         }
+
         if (isset($stockData['min_qty']) && (int) $stockData['min_qty'] < 0) {
             $stockData['min_qty'] = 0;
         }
+
         if (!isset($stockData['is_decimal_divided']) || $stockData['is_qty_decimal'] == 0) {
             $stockData['is_decimal_divided'] = 0;
         }
@@ -795,6 +811,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
             $productInStore->setStoreId($storeTo)->save();
         }
+
         return $this;
     }
 
@@ -825,6 +842,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         foreach ($data as $key => $value) {
             parse_str(base64_decode($value), $data[$key]);
         }
+
         return $data;
     }
 
@@ -843,6 +861,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addError($e->getMessage());
             }
         }
+
         $this->getResponse()
             ->setRedirect($this->getUrl('*/*/', ['store' => $this->getRequest()->getParam('store')]));
     }
@@ -924,6 +943,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $product->delete();
                 }
+
                 $this->_getSession()->addSuccess(
                     $this->__('Total of %d record(s) have been deleted.', count($productIds)),
                 );
@@ -931,6 +951,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 $this->_getSession()->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 

@@ -26,14 +26,23 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
      *
      */
     protected $_canAuthorize            = true;
+
     protected $_canCapture              = true;
+
     protected $_canCapturePartial       = true;
+
     protected $_canRefund               = true;
+
     protected $_canRefundInvoicePartial = true;
+
     protected $_canVoid                 = true;
+
     protected $_canUseCheckout          = false;
+
     protected $_canUseInternal          = false;
+
     protected $_canFetchTransactionInfo = true;
+
     protected $_canReviewPayment        = true;
 
     /**
@@ -56,6 +65,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         } else {
             $this->_pro = Mage::getModel('paypal/pro');
         }
+
         $this->_pro->setMethod($this->_code);
     }
 
@@ -72,6 +82,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         if ($store === null) {
             $store = Mage::app()->getStore()->getId();
         }
+
         $this->_pro->getConfig()->setStoreId(is_object($store) ? $store->getId() : $store);
         return $this;
     }
@@ -150,6 +161,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
                 throw $e;
             }
         }
+
         return $this;
     }
 
@@ -188,6 +200,7 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
         if ($this->_pro->capture($payment, $amount) === false) {
             $this->_placeOrder($payment, $amount);
         }
+
         return $this;
     }
 

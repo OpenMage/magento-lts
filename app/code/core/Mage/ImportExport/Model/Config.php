@@ -30,11 +30,13 @@ class Mage_ImportExport_Model_Config
             if (empty($entityParams['model_token'])) {
                 Mage::throwException(Mage::helper('importexport')->__('Node does not has model token tag'));
             }
+
             $entities[$entityType] = [
                 'model' => $entityParams['model_token'],
                 'label' => empty($entityParams['label']) ? $entityType : $entityParams['label'],
             ];
         }
+
         return $entities;
     }
 
@@ -53,9 +55,11 @@ class Mage_ImportExport_Model_Config
         if ($withEmpty) {
             $options[] = ['label' => Mage::helper('importexport')->__('-- Please Select --'), 'value' => ''];
         }
+
         foreach (self::getModels($configKey) as $type => $params) {
             $options[] = ['value' => $type, 'label' => $params['label']];
         }
+
         return $options;
     }
 
@@ -73,9 +77,11 @@ class Mage_ImportExport_Model_Config
         if ($withEmpty) {
             $options[0] = Mage::helper('importexport')->__('-- Please Select --');
         }
+
         foreach (self::getModels($configKey) as $type => $params) {
             $options[$type] = $params['label'];
         }
+
         return $options;
     }
 }

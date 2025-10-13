@@ -45,8 +45,10 @@ class Mage_Catalog_Model_Resource_Product_Relation extends Mage_Core_Model_Resou
                     'child_id'  => $childId,
                 ];
             }
+
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $insertData);
         }
+
         if (!empty($delete)) {
             $where = implode(' AND ', [
                 $this->_getWriteAdapter()->quoteInto('parent_id = ?', $parentId),

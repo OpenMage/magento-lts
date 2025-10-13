@@ -42,6 +42,7 @@ class Mage_Catalog_Model_Product_Option_Observer
                 }
             }
         }
+
         return $this;
     }
 }

@@ -190,6 +190,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
         if (!$this->_valueInstance) {
             $this->_valueInstance = Mage::getSingleton('catalog/product_option_value');
         }
+
         return $this->_valueInstance;
     }
 
@@ -270,6 +271,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
         if (is_null($type)) {
             $type = $this->getType();
         }
+
         $optionGroupsToTypes = [
             self::OPTION_TYPE_FIELD => self::OPTION_GROUP_TEXT,
             self::OPTION_TYPE_AREA => self::OPTION_GROUP_TEXT,
@@ -300,6 +302,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             $model = Mage::getModel('catalog/product_option_type_' . $group);
             return $model;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong option type to get group instance.'));
     }
 
@@ -320,6 +323,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             } else {
                 $this->setId($this->getData('option_id'));
             }
+
             $isEdit = (bool) $this->getId() ? true : false;
 
             if ($this->getData('is_delete') == '1') {
@@ -345,6 +349,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                                 if ($isEdit) {
                                     $this->getValueInstance()->deleteValue($this->getId());
                                 }
+
                                 break;
                             case self::OPTION_GROUP_FILE:
                                 $this->setData('file_extension', '');
@@ -357,6 +362,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                             case self::OPTION_GROUP_DATE:
                                 break;
                         }
+
                         if ($this->getGroupByType($this->getData('type')) == self::OPTION_GROUP_SELECT) {
                             $this->setData('sku', '');
                             $this->unsetData('price');
@@ -367,10 +373,12 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                         }
                     }
                 }
+
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->save();
             }
-        }//eof foreach()
+        }
+        //eof foreach()
         return $this;
     }
 
@@ -409,6 +417,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             $basePrice = $this->getProduct()->getFinalPrice();
             return $basePrice * ($this->_getData('price') / 100);
         }
+
         return $this->_getData('price');
     }
 
@@ -498,6 +507,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
             foreach ($values as $value) {
                 $newValuesArray[] = $value->prepareValueForDuplicate();
             }
+
             $newOption['values'] = $newValuesArray;
         }
 
@@ -554,6 +564,7 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
                 $value->unsetOption();
             }
         }
+
         return $this;
     }
 

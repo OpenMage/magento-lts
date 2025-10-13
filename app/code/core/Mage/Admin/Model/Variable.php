@@ -41,6 +41,7 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
         if (!Zend_Validate::is($this->getVariableName(), 'NotEmpty')) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is required field.');
         }
+
         if (!Zend_Validate::is($this->getVariableName(), 'Regex', ['/^[-_a-zA-Z0-9\/]*$/'])) {
             $errors[] = Mage::helper('adminhtml')->__('Variable Name is incorrect.');
         }
@@ -52,6 +53,7 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
         if (empty($errors)) {
             return true;
         }
+
         return $errors;
     }
 

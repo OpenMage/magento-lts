@@ -34,6 +34,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
             $this->_url = $this->getUrl('wishlist');
             return parent::_toHtml();
         }
+
         return '';
     }
 
@@ -107,6 +108,7 @@ class Mage_Wishlist_Block_Links extends Mage_Page_Block_Template_Links_Block
         foreach ($wishlist->getItemCollection() as $item) {
             $this->addModelTags($item);
         }
+
         return parent::getCacheTags();
     }
 }

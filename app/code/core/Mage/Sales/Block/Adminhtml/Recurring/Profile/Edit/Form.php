@@ -85,6 +85,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         if ($this->_product && $this->_product->getRecurringProfile()) {
             $form->setValues($this->_product->getRecurringProfile());
         }
+
         return $form->toHtml();
     }
 
@@ -191,6 +192,7 @@ class Mage_Sales_Block_Adminhtml_Recurring_Profile_Edit_Form extends Mage_Adminh
         if (in_array($elementName, ['period_unit', 'period_frequency'])) {
             $options['required'] = true;
         }
+
         return $formOrFieldset->addField($elementName, $type, $options);
     }
 

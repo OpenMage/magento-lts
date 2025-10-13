@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         if (!is_null(Mage::registry('current_group')->getId())) {
             return Mage::helper('customer')->__('Edit Customer Group "%s"', $this->escapeHtml(Mage::registry('current_group')->getCustomerGroupCode()));
         }
+
         return Mage::helper('customer')->__('New Customer Group');
     }
 

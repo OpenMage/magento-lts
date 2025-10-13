@@ -49,6 +49,7 @@ class Mage_Api_Model_Wsdl_Config extends Mage_Api_Model_Wsdl_Config_Base
                 self::$_namespacesPrefix[$namespace->asArray()] = $prefix;
             }
         }
+
         return self::$_namespacesPrefix;
     }
 

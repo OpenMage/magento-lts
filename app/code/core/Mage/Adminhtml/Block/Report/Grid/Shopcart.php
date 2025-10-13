@@ -49,6 +49,7 @@ class Mage_Adminhtml_Block_Report_Grid_Shopcart extends Mage_Adminhtml_Block_Wid
                 ? Mage::app()->getStore(current($this->_storeIds))->getBaseCurrencyCode()
                 : Mage::app()->getStore()->getBaseCurrencyCode();
         }
+
         return $this->_currentCurrencyCode;
     }
 

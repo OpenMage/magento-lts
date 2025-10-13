@@ -34,9 +34,11 @@ class Mage_Catalog_Block_Product_View_Additional extends Mage_Core_Block_Templat
                 if (!$block) {
                     Mage::exception(Mage::helper('catalog')->__('Invalid block: %s.', $name));
                 }
+
                 $this->_list[] = $block->toHtml();
             }
         }
+
         return $this->_list;
     }
 }

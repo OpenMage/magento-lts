@@ -42,6 +42,7 @@ class Unserialize_Reader_Null
         if ($this->_status == self::READING_VALUE && $char == Unserialize_Parser::SYMBOL_SEMICOLON) {
             return $this->_value;
         }
+
         return null;
     }
 }

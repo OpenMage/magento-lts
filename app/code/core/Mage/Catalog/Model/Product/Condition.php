@@ -32,6 +32,7 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
                 ['affected_product_id' => $this->getPkFieldName()],
             );
         }
+
         return $this;
     }
 
@@ -45,6 +46,7 @@ class Mage_Catalog_Model_Product_Condition extends Varien_Object implements Mage
             return $dbAdapter->select()
                 ->from($this->getTable(), $this->getPkFieldName());
         }
+
         return '';
     }
 }

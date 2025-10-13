@@ -48,6 +48,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 $this->_wishlist->loadByCustomer($this->_getCustomer());
             }
         }
+
         return $this->_wishlist;
     }
 
@@ -142,6 +143,7 @@ class Mage_Rss_Block_Wishlist extends Mage_Wishlist_Block_Abstract
                 if ($product->getAllowedPriceInRss()) {
                     $description .= $this->getPriceHtml($product, true);
                 }
+
                 $description .= '</p>';
                 if ($this->hasDescription($product)) {
                     $description .= '<p>' . Mage::helper('wishlist')->__('Comment:')

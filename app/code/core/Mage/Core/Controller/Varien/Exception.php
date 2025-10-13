@@ -15,11 +15,15 @@
 class Mage_Core_Controller_Varien_Exception extends Exception
 {
     public const RESULT_FORWARD  = '_forward';
+
     public const RESULT_REDIRECT = '_redirect';
 
     protected $_resultCallback       = null;
+
     protected $_resultCallbackParams = [];
+
     protected $_defaultActionName    = 'noroute';
+
     protected $_flags                = [];
 
     /**
@@ -36,6 +40,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
         if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
+
         $this->_resultCallbackParams = [$actionName, $controllerName, $moduleName, $params];
         return $this;
     }
@@ -65,6 +70,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
         if ($actionName === null) {
             $actionName = $this->_defaultActionName;
         }
+
         $this->_resultCallback = $actionName;
         return $this;
     }
@@ -103,6 +109,7 @@ class Mage_Core_Controller_Varien_Exception extends Exception
         if ($this->_resultCallback === null) {
             $this->prepareFork();
         }
+
         return [$this->_resultCallback, $this->_resultCallbackParams];
     }
 }

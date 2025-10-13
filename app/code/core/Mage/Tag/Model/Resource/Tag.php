@@ -307,6 +307,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                     $finalSummary[$key][$k] = 0;
                 }
             }
+
             $finalSummary[$key]['popularity'] = $finalSummary[$key]['historical_uses'];
         }
 
@@ -373,6 +374,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
         if ($row) {
             $object->addData($row);
         }
+
         return $object;
     }
 
@@ -395,6 +397,7 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
                 'base_popularity',
             );
         }
+
         return $select;
     }
 

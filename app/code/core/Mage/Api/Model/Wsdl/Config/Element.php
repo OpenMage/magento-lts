@@ -65,12 +65,14 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                 if (self::_getChildren($elm)) {
                     return $this;
                 }
+
                 if ($overwrite) {
                     unset($elm);
                 } else {
                     return $this;
                 }
             }
+
             $targetChild = $this->addChild($sourceName, $source->xmlentities(), $elmNamespace);
             $targetChild->setParent($this);
             foreach ($this->getAttributes($source) as $namespace => $attributes) {
@@ -85,6 +87,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                     $targetChild->addAttribute($key, $this->xmlentities($value), $namespace);
                 }
             }
+
             return $this;
         }
 
@@ -92,6 +95,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         if (!is_null($elm)) {
             $targetChild = $elm;
         }
+
         if (is_null($targetChild)) {
             // if child target is not found create new and descend
             $targetChild = $this->addChild($sourceName, null, $elmNamespace);
@@ -104,6 +108,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                     } elseif (array_key_exists($namespace, $_namespacesPrefix)) {
                         $key = $_namespacesPrefix[$namespace] . ':' . $key;
                     }
+
                     $targetChild->addAttribute($key, $this->xmlentities($value), $namespace);
                 }
             }
@@ -139,14 +144,17 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
             $attributes[$namespace] = $source->attributes($namespace);
             return $attributes;
         }
+
         $namespaces = $source->getNamespaces(true);
         $attributes[''] = $source->attributes('');
         foreach ($namespaces as $key => $value) {
             if ($key == '' || $key == 'soap') {
                 continue;
             }
+
             $attributes[$value] = $source->attributes($value);
         }
+
         return $attributes;
     }
 
@@ -179,8 +187,10 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
             if ($key == '' || (!$isWsi && $key == 'wsdl')) {
                 continue;
             }
+
             $children[$value] = $source->children($value);
         }
+
         $children[''] = $source->children('');
         return $children;
     }
@@ -203,6 +213,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                 return true;
             }
         }
+
         return false;
     }
 
@@ -227,6 +238,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                         }
                     }
                 }
+
                 /**
                  * if count of namespaces attributes of element to extend is 0,
                  * but current element has namespaces attributes - different elements
@@ -234,11 +246,13 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
                 if (!count($extendElmAttributes) && count($this->getAttributes($child))) {
                     $elm = false;
                 }
+
                 if ($elm) {
                     return $child;
                 }
             }
         }
+
         return null;
     }
 

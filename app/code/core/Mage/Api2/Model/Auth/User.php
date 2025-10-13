@@ -37,6 +37,7 @@ class Mage_Api2_Model_Auth_User
                 $userTypes[$userModel->getType()] = $userModel->getLabel();
             }
         }
+
         return $userTypes;
     }
 }

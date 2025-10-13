@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         if ($productId = $this->getRequest()->getParam('product_id')) {
             $collection->addProductFilter($productId);
         }
+
         if ($tagId = $this->getRequest()->getParam('tag_id')) {
             $collection->addTagFilter($tagId);
         }
@@ -96,6 +97,7 @@ class Mage_Adminhtml_Block_Tag_Grid_Customers extends Mage_Adminhtml_Block_Widge
         if ($this->getCollection() && $column->getFilter()->getValue()) {
             $this->getCollection()->addAttributeToFilter($column->getIndex(), $column->getFilter()->getCondition());
         }
+
         return $this;
     }
 }

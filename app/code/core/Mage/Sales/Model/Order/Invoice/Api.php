@@ -54,9 +54,11 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         foreach ($invoiceCollection as $invoice) {
             $invoices[] = $this->_getAttributes($invoice, 'invoice');
         }
+
         return $invoices;
     }
 

@@ -17,6 +17,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
 {
     // List of exceptions throwable during prepareAndRender() method
     public $ERR_NO_PRODUCT_LOADED = 1;
+
     public $ERR_BAD_CONTROLLER_INTERFACE = 2;
 
     protected $_moduleName = 'Mage_Catalog';
@@ -73,6 +74,7 @@ class Mage_Catalog_Helper_Product_View extends Mage_Core_Helper_Abstract
             if ($controllerClass !== 'catalog-product-view') {
                 $root->addBodyClass('catalog-product-view');
             }
+
             $root->addBodyClass('product-' . $product->getUrlKey());
             if ($currentCategory instanceof Mage_Catalog_Model_Category) {
                 $root->addBodyClass('categorypath-' . $currentCategory->getUrlPath())

@@ -44,6 +44,7 @@ foreach ($attributes as $attributeCode => $data) {
     if (!$attribute) {
         continue;
     }
+
     if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
         $usedInForms = $defaultUsedInForms;
         if (!empty($data['adminhtml_only'])) {
@@ -51,11 +52,14 @@ foreach ($attributes as $attributeCode => $data) {
         } else {
             $usedInForms[] = 'adminhtml_customer';
         }
+
         if (!empty($data['admin_checkout'])) {
             $usedInForms[] = 'adminhtml_checkout';
         }
+
         $attribute->setData('used_in_forms', $usedInForms);
     }
+
     $attribute->save();
 }
 
@@ -76,8 +80,10 @@ foreach ($attributes as $attributeCode) {
     if (!$attribute) {
         continue;
     }
+
     if (($attribute->getData('is_system') == 1 && $attribute->getData('is_visible') == 0) === false) {
         $attribute->setData('used_in_forms', $defaultUsedInForms);
     }
+
     $attribute->save();
 }

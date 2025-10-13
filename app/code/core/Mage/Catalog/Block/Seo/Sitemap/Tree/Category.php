@@ -17,12 +17,19 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
     public const XML_PATH_LINES_PER_PAGE = 'catalog/sitemap/lines_perpage';
 
     protected $_storeRootCategoryPath = '';
+
     protected $_storeRootCategoryLevel = 0;
+
     protected $_total = 0;
+
     protected $_from = 0;
+
     protected $_to = 0;
+
     protected $_currentPage = 0;
+
     protected $_categoriesToPages = [];
+
     /**
      * Initialize categories collection
      *
@@ -60,6 +67,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
                 $this->_currentPage = $pager->getCurrentPage();
                 $this->_prepareCollection();
             }
+
             $pager->setFirstNum($this->_from);
             $pager->setLastNum($this->_to);
             $pager->setCollection($this->getCollection());
@@ -95,12 +103,14 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
                 $count = 0;
                 continue;
             }
+
             $categories[$page][$item->getId()] = [
                 'path' => $item->getPath(),
                 'children_count' => $this->_total,
             ];
             $count += $children;
         }
+
         $this->_categoriesToPages = $categories;
         return $this;
     }
@@ -134,9 +144,11 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
                 $_to = max($_to, $_categoryInfo['children_count']);
             }
         }
+
         if (empty($pathFilter)) {
             $pathFilter = $this->_storeRootCategoryPath . '/';
         }
+
         $collection = $this->getCollection();
         $collection->addPathsFilter($pathFilter);
         $this->_to = $_to;

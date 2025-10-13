@@ -28,6 +28,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Frontend_Image extends Mage_
         if ($image) {
             $url = Mage::getBaseUrl('media') . self::IMAGE_PATH_SEGMENT . $image;
         }
+
         return $url;
     }
 }

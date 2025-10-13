@@ -62,6 +62,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             $this->_forward('grid');
             return;
         }
+
         $this->loadLayout();
 
         /**
@@ -177,6 +178,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/customer');
     }
 
@@ -225,6 +227,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 foreach ($errors as $error) {
                     $this->_getSession()->addError($error);
                 }
+
                 $this->_getSession()->setCustomerData($data);
                 $this->getResponse()->setRedirect($this->getUrl('*/customer/edit', ['id' => $customer->getId()]));
                 return;
@@ -266,6 +269,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                         foreach ($errors as $error) {
                             $this->_getSession()->addError($error);
                         }
+
                         $this->_getSession()->setCustomerData($data);
                         $this->getResponse()->setRedirect($this->getUrl(
                             '*/customer/edit',
@@ -292,9 +296,11 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             if (isset($data['account']['default_billing'])) {
                 $customer->setData('default_billing', $data['account']['default_billing']);
             }
+
             if (isset($data['account']['default_shipping'])) {
                 $customer->setData('default_shipping', $data['account']['default_shipping']);
             }
+
             if (isset($data['account']['confirmation'])) {
                 $customer->setData('confirmation', $data['account']['confirmation']);
             }
@@ -359,6 +365,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                             Mage::throwException(Mage::helper('customer')
                                 ->__('The minimum password length is %s', $minPasswordLength));
                         }
+
                         $customer->changePassword($newPassword);
                         $customer->sendPasswordReminderEmail();
                     }
@@ -396,6 +403,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/customer'));
     }
 
@@ -621,6 +629,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
             foreach ($errors as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $response->setError(1);
         }
 
@@ -648,6 +657,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 if ($index === '_template_') {
                     continue;
                 }
+
                 $address = $customer->getAddressItemById($index);
                 if (!$address) {
                     $address   = Mage::getModel('customer/address');
@@ -662,6 +672,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     foreach ($errors as $error) {
                         $this->_getSession()->addError($error);
                     }
+
                     $response->setError(1);
                 }
             }
@@ -689,6 +700,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer->save();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were updated.', count($customersIds)),
                 );
@@ -696,6 +708,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/index');
     }
 
@@ -713,6 +726,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer->save();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were updated.', count($customersIds)),
                 );
@@ -739,6 +753,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         ->delete();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were deleted.', count($customersIds)),
                 );
@@ -764,6 +779,7 @@ class Mage_Adminhtml_CustomerController extends Mage_Adminhtml_Controller_Action
                     // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                     $customer->save();
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('adminhtml')->__('Total of %d record(s) were updated.', count($customersIds)),
                 );

@@ -49,6 +49,7 @@ class Varien_Db_Statement_Pdo_Mysql extends Zend_Db_Statement_Pdo
                     $length = $param->getLength();
                     $driverOptions = $param->getDriverOptions();
                 }
+
                 $bindValues[$name] = $param->getValue();
             } else {
                 $bindValues[$name] = $param;

@@ -40,6 +40,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Category extends Mage_Core_Mode
                     ->save();
             }
         }
+
         return $this;
     }
 }

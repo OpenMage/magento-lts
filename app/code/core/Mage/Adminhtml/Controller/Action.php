@@ -176,6 +176,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                 $keyErrorMsg = Mage::helper('adminhtml')->__('Invalid Secret Key. Please refresh the page.');
             }
         }
+
         if (!$isValidFormKey || !$isValidSecretKey) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             $this->setFlag('', self::FLAG_NO_POST_DISPATCH, true);
@@ -188,8 +189,10 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                 if (!$isValidFormKey) {
                     Mage::getSingleton('adminhtml/session')->addError($keyErrorMsg);
                 }
+
                 $this->_redirect(Mage::getSingleton('admin/session')->getUser()->getStartupPageUrl());
             }
+
             return $this;
         }
 
@@ -210,6 +213,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             //$this->_checkUrlSettings();
             $this->setFlag('', self::FLAG_IS_URLS_CHECKED, true);
         }
+
         if (is_null(Mage::getSingleton('adminhtml/session')->getLocale())) {
             Mage::getSingleton('adminhtml/session')->setLocale(Mage::app()->getLocale()->getLocaleCode());
         }
@@ -255,6 +259,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                 $code = Mage::app()->getStore($data->getScopeId())->getCode();
                 $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'store' => $code]);
             }
+
             if ($data->getScope() == 'websites') {
                 $code = Mage::app()->getWebsite($data->getScopeId())->getCode();
                 $url = $this->getUrl('adminhtml/system_config/edit', ['section' => 'web', 'website' => $code]);
@@ -267,6 +272,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                 return $this;
             }
         }
+
         return $this;
     }
 
@@ -277,6 +283,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
             $this->_redirect('*/index/login');
             return;
         }
+
         $this->loadLayout(['default', 'adminhtml_denied']);
         $this->renderLayout();
     }
@@ -396,6 +403,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -454,6 +462,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
         if (preg_match($pattern, $param)) {
             return true;
         }
+
         return false;
     }
 
@@ -472,6 +481,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
                 return false;
             }
         }
+
         return true;
     }
 }

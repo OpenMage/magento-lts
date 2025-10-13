@@ -28,6 +28,7 @@
 class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
 {
     public const STATUS_OUT_OF_STOCK       = 0;
+
     public const STATUS_IN_STOCK           = 1;
 
     /**
@@ -71,6 +72,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
                     ->factory($productEmulator);
             }
         }
+
         return $this->_productTypes;
     }
 
@@ -284,6 +286,7 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
             foreach ($requiredChildrenIds as $groupedChildrenIds) {
                 $childrenIds = array_merge($childrenIds, $groupedChildrenIds);
             }
+
             $childrenWebsites = Mage::getSingleton('catalog/product_website')
                 ->getWebsites($childrenIds);
             foreach ($websites as $websiteId => $storeId) {
@@ -305,8 +308,10 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
                             $optionStatus = true;
                         }
                     }
+
                     $websiteStatus = $websiteStatus && $optionStatus;
                 }
+
                 $statuses[$websiteId] = (int) $websiteStatus;
             }
         }
@@ -439,12 +444,14 @@ class Mage_CatalogInventory_Model_Stock_Status extends Mage_Core_Model_Abstract
         if ($stockId === null) {
             $stockId = Mage_CatalogInventory_Model_Stock::DEFAULT_STOCK_ID;
         }
+
         if ($websiteId === null) {
             $websiteId = Mage::app()->getStore()->getWebsiteId();
             if ((int) $websiteId == 0 && $productCollection->getStoreId()) {
                 $websiteId = Mage::app()->getStore($productCollection->getStoreId())->getWebsiteId();
             }
         }
+
         $productIds = [];
         /** @var Mage_Catalog_Model_Product $product */
         foreach ($productCollection as $product) {

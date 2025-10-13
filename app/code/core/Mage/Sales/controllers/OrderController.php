@@ -28,6 +28,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
         if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
@@ -44,6 +45,7 @@ class Mage_Sales_OrderController extends Mage_Sales_Controller_Abstract
         if ($block = $this->getLayout()->getBlock('customer.account.link.back')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
+
         $this->renderLayout();
     }
 

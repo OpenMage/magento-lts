@@ -91,6 +91,7 @@ class Mage_SalesRule_Model_Resource_Coupon extends Mage_Core_Model_Resource_Db_A
         if ($read->fetchOne($select, ['code' => $code]) === false) {
             return false;
         }
+
         return true;
     }
 

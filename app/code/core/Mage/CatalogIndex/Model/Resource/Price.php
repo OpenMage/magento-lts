@@ -50,6 +50,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         if (!$this->_rate) {
             $this->_rate = 1;
         }
+
         return $this->_rate;
     }
 
@@ -247,6 +248,7 @@ class Mage_CatalogIndex_Model_Resource_Price extends Mage_CatalogIndex_Model_Res
         if (!$ids) {
             return [];
         }
+
         $select = $this->_getReadAdapter()->select();
         $select->from(
             ['price_table' => $this->getTable('catalogindex/minimal_price')],

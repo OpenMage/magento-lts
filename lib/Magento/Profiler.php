@@ -21,9 +21,13 @@ class Magento_Profiler
      * FETCH_* constants represent keys to retrieve profiling results
      */
     public const FETCH_TIME    = 'sum';
+
     public const FETCH_COUNT   = 'count';
+
     public const FETCH_AVG     = 'avg';
+
     public const FETCH_REALMEM = 'realmem';
+
     public const FETCH_EMALLOC = 'emalloc';
 
     /**
@@ -86,6 +90,7 @@ class Magento_Profiler
         if ($timerName) {
             $currentPath[] = $timerName;
         }
+
         return implode(self::NESTING_SEPARATOR, $currentPath);
     }
 
@@ -99,6 +104,7 @@ class Magento_Profiler
             register_shutdown_function([self::class, 'display']);
             self::$_isInitialized = true;
         }
+
         self::$_enabled = true;
     }
 
@@ -123,6 +129,7 @@ class Magento_Profiler
             self::$_currentPath = [];
             return;
         }
+
         $timerId = self::_getTimerId($timerName);
         self::$_timers[$timerId] = [
             'start'             => false,
@@ -188,6 +195,7 @@ class Magento_Profiler
             } else {
                 $exceptionMsg = sprintf('Timer "%s" has not been started.', $timerName);
             }
+
             throw new Varien_Exception($exceptionMsg);
         }
 
@@ -217,21 +225,26 @@ class Magento_Profiler
         if (empty(self::$_timers[$timerId])) {
             throw new Varien_Exception(sprintf('Timer "%s" does not exist.', $timerId));
         }
+
         if (!in_array($key, self::$_supportedFetchKeys)) {
             throw new Varien_Exception(sprintf('Requested key "%s" is not supported.', $key));
         }
+
         /* FETCH_AVG = FETCH_TIME / FETCH_COUNT */
         $isAvg = ($key == self::FETCH_AVG);
         if ($isAvg) {
             $key = self::FETCH_TIME;
         }
+
         $result = self::$_timers[$timerId][$key];
         if ($key == self::FETCH_TIME && self::$_timers[$timerId]['start'] !== false) {
             $result += (microtime(true) - self::$_timers[$timerId]['start']);
         }
+
         if ($isAvg) {
             $result /= self::$_timers[$timerId][self::FETCH_COUNT];
         }
+
         return $result;
     }
 
@@ -262,6 +275,7 @@ class Magento_Profiler
         if (!self::$_enabled) {
             return;
         }
+
         /** @var Magento_Profiler_OutputAbstract $output */
         foreach (self::$_outputs as $output) {
             $output->display();

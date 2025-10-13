@@ -126,6 +126,7 @@ class Mage_Reports_Model_Test extends Varien_Object
             $resetItem -> nodeValue = $reset;
             $root->appendChild($resetItem);
         }
+
         foreach ($array as $item) {
             $row = $dom->createElement('row');
             foreach ($item as $key => $val) {

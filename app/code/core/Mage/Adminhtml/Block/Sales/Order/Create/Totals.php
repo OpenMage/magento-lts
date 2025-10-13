@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Block_Sales_Order_Create_Abstract
 {
     protected $_totalRenderers;
+
     protected $_defaultRenderer = 'adminhtml/sales_order_create_totals_default';
 
     public function __construct()
@@ -57,6 +58,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
 
             $block = $this->getLayout()->createBlock($block, $blockName);
         }
+
         /**
          * Transfer totals to renderer
          */
@@ -80,8 +82,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals extends Mage_Adminhtml_Bloc
             if ($total->getArea() != $area && $area != -1) {
                 continue;
             }
+
             $html .= $this->renderTotal($total, $area, $colspan);
         }
+
         return $html;
     }
 

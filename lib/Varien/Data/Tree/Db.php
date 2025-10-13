@@ -18,8 +18,11 @@
 class Varien_Data_Tree_Db extends Varien_Data_Tree
 {
     public const ID_FIELD      = 'id';
+
     public const PARENT_FIELD  = 'parent';
+
     public const LEVEL_FIELD   = 'level';
+
     public const ORDER_FIELD   = 'order';
 
     /**
@@ -49,8 +52,11 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
      * @var string
      */
     protected $_idField;
+
     protected $_parentField;
+
     protected $_levelField;
+
     protected $_orderField;
 
     /**
@@ -145,6 +151,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
                 $node->loadChildren($recursionLevel - 1);
             }
         }
+
         return $this;
     }
 
@@ -205,6 +212,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
         } else {
             $data[$this->_orderField] = $prevNode->getData($this->_orderField) + 1;
         }
+
         $condition = $this->_conn->quoteInto("$this->_idField=?", $node->getId());
 
         // For reorder new node branch
@@ -260,6 +268,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
                 $this->_updateChildLevels($id, $parentLevel + 1);
             }
         }
+
         return $this;
     }
 
@@ -308,6 +317,7 @@ class Varien_Data_Tree_Db extends Varien_Data_Tree
             $this->_conn->rollBack();
             throw new Exception('Can\'t remove tree node', $exception->getCode(), $exception);
         }
+
         parent::removeNode($node);
         return $this;
     }

@@ -45,6 +45,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
         if (is_null($this->_resource)) {
             $this->_resource = Mage::getResourceModel('catalog/layer_filter_decimal');
         }
+
         return $this->_resource;
     }
 
@@ -124,6 +125,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $this->setData('max_value', $max);
             $this->setData('min_value', $min);
         }
+
         return $max;
     }
 
@@ -140,6 +142,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $this->setData('max_value', $max);
             $this->setData('min_value', $min);
         }
+
         return $min;
     }
 
@@ -159,6 +162,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                 $items = $this->getRangeItemCounts($range);
                 $index++;
             } while ($range > self::MIN_RANGE_POWER && count($items) < 2);
+
             $this->setData('range', $range);
         }
 
@@ -179,6 +183,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
             $items = $this->_getResource()->getCount($this, $range);
             $this->setData($rangeKey, $items);
         }
+
         return $items;
     }
 
@@ -205,6 +210,7 @@ class Mage_Catalog_Model_Layer_Filter_Decimal extends Mage_Catalog_Model_Layer_F
                 ];
             }
         }
+
         return $data;
     }
 }

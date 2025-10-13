@@ -48,9 +48,11 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                 } else {
                     $selectOperator = ' LIKE ?';
                 }
+
                 if (str_starts_with($operator, '!')) {
                     $selectOperator = ' NOT' . $selectOperator;
                 }
+
                 break;
 
             case '[]':
@@ -61,12 +63,14 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
                 if (str_starts_with($operator, '!')) {
                     $selectOperator = 'NOT ' . $selectOperator;
                 }
+
                 break;
 
             default:
                 $selectOperator = '=?';
                 break;
         }
+
         $field = $this->_adapter->quoteIdentifier($field);
 
         if (is_array($value) && in_array($operator, ['==', '!=', '>=', '<=', '>', '<', '{}', '!{}'])) {
@@ -74,6 +78,7 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$field}{$selectOperator}", $v);
             }
+
             $result = implode(' AND ', $results);
         } elseif (in_array($operator, ['()', '!()', '[]', '![]'])) {
             if (!is_array($value)) {
@@ -84,10 +89,12 @@ class Mage_Rule_Model_Resource_Rule_Condition_SqlBuilder
             foreach ($value as $v) {
                 $results[] = $this->_adapter->quoteInto("{$selectOperator}", $v);
             }
+
             $result = implode(in_array($operator, ['()', '!()']) ? ' OR ' : ' AND ', $results);
         } else {
             $result = $this->_adapter->quoteInto("{$field}{$selectOperator}", $value);
         }
+
         return $result;
     }
 }

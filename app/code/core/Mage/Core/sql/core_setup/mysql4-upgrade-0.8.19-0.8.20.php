@@ -30,6 +30,7 @@ foreach ($installer->getConnection()->fetchAll($select) as $row) {
     } else {
         $value = ['plain_value' => $row['value']];
     }
+
     $data[$row['variable_id']] = $value;
 }
 

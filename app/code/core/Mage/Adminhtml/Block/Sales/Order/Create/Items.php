@@ -86,6 +86,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Items extends Mage_Adminhtml_Block
         if ($this->getStoreId()) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

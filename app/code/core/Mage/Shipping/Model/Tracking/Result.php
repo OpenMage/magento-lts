@@ -13,6 +13,7 @@
 class Mage_Shipping_Model_Tracking_Result
 {
     protected $_trackings = [];
+
     protected $_error = null;
 
     /**
@@ -56,6 +57,7 @@ class Mage_Shipping_Model_Tracking_Result
                 $this->append($track);
             }
         }
+
         return $this;
     }
 

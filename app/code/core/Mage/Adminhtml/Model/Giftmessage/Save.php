@@ -107,6 +107,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             if ($entityType != 'quote') {
                 $entityModel->save();
             }
+
             $this->_saved = true;
         }
 
@@ -127,6 +128,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             $giftmessageModel = Mage::getModel('giftmessage/message')
                 ->load($entityModel->getGiftMessageId());
         }
+
         $giftmessageModel->delete();
         $entityModel->setGiftMessageId(0)
             ->save();
@@ -157,6 +159,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
         if (!in_array($item, $items)) {
             $items[] = $item;
         }
+
         $this->setAllowQuoteItems($items);
 
         return $this;
@@ -189,8 +192,10 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
             if (!$item) {
                 continue;
             }
+
             $result[] = $item->getProduct()->getId();
         }
+
         return $result;
     }
 
@@ -207,6 +212,7 @@ class Mage_Adminhtml_Model_Giftmessage_Save extends Varien_Object
                 $this->addAllowQuoteItem($item->getId());
                 return true;
             }
+
             return false;
         }
 

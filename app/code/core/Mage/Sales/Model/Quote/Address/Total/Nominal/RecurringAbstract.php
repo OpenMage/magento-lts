@@ -56,6 +56,7 @@ abstract class Mage_Sales_Model_Quote_Address_Total_Nominal_RecurringAbstract ex
                 }
             }
         }
+
         return $this;
     }
 

@@ -230,6 +230,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (!empty($parts['user']) && !empty($parts['pass'])) {
             $this->setCredentials($parts['user'], $parts['pass']);
         }
+
         if (!empty($parts['port'])) {
             $this->_port = (int) $parts['port'];
         }
@@ -245,9 +246,11 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         } else {
             throw new InvalidArgumentException("Uri doesn't contain path part");
         }
+
         if (!empty($parts['query'])) {
             $requestUri .= '?' . $parts['query'];
         }
+
         return $requestUri;
     }
 
@@ -289,6 +292,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
@@ -296,12 +300,15 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
+
             [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
+
             $out[$key] = $val;
         }
+
         return $out;
     }
 
@@ -315,6 +322,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (empty($this->_responseHeaders['Set-Cookie'])) {
             return [];
         }
+
         $out = [];
         foreach ($this->_responseHeaders['Set-Cookie'] as $row) {
             $values = explode('; ', $row);
@@ -322,21 +330,25 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if (!$c) {
                 continue;
             }
+
             [$key, $val] = array_pad(array_map('trim', explode('=', $values[0])), 2, null);
             if (is_null($val) || !strlen($key)) {
                 continue;
             }
+
             $out[$key] = ['value' => $val];
             array_shift($values);
             $c--;
             if (!$c) {
                 continue;
             }
+
             for ($i = 0; $i < $c; $i++) {
                 [$subkey, $val] = explode('=', $values[$i]);
                 $out[trim($key)][trim($subkey)] = trim($val);
             }
         }
+
         return $out;
     }
 
@@ -352,17 +364,20 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
             if ($line === $crlf) {
                 return;
             }
+
             $name = $value = '';
             $out = explode(': ', trim($line), 2);
             if (count($out) == 2) {
                 $name = $out[0];
                 $value = $out[1];
             }
+
             if (!empty($value)) {
                 if ($name == 'Set-Cookie') {
                     if (!isset($this->_responseHeaders[$name])) {
                         $this->_responseHeaders[$name] = [];
                     }
+
                     $this->_responseHeaders[$name][] = $value;
                 } else {
                     $this->_responseHeaders[$name] = $value;
@@ -397,6 +412,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         if (count($line) != 3) {
             return $this->doError('Invalid response line returned from server: ' . $responseLine);
         }
+
         $this->_responseStatus = (int) $line[1];
         $this->processResponseHeaders();
 
@@ -487,6 +503,7 @@ class Mage_HTTP_Client_Socket implements Mage_HTTP_IClient
         foreach ($headers as $k => $v) {
             $str [] = "$k: $v\r\n";
         }
+
         return implode('', $str);
     }
 

@@ -15,7 +15,9 @@
 class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model_Resource_Report_Abstract
 {
     public const AGGREGATION_DAILY   = 'reports/viewed_aggregated_daily';
+
     public const AGGREGATION_MONTHLY = 'reports/viewed_aggregated_monthly';
+
     public const AGGREGATION_YEARLY  = 'reports/viewed_aggregated_yearly';
 
     protected function _construct()
@@ -54,6 +56,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
         } else {
             $subSelect = null;
         }
+
         $this->_clearTableByDateRange($mainTable, $from, $to, $subSelect);
         // convert dates from UTC to current admin timezone
         $periodExpr = $adapter->getDatePartSql(
@@ -181,6 +184,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed extends Mage_Sales_Model
                 $havingPart[] = '(' . $subSelectHavingPart . ')';
             }
         }
+
         $select->having(implode(' AND ', $havingPart));
 
         $select->useStraightJoin();

@@ -52,6 +52,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
             $this->_tagInfo = Mage::getModel('tag/tag')
                 ->load($this->getTagId());
         }
+
         return $this->_tagInfo;
     }
 
@@ -142,6 +143,7 @@ class Mage_Tag_Block_Customer_View extends Mage_Catalog_Block_Product_Abstract
             Mage::getSingleton('catalog/product_visibility')
                 ->addVisibleInSiteFilterToCollection($this->_collection);
         }
+
         return $this->_collection;
     }
 }

@@ -78,6 +78,7 @@ foreach ($oldConfigValues as $oldValue) {
                 $newValue[] = $oldToNewMethodCodesMap[$shippingMethod];
             }
         }
+
         $newValue = implode(',', $newValue);
     } else {
         continue;

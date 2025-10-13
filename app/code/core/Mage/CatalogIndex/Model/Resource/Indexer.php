@@ -78,10 +78,12 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             } elseif (!is_numeric($products) && !is_array($products)) {
                 Mage::throwException('Invalid products supplied for indexing');
             }
+
             if (empty($suffix)) {
                 $suffix = $this->_getWriteAdapter()->quoteInto('entity_id in (?)', $products);
             }
         }
+
         if (!is_null($store)) {
             $websiteIds = [];
 
@@ -104,6 +106,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                         $resultStores[] = $s;
                     }
                 }
+
                 $store = $resultStores;
             }
 
@@ -119,10 +122,12 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
             $tables['tierPrice'] = 'catalogindex/price';
             $tierPrice = [Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'tier_price')];
         }
+
         if ($finalPrice) {
             $tables['finalPrice'] = 'catalogindex/price';
             $tierPrice = [Mage::getSingleton('eav/entity_attribute')->getIdByCode(Mage_Catalog_Model_Product::ENTITY, 'price')];
         }
+
         if ($minimal) {
             $tables['minimal'] = 'catalogindex/minimal_price';
         }
@@ -229,6 +234,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 }
             }
         }
+
         $this->_commitInsert('catalogindex/price');
         return $this;
     }
@@ -279,6 +285,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                         }
                     }
                 }
+
                 foreach (Mage::getSingleton('catalogindex/retreiver')->getCustomerGroups() as $group) {
                     $finalPrice = $retreiver->getFinalPrice($product, $store, $group);
                     $taxClassId = $retreiver->getTaxClassId($product, $store);
@@ -300,6 +307,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 }
             }
         }
+
         $this->_commitInsert('catalogindex/price');
         return $this;
     }
@@ -342,6 +350,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                         if (!isset($price['tax_class_id'])) {
                             $price['tax_class_id'] = 0;
                         }
+
                         $this->_insert('catalogindex/minimal_price', [
                             $store->getWebsiteId(),
                             $id,
@@ -458,6 +467,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $result = array_merge($result, $byType);
             }
         }
+
         return $result;
     }
 
@@ -478,6 +488,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $result = array_merge($result, $byType);
             }
         }
+
         return $result;
     }
 
@@ -499,6 +510,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $result = array_merge($result, $byType);
             }
         }
+
         return $result;
     }
 
@@ -532,9 +544,11 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
                 $query .= $separator . $rowString;
                 $separator = ', ';
             }
+
             $this->_getWriteAdapter()->query($query);
             $this->_insertData[$table] = [];
         }
+
         return $this;
     }
 
@@ -614,6 +628,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer extends Mage_Core_Model_Resource_
         if (is_null($tableName)) {
             $tableName = $this->getTable('catalog/product_flat') . '_' . $storeId;
         }
+
         $addChildData = Mage::helper('catalog/product_flat')->isAddChildData();
 
         $priceAttribute = Mage::getSingleton('eav/entity_attribute')

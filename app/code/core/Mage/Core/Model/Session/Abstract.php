@@ -23,18 +23,27 @@
 class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_Varien
 {
     public const XML_PATH_COOKIE_DOMAIN        = 'web/cookie/cookie_domain';
+
     public const XML_PATH_COOKIE_PATH          = 'web/cookie/cookie_path';
+
     public const XML_PATH_COOKIE_LIFETIME      = 'web/cookie/cookie_lifetime';
+
     public const XML_NODE_SESSION_SAVE         = 'global/session_save';
+
     public const XML_NODE_SESSION_SAVE_PATH    = 'global/session_save_path';
 
     public const XML_PATH_USE_REMOTE_ADDR      = 'web/session/use_remote_addr';
+
     public const XML_PATH_USE_HTTP_VIA         = 'web/session/use_http_via';
+
     public const XML_PATH_USE_X_FORWARDED      = 'web/session/use_http_x_forwarded_for';
+
     public const XML_PATH_USE_USER_AGENT       = 'web/session/use_http_user_agent';
+
     public const XML_PATH_USE_FRONTEND_SID     = 'web/session/use_frontend_sid';
 
     public const XML_NODE_USET_AGENT_SKIP      = 'global/session/validation/http_user_agent_skip';
+
     public const XML_PATH_LOG_EXCEPTION_FILE   = 'dev/log/exception_file';
 
     public const SESSION_ID_QUERY_PARAM        = 'SID';
@@ -115,6 +124,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateRemoteAddr();
         }
+
         return (bool) $use;
     }
 
@@ -129,6 +139,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpVia();
         }
+
         return (bool) $use;
     }
 
@@ -143,6 +154,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpXForwardedFor();
         }
+
         return (bool) $use;
     }
 
@@ -157,6 +169,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (is_null($use)) {
             return parent::useValidateHttpUserAgent();
         }
+
         return (bool) $use;
     }
 
@@ -183,6 +196,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         foreach ($skip->children() as $userAgent) {
             $userAgents[] = (string) $userAgent;
         }
+
         return $userAgents;
     }
 
@@ -204,6 +218,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             Mage::dispatchEvent('core_session_abstract_clear_messages');
             return $messages;
         }
+
         return $this->getData('messages');
     }
 
@@ -293,6 +308,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
                 $this->addMessage($message);
             }
         }
+
         return $this;
     }
 
@@ -307,6 +323,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (!is_array($messages)) {
             $messages = [$messages];
         }
+
         if (!$messages) {
             return $this;
         }
@@ -321,6 +338,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
             } else {
                 continue; // Some unknown object, do not put it in already existing messages
             }
+
             $messagesAlready[$text] = true;
         }
 
@@ -338,8 +356,10 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
                 if (isset($messagesAlready[$text])) {
                     continue;
                 }
+
                 $messagesAlready[$text] = true;
             }
+
             $this->addMessage($message);
         }
 
@@ -376,6 +396,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (!self::$_encryptedSessionId) {
             self::$_encryptedSessionId = $this->getSessionId();
         }
+
         return self::$_encryptedSessionId;
     }
 
@@ -388,6 +409,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if ($sessionName && $queryParam = (string) Mage::getConfig()->getNode($sessionName . '/session/query_param')) {
             return $queryParam;
         }
+
         return self::SESSION_ID_QUERY_PARAM;
     }
 
@@ -435,6 +457,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (!empty($urlHostArr[2])) {
             $urlHost = $urlHostArr[2];
         }
+
         $urlPath = empty($urlHostArr[3]) ? '' : $urlHostArr[3];
 
         if (!isset(self::$_urlHostCache[$urlHost])) {
@@ -524,6 +547,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (Mage::isInstalled() && $sessionSave = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE)) {
             return $sessionSave;
         }
+
         return parent::getSessionSaveMethod();
     }
 
@@ -537,6 +561,7 @@ class Mage_Core_Model_Session_Abstract extends Mage_Core_Model_Session_Abstract_
         if (Mage::isInstalled() && $sessionSavePath = Mage::getConfig()->getNode(self::XML_NODE_SESSION_SAVE_PATH)) {
             return $sessionSavePath;
         }
+
         return parent::getSessionSavePath();
     }
 

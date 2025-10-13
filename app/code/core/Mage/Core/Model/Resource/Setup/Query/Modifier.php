@@ -54,6 +54,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             if (!preg_match_all($pattern, $sql, $matches, PREG_SET_ORDER)) {
                 continue;
             }
+
             foreach ($matches as $match) {
                 $gotColumn = $this->_prepareIdentifier($match[1]);
                 if ($gotColumn != $column) {
@@ -69,6 +70,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
                 ];
                 break;
             }
+
             if ($result) {
                 break;
             }
@@ -170,18 +172,22 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             if ($columnName != $column) {
                 continue;
             }
+
             $definition = $refColumnDefinition['type'];
             if ($refColumnDefinition['unsigned']) {
                 $definition .= ' UNSIGNED';
             }
+
             if ($columnData['Null'] == 'YES') {
                 $definition .= ' NULL';
             } else {
                 $definition .= ' NOT NULL';
             }
+
             if ($columnData['Default']) {
                 $definition .= ' DEFAULT ' . $columnData['Default'];
             }
+
             if ($columnData['Extra']) {
                 $definition .= ' ' . $columnData['Extra'];
             }
@@ -189,6 +195,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             $query = 'ALTER TABLE ' . $table . ' MODIFY COLUMN ' . $column . ' ' . $definition;
             $this->_adapter->query($query);
         }
+
         return $this;
     }
 
@@ -227,6 +234,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
                 return true;
             }
         }
+
         return false;
     }
 
@@ -279,6 +287,7 @@ class Mage_Core_Model_Resource_Setup_Query_Modifier
             if (($operation != 'create') && !($this->_tableExists($table))) {
                 continue;
             }
+
             if (!$this->_tableExists($refTable)) {
                 continue;
             }

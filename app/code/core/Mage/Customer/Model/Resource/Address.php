@@ -33,6 +33,7 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
         if ($address->getIsCustomerSaveTransaction()) {
             return $this;
         }
+
         if ($address->getId() && ($address->getIsDefaultBilling() || $address->getIsDefaultShipping())) {
             $customer = Mage::getModel('customer/customer')
                 ->load($address->getCustomerId());
@@ -40,11 +41,14 @@ class Mage_Customer_Model_Resource_Address extends Mage_Eav_Model_Entity_Abstrac
             if ($address->getIsDefaultBilling()) {
                 $customer->setDefaultBilling($address->getId());
             }
+
             if ($address->getIsDefaultShipping()) {
                 $customer->setDefaultShipping($address->getId());
             }
+
             $customer->save();
         }
+
         return $this;
     }
 

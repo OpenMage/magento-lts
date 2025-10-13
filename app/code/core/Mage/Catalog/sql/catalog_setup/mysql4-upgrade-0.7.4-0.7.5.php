@@ -51,6 +51,7 @@ try {
     $this->run("ALTER TABLE `{$this->getTable('catalog/category')}` ADD `path` VARCHAR( 255 ) NOT NULL, ADD `position` INT NOT NULL;");
 } catch (Exception) {
 }
+
 try {
     $this->run("DROP TABLE IF EXISTS `{$this->getTable('catalog/category_tree')}`;");
 } catch (Exception) {

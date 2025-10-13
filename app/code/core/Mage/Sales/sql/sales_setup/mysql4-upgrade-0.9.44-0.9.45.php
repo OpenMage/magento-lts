@@ -53,5 +53,6 @@ try {
     foreach ($attributes as $attribute) {
         $installer->getConnection()->dropColumn($this->getTable('sales_order'), $attribute['attribute_code']);
     }
+
     throw $e;
 }

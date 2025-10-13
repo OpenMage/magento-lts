@@ -43,6 +43,7 @@ class Mage_Core_Block_Template_Zend extends Mage_Core_Block_Template
         } elseif (!is_null($value)) {
             $this->_view->assign($key, $value);
         }
+
         return $this;
     }
 

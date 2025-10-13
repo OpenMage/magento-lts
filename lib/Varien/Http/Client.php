@@ -33,6 +33,7 @@ class Varien_Http_Client extends Zend_Http_Client
         if (extension_loaded('curl')) {
             $this->setAdapter(new Varien_Http_Adapter_Curl());
         }
+
         return $this;
     }
 

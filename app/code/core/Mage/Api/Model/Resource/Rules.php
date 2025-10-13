@@ -46,6 +46,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
                             'api_permission'    => $permission,
                         ]);
                     }
+
                     if ($resName == 'all' && $permission == 'allow') {
                         $masterAdmin = true;
                     }

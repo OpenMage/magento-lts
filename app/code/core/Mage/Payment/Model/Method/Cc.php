@@ -13,7 +13,9 @@
 class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
 {
     protected $_formBlockType = 'payment/form_cc';
+
     protected $_infoBlockType = 'payment/info_cc';
+
     protected $_canSaveCc     = false;
 
     /**
@@ -27,6 +29,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if (!($data instanceof Varien_Object)) {
             $data = new Varien_Object($data);
         }
+
         $info = $this->getInfoInstance();
         $info->setCcType($data->getCcType())
             ->setCcOwner($data->getCcOwner())
@@ -53,6 +56,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if ($this->_canSaveCc) {
             $info->setCcNumberEnc($info->encrypt($info->getCcNumber()));
         }
+
         //$info->setCcCidEnc($info->encrypt($info->getCcCid()));
         $info->setCcNumber(null)
             ->setCcCid(null);
@@ -168,6 +172,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         if (is_null($configData)) {
             return true;
         }
+
         return (bool) $configData;
     }
 
@@ -203,6 +208,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -339,6 +345,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
             if (!$info->getQuote()->getReservedOrderId()) {
                 $info->getQuote()->reserveOrderId();
             }
+
             return $info->getQuote()->getReservedOrderId();
         }
     }
@@ -387,6 +394,7 @@ class Mage_Payment_Model_Method_Cc extends Mage_Payment_Model_Method_Abstract
         } elseif ($info instanceof Mage_Sales_Model_Order_Payment) {
             return true;
         }
+
         return false;
     }
 }

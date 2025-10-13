@@ -51,6 +51,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
             $variable->setStoreId($storeId)
                 ->load($variableId);
         }
+
         Mage::register('current_variable', $variable);
         return $variable;
     }
@@ -109,6 +110,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }
+
         $this->getResponse()->setBody($response->toJson());
     }
 
@@ -134,6 +136,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 } else {
                     $this->_redirect('*/*/', []);
                 }
+
                 return;
             } catch (Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
@@ -141,6 +144,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 return;
             }
         }
+
         $this->_redirect('*/*/', []);
     }
 
@@ -163,6 +167,7 @@ class Mage_Adminhtml_System_VariableController extends Mage_Adminhtml_Controller
                 return;
             }
         }
+
         $this->_redirect('*/*/', []);
     }
 

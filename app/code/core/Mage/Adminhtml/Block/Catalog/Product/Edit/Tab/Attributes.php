@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
         ) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
         }
+
         return $this;
     }
 
@@ -106,6 +107,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
                     }
                 }
             }
+
             $form->addValues($values);
             $form->setFieldNameSuffix('product');
 

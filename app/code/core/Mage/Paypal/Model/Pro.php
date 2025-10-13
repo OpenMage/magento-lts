@@ -21,6 +21,7 @@ class Mage_Paypal_Model_Pro
      * @var string
      */
     public const PAYMENT_REVIEW_ACCEPT = 'accept';
+
     public const PAYMENT_REVIEW_DENY = 'deny';
 
     /**
@@ -82,6 +83,7 @@ class Mage_Paypal_Model_Pro
                 $this->_config->setStoreId($storeId);
             }
         }
+
         return $this;
     }
 
@@ -97,6 +99,7 @@ class Mage_Paypal_Model_Pro
         if ($storeId !== null) {
             $this->_config->setStoreId($storeId);
         }
+
         return $this;
     }
 
@@ -121,6 +124,7 @@ class Mage_Paypal_Model_Pro
         if ($this->_api === null) {
             $this->_api = Mage::getModel($this->_apiType);
         }
+
         $this->_api->setConfigObject($this->_config);
         return $this->_api;
     }
@@ -147,6 +151,7 @@ class Mage_Paypal_Model_Pro
         if ($this->_infoInstance === null) {
             $this->_infoInstance = Mage::getModel('paypal/info');
         }
+
         return $this->_infoInstance;
     }
 
@@ -209,6 +214,7 @@ class Mage_Paypal_Model_Pro
         if (!$authTransactionId) {
             return false;
         }
+
         $api = $this->getApi()
             ->setAuthorizationId($authTransactionId)
             ->setIsCaptureComplete($payment->getShouldCloseParentTransaction())
@@ -322,14 +328,17 @@ class Mage_Paypal_Model_Pro
         if (strlen($profile->getSubscriberName()) > 32) { // up to 32 single-byte chars
             $errors[] = Mage::helper('paypal')->__('Subscriber name is too long.');
         }
+
         $refId = $profile->getInternalReferenceId(); // up to 127 single-byte alphanumeric
         if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $refId)
             $errors[] = Mage::helper('paypal')->__('Merchant reference ID format is not supported.');
         }
+
         $scheduleDescr = $profile->getScheduleDescription(); // up to 127 single-byte alphanumeric
         if (strlen($refId) > 127) { //  || !preg_match('/^[a-z\d\s]+$/i', $scheduleDescr)
             $errors[] = Mage::helper('paypal')->__('Schedule description is too long.');
         }
+
         if ($errors) {
             Mage::throwException(implode(' ', $errors));
         }
@@ -399,6 +408,7 @@ class Mage_Paypal_Model_Pro
                 $action = 'activate';
                 break;
         }
+
         $state = $profile->getState();
         $api->setRecurringProfileId($profile->getReferenceId())
             ->setIsAlreadyCanceled($state == Mage_Sales_Model_Recurring_Profile::STATE_CANCELED)

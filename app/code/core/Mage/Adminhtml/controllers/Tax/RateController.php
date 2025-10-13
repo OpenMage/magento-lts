@@ -104,6 +104,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             $this->_redirectReferer();
             return;
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/tax_rate'));
     }
 
@@ -169,6 +170,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 } catch (Exception) {
                     Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('An error occurred while deleting this rate.'));
                 }
+
                 if ($referer = $this->getRequest()->getServer('HTTP_REFERER')) {
                     $this->getResponse()->setRedirect($referer);
                 } else {
@@ -257,6 +259,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
         } else {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('tax')->__('Invalid file upload attempt'));
         }
+
         $this->_redirect('*/*/importExport');
     }
 
@@ -296,6 +299,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     $found = true;
                 }
             }
+
             if (!$found) {
                 $unset[] = $i;
             }
@@ -308,6 +312,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 unset($csvData[0][$u]);
             }
         }
+
         if ($csvData[0] == $csvFields) {
             /** @var Mage_Adminhtml_Helper_Data $helper */
             $helper = Mage::helper('adminhtml');
@@ -322,6 +327,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                 if (count($v) <= 1 && !strlen($v[0])) {
                     continue;
                 }
+
                 if ($unset) {
                     foreach ($unset as $u) {
                         unset($v[$u]);
@@ -412,6 +418,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
             $template  .= ',"{{' . $storeTitle . '}}"';
             $storeTaxTitleTemplate[$storeTitle] = null;
         }
+
         unset($store);
 
         $content .= "\n";
@@ -425,6 +432,7 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
             $taxCalculationRateTitleDict[$rateId]['title_' . $title->getStoreId()] = $title->getValue();
         }
+
         unset($title);
 
         $collection = Mage::getResourceModel('tax/calculation_rate_collection')

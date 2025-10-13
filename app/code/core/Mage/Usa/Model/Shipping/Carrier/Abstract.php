@@ -15,8 +15,11 @@
 abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Model_Carrier_Abstract
 {
     public const USA_COUNTRY_ID = 'US';
+
     public const PUERTORICO_COUNTRY_ID = 'PR';
+
     public const GUAM_COUNTRY_ID = 'GU';
+
     public const GUAM_REGION_CODE = 'GU';
 
     protected static $_quotesCache = [];
@@ -99,6 +102,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if ($countryId != null) {
             return !Mage::helper('directory')->isZipCodeOptional($countryId);
         }
+
         return true;
     }
 
@@ -142,6 +146,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 }
             }
         }
+
         return $items;
     }
 
@@ -199,6 +204,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         } elseif ($errorMsg) {
             return false;
         }
+
         return $this;
     }
 
@@ -220,6 +226,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                 ),
             );
         }
+
         return crc32($requestParams);
     }
 
@@ -293,9 +300,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if (!is_array($packages) || !$packages) {
             Mage::throwException(Mage::helper('usa')->__('No packages for request'));
         }
+
         if ($request->getStoreId() != null) {
             $this->setStore($request->getStoreId());
         }
+
         $data = [];
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
@@ -314,6 +323,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                     'label_content'   => $result->getShippingLabelContent(),
                 ];
             }
+
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
                 $isFirstRequest = false;
@@ -326,6 +336,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
         }
+
         return $response;
     }
 
@@ -342,9 +353,11 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if (!is_array($packages) || !$packages) {
             Mage::throwException(Mage::helper('usa')->__('No packages for request'));
         }
+
         if ($request->getStoreId() != null) {
             $this->setStore($request->getStoreId());
         }
+
         $data = [];
         foreach ($packages as $packageId => $package) {
             $request->setPackageId($packageId);
@@ -363,6 +376,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
                     'label_content'   => $result->getShippingLabelContent(),
                 ];
             }
+
             if (!isset($isFirstRequest)) {
                 $request->setMasterTrackingId($result->getTrackingNumber());
                 $isFirstRequest = false;
@@ -375,6 +389,7 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
         if ($result->getErrors()) {
             $response->setErrors($result->getErrors());
         }
+
         return $response;
     }
 

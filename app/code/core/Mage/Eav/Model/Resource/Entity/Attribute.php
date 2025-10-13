@@ -81,6 +81,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             $this->_afterLoad($object);
             return true;
         }
+
         return false;
     }
 
@@ -139,6 +140,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
             if (!isset($frontendLabel[0]) || is_null($frontendLabel[0]) || $frontendLabel[0] == '') {
                 Mage::throwException(Mage::helper('eav')->__('Frontend label is not defined'));
             }
+
             $object->setFrontendLabel($frontendLabel[0])
                    ->setStoreLabels($frontendLabel);
         }
@@ -183,10 +185,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                 $condition = ['attribute_id =?' => $object->getId()];
                 $adapter->delete($this->getTable('eav/attribute_label'), $condition);
             }
+
             foreach ($storeLabels as $storeId => $label) {
                 if ($storeId == 0 || !strlen($label)) {
                     continue;
                 }
+
                 $bind = [
                     'attribute_id' => $object->getId(),
                     'store_id'     => $storeId,
@@ -290,6 +294,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                             $adapter->delete($optionTable, ['option_id = ?' => $intOptionId]);
                             $adapter->delete($optionSwatchTable, ['option_id = ?' => $intOptionId]);
                         }
+
                         continue;
                     }
 
@@ -349,10 +354,12 @@ class Mage_Eav_Model_Resource_Entity_Attribute extends Mage_Core_Model_Resource_
                         }
                     }
                 }
+
                 $bind  = ['default_value' => implode(',', $attributeDefaultValue)];
                 $where = ['attribute_id =?' => $object->getId()];
                 $adapter->update($this->getMainTable(), $bind, $where);
             }
+
             if (isset($option['swatch'])) {
                 Mage::helper('configurableswatches/productimg')->clearSwatchesCache();
             }

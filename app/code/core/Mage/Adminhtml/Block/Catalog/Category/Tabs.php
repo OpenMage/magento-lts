@@ -64,6 +64,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tabs extends Mage_Adminhtml_Block_Wi
         if ($block = $this->getCatalogHelper()->getCategoryAttributeTabBlock()) {
             return $block;
         }
+
         return $this->_attributeTabBlock;
     }
 

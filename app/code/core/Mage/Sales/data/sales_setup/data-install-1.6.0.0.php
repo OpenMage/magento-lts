@@ -21,6 +21,7 @@ foreach ($statuses as $code => $info) {
         'label'  => $info['label'],
     ];
 }
+
 $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status'),
     ['status', 'label'],
@@ -44,6 +45,7 @@ foreach ($states as $code => $info) {
         }
     }
 }
+
 $installer->getConnection()->insertArray(
     $installer->getTable('sales/order_status_state'),
     ['status', 'state', 'is_default'],

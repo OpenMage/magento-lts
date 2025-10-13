@@ -34,6 +34,7 @@ class Mage_SalesRule_Model_Observer
             $this->_validator = Mage::getModel('salesrule/validator')
                 ->init($event->getWebsiteId(), $event->getCustomerGroupId(), $event->getCouponCode());
         }
+
         return $this->_validator;
     }
 
@@ -81,6 +82,7 @@ class Mage_SalesRule_Model_Observer
                 if (!$ruleId) {
                     continue;
                 }
+
                 $rule = Mage::getModel('salesrule/rule');
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $rule->load($ruleId);
@@ -101,11 +103,13 @@ class Mage_SalesRule_Model_Observer
                             ->setRuleId($ruleId)
                             ->setTimesUsed(1);
                         }
+
                         // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                         $ruleCustomer->save();
                     }
                 }
             }
+
             $coupon = Mage::getModel('salesrule/coupon');
             $coupon->load($order->getCouponCode(), 'code');
             if ($coupon->getId()) {
@@ -117,6 +121,7 @@ class Mage_SalesRule_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -230,12 +235,14 @@ class Mage_SalesRule_Model_Observer
             if ($condition instanceof Mage_Rule_Model_Condition_Combine) {
                 $this->_removeAttributeFromConditions($condition, $attributeCode);
             }
+
             if ($condition instanceof Mage_SalesRule_Model_Rule_Condition_Product) {
                 if ($condition->getAttribute() == $attributeCode) {
                     unset($conditions[$conditionId]);
                 }
             }
         }
+
         $combine->setConditions($conditions);
     }
 
@@ -291,6 +298,7 @@ class Mage_SalesRule_Model_Observer
         foreach ($attributes as $attribute) {
             $result[$attribute['attribute_code']] = true;
         }
+
         $attributesTransfer->addData($result);
         return $this;
     }

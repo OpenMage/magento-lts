@@ -77,6 +77,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
             if (!count($mediaGallery['images'])) {
                 return true;
             }
+
             return $mediaGallery['images'][0]["{$attributeCode}_use_default"];
         }
 
@@ -86,9 +87,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         } elseif ($this->getValue() == $defaultValue && $this->getDataObject()->getStoreId() != $this->_getDefaultStoreId()) {
             return false;
         }
+
         if ($defaultValue === false && !$attribute->getIsRequired() && $this->getValue()) {
             return false;
         }
+
         return $defaultValue === false;
     }
 
@@ -114,6 +117,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         } elseif ($attribute->isScopeStore()) {
             $html .= '<br/>' . Mage::helper('adminhtml')->__('[STORE VIEW]');
         }
+
         return $html;
     }
 
@@ -140,6 +144,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery extends Varien_Da
         if ($suffix = $this->getForm()->getFieldNameSuffix()) {
             $name = $this->getForm()->addSuffixToName($name, $suffix);
         }
+
         return $name;
     }
 

@@ -131,10 +131,12 @@ class Mage_Catalog_Model_Resource_Product_Option_Collection extends Mage_Core_Mo
         if ($storeId === null) {
             $storeId = Mage::app()->getStore()->getId();
         }
+
         $optionIds = [];
         foreach ($this as $option) {
             $optionIds[] = $option->getId();
         }
+
         if (!empty($optionIds)) {
             $values = Mage::getModel('catalog/product_option_value')
                 ->getCollection()

@@ -37,8 +37,10 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
                 } catch (Exception) {
                 }
             }
+
             $format = self::$_format;
         }
+
         return $format;
     }
 
@@ -66,8 +68,10 @@ class Mage_Adminhtml_Block_Report_Sales_Grid_Column_Renderer_Date extends Mage_A
                     ? Mage::app()->getLocale()->date($data, $dateFormat)->toString($format)
                     : Mage::getSingleton('core/locale')->date($data, $dateFormat, null, false)->toString($format);
             }
+
             return $data;
         }
+
         return $this->getColumn()->getDefault();
     }
 }

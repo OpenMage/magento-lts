@@ -32,15 +32,19 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
                 if ($group->itemExists() && !$group->getId()) {
                     continue;
                 }
+
                 $group->save();
             }
         }
+
         if ($object->getRemoveGroups()) {
             foreach ($object->getRemoveGroups() as $group) {
                 $group->delete();
             }
+
             Mage::getResourceModel('eav/entity_attribute_group')->updateDefaultGroup($object->getId());
         }
+
         if ($object->getRemoveAttributes()) {
             foreach ($object->getRemoveAttributes() as $attribute) {
                 $attribute->deleteEntity();
@@ -102,11 +106,13 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Set extends Mage_Core_Model_Resou
         if (count($attributeIds) > 0) {
             $select->where('entity.attribute_id IN (?)', $attributeIds);
         }
+
         $bind = [];
         if (is_numeric($setId)) {
             $bind[':attribute_set_id'] = $setId;
             $select->where('entity.attribute_set_id = :attribute_set_id');
         }
+
         $result = $adapter->fetchAll($select, $bind);
 
         foreach ($result as $row) {

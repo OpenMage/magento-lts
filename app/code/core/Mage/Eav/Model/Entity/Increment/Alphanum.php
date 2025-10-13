@@ -45,14 +45,17 @@ class Mage_Eav_Model_Entity_Increment_Alphanum extends Mage_Eav_Model_Entity_Inc
             if ($p === false) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid character encountered in increment ID: %s', $lastId));
             }
+
             if ($bumpNextChar) {
                 $p++;
                 $bumpNextChar = false;
             }
+
             if ($p === $lchars) {
                 $p = 0;
                 $bumpNextChar = true;
             }
+
             $nextId = $chars[$p] . $nextId;
         }
 

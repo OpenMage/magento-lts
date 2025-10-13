@@ -70,6 +70,7 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
         if ($isLocked) {
             flock($fileHandle, LOCK_UN);
         }
+
         fclose($fileHandle);
     }
 
@@ -85,6 +86,7 @@ class Magento_Profiler_Output_Csvfile extends Magento_Profiler_OutputAbstract
             foreach ($this->_getColumns() as $columnId) {
                 $row[] = $this->_renderColumnValue($timerId, $columnId);
             }
+
             fputcsv($fileHandle, $row, $this->_delimiter, $this->_enclosure, $this->_escape);
         }
     }

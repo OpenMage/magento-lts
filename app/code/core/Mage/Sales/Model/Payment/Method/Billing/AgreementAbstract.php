@@ -19,9 +19,11 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
      *
      */
     public const TRANSPORT_BILLING_AGREEMENT_ID = 'ba_agreement_id';
+
     public const PAYMENT_INFO_REFERENCE_ID      = 'ba_reference_id';
 
     protected $_infoBlockType = 'sales/payment_info_billing_agreement';
+
     protected $_formBlockType = 'sales/payment_form_billing_agreement';
 
     /**
@@ -47,11 +49,13 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
                 $isAvailableBA = count($availableBA) > 0;
                 $this->_canUseForMultishipping = $this->_canUseCheckout = $this->_canUseInternal = $isAvailableBA;
             }
+
             $this->_isAvailable = parent::isAvailable($quote) && $this->_isAvailable($quote);
             $this->_canUseCheckout = ($this->_isAvailable && $this->_canUseCheckout);
             $this->_canUseForMultishipping = ($this->_isAvailable && $this->_canUseForMultishipping);
             $this->_canUseInternal = ($this->_isAvailable && $this->_canUseInternal);
         }
+
         return $this->_isAvailable;
     }
 
@@ -73,6 +77,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
         } elseif ($data instanceof Varien_Object && $data->getData($key)) {
             $id = $data->getData($key);
         }
+
         if ($id) {
             $info = $this->getInfoInstance();
             $ba = Mage::getModel('sales/billing_agreement')->load($id);
@@ -81,6 +86,7 @@ abstract class Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract extends
                     ->setAdditionalInformation(self::PAYMENT_INFO_REFERENCE_ID, $ba->getReferenceId());
             }
         }
+
         return $result;
     }
 

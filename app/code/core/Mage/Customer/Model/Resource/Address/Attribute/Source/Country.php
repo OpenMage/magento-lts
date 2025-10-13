@@ -27,6 +27,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Source_Country extends Mage
             $this->_options = Mage::getResourceModel('directory/country_collection')
                 ->loadByStore($this->getAttribute()->getStoreId())->toOptionArray();
         }
+
         return $this->_options;
     }
 }

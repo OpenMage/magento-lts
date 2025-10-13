@@ -77,6 +77,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 'enable_charts'     => ['comment' => ''],
             ];
         }
+
         return $this->_options;
     }
 
@@ -110,6 +111,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 if ($currentArg) {
                     $args[$currentArg] = $arg;
                 }
+
                 $currentArg = false;
             }
         }
@@ -128,6 +130,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
                 if (!empty($option['comment'])) {
                     $error .= ': ' . $option['comment'];
                 }
+
                 $this->addError($error);
             }
         }
@@ -213,6 +216,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (is_null($this->_dataModel)) {
             $this->_dataModel = Mage::getModel('install/installer_data');
         }
+
         return $this->_dataModel;
     }
 
@@ -450,10 +454,12 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
         if (defined('STDIN') && defined('STDOUT') && (defined('STDERR'))) {
             return true;
         }
+
         if (is_null($url)) {
             $url = preg_replace('/install\.php/i', '', Mage::getBaseUrl());
             $url = preg_replace('/\/\/$/', '/', $url);
         }
+
         header('Location: ' . $url);
         return false;
     }

@@ -35,6 +35,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         if (!$result) {
             return [];
         }
+
         return $result;
     }
 
@@ -64,6 +65,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
                 return true;
             }
         }
+
         return false;
     }
 
@@ -78,6 +80,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
         if ($object->isObjectNew()) {
             $object->setCreatedAt($this->formatDate(true));
         }
+
         $object->setModifiedAt($this->formatDate(true));
         $object->setTemplateType((int) $object->getTemplateType());
 
@@ -102,6 +105,7 @@ class Mage_Core_Model_Resource_Email_Template extends Mage_Core_Model_Resource_D
             $bind[$pathAlias] = $path;
             $pathesCounter++;
         }
+
         $bind['template_id'] = $templateId;
         $select = $this->_getReadAdapter()->select()
             ->from($this->getTable('core/config_data'), ['scope', 'scope_id', 'path'])

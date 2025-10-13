@@ -23,14 +23,23 @@ class Mage_Api2_Model_Server
      * HTTP Response Codes
      */
     public const HTTP_OK                 = 200;
+
     public const HTTP_CREATED            = 201;
+
     public const HTTP_MULTI_STATUS       = 207;
+
     public const HTTP_BAD_REQUEST        = 400;
+
     public const HTTP_UNAUTHORIZED       = 401;
+
     public const HTTP_FORBIDDEN          = 403;
+
     public const HTTP_NOT_FOUND          = 404;
+
     public const HTTP_METHOD_NOT_ALLOWED = 405;
+
     public const HTTP_NOT_ACCEPTABLE     = 406;
+
     public const HTTP_INTERNAL_ERROR     = 500;
 
     /**
@@ -60,9 +69,11 @@ class Mage_Api2_Model_Server
             if (!headers_sent()) {
                 header('HTTP/1.1 ' . self::HTTP_INTERNAL_ERROR);
             }
+
             echo 'Service temporary unavailable';
             return;
         }
+
         // can not render errors case
         try {
             /** @var Mage_Api2_Model_Request $request */
@@ -77,6 +88,7 @@ class Mage_Api2_Model_Server
                 ->sendResponse();
             return;
         }
+
         // default case
         try {
             $apiUser = $this->_authenticate($request);
@@ -89,6 +101,7 @@ class Mage_Api2_Model_Server
                 // TODO: Re-factor this after _renderException refactoring
                 throw new Mage_Api2_Exception('Resource was partially created', self::HTTP_CREATED);
             }
+
             //NOTE: At this moment Renderer already could have some content rendered, so we should replace it
             if ($response->isException()) {
                 throw new Mage_Api2_Exception('Unhandled simple errors.', self::HTTP_INTERNAL_ERROR);
@@ -97,6 +110,7 @@ class Mage_Api2_Model_Server
             if ($e->shouldLog()) {
                 Mage::logException($e);
             }
+
             $this->_renderException($e, $renderer, $response);
         } catch (Exception $e) {
             Mage::logException($e);
@@ -157,6 +171,7 @@ class Mage_Api2_Model_Server
             throw new Exception('Mage_Api2_Model_Server::internalCall() seems to be executed '
                 . 'before Mage_Api2_Model_Server::run()');
         }
+
         return $this->_authUser;
     }
 
@@ -192,6 +207,7 @@ class Mage_Api2_Model_Server
         if (!$globalAcl->isAllowed($apiUser, $request->getResourceType(), $request->getOperation())) {
             throw new Mage_Api2_Exception('Access denied', self::HTTP_FORBIDDEN);
         }
+
         return $this;
     }
 
@@ -239,6 +255,7 @@ class Mage_Api2_Model_Server
         } else {
             $httpCode = self::HTTP_INTERNAL_ERROR;
         }
+
         try {
             //add last error to stack
             $response->setException($exception);
@@ -252,8 +269,10 @@ class Mage_Api2_Model_Server
                 if (Mage::getIsDeveloperMode()) {
                     $message['trace'] = $exception->getTraceAsString();
                 }
+
                 $messages['messages']['error'][] = $message;
             }
+
             //set HTTP Code of last error, Content-Type and Body
             $response->setBody($renderer->render($messages));
             $response->setHeader('Content-Type', sprintf(
@@ -271,6 +290,7 @@ class Mage_Api2_Model_Server
             $response->setBody($e->getMessage());
             $response->setHeader('Content-Type', 'text/plain; charset=' . Mage_Api2_Model_Response::RESPONSE_CHARSET);
         }
+
         $response->setHttpResponseCode($httpCode);
 
         return $this;

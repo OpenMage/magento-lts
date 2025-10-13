@@ -54,6 +54,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
                 $item->setParentItem($this->getItemById($item->getParentItemId()));
             }
         }
+
         return $this;
     }
 
@@ -83,6 +84,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         } else {
             $this->addFieldToFilter('item_id', $item);
         }
+
         return $this;
     }
 
@@ -111,6 +113,7 @@ class Mage_Sales_Model_Resource_Order_Item_Collection extends Mage_Sales_Model_R
         } else {
             $this->addFieldToFilter('parent_item_id', $parentId);
         }
+
         return $this;
     }
 
