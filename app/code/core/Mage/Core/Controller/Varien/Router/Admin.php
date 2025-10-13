@@ -36,12 +36,33 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     }
 
     /**
-     * dummy call to pass through checking
+     * Validate admin domain before routing
      *
      * @return bool
      */
     protected function _beforeModuleMatch()
     {
+        // Check if custom admin domain is configured
+        if ($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl()) {
+            $adminHost = parse_url($adminUrl, PHP_URL_HOST);
+            if (!$adminHost) {
+                // Should never happen - URL is validated when saved
+                // If it does, fail secure (possible database corruption/bypass)
+                Mage::log(
+                    "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
+                    Zend_Log::ERR,
+                    'system.log'
+                );
+                return false;
+            }
+
+            $currentHost = $this->getFront()->getRequest()->getHttpHost();
+            // Strip port for comparison (getHttpHost may include port)
+            $currentHost = preg_replace('/:\d+$/', '', $currentHost);
+
+            return strtolower($adminHost) === strtolower($currentHost);
+        }
+
         return true;
     }
 
@@ -145,22 +166,5 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
     protected function _validateControllerInstance($controllerInstance)
     {
         return true;
-    }
-
-    /**
-     * Check if URL host matches custom admin URL.
-     *
-     * @inheritDoc
-     */
-    public function match(Zend_Controller_Request_Http $request)
-    {
-        if ($adminUrl = Mage_Adminhtml_Helper_Data::getCustomAdminUrl()) {
-            $adminHost = parse_url($adminUrl, PHP_URL_HOST);
-            if ($adminHost && $adminHost !== $request->getHttpHost()) {
-                return false;
-            }
-        }
-
-        return parent::match($request);
     }
 }
