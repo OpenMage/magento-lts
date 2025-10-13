@@ -1789,12 +1789,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
-			rawMessage: 'PHPDoc tag @var with type Mage_Catalog_Model_Entity_Attribute is not subtype of native type non-empty-array<mixed, mixed>.'
-			identifier: varTag.nativeType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $object of method Mage_Catalog_Model_Resource_Abstract::load() expects Mage_Core_Model_Abstract, Varien_Object given.'
 			identifier: argument.type
 			count: 1
@@ -4017,12 +4011,6 @@ parameters:
 		-
 			rawMessage: 'Method Mage_ProductAlert_Model_Observer::process() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
-			count: 1
-			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
-
-		-
-			rawMessage: 'PHPDoc tag @var with type Mage_Catalog_Model_Product is not subtype of native type 0|0.0|''''|''0''|array{}|false|null.'
-			identifier: varTag.nativeType
 			count: 1
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
