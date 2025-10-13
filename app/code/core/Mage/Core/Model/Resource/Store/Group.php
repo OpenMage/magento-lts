@@ -53,6 +53,7 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
             $where = ['website_id = ?' => $websiteId];
             $this->_getWriteAdapter()->update($this->getTable('core/website'), $bind, $where);
         }
+
         return $this;
     }
 
@@ -75,6 +76,7 @@ class Mage_Core_Model_Resource_Store_Group extends Mage_Core_Model_Resource_Db_A
                 $this->_getWriteAdapter()->update($this->getTable('core/website'), $bind, $where);
             }
         }
+
         return $this;
     }
 

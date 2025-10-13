@@ -300,6 +300,7 @@ foreach ($quoteRows as $oldQuoteId) {
                     $itemData[$field] = $itemInfo[$field];
                 }
             }
+
             $installer->getConnection()->insert($installer->getTable('sales_flat_quote_item'), $itemData);
         }
     }

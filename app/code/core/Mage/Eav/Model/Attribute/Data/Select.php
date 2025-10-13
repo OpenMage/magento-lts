@@ -68,6 +68,7 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
         if ($value !== false) {
             $this->getEntity()->setData($this->getAttribute()->getAttributeCode(), $value);
         }
+
         return $this;
     }
 
@@ -113,6 +114,7 @@ class Mage_Eav_Model_Attribute_Data_Select extends Mage_Eav_Model_Attribute_Data
                 } else {
                     $output = '';
                 }
+
                 break;
         }
 

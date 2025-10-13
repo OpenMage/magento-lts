@@ -90,6 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
         } else {
             $cell = $value;
         }
+
         return $cell;
     }
 
@@ -105,6 +106,7 @@ class Mage_Adminhtml_Block_Sales_Order_Status_Grid extends Mage_Adminhtml_Block_
             $label = Mage::helper('sales')->__('Unassign');
             $cell = '<a href="' . $url . '">' . $label . '</a>';
         }
+
         return $cell;
     }
 

@@ -50,11 +50,13 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                 if ($group->getWebsiteId() != $website->getId()) {
                     continue;
                 }
+
                 $groupShow = false;
                 foreach ($storeModel->getStoreCollection() as $store) {
                     if ($store->getGroupId() != $group->getId()) {
                         continue;
                     }
+
                     if (!$websiteShow) {
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = [
@@ -64,6 +66,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                             'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         ];
                     }
+
                     if (!$groupShow) {
                         $groupShow = true;
                         $options['group_' . $group->getId() . '_open'] = [
@@ -73,6 +76,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                             'style'     => 'padding-left:32px;',
                         ];
                     }
+
                     $storeCode = $store->getCode();
                     $options['store_' . $storeCode] = [
                         'label'    => $store->getName(),
@@ -81,6 +85,7 @@ class Mage_Adminhtml_Block_System_Config_Switcher extends Mage_Adminhtml_Block_T
                         'style'    => '',
                     ];
                 }
+
                 if ($groupShow) {
                     $options['group_' . $group->getId() . '_close'] = [
                         'is_group'  => true,

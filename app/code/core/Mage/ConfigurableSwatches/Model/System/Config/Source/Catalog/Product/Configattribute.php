@@ -44,6 +44,7 @@ class Mage_ConfigurableSwatches_Model_System_Config_Source_Catalog_Product_Confi
                 ];
             }
         }
+
         return $this->_attributes;
     }
 }

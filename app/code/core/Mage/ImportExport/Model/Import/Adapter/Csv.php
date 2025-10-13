@@ -112,12 +112,14 @@ class Mage_ImportExport_Model_Import_Adapter_Csv extends Mage_ImportExport_Model
                 if ($position < $this->_currentKey) {
                     $this->rewind();
                 }
+
                 while ($this->_currentRow = fgetcsv($this->_fileHandler, 0, $this->_delimiter, $this->_enclosure, $this->_escape)) {
                     if (++$this->_currentKey == $position) {
                         return;
                     }
                 }
             }
+
             throw new OutOfBoundsException(Mage::helper('importexport')->__('Invalid seek position'));
         }
     }

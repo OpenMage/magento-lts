@@ -258,9 +258,11 @@ class Mage_Catalog_Model_Product_Indexer_Price extends Mage_Index_Model_Indexer_
             $this->_getResource()->reindexProductIds($data['id']);
             return;
         }
+
         if (!empty($data['catalog_product_price_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['catalog_product_price_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

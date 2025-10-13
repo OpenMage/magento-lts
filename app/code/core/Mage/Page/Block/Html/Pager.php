@@ -16,13 +16,21 @@
 class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 {
     protected $_collection = null;
+
     protected $_pageVarName    = 'p';
+
     protected $_limitVarName   = 'limit';
+
     protected $_availableLimit = [10 => 10,20 => 20,50 => 50];
+
     protected $_dispersion     = 3;
+
     protected $_displayPages   = 5;
+
     protected $_showPerPage    = true;
+
     protected $_limit          = null;
+
     protected $_outputRequired = true;
 
     /**
@@ -73,6 +81,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if (is_object($this->_collection)) {
             return $this->_collection->getCurPage();
         }
+
         return (int) $this->getRequest()->getParam($this->getPageVarName(), 1);
     }
 
@@ -86,12 +95,14 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if ($this->_limit !== null) {
             return $this->_limit;
         }
+
         $limits = $this->getAvailableLimit();
         if ($limit = $this->getRequest()->getParam($this->getLimitVarName())) {
             if (isset($limits[$limit])) {
                 return $limit;
             }
         }
+
         $limits = array_keys($limits);
         return $limits[0];
     }
@@ -172,6 +183,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if (count($this->getAvailableLimit()) <= 1) {
             return false;
         }
+
         return $this->_showPerPage;
     }
 
@@ -303,6 +315,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
 
             $pages = range($start, $finish);
         }
+
         return $pages;
     }
 
@@ -414,6 +427,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if (!$this->getJump()) {
             return null;
         }
+
         $frameStart = $this->getFrameStart();
         if ($frameStart - 1 > 1) {
             return max(2, $frameStart - $this->getJump());
@@ -442,6 +456,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if (!$this->getJump()) {
             return null;
         }
+
         $frameEnd = $this->getFrameEnd();
         if ($this->getLastPageNum() - $frameEnd > 1) {
             return min($this->getLastPageNum() - 1, $frameEnd + $this->getJump());
@@ -492,6 +507,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if ($frame == 0) {
             $frame = $this->_frameLength;
         }
+
         if ($this->getFrameLength() != $frame) {
             $this->_setFrameInitialized(false);
             $this->_frameLength = $frame;
@@ -587,6 +603,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
                     $start  = $end - $this->getFrameLength() + 1;
                 }
             }
+
             $this->_frameStart = $start;
             $this->_frameEnd = $end;
 
@@ -660,6 +677,7 @@ class Mage_Page_Block_Html_Pager extends Mage_Core_Block_Template
         if ($this->_outputRequired || $this->getTotalNum() > $this->getLimit()) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

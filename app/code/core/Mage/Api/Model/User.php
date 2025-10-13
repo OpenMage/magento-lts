@@ -236,6 +236,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         if (!$this->getId()) {
             return false;
         }
+
         $auth = Mage::helper('core')->validateHash($apiKey, $this->getApiKey());
         if ($auth) {
             return true;

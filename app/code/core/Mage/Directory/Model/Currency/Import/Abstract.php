@@ -60,6 +60,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
                 ->setRates($currencyRates)
                 ->save();
         }
+
         return $this;
     }
 
@@ -97,6 +98,7 @@ abstract class Mage_Directory_Model_Currency_Import_Abstract
                     $data[$currencyFrom][$currencyTo] = $this->_numberFormat($this->_convert($currencyFrom, $currencyTo));
                 }
             }
+
             ksort($data[$currencyFrom]);
         }
 

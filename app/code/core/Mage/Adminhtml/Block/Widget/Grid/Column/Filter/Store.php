@@ -38,40 +38,48 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
         } else {
             $html .= '<option value=""' . (!$value ? ' selected="selected"' : '') . '></option>';
         }
+
         foreach ($websiteCollection as $website) {
             $websiteShow = false;
             foreach ($groupCollection as $group) {
                 if ($group->getWebsiteId() != $website->getId()) {
                     continue;
                 }
+
                 $groupShow = false;
                 foreach ($storeCollection as $store) {
                     if ($store->getGroupId() != $group->getId()) {
                         continue;
                     }
+
                     if (!$websiteShow) {
                         $websiteShow = true;
                         $html .= '<optgroup label="' . $this->escapeHtml($website->getName()) . '"></optgroup>';
                     }
+
                     if (!$groupShow) {
                         $groupShow = true;
                         $html .= '<optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;'
                               . $this->escapeHtml($group->getName()) . '">';
                     }
+
                     $value = $this->getValue();
                     $selected = $value == $store->getId() ? ' selected="selected"' : '';
                     $html .= '<option value="' . $store->getId() . '"' . $selected . '>&nbsp;&nbsp;&nbsp;&nbsp;'
                           . $this->escapeHtml($store->getName()) . '</option>';
                 }
+
                 if ($groupShow) {
                     $html .= '</optgroup>';
                 }
             }
         }
+
         if ($this->getColumn()->getDisplayDeleted()) {
             $selected = ($this->getValue() == '_deleted_') ? ' selected' : '';
             $html .= '<option value="_deleted_"' . $selected . '>' . $this->__('[ deleted ]') . '</option>';
         }
+
         return $html . '</select>';
     }
 
@@ -85,6 +93,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Store extends Mage_Adminhtm
         if (is_null($this->getValue())) {
             return null;
         }
+
         if ($this->getValue() == '_deleted_') {
             return ['null' => true];
         } else {

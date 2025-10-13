@@ -30,6 +30,7 @@ class Mage_Adminhtml_Block_Sitemap_Grid_Renderer_Link extends Mage_Adminhtml_Blo
         if (file_exists(BP . DS . $fileName)) {
             return sprintf('<a href="%1$s">%1$s</a>', $url);
         }
+
         return $url;
     }
 }

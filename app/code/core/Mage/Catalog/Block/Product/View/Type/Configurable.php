@@ -68,6 +68,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 }
             }
         }
+
         return false;
     }
 
@@ -93,8 +94,10 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     $products[] = $product;
                 }
             }
+
             $this->setAllowProducts($products);
         }
+
         return $this->getData('allow_products');
     }
 
@@ -137,6 +140,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
             $preconfiguredValues = $currentProduct->getPreconfiguredValues();
             $defaultValues       = [];
         }
+
         $productStock = [];
         foreach ($this->getAllowProducts() as $product) {
             $productId  = $product->getId();
@@ -152,6 +156,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                 if (!isset($options[$productAttributeId][$attributeValue])) {
                     $options[$productAttributeId][$attributeValue] = [];
                 }
+
                 $options[$productAttributeId][$attributeValue][] = $productId;
             }
         }
@@ -177,6 +182,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
                     if (!$this->_validateAttributeValue($attributeId, $value, $options)) {
                         continue;
                     }
+
                     $currentProduct->setConfigurablePrice(
                         $this->_preparePrice($value['pricing_value'], $value['is_percent']),
                     );
@@ -292,6 +298,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
         if (count($info['options']) > 0) {
             return true;
         }
+
         return false;
     }
 

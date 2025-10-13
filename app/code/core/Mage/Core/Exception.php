@@ -26,6 +26,7 @@ class Mage_Core_Exception extends Exception
         if (!isset($this->_messages[$message->getType()])) {
             $this->_messages[$message->getType()] = [];
         }
+
         $this->_messages[$message->getType()][] = $message;
         return $this;
     }
@@ -41,8 +42,10 @@ class Mage_Core_Exception extends Exception
             foreach ($this->_messages as $messageType => $messages) {
                 $arrRes = array_merge($arrRes, $messages);
             }
+
             return $arrRes;
         }
+
         return $this->_messages[$type] ?? [];
     }
 
@@ -60,6 +63,7 @@ class Mage_Core_Exception extends Exception
         } else {
             $this->message = $message;
         }
+
         return $this;
     }
 }

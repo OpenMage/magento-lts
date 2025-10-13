@@ -41,6 +41,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         if (is_readable($component)) {
             $comps[$component] = ['mtime' => filemtime($component)];
         }
+
         $this->setComponents($comps);
 
         return $this;
@@ -57,12 +58,14 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         if (empty($data) || !is_array($data)) {
             return false;
         }
+
         // check that no source files were changed or check file exists
         foreach ($data as $sourceFile => $stat) {
             if (empty($stat['mtime']) || !is_file($sourceFile) || filemtime($sourceFile) !== $stat['mtime']) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -72,6 +75,7 @@ abstract class Varien_Simplexml_Config_Cache_Abstract extends Varien_Object
         foreach ($this->getComponents() as $comp) {
             $sum .= $comp['mtime'] . ':';
         }
+
         return md5($sum);
     }
 }

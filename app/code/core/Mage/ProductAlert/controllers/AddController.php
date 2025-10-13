@@ -27,6 +27,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
                 Mage::getSingleton('customer/session')->setBeforeUrl($this->_getRefererUrl());
             }
         }
+
         return $this;
     }
 
@@ -56,6 +57,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             } else {
                 $this->_redirect('/');
             }
+
             return ;
         }
 
@@ -70,6 +72,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
+
         $this->_redirectReferer();
     }
 
@@ -101,6 +104,7 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
         } catch (Exception $e) {
             $session->addException($e, $this->__('Unable to update the alert subscription.'));
         }
+
         $this->_redirectReferer();
     }
 }

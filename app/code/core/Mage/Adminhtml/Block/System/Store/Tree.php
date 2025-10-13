@@ -74,6 +74,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
                 if ($storeGroup->getId() == $defaultGroupId) {
                     $storeGroup->setData('is_default', true);
                 }
+
                 $defaultStoreId = $storeGroup->getDefaultStoreId();
                 foreach ($storeCollection as $store) {
                     /** @var Mage_Core_Model_Store $store */
@@ -88,6 +89,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
 
             $data[$websiteId]['count'] = max(1, $data[$websiteId]['count']);
         }
+
         return $data;
     }
 
@@ -144,6 +146,7 @@ class Mage_Adminhtml_Block_System_Store_Tree extends Mage_Adminhtml_Block_Widget
         if (!$store->getIsActive()) {
             $cell->setClass('strike');
         }
+
         return $cell->toHtml();
     }
 }

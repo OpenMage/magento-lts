@@ -46,6 +46,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
                     ->getLoadedRegionCollection()
                     ->toOptionArray();
             }
+
             $regionCollection = self::$_regionCollections[$countryId];
         }
 
@@ -82,6 +83,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
                     . Mage::helper('adminhtml')->escapeHtml(Mage::helper('directory')->__($region['label']))
                     . '</option>';
             }
+
             $html .= '</select>' . "\n";
 
             $html .= '<input type="hidden" name="' . $regionHtmlName . '" id="' . $regionHtmlId . '" value=""/>';
@@ -102,6 +104,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Region implements Varien_Data_Form_
             $html .= '<input type="hidden" name="' . $regionIdHtmlName . '" id="' . $regionIdHtmlId . '" value=""/>';
             $html .= '</td>' . "\n";
         }
+
         return $html . ('</tr>' . "\n");
     }
 }

@@ -81,6 +81,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                 }
             }
         }
+
         return $price;
     }
 
@@ -99,6 +100,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
         } else {
             $price = $priceInfo['pricing_value'];
         }
+
         return $price;
     }
 
@@ -114,6 +116,7 @@ class Mage_Catalog_Model_Product_Type_Configurable_Price extends Mage_Catalog_Mo
                 return $value;
             }
         }
+
         return false;
     }
 }

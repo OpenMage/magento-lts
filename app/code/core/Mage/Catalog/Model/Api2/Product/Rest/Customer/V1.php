@@ -69,8 +69,10 @@ class Mage_Catalog_Model_Api2_Product_Rest_Customer_V1 extends Mage_Catalog_Mode
             if (!$customer->getId()) {
                 $this->_critical('Customer not found.', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
             }
+
             $this->_customer = $customer;
         }
+
         return $this->_customer;
     }
 }

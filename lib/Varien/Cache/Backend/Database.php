@@ -63,6 +63,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 Zend_Cache::throwException('Option "adapter" should be declared and extend Zend_Db_Adapter_Abstract!');
             }
         }
+
         if (empty($this->_options['data_table']) || empty($this->_options['tags_table'])) {
             Zend_Cache::throwException('Options "data_table" and "tags_table" should be declared!');
         }
@@ -81,12 +82,14 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             } else {
                 $adapter = $this->_options['adapter'];
             }
+
             if (!($adapter instanceof Zend_Db_Adapter_Abstract)) {
                 Zend_Cache::throwException('DB Adapter should be declared and extend Zend_Db_Adapter_Abstract');
             } else {
                 $this->_adapter = $adapter;
             }
         }
+
         return $this->_adapter;
     }
 
@@ -129,6 +132,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             if (!$doNotTestCacheValidity) {
                 $select->where('expire_time=0 OR expire_time>?', time());
             }
+
             return $this->_getAdapter()->fetchOne($select, ['cache_id' => $id]);
         } else {
             return false;
@@ -195,6 +199,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 return false;
             }
         }
+
         return $this->_saveTags($id, $tags);
     }
 
@@ -264,12 +269,14 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 if ($this->_options['store_data']) {
                     $result = $adapter->query('TRUNCATE TABLE ' . $this->_getDataTable());
                 }
+
                 $result = $result && $adapter->query('TRUNCATE TABLE ' . $this->_getTagsTable());
                 break;
             case Zend_Cache::CLEANING_MODE_OLD:
                 if ($this->_options['store_data']) {
                     $result = $this->_cleanOldCache();
                 }
+
                 break;
             case Zend_Cache::CLEANING_MODE_MATCHING_TAG:
             case Zend_Cache::CLEANING_MODE_NOT_MATCHING_TAG:
@@ -308,6 +315,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             if (!$result) {
                 break;
             }
+
             $cacheIdsToRemove[] = $row['id'];
             $counter++;
             if ($counter > 100) {
@@ -317,6 +325,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 $counter = 0;
             }
         }
+
         if (!empty($cacheIdsToRemove)) {
             $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
             $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
@@ -443,6 +452,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 'tags'  => $tags,
             ];
         }
+
         return $res;
     }
 
@@ -504,6 +514,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
         if (!is_array($tags)) {
             $tags = [$tags];
         }
+
         if (empty($tags)) {
             return true;
         }
@@ -527,6 +538,7 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
                 $bind[] = $tag;
                 $bind[] = $id;
             }
+
             $query .= implode(',', $lines);
             $result = $adapter->query($query, $bind);
         }
@@ -563,23 +575,28 @@ class Varien_Cache_Backend_Database extends Zend_Cache_Backend implements Zend_C
             if (!$result) {
                 break;
             }
+
             $cacheIdsToRemove[] = $row['cache_id'];
             $counter++;
             if ($counter > 100) {
                 if ($this->_options['store_data']) {
                     $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
                 }
+
                 $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
                 $cacheIdsToRemove = [];
                 $counter = 0;
             }
         }
+
         if (!empty($cacheIdsToRemove)) {
             if ($this->_options['store_data']) {
                 $result = $result && $this->_deleteCachesFromDataTable($cacheIdsToRemove);
             }
+
             $result = $result && $this->_deleteCachesFromTagsTable($cacheIdsToRemove);
         }
+
         return $result;
     }
 }

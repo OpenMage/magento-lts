@@ -90,6 +90,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $this->_tree = Mage::getResourceModel('catalog/category_tree')
                 ->load();
         }
+
         return $this->_tree;
     }
 
@@ -114,6 +115,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $where = ['entity_id IN(?)' => $parentIds];
             $this->_getWriteAdapter()->update($this->getEntityTable(), $data, $where);
         }
+
         $this->deleteChildren($object);
         return $this;
     }
@@ -162,6 +164,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         if (!$object->getChildrenCount()) {
             $object->setChildrenCount(0);
         }
+
         if ($object->getLevel() === null) {
             $object->setLevel(1);
         }
@@ -174,6 +177,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             if ($level) {
                 $object->setParentId($path[$level - 1]);
             }
+
             $object->setPath($object->getPath() . '/');
 
             $toUpdateChild = explode('/', $object->getPath());
@@ -184,6 +188,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 ['entity_id IN(?)' => $toUpdateChild],
             );
         }
+
         return $this;
     }
 
@@ -223,6 +228,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 ['entity_id = ?' => $object->getId()],
             );
         }
+
         return $this;
     }
 
@@ -250,6 +256,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         if (!$position) {
             $position = 0;
         }
+
         return $position;
     }
 
@@ -315,6 +322,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                     'position'    => (int) $position,
                 ];
             }
+
             $adapter->insertMultiple($this->_categoryProductTable, $data);
         }
 
@@ -349,6 +357,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             $productIds = array_keys($insert + $delete + $update);
             $category->setAffectedProductIds($productIds);
         }
+
         return $this;
     }
 
@@ -471,6 +480,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
             if (!is_int($attributeId)) {
                 Mage::throwException('Failed to find category attribute is_active');
             }
+
             $this->_isActiveAttributeId = $attributeId;
         }
 
@@ -546,6 +556,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         if ($asCollection) {
             return $tree->getCollection();
         }
+
         return $nodes;
     }
 
@@ -659,6 +670,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         if (!$recursive) {
             $select->where($adapter->quoteIdentifier('level') . ' <= ?', $category->getLevel() + 1);
         }
+
         return $select;
     }
 
@@ -755,6 +767,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         if ($result) {
             return true;
         }
+
         return false;
     }
 
@@ -901,6 +914,7 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
                 ->where('parent_id = :parent_id');
             $position = $adapter->fetchOne($select, ['parent_id' => $newParent->getId()]);
         }
+
         ++$position;
 
         return $position;

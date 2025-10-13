@@ -68,6 +68,7 @@ class Mage_Customer_Model_Observer
         if ($configAddressType == Mage_Customer_Model_Address_Abstract::TYPE_SHIPPING) {
             return $this->_isDefaultShipping($address);
         }
+
         return $this->_isDefaultBilling($address);
     }
 
@@ -243,6 +244,7 @@ class Mage_Customer_Model_Observer
                 break;
             }
         }
+
         if (Mage_Core_Model_Encryption::HASH_VERSION_SHA256 !== $currentVersionHash) {
             $model->changePassword($password, false);
         }

@@ -63,6 +63,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 if ($isCustomerValid !== true && is_array($isCustomerValid)) {
                     $this->_fault('customer_data_invalid', implode(PHP_EOL, $isCustomerValid));
                 }
+
                 break;
         }
 
@@ -105,6 +106,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 if ($customerAddress->getCustomerId() != $quote->getCustomerId()) {
                     $this->_fault('address_not_belong_customer');
                 }
+
                 $address->importCustomerAddress($customerAddress);
             } else {
                 $address->setData($addressItem);
@@ -142,6 +144,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                                 break;
                         }
                     }
+
                     $quote->setBillingAddress($address);
                     break;
 
@@ -178,6 +181,7 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                 unset($data[$attributeAlias]);
             }
         }
+
         return $data;
     }
 
@@ -201,8 +205,10 @@ class Mage_Checkout_Model_Cart_Customer_Api extends Mage_Checkout_Model_Api_Reso
                     unset($addressItem[$attributeAlias]);
                 }
             }
+
             $dataAddresses[] = $addressItem;
         }
+
         return $dataAddresses;
     }
 }

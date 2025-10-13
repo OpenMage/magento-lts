@@ -115,6 +115,7 @@ try {
     $connection->rollBack();
     throw $e;
 }
+
 $connection->commit();
 
 $installer->endSetup();

@@ -75,6 +75,7 @@ class Mage_Catalog_Model_Product_Attribute_Api_V2 extends Mage_Catalog_Model_Pro
                 unset($result['additional_fields'][$key]);
             }
         }
+
         return $result;
     }
 }

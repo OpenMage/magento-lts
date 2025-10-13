@@ -163,13 +163,16 @@ class Mage_Checkout_Helper_Cart extends Mage_Core_Helper_Url
         if ($addFormKey) {
             $routeParams[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }
+
         if (!empty($additional)) {
             $routeParams = array_merge($routeParams, $additional);
         }
+
         if ($product->hasUrlDataObject()) {
             $routeParams['_store'] = $product->getUrlDataObject()->getStoreId();
             $routeParams['_store_to_url'] = true;
         }
+
         if ($this->_getRequest()->getRouteName() == 'checkout'
             && $this->_getRequest()->getControllerName() == 'cart'
         ) {

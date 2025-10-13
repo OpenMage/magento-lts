@@ -86,6 +86,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if (!$this->_attribite) {
             Mage::throwException(Mage::helper('eav')->__('Attribute object is undefined'));
         }
+
         return $this->_attribite;
     }
 
@@ -135,6 +136,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if (!$this->_entity) {
             Mage::throwException(Mage::helper('eav')->__('Entity object is undefined'));
         }
+
         return $this->_entity;
     }
 
@@ -160,6 +162,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         if (!is_null($index)) {
             return $this->_extractedData[$index] ?? null;
         }
+
         return $this->_extractedData;
     }
 
@@ -198,8 +201,10 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             } else {
                 $filter = new $filterClass();
             }
+
             return $filter;
         }
+
         return false;
     }
 
@@ -216,6 +221,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
             if (is_null($this->_dateFilterFormat)) {
                 $this->_dateFilterFormat = Mage_Core_Model_Locale::FORMAT_TYPE_SHORT;
             }
+
             return Mage::app()->getLocale()->getDateFormat($this->_dateFilterFormat);
         } elseif ($format === false) {
             // reset value
@@ -278,6 +284,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'numeric':
                     $validator = new Zend_Validate_Digits();
@@ -296,6 +303,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'alpha':
                     $validator = new Zend_Validate_Alpha(true);
@@ -314,6 +322,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return $validator->getMessages();
                     }
+
                     break;
                 case 'email':
                     /**
@@ -401,16 +410,19 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     if (!$validator->isValid($value)) {
                         return array_unique($validator->getMessages());
                     }
+
                     break;
                 case 'url':
                     $parsedUrl = parse_url($value);
                     if ($parsedUrl === false || empty($parsedUrl['scheme']) || empty($parsedUrl['host'])) {
                         return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
+
                     $validator = new Zend_Validate_Hostname();
                     if (!$validator->isValid($parsedUrl['host'])) {
                         return [Mage::helper('eav')->__('"%s" is not a valid URL.', $label)];
                     }
+
                     break;
                 case 'date':
                     $validator = new Zend_Validate_Date(Varien_Date::DATE_INTERNAL_FORMAT);
@@ -433,6 +445,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
                     break;
             }
         }
+
         return true;
     }
 
@@ -485,6 +498,7 @@ abstract class Mage_Eav_Model_Attribute_Data_Abstract
         } else {
             $value = $request->getParam($attrCode, false);
         }
+
         return $value;
     }
 

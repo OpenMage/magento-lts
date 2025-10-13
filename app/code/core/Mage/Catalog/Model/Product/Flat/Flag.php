@@ -33,6 +33,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData = [];
             $this->setFlagData($flagData);
         }
+
         return $flagData;
     }
 
@@ -50,6 +51,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData[$key] = false;
             $this->setFlagData($flagData);
         }
+
         return (bool) $flagData[$key];
     }
 
@@ -81,6 +83,7 @@ class Mage_Catalog_Model_Product_Flat_Flag extends Mage_Core_Model_Flag
             $flagData['is_built'] = false;
             $this->setFlagData($flagData);
         }
+
         return (bool) $flagData['is_built'];
     }
 

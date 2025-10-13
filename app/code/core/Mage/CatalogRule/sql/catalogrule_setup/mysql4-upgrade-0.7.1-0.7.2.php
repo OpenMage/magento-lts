@@ -31,6 +31,7 @@ if ($conn->tableColumnExists($ruleTable, 'store_ids')) {
 
         $conn->update($ruleTable, ['website_ids' => implode(',', array_keys($websiteIds))], 'rule_id=' . $r['rule_id']);
     }
+
     $conn->dropColumn($ruleTable, 'store_ids');
 }
 
@@ -55,6 +56,7 @@ if ($conn->tableColumnExists($ruleProductTable, 'store_id')) {
             $unique[$key] = true;
         }
     }
+
     $conn->dropKey($ruleProductTable, 'sort_order');
     $conn->raw_query("ALTER TABLE `$ruleProductTable` ADD UNIQUE KEY `sort_order` (`from_time`,`to_time`,`website_id`,`customer_group_id`,`product_id`,`sort_order`)");
 

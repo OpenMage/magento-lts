@@ -72,6 +72,7 @@ class Mage_Paypal_Model_Ipn
         if ($key === null) {
             return $this->_request;
         }
+
         return $this->_request[$key] ?? null;
     }
 
@@ -92,12 +93,14 @@ class Mage_Paypal_Model_Ipn
                 if ($httpAdapter) {
                     $this->_postBack($httpAdapter);
                 }
+
                 $this->_processRecurringProfile();
             } else {
                 $this->_getOrder();
                 if ($httpAdapter) {
                     $this->_postBack($httpAdapter);
                 }
+
                 $this->_processOrder();
             }
         } catch (Exception $e) {
@@ -105,6 +108,7 @@ class Mage_Paypal_Model_Ipn
             $this->_debug();
             throw $e;
         }
+
         $this->_debug();
     }
 
@@ -145,6 +149,7 @@ class Mage_Paypal_Model_Ipn
             } else {
                 $reason = 'Response code: ' . $responseCode . '.';
             }
+
             $this->_debugData['exception'] = 'PayPal IPN postback failure. ' . $reason;
             throw new Mage_Paypal_UnavailableException($reason);
         }
@@ -180,6 +185,7 @@ class Mage_Paypal_Model_Ipn
                     ->sendResponse();
                 exit;
             }
+
             // re-initialize config with the method code and store id
             $methodCode = $this->_order->getPayment()->getMethod();
             $this->_config = Mage::getModel('paypal/config', [$methodCode, $this->_order->getStoreId()]);
@@ -189,6 +195,7 @@ class Mage_Paypal_Model_Ipn
 
             $this->_verifyOrder();
         }
+
         return $this->_order;
     }
 
@@ -210,6 +217,7 @@ class Mage_Paypal_Model_Ipn
                     sprintf('Wrong recurring profile INTERNAL_REFERENCE_ID: "%s".', $internalReferenceId),
                 );
             }
+
             // re-initialize config with the method code and store id
             $methodCode = $this->_recurringProfile->getMethodCode();
             $this->_config = Mage::getModel(
@@ -220,6 +228,7 @@ class Mage_Paypal_Model_Ipn
                 throw new Exception(sprintf('Method "%s" is not available.', $methodCode));
             }
         }
+
         return $this->_recurringProfile;
     }
 
@@ -238,6 +247,7 @@ class Mage_Paypal_Model_Ipn
             if (!$receiverEmail) {
                 $receiverEmail = $this->getRequestData('receiver_email');
             }
+
             if (strtolower($merchantEmail) != strtolower($receiverEmail)) {
                 throw new Exception(
                     sprintf(
@@ -373,6 +383,7 @@ class Mage_Paypal_Model_Ipn
         } elseif ($type == 'Regular') {
             $productItemInfo->setPaymentType(Mage_Sales_Model_Recurring_Profile::PAYMENT_TYPE_REGULAR);
         }
+
         $productItemInfo->setTaxAmount($this->getRequestData('tax'));
         $productItemInfo->setShippingAmount($this->getRequestData('shipping'));
         $productItemInfo->setPrice($price);
@@ -409,6 +420,7 @@ class Mage_Paypal_Model_Ipn
         if ($this->getRequestData('transaction_entity') == 'auth') {
             return;
         }
+
         $parentTransactionId = $this->getRequestData('parent_txn_id');
         $this->_importPaymentInformation();
         $payment = $this->_order->getPayment();
@@ -561,6 +573,7 @@ class Mage_Paypal_Model_Ipn
             $this->_registerPaymentAuthorization();
             return;
         }
+
         if ($reason === 'order') {
             throw new Exception('The "order" authorizations are not implemented.');
         }
@@ -601,6 +614,7 @@ class Mage_Paypal_Model_Ipn
         if (!$this->_order->getEmailSent()) {
             $this->_order->queueNewOrderEmail();
         }
+
         $this->_order->save();
     }
 
@@ -647,10 +661,12 @@ class Mage_Paypal_Model_Ipn
         if ($comment) {
             $message .= ' ' . $comment;
         }
+
         if ($addToHistory) {
             $message = $this->_order->addStatusHistoryComment($message);
             $message->setIsCustomerNotified(null);
         }
+
         return $message;
     }
 
@@ -680,11 +696,13 @@ class Mage_Paypal_Model_Ipn
             if (is_int($privateKey)) {
                 $privateKey = $publicKey;
             }
+
             $value = $this->getRequestData($privateKey);
             if ($value) {
                 $from[$publicKey] = $value;
             }
         }
+
         if (isset($from['payment_status'])) {
             $from['payment_status'] = $this->_filterPaymentStatus($this->getRequestData('payment_status'));
         }
@@ -694,6 +712,7 @@ class Mage_Paypal_Model_Ipn
         for ($i = 1; $value = $this->getRequestData("fraud_management_pending_filters_{$i}"); $i++) {
             $fraudFilters[] = $value;
         }
+
         if ($fraudFilters) {
             $from[Mage_Paypal_Model_Info::FRAUD_FILTERS] = $fraudFilters;
         }
@@ -711,6 +730,7 @@ class Mage_Paypal_Model_Ipn
                 $payment->setIsFraudDetected(true);
             }
         }
+
         if ($this->_info::isPaymentSuccessful($payment)) {
             $payment->setIsTransactionApproved(true);
         } elseif ($this->_info::isPaymentFailed($payment)) {

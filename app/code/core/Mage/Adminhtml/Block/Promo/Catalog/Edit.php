@@ -51,6 +51,7 @@ class Mage_Adminhtml_Block_Promo_Catalog_Edit extends Mage_Adminhtml_Block_Widge
         if ($rule->getRuleId()) {
             return Mage::helper('catalogrule')->__("Edit Rule '%s'", $this->escapeHtml($rule->getName()));
         }
+
         return Mage::helper('catalogrule')->__('New Rule');
     }
 }

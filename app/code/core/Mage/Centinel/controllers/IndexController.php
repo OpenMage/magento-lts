@@ -23,6 +23,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
         if ($validator = $this->_getValidator()) {
             Mage::register('current_centinel_validator', $validator);
         }
+
         $this->loadLayout()->renderLayout();
     }
 
@@ -46,6 +47,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
         } catch (Exception) {
             Mage::register('current_centinel_validator', false);
         }
+
         $this->loadLayout()->renderLayout();
     }
 
@@ -69,6 +71,7 @@ class Mage_Centinel_IndexController extends Mage_Core_Controller_Front_Action
         if ($this->_getPayment()->getMethodInstance()->getIsCentinelValidationEnabled()) {
             return $this->_getPayment()->getMethodInstance()->getCentinelValidator();
         }
+
         return false;
     }
 }

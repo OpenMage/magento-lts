@@ -19,13 +19,19 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
      *
      */
     public const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS = 'sales/gift_options/allow_items';
+
     public const XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ORDER = 'sales/gift_options/allow_order';
 
     public const TYPE_ADDRESS_ITEM  = 'address_item';
+
     public const TYPE_CONFIG        = 'config';
+
     public const TYPE_ITEM          = 'item';
+
     public const TYPE_ITEMS         = 'items';
+
     public const TYPE_ORDER         = 'order';
+
     public const TYPE_ORDER_ITEM    = 'order_item';
 
     protected $_moduleName = 'Mage_GiftMessage';
@@ -100,6 +106,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                 if (!is_array($items) || empty($items)) {
                     return Mage::getStoreConfigFlag(self::XPATH_CONFIG_GIFT_MESSAGE_ALLOW_ITEMS, $store);
                 }
+
                 if ($entity instanceof Mage_Sales_Model_Quote) {
                     $_type = $entity->getIsMultiShipping() ? self::TYPE_ADDRESS_ITEM : self::TYPE_ITEM;
                 } else {
@@ -110,6 +117,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                     if ($item->getParentItem()) {
                         continue;
                     }
+
                     return $this->isMessagesAvailable($_type, $item, $store);
                 }
                 // no break
@@ -136,6 +144,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                             ->getGiftMessageAvailable(),
                     );
                 }
+
                 return $this->_getDependenceFromStoreConfig(
                     $this->getCached($cacheId),
                     $store,
@@ -185,6 +194,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
         if ($message) {
             return nl2br($this->escapeHtml($message->getMessage()));
         }
+
         return null;
     }
 
@@ -199,6 +209,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
             $message = $this->getGiftMessage($entity->getGiftMessageId());
             $entity->setGiftMessage($message);
         }
+
         return $entity->getGiftMessage();
     }
 
@@ -275,6 +286,7 @@ class Mage_GiftMessage_Helper_Message extends Mage_Core_Helper_Data
                 return true;
             }
         }
+
         return false;
     }
 

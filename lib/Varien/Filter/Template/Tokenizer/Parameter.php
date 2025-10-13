@@ -34,6 +34,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
                 $parameterName = '';
             }
         }
+
         return $parameters;
     }
 
@@ -49,6 +50,7 @@ class Varien_Filter_Template_Tokenizer_Parameter extends Varien_Filter_Template_
         if ($this->isWhiteSpace()) {
             return $value;
         }
+
         $quoteStart = $this->char() == "'" || $this->char() == '"';
 
         if ($quoteStart) {

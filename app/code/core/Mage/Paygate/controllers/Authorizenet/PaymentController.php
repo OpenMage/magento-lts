@@ -25,6 +25,7 @@ class Mage_Paygate_Authorizenet_PaymentController extends Mage_Core_Controller_F
             if ($paymentMethod) {
                 $paymentMethod->cancelPartialAuthorization(Mage::getSingleton('checkout/session')->getQuote()->getPayment());
             }
+
             $result['success']  = true;
             $result['update_html'] = $this->_getPaymentMethodsHtml();
         } catch (Mage_Core_Exception $e) {

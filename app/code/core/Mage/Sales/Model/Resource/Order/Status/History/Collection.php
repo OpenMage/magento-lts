@@ -44,12 +44,14 @@ class Mage_Sales_Model_Resource_Order_Status_History_Collection extends Mage_Sal
         if (!$instance instanceof Mage_Sales_Model_Order) {
             $instance = $instance->getOrder();
         }
+
         $this->setOrderFilter($instance)->setOrder('created_at', 'desc')
             ->addFieldToFilter('entity_name', $historyEntityName)
             ->addFieldToFilter('is_customer_notified', 0)->setPageSize(1);
         foreach ($this as $historyItem) {
             return $historyItem;
         }
+
         return null;
     }
 }

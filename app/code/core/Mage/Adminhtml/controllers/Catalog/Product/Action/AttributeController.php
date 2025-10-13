@@ -72,6 +72,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         unset($attributesData[$attributeCode]);
                         continue;
                     }
+
                     $data->setData($attributeCode, $value);
                     $attributeName = $attribute->getFrontendLabel();
                     $attribute->getBackend()->validate($data);
@@ -87,6 +88,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         } else {
                             $value = null;
                         }
+
                         $attributesData[$attributeCode] = $value;
                     } elseif ($attribute->getFrontendInput() == 'multiselect') {
                         // Check if 'Change' checkbox has been checked by admin for this attribute
@@ -95,9 +97,11 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                             unset($attributesData[$attributeCode]);
                             continue;
                         }
+
                         if (is_array($value)) {
                             $value = implode(',', $value);
                         }
+
                         $attributesData[$attributeCode] = $value;
                     }
                 }
@@ -105,6 +109,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 Mage::getSingleton('catalog/product_action')
                     ->updateAttributes($this->_getHelper()->getProductIds(), $attributesData, $storeId);
             }
+
             if ($inventoryData) {
                 /** @var Mage_CatalogInventory_Model_Stock_Item $stockItem */
                 $stockItem = Mage::getModel('cataloginventory/stock_item');
@@ -124,6 +129,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                             $stockDataChanged = true;
                         }
                     }
+
                     if ($stockDataChanged) {
                         $stockItem->save();
                         $stockItemSaved = true;
@@ -151,6 +157,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                 if ($websiteRemoveData) {
                     $actionModel->updateWebsites($productIds, $websiteRemoveData, 'remove');
                 }
+
                 if ($websiteAddData) {
                     $actionModel->updateWebsites($productIds, $websiteAddData, 'add');
                 }
@@ -236,6 +243,7 @@ class Mage_Adminhtml_Catalog_Product_Action_AttributeController extends Mage_Adm
                         unset($attributesData[$attributeCode]);
                         continue;
                     }
+
                     $data->setData($attributeCode, $value);
                     $attribute->getBackend()->validate($data);
                 }

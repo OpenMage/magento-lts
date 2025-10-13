@@ -40,6 +40,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
             $this->_totalRecords = 0;
             $this->_setIsLoaded(true);
         }
+
         return $this;
     }
 
@@ -66,6 +67,7 @@ class Mage_Sales_Model_Resource_Quote_Address_Rate_Collection extends Mage_Core_
         if ($this->_allowFixedOnly && (!$rate->getCarrierInstance() || !$rate->getCarrierInstance()->isFixed())) {
             return $this;
         }
+
         return parent::addItem($rate);
     }
 }

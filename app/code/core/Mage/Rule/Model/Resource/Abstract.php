@@ -110,12 +110,14 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         if (empty($ruleIds) || empty($entityIds)) {
             return $this;
         }
+
         $adapter    = $this->_getWriteAdapter();
         $entityInfo = $this->_getAssociatedEntityInfo($entityType);
 
         if (!is_array($ruleIds)) {
             $ruleIds = [(int) $ruleIds];
         }
+
         if (!is_array($entityIds)) {
             $entityIds = [(int) $entityIds];
         }
@@ -143,6 +145,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
                     }
                 }
             }
+
             if (!empty($data)) {
                 $adapter->insertOnDuplicate(
                     $this->getTable($entityInfo['associations_table']),
@@ -185,6 +188,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         if (!is_array($entityIds)) {
             $entityIds = [(int) $entityIds];
         }
+
         if (!is_array($ruleIds)) {
             $ruleIds = [(int) $ruleIds];
         }
@@ -193,6 +197,7 @@ abstract class Mage_Rule_Model_Resource_Abstract extends Mage_Core_Model_Resourc
         if (!empty($ruleIds)) {
             $where[] = $writeAdapter->quoteInto($entityInfo['rule_id_field'] . ' IN (?)', $ruleIds);
         }
+
         if (!empty($entityIds)) {
             $where[] = $writeAdapter->quoteInto($entityInfo['entity_id_field'] . ' IN (?)', $entityIds);
         }

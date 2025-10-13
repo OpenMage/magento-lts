@@ -35,7 +35,9 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
      * Predefined constants
      */
     public const XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID       = 'sales_pdf/invoice/put_order_id';
+
     public const XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID      = 'sales_pdf/shipment/put_order_id';
+
     public const XML_PATH_SALES_PDF_CREDITMEMO_PUT_ORDER_ID    = 'sales_pdf/creditmemo/put_order_id';
 
     /**
@@ -85,6 +87,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         for ($i = 0; $i < strlen($drawingString); $i++) {
             $characters[] = (ord($drawingString[$i++]) << 8) | ord($drawingString[$i]);
         }
+
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
         return (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
@@ -194,6 +197,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 }
             }
         }
+
         $this->y = ($this->y > $top) ? $top : $this->y;
     }
 
@@ -211,9 +215,11 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 if (empty($part)) {
                     continue;
                 }
+
                 $return[] = $part;
             }
         }
+
         return $return;
     }
 
@@ -232,11 +238,13 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 foreach (Mage::helper('core/string')->str_split($value, 55, true, true) as $str) {
                     $text[] = $str;
                 }
+
                 foreach ($text as $part) {
                     $y += 15;
                 }
             }
         }
+
         return $y;
     }
 
@@ -279,6 +287,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 'UTF-8',
             );
         }
+
         $page->drawText(
             Mage::helper('sales')->__('Order Date: ') . Mage::helper('core')->formatDate(
                 $order->getCreatedAtStoreDate(),
@@ -313,6 +322,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 unset($payment[$key]);
             }
         }
+
         reset($payment);
 
         /* Shipping Address and Method */
@@ -350,6 +360,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                 foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
                     $text[] = $str;
                 }
+
                 foreach ($text as $part) {
                     $page->drawText(strip_tags(ltrim($part)), 35, $this->y, 'UTF-8');
                     $this->y -= 15;
@@ -368,6 +379,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                         foreach (Mage::helper('core/string')->str_split($value, 45, true, true) as $str) {
                             $text[] = $str;
                         }
+
                         foreach ($text as $part) {
                             $page->drawText(strip_tags(ltrim($part)), 285, $this->y, 'UTF-8');
                             $this->y -= 15;
@@ -443,6 +455,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             if (isset($shipment)) {
                 $tracks = $shipment->getAllTracks();
             }
+
             if (count($tracks)) {
                 $page->setFillColor(new Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
                 $page->setLineWidth(0.5);
@@ -515,6 +528,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
         if (!isset($a['sort_order']) || !isset($b['sort_order'])) {
             return 0;
         }
+
         return $a['sort_order'] <=> $b['sort_order'];
     }
 
@@ -542,6 +556,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             } else {
                 $totalModel = Mage::getModel($this->_defaultTotalModel);
             }
+
             $totalModel->setData($totalInfo);
             $totalModels[] = $totalModel;
         }
@@ -652,6 +667,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             if (isset($value['price'])) {
                 $resultValue .= ' ' . $order->formatPrice($value['price']);
             }
+
             return  $resultValue;
         } else {
             return $value;
@@ -870,6 +886,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
             if (!isset($itemsProp['lines']) || !is_array($itemsProp['lines'])) {
                 Mage::throwException(Mage::helper('sales')->__('Invalid draw line data. Please define "lines" array.'));
             }
+
             $lines  = $itemsProp['lines'];
             $height = $itemsProp['height'] ?? 10;
 
@@ -882,6 +899,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                         if (!is_array($column['text'])) {
                             $column['text'] = [$column['text']];
                         }
+
                         $top = 0;
                         foreach ($column['text'] as $part) {
                             $top += $lineSpacing;
@@ -889,8 +907,10 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
 
                         $maxHeight = $top > $maxHeight ? $top : $maxHeight;
                     }
+
                     $shift += $maxHeight;
                 }
+
                 $itemsProp['shift'] = $shift;
             }
 
@@ -935,19 +955,23 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                                 } else {
                                     $feed = $feed - $this->widthForStringUsingFontSize($part, $font, $fontSize);
                                 }
+
                                 break;
                             case 'center':
                                 if ($width) {
                                     $feed = $this->getAlignCenter($part, $feed, $width, $font, $fontSize);
                                 }
+
                                 break;
                         }
+
                         $page->drawText($part, $feed, $this->y - $top, 'UTF-8');
                         $top += $lineSpacing;
                     }
 
                     $maxHeight = $top > $maxHeight ? $top : $maxHeight;
                 }
+
                 $this->y -= $maxHeight;
             }
         }

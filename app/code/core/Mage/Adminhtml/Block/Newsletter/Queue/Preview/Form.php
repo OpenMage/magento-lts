@@ -36,8 +36,10 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Preview_Form extends Mage_Adminhtml_
                 } else {
                     $name = $key;
                 }
+
                 $form->addField($key, 'hidden', ['name' => $name]);
             }
+
             $form->setValues($data);
         }
 

@@ -15,10 +15,15 @@
 class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
 {
     public const XML_PATH_ADMINHTML_ROUTER_FRONTNAME   = 'admin/routers/adminhtml/args/frontName';
+
     public const XML_PATH_USE_CUSTOM_ADMIN_URL         = 'default/admin/url/use_custom';
+
     public const XML_PATH_CUSTOM_ADMIN_URL             = 'default/admin/url/custom';
+
     public const XML_PATH_USE_CUSTOM_ADMIN_PATH        = 'default/admin/url/use_custom_path';
+
     public const XML_PATH_CUSTOM_ADMIN_PATH            = 'default/admin/url/custom_path';
+
     public const XML_PATH_ADMINHTML_SECURITY_USE_FORM_KEY = 'admin/security/use_form_key';
 
     protected $_moduleName = 'Mage_Adminhtml';
@@ -39,6 +44,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         if (!$this->_pageHelpUrl) {
             $this->setPageHelpUrl($url, $suffix);
         }
+
         return $this->_pageHelpUrl;
     }
 
@@ -101,6 +107,7 @@ class Mage_Adminhtml_Helper_Data extends Mage_Adminhtml_Helper_Help_Mapping
         if (Mage::getSingleton('admin/session')->getUser()) {
             return Mage::getSingleton('admin/session')->getUser()->getId();
         }
+
         return false;
     }
 

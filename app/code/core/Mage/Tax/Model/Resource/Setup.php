@@ -127,6 +127,7 @@ class Mage_Tax_Model_Resource_Setup extends Mage_Sales_Model_Resource_Setup
                 ["data_{$id}" => 'rate_value'],
             );
         }
+
         return $this->_conn->fetchAll($select);
     }
 }

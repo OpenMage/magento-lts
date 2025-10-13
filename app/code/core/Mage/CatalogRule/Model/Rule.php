@@ -169,6 +169,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
             $customerGroupIds = $this->_getResource()->getCustomerGroupIds($this->getId());
             $this->setData('customer_group_ids', (array) $customerGroupIds);
         }
+
         return $this->_getData('customer_group_ids');
     }
 
@@ -182,6 +183,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         if (!$this->_now) {
             return Varien_Date::now();
         }
+
         return $this->_now;
     }
 
@@ -212,6 +214,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                 if ($this->_productsFilter) {
                     $productCollection->addIdFilter($this->_productsFilter);
                 }
+
                 $this->getConditions()->collectValidatedAttributes($productCollection);
 
                 Mage::getSingleton('core/resource_iterator')->walk(
@@ -243,6 +246,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
             $product->setStoreId($defaultStoreId);
             $results[$websiteId] = (int) $this->getConditions()->validate($product);
         }
+
         $this->_productIds[$product->getId()] = $results;
     }
 
@@ -259,6 +263,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                 $map[$website->getId()] = $website->getDefaultStore()->getId();
             }
         }
+
         return $map;
     }
 
@@ -273,9 +278,11 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         if (is_numeric($product)) {
             $product = $this->_factory->getModel('catalog/product')->load($product);
         }
+
         if (is_null($websiteIds)) {
             $websiteIds = $this->getWebsiteIds();
         }
+
         $this->getResource()->applyToProduct($this, $product, $websiteIds);
         $this->getResource()->applyAllRules($product);
         $this->_invalidateCache();
@@ -319,6 +326,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         if ($rules->count() === 0) {
             return $this;
         }
+
         foreach ($rules as $rule) {
             $websiteIds = array_intersect($productWebsiteIds, $rule->getWebsiteIds());
             $this->getResource()->applyToProduct($rule, $product, $websiteIds);
@@ -353,6 +361,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         } else {
             $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
+
         $dateTs     = Mage::app()->getLocale()->date()->getTimestamp();
         $cacheKey   = date('Y-m-d', $dateTs) . "|$websiteId|$customerGroupId|$productId|$price";
 
@@ -370,6 +379,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                         } else {
                             $priceRules = ($priceRules ? $priceRules : $price);
                         }
+
                         if ($ruleData['action_stop']) {
                             break;
                         }
@@ -384,6 +394,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
                         }
                     }
                 }
+
                 return self::$_priceRulesData[$cacheKey] = $priceRules;
             } else {
                 self::$_priceRulesData[$cacheKey] = null;
@@ -391,6 +402,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         } else {
             return self::$_priceRulesData[$cacheKey];
         }
+
         return null;
     }
 
@@ -426,6 +438,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
             $types = $types->asArray();
             $this->_app->getCacheInstance()->invalidateType(array_keys($types));
         }
+
         return $this;
     }
 
@@ -472,6 +485,7 @@ class Mage_CatalogRule_Model_Rule extends Mage_Rule_Model_Abstract
         if (!$product->hasData('matched_rules')) {
             $product->setMatchedRules($this->getResource()->getProductRuleIds($product->getId()));
         }
+
         return $this;
     }
 }

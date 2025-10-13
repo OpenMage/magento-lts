@@ -15,6 +15,7 @@
 class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_GUEST_CHECKOUT = 'checkout/options/guest_checkout';
+
     public const XML_PATH_CUSTOMER_MUST_BE_LOGGED = 'checkout/options/customer_must_be_logged';
 
     protected $_moduleName = 'Mage_Checkout';
@@ -76,6 +77,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                     ->getAllIds();
             }
         }
+
         return $this->_agreements;
     }
 
@@ -101,6 +103,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($item->getPriceInclTax()) {
             return $item->getPriceInclTax();
         }
+
         $qty = ($item->getQty() ? $item->getQty() : ($item->getQtyOrdered() ? $item->getQtyOrdered() : 1));
 
         //Unit price is rowtotal/qty
@@ -118,6 +121,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($item->getRowTotalInclTax()) {
             return $item->getRowTotalInclTax();
         }
+
         //Since tax amount contains weee tax
         $tax = $item->getTaxAmount() + $item->getDiscountTaxCompensation()
             - $this->_getWeeeHelper()->getTotalRowTaxAppliedForWeeeTax($item);
@@ -202,6 +206,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                 ];
             }
         }
+
         $shippingMethod = '';
         if ($shippingInfo = $checkout->getShippingAddress()->getShippingMethod()) {
             $data = explode('_', $shippingInfo);
@@ -220,6 +225,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
                 . $checkout->getStoreCurrencyCode() . ' '
                 . $item->getProduct()->getFinalPrice($item->getQty()) . "\n";
         }
+
         $total = $checkout->getStoreCurrencyCode() . ' ' . $checkout->getGrandTotal();
 
         foreach ($sendTo as $recipient) {
@@ -261,6 +267,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($data)) {
             return explode(',', $data);
         }
+
         return false;
     }
 
@@ -277,6 +284,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ((!$quote) || !$quote->hasItems()) {
             return $isMultiShipping;
         }
+
         $maximumQty = Mage::getStoreConfigAsInt('shipping/option/checkout_multiple_maximum_qty');
         return $isMultiShipping
             && !$quote->hasItemsWithDecimalQty()
@@ -299,6 +307,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
         if ($store === null) {
             $store = $quote->getStoreId();
         }
+
         $guestCheckout = Mage::getStoreConfigFlag(self::XML_PATH_GUEST_CHECKOUT, $store);
 
         if ($guestCheckout == true) {

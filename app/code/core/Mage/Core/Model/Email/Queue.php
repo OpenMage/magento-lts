@@ -37,7 +37,9 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
      * Email types
      */
     public const EMAIL_TYPE_TO  = 0;
+
     public const EMAIL_TYPE_CC  = 1;
+
     public const EMAIL_TYPE_BCC = 2;
 
     /**
@@ -82,6 +84,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
             $error = Mage::helper('core')->__('Message recipients data must be set.');
             Mage::throwException("{$error} - ID: " . $this->getId());
         }
+
         return parent::_beforeSave();
     }
 
@@ -95,6 +98,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         if ($this->getIsForceCheck() && $this->_getResource()->wasEmailQueued($this)) {
             return $this;
         }
+
         try {
             $this->save();
             $this->setId(null);
@@ -128,6 +132,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
         foreach ($emails as $key => $email) {
             $this->_recipients[] = [$email, $names[$key] ?? '', $type];
         }
+
         return $this;
     }
 
@@ -209,6 +214,7 @@ class Mage_Core_Model_Email_Queue extends Mage_Core_Model_Abstract
                 if ($parameters->getReplyTo() !== null) {
                     $mailer->setReplyTo($parameters->getReplyTo());
                 }
+
                 if ($parameters->getReturnTo() !== null) {
                     $mailer->setReturnPath($parameters->getReturnTo());
                 }

@@ -48,6 +48,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             $api = $this->getApi();
             $api->setAuthorizationId($captureTxnId);
         }
+
         parent::refund($payment, $amount);
     }
 
@@ -72,6 +73,7 @@ class Mage_PaypalUk_Model_Pro extends Mage_Paypal_Model_Pro
             return $payment->getTransaction($payment->getParentTransactionId())
                 ->getAdditionalInformation(self::TRANSPORT_PAYFLOW_TXN_ID);
         }
+
         return $payment->getParentTransactionId();
     }
 

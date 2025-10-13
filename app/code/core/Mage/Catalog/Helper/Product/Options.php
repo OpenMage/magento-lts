@@ -45,6 +45,7 @@ class Mage_Catalog_Helper_Product_Options extends Mage_Core_Helper_Abstract
         } catch (Exception) {
             return false;
         }
+
         return true;
     }
 }

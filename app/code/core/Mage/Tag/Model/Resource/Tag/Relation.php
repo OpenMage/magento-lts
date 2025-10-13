@@ -56,6 +56,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                 $select->where($this->getMainTable() . '.store_id = :sore_id');
                 $bind['sore_id'] = $model->getStoreId();
             }
+
             $data = $read->fetchRow($select, $bind);
             $model->setData((is_array($data)) ? $data : []);
         }
@@ -171,6 +172,7 @@ class Mage_Tag_Model_Resource_Tag_Relation extends Mage_Core_Model_Resource_Db_A
                     'created_at'    => $this->formatDate(time()),
                 ];
             }
+
             $write->insertMultiple($this->getMainTable(), $insertData);
         }
 

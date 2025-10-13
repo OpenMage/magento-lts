@@ -47,6 +47,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         if ($product = Mage::registry('current_product')) {
             return $product->getId();
         }
+
         return false;
     }
 
@@ -67,6 +68,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 ->setActiveFilter()
                 ->load();
         }
+
         return $this->_collection;
     }
 
@@ -113,6 +115,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
                 $tag->getProducts(),
             );
         }
+
         return implode($glue, $out);
     }
 
@@ -127,6 +130,7 @@ class Mage_Tag_Block_Product_List extends Mage_Core_Block_Template
         if (is_null($this->_uniqueHtmlId)) {
             $this->_uniqueHtmlId = Mage::helper('core/data')->uniqHash($prefix);
         }
+
         return $this->_uniqueHtmlId;
     }
 }

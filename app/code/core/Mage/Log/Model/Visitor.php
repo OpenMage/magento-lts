@@ -49,7 +49,9 @@
 class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
 {
     public const DEFAULT_ONLINE_MINUTES_INTERVAL = 15;
+
     public const VISITOR_TYPE_CUSTOMER = 'c';
+
     public const VISITOR_TYPE_VISITOR  = 'v';
 
     protected $_skipRequestLogging = false;
@@ -176,6 +178,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if (!$this->hasData('first_visit_at')) {
             $this->setData('first_visit_at', Varien_Date::now());
         }
+
         return $this->getData('first_visit_at');
     }
 
@@ -187,6 +190,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if (!$this->hasData('last_visit_at')) {
             $this->setData('last_visit_at', Varien_Date::now());
         }
+
         return $this->getData('last_visit_at');
     }
 
@@ -213,9 +217,11 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setIsNewVisitor(true);
             $this->save();
         }
+
         if (!$visitorId || $this->_isVisitorSessionNew()) {
             Mage::dispatchEvent('visitor_init', ['visitor' => $this]);
         }
+
         return $this;
     }
 
@@ -231,6 +237,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if (is_array($visitorData) && isset($visitorData['session_id'])) {
             $visitorSessionId = $visitorData['session_id'];
         }
+
         return $this->_session->getSessionId() != $visitorSessionId;
     }
 
@@ -256,6 +263,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         return $this;
     }
 
@@ -275,6 +283,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
             $this->setDoCustomerLogin(true);
             $this->setCustomerId($customer->getId());
         }
+
         return $this;
     }
 
@@ -291,6 +300,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ($this->getCustomerId() && $customer = $observer->getEvent()->getCustomer()) {
             $this->setDoCustomerLogout(true);
         }
+
         return $this;
     }
 
@@ -308,6 +318,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
                 $this->setDoQuoteCreate(true);
             }
         }
+
         return $this;
     }
 
@@ -322,6 +333,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ($quote) {
             $this->setDoQuoteDestroy(true);
         }
+
         return $this;
     }
 
@@ -347,6 +359,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ((int) $customerId <= 0) {
             return $this;
         }
+
         $customerData = Mage::getModel('customer/customer')->load($customerId);
         $newCustomerData = [];
         foreach ($customerData->getData() as $propName => $propValue) {
@@ -367,6 +380,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
         if ((int) $quoteId <= 0) {
             return $this;
         }
+
         $data->setQuoteData(Mage::getModel('sales/quote')->load($quoteId));
         return $this;
     }
@@ -385,6 +399,7 @@ class Mage_Log_Model_Visitor extends Mage_Core_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 }

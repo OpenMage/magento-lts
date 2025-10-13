@@ -72,10 +72,12 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
         if (empty($this->_items)) {
             return $this;
         }
+
         $customerIds = [];
         foreach ($this->getItems() as $item) {
             $customerIds[] = $item->getId();
         }
+
         $this->getSelect()->reset()
             ->from(['tr' => $this->_tagRelTable], ['*','total_used' => 'count(tr.tag_relation_id)'])
             ->joinLeft(['t' => $this->_tagTable], 't.tag_id=tr.tag_id')
@@ -90,13 +92,16 @@ class Mage_Tag_Model_Entity_Customer_Collection extends Mage_Customer_Model_Enti
             if (!isset($tags[ $row['customer_id'] ])) {
                 $tags[ $row['customer_id'] ] = [];
             }
+
             $tags[ $row['customer_id'] ][] = $row;
         }
+
         foreach ($this->getItems() as $item) {
             if (isset($tags[$item->getId()])) {
                 $item->setData('tags', $tags[$item->getId()]);
             }
         }
+
         return $this;
     }
 }

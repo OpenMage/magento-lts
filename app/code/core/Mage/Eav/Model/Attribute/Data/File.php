@@ -45,6 +45,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
                 $mainScope  = $this->_requestScope;
                 $scopes     = [];
             }
+
             if (!empty($_FILES[$mainScope])) {
                 foreach ($_FILES[$mainScope] as $fileKey => $scopeData) {
                     foreach ($scopes as $scopeName) {
@@ -153,6 +154,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             if ($toDelete) {
                 $attribute->setAttributeValidationAsPassed();
             }
+
             return true;
         }
 
@@ -196,6 +198,7 @@ class Mage_Eav_Model_Attribute_Data_File extends Mage_Eav_Model_Attribute_Data_A
             if (!$attribute->getIsRequired() && !empty($value['delete'])) {
                 $toDelete  = true;
             }
+
             if (!empty($value['tmp_name'])) {
                 $toDelete  = true;
             }

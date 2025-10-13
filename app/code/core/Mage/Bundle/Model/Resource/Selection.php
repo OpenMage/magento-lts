@@ -115,6 +115,7 @@ class Mage_Bundle_Model_Resource_Selection extends Mage_Core_Model_Resource_Db_A
                     }
                 }
             }
+
             if (!$childrenIds) {
                 $childrenIds = [[]];
             }

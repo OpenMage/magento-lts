@@ -59,6 +59,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
             $where = ['website_id = ?' => $object->getId()];
             $this->_getWriteAdapter()->update($this->getMainTable(), ['is_default' => 1], $where);
         }
+
         return parent::_afterSave($object);
     }
 
@@ -105,6 +106,7 @@ class Mage_Core_Model_Resource_Website extends Mage_Core_Model_Resource_Db_Abstr
         if (!$withDefault) {
             $select->where('website_table.website_id <> ?', 0);
         }
+
         return $select;
     }
 }

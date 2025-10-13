@@ -93,6 +93,7 @@ class Mage_Adminhtml_Block_Report_Shopcart_Abandoned_Grid extends Mage_Adminhtml
         } else {
             $storeIds = [];
         }
+
         $this->setStoreIds($storeIds);
         $currencyCode = $this->getCurrentCurrencyCode();
 

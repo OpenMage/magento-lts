@@ -71,6 +71,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if ($this->matchEvent($event)) {
             $this->_registerEvent($event);
         }
+
         return $this;
     }
 
@@ -84,6 +85,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if ($this->matchEvent($event)) {
             $this->_processEvent($event);
         }
+
         return $this;
     }
 
@@ -113,6 +115,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
                 return true;
             }
         }
+
         return false;
     }
 
@@ -142,6 +145,7 @@ abstract class Mage_Index_Model_Indexer_Abstract extends Mage_Core_Model_Abstrac
         if (method_exists($resourceModel, $method)) {
             $resourceModel->$method($event);
         }
+
         return $this;
     }
 

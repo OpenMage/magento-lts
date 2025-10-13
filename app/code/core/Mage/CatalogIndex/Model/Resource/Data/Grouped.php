@@ -58,6 +58,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Grouped extends Mage_CatalogIndex_Mo
                         if ($tier['customer_group_id'] != $customerGroup && !$tier['all_groups']) {
                             continue;
                         }
+
                         if (($resultMinimal === null) || ($tier['value'] < $resultMinimal)) {
                             $resultMinimal    = $tier['value'];
                             $resultTaxClassId = $retreiver->getTaxClassId($tier['entity_id'], $store);

@@ -68,6 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
                 if (!in_array($inputType, $availableTypes)) {
                     continue;
                 }
+
                 $attribute->setAttributeCode('simple_product_' . $attributeCode);
                 $element = $fieldset->addField(
                     'simple_product_' . $attributeCode,
@@ -177,6 +178,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Simple extends 
         if (!$this->_product) {
             $this->_product = Mage::registry('current_product');
         }
+
         return $this->_product;
     }
 }

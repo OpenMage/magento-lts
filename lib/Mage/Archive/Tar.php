@@ -218,6 +218,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         } else {
             $this->_currentPath = dirname($path) . DS;
         }
+
         return $this;
     }
 
@@ -249,18 +250,21 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $data = $this->_readFile($file);
             $data = str_pad($data, (int) (((is_dir($file) ? 0 : filesize($file)) + 512 - 1) / 512) * 512, "\0");
         }
+
         $sub = '';
         if (is_dir($file)) {
             $treeDir = scandir($file);
             if (empty($treeDir)) {
                 throw new Mage_Exception('Can\'t scan dir: ' . $file);
             }
+
             array_shift($treeDir); /* remove  './'*/
             array_shift($treeDir); /* remove  '../'*/
             foreach ($treeDir as $item) {
                 $sub .= $this->_setCurrentFile($file . $item)->_packToTar(false);
             }
         }
+
         $tarData = $header . $data . $sub;
         return str_pad($tarData, (int) ((strlen($tarData) - 1) / 1536) * 1536, "\0");
     }
@@ -351,6 +355,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
             $longHeader = $this->_composeHeader(true);
             $longHeader .= str_pad($nameFile, (int) ((strlen($nameFile) + 512 - 1) / 512) * 512, "\0");
         }
+
         $header = [];
         $header['100-name']       = $long ? '././@LongLink' : substr($nameFile, 0, 100);
         $header['8-mode']         = $long ? '       '
@@ -384,6 +389,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         for ($i = 0; $i < 512; $i++) {
             $checksum += ord(substr($packedHeader, $i, 1));
         }
+
         $packedHeader = substr_replace($packedHeader, sprintf('%07o', $checksum) . "\0", 148, 8);
 
         return $longHeader . $packedHeader;
@@ -434,6 +440,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                         throw new Mage_Exception('Failed to create directory ' . $currentFile);
                     }
                 }
+
                 $list[] = $currentFile . DS;
             } elseif ($header['type'] == '2') {
                 //we do not interrupt unpack process if symlink creation failed as symlinks are not so important
@@ -494,9 +501,11 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
                 } else {
                     $header['data'] = '';
                 }
+
                 return $header;
             }
         }
+
         return false;
     }
 

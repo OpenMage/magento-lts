@@ -55,6 +55,7 @@ class Mage_Paypal_Model_Cert extends Mage_Core_Model_Abstract
         if (!file_exists($certFile)) {
             $this->_createCertFile($certFile);
         }
+
         return $certFile;
     }
 

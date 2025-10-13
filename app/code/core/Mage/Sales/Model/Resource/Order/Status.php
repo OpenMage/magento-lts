@@ -63,6 +63,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
         } else {
             $select = parent::_getLoadSelect($field, $value, $object);
         }
+
         return $select;
     }
 
@@ -98,16 +99,19 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 if (empty($label)) {
                     continue;
                 }
+
                 $data[] = [
                     'status'    => $object->getStatus(),
                     'store_id'  => $storeId,
                     'label'     => $label,
                 ];
             }
+
             if (!empty($data)) {
                 $this->_getWriteAdapter()->insertMultiple($this->_labelsTable, $data);
             }
         }
+
         return parent::_afterSave($object);
     }
 
@@ -128,6 +132,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 ['state = ?' => $state],
             );
         }
+
         $this->_getWriteAdapter()->insertOnDuplicate(
             $this->_stateTable,
             [
@@ -157,6 +162,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 Mage::helper('sales')->__('Last status can\'t be unassigned from state.'),
             );
         }
+
         $select = $this->_getWriteAdapter()->select()
             ->from($this->_stateTable, 'is_default')
             ->where('state = ?', $state)
@@ -188,6 +194,7 @@ class Mage_Sales_Model_Resource_Order_Status extends Mage_Core_Model_Resource_Db
                 );
             }
         }
+
         return $this;
     }
 }

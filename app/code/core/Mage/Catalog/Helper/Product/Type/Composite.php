@@ -166,6 +166,7 @@ class Mage_Catalog_Helper_Product_Type_Composite extends Mage_Core_Helper_Abstra
             $_priceInclTax = Mage::helper('tax')->getPrice($product, $_finalPrice, true);
             $_priceExclTax = Mage::helper('tax')->getPrice($product, $_finalPrice);
         }
+
         $_tierPrices = [];
         $_tierPricesInclTax = [];
         foreach ($product->getTierPrice() as $tierPrice) {

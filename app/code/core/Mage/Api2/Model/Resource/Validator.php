@@ -50,6 +50,7 @@ abstract class Mage_Api2_Model_Resource_Validator
         foreach ($errors as $error) {
             $this->_addError($error);
         }
+
         return $this;
     }
 

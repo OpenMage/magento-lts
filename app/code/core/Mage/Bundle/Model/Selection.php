@@ -66,6 +66,7 @@ class Mage_Bundle_Model_Selection extends Mage_Core_Model_Abstract
                 $this->unsSelectionPriceType();
             }
         }
+
         return parent::_afterSave();
     }
 }

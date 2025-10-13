@@ -56,6 +56,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             if (!$service) {
                 throw new Exception(Mage::helper('adminhtml')->__('Invalid Import Service Specified'));
             }
+
             try {
                 $importModel = Mage::getModel(
                     Mage::getConfig()->getNode('global/currency/import/services/' . $service . '/model')->asArray(),
@@ -63,12 +64,14 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
             } catch (Exception $e) {
                 Mage::throwException(Mage::helper('adminhtml')->__('Unable to initialize import model'));
             }
+
             $rates = $importModel->fetchRates();
             $errors = $importModel->getMessages();
             if (count($errors)) {
                 foreach ($errors as $error) {
                     Mage::getSingleton('adminhtml/session')->addWarning($error);
                 }
+
                 Mage::getSingleton('adminhtml/session')->addWarning(Mage::helper('adminhtml')->__('All possible rates were fetched, please click on "Save" to apply'));
             } else {
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('All rates were fetched, please click on "Save" to apply'));
@@ -78,6 +81,7 @@ class Mage_Adminhtml_System_CurrencyController extends Mage_Adminhtml_Controller
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
+
         $this->_redirect('*/*/');
     }
 

@@ -204,6 +204,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
                 $result[$attribute->getAttributeCode()] = $category->getData($attribute->getAttributeCode());
             }
         }
+
         $result['parent_id']   = $category->getParentId();
         $result['children']           = $category->getChildren();
         $result['all_children']       = $category->getAllChildren();
@@ -394,6 +395,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         if (!$product->getId()) {
             $this->_fault('not_exists', 'Product not exists.');
         }
+
         return $product->getId();
     }
 
@@ -472,6 +474,7 @@ class Mage_Catalog_Model_Category_Api extends Mage_Catalog_Model_Api_Resource
         if (!isset($positions[$productId])) {
             $this->_fault('product_not_assigned');
         }
+
         $positions[$productId] = $position;
         $category->setPostedProducts($positions);
 

@@ -103,6 +103,7 @@ class Mage_Catalog_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
         if (is_null($product->getId())) {
             $this->_fault('product_not_exists');
         }
+
         return $product;
     }
 

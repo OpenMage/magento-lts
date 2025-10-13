@@ -37,13 +37,16 @@ class Mage_Eav_Model_Entity_Attribute_Source_Config extends Mage_Eav_Model_Entit
             if ($this->_configNodePath) {
                 $rootNode = Mage::getConfig()->getNode($this->_configNodePath);
             }
+
             if (!$rootNode) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Failed to load node %s from config', $this->_configNodePath));
             }
+
             $options = $rootNode->children();
             if (empty($options)) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('No options found in config node %s', $this->_configNodePath));
             }
+
             foreach ($options as $option) {
                 $this->_options[] = [
                     'value' => (string) $option->value,

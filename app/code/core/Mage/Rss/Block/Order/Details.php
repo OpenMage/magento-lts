@@ -23,24 +23,29 @@ class Mage_Rss_Block_Order_Details extends Mage_Core_Block_Template
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         if ($item->getGiftMessageId()) {
             return $helper->getGiftMessage($item->getGiftMessageId());
         }
+
         return null;
     }
+
     public function getGiftMessageOrder(): ?Mage_GiftMessage_Model_Message
     {
         $order = $this->getOrder();
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         if ($order->getGiftMessageId()) {
             return $helper->getGiftMessage($order->getGiftMessageId());
         }
+
         return null;
     }
 }

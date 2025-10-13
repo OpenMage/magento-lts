@@ -33,8 +33,11 @@
 class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
 {
     public const SEVERITY_CRITICAL = 1;
+
     public const SEVERITY_MAJOR    = 2;
+
     public const SEVERITY_MINOR    = 3;
+
     public const SEVERITY_NOTICE   = 4;
 
     protected function _construct()
@@ -111,9 +114,11 @@ class Mage_AdminNotification_Model_Inbox extends Mage_Core_Model_Abstract
         if (!$this->getSeverities($severity)) {
             Mage::throwException(Mage::helper('adminnotification')->__('Wrong message type'));
         }
+
         if (is_array($description)) {
             $description = '<ul><li>' . implode('</li><li>', $description) . '</li></ul>';
         }
+
         $date = date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT);
         $this->parse([[
             'severity'    => $severity,

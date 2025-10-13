@@ -153,6 +153,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey()) {
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
                 }
+
                 $this->setIsFirstPageAfterLogin(true);
                 $this->setUser($user);
                 $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
@@ -195,15 +196,19 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($user)) {
             $user = $this->getUser();
         }
+
         if (!$user) {
             return $this;
         }
+
         if (!$this->getAcl() || $user->getReloadAclFlag()) {
             $this->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
         }
+
         if ($user->getReloadAclFlag()) {
             $user->getResource()->saveReloadAclFlag($user, 0);
         }
+
         return $this;
     }
 
@@ -238,6 +243,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
                 }
             }
         }
+
         return false;
     }
 
@@ -261,6 +267,7 @@ class Mage_Admin_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($this->_isFirstPageAfterLogin)) {
             $this->_isFirstPageAfterLogin = $this->getData('is_first_visit', true);
         }
+
         return $this->_isFirstPageAfterLogin;
     }
 

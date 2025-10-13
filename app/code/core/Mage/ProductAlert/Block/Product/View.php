@@ -39,6 +39,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
             $this->setTemplate('');
             return;
         }
+
         $this->setSignupUrl($this->_getHelper()->getSaveUrl('stock'));
     }
 
@@ -53,6 +54,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
             $this->setTemplate('');
             return;
         }
+
         $this->setSignupUrl($this->_getHelper()->getSaveUrl('price'));
     }
 
@@ -81,6 +83,7 @@ class Mage_ProductAlert_Block_Product_View extends Mage_Core_Block_Template
         if (is_null($this->_helper)) {
             $this->_helper = Mage::helper('productalert');
         }
+
         return $this->_helper;
     }
 }

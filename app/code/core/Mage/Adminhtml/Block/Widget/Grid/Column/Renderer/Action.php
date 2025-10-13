@@ -43,6 +43,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
                 $out .= $this->_toOptionHtml($action, $row);
             }
         }
+
         return $out . '</select>';
     }
 
@@ -117,11 +118,13 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
                         if (isset($action['url']['params'])) {
                             $params = array_merge($action['url']['params'], $params);
                         }
+
                         $action['href'] = $this->getUrl($action['url']['base'], $params);
                         unset($action['field']);
                     } else {
                         $action['href'] = $action['url'];
                     }
+
                     unset($action['url']);
                     break;
 
@@ -131,6 +134,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action extends Mage_Admin
                     break;
             }
         }
+
         return $this;
     }
 }

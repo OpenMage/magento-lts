@@ -62,12 +62,14 @@ class Mage_Paypal_Block_Bml_Banners extends Mage_Core_Block_Template
         ) {
             return '';
         }
+
         $publisherId = $this->_getConfig()->getBmlPublisherId();
         $display = $this->_getConfig()->getBmlDisplay($this->_section);
         $position = $this->_getConfig()->getBmlPosition($this->_section);
         if (!$publisherId || $display == 0 || $this->_position != $position) {
             return '';
         }
+
         $this->setPublisherId($publisherId);
         $this->setSize($this->_getConfig()->getBmlSize($this->_section));
         return parent::_toHtml();

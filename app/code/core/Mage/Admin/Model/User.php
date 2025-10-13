@@ -67,11 +67,14 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      * Configuration paths for email templates and identities
      */
     public const XML_PATH_FORGOT_EMAIL_TEMPLATE    = 'admin/emails/forgot_email_template';
+
     public const XML_PATH_FORGOT_EMAIL_IDENTITY    = 'admin/emails/forgot_email_identity';
+
     public const XML_PATH_STARTUP_PAGE             = 'admin/startup/page';
 
     /** Configuration paths for notifications */
     public const XML_PATH_ADDITIONAL_EMAILS             = 'general/additional_notification_emails/admin_user_create';
+
     public const XML_PATH_NOTIFICATION_EMAILS_TEMPLATE  = 'admin/emails/admin_notification_email_template';
 
     /**
@@ -192,6 +195,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (is_array($data)) {
             $data = serialize($data);
         }
+
         $this->_getResource()->saveExtra($this, $data);
         return $this;
     }
@@ -232,6 +236,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 $this->_role->load($roles[0]);
             }
         }
+
         return $this->_role;
     }
 
@@ -384,9 +389,11 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 if ($this->getIsActive() != '1') {
                     Mage::throwException(Mage::helper('adminhtml')->__('This account is inactive.'));
                 }
+
                 if (!$this->hasAssigned2Role($this->getId())) {
                     Mage::throwException(Mage::helper('adminhtml')->__('Access denied.'));
                 }
+
                 $result = true;
             }
 
@@ -404,6 +411,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (!$result) {
             $this->unsetData();
         }
+
         return $result;
     }
 
@@ -429,6 +437,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
             $this->getResource()->recordLogin($this);
             Mage::getSingleton('core/session')->renewFormKey();
         }
+
         return $this;
     }
 
@@ -449,6 +458,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         } elseif ($isUserPasswordChanged) {
             $this->getSession()->setUserPasswordChanged(false);
         }
+
         return $this;
     }
 
@@ -510,6 +520,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if ($parent == null) {
             $parent = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode('menu');
         }
+
         foreach ($parent->children() as $childName => $child) {
             $aclResource = 'admin/' . $path . $childName;
             if (Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
@@ -521,6 +532,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         $this->_hasAvailableResources = false;
         return '*/*/denied';
     }
@@ -563,6 +575,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
                 return $url;
             }
         }
+
         return $this->findFirstAvailableMenu();
     }
 
@@ -598,6 +611,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         } elseif ($this->hasPassword()) {
             $password = $this->getPassword();
         }
+
         if (isset($password)) {
             $minAdminPasswordLength = $this->getMinAdminPasswordLength();
             if (Mage::helper('core/string')->strlen($password) < $minAdminPasswordLength) {
@@ -652,6 +666,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (empty($result)) {
             $result = true;
         }
+
         return $result;
     }
 
@@ -669,6 +684,7 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
         if (!is_string($newResetPasswordLinkToken) || empty($newResetPasswordLinkToken)) {
             throw Mage::exception('Mage_Core', Mage::helper('adminhtml')->__('Invalid password reset token.'));
         }
+
         $this->setRpToken($newResetPasswordLinkToken);
         $currentDate = Varien_Date::now();
         $this->setRpTokenCreatedAt($currentDate);

@@ -49,6 +49,7 @@ class Mage_Api2_Model_Acl_Filter_Attribute extends Mage_Core_Model_Abstract
         if ($this->_permissionModel == null) {
             $this->_permissionModel = Mage::getModel('api2/acl_filter_attribute_resourcePermission');
         }
+
         return $this->_permissionModel;
     }
 }

@@ -71,6 +71,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         if ($headBlock) {
             $headBlock->setTitle(Mage::helper('catalog')->__('Products Comparison List') . ' - ' . $headBlock->getDefaultTitle());
         }
+
         return parent::_prepareLayout();
     }
 
@@ -144,6 +145,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
         } else {
             $value = $product->getData($attribute->getAttributeCode());
         }
+
         return ((string) $value == '') ? Mage::helper('catalog')->__('No') : $value;
     }
 

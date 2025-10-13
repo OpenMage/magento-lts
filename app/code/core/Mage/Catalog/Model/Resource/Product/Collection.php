@@ -264,6 +264,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (is_null($this->_priceExpression)) {
             $this->_preparePriceExpressionParameters($select);
         }
+
         return $this->_priceExpression;
     }
 
@@ -278,6 +279,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (is_null($this->_additionalPriceExpression)) {
             $this->_preparePriceExpressionParameters($select);
         }
+
         return $this->_additionalPriceExpression;
     }
 
@@ -313,11 +315,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (Mage::app()->getStore()->isAdmin() || $this->getFlatHelper()->isFlatCollectionDisabled()) {
             return false;
         }
+
         $storeId = $this->getStoreId();
         if (!isset($this->_flatEnabled[$storeId])) {
             $flatHelper = $this->getFlatHelper();
             $this->_flatEnabled[$storeId] = $flatHelper->isAccessible() && $flatHelper->isBuilt($storeId);
         }
+
         return $this->_flatEnabled[$storeId];
     }
 
@@ -332,6 +336,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         } else {
             $this->_init('catalog/product');
         }
+
         $this->_initTables();
     }
 
@@ -369,6 +374,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->isEnabledFlat()) {
             return $this;
         }
+
         return parent::_prepareStaticFields();
     }
 
@@ -384,6 +390,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->isEnabledFlat()) {
             $object->setIdFieldName($this->getEntity()->getIdFieldName());
         }
+
         return $object;
     }
 
@@ -398,6 +405,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $this->_entity = $entity;
             return $this;
         }
+
         return parent::setEntity($entity);
     }
 
@@ -413,6 +421,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->isEnabledFlat()) {
             $this->getEntity()->setStoreId($this->getStoreId());
         }
+
         return $this;
     }
 
@@ -438,6 +447,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         } else {
             $this->getSelect()->from([self::MAIN_TABLE_ALIAS => $this->getEntity()->getEntityTable()]);
         }
+
         return $this;
     }
 
@@ -451,6 +461,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->isEnabledFlat()) {
             return $this;
         }
+
         return parent::_loadAttributes($printQuery, $logQuery);
     }
 
@@ -466,6 +477,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if (!is_array($attribute)) {
                 $attribute = [$attribute];
             }
+
             foreach ($attribute as $attributeCode) {
                 if ($attributeCode == '*') {
                     foreach ($this->getEntity()->getAllTableColumns() as $column) {
@@ -484,8 +496,10 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                     }
                 }
             }
+
             return $this;
         }
+
         return parent::addAttributeToSelect($attribute, $joinType);
     }
 
@@ -540,6 +554,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if ($this->getFlag('do_not_use_category_id')) {
                 $item->setDoNotUseCategoryId(true);
             }
+
             if (!$item->isVisibleInSiteVisibility() && $item->getItemStoreId()) {
                 $objects[$item->getEntityId()] = $item->getItemStoreId();
             }
@@ -572,6 +587,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $this->_setIsLoaded(true);
             return $this;
         }
+
         if (is_array($productId)) {
             if ($exclude) {
                 $condition = ['nin' => $productId];
@@ -583,6 +599,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         } else {
             $condition = $productId;
         }
+
         $this->addFieldToFilter('entity_id', $condition);
 
         return $this;
@@ -623,6 +640,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $product->setData('websites', $productWebsites[$product->getId()]);
             }
         }
+
         return $this;
     }
 
@@ -638,6 +656,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($store === null) {
             $store = $this->getStoreId();
         }
+
         $store = Mage::app()->getStore($store);
 
         if (!$store->isAdmin()) {
@@ -774,6 +793,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         foreach ($data as $row) {
             $res[$row['range_' . $attributeCode]] = $row['count_' . $attributeCode];
         }
+
         return $res;
     }
 
@@ -810,6 +830,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         foreach ($data as $row) {
             $res[$row['value_' . $attributeCode]] = $row['count_' . $attributeCode];
         }
+
         return $res;
     }
 
@@ -876,6 +897,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($resetLeftJoins) {
             $countSelect->resetJoinLeft();
         }
+
         return $countSelect;
     }
 
@@ -926,6 +948,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (is_null($select)) {
             $select = clone $this->getSelect();
         }
+
         $select->reset(Zend_Db_Select::ORDER);
         $select->reset(Zend_Db_Select::LIMIT_COUNT);
         $select->reset(Zend_Db_Select::LIMIT_OFFSET);
@@ -1005,6 +1028,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $isNotAnchor[] = $category->getId();
             }
         }
+
         $productCounts = [];
         if ($isAnchor || $isNotAnchor) {
             $select = $this->getProductCountSelect();
@@ -1021,6 +1045,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $productCounts += $this->getConnection()->fetchPairs($anchorStmt);
                 $anchorStmt = null;
             }
+
             if ($isNotAnchor) {
                 $notAnchorStmt = clone $select;
                 $notAnchorStmt->limit(); //reset limits
@@ -1029,6 +1054,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $productCounts += $this->getConnection()->fetchPairs($notAnchorStmt);
                 $notAnchorStmt = null;
             }
+
             $select = null;
             $this->unsProductCountSelect();
         }
@@ -1131,6 +1157,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             foreach ($this->getItems() as $item) {
                 $productIds[] = $item->getEntityId();
             }
+
             if (!count($productIds)) {
                 return;
             }
@@ -1159,6 +1186,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if (empty($this->_urlRewriteCategory)) {
                 $item->setDoNotUseCategoryId(true);
             }
+
             if (isset($urlRewrites[$item->getEntityId()])) {
                 $item->setData('request_path', $urlRewrites[$item->getEntityId()]);
             } else {
@@ -1220,9 +1248,11 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
 
             return $this;
         }
+
         if (!$this->isModuleEnabled('Mage_CatalogRule', 'catalog')) {
             return $this;
         }
+
         $wId = Mage::app()->getWebsite()->getId();
         $gId = Mage::getSingleton('customer/session')->getCustomerGroupId();
 
@@ -1325,6 +1355,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (!isset($this->_productLimitationFilters['customer_group_id']) && is_null($customerGroupId)) {
             $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
+
         if (!isset($this->_productLimitationFilters['website_id']) && is_null($websiteId)) {
             $websiteId       = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
         }
@@ -1332,6 +1363,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (!is_null($customerGroupId)) {
             $this->_productLimitationFilters['customer_group_id'] = $customerGroupId;
         }
+
         if (!is_null($websiteId)) {
             $this->_productLimitationFilters['website_id'] = $websiteId;
         }
@@ -1356,6 +1388,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 foreach ($attribute as $condition) {
                     $sqlArr[] = $this->_getAttributeConditionSql($condition['attribute'], $condition, $joinType);
                 }
+
                 $conditionSql = '(' . implode(') OR (', $sqlArr) . ')';
                 $this->getSelect()->where($conditionSql);
                 return $this;
@@ -1389,6 +1422,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                             $field = $adapter->quoteColumnAs([$correlationName, $column], $alias, true);
                         }
                     }
+
                     $this->getSelect()->where("{$field} = ?", $condition);
                     break;
                 }
@@ -1433,10 +1467,12 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if ($item->getTaxClassId() === null) {
                 $item->setTaxClassId($item->getMinimalTaxClassId());
             }
+
             if (!isset($classToRate[$item->getTaxClassId()])) {
                 $request->setProductClassId($item->getTaxClassId());
                 $classToRate[$item->getTaxClassId()] = Mage::getSingleton('tax/calculation')->getRate($request);
             }
+
             $item->setTaxPercent($classToRate[$item->getTaxClassId()]);
         }
     }
@@ -1452,6 +1488,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         foreach ($this as $product) {
             $productIds[] = $product->getId();
         }
+
         if (!empty($productIds)) {
             $storeId = $this->getStoreId();
             $options = Mage::getModel('catalog/product_option')
@@ -1508,6 +1545,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $this->getSelect()->order($this->_getAttributeFieldName($attribute) . ' ' . $dir);
                 return $this;
             }
+
             // optimize if using cat index
             $filters = $this->_productLimitationFilters;
             if (isset($filters['category_id']) || isset($filters['visibility'])) {
@@ -1564,11 +1602,13 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         ) {
             $this->_productLimitationFilters['store_id'] = $this->getStoreId();
         }
+
         if (isset($this->_productLimitationFilters['category_id'])
             && !isset($this->_productLimitationFilters['store_id'])
         ) {
             $this->_productLimitationFilters['store_id'] = $this->getStoreId();
         }
+
         if (isset($this->_productLimitationFilters['store_id'])
             && isset($this->_productLimitationFilters['visibility'])
             && !isset($this->_productLimitationFilters['category_id'])
@@ -1597,6 +1637,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if (count($filters['website_ids']) > 1) {
                 $this->getSelect()->distinct(true);
             }
+
             $conditions[] = $this->getConnection()
                 ->quoteInto('product_website.website_id IN(?)', $filters['website_ids']);
         } elseif (isset($filters['store_id'])
@@ -1616,6 +1657,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             } else {
                 $fromPart['product_website']['joinCondition'] = implode(' AND ', $conditions);
             }
+
             $this->getSelect()->setPart(Zend_Db_Select::FROM, $fromPart);
         } elseif ($joinWebsite) {
             $this->getSelect()->join(
@@ -1647,6 +1689,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 $hasColumn = true;
             }
         }
+
         if (!$hasColumn) {
             $this->getSelect()->columns('visibility', 'cat_index');
         }
@@ -1659,6 +1702,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 [],
             );
         }
+
         if (!isset($fromPart['store_group_index'])) {
             $this->getSelect()->joinLeft(
                 ['store_group_index' => $this->getTable('core/store_group')],
@@ -1666,6 +1710,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 [],
             );
         }
+
         if (!isset($fromPart['store_cat_index'])) {
             $this->getSelect()->joinLeft(
                 ['store_cat_index' => $this->getTable('catalog/category_product_index')],
@@ -1677,6 +1722,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ['store_visibility' => 'visibility'],
             );
         }
+
         // Avoid column duplication problems
         /** @var Mage_Core_Model_Resource_Helper_Mysql4 $helper */
         $helper = Mage::getResourceHelper('core');
@@ -1754,6 +1800,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             } else {
                 $select->join($tableName, $joinCond, $colls);
             }
+
             // Set additional field filters
             foreach ($this->_priceDataFieldFilters as $filterData) {
                 $select->where(call_user_func_array('sprintf', $filterData));
@@ -1762,6 +1809,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $fromPart['price_index']['joinCondition'] = $joinCond;
             $select->setPart(Zend_Db_Select::FROM, $fromPart);
         }
+
         //Clean duplicated fields
         $helper->prepareColumnsList($select);
 
@@ -1780,10 +1828,12 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
             $this->_productLimitationFilters['customer_group_id'] = $customerGroupId;
         }
+
         if (!isset($this->_productLimitationFilters['website_id'])) {
             $websiteId = Mage::app()->getStore($this->getStoreId())->getWebsiteId();
             $this->_productLimitationFilters['website_id'] = $websiteId;
         }
+
         $this->_applyProductLimitations();
         return $this;
     }
@@ -1879,6 +1929,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
                 ['cat_index_position' => 'position'],
             );
         }
+
         $this->_joinFields['position'] = [
             'table' => 'cat_pro',
             'field' => 'position',
@@ -1897,6 +1948,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if ($this->getFlag('category_ids_added')) {
             return $this;
         }
+
         $ids = array_keys($this->_items);
         if (empty($ids)) {
             return $this;
@@ -1948,6 +2000,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $productIds[] = $item->getId();
             $tierPrices[$item->getId()] = [];
         }
+
         if (!$productIds) {
             return $this;
         }
@@ -2000,6 +2053,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if (!empty($data) && $websiteId) {
                 $data = $backend->preparePriceData($data, $item->getTypeId(), $websiteId);
             }
+
             $item->setData('tier_price', $data);
         }
 
@@ -2024,6 +2078,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         if (!is_array($fields)) {
             $fields = [$fields];
         }
+
         foreach ($fields as $key => $field) {
             $fields[$key] = $this->_getMappedField($field);
         }
@@ -2043,6 +2098,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             if ($item->hasStockItem()) {
                 $item->unsStockItem();
             }
+
             $item = $this->_items[$i] = null;
         }
 
@@ -2070,6 +2126,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
         } else {
             parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 

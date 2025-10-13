@@ -129,14 +129,18 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             } elseif (is_string($entityType)) {
                 $entityType = Mage::getSingleton('eav/config')->getEntityType($entityType);
             }
+
             if ($entityType instanceof Mage_Eav_Model_Entity_Type) {
                 $entityTypeId = $entityType->getId();
             }
+
             if (empty($entityTypeId)) {
                 throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Invalid entity supplied.'));
             }
+
             $this->_getResource()->loadByCode($this, $entityTypeId, $code);
         }
+
         $this->_afterLoad();
         $this->setOrigData();
         $this->_hasDataChanges = false;
@@ -403,6 +407,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         if (!$this->_entity) {
             $this->_entity = $this->getEntityType();
         }
+
         return $this->_entity;
     }
 
@@ -427,10 +432,12 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if (!$this->getBackendModel()) {
                 $this->setBackendModel($this->_getDefaultBackendModel());
             }
+
             $backend = Mage::getModel($this->getBackendModel());
             if (!$backend) {
                 throw Mage::exception('Mage_Eav', 'Invalid backend model specified: ' . $this->getBackendModel());
             }
+
             $this->_backend = $backend->setAttribute($this);
         }
 
@@ -448,6 +455,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if (!$this->getFrontendModel()) {
                 $this->setFrontendModel($this->_getDefaultFrontendModel());
             }
+
             $this->_frontend = Mage::getModel($this->getFrontendModel())
                 ->setAttribute($this);
         }
@@ -466,6 +474,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if (!$this->getSourceModel()) {
                 $this->setSourceModel($this->_getDefaultSourceModel());
             }
+
             $source = Mage::getModel($this->getSourceModel());
             if (!$source) {
                 throw Mage::exception(
@@ -477,8 +486,10 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     ),
                 );
             }
+
             $this->_source = $source->setAttribute($this);
         }
+
         return $this->_source;
     }
 
@@ -596,6 +607,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         if (!isset($this->_attributeIdCache[$k])) {
             $this->_attributeIdCache[$k] = $this->getResource()->getIdByCode($entityType, $code);
         }
+
         return $this->_attributeIdCache[$k];
     }
 
@@ -625,9 +637,11 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     $entityTable  = [$this->getEntity()->getEntityTablePrefix(), $this->getBackendType()];
                     $backendTable = $this->getResource()->getTable($entityTable);
                 }
+
                 $this->_dataTable = $backendTable;
             }
         }
+
         return $this->_dataTable;
     }
 
@@ -666,6 +680,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 if (!isset($describe[$this->getAttributeCode()])) {
                     break;
                 }
+
                 $prop = $describe[$this->getAttributeCode()];
                 $type = $prop['DATA_TYPE'];
                 $size = $prop['LENGTH'] ?: null;
@@ -747,6 +762,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 if (!isset($describe[$this->getAttributeCode()])) {
                     break;
                 }
+
                 $prop = $describe[$this->getAttributeCode()];
                 $type = $prop['DATA_TYPE'];
                 if (isset($prop['PRECISION'], $prop['SCALE'])) {
@@ -754,6 +770,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 } else {
                     $type .= (isset($prop['LENGTH']) && $prop['LENGTH']) ? "({$prop['LENGTH']})" : '';
                 }
+
                 $columns[$this->getAttributeCode()] = [
                     'type'      => $type,
                     'unsigned'  => $prop['UNSIGNED'] ? true : false,
@@ -808,6 +825,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                 ];
                 break;
         }
+
         return $columns;
     }
 
@@ -831,6 +849,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             if ($this->usesSource() && $this->getBackendType() != self::TYPE_STATIC) {
                 return $this->getSource()->getFlatIndexes();
             }
+
             $indexes = [];
 
             switch ($this->getBackendType()) {
@@ -840,6 +859,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
                     if (!isset($describe[$this->getAttributeCode()])) {
                         break;
                     }
+
                     $indexDataTypes = [
                         'varchar',
                         'varbinary',
@@ -902,6 +922,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
             foreach (Mage::app()->getStores() as $store) {
                 $this->getFlatUpdateSelect($store->getId());
             }
+
             return $this;
         }
 
@@ -912,6 +933,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Abstract extends Mage_Core_Model_
         if ($this->usesSource()) {
             return $this->getSource()->getFlatUpdateSelect($store);
         }
+
         return $this->_getResource()->getFlatUpdateSelect($this, $store);
     }
 

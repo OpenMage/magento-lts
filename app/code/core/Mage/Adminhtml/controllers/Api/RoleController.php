@@ -80,6 +80,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             $breadCrumbTitle = $this->__('Add New Role');
             $this->_title($this->__('New Role'));
         }
+
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
 
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
@@ -113,6 +114,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
@@ -146,6 +148,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
@@ -208,6 +211,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         } catch (Exception $e) {
             throw $e;
         }
+
         return true;
     }
 

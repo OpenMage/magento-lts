@@ -40,11 +40,13 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         } catch (Exception $e) {
             $this->_getSession()->addError($e->getMessage());
         }
+
         $this->_initAction()->loadLayout('overlay_popup');
         $block = $this->getLayout()->getBlock('wysiwyg_images.js');
         if ($block) {
             $block->setStoreId($storeId);
         }
+
         $this->renderLayout();
     }
 
@@ -83,6 +85,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         } catch (Exception $e) {
             $result = ['error' => true, 'message' => $e->getMessage()];
         }
+
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
@@ -106,6 +109,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             if (!$this->getRequest()->isPost()) {
                 throw new Exception('Wrong request.');
             }
+
             $files = Mage::helper('core')->jsonDecode($this->getRequest()->getParam('files'));
 
             /** @var Mage_Cms_Helper_Wysiwyg_Images $helper */
@@ -139,6 +143,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
         } catch (Exception $e) {
             $result = ['error' => $e->getMessage(), 'errorcode' => $e->getCode()];
         }
+
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }
 
@@ -193,6 +198,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
             $storage = Mage::getModel('cms/wysiwyg_images_storage');
             Mage::register('storage', $storage);
         }
+
         return Mage::registry('storage');
     }
 
@@ -208,6 +214,7 @@ class Mage_Adminhtml_Cms_Wysiwyg_ImagesController extends Mage_Adminhtml_Control
                 ->getSession()
                 ->setCurrentPath(Mage::helper('cms/wysiwyg_images')->getCurrentPath());
         }
+
         return $this;
     }
 }

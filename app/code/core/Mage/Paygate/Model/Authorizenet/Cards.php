@@ -13,9 +13,13 @@
 class Mage_Paygate_Model_Authorizenet_Cards
 {
     public const CARDS_NAMESPACE = 'authorize_cards';
+
     public const CARD_ID_KEY = 'id';
+
     public const CARD_PROCESSED_AMOUNT_KEY = 'processed_amount';
+
     public const CARD_CAPTURED_AMOUNT_KEY = 'captured_amount';
+
     public const CARD_REFUNDED_AMOUNT_KEY = 'refunded_amount';
 
     /**
@@ -77,6 +81,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
             $this->_cards[$cardId] = $card->getData();
             $this->_payment->setAdditionalInformation(self::CARDS_NAMESPACE, $this->_cards);
         }
+
         return $this;
     }
 
@@ -91,6 +96,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
         if (isset($this->_cards[$cardId])) {
             return new Varien_Object($this->_cards[$cardId]);
         }
+
         return false;
     }
 
@@ -106,6 +112,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
         foreach (array_keys($this->_cards) as $key) {
             $_cards[$key] = $this->getCard($key);
         }
+
         return $_cards;
     }
 
@@ -173,6 +180,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
             throw new Exception('Payment instance is not set');
         }
     }
+
     /**
      * Return total for cards data fields
      *
@@ -187,6 +195,7 @@ class Mage_Paygate_Model_Authorizenet_Cards
                 $amount += $card[$key];
             }
         }
+
         return $amount;
     }
 }

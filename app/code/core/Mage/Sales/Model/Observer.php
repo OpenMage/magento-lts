@@ -102,6 +102,7 @@ class Mage_Sales_Model_Observer
         if (is_numeric($product)) {
             $product = Mage::getModel('catalog/product')->load($product);
         }
+
         if ($product instanceof Mage_Catalog_Model_Product) {
             $childrenProductList = Mage::getSingleton('catalog/product_type')->factory($product)
                 ->getChildrenIds($product->getId(), false);
@@ -147,6 +148,7 @@ class Mage_Sales_Model_Observer
         if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
             return $this;
         }
+
         $productId  = $observer->getEvent()->getProductId();
         Mage::getResourceSingleton('sales/quote')->markQuotesRecollect($productId);
 
@@ -272,6 +274,7 @@ class Mage_Sales_Model_Observer
         if (!($methodInstance instanceof Mage_Sales_Model_Payment_Method_Billing_AgreementAbstract)) {
             return;
         }
+
         if (!Mage::getSingleton('admin/session')->isAllowed('sales/billing_agreement/actions/use')) {
             $observer->getEvent()->getResult()->isAvailable = false;
         }

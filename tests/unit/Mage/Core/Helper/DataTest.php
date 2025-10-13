@@ -158,6 +158,7 @@ final class DataTest extends OpenMageTest
         ];
         self::assertSame($expectedResult, self::$subject->getCacheTypes());
     }
+
     /**
      * @covers Mage_Core_Helper_Data::getCacheBetaTypes()
      * @group Helper

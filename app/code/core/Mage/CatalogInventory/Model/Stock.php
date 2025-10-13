@@ -20,14 +20,18 @@
 class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
 {
     public const BACKORDERS_NO             = 0;
+
     public const BACKORDERS_YES_NONOTIFY   = 1;
+
     public const BACKORDERS_YES_NOTIFY     = 2;
 
     /* @deprecated */
     public const BACKORDERS_BELOW          = 1;
+
     public const BACKORDERS_YES            = 2;
 
     public const STOCK_OUT_OF_STOCK        = 0;
+
     public const STOCK_IN_STOCK            = 1;
 
     public const DEFAULT_STOCK_ID          = 1;
@@ -64,12 +68,14 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         foreach ($items as $item) {
             $stockItems[$item->getProductId()] = $item;
         }
+
         /** @var Mage_Catalog_Model_Product $product */
         foreach ($productCollection as $product) {
             if (isset($stockItems[$product->getId()])) {
                 $stockItems[$product->getId()]->assignProduct($product);
             }
         }
+
         return $this;
     }
 
@@ -99,11 +105,13 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
             } else {
                 $stockItem = $item['item'];
             }
+
             $canSubtractQty = $stockItem->getId() && $stockItem->canSubtractQty();
             if ($canSubtractQty && Mage::helper('cataloginventory')->isQty($stockItem->getTypeId())) {
                 $qtys[$productId] = $item['qty'];
             }
         }
+
         return $qtys;
     }
 
@@ -127,17 +135,20 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
                 if (!$item->checkQty($qtys[$item->getProductId()])) {
                     Mage::throwException(Mage::helper('cataloginventory')->__('Not all products are available in the requested quantity'));
                 }
+
                 $item->subtractQty($qtys[$item->getProductId()]);
                 if (!$item->verifyStock() || $item->verifyNotification()) {
                     $fullSaveItems[] = clone $item;
                 }
             }
+
             $this->_getResource()->correctItemsQty($this, $qtys, '-');
             $this->_getResource()->commit();
         } catch (Exception $e) {
             $this->_getResource()->rollBack();
             throw $e;
         }
+
         return $fullSaveItems;
     }
 
@@ -167,6 +178,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
                 if ($item->getStoreId()) {
                     $stockItem->setStoreId($item->getStoreId());
                 }
+
                 if ($stockItem->checkQty($item->getQtyOrdered()) || Mage::app()->getStore()->isAdmin()) {
                     $stockItem->subtractQty($item->getQtyOrdered());
                     $stockItem->save();
@@ -175,6 +187,7 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
         } else {
             Mage::throwException(Mage::helper('cataloginventory')->__('Cannot specify product identifier for the order item.'));
         }
+
         return $this;
     }
 
@@ -194,8 +207,10 @@ class Mage_CatalogInventory_Model_Stock extends Mage_Core_Model_Abstract
                 $stockItem->setIsInStock(true)
                     ->setStockStatusChangedAutomaticallyFlag(true);
             }
+
             $stockItem->save();
         }
+
         return $this;
     }
 

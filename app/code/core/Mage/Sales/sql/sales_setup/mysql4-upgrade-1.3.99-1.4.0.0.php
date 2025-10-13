@@ -1186,6 +1186,7 @@ foreach ($tablesToDrop as $table) {
     if (!$installer->tableExists($table)) {
         continue;
     }
+
     $installer->getConnection()->query(
         'DROP TABLE ' . $installer->getConnection()->quoteIdentifier($table),
     );

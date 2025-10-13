@@ -30,6 +30,7 @@ class Mage_Tax_Model_Sales_Pdf_Grandtotal extends Mage_Sales_Model_Order_Pdf_Tot
         if (!$config->displaySalesTaxWithGrandTotal($store)) {
             return parent::getTotalsForDisplay();
         }
+
         $amount = $this->getOrder()->formatPriceTxt($this->getAmount());
         $amountExclTax = $this->getAmount() - $this->getSource()->getTaxAmount();
         $amountExclTax = ($amountExclTax > 0) ? $amountExclTax : 0;

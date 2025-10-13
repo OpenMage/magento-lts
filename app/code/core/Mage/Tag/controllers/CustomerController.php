@@ -28,6 +28,7 @@ class Mage_Tag_CustomerController extends Mage_Core_Controller_Front_Action
             Mage::register('tagModel', $model);
             return $model->getTagId();
         }
+
         return false;
     }
 

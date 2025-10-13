@@ -34,6 +34,7 @@ class Mage_Downloadable_Adminhtml_Downloadable_FileController extends Mage_Admin
         } elseif ($type == 'link_samples') {
             $tmpPath = Mage_Downloadable_Model_Link::getBaseSampleTmpPath();
         }
+
         $result = [];
         try {
             $uploader = Mage::getModel('core/file_uploader', $type);

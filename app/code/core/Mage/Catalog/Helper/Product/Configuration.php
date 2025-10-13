@@ -46,6 +46,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                             if ($url) {
                                 $group->setCustomOptionDownloadUrl($url);
                             }
+
                             $urlParams = $downloadParams->getUrlParams();
                             if ($urlParams) {
                                 $group->setCustomOptionUrlParams($urlParams);
@@ -85,6 +86,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if ($typeId != Mage_Catalog_Model_Product_Type_Configurable::TYPE_CODE) {
             Mage::throwException($this->__('Wrong product type to extract configurable options.'));
         }
+
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $product->getTypeInstance(true);
         $attributes = $productType->getSelectedAttributesInfo($product);
@@ -129,6 +131,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                 break;
             }
         }
+
         return $isUnConfigured ? [] : $options;
     }
 
@@ -177,6 +180,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         if (!$params) {
             $params = [];
         }
+
         $maxLength = $params['max_length'] ?? null;
         $cutReplacer = $params['cut_replacer'] ?? '...';
 
@@ -206,6 +210,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
                     return $_default;
                 }
             }
+
             return $_default;
         }
 
@@ -221,6 +226,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
             } else {
                 $truncatedValue = $optionValue;
             }
+
             $truncatedValue = nl2br($truncatedValue);
         }
 

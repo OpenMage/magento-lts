@@ -15,6 +15,7 @@
 class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_Core_Model_Resource_Db_Abstract
 {
     public const GALLERY_TABLE       = 'catalog/product_attribute_media_gallery';
+
     public const GALLERY_VALUE_TABLE = 'catalog/product_attribute_media_gallery_value';
 
     protected $_eventPrefix = 'catalog_product_attribute_backend_media';
@@ -251,6 +252,7 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
 
             $this->_attributeId = $attribute->getId();
         }
+
         return $this->_attributeId;
     }
 

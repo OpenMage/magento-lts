@@ -18,6 +18,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
      * Types of template
      */
     public const TYPE_TEXT = 1;
+
     public const TYPE_HTML = 2;
 
     /**
@@ -62,6 +63,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             $appEmulation = Mage::getSingleton('core/app_emulation');
             $this->_initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($storeId, $area);
         }
+
         return $this;
     }
 
@@ -77,6 +79,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
             $appEmulation->stopEnvironmentEmulation($this->_initialEnvironmentInfo);
             $this->_initialEnvironmentInfo = null;
         }
+
         return $this;
     }
 
@@ -95,6 +98,7 @@ abstract class Mage_Core_Model_Template extends Mage_Core_Model_Abstract
                 'store' => $storeId,
             ]);
         }
+
         return $this->_designConfig;
     }
 
