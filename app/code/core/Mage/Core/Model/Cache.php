@@ -198,7 +198,7 @@ class Mage_Core_Model_Cache
                                 }
                             }
                         }
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                     }
                 }
         }

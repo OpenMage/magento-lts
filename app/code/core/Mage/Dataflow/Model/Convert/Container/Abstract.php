@@ -119,7 +119,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
         if ($this->isSerialized($data)) {
             try {
                 Mage::helper('core/unserializeArray')->unserialize($data);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $result = false;
                 $this->addException(
                     'Invalid data, expecting serialized array.',

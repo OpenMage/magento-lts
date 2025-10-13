@@ -266,7 +266,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
 
         try {
             $this->getIndexer()->processEvent($event);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $isError = true;
         }
         $event->resetData();
@@ -374,7 +374,7 @@ class Mage_Index_Model_Process extends Mage_Core_Model_Abstract
                         $event->addProcessId($this->getId());
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $event->addProcessId($this->getId(), self::EVENT_STATUS_ERROR);
             }
             $event->save();
