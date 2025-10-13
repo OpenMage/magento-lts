@@ -65,12 +65,13 @@
         "phpstan/phpstan": "^2.1.18",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpunit/phpunit": "^9.6",
-        "rector/rector": "^2.1.2",
+        "rector/rector": "^2.1.7",
         "squizlabs/php_codesniffer": "^3.7",
         "symplify/vendor-patches": "^11.1"
     },
     "conflict": {
-        "n98/n98_layouthelper": "*"
+        "n98/n98_layouthelper": "*",
+        "rector/rector": "2.2.0 || 2.2.1 || 2.2.2 || 2.2.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
