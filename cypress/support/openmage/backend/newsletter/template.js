@@ -29,10 +29,10 @@ test.config.index = {
         add: {
             _: base._button + '[title="Add New Template"]',
             __class: base.__buttons.add.__class,
+            click: () => {
+                tools.click(test.config.index.__buttons.add._, 'Add New Newsletter Templates button clicked');
+            },
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Newsletter Templates button clicked');
     },
 }
 
@@ -48,18 +48,15 @@ test.config.edit = {
         saveAs: {
             _: base._button + '[title="Save As"]',
             __class: ['scalable', 'save', 'save-as'],
+            click: () => {
+                cy.openmage.tools.click(test.config.edit.__buttons.saveAs._, 'Save as button clicked');
+            },
         },
         delete: base.__buttons.delete,
         back: base.__buttons.back,
         reset: base.__buttons.reset,
-        convertToPlain: {
-            _: base._button + '[title="Convert to Plain Text"]',
-            __class: ['scalable', 'task', 'to-plain'],
-        },
-        preview: {
-            _: base._button + '[title="Preview Template"]',
-            __class: ['scalable', 'task', 'preview'],
-        },
+        convertToPlain: base.__buttons.convertToPlain,
+        preview: base.__buttons.preview,
     },
 }
 
@@ -74,13 +71,7 @@ test.config.new = {
         save: base.__buttons.save,
         back: base.__buttons.back,
         reset: base.__buttons.reset,
-        convertToPlain: {
-            _: base._button + '[title="Convert to Plain Text"]',
-            __class: ['scalable', 'task', 'to-plain'],
-        },
-        preview: {
-            _: base._button + '[title="Preview Template"]',
-            __class: ['scalable', 'task', 'preview'],
-        },
+        convertToPlain: base.__buttons.convertToPlain,
+        preview: base.__buttons.preview,
     },
 }

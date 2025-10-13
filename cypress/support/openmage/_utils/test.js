@@ -114,11 +114,35 @@ cy.openmage.test.backend.__base.__buttons.print = {
  * Configuration for "Send Email" button
  * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.enail.click, _: string}}
  */
-cy.openmage.test.backend.__base.__buttons.enail = {
+cy.openmage.test.backend.__base.__buttons.email = {
     _: cy.openmage.test.backend.__base._button + '[title="Send Email"]',
     __class: ['scalable', 'send-email'],
     click: () => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.reset._, 'Reset button clicked');
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.email._, 'Reset button clicked');
+    },
+};
+
+/**
+ * Configuration for "Convert to Plain Text" button
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.enail.click, _: string}}
+ */
+cy.openmage.test.backend.__base.__buttons.convertToPlain = {
+    _: cy.openmage.test.backend.__base._button + '[title="Convert to Plain Text"]',
+    __class: ['scalable', 'task', 'to-plain'],
+    click: () => {
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.convertToPlain._, 'Convert to Plain Text button clicked');
+    },
+};
+
+/**
+ * Configuration for "Convert to Plain Text" button
+ * @type {{__class: string[], click: cy.openmage.test.backend.__base.__buttons.enail.click, _: string}}
+ */
+cy.openmage.test.backend.__base.__buttons.preview = {
+    _: cy.openmage.test.backend.__base._button + '[title="Preview Template"]',
+    __class: ['scalable', 'task', 'preview'],
+    click: () => {
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.preview._, 'Preview Text button clicked');
     },
 };
 

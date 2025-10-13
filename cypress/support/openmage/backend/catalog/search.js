@@ -52,10 +52,10 @@ test.config.index = {
         add: {
             _: base._button + '[title="Add New Search Term"]',
             __class: base.__buttons.add.__class,
+            click: (log = 'Add Search Term button clicked') => {
+                tools.click(test.config.index.__buttons.add._, log);
+            },
         },
-    },
-    clickAdd: (log = 'Add Search Term button clicked') => {
-        tools.click(test.config.index.__buttons.add._, log);
     },
 }
 

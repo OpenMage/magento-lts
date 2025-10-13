@@ -29,10 +29,10 @@ test.config.index = {
         add: {
             _: test.config._button + '[title="Add Product"]',
             __class: base.__buttons.add.__class,
+            click: () => {
+                tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
+            },
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
     },
 }
 
