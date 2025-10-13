@@ -17,7 +17,7 @@
  * @method Mage_Customer_Model_Resource_Group_Collection getCollection()
  * @method Mage_Customer_Model_Resource_Group_Collection getResourceCollection()
  *
- * @method string getCustomerGroupCode()
+ * @method string|null getCustomerGroupCode()
  * @method $this setCustomerGroupCode(string $value)
  * @method $this setTaxClassId(int $value)
  */
@@ -76,7 +76,7 @@ class Mage_Customer_Model_Group extends Mage_Core_Model_Abstract
      */
     public function getCode()
     {
-        return $this->getCustomerGroupCode();
+        return (string) $this->getCustomerGroupCode();
     }
 
     /**
