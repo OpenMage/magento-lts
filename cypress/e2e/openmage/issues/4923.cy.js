@@ -1,4 +1,4 @@
-describe('Check trailing slash', () => {
+describe('Check canocincal tag', () => {
     const canonical = 'head link[rel="canonical"]';
 
     it('tests page has canocincal tag', () => {
