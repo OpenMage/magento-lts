@@ -196,14 +196,10 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
     {
         return match ($scope) {
             Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
-            Mage_Adminhtml_Block_System_Config_Form::SCOPE_WEBSITES => sprintf(
-                '%s "%s"',
-                Mage::helper('cms')->__('Website'),
-                Mage::app()->getWebsite($scopeId)->getName(),
-            ),
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_WEBSITES => Mage::app()->getWebsite($scopeId)->getName(),
             Mage_Adminhtml_Block_System_Config_Form::SCOPE_STORES => sprintf(
                 '%s "%s"',
-                Mage::helper('cms')->__('Store View'),
+                Mage::app()->getStore($scopeId)->getGroup()->getName(),
                 Mage::app()->getStore($scopeId)->getName(),
             ),
         };
