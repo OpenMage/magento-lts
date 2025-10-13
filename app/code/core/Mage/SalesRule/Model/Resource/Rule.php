@@ -301,7 +301,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     {
         $result = [];
         if (preg_match_all('~s:32:"salesrule/rule_condition_product";s:9:"attribute";s:\d+:"(.*?)"~s', $serializedString, $matches)) {
-            foreach ($matches[1] as $offset => $attributeCode) {
+            foreach ($matches[1] as $attributeCode) {
                 $result[] = $attributeCode;
             }
         }

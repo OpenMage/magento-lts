@@ -104,7 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Shipping_Method_Form extends Mage_
         $rates = $this->getShippingRates();
         if (is_array($rates)) {
             foreach ($rates as $group) {
-                foreach ($group as $code => $rate) {
+                foreach ($group as $rate) {
                     if ($rate->getCode() == $this->getShippingMethod()) {
                         return $rate;
                     }

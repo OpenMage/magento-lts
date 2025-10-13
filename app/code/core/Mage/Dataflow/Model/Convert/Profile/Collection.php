@@ -151,7 +151,7 @@ class Mage_Dataflow_Model_Convert_Profile_Collection
             $country = '';
 
             /** @var Varien_Simplexml_Element $varNode */
-            foreach ($actionNode->var as $key => $varNode) {
+            foreach ($actionNode->var as $varNode) {
                 if ($varNode['name'] == 'map') {
                     $mapData = [];
                     foreach ($varNode->map as $mapNode) {

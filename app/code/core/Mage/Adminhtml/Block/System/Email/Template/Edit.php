@@ -374,7 +374,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             ];
 
             $pathParts = $prefixParts;
-            foreach ($paths as $id => $pathData) {
+            foreach ($paths as $pathData) {
                 [$sectionName, $groupName, $fieldName] = explode('/', $pathData['path']);
                 $urlParams = ['section' => $sectionName];
                 if (isset($pathData['scope']) && isset($pathData['scope_id'])) {

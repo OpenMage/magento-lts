@@ -39,7 +39,7 @@ class Mage_Core_Exception extends Exception
     {
         if ($type == '') {
             $arrRes = [];
-            foreach ($this->_messages as $messageType => $messages) {
+            foreach ($this->_messages as $messages) {
                 $arrRes = array_merge($arrRes, $messages);
             }
 

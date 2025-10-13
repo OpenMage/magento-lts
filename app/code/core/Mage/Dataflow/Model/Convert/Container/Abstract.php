@@ -183,7 +183,7 @@ abstract class Mage_Dataflow_Model_Convert_Container_Abstract implements Mage_Da
     public function getGridFields($grid)
     {
         $fields = [];
-        foreach ($grid as $i => $row) {
+        foreach ($grid as $row) {
             foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;

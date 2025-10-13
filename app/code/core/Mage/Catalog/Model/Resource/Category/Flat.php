@@ -546,7 +546,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     protected function _prepareValuesToInsert($data)
     {
         $values = [];
-        foreach (array_keys($this->_columns) as $key => $column) {
+        foreach (array_keys($this->_columns) as $column) {
             if (isset($data[$column])) {
                 $values[$column] = $data[$column];
             } else {

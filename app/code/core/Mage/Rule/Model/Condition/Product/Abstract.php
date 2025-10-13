@@ -521,7 +521,7 @@ abstract class Mage_Rule_Model_Condition_Product_Abstract extends Mage_Rule_Mode
             // remember old attribute state
             $oldAttrValue = $object->hasData($attrCode) ? $object->getData($attrCode) : null;
 
-            foreach ($this->_entityAttributeValues[$object->getId()] as $storeId => $value) {
+            foreach ($this->_entityAttributeValues[$object->getId()] as $value) {
                 $attr = $object->getResource()->getAttribute($attrCode);
                 if ($attr && $attr->getBackendType() == 'datetime') {
                     $value = strtotime($value);

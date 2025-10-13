@@ -137,7 +137,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             $lines[] = implode($fDel, $line);
         }
 
-        foreach ($data as $i => $row) {
+        foreach ($data as $row) {
             $line = [];
             foreach ($fields as $f) {
                 /*

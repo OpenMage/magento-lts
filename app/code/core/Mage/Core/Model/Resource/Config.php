@@ -84,7 +84,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
 
         // inherit default config values to all websites
         $extendSource = $xmlConfig->getNode('default');
-        foreach ($websites as $id => $w) {
+        foreach ($websites as $w) {
             $websiteNode = $xmlConfig->getNode('websites/' . $w['code']);
             $websiteNode->extend($extendSource);
         }

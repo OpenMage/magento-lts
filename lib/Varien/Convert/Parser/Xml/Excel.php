@@ -118,7 +118,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                     $xml .= '</ss:Row>';
                 }
 
-                foreach ($wsData as $i => $row) {
+                foreach ($wsData as $row) {
                     if (!is_array($row)) {
                         continue;
                     }
