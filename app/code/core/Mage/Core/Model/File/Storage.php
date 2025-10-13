@@ -209,7 +209,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
         $config['media_directory'] = Mage::getBaseDir('media');
 
         $loadedModules = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_LOADED_MODULES);
-        foreach ($loadedModules as $key => $loadedModule) {
+        foreach ($loadedModules as $loadedModule) {
             $config['loaded_modules'][] = $loadedModule->getName();
         }
 
