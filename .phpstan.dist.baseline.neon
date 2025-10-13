@@ -5077,12 +5077,6 @@ parameters:
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
 
 		-
-			rawMessage: 'Parameter #1 $error_code of function curl_strerror expects int, (CurlHandle|false) given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php
-
-		-
 			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
 			identifier: argument.type
 			count: 3
