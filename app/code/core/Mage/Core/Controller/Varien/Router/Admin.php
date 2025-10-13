@@ -51,7 +51,7 @@ class Mage_Core_Controller_Varien_Router_Admin extends Mage_Core_Controller_Vari
                 Mage::log(
                     "Unable to parse custom admin URL host: {$adminUrl}. Access denied for security.",
                     Zend_Log::ERR,
-                    'system.log'
+                    'system.log',
                 );
                 return false;
             }
