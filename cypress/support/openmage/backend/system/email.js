@@ -89,7 +89,7 @@ test.config.edit = {
  *          preview: cy.openmage.test.backend.__base.__buttons.preview,
  *          save: cy.openmage.test.backend.__base.__buttons.save,
  *          back: cy.openmage.test.backend.__base.__buttons.back,
- *          reset: cy.openmage.test.backend.__base.__buttons.reset
+ *          reset: cy.openmage.test.backend.__base.__buttons.reset,
  *          convertToPlain: cy.openmage.test.backend.__base.__buttons.convertToPlain
  *      },
  *      __fields: test.config.new.__fields
