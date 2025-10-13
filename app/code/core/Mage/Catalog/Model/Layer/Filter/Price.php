@@ -36,9 +36,9 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * Price layered navigation modes: Automatic (equalize price ranges), Automatic (equalize product counts), Manual
      */
     public const RANGE_CALCULATION_AUTO     = 'auto';
-     // equalize price ranges
+    // equalize price ranges
     public const RANGE_CALCULATION_IMPROVED = 'improved';
-     // equalize product counts
+    // equalize product counts
     public const RANGE_CALCULATION_MANUAL   = 'manual';
 
     /**
