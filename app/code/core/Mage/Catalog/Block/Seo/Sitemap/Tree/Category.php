@@ -37,8 +37,6 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
      */
     protected function _prepareLayout()
     {
-        $helper = Mage::helper('catalog/category');
-        /** @var Mage_Catalog_Helper_Category $helper */
         $parent = Mage::getModel('catalog/category')
             ->setStoreId(Mage::app()->getStore()->getId())
             ->load(Mage::app()->getStore()->getRootCategoryId());

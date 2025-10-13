@@ -48,9 +48,9 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             return ;
         }
 
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId()) {
-            /** @var Mage_Catalog_Model_Product $product */
             $session->addError($this->__('Not enough parameters.'));
             if ($this->_isUrlInternal($backUrl)) {
                 $this->_redirectUrl($backUrl);
@@ -78,8 +78,8 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
 
     public function stockAction()
     {
-        $session = Mage::getSingleton('catalog/session');
         /** @var Mage_Catalog_Model_Session $session */
+        $session = Mage::getSingleton('catalog/session');
         $backUrl    = $this->getRequest()->getParam(Mage_Core_Controller_Front_Action::PARAM_NAME_URL_ENCODED);
         $productId  = (int) $this->getRequest()->getParam('product_id');
         if (!$backUrl || !$productId) {
@@ -87,8 +87,10 @@ class Mage_ProductAlert_AddController extends Mage_Core_Controller_Front_Action
             return ;
         }
 
-        if (!$product = Mage::getModel('catalog/product')->load($productId)) {
-            /** @var Mage_Catalog_Model_Product $product */
+        /** @var Mage_Catalog_Model_Product $product */
+        $product = Mage::getModel('catalog/product')->load($productId);
+
+        if (!$product) {
             $session->addError($this->__('Not enough parameters.'));
             $this->_redirectUrl($backUrl);
             return ;
