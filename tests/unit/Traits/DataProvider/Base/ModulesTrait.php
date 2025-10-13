@@ -27,7 +27,6 @@ trait ModulesTrait
             'Mage_Api2',
             'Mage_Authorizenet',
             'Mage_Bundle',
-            'Mage_Captcha',
             'Mage_Catalog',
             'Mage_CatalogIndex',
             'Mage_CatalogInventory',
