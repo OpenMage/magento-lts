@@ -832,19 +832,17 @@ class Mage_Bundle_Model_Product_Type extends Mage_Catalog_Model_Product_Type_Abs
      */
     public function shakeSelections($a, $b)
     {
-        $aPosition = [
+        return [
             $a->getOption()->getPosition(),
             $a->getOptionId(),
             $a->getPosition(),
             $a->getSelectionId(),
-        ];
-        $bPosition = [
+        ] <=> [
             $b->getOption()->getPosition(),
             $b->getOptionId(),
             $b->getPosition(),
             $b->getSelectionId(),
         ];
-        return $aPosition <=> $bPosition;
     }
 
     /**

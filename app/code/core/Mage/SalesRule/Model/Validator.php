@@ -964,9 +964,7 @@ class Mage_SalesRule_Model_Validator extends Mage_Core_Model_Abstract
      */
     protected function _getItemPrice($item)
     {
-        $price = $item->getDiscountCalculationPrice();
-        $calcPrice = $item->getCalculationPrice();
-        return $price ?? $calcPrice;
+        return $item->getDiscountCalculationPrice() ?? $item->getCalculationPrice();
     }
 
     /**
