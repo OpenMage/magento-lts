@@ -15,7 +15,9 @@
 class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_CATEGORY_URL_SUFFIX          = 'catalog/seo/category_url_suffix';
+
     public const XML_PATH_USE_CATEGORY_CANONICAL_TAG   = 'catalog/seo/category_canonical_tag';
+
     public const XML_PATH_CATEGORY_ROOT_ID             = 'catalog/category/root_id';
 
     protected $_moduleName = 'Mage_Catalog';
@@ -60,6 +62,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
             if ($asCollection) {
                 return new Varien_Data_Collection();
             }
+
             return [];
         }
 
@@ -81,6 +84,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         if ($category instanceof Mage_Catalog_Model_Category) {
             return $category->getUrl();
         }
+
         return Mage::getModel('catalog/category')
             ->setData($category->getData())
             ->getUrl();
@@ -105,6 +109,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         if (!$category->getIsActive()) {
             return false;
         }
+
         if (!$category->isInRootCategoryList()) {
             return false;
         }
@@ -127,6 +132,7 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         if (!isset($this->_categoryUrlSuffix[$storeId])) {
             $this->_categoryUrlSuffix[$storeId] = Mage::getStoreConfig(self::XML_PATH_CATEGORY_URL_SUFFIX, $storeId);
         }
+
         return $this->_categoryUrlSuffix[$storeId];
     }
 

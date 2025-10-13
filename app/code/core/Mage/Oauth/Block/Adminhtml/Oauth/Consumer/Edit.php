@@ -31,6 +31,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         if ($this->_model === null) {
             $this->_model = Mage::registry('current_consumer');
         }
+
         return $this->_model;
     }
 
@@ -77,6 +78,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit extends Mage_Adminhtml_Bloc
         if ($this->getModel()->getId()) {
             return $this->__('Edit Consumer');
         }
+
         return $this->__('New Consumer');
     }
 }

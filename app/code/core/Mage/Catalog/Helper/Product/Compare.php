@@ -330,6 +330,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         if ($this->_logCondition->isVisitorLogEnabled() || $this->_customerSession->isLoggedIn()) {
             return $this->_getUrl('catalog/product_compare/add', $this->_getUrlCustomParams($product, $addFormKey));
         }
+
         return '';
     }
 
@@ -385,6 +386,7 @@ class Mage_Catalog_Helper_Product_Compare extends Mage_Core_Helper_Url
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_coreSession->getFormKey();
         }
+
         return $params;
     }
 }

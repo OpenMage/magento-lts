@@ -18,7 +18,9 @@ class Mage_Checkout_Model_Type_Onepage
      * Checkout types: Checkout as Guest, Register, Logged In Customer
      */
     public const METHOD_GUEST    = 'guest';
+
     public const METHOD_REGISTER = 'register';
+
     public const METHOD_CUSTOMER = 'customer';
 
     /**
@@ -138,6 +140,7 @@ class Mage_Checkout_Model_Type_Onepage
             $quoteSave = true;
             $collectTotals = true;
         }
+
         /**
          *  Reset reward points
          */
@@ -163,6 +166,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($customer) {
             $this->getQuote()->assignCustomer($customer);
         }
+
         return $this;
     }
 
@@ -176,6 +180,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($this->getCustomerSession()->isLoggedIn()) {
             return self::METHOD_CUSTOMER;
         }
+
         if (!$this->getQuote()->getCheckoutMethod()) {
             if ($this->_helper->isAllowedGuestCheckout($this->getQuote())) {
                 $this->getQuote()->setCheckoutMethod(self::METHOD_GUEST);
@@ -183,6 +188,7 @@ class Mage_Checkout_Model_Type_Onepage
                 $this->getQuote()->setCheckoutMethod(self::METHOD_REGISTER);
             }
         }
+
         return $this->getQuote()->getCheckoutMethod();
     }
 
@@ -227,6 +233,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($address->getRegionId()) {
             $address->setRegion($address->getRegionId());
         }
+
         return $address;
     }
 
@@ -276,6 +283,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($addressErrors !== true) {
                 return ['error' => 1, 'message' => array_values($addressErrors)];
             }
+
             $addressForm->compactData($addressData);
             //unset billing address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
@@ -283,6 +291,7 @@ class Mage_Checkout_Model_Type_Onepage
                     $address->setData($attribute->getAttributeCode(), null);
                 }
             }
+
             $address->setCustomerAddressId(null);
             // Additional form data, not fetched by extractData (as it fetches only attributes)
             $address->setSaveInAddressBook(empty($data['save_in_address_book']) ? 0 : 1);
@@ -338,6 +347,7 @@ class Mage_Checkout_Model_Type_Onepage
                             $billing->unsetData($shippingKey);
                         }
                     }
+
                     $shipping->addData($billing->getData())
                         ->setSameAsBilling(1)
                         ->setSaveInAddressBook(0)
@@ -486,9 +496,11 @@ class Mage_Checkout_Model_Type_Onepage
             ) {
                 $customer->setData($key, $address->getData($dataKey));
             }
+
             if ($dob) {
                 $customer->setDob($dob);
             }
+
             $validationResult = $customer->validate();
             if ($validationResult !== true && is_array($validationResult)) {
                 return [
@@ -521,6 +533,7 @@ class Mage_Checkout_Model_Type_Onepage
         if (empty($data)) {
             return ['error' => -1, 'message' => Mage::helper('checkout')->__('Invalid data.')];
         }
+
         $address = $this->getQuote()->getShippingAddress();
 
         /** @var Mage_Customer_Model_Form $addressForm */
@@ -553,6 +566,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($addressErrors !== true) {
                 return ['error' => 1, 'message' => $addressErrors];
             }
+
             $addressForm->compactData($addressData);
             // unset shipping address attributes which were not shown in form
             foreach ($addressForm->getAttributes() as $attribute) {
@@ -596,10 +610,12 @@ class Mage_Checkout_Model_Type_Onepage
         if (empty($shippingMethod)) {
             return ['error' => -1, 'message' => Mage::helper('checkout')->__('Invalid shipping method.')];
         }
+
         $rate = $this->getQuote()->getShippingAddress()->getShippingRateByCode($shippingMethod);
         if (!$rate) {
             return ['error' => -1, 'message' => Mage::helper('checkout')->__('Invalid shipping method.')];
         }
+
         $this->getQuote()->getShippingAddress()
             ->setShippingMethod($shippingMethod);
 
@@ -621,6 +637,7 @@ class Mage_Checkout_Model_Type_Onepage
         if (empty($data)) {
             return ['error' => -1, 'message' => Mage::helper('checkout')->__('Invalid data.')];
         }
+
         $quote = $this->getQuote();
         if ($quote->isVirtual()) {
             $quote->getBillingAddress()->setPaymentMethod($data['method'] ?? null);
@@ -729,6 +746,7 @@ class Mage_Checkout_Model_Type_Onepage
             $customer->addAddress($customerBilling);
             $billing->setCustomerAddress($customerBilling);
         }
+
         if ($shipping && !$shipping->getSameAsBilling() &&
             (!$shipping->getCustomerId() || $shipping->getSaveInAddressBook())
         ) {
@@ -740,11 +758,13 @@ class Mage_Checkout_Model_Type_Onepage
         if (isset($customerBilling) && !$customer->getDefaultBilling()) {
             $customerBilling->setIsDefaultBilling(true);
         }
+
         if ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
             $customerShipping->setIsDefaultShipping(true);
         } elseif (isset($customerBilling) && !$customer->getDefaultShipping()) {
             $customerBilling->setIsDefaultShipping(true);
         }
+
         $quote->setCustomer($customer);
     }
 
@@ -766,6 +786,7 @@ class Mage_Checkout_Model_Type_Onepage
             $customer->sendNewAccountEmail('registered', '', $this->getQuote()->getStoreId());
             $this->getCustomerSession()->loginById($customer->getId());
         }
+
         return $this;
     }
 
@@ -849,6 +870,7 @@ class Mage_Checkout_Model_Type_Onepage
             foreach ($profiles as $profile) {
                 $ids[] = $profile->getId();
             }
+
             $this->_checkoutSession->setLastRecurringProfileIds($ids);
             // TODO: send recurring profile emails
         }
@@ -879,6 +901,7 @@ class Mage_Checkout_Model_Type_Onepage
             if ($addressValidation !== true) {
                 Mage::throwException(Mage::helper('checkout')->__('Please check shipping address information.'));
             }
+
             $method = $address->getShippingMethod();
             $rate  = $address->getShippingRateByCode($method);
             if (!$this->getQuote()->isVirtual() && (!$method || !$rate)) {
@@ -909,10 +932,12 @@ class Mage_Checkout_Model_Type_Onepage
         if ($websiteId) {
             $customer->setWebsiteId($websiteId);
         }
+
         $customer->loadByEmail($email);
         if ($customer->getId()) {
             return $customer;
         }
+
         return false;
     }
 
@@ -930,6 +955,7 @@ class Mage_Checkout_Model_Type_Onepage
             $order->load($lastId);
             $orderId = $order->getIncrementId();
         }
+
         return $orderId;
     }
 
@@ -943,6 +969,7 @@ class Mage_Checkout_Model_Type_Onepage
         if ($couponCode = $this->getCheckout()->getCartCouponCode()) {
             $this->getQuote()->setCouponCode($couponCode);
         }
+
         return $this;
     }
 }

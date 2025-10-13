@@ -94,6 +94,7 @@ class Mage_Log_Model_Resource_Visitor_Online_Collection extends Mage_Core_Model_
             $this->getSelect()
                 ->where('customer_email.website_id IN (?)', $websiteIds);
         }
+
         return $this;
     }
 

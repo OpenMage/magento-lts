@@ -59,6 +59,7 @@ class Mage_Api2_Model_Multicall
         ) {
             return $this;
         }
+
         // make internal call
         $subresourceType = (string) $subresource->type;
         $requestData = $bodyParams[$requestParamName];
@@ -67,12 +68,14 @@ class Mage_Api2_Model_Multicall
                 foreach ($requestData as $subresourceData) {
                     $this->_internalCall($subresource, $subresourceData);
                 }
+
                 break;
             case 'instance':
             default:
                 $this->_internalCall($subresource, $requestData);
                 break;
         }
+
         return $this;
     }
 
@@ -89,6 +92,7 @@ class Mage_Api2_Model_Multicall
             if (!is_array($requestData)) {
                 throw new Mage_Api2_Exception('Invalid data format', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $subresourceIdKey = (string) $subresource->id_param_name;
             /** @var Mage_Api2_Model_Server $server */
             $server = Mage::getSingleton('api2/server');
@@ -107,6 +111,7 @@ class Mage_Api2_Model_Multicall
                         Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
                     );
                 }
+
                 $requestData[$subresourceIdKey] = $createdSubresourceInstanceId;
             }
 
@@ -129,6 +134,7 @@ class Mage_Api2_Model_Multicall
         if (isset($internalCreateResponse)) {
             $this->_aggregateResponse($internalCreateResponse);
         }
+
         if (isset($internalResponse)) {
             $this->_aggregateResponse($internalResponse);
         }
@@ -175,6 +181,7 @@ class Mage_Api2_Model_Multicall
         if ($parentResourceIdFieldName !== null) {
             $params[$parentResourceIdFieldName] = $this->_parentResourceId;
         }
+
         $uri = $chain->assemble($params);
 
         return '/' . $uri;
@@ -251,6 +258,7 @@ class Mage_Api2_Model_Multicall
                 break;
             }
         }
+
         return $resourceId;
     }
 }

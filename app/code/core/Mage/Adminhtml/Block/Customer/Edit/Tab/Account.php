@@ -65,6 +65,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             foreach (Mage::app()->getWebsites(true) as $website) {
                 $websites[$website->getId()] = !is_null($website->getDefaultStore());
             }
+
             $prefix = $form->getHtmlIdPrefix();
 
             // @codingStandardsIgnoreStart
@@ -89,6 +90,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             );
             // @codingStandardsIgnoreEnd
         }
+
         $renderer = $this->getStoreSwitcherRenderer();
         $form->getElement('website_id')->setRenderer($renderer);
 
@@ -170,6 +172,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
                     if (!$confirmationKey) {
                         $confirmationKey = $customer->getRandomConfirmationKey();
                     }
+
                     $element = $fieldset->addField('confirmation', 'select', [
                         'name'  => 'confirmation',
                         'label' => Mage::helper('customer')->__($confirmationAttribute->getFrontendLabel()),
@@ -255,6 +258,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Account extends Mage_Adminhtml_Bloc
             if (!$isSingleMode) {
                 $disableStoreField = "$('{$prefix}sendemail_store_id').disabled=(''==this.value || '0'==this.value);";
             }
+
             $sendEmail->setAfterElementHtml(
                 '<script type="text/javascript">'
                 . "

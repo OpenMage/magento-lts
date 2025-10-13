@@ -115,6 +115,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_order)) {
             Mage::throwException(Mage::helper('sales')->__('Order object is not specified.'));
         }
+
         return $this->_order;
     }
 
@@ -129,6 +130,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_source)) {
             Mage::throwException(Mage::helper('sales')->__('Source object is not specified.'));
         }
+
         return $this->_source;
     }
 
@@ -143,6 +145,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_item)) {
             Mage::throwException(Mage::helper('sales')->__('Item object is not specified.'));
         }
+
         return $this->_item;
     }
 
@@ -157,6 +160,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_pdf)) {
             Mage::throwException(Mage::helper('sales')->__('PDF object is not specified.'));
         }
+
         return $this->_pdf;
     }
 
@@ -171,6 +175,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
         if (is_null($this->_pdfPage)) {
             Mage::throwException(Mage::helper('sales')->__('PDF page object is not specified.'));
         }
+
         return $this->_pdfPage;
     }
 
@@ -201,6 +206,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             if (isset($value['price'])) {
                 $resultValue .= ' ' . $order->formatPrice($value['price']);
             }
+
             return  $resultValue;
         } else {
             return $value;
@@ -261,6 +267,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
                 'subtotal' => $order->formatPriceTxt($item->getRowTotal()),
             ]];
         }
+
         return $prices;
     }
 
@@ -276,13 +283,16 @@ abstract class Mage_Sales_Model_Order_Pdf_Items_Abstract extends Mage_Core_Model
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (isset($options['attributes_info'])) {
                 $result = array_merge($result, $options['attributes_info']);
             }
         }
+
         return $result;
     }
 

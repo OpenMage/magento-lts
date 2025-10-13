@@ -80,15 +80,18 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Payment extends Mage_Ad
             $html .= '<a class="link-more" href="' . $groupConfig['learn_more_link'] . '" target="_blank">'
                 . $this->__('Learn More') . '</a>';
         }
+
         if (!empty($groupConfig['demo_link'])) {
             $html .= '<a class="link-demo" href="' . $groupConfig['demo_link'] . '" target="_blank">'
                 . $this->__('View Demo') . '</a>';
         }
+
         $html .= '</strong>';
 
         if ($element->getComment()) {
             $html .= '<span class="heading-intro">' . $element->getComment() . '</span>';
         }
+
         $html .= '</div>';
 
         return $html . ('<div class="button-container"><button type="button"'

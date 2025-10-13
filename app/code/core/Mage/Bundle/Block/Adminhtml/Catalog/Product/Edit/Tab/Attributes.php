@@ -155,6 +155,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes extends Ma
         if (!$this->getData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
+
         return $this->getData('product');
     }
 }

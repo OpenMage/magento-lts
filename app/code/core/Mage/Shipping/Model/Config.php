@@ -16,8 +16,11 @@ class Mage_Shipping_Model_Config extends Varien_Object
      * Shipping origin settings
      */
     public const XML_PATH_ORIGIN_COUNTRY_ID = 'shipping/origin/country_id';
+
     public const XML_PATH_ORIGIN_REGION_ID  = 'shipping/origin/region_id';
+
     public const XML_PATH_ORIGIN_CITY       = 'shipping/origin/city';
+
     public const XML_PATH_ORIGIN_POSTCODE   = 'shipping/origin/postcode';
 
     protected static $_carriers;
@@ -40,6 +43,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
                 }
             }
         }
+
         return $carriers;
     }
 
@@ -59,6 +63,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
                 $carriers[$code] = $model;
             }
         }
+
         return $carriers;
     }
 
@@ -75,6 +80,7 @@ class Mage_Shipping_Model_Config extends Varien_Object
         if (!empty($carrierConfig)) {
             return $this->_getCarrier($carrierCode, $carrierConfig, $store);
         }
+
         return false;
     }
 
@@ -91,12 +97,14 @@ class Mage_Shipping_Model_Config extends Varien_Object
         if (!isset($config['model'])) {
             return false;
         }
+
         $modelName = $config['model'];
         /** @var Mage_Shipping_Model_Carrier_Abstract $carrier */
         $carrier = Mage::getModel($modelName);
         if (!$carrier) {
             return false;
         }
+
         $carrier->setId($code)->setStore($store);
         self::$_carriers[$code] = $carrier;
         return self::$_carriers[$code];

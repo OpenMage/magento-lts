@@ -73,6 +73,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
                 curl_setopt($this->_getResource(), $this->_allowedParams[$param], $this->_config[$param]);
             }
         }
+
         return $this;
     }
 
@@ -153,6 +154,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         if ($url instanceof Zend_Uri_Http) {
             $url = $url->getUri();
         }
+
         $this->_applyConfig();
 
         $header = $this->_config['header'] ?? true;
@@ -168,6 +170,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         } elseif ($method == Zend_Http_Client::GET) {
             $options[CURLOPT_HTTPGET]       = true;
         }
+
         if (is_array($headers)) {
             $options[CURLOPT_HTTPHEADER]    = $headers;
         }
@@ -227,6 +230,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
         if (is_null($this->_resource)) {
             $this->_resource = curl_init();
         }
+
         return $this->_resource;
     }
 
@@ -287,8 +291,10 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             if (!empty($options)) {
                 curl_setopt_array($handles[$key], $options);
             }
+
             curl_multi_add_handle($multihandle, $handles[$key]);
         }
+
         $process = null;
         do {
             curl_multi_exec($multihandle, $process);
@@ -299,6 +305,7 @@ class Varien_Http_Adapter_Curl implements Zend_Http_Client_Adapter_Interface
             $result[$key] = curl_multi_getcontent($handle);
             curl_multi_remove_handle($multihandle, $handle);
         }
+
         curl_multi_close($multihandle);
         return $result;
     }

@@ -34,7 +34,9 @@
 class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
 {
     public const CHILDREN_FOR_TIERS = 1;
+
     public const CHILDREN_FOR_PRICES = 2;
+
     public const CHILDREN_FOR_ATTRIBUTES = 3;
 
     protected $_attributeIdCache = [];
@@ -95,6 +97,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
         if (is_null($this->_customerGroups)) {
             $this->_customerGroups = Mage::getModel('customer/group')->getCollection();
         }
+
         return $this->_customerGroups;
     }
 
@@ -111,6 +114,7 @@ class Mage_CatalogIndex_Model_Retreiver extends Mage_Core_Model_Abstract
         foreach ($flat as $one) {
             $result[$one['type']][] = $one['id'];
         }
+
         return $result;
     }
 }

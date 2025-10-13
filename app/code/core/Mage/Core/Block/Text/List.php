@@ -25,8 +25,10 @@ class Mage_Core_Block_Text_List extends Mage_Core_Block_Text
             if (!$block) {
                 Mage::throwException(Mage::helper('core')->__('Invalid block: %s', $name));
             }
+
             $this->addText($block->toHtml());
         }
+
         return parent::_toHtml();
     }
 }

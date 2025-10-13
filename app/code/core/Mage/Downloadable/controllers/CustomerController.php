@@ -26,6 +26,7 @@ class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Ac
         if (!Mage::getSingleton('customer/session')->authenticate($this, $loginUrl)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
@@ -39,10 +40,12 @@ class Mage_Downloadable_CustomerController extends Mage_Core_Controller_Front_Ac
         if ($block = $this->getLayout()->getBlock('downloadable_customer_products_list')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
+
         $headBlock = $this->getLayout()->getBlock('head');
         if ($headBlock) {
             $headBlock->setTitle(Mage::helper('downloadable')->__('My Downloadable Products'));
         }
+
         $this->renderLayout();
     }
 }

@@ -24,6 +24,7 @@ class Mage_Checkout_Block_Cart_Minicart extends Mage_Checkout_Block_Cart_Abstrac
         if ($this->getData('summary_qty')) {
             return $this->getData('summary_qty');
         }
+
         return Mage::getSingleton('checkout/cart')->getSummaryQty();
     }
 }

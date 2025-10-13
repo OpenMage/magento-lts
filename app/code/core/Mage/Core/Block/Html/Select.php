@@ -171,11 +171,13 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                             'label' => $optionGroup,
                         ];
                     }
+
                     $html .= $this->_optionToHtml(
                         $optionGroup,
                         in_array($optionGroup['value'], $values),
                     );
                 }
+
                 $html .= '</optgroup>';
             } else {
                 $html .= $this->_optionToHtml(
@@ -188,6 +190,7 @@ class Mage_Core_Block_Html_Select extends Mage_Core_Block_Abstract
                 );
             }
         }
+
         return $html . '</select>';
     }
 

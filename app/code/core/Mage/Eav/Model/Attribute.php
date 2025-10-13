@@ -83,6 +83,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
             $forms = $this->_getResource()->getUsedInForms($this);
             $this->setData('used_in_forms', $forms);
         }
+
         return $forms;
     }
 
@@ -99,6 +100,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         } elseif (!empty($rules)) {
             return Mage::helper('core/unserializeArray')->unserialize($rules);
         }
+
         return [];
     }
 
@@ -115,6 +117,7 @@ abstract class Mage_Eav_Model_Attribute extends Mage_Eav_Model_Entity_Attribute
         } elseif (is_array($rules)) {
             $rules = serialize($rules);
         }
+
         $this->setData('validate_rules', $rules);
 
         return $this;

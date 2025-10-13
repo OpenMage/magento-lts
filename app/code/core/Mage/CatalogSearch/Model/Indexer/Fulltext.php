@@ -278,7 +278,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     $searchableAttributes = array_intersect($this->_getSearchableAttributes(), array_keys($attrData));
                 }
 
-                if (count($searchableAttributes) > 0) {
+                if ($searchableAttributes !== []) {
                     $rebuildIndex = true;
                     $reindexData['catalogsearch_force_reindex'] = true;
                 }
@@ -290,6 +290,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                         $event->addNewData($k, $v);
                     }
                 }
+
                 break;
         }
 
@@ -389,6 +390,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                     }
                 }
             }
+
             if (isset($data['catalogsearch_status'])) {
                 $status = $data['catalogsearch_status'];
                 if ($status == Mage_Catalog_Model_Product_Status::STATUS_ENABLED) {
@@ -401,6 +403,7 @@ class Mage_CatalogSearch_Model_Indexer_Fulltext extends Mage_Index_Model_Indexer
                         ->resetSearchResults();
                 }
             }
+
             if (isset($data['catalogsearch_force_reindex'])) {
                 $this->_getIndexer()
                     ->rebuildIndex(null, $productIds)

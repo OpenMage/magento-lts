@@ -76,15 +76,12 @@ try {
             CodingStyle\Catch_\CatchExceptionNameMatchingTypeRector::class, # todo: TMP
             CodingStyle\ClassMethod\FuncGetArgsToVariadicParamRector::class, # todo: TMP
             CodingStyle\ClassMethod\MakeInheritedMethodVisibilitySameAsParentRector::class, # todo: TMP
-            CodingStyle\ClassMethod\NewlineBeforeNewAssignSetRector::class, # todo: TMP
             CodingStyle\Encapsed\EncapsedStringsToSprintfRector::class, # todo: TMP
             CodingStyle\Encapsed\WrapEncapsedVariableInCurlyBracesRector::class, # todo: TMP
             CodingStyle\FuncCall\CallUserFuncArrayToVariadicRector::class, # todo: TMP
-            CodingStyle\FuncCall\CountArrayToEmptyArrayComparisonRector::class, # todo: TMP
             CodingStyle\FuncCall\StrictArraySearchRector::class, # todo: TMP
             CodingStyle\If_\NullableCompareToNullRector::class, # todo: TMP
             CodingStyle\PostInc\PostIncDecToPreIncDecRector::class, # todo: TMP
-            CodingStyle\Stmt\NewlineAfterStatementRector::class, # todo: TMP
             CodingStyle\String_\SymplifyQuoteEscapeRector::class, # todo: TMP
             DeadCode\Assign\RemoveUnusedVariableAssignRector::class, # todo: TMP
             DeadCode\Cast\RecastingRemovalRector::class, # todo: TMP  (!?!)

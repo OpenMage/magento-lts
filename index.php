@@ -37,6 +37,7 @@ if (file_exists($maintenanceFile)) {
         $allowedIps = preg_split('/[\ \n\,]+/', file_get_contents($maintenanceIpFile), 0, PREG_SPLIT_NO_EMPTY);
         $maintenanceBypass = in_array($currentIp, $allowedIps, true);
     }
+
     if (!$maintenanceBypass) {
         include_once __DIR__ . '/errors/503.php';
         exit;

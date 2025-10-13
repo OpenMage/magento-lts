@@ -30,6 +30,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_id'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_id']);
     }
 
@@ -44,6 +45,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_id'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_id']);
     }
 
@@ -79,6 +81,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_ids'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_ids']);
     }
 
@@ -93,6 +96,7 @@ class Mage_Tag_Model_Resource_Indexer_Summary extends Mage_Catalog_Model_Resourc
         if (empty($data['tag_reindex_tag_ids'])) {
             return $this;
         }
+
         return $this->aggregate($data['tag_reindex_tag_ids']);
     }
 

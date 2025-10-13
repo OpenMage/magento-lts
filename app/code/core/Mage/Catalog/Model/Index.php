@@ -26,6 +26,7 @@ class Mage_Catalog_Model_Index
             Mage::getResourceSingleton('catalog/product')
                 ->refreshEnabledIndex($store);
         }
+
         return $this;
     }
 }

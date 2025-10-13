@@ -121,12 +121,14 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
         }
+
         foreach ($attributes as $attribute) {
             /** @var Mage_Eav_Model_Entity_Attribute $attribute */
             $attribute->setFrontendLabel(Mage::helper('customer')->__($attribute->getFrontend()->getLabel()));
             $attribute->setNote(Mage::helper('customer')->__($attribute->getNote()));
             $attribute->unsIsVisible();
         }
+
         $this->_setFieldset($attributes, $fieldset);
 
         $regionElement = $form->getElement('region');
@@ -271,6 +273,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         if ($this->getForm() && $this->getForm()->getElement('prefix')) {
             $this->getForm()->getElement('prefix')->addElementValues($values);
         }
+
         return $this;
     }
 
@@ -285,6 +288,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         if ($this->getForm() && $this->getForm()->getElement('suffix')) {
             $this->getForm()->getElement('suffix')->addElementValues($values);
         }
+
         return $this;
     }
 

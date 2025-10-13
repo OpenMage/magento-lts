@@ -92,6 +92,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Labels extends Mage_Adminhtml_Bl
                 if (count($stores) == 0) {
                     continue;
                 }
+
                 $fieldset->addField("sg_{$group->getId()}_label", 'note', [
                     'label'    => $group->getName(),
                     'fieldset_html_class' => 'store-group',

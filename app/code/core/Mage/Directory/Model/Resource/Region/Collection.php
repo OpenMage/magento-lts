@@ -78,6 +78,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 $this->addFieldToFilter('main_table.country_id', $countryId);
             }
         }
+
         return $this;
     }
 
@@ -114,6 +115,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 $this->addFieldToFilter('main_table.code', $regionCode);
             }
         }
+
         return $this;
     }
 
@@ -132,6 +134,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 $this->addFieldToFilter('main_table.default_name', $regionName);
             }
         }
+
         return $this;
     }
 
@@ -147,6 +150,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
             $condition = is_array($region) ? ['in' => $region] : $region;
             $this->addFieldToFilter(['main_table.code', 'main_table.default_name'], [$condition, $condition]);
         }
+
         return $this;
     }
 
@@ -165,6 +169,7 @@ class Mage_Directory_Model_Resource_Region_Collection extends Mage_Core_Model_Re
                 'label' => Mage::helper('directory')->__('-- Please select --'),
             ]);
         }
+
         return $options;
     }
 }

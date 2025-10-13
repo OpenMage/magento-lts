@@ -27,6 +27,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         } else {
             $value = array_map([$this, '_applyInputFilter'], $value);
         }
+
         return $value;
     }
 
@@ -53,10 +54,12 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($value)) {
             $value = [$value];
         }
+
         for ($i = 0; $i < $attribute->getMultilineCount(); $i++) {
             if (!isset($value[$i])) {
                 $value[$i] = null;
             }
+
             // validate first line
             if ($i == 0) {
                 $result = parent::validateValue($value[$i]);
@@ -74,6 +77,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (count($errors) == 0) {
             return true;
         }
+
         return $errors;
     }
 
@@ -87,6 +91,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (is_array($value)) {
             $value = trim(implode("\n", $value));
         }
+
         return parent::compactValue($value);
     }
 
@@ -114,6 +119,7 @@ class Mage_Eav_Model_Attribute_Data_Multiline extends Mage_Eav_Model_Attribute_D
         if (!is_array($values)) {
             $values = explode("\n", (string) $values);
         }
+
         $values = array_map([$this, '_applyOutputFilter'], $values);
         return match ($format) {
             Mage_Eav_Model_Attribute_Data::OUTPUT_FORMAT_ARRAY => $values,

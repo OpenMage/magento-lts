@@ -250,6 +250,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             $countSelect->reset(Zend_Db_Select::GROUP);
             $countSelect->columns('COUNT(DISTINCT ' . $this->getCountAttribute() . ')');
         }
+
         return $countSelect;
     }
 
@@ -271,7 +272,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
         $productsId = array_unique($productsId);
 
         /* small fix */
-        if (!count($productsId)) {
+        if ($productsId === []) {
             return $this;
         }
 
@@ -291,6 +292,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
             $item->setProduct($productsData[$item->getProductId()]);
             $item->setProductSku($productsSku[$item->getProductId()]);
         }
+
         return $this;
     }
 
@@ -385,6 +387,7 @@ class Mage_Tag_Model_Resource_Customer_Collection extends Mage_Customer_Model_Re
                 }
             }
         }
+
         return $this;
     }
 }

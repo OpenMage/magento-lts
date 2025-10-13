@@ -51,6 +51,7 @@ final class PageTest extends OpenMageTest
         if (defined('DATA_MAY_CHANGED')) {
             self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
+
         self::assertSame('Home page', self::$subject->getCmsPageTitleByIdentifier('home'));
     }
 
@@ -62,6 +63,7 @@ final class PageTest extends OpenMageTest
         if (defined('DATA_MAY_CHANGED')) {
             self::markTestSkipped(self::SKIP_WITH_LOCAL_DATA);
         }
+
         self::assertSame('Home page', self::$subject->getCmsPageTitleById(2));
     }
 

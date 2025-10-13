@@ -89,6 +89,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Fieldset_Deprecated extends Mage
         if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'default')) {
             return true;
         }
+
         foreach ($this->_getWebsites() as $website) {
             if ((bool) (string) $this->_getConfigModel()->getNode($activityPath, 'website', (int) $website->getId())) {
                 return true;

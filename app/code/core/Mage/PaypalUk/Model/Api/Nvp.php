@@ -20,9 +20,13 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var mixed
      */
     public const TRXTYPE_AUTH_ONLY         = 'A';
+
     public const TRXTYPE_SALE              = 'S';
+
     public const TRXTYPE_CREDIT            = 'C';
+
     public const TRXTYPE_DELAYED_CAPTURE   = 'D';
+
     public const TRXTYPE_DELAYED_VOID      = 'V';
 
     /**
@@ -31,6 +35,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var mixed
      */
     public const TENDER_CC                 = 'C';
+
     public const TENDER_PAYPAL             = 'P';
 
     /**
@@ -39,7 +44,9 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var string
      */
     public const EXPRESS_SET               = 'S';
+
     public const EXPRESS_GET               = 'G';
+
     public const EXPRESS_DO_PAYMENT        = 'D';
 
     /**
@@ -48,6 +55,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var mixed
      */
     public const RESPONSE_CODE_APPROVED = 0;
+
     public const RESPONSE_CODE_FRAUD = 126;
 
     /**
@@ -56,6 +64,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var string
      */
     protected $_captureTypeComplete = 'Y';
+
     protected $_captureTypeNotcomplete = 'N';
 
     /**
@@ -151,6 +160,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'AUTHSTATUS3DS', 'MPIVENDOR3DS', 'CAVV', 'ECI', 'XID',//cardinal centinel params
         'TAXAMT', 'FREIGHTAMT',
     ];
+
     protected $_doDirectPaymentResponse = [
         'PNREF', 'PPREF', 'CORRELATIONID', 'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'PENDINGREASON',
     ];
@@ -161,6 +171,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var array
      */
     protected $_doCaptureRequest = ['ORIGID', 'CAPTURECOMPLETE', 'AMT', 'TENDER', 'NOTE', 'INVNUM'];
+
     protected $_doCaptureResponse = ['PNREF', 'PPREF'];
 
     /**
@@ -183,6 +194,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var array
      */
     protected $_refundTransactionRequest = ['ORIGID', 'TENDER'];
+
     protected $_refundTransactionResponse = ['PNREF', 'PPREF'];
 
     /**
@@ -195,6 +207,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         'PAGESTYLE', 'HDRIMG', 'HDRBORDERCOLOR', 'HDRBACKCOLOR', 'PAYFLOWCOLOR', 'LOCALECODE',
         'USERSELECTEDFUNDINGSOURCE',
     ];
+
     protected $_setExpressCheckoutResponse = ['REPMSG', 'TOKEN'];
 
     /**
@@ -212,6 +225,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
     protected $_doExpressCheckoutPaymentRequest = [
         'TENDER', 'TOKEN', 'PAYERID', 'AMT', 'CURRENCY', 'CUSTIP', 'BUTTONSOURCE', 'NOTIFYURL',
     ];
+
     protected $_doExpressCheckoutPaymentResponse = [
         'PNREF', 'PPREF', 'REPMSG', 'AMT', 'PENDINGREASON',
         'CVV2MATCH', 'AVSADDR', 'AVSZIP', 'CORRELATIONID',
@@ -223,6 +237,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
      * @var array
      */
     protected $_getTransactionDetailsRequest = ['ORIGID', 'TENDER'];
+
     protected $_getTransactionDetailsResponse = [
         'PAYERID', 'FIRSTNAME', 'LASTNAME', 'TRANSACTIONID',
         'PARENTTRANSACTIONID', 'CURRENCYCODE', 'AMT', 'PAYMENTSTATUS',
@@ -371,6 +386,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         if ($this->_config->getMethodCode() == Mage_Paypal_Model_Config::METHOD_WPP_PE_EXPRESS) {
             return self::TENDER_PAYPAL;
         }
+
         return self::TENDER_CC;
     }
 
@@ -384,6 +400,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         if ($this->getData('paypal_transaction_id')) {
             return $this->getData('paypal_transaction_id');
         }
+
         return $this->getTransactionId();
     }
 
@@ -400,6 +417,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         if (!is_null($this->_getPaypalUkActionName($methodName))) {
             $request['ACTION'] = $this->_getPaypalUkActionName($methodName);
         }
+
         return $request;
     }
 
@@ -458,8 +476,10 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             if (!empty($response['RESPMSG']) && strtoupper($response['RESPMSG']) != 'APPROVED') {
                 $this->_callWarnings[] = $response['RESPMSG'];
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -492,6 +512,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         foreach ($request as $k => $v) {
             $result .= '&' . $k . '=' . $v;
         }
+
         return trim($result, '&');
     }
 
@@ -518,6 +539,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         if ($from['RESULT'] != self::RESPONSE_CODE_FRAUD) {
             return;
         }
+
         $this->setIsPaymentPending(true);
     }
 
@@ -590,6 +612,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
             $this->_headers[] = 'PAYPAL-NVP: Y';
             $this->_setSpecificForNegativeLineItems();
         }
+
         return $result;
     }
 
@@ -602,6 +625,7 @@ class Mage_PaypalUk_Model_Api_Nvp extends Mage_Paypal_Model_Api_Nvp
         if ($index !== false) {
             unset($this->_doDirectPaymentResponse[$index]);
         }
+
         $this->_doDirectPaymentResponse[] = 'TRANSACTIONID';
     }
 }

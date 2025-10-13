@@ -30,6 +30,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Cache extends Mage_Core_Model_C
         if ($this->isValueChanged()) {
             Mage::app()->cleanCache($this->_cacheTags);
         }
+
         return $this;
     }
 }

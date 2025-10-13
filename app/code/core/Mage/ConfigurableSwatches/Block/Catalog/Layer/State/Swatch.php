@@ -43,6 +43,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Layer_State_Swatch extends Mage_Co
                 }
             }
         }
+
         return false;
     }
 

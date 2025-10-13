@@ -157,6 +157,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
                 $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                 break;
         }
+
         return $this;
     }
 
@@ -217,6 +218,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         if ($category->getIsChangedProductList()) {
             $event->addNewData('products_was_changed', true);
         }
+
         /**
          * Check if category has another affected category ids (category move result)
          */
@@ -234,6 +236,7 @@ class Mage_Catalog_Model_Category_Indexer_Product extends Mage_Index_Model_Index
         if (!empty($data['catalog_category_product_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['catalog_category_product_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

@@ -53,6 +53,7 @@ class Mage_Rss_Model_Resource_Order
                 ->where('main.order_id = ?', $orderId);
             $commentSelects[] = '(' . $select . ')';
         }
+
         $select = $read->select()
             ->from($res->getTableName('sales/order_status_history'), [
                 'entity_id' => 'parent_id',

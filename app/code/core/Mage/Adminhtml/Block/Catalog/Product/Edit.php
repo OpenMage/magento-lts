@@ -92,6 +92,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                         ]),
                 );
             }
+
             if ($this->getProduct()->isDeleteable()) {
                 $this->setChild(
                     'delete_button',
@@ -208,6 +209,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         if (!($setId = $this->getProduct()->getAttributeSetId()) && $this->getRequest()) {
             $setId = $this->getRequest()->getParam('set', null);
         }
+
         return $setId;
     }
 
@@ -243,9 +245,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
         } else {
             $header = Mage::helper('catalog')->__('New Product');
         }
+
         if ($setName = $this->getAttributeSetName()) {
             $header .= ' (' . $setName . ')';
         }
+
         return $header;
     }
 
@@ -259,6 +263,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit extends Mage_Adminhtml_Block_Wid
                 ->load($setId);
             return $set->getAttributeSetName();
         }
+
         return '';
     }
 

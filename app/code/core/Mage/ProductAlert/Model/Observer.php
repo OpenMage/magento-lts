@@ -69,6 +69,7 @@ class Mage_ProductAlert_Model_Observer
                 $this->_errors[] = $e->getMessage();
             }
         }
+
         return $this->_websites;
     }
 
@@ -87,9 +88,11 @@ class Mage_ProductAlert_Model_Observer
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
             }
+
             if (!Mage::getStoreConfig(self::XML_PATH_PRICE_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
                 continue;
             }
+
             try {
                 $collection = Mage::getModel('productalert/price')
                     ->getCollection()
@@ -111,9 +114,11 @@ class Mage_ProductAlert_Model_Observer
                         if ($previousCustomer) {
                             $email->send();
                         }
+
                         if (!$customer->getId()) {
                             continue;
                         }
+
                         $previousCustomer = $customer;
                         $email->clean();
                         $email->setCustomer($customer);
@@ -127,6 +132,7 @@ class Mage_ProductAlert_Model_Observer
                     if (!$product) {
                         continue;
                     }
+
                     $product->setCustomerGroupId($customer->getGroupId());
                     if ($alert->getPrice() > $product->getFinalPrice()) {
                         $productPrice = $product->getFinalPrice();
@@ -144,6 +150,7 @@ class Mage_ProductAlert_Model_Observer
                     $this->_errors[] = $e->getMessage();
                 }
             }
+
             if ($previousCustomer) {
                 try {
                     $email->send();
@@ -152,6 +159,7 @@ class Mage_ProductAlert_Model_Observer
                 }
             }
         }
+
         Mage::app()->setCurrentStore($originalStore);
         return $this;
     }
@@ -172,9 +180,11 @@ class Mage_ProductAlert_Model_Observer
             if (!$website->getDefaultGroup() || !$website->getDefaultGroup()->getDefaultStore()) {
                 continue;
             }
+
             if (!Mage::getStoreConfig(self::XML_PATH_STOCK_ALLOW, $website->getDefaultGroup()->getDefaultStore()->getId())) {
                 continue;
             }
+
             try {
                 $collection = Mage::getModel('productalert/stock')
                     ->getCollection()
@@ -197,9 +207,11 @@ class Mage_ProductAlert_Model_Observer
                         if ($previousCustomer) {
                             $email->send();
                         }
+
                         if (!$customer->getId()) {
                             continue;
                         }
+
                         $previousCustomer = $customer;
                         $email->clean();
                         $email->setCustomer($customer);
@@ -238,6 +250,7 @@ class Mage_ProductAlert_Model_Observer
                 }
             }
         }
+
         Mage::app()->setCurrentStore($originalStore);
 
         return $this;
@@ -273,6 +286,7 @@ class Mage_ProductAlert_Model_Observer
             $translate->setTranslateInline(true);
             $this->_errors[] = [];
         }
+
         return $this;
     }
 

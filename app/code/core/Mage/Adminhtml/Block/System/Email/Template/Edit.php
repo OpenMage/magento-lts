@@ -236,6 +236,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         if ($this->getEditMode()) {
             return Mage::helper('adminhtml')->__('Edit Email Template');
         }
+
         return  Mage::helper('adminhtml')->__('New Email Template');
     }
 
@@ -335,6 +336,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         if ($asJSON) {
             return Mage::helper('core')->jsonEncode($pathsParts);
         }
+
         return $pathsParts;
     }
 
@@ -351,6 +353,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
         if ($asJSON) {
             return Mage::helper('core')->jsonEncode($pathsParts);
         }
+
         return $pathsParts;
     }
 
@@ -387,6 +390,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                                 $urlParams['store'] = $store->getCode();
                                 $scopeLabel = $store->getWebsite()->getName() . '/' . $store->getName();
                             }
+
                             break;
                         case 'websites':
                             $website = Mage::app()->getWebsite($pathData['scope_id']);
@@ -394,11 +398,13 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                                 $urlParams['website'] = $website->getCode();
                                 $scopeLabel = $website->getName();
                             }
+
                             break;
                         default:
                             break;
                     }
                 }
+
                 $pathParts[] = [
                     'title' => Mage::getSingleton('adminhtml/config')->getSystemConfigNodeLabel($sectionName),
                     'url' => $this->getUrl('adminhtml/system_config/edit', $urlParams),
@@ -414,6 +420,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                 $pathParts = $prefixParts;
             }
         }
+
         return $result;
     }
 

@@ -56,6 +56,7 @@ class Mage_Adminhtml_Block_Cms_Block_Edit extends Mage_Adminhtml_Block_Widget_Fo
         if (Mage::registry('cms_block')->getId()) {
             return Mage::helper('cms')->__("Edit Block '%s'", $this->escapeHtml(Mage::registry('cms_block')->getTitle()));
         }
+
         return Mage::helper('cms')->__('New Block');
     }
 }

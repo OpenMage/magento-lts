@@ -108,6 +108,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
         if ((int) $this->getRequest()->getParam('rate') == 0) {
             return '';
         }
+
         return $this->getChildHtml('deleteButton');
     }
 }

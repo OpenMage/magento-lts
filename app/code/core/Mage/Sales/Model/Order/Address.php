@@ -76,6 +76,7 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
     protected $_order;
 
     protected $_eventPrefix = 'sales_order_address';
+
     protected $_eventObject = 'address';
 
     /**
@@ -117,6 +118,7 @@ class Mage_Sales_Model_Order_Address extends Mage_Customer_Model_Address_Abstrac
         if (!$this->_order) {
             $this->_order = Mage::getModel('sales/order')->load($this->getParentId());
         }
+
         return $this->_order;
     }
 

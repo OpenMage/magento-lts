@@ -47,6 +47,7 @@ class Mage_Adminhtml_Block_Tax_Rule_Edit extends Mage_Adminhtml_Block_Widget_For
         if (Mage::registry('tax_rule')->getId()) {
             return Mage::helper('tax')->__('Edit Rule');
         }
+
         return Mage::helper('tax')->__('New Rule');
     }
 }

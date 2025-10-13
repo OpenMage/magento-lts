@@ -63,9 +63,11 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $html .= '<td class="value">';
             $html .= $this->_getElementHtml($element);
         }
+
         if ($element->getComment()) {
             $html .= '<p class="note"><span>' . $element->getComment() . '</span></p>';
         }
+
         $html .= '</td>';
 
         if ($addInheritCheckbox) {
@@ -89,6 +91,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
                         }
                     }
                 }
+
                 $defText = implode(', ', $defTextArr);
             }
 
@@ -106,6 +109,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
         if ($element->getScope()) {
             $html .= $element->getScopeLabel();
         }
+
         $html .= '</td>';
 
         $html .= '<td class="">';
@@ -114,6 +118,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field extends Mage_Adminhtml_Block
             $html .= '<div style="display: none;">' . $element->getHint() . '</div>';
             $html .= '</div>';
         }
+
         $html .= '</td>';
 
         return $this->_decorateRowHtml($element, $html);

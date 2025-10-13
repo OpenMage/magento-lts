@@ -51,11 +51,13 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                     'label'    => Mage::helper('adminhtml')->__('Product:'),
                 ]));
         }
+
         if ($this->getCategoryId()) {
             $itemUrl = Mage::helper('adminhtml')->getUrl('*/*/*') . 'category';
             if ($this->getProductId()) {
                 $itemUrl = Mage::helper('adminhtml')->getUrl('*/*/*', ['product' => $this->getProductId()]) . 'category';
             }
+
             $this->setChild('category_link', $this->getLayout()->createBlock('adminhtml/urlrewrite_link')
                 ->setData([
                     'item_url' => $itemUrl,
@@ -146,6 +148,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 'level'   => -1,
             ]);
         }
+
         $this->_addButton('save', [
             'label'   => Mage::helper('adminhtml')->__('Save'),
             'onclick' => 'editForm.submit()',
@@ -166,6 +169,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 $suffix = 'category';
             }
         }
+
         $this->_updateButton(
             'back',
             'onclick',
@@ -193,6 +197,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
                 }
             }
         }
+
         return $this->_buttonsHtml;
     }
 
@@ -259,6 +264,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
         } elseif ($mode === 'category') { // categories tree
             $this->setChild('categories_tree', $this->getLayout()->createBlock('adminhtml/urlrewrite_category_tree'));
         }
+
         return $this;
     }
 

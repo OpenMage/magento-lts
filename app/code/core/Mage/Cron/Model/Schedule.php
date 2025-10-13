@@ -37,9 +37,13 @@
 class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
 {
     public const STATUS_PENDING = 'pending';
+
     public const STATUS_RUNNING = 'running';
+
     public const STATUS_SUCCESS = 'success';
+
     public const STATUS_MISSED = 'missed';
+
     public const STATUS_ERROR = 'error';
 
     public function _construct()
@@ -82,6 +86,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         if (!$e || !$time) {
             return false;
         }
+
         if (!is_numeric($time)) {
             $time = strtotime($time);
         }
@@ -102,6 +107,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             $this->setCreatedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
             $this->setScheduledAt(date('Y-m-d H:i:00', (int) $time));
         }
+
         return $match;
     }
 
@@ -125,6 +131,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -134,9 +141,11 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
             if (count($e) !== 2) {
                 throw Mage::exception('Mage_Cron', "Invalid cron expression, expecting 'match/modulus': " . $expr);
             }
+
             if (!is_numeric($e[1])) {
                 throw Mage::exception('Mage_Cron', 'Invalid cron expression, expecting numeric modulus: ' . $expr);
             }
+
             $expr = $e[0];
             $mod = $e[1];
         } else {
@@ -225,6 +234,7 @@ class Mage_Cron_Model_Schedule extends Mage_Core_Model_Abstract
         if ($result) {
             $this->setStatus(self::STATUS_RUNNING);
         }
+
         return $result;
     }
 }

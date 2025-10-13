@@ -69,6 +69,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $this->_collection->removeItemByKey($key);
                 continue;
             }
+
             $item->setName($item->getIndexer()->getName());
             $item->setDescription($item->getIndexer()->getDescription());
             $item->setUpdateRequired($item->getUnprocessedEventsCollection()->count() > 0 ? 1 : 0);
@@ -76,6 +77,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $item->setStatus(Mage_Index_Model_Process::STATUS_RUNNING);
             }
         }
+
         return $this;
     }
 
@@ -186,6 +188,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
+
         return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
@@ -210,6 +213,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
                 $class = self::CSS_SEVERITY_CRITICAL;
                 break;
         }
+
         return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 
@@ -228,6 +232,7 @@ class Mage_Index_Block_Adminhtml_Process_Grid extends Mage_Adminhtml_Block_Widge
         if (!$value) {
             return $this->__('Never');
         }
+
         return $value;
     }
 

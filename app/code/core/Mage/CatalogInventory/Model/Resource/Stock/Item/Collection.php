@@ -32,6 +32,7 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
         } else {
             $this->addFieldToFilter('main_table.stock_id', $stock);
         }
+
         return $this;
     }
 
@@ -51,10 +52,12 @@ class Mage_CatalogInventory_Model_Resource_Stock_Item_Collection extends Mage_Co
                 $productIds[] = $product;
             }
         }
+
         if (empty($productIds)) {
             $productIds[] = false;
             $this->_setIsLoaded(true);
         }
+
         $this->addFieldToFilter('main_table.product_id', ['in' => $productIds]);
         return $this;
     }

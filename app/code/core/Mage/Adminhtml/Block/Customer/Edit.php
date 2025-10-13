@@ -63,6 +63,7 @@ class Mage_Adminhtml_Block_Customer_Edit extends Mage_Adminhtml_Block_Widget_For
         if (Mage::registry('current_customer')->getId()) {
             return $this->escapeHtml(Mage::registry('current_customer')->getName());
         }
+
         return Mage::helper('customer')->__('New Customer');
     }
 

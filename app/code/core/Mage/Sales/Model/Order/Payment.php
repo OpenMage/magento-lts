@@ -284,6 +284,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (!$this->getMethodInstance()->canCapture()) {
             return false;
         }
+
         // Check Authoriztion transaction state
         $authTransaction = $this->getAuthorizationTransaction();
         if ($authTransaction && $authTransaction->getIsClosed()) {
@@ -292,6 +293,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 return false;
             }
         }
+
         return true;
     }
 
@@ -343,6 +345,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
 
         $methodInstance = $this->getMethodInstance();
         $methodInstance->setStore($order->getStoreId());
+
         $orderState = Mage_Sales_Model_Order::STATE_NEW;
         $stateObject = new Varien_Object();
 
@@ -397,6 +400,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 }
             }
         }
+
         $isCustomerNotified = $orderIsNotified ?? $order->getCustomerNoteNotify();
         $message = $order->getCustomerNote();
 
@@ -437,6 +441,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $this->setCreatedInvoice($invoice);
             return $this; // @see Mage_Sales_Model_Order_Invoice::capture()
         }
+
         $amountToCapture = $this->_formatAmount($invoice->getBaseGrandTotal());
         $order = $this->getOrder();
 
@@ -445,6 +450,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (!$invoice->wasPayCalled()) {
             $paidWorkaround = (float) $amountToCapture;
         }
+
         $this->_isCaptureFinal($paidWorkaround);
 
         $this->_generateTransactionId(
@@ -463,6 +469,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 ->setStore($order->getStoreId())
                 ->fetchTransactionInfo($this, $invoice->getTransactionId());
         }
+
         $status = true;
         if (!$invoice->getIsPaid() && !$this->getIsTransactionPending()) {
             // attempt to capture: this can trigger "is_transaction_pending"
@@ -480,6 +487,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 if ($this->getIsFraudDetected()) {
                     $status = Mage_Sales_Model_Order::STATUS_FRAUD;
                 }
+
                 $invoice->setIsPaid(false);
             } else { // normal online capture: invoice is marked as "paid"
                 $message = Mage::helper('sales')->__('Captured amount of %s online.', $this->_formatPrice($amountToCapture));
@@ -487,16 +495,19 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $invoice->setIsPaid(true);
                 $this->_updateTotals(['base_amount_paid_online' => $amountToCapture]);
             }
+
             if ($order->isNominal()) {
                 $message = $this->_prependMessage(Mage::helper('sales')->__('Nominal order registered.'));
             } else {
                 $message = $this->_prependMessage($message);
                 $message = $this->_appendTransactionToMessage($transaction, $message);
             }
+
             $order->setState($state, $status, $message);
             $this->getMethodInstance()->processInvoice($invoice, $this); // should be deprecated
             return $this;
         }
+
         Mage::throwException(
             Mage::helper('sales')->__('The transaction "%s" cannot be captured yet.', $invoice->getTransactionId()),
         );
@@ -537,6 +548,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 if (!$skipFraudDetection || !$isSameCurrency) {
                     $this->setIsFraudDetected(true);
                 }
+
                 $this->_updateTotals(['base_amount_paid_online' => $amount]);
             }
         }
@@ -557,6 +569,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $message = Mage::helper('sales')->__('Order is suspended as its capture amount %s is suspected to be fraudulent.', $this->_formatPrice($amount, $this->getCurrencyCode()));
                 $status = Mage_Sales_Model_Order::STATUS_FRAUD;
             }
+
             // register capture for an existing invoice
             if ($invoice && Mage_Sales_Model_Order_Invoice::STATE_OPEN == $invoice->getState()) {
                 $invoice->pay();
@@ -568,6 +581,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_CAPTURE, $invoice, true);
         $message = $this->_prependMessage($message);
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState($state, $status, $message);
         return $this;
     }
@@ -654,6 +668,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $this->_canVoidLookup = (bool) $authTransaction && !(int) $authTransaction->getIsClosed();
             }
         }
+
         return $this->_canVoidLookup;
     }
 
@@ -682,6 +697,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (!$this->hasMessage()) {
             $this->setMessage(Mage::helper('sales')->__('Registered a Void notification.'));
         }
+
         return $this->_void(false, $amount);
     }
 
@@ -713,6 +729,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 if ($captureTxn) {
                     $this->setParentTransactionId($captureTxn->getTxnId());
                 }
+
                 $this->setShouldCloseParentTransaction(true); // TODO: implement multiple refunds per capture
                 try {
                     $gateway->setStore($this->getOrder()->getStoreId())
@@ -724,6 +741,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     if (!$captureTxn) {
                         $e->setMessage(' ' . Mage::helper('sales')->__('If the invoice was created offline, try creating an offline creditmemo.'), true);
                     }
+
                     throw $e;
                 }
             }
@@ -750,8 +768,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $message = $this->hasMessage() ? $this->getMessage()
                 : Mage::helper('sales')->__('Refunded amount of %s offline.', $this->_formatPrice($baseAmountToRefund));
         }
+
         $message = $this->_prependMessage($message);
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
 
         Mage::dispatchEvent('sales_order_payment_refund', ['payment' => $this, 'creditmemo' => $creditmemo]);
@@ -780,6 +800,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($this->_isTransactionExists()) {
             return $this;
         }
+
         $order = $this->getOrder();
         $invoice = $this->_getInvoiceForTransactionId($this->getParentTransactionId());
 
@@ -815,6 +836,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $adjustment = ['adjustment_negative' => $baseGrandTotal - $amount];
             }
+
             $creditmemo = $serviceModel->prepareInvoiceCreditmemo($invoice, $adjustment);
             if ($creditmemo) {
                 $totalRefunded = $invoice->getBaseTotalRefunded() + $creditmemo->getBaseGrandTotal();
@@ -826,6 +848,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $adjustment = ['adjustment_negative' => $baseGrandTotal - $amount];
             }
+
             $creditmemo = $serviceModel->prepareCreditmemo($adjustment);
             if ($creditmemo) {
                 $totalRefunded = $order->getBaseTotalRefunded() + $creditmemo->getBaseGrandTotal();
@@ -851,6 +874,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             Mage::helper('sales')->__('Registered notification about refunded amount of %s.', $this->_formatPrice($amount)),
         );
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
         return $this;
     }
@@ -977,6 +1001,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     $result = (bool) $this->getNotificationResult() ? true : -1;
                     $message = Mage::helper('sales')->__('Registered notification about approved payment.');
                 }
+
                 break;
             case self::REVIEW_ACTION_DENY:
                 if ($isOnline) {
@@ -991,6 +1016,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     $result = (bool) $this->getNotificationResult() ? false : -1;
                     $message = Mage::helper('sales')->__('Registered notification about denied payment.');
                 }
+
                 break;
             case self::REVIEW_ACTION_UPDATE:
                 if ($isOnline) {
@@ -1000,6 +1026,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 } else {
                     // notification mechanism is responsible to update the payment object first
                 }
+
                 if ($this->getIsTransactionApproved()) {
                     $result = true;
                     $message = Mage::helper('sales')->__('Registered update about approved payment.');
@@ -1010,10 +1037,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     $result = -1;
                     $message = Mage::helper('sales')->__('There is no update for the payment.');
                 }
+
                 break;
             default:
                 throw new Exception('Not implemented.');
         }
+
         $message = $this->_prependMessage($message);
         if ($transactionId) {
             $message = $this->_appendTransactionToMessage($transactionId, $message);
@@ -1036,14 +1065,17 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 $this->_updateTotals(['base_amount_paid_online' => $invoice->getBaseGrandTotal()]);
                 $order->addRelatedObject($invoice);
             }
+
             $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
         } elseif ($result === false) {
             if ($invoice) {
                 $invoice->cancel();
                 $order->addRelatedObject($invoice);
             }
+
             $order->registerCancellation($message, false);
         }
+
         return $this;
     }
 
@@ -1086,6 +1118,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         $transaction = $this->_addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER);
         $message = $this->_prependMessage($message);
         $message = $this->_appendTransactionToMessage($transaction, $message);
+
         $order->setState($state, $status, $message);
         return $this;
     }
@@ -1145,6 +1178,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $message = $this->_prependMessage($message);
             $message = $this->_appendTransactionToMessage($transaction, $message);
         }
+
         $order->setState($state, $status, $message);
 
         return $this;
@@ -1183,6 +1217,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($isOnline) {
             $this->getMethodInstance()->setStore($order->getStoreId())->$gatewayCallback($this);
         }
+
         if ($this->_isTransactionExists()) {
             return $this;
         }
@@ -1208,6 +1243,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($amount) {
             $message .= ' ' . Mage::helper('sales')->__('Amount: %s.', $this->_formatPrice($amount));
         }
+
         $message = $this->_appendTransactionToMessage($transaction, $message);
         $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, true, $message);
         return $this;
@@ -1259,9 +1295,11 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             if ($this->getOrder()->getId()) {
                 $transaction = $this->_lookupTransaction($transactionId);
             }
+
             if (!$transaction) {
                 $transaction = Mage::getModel('sales/order_payment_transaction')->setTxnId($transactionId);
             }
+
             $transaction
                 ->setOrderPaymentObject($this)
                 ->setTxnType($type)
@@ -1298,10 +1336,12 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                         if (!$parentTransaction->getIsClosed()) {
                             $parentTransaction->isFailsafe($failsafe)->close(false);
                         }
+
                         $this->getOrder()->addRelatedObject($parentTransaction);
                     }
                 }
             }
+
             return $transaction;
         }
     }
@@ -1341,6 +1381,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($data) {
             $transactionTo->setAdditionalInformation(Mage_Sales_Model_Order_Payment_Transaction::RAW_DETAILS, $data);
         }
+
         return $this;
     }
 
@@ -1398,6 +1439,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if ($txnId === null) {
             $txnId = $this->getTransactionId();
         }
+
         return $txnId && $this->_lookupTransaction($txnId);
     }
 
@@ -1414,6 +1456,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             $txnId = is_object($transaction) ? $transaction->getHtmlTxnId() : $transaction;
             $message .= ' ' . Mage::helper('sales')->__('Transaction ID: "%s".', $txnId);
         }
+
         return $message;
     }
 
@@ -1437,6 +1480,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 return $comment;
             }
         }
+
         return $messagePrependTo;
     }
 
@@ -1490,11 +1534,14 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                     return $txn;
                 }
             }
+
             return false;
         }
+
         if (isset($this->_transactionsLookup[$txnId])) {
             return $this->_transactionsLookup[$txnId];
         }
+
         $txn = Mage::getModel('sales/order_payment_transaction')
             ->setOrderPaymentObject($this)
             ->loadByTxnId($txnId);
@@ -1503,6 +1550,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         } else {
             $this->_transactionsLookup[$txnId] = false;
         }
+
         return $this->_transactionsLookup[$txnId];
     }
 
@@ -1532,6 +1580,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (!$txn) {
             $txn = $this->_lookupTransaction(false, Mage_Sales_Model_Order_Payment_Transaction::TYPE_AUTH);
         }
+
         return $txn;
     }
 
@@ -1557,6 +1606,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (!$this->getParentTransactionId() && !$this->getTransactionId() && $transactionBasedOn) {
             $this->setParentTransactionId($transactionBasedOn->getTxnId());
         }
+
         // generate transaction id for an offline action or payment method that didn't set it
         $parentTxnId = $this->getParentTransactionId();
         if ($parentTxnId && !$this->getTransactionId()) {
@@ -1577,8 +1627,10 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             if ($this->getShouldCloseParentTransaction() !== false) {
                 $this->setShouldCloseParentTransaction(true);
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -1624,6 +1676,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
             } else {
                 $message = Mage::helper('sales')->__('Failed to create billing agreement for this order.');
             }
+
             $comment = $order->addStatusHistoryComment($message);
             $order->addRelatedObject($comment);
         }
@@ -1655,6 +1708,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
         if (is_null($key)) {
             return $this->_transactionAdditionalInfo;
         }
+
         return $this->_transactionAdditionalInfo[$key] ?? null;
     }
 
@@ -1683,6 +1737,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 return $invoice;
             }
         }
+
         foreach ($this->getOrder()->getInvoiceCollection() as $invoice) {
             if ($invoice->getState() == Mage_Sales_Model_Order_Invoice::STATE_OPEN
                 && $invoice->load($invoice->getId())
@@ -1691,6 +1746,7 @@ class Mage_Sales_Model_Order_Payment extends Mage_Payment_Model_Info
                 return $invoice;
             }
         }
+
         return false;
     }
 }

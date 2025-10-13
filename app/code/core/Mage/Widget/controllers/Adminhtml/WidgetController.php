@@ -49,10 +49,12 @@ class Mage_Widget_Adminhtml_WidgetController extends Mage_Adminhtml_Controller_A
                     if (isset($request['widget_type'])) {
                         $optionsBlock->setWidgetType($request['widget_type']);
                     }
+
                     if (isset($request['values'])) {
                         $optionsBlock->setWidgetValues($request['values']);
                     }
                 }
+
                 $this->renderLayout();
             }
         } catch (Mage_Core_Exception $e) {

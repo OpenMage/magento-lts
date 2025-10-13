@@ -15,13 +15,19 @@
 class Mage_Core_Model_App_Area
 {
     public const AREA_GLOBAL   = 'global';
+
     public const AREA_FRONTEND = 'frontend';
+
     public const AREA_ADMIN    = 'admin';
+
     public const AREA_ADMINHTML = 'adminhtml';
 
     public const PART_CONFIG   = 'config';
+
     public const PART_EVENTS   = 'events';
+
     public const PART_TRANSLATE = 'translate';
+
     public const PART_DESIGN   = 'design';
 
     /**
@@ -82,6 +88,7 @@ class Mage_Core_Model_App_Area
         } else {
             $this->_loadPart($part);
         }
+
         return $this;
     }
 
@@ -96,6 +103,7 @@ class Mage_Core_Model_App_Area
         if (isset($this->_loadedParts[$part])) {
             return $this;
         }
+
         Varien_Profiler::start('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         switch ($part) {
             case self::PART_CONFIG:
@@ -111,6 +119,7 @@ class Mage_Core_Model_App_Area
                 $this->_initDesign();
                 break;
         }
+
         $this->_loadedParts[$part] = true;
         Varien_Profiler::stop('mage::dispatch::controller::action::predispatch::load_area::' . $this->_code . '::' . $part);
         return $this;
@@ -147,6 +156,7 @@ class Mage_Core_Model_App_Area
         if (Mage::app()->getRequest()->isStraight()) {
             return $this;
         }
+
         $designPackage = Mage::getSingleton('core/design_package');
         if ($designPackage->getArea() != self::AREA_FRONTEND) {
             return;

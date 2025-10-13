@@ -96,6 +96,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
         if ((int) $this->getRequest()->getParam('rid') == 0) {
             return '';
         }
+
         return $this->getChildHtml('deleteButton');
     }
 

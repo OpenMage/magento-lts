@@ -80,6 +80,7 @@
 class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix = 'sales_invoice_item';
+
     protected $_eventObject = 'invoice_item';
 
     /**
@@ -111,6 +112,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         ];
         return $this;
     }
+
     /**
      * Declare invoice instance
      *
@@ -143,6 +145,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         if ($this->getOrderItemId() != $item->getId()) {
             $this->setOrderItemId($item->getId());
         }
+
         return $this;
     }
 
@@ -161,6 +164,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
                     ->load($this->getOrderItemId());
             }
         }
+
         return $this->_orderItem;
     }
 
@@ -177,6 +181,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         } else {
             $qty = (int) $qty;
         }
+
         $qty = $qty > 0 ? $qty : 0;
         /**
          * Check qty availability
@@ -190,6 +195,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
                 Mage::helper('sales')->__('Invalid qty to invoice item "%s"', $this->getName()),
             );
         }
+
         return $this;
     }
 
@@ -268,6 +274,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
             $this->setRowTotalInclTax($invoice->roundPrice($rowTotalInclTax / $orderItemQty * $this->getQty(), 'including'));
             $this->setBaseRowTotalInclTax($invoice->roundPrice($baseRowTotalInclTax / $orderItemQty * $this->getQty(), 'including_base'));
         }
+
         return $this;
     }
 
@@ -281,6 +288,7 @@ class Mage_Sales_Model_Order_Invoice_Item extends Mage_Core_Model_Abstract
         if ((string) (float) $this->getQty() == (string) (float) $this->getOrderItem()->getQtyToInvoice()) {
             return true;
         }
+
         return false;
     }
 

@@ -9,12 +9,14 @@
 class Mage_Xml_Generator
 {
     protected $_dom = null;
+
     protected $_currentDom;
 
     public function __construct()
     {
         $this->_dom = new DOMDocument('1.0');
         $this->_dom->formatOutput = true;
+
         $this->_currentDom = $this->_dom;
     }
 
@@ -53,14 +55,16 @@ class Mage_Xml_Generator
         if (!$content || !count($content)) {
             return $this;
         }
+
         foreach ($content as $key => $item) {
             try {
                 $node = $this->getDom()->createElement($key);
-            } catch (DOMException $e) {
+            } catch (DOMException) {
                 //  echo $e->getMessage();
                 var_dump($item);
                 die;
             }
+
             $parentNode->appendChild($node);
             if (is_array($item) && isset($item['_attribute'])) {
                 if (is_array($item['_value'])) {
@@ -75,6 +79,7 @@ class Mage_Xml_Generator
                     $child = $this->getDom()->createTextNode($item['_value']);
                     $node->appendChild($child);
                 }
+
                 foreach ($item['_attribute'] as $_attributeKey => $_attributeValue) {
                     $node->setAttribute($_attributeKey, $_attributeValue);
                 }
@@ -89,6 +94,7 @@ class Mage_Xml_Generator
                 }
             }
         }
+
         return $this;
     }
 

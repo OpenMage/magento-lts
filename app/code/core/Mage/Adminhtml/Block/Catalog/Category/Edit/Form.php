@@ -99,6 +99,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
             $params['website'] = $store->getWebsite()->getCode();
             $params['store']   = $store->getCode();
         }
+
         return $this->getUrl('*/system_store', $params);
     }
 
@@ -118,6 +119,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if ($this->hasStoreRootCategory()) {
             return $this->getChildHtml('save_button');
         }
+
         return '';
     }
 
@@ -129,6 +131,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if ($this->hasStoreRootCategory()) {
             return $this->getChildHtml('reset_button');
         }
+
         return '';
     }
 
@@ -143,6 +146,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         foreach ($this->_additionalButtons as $childName) {
             $html .= $this->getChildHtml($childName);
         }
+
         return $html;
     }
 
@@ -158,6 +162,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if (isset($config['name'])) {
             $config['element_name'] = $config['name'];
         }
+
         $this->setChild(
             $alias . '_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->addData($config),
@@ -201,6 +206,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
                 }
             }
         }
+
         return Mage::helper('catalog')->__('Set Root Category for Store');
     }
 
@@ -229,6 +235,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Edit_Form extends Mage_Adminhtml_Blo
         if (!empty($products)) {
             return Mage::helper('core')->jsonEncode($products);
         }
+
         return '{}';
     }
 

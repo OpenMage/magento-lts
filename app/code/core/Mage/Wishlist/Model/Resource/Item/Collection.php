@@ -130,6 +130,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         foreach ($this as $item) {
             $item->setOptions($optionCollection->getOptionsByItem($item));
         }
+
         $productIds = $optionCollection->getProductIds();
         $this->_productIds = array_merge($this->_productIds, $productIds);
 
@@ -155,6 +156,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
                 $storeIds[] = $item->getStoreId();
             }
         }
+
         if (!$isStoreAdmin) {
             $storeIds = $this->_storeIds;
         }
@@ -251,6 +253,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         $this->_storeIds = $storeIds;
         $this->addFieldToFilter('store_id', ['in' => $this->_storeIds]);
 
@@ -434,6 +437,7 @@ class Mage_Wishlist_Model_Resource_Item_Collection extends Mage_Core_Model_Resou
 
             $this->_isProductNameJoined = true;
         }
+
         return $this;
     }
 

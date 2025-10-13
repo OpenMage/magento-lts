@@ -30,6 +30,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
             $unitWeight->setType($toWeightMeasure);
             return $unitWeight->getValue();
         }
+
         return null;
     }
 
@@ -49,6 +50,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
             $unitDimension->setType($toDimensionMeasure);
             return $unitDimension->getValue();
         }
+
         return null;
     }
 
@@ -65,6 +67,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
             return $conversionList[$key][1];
         }
+
         return '';
     }
 
@@ -81,6 +84,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
         if (!empty($conversionList[$key]) && !empty($conversionList[$key][1])) {
             return $conversionList[$key][1];
         }
+
         return '';
     }
 
@@ -137,6 +141,7 @@ class Mage_Usa_Helper_Data extends Mage_Core_Helper_Abstract
                 break;
             }
         }
+
         return $result;
     }
 }

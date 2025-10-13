@@ -43,6 +43,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Edit extends Mage_Adminhtml_Bl
         if (Mage::registry('current_convert_profile')->getId()) {
             return $this->escapeHtml(Mage::registry('current_convert_profile')->getName());
         }
+
         return Mage::helper('adminhtml')->__('New Profile');
     }
 }

@@ -211,6 +211,7 @@ class Varien_Data_Tree_Node extends Varien_Object
             $nodes[$node->getId()] = $node;
             $node->getAllChildNodes($nodes);
         }
+
         return $nodes;
     }
 
@@ -286,6 +287,7 @@ class Varien_Data_Tree_Node extends Varien_Object
             $prevNodes[] = $this;
             $this->_parent->getPath($prevNodes);
         }
+
         return $prevNodes;
     }
 

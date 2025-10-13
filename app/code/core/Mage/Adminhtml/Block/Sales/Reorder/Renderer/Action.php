@@ -31,6 +31,7 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action extends Mage_Adminhtml_
             ];
             $this->addToActions($reorderAction);
         }
+
         Mage::dispatchEvent('adminhtml_customer_orders_add_action_renderer', ['renderer' => $this, 'row' => $row]);
         return $this->_actionsToHtml();
     }
@@ -58,6 +59,7 @@ class Mage_Adminhtml_Block_Sales_Reorder_Renderer_Action extends Mage_Adminhtml_
             $attributesObject->setData($action['@']);
             $html[] = '<a ' . $attributesObject->serialize() . '>' . $action['#'] . '</a>';
         }
+
         return  implode('<span class="separator">|</span>', $html);
     }
 

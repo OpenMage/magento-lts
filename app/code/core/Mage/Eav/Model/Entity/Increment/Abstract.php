@@ -24,6 +24,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
         if (empty($padLength)) {
             $padLength = 8;
         }
+
         return $padLength;
     }
 
@@ -36,6 +37,7 @@ abstract class Mage_Eav_Model_Entity_Increment_Abstract extends Varien_Object im
         if (empty($padChar)) {
             $padChar = '0';
         }
+
         return $padChar;
     }
 

@@ -46,6 +46,7 @@ class Mage_Sales_Model_Resource_Order_Collection extends Mage_Sales_Model_Resour
         } else {
             $this->addFieldToSelect('total_item_count', 'items_count');
         }
+
         return $this;
     }
 

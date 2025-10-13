@@ -239,6 +239,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
         if ($this->getEditMode()) {
             return Mage::helper('newsletter')->__('Edit Newsletter Template');
         }
+
         return  Mage::helper('newsletter')->__('New Newsletter Template');
     }
 
@@ -263,6 +264,7 @@ class Mage_Adminhtml_Block_Newsletter_Template_Edit extends Mage_Adminhtml_Block
         if ($templateCode === null) {
             return '';
         }
+
         // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
         return addcslashes($this->escapeHtml($templateCode), "\"\r\n\\");
     }

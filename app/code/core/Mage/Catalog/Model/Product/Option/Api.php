@@ -28,9 +28,11 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!(is_array($data['additional_fields']) && count($data['additional_fields']))) {
             $this->_fault('invalid_data');
         }
+
         if (!$this->_isTypeAllowed($data['type'])) {
             $this->_fault('invalid_type');
         }
+
         $this->_prepareAdditionalFields(
             $data,
             $product->getOptionInstance()->getGroupByType($data['type']),
@@ -54,22 +56,26 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         $product = $this->_getProduct($option->getProductId(), $store, null);
         $option = $product->getOptionById($optionId);
         if (isset($data['type']) && !$this->_isTypeAllowed($data['type'])) {
             $this->_fault('invalid_type');
         }
+
         if (isset($data['additional_fields'])) {
             $this->_prepareAdditionalFields(
                 $data,
                 $option->getGroupByType(),
             );
         }
+
         foreach ($option->getValues() as $valueId => $value) {
             if (isset($data['values'][$valueId])) {
                 $data['values'][$valueId] = array_merge($value->getData(), $data['values'][$valueId]);
             }
         }
+
         $data = array_merge($option->getData(), $data);
         $this->_saveProductCustomOption($product, $data);
         return true;
@@ -104,6 +110,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                         foreach ($row as $key => $value) {
                             $row[$key] = Mage::helper('catalog')->stripTags($value);
                         }
+
                         if (!empty($row['value_id'])) {
                             // map 'value_id' to 'option_type_id'
                             $row['option_type_id'] = $row['value_id'];
@@ -116,6 +123,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 }
             }
         }
+
         unset($data['additional_fields']);
     }
 
@@ -175,6 +183,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 ];
             }
         }
+
         return $types;
     }
 
@@ -192,6 +201,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         $product = $this->_getProduct($option->getProductId(), $store, null);
         $option = $product->getOptionById($optionId);
         $result = [
@@ -230,6 +240,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                         'sort_order' => $value->getSortOrder(),
                     ];
                 }
+
                 break;
             default:
                 break;
@@ -259,6 +270,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
                 'sort_order' => $option->getSortOrder(),
             ];
         }
+
         return $result;
     }
 
@@ -275,14 +287,16 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!$option->getId()) {
             $this->_fault('option_not_exists');
         }
+
         try {
             $option->getValueInstance()->deleteValue($optionId);
             $option->deletePrices($optionId);
             $option->deleteTitles($optionId);
             $option->delete();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('delete_option_error');
         }
+
         return true;
     }
 
@@ -302,6 +316,7 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
         if (!in_array($type, $allowedTypes)) {
             return false;
         }
+
         return true;
     }
 }

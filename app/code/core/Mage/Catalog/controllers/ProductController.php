@@ -68,6 +68,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
                 if ($parentCategory && $parentCategory->getId() && $parentCategory->getLevel() > 1) {
                     $this->_applyCustomDesignSettings($parentCategory, $update);
                 }
+
                 return;
             }
 
@@ -88,6 +89,7 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
             if ($object->getPageLayout()) {
                 $this->_designProductSettingsApplied['layout'] = $object->getPageLayout();
             }
+
             $this->_designProductSettingsApplied['update'] = $object->getCustomLayoutUpdate();
         }
     }
@@ -143,8 +145,10 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
             } elseif (!$this->getResponse()->isRedirect()) {
                 $this->_forward('noRoute');
             }
+
             return;
         }
+
         $this->loadLayout();
         $this->renderLayout();
     }

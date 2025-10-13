@@ -105,6 +105,7 @@ class Mage_Reports_Model_Resource_Report_Collection
             if (!$this->_from && !$this->_to) {
                 return $this->_intervals;
             }
+
             $dateStart  = new Zend_Date($this->_from);
             $dateEnd    = new Zend_Date($this->_to);
 
@@ -156,9 +157,11 @@ class Mage_Reports_Model_Resource_Report_Collection
                         $firstInterval = false;
                         break;
                 }
+
                 $this->_intervals[$time['title']] = $time;
             }
         }
+
         return  $this->_intervals;
     }
 

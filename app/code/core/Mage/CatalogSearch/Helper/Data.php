@@ -83,6 +83,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $this->_query->setQueryText($this->getQueryText());
             }
         }
+
         return $this->_query;
     }
 
@@ -122,6 +123,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_queryText;
     }
 
@@ -315,6 +317,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                 $_index = array_merge($_index, $value);
             }
         }
+
         return implode($separator, $_index);
     }
 
@@ -339,6 +342,7 @@ class Mage_CatalogSearch_Helper_Data extends Mage_Core_Helper_Abstract
                     $this->_engine = $model;
                 }
             }
+
             if (!$this->_engine) {
                 $this->_engine = Mage::getResourceSingleton('catalogsearch/fulltext_engine');
             }

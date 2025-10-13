@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
         if (!$this->getVariable()->getId()) {
             $this->removeButton('delete');
         }
+
         return parent::_prepareLayout();
     }
 
@@ -58,6 +59,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
                 ->createBlock('adminhtml/store_switcher')->toHtml();
             $formHtml = $storeSwitcher . $formHtml;
         }
+
         return $formHtml;
     }
 
@@ -71,6 +73,7 @@ class Mage_Adminhtml_Block_System_Variable_Edit extends Mage_Adminhtml_Block_Wid
         if ($this->getVariable()->getId()) {
             return Mage::helper('adminhtml')->__('Custom Variable "%s"', $this->escapeHtml($this->getVariable()->getName()));
         }
+
         return Mage::helper('adminhtml')->__('New Custom Variable');
     }
 

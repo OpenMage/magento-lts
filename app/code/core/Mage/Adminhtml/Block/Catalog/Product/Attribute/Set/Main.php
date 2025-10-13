@@ -315,6 +315,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
         if ($this->getIsCurrentSetDefault()) {
             return '';
         }
+
         return $this->getChildHtml('delete_button');
     }
 
@@ -383,6 +384,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Attribute_Set_Main extends Mage_Admin
             $isDefault = $this->_getSetId() == $defaultSetId;
             $this->setData('is_current_set_default', $isDefault);
         }
+
         return $isDefault;
     }
 

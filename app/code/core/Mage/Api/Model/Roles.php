@@ -148,9 +148,11 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
                 return $result;
             }
         }
+
         foreach ($children as $child) {
             $this->_buildResourcesArray($child, $resourceName, $level + 1, $represent2Darray, $rawNodes, $module);
         }
+
         if ($rawNodes) {
             return $resource;
         } else {
@@ -181,6 +183,7 @@ class Mage_Api_Model_Roles extends Mage_Core_Model_Abstract
         if (!$this->_filters || !$data) {
             return $this;
         }
+
         /** @var Mage_Core_Model_Input_Filter $filter */
         $filter = Mage::getModel('core/input_filter');
         $filter->setFilters($this->_filters);

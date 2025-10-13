@@ -15,13 +15,19 @@
 class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
 {
     public const XML_PATH_ENABLED = 'persistent/options/enabled';
+
     public const XML_PATH_LIFE_TIME = 'persistent/options/lifetime';
+
     public const XML_PATH_LOGOUT_CLEAR = 'persistent/options/logout_clear';
+
     public const XML_PATH_REMEMBER_ME_ENABLED = 'persistent/options/remember_enabled';
+
     public const XML_PATH_REMEMBER_ME_DEFAULT = 'persistent/options/remember_default';
+
     public const XML_PATH_PERSIST_SHOPPING_CART = 'persistent/options/shopping_cart';
 
     public const LOGGED_IN_LAYOUT_HANDLE = 'customer_logged_in_psc_handle';
+
     public const LOGGED_OUT_LAYOUT_HANDLE = 'customer_logged_out_psc_handle';
 
     protected $_moduleName = 'Mage_Persistent';
@@ -143,9 +149,11 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         if ($action instanceof Mage_Core_Controller_Varien_Action) {
             return !$action->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
         }
+
         if ($controllerAction instanceof Mage_Core_Controller_Varien_Action) {
             return !$controllerAction->getFlag('', Mage_Core_Controller_Varien_Action::FLAG_NO_START_SESSION);
         }
+
         return true;
     }
 
@@ -160,6 +168,7 @@ class Mage_Persistent_Helper_Data extends Mage_Core_Helper_Data
         if (Mage::helper('checkout')->isContextCheckout()) {
             $url = Mage::helper('core/url')->addRequestParam($url, ['context' => 'checkout']);
         }
+
         return $url;
     }
 }

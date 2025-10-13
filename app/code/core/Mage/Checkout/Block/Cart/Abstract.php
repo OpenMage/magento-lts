@@ -15,10 +15,13 @@
 abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Template
 {
     protected $_customer = null;
+
     protected $_checkout = null;
+
     protected $_quote    = null;
 
     protected $_totals;
+
     protected $_itemRenders = [];
 
     public function __construct()
@@ -80,6 +83,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         if (!isset($this->_itemRenders[$type])) {
             $type = 'default';
         }
+
         if (is_null($this->_itemRenders[$type]['blockInstance'])) {
             $this->_itemRenders[$type]['blockInstance'] = $this->getLayout()
                 ->createBlock($this->_itemRenders[$type]['block'])
@@ -100,6 +104,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         if ($this->_customer === null) {
             $this->_customer = Mage::getSingleton('customer/session')->getCustomer();
         }
+
         return $this->_customer;
     }
 
@@ -113,6 +118,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         if ($this->_checkout === null) {
             $this->_checkout = Mage::getSingleton('checkout/session');
         }
+
         return $this->_checkout;
     }
 
@@ -126,6 +132,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         if ($this->_quote === null) {
             $this->_quote = $this->getCheckout()->getQuote();
         }
+
         return $this->_quote;
     }
 
@@ -167,6 +174,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         if (empty($this->_totals)) {
             $this->_totals = $this->getQuote()->getTotals();
         }
+
         return $this->_totals;
     }
 
@@ -180,6 +188,7 @@ abstract class Mage_Checkout_Block_Cart_Abstract extends Mage_Core_Block_Templat
         if (!$this->getQuote()->hasCanApplyMsrp() && Mage::helper('catalog')->isMsrpEnabled()) {
             $this->getQuote()->collectTotals();
         }
+
         return $this->getQuote()->getCanApplyMsrp();
     }
 }

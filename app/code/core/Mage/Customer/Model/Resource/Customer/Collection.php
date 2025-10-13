@@ -63,6 +63,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
                 '\'\'',
             );
         }
+
         $concatenate[] = 'LTRIM(RTRIM({{firstname}}))';
         $concatenate[] = '\' \'';
         if (isset($fields['middlename'])) {
@@ -72,6 +73,7 @@ class Mage_Customer_Model_Resource_Customer_Collection extends Mage_Eav_Model_En
                 '\'\'',
             );
         }
+
         $concatenate[] = 'LTRIM(RTRIM({{lastname}}))';
         if (isset($fields['suffix'])) {
             $concatenate[] = $adapter

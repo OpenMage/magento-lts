@@ -122,6 +122,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
         if (is_null($this->_product)) {
             $this->_product = $this->getOption()->getProduct();
         }
+
         return $this->_product;
     }
 
@@ -152,7 +153,9 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
                 // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                 $this->save();
             }
-        }//eof foreach()
+        }
+
+        //eof foreach()
         return $this;
     }
 
@@ -169,6 +172,7 @@ class Mage_Catalog_Model_Product_Option_Value extends Mage_Core_Model_Abstract
             $basePrice = $this->getOption()->getProduct()->getFinalPrice();
             return $basePrice * ($this->_getData('price') / 100);
         }
+
         return $this->_getData('price');
     }
 

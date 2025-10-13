@@ -23,6 +23,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         if (!$data) {
             $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
         }
+
         return $data['items'] ?? [];
     }
 
@@ -48,6 +49,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             $this->_getSession()->addError($this->__('Cannot create credit memo for the order.'));
             return false;
         }
+
         return true;
     }
 
@@ -67,6 +69,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 return $invoice;
             }
         }
+
         return false;
     }
 
@@ -106,10 +109,12 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 if (isset($itemData['qty'])) {
                     $qtys[$orderItemId] = $itemData['qty'];
                 }
+
                 if (isset($itemData['back_to_stock'])) {
                     $backToStock[$orderItemId] = true;
                 }
             }
+
             $data['qtys'] = $qtys;
 
             $service = Mage::getModel('sales/service_order', $order);
@@ -158,6 +163,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
         if ($creditmemo->getInvoice()) {
             $transactionSave->addObject($creditmemo->getInvoice());
         }
+
         $transactionSave->save();
 
         return $this;
@@ -235,13 +241,14 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 'message'   => $e->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $response = [
                 'error'     => true,
                 'message'   => $this->__('Cannot update the item\'s quantity.'),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         }
+
         $this->getResponse()->setBody($response);
     }
 
@@ -280,6 +287,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 if (isset($data['do_refund'])) {
                     $creditmemo->setRefundRequested(true);
                 }
+
                 if (isset($data['do_offline'])) {
                     $creditmemo->setOfflineRequested((bool) (int) $data['do_offline']);
                 }
@@ -307,6 +315,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             Mage::logException($e);
             $this->_getSession()->addError($this->__('Cannot save the credit memo.'));
         }
+
         $this->_redirect('*/*/new', ['_current' => true]);
     }
 
@@ -323,9 +332,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 $this->_getSession()->addSuccess($this->__('The credit memo has been canceled.'));
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_getSession()->addError($this->__('Unable to cancel the credit memo.'));
             }
+
             $this->_redirect('*/*/view', ['creditmemo_id' => $creditmemo->getId()]);
         } else {
             $this->_forward('noRoute');
@@ -345,9 +355,10 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 $this->_getSession()->addSuccess($this->__('The credit memo has been voided.'));
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_getSession()->addError($this->__('Unable to void the credit memo.'));
             }
+
             $this->_redirect('*/*/view', ['creditmemo_id' => $creditmemo->getId()]);
         } else {
             $this->_forward('noRoute');
@@ -368,6 +379,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             if (empty($data['comment'])) {
                 Mage::throwException($this->__('The Comment Text field cannot be empty.'));
             }
+
             $creditmemo = $this->_initCreditmemo();
             $creditmemo->addComment(
                 $data['comment'],
@@ -385,13 +397,14 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                 'message'   => $e->getMessage(),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $response = [
                 'error'     => true,
                 'message'   => $this->__('Cannot add new comment.'),
             ];
             $response = Mage::helper('core')->jsonEncode($response);
         }
+
         $this->getResponse()->setBody($response);
     }
 
@@ -416,6 +429,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -426,6 +440,7 @@ class Mage_Adminhtml_Sales_Order_CreditmemoController extends Mage_Adminhtml_Con
             ) {
                 return true;
             }
+
             return false;
         }
 

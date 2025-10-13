@@ -46,6 +46,7 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
                 if ($signatureVerification == 'Y') {
                     return true;
                 }
+
                 //Test case 2
                 if ($signatureVerification == 'N') {
                     return false;
@@ -109,6 +110,7 @@ class Mage_Centinel_Model_State_Mastercard extends Mage_Centinel_Model_StateAbst
         ) {
             return true;
         }
+
         return false;
     }
 

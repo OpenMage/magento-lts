@@ -50,6 +50,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         if (empty($this->_moduleName)) {
             Mage::throwException(Mage::helper('eav')->__('Current module pathname is undefined'));
         }
+
         if (empty($this->_entityTypeCode)) {
             Mage::throwException(Mage::helper('eav')->__('Current module EAV entity is undefined'));
         }
@@ -90,6 +91,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         if ($this->_store === null) {
             $this->_store = Mage::app()->getStore();
         }
+
         return $this->_store;
     }
 
@@ -115,6 +117,7 @@ class Mage_Eav_Model_Resource_Form_Attribute_Collection extends Mage_Core_Model_
         if ($this->_entityType === null) {
             $this->setEntityType($this->_entityTypeCode);
         }
+
         return $this->_entityType;
     }
 

@@ -4903,6 +4903,12 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Resource/Calculation/Rate/Title/Collection.php
 
 		-
+			rawMessage: 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Tax/Model/Resource/Setup.php
+
+		-
 			rawMessage: 'Parameter #2 $rate of method Mage_Tax_Model_Sales_Total_Quote_Shipping::_round() expects string, float given.'
 			identifier: argument.type
 			count: 4
@@ -5075,12 +5081,6 @@ parameters:
 			identifier: argument.type
 			count: 18
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			rawMessage: 'Parameter #1 $error_code of function curl_strerror expects int, (CurlHandle|false) given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php
 
 		-
 			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'

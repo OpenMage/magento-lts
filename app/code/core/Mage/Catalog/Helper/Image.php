@@ -15,7 +15,9 @@
 class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 {
     public const XML_NODE_PRODUCT_BASE_IMAGE_WIDTH = 'catalog/product_image/base_width';
+
     public const XML_NODE_PRODUCT_SMALL_IMAGE_WIDTH = 'catalog/product_image/small_width';
+
     public const XML_NODE_PRODUCT_MAX_DIMENSION = 'catalog/product_image/max_dimension';
 
     protected $_moduleName = 'Mage_Catalog';
@@ -150,6 +152,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             // add for work original size
             $this->_getModel()->setBaseFile($this->getProduct()->getData($this->_getModel()->getDestinationSubdir()));
         }
+
         return $this;
     }
 
@@ -263,6 +266,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
         if (!is_array($colorRGB)) {
             $colorRGB = $args;
         }
+
         $this->_getModel()->setBackgroundColor($colorRGB);
         return $this;
     }
@@ -321,6 +325,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             $attr = $this->_getModel()->getDestinationSubdir();
             $this->_placeholder = 'images/catalog/product/placeholder/' . $attr . '.jpg';
         }
+
         return $this->_placeholder;
     }
 
@@ -361,6 +366,7 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
             Mage::logException($e);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
         }
+
         return $url;
     }
 

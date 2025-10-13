@@ -147,6 +147,7 @@ class Mage_Cms_Model_Wysiwyg_Config extends Varien_Object
         } else {
             $wysiwygState = Mage::getStoreConfig(self::WYSIWYG_CONFIG_ENABLED);
         }
+
         return in_array($wysiwygState, [self::WYSIWYG_ENABLED, self::WYSIWYG_HIDDEN]);
     }
 

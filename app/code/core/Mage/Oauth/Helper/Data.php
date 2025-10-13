@@ -18,20 +18,27 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
      * Endpoint types with appropriate routes
      */
     public const ENDPOINT_AUTHORIZE_CUSTOMER        = 'oauth/authorize';
+
     public const ENDPOINT_AUTHORIZE_ADMIN           = 'adminhtml/oauth_authorize';
+
     public const ENDPOINT_AUTHORIZE_CUSTOMER_SIMPLE = 'oauth/authorize/simple';
+
     public const ENDPOINT_AUTHORIZE_ADMIN_SIMPLE    = 'adminhtml/oauth_authorize/simple';
+
     public const ENDPOINT_INITIATE                  = 'oauth/initiate';
+
     public const ENDPOINT_TOKEN                     = 'oauth/token';
 
     /**
      * Cleanup xpath config settings
      */
     public const XML_PATH_CLEANUP_PROBABILITY       = 'oauth/cleanup/cleanup_probability';
+
     public const XML_PATH_CLEANUP_EXPIRATION_PERIOD = 'oauth/cleanup/expiration_period';
 
     /** Email template */
     public const XML_PATH_EMAIL_TEMPLATE = 'oauth/email/template';
+
     public const XML_PATH_EMAIL_IDENTITY = 'oauth/email/identity';
 
     /**
@@ -150,6 +157,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED == $callbackUrl) {
             return false;
         }
+
         if ($rejected) {
             /** @var Mage_Oauth_Model_Consumer $consumer */
             $consumer = Mage::getModel('oauth/consumer')->load($token->getConsumerId());
@@ -160,6 +168,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (!$token->getAuthorized()) {
             Mage::throwException('Token is not authorized');
         }
+
         $callbackUrl .= (!str_contains($callbackUrl, '?') ? '?' : '&');
         $callbackUrl .= 'oauth_token=' . $token->getToken() . '&';
 
@@ -178,6 +187,7 @@ class Mage_Oauth_Helper_Data extends Mage_Core_Helper_Abstract
         if (!in_array($type, $this->_endpoints)) {
             throw new Exception('Invalid endpoint type passed.');
         }
+
         return rtrim(Mage::getUrl($type), '/');
     }
 

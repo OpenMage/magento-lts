@@ -24,6 +24,7 @@ class Mage_CatalogInventory_Block_Stockqty_Default extends Mage_CatalogInventory
         if (!$this->isMsgVisible()) {
             return '';
         }
+
         return parent::_toHtml();
     }
 

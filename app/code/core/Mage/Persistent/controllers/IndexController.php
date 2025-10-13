@@ -51,6 +51,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
         if ($this->_getHelper()->isPersistent()) {
             $this->_cleanup();
         }
+
         $this->_redirect('customer/account/login');
     }
 
@@ -69,6 +70,7 @@ class Mage_Persistent_IndexController extends Mage_Core_Controller_Front_Action
         if ($this->_clearCheckoutSession) {
             Mage::getSingleton('checkout/session')->unsetAll();
         }
+
         $this->_getHelper()->getSession()->removePersistentCookie();
         return $this;
     }

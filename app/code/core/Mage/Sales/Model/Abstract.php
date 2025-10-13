@@ -36,6 +36,7 @@ abstract class Mage_Sales_Model_Abstract extends Mage_Core_Model_Abstract
         if (!$this->getForceUpdateGridRecords()) {
             $this->_getResource()->updateGridRecords($this->getId());
         }
+
         return parent::afterCommitCallback();
     }
 
