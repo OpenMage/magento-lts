@@ -106,7 +106,7 @@ cy.openmage.test.backend.__base.__buttons.print = {
     _: cy.openmage.test.backend.__base._button + '[title="Print"]',
     __class: ['scalable', 'save', 'print'],
     click: () => {
-        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.reset._, 'Reset button clicked');
+        cy.openmage.tools.click(cy.openmage.test.backend.__base.__buttons.print._, 'Print button clicked');
     },
 };
 
