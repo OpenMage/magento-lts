@@ -4903,6 +4903,12 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Resource/Calculation/Rate/Title/Collection.php
 
 		-
+			rawMessage: 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Tax/Model/Resource/Setup.php
+
+		-
 			rawMessage: 'Parameter #2 $rate of method Mage_Tax_Model_Sales_Total_Quote_Shipping::_round() expects string, float given.'
 			identifier: argument.type
 			count: 4
