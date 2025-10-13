@@ -1,0 +1,45 @@
+--- /dev/null
++++ ../library/Zend/Validate/Hostname.php
+@@ -2188,7 +2188,9 @@
+                     $this->_tld = $matches[1];
+                     if ($this->_options['tld']) {
+                         if (!in_array(strtolower($this->_tld), $this->_validTlds)
+-                            && !in_array($this->_tld, $this->_validTlds)) {
++                            && !in_array($this->_tld, $this->_validTlds)
++                            && !$this->checkDnsRecords($this->_value)
++                        ) {
+                             $this->_error(self::UNKNOWN_TLD);
+                             $status = false;
+                             break;
+@@ -2422,5 +2424,31 @@
+         }
+
+         return implode('', $decoded);
++    }
++
++    /**
++     * Returns true if any DNS records corresponding to a given Internet host are found.
++     * Returns false if no DNS records were found or if an error occurred.
++     * Checks A-Record.
++     *
++     * @param string $hostName
++     *
++     * @return bool
++     */
++    protected function checkDnsRecords($hostName)
++    {
++        if (function_exists('idn_to_ascii')) {
++            if (defined('IDNA_NONTRANSITIONAL_TO_ASCII') && defined('INTL_IDNA_VARIANT_UTS46')) {
++                $toAscii = idn_to_ascii($hostName, IDNA_NONTRANSITIONAL_TO_ASCII, INTL_IDNA_VARIANT_UTS46);
++            } else {
++                $toAscii = idn_to_ascii($hostName);
++            }
++            $result = checkdnsrr($toAscii, 'A');
++        } else {
++            $idn = new Net_IDNA2();
++            $result = checkdnsrr($idn->encode($hostName), 'A');
++        }
++
++        return $result;
+     }
+ }
