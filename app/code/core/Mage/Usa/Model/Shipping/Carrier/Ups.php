@@ -833,7 +833,7 @@ XMLRequest;
     {
         $costArr = [];
         $priceArr = [];
-        if (strlen(trim($xmlResponse)) > 0) {
+        if (trim($xmlResponse) !== '') {
             $xml = new Varien_Simplexml_Config();
             $xml->loadString($xmlResponse);
             $arr = $xml->getXpath('//RatingServiceSelectionResponse/Response/ResponseStatusCode/text()');
@@ -2318,7 +2318,7 @@ XMLAuth;
         $costArr = [];
         $priceArr = [];
         $errorTitle = '';
-        if (strlen($rateResponse) > 0) {
+        if ($rateResponse !== '') {
             $rateResponseData = json_decode($rateResponse, true);
             if (@$rateResponseData['RateResponse']['Response']['ResponseStatus']['Description'] === 'Success') {
                 $arr = $rateResponseData['RateResponse']['RatedShipment'] ?? [];

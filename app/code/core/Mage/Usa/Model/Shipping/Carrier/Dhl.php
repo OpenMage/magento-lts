@@ -721,7 +721,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $priceArr = [];
         $errorTitle = 'Unable to retrieve quotes';
 
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {
@@ -1025,7 +1025,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
         $errorTitle = Mage::helper('usa')->__('Unable to retrieve tracking');
         $resultArr = [];
         $errorArr = [];
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if (str_starts_with(trim($response), '<?xml')) {
                 $xml = simplexml_load_string($response);
                 if (is_object($xml)) {

@@ -666,7 +666,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
         $costArr = [];
         $priceArr = [];
 
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if ($xml = $this->_parseXml($response)) {
                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string) $xml->Error->Message;
@@ -1140,7 +1140,7 @@ class Mage_Usa_Model_Shipping_Carrier_Fedex extends Mage_Usa_Model_Shipping_Carr
     protected function _parseXmlTrackingResponse($trackingvalue, $response)
     {
         $resultArr = [];
-        if (strlen(trim($response)) > 0) {
+        if (trim($response) !== '') {
             if ($xml = $this->_parseXml($response)) {
                 if (is_object($xml->Error) && is_object($xml->Error->Message)) {
                     $errorTitle = (string) $xml->Error->Message;

@@ -1774,10 +1774,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         ) {
             $options['default'] = $this->quote($columnData['DEFAULT']);
         }
-        if (isset($columnData['SCALE']) && strlen($columnData['SCALE']) > 0) {
+        if (isset($columnData['SCALE']) && (string) $columnData['SCALE'] !== '') {
             $options['scale'] = $columnData['SCALE'];
         }
-        if (isset($columnData['PRECISION']) && strlen($columnData['PRECISION']) > 0) {
+        if (isset($columnData['PRECISION']) && (string) $columnData['PRECISION'] !== '') {
             $options['precision'] = $columnData['PRECISION'];
         }
 
