@@ -1,24 +1,38 @@
-const test = cy.testBackendCatalog.search;
-const check = cy.openmage.check;
+const test = cy.openmage.test.backend.catalog.search.config;
 const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
+    });
+
+    it(`tests save empty values, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
+        test.new.clickSave();
+
+        // TODO: fit it
+        const message = 'You saved the search term.';
+        const screenshot = 'message.catalog.search.saveEmptyWithoutJs';
+        // validation.hasErrorMessage(error);
+        validation.hasSuccessMessage(message, { screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests edit route`, () => {
-        tools.clickGridRow(test.index._grid, 'td', 'classic');
-        check.pageElements(test, test.edit);
+        tools.grid.clickFirstRow(test.index);
+        validation.pageElements(test, test.edit);
     });
 
     it(`tests new route`, () => {
-        tools.clickAction(test.index.__buttons.add);
-        check.pageElements(test, test.new);
+        test.index.clickAdd();
+        validation.pageElements(test, test.new);
     });
 });

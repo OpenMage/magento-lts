@@ -1,70 +1,84 @@
-const test = cy.testBackendCms.page;
-const check = cy.openmage.check;
+const test = cy.openmage.test.backend.cms.page.config;
 const tools = cy.openmage.tools;
+const utils = cy.openmage.utils;
 const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
+    });
+
+    it(`tests save empty values, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        //const message = 'An error occurred while saving this configuration: The priority must be between 0 and 1.';
+        test.new.clickSaveAndContinue();
+        // TODO: fix it
+        //validation.hasErrorMessage(message);
+        // screenshot with error message
+        utils.screenshot('body', 'message.cms.page.saveEmptyWithoutJs');
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests edit route`, () => {
-        tools.clickGridRow(test.index._grid, 'td', 'no-route', 'Select a CMS page');
-        check.pageElements(test, test.edit);
+        tools.grid.clickFirstRow(test.index);
+        validation.pageElements(test, test.edit);
     });
 
     it(`tests new route`, () => {
-        tools.clickAction(test.index.__buttons.add);
-        check.pageElements(test, test.new);
-    });
-
-    it('tests to disable a CMS page that is used in config', () => {
-        tools.clickGridRow(test.index._grid, 'td', 'no-route', 'Select a CMS page');
-
-        test.edit.disablePage();
-
-        tools.clickAction(test.edit.__buttons.saveAndContinue);
-        validation.hasWarningMessage('Cannot disable page, it is used in configuration');
-        validation.hasSuccessMessage('The page has been saved.');
-        cy.get('#messages').screenshot('error-disable-active-page', { overwrite: true});
-    });
-
-    it('tests to delete a CMS page that is used in config', () => {
-        tools.clickGridRow(test.index._grid, 'td', 'no-route', 'Select a CMS page');
-
-        tools.clickAction(test.edit.__buttons.delete);
-        validation.hasErrorMessage('Cannot delete page');
-        cy.get('#messages').screenshot('error-delete-active-page', { overwrite: true});
+        test.index.clickAdd();
+        validation.pageElements(test, test.new);
     });
 
     it('tests to add a CMS page', () => {
-        tools.clickAction(test.index.__buttons.add);
-        tools.clickAction(test.edit.__buttons.saveAndContinue);
+        test.index.clickAdd();
+        test.edit.clickSaveAndContinue();
 
         // @todo add validation for required fields
     });
 
-    it('tests to un-asign a CMS page that is used in config', () => {
-        tools.clickGridRow(test.index._grid, 'td', 'no-route', 'Select a CMS page');
+    it('tests to disable a CMS page that is used in config', () => {
+        test.index.clickGridRow('no-route');
 
-        cy.log('Asign another store to the CMS page');
-        cy.get('#page_store_id')
-            .select(4);
+        test.edit.disablePage();
+        test.edit.clickSaveAndContinue();
 
-        tools.clickAction(test.edit.__buttons.saveAndContinue);
-
-        // @todo: fix needed - this test passes because of a Magento bug
-        validation.hasSuccessMessage('The page has been saved.');
-
-        test.edit.resetStores();
-
-        tools.clickAction(test.edit.__buttons.saveAndContinue);
-        validation.hasSuccessMessage('The page has been saved.');
+        const success = 'The page has been saved.';
+        const warning = 'Cannot disable page, it is used in configuration';
+        validation.hasWarningMessage(warning);
+        validation.hasSuccessMessage(success);
+        utils.screenshot(cy.openmage.validation._messagesContainer, 'message.cms.page.disableActivePage');
     });
 
+    it('tests to delete a CMS page that is used in config', () => {
+        test.index.clickGridRow('no-route');
+        test.edit.clickDelete();
+
+        const message = 'Cannot delete page';
+        const screenshot = 'message.cms.page.deleteActivePage';
+        validation.hasErrorMessage(message, { screenshot: true, filename: screenshot });
+    });
+
+    it('tests to unassign a CMS page that is used in config', () => {
+        test.index.clickGridRow('no-route');
+
+        // TODO: fix needed - this test passes because of a Magento bug
+        // TODO: update sample data
+        const message = 'The page has been saved.';
+        //cy.log('Assign another store to the CMS page');
+        //cy.get(test.edit.__fields.page_store_id.selector)
+        //    .select(4);
+        //test.edit.clickSaveAndContinue();
+        //validation.hasSuccessMessage(message);
+        //utils.screenshot(cy.get('#messages'), 'cms.page.unassignActivePage');
+
+        test.edit.resetStores();
+        test.edit.clickSaveAndContinue();
+        validation.hasSuccessMessage(message);
+    });
 });

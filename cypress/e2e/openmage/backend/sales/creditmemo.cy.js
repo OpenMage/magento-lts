@@ -1,19 +1,19 @@
-const test = cy.testBackendSales.creditmemo;
-const check = cy.openmage.check;
+const test = cy.openmage.test.backend.sales.creditmemo.config;
 const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests view route`, () => {
-        tools.clickGridRow(test.index._grid, 'td', '100000007');
-        check.pageElements(test, test.view);
+        tools.grid.clickFirstRow(test.index);
+        validation.pageElements(test, test.view);
     });
 });

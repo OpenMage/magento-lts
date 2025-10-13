@@ -1,13 +1,13 @@
-const test = cy.testBackendDashboard.dashboard;
-const check = cy.openmage.check;
+const test = cy.openmage.test.backend.dashbord.config;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 });

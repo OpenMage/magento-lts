@@ -1,24 +1,24 @@
-const test = cy.testBackendCms.widget;
-const check = cy.openmage.check;
+const test = cy.openmage.test.backend.cms.widget.config;
 const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests edit route`, () => {
-        tools.clickGridRow(test.index._grid, 'td', 'Couponing Block');
-        check.pageElements(test, test.edit);
+        tools.grid.clickFirstRow(test.index);
+        validation.pageElements(test, test.edit);
     });
 
     it(`tests new route`, () => {
-        tools.clickAction(test.index.__buttons.add);
-        check.pageElements(test, test.new);
+        test.index.clickAdd();
+        validation.pageElements(test, test.new);
     });
 });

@@ -1,24 +1,33 @@
-const test = cy.testBackendSystem.variables;
-const check = cy.openmage.check;
-const tools = cy.openmage.tools;
+const test = cy.openmage.test.backend.system.variable.config;
+const validation = cy.openmage.validation;
 
 describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(test, test.index);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
+    });
+
+    it(`tests save empty values, no js`, () => {
+        test.index.clickAdd();
+        validation.removeClasses(test.new);
+
+        const message = 'Validation has failed.';
+        const screenshot = 'message.system.variable.saveEmptyWithoutJs';
+        test.new.clickSaveAndContinue();
+        validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
     it(`tests index route`, () => {
-        check.pageElements(test, test.index);
-    });
-
-    it(`tests edit route`, () => {
-        //tools.clickGridRow(test.index._grid, 'td', '');
-        check.pageElements(test, test.index);
+        validation.pageElements(test, test.index);
     });
 
     it(`tests new route`, () => {
-        tools.clickAction(test.index.__buttons.add);
-        check.pageElements(test, test.new);
+        test.index.clickAdd();
+        validation.pageElements(test, test.new);
+    });
+
+    it(`tests edit route`, () => {
+        // TODO: There is no edit route for system variables
+        validation.pageElements(test, test.index);
     });
 });
