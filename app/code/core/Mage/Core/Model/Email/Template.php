@@ -461,7 +461,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                 $mail->send();
             }
 
-            foreach ($emails as $key => $email) {
+            foreach ($emails as $email) {
                 Mage::dispatchEvent('email_template_send_after', [
                     'to'         => $email,
                     'html'       => !$this->isPlain(),

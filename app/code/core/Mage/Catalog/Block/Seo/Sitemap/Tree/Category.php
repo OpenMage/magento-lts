@@ -137,7 +137,7 @@ class Mage_Catalog_Block_Seo_Sitemap_Tree_Category extends Mage_Catalog_Block_Se
         $_to = 0;
         $pathFilter = [];
         if (isset($this->_categoriesToPages[$this->_currentPage])) {
-            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryId => $_categoryInfo) {
+            foreach ($this->_categoriesToPages[$this->_currentPage] as $_categoryInfo) {
                 $pathFilter[] = $_categoryInfo['path'];
                 $_to = max($_to, $_categoryInfo['children_count']);
             }

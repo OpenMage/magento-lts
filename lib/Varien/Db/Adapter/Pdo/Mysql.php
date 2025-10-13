@@ -1270,7 +1270,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
                 $droppedKeys = [];
                 foreach ($foreignKeys as $keyTable => $columns) {
-                    foreach ($columns as $columnName => $keyOptions) {
+                    foreach ($columns as $keyOptions) {
                         if ($table == $keyOptions['REF_TABLE_NAME'] && $column == $keyOptions['REF_COLUMN_NAME']) {
                             $this->dropForeignKey($keyTable, $keyOptions['FK_NAME']);
                             $droppedKeys[] = $keyOptions;

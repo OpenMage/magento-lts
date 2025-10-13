@@ -214,7 +214,7 @@ class Mage_Core_Model_File_Storage extends Mage_Core_Model_Abstract
         }
 
         $allowedResources = (array) Mage::app()->getConfig()->getNode(self::XML_PATH_MEDIA_RESOURCE_WHITELIST);
-        foreach ($allowedResources as $key => $allowedResource) {
+        foreach ($allowedResources as $allowedResource) {
             $config['allowed_resources'][] = $allowedResource;
         }
 

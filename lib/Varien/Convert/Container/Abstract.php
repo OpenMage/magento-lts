@@ -123,7 +123,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
     public function getGridFields($grid)
     {
         $fields = [];
-        foreach ($grid as $i => $row) {
+        foreach ($grid as $row) {
             foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;

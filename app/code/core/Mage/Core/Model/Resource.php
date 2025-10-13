@@ -337,7 +337,7 @@ class Mage_Core_Model_Resource
     {
         $zeroDate = $this->getConnection(self::DEFAULT_READ_RESOURCE)->getSuggestedZeroDate();
         if (!empty($row) && is_array($row)) {
-            foreach ($row as $key => &$value) {
+            foreach ($row as &$value) {
                 if (is_string($value) && $value === $zeroDate) {
                     $value = '';
                 }
