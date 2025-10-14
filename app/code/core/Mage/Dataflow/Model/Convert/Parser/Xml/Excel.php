@@ -179,8 +179,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
     protected function _saveParsedRow($xmlString)
     {
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
-            . '><Workbook'
+        $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
             . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
@@ -254,8 +253,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io = $this->getBatchModel()->getIoAdapter();
         $io->open();
 
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
-            . '><Workbook'
+        $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
             . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
