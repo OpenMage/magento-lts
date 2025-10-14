@@ -943,7 +943,7 @@ class Mage_Sales_Model_Order extends Mage_Sales_Model_Abstract
             ->addIdFilter($products)
             ->addAttributeToSelect('status')
             ->load();
-        
+
         foreach ($productsCollection as $product) {
             if (!$product->isSalable()) {
                 return false;
