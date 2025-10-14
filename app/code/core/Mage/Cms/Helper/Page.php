@@ -234,6 +234,7 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
                 implode(', ', $scopes),
             );
         }
+
         unset($data, $path, $items, $item, $scopes);
 
         return implode(', ', $messages);
