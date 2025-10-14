@@ -267,11 +267,11 @@ class Mage_Shipping_Model_Shipping
                 $stockItem = $item->getProduct()->getStockItem();
                 if ($stockItem->getIsDecimalDivided()) {
                     if ($stockItem->getEnableQtyIncrements() && $stockItem->getQtyIncrements()) {
-                        $itemWeight = $itemWeight * $stockItem->getQtyIncrements();
+                        $itemWeight *= $stockItem->getQtyIncrements();
                         $qty        = round(($item->getWeight() / $itemWeight) * $qty);
                         $changeQty  = false;
                     } else {
-                        $itemWeight = $itemWeight * $item->getQty();
+                        $itemWeight *= $item->getQty();
                         if ($itemWeight > $maxWeight) {
                             $qtyItem = floor($itemWeight / $maxWeight);
                             $decimalItems[] = ['weight' => $maxWeight, 'qty' => $qtyItem];
@@ -282,11 +282,11 @@ class Mage_Shipping_Model_Shipping
 
                             $checkWeight = false;
                         } else {
-                            $itemWeight = $itemWeight * $item->getQty();
+                            $itemWeight *= $item->getQty();
                         }
                     }
                 } else {
-                    $itemWeight = $itemWeight * $item->getQty();
+                    $itemWeight *= $item->getQty();
                 }
             }
 

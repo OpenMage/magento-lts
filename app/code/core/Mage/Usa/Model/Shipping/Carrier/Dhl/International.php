@@ -594,7 +594,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $stockItem = $item->getProduct()->getStockItem();
                 if ($stockItem->getIsDecimalDivided()) {
                     if ($stockItem->getEnableQtyIncrements() && $stockItem->getQtyIncrements()) {
-                        $itemWeight = $itemWeight * $stockItem->getQtyIncrements();
+                        $itemWeight *= $stockItem->getQtyIncrements();
                         $qty        = round(($item->getWeight() / $itemWeight) * $qty);
                         $changeQty  = false;
                     } else {
@@ -610,11 +610,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
                             $checkWeight = false;
                         } else {
-                            $itemWeight = $itemWeight * $item->getQty();
+                            $itemWeight *= $item->getQty();
                         }
                     }
                 } else {
-                    $itemWeight = $itemWeight * $item->getQty();
+                    $itemWeight *= $item->getQty();
                 }
             }
 
@@ -1022,11 +1022,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $rates = $currency->getCurrencyRates($currencyCode, [$baseCurrencyCode]);
                 if (!empty($rates) && isset($rates[$baseCurrencyCode])) {
                     // Convert to store display currency using store exchange rate
-                    $totalEstimate = $totalEstimate * $rates[$baseCurrencyCode];
+                    $totalEstimate *= $rates[$baseCurrencyCode];
                 } else {
                     $rates = $currency->getCurrencyRates($baseCurrencyCode, [$currencyCode]);
                     if (!empty($rates) && isset($rates[$currencyCode])) {
-                        $totalEstimate = $totalEstimate / $rates[$currencyCode];
+                        $totalEstimate /= $rates[$currencyCode];
                     }
 
                     if (!isset($rates[$currencyCode]) || !$totalEstimate) {

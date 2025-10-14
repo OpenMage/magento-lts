@@ -470,7 +470,7 @@ class Mage_Archive_Tar extends Mage_Archive_Abstract implements Mage_Archive_Int
         $fmt = self::_getFormatParseHeader();
         $header = unpack($fmt, $firstLine);
 
-        $header['mode'] = $header['mode'] + 0;
+        $header['mode'] += 0;
         $header['uid'] = octdec($header['uid']);
         $header['gid'] = octdec($header['gid']);
         $header['size'] = octdec($header['size']);

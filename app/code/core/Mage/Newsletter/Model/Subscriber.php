@@ -298,7 +298,7 @@ class Mage_Newsletter_Model_Subscriber extends Mage_Core_Model_Abstract
         for ($i = 0; $i < $length; $i++) {
             $disc = mt_rand(0, $charLen);
             $par[$i] = $char[$disc];
-            $id = $id . $char[$disc];
+            $id .= $char[$disc];
         }
 
         return $id;

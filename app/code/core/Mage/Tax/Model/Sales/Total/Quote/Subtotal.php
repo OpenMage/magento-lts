@@ -249,8 +249,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $baseTaxPrice    = $basePrice;
                 $taxSubtotal     = $subtotal;
                 $baseTaxSubtotal = $baseSubtotal;
-                $price = $price - $tax;
-                $basePrice = $basePrice - $baseTax;
+                $price -= $tax;
+                $basePrice -= $baseTax;
                 $subtotal = $price * $qty;
                 $baseSubtotal = $basePrice * $qty;
                 $isPriceInclTax  = true;
@@ -545,8 +545,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
                 $taxSubtotal = $subtotal;
                 $baseTaxSubtotal = $baseSubtotal;
 
-                $subtotal          = $subtotal - $rowTax;
-                $baseSubtotal      = $baseSubtotal - $baseRowTax;
+                $subtotal -= $rowTax;
+                $baseSubtotal -= $baseRowTax;
 
                 $price = $calc->round($subtotal / $qty);
                 $basePrice = $calc->round($baseSubtotal / $qty);
@@ -717,7 +717,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Subtotal extends Mage_Sales_Model_Quote_A
     {
         if ($price) {
             $rate = (string) $rate;
-            $type = $type . $direction;
+            $type .= $direction;
             // initialize the delta to a small number to avoid non-deterministic behavior with rounding of 0.5
             $delta = $this->_roundingDeltas[$type][$rate] ?? 0.000001;
             $price += $delta;

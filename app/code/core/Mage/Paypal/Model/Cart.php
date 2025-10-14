@@ -394,7 +394,7 @@ class Mage_Paypal_Model_Cart
 
         $itemsSubtotal = 0;
         foreach ($this->_items as $i) {
-            $itemsSubtotal = $itemsSubtotal + $i['qty'] * $i['amount'];
+            $itemsSubtotal += $i['qty'] * $i['amount'];
         }
 
         $sum = $itemsSubtotal + $this->_totals[self::TOTAL_TAX];
@@ -413,7 +413,7 @@ class Mage_Paypal_Model_Cart
         // match sum of all the items and totals to the reference amount
         if (sprintf('%.4F', $sum) != sprintf('%.4F', $referenceAmount)) {
             $adjustment = $sum - $referenceAmount;
-            $this->_totals[self::TOTAL_SUBTOTAL] = $this->_totals[self::TOTAL_SUBTOTAL] - $adjustment;
+            $this->_totals[self::TOTAL_SUBTOTAL] -= $adjustment;
         }
 
         // PayPal requires to have discount less than items subtotal
@@ -455,7 +455,7 @@ class Mage_Paypal_Model_Cart
         // workaround in case if item subtotal precision is not compatible with PayPal (.2)
         $subAggregatedLabel = '';
         if ($amount - round($amount, 2)) {
-            $amount = $amount * $qty;
+            $amount *= $qty;
             $subAggregatedLabel = ' x' . $qty;
             $qty = 1;
         }

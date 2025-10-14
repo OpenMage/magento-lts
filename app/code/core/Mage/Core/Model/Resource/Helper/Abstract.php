@@ -132,7 +132,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                     $value = '%' . $value . '%';
                     break;
                 case 'start':
-                    $value = $value . '%';
+                    $value .= '%';
                     break;
                 case 'end':
                     $value = '%' . $value;
