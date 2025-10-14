@@ -126,7 +126,7 @@ class Mage_Install_Model_Installer_Console extends Mage_Install_Model_Installer_
          */
         foreach ($this->_getOptions() as $name => $option) {
             if (isset($option['required']) && $option['required'] && !isset($args[$name])) {
-                $error = 'ERROR: ' . 'You should provide the value for --' . $name . ' parameter';
+                $error = 'ERROR: You should provide the value for --' . $name . ' parameter';
                 if (!empty($option['comment'])) {
                     $error .= ': ' . $option['comment'];
                 }
