@@ -2563,12 +2563,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Date.php
 
 		-
-			rawMessage: 'Property Mage_Core_Model_Date::$_systemOffset is never read, only written.'
-			identifier: property.onlyWritten
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
 			rawMessage: 'Call to an undefined method Mage_Core_Model_Resource_Design::validate().'
 			identifier: method.notFound
 			count: 1
@@ -6017,18 +6011,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			rawMessage: 'Property Mage_HTTP_Client_Socket::$_postFields is never read, only written.'
-			identifier: property.onlyWritten
-			count: 1
-			path: lib/Mage/HTTP/Client/Socket.php
-
-		-
-			rawMessage: 'Property Mage_HTTP_Client_Socket::$_redirectCount is never read, only written.'
-			identifier: property.onlyWritten
-			count: 1
-			path: lib/Mage/HTTP/Client/Socket.php
 
 		-
 			rawMessage: Empty array passed to foreach.
