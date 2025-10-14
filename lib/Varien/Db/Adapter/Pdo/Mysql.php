@@ -540,11 +540,9 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
         }
 
         foreach ($bind as $key => $value) {
-            if (!is_int($key)) {
-                if ($key[0] != ':') {
-                    $bind[":{$key}"] = $value;
-                    unset($bind[$key]);
-                }
+            if (!is_int($key) && $key[0] != ':') {
+                $bind[":{$key}"] = $value;
+                unset($bind[$key]);
             }
         }
 
