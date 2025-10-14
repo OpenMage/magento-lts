@@ -18,9 +18,13 @@ class Mage_Centinel_Model_Service extends Varien_Object
      * Cmpi public keys
      */
     public const CMPI_PARES    = 'centinel_authstatus';
+
     public const CMPI_ENROLLED = 'centinel_mpivendor';
+
     public const CMPI_CAVV     = 'centinel_cavv';
+
     public const CMPI_ECI      = 'centinel_eci';
+
     public const CMPI_XID      = 'centinel_xid';
 
     /**
@@ -146,6 +150,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
             $model = Mage::getModel($modelClass);
             return $model;
         }
+
         return false;
     }
 
@@ -163,9 +168,11 @@ class Mage_Centinel_Model_Service extends Varien_Object
             if (!$model) {
                 return false;
             }
+
             $model->setDataStorage($this->_getSession());
             $this->_validationState = $model;
         }
+
         return $this->_validationState;
     }
 
@@ -273,18 +280,22 @@ class Mage_Centinel_Model_Service extends Varien_Object
             if ($validationState->getChecksum() != $newChecksum) {
                 Mage::throwException(Mage::helper('centinel')->__('Payment information error. Please start over.'));
             }
+
             if ($validationState->isAuthenticateSuccessful()) {
                 return;
             }
+
             Mage::throwException(Mage::helper('centinel')->__('Please verify the card with the issuer bank before placing the order.'));
         } else {
             if ($validationState->getChecksum() != $newChecksum || !$validationState->isLookupSuccessful()) {
                 $this->lookup($data);
                 $validationState = $this->_getValidationState();
             }
+
             if ($validationState->isLookupSuccessful()) {
                 return;
             }
+
             Mage::throwException(Mage::helper('centinel')->__('This card has failed validation and cannot be used.'));
         }
     }
@@ -343,6 +354,7 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$validationState && $this->shouldAuthenticate()) {
             throw new Exception('Authentication impossible: validation state is wrong.');
         }
+
         return [
             'acs_url' => $validationState->getLookupAcsUrl(),
             'pa_req' => $validationState->getLookupPayload(),
@@ -374,9 +386,11 @@ class Mage_Centinel_Model_Service extends Varien_Object
         if (!$map) {
             $map = $this->_cmpiMap;
         }
+
         if ($validationState = $this->_getValidationState()) {
             $to = Varien_Object_Mapper::accumulateByMap($validationState, $to, $map);
         }
+
         return $to;
     }
 }

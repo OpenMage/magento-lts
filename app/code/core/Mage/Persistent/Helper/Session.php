@@ -48,6 +48,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             $this->_sessionModel = Mage::getModel('persistent/session');
             $this->_sessionModel->loadByCookieKey();
         }
+
         return $this->_sessionModel;
     }
 
@@ -118,6 +119,7 @@ class Mage_Persistent_Helper_Session extends Mage_Core_Helper_Data
             $customerId = $this->getSession()->getCustomerId();
             $this->_customer = Mage::getModel('customer/customer')->load($customerId);
         }
+
         return $this->_customer;
     }
 }

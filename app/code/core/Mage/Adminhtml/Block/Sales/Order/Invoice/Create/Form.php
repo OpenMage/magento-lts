@@ -79,6 +79,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
                 return true;
             }
         }
+
         return false;
     }
 
@@ -89,6 +90,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
                 return true;
             }
         }
+
         return false;
     }
 
@@ -98,6 +100,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Form extends Mage_Adminhtm
         if (!is_null($value) && !$value) {
             return false;
         }
+
         return true;
     }
 

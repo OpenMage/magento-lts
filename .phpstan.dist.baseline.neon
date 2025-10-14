@@ -1789,12 +1789,6 @@ parameters:
 			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
 
 		-
-			rawMessage: 'PHPDoc tag @var with type Mage_Catalog_Model_Entity_Attribute is not subtype of native type non-empty-array<mixed, mixed>.'
-			identifier: varTag.nativeType
-			count: 1
-			path: app/code/core/Mage/Catalog/Model/Resource/Abstract.php
-
-		-
 			rawMessage: 'Parameter #1 $object of method Mage_Catalog_Model_Resource_Abstract::load() expects Mage_Core_Model_Abstract, Varien_Object given.'
 			identifier: argument.type
 			count: 1
@@ -2565,12 +2559,6 @@ parameters:
 		-
 			rawMessage: Binary operation "-" between string and string results in an error.
 			identifier: binaryOp.invalid
-			count: 1
-			path: app/code/core/Mage/Core/Model/Date.php
-
-		-
-			rawMessage: 'Property Mage_Core_Model_Date::$_systemOffset is never read, only written.'
-			identifier: property.onlyWritten
 			count: 1
 			path: app/code/core/Mage/Core/Model/Date.php
 
@@ -4021,12 +4009,6 @@ parameters:
 			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
 
 		-
-			rawMessage: 'PHPDoc tag @var with type Mage_Catalog_Model_Product is not subtype of native type 0|0.0|''''|''0''|array{}|false|null.'
-			identifier: varTag.nativeType
-			count: 1
-			path: app/code/core/Mage/ProductAlert/controllers/AddController.php
-
-		-
 			rawMessage: 'Method Mage_Rating_Model_Resource_Rating_Collection::getItemById() invoked with 1 parameter, 0 required.'
 			identifier: arguments.count
 			count: 2
@@ -4903,6 +4885,12 @@ parameters:
 			path: app/code/core/Mage/Tax/Model/Resource/Calculation/Rate/Title/Collection.php
 
 		-
+			rawMessage: 'Strict comparison using === between non-empty-list and array{} will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/code/core/Mage/Tax/Model/Resource/Setup.php
+
+		-
 			rawMessage: 'Parameter #2 $rate of method Mage_Tax_Model_Sales_Total_Quote_Shipping::_round() expects string, float given.'
 			identifier: argument.type
 			count: 4
@@ -5075,12 +5063,6 @@ parameters:
 			identifier: argument.type
 			count: 18
 			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/Ups.php
-
-		-
-			rawMessage: 'Parameter #1 $error_code of function curl_strerror expects int, (CurlHandle|false) given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Usa/Model/Shipping/Carrier/UpsAuth.php
 
 		-
 			rawMessage: 'Parameter #3 $value of function curl_setopt expects bool, int given.'
@@ -6029,18 +6011,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: lib/Mage/HTTP/Client/Curl.php
-
-		-
-			rawMessage: 'Property Mage_HTTP_Client_Socket::$_postFields is never read, only written.'
-			identifier: property.onlyWritten
-			count: 1
-			path: lib/Mage/HTTP/Client/Socket.php
-
-		-
-			rawMessage: 'Property Mage_HTTP_Client_Socket::$_redirectCount is never read, only written.'
-			identifier: property.onlyWritten
-			count: 1
-			path: lib/Mage/HTTP/Client/Socket.php
 
 		-
 			rawMessage: Empty array passed to foreach.

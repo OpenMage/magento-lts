@@ -21,9 +21,13 @@
 abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_Template
 {
     public const XML_PATH_DESIGN_EMAIL_LOGO            = 'design/email/logo';
+
     public const XML_PATH_DESIGN_EMAIL_LOGO_ALT        = 'design/email/logo_alt';
+
     public const XML_PATH_DESIGN_EMAIL_LOGO_WIDTH      = 'design/email/logo_width';
+
     public const XML_PATH_DESIGN_EMAIL_LOGO_HEIGHT     = 'design/email/logo_height';
+
     public const XML_PATH_CSS_NON_INLINE_FILES         = 'design/email/css_non_inline';
 
     protected $_cssFileCache = [];
@@ -108,6 +112,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 return Mage::getBaseUrl('media') . $uploadDir . '/' . $fileName;
             }
         }
+
         return Mage::getDesign()->getSkinUrl('images/logo_email.gif');
     }
 
@@ -124,6 +129,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         if ($alt) {
             return $alt;
         }
+
         return $store->getFrontendName();
     }
 
@@ -139,9 +145,11 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         if (!isset($variables['store'])) {
             $variables['store'] = Mage::app()->getStore($storeId);
         }
+
         if (!isset($variables['logo_url'])) {
             $variables['logo_url'] = $this->_getLogoUrl($storeId);
         }
+
         if (!isset($variables['logo_alt'])) {
             $variables['logo_alt'] = $this->_getLogoAlt($storeId);
         }
@@ -160,10 +168,12 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
                 $variables[$variableName] = Mage::getStoreConfig($configValue, $storeId);
             }
         }
+
         // If template is text mode, don't include styles
         if (!$this->isPlain()) {
             $variables['non_inline_styles'] = $this->_getNonInlineCssTag();
         }
+
         return $variables;
     }
 
@@ -192,6 +202,7 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
         } catch (Exception $e) {
             $processedHtml = '{CSS inlining error: ' . $e->getMessage() . '}' . PHP_EOL . $html;
         }
+
         return $processedHtml;
     }
 
@@ -244,12 +255,14 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
             if (!$filesToLoad) {
                 return '';
             }
+
             $files = array_map('trim', explode(',', $filesToLoad));
 
             $css = '';
             foreach ($files as $fileName) {
                 $css .= $this->_getCssFileContent($fileName) . "\n";
             }
+
             $this->_cssFileCache[$configPath] = $css;
         }
 

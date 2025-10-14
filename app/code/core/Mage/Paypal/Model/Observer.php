@@ -116,7 +116,7 @@ class Mage_Paypal_Model_Observer
         $payments = $paymentGroups->xpath('paypal_payments/*');
         foreach ($payments as $payment) {
             if ((int) $payment->include) {
-                $fields = $paymentGroups->xpath((string) $payment->group . '/fields');
+                $fields = $paymentGroups->xpath($payment->group . '/fields');
                 if (isset($fields[0])) {
                     $fields[0]->appendChild($payment, true);
                 }

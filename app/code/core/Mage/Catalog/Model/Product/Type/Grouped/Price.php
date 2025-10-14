@@ -39,10 +39,12 @@ class Mage_Catalog_Model_Product_Type_Grouped_Price extends Mage_Catalog_Model_P
                 if (!$option) {
                     continue;
                 }
+
                 $childQty = $option->getValue();
                 if (!$childQty) {
                     continue;
                 }
+
                 $finalPrice += $childProduct->getFinalPrice($childQty) * $childQty;
             }
         }

@@ -45,6 +45,7 @@ class Mage_Core_Block_Text_List_Link extends Mage_Core_Block_Text
         } elseif (is_string($params)) {
             $this->addText(' ' . $params);
         }
+
         $this->addText('><a');
 
         $params = $this->getAParams();

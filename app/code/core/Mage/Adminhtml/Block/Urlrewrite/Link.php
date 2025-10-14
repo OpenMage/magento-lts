@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Link extends Mage_Core_Block_Abstract
             return '<p>' . $this->getLabel() . ' <a href="' . $this->getItemUrl() . '">'
                 . $this->escapeHtml($this->getItem()->getName()) . '</a></p>';
         }
+
         return '';
     }
 }

@@ -41,7 +41,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         try {
             $adapter = Mage::getModel($adapterName);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $message = Mage::helper('dataflow')->__('Declared adapter %s was not found.', $adapterName);
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::FATAL);
             return $this;
@@ -86,6 +86,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $strposS = strpos($xmlString, '<ss:Worksheet');
                     $substrL = 13;
                 }
+
                 if ($strposS === false) {
                     $xmlString = substr($xmlString, -13);
                     continue;
@@ -121,6 +122,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                     $strposS = strpos($xmlString, '</ss:Worksheet>');
                     $substrL = 15;
                 }
+
                 if ($strposS !== false) {
                     $xmlString = substr($xmlString, $strposS + $substrL);
                     $isWorksheet = false;
@@ -177,8 +179,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
     protected function _saveParsedRow($xmlString)
     {
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
-            . '><Workbook'
+        $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
             . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
@@ -192,7 +193,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
 
         try {
             $xmlElement = new SimpleXMLElement($xml);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $message = 'Invalid XML row';
             $this->addException($message, Mage_Dataflow_Model_Convert_Exception::ERROR);
             return $this;
@@ -209,6 +210,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
                 if ($attributes && isset($attributes['Index'])) {
                     $cellIndex = $attributes['Index'] - 1;
                 }
+
                 $xmlData[$cellIndex] = (string) $cell->Data;
                 $cellIndex++;
             }
@@ -251,8 +253,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
         $io = $this->getBatchModel()->getIoAdapter();
         $io->open();
 
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
-            . '><Workbook'
+        $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
             . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
@@ -286,6 +287,7 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             foreach ($fieldList as $field) {
                 $xmlData[] = $row[$field] ?? '';
             }
+
             $xmlData = $this->_getXmlString($xmlData);
             $io->write($xmlData);
         }
@@ -324,10 +326,12 @@ class Mage_Dataflow_Model_Convert_Parser_Xml_Excel extends Mage_Dataflow_Model_C
             } else {
                 $dataType = 'String';
             }
+
             $value = str_replace(["\r\n", "\r", "\n"], '&#10;', $value);
 
             $xmlData[] = '<Cell><Data ss:Type="' . $dataType . '">' . $value . '</Data></Cell>';
         }
+
         $xmlData[] = '</Row>';
 
         return implode('', $xmlData);

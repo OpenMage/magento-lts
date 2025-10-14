@@ -25,6 +25,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
      *
      */
     public const SHARE_GLOBAL  = 0;
+
     public const SHARE_WEBSITE = 1;
 
     /**
@@ -76,6 +77,7 @@ class Mage_Customer_Model_Config_Share extends Mage_Core_Model_Config_Data
                 );
             }
         }
+
         return $this;
     }
 }

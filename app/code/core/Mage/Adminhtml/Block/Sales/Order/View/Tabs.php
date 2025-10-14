@@ -24,12 +24,15 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tabs extends Mage_Adminhtml_Block_Wi
         if ($this->hasOrder()) {
             return $this->getData('order');
         }
+
         if (Mage::registry('current_order')) {
             return Mage::registry('current_order');
         }
+
         if (Mage::registry('order')) {
             return Mage::registry('order');
         }
+
         Mage::throwException(Mage::helper('sales')->__('Cannot get the order instance.'));
     }
 

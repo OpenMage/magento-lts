@@ -60,6 +60,7 @@ class Mage_Sales_Model_Resource_Order_Creditmemo_Collection extends Mage_Sales_M
                 $this->addFieldToFilter($field, $value);
             }
         }
+
         return $this;
     }
 }

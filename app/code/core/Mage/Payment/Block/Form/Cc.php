@@ -47,6 +47,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
                 }
             }
         }
+
         return $types;
     }
 
@@ -63,6 +64,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $months = array_merge($months, $this->_getConfig()->getMonths());
             $this->setData('cc_months', $months);
         }
+
         return $months;
     }
 
@@ -79,6 +81,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $years = [0 => $this->__('Year')] + $years;
             $this->setData('cc_years', $years);
         }
+
         return $years;
     }
 
@@ -94,8 +97,10 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             if (is_null($configData)) {
                 return true;
             }
+
             return (bool) $configData;
         }
+
         return true;
     }
 
@@ -109,9 +114,10 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
     {
         $availableTypes = explode(',', $this->getMethod()->getConfigData('cctypes'));
         $ssPresenations = array_intersect(['SS', 'SM', 'SO'], $availableTypes);
-        if ($availableTypes && count($ssPresenations) > 0) {
+        if ($availableTypes && $ssPresenations !== []) {
             return true;
         }
+
         return false;
     }
 
@@ -131,6 +137,7 @@ class Mage_Payment_Block_Form_Cc extends Mage_Payment_Block_Form
             $year = $first - $index;
             $years[$year] = $year;
         }
+
         return [0 => $this->__('Year')] + $years;
     }
 

@@ -29,6 +29,7 @@ class Mage_Reports_Model_Totals
             if ($col->getTotal() === null) {
                 continue;
             }
+
             $columns[$col->getIndex()] = ['total' => $col->getTotal(), 'value' => 0];
         }
 
@@ -38,6 +39,7 @@ class Mage_Reports_Model_Totals
             if ($grid->getSubReportSize() && $count >= $grid->getSubReportSize()) {
                 continue;
             }
+
             $data = $item->getData();
 
             foreach (array_keys($columns) as $field) {
@@ -45,8 +47,10 @@ class Mage_Reports_Model_Totals
                     $columns[$field]['value'] += $data[$field] ?? 0;
                 }
             }
+
             $count++;
         }
+
         $data = [];
         foreach ($columns as $field => $a) {
             if ($a['total'] == 'avg') {

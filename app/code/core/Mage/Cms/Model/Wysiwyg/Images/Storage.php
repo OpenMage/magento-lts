@@ -15,7 +15,9 @@
 class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 {
     public const DIRECTORY_NAME_REGEXP = '/^[a-z0-9\-\_]+$/si';
+
     public const THUMBS_DIRECTORY_NAME = '.thumbs';
+
     public const THUMB_PLACEHOLDER_PATH_SUFFIX = 'images/placeholder/thumbnail.jpg';
 
     /**
@@ -55,6 +57,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         foreach ($this->getConfig()->dirs->exclude->children() as $dir) {
             $conditions[$dir->getAttribute('regexp') ? 'reg_exp' : 'plain'][(string) $dir] = true;
         }
+
         // "include" section takes precedence and can revoke directory exclusion
         foreach ($this->getConfig()->dirs->include->children() as $dir) {
             unset($conditions['reg_exp'][(string) $dir], $conditions['plain'][(string) $dir]);
@@ -157,6 +160,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if ($path !== null) {
             $collection->addTargetDir($path);
         }
+
         return $collection;
     }
 
@@ -173,6 +177,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (!preg_match(self::DIRECTORY_NAME_REGEXP, $name)) {
             Mage::throwException(Mage::helper('cms')->__('Invalid folder name. Please, use alphanumeric characters, underscores and dashes.'));
         }
+
         if (!is_dir($path) || !is_writable($path)) {
             $path = $this->getHelper()->getStorageRoot();
         }
@@ -197,6 +202,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 'id'            => $this->getHelper()->convertPathToId($newPath),
             ];
         }
+
         Mage::throwException(Mage::helper('cms')->__('Cannot create new directory.'));
     }
 
@@ -219,6 +225,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 $io->getFilteredPath($path),
             ));
         }
+
         if (str_contains($pathCmp, chr(0))
             || preg_match('#(^|[\\\\/])\.\.($|[\\\\/])#', $pathCmp)
         ) {
@@ -228,6 +235,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (Mage::helper('core/file_storage_database')->checkDbUsage()) {
             Mage::getModel('core/file_storage_directory_database')->deleteDirectory($path);
         }
+
         if (!$io->rmdir($path, true)) {
             Mage::throwException(Mage::helper('cms')->__('Cannot delete directory %s.', $io->getFilteredPath($path)));
         }
@@ -254,6 +262,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
             $io->rm($thumb);
             Mage::helper('core/file_storage_database')->deleteFile($thumb);
         }
+
         return $this;
     }
 
@@ -271,6 +280,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if ($allowed = $this->getAllowedExtensions($type)) {
             $uploader->setAllowedExtensions($allowed);
         }
+
         $uploader->setAllowRenameFiles(true);
         $uploader->setFilesDispersion(false);
         if ($type == 'image') {
@@ -280,6 +290,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 'validate',
             );
         }
+
         $result = $uploader->save($targetPath);
 
         if (!$result) {
@@ -290,6 +301,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if ($type == 'image') {
             $this->resizeFile($targetPath . DS . $uploader->getUploadedFileName(), true);
         }
+
         $result['cookie'] = [
             'name'     => session_name(),
             'value'    => $this->getSession()->getSessionId(),
@@ -342,6 +354,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
                 return str_replace('\\', '/', $thumbUrl) . $randomIndex;
             }
         }
+
         return false;
     }
 
@@ -363,11 +376,14 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (!$io->isWriteable($targetDir)) {
             $io->mkdir($targetDir);
         }
+
         if (!$io->isWriteable($targetDir)) {
             return false;
         }
+
         $image = Varien_Image_Adapter::factory('GD2');
         $image->open($source);
+
         $width = $this->getConfigData('resize_width');
         $height = $this->getConfigData('resize_height');
 
@@ -377,6 +393,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
 
         $image->keepAspectRatio($keepRation);
         $image->resize($width, $height);
+
         $dest = $targetDir
             . DS
             . Mage_Core_Model_File_Uploader::getCorrectFileName(pathinfo($source, PATHINFO_BASENAME));
@@ -384,6 +401,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (is_file($dest)) {
             return $dest;
         }
+
         return false;
     }
 
@@ -399,6 +417,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (!$path) {
             $path = $this->getHelper()->getCurrentPath();
         }
+
         return $this->resizeFile($path . DS . $filename);
     }
 
@@ -522,6 +541,7 @@ class Mage_Cms_Model_Wysiwyg_Images_Storage extends Varien_Object
         if (!$this->hasData('_image_extensions')) {
             $this->setData('_image_extensions', $this->getAllowedExtensions('image'));
         }
+
         $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         return in_array($ext, $this->_getData('_image_extensions'));
     }

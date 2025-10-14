@@ -96,6 +96,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         } else {
             $emailSent = Mage::helper('sales')->__('the credit memo email is not sent');
         }
+
         return Mage::helper('sales')->__(
             'Credit Memo #%1$s | %3$s | %2$s (%4$s)',
             $this->getCreditmemo()->getIncrementId(),
@@ -202,6 +203,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_creditmemo/')),
             );
         }
+
         return $this;
     }
 

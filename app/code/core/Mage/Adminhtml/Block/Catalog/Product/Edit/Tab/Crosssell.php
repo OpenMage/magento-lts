@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         if ($this->_getProduct()->getId()) {
             $this->setDefaultFilter(['in_products' => 1]);
         }
+
         if ($this->isReadonly()) {
             $this->setFilterVisibility(false);
         }
@@ -58,6 +59,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } elseif ($productIds) {
@@ -66,6 +68,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 
@@ -85,6 +88,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
             if (empty($productIds)) {
                 $productIds = [0];
             }
+
             $collection->addFieldToFilter('entity_id', ['in' => $productIds]);
         }
 
@@ -213,6 +217,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         if (!is_array($products)) {
             $products = array_keys($this->getSelectedCrossSellProducts());
         }
+
         return $products;
     }
 
@@ -227,6 +232,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Crosssell extends Mage_Admin
         foreach (Mage::registry('current_product')->getCrossSellProducts() as $product) {
             $products[$product->getId()] = ['position' => $product->getPosition()];
         }
+
         return $products;
     }
 }

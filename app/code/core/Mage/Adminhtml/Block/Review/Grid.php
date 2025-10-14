@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             if (!$productId) {
                 $productId = $this->getRequest()->getParam('productId');
             }
+
             $this->setProductId($productId);
             $collection->addEntityFilter($this->getProductId());
         }
@@ -46,6 +47,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
             if (!$customerId) {
                 $customerId = $this->getRequest()->getParam('customerId');
             }
+
             $this->setCustomerId($customerId);
             $collection->addCustomerFilter($this->getCustomerId());
         }
@@ -259,6 +261,7 @@ class Mage_Adminhtml_Block_Review_Grid extends Mage_Adminhtml_Block_Widget_Grid
                 ],
             );
         }
+
         return $this->getCurrentUrl();
     }
 }

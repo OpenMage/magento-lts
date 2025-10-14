@@ -12,13 +12,21 @@ declare(strict_types=1);
 class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_CPS_ENABLED = 'csp/%s/enabled';
+
     public const XML_CSP_REPORT_ONLY = 'csp/%s/report_only';
+
     public const XML_CSP_REPORT_URI = 'csp/%s/report_uri';
+
     public const XML_CSP_SPLIT_HEADERS = 'csp/%s/split_headers';
+
     public const XML_CSP_MERGE_META = 'csp/%s/merge_meta';
+
     public const HEADER_CONTENT_SECURITY_POLICY = 'Content-Security-Policy';
+
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_ONLY = 'Content-Security-Policy-Report-Only';
+
     public const HEADER_CONTENT_SECURITY_POLICY_REPORT_URI = 'Reporting-Endpoints';
+
     public const CSP_DIRECTIVES = [
         'default-src',
         'script-src',
@@ -100,6 +108,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$this->isEnabled($area)) {
             return [];
         }
+
         $policy = [];
         foreach (self::CSP_DIRECTIVES as $directiveName) {
             $policy[$directiveName] = [];
@@ -134,6 +143,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
             $result = $globalNode->asArray();
             return $result;
         }
+
         return [];
     }
 
@@ -157,6 +167,7 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
             $result = $areaNode->asArray();
             return $result;
         }
+
         return [];
     }
 
@@ -180,8 +191,10 @@ class Mage_Csp_Helper_Data extends Mage_Core_Helper_Abstract
                     $systemNode = array_column($unserializedData, 'host');
                 }
             }
+
             return $systemNode;
         }
+
         return [];
     }
 }

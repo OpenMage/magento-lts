@@ -48,10 +48,12 @@ class Mage_PaypalUk_Model_Direct extends Mage_Paypal_Model_Direct
         if (!parent::getIsCentinelValidationEnabled()) {
             return false;
         }
+
         // available only for US and UK merchants
         if (in_array($this->_pro->getConfig()->getMerchantCountry(), ['US', 'GB'])) {
             return true;
         }
+
         return false;
     }
 

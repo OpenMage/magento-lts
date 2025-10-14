@@ -25,6 +25,7 @@ class Mage_Sales_Model_Entity_Quote_Address_Attribute_Backend_Region extends Mag
                 $object->setRegion($region->getCode());
             }
         }
+
         return $this;
     }
 }

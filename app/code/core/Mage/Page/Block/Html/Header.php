@@ -52,6 +52,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         if (empty($this->_data['logo_src'])) {
             $this->_data['logo_src'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src'));
         }
+
         return $this->getSkinUrl($this->_data['logo_src']);
     }
 
@@ -63,6 +64,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         if (empty($this->_data['logo_src_small'])) {
             $this->_data['logo_src_small'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src_small'));
         }
+
         return $this->getSkinUrl($this->_data['logo_src_small']);
     }
 
@@ -74,6 +76,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
         if (empty($this->_data['logo_alt'])) {
             $this->_data['logo_alt'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_alt'));
         }
+
         return $this->_data['logo_alt'];
     }
 

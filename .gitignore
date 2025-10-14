@@ -106,6 +106,8 @@ phpunit.xml
 .ddev/addon-metadata
 .ddev/config.yaml
 .ddev/config.*.yaml
+# created by SPX addon
+.ddev/commands/web/spx
 .ddev/xhgui
 .ddev/xhprof
 .ddev/docker-compose.*.yaml

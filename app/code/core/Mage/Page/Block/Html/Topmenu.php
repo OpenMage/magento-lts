@@ -116,6 +116,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
                 if (!empty($childrenWrapClass)) {
                     $html .= '<div class="' . $childrenWrapClass . '">';
                 }
+
                 $html .= '<ul class="level' . $childLevel . '">';
                 $html .= $this->_getHtml($child, $childrenWrapClass);
                 $html .= '</ul>';
@@ -124,6 +125,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
                     $html .= '</div>';
                 }
             }
+
             $html .= '</li>';
 
             $counter++;
@@ -237,6 +239,7 @@ class Mage_Page_Block_Html_Topmenu extends Mage_Core_Block_Template
             $this->_currentEntityKey = Mage::registry('current_entity_key')
                 ? Mage::registry('current_entity_key') : Mage::app()->getStore()->getRootCategoryId();
         }
+
         return $this->_currentEntityKey;
     }
 }

@@ -106,8 +106,10 @@ class Mage_Checkout_Block_Total_Nominal extends Mage_Checkout_Block_Total_Defaul
             foreach ($total->getData() as $key => $value) {
                 $this->setData("total_{$key}", $value);
             }
+
             return parent::_toHtml();
         }
+
         return '';
     }
 }

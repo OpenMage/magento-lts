@@ -17,9 +17,11 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
     public const XML_PATH_LIST_DEFAULT_SORT_BY     = 'catalog/frontend/default_sort_by';
 
     protected $_attributeSetsById;
+
     protected $_attributeSetsByName;
 
     protected $_attributeGroupsById;
+
     protected $_attributeGroupsByName;
 
     /**
@@ -102,6 +104,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $this->_attributeSetsById[$entityTypeId][$id] = $name;
             $this->_attributeSetsByName[$entityTypeId][strtolower($name)] = $id;
         }
+
         return $this;
     }
 
@@ -115,11 +118,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($id)) {
             return $id;
         }
+
         $this->loadAttributeSets();
 
         if (!is_numeric($entityTypeId)) {
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
+
         return $this->_attributeSetsById[$entityTypeId][$id] ?? false;
     }
 
@@ -133,11 +138,13 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (is_numeric($name)) {
             return $name;
         }
+
         $this->loadAttributeSets();
 
         if (!is_numeric($entityTypeId)) {
             $entityTypeId = $this->getEntityType($entityTypeId)->getId();
         }
+
         $name = strtolower($name);
         return $this->_attributeSetsByName[$entityTypeId][$name] ?? false;
     }
@@ -162,6 +169,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $this->_attributeGroupsById[$attributeSetId][$id] = $name;
             $this->_attributeGroupsByName[$attributeSetId][strtolower($name)] = $id;
         }
+
         return $this;
     }
 
@@ -181,6 +189,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($attributeSetId)) {
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
+
         return $this->_attributeGroupsById[$attributeSetId][$id] ?? false;
     }
 
@@ -200,6 +209,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (!is_numeric($attributeSetId)) {
             $attributeSetId = $this->getAttributeSetId($attributeSetId);
         }
+
         $name = strtolower($name);
         return $this->_attributeGroupsByName[$attributeSetId][$name] ?? false;
     }
@@ -228,6 +238,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
             $this->_productTypesById[$id] = $name;
             $this->_productTypesByName[strtolower($name)] = $id;
         }
+
         return $this;
     }
 
@@ -274,6 +285,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 return $option['value'];
             }
         }
+
         return null;
     }
 
@@ -287,6 +299,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
         if (is_null($this->_productAttributes)) {
             $this->_productAttributes = array_keys($this->getAttributesUsedInProductListing());
         }
+
         return $this->_productAttributes;
     }
 
@@ -331,6 +344,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 }
             }
         }
+
         return $this->_usedInProductListing;
     }
 
@@ -351,6 +365,7 @@ class Mage_Catalog_Model_Config extends Mage_Eav_Model_Config
                 }
             }
         }
+
         return $this->_usedForSortBy;
     }
 

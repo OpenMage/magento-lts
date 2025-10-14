@@ -34,8 +34,10 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
             ) {
                 $this->addException(Mage::helper('eav')->__('Invalid entity specified'), Varien_Convert_Exception::FATAL);
             }
+
             $this->_entity = $entity;
         }
+
         return $this->_entity;
     }
 
@@ -55,6 +57,7 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
         foreach ($collection->getIterator() as $entity) {
             $data[] = $entity->getData();
         }
+
         $this->setData($data);
         return $this;
     }
@@ -74,17 +77,20 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
                 } catch (Exception $e) {
                     $this->addException(Mage::helper('eav')->__('An error occurred while loading a record, aborting. Error: %s', $e->getMessage()), Varien_Convert_Exception::FATAL);
                 }
+
                 if (!$entity->getId()) {
                     $this->addException(Mage::helper('eav')->__('Invalid entity_id, skipping the record.'), Varien_Convert_Exception::ERROR);
                     continue;
                 }
             }
+
             try {
                 $entity->addData($row)->save();
             } catch (Exception $e) {
                 $this->addException(Mage::helper('eav')->__('An error occurred while saving a record, aborting. Error: ', $e->getMessage()), Varien_Convert_Exception::FATAL);
             }
         }
+
         return $this;
     }
 }

@@ -54,6 +54,7 @@ class Mage_Paypal_HostedproController extends Mage_Core_Controller_Front_Action
         if ($helper->restoreQuote()) {
             $gotoSection = 'payment';
         }
+
         return $gotoSection;
     }
 

@@ -33,12 +33,14 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
                 $attributes[$attribute->getAttributeCode()] = $attribute->getFrontendLabel();
             }
         }
+
         $excludedAttrs = $this->getExcludedAttributes($userType, $operation);
         $includedAttrs = $this->getIncludedAttributes($userType, $operation);
         foreach (array_keys($attributes) as $code) {
             if (in_array($code, $excludedAttrs) || ($includedAttrs && !in_array($code, $includedAttrs))) {
                 unset($attributes[$code]);
             }
+
             if (in_array($code, $entityOnlyAttrs)) {
                 $attributes[$code] .= ' *';
             }
@@ -69,6 +71,7 @@ class Mage_Catalog_Model_Api2_Product extends Mage_Api2_Model_Resource
                 $isAttributeVisible = true;
             }
         }
+
         return (bool) $isAttributeVisible;
     }
 }

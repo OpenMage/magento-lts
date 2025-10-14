@@ -55,6 +55,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         if (!isset($options['resource']) || !$options['resource'] instanceof Mage_Api2_Model_Resource) {
             throw new Exception("Passed parameter 'resource' is wrong.");
         }
+
         $this->_resource = $options['resource'];
 
         $validationConfig = $this->_resource->getConfig()->getValidationConfig(
@@ -64,6 +65,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         if (!is_array($validationConfig)) {
             $validationConfig = [];
         }
+
         $this->_buildValidatorsChain($validationConfig);
     }
 
@@ -84,10 +86,12 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                         $this->_requiredFields[] = $field;
                         continue;
                     }
+
                     // instantiation of the validator class
                     if (!isset($validatorConfig['type'])) {
                         throw new Exception("Validator type is not set for {$validatorName}");
                     }
+
                     $validator = $this->_getValidatorInstance(
                         $validatorConfig['type'],
                         !empty($validatorConfig['options']) ? $validatorConfig['options'] : [],
@@ -96,9 +100,11 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                     if (isset($validatorConfig['message'])) {
                         $validator->setMessage($validatorConfig['message']);
                     }
+
                     // add to list of validators
                     $chainForOneField->addValidator($validator);
                 }
+
                 $this->_validators[$field] = $chainForOneField;
             }
         }
@@ -119,6 +125,7 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         if (!class_exists($validatorClass)) {
             throw new Exception("Validator {$type} is not exist");
         }
+
         return new $validatorClass($options);
     }
 

@@ -100,8 +100,11 @@
 class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix = 'sales_creditmemo_item';
+
     protected $_eventObject = 'creditmemo_item';
+
     protected $_creditmemo = null;
+
     protected $_orderItem = null;
 
     public function _construct()
@@ -156,6 +159,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
         if ($this->getOrderItemId() != $item->getId()) {
             $this->setOrderItemId($item->getId());
         }
+
         return $this;
     }
 
@@ -174,6 +178,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
                     ->load($this->getOrderItemId());
             }
         }
+
         return $this->_orderItem;
     }
 
@@ -190,6 +195,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
         } else {
             $qty = (int) $qty;
         }
+
         $qty = $qty > 0 ? $qty : 0;
         /**
          * Check qty availability
@@ -201,6 +207,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
                 Mage::helper('sales')->__('Invalid qty to refund item "%s"', $this->getName()),
             );
         }
+
         return $this;
     }
 
@@ -266,6 +273,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
             $rowTotal     = $creditmemo->roundPrice($rowTotal / $availableQty * $this->getQty());
             $baseRowTotal = $creditmemo->roundPrice($baseRowTotal / $availableQty * $this->getQty(), 'base');
         }
+
         $this->setRowTotal($rowTotal);
         $this->setBaseRowTotal($baseRowTotal);
 
@@ -278,6 +286,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
                 $creditmemo->roundPrice($baseRowTotalInclTax / $orderItemQty * $this->getQty(), 'including_base'),
             );
         }
+
         return $this;
     }
 
@@ -294,6 +303,7 @@ class Mage_Sales_Model_Order_Creditmemo_Item extends Mage_Core_Model_Abstract
         ) {
             return true;
         }
+
         return false;
     }
 

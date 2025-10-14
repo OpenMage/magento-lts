@@ -115,6 +115,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Category_Tree extends Mage_Adminhtml_Block
                 $result['children'][] = $this->_getNodesArray($childNode);
             }
         }
+
         $result['cls']      = ($result['is_active'] ? '' : 'no-') . 'active-category';
         $result['expanded'] = (!empty($result['children']));
 

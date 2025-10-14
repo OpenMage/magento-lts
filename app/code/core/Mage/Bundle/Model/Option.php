@@ -59,9 +59,11 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
         if (!$selection) {
             return false;
         }
+
         if (!$selections = $this->getData('selections')) {
             $selections = [];
         }
+
         $selections[] = $selection;
         $this->setSelections($selections);
         return $this;
@@ -81,6 +83,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
                     $saleable++;
                 }
             }
+
             return (bool) $saleable;
         } else {
             return false;
@@ -102,6 +105,7 @@ class Mage_Bundle_Model_Option extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_defaultSelection;
         /**
          *         if (!$this->_defaultSelection && $this->getSelections()) {

@@ -77,8 +77,10 @@ class Mage_Paypal_StandardController extends Mage_Core_Controller_Front_Action
             if ($order->getId()) {
                 $order->cancel()->save();
             }
+
             Mage::helper('paypal/checkout')->restoreQuote();
         }
+
         $this->_redirect('checkout/cart');
     }
 

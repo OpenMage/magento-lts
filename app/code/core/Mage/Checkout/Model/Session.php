@@ -187,6 +187,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 } else {
                     $quote->loadActive($this->getQuoteId());
                 }
+
                 if ($quote->getId()) {
                     /**
                      * If current currency code of quote is not equal current currency code of store,
@@ -237,6 +238,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             $xForwardIp = Mage::app()->getRequest()->getServer('HTTP_X_FORWARDED_FOR');
             $this->_quote->setXForwardedFor($xForwardIp);
         }
+
         return $this->_quote;
     }
 
@@ -294,6 +296,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             if ($this->_quote) {
                 $this->_quote->delete();
             }
+
             $this->_quote = $customerQuote;
         } else {
             $this->getQuote()->getBillingAddress();
@@ -303,6 +306,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
                 ->collectTotals()
                 ->save();
         }
+
         return $this;
     }
 
@@ -327,10 +331,12 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             if (!isset($steps[$step])) {
                 $steps[$step] = [];
             }
+
             if (is_string($data)) {
                 $steps[$step][$data] = $value;
             }
         }
+
         $this->setSteps($steps);
 
         return $this;
@@ -350,15 +356,19 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if (is_null($step)) {
             return $steps;
         }
+
         if (!isset($steps[$step])) {
             return false;
         }
+
         if (is_null($data)) {
             return $steps[$step];
         }
+
         if (!is_string($data) || !isset($steps[$step][$data])) {
             return false;
         }
+
         return $steps[$step][$data];
     }
 
@@ -377,9 +387,11 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$additionalMessages) {
             return [];
         }
+
         if ($clear) {
             $this->setData('additional_messages', null);
         }
+
         return $additionalMessages;
     }
 
@@ -404,6 +416,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
             unset($allMessages[$itemKey]);
             $this->setAdditionalMessages($allMessages);
         }
+
         return $messages;
     }
 
@@ -422,6 +435,7 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!isset($allMessages[$itemKey])) {
             $allMessages[$itemKey] = Mage::getModel('core/message_collection');
         }
+
         $allMessages[$itemKey]->add($message);
         $this->setAdditionalMessages($allMessages);
 
@@ -510,10 +524,12 @@ class Mage_Checkout_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->_order !== null && $orderId == $this->_order->getIncrementId()) {
             return $this->_order;
         }
+
         $this->_order = $this->_getOrderModel();
         if ($orderId) {
             $this->_order->loadByIncrementId($orderId);
         }
+
         return $this->_order;
     }
 

@@ -15,7 +15,9 @@ class Varien_Profiler
      * @var array
      */
     private static $_timers = [];
+
     private static $_enabled = false;
+
     private static $_memory_get_usage = false;
 
     public static function enable()
@@ -49,10 +51,12 @@ class Varien_Profiler
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
+
         if (self::$_memory_get_usage) {
             self::$_timers[$timerName]['realmem_start'] = memory_get_usage(true);
             self::$_timers[$timerName]['emalloc_start'] = memory_get_usage();
         }
+
         self::$_timers[$timerName]['start'] = microtime(true);
         self::$_timers[$timerName]['count']++;
     }
@@ -73,6 +77,7 @@ class Varien_Profiler
         if (empty(self::$_timers[$timerName])) {
             self::reset($timerName);
         }
+
         if (false !== self::$_timers[$timerName]['start']) {
             self::$_timers[$timerName]['sum'] += $time - self::$_timers[$timerName]['start'];
             self::$_timers[$timerName]['start'] = false;
@@ -95,12 +100,14 @@ class Varien_Profiler
         } elseif (empty($key)) {
             return self::$_timers[$timerName];
         }
+
         switch ($key) {
             case 'sum':
                 $sum = self::$_timers[$timerName]['sum'];
                 if (self::$_timers[$timerName]['start'] !== false) {
                     $sum += microtime(true) - self::$_timers[$timerName]['start'];
                 }
+
                 return $sum;
 
             case 'count':
@@ -110,12 +117,14 @@ class Varien_Profiler
                 if (!isset(self::$_timers[$timerName]['realmem'])) {
                     self::$_timers[$timerName]['realmem'] = -1;
                 }
+
                 return self::$_timers[$timerName]['realmem'];
 
             case 'emalloc':
                 if (!isset(self::$_timers[$timerName]['emalloc'])) {
                     self::$_timers[$timerName]['emalloc'] = -1;
                 }
+
                 return self::$_timers[$timerName]['emalloc'];
 
             default:
@@ -123,6 +132,7 @@ class Varien_Profiler
                     return self::$_timers[$timerName][$key];
                 }
         }
+
         return false;
     }
 
@@ -140,6 +150,7 @@ class Varien_Profiler
         if (!$res) {
             return '';
         }
+
         $out = '';
         $profiler = $res->getProfiler();
         if ($profiler->getEnabled()) {
@@ -161,6 +172,7 @@ class Varien_Profiler
             $out .= 'Longest query length: ' . $longestTime . '<br>';
             $out .= 'Longest query: <br>' . $longestQuery . '<hr>';
         }
+
         return $out;
     }
 }

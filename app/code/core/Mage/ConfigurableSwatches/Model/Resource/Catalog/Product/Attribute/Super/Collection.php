@@ -13,6 +13,7 @@
 class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_Collection extends Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
 {
     private $_eavAttributesJoined = false;
+
     private $_storeId = null;
 
     /**
@@ -91,6 +92,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
         foreach ($this->getItems() as $item) {
             $item->setOptionLabels($labels);
         }
+
         return $this;
     }
 
@@ -124,6 +126,7 @@ class Mage_ConfigurableSwatches_Model_Resource_Catalog_Product_Attribute_Super_C
         while ($option = $resultSet->fetch()) {
             $labels[$option['option_id']][$option['store_id']] = $option['label'];
         }
+
         return $labels;
     }
 

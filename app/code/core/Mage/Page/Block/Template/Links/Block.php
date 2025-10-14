@@ -193,8 +193,10 @@ class Mage_Page_Block_Template_Links_Block extends Mage_Core_Block_Template
             foreach ($params as $key => $value) {
                 $result .= ' ' . $key . '="' . addslashes($value) . '"';
             }
+
             return $result;
         }
+
         return '';
     }
 

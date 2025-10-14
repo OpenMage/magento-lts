@@ -72,6 +72,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
                 $productObjects[$product->getEntityId()] = $product;
             }
         }
+
         $websiteId  = Mage::app()->getStore($collection->getStoreId())
             ->getWebsiteId();
         $groupId    = Mage::getSingleton('customer/session')
@@ -115,6 +116,7 @@ class Mage_Bundle_Model_Price_Index extends Mage_Core_Model_Abstract
                 ->setData('_price_index_min_price', $prices[$product->getId()]['min_price'])
                 ->setData('_price_index_max_price', $prices[$product->getId()]['max_price']);
         }
+
         return $this;
     }
 }

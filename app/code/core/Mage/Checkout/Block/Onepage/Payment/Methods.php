@@ -43,6 +43,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
         if ($method = $this->getQuote()->getPayment()->getMethod()) {
             return $method;
         }
+
         return false;
     }
 
@@ -66,6 +67,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
         if ($form && $form->hasMethodTitle()) {
             return $form->getMethodTitle();
         }
+
         return $method->getTitle();
     }
 
@@ -78,6 +80,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
         if ($form = $this->getChild('payment.method.' . $method->getCode())) {
             return $form->getMethodLabelAfterHtml();
         }
+
         return '';
     }
 }

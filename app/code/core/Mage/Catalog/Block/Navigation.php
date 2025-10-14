@@ -128,6 +128,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $layer->prepareProductCollection($productCollection);
             $productCollection->addCountToCategories($this->_currentChildCategories);
         }
+
         return $this->_currentChildCategories;
     }
 
@@ -153,6 +154,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if (is_null($this->_categoryInstance)) {
             $this->_categoryInstance = Mage::getModel('catalog/category');
         }
+
         return $this->_categoryInstance;
     }
 
@@ -199,6 +201,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 $position[] = $this->_itemLevelPositions[$i];
             }
         }
+
         return implode('-', $position);
     }
 
@@ -228,6 +231,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if (!$category->getIsActive()) {
             return '';
         }
+
         $html = [];
 
         // get all children
@@ -240,6 +244,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             $children = $category->getChildren();
             $childrenCount = $children->count();
         }
+
         $hasChildren = ($children && $childrenCount);
 
         // select active children
@@ -249,6 +254,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 $activeChildren[] = $child;
             }
         }
+
         $activeChildrenCount = count($activeChildren);
         $hasActiveChildren = ($activeChildrenCount > 0);
 
@@ -259,26 +265,29 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if ($this->isCategoryActive($category)) {
             $classes[] = 'active';
         }
+
         $linkClass = '';
         if ($isOutermost && $outermostItemClass) {
             $classes[] = $outermostItemClass;
             $linkClass = ' class="' . $outermostItemClass . '"';
         }
+
         if ($isFirst) {
             $classes[] = 'first';
         }
+
         if ($isLast) {
             $classes[] = 'last';
         }
+
         if ($hasActiveChildren) {
             $classes[] = 'parent';
         }
 
         // prepare list item attributes
         $attributes = [];
-        if (count($classes) > 0) {
-            $attributes['class'] = implode(' ', $classes);
-        }
+        $attributes['class'] = implode(' ', $classes);
+
         if ($hasActiveChildren && !$noEventAttributes) {
             $attributes['onmouseover'] = 'toggleMenu(this,1)';
             $attributes['onmouseout'] = 'toggleMenu(this,0)';
@@ -289,6 +298,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         foreach ($attributes as $attrName => $attrValue) {
             $htmlLi .= ' ' . $attrName . '="' . str_replace('"', '\"', $attrValue) . '"';
         }
+
         $htmlLi .= '>';
         $html[] = $htmlLi;
 
@@ -312,10 +322,12 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
             );
             $j++;
         }
+
         if (!empty($htmlChildren)) {
             if ($childrenWrapClass) {
                 $html[] = '<div class="' . $childrenWrapClass . '">';
             }
+
             $html[] = '<ul class="level' . $level . '">';
             $html[] = $htmlChildren;
             $html[] = '</ul>';
@@ -350,6 +362,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if (Mage::getSingleton('catalog/layer')) {
             return Mage::getSingleton('catalog/layer')->getCurrentCategory();
         }
+
         return false;
     }
 
@@ -361,6 +374,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         if ($this->getCurrentCategory()) {
             return explode(',', $this->getCurrentCategory()->getPathInStore());
         }
+
         return [];
     }
 
@@ -420,6 +434,7 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
                 $activeCategories[] = $child;
             }
         }
+
         $activeCategoriesCount = count($activeCategories);
         $hasActiveCategoriesCount = ($activeCategoriesCount > 0);
 

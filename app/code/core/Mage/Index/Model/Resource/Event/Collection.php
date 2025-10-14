@@ -36,6 +36,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         } else {
             $this->addFieldToFilter('entity', $entity);
         }
+
         return $this;
     }
 
@@ -52,6 +53,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
         } else {
             $this->addFieldToFilter('type', $type);
         }
+
         return $this;
     }
 
@@ -80,6 +82,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
                 $this->addFieldToFilter('process_event.status', $status);
             }
         }
+
         return $this;
     }
 
@@ -98,6 +101,7 @@ class Mage_Index_Model_Resource_Event_Collection extends Mage_Core_Model_Resourc
             );
             $this->setFlag('process_event_table_joined', true);
         }
+
         return $this;
     }
 

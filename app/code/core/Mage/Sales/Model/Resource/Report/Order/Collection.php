@@ -103,6 +103,7 @@ class Mage_Sales_Model_Resource_Report_Order_Collection extends Mage_Sales_Model
         if (!$this->isTotals()) {
             $this->getSelect()->group($this->_periodFormat);
         }
+
         return $this;
     }
 }

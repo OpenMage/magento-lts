@@ -37,6 +37,7 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
         if (Mage::getStoreConfig(self::XML_PATH_SALES_REORDER_ALLOW, $store)) {
             return true;
         }
+
         return false;
     }
 
@@ -48,6 +49,7 @@ class Mage_Sales_Helper_Reorder extends Mage_Core_Helper_Data
         if (!$this->isAllowed($order->getStore())) {
             return false;
         }
+
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return $order->canReorder();
         } else {

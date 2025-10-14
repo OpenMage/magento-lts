@@ -31,6 +31,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
         if ($this->_model === null) {
             $this->_model = Mage::registry('current_consumer');
         }
+
         return $this->_model;
     }
 
@@ -53,6 +54,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Edit_Form extends Mage_Adminhtml
         if ($model->getId()) {
             $fieldset->addField('id', 'hidden', ['name' => 'id', 'value' => $model->getId()]);
         }
+
         $fieldset->addField('name', 'text', [
             'name'      => 'name',
             'label'     => Mage::helper('oauth')->__('Name'),

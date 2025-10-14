@@ -45,7 +45,9 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
      * @var array
      */
     protected $_lineItemExportItemsFormat = [];
+
     protected $_lineItemExportItemsFilters = [];
+
     protected $_lineItemTotalExportMap = [];
 
     /**
@@ -305,6 +307,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         if ($items) {
             $this->_recurringPaymentProfiles = $items;
         }
+
         return $this;
     }
 
@@ -321,6 +324,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                 $map[$this->_globalMap[$key]] = $key;
             }
         }
+
         $result = Varien_Object_Mapper::accumulateByMap([$this, 'getDataUsingMethod'], $request, $map);
         foreach ($privateRequestMap as $key) {
             if (isset($this->_exportToRequestFilters[$key]) && isset($result[$key])) {
@@ -330,6 +334,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                 $result[$key] = call_user_func([$this, $callback], $privateKey, $publicKey);
             }
         }
+
         return $result;
     }
 
@@ -343,11 +348,13 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
             if (isset($this->_globalMap[$key])) {
                 $map[$key] = $this->_globalMap[$key];
             }
+
             if (isset($response[$key]) && isset($this->_importFromRequestFilters[$key])) {
                 $callback = $this->_importFromRequestFilters[$key];
                 $response[$key] = call_user_func([$this, $callback], $response[$key], $key, $map[$key]);
             }
         }
+
         Varien_Object_Mapper::accumulateByMap($response, [$this, 'setDataUsingMethod'], $map);
     }
 
@@ -380,6 +387,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         if (empty($items) || !$this->getIsLineItemsEnabled()) {
             return false;
         }
+
         $result = false;
         foreach ($items as $item) {
             foreach ($this->_lineItemExportItemsFormat as $publicKey => $privateFormat) {
@@ -389,13 +397,17 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                     $callback   = $this->_lineItemExportItemsFilters[$publicKey];
                     $value = call_user_func([$this, $callback], $value);
                 }
+
                 if (is_float($value)) {
                     $value = $this->_filterAmount($value);
                 }
+
                 $request[sprintf($privateFormat, $i)] = $value;
             }
+
             $i++;
         }
+
         return $result;
     }
 
@@ -412,19 +424,24 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         if (empty($options)) {
             return false;
         }
+
         foreach ($options as $option) {
             foreach ($this->_shippingOptionsExportItemsFormat as $publicKey => $privateFormat) {
                 $value = $option->getDataUsingMethod($publicKey);
                 if (is_float($value)) {
                     $value = $this->_filterAmount($value);
                 }
+
                 if (is_bool($value)) {
                     $value = $this->_filterBool($value);
                 }
+
                 $request[sprintf($privateFormat, $i)] = $value;
             }
+
             $i++;
         }
+
         return true;
     }
 
@@ -472,6 +489,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
         if ($this->hasData($key)) {
             return $this->getData($key);
         }
+
         return $this->_config->$key ? $this->_config->$key : $default;
     }
 
@@ -488,6 +506,7 @@ abstract class Mage_Paypal_Model_Api_Abstract extends Varien_Object
                 return $region->getCode();
             }
         }
+
         return '';
     }
 

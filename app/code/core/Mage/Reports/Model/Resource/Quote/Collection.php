@@ -216,6 +216,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                 $likeExpr = '%' . $filter['customer_name'] . '%';
                 $this->getSelect()->where($this->_joinedFields['customer_name'] . ' LIKE ?', $likeExpr);
             }
+
             if (isset($filter['email'])) {
                 $likeExpr = '%' . $filter['email'] . '%';
                 $this->getSelect()->where($this->_joinedFields['email'] . ' LIKE ?', $likeExpr);
@@ -253,6 +254,7 @@ class Mage_Reports_Model_Resource_Quote_Collection extends Mage_Sales_Model_Reso
                     Zend_Db::FLOAT_TYPE,
                 );
             }
+
             if (isset($filter['subtotal']['to'])) {
                 $this->getSelect()->where(
                     $this->_joinedFields['subtotal'] . ' <= ?',

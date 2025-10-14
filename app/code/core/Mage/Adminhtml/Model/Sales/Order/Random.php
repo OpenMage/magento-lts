@@ -27,11 +27,15 @@ class Mage_Adminhtml_Model_Sales_Order_Random
      * @var Mage_Sales_Model_Order
      */
     protected $_order;
+
     protected $_store;
+
     protected $_customer;
+
     protected $_productCollection;
 
     protected static $_storeCollection;
+
     protected static $_customerCollection;
 
     public function __construct()
@@ -46,6 +50,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
             self::$_storeCollection = Mage::getResourceModel('core/store_collection')
                 ->load();
         }
+
         return self::$_storeCollection->getItems();
     }
 
@@ -57,6 +62,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ->joinAttribute('shipping_country_id', 'customer_address/country_id', 'default_shipping', null, 'inner')
                 ->load();
         }
+
         return self::$_customerCollection->getItems();
     }
 
@@ -74,6 +80,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 ])
                 ->load();
         }
+
         return $this->_productCollection->getItems();
     }
 
@@ -89,6 +96,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
             $randKey = array_rand($items);
             $this->_customer = $items[$randKey];
         }
+
         return $this->_customer;
     }
 
@@ -106,6 +114,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
             $randKey = array_rand($items);
             $this->_store = $items[$randKey];
         }
+
         return $this->_store;
     }
 
@@ -125,6 +134,7 @@ class Mage_Adminhtml_Model_Sales_Order_Random
                 $this->_quote->addCatalogProduct($product);
             }
         }
+
         $this->_quote->getPayment()->setMethod('checkmo');
 
         $this->_quote->getShippingAddress()->setShippingMethod('freeshipping_freeshipping');//->collectTotals()->save();

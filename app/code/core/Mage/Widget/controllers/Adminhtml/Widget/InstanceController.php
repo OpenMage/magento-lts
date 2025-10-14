@@ -79,6 +79,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $widgetInstance->setType($type)
                 ->setPackageTheme($packageTheme);
         }
+
         Mage::register('current_widget_instance', $widgetInstance);
         return $widgetInstance;
     }
@@ -137,6 +138,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
     {
         $response = new Varien_Object();
         $response->setError(false);
+
         $widgetInstance = $this->_initWidgetInstance();
         $result = $widgetInstance->validate();
         if ($result !== true && is_string($result)) {
@@ -145,6 +147,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $response->setError(true);
             $response->setMessage($this->getLayout()->getMessagesBlock()->getGroupedHtml());
         }
+
         $this->setBody($response->toJson());
     }
 
@@ -158,6 +161,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             $this->_redirect('*/*/');
             return;
         }
+
         $widgetInstance->setTitle($this->getRequest()->getPost('title'))
             ->setStoreIds($this->getRequest()->getPost('store_ids', [0]))
             ->setSortOrder($this->getRequest()->getPost('sort_order', 0))
@@ -176,6 +180,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             } else {
                 $this->_redirect('*/*/');
             }
+
             return;
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError($e->getMessage());
@@ -183,6 +188,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
             Mage::logException($e);
             $this->_getSession()->addError($this->__('An error occurred during saving a widget: %s', $e->getMessage()));
         }
+
         $this->_redirect('*/*/edit', ['_current' => true]);
     }
 
@@ -203,6 +209,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $this->_getSession()->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -303,6 +310,7 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                 $result[Mage::helper('core')->stripTags($key)] = $value;
             }
         }
+
         return $result;
     }
 
@@ -338,10 +346,12 @@ class Mage_Widget_Adminhtml_Widget_InstanceController extends Mage_Adminhtml_Con
                     $errorNo = false;
                 }
             }
+
             foreach ($validatorCustomLayout->getMessages() as $message) {
                 $this->_getSession()->addError($message);
             }
         }
+
         return $errorNo;
     }
 }

@@ -47,6 +47,7 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
                 ->load($this->getReviewData()->getEntityPkValue());
             $this->setProductCacheData($product);
         }
+
         return $this->getProductCacheData();
     }
 
@@ -58,6 +59,7 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
         if ($this->getReviewId() && !$this->getReviewCachedData()) {
             $this->setReviewCachedData(Mage::getModel('review/review')->load($this->getReviewId()));
         }
+
         return $this->getReviewCachedData();
     }
 
@@ -97,6 +99,7 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
         if (!$this->getRatingSummaryCache()) {
             $this->setRatingSummaryCache(Mage::getModel('rating/rating')->getEntitySummary($this->getProductData()->getId()));
         }
+
         return $this->getRatingSummaryCache();
     }
 
@@ -109,6 +112,7 @@ class Mage_Review_Block_Customer_View extends Mage_Catalog_Block_Product_Abstrac
         if (!$this->getTotalReviewsCache()) {
             $this->setTotalReviewsCache(Mage::getModel('review/review')->getTotalReviews($this->getProductData()->getId()), false, Mage::app()->getStore()->getId());
         }
+
         return $this->getTotalReviewsCache();
     }
 

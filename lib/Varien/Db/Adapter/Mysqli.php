@@ -10,6 +10,7 @@
 class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
 {
     public const ISO_DATE_FORMAT       = 'yyyy-MM-dd';
+
     public const ISO_DATETIME_FORMAT   = 'yyyy-MM-dd HH-mm-ss';
 
     /**
@@ -25,9 +26,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($this->_connection) {
             return;
         }
+
         if (!extension_loaded('mysqli')) {
             throw new Zend_Db_Adapter_Exception('mysqli extension is not installed');
         }
+
         // Suppress connection warnings here.
         // Throw an exception instead.
         @$conn = new mysqli();
@@ -104,6 +107,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($date instanceof Zend_Date) {
             return $date->toString(self::ISO_DATE_FORMAT);
         }
+
         return date(Varien_Db_Adapter_Pdo_Mysql::DATE_FORMAT, strtotime($date));
     }
 
@@ -112,6 +116,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($datetime instanceof Zend_Date) {
             return $datetime->toString(self::ISO_DATETIME_FORMAT);
         }
+
         return date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT, strtotime($datetime));
     }
 
@@ -121,9 +126,11 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (!$result = $this->raw_query($sql)) {
             return false;
         }
+
         if (!$row = $result->fetch_assoc()) {
             return false;
         }
+
         if (empty($field)) {
             return $row;
         } else {
@@ -173,6 +180,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (str_contains($create, "CONSTRAINT `$fk` FOREIGN KEY (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP FOREIGN KEY `$fk`");
         }
+
         return true;
     }
 
@@ -182,6 +190,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (str_contains($create, "KEY `$key` (")) {
             return $this->raw_query("ALTER TABLE `$table` DROP KEY `$key`");
         }
+
         return true;
     }
 
@@ -215,6 +224,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if (!is_null($onDelete)) {
             $sql .= ' ON DELETE ' . strtoupper($onDelete);
         }
+
         if (!is_null($onUpdate)) {
             $sql .= ' ON UPDATE ' . strtoupper($onUpdate);
         }
@@ -229,6 +239,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
                 return true;
             }
         }
+
         return false;
     }
 
@@ -237,6 +248,7 @@ class Varien_Db_Adapter_Mysqli extends Zend_Db_Adapter_Mysqli
         if ($this->tableColumnExists($tableName, $columnName)) {
             return true;
         }
+
         return $this->raw_query("alter table `$tableName` add column `$columnName` " . $definition);
     }
 

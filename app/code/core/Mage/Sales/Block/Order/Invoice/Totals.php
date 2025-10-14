@@ -28,6 +28,7 @@ class Mage_Sales_Block_Order_Invoice_Totals extends Mage_Sales_Block_Order_Total
                 $this->_invoice = $this->getParentBlock()->getInvoice();
             }
         }
+
         return $this->_invoice;
     }
 

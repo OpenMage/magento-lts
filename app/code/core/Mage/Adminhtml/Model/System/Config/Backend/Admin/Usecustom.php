@@ -54,6 +54,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_Admin_Usecustom extends Mage_Co
             );
         }
 
+        // Set redirect flag if use custom admin URL changed
+        if ($this->getOldValue() != $value) {
+            Mage::register('custom_admin_path_redirect', true, true);
+        }
+
         return $this;
     }
 }

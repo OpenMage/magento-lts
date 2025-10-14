@@ -126,6 +126,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if ($regionModel->getCountryId() != $country) {
             $this->setTaxRegionId('*');
         }
+
         return $this;
     }
 
@@ -152,6 +153,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if ($this->_isInRule()) {
             Mage::throwException(Mage::helper('tax')->__('Tax rate cannot be removed. It exists in tax rule'));
         }
+
         return parent::_beforeDelete();
     }
 
@@ -203,6 +205,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if (is_null($this->_titleModel)) {
             $this->_titleModel = Mage::getModel('tax/calculation_rate_title');
         }
+
         return $this->_titleModel;
     }
 
@@ -216,6 +219,7 @@ class Mage_Tax_Model_Calculation_Rate extends Mage_Core_Model_Abstract
         if (is_null($this->_titles)) {
             $this->_titles = $this->getTitleModel()->getCollection()->loadByRateId($this->getId());
         }
+
         return $this->_titles;
     }
 

@@ -84,9 +84,11 @@ class Mage_SalesRule_Model_Resource_Coupon_Usage extends Mage_Core_Model_Resourc
                 $object->setData($data);
             }
         }
+
         if ($object instanceof Mage_Core_Model_Abstract) {
             $this->_afterLoad($object);
         }
+
         return $this;
     }
 }

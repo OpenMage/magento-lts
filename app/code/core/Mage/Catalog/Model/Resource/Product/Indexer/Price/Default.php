@@ -60,6 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if (is_null($this->_typeId)) {
             Mage::throwException(Mage::helper('catalog')->__('A product type is not defined for the indexer.'));
         }
+
         return $this->_typeId;
     }
 
@@ -103,6 +104,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -133,6 +135,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_final_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_final_tmp');
     }
 
@@ -222,6 +225,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         } else {
             $taxClassId = new Zend_Db_Expr('0');
         }
+
         $select->columns(['tax_class_id' => $taxClassId]);
 
         $price          = $this->_addAttributeToSelect($select, 'price', 'e.entity_id', 'cs.store_id');
@@ -302,6 +306,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_aggregate_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_aggregate_tmp');
     }
 
@@ -315,6 +320,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_option_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_option_tmp');
     }
 
@@ -601,6 +607,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Default extends Mage_Cat
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_tmp');
     }
 }

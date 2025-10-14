@@ -47,6 +47,7 @@ if ($ids) {
         $adapter->quoteInto('purchased_id IN (?)', $ids),
     );
 }
+
 //update downloadable purchased items data
 $select = $adapter->select()
     ->from(['d' => $installer->getTable('downloadable/link_purchased_item')], ['item_id', 'item_id'])
@@ -66,6 +67,7 @@ if ($ids) {
         $adapter->quoteInto('item_id IN (?)', $ids),
     );
 }
+
 $adapter->commit();
 
 //add foreign keys

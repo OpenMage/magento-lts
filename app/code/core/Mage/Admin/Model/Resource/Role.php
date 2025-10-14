@@ -29,6 +29,7 @@ class Mage_Admin_Model_Resource_Role extends Mage_Core_Model_Resource_Db_Abstrac
         if (!$object->getId()) {
             $object->setCreated($this->formatDate(true));
         }
+
         $object->setModified($this->formatDate(true));
         return $this;
     }

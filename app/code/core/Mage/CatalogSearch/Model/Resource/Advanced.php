@@ -97,6 +97,7 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
                 Zend_Db::FLOAT_TYPE,
             );
         }
+
         if (strlen($value['to']) > 0) {
             $conditions[] = $adapter->quoteInto(
                 'price_index.min_price %s * %s <= ?',
@@ -162,9 +163,11 @@ class Mage_CatalogSearch_Model_Resource_Advanced extends Mage_Core_Model_Resourc
             if (isset($value['from']) && !empty($value['from'])) {
                 $select->where("{$tableAlias}.value >= ?", $value['from']);
             }
+
             if (isset($value['to']) && !empty($value['to'])) {
                 $select->where("{$tableAlias}.value <= ?", $value['to']);
             }
+
             return true;
         }
 

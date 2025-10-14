@@ -69,6 +69,7 @@ class Mage_Sales_Model_Order_Creditmemo_Comment extends Mage_Sales_Model_Abstrac
         if ($this->getCreditmemo()) {
             return $this->getCreditmemo()->getStore();
         }
+
         return Mage::app()->getStore();
     }
 

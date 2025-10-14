@@ -34,6 +34,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
      * Maximum probability of guessing the coupon on the first attempt
      */
     public const MAX_PROBABILITY_OF_GUESSING = 0.25;
+
     public const MAX_GENERATE_ATTEMPTS = 10;
 
     /**
@@ -61,6 +62,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
         if (!$format) {
             $format = Mage_SalesRule_Helper_Coupon::COUPON_FORMAT_ALPHANUMERIC;
         }
+
         $length  = max(1, (int) $this->getLength());
         $split   = max(0, (int) $this->getDash());
         $suffix  = $this->getSuffix();
@@ -76,8 +78,10 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
             if ($split > 0 && ($i % $split) == 0 && $i != 0) {
                 $char = $splitChar . $char;
             }
+
             $code .= $char;
         }
+
         return $prefix . $code . $suffix;
     }
 
@@ -122,6 +126,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
                 $maxCodes = $chars ** $length;
                 $probability = $size / $maxCodes;
             } while ($probability > $maxProbability);
+
             $this->setLength($length);
         }
 
@@ -135,6 +140,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
                 if ($attempt >= $maxAttempts) {
                     Mage::throwException(Mage::helper('salesrule')->__('Unable to create requested Coupon Qty. Please check settings and try again.'));
                 }
+
                 $code = $this->generateCode();
                 $attempt++;
             } while ($this->getResource()->exists($code));
@@ -156,6 +162,7 @@ class Mage_SalesRule_Model_Coupon_Massgenerator extends Mage_Core_Model_Abstract
 
             $this->_generatedCount++;
         }
+
         return $this;
     }
 

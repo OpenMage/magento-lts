@@ -70,6 +70,7 @@ class Mage_Api_Model_Server_Adapter_Xmlrpc extends Varien_Object implements Mage
 
             $this->setData('controller', $controller);
         }
+
         return $controller;
     }
 

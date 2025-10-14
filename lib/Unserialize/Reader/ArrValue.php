@@ -28,6 +28,7 @@ class Unserialize_Reader_ArrValue
     protected $_reader;
 
     public const NOT_STARTED = 1;
+
     public const READING_VALUE = 2;
 
     public function __construct($key)
@@ -81,6 +82,7 @@ class Unserialize_Reader_ArrValue
                 return $value;
             }
         }
+
         return null;
     }
 }

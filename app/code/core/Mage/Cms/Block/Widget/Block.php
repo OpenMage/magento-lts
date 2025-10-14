@@ -52,6 +52,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
         if (isset(self::$_widgetUsageMap[$blockHash])) {
             return $this;
         }
+
         self::$_widgetUsageMap[$blockHash] = true;
 
         if ($blockId) {
@@ -68,6 +69,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
                 } else {
                     $this->setText($processor->filter($block->getContent()));
                 }
+
                 $this->addModelTags($block);
             }
         }
@@ -88,6 +90,7 @@ class Mage_Cms_Block_Widget_Block extends Mage_Core_Block_Template implements Ma
         if ($blockId) {
             $result[] = $blockId;
         }
+
         return $result;
     }
 

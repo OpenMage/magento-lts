@@ -59,6 +59,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
         if (empty($data)) {
             return null;
         }
+
         return $data;
     }
 
@@ -98,6 +99,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
         if ($store !== null) {
             $store = Mage::app()->getStore($store)->getId();
         }
+
         $this->_getResource()->clearCacheData($tags, $store);
         return $this;
     }
@@ -116,8 +118,10 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
             foreach ($categoryPaths as $path) {
                 $tags[] = Mage_Catalog_Model_Category::CACHE_TAG . ':' . $path;
             }
+
             $this->clearCacheData($tags);
         }
+
         return $this;
     }
 
@@ -155,6 +159,7 @@ class Mage_CatalogIndex_Model_Aggregation extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $newTags;
     }
 }
