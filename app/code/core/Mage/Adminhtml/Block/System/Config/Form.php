@@ -295,7 +295,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 if ($backendClass) {
                     $model = Mage::getModel($backendClass);
                     if (!$model instanceof Mage_Core_Model_Config_Data) {
-                        Mage::throwException('Invalid config field backend model: ' . (string) $element->backend_model);
+                        Mage::throwException('Invalid config field backend model: ' . $element->backend_model);
                     }
 
                     $model->setPath($path)

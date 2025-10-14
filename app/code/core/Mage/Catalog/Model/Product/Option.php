@@ -560,10 +560,8 @@ class Mage_Catalog_Model_Product_Option extends Mage_Core_Model_Abstract
      */
     protected function _clearReferences()
     {
-        if (!empty($this->_values)) {
-            foreach ($this->_values as $value) {
-                $value->unsetOption();
-            }
+        foreach ($this->_values as $value) {
+            $value->unsetOption();
         }
 
         return $this;

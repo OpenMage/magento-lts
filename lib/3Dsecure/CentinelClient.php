@@ -69,7 +69,7 @@ class CentinelClient
             $queryString = $queryString . '<' . ($name) . '>' . ($value) . '</' . ($name) . '>';
         }
 
-        $queryString = $queryString . '</CardinalMPI>';
+        $queryString .= '</CardinalMPI>';
         return 'cmpi_msg=' . urlencode($queryString);
     }
 

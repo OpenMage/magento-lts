@@ -511,7 +511,7 @@ abstract class Mage_Shipping_Model_Carrier_Abstract extends Varien_Object
         $maxPackageWeight = (float) $this->getConfigData('max_package_weight');
         if ($weight > $maxPackageWeight && $maxPackageWeight != 0) {
             $this->_numBoxes = ceil($weight / $maxPackageWeight);
-            $weight = $weight / $this->_numBoxes;
+            $weight /= $this->_numBoxes;
         }
 
         return $weight;

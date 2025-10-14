@@ -44,7 +44,6 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withSkip([
-            CodeQuality\Assign\CombinedAssignRector::class, # todo: TMP
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [
@@ -53,7 +52,6 @@ try {
             CodeQuality\Class_\CompleteDynamicPropertiesRector::class, # todo: TMP (!?!)
             CodeQuality\Class_\InlineConstructorDefaultToPropertyRector::class, # todo: TMP
             CodeQuality\ClassMethod\ExplicitReturnNullRector::class, # todo: TMP
-            CodeQuality\Concat\JoinStringConcatRector::class, # todo: TMP
             CodeQuality\Empty_\SimplifyEmptyCheckOnEmptyArrayRector::class, # todo: TMP
             CodeQuality\Equal\UseIdenticalOverEqualWithSameTypeRector::class, # todo: TMP
             CodeQuality\Expression\InlineIfToExplicitIfRector::class, # todo: TMP (!?!)
@@ -89,11 +87,9 @@ try {
             DeadCode\ClassMethod\RemoveEmptyClassMethodRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveNullTagValueNodeRector::class, # todo: TMP
             DeadCode\ClassMethod\RemoveUnusedPrivateMethodParameterRector::class, # todo: TMP  (!?!)
-            DeadCode\Concat\RemoveConcatAutocastRector::class, # todo: TMP  (!?!)
             DeadCode\FunctionLike\RemoveDeadReturnRector::class, # todo: TMP
             DeadCode\If_\ReduceAlwaysFalseIfOrRector::class, # todo: TMP
             DeadCode\If_\RemoveAlwaysTrueIfConditionRector::class, # todo: TMP
-            DeadCode\If_\RemoveUnusedNonEmptyArrayBeforeForeachRector::class, # todo: TMP
             DeadCode\If_\SimplifyIfElseWithSameContentRector::class, # todo: TMP
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP

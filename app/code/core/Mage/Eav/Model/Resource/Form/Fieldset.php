@@ -78,15 +78,13 @@ class Mage_Eav_Model_Resource_Form_Fieldset extends Mage_Core_Model_Resource_Db_
                 $adapter->delete($this->getTable('eav/form_fieldset_label'), $where);
             }
 
-            if (!empty($update)) {
-                foreach ($update as $storeId => $label) {
-                    $bind  = ['label' => $label];
-                    $where = [
-                        'fieldset_id =?' => $object->getId(),
-                        'store_id =?'    => $storeId,
-                    ];
-                    $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
-                }
+            foreach ($update as $storeId => $label) {
+                $bind  = ['label' => $label];
+                $where = [
+                    'fieldset_id =?' => $object->getId(),
+                    'store_id =?'    => $storeId,
+                ];
+                $adapter->update($this->getTable('eav/form_fieldset_label'), $bind, $where);
             }
         }
 

@@ -329,15 +329,13 @@ class Mage_Catalog_Model_Resource_Category extends Mage_Catalog_Model_Resource_A
         /**
          * Update product positions in category
          */
-        if (!empty($update)) {
-            foreach ($update as $productId => $position) {
-                $where = [
-                    'category_id = ?' => (int) $id,
-                    'product_id = ?' => (int) $productId,
-                ];
-                $bind  = ['position' => (int) $position];
-                $adapter->update($this->_categoryProductTable, $bind, $where);
-            }
+        foreach ($update as $productId => $position) {
+            $where = [
+                'category_id = ?' => (int) $id,
+                'product_id = ?' => (int) $productId,
+            ];
+            $bind  = ['position' => (int) $position];
+            $adapter->update($this->_categoryProductTable, $bind, $where);
         }
 
         if (!empty($insert) || !empty($delete)) {

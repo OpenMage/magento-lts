@@ -123,7 +123,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 /** @var Mage_Core_Helper_Data $helper */
                 $helper = $this->helper('core');
 
-                $selectHtml .= '<li>' . '<input type="' . $type . '" class="' . $class . ' ' . $require
+                $selectHtml .= '<li><input type="' . $type . '" class="' . $class . ' ' . $require
                     . ' product-custom-option"'
                     . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"')
                     . ' name="options[' . $option->getId() . ']' . $arraySign . '" id="options_' . $option->getId()
@@ -132,7 +132,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     . '<span class="label"><label for="options_' . $option->getId() . '_' . $count . '">'
                     . $this->escapeHtml($value->getTitle()) . ' ' . $priceStr . '</label></span>';
                 if ($option->getIsRequire()) {
-                    $selectHtml .= '<script type="text/javascript">' . '$(\'options_' . $option->getId() . '_'
+                    $selectHtml .= '<script type="text/javascript">$(\'options_' . $option->getId() . '_'
                     . $count . '\').advaiceContainer = \'options-' . $option->getId() . '-container\';'
                     . '$(\'options_' . $option->getId() . '_' . $count
                     . '\').callbackFunction = \'validateOptionsCallback\';' . '</script>';

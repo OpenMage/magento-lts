@@ -397,7 +397,8 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set {@link _allowCreateFolders} value
+     * Used to set the _allowCreateFolders value
+     * @see _allowCreateFolders
      *
      * @param mixed $flag
      * @access public
@@ -410,7 +411,8 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set {@link _allowRenameFiles} value
+     * Used to set the _allowRenameFiles value
+     * @see _allowRenameFiles
      *
      * @param mixed $flag
      * @access public
@@ -423,7 +425,8 @@ class Varien_File_Uploader
     }
 
     /**
-     * Used to set {@link _enableFilesDispersion} value
+     * Used to set the _enableFilesDispersion value
+     * @see _enableFilesDispersion
      *
      * @param mixed $flag
      * @access public

@@ -246,11 +246,9 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute extends Ma
             $write->delete($this->_priceTable, $where);
         }
 
-        if (!empty($update)) {
-            foreach ($update as $valueId => $bind) {
-                $where = $write->quoteInto('value_id=?', $valueId);
-                $write->update($this->_priceTable, $bind, $where);
-            }
+        foreach ($update as $valueId => $bind) {
+            $where = $write->quoteInto('value_id=?', $valueId);
+            $write->update($this->_priceTable, $bind, $where);
         }
 
         if (!empty($insert)) {

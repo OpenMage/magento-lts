@@ -95,7 +95,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
 
         $this->validateDataGrid();
 
-        $xml = '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?' . '>
+        $xml = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?' . '>
 <Workbook xmlns:x="urn:schemas-microsoft-com:office:excel"
   xmlns="urn:schemas-microsoft-com:office:spreadsheet"
   xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">';
@@ -157,8 +157,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         }
 
         $sheetName = htmlspecialchars($sheetName);
-        return '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
-            . '><Workbook'
+        return '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook'
             . ' xmlns="urn:schemas-microsoft-com:office:spreadsheet"'
             . ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
             . ' xmlns:x="urn:schemas-microsoft-com:office:excel"'
@@ -192,7 +191,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
      */
     public function getRowXml(array $row)
     {
-        $xmlHeader = '<' . '?xml version="1.0"?' . '>' . "\n";
+        $xmlHeader = '<?xml version="1.0"?>' . "\n";
         $xmlRegexp = '/^<cell><row>(.*)?<\/row><\/cell>\s?$/ms';
 
         if (is_null($this->_xmlElement)) {
