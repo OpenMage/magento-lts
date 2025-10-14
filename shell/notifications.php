@@ -78,6 +78,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
         if (!$before && isset($this->_args['before'])) {
             $before = $this->_args['before'];
         }
+        
         $onlyRead = $this->getArg('only-read') ?: ($this->_args['only-read'] ?? null);
         $includeUnread = $this->getArg('include-unread') ?: ($this->_args['include-unread'] ?? null);
         $all = $this->getArg('all') ?: ($this->_args['all'] ?? null);
@@ -107,6 +108,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
             } else {
                 echo "Unread notifications are protected by default.\n";
             }
+            
             echo "To delete all notifications, including unread, use:\n";
             echo "  php shell/notifications.php --all --include-unread\n";
             return;
@@ -127,14 +129,17 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                 if ($before) {
                     $select->where('date_added < ?', $before);
                 }
+                
                 // Apply unread protection unless include-unread is present
                 if ($protectUnread || $onlyRead) {
                     $select->where('is_read = ?', 1);
                 }
+                
                 if (!empty($severities)) {
                     $select->where('severity IN (?)', $severities);
                 }
             }
+            
             $select->limit(self::DRY_RUN_LIMIT);
 
             $rows = $conn->fetchAll($select);
@@ -157,22 +162,27 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                         $severityLabel,
                     );
                 }
+                
                 if (count($rows) == self::DRY_RUN_LIMIT) {
                     echo '(Showing first ' . self::DRY_RUN_LIMIT . " results)\n";
                 }
+                
                 // Show total count of matching notifications
                 $selectCount = $conn->select()->from($table, 'COUNT(*)');
                 if (!$all) {
                     if ($before) {
                         $selectCount->where('date_added < ?', $before);
                     }
+                    
                     if ($protectUnread || $onlyRead) {
                         $selectCount->where('is_read = ?', 1);
                     }
+                    
                     if (!empty($severities)) {
                         $selectCount->where('severity IN (?)', $severities);
                     }
                 }
+                
                 $countTotal = $conn->fetchOne($selectCount);
                 echo "Total notifications that would be deleted: $countTotal\n";
             } else {
@@ -185,10 +195,12 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                 if ($before) {
                     $where[] = $conn->quoteInto('date_added < ?', $before);
                 }
+                
                 // Apply unread protection unless include-unread is present
                 if ($protectUnread || $onlyRead) {
                     $where[] = $conn->quoteInto('is_read = ?', 1);
                 }
+                
                 if (!empty($severities)) {
                     $where[] = $conn->quoteInto('severity IN (?)', $severities);
                 }
@@ -197,7 +209,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
             // Refactored for clarity, as per suggestion:
             if ($all) {
                 $whereClause = '';
-            } elseif (count($where)) {
+            } elseif ($where !== []) {
                 $whereClause = implode(' AND ', $where);
             } else {
                 $whereClause = '';
@@ -211,6 +223,7 @@ class Mage_Shell_CleanAdminNotifications extends Mage_Shell_Abstract
                 echo "No filters specified, and --all not set. Nothing deleted.\n";
                 return;
             }
+            
             echo "Deleted $count notifications.\n";
         }
     }
