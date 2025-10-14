@@ -227,6 +227,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
                 });
             }
         }
+
         return $this->_comparableAttributes;
     }
 
@@ -242,6 +243,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         foreach ($comparableAttributes as $attribute) {
             $attributes[] = $attribute->getAttributeCode();
         }
+
         $this->addAttributeToSelect($attributes);
 
         return $this;
@@ -302,6 +304,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item_Collection extends Mage_C
         if (!Mage::helper('catalog/product_compare')->getAllowUsedFlat()) {
             return false;
         }
+
         return parent::isEnabledFlat();
     }
 }

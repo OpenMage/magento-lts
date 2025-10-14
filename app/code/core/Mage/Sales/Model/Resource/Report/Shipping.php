@@ -140,6 +140,7 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
             $adapter->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -264,6 +265,7 @@ class Mage_Sales_Model_Resource_Report_Shipping extends Mage_Sales_Model_Resourc
             $adapter->rollBack();
             throw $e;
         }
+
         return $this;
     }
 }

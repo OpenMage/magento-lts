@@ -41,6 +41,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         if ($store instanceof Mage_Core_Model_Store) {
             $store = $store->getId();
         }
+
         $this->_storeId = $store;
         return $this;
     }
@@ -82,6 +83,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
             $this->getSelect()
                 ->where('store_id = ?', (int) $this->getStoreId());
         }
+
         return $this;
     }
 
@@ -139,6 +141,7 @@ class Mage_CatalogSearch_Model_Resource_Query_Collection extends Mage_Core_Model
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         $this->getSelect()->where('main_table.store_id IN (?)', $storeIds);
         return $this;
     }

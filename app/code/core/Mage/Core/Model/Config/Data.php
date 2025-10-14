@@ -42,6 +42,7 @@
 class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
 {
     public const ENTITY = 'core_config_data';
+
     /**
      * Prefix of model events names
      *
@@ -100,9 +101,11 @@ class Mage_Core_Model_Config_Data extends Mage_Core_Model_Abstract
         if ($storeCode) {
             return Mage::app()->getStore($storeCode)->getConfig($path);
         }
+
         if ($websiteCode) {
             return Mage::app()->getWebsite($websiteCode)->getConfig($path);
         }
+
         return (string) Mage::getConfig()->getNode('default/' . $path);
     }
 

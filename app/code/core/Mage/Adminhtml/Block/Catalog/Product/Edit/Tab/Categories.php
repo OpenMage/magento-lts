@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Adminhtml_Block_Catalog_Category_Tree
 {
     protected $_categoryIds;
+
     protected $_selectedNodes = null;
 
     /**
@@ -77,6 +78,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if ($root && in_array($root->getId(), $this->getCategoryIds())) {
             $root->setChecked(true);
         }
+
         return $root;
     }
 
@@ -92,6 +94,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if (!is_null($parentNodeCategory) && $parentNodeCategory->getId()) {
             return $this->getNode($parentNodeCategory, $recursionLevel);
         }
+
         $root = Mage::registry('root');
         if (is_null($root)) {
             $storeId = (int) $this->getRequest()->getParam('store');
@@ -243,6 +246,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
         if (empty($categoryIds)) {
             return [];
         }
+
         $collection = Mage::getResourceModel('catalog/category_collection');
 
         if ($rootId) {
@@ -258,12 +262,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Categories extends Mage_Admi
             if ($rootId && !in_array($rootId, $item->getPathIds())) {
                 continue;
             }
+
             foreach ($item->getPathIds() as $id) {
                 if (!in_array($id, $ids)) {
                     $ids[] = $id;
                 }
             }
         }
+
         return $ids;
     }
 }

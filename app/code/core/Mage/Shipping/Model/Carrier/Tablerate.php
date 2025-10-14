@@ -66,6 +66,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
                 if ($item->getParentItem()) {
                     continue;
                 }
+
                 if ($item->getHasChildren() && $item->isShipSeparately()) {
                     foreach ($item->getChildren() as $child) {
                         if ($child->getProduct()->isVirtual()) {
@@ -100,6 +101,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
                     $freePackageValue += $item->getBaseRowTotal();
                 }
             }
+
             $oldValue = $request->getPackageValue();
             $request->setPackageValue($oldValue - $freePackageValue);
         }
@@ -107,6 +109,7 @@ class Mage_Shipping_Model_Carrier_Tablerate extends Mage_Shipping_Model_Carrier_
         if ($freePackageValue) {
             $request->setPackageValue($request->getPackageValue() - $freePackageValue);
         }
+
         if (!$request->getConditionName()) {
             $conditionName = $this->getConfigData('condition_name');
             $request->setConditionName($conditionName ? $conditionName : $this->_default_condition_name);

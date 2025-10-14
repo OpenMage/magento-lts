@@ -15,6 +15,7 @@
 class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_Adapter_Entity
 {
     public const MULTI_DELIMITER   = ' , ';
+
     public const ENTITY            = 'catalog_product_import';
 
     protected $_eventPrefix = 'catalog_product_import';
@@ -217,6 +218,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $productModel = Mage::getModel('catalog/product');
             $this->_productModel = Mage::objects()->save($productModel);
         }
+
         return Mage::objects()->load($this->_productModel);
     }
 
@@ -231,12 +233,14 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
         if (!isset($this->_attributes[$code])) {
             $this->_attributes[$code] = $this->getProductModel()->getResource()->getAttribute($code);
         }
+
         if ($this->_attributes[$code] instanceof Mage_Catalog_Model_Resource_Eav_Attribute) {
             $applyTo = $this->_attributes[$code]->getApplyTo();
             if ($applyTo && !in_array($this->getProductModel()->getTypeId(), $applyTo)) {
                 return false;
             }
         }
+
         return $this->_attributes[$code];
     }
 
@@ -255,6 +259,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 $this->_productTypes[$k] = $k;
             }
         }
+
         return $this->_productTypes;
     }
 
@@ -270,6 +275,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $this->_productTypeInstances[$type] = Mage::getSingleton('catalog/product_type')
                 ->factory($product, true);
         }
+
         $product->setTypeInstance($this->_productTypeInstances[$type], true);
         return $this;
     }
@@ -294,6 +300,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 $this->_productAttributeSets[$set->getAttributeSetName()] = $set->getId();
             }
         }
+
         return $this->_productAttributeSets;
     }
 
@@ -394,12 +401,15 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     $this->_inventoryFields[] = 'use_config_' . $code;
                 }
             }
+
             if ($node->is('required')) {
                 $this->_requiredFields[] = $code;
             }
+
             if ($node->is('ignore')) {
                 $this->_ignoreFields[] = $code;
             }
+
             if ($node->is('to_number')) {
                 $this->_toNumber[] = $code;
             }
@@ -498,6 +508,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                         Mage_Dataflow_Model_Convert_Exception::FATAL,
                     );
                 }
+
                 try {
                     $i = 0;
                     foreach ($collection->getIterator() as $model) {
@@ -522,6 +533,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
                             #Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore($model->getId(), 0);
                         }
+
                         if (!$new || $storeId !== 0) {
                             if ($storeId !== 0) {
                                 Mage::getResourceSingleton('catalog_entity/convert')->addProductToStore(
@@ -529,6 +541,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     $storeId,
                                 );
                             }
+
                             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                             $model->save();
                         }
@@ -550,6 +563,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     if (in_array($field, $this->_configs)) {
                                         $stockItem->setData('use_config_' . $field, 0);
                                     }
+
                                     $stockItem->setData($field, $value ? $value : 0);
                                 } elseif (in_array($field, $this->_configs)) {
                                     if ($data['use_config_' . $field] == 0) {
@@ -559,15 +573,18 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                                     $stockItem->setData($field, $value ? $value : 0);
                                 }
                             }
+
                             // phpcs:ignore Ecg.Performance.Loop.ModelLSD
                             $stockItem->save();
                             unset($data);
                             unset($stockItem);
                             unset($stockItemId);
                         }
+
                         unset($model);
                         $i++;
                     }
+
                     $this->addException(Mage::helper('catalog')->__('Saved %d record(s)', $i));
                 } catch (Exception $e) {
                     if (!$e instanceof Mage_Dataflow_Model_Convert_Exception) {
@@ -579,6 +596,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 }
             }
         }
+
         unset($collections);
 
         return $this;
@@ -602,6 +620,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
 
         $imageFile = trim($importData['_media_image']);
         $imageFile = ltrim($imageFile, DS);
+
         $imageFilePath = Mage::getBaseDir('media') . DS . 'import' . DS . $imageFile;
 
         $updatedFileName = $this->_galleryBackendModel->addImage(
@@ -652,6 +671,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             $message = Mage::helper('catalog')->__('Skipping import row, required field "%s" is not defined.', 'sku');
             Mage::throwException($message);
         }
+
         $product->setStoreId($store->getId());
         $productId = $product->getIdBySku($importData['sku']);
 
@@ -669,6 +689,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 $message = Mage::helper('catalog')->__('Skip import row, is not valid value "%s" for field "%s"', $value, 'type');
                 Mage::throwException($message);
             }
+
             $product->setTypeId($productTypes[strtolower($importData['type'])]);
             /**
              * Check product define attribute set
@@ -678,6 +699,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 $message = Mage::helper('catalog')->__('Skip import row, the value "%s" is invalid for field "%s"', $value, 'attribute_set');
                 Mage::throwException($message);
             }
+
             $product->setAttributeSetId($productAttributeSets[$importData['attribute_set']]);
 
             foreach ($this->_requiredFields as $field) {
@@ -712,9 +734,11 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             if (!is_array($websiteIds)) {
                 $websiteIds = [];
             }
+
             if (!in_array($store->getWebsiteId(), $websiteIds)) {
                 $websiteIds[] = $store->getWebsiteId();
             }
+
             $product->setWebsiteIds($websiteIds);
         }
 
@@ -723,6 +747,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             if (!is_array($websiteIds) || !$store->getId()) {
                 $websiteIds = [];
             }
+
             $websiteCodes = explode(',', $importData['websites']);
             foreach ($websiteCodes as $websiteCode) {
                 try {
@@ -730,9 +755,10 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                     if (!in_array($website->getId(), $websiteIds)) {
                         $websiteIds[] = $website->getId();
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                 }
             }
+
             $product->setWebsiteIds($websiteIds);
             unset($websiteIds);
         }
@@ -741,6 +767,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
             if (in_array($field, $this->_inventoryFields)) {
                 continue;
             }
+
             if (is_null($value)) {
                 continue;
             }
@@ -806,6 +833,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 }
             }
         }
+
         $product->setStockData($stockData);
 
         $arrayToMassAdd = [];
@@ -844,6 +872,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
                 if (!$addedFile) {
                     $addedFile = $product->getData($mediaAttributeCode);
                 }
+
                 if ($fileLabel && $addedFile) {
                     $this->_galleryBackendModel->updateImage($product, $addedFile, ['label' => $fileLabel]);
                 }
@@ -870,7 +899,7 @@ class Mage_Catalog_Model_Convert_Adapter_Product extends Mage_Eav_Model_Convert_
     {
         try {
             return $this->saveRow($importData);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }

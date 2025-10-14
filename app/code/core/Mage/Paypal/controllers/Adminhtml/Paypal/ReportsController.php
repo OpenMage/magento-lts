@@ -46,6 +46,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             $this->_redirect('*/*/');
             return;
         }
+
         Mage::register('current_transaction', $row);
         $this->_initAction()
             ->_title($this->__('View Transaction'))
@@ -65,6 +66,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
             if (empty($credentials)) {
                 Mage::throwException(Mage::helper('paypal')->__('Nothing to fetch because of an empty configuration.'));
             }
+
             foreach ($credentials as $config) {
                 try {
                     $fetched = $reports->fetchAndSave($config);
@@ -83,6 +85,7 @@ class Mage_Paypal_Adminhtml_Paypal_ReportsController extends Mage_Adminhtml_Cont
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         $this->_redirect('*/*/index');
     }
 

@@ -35,6 +35,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
         if (!empty($option['file_extension'])) {
             $option['file_extension'] = $this->escapeHtml($option['file_extension']);
         }
+
         $renderer = $this->getOptionRender(
             $this->getGroupOfOption($option->getType()),
         );
@@ -43,6 +44,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Composite_Fieldset_Options extends Ma
                 ->setTemplate($renderer['template'])
                 ->setSkipJsReloadPrice(1);
         }
+
         return $renderer['renderer']
             ->setProduct($this->getProduct())
             ->setOption($option)

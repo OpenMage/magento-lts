@@ -33,6 +33,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
         foreach ($this->_loadProductById($this->getRequest()->getParam('product_id'))->getWebsiteIds() as $websiteId) {
             $return[] = ['website_id' => $websiteId];
         }
+
         return $return;
     }
 
@@ -51,6 +52,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -98,6 +100,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                     $this->_errorMessage(self::RESOURCE_DATA_INVALID, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
+
                 /** @var Mage_Catalog_Model_Api2_Product_Website_Validator_Admin_Website $validator */
                 $validator = Mage::getModel('catalog/api2_product_website_validator_admin_website');
                 if (!$validator->isValidDataForWebsiteAssignmentToProduct($product, $singleData)) {
@@ -107,6 +110,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                             'product_id' => $product->getId(),
                         ]);
                     }
+
                     $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
                 }
 
@@ -150,7 +154,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
                         ],
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_errorMessage(
                     Mage_Api2_Model_Resource::RESOURCE_INTERNAL_ERROR,
                     Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR,
@@ -186,6 +190,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Website_Rest extends Mage_Catalog
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 

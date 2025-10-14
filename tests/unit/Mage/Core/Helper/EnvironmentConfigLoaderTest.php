@@ -81,6 +81,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
         $xmlDefault = new Varien_Simplexml_Config();
         $xmlDefault->loadString($xmlStruct);
+
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 
@@ -181,6 +182,7 @@ final class EnvironmentConfigLoaderTest extends OpenMageTest
 
         $xmlDefault = new Varien_Simplexml_Config();
         $xmlDefault->loadString($xmlStruct);
+
         $xml = new Varien_Simplexml_Config();
         $xml->loadString($xmlStruct);
 

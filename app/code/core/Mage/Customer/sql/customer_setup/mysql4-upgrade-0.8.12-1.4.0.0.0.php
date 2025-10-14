@@ -46,6 +46,7 @@ foreach ($result as $row) {
     if (in_array($row['attribute_code'], $visibleAttributes)) {
         $_visible = false;
     }
+
     $attributes = [
         'attribute_id'              => $row['attribute_id'],
         'is_visible'                => $_visible,

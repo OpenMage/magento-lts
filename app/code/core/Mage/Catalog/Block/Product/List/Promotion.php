@@ -26,6 +26,7 @@ class Mage_Catalog_Block_Product_List_Promotion extends Mage_Catalog_Block_Produ
 
             $this->_productCollection = $collection;
         }
+
         return $this->_productCollection;
     }
 }

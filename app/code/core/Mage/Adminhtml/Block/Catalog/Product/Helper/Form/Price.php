@@ -38,6 +38,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
             if (!($storeId = $attribute->getStoreId())) {
                 $storeId = $this->getForm()->getDataObject()->getStoreId();
             }
+
             $store = Mage::app()->getStore($storeId);
             $html .= '<strong>[' . (string) $store->getBaseCurrencyCode() . ']</strong>';
             if (Mage::helper('tax')->priceIncludesTax($store)) {
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Price extends Varien_Data
                 }
             }
         }
+
         if ($addJsObserver) {
             $html .= $this->_getTaxObservingCode($attribute);
         }

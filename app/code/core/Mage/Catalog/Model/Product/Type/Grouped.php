@@ -153,6 +153,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
 
             $this->getProduct($product)->setData($this->_keyAssociatedProducts, $associatedProducts);
         }
+
         return $this->getProduct($product)->getData($this->_keyAssociatedProducts);
     }
 
@@ -205,6 +206,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                 Mage_Catalog_Model_Product_Status::STATUS_DISABLED,
             ];
         }
+
         return $this->getProduct($product)->getData($this->_keyStatusFilters);
     }
 
@@ -221,8 +223,10 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
             foreach ($this->getAssociatedProducts($product) as $item) {
                 $associatedProductIds[] = $item->getId();
             }
+
             $this->getProduct($product)->setData($this->_keyAssociatedProductIds, $associatedProductIds);
         }
+
         return $this->getProduct($product)->getData($this->_keyAssociatedProductIds);
     }
 
@@ -260,6 +264,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
         foreach ($this->getAssociatedProducts($product) as $associatedProduct) {
             $salable = $salable || $associatedProduct->isSalable();
         }
+
         return $salable;
     }
 
@@ -339,7 +344,7 @@ class Mage_Catalog_Model_Product_Type_Grouped extends Mage_Catalog_Model_Product
                 $products[] = $product;
             }
 
-            if (count($products)) {
+            if ($products !== []) {
                 return $products;
             }
         }

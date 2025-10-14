@@ -54,6 +54,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if (!$model->checkDisplaySettings($defaultStoreId)) {
             return true;
         }
+
         $storeNames = [];
         $stores = $this->_app->getStores();
         foreach ($stores as $store) {
@@ -62,6 +63,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -84,6 +86,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -131,6 +134,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if (!$model->checkDiscountSettings($defaultStoreId)) {
             return true;
         }
+
         $storeNames = [];
         $stores = $this->_app->getStores();
         foreach ($stores as $store) {
@@ -139,6 +143,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
                 $storeNames[] = $website->getName() . '(' . $store->getName() . ')';
             }
         }
+
         return $storeNames;
     }
 
@@ -186,6 +191,7 @@ class Mage_Tax_Block_Adminhtml_Notifications extends Mage_Adminhtml_Block_Templa
         if ($model->isAllowed('system/config/tax')) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

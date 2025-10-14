@@ -27,6 +27,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
         foreach ($result as $key => $tag) {
             $result[$key] = Mage::helper('api')->wsiArrayPacker($tag);
         }
+
         return array_values($result);
     }
 
@@ -61,6 +62,7 @@ class Mage_Tag_Model_Api_V2 extends Mage_Tag_Model_Api
         foreach ($result->products as $key => $value) {
             $result->products[$key] = ['key' => $key, 'value' => $value];
         }
+
         return $result;
     }
 

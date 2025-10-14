@@ -70,6 +70,7 @@ class Mage_Sales_Model_Order_Total_Config_Base extends Mage_Sales_Model_Config_O
             $this->_initCollectors();
             $this->_totalModels = $this->_collectors;
         }
+
         return $this->_totalModels;
     }
 }

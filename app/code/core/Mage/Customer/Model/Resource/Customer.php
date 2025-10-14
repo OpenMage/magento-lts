@@ -63,6 +63,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             $bind['website_id'] = (int) $customer->getWebsiteId();
             $select->where('website_id = :website_id');
         }
+
         if ($customer->getId()) {
             $bind['entity_id'] = (int) $customer->getId();
             $select->where('entity_id != :entity_id');
@@ -83,6 +84,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         } elseif (!$customer->getId() && $customer->isConfirmationRequired()) {
             $customer->setConfirmation($customer->getRandomConfirmationKey());
         }
+
         // remove customer confirmation key from database, if empty
         if (!$customer->getConfirmation()) {
             $customer->setConfirmation(null);
@@ -116,9 +118,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 if ($address->getId() == $defaultBillingId) {
                     $customer->setData('default_billing', null);
                 }
+
                 if ($address->getId() == $defaultShippingId) {
                     $customer->setData('default_shipping', null);
                 }
+
                 $address->delete();
             } else {
                 if ($address->getParentId() != $customer->getId()) {
@@ -139,6 +143,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 ) {
                     $customer->setData('default_billing', $address->getId());
                 }
+
                 if (($address->getIsPrimaryShipping() || $address->getIsDefaultShipping())
                     && $address->getId() != $defaultShippingId
                 ) {
@@ -146,9 +151,11 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                 }
             }
         }
+
         if ($customer->dataHasChangedFor('default_billing')) {
             $this->saveAttribute($customer, 'default_billing');
         }
+
         if ($customer->dataHasChangedFor('default_shipping')) {
             $this->saveAttribute($customer, 'default_shipping');
         }
@@ -196,6 +203,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
                     Mage::helper('customer')->__('Customer website ID must be specified when using the website scope'),
                 );
             }
+
             $bind['website_id'] = (int) $customer->getWebsiteId();
             $select->where('website_id = :website_id');
         }
@@ -241,6 +249,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         if (empty($lookup)) {
             return false;
         }
+
         return $lookup['cnt'] > 1;
     }
 
@@ -263,6 +272,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         if ($result) {
             return true;
         }
+
         return false;
     }
 
@@ -293,6 +303,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         if (Mage::getStoreConfig(Mage_Customer_Model_Customer::XML_PATH_GENERATE_HUMAN_FRIENDLY_ID)) {
             parent::setNewIncrementId($object);
         }
+
         return $this;
     }
 
@@ -313,6 +324,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             $this->saveAttribute($customer, 'rp_token');
             $this->saveAttribute($customer, 'rp_token_created_at');
         }
+
         return $this;
     }
 
@@ -333,6 +345,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
             $customer->setRpCustomerId($newResetPasswordLinkCustomerId);
             $this->saveAttribute($customer, 'rp_customer_id');
         }
+
         return $this;
     }
 
@@ -365,6 +378,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
         if ($value && !is_numeric($value)) { // Convert created_at string to unix timestamp
             $value = Varien_Date::toTimestamp($value);
         }
+
         return $value;
     }
 

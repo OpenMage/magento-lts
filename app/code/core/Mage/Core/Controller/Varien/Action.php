@@ -17,17 +17,27 @@
 abstract class Mage_Core_Controller_Varien_Action
 {
     public const FLAG_NO_CHECK_INSTALLATION    = 'no-install-check';
+
     public const FLAG_NO_DISPATCH              = 'no-dispatch';
+
     public const FLAG_NO_PRE_DISPATCH          = 'no-preDispatch';
+
     public const FLAG_NO_POST_DISPATCH         = 'no-postDispatch';
+
     public const FLAG_NO_START_SESSION         = 'no-startSession';
+
     public const FLAG_NO_DISPATCH_BLOCK_EVENT  = 'no-beforeGenerateLayoutBlocksDispatch';
+
     public const FLAG_NO_COOKIES_REDIRECT      = 'no-cookies-redirect';
 
     public const PARAM_NAME_SUCCESS_URL        = 'success_url';
+
     public const PARAM_NAME_ERROR_URL          = 'error_url';
+
     public const PARAM_NAME_REFERER_URL        = 'referer_url';
+
     public const PARAM_NAME_BASE64_URL         = 'r64';
+
     public const PARAM_NAME_URL_ENCODED        = 'uenc';
 
     public const PROFILER_KEY                  = 'mage::dispatch::controller::action';
@@ -164,6 +174,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
+
         if ($flag === '') {
             return $this->_flags;
         } elseif (isset($this->_flags[$action][$flag])) {
@@ -186,6 +197,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($action === '') {
             $action = $this->getRequest()->getActionName();
         }
+
         $this->_flags[$action][$flag] = $value;
         return $this;
     }
@@ -237,11 +249,13 @@ abstract class Mage_Core_Controller_Varien_Action
         if (!$generateXml) {
             return $this;
         }
+
         $this->generateLayoutXml();
 
         if (!$generateBlocks) {
             return $this;
         }
+
         $this->generateLayoutBlocks();
         $this->_isLayoutLoaded = true;
 
@@ -421,6 +435,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 [$action, $flag, $value] = $flagData;
                 $this->setFlag($action, $flag, $value);
             }
+
             // call forward, redirect or an action
             [$method, $parameters] = $e->getResultCallback();
             switch ($method) {
@@ -633,6 +648,7 @@ abstract class Mage_Core_Controller_Varien_Action
         if (!is_array($messagesStorage)) {
             $messagesStorage = [$messagesStorage];
         }
+
         foreach ($messagesStorage as $storageName) {
             $storage = Mage::getSingleton($storageName);
             if ($storage) {
@@ -646,6 +662,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 );
             }
         }
+
         return $this;
     }
 
@@ -702,6 +719,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $session->getSessionIdQueryParam() => $session->getSessionId(),
             ]];
         }
+
         $this->getResponse()->setRedirect(Mage::getUrl($path, $arguments));
         return $this;
     }
@@ -718,9 +736,11 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($successUrl)) {
             $successUrl = $defaultUrl;
         }
+
         if (!$this->_isUrlInternal($successUrl)) {
             $successUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         $this->getResponse()->setRedirect($successUrl);
         return $this;
     }
@@ -737,9 +757,11 @@ abstract class Mage_Core_Controller_Varien_Action
         if (empty($errorUrl)) {
             $errorUrl = $defaultUrl;
         }
+
         if (!$this->_isUrlInternal($errorUrl)) {
             $errorUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         $this->getResponse()->setRedirect($errorUrl);
         return $this;
     }
@@ -772,15 +794,19 @@ abstract class Mage_Core_Controller_Varien_Action
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_REFERER_URL)) {
             $refererUrl = $url;
         }
+
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_BASE64_URL)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
+
         if ($url = $this->getRequest()->getParam(self::PARAM_NAME_URL_ENCODED)) {
             $refererUrl = Mage::helper('core')->urlDecodeAndEscape($url);
         }
+
         if (empty($refererUrl) || !$this->_isUrlInternal($refererUrl)) {
             $refererUrl = Mage::app()->getStore()->getBaseUrl();
         }
+
         return $refererUrl;
     }
 
@@ -802,6 +828,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 return true;
             }
         }
+
         return false;
     }
 
@@ -820,6 +847,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 strpos(strtolower($class), '_' . strtolower($this->getRequest()->getControllerName() . 'Controller')),
             );
         }
+
         return $this->_realModuleName;
     }
 
@@ -865,6 +893,7 @@ abstract class Mage_Core_Controller_Varien_Action
             if (count($t) !== 2 || empty($t[0]) || empty($t[1])) {
                 return false;
             }
+
             $t[2] = $action;
         } else {
             $t = explode('/', (string) $rewrite->actions->$action->to);
@@ -894,6 +923,7 @@ abstract class Mage_Core_Controller_Varien_Action
         ) {
             return false;
         }
+
         return true;
     }
 
@@ -934,6 +964,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $this->_titles = [];
             }
         }
+
         return $this;
     }
 
@@ -956,6 +987,7 @@ abstract class Mage_Core_Controller_Varien_Action
                         array_unshift($this->_titles, $title);
                     }
                 }
+
                 $titleBlock->setTitle(implode(' / ', array_reverse($this->_titles)));
             }
         }
@@ -1036,6 +1068,7 @@ abstract class Mage_Core_Controller_Varien_Action
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
+
             if ($content['type'] == 'filename') {
                 clearstatcache();
                 $isFile         = true;
@@ -1064,6 +1097,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 while ($buffer = $ioAdapter->streamRead()) {
                     print $buffer;
                 }
+
                 $ioAdapter->streamClose();
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
@@ -1074,6 +1108,7 @@ abstract class Mage_Core_Controller_Varien_Action
                 $this->getResponse()->setBody($content);
             }
         }
+
         return $this;
     }
 }

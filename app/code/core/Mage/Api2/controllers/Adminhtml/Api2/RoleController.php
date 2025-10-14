@@ -165,11 +165,13 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             if ($id) {
                 $this->_redirect('*/*/edit', ['id' => $id]);
             } else {
                 $this->_redirect('*/*/new');
             }
+
             return;
         }
 
@@ -259,6 +261,7 @@ class Mage_Api2_Adminhtml_Api2_RoleController extends Mage_Adminhtml_Controller_
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/edit', ['id' => $id]);
             return;
         }

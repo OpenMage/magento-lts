@@ -50,8 +50,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Compared extends Mage_Admi
                     ->addAttributeToSelect('status')
                     ->load();
             }
+
             $this->setData('item_collection', $collection);
         }
+
         return $collection;
     }
 

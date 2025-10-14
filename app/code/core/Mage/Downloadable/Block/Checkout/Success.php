@@ -26,12 +26,14 @@ class Mage_Downloadable_Block_Checkout_Success extends Mage_Checkout_Block_Onepa
         if (!$this->isOrderVisible()) {
             return false;
         }
+
         /**
          * if use guest checkout
          */
         if (!Mage::getSingleton('customer/session')->getCustomerId()) {
             return false;
         }
+
         return $hasDownloadableFlag;
     }
 

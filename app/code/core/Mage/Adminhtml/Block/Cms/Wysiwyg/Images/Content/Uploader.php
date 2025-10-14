@@ -42,6 +42,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Uploader extends Mage_Uplo
         if ($this->hasData('media_type')) {
             return $this->_getData('media_type');
         }
+
         return $this->getRequest()->getParam('type');
     }
 }

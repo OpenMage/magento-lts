@@ -34,6 +34,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
             if (!isset($options[1])) {
                 $options[1] = 'utf-8';
             }
+
             parent::__construct($options[0], $options[0], $options[1]);
             return;
         } else {
@@ -41,10 +42,12 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
                 $options['max'] =
                 $options['min'] = $options['length'];
             }
+
             if (isset($options['name'])) {
                 $this->_name = $options['name'];
             }
         }
+
         parent::__construct($options);
     }
 
@@ -112,6 +115,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
         if (!$result && isset($this->_messages[self::INVALID])) {
             throw new Exception($this->_messages[self::INVALID]);
         }
+
         return $result;
     }
 

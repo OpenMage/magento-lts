@@ -18,13 +18,16 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
      * Customer address types
      */
     public const ADDRESS_BILLING    = Mage_Sales_Model_Quote_Address::TYPE_BILLING;
+
     public const ADDRESS_SHIPPING   = Mage_Sales_Model_Quote_Address::TYPE_SHIPPING;
 
     /**
      * Customer checkout types
      */
     public const MODE_CUSTOMER = Mage_Checkout_Model_Type_Onepage::METHOD_CUSTOMER;
+
     public const MODE_REGISTER = Mage_Checkout_Model_Type_Onepage::METHOD_REGISTER;
+
     public const MODE_GUEST    = Mage_Checkout_Model_Type_Onepage::METHOD_GUEST;
 
     /**
@@ -61,6 +64,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         if ($address->getRegionId()) {
             $address->setRegion($address->getRegionId());
         }
+
         return $address;
     }
 
@@ -151,6 +155,7 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
             $customer->addAddress($customerBilling);
             $billing->setCustomerAddress($customerBilling);
         }
+
         if ($shipping && ((!$shipping->getCustomerId() && !$shipping->getSameAsBilling())
             || (!$shipping->getSameAsBilling() && $shipping->getSaveInAddressBook()))
         ) {
@@ -162,11 +167,13 @@ class Mage_Checkout_Model_Api_Resource_Customer extends Mage_Checkout_Model_Api_
         if (isset($customerBilling) && !$customer->getDefaultBilling()) {
             $customerBilling->setIsDefaultBilling(true);
         }
+
         if ($shipping && isset($customerShipping) && !$customer->getDefaultShipping()) {
             $customerShipping->setIsDefaultShipping(true);
         } elseif (isset($customerBilling) && !$customer->getDefaultShipping()) {
             $customerBilling->setIsDefaultShipping(true);
         }
+
         $quote->setCustomer($customer);
 
         return $this;

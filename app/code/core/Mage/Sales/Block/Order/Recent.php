@@ -87,6 +87,7 @@ class Mage_Sales_Block_Order_Recent extends Mage_Core_Block_Template
         if ($this->getOrders()->getSize() > 0) {
             return parent::_toHtml();
         }
+
         return '';
     }
 

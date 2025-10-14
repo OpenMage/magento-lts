@@ -123,10 +123,12 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (is_object($value)) {
             Mage::throwException(Mage::helper('paypal')->__('Payment transactions disallow storing objects.'));
         }
+
         $info = $this->_getData('additional_information');
         if (!$info) {
             $info = [];
         }
+
         $info[$key] = $value;
         return $this->setData('additional_information', $info);
     }
@@ -142,9 +144,11 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (!$info) {
             $info = [];
         }
+
         if ($key) {
             return $info[$key] ?? null;
         }
+
         return $info;
     }
 
@@ -163,6 +167,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         } else {
             $info = [];
         }
+
         return $this->setData('additional_information', $info);
     }
 
@@ -177,6 +182,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if ($setFailsafe === null) {
             return $this->_isFailsafe;
         }
+
         $this->_isFailsafe = (bool) $setFailsafe;
         return $this;
     }
@@ -190,6 +196,7 @@ class Mage_Paypal_Model_Payment_Transaction extends Mage_Core_Model_Abstract
         if (!$this->getId()) {
             $this->setCreatedAt(Mage::getModel('core/date')->gmtDate());
         }
+
         return parent::_beforeSave();
     }
 

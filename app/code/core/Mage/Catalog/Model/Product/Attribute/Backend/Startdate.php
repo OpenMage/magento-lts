@@ -40,6 +40,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
         if ($startDate === false) {
             return $this;
         }
+
         parent::beforeSave($object);
         return $this;
     }
@@ -73,6 +74,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Startdate extends Mage_Eav_Mo
                 throw $eavExc;
             }
         }
+
         return true;
     }
 }

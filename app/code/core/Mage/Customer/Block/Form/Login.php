@@ -43,6 +43,7 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
             $helper = $this->helper('customer');
             $url = $helper->getRegisterUrl();
         }
+
         return $url;
     }
 
@@ -68,6 +69,7 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
         if ($this->_username === -1) {
             $this->_username = Mage::getSingleton('customer/session')->getUsername(true);
         }
+
         return $this->_username;
     }
 
@@ -102,6 +104,7 @@ class Mage_Customer_Block_Form_Login extends Mage_Core_Block_Template
                 $url = $this->getUrl('*/*/*', ['_current' => true]);
             }
         }
+
         Mage::getSingleton('customer/session')->setBeforeAuthUrl($url);
 
         return true;

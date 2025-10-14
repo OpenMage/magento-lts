@@ -51,6 +51,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if (!isset($options['operation']) || empty($options['operation'])) {
             throw new Exception("Passed parameter 'operation' is empty.");
         }
+
         $this->_operation = $options['operation'];
     }
 
@@ -120,20 +121,24 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if (!isset($data['attribute_set_id']) || empty($data['attribute_set_id'])) {
             $this->_critical('Missing "attribute_set_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         if (!isset($data['type_id']) || empty($data['type_id'])) {
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         // Validate weight
         if (isset($data['weight']) && !empty($data['weight']) && $data['weight'] > 0
             && !Zend_Validate::is($data['weight'], 'Between', [0, self::MAX_DECIMAL_VALUE])
         ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
+
         // msrp_display_actual_price_type attribute values needs to be a string to pass validation
         // see Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price::getAllOptions()
         if (isset($data['msrp_display_actual_price_type'])) {
             $data['msrp_display_actual_price_type'] = (string) $data['msrp_display_actual_price_type'];
         }
+
         $requiredAttributes = ['attribute_set_id'];
         $positiveNumberAttributes = ['weight', 'price', 'special_price', 'msrp'];
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
@@ -145,6 +150,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 $value = $data[$attribute->getAttributeCode()];
                 $isSet = true;
             }
+
             $applicable = false;
             if (!$attribute->getApplyTo() || in_array($data['type_id'], $attribute->getApplyTo())) {
                 $applicable = true;
@@ -170,6 +176,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                         // make validation of select and multiselect identical
                         $value = [$value];
                     }
+
                     foreach ($value as $selectValue) {
                         $useStrictMode = !is_numeric($selectValue);
                         if (!in_array($selectValue, $allowedValues, $useStrictMode)
@@ -183,14 +190,16 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                         }
                     }
                 }
+
                 // Validate datetime attributes
                 if ($attribute->getBackendType() == 'datetime') {
                     try {
                         $attribute->getBackend()->formatDate($value);
-                    } catch (Zend_Date_Exception $e) {
+                    } catch (Zend_Date_Exception) {
                         $this->_addError(sprintf('Invalid date in the "%s" field.', $attributeCode));
                     }
                 }
+
                 // Validate positive number required attributes
                 if (in_array($attributeCode, $positiveNumberAttributes) && (!empty($value) && $value !== 0)
                     && (!is_numeric($value) || $value < 0)
@@ -229,9 +238,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if ($this->_isUpdate()) {
             return true;
         }
+
         if (!isset($data['type_id']) || empty($data['type_id'])) {
             $this->_critical('Missing "type_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         if (!array_key_exists($data['type_id'], Mage_Catalog_Model_Product_Type::getTypes())) {
             $this->_critical('Invalid product type.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
@@ -249,9 +260,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if ($this->_isUpdate()) {
             return true;
         }
+
         if (!isset($data['attribute_set_id']) || empty($data['attribute_set_id'])) {
             $this->_critical('Missing "attribute_set_id" in request.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         /** @var Mage_Eav_Model_Entity_Attribute_Set $attributeSet */
         $attributeSet = Mage::getModel('eav/entity_attribute_set')->load($data['attribute_set_id']);
         if (!$attributeSet->getId() || $productEntity->getEntityTypeId() != $attributeSet->getEntityTypeId()) {
@@ -270,6 +283,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         if ($this->_isUpdate() && !isset($data['sku'])) {
             return true;
         }
+
         if (!Zend_Validate::is((string) $data['sku'], 'StringLength', ['min' => 0, 'max' => 64])) {
             $this->_addError('SKU length should be 64 characters maximum.');
         }
@@ -361,6 +375,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             if (!(isset($stockData['use_config_manage_stock']) && $stockData['use_config_manage_stock'])) {
                 $this->_validateBoolean($stockData, $fieldSet, 'manage_stock');
             }
+
             if ($this->_isManageStockEnabled($stockData)) {
                 $this->_validateNumeric($stockData, $fieldSet, 'qty');
                 $this->_validatePositiveNumber($stockData, $fieldSet, 'min_qty', false, true, true);
@@ -369,10 +384,12 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 if (isset($stockData['is_qty_decimal']) && (bool) $stockData['is_qty_decimal'] == true) {
                     $this->_validateBoolean($stockData, $fieldSet, 'is_decimal_divided');
                 }
+
                 $this->_validateBoolean($stockData, $fieldSet, 'enable_qty_increments', true);
                 if (isset($stockData['enable_qty_increments']) && (bool) $stockData['enable_qty_increments'] == true) {
                     $this->_validatePositiveNumeric($stockData, $fieldSet, 'qty_increments', false, true);
                 }
+
                 if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
                     $this->_validateSource(
                         $stockData,
@@ -405,6 +422,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
                 Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock',
             );
         }
+
         return (bool) $manageStock;
     }
 

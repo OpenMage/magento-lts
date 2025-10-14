@@ -45,9 +45,11 @@ class Mage_CatalogInventory_Helper_Minsaleqty
                     $data[$groupId] = $this->_fixQty($qty);
                 }
             }
+
             if (count($data) == 1 && array_key_exists(Mage_Customer_Model_Group::CUST_GROUP_ALL, $data)) {
                 return (string) $data[Mage_Customer_Model_Group::CUST_GROUP_ALL];
             }
+
             return serialize($data);
         } else {
             return '';
@@ -69,7 +71,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         } elseif (is_string($value) && !empty($value)) {
             try {
                 return Mage::helper('core/unserializeArray')->unserialize($value);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return [];
             }
         } else {
@@ -88,12 +90,14 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if (!is_array($value)) {
             return false;
         }
+
         unset($value['__empty']);
-        foreach ($value as $_id => $row) {
+        foreach ($value as $row) {
             if (!is_array($row) || !array_key_exists('customer_group_id', $row) || !array_key_exists('min_sale_qty', $row)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -112,6 +116,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
                 'min_sale_qty' => $this->_fixQty($qty),
             ];
         }
+
         return $result;
     }
 
@@ -124,14 +129,16 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     {
         $result = [];
         unset($value['__empty']);
-        foreach ($value as $_id => $row) {
+        foreach ($value as $row) {
             if (!is_array($row) || !array_key_exists('customer_group_id', $row) || !array_key_exists('min_sale_qty', $row)) {
                 continue;
             }
+
             $groupId = $row['customer_group_id'];
             $qty = $this->_fixQty($row['min_sale_qty']);
             $result[$groupId] = $qty;
         }
+
         return $result;
     }
 
@@ -149,6 +156,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if ($this->_isEncodedArrayFieldValue($value)) {
             $value = $this->_decodeArrayFieldValue($value);
         }
+
         $result = null;
         foreach ($value as $groupId => $qty) {
             if ($groupId == $customerGroupId) {
@@ -158,6 +166,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
                 $result = $qty;
             }
         }
+
         return $this->_fixQty($result);
     }
 
@@ -173,6 +182,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if (!$this->_isEncodedArrayFieldValue($value)) {
             $value = $this->_encodeArrayFieldValue($value);
         }
+
         return $value;
     }
 
@@ -187,6 +197,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         if ($this->_isEncodedArrayFieldValue($value)) {
             $value = $this->_decodeArrayFieldValue($value);
         }
+
         return $this->_serializeValue($value);
     }
 }

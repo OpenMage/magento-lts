@@ -110,6 +110,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -128,6 +129,7 @@ class Mage_Adminhtml_RatingController extends Mage_Adminhtml_Controller_Action
                 $this->_redirect('*/*/edit', ['id' => $this->getRequest()->getParam('id')]);
             }
         }
+
         $this->_redirect('*/*/');
     }
 

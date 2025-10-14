@@ -13,6 +13,7 @@
 class Mage_Shipping_Model_Carrier_Pickup extends Mage_Shipping_Model_Carrier_Abstract implements Mage_Shipping_Model_Carrier_Interface
 {
     protected $_code = 'pickup';
+
     protected $_isFixed = true;
 
     /**

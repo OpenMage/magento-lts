@@ -69,6 +69,7 @@ class Mage_Index_Model_Indexer
         if (is_null($this->_processesCollection)) {
             $this->_processesCollection = Mage::getResourceModel('index/process_collection');
         }
+
         return $this->_processesCollection;
     }
 
@@ -85,6 +86,7 @@ class Mage_Index_Model_Indexer
                 return $process;
             }
         }
+
         return false;
     }
 
@@ -101,6 +103,7 @@ class Mage_Index_Model_Indexer
                 return $process;
             }
         }
+
         return false;
     }
 
@@ -119,8 +122,10 @@ class Mage_Index_Model_Indexer
                 $this->_errors[] = sprintf('Warning: Unknown indexer with code %s', trim($code));
                 continue;
             }
+
             $processes[$process->getIndexerCode()] = $process;
         }
+
         return $processes;
     }
 
@@ -210,11 +215,13 @@ class Mage_Index_Model_Indexer
             $resourceModel->rollBack();
             throw $e;
         }
+
         if ($allowTableChanges) {
             $this->_allowTableChanges = true;
             $this->_changeKeyStatus(true);
             $this->_currentEvent = null;
         }
+
         Mage::dispatchEvent('end_index_events' . $this->_getEventTypeName($entity, $type));
         return $this;
     }
@@ -261,6 +268,7 @@ class Mage_Index_Model_Indexer
         if ($doSave) {
             $event->save();
         }
+
         return $event;
     }
 
@@ -302,16 +310,20 @@ class Mage_Index_Model_Indexer
                     $this->_changeKeyStatus(true);
                     $this->_currentEvent = null;
                 }
+
                 throw $e;
             }
+
             if ($allowTableChanges) {
                 $this->_allowTableChanges = true;
                 $this->_changeKeyStatus(true);
                 $this->_currentEvent = null;
             }
+
             $event->save();
             Mage::dispatchEvent('end_process_event' . $this->_getEventTypeName($entityType, $eventType));
         }
+
         return $this;
     }
 
@@ -332,6 +344,7 @@ class Mage_Index_Model_Indexer
             if (in_array($code, $processed)) {
                 continue;
             }
+
             $hasLocks = false;
 
             if ($process->getDepends()) {
@@ -417,8 +430,10 @@ class Mage_Index_Model_Indexer
             } else {
                 $process->disableIndexerKeys();
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -458,6 +473,7 @@ class Mage_Index_Model_Indexer
         if (!empty($eventName)) {
             $eventName = '_' . $eventName;
         }
+
         return $eventName;
     }
 }

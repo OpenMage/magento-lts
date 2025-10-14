@@ -19,6 +19,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Source_Protection_Rounding
         foreach ($carrier->getAdditionalProtectionRoundingTypes() as $k => $v) {
             $arr[] = ['value' => $k, 'label' => $v];
         }
+
         return $arr;
     }
 }

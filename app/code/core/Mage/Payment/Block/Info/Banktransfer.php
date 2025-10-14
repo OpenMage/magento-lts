@@ -41,6 +41,7 @@ class Mage_Payment_Block_Info_Banktransfer extends Mage_Payment_Block_Info
                 $this->_instructions = $this->getMethod()->getInstructions();
             }
         }
+
         return $this->_instructions;
     }
 }

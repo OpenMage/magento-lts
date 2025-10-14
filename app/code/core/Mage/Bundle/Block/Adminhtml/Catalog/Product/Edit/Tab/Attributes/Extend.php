@@ -23,6 +23,7 @@
 class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend extends Mage_Adminhtml_Block_Catalog_Form_Renderer_Fieldset_Element
 {
     public const DYNAMIC = 0;
+
     public const FIXED = 1;
 
     /**
@@ -63,6 +64,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         ) {
             $html .= '<span class="next-toselect">' . $elementHtml . '</span>';
         }
+
         if ($this->getDisableChild() && !$this->getElement()->getReadonly()) {
             $html .= '<script type="text/javascript">
                 function ' . $switchAttributeCode . "_change() {
@@ -105,9 +107,11 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
             ) {
                 $html .= "$('" . $switchAttributeCode . "').observe('change', " . $switchAttributeCode . '_change);';
             }
+
             $html .= $switchAttributeCode . '_change();
             </script>';
         }
+
         return $html;
     }
 
@@ -119,6 +123,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Extend ext
         if (!$this->getData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
+
         return $this->getData('product');
     }
 }

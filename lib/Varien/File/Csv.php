@@ -14,8 +14,11 @@
 class Varien_File_Csv
 {
     protected $_lineLength = 0;
+
     protected $_delimiter = ',';
+
     protected $_enclosure = '"';
+
     protected $_escape = '\\';
 
     public function __construct() {}
@@ -73,6 +76,7 @@ class Varien_File_Csv
         while ($rowData = fgetcsv($fh, $this->_lineLength, $this->_delimiter, $this->_enclosure, $this->_escape)) {
             $data[] = $rowData;
         }
+
         fclose($fh);
         return $data;
     }
@@ -94,6 +98,7 @@ class Varien_File_Csv
                 $data[$rowData[$keyIndex]] = $rowData[$valueIndex] ?? null;
             }
         }
+
         return $data;
     }
 
@@ -110,6 +115,7 @@ class Varien_File_Csv
         foreach ($data as $dataRow) {
             $this->fputcsv($fh, $dataRow, $this->_delimiter, $this->_enclosure);
         }
+
         fclose($fh);
         return $this;
     }
@@ -137,14 +143,17 @@ class Varien_File_Csv
                     } else {
                         $escaped = 0;
                     }
+
                     $str2 .= $value[$i];
                 }
+
                 $str2 .= $enclosure;
                 $str .= $str2 . $delimiter;
             } else {
                 $str .= $enclosure . $value . $enclosure . $delimiter;
             }
         }
+
         $str = substr($str, 0, -1);
         $str .= "\n";
         return fwrite($handle, $str);

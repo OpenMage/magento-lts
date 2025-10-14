@@ -103,6 +103,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         if (empty($productIds)) {
             return [];
         }
+
         $itemTable = $this->getTable('cataloginventory/stock_item');
         $productTable = $this->getTable('catalog/product');
         $select = $this->_getWriteAdapter()->select()
@@ -124,6 +125,7 @@ class Mage_CatalogInventory_Model_Resource_Stock extends Mage_Core_Model_Resourc
         foreach ($rows as &$row) {
             $row['type_id'] = $typeIds[$row['product_id']];
         }
+
         return $rows;
     }
 

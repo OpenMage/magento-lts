@@ -35,6 +35,7 @@ class Mage_Core_Block_Text_Tag_Js extends Mage_Core_Block_Text_Tag
         if (empty($type)) {
             $type = 'js';
         }
+
         $url = Mage::getBaseUrl($type) . $src;
 
         return $this->setTagParam('src', $url);

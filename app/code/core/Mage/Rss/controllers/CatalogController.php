@@ -52,6 +52,7 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
                 return;
             }
         }
+
         $this->_forward('nofeed', 'index', 'rss');
     }
 
@@ -91,10 +92,12 @@ class Mage_Rss_CatalogController extends Mage_Rss_Controller_Abstract
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('catalog/products');
         }
+
         if ($action == 'review' && $this->isFeedEnable('catalog/review')) {
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('catalog/reviews_ratings');
         }
+
         return parent::preDispatch();
     }
 }

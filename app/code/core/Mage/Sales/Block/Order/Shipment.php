@@ -69,6 +69,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::getUrl('*/*/history');
         }
+
         return Mage::getUrl('*/*/form');
     }
 
@@ -82,6 +83,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         if (Mage::getSingleton('customer/session')->isLoggedIn()) {
             return Mage::helper('sales')->__('Back to My Orders');
         }
+
         return Mage::helper('sales')->__('View Another Order');
     }
 
@@ -135,6 +137,7 @@ class Mage_Sales_Block_Order_Shipment extends Mage_Core_Block_Template
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return false;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         return $helper->getIsMessagesAvailable($helper::TYPE_ORDER, $this->getOrder());

@@ -78,6 +78,7 @@ foreach ($websiteRows as $websiteRow) {
     } elseif (isset($rootCategoryIds['default'][0])) {
         $rootCategoryId = $rootCategoryIds['default'][0];
     }
+
     $defaultStoreId = (int) $installer->getConnection()
         ->fetchOne($installer->getConnection()
             ->select()

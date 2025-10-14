@@ -65,6 +65,7 @@ class Mage_Adminhtml_Block_Report_Product_Viewed_Grid extends Mage_Adminhtml_Blo
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
+
         $currencyCode = $this->getCurrentCurrencyCode();
 
         $this->addColumn('product_price', [

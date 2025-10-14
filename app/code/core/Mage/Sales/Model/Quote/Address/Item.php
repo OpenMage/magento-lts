@@ -108,6 +108,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
      * @var Mage_Sales_Model_Quote_Address
      */
     protected $_address;
+
     protected $_quote;
 
     protected function _construct()
@@ -124,6 +125,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         if ($this->getAddress()) {
             $this->setQuoteAddressId($this->getAddress()->getId());
         }
+
         return $this;
     }
 
@@ -182,6 +184,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         if (!$this->hasQty()) {
             $this->setQty($quoteItem->getQty());
         }
+
         $this->setQuoteItemImported(true);
         return $this;
     }
@@ -195,6 +198,7 @@ class Mage_Sales_Model_Quote_Address_Item extends Mage_Sales_Model_Quote_Item_Ab
         if ($this->getQuoteItem()) {
             return $this->getQuoteItem()->getOptionBycode($code);
         }
+
         return null;
     }
 }

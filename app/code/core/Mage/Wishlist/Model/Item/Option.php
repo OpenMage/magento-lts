@@ -23,6 +23,7 @@
 class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
     protected $_item;
+
     protected $_product;
 
     protected function _construct()
@@ -56,6 +57,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
         if ($this->getWishlistItemId() != $item->getId()) {
             $this->setWishlistItemId($item->getId());
         }
+
         return $this;
     }
 
@@ -81,6 +83,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
         if ($this->getProductId() != $product->getId()) {
             $this->setProductId($product->getId());
         }
+
         return $this;
     }
 
@@ -114,6 +117,7 @@ class Mage_Wishlist_Model_Item_Option extends Mage_Core_Model_Abstract implement
         if ($this->getItem()) {
             $this->setWishlistItemId($this->getItem()->getId());
         }
+
         return parent::_beforeSave();
     }
 

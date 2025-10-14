@@ -53,6 +53,7 @@ foreach ($data as $entityCode => $ratings) {
                 'position'  => $i,
             ];
         }
+
         $installer->getConnection()->insertMultiple($installer->getTable('rating_option'), $optionData);
     }
 }

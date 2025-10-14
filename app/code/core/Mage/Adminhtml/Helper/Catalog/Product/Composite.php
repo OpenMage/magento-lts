@@ -66,6 +66,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
         } else {
             $update->addHandle('ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE_ERROR');
         }
+
         $controller->loadLayoutUpdates()->generateLayoutXml()->generateLayoutBlocks();
         return $this;
     }
@@ -98,6 +99,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
             if (!$product->getId()) {
                 Mage::throwException($this->__('Product is not loaded.'));
             }
+
             Mage::register('current_product', $product);
             Mage::register('product', $product);
 
@@ -110,6 +112,7 @@ class Mage_Adminhtml_Helper_Catalog_Product_Composite extends Mage_Core_Helper_A
                         ->load($currentCustomerId);
                 }
             }
+
             if ($currentCustomer) {
                 Mage::register('current_customer', $currentCustomer);
             }

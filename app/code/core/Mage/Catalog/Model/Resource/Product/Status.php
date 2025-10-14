@@ -49,6 +49,7 @@ class Mage_Catalog_Model_Resource_Product_Status extends Mage_Core_Model_Resourc
             $this->_productAttributes[$attribute] =
                 Mage::getSingleton('catalog/product')->getResource()->getAttribute($attribute);
         }
+
         return $this->_productAttributes[$attribute];
     }
 

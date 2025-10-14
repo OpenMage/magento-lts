@@ -47,6 +47,7 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
                 if ($type && $type != 'order') {
                     $urlAppend = $type;
                 }
+
                 $type  = Mage::helper('rss')->__(ucwords($type));
                 $title = Mage::helper('rss')->__('Details for %s #%s', $type, $result['increment_id']);
 
@@ -64,6 +65,7 @@ class Mage_Rss_Block_Order_Status extends Mage_Core_Block_Template
                 $rssObj->_addEntry($data);
             }
         }
+
         $title = Mage::helper('rss')->__('Order #%s created at %s', $order->getIncrementId(), $this->formatDate($order->getCreatedAt()));
         $url = Mage::getUrl('sales/order/view', ['order_id' => $order->getId()]);
         $description = '<p>' .

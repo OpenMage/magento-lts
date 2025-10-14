@@ -85,6 +85,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         if ($orderItem->getProduct()) {
             return $orderItem->getProduct()->getStockItem()->getIsInStock();
         }
+
         return false;
     }
 
@@ -113,6 +114,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         foreach ($this->getOrders() as $order) {
             return $order;
         }
+
         return false;
     }
 
@@ -160,6 +162,7 @@ class Mage_Sales_Block_Reorder_Sidebar extends Mage_Core_Block_Template
         foreach ($this->getItems() as $item) {
             $products[] = $item->getProduct();
         }
+
         return $products;
     }
 }

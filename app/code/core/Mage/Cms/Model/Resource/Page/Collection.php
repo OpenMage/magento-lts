@@ -100,6 +100,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
                         if (!isset($result[$item->getData('page_id')])) {
                             continue;
                         }
+
                         if ($result[$item->getData('page_id')] == 0) {
                             $stores = Mage::app()->getStores(false, true);
                             $storeId = current($stores)->getId();
@@ -108,6 +109,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
                             $storeId = $result[$item->getData('page_id')];
                             $storeCode = Mage::app()->getStore($storeId)->getCode();
                         }
+
                         $item->setData('_first_store_id', $storeId);
                         $item->setData('store_code', $storeCode);
                     }
@@ -142,6 +144,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
 
             $this->addFilter('store', ['in' => $store], 'public');
         }
+
         return $this;
     }
 
@@ -163,6 +166,7 @@ class Mage_Cms_Model_Resource_Page_Collection extends Mage_Core_Model_Resource_D
              */
             $this->_useAnalyticFunction = true;
         }
+
         parent::_renderFiltersBefore();
     }
 

@@ -67,6 +67,7 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
                 }
             } // End
         }
+
         return $options[$value] ?? false;
     }
 
@@ -81,16 +82,19 @@ abstract class Mage_Eav_Model_Entity_Attribute_Source_Abstract implements Mage_E
             if (strcasecmp($option['label'], $value) == 0) {
                 return $option['value'];
             }
+
             if ($option['value'] == $value) {
                 $bcWarning = true;
             }
         }
+
         if ($bcWarning) {
             Mage::log(
                 'Mage_Eav_Model_Entity_Attribute_Source_Abstract::getOptionId() no longer accepts option_id as param',
                 Zend_Log::WARN,
             );
         }
+
         return null;
     }
 

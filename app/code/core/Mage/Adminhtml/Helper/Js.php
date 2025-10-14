@@ -49,6 +49,7 @@ class Mage_Adminhtml_Helper_Js extends Mage_Core_Helper_Js
                 }
             }
         }
+
         return $result;
     }
 }

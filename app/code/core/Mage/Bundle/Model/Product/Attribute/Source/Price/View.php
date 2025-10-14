@@ -33,6 +33,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
                 ],
             ];
         }
+
         return $this->_options;
     }
 
@@ -50,6 +51,7 @@ class Mage_Bundle_Model_Product_Attribute_Source_Price_View extends Mage_Eav_Mod
                 return $option['label'];
             }
         }
+
         return false;
     }
 

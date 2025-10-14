@@ -44,11 +44,13 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
                 break;
             }
         }
+
         if ($this->getOrder()->getForcedDoShipmentWithInvoice()) {
             $submitLabel = Mage::helper('sales')->__('Submit Invoice and Shipment');
         } else {
             $submitLabel = Mage::helper('sales')->__('Submit Invoice');
         }
+
         $this->setChild(
             'submit_button',
             $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
@@ -157,6 +159,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
                 return true;
             }
         }
+
         return false;
     }
 
@@ -165,6 +168,7 @@ class Mage_Adminhtml_Block_Sales_Order_Invoice_Create_Items extends Mage_Adminht
         if ($this->getInvoice()->getOrder()->getPayment()->canCapture()) {
             return $this->getInvoice()->getOrder()->getPayment()->canCapturePartial();
         }
+
         return true;
     }
 

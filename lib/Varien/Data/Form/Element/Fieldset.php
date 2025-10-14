@@ -49,6 +49,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
         if ($this->getLegend()) {
             $html .= '<legend>' . $this->getLegend() . '</legend>' . "\n";
         }
+
         $html .= $this->getChildrenHtml();
         $html .= '</fieldset></div>' . "\n";
         return $html . $this->getAfterElementHtml();
@@ -65,6 +66,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
                 $html .= $element->toHtml();
             }
         }
+
         return $html;
     }
 
@@ -79,6 +81,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
                 $html .= $element->toHtml();
             }
         }
+
         return $html;
     }
 
@@ -104,6 +107,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
         if ($renderer = Varien_Data_Form::getFieldsetElementRenderer()) {
             $element->setRenderer($renderer);
         }
+
         return $element;
     }
 
@@ -138,9 +142,11 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
                 if ($e->hasData($sortKey)) {
                     $key = $e->getDataUsingMethod($sortKey) . $key;
                 }
+
                 $elements[$key] = $e;
                 $uniqueIncrement++;
             }
+
             ksort($elements, $this->_sortChildrenDirection);
             $elements = array_values($elements);
         } else {
@@ -148,6 +154,7 @@ class Varien_Data_Form_Element_Fieldset extends Varien_Data_Form_Element_Abstrac
                 $elements[] = $element;
             }
         }
+
         return $elements;
     }
 }

@@ -26,6 +26,7 @@ class Mage_Customer_Model_Api2_Customer_Rest_Customer_V1 extends Mage_Customer_M
         if ($this->getApiUser()->getUserId() !== $customerId) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         return true;
     }
 

@@ -25,6 +25,7 @@ class Mage_Customer_Model_Entity_Address_Attribute_Source_Country extends Mage_C
     {
         $this->_factory = !empty($args['factory']) ? $args['factory'] : Mage::getSingleton('core/factory');
     }
+
     /**
      * Retrieve all options
      *
@@ -38,6 +39,7 @@ class Mage_Customer_Model_Entity_Address_Attribute_Source_Country extends Mage_C
             $this->_options = $this->_factory->getResourceModel('directory/country_collection')
                 ->loadByStore($this->getAttribute()->getStoreId())->toOptionArray();
         }
+
         return $this->_options;
     }
 }

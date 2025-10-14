@@ -67,6 +67,7 @@ class Mage_Weee_Model_Total_Invoice_Weee extends Mage_Sales_Model_Order_Invoice_
 
                 $newApplied[] = $one;
             }
+
             Mage::helper('weee')->setApplied($item, $newApplied);
 
             $item->setWeeeTaxRowDisposition($item->getWeeeTaxDisposition() * $item->getQty());

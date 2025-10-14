@@ -29,6 +29,7 @@ class Mage_Customer_Model_Attribute_Data_Postcode extends Mage_Eav_Model_Attribu
         if (!in_array($countryId, $optionalZip)) {
             return parent::validateValue($value);
         }
+
         return true;
     }
 }

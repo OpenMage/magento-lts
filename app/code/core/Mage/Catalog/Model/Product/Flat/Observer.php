@@ -254,6 +254,7 @@ class Mage_Catalog_Model_Product_Flat_Observer
         ) {
             $this->_getIndexer()->updateEventAttributes();
         }
+
         return $this;
     }
 

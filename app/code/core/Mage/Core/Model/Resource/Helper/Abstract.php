@@ -116,10 +116,12 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
             $from[] = '_';
             $to[] = '\_';
         }
+
         if (empty($options['allow_string_mask'])) {
             $from[] = '%';
             $to[] = '\%';
         }
+
         if ($from) {
             $value = str_replace($from, $to, $value);
         }
@@ -130,7 +132,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                     $value = '%' . $value . '%';
                     break;
                 case 'start':
-                    $value = $value . '%';
+                    $value .= '%';
                     break;
                 case 'end':
                     $value = '%' . $value;
@@ -205,6 +207,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = 255;
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'text':
@@ -212,6 +215,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '64k';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'mediumtext':
@@ -219,6 +223,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '16M';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'longtext':
@@ -226,6 +231,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '4G';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_TEXT;
                 break;
             case 'blob':
@@ -233,6 +239,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '64k';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'mediumblob':
@@ -240,6 +247,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '16M';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'longblob':
@@ -247,6 +255,7 @@ abstract class Mage_Core_Model_Resource_Helper_Abstract
                 if (!$length) {
                     $length = '4G';
                 }
+
                 $type = Varien_Db_Ddl_Table::TYPE_BLOB;
                 break;
             case 'tinyint':

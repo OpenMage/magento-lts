@@ -148,6 +148,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Form extends Mage_Adminhtml_Block_Widget_For
         if ($rateObject->getZipIsRange()) {
             [$rateData['zip_from'], $rateData['zip_to']] = explode('-', $rateData['tax_postcode']);
         }
+
         $form->setValues($rateData);
         $this->setForm($form);
 

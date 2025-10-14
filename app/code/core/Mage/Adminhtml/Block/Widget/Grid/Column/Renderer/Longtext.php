@@ -29,16 +29,20 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Longtext extends Mage_Adm
         if ($this->getColumn()->getStringLimit()) {
             $truncateLength = $this->getColumn()->getStringLimit();
         }
+
         if ($this->getColumn()->getTruncate()) {
             $truncateLength = $this->getColumn()->getTruncate();
         }
+
         $text = Mage::helper('core/string')->truncate((string) parent::_getValue($row), $truncateLength);
         if ($this->getColumn()->getEscape() !== false) {
             $text = $this->escapeHtml($text);
         }
+
         if ($this->getColumn()->getNl2br()) {
             $text = nl2br($text);
         }
+
         return $text;
     }
 }

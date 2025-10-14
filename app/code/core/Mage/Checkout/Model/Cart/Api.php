@@ -43,6 +43,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('create_quote_fault', $e->getMessage());
         }
+
         return (int) $quote->getId();
     }
 
@@ -101,6 +102,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
                 'amount' => $total->getValue(),
             ];
         }
+
         return $totalsResult;
     }
 
@@ -126,6 +128,7 @@ class Mage_Checkout_Model_Cart_Api extends Mage_Checkout_Model_Api_Resource
         if ($quote->getIsMultiShipping()) {
             $this->_fault('invalid_checkout_type');
         }
+
         if ($quote->getCheckoutMethod() == Mage_Checkout_Model_Api_Resource_Customer::MODE_GUEST
                 && !Mage::helper('checkout')->isAllowedGuestCheckout($quote, $quote->getStoreId())
         ) {

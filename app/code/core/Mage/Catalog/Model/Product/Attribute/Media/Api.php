@@ -131,6 +131,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
         } else {
             $fileName  = 'image';
         }
+
         $fileName .= '.' . $this->_mimeTypes[$data['file']['mime']];
 
         $ioAdapter = new Varien_Io_File();
@@ -174,7 +175,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
             $product->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('not_created', $e->getMessage());
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('not_created', Mage::helper('catalog')->__('Cannot create image.'));
         }
 
@@ -223,7 +224,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
                 $fileName = Mage::getBaseDir('media') . DS . 'catalog' . DS . 'product' . $file;
                 $ioAdapter->open(['path' => dirname($fileName)]);
                 $ioAdapter->write(basename($fileName), $fileContent, 0666);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_fault('not_created', Mage::helper('catalog')->__('Can\'t create image.'));
             }
         }
@@ -240,7 +241,7 @@ class Mage_Catalog_Model_Product_Attribute_Media_Api extends Mage_Catalog_Model_
 
             $clear = array_diff($oldTypes, $data['types']);
 
-            if (count($clear) > 0) {
+            if ($clear !== []) {
                 $gallery->getBackend()->clearMediaAttribute($product, $clear);
             }
 

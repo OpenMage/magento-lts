@@ -65,6 +65,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
         } else {
             $this->_getResource()->prepareFlatTable($store);
         }
+
         Mage::getSingleton('index/indexer')->processEntityAction(
             new Varien_Object(['id' => $store]),
             self::ENTITY,
@@ -157,6 +158,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             foreach (Mage::app()->getStores() as $store) {
                 $this->updateProductStatus($productId, $status, $store->getId());
             }
+
             return $this;
         }
 
@@ -183,6 +185,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             foreach (Mage::app()->getStores() as $store) {
                 $this->updateProduct($productIds, $store->getId());
             }
+
             return $this;
         }
 
@@ -214,6 +217,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             foreach (Mage::app()->getStores() as $store) {
                 $this->saveProduct($productIds, $store->getId());
             }
+
             return $this;
         }
 
@@ -245,6 +249,7 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             foreach (Mage::app()->getStores() as $store) {
                 $this->removeProduct($productIds, $store->getId());
             }
+
             return $this;
         }
 

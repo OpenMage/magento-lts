@@ -15,8 +15,11 @@
 abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Container_Interface
 {
     protected $_vars;
+
     protected $_profile;
+
     protected $_data;
+
     protected $_position;
 
     public function getVar($key, $default = null)
@@ -24,6 +27,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         if (!isset($this->_vars[$key])) {
             return $default;
         }
+
         return $this->_vars[$key];
     }
 
@@ -39,6 +43,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         } else {
             $this->_vars[$key] = $value;
         }
+
         return $this;
     }
 
@@ -58,6 +63,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         if (is_null($this->_data) && $this->getProfile()) {
             $this->_data = $this->getProfile()->getContainer()->getData();
         }
+
         return $this->_data;
     }
 
@@ -66,6 +72,7 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         if ($this->getProfile()) {
             $this->getProfile()->getContainer()->setData($data);
         }
+
         $this->_data = $data;
         return $this;
     }
@@ -75,9 +82,11 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         if (is_null($data)) {
             $data = $this->getData();
         }
+
         if (!is_string($data)) {
             $this->addException('Invalid data type, expecting string.', Varien_Convert_Exception::FATAL);
         }
+
         return true;
     }
 
@@ -86,9 +95,11 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         if (is_null($data)) {
             $data = $this->getData();
         }
+
         if (!is_array($data)) {
             $this->addException('Invalid data type, expecting array.', Varien_Convert_Exception::FATAL);
         }
+
         return true;
     }
 
@@ -97,25 +108,29 @@ abstract class Varien_Convert_Container_Abstract implements Varien_Convert_Conta
         if (is_null($data)) {
             $data = $this->getData();
         }
+
         if (!is_array($data) || !is_array(current($data))) {
             if (count($data) == 0) {
                 return true;
             }
+
             $this->addException('Invalid data type, expecting 2D grid array.', Varien_Convert_Exception::FATAL);
         }
+
         return true;
     }
 
     public function getGridFields($grid)
     {
         $fields = [];
-        foreach ($grid as $i => $row) {
+        foreach ($grid as $row) {
             foreach ($row as $fieldName => $data) {
                 if (!in_array($fieldName, $fields)) {
                     $fields[] = $fieldName;
                 }
             }
         }
+
         return $fields;
     }
 

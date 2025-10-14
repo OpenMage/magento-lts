@@ -49,8 +49,10 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
             if ($collection) {
                 $collection = $collection->getItemCollection()->load();
             }
+
             $this->setData('item_collection', $collection);
         }
+
         return $collection;
     }
 
@@ -68,6 +70,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
             $item->setPrice($product->getFinalPrice(1));
             $item->setTypeId($product->getTypeId());
         }
+
         return $items;
     }
 
@@ -101,6 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Wishlist extends Mage_Admi
         if (!Mage::helper('wishlist')->isAllow()) {
             return false;
         }
+
         return parent::canDisplay();
     }
 

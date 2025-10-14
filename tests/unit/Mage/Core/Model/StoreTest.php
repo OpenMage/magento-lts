@@ -38,6 +38,7 @@ final class StoreTest extends OpenMageTest
         if ($withStore) {
             self::$subject->setData('store_id', $withStore);
         }
+
         self::assertSame($expectedResult, self::$subject->getId());
     }
 }

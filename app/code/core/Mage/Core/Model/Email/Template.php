@@ -70,12 +70,17 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
      * Configuration path for default email templates
      */
     public const XML_PATH_TEMPLATE_EMAIL               = 'global/template/email';
+
     public const XML_PATH_SENDING_SET_RETURN_PATH      = 'system/smtp/set_return_path';
+
     public const XML_PATH_SENDING_RETURN_PATH_EMAIL    = 'system/smtp/return_path_email';
 
     protected $_templateFilter;
+
     protected $_preprocessFlag = false;
+
     protected $_mail;
+
     protected $_bccEmails = [];
 
     protected static $_defaultTemplates;
@@ -99,6 +104,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if (is_null($this->_mail)) {
             $this->_mail = new Zend_Mail('utf-8');
         }
+
         return $this->_mail;
     }
 
@@ -125,6 +131,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_templateFilter->setUseAbsoluteLinks($this->getUseAbsoluteLinks())
                 ->setStoreId($this->getDesignConfig()->getStore());
         }
+
         return $this->_templateFilter;
     }
 
@@ -221,8 +228,10 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             } else {
                 $module = 'adminhtml';
             }
+
             $idLabel[$templateId] = Mage::helper($module)->__($row['label']);
         }
+
         asort($idLabel);
         foreach ($idLabel as $templateId => $label) {
             $options[] = ['value' => $templateId, 'label' => $label];
@@ -314,6 +323,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_cancelDesignConfig();
             throw $e;
         }
+
         $this->_cancelDesignConfig();
         return $processedResult;
     }
@@ -451,7 +461,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                 $mail->send();
             }
 
-            foreach ($emails as $key => $email) {
+            foreach ($emails as $email) {
                 Mage::dispatchEvent('email_template_send_after', [
                     'to'         => $email,
                     'html'       => !$this->isPlain(),
@@ -460,6 +470,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                     'email_body' => $text,
                 ]);
             }
+
             $this->_mail = null;
         } catch (Exception $e) {
             $this->_mail = null;
@@ -515,6 +526,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if (!isset($vars['store'])) {
             $vars['store'] = Mage::app()->getStore($storeId);
         }
+
         $this->setSentSuccess($this->send($email, $name, $vars));
         return $this;
     }
@@ -541,6 +553,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_cancelDesignConfig();
             throw $e;
         }
+
         $this->_cancelDesignConfig();
         return $processedResult;
     }
@@ -560,6 +573,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $this->_bccEmails[] = $bcc;
             $this->getMail()->addBcc($bcc);
         }
+
         return $this;
     }
 
@@ -600,6 +614,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
             $variablesString = str_replace("\n", '', $variablesString);
             $variables = Zend_Json::decode($variablesString);
         }
+
         return $variables;
     }
 
@@ -620,6 +635,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                     'label' => Mage::helper('core')->__('%s', $label),
                 ];
             }
+
             if ($withGroup) {
                 $optionArray = [
                     'label' => Mage::helper('core')->__('Template Variables'),
@@ -627,6 +643,7 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
                 ];
             }
         }
+
         return $optionArray;
     }
 
@@ -641,9 +658,11 @@ class Mage_Core_Model_Email_Template extends Mage_Core_Model_Email_Template_Abst
         if (empty($code)) {
             Mage::throwException(Mage::helper('core')->__('The template Name must not be empty.'));
         }
+
         if ($this->_getResource()->checkCodeUsage($this)) {
             Mage::throwException(Mage::helper('core')->__('Duplicate Of Template Name'));
         }
+
         return parent::_beforeSave();
     }
 
