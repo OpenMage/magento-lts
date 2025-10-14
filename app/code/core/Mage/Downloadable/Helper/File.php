@@ -70,8 +70,10 @@ class Mage_Downloadable_Helper_File extends Mage_Core_Helper_Abstract
                     Mage::throwException(Mage::helper('downloadable')->__('An error occurred while saving the file(s).'));
                 }
             }
+
             return $fileName;
         }
+
         return '';
     }
 

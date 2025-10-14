@@ -19,6 +19,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
      * Request parameters names
      */
     public const REQUEST_PARAM_COUNTRY = 'country';
+
     public const REQUEST_PARAM_DEFAULT = 'default_country';
 
     /**
@@ -46,14 +47,17 @@ class Mage_Paypal_Block_Adminhtml_System_Config_Field_Country extends Mage_Admin
             if ($defaultConfigNode) {
                 $this->_defaultCountry = (string) $defaultConfigNode->descend('paypal/general/merchant_country');
             }
+
             if (!$this->_defaultCountry) {
                 $this->_defaultCountry = Mage::helper('core')->getDefaultCountry();
             }
+
             if ($country) {
                 $shouldInherit = $country == $this->_defaultCountry
                     && $this->getRequest()->getParam(self::REQUEST_PARAM_DEFAULT);
                 $element->setInherit($shouldInherit);
             }
+
             if ($element->getInherit()) {
                 $this->_defaultCountry = null;
             }

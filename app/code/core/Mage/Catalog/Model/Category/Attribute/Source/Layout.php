@@ -23,6 +23,7 @@ class Mage_Catalog_Model_Category_Attribute_Source_Layout extends Mage_Eav_Model
             $this->_options = Mage::getSingleton('page/source_layout')->toOptionArray();
             array_unshift($this->_options, ['value' => '', 'label' => Mage::helper('catalog')->__('No layout updates')]);
         }
+
         return $this->_options;
     }
 }

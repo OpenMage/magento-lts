@@ -73,6 +73,7 @@ class Mage_Reports_Model_Resource_Event_Collection extends Mage_Core_Model_Resou
                 $select->where('object_id <> ?', $ignore);
             }
         }
+
         $select->group('object_id')
             ->limit($limit);
         return $this;

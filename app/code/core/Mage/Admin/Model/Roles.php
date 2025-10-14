@@ -158,6 +158,7 @@ class Mage_Admin_Model_Roles extends Mage_Core_Model_Abstract
                 $resource->{$key} = null;
                 continue;
             }
+
             $this->_buildResourcesArray($child, $resourceName, $level + 1, $represent2Darray, $rawNodes, $module);
         }
 

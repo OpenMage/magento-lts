@@ -15,8 +15,11 @@
 class Mage_Adminhtml_Model_System_Config_Source_Customer_Forgotpassword
 {
     public const FORGOTPASS_FLOW_DISABLED  = 0;
+
     public const FORGOTPASS_FLOW_IP_EMAIL  = 1;
+
     public const FORGOTPASS_FLOW_IP        = 2;
+
     public const FORGOTPASS_FLOW_EMAIL     = 3;
 
     public function toOptionArray()

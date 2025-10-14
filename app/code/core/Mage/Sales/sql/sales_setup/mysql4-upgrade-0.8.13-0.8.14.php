@@ -207,6 +207,7 @@ foreach ($orders as $order) {
             unset($order[$key]);
         }
     }
+
     $installer->getConnection()->insert($this->getTable('sales_order'), $order);
     $new_entity_id = $installer->getConnection()->lastInsertId();
 

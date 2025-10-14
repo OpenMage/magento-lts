@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
             $data = Mage::app()->getLocale()->currency($currencyCode)->toCurrency($data);
             return $sign . $data;
         }
+
         return $this->getColumn()->getDefault();
     }
 
@@ -55,9 +56,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
         if ($code = $this->getColumn()->getCurrencyCode()) {
             return $code;
         }
+
         if ($code = $row->getData($this->getColumn()->getCurrency())) {
             return $code;
         }
+
         return false;
     }
 
@@ -72,9 +75,11 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Currency extends Mage_Adm
         if ($rate = $this->getColumn()->getRate()) {
             return (float) $rate;
         }
+
         if (($rateField = $this->getColumn()->getRateField()) && ($rate = $row->getData($rateField))) {
             return (float) $rate;
         }
+
         return 1;
     }
 }

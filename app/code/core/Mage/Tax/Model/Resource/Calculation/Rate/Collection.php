@@ -96,6 +96,7 @@ class Mage_Tax_Model_Resource_Calculation_Rate_Collection extends Mage_Core_Mode
                 [$tableAlias => 'value'],
             );
         }
+
         return $this;
     }
 

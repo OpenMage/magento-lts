@@ -25,6 +25,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if (!Mage::getSingleton('customer/session')->authenticate($this)) {
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
         }
+
         return $this;
     }
 
@@ -58,6 +59,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');
         }
+
         if ($block = $this->getLayout()->getBlock('review_customer_list')) {
             $block->setRefererUrl($this->_getRefererUrl());
         }
@@ -79,6 +81,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         if ($navigationBlock = $this->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('review/customer');
         }
+
         $this->getLayout()->getBlock('head')->setTitle($this->__('Review Details'));
         $this->renderLayout();
     }

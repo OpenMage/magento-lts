@@ -145,6 +145,7 @@ class Mage_ConfigurableSwatches_Model_Observer extends Mage_Core_Model_Abstract
             } elseif ($front == 'catalogsearch') {
                 $blockName = 'catalogsearch.leftnav';
             }
+
             Mage::helper('configurableswatches/productlist')->convertLayerBlock($blockName);
         }
     }

@@ -73,6 +73,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
                 $itemsOrderItemId[$orderItemId]  = $orderItemId;
             }
         }
+
         $data = [
             'createLabelUrl'            => $createLabelUrl,
             'itemsGridUrl'              => $itemsGridUrl,
@@ -110,6 +111,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             ]);
             return $carrier->getContainerTypes($params);
         }
+
         return [];
     }
 
@@ -124,6 +126,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         if ($carrier) {
             return $carrier->getCustomizableContainerTypes();
         }
+
         return [];
     }
 
@@ -140,6 +143,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             $containerTypes = $carrier->getContainerTypes();
             return !empty($containerTypes[$code]) ? $containerTypes[$code] : '';
         }
+
         return '';
     }
 
@@ -158,6 +162,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             $confirmationTypes = $carrier->getDeliveryConfirmationTypes($params);
             return !empty($confirmationTypes[$code]) ? $confirmationTypes[$code] : '';
         }
+
         return '';
     }
 
@@ -173,6 +178,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         if (!empty($contentTypes[$code])) {
             return $contentTypes[$code];
         }
+
         return '';
     }
 
@@ -189,6 +195,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         } else {
             $packages = [];
         }
+
         return $packages;
     }
 
@@ -209,6 +216,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
                 return $item;
             }
         }
+
         return new Varien_Object();
     }
 
@@ -230,6 +238,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
             return true;
         }
+
         return false;
     }
 
@@ -246,6 +255,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
         if ($carrier && is_array($carrier->getDeliveryConfirmationTypes($params))) {
             return $carrier->getDeliveryConfirmationTypes($params);
         }
+
         return [];
     }
 
@@ -301,6 +311,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging extends Mage_Adminhtml
             ]);
             return $carrier->getContentTypes($params);
         }
+
         return [];
     }
 

@@ -15,27 +15,42 @@
 class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_DEFAULT_COUNTRY              = 'general/country/default';
+
     public const XML_PATH_PROTECTED_FILE_EXTENSIONS    = 'general/file/protected_extensions';
+
     public const XML_PATH_PUBLIC_FILES_VALID_PATHS     = 'general/file/public_files_valid_paths';
+
     public const XML_PATH_ENCRYPTION_MODEL             = 'global/helpers/core/encryption_model';
+
     public const XML_PATH_DEV_ALLOW_IPS                = 'dev/restrict/allow_ips';
+
     public const XML_PATH_CACHE_BETA_TYPES             = 'global/cache/betatypes';
+
     public const XML_PATH_CONNECTION_TYPE              = 'global/resources/default_setup/connection/type';
 
     public const CHARS_LOWERS                          = 'abcdefghijklmnopqrstuvwxyz';
+
     public const CHARS_UPPERS                          = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
     public const CHARS_DIGITS                          = '0123456789';
+
     public const CHARS_SPECIALS                        = '!$*+-.=?@^_|~';
+
     public const CHARS_PASSWORD_LOWERS                 = 'abcdefghjkmnpqrstuvwxyz';
+
     public const CHARS_PASSWORD_UPPERS                 = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+
     public const CHARS_PASSWORD_DIGITS                 = '23456789';
+
     public const CHARS_PASSWORD_SPECIALS               = '!$*-.=?@_';
 
     /**
      * Config paths to merchant country code and merchant VAT number
      */
     public const XML_PATH_MERCHANT_COUNTRY_CODE = 'general/store_information/merchant_country';
+
     public const XML_PATH_MERCHANT_VAT_NUMBER = 'general/store_information/merchant_vat_number';
+
     public const XML_PATH_EU_COUNTRIES_LIST = 'general/country/eu_countries';
 
     /**
@@ -72,6 +87,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
 
             $this->_encryptor->setHelper($this);
         }
+
         return $this->_encryptor;
     }
 
@@ -227,6 +243,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::isInstalled()) {
             return $data;
         }
+
         return $this->getEncryptor()->encrypt($data);
     }
 
@@ -241,6 +258,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (!Mage::isInstalled()) {
             return $data;
         }
+
         return $this->getEncryptor()->decrypt($data);
     }
 
@@ -263,9 +281,11 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($chars)) {
             $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
         }
+
         for ($i = 0, $str = '', $lc = strlen($chars) - 1; $i < $len; $i++) {
             $str .= $chars[random_int(0, $lc)];
         }
+
         return $str;
     }
 
@@ -295,6 +315,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         if ($latestVersionHash == $encryptionModel::HASH_VERSION_SHA512) {
             return $this->getEncryptor()->getHashPassword($password, $salt);
         }
+
         return $this->getEncryptor()->getHashPassword($password, Mage_Admin_Model_User::HASH_SALT_EMPTY);
     }
 
@@ -427,6 +448,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         foreach ($config->children() as $type => $node) {
             $types[$type] = (string) $node->label;
         }
+
         return $types;
     }
 
@@ -444,6 +466,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 $types[$type] = (string) $node->label;
             }
         }
+
         return $types;
     }
 
@@ -468,6 +491,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         ) {
             return false;
         }
+
         $fields = Mage::getConfig()->getFieldset($fieldset, $root);
         if (!$fields) {
             return false;
@@ -557,12 +581,15 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 if ($forceSetAll || ($i === 0)) {
                     $array[$key][$keyIsFirst] = ($i === 0);
                 }
+
                 if ($forceSetAll || !$isEven) {
                     $array[$key][$keyIsOdd] = !$isEven;
                 }
+
                 if ($forceSetAll || $isEven) {
                     $array[$key][$keyIsEven] = $isEven;
                 }
+
                 $isEven = !$isEven;
                 $i++;
                 if ($forceSetAll || ($i === $count)) {
@@ -616,6 +643,7 @@ XML;
                 throw new Exception('Array root keys must not be numeric.');
             }
         }
+
         return self::_assocToXml($array, $rootName, $xml);
     }
 
@@ -637,6 +665,7 @@ XML;
                     if ($key === $rootName) {
                         throw new Exception('Associative key must not be the same as its parent associative key.');
                     }
+
                     $hasStringKey = true;
                     $xml->$key = $value;
                 } elseif (is_int($key)) {
@@ -647,9 +676,11 @@ XML;
                 self::_assocToXml($value, $key, $xml->$key);
             }
         }
+
         if ($hasNumericKey && $hasStringKey) {
             throw new Exception('Associative and numeric keys must not be mixed at one level.');
         }
+
         return $xml;
     }
 
@@ -678,6 +709,7 @@ XML;
                 }
             }
         }
+
         return $array;
     }
 
@@ -804,15 +836,15 @@ XML;
                     if (!is_array($extensionsFilter)) {
                         $extensionsFilter = [$extensionsFilter];
                     }
-                    if (!empty($srcFiles)) {
-                        foreach ($srcFiles as $key => $file) {
-                            $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                            if (!in_array($fileExt, $extensionsFilter)) {
-                                unset($srcFiles[$key]);
-                            }
+
+                    foreach ($srcFiles as $key => $file) {
+                        $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                        if (!in_array($fileExt, $extensionsFilter)) {
+                            unset($srcFiles[$key]);
                         }
                     }
                 }
+
                 if (empty($srcFiles)) {
                     // no translation intentionally
                     throw new Exception('No files to compile.');
@@ -823,17 +855,21 @@ XML;
                     if (!file_exists($file)) {
                         continue;
                     }
+
                     $contents = file_get_contents($file) . "\n";
                     // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
                     if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
                         $contents = call_user_func($beforeMergeCallback, $file, $contents);
                     }
+
                     $data .= $contents;
                 }
+
                 if (!$data) {
                     // no translation intentionally
                     throw new Exception(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
                 }
+
                 if ($targetFile) {
                     file_put_contents($targetFile, $data, LOCK_EX);
                 } else {
@@ -845,6 +881,7 @@ XML;
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         return false;
     }
 
@@ -892,6 +929,7 @@ XML;
         if (preg_match('#\.\.[\\\/]#', $name)) {
             throw new Mage_Core_Exception($this->__('Requested file may not include parent directory traversal ("../", "..\\" notation)'));
         }
+
         return true;
     }
 
@@ -982,6 +1020,7 @@ XML;
                 }
             }
         }
+
         return $data;
     }
 
@@ -1002,6 +1041,7 @@ XML;
                 }
             }
         }
+
         return $data;
     }
 
@@ -1020,6 +1060,7 @@ XML;
                     $errorMessage = $this->__('Too Soon: You are trying to perform this operation too frequently. Please wait a few seconds and try again.');
                     Mage::getSingleton('core/session')->addError($errorMessage);
                 }
+
                 return true;
             }
 

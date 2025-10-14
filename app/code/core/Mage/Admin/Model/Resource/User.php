@@ -127,6 +127,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         if ($user->isObjectNew()) {
             $user->setCreated($this->formatDate(true));
         }
+
         $user->setModified($this->formatDate(true));
 
         return parent::_beforeSave($user);
@@ -178,6 +179,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->rollBack();
             throw $e;
         }
+
         $this->_afterDelete($user);
         return $this;
     }
@@ -228,6 +230,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
                 // reload acl on next user http request
                 $this->saveReloadAclFlag($user, 1);
             }
+
             $adapter->commit();
         } catch (Mage_Core_Exception|Exception $e) {
             $adapter->rollBack();
@@ -282,7 +285,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         $dbh = $this->_getWriteAdapter();
         $aRoles = $this->hasAssigned2Role($user);
         if (count($aRoles)) {
-            foreach ($aRoles as $idx => $data) {
+            foreach ($aRoles as $data) {
                 $dbh->delete(
                     $this->getTable('admin/role'),
                     ['role_id = ?' => $data['role_id']],
@@ -326,6 +329,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         if ($user->getUserId() <= 0) {
             return $this;
         }
+
         if ($user->getRoleId() <= 0) {
             return $this;
         }
@@ -451,6 +455,7 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
         } catch (Exception) {
             $user->setExtra(false);
         }
+
         return $user;
     }
 }

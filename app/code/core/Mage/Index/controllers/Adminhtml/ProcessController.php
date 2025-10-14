@@ -33,6 +33,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                 return $process;
             }
         }
+
         return false;
     }
 
@@ -86,6 +87,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
             if ($mode) {
                 $process->setMode($mode);
             }
+
             try {
                 $process->save();
                 $this->_getSession()->addSuccess(
@@ -99,6 +101,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                     Mage::helper('index')->__('There was a problem with saving process.'),
                 );
             }
+
             $this->_redirect('*/*/list');
         } else {
             $this->_getSession()->addError(
@@ -173,6 +176,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                         $counter++;
                     }
                 }
+
                 $this->_getSession()->addSuccess(
                     Mage::helper('index')->__('Total of %d index(es) have reindexed data.', $counter),
                 );
@@ -207,6 +211,7 @@ class Mage_Index_Adminhtml_ProcessController extends Mage_Adminhtml_Controller_A
                         $counter++;
                     }
                 }
+
                 $this->_getSession()->addSuccess(
                     Mage::helper('index')->__('Total of %d index(es) have changed index mode.', $counter),
                 );

@@ -109,6 +109,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
         } else {
             $this->getSelect()->where('FALSE');
         }
+
         $this->_isSearchFiltersApplied = true;
 
         return $this;
@@ -127,9 +128,11 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
             $preparedResult->prepareResult();
             $this->_foundData = $preparedResult->getResource()->getFoundData();
         }
+
         if (isset($this->_orders[self::RELEVANCE_ORDER_NAME])) {
             $this->_resortFoundDataByRelevance();
         }
+
         return array_keys($this->_foundData);
     }
 
@@ -145,16 +148,20 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
             foreach ($this->_foundData as $id => $relevance) {
                 $this->_foundData[$id] = $relevance . '_' . $id;
             }
+
             natsort($this->_foundData);
             if ($this->_relevanceSortOrder == SORT_DESC) {
                 $this->_foundData = array_reverse($this->_foundData);
             }
+
             foreach ($this->_foundData as $dataString) {
                 [$relevance, $id] = explode('_', $dataString);
                 $data[$id] = $relevance;
             }
+
             $this->_foundData = $data;
         }
+
         return $this;
     }
 
@@ -173,6 +180,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
         } else {
             parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 
@@ -228,8 +236,10 @@ class Mage_CatalogSearch_Model_Resource_Fulltext_Collection extends Mage_Catalog
                     $this->addAttributeToSort($attribute, $direction);
                 }
             }
+
             $this->_isOrdersRendered = true;
         }
+
         return $this;
     }
 }

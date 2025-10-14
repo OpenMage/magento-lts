@@ -48,18 +48,22 @@ class Mage_Downloadable_Model_Observer
             //order not saved in the database
             return $this;
         }
+
         $product = $orderItem->getProduct();
         if ($product && $product->getTypeId() != Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
             return $this;
         }
+
         if (Mage::getModel('downloadable/link_purchased')->load($orderItem->getId(), 'order_item_id')->getId()) {
             return $this;
         }
+
         if (!$product) {
             $product = Mage::getModel('catalog/product')
                 ->setStoreId($orderItem->getOrder()->getStoreId())
                 ->load($orderItem->getProductId());
         }
+
         if ($product->getTypeId() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE) {
             /** @var Mage_Downloadable_Model_Product_Type $productType */
             $productType = $product->getTypeInstance(true);
@@ -136,6 +140,7 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -215,6 +220,7 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
+
         if (!$downloadableItemsStatuses && $status) {
             foreach ($order->getAllItems() as $item) {
                 if ($item->getProductType() == Mage_Downloadable_Model_Product_Type::TYPE_DOWNLOADABLE
@@ -238,6 +244,7 @@ class Mage_Downloadable_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 

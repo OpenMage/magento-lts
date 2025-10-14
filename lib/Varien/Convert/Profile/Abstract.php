@@ -15,11 +15,15 @@
 abstract class Varien_Convert_Profile_Abstract
 {
     protected $_actions;
+
     protected $_containers;
+
     protected $_exceptions = [];
+
     protected $_dryRun;
 
     protected $_actionDefaultClass = 'Varien_Convert_Action';
+
     protected $_containerCollectionDefaultClass = 'Varien_Convert_Container_Collection';
 
     public function addAction(?Varien_Convert_Action_Interface $action = null)
@@ -27,6 +31,7 @@ abstract class Varien_Convert_Profile_Abstract
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
         }
+
         $this->_actions[] = $action;
         $action->setProfile($this);
         return $action;
@@ -43,6 +48,7 @@ abstract class Varien_Convert_Profile_Abstract
         if (!$this->_containers) {
             $this->_containers = new $this->_containerCollectionDefaultClass();
         }
+
         return $this->_containers;
     }
 
@@ -51,6 +57,7 @@ abstract class Varien_Convert_Profile_Abstract
         if (is_null($name)) {
             $name = '_default';
         }
+
         return $this->getContainers()->getItem($name);
     }
 
@@ -95,6 +102,7 @@ abstract class Varien_Convert_Profile_Abstract
         foreach ($this->_actions as $action) {
             $action->run();
         }
+
         return $this;
     }
 }

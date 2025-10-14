@@ -119,6 +119,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Decimal extends Mage_Catal
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_eav_decimal_indexer_idx');
         }
+
         return $this->getTable('catalog/product_eav_decimal_indexer_tmp');
     }
 }

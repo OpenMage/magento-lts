@@ -35,6 +35,7 @@
 class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Indexer_Abstract
 {
     protected $_customerGroups = [];
+
     protected $_processChildrenForConfigurable = false;
 
     protected function _construct()
@@ -65,6 +66,7 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
                 $row['value'] = $finalPrice;
                 $result[] = $row;
             }
+
             return $result;
         }
 
@@ -79,9 +81,11 @@ class Mage_CatalogIndex_Model_Indexer_Price extends Mage_CatalogIndex_Model_Inde
         if ($attribute->getFrontendInput() != 'price') {
             return false;
         }
+
         if ($attribute->getAttributeCode() == 'tier_price') {
             return false;
         }
+
         if ($attribute->getAttributeCode() == 'minimal_price') {
             return false;
         }

@@ -43,6 +43,7 @@ class Mage_Admin_Model_Observer
             if ($user) {
                 $user->reload();
             }
+
             if (!$user || !$user->getId()) {
                 if ($request->getPost('login')) {
                     /** @var Mage_Core_Model_Session $coreSession */
@@ -63,6 +64,7 @@ class Mage_Admin_Model_Observer
 
                     $coreSession->renewFormKey();
                 }
+
                 if (!$request->getInternallyForwarded()) {
                     $request->setInternallyForwarded();
                     if ($request->getParam('isIframe')) {
@@ -82,6 +84,7 @@ class Mage_Admin_Model_Observer
                             ->setActionName('login')
                             ->setDispatched(false);
                     }
+
                     return;
                 }
             }

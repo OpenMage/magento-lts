@@ -33,4 +33,5 @@ $paymentCode = ['payflow_link', 'payflow_advanced', 'hosted_pro'];
 foreach ($paymentCode as $value) {
     Mage::getConfig()->saveConfig("payment/{$value}/mobile_optimized", '1');
 }
+
 $installer->endSetup();

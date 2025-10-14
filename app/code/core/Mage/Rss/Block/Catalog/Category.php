@@ -94,6 +94,7 @@ class Mage_Rss_Block_Catalog_Category extends Mage_Rss_Block_Catalog_Abstract
                 }
             }
         }
+
         return $rssObj->createRssXml();
     }
 

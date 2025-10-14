@@ -84,6 +84,7 @@ class Mage_Catalog_Model_Product_Attribute_Tierprice_Api extends Mage_Catalog_Mo
                 foreach ($errors as $code => $error) {
                     $strErrors[] = ($error === true) ? Mage::helper('catalog')->__('Value for "%s" is invalid.', $code) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $code, $error);
                 }
+
                 $this->_fault('data_invalid', implode("\n", $strErrors));
             }
 

@@ -78,6 +78,7 @@ class Varien_Event_Collection
         if (!isset($this->_events[$eventName])) {
             $this->addEvent(new Varien_Event(['name' => $eventName]));
         }
+
         return $this->_events[$eventName];
     }
 
@@ -108,6 +109,7 @@ class Varien_Event_Collection
         } else {
             $this->getGlobalObservers()->addObserver($observer);
         }
+
         return $this;
     }
 

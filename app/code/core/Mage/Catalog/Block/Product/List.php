@@ -74,6 +74,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                     $this->addModelTags($category);
                 }
             }
+
             $this->_productCollection = $layer->getProductCollection();
 
             $this->prepareSortableFieldsByCategory($layer->getCurrentCategory());
@@ -97,6 +98,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         if ($layer) {
             return $layer;
         }
+
         return Mage::getSingleton('catalog/layer');
     }
 
@@ -135,12 +137,15 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         if ($orders = $this->getAvailableOrders()) {
             $toolbar->setAvailableOrders($orders);
         }
+
         if ($sort = $this->getSortBy()) {
             $toolbar->setDefaultOrder($sort);
         }
+
         if ($dir = $this->getDefaultDirection()) {
             $toolbar->setDefaultDirection($dir);
         }
+
         if ($modes = $this->getModes()) {
             $toolbar->setModes($modes);
         }
@@ -170,6 +175,7 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
                 return $block;
             }
         }
+
         return $this->getLayout()->createBlock($this->_defaultToolbarBlock, microtime());
     }
 
@@ -243,12 +249,14 @@ class Mage_Catalog_Block_Product_List extends Mage_Catalog_Block_Product_Abstrac
         if (!$this->getAvailableOrders()) {
             $this->setAvailableOrders($category->getAvailableSortByOptions());
         }
+
         $availableOrders = $this->getAvailableOrders();
         if (!$this->getSortBy()) {
             if ($categorySortBy = $category->getDefaultSortBy()) {
                 if (!$availableOrders) {
                     $availableOrders = $this->_getConfig()->getAttributeUsedForSortByArray();
                 }
+
                 if (isset($availableOrders[$categorySortBy])) {
                     $this->setSortBy($categorySortBy);
                 }

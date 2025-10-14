@@ -28,6 +28,7 @@ class Mage_Paypal_Block_Adminhtml_System_Config_ApiWizard extends Mage_Adminhtml
         if (!$this->getTemplate()) {
             $this->setTemplate($this->_wizardTemplate);
         }
+
         return $this;
     }
 

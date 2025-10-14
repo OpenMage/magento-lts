@@ -34,6 +34,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Frontend_Image extends Mage_Ea
             // image is not cached
             $url = Mage::getBaseUrl() . 'catalog/product/image' . $image;
         }
+
         return $url;
     }
 }

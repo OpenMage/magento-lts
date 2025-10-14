@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Items extends Mage_Adminhtml_Block_S
         if (!$this->getParentBlock()) {
             Mage::throwException(Mage::helper('adminhtml')->__('Invalid parent block for this block'));
         }
+
         $this->setOrder($this->getParentBlock()->getOrder());
         return parent::_beforeToHtml();
     }

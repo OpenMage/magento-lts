@@ -29,4 +29,5 @@ foreach ($rows as $r) {
         $installer->getConnection()->update($this->getTable('core_config_data'), $r, 'config_id=' . $r['config_id']);
     }
 }
+
 $installer->endSetup();

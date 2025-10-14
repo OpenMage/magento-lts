@@ -26,8 +26,10 @@ class Varien_Filter_Array extends Zend_Filter
             if (!isset($this->_columnFilters[$column])) {
                 $this->_columnFilters[$column] = new Zend_Filter();
             }
+
             $this->_columnFilters[$column]->addFilter($filter);
         }
+
         return $this;
     }
 
@@ -43,8 +45,10 @@ class Varien_Filter_Array extends Zend_Filter
             if (isset($this->_columnFilters[$column])) {
                 $value = $this->_columnFilters[$column]->filter($value);
             }
+
             $out[$column] = $value;
         }
+
         return $out;
     }
 }

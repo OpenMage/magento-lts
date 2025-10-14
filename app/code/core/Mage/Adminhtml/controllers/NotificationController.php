@@ -51,6 +51,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
             $this->_redirectReferer();
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -70,6 +71,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                             ->save();
                     }
                 }
+
                 $this->_getSession()->addSuccess(
                     Mage::helper('adminnotification')->__('Total of %d record(s) have been marked as read.', count($ids)),
                 );
@@ -79,6 +81,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while marking the messages as read.'));
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -107,6 +110,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
             $this->_redirect('*/*/');
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -126,6 +130,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                             ->save();
                     }
                 }
+
                 $this->_getSession()->addSuccess(
                     Mage::helper('adminnotification')->__('Total of %d record(s) have been removed.', count($ids)),
                 );
@@ -135,6 +140,7 @@ class Mage_Adminhtml_NotificationController extends Mage_Adminhtml_Controller_Ac
                 $session->addException($e, Mage::helper('adminnotification')->__('An error occurred while removing messages.'));
             }
         }
+
         $this->_redirectReferer();
     }
 

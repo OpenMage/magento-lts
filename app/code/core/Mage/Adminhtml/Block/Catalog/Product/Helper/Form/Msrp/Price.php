@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Msrp_Price extends Varien
         if (is_null($this->getValue())) {
             $this->setValue(Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price::TYPE_USE_CONFIG);
         }
+
         return parent::getElementHtml();
     }
 }

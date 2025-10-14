@@ -48,6 +48,7 @@ class Mage_Cms_Model_Resource_Block extends Mage_Core_Model_Resource_Db_Abstract
         if (!$object->getId()) {
             $object->setCreationTime(Mage::getSingleton('core/date')->gmtDate());
         }
+
         $object->setUpdateTime(Mage::getSingleton('core/date')->gmtDate());
         return $this;
     }

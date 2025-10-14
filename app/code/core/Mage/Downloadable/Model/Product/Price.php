@@ -44,6 +44,7 @@ class Mage_Downloadable_Model_Product_Price extends Mage_Catalog_Model_Product_T
                         $linkPrice += $links[$linkId]->getPrice();
                     }
                 }
+
                 $finalPrice += $linkPrice;
             }
         }

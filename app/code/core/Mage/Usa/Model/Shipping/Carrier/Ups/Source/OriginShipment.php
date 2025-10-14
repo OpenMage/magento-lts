@@ -22,6 +22,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_OriginShipment
         foreach ($orShipArr as $key => $val) {
             $returnArr[] = ['value' => $key,'label' => $key];
         }
+
         return $returnArr;
     }
 }

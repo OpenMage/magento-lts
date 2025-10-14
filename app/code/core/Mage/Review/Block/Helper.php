@@ -36,6 +36,7 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
         if (empty($this->_availableTemplates[$templateType])) {
             $templateType = 'default';
         }
+
         $this->setTemplate($this->_availableTemplates[$templateType]);
 
         $this->setDisplayIfEmpty($displayIfNoReviews);
@@ -44,6 +45,7 @@ class Mage_Review_Block_Helper extends Mage_Core_Block_Template
             Mage::getModel('review/review')
                ->getEntitySummary($product, Mage::app()->getStore()->getId());
         }
+
         $this->setProduct($product);
 
         return $this->toHtml();

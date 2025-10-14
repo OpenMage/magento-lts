@@ -15,20 +15,30 @@
 class Magento_Db_Sql_Trigger
 {
     public const NAME      = 'name';
+
     public const TARGET    = 'target';
+
     public const TIME      = 'time';
+
     public const EVENT     = 'event';
+
     public const SCOPE     = 'scope';
+
     public const BODY      = 'body';
 
     /**
      * SQL constants
      */
     public const SQL_TIME_BEFORE   = 'BEFORE';
+
     public const SQL_TIME_AFTER    = 'AFTER';
+
     public const SQL_EVENT_INSERT  = 'INSERT';
+
     public const SQL_EVENT_UPDATE  = 'UPDATE';
+
     public const SQL_EVENT_DELETE  = 'DELETE';
+
     public const SQL_FOR_EACH_ROW  = 'FOR EACH ROW';
 
     /**
@@ -94,6 +104,7 @@ class Magento_Db_Sql_Trigger
                 throw new Exception('Part [' . $part . '] should be set');
             }
         }
+
         return $this;
     }
 
@@ -112,6 +123,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Part [' . $part . '] can not be empty');
         }
+
         return $this;
     }
 
@@ -146,6 +158,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Part [' . $part . '] can not be empty');
         }
+
         return $this;
     }
 
@@ -190,6 +203,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Unsupported time type!');
         }
+
         return $this;
     }
 
@@ -207,6 +221,7 @@ class Magento_Db_Sql_Trigger
         } else {
             throw new InvalidArgumentException('Unsupported event type!');
         }
+
         return $this;
     }
 
@@ -245,6 +260,7 @@ class Magento_Db_Sql_Trigger
         if (empty($this->_parts[self::NAME])) {
             $this->_parts[self::NAME] = $this->_generateTriggerName();
         }
+
         return $this->_parts[self::NAME];
     }
 
@@ -259,6 +275,7 @@ class Magento_Db_Sql_Trigger
         if (!is_array($body)) {
             $body = [$body];
         }
+
         $this->_setPart(self::BODY, $body);
         return $this;
     }

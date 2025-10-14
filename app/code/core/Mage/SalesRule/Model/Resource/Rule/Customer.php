@@ -38,6 +38,7 @@ class Mage_SalesRule_Model_Resource_Rule_Customer extends Mage_Core_Model_Resour
             // set empty data, as an existing rule object might be used
             $data = [];
         }
+
         $rule->setData($data);
         return $this;
     }

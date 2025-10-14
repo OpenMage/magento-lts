@@ -19,7 +19,9 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
      * Text align constants
      */
     public const ALIGN_RIGHT = 'right';
+
     public const ALIGN_LEFT = 'left';
+
     public const ALIGN_CENTER = 'center';
 
     /**
@@ -37,6 +39,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
         ) {
             $this->_contents = $param1->getContents();
         }
+
         parent::__construct($param1, $param2, $param3);
     }
 
@@ -64,6 +67,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
         for ($i = 0; $i < strlen($drawingText); $i++) {
             $characters[] = (ord($drawingText[$i++]) << 8) | ord($drawingText[$i]);
         }
+
         $glyphs = $font->glyphNumbersForCharacters($characters);
         $widths = $font->widthsForGlyphs($glyphs);
         return (array_sum($widths) / $font->getUnitsPerEm()) * $fontSize;
@@ -99,6 +103,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
                 $left = $x - $textWidth;
                 break;
         }
+
         return parent::drawText($text, $left, $y, $charEncoding);
     }
 
@@ -122,9 +127,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf_Page extends Zend_Pdf_Page
                 $y = $this->drawLines(array_filter($subLines), $x, $y, $maxWidth, $align);
                 continue;
             }
+
             $this->drawText($line, $x, $y, 'UTF-8', $align);
             $y -= ceil($this->getFontSize());
         }
+
         return $y;
     }
 }

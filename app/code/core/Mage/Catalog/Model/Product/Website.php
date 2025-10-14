@@ -43,6 +43,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
                 Mage::helper('catalog')->__('An error occurred while removing products from websites.'),
             );
         }
+
         return $this;
     }
 
@@ -62,6 +63,7 @@ class Mage_Catalog_Model_Product_Website extends Mage_Core_Model_Abstract
                 Mage::helper('catalog')->__('An error occurred while adding products to websites.'),
             );
         }
+
         return $this;
     }
 

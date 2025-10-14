@@ -135,6 +135,7 @@ class Mage_Wishlist_Block_Customer_Sidebar extends Mage_Wishlist_Block_Abstract
         if ($this->getItemCount()) {
             $this->addModelTags($this->_getHelper()->getWishlist());
         }
+
         return parent::getCacheTags();
     }
 }

@@ -69,6 +69,7 @@ class Mage_Eav_Model_Attribute_Data_Image extends Mage_Eav_Model_Attribute_Data_
                 $errors[] = Mage::helper('eav')->__('"%s" width exceeds allowed value of %s px.', $label, $r);
             }
         }
+
         if (!empty($rules['max_image_heght'])) {
             if ($rules['max_image_heght'] < $imageProp[1]) {
                 $r = $rules['max_image_heght'];

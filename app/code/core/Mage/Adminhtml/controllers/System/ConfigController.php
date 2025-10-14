@@ -261,6 +261,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
         } else {
             $conditionName = $website->getConfig('carriers/tablerate/condition_name');
         }
+
         $gridBlock->setWebsiteId($website->getId())->setConditionName($conditionName);
         $content    = $gridBlock->getCsvFile();
         $this->_prepareDownloadResponse($fileName, $content);
@@ -284,6 +285,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
                 if (!$session->isAllowed($resourceId)) {
                     throw new Exception('');
                 }
+
                 return true;
             }
         } catch (Zend_Acl_Exception) {
@@ -295,6 +297,7 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             $this->setFlag('', self::FLAG_NO_DISPATCH, true);
             return false;
         }
+
         return false;
     }
 
@@ -312,12 +315,15 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
             if (!is_array($extra)) {
                 $extra = [];
             }
+
             if (!isset($extra['configState'])) {
                 $extra['configState'] = [];
             }
+
             foreach ($configState as $fieldset => $state) {
                 $extra['configState'][$fieldset] = $state;
             }
+
             $adminUser->saveExtra($extra);
         }
 

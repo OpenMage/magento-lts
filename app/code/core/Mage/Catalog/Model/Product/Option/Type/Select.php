@@ -32,6 +32,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
             $this->setIsValid(false);
             Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
         }
+
         if (!$this->_isSingleSelection()) {
             $valuesCollection = $option->getOptionValuesByOptionId($value, $this->getProduct()->getStoreId())
                 ->load();
@@ -41,6 +42,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                 Mage::throwException(Mage::helper('catalog')->__('Please specify the product required option <em>%s</em>.', $option->getTitle()));
             }
         }
+
         return $this;
     }
 
@@ -71,6 +73,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                 $this->getEditableOptionValue($optionValue),
             );
         }
+
         return $this->_formattedOptionValue;
     }
 
@@ -119,6 +122,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     break;
                 }
             }
+
             $result = Mage::helper('core/string')->substr($result, 0, -2);
         } elseif ($this->_isSingleSelection()) {
             if ($_result = $option->getValueById($optionValue)) {
@@ -131,11 +135,13 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                                 $this->_getWrongConfigurationMessage(),
                             );
                 }
+
                 $result = '';
             }
         } else {
             $result = $optionValue;
         }
+
         return $result;
     }
 
@@ -159,7 +165,8 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         } elseif ($this->_isSingleSelection() && array_key_exists($optionValue, $productOptionValues)) {
             $_values[] = $productOptionValues[$optionValue];
         }
-        if (count($_values)) {
+
+        if ($_values !== []) {
             return implode(',', $_values);
         } else {
             return null;
@@ -177,6 +184,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
         if (!$this->_isSingleSelection()) {
             return explode(',', $optionValue);
         }
+
         return $optionValue;
     }
 
@@ -253,6 +261,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                     break;
                 }
             }
+
             $result = implode($skuDelimiter, $skus);
         } elseif ($this->_isSingleSelection()) {
             if ($result = $option->getValueById($optionValue)) {
@@ -265,6 +274,7 @@ class Mage_Catalog_Model_Product_Option_Type_Select extends Mage_Catalog_Model_P
                                 $this->_getWrongConfigurationMessage(),
                             );
                 }
+
                 return '';
             }
         } else {

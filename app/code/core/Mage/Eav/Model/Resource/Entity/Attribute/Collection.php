@@ -91,6 +91,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             $additionalTable = $this->getResource()->getAdditionalAttributeTable($type);
             $id = $type;
         }
+
         $this->addFieldToFilter('main_table.entity_type_id', $id);
         if ($additionalTable) {
             $this->join(
@@ -165,6 +166,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             if (!$setId) {
                 continue;
             }
+
             $alias         = sprintf('entity_attribute_%d', $setId);
             $joinCondition = $this->getConnection()
                 ->quoteInto("{$alias}.attribute_id = main_table.attribute_id AND {$alias}.attribute_set_id =?", $setId);
@@ -322,10 +324,11 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             foreach ($this->_data as &$dataItem) {
                 $attributeIds[] = $dataItem['attribute_id'];
             }
+
             $attributeToSetInfo = [];
 
             $adapter = $this->getConnection();
-            if (count($attributeIds) > 0) {
+            if ($attributeIds !== []) {
                 $select = $adapter->select()
                     ->from(
                         ['entity' => $this->getTable('eav/entity_attribute')],
@@ -357,6 +360,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
             unset($attributeToSetInfo);
             unset($attributeIds);
         }
+
         return $this;
     }
 
@@ -394,6 +398,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Collection extends Mage_Core_Mode
         if (empty($code)) {
             return $this;
         }
+
         if (!is_array($code)) {
             $code = [$code];
         }

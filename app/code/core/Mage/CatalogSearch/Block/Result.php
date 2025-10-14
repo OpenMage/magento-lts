@@ -173,6 +173,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
             $this->_getQuery()->setNumResults($size);
             $this->setResultCount($size);
         }
+
         return $this->getData('result_count');
     }
 
@@ -189,6 +190,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
                 $this->_getQuery()->getMinQueryLength(),
             );
         }
+
         return $this->_getData('no_result_text');
     }
 

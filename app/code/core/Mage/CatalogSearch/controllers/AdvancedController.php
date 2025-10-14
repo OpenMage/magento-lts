@@ -36,6 +36,7 @@ class Mage_CatalogSearch_AdvancedController extends Mage_Core_Controller_Front_A
             );
             return;
         }
+
         $this->_initLayoutMessages('catalog/session');
         $this->renderLayout();
     }

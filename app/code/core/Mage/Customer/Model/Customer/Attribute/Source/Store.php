@@ -28,11 +28,13 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
             if ($this->getAttribute()->getAttributeCode() == 'store_id') {
                 $collection->setWithoutDefaultFilter();
             }
+
             $this->_options = Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm();
             if ($this->getAttribute()->getAttributeCode() == 'created_in') {
                 array_unshift($this->_options, ['value' => '0', 'label' => Mage::helper('customer')->__('Admin')]);
             }
         }
+
         return $this->_options;
     }
 
@@ -44,6 +46,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
         if (!$value) {
             $value = '0';
         }
+
         $isMultiple = false;
         if (strpos($value, ',')) {
             $isMultiple = true;
@@ -55,6 +58,7 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
             if ($this->getAttribute()->getAttributeCode() == 'store_id') {
                 $collection->setWithoutDefaultFilter();
             }
+
             $this->_options = $collection->load()->toOptionArray();
             if ($this->getAttribute()->getAttributeCode() == 'created_in') {
                 array_unshift($this->_options, ['value' => '0', 'label' => Mage::helper('customer')->__('Admin')]);
@@ -66,8 +70,10 @@ class Mage_Customer_Model_Customer_Attribute_Source_Store extends Mage_Eav_Model
             foreach ($value as $val) {
                 $values[] = $this->_options[$val];
             }
+
             return $values;
         }
+
         return $this->_options[$value];
     }
 }

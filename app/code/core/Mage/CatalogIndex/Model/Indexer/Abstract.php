@@ -15,7 +15,9 @@
 abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_Abstract implements Mage_CatalogIndex_Model_Indexer_Interface
 {
     protected $_processChildren = true;
+
     protected $_processChildrenForConfigurable = true;
+
     protected $_runOnce = false;
 
     /**
@@ -61,6 +63,7 @@ abstract class Mage_CatalogIndex_Model_Indexer_Abstract extends Mage_Core_Model_
                 }
             }
         }
+
         $function = 'saveIndex';
         if ($data && is_array($data)) {
             if (isset($data[0]) && is_array($data[0])) {

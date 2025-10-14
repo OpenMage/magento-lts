@@ -49,6 +49,7 @@ class Mage_Adminhtml_Tax_ClassController extends Mage_Adminhtml_Controller_Actio
             $this->_redirectReferer();
             return;
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/tax_class'));
     }
 

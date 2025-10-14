@@ -198,6 +198,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         } else {
             $id = $product->getId();
         }
+
         $params = ['id' => $id];
 
         return $this->getUrl('wishlist/index/configure/', $params);
@@ -214,6 +215,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if ($item->getDescription()) {
             return $this->escapeHtml($item->getDescription());
         }
+
         return '&nbsp;';
     }
 
@@ -277,6 +279,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$qty) {
             $qty = 1;
         }
+
         return $qty;
     }
 
@@ -326,6 +329,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
                 ->setTemplate($template);
             $this->_cachedItemPriceBlocks[$productType] = $block;
         }
+
         return $this->_cachedItemPriceBlocks[$productType];
     }
 
@@ -376,6 +380,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         } else {
             $product = $item->getProduct();
         }
+
         $buyRequest = $item->getBuyRequest();
         if (is_object($buyRequest)) {
             $config = $buyRequest->getSuperProductConfig();
@@ -385,6 +390,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
                     ->load($config['product_id']);
             }
         }
+
         return parent::getProductUrl($product, $additional);
     }
 
@@ -400,6 +406,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$addFormKey) {
             return $this->_getHelper()->getAddUrlWithCustomParams($product, [], false);
         }
+
         return $this->_getHelper()->getAddUrl($product);
     }
 
@@ -415,6 +422,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$addFormKey) {
             return $this->_getHelper()->getRemoveUrlCustom($item, false);
         }
+
         return $this->_getHelper()->getRemoveUrl($item);
     }
 
@@ -430,6 +438,7 @@ abstract class Mage_Wishlist_Block_Abstract extends Mage_Catalog_Block_Product_A
         if (!$addFormKey) {
             return $this->_getHelper()->getAddToCartUrlCustom($item, false);
         }
+
         return $this->_getHelper()->getAddToCartUrl($item);
     }
 }

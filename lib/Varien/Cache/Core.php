@@ -78,6 +78,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
                 $id = $this->_options['cache_id_prefix'] . $id;
             }
         }
+
         return $id;
     }
 
@@ -92,6 +93,7 @@ class Varien_Cache_Core extends Zend_Cache_Core
         foreach ($tags as $key => $tag) {
             $tags[$key] = $this->_id($tag);
         }
+
         return $tags;
     }
 

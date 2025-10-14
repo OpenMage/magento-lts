@@ -47,6 +47,7 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
                     $absenteeExtensions[] = $extName;
                 }
             }
+
             if (!empty($absenteeExtensions)) {
                 Mage::throwException(
                     Mage::helper('install')->__('PHP Extensions "%s" must be loaded.', implode(',', $absenteeExtensions)),
@@ -94,10 +95,12 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
         if (!isset($data['db_name']) || empty($data['db_name'])) {
             Mage::throwException(Mage::helper('install')->__('Database Name cannot be empty.'));
         }
+
         //make all table prefix to lower letter
         if ($data['db_prefix'] != '') {
             $data['db_prefix'] = strtolower($data['db_prefix']);
         }
+
         //check table prefix
         if ($data['db_prefix'] != '') {
             if (!preg_match('/^[a-z]+[a-z0-9_]*$/', $data['db_prefix'])) {
@@ -106,11 +109,13 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
                 );
             }
         }
+
         //set default db model
         if (!isset($data['db_model']) || empty($data['db_model'])) {
             $data['db_model'] = Mage::getConfig()
                 ->getResourceConnectionConfig(Mage_Core_Model_Resource::DEFAULT_SETUP_RESOURCE)->model;
         }
+
         //set db type according the db model
         if (!isset($data['db_type'])) {
             $data['db_type'] = (string) Mage::getConfig()
@@ -145,8 +150,10 @@ class Mage_Install_Model_Installer_Db extends Mage_Install_Model_Installer_Abstr
                     Mage::helper('install')->__('Installer does not exist for %s database type', $model),
                 );
             }
+
             $this->_dbResource = $resource;
         }
+
         return $this->_dbResource;
     }
 

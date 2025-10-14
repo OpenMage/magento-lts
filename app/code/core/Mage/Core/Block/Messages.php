@@ -97,6 +97,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         foreach ($messages->getItems() as $message) {
             $this->getMessageCollection()->add($message);
         }
+
         return $this;
     }
 
@@ -110,6 +111,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
         if (!($this->_messages instanceof Mage_Core_Model_Message_Collection)) {
             $this->_messages = Mage::getModel('core/message_collection');
         }
+
         return $this->_messages;
     }
 
@@ -197,6 +199,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 . ($this->_escapeMessageFlag) ? $this->escapeHtml($message->getText()) : $message->getText()
                 . '</' . $this->_messagesSecondLevelTagName . '>';
         }
+
         return $html . ('</' . $this->_messagesFirstLevelTagName . '>');
     }
 
@@ -219,6 +222,7 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                 if (!$html) {
                     $html .= '<' . $this->_messagesFirstLevelTagName . ' class="messages">';
                 }
+
                 $html .= '<' . $this->_messagesSecondLevelTagName . ' class="' . $type . '-msg">';
                 $html .= '<' . $this->_messagesFirstLevelTagName . '>';
 
@@ -229,13 +233,16 @@ class Mage_Core_Block_Messages extends Mage_Core_Block_Template
                     $html .= '</' . $this->_messagesContentWrapperTagName . '>';
                     $html .= '</' . $this->_messagesSecondLevelTagName . '>';
                 }
+
                 $html .= '</' . $this->_messagesFirstLevelTagName . '>';
                 $html .= '</' . $this->_messagesSecondLevelTagName . '>';
             }
         }
+
         if ($html) {
             $html .= '</' . $this->_messagesFirstLevelTagName . '>';
         }
+
         $this->_messages = $this->getMessageCollection()->clear();
         return $html;
     }

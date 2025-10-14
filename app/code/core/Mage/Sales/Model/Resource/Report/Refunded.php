@@ -264,6 +264,7 @@ class Mage_Sales_Model_Resource_Report_Refunded extends Mage_Sales_Model_Resourc
             $adapter->rollBack();
             throw $e;
         }
+
         return $this;
     }
 }

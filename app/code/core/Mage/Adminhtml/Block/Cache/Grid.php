@@ -15,6 +15,7 @@ use Mage_Adminhtml_Block_Widget_Grid_Massaction_Abstract as MassAction;
 class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $_invalidatedTypes = [];
+
     /**
      * Class constructor
      */
@@ -36,6 +37,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
         foreach (Mage::app()->getCacheInstance()->getTypes() as $type) {
             $collection->addItem($type);
         }
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -106,6 +108,7 @@ class Mage_Adminhtml_Block_Cache_Grid extends Mage_Adminhtml_Block_Widget_Grid
         } else {
             $class = self::CSS_SEVERITY_CRITICAL;
         }
+
         return sprintf(self::PATTERN_SEVERITY, $class, $value);
     }
 

@@ -93,6 +93,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 }
             }
         }
+
         return $this;
     }
 
@@ -111,6 +112,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 self::$_commitCallbacks[$adapterKey] = [];
             }
         }
+
         return $this;
     }
 
@@ -155,6 +157,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 if (is_object($defaultValue) || is_array($defaultValue)) {
                     $defaultValue = serialize($defaultValue);
                 }
+
                 $object->setData($field, $defaultValue);
             }
         } elseif (is_array($value) || is_object($value)) {
@@ -203,6 +206,7 @@ abstract class Mage_Core_Model_Resource_Abstract
                 }
             }
         }
+
         return $data;
     }
 
@@ -218,6 +222,7 @@ abstract class Mage_Core_Model_Resource_Abstract
         if ($type == 'decimal' || $type == 'numeric' || $type == 'float') {
             return Mage::app()->getLocale()->getNumber($value);
         }
+
         return $value;
     }
 

@@ -83,6 +83,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 ->load();
             $this->setData('stores', $stores);
         }
+
         return $stores;
     }
 
@@ -133,13 +134,17 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                     $value['store' . $store->getId()] = isset($storeValues[$option->getId()])
                         ? $helper->escapeHtml($storeValues[$option->getId()]) : '';
                 }
+
                 if ($this->isConfigurableSwatchesEnabled()) {
                     $value['swatch'] = $option->getSwatchValue();
                 }
+
                 $values[] = new Varien_Object($value);
             }
+
             $this->setData('option_values', $values);
         }
+
         return $values;
     }
 
@@ -155,6 +160,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
         if (is_array($frontendLabel)) {
             return $frontendLabel;
         }
+
         $values[0] = $frontendLabel;
         $storeLabels = $this->getAttributeObject()->getStoreLabels();
         foreach ($this->getStores() as $store) {
@@ -162,6 +168,7 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
                 $values[$store->getId()] = $storeLabels[$store->getId()] ?? '';
             }
         }
+
         return $values;
     }
 
@@ -184,8 +191,10 @@ abstract class Mage_Eav_Block_Adminhtml_Attribute_Edit_Options_Abstract extends 
             foreach ($valuesCollection as $item) {
                 $values[$item->getId()] = $item->getValue();
             }
+
             $this->setData('store_option_values_' . $storeId, $values);
         }
+
         return $values;
     }
 

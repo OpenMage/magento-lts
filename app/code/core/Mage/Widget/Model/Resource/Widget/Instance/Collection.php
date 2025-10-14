@@ -39,9 +39,11 @@ class Mage_Widget_Model_Resource_Widget_Instance_Collection extends Mage_Core_Mo
         if (!is_array($storeIds)) {
             $storeIds = [$storeIds];
         }
+
         if ($withDefaultStore && !in_array('0', $storeIds)) {
             array_unshift($storeIds, 0);
         }
+
         $where = [];
         foreach ($storeIds as $storeId) {
             $where[] = $this->_getConditionSql('store_ids', ['finset' => $storeId]);

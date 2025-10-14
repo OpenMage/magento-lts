@@ -56,6 +56,7 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
             $totals->setCreditmemo($creditmemo);
             $html = $totals->toHtml();
         }
+
         return $html;
     }
 
@@ -74,6 +75,7 @@ class Mage_Sales_Block_Order_Creditmemo_Items extends Mage_Sales_Block_Items_Abs
                 ->setTitle(Mage::helper('sales')->__('About Your Refund'));
             $html = $comments->toHtml();
         }
+
         return $html;
     }
 }

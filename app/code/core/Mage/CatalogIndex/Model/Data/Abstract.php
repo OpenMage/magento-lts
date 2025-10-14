@@ -45,6 +45,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
     protected $_haveParents = true;
 
     public const LINK_GET_CHILDREN = 1;
+
     public const LINK_GET_PARENTS = 1;
 
     /**
@@ -206,6 +207,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         } else {
             $taxClassId = 0;
         }
+
         return $taxClassId;
     }
 
@@ -265,6 +267,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
         if (!$this->_haveChildren || !isset($this->_haveChildren[$type]) || !$this->_haveChildren[$type]) {
             return false;
         }
+
         return true;
     }
 
@@ -281,6 +284,7 @@ class Mage_CatalogIndex_Model_Data_Abstract extends Mage_Core_Model_Abstract
             $this->_typeInstance = Mage::getSingleton('catalog/product_type')
                 ->factory($product, true);
         }
+
         return $this->_typeInstance;
     }
 }

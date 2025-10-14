@@ -54,9 +54,11 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                     $value = array_diff_key($value, array_flip($keys));
                 }
             }
+
             if ($dropOrigKeys) {
                 $array = array_values($array);
             }
+
             unset($value);
         } else {
             $array = array_diff_key($array, array_flip($keys));
@@ -118,6 +120,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -128,6 +131,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 Mage_Api2_Model_Server::HTTP_METHOD_NOT_ALLOWED,
             );
         }
+
         $set = $data['attribute_set_id'];
         $sku = $data['sku'];
 
@@ -179,11 +183,14 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
+
         if (isset($data['sku'])) {
             $product->setSku($data['sku']);
         }
+
         // attribute set and product type cannot be updated
         unset($data['attribute_set_id']);
         unset($data['type_id']);
@@ -219,6 +226,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 Mage_CatalogInventory_Model_Stock_Item::XML_PATH_ITEM . 'manage_stock',
             );
         }
+
         return (bool) $manageStock;
     }
 
@@ -246,6 +254,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             if (!$product->isObjectNew() && !isset($productData['stock_data']['manage_stock'])) {
                 $productData['stock_data']['manage_stock'] = $product->getStockItem()->getManageStock();
             }
+
             $this->_filterStockData($productData['stock_data']);
         } else {
             $productData['stock_data'] = [
@@ -254,6 +263,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 'use_config_max_sale_qty' => 1,
             ];
         }
+
         $product->setStockData($productData['stock_data']);
         // save gift options
         $this->_filterConfigValueUsed($productData, ['gift_message_available', 'gift_wrapping_available']);
@@ -268,6 +278,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
                 ));
             }
         }
+
         if (isset($productData['use_config_gift_wrapping_available'])) {
             $product->setData('use_config_gift_wrapping_available', $productData['use_config_gift_wrapping_available']);
             if (!$productData['use_config_gift_wrapping_available']
@@ -284,12 +295,14 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         if (isset($productData['website_ids']) && is_array($productData['website_ids'])) {
             $product->setWebsiteIds($productData['website_ids']);
         }
+
         // Create Permanent Redirect for old URL key
         if (!$product->isObjectNew()  && isset($productData['url_key'])
             && isset($productData['url_key_create_redirect'])
         ) {
             $product->setData('save_rewrites_history', (bool) $productData['url_key_create_redirect']);
         }
+
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $attribute */
         foreach ($product->getTypeInstance(true)->getEditableAttributes($product) as $attribute) {
             //Unset data if object attribute has no value in current store
@@ -326,9 +339,11 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
             if (isset($stockData['qty']) && (float) $stockData['qty'] > self::MAX_DECIMAL_VALUE) {
                 $stockData['qty'] = self::MAX_DECIMAL_VALUE;
             }
+
             if (isset($stockData['min_qty']) && (int) $stockData['min_qty'] < 0) {
                 $stockData['min_qty'] = 0;
             }
+
             if (!isset($stockData['is_decimal_divided']) || $stockData['is_qty_decimal'] == 0) {
                 $stockData['is_decimal_divided'] = 0;
             }
@@ -374,6 +389,7 @@ class Mage_Catalog_Model_Api2_Product_Rest_Admin_V1 extends Mage_Catalog_Model_A
         ) {
             $isAllowed = false;
         }
+
         return $isAllowed;
     }
 }

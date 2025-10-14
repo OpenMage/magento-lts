@@ -93,6 +93,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
         if (is_null($this->_resourceModel)) {
             $this->_resourceModel = $this->getStorageDatabaseModel()->getResource();
         }
+
         return $this->_resourceModel;
     }
 
@@ -169,9 +170,11 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
                 while ($this->fileExists($directory . $filenameWoExtension . '_' . $index . $extension)) {
                     $index++;
                 }
+
                 $filename = $filenameWoExtension . '_' . $index . $extension;
             }
         }
+
         return $filename;
     }
 
@@ -259,6 +262,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
                 $ioFile->open(['path' => $path]);
                 $ioFile->mv($path . $file, $path . $uniqueResultFile);
             }
+
             $this->saveFile($path . $uniqueResultFile);
 
             return $uniqueResultFile;
@@ -289,6 +293,7 @@ class Mage_Core_Helper_File_Storage_Database extends Mage_Core_Helper_Abstract
         if ($this->_mediaBaseDirectory === null) {
             $this->_mediaBaseDirectory = rtrim(Mage::getBaseDir('media'), '\\/');
         }
+
         return $this->_mediaBaseDirectory;
     }
 }

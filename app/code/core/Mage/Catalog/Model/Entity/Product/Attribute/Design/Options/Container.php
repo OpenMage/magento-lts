@@ -37,6 +37,7 @@ class Mage_Catalog_Model_Entity_Product_Attribute_Design_Options_Container exten
                 }
             }
         }
+
         return $options[$value] ?? false;
     }
 }

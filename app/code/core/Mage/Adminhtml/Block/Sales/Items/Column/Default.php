@@ -30,13 +30,16 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Default extends Mage_Adminhtml_Blo
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (!empty($options['attributes_info'])) {
                 $result = array_merge($options['attributes_info'], $result);
             }
         }
+
         return $result;
     }
 
@@ -58,6 +61,7 @@ class Mage_Adminhtml_Block_Sales_Items_Column_Default extends Mage_Adminhtml_Blo
                 return $default;
             }
         }
+
         return $default;
     }
 

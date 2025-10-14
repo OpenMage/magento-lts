@@ -32,6 +32,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Serialized_Array extends Mage_A
         if (is_array($value)) {
             unset($value['__empty']);
         }
+
         $this->setValue($value);
         return parent::_beforeSave();
     }

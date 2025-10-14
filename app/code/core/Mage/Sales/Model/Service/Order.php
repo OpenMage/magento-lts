@@ -75,6 +75,7 @@ class Mage_Sales_Model_Service_Order
                 }
             }
         }
+
         return $this;
     }
 
@@ -105,12 +106,13 @@ class Mage_Sales_Model_Service_Order
             if (!$this->_canInvoiceItem($orderItem, [])) {
                 continue;
             }
+
             $item = $this->_convertor->itemToInvoiceItem($orderItem);
             if ($orderItem->isDummy()) {
                 $qty = $orderItem->getQtyOrdered() ? $orderItem->getQtyOrdered() : 1;
             } elseif (isset($qtys[$orderItem->getId()])) {
                 $qty = (float) $qtys[$orderItem->getId()];
-            } elseif (!count($qtys)) {
+            } elseif ($qtys === []) {
                 $qty = $orderItem->getQtyToInvoice();
             } else {
                 $qty = 0;
@@ -174,6 +176,7 @@ class Mage_Sales_Model_Service_Order
             } else {
                 continue;
             }
+
             $totalQty += $qty;
             $item->setQty($qty);
             $shipment->addItem($item);
@@ -207,15 +210,17 @@ class Mage_Sales_Model_Service_Order
                 $orderItem->setLockedDoShip(true);
             } elseif (isset($qtys[$orderItem->getId()])) {
                 $qty = (float) $qtys[$orderItem->getId()];
-            } elseif (!count($qtys)) {
+            } elseif ($qtys === []) {
                 $qty = $orderItem->getQtyToRefund();
             } else {
                 continue;
             }
+
             $totalQty += $qty;
             $item->setQty($qty);
             $creditmemo->addItem($item);
         }
+
         $creditmemo->setTotalQty($totalQty);
 
         $this->_initCreditmemoData($creditmemo, $data);
@@ -261,8 +266,9 @@ class Mage_Sales_Model_Service_Order
             $invoiceQtyCanBeRefunded = $invoiceItem->getQty();
             $orderItemId = $invoiceItem->getOrderItem()->getId();
             if (isset($invoiceQtysRefunded[$orderItemId])) {
-                $invoiceQtyCanBeRefunded = $invoiceQtyCanBeRefunded - $invoiceQtysRefunded[$orderItemId];
+                $invoiceQtyCanBeRefunded -= $invoiceQtysRefunded[$orderItemId];
             }
+
             $invoiceQtysRefundLimits[$orderItemId] = $invoiceQtyCanBeRefunded;
         }
 
@@ -279,20 +285,23 @@ class Mage_Sales_Model_Service_Order
             } else {
                 if (isset($qtys[$orderItem->getId()])) {
                     $qty = (float) $qtys[$orderItem->getId()];
-                } elseif (!count($qtys)) {
+                } elseif ($qtys === []) {
                     $qty = $orderItem->getQtyToRefund();
                 } else {
                     continue;
                 }
+
                 if (isset($invoiceQtysRefundLimits[$orderItem->getId()])) {
                     $qty = min($qty, $invoiceQtysRefundLimits[$orderItem->getId()]);
                 }
             }
+
             $qty = min($qty, $invoiceItem->getQty());
             $totalQty += $qty;
             $item->setQty($qty);
             $creditmemo->addItem($item);
         }
+
         $creditmemo->setTotalQty($totalQty);
 
         $this->_initCreditmemoData($creditmemo, $data);
@@ -307,6 +316,7 @@ class Mage_Sales_Model_Service_Order
                 $baseAllowedAmount = $order->getBaseShippingAmount() - $order->getBaseShippingRefunded();
                 $baseAllowedAmount = min($baseAllowedAmount, $invoice->getBaseShippingAmount());
             }
+
             $creditmemo->setBaseShippingAmount($baseAllowedAmount);
         }
 
@@ -349,6 +359,7 @@ class Mage_Sales_Model_Service_Order
         if ($item->getLockedDoInvoice()) {
             return false;
         }
+
         $this->updateLocaleNumbers($qtys);
 
         if ($item->isDummy()) {
@@ -362,6 +373,7 @@ class Mage_Sales_Model_Service_Order
                         return true;
                     }
                 }
+
                 return false;
             } elseif ($item->getParentItem()) {
                 $parent = $item->getParentItem();
@@ -374,6 +386,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToInvoice() > 0;
         }
+
         return false;
     }
 
@@ -390,6 +403,7 @@ class Mage_Sales_Model_Service_Order
         if ($item->getIsVirtual() || $item->getLockedDoShip()) {
             return false;
         }
+
         $this->updateLocaleNumbers($qtys);
 
         if ($item->isDummy(true)) {
@@ -397,10 +411,12 @@ class Mage_Sales_Model_Service_Order
                 if ($item->isShipSeparately()) {
                     return true;
                 }
+
                 foreach ($item->getChildrenItems() as $child) {
                     if ($child->getIsVirtual()) {
                         continue;
                     }
+
                     if (empty($qtys)) {
                         if ($child->getQtyToShip() > 0) {
                             return true;
@@ -409,6 +425,7 @@ class Mage_Sales_Model_Service_Order
                         return true;
                     }
                 }
+
                 return false;
             } elseif ($item->getParentItem()) {
                 $parent = $item->getParentItem();
@@ -421,6 +438,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $item->getQtyToShip() > 0;
         }
+
         return false;
     }
 
@@ -446,6 +464,7 @@ class Mage_Sales_Model_Service_Order
                         return true;
                     }
                 }
+
                 return false;
             } elseif ($item->getParentItem()) {
                 $parent = $item->getParentItem();
@@ -458,6 +477,7 @@ class Mage_Sales_Model_Service_Order
         } else {
             return $this->_canRefundNoDummyItem($item, $invoiceQtysRefundLimits);
         }
+
         return false;
     }
 

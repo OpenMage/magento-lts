@@ -33,6 +33,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Price extends Mage_C
                 'value' => self::TYPE_USE_CONFIG,
             ];
         }
+
         return $this->_options;
     }
 

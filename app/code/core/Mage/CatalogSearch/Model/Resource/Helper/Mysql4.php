@@ -71,20 +71,24 @@ class Mage_CatalogSearch_Model_Resource_Helper_Mysql4 extends Mage_Eav_Model_Res
                     } else {
                         $isOpenBracket--;
                     }
+
                     $words[] = $word;
                 } elseif ($isBool) {
                     $words[] = $word;
                 }
             }
         }
+
         if ($isOpenBracket > 0) {
             $words[] = sprintf("%')" . $isOpenBracket . 's', '');
         } elseif ($isOpenBracket < 0) {
             $words[0] = sprintf("%'(" . $isOpenBracket . 's', '');
         }
+
         if ($maxWordLength && count($terms) > $maxWordLength) {
             $terms = array_slice($terms, 0, $maxWordLength);
         }
+
         return [$words, $terms];
     }
 

@@ -33,6 +33,7 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
         if (is_null($this->_collection)) {
             $this->_initCollection();
         }
+
         return $this->_collection;
     }
 
@@ -69,6 +70,7 @@ abstract class Mage_Adminhtml_Helper_Dashboard_Abstract extends Mage_Core_Helper
                 $result[] = null;
             }
         }
+
         return $result;
     }
 

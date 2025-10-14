@@ -15,7 +15,9 @@
 class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Resource_Report_Abstract
 {
     public const AGGREGATION_DAILY   = 'daily';
+
     public const AGGREGATION_MONTHLY = 'monthly';
+
     public const AGGREGATION_YEARLY  = 'yearly';
 
     /**
@@ -266,6 +268,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers extends Mage_Sales_Model_Reso
             $adapter->quoteInto('product_default_price.attribute_id = ?', $attr->getAttributeId()),
         ];
         $joinExprProductDefPrice = implode(' AND ', $joinExprProductDefPrice);
+
         $select->joinLeft(
             ['product_default_price' => $attr->getBackend()->getTable()],
             $joinExprProductDefPrice,

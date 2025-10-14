@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Report_Sales_Refunded_Grid extends Mage_Adminhtml_Blo
         if ($this->getFilterData()->getStoreIds()) {
             $this->setStoreIds(explode(',', $this->getFilterData()->getStoreIds()));
         }
+
         $currencyCode = $this->getCurrentCurrencyCode();
         $rate = $this->getRate($currencyCode);
 

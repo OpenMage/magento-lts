@@ -40,6 +40,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
         if ($this->_itemsCollection) {
             return $this->_itemsCollection;
         }
+
         return $this->_getHelper()->getItemCollection();
     }
 
@@ -99,6 +100,7 @@ class Mage_Catalog_Block_Product_Compare_Sidebar extends Mage_Catalog_Block_Prod
                 $compareItem->setId($product->getCatalogCompareItemId()),
             );
         }
+
         return parent::getCacheTags();
     }
 }

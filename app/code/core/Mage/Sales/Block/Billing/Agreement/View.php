@@ -62,6 +62,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 ->addBillingAgreementsFilter($this->_billingAgreementInstance->getAgreementId())
                 ->setOrder('created_at', 'desc');
         }
+
         return $this->_relatedOrders;
     }
 
@@ -98,6 +99,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             default:
                 $value = ($order->getData($key)) ?: $this->__('N/A');
         }
+
         return ($escape) ? $this->escapeHtml($value) : $value;
     }
 
@@ -111,6 +113,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
         if (is_null($this->_billingAgreementInstance)) {
             $this->_billingAgreementInstance = Mage::registry('current_billing_agreement');
         }
+
         parent::_prepareLayout();
 
         $pager = $this->getLayout()->createBlock('page/html_pager')
@@ -135,6 +138,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
                 $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
+
         return $this->_paymentMethods;
     }
 
@@ -167,6 +171,7 @@ class Mage_Sales_Block_Billing_Agreement_View extends Mage_Core_Block_Template
             if ($updatedAt) {
                 $this->setAgreementUpdatedAt($this->formatDate($updatedAt, 'short', true));
             }
+
             $this->setAgreementStatus($this->_billingAgreementInstance->getStatusLabel());
         }
 

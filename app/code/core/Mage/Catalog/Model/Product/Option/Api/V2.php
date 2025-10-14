@@ -55,6 +55,7 @@ class Mage_Catalog_Model_Product_Option_Api_V2 extends Mage_Catalog_Model_Produc
         foreach ($result as $key => $option) {
             $result[$key] = Mage::helper('api')->wsiArrayPacker($option);
         }
+
         return $result;
     }
 }

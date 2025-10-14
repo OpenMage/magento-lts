@@ -41,6 +41,7 @@ class Mage_Downloadable_Block_Sales_Order_Item_Renderer_Downloadable extends Mag
         if ($this->_purchasedLinks->getLinkSectionTitle()) {
             return $this->_purchasedLinks->getLinkSectionTitle();
         }
+
         return Mage::getStoreConfig(Mage_Downloadable_Model_Link::XML_PATH_LINKS_TITLE);
     }
 }

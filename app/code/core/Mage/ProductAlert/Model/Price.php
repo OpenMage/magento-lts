@@ -56,6 +56,7 @@ class Mage_ProductAlert_Model_Price extends Mage_Core_Model_Abstract
         if (!is_null($this->getProductId()) && !is_null($this->getCustomerId()) && !is_null($this->getWebsiteId())) {
             $this->getResource()->loadByParam($this);
         }
+
         return $this;
     }
 

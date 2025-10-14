@@ -27,6 +27,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
                 unset($data[$field]);
             }
         }
+
         return $data;
     }
 
@@ -134,6 +135,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             } else {
                 $this->_redirect('*/*/new', ['id' => $id]);
             }
+
             return;
         }
 
@@ -149,11 +151,13 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             if ($id) {
                 $this->_redirect('*/*/edit', ['id' => $id]);
             } else {
                 $this->_redirect('*/*/new');
             }
+
             return;
         }
 
@@ -168,6 +172,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
                 $this->_redirect('*/*/index');
                 return;
             }
+
             $model->load($id);
 
             if (!$model->getId()) {
@@ -231,8 +236,10 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             if ($action == 'new' || $action == 'save') {
                 $action = 'edit';
             }
+
             $action = '/' . $action;
         }
+
         /** @var Mage_Admin_Model_Session $session */
         $session = Mage::getSingleton('admin/session');
         return $session->isAllowed('system/api/oauth_consumer' . $action);
@@ -276,6 +283,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/edit', ['id' => $consumerId]);
             return;
         }
@@ -300,6 +308,7 @@ class Mage_Oauth_Adminhtml_Oauth_ConsumerController extends Mage_Adminhtml_Contr
                 );
             }
         }
+
         $this->_redirect('*/*/index');
     }
 }

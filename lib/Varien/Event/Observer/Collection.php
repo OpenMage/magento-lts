@@ -84,6 +84,7 @@ class Varien_Event_Observer_Collection
         foreach ($this->_observers as $observer) {
             $observer->dispatch($event);
         }
+
         return $this;
     }
 }

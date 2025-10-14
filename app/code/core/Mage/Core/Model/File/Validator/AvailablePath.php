@@ -30,7 +30,9 @@
 class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract
 {
     public const PROTECTED_PATH     = 'protectedPath';
+
     public const NOT_AVAILABLE_PATH = 'notAvailablePath';
+
     public const PROTECTED_LFI      = 'protectedLfi';
 
     /**
@@ -83,6 +85,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
                     Mage::helper('core')->__('Path "%value%" may not include parent directory traversal ("../", "..\\").'),
             ];
         }
+
         return $this;
     }
 
@@ -98,9 +101,11 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
         if (isset($paths['available']) && is_array($paths['available'])) {
             $this->_availablePaths = $paths['available'];
         }
+
         if (isset($paths['protected']) && is_array($paths['protected'])) {
             $this->_protectedPaths = $paths['protected'];
         }
+
         return $this;
     }
 
@@ -128,6 +133,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
         } else {
             $this->_protectedPaths[] = $path;
         }
+
         return $this;
     }
 
@@ -165,6 +171,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
         } else {
             $this->_availablePaths[] = $path;
         }
+
         return $this;
     }
 
@@ -222,6 +229,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
             $this->_error(self::PROTECTED_PATH, $this->_value);
             return false;
         }
+
         if ($this->_availablePaths && !$this->_isValidByPaths($valuePathInfo, $this->_availablePaths, false)) {
             $this->_error(self::NOT_AVAILABLE_PATH, $this->_value);
             return false;
@@ -250,6 +258,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
                 } else {
                     $pathInfo['dirname'] = str_replace(['/', '\\'], DS, $pathInfo['dirname']);
                 }
+
                 $options['dir_mask'] = $pathInfo['dirname'];
                 $this->_pathsData[$path]['options'] = $options;
             } else {
@@ -267,6 +276,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
                 } else {
                     $reg = $this->_pathsData[$path]['regFilename'];
                 }
+
                 $resultFile = preg_match($reg, $valuePathInfo['basename']);
             } else {
                 $resultFile = ($options['file_mask'] == $valuePathInfo['basename']);
@@ -286,6 +296,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
             } else {
                 $reg = $this->_pathsData[$path]['regDir'];
             }
+
             $resultDir = preg_match($reg, $valuePathInfo['dirname'] . DS);
 
             if ($protected && ($resultDir && $resultFile)) {
@@ -295,6 +306,7 @@ class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstrac
                 return true;
             }
         }
+
         if ($protected) {
             return true;
         } else {

@@ -35,6 +35,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
                 Mage::helper('catalog')->__('Filter must be an object. Please set correct filter.'),
             );
         }
+
         return $filter;
     }
 
@@ -109,6 +110,7 @@ class Mage_Catalog_Model_Layer_Filter_Item extends Varien_Object
         if (is_array($value)) {
             return implode(',', $value);
         }
+
         return $value;
     }
 }

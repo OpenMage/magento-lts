@@ -163,6 +163,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 $this->_dataSaveAllowed = false;
             }
         }
+
         $this->setLastModified($this->getReportLastModified());
         return parent::_beforeSave();
     }
@@ -185,6 +186,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             'password' => $config['password'],
         ]);
         $connection->cd($config['path']);
+
         $fetched = 0;
         $listing = $this->_filterReportsList($connection->rawls());
         foreach ($listing as $filename => $attributes) {
@@ -222,11 +224,13 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 if ($this->_dataSaveAllowed) {
                     $fetched += count($this->_rows);
                 }
+
                 // clean object and remove parsed file
                 $this->unsetData();
                 unlink($localCsv);
             }
         }
+
         return $fetched;
     }
 
@@ -250,6 +254,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             if (empty($line)) { // The line was empty, so skip it.
                 continue;
             }
+
             $lineType = $line[0];
             switch ($lineType) {
                 case 'RH': // Report header.
@@ -274,6 +279,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     for ($i = 1; $i < $counter; $i++) {
                         $sectionColumns[$line[$i]] = $i;
                     }
+
                     $flippedSectionColumns = array_flip($sectionColumns);
                     break;
                 case 'SB': // Section body.
@@ -282,6 +288,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     for ($i = 1; $i < $counter; $i++) {
                         $bodyItem[$rowMap[$flippedSectionColumns[$i]]] = $line[$i];
                     }
+
                     $this->_rows[] = $bodyItem;
                     break;
                 case 'SC': // Section records count.
@@ -293,6 +300,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                     break;
             }
         }
+
         return $this;
     }
 
@@ -362,6 +370,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             if (!$active && $automaticMode) {
                 continue;
             }
+
             $cfg = [
                 'hostname'  => $store->getConfig('paypal/fetch_reports/ftp_ip'),
                 'path'      => $store->getConfig('paypal/fetch_reports/ftp_path'),
@@ -372,19 +381,24 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
             if (empty($cfg['username']) || empty($cfg['password'])) {
                 continue;
             }
+
             if (empty($cfg['hostname']) || $cfg['sandbox']) {
                 $cfg['hostname'] = $cfg['sandbox'] ? self::SANDBOX_REPORTS_HOSTNAME : self::REPORTS_HOSTNAME;
             }
+
             if (empty($cfg['path']) || $cfg['sandbox']) {
                 $cfg['path'] = self::REPORTS_PATH;
             }
+
             // avoid duplicates
             if (in_array(serialize($cfg), $uniques)) {
                 continue;
             }
+
             $uniques[] = serialize($cfg);
             $configs[] = $cfg;
         }
+
         return $configs;
     }
 
@@ -416,6 +430,7 @@ class Mage_Paypal_Model_Report_Settlement extends Mage_Core_Model_Abstract
                 $result[$filename] = $data;
             }
         }
+
         return $result;
     }
 }

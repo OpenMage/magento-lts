@@ -33,14 +33,19 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
     protected $_productImageFilters = [];
 
     public const SWATCH_LABEL_SUFFIX = '-swatch';
+
     public const SWATCH_FALLBACK_MEDIA_DIR = 'wysiwyg/swatches';
+
     public const SWATCH_CACHE_DIR = 'catalog/swatches';
+
     public const SWATCH_FILE_EXT = '.png';
 
     public const MEDIA_IMAGE_TYPE_BASE = 'base_image';
+
     public const MEDIA_IMAGE_TYPE_SMALL = 'small_image';
 
     public const SWATCH_DEFAULT_WIDTH = 21;
+
     public const SWATCH_DEFAULT_HEIGHT = 21;
 
     /**
@@ -146,6 +151,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
                     }
                 }
             }
+
             $this->_productImagesByLabel[$product->getId()] = $images;
         }
     }
@@ -247,6 +253,7 @@ class Mage_ConfigurableSwatches_Helper_Productimg extends Mage_Core_Helper_Abstr
             if (!$swatchImage) {
                 $swatchImage = $this->createSwatchImage($value, $width, $height);
             }
+
             if (!$swatchImage && $defaultValue == $value) {
                 return '';  // no image found and no further fallback
             } elseif (!$swatchImage) {

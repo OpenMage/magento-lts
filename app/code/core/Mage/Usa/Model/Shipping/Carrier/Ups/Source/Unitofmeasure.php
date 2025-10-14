@@ -19,6 +19,7 @@ class Mage_Usa_Model_Shipping_Carrier_Ups_Source_Unitofmeasure
         foreach ($unitArr as $key => $val) {
             $returnArr[] = ['value' => $key,'label' => $key];
         }
+
         return $returnArr;
     }
 }

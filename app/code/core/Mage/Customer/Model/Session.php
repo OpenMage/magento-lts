@@ -101,6 +101,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
                 return $this->_logout();
             }
         }
+
         $this->_customer = $customer;
         $this->setId($customer->getId());
         // save customer as confirmed, if it is not
@@ -108,6 +109,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             $customer->setConfirmation(null)->save();
             $customer->setIsJustConfirmed(true);
         }
+
         return $this;
     }
 
@@ -154,6 +156,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->getData('customer_id')) {
             return $this->getData('customer_id');
         }
+
         return ($this->isLoggedIn()) ? $this->getId() : null;
     }
 
@@ -180,9 +183,11 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->getData('customer_group_id')) {
             return $this->getData('customer_group_id');
         }
+
         if ($this->isLoggedIn() && $this->getCustomer()) {
             return $this->getCustomer()->getGroupId();
         }
+
         return Mage_Customer_Model_Group::NOT_LOGGED_IN_ID;
     }
 
@@ -207,6 +212,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         if ($this->_isCustomerIdChecked === null) {
             $this->_isCustomerIdChecked = Mage::getResourceSingleton('customer/customer')->checkCustomerId($customerId);
         }
+
         return $this->_isCustomerIdChecked;
     }
 
@@ -230,6 +236,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->setCustomerAsLoggedIn($customer);
             return true;
         }
+
         return false;
     }
 
@@ -259,6 +266,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             $this->setCustomerAsLoggedIn($customer);
             return true;
         }
+
         return false;
     }
 
@@ -273,6 +281,7 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
             Mage::dispatchEvent('customer_logout', ['customer' => $this->getCustomer()]);
             $this->_logout();
         }
+
         return $this;
     }
 

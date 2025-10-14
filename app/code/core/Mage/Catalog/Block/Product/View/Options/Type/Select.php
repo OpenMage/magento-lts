@@ -60,12 +60,15 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     ['price' => $helper::currencyByStore($value->getPrice(true), $store, false)],
                 );
             }
+
             if ($option->getType() === Mage_Catalog_Model_Product_Option::OPTION_TYPE_MULTIPLE) {
                 $extraParams = ' multiple="multiple"';
             }
+
             if (!$this->getSkipJsReloadPrice()) {
                 $extraParams .= ' onchange="opConfig.reloadPrice()"';
             }
+
             $select->setExtraParams($extraParams);
 
             if ($configValue) {
@@ -92,6 +95,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                             . ' value="" checked="checked" /><span class="label"><label for="options_'
                             . $option->getId() . '">' . $this->__('None') . '</label></span></li>';
                     }
+
                     break;
                 case Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX:
                     $type = 'checkbox';
@@ -99,6 +103,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     $arraySign = '[]';
                     break;
             }
+
             $count = 1;
             foreach ($option->getValues() as $value) {
                 $count++;
@@ -118,7 +123,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                 /** @var Mage_Core_Helper_Data $helper */
                 $helper = $this->helper('core');
 
-                $selectHtml .= '<li>' . '<input type="' . $type . '" class="' . $class . ' ' . $require
+                $selectHtml .= '<li><input type="' . $type . '" class="' . $class . ' ' . $require
                     . ' product-custom-option"'
                     . ($this->getSkipJsReloadPrice() ? '' : ' onclick="opConfig.reloadPrice()"')
                     . ' name="options[' . $option->getId() . ']' . $arraySign . '" id="options_' . $option->getId()
@@ -127,11 +132,12 @@ class Mage_Catalog_Block_Product_View_Options_Type_Select extends Mage_Catalog_B
                     . '<span class="label"><label for="options_' . $option->getId() . '_' . $count . '">'
                     . $this->escapeHtml($value->getTitle()) . ' ' . $priceStr . '</label></span>';
                 if ($option->getIsRequire()) {
-                    $selectHtml .= '<script type="text/javascript">' . '$(\'options_' . $option->getId() . '_'
+                    $selectHtml .= '<script type="text/javascript">$(\'options_' . $option->getId() . '_'
                     . $count . '\').advaiceContainer = \'options-' . $option->getId() . '-container\';'
                     . '$(\'options_' . $option->getId() . '_' . $count
                     . '\').callbackFunction = \'validateOptionsCallback\';' . '</script>';
                 }
+
                 $selectHtml .= '</li>';
             }
 

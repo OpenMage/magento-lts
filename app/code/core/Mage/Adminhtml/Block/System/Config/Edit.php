@@ -79,6 +79,7 @@ class Mage_Adminhtml_Block_System_Config_Edit extends Mage_Adminhtml_Block_Widge
         if (empty($blockName)) {
             $blockName = self::DEFAULT_SECTION_BLOCK;
         }
+
         $this->setChild(
             'form',
             $this->getLayout()->createBlock($blockName)

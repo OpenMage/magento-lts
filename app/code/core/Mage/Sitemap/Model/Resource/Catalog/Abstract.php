@@ -145,6 +145,7 @@ abstract class Mage_Sitemap_Model_Resource_Catalog_Abstract extends Mage_Core_Mo
             $entity = $this->_prepareObject($row);
             $entities[$entity->getId()] = $entity;
         }
+
         return $entities;
     }
 

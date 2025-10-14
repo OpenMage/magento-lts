@@ -32,9 +32,11 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
         if (!is_array($this->_options)) {
             $this->_options = [];
         }
+
         if (!is_array($this->_optionsDefault)) {
             $this->_optionsDefault = [];
         }
+
         if (!isset($this->_options[$storeId])) {
             $idPrefix = 'ATTRIBUTE_OPTIONS_ID_' . $this->getAttribute()->getId();
             $tags = array_merge(
@@ -50,6 +52,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
             $this->_options[$storeId]        = $collection->toOptionArray();
             $this->_optionsDefault[$storeId] = $collection->toOptionArray('default_value');
         }
+
         $options = ($defaultValues ? $this->_optionsDefault[$storeId] : $this->_options[$storeId]);
         if ($withEmpty) {
             array_unshift($options, ['label' => '', 'value' => '']);
@@ -81,6 +84,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                     $values[] = $item['label'];
                 }
             }
+
             return $values;
         }
 
@@ -89,6 +93,7 @@ class Mage_Eav_Model_Entity_Attribute_Source_Table extends Mage_Eav_Model_Entity
                 return $item['label'];
             }
         }
+
         return false;
     }
 

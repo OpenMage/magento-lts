@@ -87,6 +87,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                     $this->_addBreadcrumb($label, '', $url->getUrl('*/*/*', ['section' => $code]));
                 }
             }
+
             if ($sectionAllowed && $hasChildren) {
                 $this->addSection($code, (string) $section->tab, [
                     'class'     => (string) $section->class,
@@ -152,10 +153,12 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
             if (!$tab->getSections()) {
                 $tab->setSections(new Varien_Data_Collection());
             }
+
             $section = new Varien_Object($config);
             $section->setId($code);
             $tab->getSections()->addItem($section);
         }
+
         return $this;
     }
 
@@ -198,11 +201,13 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                 if ($group->getWebsiteId() != $website->getId()) {
                     continue;
                 }
+
                 $groupShow = false;
                 foreach ($storeModel->getStoreCollection() as $store) {
                     if ($store->getGroupId() != $group->getId()) {
                         continue;
                     }
+
                     if (!$websiteShow) {
                         $websiteShow = true;
                         $options['website_' . $website->getCode()] = [
@@ -212,6 +217,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                             'style'    => 'padding-left:16px; background:#DDD; font-weight:bold;',
                         ];
                     }
+
                     if (!$groupShow) {
                         $groupShow = true;
                         $options['group_' . $group->getId() . '_open'] = [
@@ -221,6 +227,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                             'style'     => 'padding-left:32px;',
                         ];
                     }
+
                     $storeCode = $store->getCode();
                     $options['store_' . $storeCode] = [
                         'label'    => $store->getName(),
@@ -229,6 +236,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
                         'style'    => '',
                     ];
                 }
+
                 if ($groupShow) {
                     $options['group_' . $group->getId() . '_close'] = [
                         'is_group'  => true,
@@ -307,6 +315,7 @@ class Mage_Adminhtml_Block_System_Config_Tabs extends Mage_Adminhtml_Block_Widge
         if ($permissions->isAllowed('system/config/' . $code)) {
             $showTab = true;
         }
+
         return $showTab;
     }
 }

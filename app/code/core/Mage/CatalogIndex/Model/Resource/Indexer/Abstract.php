@@ -69,6 +69,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
                 $row[$this->_entityIdFieldName] = $productId;
                 $this->_getWriteAdapter()->insert($this->getMainTable(), $row);
             }
+
             $this->commit();
         } catch (Exception $e) {
             $this->rollBack();
@@ -135,6 +136,7 @@ class Mage_CatalogIndex_Model_Resource_Indexer_Abstract extends Mage_Core_Model_
         } else {
             $select->where($conditions);
         }
+
         return $this->_getReadAdapter()->fetchCol($select);
     }
 }

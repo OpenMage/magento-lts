@@ -30,6 +30,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
         if ($result = $this->getVariableByCode($code, true, $object->getStoreId())) {
             $object->setData($result);
         }
+
         return $this;
     }
 
@@ -49,6 +50,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
         if ($withValue) {
             $this->_addValueToSelect($select, $storeId);
         }
+
         return $this->_getReadAdapter()->fetchRow($select);
     }
 
@@ -84,6 +86,7 @@ class Mage_Core_Model_Resource_Variable extends Mage_Core_Model_Resource_Db_Abst
                 ['plain_value', 'html_value'],
             );
         }
+
         return $this;
     }
 

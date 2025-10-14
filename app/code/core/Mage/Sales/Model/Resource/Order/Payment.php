@@ -52,6 +52,7 @@ class Mage_Sales_Model_Resource_Order_Payment extends Mage_Sales_Model_Resource_
             } catch (Exception $e) {
                 Mage::logException($e);
             }
+
             $object->setData($field, $unserializedValue);
         }
     }

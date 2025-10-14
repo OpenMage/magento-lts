@@ -41,9 +41,11 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
         if (is_string($content)) {
             return $content;
         }
+
         if ($content instanceof Mage_Core_Block_Abstract) {
             return $content->toHtml();
         }
+
         return null;
     }
 
@@ -53,6 +55,7 @@ class Mage_Adminhtml_Block_Widget_Accordion_Item extends Mage_Adminhtml_Block_Wi
         if ($this->getOpen()) {
             $class .= ' open';
         }
+
         return $class;
     }
 
