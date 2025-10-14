@@ -145,7 +145,7 @@ class Mage_Directory_Helper_Data extends Mage_Core_Helper_Abstract
         Varien_Profiler::start('TEST: ' . __METHOD__);
         if (!$this->_regionJson) {
             $store = $this->_app->getStore($storeId);
-            $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . (string) $store->getId();
+            $cacheKey = 'DIRECTORY_REGIONS_JSON_STORE' . $store->getId();
             if ($this->_app->useCache('config')) {
                 $json = $this->_app->loadCache($cacheKey);
             }

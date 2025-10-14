@@ -27,7 +27,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Image extends Varien_Data_Fo
         if (!empty($config->base_url)) {
             $el = $config->descend('base_url');
             $urlType = empty($el['type']) ? 'link' : (string) $el['type'];
-            $url = Mage::getBaseUrl($urlType) . (string) $config->base_url . '/' . $url;
+            $url = Mage::getBaseUrl($urlType) . $config->base_url . '/' . $url;
         }
 
         return $url;
