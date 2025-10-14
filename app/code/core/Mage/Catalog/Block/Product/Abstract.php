@@ -400,7 +400,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty'] * 1;
+                $price['price_qty'] *= 1;
 
                 $_productPrice = $product->getPrice();
                 if ($_productPrice != $product->getFinalPrice()) {

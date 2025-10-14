@@ -2083,7 +2083,7 @@ XMLAuth;
                     ];
                 }
 
-                $containerTypes = $containerTypes + [
+                $containerTypes += [
                     '03'     => Mage::helper('usa')->__('UPS Tube'),
                     '04'    => Mage::helper('usa')->__('PAK'),
                     '2a'    => Mage::helper('usa')->__('Small Express Box'),

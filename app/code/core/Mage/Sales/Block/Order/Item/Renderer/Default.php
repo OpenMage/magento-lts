@@ -141,7 +141,7 @@ class Mage_Sales_Block_Order_Item_Renderer_Default extends Mage_Core_Block_Templ
         $result = ['value' => $truncatedValue];
 
         if (Mage::helper('core/string')->strlen($optionValue) > 55) {
-            $result['value'] = $result['value'] . ' <a href="#" class="dots" onclick="return false">...</a>';
+            $result['value'] .= ' <a href="#" class="dots" onclick="return false">...</a>';
             $optionValue = nl2br($optionValue);
             $result = array_merge($result, ['full_view' => $optionValue]);
         }

@@ -535,7 +535,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $price = (float) $this->getCustomPrice();
                 if ($price) {
                     $rate = $this->getStore()->convertPrice($price) / $price;
-                    $price = $price / $rate;
+                    $price /= $rate;
                 }
             } else {
                 $price = $this->getPrice();
@@ -559,7 +559,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
                 $price = (float) $this->getOriginalCustomPrice();
                 if ($price) {
                     $rate = $this->getStore()->convertPrice($price) / $price;
-                    $price = $price / $rate;
+                    $price /= $rate;
                 }
             } else {
                 $price = $this->getPrice();
@@ -886,7 +886,7 @@ abstract class Mage_Sales_Model_Quote_Item_Abstract extends Mage_Core_Model_Abst
             if ($saveTaxes) {
                 $qty = $this->getQty();
                 if ($this->getParentItem()) {
-                    $qty = $qty * $this->getParentItem()->getQty();
+                    $qty *= $this->getParentItem()->getQty();
                 }
 
                 if (Mage::helper('tax')->displayCartPriceInclTax($store)) {

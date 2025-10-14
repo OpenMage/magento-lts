@@ -44,7 +44,6 @@ try {
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])
         ->withSkip([
-            CodeQuality\Assign\CombinedAssignRector::class, # todo: TMP
             CodeQuality\BooleanNot\SimplifyDeMorganBinaryRector::class,
             # skip: causes issues with Mage_Api2_Model_Auth_Adapter_Oauth::getUserParams()
             CodeQuality\Catch_\ThrowWithPreviousExceptionRector::class => [

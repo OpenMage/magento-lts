@@ -175,7 +175,7 @@ class Mage_Core_Model_Date
                 break;
 
             case 'minutes':
-                $result = $result / 60;
+                $result /= 60;
                 break;
 
             case 'hours':
