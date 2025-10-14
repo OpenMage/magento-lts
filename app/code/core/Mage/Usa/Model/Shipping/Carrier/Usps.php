@@ -499,7 +499,7 @@ class Mage_Usa_Model_Shipping_Carrier_Usps extends Mage_Usa_Model_Shipping_Carri
                             }
 
                             $serviceName = $this->_filterServiceName((string) $service->SvcDescription);
-                            $serviceCode = 'INT_' . (string) $service->attributes()->ID;
+                            $serviceCode = 'INT_' . $service->attributes()->ID;
                             $serviceCodeToActualNameMap[$serviceCode] = $serviceName;
                             if (in_array($serviceCode, $allowedMethods)) {
                                 $costArr[$serviceCode] = (string) $service->Postage;

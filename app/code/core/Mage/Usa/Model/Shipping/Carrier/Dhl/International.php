@@ -1681,18 +1681,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                         $awbinfoData['service'] = (string) $shipmentInfo->ShipmentDesc;
                     }
 
-                    $awbinfoData['weight'] = (string) $shipmentInfo->Weight . ' ' . (string) $shipmentInfo->WeightUnit;
+                    $awbinfoData['weight'] = $shipmentInfo->Weight . ' ' . $shipmentInfo->WeightUnit;
 
                     $packageProgress = [];
                     if (isset($shipmentInfo->ShipmentEvent)) {
                         foreach ($shipmentInfo->ShipmentEvent as $shipmentEvent) {
                             $shipmentEventArray = [];
-                            $shipmentEventArray['activity'] = (string) $shipmentEvent->ServiceEvent->EventCode
-                                . ' ' . (string) $shipmentEvent->ServiceEvent->Description;
+                            $shipmentEventArray['activity'] = $shipmentEvent->ServiceEvent->EventCode
+                                . ' ' . $shipmentEvent->ServiceEvent->Description;
                             $shipmentEventArray['deliverydate'] = (string) $shipmentEvent->Date;
                             $shipmentEventArray['deliverytime'] = (string) $shipmentEvent->Time;
-                            $shipmentEventArray['deliverylocation'] = (string) $shipmentEvent->ServiceArea->Description
-                                . ' [' . (string) $shipmentEvent->ServiceArea->ServiceAreaCode . ']';
+                            $shipmentEventArray['deliverylocation'] = $shipmentEvent->ServiceArea->Description
+                                . ' [' . $shipmentEvent->ServiceArea->ServiceAreaCode . ']';
                             $packageProgress[] = $shipmentEventArray;
                         }
 
