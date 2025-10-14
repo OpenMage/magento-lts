@@ -207,16 +207,14 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             $adapter->insertMultiple($this->_productWebsiteTable, $data);
         }
 
-        if (!empty($delete)) {
-            foreach ($delete as $websiteId) {
-                $condition = [
-                    'product_id = ?' => (int) $product->getId(),
-                    'website_id = ?' => (int) $websiteId,
-                ];
+        foreach ($delete as $websiteId) {
+            $condition = [
+                'product_id = ?' => (int) $product->getId(),
+                'website_id = ?' => (int) $websiteId,
+            ];
 
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $adapter->delete($this->_productWebsiteTable, $condition);
-            }
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+            $adapter->delete($this->_productWebsiteTable, $condition);
         }
 
         if (!empty($insert) || !empty($delete)) {
@@ -268,16 +266,14 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             }
         }
 
-        if (!empty($delete)) {
-            foreach ($delete as $categoryId) {
-                $where = [
-                    'product_id = ?'  => (int) $object->getId(),
-                    'category_id = ?' => (int) $categoryId,
-                ];
+        foreach ($delete as $categoryId) {
+            $where = [
+                'product_id = ?'  => (int) $object->getId(),
+                'category_id = ?' => (int) $categoryId,
+            ];
 
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $write->delete($this->_productCategoryTable, $where);
-            }
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+            $write->delete($this->_productCategoryTable, $where);
         }
 
         if (!empty($insert) || !empty($delete)) {

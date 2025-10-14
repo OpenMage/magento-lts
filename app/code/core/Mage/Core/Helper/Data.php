@@ -837,12 +837,10 @@ XML;
                         $extensionsFilter = [$extensionsFilter];
                     }
 
-                    if (!empty($srcFiles)) {
-                        foreach ($srcFiles as $key => $file) {
-                            $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                            if (!in_array($fileExt, $extensionsFilter)) {
-                                unset($srcFiles[$key]);
-                            }
+                    foreach ($srcFiles as $key => $file) {
+                        $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                        if (!in_array($fileExt, $extensionsFilter)) {
+                            unset($srcFiles[$key]);
                         }
                     }
                 }

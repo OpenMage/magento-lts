@@ -53,44 +53,38 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Csp_Hosts extends Mage_Admin
         [$area, $directiveName] = $this->_parseNodePath();
 
         $globalPolicy = $this->helper->getGlobalPolicy($directiveName);
-        if ($globalPolicy) {
-            foreach ($globalPolicy as $key => $host) {
-                $rowId = $directiveName . '_xml_' . $area . '_' . $key;
-                $result[$rowId] = new Varien_Object([
-                    'host' => $host,
-                    'readonly' => 'readonly="readonly"',
-                    '_id' => $rowId,
-                    'area' => 'global',
-                ]);
-                $this->_prepareArrayRow($result[$rowId]);
-            }
+        foreach ($globalPolicy as $key => $host) {
+            $rowId = $directiveName . '_xml_' . $area . '_' . $key;
+            $result[$rowId] = new Varien_Object([
+                'host' => $host,
+                'readonly' => 'readonly="readonly"',
+                '_id' => $rowId,
+                'area' => 'global',
+            ]);
+            $this->_prepareArrayRow($result[$rowId]);
         }
 
         $areaPolicy = $this->helper->getAreaPolicy($area, $directiveName);
-        if ($areaPolicy) {
-            foreach ($areaPolicy as $key => $host) {
-                $rowId = $directiveName . '_xml_' . $area . '_' . $key;
-                $result[$rowId] = new Varien_Object([
-                    'host' => $host,
-                    'readonly' => 'readonly="readonly"',
-                    '_id' => $rowId,
-                    'area' => $area,
-                ]);
-                $this->_prepareArrayRow($result[$rowId]);
-            }
+        foreach ($areaPolicy as $key => $host) {
+            $rowId = $directiveName . '_xml_' . $area . '_' . $key;
+            $result[$rowId] = new Varien_Object([
+                'host' => $host,
+                'readonly' => 'readonly="readonly"',
+                '_id' => $rowId,
+                'area' => $area,
+            ]);
+            $this->_prepareArrayRow($result[$rowId]);
         }
 
         $configPolicy = $this->helper->getStoreConfigPolicy($area, $directiveName);
-        if ($configPolicy) {
-            foreach ($configPolicy as $key => $value) {
-                $rowId = $directiveName . '_' . $area . '_' . $key;
-                $result[$rowId] = new Varien_Object([
-                    'host' => $this->escapeHtml($value),
-                    '_id' => $rowId,
-                ]);
+        foreach ($configPolicy as $key => $value) {
+            $rowId = $directiveName . '_' . $area . '_' . $key;
+            $result[$rowId] = new Varien_Object([
+                'host' => $this->escapeHtml($value),
+                '_id' => $rowId,
+            ]);
 
-                $this->_prepareArrayRow($result[$rowId]);
-            }
+            $this->_prepareArrayRow($result[$rowId]);
         }
 
         $this->_arrayRowsCache = $result;

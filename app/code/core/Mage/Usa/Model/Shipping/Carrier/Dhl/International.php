@@ -1039,13 +1039,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if ($totalEstimate) {
                 $data = ['term' => $dhlProductDescription,
                     'price_total' => $this->getMethodPrice($totalEstimate, $dhlProduct)];
-                if (!empty($this->_rates)) {
-                    foreach ($this->_rates as $product) {
-                        if ($product['data']['term'] == $data['term']
-                            && $product['data']['price_total'] == $data['price_total']
-                        ) {
-                            return $this;
-                        }
+                foreach ($this->_rates as $product) {
+                    if ($product['data']['term'] == $data['term']
+                        && $product['data']['price_total'] == $data['price_total']
+                    ) {
+                        return $this;
                     }
                 }
 
@@ -1708,15 +1706,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         $result = Mage::getModel('shipping/tracking_result');
 
-        if (!empty($resultArr)) {
-            foreach ($resultArr as $trackNum => $data) {
-                $tracking = Mage::getModel('shipping/tracking_result_status');
-                $tracking->setCarrier($this->_code);
-                $tracking->setCarrierTitle($this->getConfigData('title'));
-                $tracking->setTracking($trackNum);
-                $tracking->addData($data);
-                $result->append($tracking);
-            }
+        foreach ($resultArr as $trackNum => $data) {
+            $tracking = Mage::getModel('shipping/tracking_result_status');
+            $tracking->setCarrier($this->_code);
+            $tracking->setCarrierTitle($this->getConfigData('title'));
+            $tracking->setTracking($trackNum);
+            $tracking->addData($data);
+            $result->append($tracking);
         }
 
         if (!empty($this->_errors) || empty($resultArr)) {

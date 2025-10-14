@@ -307,10 +307,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
 
         $regions = [];
 
-        if ($unset) {
-            foreach ($unset as $u) {
-                unset($csvData[0][$u]);
-            }
+        foreach ($unset as $u) {
+            unset($csvData[0][$u]);
         }
 
         if ($csvData[0] == $csvFields) {
@@ -328,10 +326,8 @@ class Mage_Adminhtml_Tax_RateController extends Mage_Adminhtml_Controller_Action
                     continue;
                 }
 
-                if ($unset) {
-                    foreach ($unset as $u) {
-                        unset($v[$u]);
-                    }
+                foreach ($unset as $u) {
+                    unset($v[$u]);
                 }
 
                 // phpcs:ignore Ecg.Performance.Loop.ArraySize
