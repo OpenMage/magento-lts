@@ -76,7 +76,7 @@ class Mage_Adminhtml_Block_System_Convert_Profile_Run extends Mage_Adminhtml_Blo
                 );
                 $jsonIds = array_chunk($importIds, $numberOfRecords);
                 $importData = [];
-                foreach ($jsonIds as $part => $ids) {
+                foreach ($jsonIds as $ids) {
                     $importData[] = [
                         'batch_id'   => $batchModel->getId(),
                         'rows[]'     => $ids,

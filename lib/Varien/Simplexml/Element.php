@@ -65,7 +65,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach ($this->children() as $k => $child) {
+        foreach ($this->children() as $child) {
             return true;
         }
 
@@ -427,7 +427,7 @@ class Varien_Simplexml_Element extends SimpleXMLElement
         }
 
         // finally add our source node children to resulting new target node
-        foreach ($sourceChildren as $childKey => $childNode) {
+        foreach ($sourceChildren as $childNode) {
             $targetChild->extendChild($childNode, $overwrite);
         }
 

@@ -15,7 +15,7 @@ $installer->startSetup();
 $applyTo = explode(',', $installer->getAttribute('catalog_product', 'weight', 'apply_to'));
 if (in_array('downloadable', $applyTo)) {
     $newApplyTo = [];
-    foreach ($applyTo as $key => $value) {
+    foreach ($applyTo as $value) {
         if ($value != 'downloadable') {
             $newApplyTo[] = $value;
         }

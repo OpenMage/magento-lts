@@ -92,7 +92,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
         }
 
         unset($value['__empty']);
-        foreach ($value as $_id => $row) {
+        foreach ($value as $row) {
             if (!is_array($row) || !array_key_exists('customer_group_id', $row) || !array_key_exists('min_sale_qty', $row)) {
                 return false;
             }
@@ -129,7 +129,7 @@ class Mage_CatalogInventory_Helper_Minsaleqty
     {
         $result = [];
         unset($value['__empty']);
-        foreach ($value as $_id => $row) {
+        foreach ($value as $row) {
             if (!is_array($row) || !array_key_exists('customer_group_id', $row) || !array_key_exists('min_sale_qty', $row)) {
                 continue;
             }

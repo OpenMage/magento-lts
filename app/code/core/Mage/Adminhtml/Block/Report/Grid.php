@@ -459,7 +459,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         foreach ($this->getCollection()->getIntervals() as $_index => $_item) {
             $report = $this->getReport($_item['start'], $_item['end']);
-            foreach ($report as $_subIndex => $_subItem) {
+            foreach ($report as $_subItem) {
                 $data = ['"' . $_index . '"'];
                 foreach ($this->_columns as $column) {
                     if (!$column->getIsSystem()) {
@@ -525,7 +525,7 @@ class Mage_Adminhtml_Block_Report_Grid extends Mage_Adminhtml_Block_Widget_Grid
 
         foreach ($this->getCollection()->getIntervals() as $_index => $_item) {
             $report = $this->getReport($_item['start'], $_item['end']);
-            foreach ($report as $_subIndex => $_subItem) {
+            foreach ($report as $_subItem) {
                 $row = [$_index];
                 foreach ($this->_columns as $column) {
                     if (!$column->getIsSystem()) {

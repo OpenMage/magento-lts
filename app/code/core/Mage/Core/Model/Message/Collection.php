@@ -129,7 +129,7 @@ class Mage_Core_Model_Message_Collection
         }
 
         $arrRes = [];
-        foreach ($this->_messages as $messageType => $messages) {
+        foreach ($this->_messages as $messages) {
             $arrRes = array_merge($arrRes, $messages);
         }
 

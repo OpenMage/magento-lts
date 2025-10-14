@@ -103,7 +103,7 @@ class Mage_Dataflow_Model_Session_Parser_Csv extends Mage_Dataflow_Model_Convert
             $lines[] = implode($fDel, $line);
         }
 
-        foreach ($data as $i => $row) {
+        foreach ($data as $row) {
             $line = [];
             foreach ($fields as $f) {
                 /*

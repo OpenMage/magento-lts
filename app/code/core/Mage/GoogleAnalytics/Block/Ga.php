@@ -224,7 +224,7 @@ gtag('set', 'user_id', '{$customer->getId()}');
             $eventData['items'] = [];
 
             $index = 1;
-            foreach ($productCollection as $key => $productViewed) {
+            foreach ($productCollection as $productViewed) {
                 $_item = [
                     'item_id' => $productViewed->getSku(),
                     'index' => $index,
