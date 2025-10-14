@@ -156,7 +156,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function roleUserExists()
     {
         $result = $this->_getResource()->roleUserExists($this);
-        return is_array($result) && count($result) > 0;
+        return is_array($result) && $result !== [];
     }
 
     /**
@@ -178,7 +178,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
     public function userExists()
     {
         $result = $this->_getResource()->userExists($this);
-        return is_array($result) && count($result) > 0;
+        return is_array($result) && $result !== [];
     }
 
     /**
@@ -236,6 +236,7 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
         if (!$this->getId()) {
             return false;
         }
+
         $auth = Mage::helper('core')->validateHash($apiKey, $this->getApiKey());
         if ($auth) {
             return true;

@@ -104,6 +104,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
             $count = count($this->getItems());
             $this->setData('item_count', $count);
         }
+
         return $count;
     }
 
@@ -144,6 +145,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar_Abstract extends Mage_Admi
                         }
                     }
                 }
+
                 if (!isset($productTypes[$type])) {
                     unset($items[$key]);
                 }

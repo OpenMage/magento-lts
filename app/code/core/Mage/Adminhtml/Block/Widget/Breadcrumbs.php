@@ -41,6 +41,7 @@ class Mage_Adminhtml_Block_Widget_Breadcrumbs extends Mage_Adminhtml_Block_Templ
         if (empty($title)) {
             $title = $label;
         }
+
         $this->_links[] = [
             'label' => $label,
             'title' => $title,

@@ -13,6 +13,7 @@
 abstract class Mage_Core_Model_Resource_Entity_Abstract
 {
     protected $_name = null;
+
     /**
      * Configuration object
      *

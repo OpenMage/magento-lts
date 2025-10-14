@@ -37,9 +37,11 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         foreach ($purchased as $item) {
             $purchasedIds[] = $item->getId();
         }
+
         if (empty($purchasedIds)) {
             $purchasedIds = [null];
         }
+
         $purchasedItems = Mage::getResourceModel('downloadable/link_purchased_item_collection')
             ->addFieldToFilter('purchased_id', ['in' => $purchasedIds])
             ->addFieldToFilter(
@@ -70,6 +72,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         foreach ($this->getItems() as $item) {
             $item->setPurchased($this->getPurchased()->getItemById($item->getPurchasedId()));
         }
+
         return $this;
     }
 
@@ -92,6 +95,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         if ($this->getRefererUrl()) {
             return $this->getRefererUrl();
         }
+
         return $this->getUrl('customer/account/');
     }
 
@@ -106,6 +110,7 @@ class Mage_Downloadable_Block_Customer_Products_List extends Mage_Core_Block_Tem
         if ($item->getNumberOfDownloadsBought()) {
             return $item->getNumberOfDownloadsBought() - $item->getNumberOfDownloadsUsed();
         }
+
         return Mage::helper('downloadable')->__('Unlimited');
     }
 

@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_skipAllStoresLabel = false;
+
     protected $_skipEmptyStoresLabel = false;
 
     /**
@@ -68,12 +69,14 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
             foreach (explode("\n", $row->getStoreName()) as $k => $label) {
                 $scopes[] = str_repeat('&nbsp;', $k * 3) . $label;
             }
+
             return $out . (implode('<br/>', $scopes) . $this->__(' [deleted]'));
         }
 
         if (empty($origStores) && !$skipEmptyStoresLabel) {
             return '';
         }
+
         if (!is_array($origStores)) {
             $origStores = [$origStores];
         }
@@ -115,6 +118,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Store extends Mage_Adminh
             foreach (explode("\n", $row->getStoreName()) as $k => $label) {
                 $scopes[] = str_repeat(' ', $k * 3) . $label;
             }
+
             return $out . (implode("\r\n", $scopes) . $this->__(' [deleted]'));
         }
 

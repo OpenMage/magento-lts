@@ -839,6 +839,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
 
         $select = $this->getConnection()->select();
         $select->from($this->getTable('catalog/category'));
+
         $categories = $this->getConnection()->fetchAll($select);
 
         if (is_array($categories)) {
@@ -859,6 +860,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     );
             }
         }
+
         return $this;
     }
 
@@ -921,6 +923,7 @@ class Mage_Catalog_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 ['entity_id = ?' => $category['entity_id']],
             );
         }
+
         return $this;
     }
 }

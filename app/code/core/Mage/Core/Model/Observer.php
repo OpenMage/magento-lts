@@ -33,6 +33,7 @@ class Mage_Core_Model_Observer
 
             $adminSession->setSyncProcessStopWatch($syncProcessStopWatch);
         }
+
         $adminSession->setSyncProcessStopWatch(false);
 
         if (!$adminSession->getSyncProcessStopWatch()) {
@@ -112,6 +113,7 @@ class Mage_Core_Model_Observer
         if (Mage::registry('varProcessing')) {
             Mage::throwException(Mage::helper('core')->__('Disallowed template variable method.'));
         }
+
         return $this;
     }
 }

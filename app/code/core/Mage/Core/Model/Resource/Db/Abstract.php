@@ -168,6 +168,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         } elseif (is_string($tables)) {
             $this->_resourceModel = $tables;
         }
+
         return $this;
     }
 
@@ -187,12 +188,14 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             if (empty($this->_resourceModel)) {
                 $this->_setResource($mainTableArr[0]);
             }
+
             $this->_setMainTable($mainTableArr[1], $idFieldName);
         } else {
             $this->_mainTable = $mainTable;
             if (is_null($idFieldName)) {
                 $idFieldName = $mainTable . '_id';
             }
+
             $this->_idFieldName = $idFieldName;
         }
 
@@ -209,6 +212,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (empty($this->_idFieldName)) {
             Mage::throwException(Mage::helper('core')->__('Empty identifier field name'));
         }
+
         return $this->_idFieldName;
     }
 
@@ -223,6 +227,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (empty($this->_mainTable)) {
             Mage::throwException(Mage::helper('core')->__('Empty main table name'));
         }
+
         return $this->getTable($this->_mainTable);
     }
 
@@ -252,6 +257,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             } else {
                 $modelEntity = $entityName;
             }
+
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } elseif (!empty($this->_resourceModel)) {
             $entityName = sprintf('%s/%s', $this->_resourceModel, $entityName);
@@ -260,13 +266,16 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             } else {
                 $modelEntity = $entityName;
             }
+
             $this->_tables[$cacheName] = $this->_resources->getTableName($modelEntity);
         } else {
             if (!is_null($entitySuffix)) {
                 $entityName .= '_' . $entitySuffix;
             }
+
             $this->_tables[$cacheName] = $entityName;
         }
+
         return $this->_tables[$cacheName];
     }
 
@@ -293,6 +302,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (isset($this->_connections[$connectionName])) {
             return $this->_connections[$connectionName];
         }
+
         if (!empty($this->_resourcePrefix)) {
             $this->_connections[$connectionName] = $this->_resources->getConnection(
                 $this->_resourcePrefix . '_' . $connectionName,
@@ -446,6 +456,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             if ($this->_isPkAutoIncrement) {
                 unset($bind[$this->getIdFieldName()]);
             }
+
             $this->_getWriteAdapter()->insert($this->getMainTable(), $bind);
 
             $object->setId($this->_getWriteAdapter()->lastInsertId($this->getMainTable()));
@@ -516,9 +527,11 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (is_null($this->_uniqueFields)) {
             $this->_initUniqueFields();
         }
+
         if (is_array($this->_uniqueFields)) {
             $this->_uniqueFields[] = $field;
         }
+
         return $this;
     }
 
@@ -565,6 +578,7 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (is_null($this->_uniqueFields)) {
             $this->_initUniqueFields();
         }
+
         return $this->_uniqueFields;
     }
 
@@ -665,8 +679,10 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
             } else {
                 $error = Mage::helper('core')->__('%s already exist.', implode(', ', $existent));
             }
+
             Mage::throwException($error);
         }
+
         return $this;
     }
 
@@ -750,10 +766,12 @@ abstract class Mage_Core_Model_Resource_Db_Abstract extends Mage_Core_Model_Reso
         if (!$this->_getReadAdapter()) {
             return false;
         }
+
         $checksum = $this->_getReadAdapter()->getTablesChecksum($table);
         if (count($checksum) == 1) {
             return $checksum[$table];
         }
+
         return $checksum;
     }
 }

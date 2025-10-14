@@ -35,9 +35,11 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
             if (isset($options['options'])) {
                 $result = array_merge($result, $options['options']);
             }
+
             if (isset($options['additional_options'])) {
                 $result = array_merge($result, $options['additional_options']);
             }
+
             if (isset($options['attributes_info'])) {
                 $result = array_merge($result, $options['attributes_info']);
             }
@@ -89,11 +91,13 @@ class Mage_Sales_Block_Order_Email_Items_Order_Default extends Mage_Core_Block_T
         if (!$this->isModuleOutputEnabled('Mage_GiftMessage')) {
             return null;
         }
+
         /** @var Mage_GiftMessage_Helper_Message $helper */
         $helper = $this->helper('giftmessage/message');
         if ($this->getItem()->getGiftMessageId()) {
             return $helper->getGiftMessage($this->getItem()->getGiftMessageId());
         }
+
         return null;
     }
 }

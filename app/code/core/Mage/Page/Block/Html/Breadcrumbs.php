@@ -61,6 +61,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
                 $this->_crumbs[$crumbName] = $crumbInfo;
             }
         }
+
         return $this;
     }
 
@@ -122,6 +123,7 @@ class Mage_Page_Block_Html_Breadcrumbs extends Mage_Core_Block_Template
             $this->_crumbs[array_key_first($this->_crumbs)]['first'] = true;
             $this->_crumbs[array_key_last($this->_crumbs)]['last'] = true;
         }
+
         $this->assign('crumbs', $this->_crumbs);
         return parent::_toHtml();
     }

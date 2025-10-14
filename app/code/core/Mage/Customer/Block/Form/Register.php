@@ -60,6 +60,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
             $helper = $this->helper('customer');
             $url = $helper->getLoginUrl();
         }
+
         return $url;
     }
 
@@ -78,15 +79,19 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
                 $data->addData($formData);
                 $data->setCustomerData(1);
             }
+
             if (isset($data['region_id'])) {
                 $data['region_id'] = (int) $data['region_id'];
             }
+
             if ($data->getDob()) {
                 $dob = $data->getYear() . '-' . $data->getMonth() . '-' . $data->getDay();
                 $data->setDob($dob);
             }
+
             $this->setData('form_data', $data);
         }
+
         return $data;
     }
 
@@ -101,6 +106,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         if ($countryId) {
             return $countryId;
         }
+
         return parent::getCountryId();
     }
 
@@ -118,6 +124,7 @@ class Mage_Customer_Block_Form_Register extends Mage_Directory_Block_Data
         if (($region = $this->getFormData()->getRegionId()) !== false) {
             return $region;
         }
+
         return null;
     }
 

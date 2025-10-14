@@ -150,6 +150,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         if (!$address) {
             return false;
         }
+
         return $ipToLong ? inet_pton($address) : $address;
     }
 
@@ -238,6 +239,7 @@ class Mage_Core_Helper_Http extends Mage_Core_Helper_Abstract
         if ($clean) {
             $uri = Mage::helper('core/string')->cleanString($uri);
         }
+
         return $uri;
     }
 

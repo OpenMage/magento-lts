@@ -69,6 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
         } else {
             $emailSent = Mage::helper('sales')->__('the shipment email is not sent');
         }
+
         return Mage::helper('sales')->__(
             'Shipment #%1$s | %3$s (%2$s)',
             $this->getShipment()->getIncrementId(),
@@ -134,6 +135,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View extends Mage_Adminhtml_Bloc
                 Mage::helper('core/js')->getSetLocationJs($this->getUrl('*/sales_shipment/')),
             );
         }
+
         return $this;
     }
 }

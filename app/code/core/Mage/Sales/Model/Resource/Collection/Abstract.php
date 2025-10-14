@@ -28,9 +28,11 @@ abstract class Mage_Sales_Model_Resource_Collection_Abstract extends Mage_Core_M
         } elseif ($attribute instanceof Mage_Eav_Model_Entity_Attribute) {
             $field = $attribute->getAttributeCode();
         }
+
         if (!$field) {
             Mage::throwException(Mage::helper('sales')->__('Cannot determine the field name.'));
         }
+
         return $field;
     }
 

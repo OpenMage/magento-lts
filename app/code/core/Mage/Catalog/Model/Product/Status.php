@@ -24,6 +24,7 @@
 class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
 {
     public const STATUS_ENABLED    = 1;
+
     public const STATUS_DISABLED   = 2;
 
     /**
@@ -146,6 +147,7 @@ class Mage_Catalog_Model_Product_Status extends Mage_Core_Model_Abstract
                 'label' => $value,
             ];
         }
+
         return $res;
     }
 

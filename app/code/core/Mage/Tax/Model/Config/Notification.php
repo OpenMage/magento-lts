@@ -55,6 +55,7 @@ class Mage_Tax_Model_Config_Notification extends Mage_Core_Model_Config_Data
             $this->_resetNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_DISCOUNT);
             $this->_resetNotificationFlag(Mage_Tax_Model_Config::XML_PATH_TAX_NOTIFICATION_PRICE_DISPLAY);
         }
+
         return parent::_afterSave();
     }
 

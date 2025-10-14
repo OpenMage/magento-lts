@@ -90,6 +90,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             if (!isset($productsWebsites[$productId])) {
                 $productsWebsites[$productId] = [];
             }
+
             $productsWebsites[$productId][] = $productInfo['website_id'];
         }
 
@@ -202,6 +203,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'website_id' => (int) $websiteId,
                 ];
             }
+
             $adapter->insertMultiple($this->_productWebsiteTable, $data);
         }
 
@@ -237,6 +239,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!$object->hasCategoryIds()) {
             return $this;
         }
+
         $categoryIds = $object->getCategoryIds();
         $oldCategoryIds = $this->getCategoryIds($object);
 
@@ -252,12 +255,14 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 if (empty($categoryId)) {
                     continue;
                 }
+
                 $data[] = [
                     'category_id' => (int) $categoryId,
                     'product_id'  => (int) $object->getId(),
                     'position'    => 1,
                 ];
             }
+
             if ($data) {
                 $write->insertMultiple($this->_productCategoryTable, $data);
             }
@@ -405,6 +410,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 $store = Mage::app()->getStore($storeId);
                 $this->refreshEnabledIndex($store, $product);
             }
+
             return $this;
         } else {
             $productId = is_numeric($product) ? $product : $product->getId();
@@ -635,6 +641,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!empty($columns) && is_string($columns)) {
             $columns = [$columns];
         }
+
         if (empty($columns) || !is_array($columns)) {
             $columns = $this->_getDefaultAttributes();
         }

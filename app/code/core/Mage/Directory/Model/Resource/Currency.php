@@ -116,6 +116,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
                     ->where('currency_from = :currency_to');
                 $rate = $adapter->fetchOne($select, $bind);
             }
+
             self::$_rateCache[$currencyFrom][$currencyTo] = $rate;
         }
 
@@ -138,6 +139,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
                     if ($value == 0) {
                         continue;
                     }
+
                     $data[] = [
                         'currency_from' => $currencyCode,
                         'currency_to'   => $currencyTo,
@@ -145,6 +147,7 @@ class Mage_Directory_Model_Resource_Currency extends Mage_Core_Model_Resource_Db
                     ];
                 }
             }
+
             if ($data) {
                 $adapter->insertOnDuplicate($this->_currencyRateTable, $data, ['rate']);
             }

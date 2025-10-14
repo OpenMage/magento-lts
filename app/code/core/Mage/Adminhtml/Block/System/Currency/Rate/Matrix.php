@@ -75,6 +75,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
                 }
             }
         }
+
         return $array;
     }
 }

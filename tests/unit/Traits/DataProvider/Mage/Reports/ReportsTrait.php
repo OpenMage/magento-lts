@@ -16,7 +16,9 @@ use Mage_Reports_Helper_Data;
 trait ReportsTrait
 {
     public static string $dateFirstDay  = '2025-01-01';
+
     public static string $dateNextDay   = '2025-01-02';
+
     public static string $dateLastDay   = '2025-12-31';
 
     public function provideReportsDateIntervals(): Generator

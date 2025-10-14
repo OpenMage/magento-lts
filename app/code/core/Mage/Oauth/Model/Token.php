@@ -46,19 +46,23 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      * Token types
      */
     public const TYPE_REQUEST = 'request';
+
     public const TYPE_ACCESS  = 'access';
 
     /**
      * Lengths of token fields
      */
     public const LENGTH_TOKEN    = 32;
+
     public const LENGTH_SECRET   = 32;
+
     public const LENGTH_VERIFIER = 32;
 
     /**
      * Customer types
      */
     public const USER_TYPE_ADMIN    = 'admin';
+
     public const USER_TYPE_CUSTOMER = 'customer';
 
     /**
@@ -84,6 +88,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if ($helper->isCleanupProbability()) {
             $this->_getResource()->deleteOldEntries($helper->getCleanupExpirationPeriod());
         }
+
         return $this;
     }
 
@@ -99,9 +104,11 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if (!$this->getId() || !$this->getConsumerId()) {
             Mage::throwException('Token is not ready to be authorized');
         }
+
         if ($this->getAuthorized()) {
             Mage::throwException('Token is already authorized');
         }
+
         if (self::USER_TYPE_ADMIN == $userType) {
             $this->setAdminId($userId);
         } elseif (self::USER_TYPE_CUSTOMER == $userType) {
@@ -109,6 +116,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         } else {
             Mage::throwException('User type is unknown');
         }
+
         /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
@@ -131,6 +139,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if (self::TYPE_REQUEST != $this->getType()) {
             Mage::throwException('Can not convert due to token is not request type');
         }
+
         /** @var Mage_Oauth_Helper_Data $helper */
         $helper = Mage::helper('oauth');
 
@@ -206,6 +215,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
         if ($this->isObjectNew() && $this->getCreatedAt() === null) {
             $this->setCreatedAt(Varien_Date::now());
         }
+
         parent::_beforeSave();
         return $this;
     }
@@ -254,6 +264,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
                 Mage::throwException(array_shift($messages));
             }
         }
+
         return true;
     }
 

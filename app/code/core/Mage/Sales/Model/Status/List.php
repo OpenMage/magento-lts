@@ -77,11 +77,13 @@ class Mage_Sales_Model_Status_List
                 if (!isset($params[$key])) {
                     continue;
                 }
+
                 if ($params[$key] != $item[$key]) {
                     $remove = false;
                     break;
                 }
             }
+
             if ($remove) {
                 $indexes[] = $index;
             }
@@ -102,6 +104,7 @@ class Mage_Sales_Model_Status_List
         if (![$indexes]) {
             $indexes = [$indexes];
         }
+
         if (!$indexes) {
             return [];
         }

@@ -114,6 +114,7 @@ class Mage_Centinel_Helper_Data extends Mage_Core_Helper_Abstract
             $className = Mage::getConfig()->getBlockClassName($blockType);
             $block = new $className();
         }
+
         $block->setMethod($method);
         return $block;
     }

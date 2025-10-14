@@ -33,9 +33,9 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
 
         if ($this->getAttribute()->getIsRequired()) {
             $attributeValue = $object->getData($attributeCode);
-            if ($this->getAttribute()->isValueEmpty($attributeValue) &&
-                !(is_array($attributeValue) && count($attributeValue) > 0) &&
-                !$isUseConfig
+            if ($this->getAttribute()->isValueEmpty($attributeValue)
+                && !(is_array($attributeValue) && $attributeValue !== [])
+                && !$isUseConfig
             ) {
                 return false;
             }
@@ -53,6 +53,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
                 if (!is_array($available)) {
                     $available = explode(',', $available);
                 }
+
                 $data = (!in_array('default_sort_by', $postDataConfig)) ? $object->getData($attributeCode) :
                        Mage::getStoreConfig('catalog/frontend/default_sort_by');
                 if (!in_array($data, $available)) {
@@ -80,11 +81,14 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
             if (!is_array($data)) {
                 $data = [];
             }
+
             $object->setData($attributeCode, implode(',', $data));
         }
+
         if (is_null($object->getData($attributeCode))) {
             $object->setData($attributeCode, false);
         }
+
         return $this;
     }
 
@@ -101,6 +105,7 @@ class Mage_Catalog_Model_Category_Attribute_Backend_Sortby extends Mage_Eav_Mode
                 $object->setData($attributeCode, explode(',', $data));
             }
         }
+
         return $this;
     }
 }

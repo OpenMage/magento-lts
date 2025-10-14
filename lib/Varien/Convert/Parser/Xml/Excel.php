@@ -48,24 +48,30 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                     if (!is_null($ind) && $ind > 0) {
                         $index = $ind;
                     }
+
                     if ($firstRow && !$this->getVar('fieldnames')) {
                         $fieldNames[$index] = 'column' . $index;
                     }
+
                     if ($firstRow && $this->getVar('fieldnames')) {
                         $fieldNames[$index] = $value;
                     } else {
                         $rowData[$fieldNames[$index]] = $value;
                     }
+
                     $index++;
                 }
+
                 $firstRow = false;
                 if (!empty($rowData)) {
                     $wsData[] = $rowData;
                 }
             }
+
             $data[$wsName] = $wsData;
             $this->addException('Found worksheet "' . $wsName . '" with ' . count($wsData) . ' row(s)');
         }
+
         if ($wsName = $this->getVar('single_sheet')) {
             if (isset($data[$wsName])) {
                 $data = $data[$wsName];
@@ -74,6 +80,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                 $data = current($data);
             }
         }
+
         $this->setData($data);
         return $this;
     }
@@ -98,6 +105,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                 if (!is_array($wsData)) {
                     continue;
                 }
+
                 $fields = $this->getGridFields($wsData);
 
                 $xml .= '<Worksheet ss:Name="' . $wsName . '"><ss:Table>';
@@ -106,20 +114,25 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                     foreach ($fields as $fieldName) {
                         $xml .= '<ss:Cell><Data ss:Type="String">' . $fieldName . '</Data></ss:Cell>';
                     }
+
                     $xml .= '</ss:Row>';
                 }
-                foreach ($wsData as $i => $row) {
+
+                foreach ($wsData as $row) {
                     if (!is_array($row)) {
                         continue;
                     }
+
                     $xml .= '<ss:Row>';
                     foreach ($fields as $fieldName) {
                         $data = $row[$fieldName] ?? '';
                         $fieldType = is_numeric($data) ? 'Number' : 'String';
                         $xml .= '<ss:Cell><Data ss:Type="' . $fieldType . '">' . $data . '</Data></ss:Cell>';
                     }
+
                     $xml .= '</ss:Row>';
                 }
+
                 $xml .= '</ss:Table></Worksheet>';
             }
         }
@@ -142,6 +155,7 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
         if (empty($sheetName)) {
             $sheetName = 'Sheet 1';
         }
+
         $sheetName = htmlspecialchars($sheetName);
         return '<' . '?xml version="1.0"?' . '><' . '?mso-application progid="Excel.Sheet"?'
             . '><Workbook'
@@ -198,12 +212,14 @@ class Varien_Convert_Parser_Xml_Excel extends Varien_Convert_Parser_Abstract
                 // is_numeric(' 96000') returns true, but Excel argues about space
                 $value = trim($value);
             }
+
             $value = str_replace("\r\n", '&#10;', $value);
             $value = str_replace("\r", '&#10;', $value);
             $value = str_replace("\n", '&#10;', $value);
 
             $xmlData[] = '<Cell><Data ss:Type="' . $dataType . '">' . $value . '</Data></Cell>';
         }
+
         $xmlData[] = '</Row>';
 
         return implode('', $xmlData);

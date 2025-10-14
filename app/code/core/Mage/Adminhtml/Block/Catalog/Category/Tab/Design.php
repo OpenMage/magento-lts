@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Design extends Mage_Adminhtml_Bl
         if (!$this->_category) {
             $this->_category = Mage::registry('category');
         }
+
         return $this->_category;
     }
 

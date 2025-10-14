@@ -52,6 +52,7 @@ class Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type_Enabled extends Mage
                 ],
             ];
         }
+
         return $this->_options;
     }
 

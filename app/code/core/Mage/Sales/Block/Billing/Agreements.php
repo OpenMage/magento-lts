@@ -58,6 +58,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 ->addFieldToFilter('customer_id', Mage::getSingleton('customer/session')->getCustomerId())
                 ->setOrder('agreement_id', 'desc');
         }
+
         return $this->_billingAgreements;
     }
 
@@ -88,6 +89,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
             default:
                 $value = $item->getData($key) ?: $this->__('N/A');
         }
+
         return $this->escapeHtml($value);
     }
 
@@ -105,6 +107,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 $this->_paymentMethods[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
+
         return $this->_paymentMethods;
     }
 
@@ -123,6 +126,7 @@ class Mage_Sales_Block_Billing_Agreements extends Mage_Core_Block_Template
                 $paymentMethodOptions[$paymentMethod->getCode()] = $paymentMethod->getTitle();
             }
         }
+
         return $paymentMethodOptions;
     }
 

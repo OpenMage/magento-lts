@@ -85,6 +85,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         if (empty($this->_options) || !$this->getProduct()->isSalable()) {
             return false;
         }
+
         return true;
     }
 
@@ -163,6 +164,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         false,
                     );
                 }
+
                 unset($tierPriceInfo); // break the reference with the last element
 
                 $itemPrice = $bundlePriceModel->getSelectionFinalTotalPrice(
@@ -251,6 +253,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                         $selection[$o] = $v;
                     }
                 }
+
                 $option['selections'][$selectionId] = $selection;
 
                 if (($bundleSelection->getIsDefault() || ($selectionCount == 1 && $bundleOption->getRequired()))
@@ -259,6 +262,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
                     $selected[$optionId][] = $selectionId;
                 }
             }
+
             $options[$optionId] = $option;
 
             // Add attribute default value (if set)
@@ -312,6 +316,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle extends Mage_Catalog_Bl
         if (!isset($this->_optionRenderers[$option->getType()])) {
             return $this->__('There is no defined renderer for "%s" option type.', $option->getType());
         }
+
         return $this->getLayout()->createBlock($this->_optionRenderers[$option->getType()])
             ->setOption($option)->toHtml();
     }

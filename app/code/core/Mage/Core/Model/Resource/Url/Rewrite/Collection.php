@@ -58,6 +58,7 @@ class Mage_Core_Model_Resource_Url_Rewrite_Collection extends Mage_Core_Model_Re
         if (!is_array($store)) {
             $store = [Mage::app()->getStore($store)->getId()];
         }
+
         if ($withAdmin) {
             $store[] = 0;
         }

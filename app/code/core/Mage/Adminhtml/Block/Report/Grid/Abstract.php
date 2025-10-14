@@ -13,8 +13,11 @@
 class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Widget_Grid
 {
     protected $_resourceCollectionName  = '';
+
     protected $_currentCurrencyCode     = null;
+
     protected $_storeIds                = [];
+
     protected $_aggregatedColumns       = null;
 
     /**
@@ -36,6 +39,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         if (isset($this->_columnGroupBy)) {
             $this->isColumnGrouped($this->_columnGroupBy, true);
         }
+
         $this->setEmptyCellLabel(Mage::helper('adminhtml')->__('No records found for this period.'));
     }
 
@@ -56,6 +60,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             $collection = Mage::getModel('reports/grouped_collection');
             $this->setCollection($collection);
         }
+
         return $this->_collection;
     }
 
@@ -69,11 +74,13 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 if (!is_array($this->_aggregatedColumns)) {
                     $this->_aggregatedColumns = [];
                 }
+
                 if ($column->hasTotal()) {
                     $this->_aggregatedColumns[$column->getId()] = "{$column->getTotal()}({$column->getIndex()})";
                 }
             }
         }
+
         return $this->_aggregatedColumns;
     }
 
@@ -95,6 +102,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
             if (!is_array($visibilityFilter)) {
                 $visibilityFilter = [$visibilityFilter];
             }
+
             foreach ($visibilityFilter as $k => $v) {
                 if (is_int($k)) {
                     $filterFieldId = $v;
@@ -103,6 +111,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                     $filterFieldId = $k;
                     $filterFieldValue = $v;
                 }
+
                 if (!$filterData->hasData($filterFieldId) ||
                     $filterData->getData($filterFieldId) != $filterFieldValue
                 ) {
@@ -110,6 +119,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 }
             }
         }
+
         return parent::addColumn($columnId, $column);
     }
 
@@ -126,6 +136,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         } else {
             $storeIds = [];
         }
+
         // By default storeIds array contains only allowed stores
         $allowedStoreIds = array_keys(Mage::app()->getStores());
         // And then array_intersect with post data for prevent unauthorized stores reports
@@ -134,6 +145,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
         if (empty($storeIds)) {
             $storeIds = $allowedStoreIds;
         }
+
         // reset array keys
         $storeIds = array_values($storeIds);
 
@@ -238,6 +250,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 }
             }
         }
+
         return parent::getCountTotals();
     }
 
@@ -273,6 +286,7 @@ class Mage_Adminhtml_Block_Report_Grid_Abstract extends Mage_Adminhtml_Block_Wid
                 ? Mage::app()->getStore(array_shift($this->_storeIds))->getBaseCurrencyCode()
                 : Mage::app()->getStore()->getBaseCurrencyCode();
         }
+
         return $this->_currentCurrencyCode;
     }
 

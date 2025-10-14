@@ -151,6 +151,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($field = $this->getIdFieldName()) {
             return $item->getData($field);
         }
+
         return parent::_getItemId($item);
     }
 
@@ -203,6 +204,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $sql = $this->getSelectCountSql();
             $this->_totalRecords = (int) $this->getConnection()->fetchOne($sql, $this->_bindParams);
         }
+
         return (int) $this->_totalRecords;
     }
 
@@ -262,6 +264,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                         return !empty($table['joinCondition']) && preg_match($bindPattern, $table['joinCondition']);
                     });
                 }
+
                 if (empty($whereUsingJoin) && empty($joinUsingBind)) {
                     $from = array_slice($leftJoins, 0, 1);
                     $countSelect->setPart(Zend_Db_Select::FROM, $from);
@@ -283,6 +286,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($stringMode) {
             return $this->_select->__toString();
         }
+
         return $this->_select;
     }
 
@@ -342,10 +346,12 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($this->_orders as $key => $dir) {
                 $orders[$key] = $dir;
             }
+
             $this->_orders = $orders;
         } else {
             $this->_orders[$field] = $direction;
         }
+
         return $this;
     }
 
@@ -385,6 +391,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                     $this->_select->where($condition);
             }
         }
+
         $this->_isFiltersRendered = true;
         return $this;
     }
@@ -535,6 +542,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             foreach ($this->_orders as $field => $direction) {
                 $this->_select->order(new Zend_Db_Expr($field . ' ' . $direction));
             }
+
             $this->_isOrdersRendered = true;
         }
 
@@ -608,6 +616,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
                 if ($this->getIdFieldName()) {
                     $item->setIdFieldName($this->getIdFieldName());
                 }
+
                 $item->addData($row);
                 $item->setDataChanges(false);
                 $this->addItem($item);
@@ -631,16 +640,19 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $this->_fetchStmt = $this->getConnection()
                 ->query($this->getSelect());
         }
+
         $data = $this->_fetchStmt->fetch();
         if (!empty($data) && is_array($data)) {
             $item = $this->getNewEmptyItem();
             if ($this->getIdFieldName()) {
                 $item->setIdFieldName($this->getIdFieldName());
             }
+
             $item->setData($data);
 
             return $item;
         }
+
         return false;
     }
 
@@ -665,6 +677,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         while ($item = $this->fetchItem()) {
             $result[$item->getData($valueField)] = $item->getData($labelField);
         }
+
         return $result;
     }
 
@@ -682,6 +695,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
             $this->_data = $this->_fetchAll($this->_select);
             $this->_afterLoadData();
         }
+
         return $this->_data;
     }
 
@@ -742,6 +756,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
+
         return $this;
     }
 
@@ -779,6 +794,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         } else {
             $data = $this->getConnection()->fetchAll($select, $this->_bindParams);
         }
+
         return $data;
     }
 
@@ -795,6 +811,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if ($object) {
             $data = $object->load($this->_getSelectCacheId($select));
         }
+
         return $data;
     }
 
@@ -834,6 +851,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         if (isset($this->_cacheConf['prefix'])) {
             $id = $this->_cacheConf['prefix'] . '_' . $id;
         }
+
         return $id;
     }
 
@@ -873,6 +891,7 @@ class Varien_Data_Collection_Db extends Varien_Data_Collection
         } elseif (is_null($this->_map[$group])) {
             $this->_map[$group] = [];
         }
+
         $this->_map[$group][$filter] = $alias;
 
         return $this;

@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Totals_Subtotal extends Mage_Admin
             $value = $this->getTotal()->getValueInclTax();
             $displayBoth = isset($value);
         }
+
         return $displayBoth;
     }
 }

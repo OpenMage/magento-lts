@@ -49,6 +49,7 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
             $this->norouteAction();
             return;
         }
+
         $this->loadLayout();
         $this->renderLayout();
     }
@@ -68,6 +69,7 @@ class Mage_Shipping_TrackingController extends Mage_Core_Controller_Front_Action
         if (!$order->getId() || !$customerId || $order->getCustomerId() != $customerId) {
             return false;
         }
+
         return $order;
     }
 }

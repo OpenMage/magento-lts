@@ -56,6 +56,7 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
         if ($this->getAddress()) {
             $this->setAddressId($this->getAddress()->getId());
         }
+
         return $this;
     }
 
@@ -99,6 +100,7 @@ class Mage_Sales_Model_Quote_Address_Rate extends Mage_Shipping_Model_Rate_Abstr
                 ->setPrice($rate->getPrice())
             ;
         }
+
         return $this;
     }
 }

@@ -43,12 +43,15 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     }
                 }
             }
+
             $row = [];
             foreach ($fields as $j => $f) {
                 $row[$f] = $line[$j];
             }
+
             $data[] = $row;
         }
+
         fclose($fp);
         $this->setData($data);
         return $this;
@@ -87,10 +90,12 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
                     }
                 }
             }
+
             $row = [];
             foreach ($fields as $j => $f) {
                 $row[$f] = $line[$j];
             }
+
             $map->setData([$row]);
             $map->map();
             $row = $map->getData();
@@ -100,6 +105,7 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             $import->setValue(serialize($row[0]));
             $import->save();
         }
+
         fclose($fp);
         unset($sessionId);
         return $this;
@@ -127,9 +133,11 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
             foreach ($fields as $f) {
                 $line[] = $fEnc . str_replace(['"', '\\'], [$fEsc . '"', $fEsc . '\\'], $f) . $fEnc;
             }
+
             $lines[] = implode($fDel, $line);
         }
-        foreach ($data as $i => $row) {
+
+        foreach ($data as $row) {
             $line = [];
             foreach ($fields as $f) {
                 /*
@@ -142,8 +150,10 @@ class Varien_Convert_Parser_Csv extends Varien_Convert_Parser_Abstract
 
                 $line[] = $fEnc . $v . $fEnc;
             }
+
             $lines[] = implode($fDel, $line);
         }
+
         $result = implode($lDel, $lines);
         $this->setData($result);
 

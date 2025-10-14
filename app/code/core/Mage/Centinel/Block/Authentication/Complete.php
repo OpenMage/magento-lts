@@ -26,6 +26,7 @@ class Mage_Centinel_Block_Authentication_Complete extends Mage_Core_Block_Templa
             $this->setIsProcessed(true);
             $this->setIsSuccess($validator->isAuthenticateSuccessful());
         }
+
         return parent::_toHtml();
     }
 }

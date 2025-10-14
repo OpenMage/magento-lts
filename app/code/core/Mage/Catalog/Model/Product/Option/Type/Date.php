@@ -159,8 +159,10 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             } else {
                 $result = $optionValue;
             }
+
             $this->_formattedOptionValue = $result;
         }
+
         return $this->_formattedOptionValue;
     }
 
@@ -221,7 +223,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
             } else {
                 return ['date_internal' => $optionValue];
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             return ['date_internal' => $optionValue];
         }
     }
@@ -288,6 +290,7 @@ class Mage_Catalog_Model_Product_Option_Type_Date extends Mage_Catalog_Model_Pro
         if (!isset($requestOptions[$this->getOption()->getId()])) {
             $requestOptions[$this->getOption()->getId()] = [];
         }
+
         $requestOptions[$this->getOption()->getId()]['date_internal'] = $internalValue;
         $this->getRequest()->setOptions($requestOptions);
     }

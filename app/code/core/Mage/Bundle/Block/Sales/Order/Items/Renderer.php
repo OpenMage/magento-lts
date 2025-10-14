@@ -24,6 +24,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
             if ($item->getOrderItem()) {
                 $item = $item->getOrderItem();
             }
+
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
                     if (isset($options['shipment_type'])
@@ -52,6 +53,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                 return true;
             }
         }
+
         return false;
     }
 
@@ -65,6 +67,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
             if ($item->getOrderItem()) {
                 $item = $item->getOrderItem();
             }
+
             if ($parentItem = $item->getParentItem()) {
                 if ($options = $parentItem->getProductOptions()) {
                     if (isset($options['product_calculations'])
@@ -93,6 +96,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
                 return true;
             }
         }
+
         return false;
     }
 
@@ -107,9 +111,11 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         } else {
             $options = $item->getOrderItem()->getProductOptions();
         }
+
         if (isset($options['bundle_selection_attributes'])) {
             return unserialize($options['bundle_selection_attributes'], ['allowed_classes' => false]);
         }
+
         return null;
     }
 
@@ -171,6 +177,7 @@ class Mage_Bundle_Block_Sales_Order_Items_Renderer extends Mage_Sales_Block_Orde
         ) {
             return true;
         }
+
         return false;
     }
 }

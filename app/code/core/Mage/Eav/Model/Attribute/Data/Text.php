@@ -59,6 +59,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
             $v = $validateRules['min_text_length'];
             $errors[] = Mage::helper('eav')->__('"%s" length must be equal or greater than %s characters.', $label, $v);
         }
+
         if (!empty($validateRules['max_text_length']) && $length > $validateRules['max_text_length']) {
             $v = $validateRules['max_text_length'];
             $errors[] = Mage::helper('eav')->__('"%s" length must be equal or less than %s characters.', $label, $v);
@@ -68,6 +69,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
         if ($result !== true) {
             $errors = array_merge($errors, $result);
         }
+
         if (count($errors) == 0) {
             return true;
         }
@@ -86,6 +88,7 @@ class Mage_Eav_Model_Attribute_Data_Text extends Mage_Eav_Model_Attribute_Data_A
         if ($value !== false) {
             $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
         }
+
         return $this;
     }
 

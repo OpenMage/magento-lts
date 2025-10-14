@@ -79,6 +79,7 @@
 class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
 {
     protected $_eventPrefix = 'sales_quote_payment';
+
     protected $_eventObject = 'payment';
 
     protected $_quote;
@@ -99,6 +100,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($this->getQuoteId() != $quote->getId()) {
             $this->setQuoteId($quote->getId());
         }
+
         return $this;
     }
 
@@ -164,11 +166,13 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($this->getQuote()) {
             $this->setQuoteId($this->getQuote()->getId());
         }
+
         try {
             $method = $this->getMethodInstance();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception) {
             return parent::_beforeSave();
         }
+
         $method->prepareSave();
         return parent::_beforeSave();
     }
@@ -184,6 +188,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($method) {
             return $method->getCheckoutRedirectUrl();
         }
+
         return '';
     }
 
@@ -198,6 +203,7 @@ class Mage_Sales_Model_Quote_Payment extends Mage_Payment_Model_Info
         if ($method) {
             return $method->getOrderPlaceRedirectUrl();
         }
+
         return '';
     }
 

@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (!$this->_customer) {
             $this->_customer = Mage::registry('current_customer');
         }
+
         return $this->_customer;
     }
 
@@ -55,6 +56,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
             $this->_customerLog = Mage::getModel('log/customer')
                 ->loadByCustomer($this->getCustomer()->getId());
         }
+
         return $this->_customerLog;
     }
 
@@ -119,6 +121,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
             );
             return $this->formatDate($date, Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM, true);
         }
+
         return Mage::helper('customer')->__('Never');
     }
 
@@ -140,6 +143,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         ) {
             return Mage::helper('customer')->__('Offline');
         }
+
         return Mage::helper('customer')->__('Online');
     }
 
@@ -152,9 +156,11 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (!$this->_customer->getConfirmation()) {
             return Mage::helper('customer')->__('Confirmed');
         }
+
         if ($this->_customer->isConfirmationRequired()) {
             return Mage::helper('customer')->__('Not confirmed, cannot login');
         }
+
         return Mage::helper('customer')->__('Not confirmed, can login');
     }
 
@@ -179,6 +185,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         } else {
             $html = Mage::helper('customer')->__('The customer does not have default billing address.');
         }
+
         return $html;
     }
 
@@ -222,6 +229,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (Mage::registry('current_customer')->getId()) {
             return true;
         }
+
         return false;
     }
 
@@ -233,6 +241,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View extends Mage_Adminhtml_Block_T
         if (Mage::registry('current_customer')->getId()) {
             return false;
         }
+
         return true;
     }
 

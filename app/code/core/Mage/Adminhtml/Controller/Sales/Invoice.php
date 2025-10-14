@@ -91,6 +91,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
                     $historyItem->setIsCustomerNotified(1);
                     $historyItem->save();
                 }
+
                 $this->_getSession()->addSuccess(Mage::helper('sales')->__('The message has been sent.'));
                 $this->_redirect('*/sales_invoice/view', [
                     'order_id'  => $invoice->getOrder()->getId(),
@@ -126,6 +127,7 @@ class Mage_Adminhtml_Controller_Sales_Invoice extends Mage_Adminhtml_Controller_
             return $this->_prepareDownloadResponse('invoice' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') .
                 '.pdf', $pdf->render(), 'application/pdf');
         }
+
         $this->_redirect('*/*/');
     }
 }

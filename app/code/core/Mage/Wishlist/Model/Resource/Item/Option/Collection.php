@@ -54,6 +54,7 @@ class Mage_Wishlist_Model_Resource_Item_Option_Collection extends Mage_Core_Mode
             } else {
                 $this->_optionsByItem[$itemId] = [$optionId];
             }
+
             if (isset($this->_optionsByProduct[$productId])) {
                 $this->_optionsByProduct[$productId][] = $optionId;
             } else {

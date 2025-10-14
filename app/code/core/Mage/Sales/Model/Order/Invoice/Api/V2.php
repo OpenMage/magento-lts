@@ -81,6 +81,7 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
                 $quantity[$item->order_item_id] = $item->qty;
             }
         }
+
         return $quantity;
     }
 }

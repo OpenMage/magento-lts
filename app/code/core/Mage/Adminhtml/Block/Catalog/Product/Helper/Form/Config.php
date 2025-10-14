@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Config extends Varien_Dat
         if ($value == '') {
             $this->setValue($this->_getValueFromConfig());
         }
+
         $html = parent::getElementHtml();
 
         $htmlId   = 'use_config_' . $this->getHtmlId();
