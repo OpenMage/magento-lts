@@ -96,7 +96,6 @@ try {
             DeadCode\If_\RemoveUnusedNonEmptyArrayBeforeForeachRector::class, # todo: TMP
             DeadCode\If_\SimplifyIfElseWithSameContentRector::class, # todo: TMP
             DeadCode\Plus\RemoveDeadZeroAndOneOperationRector::class, # todo: TMP  (!?!)
-            DeadCode\Property\RemoveUnusedPrivatePropertyRector::class, # todo: TMP
             DeadCode\PropertyProperty\RemoveNullPropertyInitializationRector::class, # todo: TMP
             DeadCode\Switch_\RemoveDuplicatedCaseInSwitchRector::class, # todo: TMP  (!?!)
             DeadCode\Ternary\TernaryToBooleanOrFalseToBooleanAndRector::class, # todo: TMP
@@ -118,7 +117,6 @@ try {
             Php74\Closure\ClosureToArrowFunctionRector::class,
             # skip: causes issues
             Php74\Assign\NullCoalescingOperatorRector::class,
-            Php80\Catch_\RemoveUnusedVariableInCatchRector::class, # todo: TMP
             Php80\Class_\AnnotationToAttributeRector::class, # todo: wait for php80
             Php80\Class_\ClassPropertyAssignToConstructorPromotionRector::class, # todo: wait for php80
             Php80\Class_\StringableForToStringRector::class, # todo: wait for php80
