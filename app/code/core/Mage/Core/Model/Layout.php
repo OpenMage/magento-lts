@@ -579,10 +579,8 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     public function getOutput()
     {
         $out = '';
-        if (!empty($this->_output)) {
-            foreach ($this->_output as $callback) {
-                $out .= $this->getBlock($callback[0])->{$callback[1]}();
-            }
+        foreach ($this->_output as $callback) {
+            $out .= $this->getBlock($callback[0])->{$callback[1]}();
         }
 
         return $out;

@@ -173,11 +173,9 @@ class Mage_Page_Block_Template_Links extends Mage_Core_Block_Template
     {
         if (is_null($this->_cacheKeyInfo)) {
             $links = [];
-            if (!empty($this->_links)) {
-                foreach ($this->_links as $position => $link) {
-                    if ($link instanceof Varien_Object) {
-                        $links[$position] = $link->getData();
-                    }
+            foreach ($this->_links as $position => $link) {
+                if ($link instanceof Varien_Object) {
+                    $links[$position] = $link->getData();
                 }
             }
 

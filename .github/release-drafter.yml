@@ -6,7 +6,6 @@ categories:
       - 'security'
   - title: '🚀 Features'
     labels:
-      - 'enhancement'
       - 'new feature'
   - title: '🦾 Enhancements'
     labels:

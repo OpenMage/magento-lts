@@ -540,14 +540,12 @@ class Mage_Adminhtml_Sales_Order_ShipmentController extends Mage_Adminhtml_Contr
         $shipment->setShippingLabel($outputPdf->render());
         $carrierCode = $carrier->getCarrierCode();
         $carrierTitle = Mage::getStoreConfig('carriers/' . $carrierCode . '/title', $shipment->getStoreId());
-        if ($trackingNumbers) {
-            foreach ($trackingNumbers as $trackingNumber) {
-                $track = Mage::getModel('sales/order_shipment_track')
-                        ->setNumber($trackingNumber)
-                        ->setCarrierCode($carrierCode)
-                        ->setTitle($carrierTitle);
-                $shipment->addTrack($track);
-            }
+        foreach ($trackingNumbers as $trackingNumber) {
+            $track = Mage::getModel('sales/order_shipment_track')
+                    ->setNumber($trackingNumber)
+                    ->setCarrierCode($carrierCode)
+                    ->setTitle($carrierTitle);
+            $shipment->addTrack($track);
         }
 
         return true;
