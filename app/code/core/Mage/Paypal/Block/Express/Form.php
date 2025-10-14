@@ -42,6 +42,7 @@ class Mage_Paypal_Block_Express_Form extends Mage_Paypal_Block_Standard_Form
         ) {
             $this->setCreateBACode(Mage_Paypal_Model_Express_Checkout::PAYMENT_INFO_TRANSPORT_BILLING_AGREEMENT);
         }
+
         return parent::_beforeToHtml();
     }
 }

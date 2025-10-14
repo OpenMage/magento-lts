@@ -29,6 +29,7 @@ class Mage_Paypal_Model_Payflow_Request extends Varien_Object
         if (isset($args[0]) && (strstr($args[0], '=') || strstr($args[0], '&'))) {
             $key .= '[' . strlen($args[0]) . ']';
         }
+
         return match (substr($method, 0, 3)) {
             'get' => $this->getData($key, $args[0] ?? null),
             'set' => $this->setData($key, $args[0] ?? null),

@@ -40,6 +40,7 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
                 $bind[$key] = $value;
             }
         }
+
         $bind['layout_update_handle'] = $handle;
         $result = '';
 
@@ -61,6 +62,7 @@ class Mage_Core_Model_Resource_Layout extends Mage_Core_Model_Resource_Db_Abstra
 
             $result = implode('', $readAdapter->fetchCol($select, $bind));
         }
+
         return $result;
     }
 }

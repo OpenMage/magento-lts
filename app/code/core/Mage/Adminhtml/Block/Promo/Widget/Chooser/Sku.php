@@ -63,6 +63,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
             if (empty($selected)) {
                 $selected = '';
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('sku', ['in' => $selected]);
             } else {
@@ -71,6 +72,7 @@ class Mage_Adminhtml_Block_Promo_Widget_Chooser_Sku extends Mage_Adminhtml_Block
         } else {
             parent::_addColumnFilterToCollection($column);
         }
+
         return $this;
     }
 

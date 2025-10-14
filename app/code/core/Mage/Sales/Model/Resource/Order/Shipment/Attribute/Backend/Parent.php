@@ -41,6 +41,7 @@ class Mage_Sales_Model_Resource_Order_Shipment_Attribute_Backend_Parent extends 
         foreach ($object->getCommentsCollection() as $comment) {
             $comment->save();
         }
+
         return $this;
     }
 }

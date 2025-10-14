@@ -37,6 +37,7 @@ class Mage_ConfigurableSwatches_Block_Catalog_Product_View_Type_Configurable_Swa
                 return true;
             }
         }
+
         return false;
     }
 

@@ -15,8 +15,11 @@
 class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_EMAIL_LOG_CLEAN_TEMPLATE     = 'system/log/error_email_template';
+
     public const XML_PATH_EMAIL_LOG_CLEAN_IDENTITY     = 'system/log/error_email_identity';
+
     public const XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT    = 'system/log/error_email';
+
     public const XML_PATH_LOG_CLEAN_ENABLED            = 'system/log/enabled';
 
     /**
@@ -36,6 +39,7 @@ class Mage_Log_Model_Cron extends Mage_Core_Model_Abstract
         if (!$this->_errors) {
             return $this;
         }
+
         if (!Mage::getStoreConfig(self::XML_PATH_EMAIL_LOG_CLEAN_RECIPIENT)) {
             return $this;
         }

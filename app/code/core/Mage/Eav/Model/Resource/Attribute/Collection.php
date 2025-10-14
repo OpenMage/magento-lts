@@ -60,6 +60,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         if ($this->_entityType === null) {
             $this->_entityType = Mage::getSingleton('eav/config')->getEntityType($this->_getEntityTypeCode());
         }
+
         return $this->_entityType;
     }
 
@@ -86,6 +87,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
         if ($this->_website === null) {
             $this->_website = Mage::app()->getStore()->getWebsite();
         }
+
         return $this->_website;
     }
 
@@ -116,6 +118,7 @@ abstract class Mage_Eav_Model_Resource_Attribute_Collection extends Mage_Eav_Mod
             if (isset($mainColumns[$columnName])) {
                 continue;
             }
+
             $extraColumns[$columnName] = $columnName;
         }
 

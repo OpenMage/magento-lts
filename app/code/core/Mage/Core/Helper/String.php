@@ -47,12 +47,14 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             if ($length <= 0) {
                 return '';
             }
+
             $preparedString = $string;
             $preparedlength = $length;
             if (!$breakWords) {
                 $preparedString = preg_replace('/\s+?(\S+)?$/u', '', $this->substr($string, 0, $length + 1));
                 $preparedlength = $this->strlen($preparedString);
             }
+
             $remainder = $this->substr($string, $preparedlength, $originalLength);
             return $this->substr($preparedString, 0, $length) . $etc;
         }
@@ -84,10 +86,12 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($string)) {
             return '';
         }
+
         $string = $this->cleanString($string);
         if (is_null($length)) {
             $length = $this->strlen($string) - $offset;
         }
+
         return iconv_substr($string, $offset, $length, self::ICONV_CHARSET);
     }
 
@@ -114,6 +118,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $newStr .= $part;
             }
         }
+
         return $newStr;
     }
 
@@ -130,9 +135,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$strlen) {
             return $result;
         }
+
         for ($i = $strlen - 1; $i >= 0; $i--) {
             $result .= $this->substr($str, $i, 1);
         }
+
         return $result;
     }
 
@@ -158,6 +165,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if ((!$strlen) || (!is_int($length)) || ($length <= 0)) {
             return $result;
         }
+
         // trim
         if ($trim) {
             $str = trim(preg_replace('/\s{2,}/siu', ' ', $str));
@@ -169,6 +177,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
              */
             $strlen = $this->strlen($str);
         }
+
         // do a usual str_split, but safe for our encoding
         if ((!$keepWords) || ($length < 2)) {
             for ($offset = 0; $offset < $strlen; $offset += $length) {
@@ -185,9 +194,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                     if ($key % 2) {
                         continue;
                     }
+
                     $space    = ' ';
                     $spaceLen = 1;
                 }
+
                 /**
                  * The empty($result[$i]) is not appropriate, because in case with empty("0") expression returns "true",
                  * so in cases when string have "0" symbol, the "0" will lost.
@@ -203,6 +214,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 } else {
                     $currentLength = $this->strlen($result[$i]);
                 }
+
                 $partLength = $this->strlen($part);
                 // add part to current last element
                 if (($currentLength + $spaceLen + $partLength) <= $length) {
@@ -218,16 +230,19 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         // remove last element, if empty
         if ($count = count($result)) {
             if ($result[$count - 1] === '') {
                 unset($result[$count - 1]);
             }
         }
+
         // remove first element, if empty
         if (isset($result[0]) && $result[0] === '') {
             array_shift($result);
         }
+
         return $result;
     }
 
@@ -245,6 +260,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($str)) {
             return [];
         }
+
         $result = [];
         $split = preg_split('#' . $wordSeparatorRegexp . '#siu', $str, -1, PREG_SPLIT_NO_EMPTY);
         foreach ($split as $word) {
@@ -254,9 +270,11 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $result[] = $word;
             }
         }
+
         if ($maxWordLength && count($result) > $maxWordLength) {
             $result = array_slice($result, 0, $maxWordLength);
         }
+
         return $result;
     }
 
@@ -271,6 +289,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($string)) {
             return '';
         }
+
         return '"libiconv"' == ICONV_IMPL
             ? iconv(self::ICONV_CHARSET, self::ICONV_CHARSET . '//IGNORE', $string)
             : $string;
@@ -299,6 +318,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (empty($sort)) {
             return false;
         }
+
         $oldLocale = setlocale(LC_COLLATE, '0');
         $localeCode = Mage::app()->getLocale()->getLocaleCode();
         // use fallback locale if $localeCode is not available
@@ -320,6 +340,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($str)) {
             return [];
         }
+
         $argSeparator = '&';
         $result = [];
         $partsQueryStr = explode($argSeparator, $str);
@@ -331,6 +352,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $result = $this->_appendParam($result, $param);
             }
         }
+
         return $result;
     }
 
@@ -345,6 +367,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$str || !str_contains($str, '=')) {
             return false;
         }
+
         return true;
     }
 
@@ -404,6 +427,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             } else {
                 $param['value'] = [$value];
             }
+
             $param['key'] = $this->_removeSubkeyPartFromKey($key, $subKeyBrackets);
             $param = $this->_handleRecursiveParamForQueryStr($param);
         }
@@ -449,6 +473,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
                 $subKey = rtrim($subKey, $rightBracketSymbol);
             }
         }
+
         return $subKey;
     }
 
@@ -474,6 +499,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (!$this->_arrayHelper) {
             $this->_arrayHelper = Mage::helper('core/array');
         }
+
         return $this->_arrayHelper;
     }
 
@@ -515,6 +541,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if (is_null($str)) {
             return null;
         }
+
         $reader = new Unserialize_Reader_ArrValue('data');
         $prevChar = null;
 
@@ -525,6 +552,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
             if (!is_null($result)) {
                 return $result;
             }
+
             $prevChar = $char;
         }
     }
@@ -553,7 +581,7 @@ class Mage_Core_Helper_String extends Mage_Core_Helper_Abstract
         if ($this->isSerializedArrayOrObject($str)) {
             try {
                 $this->unserialize($str);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return false;
             }
         }

@@ -54,6 +54,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                 return $pathIds[1];
             }
         }
+
         return null;
     }
 
@@ -69,6 +70,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
         if (!$filter) {
             return $this;
         }
+
         $this->_categoryId = $filter;
 
         Mage::register('current_category_filter', $this->getCategory(), true);
@@ -124,6 +126,7 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                 return $category;
             }
         }
+
         return $this->getLayer()->getCurrentCategory();
     }
 
@@ -154,9 +157,11 @@ class Mage_Catalog_Model_Layer_Filter_Category extends Mage_Catalog_Model_Layer_
                     ];
                 }
             }
+
             $tags = $this->getLayer()->getStateTags();
             $this->getLayer()->getAggregator()->saveCacheData($data, $key, $tags);
         }
+
         return $data;
     }
 }

@@ -150,6 +150,7 @@ class Mage_SalesRule_Model_Resource_Report_Collection extends Mage_Sales_Model_R
             if (!isset($rulesList[$ruleId])) {
                 continue;
             }
+
             $ruleName = $rulesList[$ruleId];
             $rulesFilterSqlParts[] = $this->getConnection()->quoteInto('rule_name = ?', $ruleName);
         }

@@ -27,6 +27,7 @@ class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method
      * @var string
      */
     protected $_formBlockType = 'payment/form_cashondelivery';
+
     protected $_infoBlockType = 'payment/info';
 
     /**
@@ -49,6 +50,7 @@ class Mage_Payment_Model_Method_Cashondelivery extends Mage_Payment_Model_Method
         if ($quote->getIsVirtual()) {
             return false;
         }
+
         return parent::isApplicableToQuote($quote, $checksBitMask);
     }
 }

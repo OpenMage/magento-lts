@@ -51,6 +51,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
                 if ($signatureVerification == 'Y') {
                     return true;
                 }
+
                 //Test case 2
                 if ($signatureVerification == 'N') {
                     return false;
@@ -119,6 +120,7 @@ class Mage_Centinel_Model_State_Jcb extends Mage_Centinel_Model_StateAbstract
         ) {
             return true;
         }
+
         return false;
     }
 

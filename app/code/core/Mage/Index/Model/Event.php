@@ -31,8 +31,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
      * Predefined event types
      */
     public const TYPE_SAVE        = 'save';
+
     public const TYPE_DELETE      = 'delete';
+
     public const TYPE_MASS_ACTION = 'mass_action';
+
     public const TYPE_REINDEX     = 'reindex';
 
     /**
@@ -108,6 +111,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         } else {
             $this->setNewData([]);
         }
+
         return $this;
     }
 
@@ -147,6 +151,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             if (!is_null($current)) {
                 $previous[] = $current;
             }
+
             return $previous;
         }
 
@@ -185,6 +190,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
             $currentNewData = $this->_mergeNewDataRecursive($previousNewData, $currentNewData);
             $this->setNewData(serialize($currentNewData));
         }
+
         return $this;
     }
 
@@ -212,6 +218,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         $this->setNewData(serialize($newData));
 
         return $this;
@@ -243,9 +250,11 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         } elseif (empty($data) || !is_array($data)) {
             $data = [];
         }
+
         if ($useNamespace && $this->_dataNamespace) {
             return $data[$this->_dataNamespace] ?? [];
         }
+
         return $data;
     }
 
@@ -275,14 +284,17 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         if (!is_array($key)) {
             $key = [$key => $value];
         }
+
         if ($this->_dataNamespace) {
             if (!isset($newData[$this->_dataNamespace])) {
                 $newData[$this->_dataNamespace] = [];
             }
+
             $newData[$this->_dataNamespace] = array_merge($newData[$this->_dataNamespace], $key);
         } else {
             $newData = array_merge($newData, $key);
         }
+
         $this->setNewData($newData);
         return $this;
     }
@@ -321,6 +333,7 @@ class Mage_Index_Model_Event extends Mage_Core_Model_Abstract
         if (!$this->hasCreatedAt()) {
             $this->setCreatedAt($this->_getResource()->formatDate(time(), true));
         }
+
         return parent::_beforeSave();
     }
 }

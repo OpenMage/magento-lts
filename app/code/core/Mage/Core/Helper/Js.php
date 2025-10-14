@@ -142,6 +142,7 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_translateData;
     }
 
@@ -170,8 +171,10 @@ class Mage_Core_Helper_Js extends Mage_Core_Helper_Abstract
                     );
                 }
             }
+
             $this->_config = $xmlConfig;
         }
+
         return $this->_config;
     }
 

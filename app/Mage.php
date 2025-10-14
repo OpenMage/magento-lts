@@ -45,6 +45,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = BP . DS . 'vendor';
     }
 }
+
 require_once $autoloaderPath . DS . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
@@ -125,8 +126,11 @@ final class Mage
      * Magento edition constants
      */
     public const EDITION_COMMUNITY    = 'Community';
+
     public const EDITION_ENTERPRISE   = 'Enterprise';
+
     public const EDITION_PROFESSIONAL = 'Professional';
+
     public const EDITION_GO           = 'Go';
 
     /**
@@ -180,9 +184,11 @@ final class Mage
         if ($info['stability'] && $info['number']) {
             return "{$versionString}-{$info['stability']}.{$info['number']}";
         }
+
         if ($info['stability']) {
             return "{$versionString}-{$info['stability']}";
         }
+
         if ($info['number']) {
             return "{$versionString}-{$info['number']}";
         }
@@ -272,8 +278,10 @@ final class Mage
             if ($graceful) {
                 return;
             }
+
             self::throwException("Mage registry key $key already exists");
         }
+
         self::$_registry[$key] = $value;
     }
 
@@ -288,6 +296,7 @@ final class Mage
             if (is_object(self::$_registry[$key]) && (method_exists(self::$_registry[$key], '__destruct'))) {
                 self::$_registry[$key]->__destruct();
             }
+
             unset(self::$_registry[$key]);
         }
     }
@@ -360,6 +369,7 @@ final class Mage
         if (!self::$_objects) {
             self::$_objects = new Varien_Object_Cache();
         }
+
         if (is_null($key)) {
             return self::$_objects;
         } else {
@@ -495,6 +505,7 @@ final class Mage
         if ($observerClass == '') {
             $observerClass = 'Varien_Event_Observer';
         }
+
         $observer = new $observerClass();
         $observer->setName($observerName)->addData($data)->setEventName($eventName)->setCallback($callback);
         return self::getEvents()->addObserver($observer);
@@ -542,6 +553,7 @@ final class Mage
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getModel($modelClass, $arguments));
         }
+
         return self::$_registry[$registryKey];
     }
 
@@ -582,6 +594,7 @@ final class Mage
         if (!isset(self::$_registry[$registryKey])) {
             self::register($registryKey, self::getResourceModel($modelClass, $arguments));
         }
+
         return self::$_registry[$registryKey];
     }
 
@@ -610,6 +623,7 @@ final class Mage
             $helperClass = self::getConfig()->getHelperClassName($name);
             self::register($registryKey, new $helperClass());
         }
+
         return self::$_registry[$registryKey];
     }
 
@@ -626,6 +640,7 @@ final class Mage
             $helperClass = self::getConfig()->getResourceHelper($moduleName);
             self::register($registryKey, $helperClass);
         }
+
         return self::$_registry[$registryKey];
     }
 
@@ -655,6 +670,7 @@ final class Mage
         if ($messageStorage && ($storage = self::getSingleton($messageStorage))) {
             $storage->addError($message);
         }
+
         throw new Mage_Core_Exception($message);
     }
 
@@ -680,6 +696,7 @@ final class Mage
             Varien_Profiler::stop('self::app::init');
             self::$_app->loadAreaPart(Mage_Core_Model_App_Area::AREA_GLOBAL, Mage_Core_Model_App_Area::PART_EVENTS);
         }
+
         return self::$_app;
     }
 
@@ -703,7 +720,7 @@ final class Mage
             } else {
                 self::$_app->init($code, $type, $options);
             }
-        } catch (Mage_Core_Model_Session_Exception $e) {
+        } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die;
         } catch (Mage_Core_Model_Store_Exception $e) {
@@ -730,13 +747,16 @@ final class Mage
             if (isset($options['edition'])) {
                 self::$_currentEdition = $options['edition'];
             }
+
             self::$_app = new Mage_Core_Model_App();
             if (isset($options['request'])) {
                 self::$_app->setRequest($options['request']);
             }
+
             if (isset($options['response'])) {
                 self::$_app->setResponse($options['response']);
             }
+
             self::$_events = new Varien_Event_Collection();
             self::_setIsInstalled($options);
             self::_setConfigModel($options);
@@ -746,7 +766,7 @@ final class Mage
                 'options'    => $options,
             ]);
             Varien_Profiler::stop('mage');
-        } catch (Mage_Core_Model_Session_Exception $e) {
+        } catch (Mage_Core_Model_Session_Exception) {
             header('Location: ' . self::getBaseUrl());
             die();
         } catch (Mage_Core_Model_Store_Exception $e) {
@@ -758,6 +778,7 @@ final class Mage
                 self::printException($e);
                 exit();
             }
+
             try {
                 self::dispatchEvent('mage_run_exception', ['exception' => $e]);
                 if (!headers_sent() && self::isInstalled()) {
@@ -819,10 +840,12 @@ final class Mage
             if (is_string($options)) {
                 $options = ['etc_dir' => $options];
             }
+
             $etcDir = self::getRoot() . DS . 'etc';
             if (!empty($options['etc_dir'])) {
                 $etcDir = $options['etc_dir'];
             }
+
             $localConfigFile = $etcDir . DS . 'local.xml';
 
             self::$_isInstalled = false;
@@ -835,6 +858,7 @@ final class Mage
                 }
             }
         }
+
         return self::$_isInstalled;
     }
 
@@ -857,7 +881,7 @@ final class Mage
             if (empty($file)) {
                 $file = self::getStoreConfig('dev/log/file');
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $logActive = true;
         }
 
@@ -869,7 +893,7 @@ final class Mage
 
         try {
             $maxLogLevel = (int) self::getStoreConfig('dev/log/max_level');
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             $maxLogLevel = Zend_Log::DEBUG;
         }
 
@@ -914,6 +938,7 @@ final class Mage
                 } else {
                     $writer = new $writerModel($logFile);
                 }
+
                 $writer->setFormatter($formatter);
                 $loggers[$file] = new Zend_Log($writer);
             }
@@ -924,7 +949,7 @@ final class Mage
 
             $message = addcslashes($message, '<?');
             $loggers[$file]->log($message, $level);
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
     }
 
@@ -936,6 +961,7 @@ final class Mage
         if (!self::getConfig()) {
             return;
         }
+
         $file = self::getStoreConfig('dev/log/exception_file');
         self::log("\n" . $e->__toString(), Zend_Log::ERR, $file);
     }
@@ -987,6 +1013,7 @@ final class Mage
             if (isset($_SERVER['REQUEST_URI'])) {
                 $reportData['url'] = $_SERVER['REQUEST_URI'];
             }
+
             if (isset($_SERVER['SCRIPT_NAME'])) {
                 $reportData['script_name'] = $_SERVER['SCRIPT_NAME'];
             }

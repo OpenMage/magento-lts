@@ -55,6 +55,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         if (!isset($this->_buttons[$level])) {
             $this->_buttons[$level] = [];
         }
+
         $this->_buttons[$level][$id] = $data;
         $this->_buttons[$level][$id]['area'] = $area;
         if ($sortOrder) {
@@ -62,6 +63,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
         } else {
             $this->_buttons[$level][$id]['sort_order'] = count($this->_buttons[$level]) * 10;
         }
+
         return $this;
     }
 
@@ -93,6 +95,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 unset($this->_buttons[$level][$id]);
             }
         }
+
         return $this;
     }
 
@@ -123,6 +126,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                     if ($child = $this->getChild($id . '_button')) {
                         $child->setData($key, $data);
                     }
+
                     if ($key == 'level') {
                         $this->_buttons[$data][$id] = $this->_buttons[$level][$id];
                         unset($this->_buttons[$level][$id]);
@@ -132,9 +136,11 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 } else {
                     $this->_buttons[$level][$id] = $data;
                 }
+
                 break;
             }
         }
+
         return $this;
     }
 
@@ -156,12 +162,13 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     protected function _prepareLayout()
     {
-        foreach ($this->_buttons as $level => $buttons) {
+        foreach ($this->_buttons as $buttons) {
             foreach ($buttons as $id => $data) {
                 $childId = $this->_prepareButtonBlockId($id);
                 $this->_addButtonChildBlock($childId);
             }
         }
+
         return parent::_prepareLayout();
     }
 
@@ -204,6 +211,7 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 $buttons[$data['sort_order']]['id'] = $id;
                 $buttons[$data['sort_order']]['data'] = $data;
             }
+
             ksort($buttons);
             foreach ($buttons as $button) {
                 $id = $button['id'];
@@ -211,20 +219,24 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
                 if ($area && isset($data['area']) && ($area != $data['area'])) {
                     continue;
                 }
+
                 $childId = $this->_prepareButtonBlockId($id);
                 $child = $this->getChild($childId);
 
                 if (!$child) {
                     $child = $this->_addButtonChildBlock($childId);
                 }
+
                 if (isset($data['name'])) {
                     $data['element_name'] = $data['name'];
                 }
+
                 $child->setData($data);
 
                 $out .= $this->getChildHtml($childId);
             }
         }
+
         return $out;
     }
 
@@ -265,13 +277,14 @@ class Mage_Adminhtml_Block_Widget_Container extends Mage_Adminhtml_Block_Templat
      */
     public function hasFooterButtons()
     {
-        foreach ($this->_buttons as $level => $buttons) {
-            foreach ($buttons as $id => $data) {
+        foreach ($this->_buttons as $buttons) {
+            foreach ($buttons as $data) {
                 if (isset($data['area']) && ($data['area'] == 'footer')) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 

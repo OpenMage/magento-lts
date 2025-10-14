@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 final class ProcessorTest extends TestCase
 {
     public Subject $subject;
+
     public array $server;
 
     public function setUp(): void
@@ -39,6 +40,7 @@ final class ProcessorTest extends TestCase
         foreach ($serverVars as $serverVar => $value) {
             $_SERVER[$serverVar] = $value;
         }
+
         self::assertSame($expectedResult, $this->subject->getHostUrl());
     }
 

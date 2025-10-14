@@ -18,7 +18,9 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
      * @var array
      */
     protected $_terms;
+
     protected $_minPopularity;
+
     protected $_maxPopularity;
 
     /**
@@ -50,6 +52,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 if (!$term->getPopularity()) {
                     continue;
                 }
+
                 $term->setRatio(($term->getPopularity() - $this->_minPopularity) / $range);
                 $temp[$term->getName()] = $term;
                 $termKeys[] = $term->getName();
@@ -62,6 +65,7 @@ class Mage_CatalogSearch_Block_Term extends Mage_Core_Block_Template
                 }
             }
         }
+
         return $this;
     }
 

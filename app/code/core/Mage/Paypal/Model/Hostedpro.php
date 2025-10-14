@@ -51,14 +51,18 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     protected $_code = Mage_Paypal_Model_Config::METHOD_HOSTEDPRO;
 
     protected $_formBlockType = 'paypal/hosted_pro_form';
+
     protected $_infoBlockType = 'paypal/hosted_pro_info';
 
     /**
      * Availability options
      */
     protected $_canUseInternal          = false;
+
     protected $_canUseForMultishipping  = false;
+
     protected $_canSaveCc               = false;
+
     protected $_isInitializeNeeded      = true;
 
     /**

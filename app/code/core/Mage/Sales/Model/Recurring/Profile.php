@@ -90,10 +90,15 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * @var string
      */
     public const STATE_UNKNOWN   = 'unknown';
+
     public const STATE_PENDING   = 'pending';
+
     public const STATE_ACTIVE    = 'active';
+
     public const STATE_SUSPENDED = 'suspended';
+
     public const STATE_CANCELED  = 'canceled';
+
     public const STATE_EXPIRED   = 'expired';
 
     /**
@@ -102,7 +107,9 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
      * @var string
      */
     public const PAYMENT_TYPE_REGULAR   = 'regular';
+
     public const PAYMENT_TYPE_TRIAL     = 'trial';
+
     public const PAYMENT_TYPE_INITIAL   = 'initial';
 
     /**
@@ -261,8 +268,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             if (!$item->getIsVirtual()) {
                 $isVirtual = 0;
             }
+
             $items[] = $item;
         }
+
         $grandTotal = $billingAmount + $shippingAmount + $taxAmount;
 
         $order = Mage::getModel('sales/order');
@@ -454,8 +463,10 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
             foreach ($states as $state) {
                 $result[$state] = $this->getStateLabel($state);
             }
+
             return $result;
         }
+
         return $states;
     }
 
@@ -490,6 +501,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if ($key === 'state') {
             return $this->getStateLabel($value);
         }
+
         return parent::renderData($key);
     }
 
@@ -507,6 +519,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if (!$info) {
             return;
         }
+
         if (!is_object($info)) {
             if (is_array($info) && isset($info[$infoValueKey])) {
                 return $info[$infoValueKey];
@@ -574,6 +587,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
                 Mage::helper('sales')->__('This profile state cannot be changed to "%s".', $againstState),
             );
         }
+
         return $result;
     }
 
@@ -588,6 +602,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if (empty($ids)) {
             $ids[] = '-1';
         }
+
         return $ids;
     }
 
@@ -733,6 +748,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         } else {
             $additionalOptions = [$option];
         }
+
         $options['additional_options'] = $additionalOptions;
         $item->setProductOptions($options);
     }
@@ -747,6 +763,7 @@ class Mage_Sales_Model_Recurring_Profile extends Mage_Payment_Model_Recurring_Pr
         if (!$array) {
             return;
         }
+
         foreach ($array as $key => $value) {
             if (is_object($value)) {
                 unset($array[$key]);

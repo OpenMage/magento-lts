@@ -20,6 +20,7 @@ class Mage_Core_Model_Message_Collection
      * @var array
      */
     protected $_messages = [];
+
     protected $_lastAddedMessage;
 
     /**
@@ -42,6 +43,7 @@ class Mage_Core_Model_Message_Collection
         if (!isset($this->_messages[$message->getType()])) {
             $this->_messages[$message->getType()] = [];
         }
+
         $this->_messages[$message->getType()][] = $message;
         $this->_lastAddedMessage = $message;
         return $this;
@@ -60,10 +62,12 @@ class Mage_Core_Model_Message_Collection
                     unset($this->_messages[$type][$id]);
                 }
             }
+
             if (empty($this->_messages[$type])) {
                 unset($this->_messages[$type]);
             }
         }
+
         return $this;
     }
 
@@ -104,6 +108,7 @@ class Mage_Core_Model_Message_Collection
                 if ($identifier === $message->getIdentifier()) {
                     unset($this->_messages[$type][$id]);
                 }
+
                 if (empty($this->_messages[$type])) {
                     unset($this->_messages[$type]);
                 }
@@ -124,7 +129,7 @@ class Mage_Core_Model_Message_Collection
         }
 
         $arrRes = [];
-        foreach ($this->_messages as $messageType => $messages) {
+        foreach ($this->_messages as $messages) {
             $arrRes = array_merge($arrRes, $messages);
         }
 
@@ -178,8 +183,10 @@ class Mage_Core_Model_Message_Collection
             if (isset($this->_messages[$type])) {
                 return count($this->_messages[$type]);
             }
+
             return 0;
         }
+
         return count($this->_messages);
     }
 }

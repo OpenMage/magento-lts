@@ -147,8 +147,10 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                             'value'     => $title,
                         ];
                     }
+
                     $adapter->insertMultiple($ratingTitleTable, $data);
                 }
+
                 $adapter->commit();
             } catch (Exception $e) {
                 Mage::logException($e);
@@ -185,6 +187,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                             'store_id'  => (int) $storeId,
                         ];
                     }
+
                     $adapter->insertMultiple($ratingStoreTable, $data);
                 }
 
@@ -211,6 +214,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
         if (!$this->isModuleEnabled('Mage_Review', 'rating')) {
             return $this;
         }
+
         $data = $this->_getEntitySummaryData($object);
         $summary = [];
         foreach ($data as $row) {
@@ -218,6 +222,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
             $clone->addData($row);
             $summary[$clone->getStoreId()][$clone->getEntityPkValue()] = $clone;
         }
+
         Mage::getResourceModel('review/review_summary')->reAggregate($summary);
         return $this;
     }
@@ -239,6 +244,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                     $object->addData($row);
                 }
             }
+
             return $object;
         }
 
@@ -377,6 +383,7 @@ class Mage_Rating_Model_Resource_Rating extends Mage_Core_Model_Resource_Db_Abst
                     $object->addData($row);
                 }
             }
+
             return $object;
         }
 

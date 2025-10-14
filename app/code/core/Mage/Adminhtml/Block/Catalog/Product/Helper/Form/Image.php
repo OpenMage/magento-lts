@@ -20,6 +20,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Image extends Varien_Data
         if ($this->getValue()) {
             $url = Mage::getBaseUrl('media') . 'catalog/product/' . $this->getValue();
         }
+
         return $url;
     }
 
@@ -38,6 +39,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Image extends Varien_Data
         } else {
             $html .= parent::_getDeleteCheckbox();
         }
+
         return $html;
     }
 }

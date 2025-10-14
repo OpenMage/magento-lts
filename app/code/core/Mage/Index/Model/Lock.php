@@ -69,6 +69,7 @@ class Mage_Index_Model_Lock
         if (!self::$_instance instanceof self) {
             self::$_instance = new self();
         }
+
         return self::$_instance;
     }
 
@@ -80,9 +81,11 @@ class Mage_Index_Model_Lock
         foreach (self::$_lockDb as $lockDb) {
             $this->_releaseLockDb($lockDb);
         }
+
         foreach (self::$_lockFile as $lockFile) {
             $this->_releaseLockFile($lockFile);
         }
+
         foreach (self::$_lockFileResource as $lockFileResource) {
             if ($lockFileResource) {
                 fclose($lockFileResource);
@@ -131,10 +134,12 @@ class Mage_Index_Model_Lock
                 throw $e;
             }
         }
+
         if ($result) {
             self::$_lockFile[$lockName] = $lockName;
             return true;
         }
+
         return false;
     }
 
@@ -151,6 +156,7 @@ class Mage_Index_Model_Lock
             self::$_lockDb[$lockName] = $lockName;
             return true;
         }
+
         return false;
     }
 
@@ -182,6 +188,7 @@ class Mage_Index_Model_Lock
             unset(self::$_lockFile[$lockName]);
             return true;
         }
+
         return false;
     }
 
@@ -197,6 +204,7 @@ class Mage_Index_Model_Lock
             unset(self::$_lockDb[$lockName]);
             return true;
         }
+
         return false;
     }
 
@@ -263,6 +271,7 @@ class Mage_Index_Model_Lock
             $model = Mage::getModel($config->model);
             $this->_storage = $model;
         }
+
         return $this->_storage;
     }
 
@@ -283,12 +292,15 @@ class Mage_Index_Model_Lock
             } else {
                 self::$_lockFileResource[$lockName] = fopen($file, 'x');
             }
+
             if (!self::$_lockFileResource[$lockName]) {
                 self::$_lockFileResource[$lockName] = null;
                 throw new Exception(sprintf('Unable to open lock file \'%s\': %s', $file, error_get_last()));
             }
+
             fwrite(self::$_lockFileResource[$lockName], date('r'));
         }
+
         return self::$_lockFileResource[$lockName];
     }
 }

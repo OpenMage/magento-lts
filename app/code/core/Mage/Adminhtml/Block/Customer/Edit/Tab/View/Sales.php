@@ -22,6 +22,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Sales extends Mage_Adminhtml_B
     protected $_collection;
 
     protected $_groupedCollection;
+
     protected $_websiteCounts;
 
     /**

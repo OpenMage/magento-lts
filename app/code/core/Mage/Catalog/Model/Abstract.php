@@ -209,6 +209,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
         foreach ($collection as $object) {
             return $object;
         }
+
         return false;
     }
 

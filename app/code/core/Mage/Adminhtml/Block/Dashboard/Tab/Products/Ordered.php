@@ -25,6 +25,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         if (!$this->isModuleEnabled('Mage_Sales')) {
             return $this;
         }
+
         if ($this->getParam('website')) {
             $storeIds = Mage::app()->getWebsite($this->getParam('website'))->getStoreIds();
             $storeId = array_pop($storeIds);
@@ -101,6 +102,7 @@ class Mage_Adminhtml_Block_Dashboard_Tab_Products_Ordered extends Mage_Adminhtml
         if ($this->getRequest()->getParam('store')) {
             $params['store'] = $this->getRequest()->getParam('store');
         }
+
         return $this->getUrl('*/catalog_product/edit', $params);
     }
 }

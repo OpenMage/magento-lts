@@ -107,8 +107,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
                 );
                 $taxShipping    = $shipping;
                 $baseTaxShipping = $baseShipping;
-                $shipping       = $shipping - $tax;
-                $baseShipping   = $baseShipping - $baseTax;
+                $shipping -= $tax;
+                $baseShipping -= $baseTax;
                 $taxable        = $taxShipping;
                 $baseTaxable    = $baseTaxShipping;
                 $isPriceInclTax = true;
@@ -150,6 +150,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
                     'base',
                 );
             }
+
             $tax            = array_sum($taxes);
             $baseTax        = array_sum($baseTaxes);
             $taxShipping    = $shipping + $tax;
@@ -160,6 +161,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
             $address->setTotalAmount('shipping', $shipping);
             $address->setBaseTotalAmount('shipping', $baseShipping);
         }
+
         $address->setShippingInclTax($taxShipping);
         $address->setBaseShippingInclTax($baseTaxShipping);
         $address->setShippingTaxable($taxable);
@@ -169,6 +171,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
             $address->setShippingAmountForDiscount($taxShipping);
             $address->setBaseShippingAmountForDiscount($baseTaxShipping);
         }
+
         return $this;
     }
 
@@ -206,6 +209,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         if (is_null($this->_storeTaxRequest)) {
             $this->_storeTaxRequest = $this->_calculator->getRateOriginRequest($address->getQuote()->getStore());
         }
+
         return $this->_storeTaxRequest;
     }
 
@@ -239,6 +243,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
         if ($this->_config->shippingPriceIncludesTax($store) || $this->_config->getNeedUseShippingExcludeTax()) {
             return true;
         }
+
         return false;
     }
 

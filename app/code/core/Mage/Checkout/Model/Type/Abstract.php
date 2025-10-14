@@ -26,6 +26,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $checkout = Mage::getSingleton('checkout/session');
             $this->setData('checkout_session', $checkout);
         }
+
         return $checkout;
     }
 
@@ -61,6 +62,7 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
             $customer = Mage::getSingleton('customer/session');
             $this->setData('customer_session', $customer);
         }
+
         return $customer;
     }
 
@@ -91,8 +93,10 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
                     }
                 }
             }
+
             $this->setData('customer_default_shipping_address', $address);
         }
+
         return $address;
     }
 
@@ -113,8 +117,10 @@ abstract class Mage_Checkout_Model_Type_Abstract extends Varien_Object
                     }
                 }
             }
+
             $this->setData('customer_default_billing_address', $address);
         }
+
         return $address;
     }
 

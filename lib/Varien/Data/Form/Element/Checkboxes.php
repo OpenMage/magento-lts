@@ -57,6 +57,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         } elseif ($this->getOptions() && is_array($this->getOptions())) {
             $options = $this->getOptions();
         }
+
         foreach ($options as $k => $v) {
             if (is_string($v)) {
                 $values[] = [
@@ -67,6 +68,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 if (!isset($v['label'])) {
                     $v['label'] = $v['value'];
                 }
+
                 $values[] = [
                     'label' => $v['label'],
                     'value' => $v['value'],
@@ -110,6 +112,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         } else {
             return;
         }
+
         if (!is_array($checked)) {
             $checked = [(string) $checked];
         } else {
@@ -117,9 +120,11 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 $checked[$k] = (string) $v;
             }
         }
+
         if (in_array((string) $value, $checked)) {
             return 'checked';
         }
+
         return ;
     }
 
@@ -137,10 +142,12 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                     $disabled[$k] = (string) $v;
                 }
             }
+
             if (in_array((string) $value, $disabled)) {
                 return 'disabled';
             }
         }
+
         return;
     }
 
@@ -153,6 +160,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         if ($onclick = $this->getData('onclick')) {
             return str_replace('$value', $value, $onclick);
         }
+
         return;
     }
 
@@ -165,6 +173,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
         if ($onchange = $this->getData('onchange')) {
             return str_replace('$value', $value, $onchange);
         }
+
         return;
     }
 
@@ -190,6 +199,7 @@ class Varien_Data_Form_Element_Checkboxes extends Varien_Data_Form_Element_Abstr
                 $html .= ' ' . $attribute . '="' . $value . '"';
             }
         }
+
         return $html . (' value="' . $option['value'] . '" />'
             . ' <label for="' . $id . '">' . $option['label'] . '</label></li>'
             . "\n");

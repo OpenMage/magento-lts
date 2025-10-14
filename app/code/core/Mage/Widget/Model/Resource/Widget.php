@@ -37,8 +37,10 @@ class Mage_Widget_Model_Resource_Widget extends Mage_Core_Model_Resource_Db_Abst
             if ($widget['parameters']) {
                 $widget['parameters'] = unserialize($widget['parameters'], ['allowed_classes' => false]);
             }
+
             return $widget;
         }
+
         return false;
     }
 }

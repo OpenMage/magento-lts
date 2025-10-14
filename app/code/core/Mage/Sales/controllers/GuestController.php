@@ -37,6 +37,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         if ($order->getId() && ($order->getId() === $currentOrder->getId())) {
             return true;
         }
+
         return false;
     }
 
@@ -60,6 +61,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
             $this->_redirect('customer/account/');
             return;
         }
+
         $this->loadLayout();
         Mage::helper('sales/guest')->getBreadcrumbs($this);
         $this->renderLayout();
@@ -83,6 +85,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
             if (isset($invoice)) {
                 Mage::register('current_invoice', $invoice);
             }
+
             $this->loadLayout('print');
             $this->renderLayout();
         } else {
@@ -103,10 +106,12 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
         } else {
             $order = Mage::registry('current_order');
         }
+
         if ($this->_canViewOrder($order)) {
             if (isset($shipment)) {
                 Mage::register('current_shipment', $shipment);
             }
+
             $this->loadLayout('print');
             $this->renderLayout();
         } else {
@@ -132,6 +137,7 @@ class Mage_Sales_GuestController extends Mage_Sales_Controller_Abstract
             if (isset($creditmemo)) {
                 Mage::register('current_creditmemo', $creditmemo);
             }
+
             $this->loadLayout('print');
             $this->renderLayout();
         } else {

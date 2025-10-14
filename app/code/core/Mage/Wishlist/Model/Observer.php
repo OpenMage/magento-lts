@@ -25,6 +25,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
         if (!$customerId) {
             return false;
         }
+
         return Mage::getModel('wishlist/wishlist')->loadByCustomer($customerId, true);
     }
 
@@ -57,6 +58,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
                     if (isset($itemInfo['qty']) && is_numeric($itemInfo['qty'])) {
                         $buyRequest->setQty($itemInfo['qty']);
                     }
+
                     $wishlist->addNewItem($productId, $buyRequest);
 
                     $productIds[] = $productId;
@@ -69,6 +71,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
             $wishlist->save();
             Mage::helper('wishlist')->calculate();
         }
+
         return $this;
     }
 
@@ -108,6 +111,7 @@ class Mage_Wishlist_Model_Observer extends Mage_Core_Model_Abstract
                     $wishlistItem->delete();
                 }
             }
+
             Mage::getSingleton('checkout/session')->setWishlistIds($wishlistIds);
             Mage::getSingleton('checkout/session')->setSingleWishlistId(null);
         }

@@ -106,6 +106,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 $routes[] = Mage::getModel('api2/route_' . $apiType, $arguments);
             }
         }
+
         return $routes;
     }
 
@@ -131,6 +132,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         foreach ($this->getResources() as $resourceType => $resourceCfg) {
             $list[] = (string) $resourceType;
         }
+
         return $list;
     }
 
@@ -156,6 +158,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 if (!$result) {
                     continue;
                 }
+
                 $groupName = (string) $result[0];
                 if ($groupName) {
                     $result = $groups->xpath('.//' . $groupName);
@@ -173,6 +176,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $groups;
     }
 
@@ -188,6 +192,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
         if (!$group) {
             return false;
         }
+
         return $group[0];
     }
 
@@ -234,6 +239,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $exclAttributes;
     }
 
@@ -256,6 +262,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $forcedAttributes;
     }
 
@@ -279,6 +286,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $inclAttributes;
     }
 
@@ -303,6 +311,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return $entityOnlyAttributes;
     }
 
@@ -412,6 +421,7 @@ class Mage_Api2_Model_Config extends Varien_Simplexml_Config
                 }
             }
         }
+
         return (int) $useVersion;
     }
 

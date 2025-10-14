@@ -13,14 +13,21 @@
 class Unserialize_Parser
 {
     public const TYPE_STRING = 's';
+
     public const TYPE_INT = 'i';
+
     public const TYPE_DOUBLE = 'd';
+
     public const TYPE_ARRAY = 'a';
+
     public const TYPE_BOOL = 'b';
+
     public const TYPE_NULL = 'N';
 
     public const SYMBOL_QUOTE = '"';
+
     public const SYMBOL_SEMICOLON = ';';
+
     public const SYMBOL_COLON = ':';
 
     /**
@@ -38,8 +45,10 @@ class Unserialize_Parser
             if (!is_null($arr)) {
                 return $arr;
             }
+
             $prevChar = $char;
         }
+
         throw new Exception('Error during unserialization');
     }
 }

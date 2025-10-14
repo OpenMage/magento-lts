@@ -45,6 +45,7 @@ class Mage_Core_Model_File_Validator_StreamWrapper
                 return false;
             }
         }
+
         return true;
     }
 }

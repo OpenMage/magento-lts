@@ -37,6 +37,7 @@ class Mage_Core_Block_Text_Tag_Css_Admin extends Mage_Core_Block_Text_Tag_Css
         if (empty($type)) {
             $type = 'skin';
         }
+
         $url = Mage::getBaseUrl($type) . $href . $this->getTheme() . '.css';
         return $this->setTagParam('href', $url);
     }

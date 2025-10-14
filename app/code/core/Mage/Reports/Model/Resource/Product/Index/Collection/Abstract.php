@@ -55,6 +55,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
             );
             $this->setFlag('is_idx_table_joined', true);
         }
+
         return $this;
     }
 
@@ -85,6 +86,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         } else {
             $this->getSelect()->where('e.entity_id IN(?)', $ids);
         }
+
         return $this;
     }
 
@@ -131,6 +133,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         if ($this->getFlag('is_idx_table_joined')) {
             $this->getSelect()->order('added_at ' . $dir);
         }
+
         return $this;
     }
 
@@ -159,8 +162,10 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
                     $orderedItems[$id] = $this->_items[$id];
                 }
             }
+
             $this->_items = $orderedItems;
         }
+
         return $this;
     }
 
@@ -187,6 +192,7 @@ abstract class Mage_Reports_Model_Resource_Product_Index_Collection_Abstract ext
         if (empty($productIds)) {
             return $this;
         }
+
         $this->_joinIdxTable();
         $this->getSelect()->where('idx_table.product_id NOT IN(?)', $productIds);
         return $this;

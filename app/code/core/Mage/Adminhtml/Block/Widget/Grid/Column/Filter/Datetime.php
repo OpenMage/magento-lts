@@ -24,12 +24,15 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             if ($data = $this->getData('value', 'orig_' . $index)) {
                 return $data;//date('Y-m-d', strtotime($data));
             }
+
             return null;
         }
+
         $value = $this->getData('value');
         if (is_array($value)) {
             $value['datetime'] = true;
         }
+
         if (!empty($value['to']) && !$this->getColumn()->getFilterTime()) {
             $datetimeTo = $value['to'];
 
@@ -40,6 +43,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
             $datetimeTo->addDay(1)->subSecond(1);
             $datetimeTo->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
         }
+
         return $value;
     }
 
@@ -72,7 +76,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
                 $dateObj->setTimezone(Mage_Core_Model_Locale::DEFAULT_TIMEZONE);
 
                 return $dateObj;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 return null;
             }
         }
@@ -152,6 +156,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Datetime extends Mage_Admin
                     $this->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                 );
             }
+
             return $this->escapeHtml($value);
         }
 

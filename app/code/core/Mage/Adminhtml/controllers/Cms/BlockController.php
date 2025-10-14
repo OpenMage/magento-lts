@@ -138,6 +138,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                     $this->_redirect('*/*/edit', ['block_id' => $model->getId()]);
                     return;
                 }
+
                 // go to grid
                 $this->_redirect('*/*/');
                 return;
@@ -151,6 +152,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -181,6 +183,7 @@ class Mage_Adminhtml_Cms_BlockController extends Mage_Adminhtml_Controller_Actio
                 return;
             }
         }
+
         // display error message
         Mage::getSingleton('adminhtml/session')->addError(Mage::helper('cms')->__('Unable to find a block to delete.'));
         // go to grid

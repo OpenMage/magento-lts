@@ -62,6 +62,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
                 $this->_drawElementHtml('img', $image),
             );
         }
+
         return $html;
     }
 
@@ -74,6 +75,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_Image extends Mage_Adminhtml_Bl
         if (is_array($this->getValue())) {
             return false;
         }
+
         return Mage::helper('adminhtml')->getUrl('adminhtml/customer/viewfile', [
             'image'      => Mage::helper('core')->urlEncode($this->getValue()),
         ]);

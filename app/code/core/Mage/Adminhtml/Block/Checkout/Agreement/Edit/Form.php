@@ -49,6 +49,7 @@ class Mage_Adminhtml_Block_Checkout_Agreement_Edit_Form extends Mage_Adminhtml_B
                 'name' => 'agreement_id',
             ]);
         }
+
         $fieldset->addField('name', 'text', [
             'name'      => 'name',
             'label'     => Mage::helper('checkout')->__('Condition Name'),

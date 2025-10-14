@@ -57,9 +57,11 @@ class Mage_Persistent_Model_Persistent_Config
                     $io->getFilteredPath($filePath),
                 ));
             }
+
             $xml = file_get_contents($filePath);
             $this->_xmlConfig = new Varien_Simplexml_Element($xml);
         }
+
         return $this->_xmlConfig;
     }
 
@@ -85,12 +87,14 @@ class Mage_Persistent_Model_Persistent_Config
             if (!is_array($elements)) {
                 continue;
             }
+
             foreach ($elements as $info) {
                 if ($type === 'blocks') {
                     $this->fireOne($info, Mage::getSingleton('core/layout')->getBlock($info['name_in_layout']));
                 }
             }
         }
+
         return $this;
     }
 
@@ -111,6 +115,7 @@ class Mage_Persistent_Model_Persistent_Config
         ) {
             return $this;
         }
+
         $object     = Mage::getModel($info['class']);
         $method     = $info['method'];
 

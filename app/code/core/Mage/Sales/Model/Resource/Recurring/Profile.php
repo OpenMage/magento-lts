@@ -44,6 +44,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
         if ($field != 'additional_info') {
             return parent::_unserializeField($object, $field, $defaultValue);
         }
+
         $value = $object->getData($field);
         if (empty($value)) {
             $object->setData($field, $defaultValue);
@@ -55,6 +56,7 @@ class Mage_Sales_Model_Resource_Recurring_Profile extends Mage_Sales_Model_Resou
             } catch (Exception $e) {
                 Mage::logException($e);
             }
+
             $object->setData($field, $unserializedValue);
         }
     }

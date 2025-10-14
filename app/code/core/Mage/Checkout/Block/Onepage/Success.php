@@ -136,6 +136,7 @@ class Mage_Checkout_Block_Onepage_Success extends Mage_Core_Block_Template
             foreach ($collection as $profile) {
                 $profiles[] = $profile;
             }
+
             if ($profiles) {
                 $this->setRecurringProfiles($profiles);
                 if (Mage::getSingleton('customer/session')->isLoggedIn()) {

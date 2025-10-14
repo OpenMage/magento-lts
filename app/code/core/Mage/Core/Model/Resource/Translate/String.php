@@ -132,6 +132,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
                 }
             }
         }
+
         return parent::_afterSave($object);
     }
 
@@ -205,6 +206,7 @@ class Mage_Core_Model_Resource_Translate_String extends Mage_Core_Model_Resource
             if (str_contains($original, '::')) {
                 [$scope, $original] = explode('::', $original);
             }
+
             if ($original == $translate) {
                 $write->delete($table, ['key_id=?' => $row['key_id']]);
             } elseif ($row['translate'] != $translate) {

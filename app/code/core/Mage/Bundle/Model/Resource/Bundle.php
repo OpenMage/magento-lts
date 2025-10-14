@@ -86,6 +86,7 @@ class Mage_Bundle_Model_Resource_Bundle extends Mage_CatalogIndex_Model_Resource
         if (!empty($ids)) {
             $where['selection_id NOT IN (?) '] = $ids;
         }
+
         $this->_getWriteAdapter()
             ->delete($this->getTable('bundle/selection'), $where);
     }

@@ -53,6 +53,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
         if (!$this->hasData('entity_types')) {
             $this->setData('entity_types', $this->_getResource()->getEntityTypes($this));
         }
+
         return $this->_getData('entity_types');
     }
 
@@ -80,6 +81,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             $entityTypes[] = $entityTypeId;
             $this->setEntityTypes($entityTypes);
         }
+
         return $this;
     }
 
@@ -118,6 +120,7 @@ class Mage_Eav_Model_Form_Type extends Mage_Core_Model_Abstract
             if ($skeletonElement->getFieldsetId()) {
                 $fieldsetId = $fieldsetMap[$skeletonElement->getFieldsetId()];
             }
+
             $element->setTypeId($this->getId())
                 ->setFieldsetId($fieldsetId)
                 ->setAttributeId($skeletonElement->getAttributeId())

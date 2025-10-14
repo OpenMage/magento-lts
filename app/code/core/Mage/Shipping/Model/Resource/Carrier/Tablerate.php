@@ -163,6 +163,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         if ($result && $result['dest_zip'] == '*') {
             $result['dest_zip'] = '';
         }
+
         return $result;
     }
 
@@ -204,6 +205,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         } else {
             $conditionName = $object->getData('groups/tablerate/fields/condition_name/value');
         }
+
         $this->_importConditionName = $conditionName;
 
         $adapter = $this->_getWriteAdapter();
@@ -240,6 +242,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
                     $importData = [];
                 }
             }
+
             $this->_saveImportData($importData);
             $io->streamClose();
             $adapter->commit();
@@ -394,6 +397,7 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
             $this->_importErrors[] = Mage::helper('shipping')->__('Duplicate Row #%s (Country "%s", Region/State "%s", Zip "%s" and Value "%s").', $rowNumber, $row[0], $row[1], $zipCode, $value);
             return false;
         }
+
         $this->_importUniqueHash[$hash] = true;
 
         return [
@@ -436,10 +440,12 @@ class Mage_Shipping_Model_Resource_Carrier_Tablerate extends Mage_Core_Model_Res
         if (!is_numeric($value)) {
             return false;
         }
+
         $value = (float) sprintf('%.4F', $value);
         if ($value < 0.0000) {
             return false;
         }
+
         return $value;
     }
 

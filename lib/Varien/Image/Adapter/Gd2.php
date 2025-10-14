@@ -10,6 +10,7 @@
 class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
 {
     protected $_requiredExtensions = ['gd'];
+
     private static $_callbacks = [
         IMAGETYPE_WEBP => ['output' => 'imagewebp', 'create' => 'imagecreatefromwebp'],
         IMAGETYPE_GIF  => ['output' => 'imagegif',  'create' => 'imagecreatefromgif'],
@@ -73,6 +74,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if ($limit === 0) {
             return false;
         }
+
         $size = getimagesize($this->_fileName);
         $requiredMemory = $size[0] * $size[1] * 3;
 
@@ -96,6 +98,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if (empty($memoryValue)) {
             return 0;
         }
+
         if (preg_match('~^([1-9][0-9]*)[\s]*(k|m|g)b?$~i', $memoryValue, $matches)) {
             $option = strtolower($matches[2]);
             $memoryValue = (int) $matches[1];
@@ -113,6 +116,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     break;
             }
         }
+
         $memoryValue = (int) $memoryValue;
 
         return max($memoryValue, 0);
@@ -161,6 +165,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 } else {
                     $newImage = imagecreate($this->_imageSrcWidth, $this->_imageSrcHeight);
                 }
+
                 $this->_fillBackgroundColor($newImage);
                 imagecopy(
                     $newImage,
@@ -220,12 +225,15 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
         if (null === $fileType) {
             $fileType = $this->_fileType;
         }
+
         if (empty(self::$_callbacks[$fileType])) {
             throw new Exception("{$unsupportedText}. Type: {$fileType}. File: {$this->_fileName}");
         }
+
         if (empty(self::$_callbacks[$fileType][$callbackType])) {
             throw new Exception("Callback not found. Callbacktype: {$callbackType}. File: {$this->_fileName}");
         }
+
         return self::$_callbacks[$fileType][$callbackType];
     }
 
@@ -241,13 +249,16 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     if (!imagealphablending($imageResourceTo, false)) {
                         throw new Exception('Failed to set alpha blending for PNG image. File: {$this->_fileName}');
                     }
+
                     $transparentAlphaColor = imagecolorallocatealpha($imageResourceTo, 0, 0, 0, 127);
                     if (false === $transparentAlphaColor) {
                         throw new Exception('Failed to allocate alpha transparency for PNG image. File: {$this->_fileName}');
                     }
+
                     if (!imagefill($imageResourceTo, 0, 0, $transparentAlphaColor)) {
                         throw new Exception('Failed to fill PNG image with alpha transparency. File: {$this->_fileName}');
                     }
+
                     if (!imagesavealpha($imageResourceTo, true)) {
                         throw new Exception('Failed to save alpha transparency into PNG image. File: {$this->_fileName}');
                     }
@@ -259,19 +270,23 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                         [$r, $g, $b]  = array_values(imagecolorsforindex($this->_imageHandler, $transparentIndex));
                         $transparentColor = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
                     }
+
                     if (false === $transparentColor) {
                         throw new Exception('Failed to allocate transparent color for image.');
                     }
+
                     if (!imagefill($imageResourceTo, 0, 0, $transparentColor)) {
                         throw new Exception('Failed to fill image with transparency.');
                     }
+
                     imagecolortransparent($imageResourceTo, $transparentColor);
                     return $transparentColor;
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // fallback to default background color
             }
         }
+
         [$r, $g, $b] = $this->_backgroundColor;
         $color = imagecolorallocate($imageResourceTo, (int) $r, (int) $g, (int) $b);
         if (!imagefill($imageResourceTo, 0, 0, $color)) {
@@ -308,9 +323,11 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 return $transparentIndex; // -1
             }
         }
+
         if ($fileType === IMAGETYPE_JPEG) {
             $isTrueColor = true;
         }
+
         return false;
     }
 
@@ -354,6 +371,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     $dstHeight = $this->_imageSrcHeight;
                 }
             }
+
             // keep aspect ratio
             if ($this->_imageSrcWidth / $this->_imageSrcHeight >= $frameWidth / $frameHeight) {
                 $dstHeight = round(($dstWidth / $this->_imageSrcWidth) * $this->_imageSrcHeight);
@@ -361,6 +379,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                 $dstWidth = round(($dstHeight / $this->_imageSrcHeight) * $this->_imageSrcWidth);
             }
         }
+
         // define position in center (TODO: add positions option)
         $dstY = round(($frameHeight - $dstHeight) / 2);
         $dstX = round(($frameWidth - $dstWidth) / 2);
@@ -579,6 +598,7 @@ class Varien_Image_Adapter_Gd2 extends Varien_Image_Adapter_Abstract
                     );
                     $offsetX += imagesx($watermark);
                 }
+
                 $offsetX = $positionX;
                 $offsetY += imagesy($watermark);
             }

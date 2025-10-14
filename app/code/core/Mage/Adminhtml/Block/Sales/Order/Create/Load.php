@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Load extends Mage_Core_Block_Templ
                 $result[$name] = $block->toHtml();
             }
         }
+
         $resultJson = Mage::helper('core')->jsonEncode($result);
         $jsVarname = $this->getRequest()->getParam('as_js_varname');
         if ($jsVarname) {

@@ -62,10 +62,12 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
         if (!$this->getCustomerId()) {
             return false;
         }
+
         if (empty($this->_customer)) {
             $this->_customer = Mage::getModel('customer/customer')
                 ->load($this->getCustomerId());
         }
+
         return $this->_customer;
     }
 
@@ -80,6 +82,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
         if ($this->getCustomerId() != $customer->getId()) {
             $this->setCustomerId($customer->getId());
         }
+
         return $this;
     }
 
@@ -109,6 +112,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
                 ->getSortedAttributes();
             $this->setData('attributes', $attributes);
         }
+
         return $attributes;
     }
 
@@ -139,6 +143,7 @@ class Mage_Customer_Model_Address extends Mage_Customer_Model_Address_Abstract
             $entityTypeId = $this->getEntityType()->getId();
             $this->setData('entity_type_id', $entityTypeId);
         }
+
         return $entityTypeId;
     }
 

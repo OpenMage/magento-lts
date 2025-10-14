@@ -95,6 +95,7 @@ class Mage_Oauth_Block_Adminhtml_Oauth_Consumer_Grid extends Mage_Adminhtml_Bloc
         if ($this->_editAllow) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
+
         return null;
     }
 }

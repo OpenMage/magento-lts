@@ -32,6 +32,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Category
                 'value' => '',
             ];
         }
+
         foreach ($collection as $category) {
             $options[] = [
                 'label' => $category->getName(),

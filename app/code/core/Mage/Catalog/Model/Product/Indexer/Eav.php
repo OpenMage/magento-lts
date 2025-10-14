@@ -268,6 +268,7 @@ class Mage_Catalog_Model_Product_Indexer_Eav extends Mage_Index_Model_Indexer_Ab
         if (!empty($data['catalog_product_eav_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['catalog_product_eav_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

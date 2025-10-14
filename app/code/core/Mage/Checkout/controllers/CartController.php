@@ -78,8 +78,10 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             ) {
                 $this->_getSession()->setContinueShoppingUrl($this->_getRefererUrl());
             }
+
             $this->_redirect('checkout/cart');
         }
+
         return $this;
     }
 
@@ -99,6 +101,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 return $product;
             }
         }
+
         return false;
     }
 
@@ -141,6 +144,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     ->setRegion($estimatedSessionAddressData['region']);
                 $cart->getQuote()->setCouponCode($couponCode);
             }
+
             $cart->save();
 
             if (!$this->_getQuote()->validateMinimumAmount()) {
@@ -164,6 +168,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $messages[] = $message;
             }
         }
+
         $cart->getCheckoutSession()->addUniqueMessages($messages);
 
         /**
@@ -193,6 +198,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_goBack();
             return;
         }
+
         $cart   = $this->_getCart();
         $params = $this->getRequest()->getParams();
         try {
@@ -236,6 +242,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     $message = $this->__('%s was added to your shopping cart.', Mage::helper('core')->escapeHtml($product->getName()));
                     $this->_getSession()->addSuccess($message);
                 }
+
                 $this->_goBack();
             }
         } catch (Mage_Core_Exception $e) {
@@ -296,6 +303,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $this->_goBack();
             }
         }
+
         $cart->save();
         $this->_getSession()->setCartWasUpdated(true);
         $this->_goBack();
@@ -352,6 +360,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         if (!isset($params['options'])) {
             $params['options'] = [];
         }
+
         try {
             if (isset($params['qty'])) {
                 $filter = new Zend_Filter_LocalizedToNormalized(
@@ -369,6 +378,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             if (is_string($item)) {
                 Mage::throwException($item);
             }
+
             if ($item->getHasError()) {
                 Mage::throwException($item->getMessage());
             }
@@ -391,6 +401,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                     $message = $this->__('%s was updated in your shopping cart.', Mage::helper('core')->escapeHtml($item->getProduct()->getName()));
                     $this->_getSession()->addSuccess($message);
                 }
+
                 $this->_goBack();
             }
         } catch (Mage_Core_Exception $e) {
@@ -414,6 +425,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $this->_getSession()->addException($e, $this->__('Cannot update the item.'));
             $this->_goBack();
         }
+
         $this->_redirect('*/*');
     }
 
@@ -454,6 +466,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                         $cartData[$index]['qty'] = $filter->filter(trim($data['qty']));
                     }
                 }
+
                 $cart = $this->_getCart();
                 if (!$cart->getCustomerSession()->getCustomer()->getId() && $cart->getQuote()->getCustomerId()) {
                     $cart->getQuote()->setCustomerId(null);
@@ -463,6 +476,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $cart->updateItems($cartData)
                     ->save();
             }
+
             $this->_getSession()->setCartWasUpdated(true);
         } catch (Mage_Core_Exception $e) {
             $this->_getSession()->addError(Mage::helper('core')->escapeHtml($e->getMessage()));
@@ -555,6 +569,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         if (!empty($code)) {
             $this->_getQuote()->getShippingAddress()->setShippingMethod($code)/*->collectTotals()*/->save();
         }
+
         $this->_goBack();
     }
 
@@ -575,6 +590,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         if ($this->getRequest()->getParam('remove') == 1) {
             $couponCode = '';
         }
+
         $oldCouponCode = $this->_getQuote()->getCouponCode();
 
         if (!strlen($couponCode) && !strlen($oldCouponCode)) {
@@ -624,6 +640,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             Mage::throwException('Invalid form key');
         }
+
         $id = (int) $this->getRequest()->getParam('id');
         $result = [];
         if ($id) {
@@ -638,7 +655,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 $result['success'] = 1;
                 $result['message'] = $this->__('Item was removed successfully.');
                 Mage::dispatchEvent('ajax_cart_remove_item_success', ['id' => $id]);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not remove the item.');
             }
@@ -656,6 +673,7 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
         if (!$this->_validateFormKey()) {
             Mage::throwException('Invalid form key');
         }
+
         $id = (int) $this->getRequest()->getParam('id');
         $qty = $this->getRequest()->getParam('qty');
         $result = [];
@@ -673,11 +691,13 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 if (!$quoteItem) {
                     Mage::throwException($this->__('Quote item is not found.'));
                 }
+
                 if (is_numeric($qty) && $qty == 0) {
                     $cart->removeItem($id);
                 } else {
                     $quoteItem->setQty($qty);
                 }
+
                 $this->_getCart()->save();
 
                 $this->loadLayout();
@@ -690,8 +710,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
                 } else {
                     $result['notice'] = $quoteItem->getMessage();
                 }
+
                 $result['success'] = 1;
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $result['success'] = 0;
                 $result['error'] = $this->__('Can not save item.');
             }

@@ -77,6 +77,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
                 $buttons[$id] = $this->getTranslationHelper()->__($label);
             }
         }
+
         $config->setButtons($buttons);
 
         /** @var Varien_Object $configData */
@@ -94,6 +95,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
         if ($this->_getData('translation_helper') instanceof Mage_Core_Helper_Abstract) {
             return $this->_getData('translation_helper');
         }
+
         return $this->helper('widget');
     }
 
@@ -152,6 +154,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Chooser extends Mage_Adminhtml_Block_Te
             if ($element->getRequired()) {
                 $hidden->addClass('required-entry');
             }
+
             $hiddenHtml = $hidden->getElementHtml();
             $element->setValue('');
         }

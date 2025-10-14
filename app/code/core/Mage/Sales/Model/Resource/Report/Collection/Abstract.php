@@ -43,10 +43,12 @@ class Mage_Sales_Model_Resource_Report_Collection_Abstract extends Mage_Reports_
         if (is_null($this->_orderStatus)) {
             return $this;
         }
+
         $orderStatus = $this->_orderStatus;
         if (!is_array($orderStatus)) {
             $orderStatus = [$orderStatus];
         }
+
         $this->getSelect()->where('order_status IN(?)', $orderStatus);
         return $this;
     }

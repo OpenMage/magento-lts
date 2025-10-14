@@ -53,6 +53,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
                 return;
             }
         }
+
         $this->_forward('nofeed', 'index', 'rss');
     }
 
@@ -68,6 +69,7 @@ class Mage_Rss_OrderController extends Mage_Rss_Controller_Abstract
             $this->_currentArea = 'adminhtml';
             Mage::helper('rss')->authAdmin('sales/order');
         }
+
         return parent::preDispatch();
     }
 }

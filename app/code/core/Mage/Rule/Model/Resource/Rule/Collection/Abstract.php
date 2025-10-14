@@ -101,6 +101,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
                 'main_table.' . $entityInfo['rule_id_field'] . ' = website.' . $entityInfo['rule_id_field'],
             );
         }
+
         return $this;
     }
 
@@ -135,6 +136,7 @@ abstract class Mage_Rule_Model_Resource_Rule_Collection_Abstract extends Mage_Co
             $this->addFieldToFilter('is_active', (int) $isActive ? 1 : 0);
             $this->setFlag('is_active_filter', true);
         }
+
         return $this;
     }
 

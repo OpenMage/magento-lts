@@ -62,6 +62,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             } else {
                 $subSelect = null;
             }
+
             $this->_clearTableByDateRange($this->getMainTable(), $from, $to, $subSelect);
 
             $periodExpr = $adapter->getDatePartSql($this->getStoreTZOffsetQuery(
@@ -226,6 +227,7 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             foreach (array_keys($columns) as $k) {
                 $columns[$k] = new Zend_Db_Expr('SUM(' . $k . ')');
             }
+
             $columns['period']         = 'period';
             $columns['store_id']       = new Zend_Db_Expr((string) Mage_Core_Model_App::ADMIN_STORE_ID);
             $columns['order_status']   = 'order_status';

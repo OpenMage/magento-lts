@@ -36,6 +36,7 @@ class Mage_Catalog_Model_Product_Attribute_Frontend_Image extends Mage_Eav_Model
             # using original image
             $url = Mage::app()->getStore($object->getStore())->getBaseUrl('media') . 'catalog/product/' . $image;
         }
+
         return $url;
     }
 }

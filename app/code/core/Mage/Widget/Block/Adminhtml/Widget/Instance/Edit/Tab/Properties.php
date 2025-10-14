@@ -91,6 +91,7 @@ class Mage_Widget_Block_Adminhtml_Widget_Instance_Edit_Tab_Properties extends Ma
         if ($parameter->getKey() != 'template') {
             return parent::_addField($parameter);
         }
+
         return false;
     }
 }

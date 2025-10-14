@@ -120,6 +120,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
         foreach ($types as $type => $className) {
             $form->addType($type, $className);
         }
+
         $renderers = $this->_getAdditionalFormElementRenderers();
 
         foreach ($attributes as $attribute) {
@@ -138,6 +139,7 @@ abstract class Mage_Adminhtml_Block_Sales_Order_Create_Form_Abstract extends Mag
                 if ($inputType == 'multiline') {
                     $element->setLineCount($attribute->getMultilineCount());
                 }
+
                 $element->setEntityAttribute($attribute);
                 $this->_addAdditionalFormElementData($element);
 

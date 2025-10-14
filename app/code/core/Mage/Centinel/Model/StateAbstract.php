@@ -90,6 +90,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
         foreach ($result->getData() as $key => $value) {
             $this->setData('lookup_' . $key, $value);
         }
+
         return $this;
     }
 
@@ -104,6 +105,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
         foreach ($result->getData() as $key => $value) {
             $this->setData('authenticate_' . $key, $value);
         }
+
         return $this;
     }
 
@@ -120,6 +122,7 @@ abstract class Mage_Centinel_Model_StateAbstract extends Varien_Object
         } elseif (!$this->getIsModeStrict() && $this->_isLookupSoftSuccessful()) {
             return true;
         }
+
         return false;
     }
 

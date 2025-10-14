@@ -167,6 +167,7 @@ foreach ($attributes as $attributeCode => $data) {
     if ($website !== false) {
         $attribute->setWebsite($website);
     }
+
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [
@@ -179,12 +180,14 @@ foreach ($attributes as $attributeCode => $data) {
         } else {
             $usedInForms[] = 'adminhtml_customer';
         }
+
         if (!empty($data['admin_checkout'])) {
             $usedInForms[] = 'adminhtml_checkout';
         }
 
         $attribute->setData('used_in_forms', $usedInForms);
     }
+
     $attribute->save();
 }
 
@@ -327,6 +330,7 @@ foreach ($attributes as $attributeCode => $data) {
     if ($website !== false) {
         $attribute->setWebsite($website);
     }
+
     $attribute->addData($data);
     if (($data['is_system'] == 1 && $data['is_visible'] == 0) === false) {
         $usedInForms = [
@@ -336,5 +340,6 @@ foreach ($attributes as $attributeCode => $data) {
         ];
         $attribute->setData('used_in_forms', $usedInForms);
     }
+
     $attribute->save();
 }

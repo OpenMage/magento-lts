@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_Template
 {
     protected $_voteCollection = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -75,8 +76,10 @@ class Mage_Adminhtml_Block_Review_Rating_Detailed extends Mage_Adminhtml_Block_T
                         ->addRatingOptions();
                 }
             }
+
             $this->setRatingCollection(($ratingCollection->getSize()) ? $ratingCollection : false);
         }
+
         return $this->getRatingCollection();
     }
 

@@ -62,6 +62,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         if (!$this->getFlag('', self::FLAG_NO_START_SESSION)) {
             Mage::getSingleton('core/session')->setLastUrl(Mage::getUrl('*/*/*', ['_current' => true]));
         }
+
         return $this;
     }
 
@@ -109,6 +110,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
             if (!isset($content['type']) || !isset($content['value'])) {
                 return $this;
             }
+
             if ($content['type'] == 'filename') {
                 $isFile         = true;
                 $file           = $content['value'];
@@ -134,11 +136,13 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 if (!$ioAdapter->fileExists($file)) {
                     Mage::throwException(Mage::helper('core')->__('File not found'));
                 }
+
                 $ioAdapter->open(['path' => $ioAdapter->dirname($file)]);
                 $ioAdapter->streamOpen($file, 'r');
                 while ($buffer = $ioAdapter->streamRead()) {
                     print $buffer;
                 }
+
                 $ioAdapter->streamClose();
                 if (!empty($content['rm'])) {
                     $ioAdapter->rm($file);
@@ -149,6 +153,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
                 $this->getResponse()->setBody($content);
             }
         }
+
         return $this;
     }
 
@@ -163,6 +168,7 @@ class Mage_Core_Controller_Front_Action extends Mage_Core_Controller_Varien_Acti
         if ($this->_isFormKeyEnabled()) {
             $validated = parent::_validateFormKey();
         }
+
         return $validated;
     }
 

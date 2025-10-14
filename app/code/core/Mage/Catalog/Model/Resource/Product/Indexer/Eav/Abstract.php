@@ -62,6 +62,7 @@ abstract class Mage_Catalog_Model_Resource_Product_Indexer_Eav_Abstract extends 
         if ($parentIds) {
             $processIds = array_unique(array_merge($processIds, $parentIds));
         }
+
         $childIds  = $this->getRelationsByParent($processIds);
         if ($childIds) {
             $processIds = array_unique(array_merge($processIds, $childIds));
