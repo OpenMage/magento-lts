@@ -159,7 +159,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
             $attributes = [];
             $defaults   = []; // customer default addresses (billing/shipping) data
 
-            foreach ($bunch as $rowNum => $rowData) {
+            foreach ($bunch as $rowData) {
                 $rowScope = $this->_getRowScope($rowData);
                 if ($rowScope == Mage_ImportExport_Model_Import_Entity_Customer::SCOPE_DEFAULT) {
                     $customerId = $this->_customer->getCustomerId(
@@ -219,7 +219,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer_Address extends Mage_Import
                         'updated_at'     => $now,
                     ];
                     // attribute values
-                    foreach ($this->_attributes as $attrAlias => $attrParams) {
+                    foreach ($this->_attributes as $attrParams) {
                         if (isset($addressAttributes[$attrParams['id']])) {
                             $attributes[$attrParams['table']][$entityId][$attrParams['id']]
                                 = $addressAttributes[$attrParams['id']];

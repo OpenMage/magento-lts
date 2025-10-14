@@ -115,7 +115,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         }
 
         foreach ($sourceChildren as $elmNamespace => $children) {
-            foreach ($children as $childKey => $childNode) {
+            foreach ($children as $childNode) {
                 $targetChild->extendChild($childNode, $overwrite, $elmNamespace);
             }
         }
@@ -208,8 +208,8 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
         }
 
         // simplexml bug: @attributes is in children() but invisible in foreach
-        foreach (self::_getChildren($this) as $namespace => $children) {
-            foreach ($children as $k => $child) {
+        foreach (self::_getChildren($this) as $children) {
+            foreach ($children as $child) {
                 return true;
             }
         }
@@ -228,7 +228,7 @@ class Mage_Api_Model_Wsdl_Config_Element extends Varien_Simplexml_Element
     {
         $sourceName = $source->getName();
         $extendElmAttributes = $this->getAttributes($source);
-        foreach ($this->children($elmNamespace) as $k => $child) {
+        foreach ($this->children($elmNamespace) as $child) {
             if ($child->getName() == $sourceName) {
                 $elm = true;
                 foreach ($extendElmAttributes as $namespace => $attributes) {

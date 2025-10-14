@@ -515,7 +515,7 @@ class Mage_Catalog_Model_Resource_Category_Tree extends Varien_Data_Tree_Dbp
         }
 
         $childrenItems = [];
-        foreach ($arrNodes as $key => $nodeInfo) {
+        foreach ($arrNodes as $nodeInfo) {
             $pathToParent = explode('/', $nodeInfo[$this->_pathField]);
             array_pop($pathToParent);
             $pathToParent = implode('/', $pathToParent);

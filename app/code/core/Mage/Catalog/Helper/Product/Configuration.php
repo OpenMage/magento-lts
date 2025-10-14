@@ -233,7 +233,7 @@ class Mage_Catalog_Helper_Product_Configuration extends Mage_Core_Helper_Abstrac
         $result = ['value' => $truncatedValue];
 
         if ($maxLength && (Mage::helper('core/string')->strlen($optionValue) > $maxLength)) {
-            $result['value'] = $result['value'] . $cutReplacer;
+            $result['value'] .= $cutReplacer;
             $optionValue = nl2br($optionValue);
             $result['full_view'] = $optionValue;
         }

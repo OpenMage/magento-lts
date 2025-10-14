@@ -579,8 +579,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
                 //We want to remove weee
                 if ($isWeeeEnabled && $this->_weeeHelper->includeInSubtotal()) {
-                    $discountAmount = $discountAmount - $item->getWeeeDiscount() / $qty;
-                    $baseDiscountAmount = $baseDiscountAmount - $item->getBaseWeeeDiscount() / $qty;
+                    $discountAmount -= $item->getWeeeDiscount() / $qty;
+                    $baseDiscountAmount -= $item->getBaseWeeeDiscount() / $qty;
                 }
 
                 $unitTaxBeforeDiscount = $this->_calculator->calcTaxAmount($price, $rate, $inclTax, false);
@@ -593,10 +593,10 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
                 if ($isWeeeEnabled && $this->_weeeHelper->isTaxable()) {
                     $weeeTax = $this->_calculateRowWeeeTax($item->getWeeeDiscount(), $item, $rate, false);
-                    $weeeTax = $weeeTax / $qty;
+                    $weeeTax /= $qty;
                     $unitTax += $weeeTax;
                     $baseWeeeTax = $this->_calculateRowWeeeTax($item->getBaseWeeeDiscount(), $item, $rate);
-                    $baseWeeeTax = $baseWeeeTax / $qty;
+                    $baseWeeeTax /= $qty;
                     $baseUnitTax += $baseWeeeTax;
                 }
 
@@ -858,8 +858,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
                 $baseDiscountAmount = $item->getBaseDiscountAmount();
 
                 if ($isWeeeEnabled && $this->_weeeHelper->includeInSubtotal()) {
-                    $discountAmount = $discountAmount - $item->getWeeeDiscount();
-                    $baseDiscountAmount = $baseDiscountAmount - $item->getBaseWeeeDiscount();
+                    $discountAmount -= $item->getWeeeDiscount();
+                    $baseDiscountAmount -= $item->getBaseWeeeDiscount();
                 }
 
                 $rowTax = $this->_calculator->calcTaxAmount(
@@ -1183,8 +1183,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
 
                 //We remove weee discount from discount if weee is not taxed
                 if ($isWeeeEnabled && $this->_weeeHelper->includeInSubtotal()) {
-                    $discount = $discount - $item->getWeeeDiscount();
-                    $baseDiscount = $baseDiscount - $item->getBaseWeeeDiscount();
+                    $discount -= $item->getWeeeDiscount();
+                    $baseDiscount -= $item->getBaseWeeeDiscount();
                 }
 
                 $taxSubtotal = max($subtotal - $discount, 0);
@@ -1511,7 +1511,7 @@ class Mage_Tax_Model_Sales_Total_Quote_Tax extends Mage_Sales_Model_Quote_Addres
     {
         if ($price) {
             $rate = (string) $rate;
-            $type = $type . $direction;
+            $type .= $direction;
             // initialize the delta to a small number to avoid non-deterministic behavior with rounding of 0.5
             $delta = $this->_roundingDeltas[$type][$rate] ?? 0.000001;
             $price += $delta;

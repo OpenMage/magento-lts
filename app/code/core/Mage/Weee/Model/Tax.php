@@ -234,7 +234,7 @@ class Mage_Weee_Model_Tax extends Mage_Core_Model_Abstract
                         if (Mage::helper('weee')->isTaxIncluded($store)) {
                             $taxAmount = Mage::app()->getStore()
                                     ->roundPrice($value / (100 + $defaultPercent) * $currentPercent);
-                            $amount =  $amount - $taxAmount;
+                            $amount -= $taxAmount;
                         } else {
                             $appliedRates = Mage::getModel('tax/calculation')->getAppliedRates($rateRequest);
                             // phpcs:ignore Ecg.Performance.Loop.ArraySize

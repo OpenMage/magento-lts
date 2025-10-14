@@ -34,7 +34,7 @@ class Mage_Api_Model_Resource_Rules extends Mage_Core_Model_Resource_Db_Abstract
             $masterResources = Mage::getModel('api/roles')->getResourcesList2D();
             $masterAdmin = false;
             if ($postedResources = $rule->getResources()) {
-                foreach ($masterResources as $index => $resName) {
+                foreach ($masterResources as $resName) {
                     if (!$masterAdmin) {
                         $permission = (in_array($resName, $postedResources)) ? 'allow' : 'deny';
                         $adapter->insert($this->getMainTable(), [

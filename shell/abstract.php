@@ -102,17 +102,13 @@ abstract class Mage_Shell_Abstract
             $data = file_get_contents($htaccess);
             $matches = [];
             preg_match_all('#^\s+?php_value\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
-            if ($matches) {
-                foreach ($matches as $match) {
-                    @ini_set($match[1], str_replace("\r", '', $match[2]));
-                }
+            foreach ($matches as $match) {
+                @ini_set($match[1], str_replace("\r", '', $match[2]));
             }
 
             preg_match_all('#^\s+?php_flag\s+([a-z_]+)\s+(.+)$#siUm', $data, $matches, PREG_SET_ORDER);
-            if ($matches) {
-                foreach ($matches as $match) {
-                    @ini_set($match[1], str_replace("\r", '', $match[2]));
-                }
+            foreach ($matches as $match) {
+                @ini_set($match[1], str_replace("\r", '', $match[2]));
             }
         }
     }

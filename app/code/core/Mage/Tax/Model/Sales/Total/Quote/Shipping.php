@@ -107,8 +107,8 @@ class Mage_Tax_Model_Sales_Total_Quote_Shipping extends Mage_Sales_Model_Quote_A
                 );
                 $taxShipping    = $shipping;
                 $baseTaxShipping = $baseShipping;
-                $shipping       = $shipping - $tax;
-                $baseShipping   = $baseShipping - $baseTax;
+                $shipping -= $tax;
+                $baseShipping -= $baseTax;
                 $taxable        = $taxShipping;
                 $baseTaxable    = $baseTaxShipping;
                 $isPriceInclTax = true;

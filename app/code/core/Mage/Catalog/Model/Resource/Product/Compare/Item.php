@@ -189,15 +189,13 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             );
         }
 
-        if ($update) {
-            foreach ($update as $itemId => $productId) {
-                $bind = $products[$productId];
-                $this->_getWriteAdapter()->update(
-                    $this->getMainTable(),
-                    $bind,
-                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId),
-                );
-            }
+        foreach ($update as $itemId => $productId) {
+            $bind = $products[$productId];
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
+                $bind,
+                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId),
+            );
         }
 
         return $this;

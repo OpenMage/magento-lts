@@ -37,12 +37,12 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             return;
         }
 
+        /** @var Mage_Catalog_Model_Session $session */
         $session    = Mage::getSingleton('catalog/session');
 
-        /** @var Mage_Catalog_Model_Session $session */
+        /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product')->load($productId);
         if (!$product->getId() || !$product->isVisibleInCatalog()) {
-            /** @var Mage_Catalog_Model_Product $product */
             Mage::getSingleton('customer/session')->addError($this->__('The product is not found.'));
             $this->_redirect('customer/account/');
             return ;

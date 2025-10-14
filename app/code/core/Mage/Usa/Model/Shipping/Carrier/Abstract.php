@@ -176,12 +176,12 @@ abstract class Mage_Usa_Model_Shipping_Carrier_Abstract extends Mage_Shipping_Mo
 
                 if ($stockItem->getIsQtyDecimal() && $stockItem->getIsDecimalDivided()) {
                     if ($stockItem->getEnableQtyIncrements() && $stockItem->getQtyIncrements()) {
-                        $weight = $weight * $stockItem->getQtyIncrements();
+                        $weight *= $stockItem->getQtyIncrements();
                     } else {
                         $doValidation = false;
                     }
                 } elseif ($stockItem->getIsQtyDecimal() && !$stockItem->getIsDecimalDivided()) {
-                    $weight = $weight * $item->getQty();
+                    $weight *= $item->getQty();
                 }
 
                 if ($doValidation && $weight > $maxAllowedWeight) {

@@ -453,7 +453,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         $pow = 0;
         while ($number >= 10) {
-            $number = $number / 10;
+            $number /= 10;
             $pow++;
         }
 

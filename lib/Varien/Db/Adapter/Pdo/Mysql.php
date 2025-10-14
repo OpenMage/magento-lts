@@ -539,17 +539,10 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
             $bind = [$bind];
         }
 
-        // Mixed bind is not supported - so remember whether it is named bind, to normalize later if required
-        $isNamedBind = false;
-        if ($bind) {
-            foreach ($bind as $k => $v) {
-                if (!is_int($k)) {
-                    $isNamedBind = true;
-                    if ($k[0] != ':') {
-                        $bind[":{$k}"] = $v;
-                        unset($bind[$k]);
-                    }
-                }
+        foreach ($bind as $key => $value) {
+            if (!is_int($key) && $key[0] != ':') {
+                $bind[":{$key}"] = $value;
+                unset($bind[$key]);
             }
         }
 
@@ -1270,7 +1263,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
 
                 $droppedKeys = [];
                 foreach ($foreignKeys as $keyTable => $columns) {
-                    foreach ($columns as $columnName => $keyOptions) {
+                    foreach ($columns as $keyOptions) {
                         if ($table == $keyOptions['REF_TABLE_NAME'] && $column == $keyOptions['REF_COLUMN_NAME']) {
                             $this->dropForeignKey($keyTable, $keyOptions['FK_NAME']);
                             $droppedKeys[] = $keyOptions;
@@ -3090,7 +3083,7 @@ class Varien_Db_Adapter_Pdo_Mysql extends Zend_Db_Adapter_Pdo_Mysql implements V
                 if (isset($condition['to'])) {
                     $query .= empty($query) ? '' : ' AND ';
                     $to     = $this->_prepareSqlDateCondition($condition, 'to');
-                    $query = $query . $this->_prepareQuotedSqlCondition($conditionKeyMap['to'], $to, $fieldName);
+                    $query .= $this->_prepareQuotedSqlCondition($conditionKeyMap['to'], $to, $fieldName);
                 }
             } elseif (array_key_exists($key, $conditionKeyMap)) {
                 $value = $condition[$key];

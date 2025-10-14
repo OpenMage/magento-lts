@@ -109,7 +109,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         return false;
     }
 
-    $errno = $errno & error_reporting();
+    $errno &= error_reporting();
     if ($errno == 0) {
         return false;
     }

@@ -662,7 +662,7 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             }
         }
 
-        $amount = $amount - $this->getCardsStorage()->getProcessedAmount();
+        $amount -= $this->getCardsStorage()->getProcessedAmount();
         if ($amount <= 0) {
             Mage::throwException(Mage::helper('paygate')->__('Invalid amount for partial authorization.'));
         }

@@ -53,7 +53,7 @@ class Mage_Adminhtml_Catalog_Product_GalleryController extends Mage_Adminhtml_Co
             $result['path'] = str_replace(DS, '/', $result['path']);
 
             $result['url'] = Mage::getSingleton('catalog/product_media_config')->getTmpMediaUrl($result['file']);
-            $result['file'] = $result['file'] . '.tmp';
+            $result['file'] .= '.tmp';
             $result['cookie'] = [
                 'name'     => session_name(),
                 'value'    => $this->_getSession()->getSessionId(),

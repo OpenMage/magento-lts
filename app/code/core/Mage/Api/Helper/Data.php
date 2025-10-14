@@ -121,7 +121,7 @@ class Mage_Api_Helper_Data extends Mage_Core_Helper_Abstract
     {
         if (is_array($mixed)) {
             $tmpArr = [];
-            foreach ($mixed as $key => $value) {
+            foreach ($mixed as $value) {
                 if (is_object($value)) {
                     $value = get_object_vars($value);
                     if (count($value) == 2 && isset($value['key']) && isset($value['value'])) {
