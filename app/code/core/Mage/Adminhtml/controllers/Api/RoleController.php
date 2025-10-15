@@ -83,7 +83,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
 
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
 
-        $head = $this->getLayout()->getBlockHeadAdminhtml();
+        $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
             $head->setCanLoadExtJs(true);
         }

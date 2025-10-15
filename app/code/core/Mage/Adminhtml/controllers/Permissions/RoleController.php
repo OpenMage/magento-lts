@@ -109,7 +109,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
 
-        $head = $this->getLayout()->getBlockHeadAdminhtml();
+        $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
             $head->setCanLoadTinyMce(true);
         }

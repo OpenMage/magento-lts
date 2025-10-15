@@ -56,7 +56,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
         $this->loadLayout();
         $this->_setActiveMenu('system/design');
 
-        $head = $this->getLayout()->getBlockHeadAdminhtml();
+        $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
             $head->setCanLoadTinyMce(true);
         }

@@ -41,7 +41,11 @@ class Mage_Tag_Block_Product_Result extends Mage_Catalog_Block_Product_Abstract
             $head->setTitle($title);
         }
 
-        $this->getLayout()->getBlock('root')->setHeaderTitle($title);
+        $root = $this->getLayout()->getBlockRoot();
+        if ($root) {
+            $root->setHeaderTitle($title);
+        }
+
         return parent::_prepareLayout();
     }
 

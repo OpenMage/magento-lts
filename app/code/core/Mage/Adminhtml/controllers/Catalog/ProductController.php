@@ -215,7 +215,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
             $this->_setActiveMenu('catalog/products');
         }
 
-        $head = $this->getLayout()->getBlockHeadAdminhtml();
+        $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
             $head->setCanLoadExtJs(true);
         }
@@ -271,7 +271,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
                 );
         }
 
-        $head = $this->getLayout()->getBlockHeadAdminhtml();
+        $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
             $head->setCanLoadExtJs(true);
         }

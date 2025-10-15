@@ -547,9 +547,24 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         return $this->_blocks[$name] ?? false;
     }
 
-    public function getBlockBreadcrumbs(): Mage_Adminhtml_Block_Widget_Breadcrumbs|false
+    public function getBlockAdminhtmlBreadcrumbs(): Mage_Adminhtml_Block_Widget_Breadcrumbs|false
+    {
+        return $this->getBlock('breadcrumbs');
+    }
+
+    public function getBlockAdminhtmlHead(): Mage_Adminhtml_Block_Page_Head|false
     {
         return $this->getBlock('head');
+    }
+
+    public function getBlockAdminhtmlMenu(): Mage_Adminhtml_Block_Page_Menu|false
+    {
+        return $this->getBlock('menu');
+    }
+
+    public function getBlockBreadcrumbs(): Mage_Page_Block_Html_Breadcrumbs|false
+    {
+        return $this->getBlock('breadcrumbs');
     }
 
     public function getBlockHead(): Mage_Page_Block_Html_Head|false
@@ -557,9 +572,9 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         return $this->getBlock('head');
     }
 
-    public function getBlockHeadAdminhtml(): Mage_Adminhtml_Block_Page_Head|false
+    public function getBlockRoot(): Mage_Page_Block_Html|false
     {
-        return $this->getBlock('head');
+        return $this->getBlock('root');
     }
 
     /**

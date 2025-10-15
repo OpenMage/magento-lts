@@ -157,7 +157,12 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
      */
     protected function _getReviewHtml()
     {
-        return $this->getLayout()->getBlock('root')->toHtml();
+        $root = $this->getLayout()->getBlockRoot();
+        if ($root) {
+            return $root->toHtml();
+        }
+
+        return '';
     }
 
     /**
