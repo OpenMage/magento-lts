@@ -36,9 +36,10 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
     }
 
     /**
+     * @param string $idSuffix
      * @return string
      */
-    public function getLabelHtml(string $idSuffix = '0')
+    public function getLabelHtml($idSuffix = '0')
     {
         return parent::getLabelHtml($idSuffix);
     }
