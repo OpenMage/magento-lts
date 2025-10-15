@@ -75,6 +75,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Tab_Resources extends Mage_Adminhtml_Block
         } else {
             $role = Mage::getModel('api2/acl_global_role');
         }
+
         $this->_treeModel->setRole($role);
         return $this;
     }

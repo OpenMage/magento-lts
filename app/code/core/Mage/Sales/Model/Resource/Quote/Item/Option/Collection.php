@@ -55,6 +55,7 @@ class Mage_Sales_Model_Resource_Quote_Item_Option_Collection extends Mage_Core_M
             } else {
                 $this->_optionsByItem[$itemId] = [$optionId];
             }
+
             if (isset($this->_optionsByProduct[$productId])) {
                 $this->_optionsByProduct[$productId][] = $optionId;
             } else {

@@ -74,6 +74,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
             $object->setData($data);
             $this->_afterLoad($object);
         }
+
         return $this;
     }
 
@@ -91,6 +92,7 @@ class Mage_CatalogSearch_Model_Resource_Query extends Mage_Core_Model_Resource_D
         } else {
             $this->loadByQuery($object, $value);
         }
+
         return $this;
     }
 

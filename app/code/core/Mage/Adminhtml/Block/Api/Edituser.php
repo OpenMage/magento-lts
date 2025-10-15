@@ -34,6 +34,7 @@ class Mage_Adminhtml_Block_Api_Edituser extends Mage_Adminhtml_Block_Widget_Tabs
                 'content'   => $this->getLayout()->createBlock('adminhtml/api_tab_userroles')->toHtml(),
             ]);
         }
+
         return parent::_beforeToHtml();
     }
 

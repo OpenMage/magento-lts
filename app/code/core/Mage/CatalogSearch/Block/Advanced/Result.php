@@ -35,6 +35,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
                 'label' => Mage::helper('catalogsearch')->__('Results'),
             ]);
         }
+
         return parent::_prepareLayout();
     }
 
@@ -93,6 +94,7 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
             $size = $this->getSearchModel()->getProductCollection()->getSize();
             $this->setResultCount($size);
         }
+
         return $this->getData('result_count');
     }
 

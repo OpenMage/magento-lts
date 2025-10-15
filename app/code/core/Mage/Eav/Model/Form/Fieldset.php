@@ -50,6 +50,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->getTypeId()) {
             Mage::throwException(Mage::helper('eav')->__('Invalid form type.'));
         }
+
         if (!$this->getStoreId() && $this->getLabel()) {
             $this->setStoreLabel($this->getStoreId(), $this->getLabel());
         }
@@ -67,6 +68,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->hasData('labels')) {
             $this->setData('labels', $this->_getResource()->getLabels($this));
         }
+
         return $this->_getData('labels');
     }
 
@@ -106,6 +108,7 @@ class Mage_Eav_Model_Form_Fieldset extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             $this->setData('store_id', Mage::app()->getStore()->getId());
         }
+
         return $this->_getData('store_id');
     }
 }

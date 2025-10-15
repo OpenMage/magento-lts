@@ -73,6 +73,7 @@ class Mage_CatalogIndex_Model_Resource_Data_Abstract extends Mage_Core_Model_Res
         if (!is_array($products)) {
             $products = new Zend_Db_Expr($products);
         }
+
         $result = [];
         foreach ($suffixes as $suffix) {
             $tableName = "{$this->getTable('catalog/product')}_{$suffix}";

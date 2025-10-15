@@ -52,6 +52,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
                 $this->addModelTags($block);
             }
         }
+
         return $html;
     }
 
@@ -73,6 +74,7 @@ class Mage_Cms_Block_Block extends Mage_Core_Block_Abstract
         } else {
             $result = parent::getCacheKeyInfo();
         }
+
         return $result;
     }
 }

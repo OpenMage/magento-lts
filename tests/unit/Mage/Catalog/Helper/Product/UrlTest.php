@@ -35,7 +35,7 @@ final class UrlTest extends OpenMageTest
     public function testGetConvertTable(): void
     {
         $result = self::$subject->getConvertTable();
-        static::assertCount(317, $result);
+        self::assertCount(317, $result);
     }
 
     /**
@@ -45,7 +45,7 @@ final class UrlTest extends OpenMageTest
     public function testGetConvertTableCustom(): void
     {
         $result = self::$subject->getConvertTableCustom();
-        static::assertEmpty($result);
+        self::assertEmpty($result);
     }
 
     /**
@@ -55,7 +55,7 @@ final class UrlTest extends OpenMageTest
     public function testGetConvertTableShort(): void
     {
         $result = self::$subject->getConvertTableShort();
-        static::assertCount(4, $result);
+        self::assertCount(4, $result);
     }
 
     /**
@@ -65,6 +65,6 @@ final class UrlTest extends OpenMageTest
      */
     public function testFormat(string $expectedResult, ?string $string): void
     {
-        static::assertSame($expectedResult, self::$subject->format($string));
+        self::assertSame($expectedResult, self::$subject->format($string));
     }
 }

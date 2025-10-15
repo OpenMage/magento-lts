@@ -167,11 +167,13 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                 $item['checked'] = true;
             }
         }
+
         if (isset($node->children)) {
             $children = $node->children->children();
         } else {
             $children = $node->children();
         }
+
         if (empty($children)) {
             return $item;
         }
@@ -184,6 +186,7 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                     if (!(string) $child->title) {
                         continue;
                     }
+
                     if ($level != 0) {
                         $item['children'][] = $this->_getNodeJson($child, $level + 1);
                     } else {
@@ -191,10 +194,12 @@ class Mage_Adminhtml_Block_Permissions_Tab_Rolesedit extends Mage_Adminhtml_Bloc
                     }
                 }
             }
+
             if (!empty($item['children'])) {
                 usort($item['children'], [$this, '_sortTree']);
             }
         }
+
         return $item;
     }
 }

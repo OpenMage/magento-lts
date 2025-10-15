@@ -34,6 +34,6 @@ final class PurifierTest extends OpenMageTest
      */
     public function testPurify(array|string $expectedResult, array|string $content): void
     {
-        static::assertSame($expectedResult, self::$subject->purify($content));
+        self::assertSame($expectedResult, self::$subject->purify($content));
     }
 }

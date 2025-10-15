@@ -39,6 +39,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
         } else {
             $mainProductId = $mainProduct;
         }
+
         /** @var Mage_Catalog_Model_Product_Type_Configurable $productType */
         $productType = $mainProduct->getTypeInstance();
         $old = $productType->getUsedProductIds();
@@ -57,6 +58,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
             ];
             $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         }
+
         if (!empty($insert)) {
             $data = [];
             foreach ($insert as $childId) {
@@ -65,6 +67,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
                     'parent_id'  => (int) $mainProductId,
                 ];
             }
+
             $this->_getWriteAdapter()->insertMultiple($this->getMainTable(), $data);
         }
 
@@ -204,6 +207,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable extends Mage_Core_Mo
 
             $attributesOptionsData[$superAttribute->getAttributeId()] = $this->_getReadAdapter()->fetchAll($select);
         }
+
         return $attributesOptionsData;
     }
 }

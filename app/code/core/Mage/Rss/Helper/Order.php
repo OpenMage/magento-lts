@@ -26,6 +26,7 @@ class Mage_Rss_Helper_Order extends Mage_Core_Helper_Abstract
         if (Mage::getStoreConfig('rss/order/status_notified')) {
             return true;
         }
+
         return false;
     }
 

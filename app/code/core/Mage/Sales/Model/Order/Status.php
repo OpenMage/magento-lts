@@ -44,6 +44,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
             $this->_getResource()->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -63,6 +64,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
             $this->_getResource()->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -76,6 +78,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
         if ($this->hasData('store_labels')) {
             return $this->_getData('store_labels');
         }
+
         $labels = $this->_getResource()->getStoreLabels($this);
         $this->setData('store_labels', $labels);
         return $labels;
@@ -97,6 +100,7 @@ class Mage_Sales_Model_Order_Status extends Mage_Core_Model_Abstract
                 return $labels[$store->getId()];
             }
         }
+
         return Mage::helper('sales')->__($this->getLabel());
     }
 

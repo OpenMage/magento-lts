@@ -47,12 +47,15 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if ($this->getCookieDomain()) {
             $options['cookie_domain'] = $this->getCookieDomain();
         }
+
         if ($this->getCookiePath()) {
             $options['cookie_path'] = $this->getCookiePath();
         }
+
         if ($this->getCookieLifetime()) {
             $options['cookie_lifetime'] = $this->getCookieLifetime();
         }
+
         Zend_Session::setOptions($options);
         Varien_Profiler::stop(__METHOD__ . '/setOptions');
         /*
@@ -101,6 +104,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if (!$this->_namespace->data) {
             $this->_namespace->data = new Varien_Object();
         }
+
         $this->_namespace->data->setData($key, $value, $isChanged);
         return $this;
     }
@@ -157,6 +161,7 @@ abstract class Mage_Core_Model_Session_Abstract_Zend extends Varien_Object
         if (!is_null($id)) {
             Zend_Session::setId($id);
         }
+
         return $this;
     }
 

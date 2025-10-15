@@ -33,6 +33,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
         } else {
             $collection = $this->getShipment()->getAllItems();
         }
+
         return $collection;
     }
 
@@ -64,6 +65,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_Packaging_Grid extends Mage_Admi
         if ($shipperAddressCountryCode != $recipientAddressCountryCode) {
             return true;
         }
+
         return false;
     }
 

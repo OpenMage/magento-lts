@@ -13,6 +13,7 @@
 class Mage_System_Args
 {
     public $flags;
+
     public $filtered;
 
     /**

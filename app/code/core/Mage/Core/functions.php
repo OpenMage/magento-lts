@@ -19,6 +19,7 @@ function destruct($object)
             destruct($obj);
         }
     }
+
     unset($object);
 }
 
@@ -88,6 +89,7 @@ function mageFindClassFile($class)
             break;
         }
     }
+
     return $found;
 }
 
@@ -107,7 +109,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         return false;
     }
 
-    $errno = $errno & error_reporting();
+    $errno &= error_reporting();
     if ($errno == 0) {
         return false;
     }
@@ -118,6 +120,7 @@ function mageCoreErrorHandler($errno, $errstr, $errfile, $errline)
         if ((PHP_VERSION_ID < 80400 && $errno == E_STRICT) || ($errno == E_DEPRECATED)) {
             return true;
         }
+
         // ignore attempts to read system files when open_basedir is set
         if ($errno == E_WARNING && stripos($errstr, 'open_basedir') !== false) {
             return true;
@@ -169,16 +172,20 @@ function mageDebugBacktrace($return = false, $html = true, $showFirst = false)
     if ($html) {
         $out .= '<pre>';
     }
+
     foreach ($d as $i => $r) {
         if (!$showFirst && $i == 0) {
             continue;
         }
+
         // sometimes there is undefined index 'file'
         @$out .= "[$i] {$r['file']}:{$r['line']}\n";
     }
+
     if ($html) {
         $out .= '</pre>';
     }
+
     if ($return) {
         return $out;
     } else {
@@ -211,6 +218,7 @@ function mageDelTree($path)
                 mageDelTree($path . DS . $entry);
             }
         }
+
         @rmdir($path);
     } else {
         @unlink($path);
@@ -244,6 +252,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
                 }
             }
         }
+
         if ($nquotes > 0) {
             // Remove first and last quotes, then merge pairs of quotes
             $qstr = & $elements[$i];
@@ -252,6 +261,7 @@ function mageParseCsv($string, $delimiter = ',', $enclosure = '"', $escape = '\\
             $qstr = str_replace($enclosure . $enclosure, $enclosure, $qstr);
         }
     }
+
     return $elements;
 }
 
@@ -272,13 +282,16 @@ function isDirWriteable($dir)
             if ($fp === false) {
                 return false;
             }
+
             fclose($fp);
             if (!$exist) {
                 unlink($file);
             }
         }
+
         return true;
     }
+
     return false;
 }
 

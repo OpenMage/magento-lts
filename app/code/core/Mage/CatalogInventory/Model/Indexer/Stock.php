@@ -174,6 +174,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                             ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                     }
                 }
+
                 break;
         }
     }
@@ -190,6 +191,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
                 if ($product && $product->getStockData()) {
                     $product->setForceReindexRequired(true);
                 }
+
                 break;
             case Mage_Index_Model_Event::TYPE_MASS_ACTION:
                 $this->_registerCatalogProductMassActionEvent($event);
@@ -304,6 +306,7 @@ class Mage_CatalogInventory_Model_Indexer_Stock extends Mage_Index_Model_Indexer
         if (!empty($data['cataloginventory_stock_reindex_all'])) {
             $this->reindexAll();
         }
+
         if (empty($data['cataloginventory_stock_skip_call_event_handler'])) {
             $this->callEventHandler($event);
         }

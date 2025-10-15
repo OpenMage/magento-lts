@@ -41,6 +41,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 if ($process->getIndexer()->isVisible() === false) {
                     continue;
                 }
+
                 $processes[] = $process;
             }
         } elseif (!empty($string)) {
@@ -52,10 +53,12 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                     unset($processes[$key]);
                 }
             }
+
             if ($this->_getIndexer()->hasErrors()) {
                 echo implode(PHP_EOL, $this->_getIndexer()->getErrors()), PHP_EOL;
             }
         }
+
         return $processes;
     }
 
@@ -79,6 +82,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
             } else {
                 $processes  = $this->_parseIndexerString($this->getArg('mode'));
             }
+
             /** @var Mage_Index_Model_Process $process */
             foreach ($processes as $process) {
                 $status = 'unknown';
@@ -102,6 +106,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                             break;
                     }
                 }
+
                 echo sprintf('%-35s ', $process->getIndexer()->getName() . ':') . $status . "\n";
             }
         } elseif ($this->getArg('mode-realtime') || $this->getArg('mode-manual')) {
@@ -112,6 +117,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                 $mode       = Mage_Index_Model_Process::MODE_MANUAL;
                 $processes  = $this->_parseIndexerString($this->getArg('mode-manual'));
             }
+
             /** @var Mage_Index_Model_Process $process */
             foreach ($processes as $process) {
                 try {
@@ -139,6 +145,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                     if ($this->getArg('reindexallrequired') && $process->getStatus() == Mage_Index_Model_Process::STATUS_PENDING) {
                         continue;
                     }
+
                     try {
                         $startTime = microtime(true);
                         $process->reindexEverything();
@@ -153,6 +160,7 @@ class Mage_Shell_Indexer extends Mage_Shell_Abstract
                         echo $e . "\n";
                     }
                 }
+
                 Mage::dispatchEvent('shell_reindex_finalize_process');
             } catch (Exception $e) {
                 Mage::dispatchEvent('shell_reindex_finalize_process');

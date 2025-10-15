@@ -64,6 +64,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         if (!$tag->getId()) {
             $this->_fault('tag_not_exists');
         }
+
         $result['status'] = $tag->getStatus();
         $result['name'] = $tag->getName();
         $result['base_popularity'] = (is_numeric($tag->getBasePopularity())) ? $tag->getBasePopularity() : 0;
@@ -95,11 +96,13 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         if (!$product->getId()) {
             $this->_fault('product_not_exists');
         }
+
         /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')->load($data['customer_id']);
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
         }
+
         $storeId = $this->_getStoreId($data['store']);
 
         try {
@@ -117,6 +120,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
                         ->setStatus($tag->getPendingStatus())
                         ->save();
                 }
+
                 $tag->saveRelation($product->getId(), $customer->getId(), $storeId);
                 $result[$tagName] = $tag->getId();
             }
@@ -150,9 +154,11 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         if (isset($data['base_popularity'])) {
             $tag->setBasePopularity($data['base_popularity']);
         }
+
         if (isset($data['name'])) {
             $tag->setName(trim($data['name']));
         }
+
         if (isset($data['status'])) {
             // validate tag status
             if (!in_array($data['status'], [
@@ -160,6 +166,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
             ) {
                 $this->_fault('invalid_data');
             }
+
             $tag->setStatus($data['status']);
         }
 
@@ -185,6 +192,7 @@ class Mage_Tag_Model_Api extends Mage_Catalog_Model_Api_Resource
         if (!$tag->getId()) {
             $this->_fault('tag_not_exists');
         }
+
         try {
             $tag->delete();
         } catch (Mage_Core_Exception $e) {

@@ -35,6 +35,7 @@ class Mage_Customer_Model_Resource_Address_Collection extends Mage_Eav_Model_Ent
         } else {
             $this->addAttributeToFilter('parent_id', '-1');
         }
+
         return $this;
     }
 }

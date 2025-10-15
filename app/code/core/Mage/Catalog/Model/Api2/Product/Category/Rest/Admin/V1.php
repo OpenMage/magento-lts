@@ -27,6 +27,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -37,6 +38,7 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
         if (!is_array($categoryIds)) {
             $categoryIds = [];
         }
+
         if (in_array($category->getId(), $categoryIds)) {
             $this->_critical(sprintf(
                 'Product #%d is already assigned to category #%d',
@@ -44,9 +46,11 @@ class Mage_Catalog_Model_Api2_Product_Category_Rest_Admin_V1 extends Mage_Catalo
                 $category->getId(),
             ), Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         if ($category->getId() == Mage_Catalog_Model_Category::TREE_ROOT_ID) {
             $this->_critical('Cannot assign product to tree root category.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         $categoryIds[] = $category->getId();
         $product->setCategoryIds(implode(',', $categoryIds));
 

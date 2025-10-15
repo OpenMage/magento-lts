@@ -33,6 +33,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -62,6 +63,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_cfg_option_aggregate_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_cfg_option_aggregate_tmp');
     }
 
@@ -75,6 +77,7 @@ class Mage_Catalog_Model_Resource_Product_Indexer_Price_Configurable extends Mag
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/product_price_indexer_cfg_option_idx');
         }
+
         return $this->getTable('catalog/product_price_indexer_cfg_option_tmp');
     }
 

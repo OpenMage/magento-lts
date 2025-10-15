@@ -262,6 +262,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                                     ? 'disabled' : null;
                             }
                         }
+
                         $i++;
                     }
                 } else {
@@ -284,8 +285,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
                         $value['scopePriceDisabled'] = is_null($option->getStorePrice()) ? 'disabled' : null;
                     }
                 }
+
                 $values[] = new Varien_Object($value);
             }
+
             $this->_values = $values;
         }
 
@@ -307,12 +310,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Options_Option extends Mage_
         if ($checked) {
             $checkedHtml = ' checked="checked"';
         }
+
         $selectNameHtml = '';
         $selectIdHtml = '';
         if ($selectId != '-1') {
             $selectNameHtml = '[values][' . $selectId . ']';
             $selectIdHtml = 'select_' . $selectId . '_';
         }
+
         $checkbox = '<input type="checkbox" id="' . $this->getFieldId() . '_' . $id . '_' .
             $selectIdHtml . $name . '_use_default" class="product-option-scope-checkbox" name="' .
             $this->getFieldName() . '[' . $id . ']' . $selectNameHtml . '[scope][' . $name . ']" value="1" ' .

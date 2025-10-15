@@ -69,6 +69,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($this->_quote->getIsVirtual()) {
             return false;
         }
+
         return $this->_quote->getShippingAddress();
     }
 
@@ -94,6 +95,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($name = Mage::getStoreConfig("carriers/{$carrierCode}/title")) {
             return $name;
         }
+
         return $carrierCode;
     }
 
@@ -107,6 +109,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
         if ($rate->getErrorMessage()) {
             return '';
         }
+
         return $rate->getCode();
     }
 
@@ -133,6 +136,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
                 $renderedInclTax = sprintf($inclTaxFormat, Mage::helper('tax')->__('Incl. Tax'), $incl);
             }
         }
+
         return sprintf($format, $this->escapeHtml($rate->getMethodTitle()), $price, $renderedInclTax);
     }
 
@@ -200,7 +204,7 @@ class Mage_Paypal_Block_Express_Review extends Mage_Core_Block_Template
             if ($groups && $this->_address) {
                 $this->setShippingRateGroups($groups);
                 // determine current selected code & name
-                foreach ($groups as $code => $rates) {
+                foreach ($groups as $rates) {
                     foreach ($rates as $rate) {
                         if ($this->_address->getShippingMethod() == $rate->getCode()) {
                             $this->_currentShippingRate = $rate;

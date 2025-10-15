@@ -37,6 +37,7 @@ abstract class Mage_Captcha_Model_Config_Form_Abstract extends Mage_Core_Model_C
                 }
             }
         }
+
         return $optionArray;
     }
 }

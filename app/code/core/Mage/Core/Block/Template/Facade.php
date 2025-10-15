@@ -41,6 +41,7 @@ class Mage_Core_Block_Template_Facade extends Mage_Core_Block_Template
         if (empty($registryItem)) {
             return;
         }
+
         $value = $registryItem->getData($key);
         $this->setDataByKey($key, $value);
     }
@@ -66,6 +67,7 @@ class Mage_Core_Block_Template_Facade extends Mage_Core_Block_Template
                     return false;
                 }
             }
+
             $lastValue = $this->_data[$key];
             foreach ($conditionKeys as $key) {
                 if ($this->_data[$key] !== $lastValue) {
@@ -73,6 +75,7 @@ class Mage_Core_Block_Template_Facade extends Mage_Core_Block_Template
                 }
             }
         }
+
         return true;
     }
 }

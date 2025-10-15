@@ -109,9 +109,11 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         foreach ($orderCollection as $order) {
             $orders[] = $this->_getAttributes($order, 'order');
         }
+
         return $orders;
     }
 
@@ -248,15 +250,18 @@ class Mage_Sales_Model_Order_Api extends Mage_Sales_Model_Api_Resource
         if (Mage_Sales_Model_Order::STATE_CANCELED == $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         try {
             $order->cancel();
             $order->save();
         } catch (Mage_Core_Exception $e) {
             $this->_fault('status_not_changed', $e->getMessage());
         }
+
         if (Mage_Sales_Model_Order::STATE_CANCELED != $order->getState()) {
             $this->_fault('status_not_changed');
         }
+
         return true;
     }
 }

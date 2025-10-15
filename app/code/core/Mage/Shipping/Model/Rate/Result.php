@@ -68,6 +68,7 @@ class Mage_Shipping_Model_Rate_Result
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Error) {
             $this->setError(true);
         }
+
         if ($result instanceof Mage_Shipping_Model_Rate_Result_Abstract) {
             $this->_rates[] = $result;
         } elseif ($result instanceof Mage_Shipping_Model_Rate_Result) {
@@ -76,6 +77,7 @@ class Mage_Shipping_Model_Rate_Result
                 $this->append($rate);
             }
         }
+
         return $this;
     }
 
@@ -114,6 +116,7 @@ class Mage_Shipping_Model_Rate_Result
                 $result[] = $rate;
             }
         }
+
         return $result;
     }
 
@@ -135,6 +138,7 @@ class Mage_Shipping_Model_Rate_Result
                 'price_formatted' => $currencyFilter->filter($rate->getPrice()),
             ];
         }
+
         return $rates;
     }
 
@@ -153,6 +157,7 @@ class Mage_Shipping_Model_Rate_Result
                 $minPrice = $rate->getPrice();
             }
         }
+
         return $cheapest;
     }
 
@@ -163,9 +168,10 @@ class Mage_Shipping_Model_Rate_Result
      */
     public function sortRatesByPrice()
     {
-        if (!is_array($this->_rates) || !count($this->_rates)) {
+        if (!is_array($this->_rates) || $this->_rates === []) {
             return $this;
         }
+
         /** @var Mage_Shipping_Model_Rate_Result_Method $rate */
         foreach ($this->_rates as $i => $rate) {
             $tmp[$i] = $rate->getPrice();

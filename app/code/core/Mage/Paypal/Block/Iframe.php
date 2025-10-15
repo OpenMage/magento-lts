@@ -81,6 +81,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             if (!$block instanceof Mage_Paypal_Block_Iframe) {
                 Mage::throwException('Invalid block type');
             }
+
             $this->_block = $block;
         }
 
@@ -99,6 +100,7 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->_order = Mage::getModel('sales/order')
                 ->loadByIncrementId($incrementId);
         }
+
         return $this->_order;
     }
 
@@ -145,9 +147,11 @@ class Mage_Paypal_Block_Iframe extends Mage_Payment_Block_Form
             $this->setTemplate('paypal/hss/js.phtml');
             return parent::_toHtml();
         }
+
         if (!$this->_shouldRender) {
             return '';
         }
+
         return parent::_toHtml();
     }
 

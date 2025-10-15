@@ -26,19 +26,16 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         parent::__construct();
 
         if ($this->_isAllowedAction('save')) {
-            $this->_updateButton('save', 'label', Mage::helper('cms')->__('Save Page'));
             $this->_addButton('saveandcontinue', [
                 'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
                 'onclick'   => Mage::helper('core/js')->getSaveAndContinueEditJs($this->_getSaveAndContinueUrl()),
-                'class'     => 'save',
+                'class'     => 'save continue',
             ], -100);
         } else {
             $this->_removeButton('save');
         }
 
-        if ($this->_isAllowedAction('delete')) {
-            $this->_updateButton('delete', 'label', Mage::helper('cms')->__('Delete Page'));
-        } else {
+        if (!$this->_isAllowedAction('delete')) {
             $this->_removeButton('delete');
         }
     }
@@ -53,6 +50,7 @@ class Mage_Adminhtml_Block_Cms_Page_Edit extends Mage_Adminhtml_Block_Widget_For
         if (Mage::registry('cms_page')->getId()) {
             return Mage::helper('cms')->__("Edit Page '%s'", $this->escapeHtml(Mage::registry('cms_page')->getTitle()));
         }
+
         return Mage::helper('cms')->__('New Page');
     }
 

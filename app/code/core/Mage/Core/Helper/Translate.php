@@ -30,6 +30,7 @@ class Mage_Core_Helper_Translate extends Mage_Core_Helper_Abstract
             if ($area) {
                 Mage::getDesign()->setArea($area);
             }
+
             Mage::getModel('core/translate_inline')->processAjaxPost($translate);
             return $returnType == 'json' ? '{success:true}' : true;
         } catch (Exception $e) {

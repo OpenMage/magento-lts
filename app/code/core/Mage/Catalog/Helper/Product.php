@@ -15,7 +15,9 @@
 class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
 {
     public const XML_PATH_PRODUCT_URL_SUFFIX           = 'catalog/seo/product_url_suffix';
+
     public const XML_PATH_PRODUCT_URL_USE_CATEGORY     = 'catalog/seo/product_use_categories';
+
     public const XML_PATH_USE_PRODUCT_CANONICAL_TAG    = 'catalog/seo/product_canonical_tag';
 
     public const DEFAULT_QTY                           = 1;
@@ -53,6 +55,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif (is_numeric($product)) {
             return Mage::getModel('catalog/product')->load($product)->getProductUrl();
         }
+
         return false;
     }
 
@@ -70,6 +73,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $category = Mage::getModel('catalog/category')->load($categoryId);
             $product->setCategory($category);
         }
+
         return $product->getProductUrl();
     }
 
@@ -109,6 +113,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif ($attribute = $product->getResource()->getAttribute('image')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
+
         return $url;
     }
 
@@ -126,6 +131,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif ($attribute = $product->getResource()->getAttribute('small_image')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
+
         return $url;
     }
 
@@ -143,6 +149,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif ($attribute = $product->getResource()->getAttribute('thumbnail')) {
             $url = $attribute->getFrontend()->getUrl($product);
         }
+
         return $url;
     }
 
@@ -156,6 +163,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($category = Mage::registry('current_category')) {
             $categoryId = $category->getId();
         }
+
         return $this->_getUrl('sendfriend/product/send', [
             'id' => $product->getId(),
             'cat_id' => $categoryId,
@@ -211,6 +219,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!isset($this->_productUrlSuffix[$storeId])) {
             $this->_productUrlSuffix[$storeId] = Mage::getStoreConfig(self::XML_PATH_PRODUCT_URL_SUFFIX, $storeId);
         }
+
         return $this->_productUrlSuffix[$storeId];
     }
 
@@ -252,6 +261,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         } elseif (isset($inputTypes[$inputType])) {
             return $inputTypes[$inputType];
         }
+
         return [];
     }
 
@@ -267,6 +277,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!empty($inputTypes[$inputType]['backend_model'])) {
             return $inputTypes[$inputType]['backend_model'];
         }
+
         return null;
     }
 
@@ -282,6 +293,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!empty($inputTypes[$inputType]['source_model'])) {
             return $inputTypes[$inputType]['source_model'];
         }
+
         return null;
     }
 
@@ -322,6 +334,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (!$this->canShow($product)) {
             return false;
         }
+
         if (!in_array(Mage::app()->getStore()->getWebsiteId(), $product->getWebsiteIds())) {
             return false;
         }
@@ -376,6 +389,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
     {
         $optionValues = $product->processBuyRequest($buyRequest);
         $optionValues->setQty($buyRequest->getQty());
+
         $product->setPreconfiguredValues($optionValues);
 
         return $this;
@@ -400,6 +414,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if (is_array($buyRequest)) {
             $buyRequest = new Varien_Object($buyRequest);
         }
+
         if (is_array($params)) {
             $params = new Varien_Object($params);
         }
@@ -423,6 +438,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
             $processingParams = new Varien_Object();
             $buyRequest->setData('_processing_params', $processingParams);
         }
+
         $processingParams->addData($params->getData());
 
         return $buyRequest;
@@ -501,6 +517,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($stockItem && $stockItem->getMinSaleQty()) {
             return $stockItem->getMinSaleQty() * 1;
         }
+
         return null;
     }
 
@@ -543,6 +560,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         ) {
             return $fieldData['inventory'];
         }
+
         return self::DEFAULT_QTY;
     }
 
@@ -560,6 +578,7 @@ class Mage_Catalog_Helper_Product extends Mage_Core_Helper_Url
         if ($fieldsetData) {
             return $fieldsetData ? $fieldsetData->$field : $fieldsetData;
         }
+
         return $fieldsetData;
     }
 }

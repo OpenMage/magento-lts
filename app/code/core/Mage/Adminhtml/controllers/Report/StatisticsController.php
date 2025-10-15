@@ -100,6 +100,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         foreach ($codes as $code) {
             $out[] = $aliases[$code];
         }
+
         return $out;
     }
 
@@ -117,6 +118,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             foreach ($collectionsNames as $collectionName) {
                 Mage::getResourceModel($collectionName)->aggregate($date);
             }
+
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Recent statistics have been updated.'));
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -130,6 +132,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         } else {
             $this->_redirectReferer('*/*');
         }
+
         return $this;
     }
 
@@ -145,6 +148,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
             foreach ($collectionsNames as $collectionName) {
                 Mage::getResourceModel($collectionName)->aggregate();
             }
+
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Lifetime statistics have been updated.'));
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -182,6 +186,7 @@ class Mage_Adminhtml_Report_StatisticsController extends Mage_Adminhtml_Controll
         if (is_null($this->_adminSession)) {
             $this->_adminSession = Mage::getSingleton('admin/session');
         }
+
         return $this->_adminSession;
     }
 }

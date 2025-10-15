@@ -30,6 +30,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
 
@@ -50,6 +51,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             Mage::logException($e);
             $this->_critical(self::RESOURCE_INTERNAL_ERROR);
         }
+
         return $this->_getLocation($address);
     }
 
@@ -81,6 +83,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             $addressData['street'] = $address->getStreet();
             $data[]                = array_merge($addressData, $this->_getDefaultAddressesInfo($address));
         }
+
         return $data;
     }
 
@@ -130,8 +133,10 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
+
         if (isset($data['region'])) {
             $data['region'] = $this->_getRegionIdByNameOrCode(
                 $data['region'],
@@ -139,6 +144,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
             );
             $data['region_id'] = null; // to avoid overwrite region during update in address model _beforeSave()
         }
+
         $address->addData($data);
 
         try {
@@ -164,6 +170,7 @@ abstract class Mage_Customer_Model_Api2_Customer_Address_Rest extends Mage_Custo
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         try {
             $address->delete();
         } catch (Mage_Core_Exception $e) {

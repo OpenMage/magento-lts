@@ -48,6 +48,7 @@ class Mage_Adminhtml_Block_Sales_Order_Totals_Item extends Mage_Adminhtml_Block_
         } else {
             $this->getParentBlock()->addTotal($total, $this->getAfterCondition());
         }
+
         return $this;
     }
 

@@ -24,6 +24,7 @@
 class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
 {
     public const KEY_LENGTH = 50;
+
     public const COOKIE_NAME = 'persistent_shopping_cart';
 
     /**
@@ -101,6 +102,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
                 $info[$index] = $value;
             }
         }
+
         $this->setInfo(Mage::helper('core')->jsonEncode($info));
 
         if ($this->isObjectNew()) {
@@ -128,6 +130,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
                 $this->setData($key, $value);
             }
         }
+
         return $this;
     }
 
@@ -142,6 +145,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if (is_null($key)) {
             $key = Mage::getSingleton('core/cookie')->get(self::COOKIE_NAME);
         }
+
         if ($key) {
             $this->load($key, 'key');
         }
@@ -172,6 +176,7 @@ class Mage_Persistent_Model_Session extends Mage_Core_Model_Abstract
         if ($clearCookie) {
             $this->removePersistentCookie();
         }
+
         $this->getResource()->deleteByCustomerId($customerId);
         return $this;
     }

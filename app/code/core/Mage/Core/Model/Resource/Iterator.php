@@ -34,6 +34,7 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
                     $args = array_merge($args, $result);
                 }
             }
+
             $args['idx']++;
         }
 
@@ -62,6 +63,7 @@ class Mage_Core_Model_Resource_Iterator extends Varien_Object
             if (!$conn instanceof Zend_Db_Adapter_Abstract) {
                 Mage::throwException(Mage::helper('core')->__('Invalid connection'));
             }
+
             return $conn->query($query);
         }
 

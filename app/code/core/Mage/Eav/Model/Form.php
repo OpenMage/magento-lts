@@ -101,6 +101,7 @@ abstract class Mage_Eav_Model_Form
         if (empty($this->_moduleName)) {
             Mage::throwException(Mage::helper('eav')->__('Current module pathname is undefined'));
         }
+
         if (empty($this->_entityTypeCode)) {
             Mage::throwException(Mage::helper('eav')->__('Current module EAV entity is undefined'));
         }
@@ -139,6 +140,7 @@ abstract class Mage_Eav_Model_Form
         if ($entity->getEntityTypeId()) {
             $this->setEntityType($entity->getEntityTypeId());
         }
+
         return $this;
     }
 
@@ -176,6 +178,7 @@ abstract class Mage_Eav_Model_Form
         if (is_null($this->_store)) {
             $this->_store = Mage::app()->getStore();
         }
+
         return $this->_store;
     }
 
@@ -190,6 +193,7 @@ abstract class Mage_Eav_Model_Form
         if (empty($this->_formCode)) {
             Mage::throwException(Mage::helper('eav')->__('Form code is not defined'));
         }
+
         return $this->_formCode;
     }
 
@@ -204,6 +208,7 @@ abstract class Mage_Eav_Model_Form
         if (is_null($this->_entityType)) {
             $this->setEntityType($this->_entityTypeCode);
         }
+
         return $this->_entityType;
     }
 
@@ -218,6 +223,7 @@ abstract class Mage_Eav_Model_Form
         if (is_null($this->_entity)) {
             Mage::throwException(Mage::helper('eav')->__('Entity instance is not defined'));
         }
+
         return $this->_entity;
     }
 
@@ -249,6 +255,7 @@ abstract class Mage_Eav_Model_Form
                 }
             }
         }
+
         return $this->_attributes;
     }
 
@@ -275,6 +282,7 @@ abstract class Mage_Eav_Model_Form
             // load attributes
             $this->getAttributes();
         }
+
         return $this->_userAttributes;
     }
 
@@ -289,6 +297,7 @@ abstract class Mage_Eav_Model_Form
             // load attributes
             $this->getAttributes();
         }
+
         return $this->_systemAttributes;
     }
 
@@ -334,11 +343,13 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setRequestScope($scope);
             $dataModel->setRequestScopeOnly($scopeOnly);
             $data[$attribute->getAttributeCode()] = $dataModel->extractValue($request);
         }
+
         return $data;
     }
 
@@ -354,11 +365,13 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = null;
             }
+
             $result = $dataModel->validateValue($data[$attribute->getAttributeCode()]);
             if ($result !== true) {
                 $errors = array_merge($errors, $result);
@@ -383,11 +396,13 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = false;
             }
+
             $dataModel->compactValue($data[$attribute->getAttributeCode()]);
         }
 
@@ -405,13 +420,16 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             if (!isset($data[$attribute->getAttributeCode()])) {
                 $data[$attribute->getAttributeCode()] = false;
             }
+
             $dataModel->restoreValue($data[$attribute->getAttributeCode()]);
         }
+
         return $this;
     }
 
@@ -428,10 +446,12 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $dataModel = $this->_getAttributeDataModel($attribute);
             $dataModel->setExtractedData($data);
             $data[$attribute->getAttributeCode()] = $dataModel->outputValue($format);
         }
+
         return $data;
     }
 
@@ -446,9 +466,11 @@ abstract class Mage_Eav_Model_Form
             if ($this->_isAttributeOmitted($attribute)) {
                 continue;
             }
+
             $value = $this->getEntity()->getOrigData($attribute->getAttributeCode());
             $this->getEntity()->setData($attribute->getAttributeCode(), $value);
         }
+
         return $this;
     }
 
@@ -489,6 +511,7 @@ abstract class Mage_Eav_Model_Form
                 }
             }
         }
+
         return $this;
     }
 
@@ -504,6 +527,7 @@ abstract class Mage_Eav_Model_Form
             $this->_ignoreInvisible = (bool) $setValue;
             return $this;
         }
+
         return $this->_ignoreInvisible;
     }
 
@@ -518,6 +542,7 @@ abstract class Mage_Eav_Model_Form
         if ($this->_ignoreInvisible && !$attribute->getIsVisible()) {
             return true;
         }
+
         return false;
     }
 }

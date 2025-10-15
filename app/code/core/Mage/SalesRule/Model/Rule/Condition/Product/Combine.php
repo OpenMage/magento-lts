@@ -178,6 +178,7 @@ class Mage_SalesRule_Model_Rule_Condition_Product_Combine extends Mage_Rule_Mode
         foreach ($this->getConditions() as $condition) {
             $condition->collectValidatedAttributes($productCollection);
         }
+
         return $this;
     }
 

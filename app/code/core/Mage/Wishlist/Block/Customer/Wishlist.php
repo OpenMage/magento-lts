@@ -43,6 +43,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
         if ($headBlock) {
             $headBlock->setTitle($this->__('My Wishlist'));
         }
+
         return $this;
     }
 
@@ -143,6 +144,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
             if (!$cfgDefault) {
                 return '';
             }
+
             $template = $cfgDefault['template'];
         }
 

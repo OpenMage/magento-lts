@@ -38,6 +38,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Source_Boolean_Config extends Mage
                 ],
             ];
         }
+
         return $this->_options;
     }
 }

@@ -1,12 +1,13 @@
-const route = cy.testRoutes.backend.newsletter.subscriber;
+const test = cy.openmage.test.backend.newsletter.subscriber.config;
+const validation = cy.openmage.validation;
 
-describe(`Checks admin system "${route.h3}"`, () => {
+describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(route);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
-    it(`tests classes and title`, () => {
-        cy.adminTestRoute(route);
+    it(`tests index route`, () => {
+        validation.pageElements(test, test.index);
     });
 });

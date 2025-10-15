@@ -26,6 +26,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
         if (!$object->hasData($this->getAttribute()->getAttributeCode())) {
             $object->setData($this->getAttribute()->getAttributeCode(), $this->getDefaultValue());
         }
+
         return $this;
     }
 
@@ -42,6 +43,7 @@ class Mage_GiftMessage_Model_Entity_Attribute_Backend_Boolean_Config extends Mag
         ) {
             $object->unsData($this->getAttribute()->getAttributeCode());
         }
+
         return $this;
     }
 

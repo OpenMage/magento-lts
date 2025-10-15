@@ -21,6 +21,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $this->_redirect('/');
             return;
         }
+
         $this->setFlag('', self::FLAG_NO_CHECK_INSTALLATION, true);
         parent::preDispatch();
     }
@@ -75,6 +76,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $this->getResponse()->setRedirect(Mage::getBaseUrl())->sendResponse();
             exit;
         }
+
         return true;
     }
 
@@ -228,6 +230,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
                 $this->getResponse()->setRedirect($step->getUrl());
             }
         }
+
         $this->getResponse()->setRedirect($step->getUrl());
     }
 
@@ -313,6 +316,7 @@ class Mage_Install_WizardController extends Mage_Install_Controller_Action
             $this->getResponse()->setRedirect($step->getUrl());
             return false;
         }
+
         $this->getResponse()->setRedirect($step->getNextUrl());
     }
 

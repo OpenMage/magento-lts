@@ -318,6 +318,16 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </scope>
+                        <rounding_precision translate="label comment">
+                            <comment><![CDATA[0, 1, 2, 3, 4]]>.</comment>
+                            <label>Catalog Price Rounding Precision</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <validate>required-entry validate-number-range number-range-0-4</validate>
+                        </rounding_precision>
                     </fields>
                 </price>
                 <layered_navigation translate="label">

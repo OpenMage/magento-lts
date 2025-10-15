@@ -112,6 +112,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (is_null($key)) {
             return $this->_origData;
         }
+
         return $this->_origData[$key] ?? null;
     }
 
@@ -129,6 +130,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         } else {
             $this->_origData[$key] = $data;
         }
+
         return $this;
     }
 
@@ -160,6 +162,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (is_null($resourceCollectionName)) {
             $resourceCollectionName = $resourceName . '_collection';
         }
+
         $this->_resourceCollectionName = $resourceCollectionName;
     }
 
@@ -193,6 +196,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $fieldName = $this->_getResource()->getIdFieldName();
             $this->setIdFieldName($fieldName);
         }
+
         return $fieldName;
     }
 
@@ -224,6 +228,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         } else {
             $this->setData('id', $id);
         }
+
         return $this;
     }
 
@@ -253,6 +258,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (!$resource) {
             Mage::throwException(Mage::helper('core')->__('Resource "%s" is not found.', $this->_resourceCollectionName));
         }
+
         return $resource;
     }
 
@@ -361,9 +367,11 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($this->isDeleted()) {
             return $this->delete();
         }
+
         if (!$this->_hasModelChanged()) {
             return $this;
         }
+
         $this->_getResource()->beginTransaction();
 
         try {
@@ -372,6 +380,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 $this->_getResource()->save($this);
                 $this->_afterSave();
             }
+
             $this->_getResource()->addCommitCallback([$this, 'afterCommitCallback'])
                 ->commit();
             $this->_hasDataChanges = false;
@@ -411,6 +420,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($flag !== null) {
             $this->_isObjectNew = $flag;
         }
+
         return $this->_isObjectNew ?? !(bool) $this->getId();
     }
 
@@ -424,6 +434,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (!$this->getId()) {
             $this->isObjectNew(true);
         }
+
         Mage::dispatchEvent('model_save_before', ['object' => $this]);
         Mage::dispatchEvent($this->_eventPrefix . '_save_before', $this->_getEventData());
         return $this;
@@ -447,12 +458,14 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 } else {
                     $tags = [$this->_cacheTag];
                 }
+
                 $idTags = $this->getCacheIdTags();
                 if ($idTags) {
                     $tags = array_merge($tags, $idTags);
                 }
             }
         }
+
         return $tags;
     }
 
@@ -474,6 +487,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
                 $tags[] = $this->_cacheTag . '_' . $this->getId();
             }
         }
+
         return $tags;
     }
 
@@ -488,6 +502,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if ($tags !== false) {
             Mage::app()->cleanCache($tags);
         }
+
         return $this;
     }
 
@@ -522,6 +537,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
             $this->_getResource()->rollBack();
             throw $e;
         }
+
         $this->_afterDeleteCommit();
         return $this;
     }
@@ -549,6 +565,7 @@ abstract class Mage_Core_Model_Abstract extends Varien_Object
         if (Mage::registry('isSecureArea')) {
             return;
         }
+
         if (!Mage::app()->getStore()->isAdmin()) {
             Mage::throwException(Mage::helper('core')->__('Cannot complete this operation from non-admin area.'));
         }

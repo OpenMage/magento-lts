@@ -24,4 +24,5 @@ foreach ([
     WHERE `path` = '{$from}'
     ");
 }
+
 $installer->endSetup();

@@ -104,6 +104,7 @@ class Mage_Wishlist_SharedController extends Mage_Wishlist_Controller_Abstract
                     $redirectUrl = Mage::helper('checkout/cart')->getCartUrl();
                     $session = Mage::getSingleton('catalog/session');
                 }
+
                 $message = Mage::helper('wishlist')->__('Cannot add the selected product to shopping cart because the product was removed from the wishlist');
                 $session->addNotice($message);
             } else {

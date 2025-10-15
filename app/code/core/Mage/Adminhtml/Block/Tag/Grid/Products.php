@@ -23,9 +23,11 @@ class Mage_Adminhtml_Block_Tag_Grid_Products extends Mage_Adminhtml_Block_Widget
         if ($tagId = $this->getRequest()->getParam('tag_id')) {
             $collection->addTagFilter($tagId);
         }
+
         if ($customerId = $this->getRequest()->getParam('customer_id')) {
             $collection->addCustomerFilter($customerId);
         }
+
         $this->setCollection($collection);
 
         return parent::_prepareCollection();

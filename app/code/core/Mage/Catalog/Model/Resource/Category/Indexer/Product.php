@@ -104,6 +104,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             $categoryIds[]  = $id;
             $allCategoryIds = array_merge($allCategoryIds, explode('/', $path));
         }
+
         $allCategoryIds = array_unique($allCategoryIds);
         $allCategoryIds = array_diff($allCategoryIds, $categoryIds);
 
@@ -136,6 +137,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if (!isset($data['product_ids'])) {
             return $this;
         }
+
         $productIds     = $data['product_ids'];
         $categoryIds    = [];
         $allCategoryIds = [];
@@ -236,8 +238,10 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
                     }
                 }
             }
+
             $allCategoryIds = array_merge($allCategoryIds, explode('/', $path));
         }
+
         $allCategoryIds = array_unique($allCategoryIds);
 
         if ($checkRootCategories && count($affectedRootCategoryIds) > 1) {
@@ -278,6 +282,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($anchorIds) {
             $this->_refreshAnchorRelations($anchorIds);
         }
+
         if ($directIds) {
             $this->_refreshDirectRelations($directIds);
         }
@@ -489,9 +494,11 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($categoryIds) {
             $select->where('cp.category_id IN (?)', $categoryIds);
         }
+
         if ($productIds) {
             $select->where('cp.product_id IN(?)', $productIds);
         }
+
         $sql = $select->insertFromSelect(
             $this->getMainTable(),
             ['category_id', 'product_id', 'position', 'is_parent', 'store_id', 'visibility'],
@@ -603,6 +610,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($categoryIds) {
             $select->where('ce.entity_id IN (?)', $categoryIds);
         }
+
         if ($productIds) {
             $select->where('pw.product_id IN(?)', $productIds);
         }
@@ -959,17 +967,21 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
             if (isset($enabledTable)) {
                 $idxAdapter->delete($enabledTable);
             }
+
             if (isset($anchorTable)) {
                 $idxAdapter->delete($anchorTable);
             }
+
             if (isset($anchorProductsTable)) {
                 $idxAdapter->delete($anchorProductsTable);
             }
+
             $this->commit();
         } catch (Exception $e) {
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -1054,6 +1066,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_product_enabled_indexer_idx');
         }
+
         return $this->getTable('catalog/category_product_enabled_indexer_tmp');
     }
 
@@ -1145,6 +1158,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_anchor_indexer_idx');
         }
+
         return $this->getTable('catalog/category_anchor_indexer_tmp');
     }
 
@@ -1158,6 +1172,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_anchor_products_indexer_idx');
         }
+
         return $this->getTable('catalog/category_anchor_products_indexer_tmp');
     }
 
@@ -1172,6 +1187,7 @@ class Mage_Catalog_Model_Resource_Category_Indexer_Product extends Mage_Index_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('catalog/category_product_indexer_idx');
         }
+
         return $this->getTable('catalog/category_product_indexer_tmp');
     }
 }

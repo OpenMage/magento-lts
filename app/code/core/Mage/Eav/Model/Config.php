@@ -127,6 +127,7 @@ class Mage_Eav_Model_Config
         if (isset($this->_currentStoreId) && $this->_currentStoreId !== false) {
             return $this->_currentStoreId;
         }
+
         return Mage::app()->getStore()->getId();
     }
 
@@ -141,6 +142,7 @@ class Mage_Eav_Model_Config
             // ensure store id is consistent
             $storeId = (int) $storeId;
         }
+
         if (isset($this->_storeInitialized[$storeId]) && $this->_storeInitialized[$storeId]) {
             return;
         }
@@ -198,6 +200,7 @@ class Mage_Eav_Model_Config
                 } else {
                     Mage::log('Skipped loading of eav entity type because it does not exist: ' . $entityModelClass);
                 }
+
                 continue;
             }
 
@@ -240,6 +243,7 @@ class Mage_Eav_Model_Config
                 if (!isset($entityAttributeData[$key])) {
                     continue;
                 }
+
                 $entityAttributeData[$key] = (int) $entityAttributeData[$key];
             }
 
@@ -275,6 +279,7 @@ class Mage_Eav_Model_Config
             Varien_Profiler::stop('EAV: ' . __METHOD__);
             return false;
         }
+
         $cacheData = unserialize($cacheData);
 
         $this->_entityTypes = [];
@@ -344,6 +349,7 @@ class Mage_Eav_Model_Config
         if ($this->_isCacheEnabled === null) {
             $this->_isCacheEnabled = Mage::app()->useCache('eav');
         }
+
         return $this->_isCacheEnabled;
     }
 
@@ -362,6 +368,7 @@ class Mage_Eav_Model_Config
         } else {
             $model = $entityType->getAttributeModel();
         }
+
         /** @var Mage_Eav_Model_Entity_Attribute_Abstract|false $attribute */
         $attribute = Mage::getModel($model);
         if ($attribute) {
@@ -375,6 +382,7 @@ class Mage_Eav_Model_Config
                     ->setBackendType(Mage_Eav_Model_Entity_Attribute_Abstract::TYPE_STATIC)
                     ->setIsGlobal(1);
             }
+
             $attribute
                 ->setEntityType($entityType)
                 ->setEntityTypeId($entityType->getId());
@@ -556,6 +564,7 @@ class Mage_Eav_Model_Config
         if (($object instanceof Varien_Object) && $object->getStoreId()) {
             $storeId = $object->getStoreId();
         }
+
         $this->_initializeStore($storeId);
 
         if ($attributeSetId) {
@@ -569,6 +578,7 @@ class Mage_Eav_Model_Config
                     $attributeCodes[] = $attribute->getAttributeCode();
                 }
             }
+
             return $attributeCodes;
         } else {
             return isset($this->_entityTypeAttributeIdByCode[$storeId][$entityType->getId()])

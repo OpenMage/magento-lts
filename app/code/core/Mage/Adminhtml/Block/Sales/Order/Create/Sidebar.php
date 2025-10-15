@@ -38,6 +38,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Sidebar extends Mage_Adminhtml_Blo
         if (method_exists($child, 'canDisplay')) {
             return $child->canDisplay();
         }
+
         return true;
     }
 }

@@ -33,12 +33,14 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
         if ($store = $this->getRequest()->getParam('store')) {
             $websiteId = Mage::app()->getStore($store)->getWebsiteId();
         }
+
         if ($this->isModuleEnabled('Mage_ProductAlert', 'catalog')) {
             $collection = Mage::getModel('productalert/stock')
                 ->getCustomerCollection()
                 ->join($productId, $websiteId);
             $this->setCollection($collection);
         }
+
         return parent::_prepareCollection();
     }
 
@@ -91,6 +93,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Alerts_Stock extends Mage_Ad
         if ($storeId) {
             $storeId = Mage::app()->getStore($storeId)->getId();
         }
+
         return $this->getUrl('*/catalog_product/alertsStockGrid', [
             'id'    => $productId,
             'store' => $storeId,

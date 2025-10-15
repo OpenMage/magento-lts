@@ -15,7 +15,9 @@
 class Mage_Adminhtml_Block_Widget_Form_Element extends Mage_Adminhtml_Block_Template
 {
     protected $_element;
+
     protected $_form;
+
     protected $_formBlock;
 
     public function __construct()

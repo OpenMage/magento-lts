@@ -15,7 +15,9 @@
 class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploader
 {
     protected $_tmpDir  = '';
+
     protected $_destDir = '';
+
     protected $_allowedMimeTypes = [
         'webp' => 'image/webp',
         'jpg' => 'image/jpeg',
@@ -23,6 +25,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         'gif' => 'image/gif',
         'png' => 'image/png',
     ];
+
     public const DEFAULT_FILE_TYPE = 'application/octet-stream';
 
     /**
@@ -84,6 +87,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (!is_readable($filePath)) {
             Mage::throwException("File '{$filePath}' was not found or has read restriction.");
         }
+
         $this->_file = $this->_readFileInfo($filePath);
 
         $this->_validateFile();
@@ -124,6 +128,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (!$this->checkAllowedExtension($fileExtension)) {
             throw new Exception('Disallowed file type.');
         }
+
         //run validate callbacks
         foreach ($this->_validateCallbacks as $params) {
             if (is_object($params['object']) && method_exists($params['object'], $params['method'])) {
@@ -143,6 +148,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
         if (array_key_exists($ext, $this->_allowedMimeTypes)) {
             return $this->_allowedMimeTypes[$ext];
         }
+
         return '';
     }
 
@@ -168,6 +174,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             $this->_tmpDir = $path;
             return true;
         }
+
         return false;
     }
 
@@ -193,6 +200,7 @@ class Mage_ImportExport_Model_Import_Uploader extends Mage_Core_Model_File_Uploa
             $this->_destDir = $path;
             return true;
         }
+
         return false;
     }
 

@@ -61,6 +61,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
             if (!($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute)) {
                 Mage::throwException('Attribute links_purchased_separately must be of type Mage_Catalog_Model_Resource_Eav_Attribute');
             }
+
             $this->_purchasedSeparatelyAttribute = $attribute;
         }
 
@@ -166,6 +167,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                 if (!is_file($file)) {
                     Mage::helper('core/file_storage_database')->saveFileToFilesystem($file);
                 }
+
                 if (is_file($file)) {
                     $name = '<a href="'
                         . $this->getUrl('*/downloadable_product_edit/link', [
@@ -182,6 +184,7 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     ];
                 }
             }
+
             if ($item->getSampleFile()) {
                 $sampleFile = Mage::helper('downloadable/file')->getFilePath(
                     Mage_Downloadable_Model_Link::getBaseSamplePath(),
@@ -198,17 +201,22 @@ class Mage_Downloadable_Block_Adminhtml_Catalog_Product_Edit_Tab_Downloadable_Li
                     ];
                 }
             }
+
             if ($item->getNumberOfDownloads() == '0') {
                 $tmpLinkItem['is_unlimited'] = ' checked="checked"';
             }
+
             if ($this->getProduct()->getStoreId() && $item->getStoreTitle()) {
                 $tmpLinkItem['store_title'] = $item->getStoreTitle();
             }
+
             if ($this->getProduct()->getStoreId() && $priceWebsiteScope) {
                 $tmpLinkItem['website_price'] = $item->getWebsitePrice();
             }
+
             $linkArr[] = new Varien_Object($tmpLinkItem);
         }
+
         return $linkArr;
     }
 

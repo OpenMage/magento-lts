@@ -23,16 +23,24 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
      * XML configuration paths for Price Layered Navigation
      */
     public const XML_PATH_RANGE_CALCULATION       = 'catalog/layered_navigation/price_range_calculation';
+
     public const XML_PATH_RANGE_STEP              = 'catalog/layered_navigation/price_range_step';
+
     public const XML_PATH_RANGE_MAX_INTERVALS     = 'catalog/layered_navigation/price_range_max_intervals';
+
     public const XML_PATH_ONE_PRICE_INTERVAL      = 'catalog/layered_navigation/one_price_interval';
+
     public const XML_PATH_INTERVAL_DIVISION_LIMIT = 'catalog/layered_navigation/interval_division_limit';
 
     /**
      * Price layered navigation modes: Automatic (equalize price ranges), Automatic (equalize product counts), Manual
      */
-    public const RANGE_CALCULATION_AUTO     = 'auto'; // equalize price ranges
-    public const RANGE_CALCULATION_IMPROVED = 'improved'; // equalize product counts
+    public const RANGE_CALCULATION_AUTO     = 'auto';
+
+    // equalize price ranges
+    public const RANGE_CALCULATION_IMPROVED = 'improved';
+
+    // equalize product counts
     public const RANGE_CALCULATION_MANUAL   = 'manual';
 
     /**
@@ -67,6 +75,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         if (is_null($this->_resource)) {
             $this->_resource = Mage::getResourceModel('catalog/layer_filter_price');
         }
+
         return $this->_resource;
     }
 
@@ -150,6 +159,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                     $lastIndex = $k;
                 }
             }
+
             $this->setData($rangeKey, $items);
         }
 
@@ -192,6 +202,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             if ($fromPrice != $toPrice) {
                 $toPrice = (float) $toPrice - .01;
             }
+
             return Mage::helper('catalog')->__('%s - %s', $formattedFromPrice, $store->formatPrice($toPrice));
         }
     }
@@ -250,6 +261,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         ) {
             return [];
         }
+
         $algorithmModel->setPricesModel($this)->setStatistics(
             $collection->getMinPrice(),
             $collection->getMaxPrice(),
@@ -261,6 +273,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             if ($appliedInterval[0] == $appliedInterval[1] || $appliedInterval[1] === '0') {
                 return [];
             }
+
             $algorithmModel->setLimits($appliedInterval[0], $appliedInterval[1]);
         }
 
@@ -336,6 +349,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         if (count($filter) != 2) {
             return false;
         }
+
         foreach ($filter as $v) {
             if (($v !== '' && $v !== '0' && (float) $v <= 0) || is_infinite((float) $v)) {
                 return false;
@@ -384,6 +398,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
                 break;
             }
         }
+
         if ($priorFilters) {
             $this->setPriorIntervals($priorFilters);
         }
@@ -422,6 +437,7 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         if (is_null($customerGroupId)) {
             $customerGroupId = Mage::getSingleton('customer/session')->getCustomerGroupId();
         }
+
         return $customerGroupId;
     }
 
@@ -447,9 +463,11 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
         if (is_null($rate)) {
             $rate = Mage::app()->getStore($this->getStoreId())->getCurrentCurrencyRate();
         }
+
         if (!$rate) {
             $rate = 1;
         }
+
         return $rate;
     }
 
@@ -497,8 +515,10 @@ class Mage_Catalog_Model_Layer_Filter_Price extends Mage_Catalog_Model_Layer_Fil
             foreach ($priorIntervals as $priorInterval) {
                 $value[] = implode('-', $priorInterval);
             }
+
             return implode(',', $value);
         }
+
         return parent::getResetValue();
     }
 

@@ -22,20 +22,12 @@ class Mage_Core_Model_Date
     private $_offset = 0;
 
     /**
-     * Current system offset in seconds
-     *
-     * @var int
-     */
-    private $_systemOffset = 0;
-
-    /**
      * Init offset
      *
      */
     public function __construct()
     {
         $this->_offset = $this->calculateOffset($this->_getConfigTimezone());
-        $this->_systemOffset = $this->calculateOffset();
     }
 
     /**
@@ -183,13 +175,14 @@ class Mage_Core_Model_Date
                 break;
 
             case 'minutes':
-                $result = $result / 60;
+                $result /= 60;
                 break;
 
             case 'hours':
                 $result = $result / 60 / 60;
                 break;
         }
+
         return $result;
     }
 
@@ -208,12 +201,14 @@ class Mage_Core_Model_Date
         if (!checkdate($month, $day, $year)) {
             return false;
         }
+
         foreach (['hour' => 23, 'minute' => 59, 'second' => 59] as $var => $maxValue) {
             $value = (int) ${$var};
             if (($value < 0) || ($value > $maxValue)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -249,6 +244,7 @@ class Mage_Core_Model_Date
                 break;
             }
         }
+
         if (!$isSupportedFormatFound) {
             Mage::throwException(Mage::helper('core')->__('Date/time format "%s" is not supported.', $dateTimeFormat));
         }
@@ -267,6 +263,7 @@ class Mage_Core_Model_Date
             if (isset($mask[$key]) && isset($matches[$mask[$key]])) {
                 $value = (int) $matches[$mask[$key]];
             }
+
             $result[] = $value;
         }
 

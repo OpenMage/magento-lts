@@ -53,6 +53,7 @@ class Mage_Rating_Model_Resource_Rating_Option_Collection extends Mage_Core_Mode
         } elseif (is_array($rating)) {
             $this->addFilter('rating_id', $this->_getConditionSql('rating_id', ['in' => $rating]), 'string');
         }
+
         return $this;
     }
 

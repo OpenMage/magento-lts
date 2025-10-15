@@ -94,6 +94,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
             $this->printLogQuery(true, true, $this->getSelect()->__toString());
             throw $e;
         }
+
         $stores = Mage::getResourceModel('core/store_collection')->setWithoutDefaultFilter()->load()->toOptionHash();
         if (!empty($values)) {
             foreach ($values as $v) {
@@ -107,6 +108,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
                     $this->_totals[$key] += $obj->getData($key);
                 }
             }
+
             if ($this->_totals['num_orders']) {
                 $this->_totals['avgsale'] = $this->_totals['lifetime'] / $this->_totals['num_orders'];
             }
@@ -132,6 +134,7 @@ class Mage_Sales_Model_Entity_Sale_Collection extends Varien_Object implements I
         if ($logQuery) {
             Mage::log(is_null($sql) ? $this->getSelect()->__toString() : $sql);
         }
+
         return $this;
     }
 

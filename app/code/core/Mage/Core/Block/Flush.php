@@ -30,8 +30,10 @@ class Mage_Core_Block_Flush extends Mage_Core_Block_Abstract
             if (!$block) {
                 Mage::exception(Mage::helper('core')->__('Invalid block: %s', $name));
             }
+
             echo $block->toHtml();
         }
+
         return '';
     }
 }
