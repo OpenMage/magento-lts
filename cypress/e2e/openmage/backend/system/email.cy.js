@@ -8,13 +8,13 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.removeClasses(test.new);
 
         // TODO: Clicking "Save" instead of "Save and Continue" because not implemented in this section
         const message = 'The template Name must not be empty.';
         const screenshot = 'message.system.email.saveEmptyWithoutJs';
-        test.new.clickSave();
+        test.new.__buttons.save.click();
         validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
@@ -25,10 +25,22 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     it(`tests edit route`, () => {
         // TODO: There is no edit route for email templates
         validation.pageElements(test, test.index);
+
+        //test.edit.__buttons.reset.click();
+        //cy.url().should('include', test.edit.url);
+
+        //test.edit.__buttons.back.click();
+        //cy.url().should('include', test.index.url);
     });
 
     it(`tests new route`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
+
+        test.new.__buttons.reset.click();
+        cy.url().should('include', test.new.url);
+
+        test.new.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 });

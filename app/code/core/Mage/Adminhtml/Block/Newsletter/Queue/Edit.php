@@ -82,7 +82,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Preview Template'),
                     'onclick'   => 'queueControl.preview();',
-                    'class'     => 'task',
+                    'class'     => 'task preview',
                 ]),
         );
 
@@ -112,6 +112,7 @@ class Mage_Adminhtml_Block_Newsletter_Queue_Edit extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('newsletter')->__('Reset'),
                     'onclick'   => 'window.location = window.location',
+                    'class'     => 'reset',
                 ]),
         );
 

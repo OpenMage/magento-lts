@@ -21,9 +21,6 @@ class Mage_Adminhtml_Block_Customer_Group_Edit extends Mage_Adminhtml_Block_Widg
         $this->_objectId = 'id';
         $this->_controller = 'customer_group';
 
-        $this->_updateButton('save', 'label', Mage::helper('customer')->__('Save Customer Group'));
-        $this->_updateButton('delete', 'label', Mage::helper('customer')->__('Delete Customer Group'));
-
         if (!Mage::registry('current_group')->getId() || Mage::registry('current_group')->usesAsDefault()) {
             $this->_removeButton('delete');
         }
