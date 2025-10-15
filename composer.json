@@ -70,8 +70,7 @@
         "symplify/vendor-patches": "^11.1"
     },
     "conflict": {
-        "n98/n98_layouthelper": "*",
-        "rector/rector": "2.2.0 || 2.2.1 || 2.2.2 || 2.2.3"
+        "n98/n98_layouthelper": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -223,6 +223,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             foreach ($customerAttributeMultiSelect as $column => &$multiSelectOptions) {
                 $row[$column] = array_shift($multiSelectOptions);
             }
+
             unset($multiSelectOptions);
 
             $writeRow = array_merge($row, $addrRow);
@@ -240,6 +241,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                     foreach ($customerAttributeMultiSelect as $column => &$multiSelectOptions) {
                         $writeRow[$column] = array_shift($multiSelectOptions);
                     }
+
                     unset($multiSelectOptions);
 
                     if (!$this->_isExistMultiSelectOptions($addressMultiselect, $currentAddressId)) {

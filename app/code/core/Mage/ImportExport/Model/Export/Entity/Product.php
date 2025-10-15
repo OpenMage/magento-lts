@@ -900,6 +900,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
 
                 $options = null;
             }
+
             unset($storeId);
 
             foreach ($customOptionsDataPre as $productId => &$optionsData) {
@@ -991,6 +992,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                             }
                         }
                     }
+
                     unset($colPrefix);
 
                     if (!empty($customOptionsData[$productId])) {
@@ -1082,6 +1084,7 @@ class Mage_ImportExport_Model_Export_Entity_Product extends Mage_ImportExport_Mo
                                     }
                                 }
                             }
+
                             unset($colPrefix);
 
                             if (!empty($customOptionsData[$productId])) {
