@@ -875,15 +875,16 @@ class Mage_Core_Model_Resource_Setup
     /**
      * Save configuration data
      *
-     * @param string $path
-     * @param string $value
-     * @param int|string $scope
-     * @param int $scopeId
-     * @param int $inherit
+     * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
      * @return $this
+     * @throws Zend_Db_Exception
      */
-    public function setConfigData($path, $value, $scope = 'default', $scopeId = 0, $inherit = 0)
-    {
+    public function setConfigData(
+        string $path,
+        int|string|bool $value,
+        string $scope = Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT,
+        int $scopeId = 0
+    ) {
         $table = $this->getTable('core/config_data');
         // this is a fix for mysql 4.1
         $this->getConnection()->showTableStatus($table);
@@ -892,7 +893,7 @@ class Mage_Core_Model_Resource_Setup
             'scope'     => $scope,
             'scope_id'  => $scopeId,
             'path'      => $path,
-            'value'     => $value,
+            'value'     => (string) $value,
         ];
         $this->getConnection()->insertOnDuplicate($table, $data, ['value']);
         return $this;

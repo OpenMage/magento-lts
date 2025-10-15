@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
 
         foreach ($currencies as $currency) {
             foreach ($oldCurrencies as $key => $value) {
-                if (!array_key_exists($currency, $oldCurrencies[$key])) {
+                if (!array_key_exists($currency, $value)) {
                     $oldCurrencies[$key][$currency] = '';
                 }
             }
@@ -66,7 +66,7 @@ class Mage_Adminhtml_Block_System_Currency_Rate_Matrix extends Mage_Adminhtml_Bl
             foreach ($rate as $code => $value) {
                 $parts = explode('.', (string) $value);
                 if (count($parts) === 2) {
-                    $parts[1] = str_pad(rtrim($parts[1], 0), 4, '0', STR_PAD_RIGHT);
+                    $parts[1] = str_pad(rtrim($parts[1], '0'), 4, '0', STR_PAD_RIGHT);
                     $array[$key][$code] = implode('.', $parts);
                 } elseif ($value > 0) {
                     $array[$key][$code] = number_format($value, 4);

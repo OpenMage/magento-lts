@@ -50,7 +50,7 @@ class Mage_Api2_Model_Response extends Zend_Controller_Response_Http
      * Add message to response
      *
      * @param string $message
-     * @param string $code
+     * @param int $code
      * @param array $params
      * @param string $type
      * return Mage_Api2_Model_Response

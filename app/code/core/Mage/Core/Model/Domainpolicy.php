@@ -80,7 +80,7 @@ class Mage_Core_Model_Domainpolicy
      */
     public function getBackendPolicy()
     {
-        return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfig(self::XML_DOMAIN_POLICY_BACKEND));
+        return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfigA(self::XML_DOMAIN_POLICY_BACKEND));
     }
 
     /**
@@ -96,10 +96,10 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Return string representation for policy code
      *
-     * @param string $policyCode
+     * @param int|self::FRAME_POLICY_* $policyCode
      * @return string|null
      */
-    protected function _getDomainPolicyByCode($policyCode)
+    protected function _getDomainPolicyByCode(int $policyCode)
     {
         return match ($policyCode) {
             self::FRAME_POLICY_ALLOW => null,

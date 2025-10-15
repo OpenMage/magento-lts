@@ -42,7 +42,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         $this->setDefaultSort('frontend_label');
         $this->setDefaultDir('ASC');
         $this->setPagerVisibility(false);
-        $this->setDefaultLimit(null);
+        $this->setDefaultLimit(0);
         $this->setUseAjax(true);
     }
 

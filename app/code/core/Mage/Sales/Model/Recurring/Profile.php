@@ -15,6 +15,7 @@
  *
  * @method Mage_Sales_Model_Resource_Recurring_Profile _getResource()
  * @method Mage_Sales_Model_Resource_Recurring_Profile getResource()
+ * @method Mage_Sales_Model_Resource_Recurring_Profile_Collection getCollection()()
  * @method string getState()
  * @method $this setState(string $value)
  * @method int getCustomerId()

@@ -155,13 +155,10 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save config value
      *
-     * @param string $path
-     * @param string $value
-     * @param string $scope
-     * @param int $scopeId
+     * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
      * @return $this
      */
-    public function saveConfig($path, $value, $scope, $scopeId)
+    public function saveConfig(string $path, string $value, string $scope, int $scopeId)
     {
         $writeAdapter = $this->_getWriteAdapter();
         $select = $writeAdapter->select()

@@ -255,10 +255,9 @@ abstract class Varien_Data_Form_Element_Abstract extends Varien_Data_Form_Abstra
     /**
      * Render HTML for element's label
      *
-     * @param string $idSuffix
      * @return string
      */
-    public function getLabelHtml($idSuffix = '')
+    public function getLabelHtml(string $idSuffix = '')
     {
         if (!is_null($this->getLabel())) {
             $html = '<label for="' . $this->getHtmlId() . $idSuffix . '">' . $this->_escape($this->getLabel())

@@ -33,7 +33,9 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Creditmemos extends Mage_Adminht
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getResourceModel($this->_getCollectionClass())
+        /** @var Mage_Sales_Model_Resource_Order_Creditmemo_Grid_Collection $collection */
+        $collection = Mage::getResourceModel($this->_getCollectionClass());
+        $collection
             ->addFieldToSelect('entity_id')
             ->addFieldToSelect('created_at')
             ->addFieldToSelect('increment_id')

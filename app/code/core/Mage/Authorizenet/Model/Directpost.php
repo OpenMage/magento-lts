@@ -50,23 +50,24 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
     /**
      * Do not validate payment form using server methods
      *
-     * @return  bool
+     * @return $this
      */
     public function validate()
     {
-        return true;
+        return $this;
     }
 
     /**
      * Send authorize request to gateway
      *
      * @param  float $amount
-     * @return void
+     * @return $this
      * @throws Mage_Core_Exception
      */
     public function authorize(Varien_Object $payment, $amount)
     {
         $payment->setAdditionalInformation('payment_type', $this->getConfigData('payment_action'));
+        return $this;
     }
 
     /**

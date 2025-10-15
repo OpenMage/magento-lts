@@ -20,17 +20,19 @@ class Mage_Customer_Model_Address_Api_V2 extends Mage_Customer_Model_Address_Api
      * @param int $customerId
      * @param array $addressData
      * @return int
+     * @throws Mage_Api_Exception
      */
     public function create($customerId, $addressData)
     {
+        /** @var Mage_Customer_Model_Customer $customer */
         $customer = Mage::getModel('customer/customer')
             ->load($customerId);
-        /** @var Mage_Customer_Model_Customer $customer */
 
         if (!$customer->getId()) {
             $this->_fault('customer_not_exists');
         }
 
+        /** @var Mage_Customer_Model_Address $address */
         $address = Mage::getModel('customer/address');
 
         foreach (array_keys($this->getAllowedAttributes($address)) as $attributeCode) {
