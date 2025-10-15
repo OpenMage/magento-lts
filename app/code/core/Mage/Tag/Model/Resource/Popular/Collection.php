@@ -54,7 +54,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
      * @param Mage_Tag_Model_Tag::STATUS_* $statusCode
      * @return $this
      */
-    public function addStatusFilter(int $statusCode)
+    public function addStatusFilter($statusCode)
     {
         $this->getSelect()->where('main_table.status = ?', $statusCode);
         return $this;

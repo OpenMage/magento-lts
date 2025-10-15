@@ -225,10 +225,11 @@ class Mage_Sales_Model_Order_Invoice_Api extends Mage_Sales_Model_Api_Resource
     /**
      * Void invoice
      *
+     * @param string $invoiceIncrementId
      * @return bool
      * @throws Mage_Api_Exception
      */
-    public function void(string $invoiceIncrementId)
+    public function void($invoiceIncrementId)
     {
         $invoice = Mage::getModel('sales/order_invoice')->loadByIncrementId($invoiceIncrementId);
 
