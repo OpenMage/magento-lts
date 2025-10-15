@@ -67,7 +67,7 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
-            $head->setCanLoadTinyMce(true);
+            $head->setCanLoadExtJs(true);
         }
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));

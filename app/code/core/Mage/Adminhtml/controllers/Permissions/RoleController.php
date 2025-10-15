@@ -111,7 +111,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
-            $head->setCanLoadTinyMce(true);
+            $head->setCanLoadExtJs(true);
         }
 
         $this->_addContent(

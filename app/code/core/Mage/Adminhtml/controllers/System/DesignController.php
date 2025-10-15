@@ -58,7 +58,7 @@ class Mage_Adminhtml_System_DesignController extends Mage_Adminhtml_Controller_A
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
-            $head->setCanLoadTinyMce(true);
+            $head->setCanLoadExtJs(true);
         }
 
         $id = (int) $this->getRequest()->getParam('id');

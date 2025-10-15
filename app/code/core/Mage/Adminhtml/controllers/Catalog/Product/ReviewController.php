@@ -107,7 +107,7 @@ class Mage_Adminhtml_Catalog_Product_ReviewController extends Mage_Adminhtml_Con
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
         if ($head) {
-            $head->setCanLoadTinyMce(true);
+            $head->setCanLoadExtJs(true);
         }
 
         $this->_addContent($this->getLayout()->createBlock('adminhtml/review_add'));
