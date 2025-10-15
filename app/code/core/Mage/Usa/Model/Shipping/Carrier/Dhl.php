@@ -1102,22 +1102,22 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                         */
                                         $rArr['service'] = (string) $txml->Service->Desc;
                                         if (isset($txml->Weight)) {
-                                            $rArr['weight'] = (string) $txml->Weight . ' lbs';
+                                            $rArr['weight'] = $txml->Weight . ' lbs';
                                         }
 
                                         if (isset($txml->Delivery)) {
                                             $rArr['deliverydate'] = (string) $txml->Delivery->Date;
-                                            $rArr['deliverytime'] = (string) $txml->Delivery->Time . ':00';
+                                            $rArr['deliverytime'] = $txml->Delivery->Time . ':00';
                                             $rArr['status'] = Mage::helper('usa')->__('Delivered');
                                             if (isset($txml->Delivery->Location->Desc)) {
                                                 $rArr['deliverylocation'] = (string) $txml->Delivery->Location->Desc;
                                             }
                                         } elseif (isset($txml->Pickup)) {
                                             $rArr['deliverydate'] = (string) $txml->Pickup->Date;
-                                            $rArr['deliverytime'] = (string) $txml->Pickup->Time . ':00';
+                                            $rArr['deliverytime'] = $txml->Pickup->Time . ':00';
                                             $rArr['status'] = Mage::helper('usa')->__('Shipment picked up');
                                         } else {
-                                            $rArr['status'] = (string) $txml->ShipmentType->Desc
+                                            $rArr['status'] = $txml->ShipmentType->Desc
                                                   . Mage::helper('usa')->__(' was not delivered nor scanned');
                                         }
 
@@ -1127,7 +1127,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl extends Mage_Usa_Model_Shipping_Carrie
                                                 $tempArr = [];
                                                 $tempArr['activity'] = (string) $thistory->StatusDesc;
                                                 $tempArr['deliverydate'] = (string) $thistory->Date; //YYYY-MM-DD
-                                                $tempArr['deliverytime'] = (string) $thistory->Time . ':00'; //HH:MM:ss
+                                                $tempArr['deliverytime'] = $thistory->Time . ':00'; //HH:MM:ss
                                                 $addArr = [];
                                                 if (isset($thistory->Location->City)) {
                                                     $addArr[] = (string) $thistory->Location->City;

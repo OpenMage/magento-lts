@@ -954,7 +954,7 @@ abstract class Mage_Sales_Model_Order_Pdf_Abstract extends Varien_Object
                                 if ($width) {
                                     $feed = $this->getAlignRight($part, $feed, $width, $font, $fontSize);
                                 } else {
-                                    $feed = $feed - $this->widthForStringUsingFontSize($part, $font, $fontSize);
+                                    $feed -= $this->widthForStringUsingFontSize($part, $font, $fontSize);
                                 }
 
                                 break;

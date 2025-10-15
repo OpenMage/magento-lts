@@ -329,35 +329,29 @@ abstract class Mage_Catalog_Model_Product_Attribute_Backend_Groupprice_Abstract 
         $isChanged  = false;
         $productId  = $object->getId();
 
-        if (!empty($delete)) {
-            foreach ($delete as $data) {
-                $this->_getResource()->deletePriceData($productId, null, $data['price_id']);
-                $isChanged = true;
-            }
+        foreach ($delete as $data) {
+            $this->_getResource()->deletePriceData($productId, null, $data['price_id']);
+            $isChanged = true;
         }
 
-        if (!empty($insert)) {
-            foreach ($insert as $data) {
-                $price = new Varien_Object($data);
-                $price->setEntityId($productId);
+        foreach ($insert as $data) {
+            $price = new Varien_Object($data);
+            $price->setEntityId($productId);
+            $this->_getResource()->savePriceData($price);
+
+            $isChanged = true;
+        }
+
+        foreach ($update as $k => $v) {
+            if ($old[$k]['price'] != $v['value'] || $old[$k]['is_percent'] != $v['is_percent']) {
+                $price = new Varien_Object([
+                    'value_id'   => $old[$k]['price_id'],
+                    'value'      => $v['value'],
+                    'is_percent' => $v['is_percent'],
+                ]);
                 $this->_getResource()->savePriceData($price);
 
                 $isChanged = true;
-            }
-        }
-
-        if (!empty($update)) {
-            foreach ($update as $k => $v) {
-                if ($old[$k]['price'] != $v['value'] || $old[$k]['is_percent'] != $v['is_percent']) {
-                    $price = new Varien_Object([
-                        'value_id'   => $old[$k]['price_id'],
-                        'value'      => $v['value'],
-                        'is_percent' => $v['is_percent'],
-                    ]);
-                    $this->_getResource()->savePriceData($price);
-
-                    $isChanged = true;
-                }
             }
         }
 

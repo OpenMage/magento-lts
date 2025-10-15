@@ -132,7 +132,7 @@ class Mage_Adminhtml_Block_Urlrewrite_Edit extends Mage_Adminhtml_Block_Widget_C
             $this->_addButton('reset', [
                 'label'   => Mage::helper('adminhtml')->__('Reset'),
                 'onclick' => '$(\'edit_form\').reset()',
-                'class'   => 'scalable',
+                'class'   => 'scalable reset',
                 'level'   => -1,
             ]);
             $this->_addButton('delete', [

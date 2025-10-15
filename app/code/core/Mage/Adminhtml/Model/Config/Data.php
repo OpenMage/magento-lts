@@ -105,7 +105,7 @@ class Mage_Adminhtml_Model_Config_Data extends Varien_Object
                 if ($fieldsConfig->hasChildren()) {
                     foreach ($fieldsConfig->children() as $field => $node) {
                         foreach ($cloneModel->getPrefixes() as $prefix) {
-                            $mappedFields[$prefix['field'] . (string) $field] = (string) $field;
+                            $mappedFields[$prefix['field'] . $field] = (string) $field;
                         }
                     }
                 }

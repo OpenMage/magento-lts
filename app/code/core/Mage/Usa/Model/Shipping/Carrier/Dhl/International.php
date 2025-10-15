@@ -594,7 +594,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $stockItem = $item->getProduct()->getStockItem();
                 if ($stockItem->getIsDecimalDivided()) {
                     if ($stockItem->getEnableQtyIncrements() && $stockItem->getQtyIncrements()) {
-                        $itemWeight = $itemWeight * $stockItem->getQtyIncrements();
+                        $itemWeight *= $stockItem->getQtyIncrements();
                         $qty        = round(($item->getWeight() / $itemWeight) * $qty);
                         $changeQty  = false;
                     } else {
@@ -610,11 +610,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
                             $checkWeight = false;
                         } else {
-                            $itemWeight = $itemWeight * $item->getQty();
+                            $itemWeight *= $item->getQty();
                         }
                     }
                 } else {
-                    $itemWeight = $itemWeight * $item->getQty();
+                    $itemWeight *= $item->getQty();
                 }
             }
 
@@ -1022,11 +1022,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                 $rates = $currency->getCurrencyRates($currencyCode, [$baseCurrencyCode]);
                 if (!empty($rates) && isset($rates[$baseCurrencyCode])) {
                     // Convert to store display currency using store exchange rate
-                    $totalEstimate = $totalEstimate * $rates[$baseCurrencyCode];
+                    $totalEstimate *= $rates[$baseCurrencyCode];
                 } else {
                     $rates = $currency->getCurrencyRates($baseCurrencyCode, [$currencyCode]);
                     if (!empty($rates) && isset($rates[$currencyCode])) {
-                        $totalEstimate = $totalEstimate / $rates[$currencyCode];
+                        $totalEstimate /= $rates[$currencyCode];
                     }
 
                     if (!isset($rates[$currencyCode]) || !$totalEstimate) {
@@ -1039,13 +1039,11 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             if ($totalEstimate) {
                 $data = ['term' => $dhlProductDescription,
                     'price_total' => $this->getMethodPrice($totalEstimate, $dhlProduct)];
-                if (!empty($this->_rates)) {
-                    foreach ($this->_rates as $product) {
-                        if ($product['data']['term'] == $data['term']
-                            && $product['data']['price_total'] == $data['price_total']
-                        ) {
-                            return $this;
-                        }
+                foreach ($this->_rates as $product) {
+                    if ($product['data']['term'] == $data['term']
+                        && $product['data']['price_total'] == $data['price_total']
+                    ) {
+                        return $this;
                     }
                 }
 
@@ -1683,18 +1681,18 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
                         $awbinfoData['service'] = (string) $shipmentInfo->ShipmentDesc;
                     }
 
-                    $awbinfoData['weight'] = (string) $shipmentInfo->Weight . ' ' . (string) $shipmentInfo->WeightUnit;
+                    $awbinfoData['weight'] = $shipmentInfo->Weight . ' ' . $shipmentInfo->WeightUnit;
 
                     $packageProgress = [];
                     if (isset($shipmentInfo->ShipmentEvent)) {
                         foreach ($shipmentInfo->ShipmentEvent as $shipmentEvent) {
                             $shipmentEventArray = [];
-                            $shipmentEventArray['activity'] = (string) $shipmentEvent->ServiceEvent->EventCode
-                                . ' ' . (string) $shipmentEvent->ServiceEvent->Description;
+                            $shipmentEventArray['activity'] = $shipmentEvent->ServiceEvent->EventCode
+                                . ' ' . $shipmentEvent->ServiceEvent->Description;
                             $shipmentEventArray['deliverydate'] = (string) $shipmentEvent->Date;
                             $shipmentEventArray['deliverytime'] = (string) $shipmentEvent->Time;
-                            $shipmentEventArray['deliverylocation'] = (string) $shipmentEvent->ServiceArea->Description
-                                . ' [' . (string) $shipmentEvent->ServiceArea->ServiceAreaCode . ']';
+                            $shipmentEventArray['deliverylocation'] = $shipmentEvent->ServiceArea->Description
+                                . ' [' . $shipmentEvent->ServiceArea->ServiceAreaCode . ']';
                             $packageProgress[] = $shipmentEventArray;
                         }
 
@@ -1708,15 +1706,13 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
 
         $result = Mage::getModel('shipping/tracking_result');
 
-        if (!empty($resultArr)) {
-            foreach ($resultArr as $trackNum => $data) {
-                $tracking = Mage::getModel('shipping/tracking_result_status');
-                $tracking->setCarrier($this->_code);
-                $tracking->setCarrierTitle($this->getConfigData('title'));
-                $tracking->setTracking($trackNum);
-                $tracking->addData($data);
-                $result->append($tracking);
-            }
+        foreach ($resultArr as $trackNum => $data) {
+            $tracking = Mage::getModel('shipping/tracking_result_status');
+            $tracking->setCarrier($this->_code);
+            $tracking->setCarrierTitle($this->getConfigData('title'));
+            $tracking->setTracking($trackNum);
+            $tracking->addData($data);
+            $result->append($tracking);
         }
 
         if (!empty($this->_errors) || empty($resultArr)) {

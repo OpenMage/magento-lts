@@ -104,7 +104,7 @@ class Mage_Catalog_Block_Product_Price extends Mage_Catalog_Block_Product_Abstra
         $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty'] * 1;
+                $price['price_qty'] *= 1;
 
                 $productPrice = $product->getPrice();
                 if ($product->getPrice() != $product->getFinalPrice()) {

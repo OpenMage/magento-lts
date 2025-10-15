@@ -44,6 +44,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     [
                         'label'   => Mage::helper('adminhtml')->__('Reset'),
                         'onclick' => 'window.location.href = window.location.href',
+                        'class'   => 'reset',
                     ],
                 ),
         );
@@ -53,7 +54,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
-                        'label'   => Mage::helper('adminhtml')->__('Delete Template'),
+                        'label'   => Mage::helper('adminhtml')->__('Delete'),
                         'onclick' => 'templateControl.deleteTemplate();',
                         'class'   => 'delete',
                     ],
@@ -68,6 +69,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                         'label'   => Mage::helper('adminhtml')->__('Convert to Plain Text'),
                         'onclick' => 'templateControl.stripTags();',
                         'id'      => 'convert_button',
+                        'class'   => 'task to-plain',
                     ],
                 ),
         );
@@ -81,6 +83,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                         'onclick' => 'templateControl.unStripTags();',
                         'id'      => 'convert_button_back',
                         'style'   => 'display:none',
+                        'class'   => 'task to-html',
                     ],
                 ),
         );
@@ -104,6 +107,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
                     [
                         'label'   => Mage::helper('adminhtml')->__('Preview Template'),
                         'onclick' => 'templateControl.preview();',
+                        'class'   => 'task preview',
                     ],
                 ),
         );
@@ -113,7 +117,7 @@ class Mage_Adminhtml_Block_System_Email_Template_Edit extends Mage_Adminhtml_Blo
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData(
                     [
-                        'label'   => Mage::helper('adminhtml')->__('Save Template'),
+                        'label'   => Mage::helper('adminhtml')->__('Save'),
                         'onclick' => 'templateControl.save();',
                         'class'   => 'save',
                     ],

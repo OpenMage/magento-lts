@@ -226,10 +226,6 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             }
         }
 
-        if (empty($collectedResult)) {
-            return;
-        }
-
         foreach ($collectedResult as $item) {
             if (is_dir($item) && (!$this->_allowedDirsMask || preg_match($this->_allowedDirsMask, basename($item)))) {
                 if ($this->_collectDirs) {

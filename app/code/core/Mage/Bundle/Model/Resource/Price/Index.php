@@ -782,7 +782,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     $qty = $selection['qty'];
                 }
 
-                $selectionPrice = $selectionPrice * $qty;
+                $selectionPrice *= $qty;
                 $optionPrices[$selection['selection_id']] = $selectionPrice;
             }
 

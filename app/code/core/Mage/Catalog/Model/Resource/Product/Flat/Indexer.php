@@ -734,7 +734,7 @@ class Mage_Catalog_Model_Resource_Product_Flat_Indexer extends Mage_Index_Model_
                 }
             }
 
-            $addIndexes = $addIndexes + $newIndexes;
+            $addIndexes += $newIndexes;
 
             // Compose contstraints
             $addConstraints = [];

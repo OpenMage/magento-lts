@@ -24,11 +24,7 @@ test.config.index = {
     title: 'New Root Category',
     url: test.config.url,
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Category"]',
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
+        save: base.__buttons.save,
+        reset: base.__buttons.reset,
     },
 }
