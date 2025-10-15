@@ -219,6 +219,7 @@ cy.openmage.test.backend.__base.__buttonsSets.new = {
  */
 cy.openmage.test.backend.__base.__buttonsSets.newNoContinue = {
     save: cy.openmage.test.backend.__base.__buttons.save,
+    back: cy.openmage.test.backend.__base.__buttons.back,
     reset: cy.openmage.test.backend.__base.__buttons.reset,
 };
 
