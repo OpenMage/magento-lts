@@ -199,12 +199,6 @@ parameters:
 			path: app/code/core/Mage/Adminhtml/Block/Report/Refresh/Statistics/Grid.php
 
 		-
-			rawMessage: 'Parameter #2 $filter of method Mage_Reports_Model_Resource_Quote_Collection::prepareForAbandonedReport() expects string|null, array<int|string, array<mixed>|string> given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Adminhtml/Block/Report/Shopcart/Abandoned/Grid.php
-
-		-
 			rawMessage: 'Return type (int) of method Mage_Adminhtml_Block_Review_Grid_Filter_Type::getCondition() should be compatible with return type (array|null) of method Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select::getCondition()'
 			identifier: method.childReturnType
 			count: 1
@@ -3007,18 +3001,6 @@ parameters:
 			path: app/code/core/Mage/Dataflow/Model/Profile.php
 
 		-
-			rawMessage: 'Method Mage_Directory_Helper_Data::getCountryCollection() should return Mage_Directory_Model_Resource_Country_Collection but returns Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: return.type
-			count: 1
-			path: app/code/core/Mage/Directory/Helper/Data.php
-
-		-
-			rawMessage: 'Property Mage_Directory_Helper_Data::$_countryCollection (Mage_Directory_Model_Resource_Country_Collection) does not accept Mage_Core_Model_Resource_Db_Collection_Abstract.'
-			identifier: assign.propertyType
-			count: 1
-			path: app/code/core/Mage/Directory/Helper/Data.php
-
-		-
 			rawMessage: 'Parameter #1 $value of method Zend_Currency::toCurrency() expects float|int|null, string given.'
 			identifier: argument.type
 			count: 1
@@ -3881,18 +3863,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/code/core/Mage/Reports/Model/Resource/Order/Collection.php
-
-		-
-			rawMessage: 'Parameter #1 $filter of method Mage_Reports_Model_Resource_Quote_Collection::addCustomerData() expects array|null, string|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
-
-		-
-			rawMessage: 'Parameter #2 $filter of method Mage_Reports_Model_Resource_Quote_Collection::addSubtotal() expects array|null, string|null given.'
-			identifier: argument.type
-			count: 1
-			path: app/code/core/Mage/Reports/Model/Resource/Quote/Collection.php
 
 		-
 			rawMessage: 'Parameter #3 $cols of method Zend_Db_Select::joinInner() expects array|string, null given.'
