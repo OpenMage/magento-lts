@@ -145,6 +145,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         if (!empty($this->_tracks[$shipment->getId()])) {
             $tracks = $this->_tracks[$shipment->getId()];
         }
+
         return $tracks;
     }
 
@@ -160,6 +161,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         if (!($shippingAddress instanceof Mage_Sales_Model_Order_Address)) {
             return '';
         }
+
         return $shippingAddress->format('html');
     }
 
@@ -175,6 +177,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
         if (!($billingAddress instanceof Mage_Sales_Model_Order_Address)) {
             return '';
         }
+
         return $billingAddress->format('html');
     }
 
@@ -192,6 +195,7 @@ class Mage_Sales_Block_Order_Print_Shipment extends Mage_Sales_Block_Items_Abstr
                 $res[] = $item;
             }
         }
+
         return $res;
     }
 }

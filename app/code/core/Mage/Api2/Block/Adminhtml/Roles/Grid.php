@@ -95,6 +95,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Grid extends Mage_Adminhtml_Block_Widget_G
         if ($session->isAllowed('system/api/roles/edit')) {
             return $this->getUrl('*/*/edit', ['id' => $row->getId()]);
         }
+
         return null;
     }
 

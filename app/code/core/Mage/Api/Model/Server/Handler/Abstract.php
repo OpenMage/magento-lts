@@ -34,6 +34,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if (in_array($errorCode, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR])) {
             $this->_fault('internal');
         }
+
         return true;
     }
 
@@ -93,6 +94,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $this->_getSession()->setIsInstaLogin();
             $sessionId = $this->login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
         }
+
         return $this;
     }
 
@@ -126,6 +128,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
             $this->_fault('unknown');
             return;
         }
+
         $this->_getServer()->getAdapter()->fault(
             $faults[$faultName]['code'],
             (is_null($customMessage) ? $faults[$faultName]['message'] : $customMessage),
@@ -189,6 +192,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         if ($this->_resourceSuffix !== null) {
             return $resource . $this->_resourceSuffix;
         }
+
         return $resource;
     }
 
@@ -212,10 +216,11 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
         try {
             $this->_startSession();
             $this->_getSession()->login($username, $apiKey);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('access_denied');
             return;
         }
+
         return $this->_getSession()->getSessionId();
     }
 
@@ -299,6 +304,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 } else {
                     $result = call_user_func_array([&$model, $method], $args);
                 }
+
                 return $this->processingMethodResult($result);
             } else {
                 throw new Mage_Api_Exception('resource_path_not_callable');
@@ -422,6 +428,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                     } else {
                         $callResult = call_user_func_array([&$model, $method], $args);
                     }
+
                     $result[] = $this->processingMethodResult($callResult);
                 } else {
                     throw new Mage_Api_Exception('resource_path_not_callable');
@@ -480,6 +487,7 @@ abstract class Mage_Api_Model_Server_Handler_Abstract
                 if (isset($method->acl) && !$this->_isAllowed((string) $method->acl)) {
                     continue;
                 }
+
                 $methodAliases = [];
                 if (isset($resourcesAlias[$resourceName])) {
                     foreach ($resourcesAlias[$resourceName] as $alias) {

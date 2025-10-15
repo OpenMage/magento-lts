@@ -90,6 +90,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Creditmemo extends Mage_Bundle_Mod
                 foreach (Mage::helper('core/string')->str_split($item->getSku(), 17) as $part) {
                     $text[] = $part;
                 }
+
                 $line[] = [
                     'text'  => $text,
                     'feed'  => $x,

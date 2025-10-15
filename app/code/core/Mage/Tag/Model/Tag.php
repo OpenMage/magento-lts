@@ -39,13 +39,18 @@
 class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
 {
     public const STATUS_DISABLED = -1;
+
     public const STATUS_PENDING = 0;
+
     public const STATUS_APPROVED = 1;
 
     // statuses for tag relation add
     public const ADD_STATUS_SUCCESS = 'success';
+
     public const ADD_STATUS_NEW = 'new';
+
     public const ADD_STATUS_EXIST = 'exist';
+
     public const ADD_STATUS_REJECTED = 'rejected';
 
     /**
@@ -373,11 +378,13 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                     } else {
                         $relationModelSaveNeed = true;
                     }
+
                     $result = self::ADD_STATUS_EXIST;
                 } else {
                     $relationModelSaveNeed = true;
                     $result = self::ADD_STATUS_SUCCESS;
                 }
+
                 break;
             case $this->getPendingStatus():
                 $relation = $this->_getLinkBetweenTagCustomerProduct($relationModel);
@@ -389,6 +396,7 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                 } else {
                     $relationModelSaveNeed = true;
                 }
+
                 $result = self::ADD_STATUS_NEW;
                 break;
             case $this->getDisabledStatus():
@@ -399,8 +407,10 @@ class Mage_Tag_Model_Tag extends Mage_Core_Model_Abstract
                     $relationModelSaveNeed = true;
                     $result = self::ADD_STATUS_NEW;
                 }
+
                 break;
         }
+
         if ($relationModelSaveNeed) {
             $relationModel->save();
         }

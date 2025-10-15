@@ -85,9 +85,11 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
                 'method_code' => $profile->renderData('method_code'),
             ]);
         }
+
         if ($profiles) {
             $this->setGridElements($profiles);
         }
+
         $orders = [];
     }
 

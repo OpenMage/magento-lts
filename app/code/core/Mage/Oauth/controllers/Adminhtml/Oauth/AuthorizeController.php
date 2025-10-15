@@ -247,6 +247,7 @@ class Mage_Oauth_Adminhtml_Oauth_AuthorizeController extends Mage_Adminhtml_Cont
                 $error = true;
             }
         }
+
         return $error;
     }
 

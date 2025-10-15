@@ -70,6 +70,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                 }
             }
         }
+
         return $this->_selectedColumns;
     }
 
@@ -141,9 +142,11 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
             $mainTable = $this->getTable(Mage_Reports_Model_Resource_Report_Product_Viewed::AGGREGATION_DAILY);
             $select->from($mainTable, $this->_getSelectedColumns());
         }
+
         if (!$this->isTotals()) {
             $select->group(['period', 'product_id']);
         }
+
         $select->where('rating_pos <= ?', $this->_ratingLimit);
 
         return $this;
@@ -291,6 +294,7 @@ class Mage_Reports_Model_Resource_Report_Product_Viewed_Collection extends Mage_
                     $query = $helper->getQueryUsingAnalyticFunction($union);
                     $unionParts[] = '(' . $query . ')';
                 }
+
                 $this->getSelect()->reset()->union($unionParts, Zend_Db_Select::SQL_UNION_ALL);
             }
 

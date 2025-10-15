@@ -38,6 +38,7 @@ class Mage_Core_Model_Calculator
         if (!($store instanceof Mage_Core_Model_Store)) {
             $store = Mage::app()->getStore($store);
         }
+
         $this->_store = $store;
     }
 
@@ -55,6 +56,7 @@ class Mage_Core_Model_Calculator
             if ($negative) {
                 $this->_delta = -$this->_delta;
             }
+
             $price  += $this->_delta;
             $roundedPrice = $this->_store->roundPrice($price);
             $this->_delta = $price - $roundedPrice;
@@ -62,6 +64,7 @@ class Mage_Core_Model_Calculator
                 $this->_delta = -$this->_delta;
             }
         }
+
         return $roundedPrice;
     }
 }

@@ -24,6 +24,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
      * Cunstruction logic regular expression
      */
     public const CONSTRUCTION_DEPEND_PATTERN = '/{{depend\s*(.*?)}}(.*?){{\\/depend\s*}}/si';
+
     public const CONSTRUCTION_IF_PATTERN = '/{{if\s*(.*?)}}(.*?)({{else}}(.*?))?{{\\/if\s*}}/si';
 
     /**
@@ -55,6 +56,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         foreach ($variables as $name => $value) {
             $this->_templateVars[$name] = $value;
         }
+
         return $this;
     }
 
@@ -120,34 +122,37 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         ];
         foreach ($directives as $pattern => $directive) {
             if (preg_match_all($pattern, $value, $constructions, PREG_SET_ORDER)) {
-                foreach ($constructions as $index => $construction) {
-                    $replacedValue = '';
+                foreach ($constructions as $construction) {
                     $callback = [$this, $directive];
                     try {
                         $replacedValue = call_user_func($callback, $construction);
                     } catch (Exception $e) {
                         throw $e;
                     }
+
                     $value = str_replace($construction[0], $replacedValue, $value);
                 }
             }
         }
 
         if (preg_match_all(self::CONSTRUCTION_PATTERN, $value, $constructions, PREG_SET_ORDER)) {
-            foreach ($constructions as $index => $construction) {
+            foreach ($constructions as $construction) {
                 $replacedValue = '';
                 $callback = [$this, $construction[1] . 'Directive'];
                 if (!is_callable($callback)) {
                     continue;
                 }
+
                 try {
                     $replacedValue = call_user_func($callback, $construction);
                 } catch (Exception $e) {
                     throw $e;
                 }
+
                 $value = str_replace($construction[0], $replacedValue, $value);
             }
         }
+
         return $value;
     }
 
@@ -157,6 +162,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If template preprocessing
             return $construction[0];
         }
+
         return $this->_getVariable($construction[2], '');
     }
 
@@ -174,6 +180,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             $includeParameters = array_merge_recursive($includeParameters, $this->_templateVars);
             $replacedValue = call_user_func($this->getIncludeProcessor(), $templateCode, $includeParameters);
         }
+
         return $replacedValue;
     }
 
@@ -200,6 +207,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             $templateParameters = array_merge_recursive($templateParameters, $this->_templateVars);
             $replacedValue = call_user_func($this->getTemplateProcessor(), $configPath, $templateParameters);
         }
+
         return $replacedValue;
     }
 
@@ -227,6 +235,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             if (isset($construction[3]) && isset($construction[4])) {
                 return $construction[4];
             }
+
             return '';
         } else {
             return $construction[2];
@@ -243,12 +252,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
     {
         $tokenizer = new Varien_Filter_Template_Tokenizer_Parameter();
         $tokenizer->setString($value);
+
         $params = $tokenizer->tokenize();
         foreach ($params as $key => $value) {
             if (str_starts_with($value, '$')) {
                 $params[$key] = $this->_getVariable(substr($value, 1), null);
             }
         }
+
         return $params;
     }
 
@@ -264,6 +275,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
         Varien_Profiler::start('email_template_proccessing_variables');
         $tokenizer = new Varien_Filter_Template_Tokenizer_Variable();
         $tokenizer->setString($value);
+
         $stackVars = $tokenizer->tokenize();
         $result = $default;
         $last = 0;
@@ -290,12 +302,14 @@ class Varien_Filter_Template implements Zend_Filter_Interface
                         if ($stackVars[$i]['name'] == 'getConfig') {
                             $isEncrypted = $emailPathValidator->isValid($stackVars[$i]['args']);
                         }
+
                         $stackVars[$i]['variable'] = call_user_func_array(
                             [$stackVars[$i - 1]['variable'], $stackVars[$i]['name']],
                             !$isEncrypted ? $stackVars[$i]['args'] : [null],
                         );
                     }
                 }
+
                 $last = $i;
             }
         }
@@ -304,6 +318,7 @@ class Varien_Filter_Template implements Zend_Filter_Interface
             // If value for construction exists set it
             $result = $stackVars[$last]['variable'];
         }
+
         Varien_Profiler::stop('email_template_proccessing_variables');
         return $result;
     }

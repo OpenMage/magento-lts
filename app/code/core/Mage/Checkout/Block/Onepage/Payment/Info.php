@@ -25,6 +25,7 @@ class Mage_Checkout_Block_Onepage_Payment_Info extends Mage_Payment_Block_Info_C
         if ($info->getMethod()) {
             return $info;
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ class Mage_Checkout_Block_Onepage_Payment_Info extends Mage_Payment_Block_Info_C
         if ($block = $this->getChild($this->_getInfoBlockName())) {
             $html = $block->toHtml();
         }
+
         return $html;
     }
 }

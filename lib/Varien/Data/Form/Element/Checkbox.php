@@ -45,6 +45,7 @@ class Varien_Data_Form_Element_Checkbox extends Varien_Data_Form_Element_Abstrac
         } else {
             $this->unsetData('checked');
         }
+
         return parent::getElementHtml();
     }
 

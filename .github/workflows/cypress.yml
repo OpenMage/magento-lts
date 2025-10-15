@@ -11,7 +11,7 @@ jobs:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        webserver: ['apache-fpm', 'nginx-fpm']
+        webserver: ['nginx-fpm']
 
     steps:
       - uses: actions/checkout@v5
@@ -21,7 +21,7 @@ jobs:
           autostart: false
 
       # install DDEV configuration
-      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=${{ matrix.webserver }}
+      - run: ddev config --project-type=magento --php-version=8.1 --webserver-type=${{ matrix.webserver }} --web-environment="MAGE_IS_DEVELOPER_MODE=1"
 
       # install composer dependencies
       - run: ddev composer install
@@ -37,3 +37,10 @@ jobs:
 
         # run cypress
       - run: ddev cypress-run --config-file .cypress.config.js
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: ${{ !success() }}
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots

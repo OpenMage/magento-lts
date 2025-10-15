@@ -21,7 +21,9 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
      * to avoid interference with same attribute name.
      */
     public const COL_EMAIL   = 'email';
+
     public const COL_WEBSITE = '_website';
+
     public const COL_STORE   = '_store';
 
     /**
@@ -75,6 +77,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
         foreach (Mage::app()->getWebsites(true) as $website) {
             $this->_websiteIdToCode[$website->getId()] = $website->getCode();
         }
+
         return $this;
     }
 
@@ -155,18 +158,21 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             $allAddressAttributeOptions[$attrCode] = $this->_getAddressAttributeOptions($attribute);
             $addrColNames[] = Mage_ImportExport_Model_Import_Entity_Customer_Address::getColNameForAttrCode($attrCode);
         }
+
         foreach (Mage::getResourceModel('customer/address_collection')->addAttributeToSelect('*') as $address) {
             $addrRow = [];
 
             if (empty($addressAttributes)) {
                 $addressAttributes = $address->getAttributes();
             }
+
             foreach ($allAddressAttributeOptions as $attrCode => $attrValues) {
                 $column = Mage_ImportExport_Model_Import_Entity_Customer_Address::getColNameForAttrCode($attrCode);
                 if ($address->getData($attrCode) !== null) {
                     if (!isset($addressAttributes[$attrCode])) {
                         $addressAttributes = array_merge($addressAttributes, $address->getAttributes());
                     }
+
                     $addressAttribute = $addressAttributes[$attrCode];
                     $value            = $address->getData($attrCode);
 
@@ -177,13 +183,16 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                             $optionText             = $addressAttribute->getSource()->getOptionText($optionId);
                             $optionTexts[$optionId] = $optionText;
                         }
+
                         $addrAttributeMultiSelect[$address['parent_id']][$address->getId()][$column] = $optionTexts;
                     } elseif ($attrValues) {
                         $value = $attrValues[$value];
                     }
+
                     $addrRow[$column] = $value;
                 }
             }
+
             $customerAddrs[$address['parent_id']][$address->getId()] = $addrRow;
         }
 
@@ -210,9 +219,11 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 $addrRow          = $this->_addNextAddressOptions($addressMultiselect, $addressId, $addrRow);
                 $currentAddressId = $addressId;
             }
+
             foreach ($customerAttributeMultiSelect as $column => &$multiSelectOptions) {
                 $row[$column] = array_shift($multiSelectOptions);
             }
+
             $writeRow = array_merge($row, $addrRow);
             $writer->writeRow($writeRow);
 
@@ -228,6 +239,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                     foreach ($customerAttributeMultiSelect as $column => &$multiSelectOptions) {
                         $writeRow[$column] = array_shift($multiSelectOptions);
                     }
+
                     if (!$this->_isExistMultiSelectOptions($addressMultiselect, $currentAddressId)) {
                         [$addressId, $addrRow] = $this->_getNextAddressRow($customerAddress);
                         $currentAddressId = $addressId;
@@ -240,6 +252,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                     if ($addrRow) {
                         $writeRow = array_merge($writeRow, $addrRow);
                     }
+
                     $writer->writeRow($writeRow);
                 }
             }
@@ -265,6 +278,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 $addressRowCount                = max(count($options), $addressRowCount);
                 $allAddressRowCount[$addressId] = $addressRowCount;
             }
+
             $addressRowCount = 0;
         }
 
@@ -292,6 +306,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
 
             return [$addressId, $addressRow];
         }
+
         return [null, null];
     }
 
@@ -309,9 +324,11 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 if (isset($data['options_method']) && method_exists($this, $data['options_method'])) {
                     $data['filter_options'] = $this->{$data['options_method']}();
                 }
+
                 $attribute->addData($data);
             }
         }
+
         return $collection;
     }
 
@@ -357,6 +374,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 }
             }
         }
+
         return $options;
     }
 
@@ -388,10 +406,12 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             ) {
                 $attrValue = $this->_attributeValues[$attrCode][$attrValue];
             }
+
             if ($attrValue !== null) {
                 $row[$attrCode] = $attrValue;
             }
         }
+
         $row[self::COL_WEBSITE] = $this->_websiteIdToCode[$customer['website_id'] ?? 0];
         $row[self::COL_STORE]   = $this->_storeIdToCode[$customer['store_id']];
 
@@ -414,6 +434,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 $defaultAddrs[$customer[$addrAttrCode]][] = $colName;
             }
         }
+
         return $defaultAddrs;
     }
 
@@ -431,8 +452,10 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
             foreach ($defaultAddrs[$addressId] as $colName) {
                 $row[$colName] = 1;
             }
+
             return $row;
         }
+
         return $row;
     }
 
@@ -449,12 +472,14 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
         if (!isset($addrAttributeMultiSelect[$addressId])) {
             return $addrRow;
         }
+
         $addrMultiSelectOption = &$addrAttributeMultiSelect[$addressId];
         if (is_array($addrMultiSelectOption)) {
             foreach ($addrMultiSelectOption as $column => &$options) {
                 $addrRow[$column] = array_shift($options);
             }
         }
+
         return $addrRow;
     }
 
@@ -471,6 +496,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
         if (!isset($addrAttributeMultiSelect[$addressId])) {
             return $result;
         }
+
         $addrMultiSelectOption = $addrAttributeMultiSelect[$addressId];
         if (is_array($addrMultiSelectOption)) {
             foreach ($addrMultiSelectOption as $option) {
@@ -480,6 +506,7 @@ class Mage_ImportExport_Model_Export_Entity_Customer extends Mage_ImportExport_M
                 }
             }
         }
+
         return $result;
     }
 }

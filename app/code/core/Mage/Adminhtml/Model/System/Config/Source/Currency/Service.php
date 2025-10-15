@@ -24,6 +24,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Currency_Service
                 if (isset($currencyConfig[$code]['active']) && $currencyConfig[$code]['active'] === '0') {
                     continue;
                 }
+
                 $this->_options[] = [
                     'label' => $options['name'],
                     'value' => $code,

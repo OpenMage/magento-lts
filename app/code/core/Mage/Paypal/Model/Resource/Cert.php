@@ -54,6 +54,7 @@ class Mage_Paypal_Model_Resource_Cert extends Mage_Core_Model_Resource_Db_Abstra
         if ($data) {
             $object->setData($data);
         }
+
         return $object;
     }
 }

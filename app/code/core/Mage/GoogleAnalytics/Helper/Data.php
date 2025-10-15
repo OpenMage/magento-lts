@@ -18,12 +18,17 @@ class Mage_GoogleAnalytics_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths for using throughout the code
      */
     public const XML_PATH_ACTIVE        = 'google/analytics/active';
+
     public const XML_PATH_TYPE          = 'google/analytics/type';
+
     public const XML_PATH_ACCOUNT       = 'google/analytics/account';
+
     public const XML_PATH_DEBUG         = 'google/analytics/debug';
+
     public const XML_PATH_USERID        = 'google/analytics/user_id';
 
     public const XML_PATH_GTM_ACTIVE    = 'google/gtm/active';
+
     public const XML_PATH_GTM_CONTAINER_ID   = 'google/gtm/container_id';
 
     /**

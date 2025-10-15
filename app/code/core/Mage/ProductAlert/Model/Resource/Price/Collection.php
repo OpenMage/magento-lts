@@ -38,6 +38,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
         } else {
             $condition = $this->getConnection()->quoteInto('customer_id=?', $customer);
         }
+
         $this->addFilter('customer_id', $condition, 'string');
         return $this;
     }
@@ -53,6 +54,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
         if (is_null($website) || $website == 0) {
             return $this;
         }
+
         if (is_array($website)) {
             $condition = $this->getConnection()->quoteInto('website_id IN(?)', $website);
         } elseif ($website instanceof Mage_Core_Model_Website) {
@@ -60,6 +62,7 @@ class Mage_ProductAlert_Model_Resource_Price_Collection extends Mage_Core_Model_
         } else {
             $condition = $this->getConnection()->quoteInto('website_id=?', $website);
         }
+
         $this->addFilter('website_id', $condition, 'string');
         return $this;
     }

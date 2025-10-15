@@ -103,6 +103,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
             } else {
                 $_isNew = false;
             }
+
             if ($linkObject->getWebsiteId() == 0 && $_isNew && !Mage::helper('catalog')->isPriceGlobal()) {
                 $websiteIds = $linkObject->getProductWebsiteIds();
                 foreach ($websiteIds as $websiteId) {
@@ -111,10 +112,12 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     if ($websiteCurrency == $baseCurrency) {
                         continue;
                     }
+
                     $rate = Mage::getModel('directory/currency')->load($baseCurrency)->getRate($websiteCurrency);
                     if (!$rate) {
                         $rate = 1;
                     }
+
                     $newPrice = $linkObject->getPrice() * $rate;
                     $dataToInsert[] = [
                         'link_id'       => $linkObject->getId(),
@@ -123,8 +126,10 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                     ];
                 }
             }
+
             $writeAdapter->insertMultiple($linkPriceTable, $dataToInsert);
         }
+
         return $this;
     }
 
@@ -145,6 +150,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
         } else {
             $where = ['sample_id = ?'  => $items];
         }
+
         if ($where) {
             $writeAdapter->delete(
                 $this->getMainTable(),
@@ -159,6 +165,7 @@ class Mage_Downloadable_Model_Resource_Link extends Mage_Core_Model_Resource_Db_
                 $where,
             );
         }
+
         return $this;
     }
 

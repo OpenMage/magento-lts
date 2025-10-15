@@ -25,6 +25,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
         if (is_array($arr)) {
             return $arr;
         }
+
         return [];
     }
 
@@ -110,6 +111,7 @@ class Mage_GiftMessage_Model_Api extends Mage_Checkout_Model_Api_Resource_Produc
                 if (empty($product)) {
                     $this->_fault('product_invalid_data');
                 }
+
                 $message = $this->_prepareData($productAndMessage['message']);
                 if (empty($message)) {
                     $this->_fault('giftmessage_invalid_data');

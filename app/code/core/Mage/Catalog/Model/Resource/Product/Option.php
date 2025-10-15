@@ -115,6 +115,7 @@ class Mage_Catalog_Model_Resource_Product_Option extends Mage_Core_Model_Resourc
                             if (!$rate) {
                                 $rate = 1;
                             }
+
                             $newPrice = (float) $object->getPrice() * $rate;
                         } else {
                             $newPrice = $object->getPrice();

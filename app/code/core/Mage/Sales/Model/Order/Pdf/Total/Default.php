@@ -40,6 +40,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
         if ($this->getAmountPrefix()) {
             $amount = $this->getAmountPrefix() . $amount;
         }
+
         $title = $this->_getSalesHelper()->__($this->getTitle());
         if ($this->getTitleSourceField()) {
             $label = $title . ' (' . $this->getTitleDescription() . '):';
@@ -112,6 +113,7 @@ class Mage_Sales_Model_Order_Pdf_Total_Default extends Varien_Object
                     }
                 }
             }
+
             $taxClassAmount = $taxInfo;
         }
 

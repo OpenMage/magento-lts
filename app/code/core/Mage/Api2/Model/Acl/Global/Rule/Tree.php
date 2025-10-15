@@ -18,17 +18,24 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
      * Tree types
      */
     public const TYPE_ATTRIBUTE = 'attribute';
+
     public const TYPE_PRIVILEGE = 'privilege';
 
     /**
      * Names
      */
     public const NAME_CHILDREN         = 'children';
+
     public const NAME_PRIVILEGE        = 'privilege';
+
     public const NAME_OPERATION        = 'operation';
+
     public const NAME_ATTRIBUTE        = 'attribute';
+
     public const NAME_RESOURCE         = 'resource';
+
     public const NAME_RESOURCE_GROUPS  = 'resource_groups';
+
     public const NAME_GROUP            = 'group';
 
     /**
@@ -185,6 +192,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                             unset($checkedResources[$i]);
                         }
                     }
+
                     break;
 
                 case self::TYPE_ATTRIBUTE:
@@ -211,11 +219,13 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                             unset($checkedResources[$i]);
                         }
                     }
+
                     break;
 
                     //no default
             }
         }
+
         return $resources;
     }
 
@@ -266,15 +276,18 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     $isGroup = true;
                     $item['id'] = self::NAME_GROUP . self::ID_SEPARATOR . $name;
                 }
+
                 $item['text'] = (string) $node->title;
             } else {
                 $isResource = true;
                 $item['id'] = self::NAME_RESOURCE . self::ID_SEPARATOR . $name;
                 $item['text'] = $this->__('%s', (string) $node->title);
             }
+
             $item['checked'] = false;
             $item['sort_order'] = isset($node->sort_order) ? (string) $node->sort_order : 0;
         }
+
         if (isset($node->children)) {
             $children = $node->children->children();
         } else {
@@ -315,22 +328,26 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                     if (!$subNode) {
                         continue;
                     }
+
                     //if sub-node check then check current node
                     if (!empty($subNode['checked'])) {
                         $item['checked'] = true;
                     }
+
                     $item[self::NAME_CHILDREN][] = $subNode;
                 } else {
                     $item = $this->_getTreeNode($child, $level + 1);
                 }
             }
         }
+
         if (!empty($item[self::NAME_CHILDREN])) {
             usort($item[self::NAME_CHILDREN], [$this, '_sortTree']);
         } elseif ($isGroup) {
             //skip empty group
             return null;
         }
+
         return $item;
     }
 
@@ -362,6 +379,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             if (empty($possibleList[$key])) {
                 continue;
             }
+
             $checked = !empty($this->_resourcesPermissions[$name]['privileges'][$roleConfigNodeName][$key]);
             $item['checked'] = $checked ? $checked : $item['checked'];
             $subItem = [
@@ -372,6 +390,7 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
             ];
             $item[self::NAME_CHILDREN][] = $subItem;
         }
+
         return true;
     }
 
@@ -403,14 +422,18 @@ class Mage_Api2_Model_Acl_Global_Rule_Tree extends Mage_Core_Helper_Abstract
                 $cnt--;
                 continue;
             }
+
             if (!empty($subItem['checked'])) {
                 $item['checked'] = true;
             }
+
             $item[self::NAME_CHILDREN][] = $subItem;
         }
+
         if (!$cnt) {
             return false;
         }
+
         return true;
     }
 

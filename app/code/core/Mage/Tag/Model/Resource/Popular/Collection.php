@@ -72,6 +72,7 @@ class Mage_Tag_Model_Resource_Popular_Collection extends Mage_Core_Model_Resourc
         if ($this->isLoaded()) {
             return $this;
         }
+
         parent::load($printQuery, $logQuery);
         return $this;
     }

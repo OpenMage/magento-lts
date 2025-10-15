@@ -29,6 +29,7 @@ class Mage_Dataflow_Model_Resource_Profile_History extends Mage_Core_Model_Resou
         if (!$object->getPerformedAt()) {
             $object->setPerformedAt($this->formatDate(time()));
         }
+
         parent::_beforeSave($object);
         return $this;
     }

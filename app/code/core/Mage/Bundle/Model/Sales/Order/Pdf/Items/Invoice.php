@@ -84,6 +84,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 $feed = 35;
                 $name = $orderItem->getName();
             }
+
             $line[] = [
                 'text'  => $stringHelper->str_split($name, 35, true, true),
                 'feed'  => $feed,
@@ -95,6 +96,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 foreach ($stringHelper->str_split($item->getSku(), 17) as $part) {
                     $text[] = $part;
                 }
+
                 $line[] = [
                     'text'  => $text,
                     'feed'  => 255,
@@ -108,6 +110,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 } else {
                     $price = $order->formatPriceTxt($orderItem->getPrice());
                 }
+
                 $line[] = [
                     'text'  => $price,
                     'feed'  => 395,
@@ -133,6 +136,7 @@ class Mage_Bundle_Model_Sales_Order_Pdf_Items_Invoice extends Mage_Bundle_Model_
                 } else {
                     $rowTotal = $order->formatPriceTxt($orderItem->getRowTotal());
                 }
+
                 $line[] = [
                     'text'  => $rowTotal,
                     'feed'  => 565,

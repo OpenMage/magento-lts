@@ -18,43 +18,69 @@ class Mage_Oauth_Model_Server
      * OAuth result statuses
      */
     public const ERR_OK                        = 0;
+
     public const ERR_VERSION_REJECTED          = 1;
+
     public const ERR_PARAMETER_ABSENT          = 2;
+
     public const ERR_PARAMETER_REJECTED        = 3;
+
     public const ERR_TIMESTAMP_REFUSED         = 4;
+
     public const ERR_NONCE_USED                = 5;
+
     public const ERR_SIGNATURE_METHOD_REJECTED = 6;
+
     public const ERR_SIGNATURE_INVALID         = 7;
+
     public const ERR_CONSUMER_KEY_REJECTED     = 8;
+
     public const ERR_TOKEN_USED                = 9;
+
     public const ERR_TOKEN_EXPIRED             = 10;
+
     public const ERR_TOKEN_REVOKED             = 11;
+
     public const ERR_TOKEN_REJECTED            = 12;
+
     public const ERR_VERIFIER_INVALID          = 13;
+
     public const ERR_PERMISSION_UNKNOWN        = 14;
+
     public const ERR_PERMISSION_DENIED         = 15;
 
     /**
      * Signature Methods
      */
     public const SIGNATURE_HMAC  = 'HMAC-SHA1';
+
     public const SIGNATURE_RSA   = 'RSA-SHA1';
+
     public const SIGNATURE_PLAIN = 'PLAINTEXT';
 
     /**
      * Request Types
      */
-    public const REQUEST_INITIATE  = 'initiate';  // ask for temporary credentials
-    public const REQUEST_AUTHORIZE = 'authorize'; // display authorize form
-    public const REQUEST_TOKEN     = 'token';     // ask for permanent credentials
+    public const REQUEST_INITIATE  = 'initiate';
+
+    // ask for temporary credentials
+    public const REQUEST_AUTHORIZE = 'authorize';
+
+    // display authorize form
+    public const REQUEST_TOKEN     = 'token';
+
+    // ask for permanent credentials
     public const REQUEST_RESOURCE  = 'resource';  // ask for protected resource using permanent credentials
 
     /**
      * HTTP Response Codes
      */
     public const HTTP_OK             = 200;
+
     public const HTTP_BAD_REQUEST    = 400;
+
     public const HTTP_UNAUTHORIZED   = 401;
+
     public const HTTP_INTERNAL_ERROR = 500;
 
     /**
@@ -176,6 +202,7 @@ class Mage_Oauth_Model_Server
             if (!$request instanceof Zend_Controller_Request_Http) {
                 throw new Exception('Invalid request object passed');
             }
+
             $this->_request = $request;
         } else {
             $this->_request = Mage::app()->getRequest();
@@ -201,11 +228,13 @@ class Mage_Oauth_Model_Server
                 if (count($nameAndValue) < 2) {
                     continue;
                 }
+
                 if ($this->_isProtocolParameter($nameAndValue[0])) {
                     $this->_protocolParams[rawurldecode($nameAndValue[0])] = rawurldecode(trim($nameAndValue[1], '"'));
                 }
             }
         }
+
         $contentTypeHeader = $this->_request->getHeader(Zend_Http_Client::CONTENT_TYPE);
 
         if ($contentTypeHeader && str_starts_with($contentTypeHeader, Zend_Http_Client::ENC_URLENCODED)) {
@@ -221,6 +250,7 @@ class Mage_Oauth_Model_Server
                 }
             }
         }
+
         $protocolParamsNotSet = !$this->_protocolParams;
 
         $url = $this->_request->getScheme() . '://' . $this->_request->getHttpHost() . $this->_request->getRequestUri();
@@ -234,9 +264,11 @@ class Mage_Oauth_Model_Server
                 }
             }
         }
+
         if ($protocolParamsNotSet) {
             $this->_fetchProtocolParamsFromQuery();
         }
+
         return $this;
     }
 
@@ -252,6 +284,7 @@ class Mage_Oauth_Model_Server
                 $this->_protocolParams[$queryParamName] = $queryParamValue;
             }
         }
+
         return $this;
     }
 
@@ -265,6 +298,7 @@ class Mage_Oauth_Model_Server
         if ($this->_response === null) {
             $this->setResponse(Mage::app()->getResponse());
         }
+
         return $this->_response;
     }
 
@@ -299,15 +333,18 @@ class Mage_Oauth_Model_Server
             if (!$this->_token->getId()) {
                 $this->_throwException('', self::ERR_TOKEN_REJECTED);
             }
+
             if (self::REQUEST_TOKEN == $this->_requestType) {
                 $this->_validateVerifierParam();
 
                 if (!hash_equals((string) $this->_token->getVerifier(), $this->_protocolParams['oauth_verifier'])) {
                     $this->_throwException('', self::ERR_VERIFIER_INVALID);
                 }
+
                 if (!hash_equals((string) $this->_token->getConsumerId(), (string) $this->_consumer->getId())) {
                     $this->_throwException('', self::ERR_TOKEN_REJECTED);
                 }
+
                 if (Mage_Oauth_Model_Token::TYPE_REQUEST != $this->_token->getType()) {
                     $this->_throwException('', self::ERR_TOKEN_USED);
                 }
@@ -319,17 +356,21 @@ class Mage_Oauth_Model_Server
                 if (Mage_Oauth_Model_Token::TYPE_ACCESS != $this->_token->getType()) {
                     $this->_throwException('', self::ERR_TOKEN_REJECTED);
                 }
+
                 if ($this->_token->getRevoked()) {
                     $this->_throwException('', self::ERR_TOKEN_REVOKED);
                 }
+
                 if ($this->_token->getConsumerId() != $this->_consumer->getId()) {
                     $this->_throwException('', self::ERR_TOKEN_REJECTED);
                 }
+
                 //TODO: Implement check for expiration (after it implemented in token model)
             }
         } else {
             $this->_validateCallbackUrlParam();
         }
+
         return $this;
     }
 
@@ -360,6 +401,7 @@ class Mage_Oauth_Model_Server
         ) {
             Mage::throwException('Invalid request type');
         }
+
         $this->_requestType = $requestType;
 
         // get parameters from request
@@ -396,6 +438,7 @@ class Mage_Oauth_Model_Server
             } else {
                 $callbackUrl = $this->_protocolParams['oauth_callback'];
             }
+
             $this->_token->createRequestToken($this->_consumer->getId(), $callbackUrl);
         } elseif (self::REQUEST_TOKEN == $this->_requestType) {
             $this->_token->convertToAccess();
@@ -422,14 +465,17 @@ class Mage_Oauth_Model_Server
         if (!isset($this->_protocolParams['oauth_callback'])) {
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_ABSENT);
         }
+
         if (!is_string($this->_protocolParams['oauth_callback'])) {
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);
         }
+
         // Is the callback URL whitelisted?
         $callbackUrl = $this->_consumer->getCallbackUrl();
         if ($callbackUrl && str_starts_with($this->_protocolParams['oauth_callback'], $callbackUrl)) {
             return;
         }
+
         if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']
             && !Zend_Uri::check($this->_protocolParams['oauth_callback'])
         ) {
@@ -450,6 +496,7 @@ class Mage_Oauth_Model_Server
         if ($timestamp <= 0 || $timestamp > (time() + self::TIME_DEVIATION)) {
             $this->_throwException('', self::ERR_TIMESTAMP_REFUSED);
         }
+
         /** @var Mage_Oauth_Model_Nonce $nonceObj */
         $nonceObj = Mage::getModel('oauth/nonce');
 
@@ -458,6 +505,7 @@ class Mage_Oauth_Model_Server
         if ($nonceObj->getTimestamp() == $timestamp) {
             $this->_throwException('', self::ERR_NONCE_USED);
         }
+
         $nonceObj->setNonce($nonce)
             ->setTimestamp($timestamp)
             ->save();
@@ -472,34 +520,41 @@ class Mage_Oauth_Model_Server
         if (isset($this->_protocolParams['oauth_version']) && $this->_protocolParams['oauth_version'] != '1.0') {
             $this->_throwException('', self::ERR_VERSION_REJECTED);
         }
+
         // required parameters validation
         foreach (['oauth_consumer_key', 'oauth_signature_method', 'oauth_signature'] as $reqField) {
             if (empty($this->_protocolParams[$reqField])) {
                 $this->_throwException($reqField, self::ERR_PARAMETER_ABSENT);
             }
         }
+
         // validate parameters type
         foreach ($this->_protocolParams as $paramName => $paramValue) {
             if (!is_string($paramValue)) {
                 $this->_throwException($paramName, self::ERR_PARAMETER_REJECTED);
             }
         }
+
         // validate consumer key length
         if (strlen($this->_protocolParams['oauth_consumer_key']) != Mage_Oauth_Model_Consumer::KEY_LENGTH) {
             $this->_throwException('', self::ERR_CONSUMER_KEY_REJECTED);
         }
+
         // validate signature method
         if (!in_array($this->_protocolParams['oauth_signature_method'], self::getSupportedSignatureMethods())) {
             $this->_throwException('', self::ERR_SIGNATURE_METHOD_REJECTED);
         }
+
         // validate nonce data if signature method is not PLAINTEXT
         if (self::SIGNATURE_PLAIN != $this->_protocolParams['oauth_signature_method']) {
             if (empty($this->_protocolParams['oauth_nonce'])) {
                 $this->_throwException('oauth_nonce', self::ERR_PARAMETER_ABSENT);
             }
+
             if (empty($this->_protocolParams['oauth_timestamp'])) {
                 $this->_throwException('oauth_timestamp', self::ERR_PARAMETER_ABSENT);
             }
+
             $this->_validateNonce($this->_protocolParams['oauth_nonce'], $this->_protocolParams['oauth_timestamp']);
         }
     }
@@ -533,9 +588,11 @@ class Mage_Oauth_Model_Server
         if (empty($this->_protocolParams['oauth_token'])) {
             $this->_throwException('oauth_token', self::ERR_PARAMETER_ABSENT);
         }
+
         if (!is_string($this->_protocolParams['oauth_token'])) {
             $this->_throwException('', self::ERR_TOKEN_REJECTED);
         }
+
         if (strlen($this->_protocolParams['oauth_token']) != Mage_Oauth_Model_Token::LENGTH_TOKEN) {
             $this->_throwException('', self::ERR_TOKEN_REJECTED);
         }
@@ -549,9 +606,11 @@ class Mage_Oauth_Model_Server
         if (empty($this->_protocolParams['oauth_verifier'])) {
             $this->_throwException('oauth_verifier', self::ERR_PARAMETER_ABSENT);
         }
+
         if (!is_string($this->_protocolParams['oauth_verifier'])) {
             $this->_throwException('', self::ERR_VERIFIER_INVALID);
         }
+
         if (strlen($this->_protocolParams['oauth_verifier']) != Mage_Oauth_Model_Token::LENGTH_VERIFIER) {
             $this->_throwException('', self::ERR_VERIFIER_INVALID);
         }
@@ -569,6 +628,7 @@ class Mage_Oauth_Model_Server
         } catch (Exception $e) {
             $response = $this->reportProblem($e);
         }
+
         $this->_getResponse()->setBody($response);
     }
 
@@ -610,6 +670,7 @@ class Mage_Oauth_Model_Server
         if (!$this->_request->isGet()) {
             Mage::throwException('Request is not GET');
         }
+
         $this->_requestType = self::REQUEST_AUTHORIZE;
 
         $this->_fetchProtocolParamsFromQuery();
@@ -640,6 +701,7 @@ class Mage_Oauth_Model_Server
         } catch (Exception $e) {
             $response = $this->reportProblem($e);
         }
+
         $this->_getResponse()->setBody($response);
     }
 
@@ -664,6 +726,7 @@ class Mage_Oauth_Model_Server
                 $errorMsg = 'unknown_problem&code=' . $eCode;
                 $responseCode = self::HTTP_INTERNAL_ERROR;
             }
+
             if (self::ERR_PARAMETER_ABSENT == $eCode) {
                 $errorMsg .= '&oauth_parameters_absent=' . $eMsg;
             } elseif ($eMsg) {
@@ -673,9 +736,11 @@ class Mage_Oauth_Model_Server
             $errorMsg = 'internal_error&message=' . ($eMsg ? $eMsg : 'empty_message');
             $responseCode = self::HTTP_INTERNAL_ERROR;
         }
+
         if (!$response) {
             $response = $this->_getResponse();
         }
+
         $response->setHttpResponseCode($responseCode);
 
         return 'oauth_problem=' . $errorMsg;

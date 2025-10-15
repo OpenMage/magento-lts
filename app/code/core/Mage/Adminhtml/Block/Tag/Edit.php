@@ -31,7 +31,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
         $this->addButton('save_and_edit_button', [
             'label'   => Mage::helper('tag')->__('Save and Continue Edit'),
             'onclick' => Mage::helper('core/js')->getSaveAndContinueEditJs($this->getSaveAndContinueUrl()),
-            'class'   => 'save',
+            'class'   => 'save continue',
         ], 1);
     }
 
@@ -64,6 +64,7 @@ class Mage_Adminhtml_Block_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form_Con
                 $this->escapeHtml(Mage::registry('current_tag')->getName()),
             );
         }
+
         return Mage::helper('tag')->__('New Tag');
     }
 

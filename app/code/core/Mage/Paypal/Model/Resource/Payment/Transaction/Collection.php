@@ -21,6 +21,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
      * @var string
      */
     protected $_createdBefore          = '';
+
     /**
      * Initialize collection items factory class
      */
@@ -59,6 +60,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
         if ($this->_createdBefore) {
             $this->getSelect()->where('main_table.created_at < ?', $this->_createdBefore);
         }
+
         return $this;
     }
 
@@ -72,6 +74,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction_Collection extends Mage_Cor
         foreach ($this->_items as $item) {
             $this->getResource()->unserializeFields($item);
         }
+
         return parent::_afterLoad();
     }
 }

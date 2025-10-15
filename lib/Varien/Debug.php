@@ -15,6 +15,7 @@
 class Varien_Debug
 {
     public static $argLength = 16;
+
     /**
      * Magento Root path
      *
@@ -36,6 +37,7 @@ class Varien_Debug
                 self::$_filePath = dirname(__DIR__);
             }
         }
+
         return self::$_filePath;
     }
 
@@ -91,6 +93,7 @@ class Varien_Debug
                 } else {
                     $className = $data['class'];
                 }
+
                 if (isset($data['object'])) {
                     $className .= sprintf('#%s#', spl_object_hash($data['object']));
                 }
@@ -111,6 +114,7 @@ class Varien_Debug
                 if ($pos !== false) {
                     $data['file'] = substr($data['file'], strlen(self::getRootPath()) + 1);
                 }
+
                 $fileName = sprintf('%s:%d', $data['file'], $data['line']);
             } else {
                 $fileName = false;
@@ -156,13 +160,16 @@ class Varien_Debug
                 if (!is_numeric($k)) {
                     $isAssociative = true;
                 }
+
                 $args[$k] = self::_formatCalledArgument($v);
             }
+
             if ($isAssociative) {
                 $arr = [];
                 foreach ($args as $k => $v) {
                     $arr[] = self::_formatCalledArgument($k) . ' => ' . $v;
                 }
+
                 $out .= 'array(' . implode(', ', $arr) . ')';
             } else {
                 $out .= 'array(' . implode(', ', $args) . ')';
@@ -175,6 +182,7 @@ class Varien_Debug
             if (strlen($arg) > self::$argLength) {
                 $arg = substr($arg, 0, self::$argLength) . '...';
             }
+
             $arg = strtr($arg, ["\t" => '\t', "\r" => '\r', "\n" => '\n', "'" => '\\\'']);
             $out .= "'" . $arg . "'";
         } elseif (is_bool($arg)) {

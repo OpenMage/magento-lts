@@ -91,6 +91,7 @@ if ($showPrefix) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -105,6 +106,7 @@ if ($showMiddlename) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -119,6 +121,7 @@ if ($showSuffix) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -133,6 +136,7 @@ if ($showDob) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 if ($showTaxVat) {
     $setup->insert($installer->getTable('eav/form_element'), [
         'type_id'       => $formTypeId,
@@ -185,6 +189,7 @@ if ($showPrefix) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -199,6 +204,7 @@ if ($showMiddlename) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -213,6 +219,7 @@ if ($showSuffix) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -227,6 +234,7 @@ if ($showDob) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 if ($showTaxVat) {
     $setup->insert($installer->getTable('eav/form_element'), [
         'type_id'       => $formTypeId,
@@ -279,6 +287,7 @@ if ($showPrefix) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -293,6 +302,7 @@ if ($showMiddlename) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,
@@ -307,6 +317,7 @@ if ($showSuffix) {
         'sort_order'    => $elementSort++,
     ]);
 }
+
 $setup->insert($installer->getTable('eav/form_element'), [
     'type_id'       => $formTypeId,
     'fieldset_id'   => $fieldsetId,

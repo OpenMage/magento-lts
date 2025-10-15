@@ -93,6 +93,7 @@ class Mage_Catalog_Model_Resource_Product_Option_Value extends Mage_Core_Model_R
                         if (!$rate) {
                             $rate = 1;
                         }
+
                         $newPrice = $price * $rate;
                     } else {
                         $newPrice = $price;

@@ -99,6 +99,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 }
             }
         }
+
         if (($size = count($options))) {
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
@@ -146,6 +147,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         } else {
             $options = $attribute->getSource()->getAllOptions(false);
         }
+
         if (($size = count($options))) {
             // add empty value option
             $firstOption = reset($options);
@@ -155,6 +157,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             } else {
                 array_unshift($options, ['value' => '', 'label' => '']);
             }
+
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()),
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
@@ -232,6 +235,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 }
             }
         }
+
         if (($size = count($options))) {
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()) . '[]',
@@ -288,6 +292,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         } else {
             $options = $attribute->getSource()->getAllOptions(false);
         }
+
         if (($size = count($options))) {
             // add empty value option
             $firstOption = reset($options);
@@ -297,6 +302,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
             } else {
                 array_unshift($options, ['value' => '', 'label' => '']);
             }
+
             $selectBlock = new Mage_Core_Block_Html_Select([
                 'name'         => $this->getFilterElementName($attribute->getAttributeCode()),
                 'id'           => $this->getFilterElementId($attribute->getAttributeCode()),
@@ -351,6 +357,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
                 $this->getColumn('skip')
                     ->setData('values', $skipAttr);
             }
+
             $filter = $operation->getExportFilter();
             if ($filter) {
                 $this->getColumn('filter')
@@ -375,6 +382,7 @@ class Mage_ImportExport_Block_Adminhtml_Export_Filter extends Mage_Adminhtml_Blo
         if (is_array($values) && isset($values[$row->getAttributeCode()])) {
             $value = $values[$row->getAttributeCode()];
         }
+
         return match (Mage_ImportExport_Model_Export::getAttributeFilterType($row)) {
             Mage_ImportExport_Model_Export::FILTER_TYPE_SELECT => $this->_getSelectHtmlWithValue($row, $value),
             Mage_ImportExport_Model_Export::FILTER_TYPE_INPUT => $this->_getInputHtmlWithValue($row, $value),

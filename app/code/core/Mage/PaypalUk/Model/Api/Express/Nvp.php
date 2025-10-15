@@ -25,6 +25,7 @@ class Mage_PaypalUk_Model_Api_Express_Nvp extends Mage_PaypalUk_Model_Api_Nvp
         if ($index !== false) {
             unset($this->_doExpressCheckoutPaymentResponse[$index]);
         }
+
         $this->_doExpressCheckoutPaymentResponse[] = 'PAYMENTINFO_0_TRANSACTIONID';
         $this->_requiredResponseParams[self::DO_EXPRESS_CHECKOUT_PAYMENT][] = 'PAYMENTINFO_0_TRANSACTIONID';
     }

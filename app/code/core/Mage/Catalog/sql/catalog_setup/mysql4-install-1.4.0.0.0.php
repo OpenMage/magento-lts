@@ -772,5 +772,6 @@ foreach ($describe as $columnData) {
     if ($columnData['COLUMN_NAME'] == 'attribute_id') {
         continue;
     }
+
     $installer->getConnection()->dropColumn($installer->getTable('eav/attribute'), $columnData['COLUMN_NAME']);
 }

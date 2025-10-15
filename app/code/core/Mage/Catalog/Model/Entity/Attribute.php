@@ -53,7 +53,9 @@
 class Mage_Catalog_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute
 {
     protected $_eventPrefix = 'catalog_entity_attribute';
+
     protected $_eventObject = 'attribute';
+
     public const MODULE_NAME = 'Mage_Catalog';
 
     /**
@@ -66,6 +68,7 @@ class Mage_Catalog_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribut
         if ($this->_getResource()->isUsedBySuperProducts($this)) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('This attribute is used in configurable products'));
         }
+
         $this->setData('modulePrefix', self::MODULE_NAME);
         return parent::_beforeSave();
     }

@@ -13,7 +13,9 @@
 abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Model_Convert_Parser_Abstract
 {
     protected $_storesById;
+
     protected $_attributeSetsById;
+
     protected $_attributeSetsByName;
 
     /**
@@ -34,10 +36,12 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                     if (!$storeNode) {
                         return false;
                     }
+
                     $storeIds[] = (int) $storeNode->system->store->id;
                 }
             }
         }
+
         return $storeIds;
     }
 
@@ -71,6 +75,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
             $this->_attributeSetsById[$id] = $name;
             $this->_attributeSetsByName[$name] = $id;
         }
+
         return $this;
     }
 
@@ -84,6 +89,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsById) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsById[$id] ?? false;
     }
 
@@ -97,6 +103,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
         if (!$this->_attributeSetsByName) {
             $this->loadAttributeSets($entityTypeId);
         }
+
         return $this->_attributeSetsByName[$name] ?? false;
     }
 
@@ -111,6 +118,7 @@ abstract class Mage_Eav_Model_Convert_Parser_Abstract extends Mage_Dataflow_Mode
                 return $option['value'];
             }
         }
+
         return null;
     }
 }

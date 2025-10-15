@@ -42,6 +42,7 @@ class Mage_Core_Block_Text_Tag extends Mage_Core_Block_Text
             $params[$param] = $value;
             $this->setTagParams($params);
         }
+
         return $this;
     }
 

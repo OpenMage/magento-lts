@@ -78,6 +78,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                     } else {
                         $acl->addRoleParent($roleId, $parent);
                     }
+
                     break;
             }
         }
@@ -102,6 +103,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 $assertClass = Mage::getSingleton('api/config')->getAclAssert($rule['assert_type'])->getClassName();
                 $assert = new $assertClass(unserialize($rule['assert_data'], ['allowed_classes' => false]));
             }
+
             try {
                 if ($rule['api_permission'] == 'allow') {
                     $acl->allow($role, $resource, $privileges, $assert);
@@ -112,6 +114,7 @@ class Mage_Api_Model_Resource_Acl extends Mage_Core_Model_Resource_Db_Abstract
                 Mage::logException($e);
             }
         }
+
         return $this;
     }
 }

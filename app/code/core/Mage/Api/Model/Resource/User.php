@@ -85,6 +85,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 ],
             );
         }
+
         $user->setLogdate($loginDate);
         return $this;
     }
@@ -110,6 +111,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         if ($user) {
             $where['user_id = ?'] = $user->getId();
         }
+
         $writeAdapter->delete(
             $this->getTable('api/session'),
             $where,
@@ -152,6 +154,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 $result = array_merge($user, $apiSession);
             }
         }
+
         return $result;
     }
 
@@ -193,6 +196,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 ->where('parent_id > 0 AND user_id = ?', $userId);
             $result = $adapter->fetchAll($select);
         }
+
         return $result;
     }
 
@@ -207,6 +211,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         if (!$user->getId()) {
             $user->setCreated($now);
         }
+
         $user->setModified($now);
         return $this;
     }
@@ -230,6 +235,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
             $dbh->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -277,9 +283,10 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         } catch (Mage_Core_Exception $e) {
             $adapter->rollBack();
             throw $e;
-        } catch (Exception $e) {
+        } catch (Exception) {
             $adapter->rollBack();
         }
+
         return $this;
     }
 
@@ -293,6 +300,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         if (!$user->getId()) {
             return [];
         }
+
         $table   = $this->getTable('api/role');
         $adapter = $this->_getReadAdapter();
         $select  = $adapter->select()
@@ -320,7 +328,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         $adapter = $this->_getWriteAdapter();
         $aRoles  = $this->hasAssigned2Role($user);
         if (count($aRoles)) {
-            foreach ($aRoles as $idx => $data) {
+            foreach ($aRoles as $data) {
                 $adapter->delete(
                     $this->getTable('api/role'),
                     ['role_id = ?' => $data['role_id']],
@@ -333,6 +341,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         } else {
             $role = new Varien_Object(['tree_level' => 0]);
         }
+
         $adapter->insert($this->getTable('api/role'), [
             'parent_id'  => $user->getRoleId(),
             'tree_level' => $role->getTreeLevel() + 1,
@@ -355,6 +364,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
         if ($user->getUserId() <= 0) {
             return $this;
         }
+
         if ($user->getRoleId() <= 0) {
             return $this;
         }
@@ -386,6 +396,7 @@ class Mage_Api_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstract
                 ->where('user_id = ?', $user->getUserId());
             $result = $adapter->fetchCol($select);
         }
+
         return $result;
     }
 

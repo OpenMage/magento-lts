@@ -28,6 +28,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
         if (!$product->getId()) {
             $this->_critical(sprintf('Product #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $product;
     }
 
@@ -45,6 +46,7 @@ class Mage_Catalog_Model_Api2_Product_Website extends Mage_Api2_Model_Resource
         if (!$website->getId()) {
             $this->_critical(sprintf('Website #%s not found.', $id), Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $website;
     }
 }

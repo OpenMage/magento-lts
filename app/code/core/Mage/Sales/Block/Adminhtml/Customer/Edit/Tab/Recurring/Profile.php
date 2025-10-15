@@ -77,6 +77,7 @@ class Mage_Sales_Block_Adminhtml_Customer_Edit_Tab_Recurring_Profile extends Mag
         if (!$this->getParam($this->getVarNameSort())) {
             $collection->setOrder('profile_id', 'desc');
         }
+
         $this->setCollection($collection);
         return Mage_Adminhtml_Block_Widget_Grid::_prepareCollection();
     }

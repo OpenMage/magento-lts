@@ -123,6 +123,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 ->getAttributeById($item->getAttributeId(), $this->getProduct());
             $item->setProductAttribute($productAttribute);
         }
+
         return $this;
     }
 
@@ -181,6 +182,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 $this->getItemById($data['product_super_attribute_id'])->setUseDefault($data['use_default']);
             }
         }
+
         return $this;
     }
 
@@ -226,6 +228,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 if (!($productAttribute instanceof Mage_Eav_Model_Entity_Attribute_Abstract)) {
                     continue;
                 }
+
                 $productAttributeCode = $productAttribute->getAttributeCode();
                 $options = $productAttribute->getFrontend()->getSelectOptions();
 
@@ -292,6 +295,7 @@ class Mage_Catalog_Model_Resource_Product_Type_Configurable_Attribute_Collection
                 $this->getItemById($data['product_super_attribute_id'])->addPrice($data);
             }
         }
+
         return $this;
     }
 

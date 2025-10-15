@@ -50,6 +50,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
                     Mage::helper('core')->__('Input type "%value%" not found in the input types list.'),
             ];
         }
+
         return $this;
     }
 
@@ -64,6 +65,7 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
         if (!in_array((string) $type, $this->_haystack, true)) {
             $this->_haystack[] = (string) $type;
         }
+
         return $this;
     }
 }

@@ -32,6 +32,7 @@ class Mage_Captcha_Model_Observer
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/forgotpassword'));
             }
         }
+
         return $this;
     }
 
@@ -59,6 +60,7 @@ class Mage_Captcha_Model_Observer
                 $controller->getResponse()->setRedirect($url);
             }
         }
+
         $captchaModel->logAttempt($login);
         return $this;
     }
@@ -81,6 +83,7 @@ class Mage_Captcha_Model_Observer
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/create'));
             }
         }
+
         return $this;
     }
 
@@ -104,6 +107,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -128,6 +132,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -149,6 +154,7 @@ class Mage_Captcha_Model_Observer
                 Mage::throwException(Mage::helper('captcha')->__('Incorrect CAPTCHA.'));
             }
         }
+
         $captchaModel->logAttempt($login);
         return $this;
     }
@@ -187,6 +193,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -241,6 +248,7 @@ class Mage_Captcha_Model_Observer
                 }
             }
         }
+
         return $this;
     }
 
@@ -291,6 +299,7 @@ class Mage_Captcha_Model_Observer
                     ->setRedirect(Mage::getUrl('wishlist/index/share/wishlist_id/' . $wishlistId));
             }
         }
+
         return $this;
     }
 
@@ -316,9 +325,11 @@ class Mage_Captcha_Model_Observer
                 if ($catId !== null) {
                     $id .= '/cat_id/' . (int) $catId;
                 }
+
                 $controller->getResponse()->setRedirect(Mage::getUrl('*/*/send/id/' . $id));
             }
         }
+
         return $this;
     }
 }

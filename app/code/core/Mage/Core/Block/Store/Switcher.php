@@ -20,7 +20,9 @@
 class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
 {
     protected $_groups = [];
+
     protected $_stores = [];
+
     protected $_loaded = false;
 
     public function __construct()
@@ -52,11 +54,13 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
         foreach ($groupCollection as $group) {
             $this->_groups[$group->getId()] = $group;
         }
+
         /** @var Mage_Core_Model_Store $store */
         foreach ($storeCollection as $store) {
             if (!$store->getIsActive()) {
                 continue;
             }
+
             $store->setLocaleCode(Mage::getStoreConfig('general/locale/code', $store->getId()));
             $this->_stores[$store->getGroupId()][$store->getId()] = $store;
         }
@@ -77,6 +81,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
             if (!isset($this->_stores[$group->getId()])) {
                 continue;
             }
+
             $useStore = false;
             /** @var Mage_Core_Model_Store $store */
             foreach ($this->_stores[$group->getId()] as $store) {
@@ -85,6 +90,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
                     $stores[] = $store;
                 }
             }
+
             if (!$useStore && isset($this->_stores[$group->getId()][$group->getDefaultStoreId()])) {
                 $stores[] = $this->_stores[$group->getId()][$group->getDefaultStoreId()];
             }
@@ -105,6 +111,7 @@ class Mage_Core_Block_Store_Switcher extends Mage_Core_Block_Template
             $this->setLanguages([]);
             return 0;
         }
+
         $this->setLanguages($this->_stores[$groupId]);
         return count($this->getLanguages());
     }

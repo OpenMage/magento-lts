@@ -33,6 +33,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
         } else {
             $productId = $product;
         }
+
         $select = $read->select()->from($this->getMainTable())
             ->where('product_id = ?', (int) $productId);
 
@@ -70,6 +71,7 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             $bind['customer_id'] = (int) $customerId;
             $select->where('customer_id = :customer_id');
         }
+
         return $this->_getReadAdapter()->fetchOne($select, $bind);
     }
 
@@ -186,15 +188,14 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
                 $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . ' IN(?)', $delete),
             );
         }
-        if ($update) {
-            foreach ($update as $itemId => $productId) {
-                $bind = $products[$productId];
-                $this->_getWriteAdapter()->update(
-                    $this->getMainTable(),
-                    $bind,
-                    $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId),
-                );
-            }
+
+        foreach ($update as $itemId => $productId) {
+            $bind = $products[$productId];
+            $this->_getWriteAdapter()->update(
+                $this->getMainTable(),
+                $bind,
+                $this->_getWriteAdapter()->quoteInto($this->getIdFieldName() . '=?', $itemId),
+            );
         }
 
         return $this;
@@ -214,13 +215,16 @@ class Mage_Catalog_Model_Resource_Product_Compare_Item extends Mage_Core_Model_R
             $customerId = (int) $customerId;
             $where[] = $this->_getWriteAdapter()->quoteInto('customer_id = ?', $customerId);
         }
+
         if ($visitorId) {
             $visitorId = (int) $visitorId;
             $where[] = $this->_getWriteAdapter()->quoteInto('visitor_id = ?', $visitorId);
         }
+
         if (!$where) {
             return $this;
         }
+
         $this->_getWriteAdapter()->delete($this->getMainTable(), $where);
         return $this;
     }

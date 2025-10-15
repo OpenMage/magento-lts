@@ -13,8 +13,11 @@
 class Varien_Db_Tree_NodeSet implements Iterator
 {
     private $_nodes = [];
+
     private $_currentNode = 0;
+
     private $_current = 0;
+
     private $count = 0;
 
     public function __construct()

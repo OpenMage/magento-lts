@@ -88,6 +88,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
         if ($value !== false && empty($value)) {
             $value = null;
         }
+
         $this->getEntity()->setDataUsingMethod($this->getAttribute()->getAttributeCode(), $value);
 
         return $this;
@@ -121,6 +122,7 @@ class Mage_Eav_Model_Attribute_Data_Date extends Mage_Eav_Model_Attribute_Data_A
                     $this->_dateFilterFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM);
                     break;
             }
+
             $value = $this->_applyOutputFilter($value);
         }
 

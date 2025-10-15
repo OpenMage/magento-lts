@@ -86,6 +86,7 @@ class Mage_Core_Model_Layout_Update
         if (!$this->_elementClass) {
             $this->_elementClass = Mage::getConfig()->getModelClassName('core/layout_element');
         }
+
         return $this->_elementClass;
     }
 
@@ -146,6 +147,7 @@ class Mage_Core_Model_Layout_Update
         } else {
             $this->_handles[$handle] = 1;
         }
+
         return $this;
     }
 
@@ -177,6 +179,7 @@ class Mage_Core_Model_Layout_Update
         if (!$this->_cacheId) {
             $this->_cacheId = 'LAYOUT_' . Mage::app()->getStore()->getId() . md5(implode('__', $this->getHandles()));
         }
+
         return $this->_cacheId;
     }
 
@@ -225,6 +228,7 @@ class Mage_Core_Model_Layout_Update
         if (!Mage::app()->useCache('layout')) {
             return false;
         }
+
         $str = $this->asString();
         $tags = $this->getHandles();
 
@@ -277,7 +281,7 @@ class Mage_Core_Model_Layout_Update
     public function asSimplexml()
     {
         $updates = trim($this->asString());
-        $updates = '<' . '?xml version="1.0"?' . '><layout>' . $updates . '</layout>';
+        $updates = '<?xml version="1.0"?><layout>' . $updates . '</layout>';
         return simplexml_load_string($updates, $this->getElementClass());
     }
 
@@ -293,6 +297,7 @@ class Mage_Core_Model_Layout_Update
         if (Mage::app()->isInstalled()) {
             $this->fetchDbLayoutUpdates($handle);
         }
+
         return $this;
     }
 
@@ -312,6 +317,7 @@ class Mage_Core_Model_Layout_Update
         if (Mage::app()->useCache('layout') && ($layoutStr = Mage::app()->loadCache($cacheKey))) {
             $this->_packageLayout = simplexml_load_string($layoutStr, $elementClass);
         }
+
         if (empty($layoutStr)) {
             $this->_packageLayout = $this->getFileLayoutUpdatesXml(
                 $design->getArea(),
@@ -339,11 +345,13 @@ class Mage_Core_Model_Layout_Update
         if (empty($this->_packageLayout)) {
             $this->fetchFileLayoutUpdates();
         }
+
         /** @var Varien_Simplexml_Element $updateXml */
         foreach ($this->_packageLayout->$handle as $updateXml) {
             $this->fetchRecursiveUpdates($updateXml);
             $this->addUpdate($updateXml->innerXml());
         }
+
         Varien_Profiler::stop($profilerKey);
 
         return true;
@@ -362,6 +370,7 @@ class Mage_Core_Model_Layout_Update
             Varien_Profiler::stop($profilerKey);
             return false;
         }
+
         $updateStr = '<update_xml>' . $updateStr . '</update_xml>';
         $updateStr = str_replace($this->_subst['from'], $this->_subst['to'], $updateStr);
         /** @var Varien_Simplexml_Element $updateXml */
@@ -396,6 +405,7 @@ class Mage_Core_Model_Layout_Update
                 if (isset($child['ifconfig']) && ($configPath = (string) $child['ifconfig'])) {
                     $allow = Mage::getStoreConfigFlag($configPath);
                 }
+
                 if ($allow) {
                     $this->merge((string) $child['handle']);
                     // Adding merged layout handle to the list of applied handles
@@ -403,6 +413,7 @@ class Mage_Core_Model_Layout_Update
                 }
             }
         }
+
         return $this;
     }
 
@@ -420,6 +431,7 @@ class Mage_Core_Model_Layout_Update
         if ($storeId === null) {
             $storeId = Mage::app()->getStore()->getId();
         }
+
         /** @var Mage_Core_Model_Design_Package $design */
         $design = Mage::getSingleton('core/design_package');
         $layoutXml = null;
@@ -432,6 +444,7 @@ class Mage_Core_Model_Layout_Update
             //array_values() to ensure that theme-specific layouts don't override, but add to module layouts
             $updates = array_merge($updates, array_values($themeUpdates->asArray()));
         }
+
         $updateFiles = [];
         foreach ($updates as $updateNode) {
             if (!empty($updateNode['file'])) {
@@ -439,9 +452,11 @@ class Mage_Core_Model_Layout_Update
                 if ($module && Mage::getStoreConfigFlag('advanced/modules_disable_output/' . $module, $storeId)) {
                     continue;
                 }
+
                 $updateFiles[] = $updateNode['file'];
             }
         }
+
         // custom local layout updates file - load always last
         $updateFiles[] = 'local.xml';
         $layoutStr = '';
@@ -454,6 +469,7 @@ class Mage_Core_Model_Layout_Update
             if (!is_readable($filename)) {
                 continue;
             }
+
             $fileStr = file_get_contents($filename);
             $fileStr = str_replace($this->_subst['from'], $this->_subst['to'], $fileStr);
             /** @var Varien_Simplexml_Element $fileXml */
@@ -461,8 +477,10 @@ class Mage_Core_Model_Layout_Update
             if (!$fileXml instanceof SimpleXMLElement) {
                 continue;
             }
+
             $layoutStr .= $fileXml->innerXml();
         }
+
         return simplexml_load_string('<layouts>' . $layoutStr . '</layouts>', $elementClass);
     }
 }

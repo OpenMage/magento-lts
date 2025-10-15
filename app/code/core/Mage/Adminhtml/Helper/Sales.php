@@ -69,6 +69,7 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 $res = '<strong>' . $res . '</strong>';
             }
         }
+
         return $res;
     }
 
@@ -92,10 +93,12 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
             } else {
                 $type = '';
             }
+
             if (!in_array($type, $productTypes)) {
                 $collection->removeItemByKey($key);
             }
         }
+
         return $collection;
     }
 
@@ -124,10 +127,12 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                         $url = null;
                     }
                 }
+
                 //Use hash tag as fallback
                 if (!$url) {
                     $url = '#';
                 }
+
                 //Recreate a minimalistic secure a tag
                 $links[] = sprintf(
                     '<a href="%s">%s</a>',
@@ -137,9 +142,11 @@ class Mage_Adminhtml_Helper_Sales extends Mage_Core_Helper_Abstract
                 $data = str_replace($matches[0], '%' . $i . '$s', $data);
                 ++$i;
             }
+
             $data = parent::escapeHtml($data, $allowedTags);
             return vsprintf($data, $links);
         }
+
         return parent::escapeHtml($data, $allowedTags);
     }
 }

@@ -107,9 +107,11 @@ class Mage_Newsletter_Model_Resource_Template extends Mage_Core_Model_Resource_D
         if (!$object->hasTemplateActual()) {
             $object->setTemplateActual(1);
         }
+
         if (!$object->hasAddedAt()) {
             $object->setAddedAt(Mage::getSingleton('core/date')->gmtDate());
         }
+
         $object->setModifiedAt(Mage::getSingleton('core/date')->gmtDate());
 
         return parent::_beforeSave($object);

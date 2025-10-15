@@ -64,6 +64,7 @@ class Mage_Archive
         } else {
             $format = self::DEFAULT_ARCHIVER;
         }
+
         $class = 'Mage_Archive_' . ucfirst($format);
         $this->_archiver = new $class();
         return $this->_archiver;
@@ -81,10 +82,12 @@ class Mage_Archive
         if (!isset($this->_formats[$ext])) {
             return [];
         }
+
         $format = $this->_formats[$ext];
         if ($format) {
             return explode('.', $format);
         }
+
         return [];
     }
 
@@ -107,12 +110,15 @@ class Mage_Archive
             } else {
                 $packed = dirname($destination) . DS . '~tmp-' . microtime(true) . $archivers[$i] . '.' . $archivers[$i];
             }
+
             $source = $this->_getArchiver($archivers[$i])->pack($source, $packed, $skipRoot);
             if ($interimSource && $i < count($archivers)) {
                 unlink($interimSource);
             }
+
             $interimSource = $source;
         }
+
         return $source;
     }
 
@@ -135,18 +141,22 @@ class Mage_Archive
             if ($tillTar && $archivers[$i] == self::TAPE_ARCHIVER) {
                 break;
             }
+
             if ($i == 0) {
                 $packed = rtrim($destination, DS) . DS;
             } else {
                 $packed = rtrim($destination, DS) . DS . '~tmp-' . microtime(true) . $archivers[$i - 1] . '.' . $archivers[$i - 1];
             }
+
             $source = $this->_getArchiver($archivers[$i])->unpack($source, $packed);
 
             if ($clearInterm && $interimSource && $i >= 0) {
                 unlink($interimSource);
             }
+
             $interimSource = $source;
         }
+
         return $source;
     }
 
@@ -165,6 +175,7 @@ class Mage_Archive
         if (!$this->isTar($source)) {
             unlink($tarFile);
         }
+
         return $resFile;
     }
 
@@ -180,6 +191,7 @@ class Mage_Archive
         if (count($archivers)) {
             return true;
         }
+
         return false;
     }
 
@@ -195,6 +207,7 @@ class Mage_Archive
         if (count($archivers) == 1 && $archivers[0] == self::TAPE_ARCHIVER) {
             return true;
         }
+
         return false;
     }
 }

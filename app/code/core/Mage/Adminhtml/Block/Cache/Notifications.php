@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Cache_Notifications extends Mage_Adminhtml_Block_Temp
         foreach ($invalidatedTypes as $type) {
             $res[] = $type->getCacheType();
         }
+
         return $res;
     }
 
@@ -47,6 +48,7 @@ class Mage_Adminhtml_Block_Cache_Notifications extends Mage_Adminhtml_Block_Temp
         if (Mage::getSingleton('admin/session')->isAllowed('system/cache')) {
             return parent::_toHtml();
         }
+
         return '';
     }
 }

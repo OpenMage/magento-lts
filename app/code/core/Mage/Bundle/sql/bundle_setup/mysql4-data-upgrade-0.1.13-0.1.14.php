@@ -57,6 +57,7 @@ try {
                     ->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
         }
     }
+
     $db->commit();
 } catch (Exception $e) {
     $db->rollBack();

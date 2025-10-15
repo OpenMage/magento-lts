@@ -62,6 +62,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
         if ($this->hasData('page_size')) {
             return $this->getData('page_size');
         }
+
         return 5;
     }
 
@@ -135,6 +136,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
             } else {
                 $this->_collection->addFilterByIds($ids);
             }
+
             $this->_collection->setAddedAtOrder();
             if ($this-> _useProductIdsOrder && is_array($ids)) {
                 $this->_collection->setSortIds($ids);
@@ -169,6 +171,7 @@ abstract class Mage_Reports_Block_Product_Abstract extends Mage_Catalog_Block_Pr
         if (!$this->_getModel()->getCount()) {
             return 0;
         }
+
         return $this->getItemsCollection()->count();
     }
 

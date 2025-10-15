@@ -75,6 +75,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
                 Mage::app()->getLocale()->emulate($shipment->getStoreId());
                 Mage::app()->setCurrentStore($shipment->getStoreId());
             }
+
             $page  = $this->newPage();
             $order = $shipment->getOrder();
             /* Add image */
@@ -99,15 +100,18 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
                 if ($item->getOrderItem()->getParentItem()) {
                     continue;
                 }
+
                 /* Draw item */
                 $this->_drawItem($item, $page, $order);
                 $page = end($pdf->pages);
             }
         }
+
         $this->_afterGetPdf();
         if (isset($shipment) && $shipment->getStoreId()) {
             Mage::app()->getLocale()->revert();
         }
+
         return $pdf;
     }
 
@@ -125,6 +129,7 @@ class Mage_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Abs
         if (!empty($settings['table_header'])) {
             $this->_drawHeader($page);
         }
+
         return $page;
     }
 }

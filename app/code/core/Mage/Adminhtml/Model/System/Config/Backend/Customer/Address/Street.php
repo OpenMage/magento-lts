@@ -31,12 +31,14 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Address_Street extends
                 if ($attribute->getData('multiline_count') != $value) {
                     $attribute->setData('scope_multiline_count', $value);
                 }
+
                 break;
 
             case 'default':
                 $attribute->setData('multiline_count', $value);
                 break;
         }
+
         $attribute->save();
         return $this;
     }

@@ -141,6 +141,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (is_null($this->_storeId)) {
             return (int) Mage::app()->getStore()->getId();
         }
+
         return $this->_storeId;
     }
 
@@ -165,6 +166,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (is_string($storeId)) {
             $storeId = (int) $storeId;
         }
+
         if ($this->getUseStoreTables() && $storeId) {
             $suffix = sprintf('store_%d', $storeId);
             $table = $this->getTable(['catalog/category_flat', $suffix]);
@@ -196,6 +198,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (!is_array($this->_inactiveCategoryIds)) {
             $this->_initInactiveCategoryIds();
         }
+
         $this->_inactiveCategoryIds = array_merge($ids, $this->_inactiveCategoryIds);
         return $this;
     }
@@ -254,6 +257,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 $startLevel = $parentNode['level'];
             }
         }
+
         $select = $_conn->select()
             ->from(
                 ['main_table' => $this->getMainStoreTable($storeId)],
@@ -278,6 +282,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if ($parentPath) {
             $select->where($_conn->quoteInto('main_table.path like ?', "$parentPath/%"));
         }
+
         if ($recursionLevel != 0) {
             $levelField = $_conn->quoteIdentifier('level');
             $select->where($levelField . ' <= ?', $startLevel + $recursionLevel);
@@ -322,6 +327,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     } else {
                         $childrenNodes = [$child->getId() => $child];
                     }
+
                     $parent->setChildrenNodes($childrenNodes);
                 }
 
@@ -330,6 +336,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 } else {
                     $childrenPath = [];
                 }
+
                 $childrenPath[] = $child->getId();
                 $childrenPath = implode('/', $childrenPath);
                 $this->addChildNodes($children, $childrenPath, $child);
@@ -363,6 +370,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $pathToParent = implode('/', $pathToParent);
                     $childrenItems[$pathToParent][] = $node;
                 }
+
                 $this->addChildNodes($childrenItems, $parentNode->getPath(), $parentNode);
                 $childrenNodes = $this->_nodes[$parentNode->getId()];
                 if ($childrenNodes->getChildrenNodes()) {
@@ -370,9 +378,11 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 } else {
                     $this->_nodes = [];
                 }
+
                 $this->_loaded = true;
             }
         }
+
         return $this->_nodes;
     }
 
@@ -405,8 +415,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             if ($toLoad) {
                 return $collection->load();
             }
+
             return $collection;
         }
+
         return $this->getNodes($parent, $recursionLevel, Mage::app()->getStore()->getId());
     }
 
@@ -422,14 +434,17 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (is_null($nodes)) {
             $nodes = $this->getNodes($nodeId);
         }
+
         if (isset($nodes[$nodeId])) {
             return $nodes[$nodeId];
         }
+
         foreach ($nodes as $node) {
             if ($node->getChildrenNodes()) {
                 return $this->getNodeById($nodeId, $node->getChildrenNodes());
             }
         }
+
         return [];
     }
 
@@ -447,16 +462,18 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         } else {
             $storeId = $storeView->getId();
         }
+
         if (!isset($this->_isBuilt[$storeId])) {
             $select = $this->_getReadAdapter()->select()
                 ->from($this->getMainStoreTable($storeId), 'entity_id')
                 ->limit(1);
             try {
                 $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_isBuilt[$storeId] = false;
             }
         }
+
         return $this->_isBuilt[$storeId];
     }
 
@@ -497,6 +514,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $categoriesIds[$store->getRootCategoryId()][] = $category['entity_id'];
                 }
             }
+
             $categoriesIdsChunks = array_chunk($categoriesIds[$store->getRootCategoryId()], self::CATEGORY_BATCH);
             foreach ($categoriesIdsChunks as $categoriesIdsChunk) {
                 $attributesData = $this->_getAttributeValues($categoriesIdsChunk, $store->getId());
@@ -505,14 +523,17 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     if (!isset($attributesData[$category['entity_id']])) {
                         continue;
                     }
+
                     $category['store_id'] = $store->getId();
                     $data[] = $this->_prepareValuesToInsert(
                         array_merge($category, $attributesData[$category['entity_id']]),
                     );
                 }
+
                 $this->_getWriteAdapter()->insertMultiple($this->getMainStoreTable($store->getId()), $data);
             }
         }
+
         return $this;
     }
 
@@ -525,13 +546,14 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
     protected function _prepareValuesToInsert($data)
     {
         $values = [];
-        foreach (array_keys($this->_columns) as $key => $column) {
+        foreach (array_keys($this->_columns) as $column) {
             if (isset($data[$column])) {
                 $values[$column] = $data[$column];
             } else {
                 $values[$column] = null;
             }
         }
+
         return $values;
     }
 
@@ -557,6 +579,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         $tableName = $this->getMainStoreTable($store);
         $_writeAdapter = $this->_getWriteAdapter();
         $_writeAdapter->dropTable($tableName);
+
         $table = $this->_getWriteAdapter()
             ->newTable($tableName)
             ->setComment(sprintf('Catalog Category Flat (Store %d)', $store));
@@ -571,6 +594,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 ) {
                     $default = Varien_Db_Ddl_Table::TIMESTAMP_INIT;
                 }
+
                 $table->addColumn($fieldName, $fieldProp['type'][0], $fieldProp['type'][1], [
                     'nullable' => $fieldProp['nullable'],
                     'unsigned' => $fieldProp['unsigned'],
@@ -647,6 +671,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             if (in_array($column['COLUMN_NAME'], $columnsToSkip)) {
                 continue;
             }
+
             $isUnsigned = '';
             $ddlType = $helper->getDdlTypeByColumnType($column['DATA_TYPE']);
             $column['DEFAULT'] = empty($column['DEFAULT']) ? $column['DEFAULT'] : trim($column['DEFAULT'], "' ");
@@ -672,6 +697,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     if ($column['DEFAULT'] === '') {
                         $column['DEFAULT'] = null;
                     }
+
                     break;
                 case Varien_Db_Ddl_Table::TYPE_TEXT:
                     $options = $column['LENGTH'];
@@ -685,6 +711,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $isUnsigned = null;
                     break;
             }
+
             $columns[$column['COLUMN_NAME']] = [
                 'type' => [$ddlType, $options],
                 'unsigned' => $isUnsigned,
@@ -693,6 +720,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 'comment' => $column['COLUMN_NAME'],
             ];
         }
+
         $columns['store_id'] = [
             'type' => [Varien_Db_Ddl_Table::TYPE_SMALLINT, 5],
             'unsigned' => true,
@@ -716,6 +744,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             if ($attribute['backend_type'] === 'static') {
                 continue;
             }
+
             $columns[$attribute['attribute_code']] = [];
             switch ($attribute['backend_type']) {
                 case 'varchar':
@@ -765,6 +794,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     break;
             }
         }
+
         return $columns;
     }
 
@@ -793,6 +823,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 $this->_attributeCodes[$attribute['attribute_id']] = $attribute;
             }
         }
+
         return $this->_attributeCodes;
     }
 
@@ -808,11 +839,13 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (!is_array($entityIds)) {
             $entityIds = [$entityIds];
         }
+
         $values = [];
 
         foreach ($entityIds as $entityId) {
             $values[$entityId] = [];
         }
+
         $attributes = $this->_getAttributes();
         $attributesType = [
             'varchar',
@@ -828,6 +861,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 }
             }
         }
+
         return $values;
     }
 
@@ -884,9 +918,11 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (!is_array($stores)) {
             $stores = [$stores];
         }
+
         foreach ($stores as $store) {
             $this->_getWriteAdapter()->dropTable($this->getMainStoreTable($store));
         }
+
         return $this;
     }
 
@@ -917,6 +953,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             if (empty($storeIds)) {
                 $storeIds = null;
             }
+
             $stores = $this->getStoresRootCategories($storeIds);
 
             $storesObjects = [];
@@ -1085,6 +1122,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $this->_getWriteAdapter()->quoteInto('entity_id = ?', $categoryId),
                 );
             }
+
             $select = $this->_getReadAdapter()->select()
                 ->from($catalogCategoryTable, 'path')
                 ->where('entity_id = ?', $categoryId);
@@ -1112,6 +1150,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 foreach ($_staticFields as $field) {
                     $update .= " {$mainStoreTable}." . $field . "={$catalogCategoryTable}." . $field . ',';
                 }
+
                 $update = substr($update, 0, -1);
                 $update .= " WHERE {$mainStoreTable}.entity_id = {$catalogCategoryTable}.entity_id AND " .
                     "($catalogCategoryTable}.path like '{$parent->getPath()}/%' OR " .
@@ -1119,6 +1158,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 $this->_getWriteAdapter()->query($update);
             }
         }
+
         $prevParent   = null;
         $parent       = null;
         $_tmpCategory = null;
@@ -1149,12 +1189,15 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 } else {
                     $value = $category->getData($column);
                 }
+
                 if (is_array($value)) {
                     $value = implode(',', $value);
                 }
+
                 $data[$column] = $value;
             }
         }
+
         return $data;
     }
 
@@ -1243,6 +1286,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if ($isActive) {
             $select->where('main_table.is_active = ?', '1');
         }
+
         $select->order('main_table.path ASC');
 
         $urlRewrite = $this->_factory->getCategoryUrlRewriteHelper();
@@ -1253,6 +1297,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             $row['id'] = $row['entity_id'];
             $categories[$row['entity_id']] = Mage::getModel('catalog/category')->setData($row);
         }
+
         return $categories;
     }
 
@@ -1329,6 +1374,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if (!$recursive) {
             $select->where('level <= ?', $category->getLevel() + 1);
         }
+
         if ($isActive) {
             $select->where('is_active = ?', '1');
         }
@@ -1338,6 +1384,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         foreach ($_categories as $_category) {
             $categoriesIds[] = $_category['entity_id'];
         }
+
         return $categoriesIds;
     }
 
@@ -1384,8 +1431,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 $pathIds[] = $pathId;
                 break;
             }
+
             $pathIds[] = $pathId;
         }
+
         $select = $this->_getReadAdapter()->select()
             ->from(
                 ['main_table' => $this->getMainStoreTable($category->getStoreId())],
@@ -1405,6 +1454,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             $row['id'] = $row['entity_id'];
             $categories[$row['entity_id']] = Mage::getModel('catalog/category')->setData($row);
         }
+
         return $categories;
     }
 
@@ -1455,6 +1505,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                     $stores[$storeId] = $rootId;
                 }
             }
+
             return $stores;
         }
 
@@ -1473,6 +1524,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
                 $this->_createTable($store->getId());
             }
         }
+
         return $this;
     }
 
@@ -1489,6 +1541,7 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
         if ($allowTableChanges) {
             $this->_allowTableChanges = false;
         }
+
         $this->beginTransaction();
         try {
             $this->rebuild();
@@ -1501,8 +1554,10 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             if ($allowTableChanges) {
                 $this->_allowTableChanges = true;
             }
+
             throw $e;
         }
+
         return $this;
     }
 

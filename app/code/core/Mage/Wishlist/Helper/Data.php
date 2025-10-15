@@ -100,6 +100,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$this->_currentCustomer && $this->_getCustomerSession()->isLoggedIn()) {
             $this->_currentCustomer = $this->_getCustomerSession()->getCustomer();
         }
+
         return $this->_currentCustomer;
     }
 
@@ -122,6 +123,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $this->_wishlist;
     }
 
@@ -196,6 +198,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_null($this->_wishlistItemCollection)) {
             $this->_wishlistItemCollection = $this->_createWishlistItemCollection();
         }
+
         return $this->_wishlistItemCollection;
     }
 
@@ -216,6 +219,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::getSingleton('catalog/product_visibility')
                 ->addVisibleInSiteFilterToCollection($this->_productCollection);
         }
+
         return $this->_productCollection;
     }
 
@@ -234,6 +238,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif ($item instanceof Mage_Catalog_Model_Product) {
             $product = $item;
         }
+
         if ($product) {
             if ($product->isVisibleInSiteVisibility()) {
                 $storeId = $product->getStoreId();
@@ -241,6 +246,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
                 $storeId = $product->getUrlDataObject()->getStoreId();
             }
         }
+
         return Mage::app()->getStore($storeId);
     }
 
@@ -305,6 +311,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($item instanceof Mage_Catalog_Model_Product) {
             $itemId = $item->getWishlistItemId();
         }
+
         if ($item instanceof Mage_Wishlist_Model_Item) {
             $itemId = $item->getId();
         }
@@ -408,6 +415,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($wishlistId) {
             $params['wishlist_id'] = $wishlistId;
         }
+
         return $this->_getUrl('wishlist', $params);
     }
 
@@ -421,6 +429,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->isModuleOutputEnabled() && Mage::getStoreConfig('wishlist/general/active')) {
             return true;
         }
+
         return false;
     }
 
@@ -445,6 +454,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($customer) {
             return $customer->getName();
         }
+
         return null;
     }
 
@@ -465,9 +475,11 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
                 '_secure' => false,
             ];
         }
+
         if ($wishlistId) {
             $params['wishlist_id'] = $wishlistId;
         }
+
         return $this->_getUrl(
             'rss/index/wishlist',
             $params,
@@ -522,11 +534,13 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             } else {
                 $count = $collection->getSize();
             }
+
             $session->setWishlistDisplayType(Mage::getStoreConfig(self::XML_PATH_WISHLIST_LINK_USE_QTY));
             $session->setDisplayOutOfStockProducts(
                 Mage::getStoreConfig(self::XML_PATH_CATALOGINVENTORY_SHOW_OUT_OF_STOCK),
             );
         }
+
         $session->setWishlistItemCount($count);
         Mage::dispatchEvent('wishlist_items_renewed');
         return $this;
@@ -555,6 +569,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($item instanceof Mage_Catalog_Model_Product) {
             $productId = $item->getEntityId();
         }
+
         if ($item instanceof Mage_Wishlist_Model_Item) {
             $productId = $item->getProductId();
         }
@@ -564,6 +579,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
             if ($addFormKey) {
                 $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
             }
+
             return $this->_getUrlStore($item)->getUrl('wishlist/index/add', $params);
         }
 
@@ -612,6 +628,7 @@ class Mage_Wishlist_Helper_Data extends Mage_Core_Helper_Abstract
         if ($addFormKey) {
             $params[Mage_Core_Model_Url::FORM_KEY] = $this->_getSingletonModel('core/session')->getFormKey();
         }
+
         return $this->_getUrlStore($item)->getUrl('wishlist/index/cart', $params);
     }
 }
