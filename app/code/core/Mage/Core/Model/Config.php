@@ -1694,14 +1694,17 @@ class Mage_Core_Model_Config extends Mage_Core_Model_Config_Base
     /**
      * Save config value to DB
      *
+     * @param string $path
+     * @param string|int|bool $value
      * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
+     * @param int $scopeId
      * @return $this
      */
     public function saveConfig(
-        string $path,
-        int|string|bool $value,
-        string $scope = Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT,
-        int $scopeId = 0
+        $path,
+        $value,
+        $scope = Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT,
+        $scopeId = 0
     ) {
         $resource = $this->getResourceModel();
         $resource->saveConfig(rtrim($path, '/'), (string) $value, $scope, $scopeId);

@@ -155,10 +155,13 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
     /**
      * Save config value
      *
+     * @param string $path
+     * @param string|int|bool $value
      * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
+     * @param int $scopeId
      * @return $this
      */
-    public function saveConfig(string $path, string $value, string $scope, int $scopeId)
+    public function saveConfig($path, $value, $scope, $scopeId)
     {
         $writeAdapter = $this->_getWriteAdapter();
         $select = $writeAdapter->select()
@@ -172,7 +175,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             'scope'     => $scope,
             'scope_id'  => $scopeId,
             'path'      => $path,
-            'value'     => $value,
+            'value'     => (string) $value,
         ];
 
         if ($row) {
