@@ -41,7 +41,10 @@ class Mage_Adminhtml_Block_Catalog_Category_Tab_Attributes extends Mage_Adminhtm
     {
         parent::_prepareLayout();
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+            $head = $this->getLayout()->getBlockHeadAdminhtml();
+            if ($head) {
+                $head->setCanLoadTinyMce(true);
+            }
         }
 
         return $this;

@@ -43,7 +43,8 @@ class Mage_Adminhtml_Block_System_Convert_Gui_Edit_Tab_Wizard extends Mage_Admin
      */
     protected function _prepareLayout()
     {
-        if ($head = $this->getLayout()->getBlock('head')) {
+        $head = $this->getLayout()->getBlockHeadAdminhtml();
+        if ($head) {
             $head->setCanLoadCalendarJs(true);
         }
 

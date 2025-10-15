@@ -22,7 +22,8 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Date extends Mage_Adminhtml
      */
     protected function _prepareLayout()
     {
-        if ($head = $this->getLayout()->getBlock('head')) {
+        $head = $this->getLayout()->getBlockHeadAdminhtml();
+        if ($head) {
             $head->setCanLoadCalendarJs(true);
         }
 

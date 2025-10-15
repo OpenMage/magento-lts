@@ -23,7 +23,10 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Attributes extends Mage_Admi
         if ($this->isModuleEnabled('Mage_Cms', 'catalog')
             && Mage::getSingleton('cms/wysiwyg_config')->isEnabled()
         ) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+            $head = $this->getLayout()->getBlockHeadAdminhtml();
+            if ($head) {
+                $head->setCanLoadTinyMce(true);
+            }
         }
 
         return $this;

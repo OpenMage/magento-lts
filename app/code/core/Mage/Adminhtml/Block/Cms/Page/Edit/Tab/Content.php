@@ -21,7 +21,10 @@ class Mage_Adminhtml_Block_Cms_Page_Edit_Tab_Content extends Mage_Adminhtml_Bloc
     {
         parent::_prepareLayout();
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+            $head = $this->getLayout()->getBlockHeadAdminhtml();
+            if ($head) {
+                $head->setCanLoadTinyMce(true);
+            }
         }
 
         return $this;

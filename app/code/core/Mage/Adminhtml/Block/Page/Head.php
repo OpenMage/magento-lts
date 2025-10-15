@@ -11,6 +11,10 @@
  * Adminhtml header block
  *
  * @package    Mage_Adminhtml
+ *
+ * @method $this setCanLoadExtJs(bool $value)
+ * @method $this setCanLoadRulesJs(bool $value)
+ * @method $this setContainerCssClass(string $value)
  */
 class Mage_Adminhtml_Block_Page_Head extends Mage_Page_Block_Html_Head
 {

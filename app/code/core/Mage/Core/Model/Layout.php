@@ -547,6 +547,21 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         return $this->_blocks[$name] ?? false;
     }
 
+    public function getBlockBreadcrumbs(): Mage_Adminhtml_Block_Widget_Breadcrumbs|false
+    {
+        return $this->getBlock('head');
+    }
+
+    public function getBlockHead(): Mage_Page_Block_Html_Head|false
+    {
+        return $this->getBlock('head');
+    }
+
+    public function getBlockHeadAdminhtml(): Mage_Adminhtml_Block_Page_Head|false
+    {
+        return $this->getBlock('head');
+    }
+
     /**
      * Add a block to output
      *

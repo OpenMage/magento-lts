@@ -202,7 +202,12 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
         $this->getOnepage()->initCheckout();
         $this->loadLayout();
         $this->_initLayoutMessages('customer/session');
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Checkout'));
+
+        $head = $this->getLayout()->getBlockHead();
+        if ($head) {
+            $head->setTitle($this->__('Checkout'));
+        }
+
         $this->renderLayout();
     }
 

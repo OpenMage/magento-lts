@@ -89,8 +89,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
             $root->addBodyClass('cms-' . $page->getIdentifier());
         }
 
-        /** @var Mage_Page_Block_Html_Head $head */
-        $head = $this->getLayout()->getBlock('head');
+        $head = $this->getLayout()->getBlockHead();
         if ($head) {
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());

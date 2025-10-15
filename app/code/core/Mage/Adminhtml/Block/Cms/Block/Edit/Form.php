@@ -31,7 +31,10 @@ class Mage_Adminhtml_Block_Cms_Block_Edit_Form extends Mage_Adminhtml_Block_Widg
     {
         parent::_prepareLayout();
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
-            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+            $head = $this->getLayout()->getBlockHeadAdminhtml();
+            if ($head) {
+                $head->setCanLoadTinyMce(true);
+            }
         }
 
         return $this;

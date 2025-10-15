@@ -47,8 +47,9 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setSuccessUrl(Mage::getUrl('*/*/shippingSaved'))
                 ->setErrorUrl(Mage::getUrl('*/*/*'));
 
-            if ($headBlock = $this->getLayout()->getBlock('head')) {
-                $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
+            $head = $this->getLayout()->getBlockHead();
+            if ($head) {
+                $head->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
             }
 
             if ($this->_getCheckout()->getCustomerDefaultShippingAddress()) {
@@ -83,8 +84,9 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setSuccessUrl(Mage::getUrl('*/*/editShippingPost', ['id' => $this->getRequest()->getParam('id')]))
                 ->setErrorUrl(Mage::getUrl('*/*/*'));
 
-            if ($headBlock = $this->getLayout()->getBlock('head')) {
-                $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
+            $head = $this->getLayout()->getBlockHead();
+            if ($head) {
+                $head->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
             }
 
             if ($this->_getCheckout()->getCustomerDefaultShippingAddress()) {
@@ -124,8 +126,9 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setErrorUrl(Mage::getUrl('*/*/*'))
                 ->setBackUrl(Mage::getUrl('*/*/selectBilling'));
 
-            if ($headBlock = $this->getLayout()->getBlock('head')) {
-                $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
+            $head = $this->getLayout()->getBlockHead();
+            if ($head) {
+                $head->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
             }
         }
 
@@ -142,8 +145,9 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setErrorUrl(Mage::getUrl('*/*/*', ['id' => $this->getRequest()->getParam('id')]))
                 ->setBackUrl(Mage::getUrl('*/*/selectBilling'));
 
-            if ($headBlock = $this->getLayout()->getBlock('head')) {
-                $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
+            $head = $this->getLayout()->getBlockHead();
+            if ($head) {
+                $head->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
             }
         }
 
@@ -162,8 +166,10 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setSuccessUrl(Mage::getUrl('*/*/saveBilling', ['id' => $this->getRequest()->getParam('id')]))
                 ->setErrorUrl(Mage::getUrl('*/*/*', ['id' => $this->getRequest()->getParam('id')]))
                 ->setBackUrl(Mage::getUrl('*/multishipping/overview'));
-            if ($headBlock = $this->getLayout()->getBlock('head')) {
-                $headBlock->setTitle($addressForm->getTitle() . ' - ' . $headBlock->getDefaultTitle());
+
+            $head = $this->getLayout()->getBlockHead();
+            if ($head) {
+                $head->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
             }
         }
 
