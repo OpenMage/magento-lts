@@ -78,7 +78,7 @@ class Mage_Core_Model_Domainpolicy
      */
     public function getBackendPolicy(): ?string
     {
-        return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfigA(self::XML_DOMAIN_POLICY_BACKEND));
+        return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfig(self::XML_DOMAIN_POLICY_BACKEND));
     }
 
     /**
