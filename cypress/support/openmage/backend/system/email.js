@@ -42,7 +42,12 @@ test.config = {
 
 /**
  * Configuration for "Transactional Emails" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.system.email.config.index.clickAdd}}
+ * @type {{
+ *      title: string,
+ *      url: string,
+ *      _grid: string,
+ *      __buttons: {add: {_: string, __class: string, click: test.config.index.__buttons.add.click}}
+ * }}
  */
 test.config.index = {
     title: 'Transactional Emails',
@@ -51,78 +56,54 @@ test.config.index = {
     __buttons: {
         add: {
             _: base._button + '[title="Add New Template"]',
+            __class: base.__buttons.add.__class,
+            click: () => {
+                tools.click(test.config.index.__buttons.add._, 'Add New Transactional Emails button clicked');
+            },
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Transactional Emails button clicked');
     },
 }
 
 /**
  * Configuration for "Edit Email Template" page
- * @type {{__buttons: {preview: string, save: string, back: string, reset: string, convert: string}, title: string, __fields: *, url: string}}
  */
 test.config.edit = {
     title: 'Edit Email Template',
     url: 'system_email_template/edit',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-        },
-        convert: {
-            _: base._button + '[title="Convert to Plain Text"]',
-        },
-        preview: {
-            _: base._button + '[title="Preview Template"]',
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
+        save: base.__buttons.save,
+        convertToPlain: base.__buttons.convertToPlain,
+        preview: base.__buttons.preview,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
 }
 
 /**
  * Configuration for "New Email Template" page
- * @type {{clickCovert: cy.openmage.test.backend.system.email.config.new.clickCovert, clickPreview: cy.openmage.test.backend.system.email.config.new.clickPreview, clickReset: cy.openmage.test.backend.system.email.config.new.clickReset, __buttons: {preview: string, save: string, back: string, reset: string, convert: string}, clickBack: cy.openmage.test.backend.system.email.config.new.clickBack, clickSave: cy.openmage.test.backend.system.email.config.new.clickSave, title: string, __fields: *, url: string}}
+ * @type {{
+ *      title: string,
+ *      url: string,
+ *      __buttons: {
+ *          preview: cy.openmage.test.backend.__base.__buttons.preview,
+ *          save: cy.openmage.test.backend.__base.__buttons.save,
+ *          back: cy.openmage.test.backend.__base.__buttons.back,
+ *          reset: cy.openmage.test.backend.__base.__buttons.reset,
+ *          convertToPlain: cy.openmage.test.backend.__base.__buttons.convertToPlain
+ *      },
+ *      __fields: test.config.new.__fields
+ * }}
  */
 test.config.new = {
     title: 'New Email Template',
     url: 'system_email_template/new',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-        },
-        convert: {
-            _: base._button + '[title="Convert to Plain Text"]',
-        },
-        preview: {
-            _: base._button + '[title="Preview Template"]',
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
+        save: base.__buttons.save,
+        convertToPlain: base.__buttons.convertToPlain,
+        preview: base.__buttons.preview,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
-    clickSave: () => {
-        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
-    },
-    clickCovert: () => {
-        tools.click(test.config.edit.__buttons.convert._, 'Convert button clicked');
-    },
-    clickPreview: () => {
-        tools.click(test.config.edit.__buttons.preview._, 'Preview button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }

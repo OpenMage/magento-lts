@@ -45,13 +45,14 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
                     $this->getEmailUrl(),
                     Mage::helper('sales')->__('Are you sure you want to send Creditmemo email to customer?'),
                 ),
+                'class'     => 'send-email',
             ]);
         }
 
         if ($this->getCreditmemo()->canRefund()) {
             $this->_addButton('refund', [
                 'label'     => Mage::helper('sales')->__('Refund'),
-                'class'     => 'save',
+                'class'     => 'save refund',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getRefundUrl()),
             ]);
         }
@@ -59,7 +60,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         if ($this->getCreditmemo()->canVoid()) {
             $this->_addButton('void', [
                 'label'     => Mage::helper('sales')->__('Void'),
-                'class'     => 'save',
+                'class'     => 'save void',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getVoidUrl()),
 
             ]);
@@ -68,7 +69,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_View extends Mage_Adminhtml_Bl
         if ($this->getCreditmemo()->getId()) {
             $this->_addButton('print', [
                 'label'     => Mage::helper('sales')->__('Print'),
-                'class'     => 'save',
+                'class'     => 'save print',
                 'onclick'   => Mage::helper('core/js')->getSetLocationJs($this->getPrintUrl()),
             ]);
         }

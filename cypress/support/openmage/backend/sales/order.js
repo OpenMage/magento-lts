@@ -24,8 +24,9 @@ test.config.index = {
     url: test.config.url,
     _grid: '#sales_order_grid_table',
     __buttons: {
-        new: {
+        add: {
             _: base._button + '[title="Create New Order"]',
+            __class: base.__buttons.add.__class,
         },
     },
 }
@@ -40,9 +41,8 @@ test.config.view = {
     __buttons: {
         reorder: {
             _: base._button + '[title="Reorder"]',
+            __class: ['go'],
         },
-        back: {
-            _: base.__buttons.back._,
-        },
+        back: base.__buttons.back,
     },
 }
