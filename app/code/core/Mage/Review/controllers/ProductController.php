@@ -231,7 +231,7 @@ class Mage_Review_ProductController extends Mage_Core_Controller_Front_Action
                     'readonly' => true,
                 ]);
                 $breadcrumbs->addCrumb('reviews', [
-                    'label' => Mage::helper('review')->__('Product Reviews')
+                    'label' => Mage::helper('review')->__('Product Reviews'),
                 ]);
             }
 
