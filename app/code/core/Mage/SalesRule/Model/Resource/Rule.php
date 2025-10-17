@@ -1,16 +1,16 @@
 <?php
 
 /**
- * @copyright  For copyright and license information, read the COPYING.txt file.
- * @link       /COPYING.txt
- * @license    Open Software License (OSL 3.0)
- * @package    Mage_SalesRule
+ * @copyright For copyright and license information, read the COPYING.txt file.
+ * @link      /COPYING.txt
+ * @license   Open Software License (OSL 3.0)
+ * @package   Mage_SalesRule
  */
 
 /**
  * Sales Rule resource model
  *
- * @package    Mage_SalesRule
+ * @package Mage_SalesRule
  */
 class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstract
 {
@@ -43,7 +43,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Add customer group ids and website ids to rule data after load
      *
-     *
      * @return $this
      */
     protected function _afterLoad(Mage_Core_Model_Abstract $object)
@@ -58,7 +57,6 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Prepare sales rule's discount quantity
      *
-     *
      * @return $this
      * @throws Zend_Date_Exception
      */
@@ -71,9 +69,9 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
         $dateFrom = $object->getFromDate();
         $dateTo = $object->getToDate();
 
-        # fix when from and to day are the same
-        if (($dateFrom instanceof Zend_Date && $dateTo instanceof Zend_Date) &&
-            ($dateFrom->getTimestamp() === $dateTo->getTimestamp())
+        // fix when from and to day are the same
+        if (($dateFrom instanceof Zend_Date && $dateTo instanceof Zend_Date) 
+            && ($dateFrom->getTimestamp() === $dateTo->getTimestamp())
         ) {
             $dateTo->setHour(23)->setMinute(59)->setSecond(59);
         }
@@ -87,7 +85,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Save rule's associated store labels.
      * Save product attributes used in rule.
      *
-     * @param Mage_SalesRule_Model_Rule $object
+     * @param      Mage_SalesRule_Model_Rule $object
      * @inheritDoc
      */
     protected function _afterSave(Mage_Core_Model_Abstract $object)
@@ -135,7 +133,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
      * Retrieve coupon/rule uses for specified customer
      *
      * @param Mage_SalesRule_Model_Rule $rule
-     * @param int $customerId
+     * @param int                       $customerId
      *
      * @return string
      */
@@ -151,7 +149,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Save rule labels for different store views
      *
-     * @param int $ruleId
+     * @param int   $ruleId
      * @param array $labels
      *
      * @return $this
@@ -182,10 +180,12 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
             }
 
             if (!empty($deleteByStoreIds)) {
-                $adapter->delete($table, [
+                $adapter->delete(
+                    $table, [
                     'rule_id=?'       => $ruleId,
                     'store_id IN (?)' => $deleteByStoreIds,
-                ]);
+                    ]
+                );
             }
 
             $adapter->commit();
@@ -200,7 +200,7 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Get all existing rule labels
      *
-     * @param int $ruleId
+     * @param  int $ruleId
      * @return array
      */
     public function getStoreLabels($ruleId)
@@ -214,8 +214,8 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Get rule label by specific store id
      *
-     * @param int $ruleId
-     * @param int $storeId
+     * @param  int $ruleId
+     * @param  int $storeId
      * @return string
      */
     public function getStoreLabel($ruleId, $storeId)
@@ -231,27 +231,38 @@ class Mage_SalesRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abstra
     /**
      * Return codes of all product attributes currently used in promo rules for specified customer group and website
      *
-     * @param int $websiteId
-     * @param int $customerGroupId
      * @return mixed
      */
-    public function getActiveAttributes($websiteId, $customerGroupId)
+    public function getActiveAttributes()
     {
         $read = $this->_getReadAdapter();
+        // First subselect for distinct attribute_id
+        $subSelect = $read->select()
+            ->from(
+                ['spa' => $this->getTable('salesrule/product_attribute')],                ['attribute_id']
+            )
+            ->distinct(true);
+
+        // Main select joins subselect with eav_attribute
         $select = $read->select()
             ->from(
-                ['a' => $this->getTable('salesrule/product_attribute')],
-                new Zend_Db_Expr('DISTINCT ea.attribute_code'),
+                ['ea' => $this->getTable('eav/attribute')],
+                ['attribute_code']
             )
-            ->joinInner(['ea' => $this->getTable('eav/attribute')], 'ea.attribute_id = a.attribute_id', []);
-        return $read->fetchAll($select);
+            ->joinInner(
+                ['a' => new Zend_Db_Expr('(' . $subSelect->__toString() . ')')],
+                'ea.attribute_id = a.attribute_id',
+                []
+            );
+
+        return $read->fetchCol($select);
     }
 
     /**
      * Save product attributes currently used in conditions and actions of rule
      *
-     * @param Mage_SalesRule_Model_Rule $rule
-     * @param mixed $attributes
+     * @param  Mage_SalesRule_Model_Rule $rule
+     * @param  mixed                     $attributes
      * @return $this
      */
     public function setActualProductAttributes($rule, $attributes)
