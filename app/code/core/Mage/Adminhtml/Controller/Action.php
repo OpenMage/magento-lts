@@ -98,9 +98,13 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      *
      * @return $this
      */
-    protected function _setActiveMenu($menuPath)
+    protected function _setActiveMenu(string $menuPath)
     {
-        $this->getLayout()->getBlock('menu')->setActive($menuPath);
+        $block = $this->getLayout()->getBlockAdminhtmlMenu();
+        if ($block) {
+            $block->setActive($menuPath);
+        }
+
         return $this;
     }
 
@@ -109,9 +113,11 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
      */
     protected function _addBreadcrumb($label, $title, $link = null)
     {
-        /** @var Mage_Adminhtml_Block_Widget_Breadcrumbs $block */
-        $block = $this->getLayout()->getBlock('breadcrumbs');
-        $block->addLink($label, $title, $link);
+        $block = $this->getLayout()->getBlockAdminhtmlBreadcrumbs();
+        if ($block) {
+            $block->addLink($label, $title, $link);
+        }
+
         return $this;
     }
 

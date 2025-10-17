@@ -56,13 +56,10 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
             return $this;
         }
 
-        if ($this->getLayout()->getBlock('root') &&
-            !$this->getLayout()->getBlock('root')->getIsHandle()
-        ) {
+        $root = $this->getLayout()->getBlockRoot();
+        if ($root && !$root->getIsHandle()) {
             // If not applied handle
-            $this->getLayout()
-                    ->getBlock('root')
-                    ->setTemplate($pageLayout->getTemplate());
+            $root->setTemplate($pageLayout->getTemplate());
         }
 
         return $this;
@@ -75,10 +72,9 @@ class Mage_Page_Helper_Layout extends Mage_Core_Helper_Abstract
      */
     public function getCurrentPageLayout()
     {
-        if ($this->getLayout()->getBlock('root') &&
-            $this->getLayout()->getBlock('root')->getLayoutCode()
-        ) {
-            return $this->_getConfig()->getPageLayout($this->getLayout()->getBlock('root')->getLayoutCode());
+        $root = $this->getLayout()->getBlockRoot();
+        if ($root && $root->getLayoutCode()) {
+            return $this->_getConfig()->getPageLayout($root->getLayoutCode());
         }
 
         // All loaded handles

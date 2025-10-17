@@ -64,7 +64,10 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
             $block->setRefererUrl($this->_getRefererUrl());
         }
 
-        $this->getLayout()->getBlock('head')->setTitle($this->__('My Product Reviews'));
+        $head = $this->getLayout()->getBlockHead();
+        if ($head) {
+            $head->setTitle($this->__('My Product Reviews'));
+        }
 
         $this->renderLayout();
     }
@@ -82,7 +85,11 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
             $navigationBlock->setActive('review/customer');
         }
 
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Review Details'));
+        $head = $this->getLayout()->getBlockHead();
+        if ($head) {
+            $head->setTitle($this->__('Review Details'));
+        }
+
         $this->renderLayout();
     }
 }

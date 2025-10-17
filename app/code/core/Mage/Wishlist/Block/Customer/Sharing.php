@@ -28,9 +28,9 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Wishlist Sharing'));
+        $head = $this->getLayout()->getBlockHead();
+        if ($head) {
+            $head->setTitle($this->__('Wishlist Sharing'));
         }
 
         return $this;

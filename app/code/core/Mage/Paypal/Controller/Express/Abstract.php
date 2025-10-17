@@ -264,9 +264,12 @@ abstract class Mage_Paypal_Controller_Express_Abstract extends Mage_Core_Control
             $this->_checkout->updateShippingMethod($this->getRequest()->getParam('shipping_method'));
             if ($isAjax) {
                 $this->loadLayout('paypal_express_review_details');
-                $this->getResponse()->setBody($this->getLayout()->getBlock('root')
-                    ->setQuote($this->_getQuote())
-                    ->toHtml());
+
+                $root = $this->getLayout()->getBlockRoot();
+                if ($root) {
+                    $this->getResponse()->setBody($root->setQuote($this->_getQuote())->toHtml());
+                }
+
                 return;
             }
         } catch (Mage_Core_Exception $e) {

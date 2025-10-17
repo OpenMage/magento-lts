@@ -27,10 +27,9 @@ class Mage_Sales_Block_Order_Info extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
+        $head = $this->getLayout()->getBlockHead();
+        if ($head) {
+            $head->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
         }
 
         /** @var Mage_Payment_Helper_Data $helper */

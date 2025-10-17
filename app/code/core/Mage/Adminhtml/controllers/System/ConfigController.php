@@ -85,9 +85,10 @@ class Mage_Adminhtml_System_ConfigController extends Mage_Adminhtml_Controller_A
 
         $this->_setActiveMenu('system/config');
 
-        /** @var Mage_Adminhtml_Block_Page_Menu $block */
-        $block = $this->getLayout()->getBlock('menu');
-        $block->setAdditionalCacheKeyInfo([$current]);
+        $block = $this->getLayout()->getBlockAdminhtmlMenu();
+        if ($block) {
+            $block->setAdditionalCacheKeyInfo([$current]);
+        }
 
         $this->_addBreadcrumb(
             Mage::helper('adminhtml')->__('System'),

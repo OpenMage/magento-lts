@@ -29,8 +29,9 @@ class Mage_Checkout_Block_Multishipping_Addresses extends Mage_Sales_Block_Items
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle(Mage::helper('checkout')->__('Ship to Multiple Addresses') . ' - ' . $headBlock->getDefaultTitle());
+        $head = $this->getLayout()->getBlockHead();
+        if ($head) {
+            $head->setTitle(Mage::helper('checkout')->__('Ship to Multiple Addresses') . ' - ' . $head->getDefaultTitle());
         }
 
         return parent::_prepareLayout();

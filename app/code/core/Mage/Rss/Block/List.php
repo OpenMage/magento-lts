@@ -26,12 +26,13 @@ class Mage_Rss_Block_List extends Mage_Core_Block_Template
      */
     protected function _prepareLayout()
     {
-        /** @var Mage_Page_Block_Html_Head $head */
-        $head   = $this->getLayout()->getBlock('head');
-        $feeds  = $this->getRssMiscFeeds();
-        if ($head && !empty($feeds)) {
-            foreach ($feeds as $feed) {
-                $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
+        $head = $this->getLayout()->getBlockHead();
+        if ($head) {
+            $feeds  = $this->getRssMiscFeeds();
+            if (!empty($feeds)) {
+                foreach ($feeds as $feed) {
+                    $head->addItem('rss', $feed['url'], 'title="' . $feed['label'] . '"');
+                }
             }
         }
 
