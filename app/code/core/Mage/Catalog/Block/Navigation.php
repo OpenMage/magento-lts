@@ -288,11 +288,6 @@ class Mage_Catalog_Block_Navigation extends Mage_Core_Block_Template
         $attributes = [];
         $attributes['class'] = implode(' ', $classes);
 
-        if ($hasActiveChildren && !$noEventAttributes) {
-            $attributes['onmouseover'] = 'toggleMenu(this,1)';
-            $attributes['onmouseout'] = 'toggleMenu(this,0)';
-        }
-
         // assemble list item with attributes
         $htmlLi = '<li';
         foreach ($attributes as $attrName => $attrValue) {
