@@ -39,8 +39,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setId(null);
                 Mage::throwException(
                     Mage::helper('cms')->__(
-                        'Cannot delete page, it is used in "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
+                        'Cannot delete page, it is used in <a href="%s">configuration</a> for %s.',
+                        Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit', ['section' => 'web']),
+                        Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
                 );
             }
@@ -79,8 +80,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
                 $object->setIsActive(true);
                 Mage::getSingleton('adminhtml/session')->addWarning(
                     Mage::helper('cms')->__(
-                        'Cannot disable page, it is used in configuration "%s".',
-                        implode(', ', $isUsedInConfig->getColumnValues('path')),
+                        'Cannot disable page, it is used in <a href="%s">configuration</a> for %s.',
+                        Mage::helper('adminhtml')->getUrl('adminhtml/system_config/edit', ['section' => 'web']),
+                        Mage_Cms_Helper_Page::getValidateConfigErrorMessage($isUsedInConfig),
                     ),
                 );
             }
@@ -282,7 +284,9 @@ class Mage_Cms_Model_Resource_Page extends Mage_Core_Model_Resource_Db_Abstract
 
     public function getUsedInStoreConfigCollection(Mage_Cms_Model_Page $page, ?array $paths = []): Mage_Core_Model_Resource_Db_Collection_Abstract
     {
-        $storeIds   = (array) $page->getStoreId();
+        $storeId    = (array) $page->getStoreId(); # null on save
+        $stores     = (array) $page->getStores(); # null on delete
+        $storeIds   = array_merge($storeId, $stores);
         $storeIds[] = Mage_Core_Model_App::ADMIN_STORE_ID;
         $config     = Mage::getResourceModel('core/config_data_collection')
             ->addFieldToFilter('value', $page->getIdentifier())
