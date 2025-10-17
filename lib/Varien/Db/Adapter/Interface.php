@@ -628,7 +628,7 @@ interface Varien_Db_Adapter_Interface
      * Quote a column identifier and alias.
      *
      * @param string|array|Zend_Db_Expr $ident The identifier or expression.
-     * @param string $alias An alias for the column.
+     * @param string|null $alias An alias for the column.
      * @param bool $auto If true, heed the AUTO_QUOTE_IDENTIFIERS config option.
      * @return string The quoted identifier and alias.
      */
@@ -787,7 +787,7 @@ interface Varien_Db_Adapter_Interface
      * Returns valid IFNULL expression
      *
      * @param string $expression
-     * @param string $value OPTIONAL. Applies when $expression is NULL
+     * @param string|int $value OPTIONAL. Applies when $expression is NULL
      * @return Zend_Db_Expr
      */
     public function getIfNullSql($expression, $value = '0');

@@ -154,7 +154,7 @@ class Mage_Paypal_Model_Direct extends Mage_Payment_Model_Method_Cc
      *
      * @param string $field
      * @param int $storeId
-     * @return mixed
+     * @return string
      */
     public function getConfigData($field, $storeId = null)
     {

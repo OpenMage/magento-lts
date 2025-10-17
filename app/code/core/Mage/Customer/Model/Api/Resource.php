@@ -50,14 +50,15 @@ class Mage_Customer_Model_Api_Resource extends Mage_Api_Model_Resource_Abstract
     /**
      * Return list of allowed attributes
      *
-     * @param Mage_Eav_Model_Entity_Abstract $entity
+     * @param Mage_Core_Model_Abstract $entity
      * @return array
      */
     public function getAllowedAttributes($entity, ?array $filter = null)
     {
         $attributes = $entity->getResource()
-                        ->loadAllAttributes($entity)
-                        ->getAttributesByCode();
+            ->loadAllAttributes($entity)
+            ->getAttributesByCode();
+
         $result = [];
         foreach ($attributes as $attribute) {
             if ($this->_isAllowedAttribute($attribute, $filter)) {
