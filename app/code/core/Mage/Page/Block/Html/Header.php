@@ -17,6 +17,8 @@
  */
 class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
+    public const LOGO_DIR       = 'header/logo/';
+
     public function _construct()
     {
         $this->setTemplate('page/html/header.phtml');
@@ -50,7 +52,8 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrc()
     {
         if (empty($this->_data['logo_src'])) {
-            $this->_data['logo_src'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src'));
+            $src = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src'));
+            $this->_data['logo_src'] = $this->getLogoSrcExists($src);
         }
 
         return $this->getSkinUrl($this->_data['logo_src']);
@@ -62,10 +65,21 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrcSmall()
     {
         if (empty($this->_data['logo_src_small'])) {
-            $this->_data['logo_src_small'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src_small'));
+            $src = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src_small'));
+            $this->_data['logo_src_small'] = $this->getLogoSrcExists($src);
         }
 
         return $this->getSkinUrl($this->_data['logo_src_small']);
+    }
+
+    public function getLogoSrcExists(string $src): string
+    {
+        if (file_exists(Mage::getBaseDir('media') . DS . self::LOGO_DIR . $src)) {
+            $mediaBaseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+            return $mediaBaseUrl . self::LOGO_DIR . $src;
+        }
+
+        return $src;
     }
 
     /**
