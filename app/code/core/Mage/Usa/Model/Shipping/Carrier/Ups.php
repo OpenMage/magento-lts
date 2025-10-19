@@ -848,7 +848,6 @@ XMLRequest;
         $costArr = [];
         $priceArr = [];
         if (trim($xmlResponse) !== '') {
-        if (strlen(trim($xmlResponse)) > 0) {
             $xmlResponse = str_replace('<?xmlversion="1.0"?>', '<?xml version="1.0"?>', $xmlResponse);
             $xml = new Varien_Simplexml_Config();
             $xml->loadString($xmlResponse);
