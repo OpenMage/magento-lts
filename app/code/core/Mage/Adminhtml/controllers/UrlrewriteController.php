@@ -78,9 +78,7 @@ class Mage_Adminhtml_UrlrewriteController extends Mage_Adminhtml_Controller_Acti
         $this->_addContent($this->getLayout()->createBlock('adminhtml/urlrewrite_edit'));
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
-        if ($head) {
-            $head->setCanLoadExtJs(true);
-        }
+        $head?->setCanLoadExtJs(true);
 
         $this->renderLayout();
     }

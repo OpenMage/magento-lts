@@ -151,8 +151,8 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
 
             $root = $this->getLayout()->getBlockRoot();
             if ($root) {
-                $root->addBodyClass('categorypath-' . $category->getUrlPath())
-                    ->addBodyClass('category-' . $category->getUrlKey());
+                $root->addBodyClass('categorypath-' . $category->getUrlPath());
+                $root->addBodyClass('category-' . $category->getUrlKey());
             }
 
             $this->_initLayoutMessages('catalog/session');

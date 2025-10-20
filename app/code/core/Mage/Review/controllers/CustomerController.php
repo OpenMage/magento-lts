@@ -65,9 +65,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         }
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('My Product Reviews'));
-        }
+        $head?->setTitle($this->__('My Product Reviews'));
 
         $this->renderLayout();
     }
@@ -86,9 +84,7 @@ class Mage_Review_CustomerController extends Mage_Core_Controller_Front_Action
         }
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('Review Details'));
-        }
+        $head?->setTitle($this->__('Review Details'));
 
         $this->renderLayout();
     }

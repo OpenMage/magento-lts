@@ -41,9 +41,7 @@ class Mage_Wishlist_Block_Customer_Wishlist extends Mage_Wishlist_Block_Abstract
         parent::_prepareLayout();
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('My Wishlist'));
-        }
+        $head?->setTitle($this->__('My Wishlist'));
 
         return $this;
     }

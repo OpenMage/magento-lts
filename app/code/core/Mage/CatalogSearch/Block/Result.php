@@ -54,7 +54,8 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
                 'label' => $this->__('Home'),
                 'title' => $this->__('Go to Home Page'),
                 'link'  => Mage::getBaseUrl(),
-            ])->addCrumb('search', [
+            ]);
+            $breadcrumbs->addCrumb('search', [
                 'label' => $title,
                 'title' => $title,
             ]);
@@ -64,9 +65,7 @@ class Mage_CatalogSearch_Block_Result extends Mage_Core_Block_Template
         $title = $this->__("Search results for: '%s'", $helper->getEscapedQueryText());
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($title);
-        }
+        $head?->setTitle($title);
 
         return parent::_prepareLayout();
     }

@@ -541,40 +541,78 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param string $name
      * @return Mage_Core_Block_Abstract|false
+     * @deprecated Use getBlockByName() which returns null if block does not exist
+     * @see getBlockByName()
      */
     public function getBlock($name)
     {
         return $this->_blocks[$name] ?? false;
     }
 
-    public function getBlockAdminhtmlBreadcrumbs(): Mage_Adminhtml_Block_Widget_Breadcrumbs|false
+    /**
+     * Returns null instead of false if block does not exist
+     */
+    public function getBlockByName(string $name): ?Mage_Core_Block_Abstract
     {
-        return $this->getBlock('breadcrumbs');
+        $block = $this->getBlock($name);
+        if (!$block instanceof Mage_Core_Block_Abstract) {
+            return null;
+        }
+        return $block;
     }
 
-    public function getBlockAdminhtmlHead(): Mage_Adminhtml_Block_Page_Head|false
+    public function getBlockAdminhtmlBreadcrumbs(): ?Mage_Adminhtml_Block_Widget_Breadcrumbs
     {
-        return $this->getBlock('head');
+        $block = $this->getBlock('breadcrumbs');
+        if (!$block instanceof Mage_Adminhtml_Block_Widget_Breadcrumbs) {
+            return null;
+        }
+        return $block;
     }
 
-    public function getBlockAdminhtmlMenu(): Mage_Adminhtml_Block_Page_Menu|false
+    public function getBlockAdminhtmlHead(): ?Mage_Adminhtml_Block_Page_Head
     {
-        return $this->getBlock('menu');
+        $block = $this->getBlock('head');
+        if (!$block instanceof Mage_Adminhtml_Block_Page_Head) {
+            return null;
+        }
+        return $block;
     }
 
-    public function getBlockBreadcrumbs(): Mage_Page_Block_Html_Breadcrumbs|false
+    public function getBlockAdminhtmlMenu(): ?Mage_Adminhtml_Block_Page_Menu
     {
-        return $this->getBlock('breadcrumbs');
+        $block = $this->getBlock('menu');
+        if (!$block instanceof Mage_Adminhtml_Block_Page_Menu) {
+            return null;
+        }
+        return $block;
     }
 
-    public function getBlockHead(): Mage_Page_Block_Html_Head|false
+    public function getBlockBreadcrumbs(): ?Mage_Page_Block_Html_Breadcrumbs
     {
-        return $this->getBlock('head');
+        $block = $this->getBlock('breadcrumbs');
+        if (!$block instanceof Mage_Page_Block_Html_Breadcrumbs) {
+            return null;
+        }
+        return $block;
     }
 
-    public function getBlockRoot(): Mage_Page_Block_Html|false
+    public function getBlockHead(): ?Mage_Page_Block_Html_Head
     {
-        return $this->getBlock('root');
+        $block = $this->getBlock('head');
+        if (!$block instanceof Mage_Page_Block_Html_Head) {
+            return null;
+        }
+        return $block;
+    }
+
+    public function getBlockRoot(): ?Mage_Page_Block_Html
+    {
+        $block = $this->getBlock('root');
+        if (!$block instanceof Mage_Page_Block_Html) {
+            return null;
+        }
+        return $block;
     }
 
     /**

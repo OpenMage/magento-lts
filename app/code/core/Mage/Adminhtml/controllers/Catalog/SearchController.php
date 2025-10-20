@@ -71,9 +71,7 @@ class Mage_Adminhtml_Catalog_SearchController extends Mage_Adminhtml_Controller_
         $this->_title($id ? $model->getQueryText() : $this->__('New Search'));
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
-        if ($head) {
-            $head->setCanLoadRulesJs(true);
-        }
+        $head?->setCanLoadRulesJs(true);
 
         $this->getLayout()->getBlock('catalog_search_edit')
             ->setData('action', $this->getUrl('*/catalog_search/save'));

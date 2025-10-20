@@ -32,9 +32,7 @@ class Mage_Wishlist_Block_Share_Wishlist extends Mage_Wishlist_Block_Abstract
         parent::_prepareLayout();
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->getHeader());
-        }
+        $head?->setTitle($this->getHeader());
 
         return $this;
     }

@@ -104,9 +104,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         );
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('My Account'));
-        }
+        $head?->setTitle($this->__('My Account'));
 
         $this->renderLayout();
     }
@@ -127,9 +125,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->_initLayoutMessages('catalog/session');
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('Customer Login'));
-        }
+        $head?->setTitle($this->__('Customer Login'));
 
         $this->renderLayout();
     }
@@ -987,9 +983,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('Account Information'));
-        }
+        $head?->setTitle($this->__('Account Information'));
 
         $this->getLayout()->getBlock('messages')->setEscapeMessageFlag(true);
         $this->renderLayout();

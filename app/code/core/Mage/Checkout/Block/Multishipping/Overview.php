@@ -43,11 +43,9 @@ class Mage_Checkout_Block_Multishipping_Overview extends Mage_Sales_Block_Items_
     protected function _prepareLayout()
     {
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle(
-                $this->__('Review Order - %s', $head->getDefaultTitle()),
-            );
-        }
+        $head?->setTitle(
+            $this->__('Review Order - %s', $head->getDefaultTitle()),
+        );
 
         return parent::_prepareLayout();
     }

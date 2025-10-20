@@ -216,9 +216,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
-        if ($head) {
-            $head->setCanLoadExtJs(true);
-        }
+        $head?->setCanLoadExtJs(true);
 
         $block = $this->getLayout()->getBlock('catalog.wysiwyg.js');
         if ($block) {
@@ -272,9 +270,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         }
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
-        if ($head) {
-            $head->setCanLoadExtJs(true);
-        }
+        $head?->setCanLoadExtJs(true);
 
         $block = $this->getLayout()->getBlock('catalog.wysiwyg.js');
         if ($block) {

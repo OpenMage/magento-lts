@@ -26,11 +26,13 @@ class Mage_CatalogSearch_Block_Advanced_Result extends Mage_Core_Block_Template
             $breadcrumbs->addCrumb('home', [
                 'label' => Mage::helper('catalogsearch')->__('Home'),
                 'title' => Mage::helper('catalogsearch')->__('Go to Home Page'),
-                'link' => Mage::getBaseUrl(),
-            ])->addCrumb('search', [
+                'link'  => Mage::getBaseUrl(),
+            ]);
+            $breadcrumbs->addCrumb('search', [
                 'label' => Mage::helper('catalogsearch')->__('Catalog Advanced Search'),
-                'link' => $this->getUrl('*/*/'),
-            ])->addCrumb('search_result', [
+                'link'  => $this->getUrl('*/*/'),
+            ]);
+            $breadcrumbs->addCrumb('search_result', [
                 'label' => Mage::helper('catalogsearch')->__('Results'),
             ]);
         }

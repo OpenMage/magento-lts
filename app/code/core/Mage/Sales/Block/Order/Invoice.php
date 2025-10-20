@@ -26,9 +26,7 @@ class Mage_Sales_Block_Order_Invoice extends Mage_Sales_Block_Order_Invoice_Item
     protected function _prepareLayout()
     {
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
-        }
+        $head?->setTitle($this->__('Order # %s', $this->getOrder()->getRealOrderId()));
 
         /** @var Mage_Payment_Helper_Data $helper */
         $helper = $this->helper('payment');

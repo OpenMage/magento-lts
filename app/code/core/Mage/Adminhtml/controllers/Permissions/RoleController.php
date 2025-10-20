@@ -110,9 +110,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
-        if ($head) {
-            $head->setCanLoadExtJs(true);
-        }
+        $head?->setCanLoadExtJs(true);
 
         $this->_addContent(
             $this->getLayout()->createBlock('adminhtml/permissions_buttons')

@@ -84,9 +84,7 @@ class Mage_Adminhtml_Api_RoleController extends Mage_Adminhtml_Controller_Action
         $this->_addBreadcrumb($breadCrumb, $breadCrumbTitle);
 
         $head = $this->getLayout()->getBlockAdminhtmlHead();
-        if ($head) {
-            $head->setCanLoadExtJs(true);
-        }
+        $head?->setCanLoadExtJs(true);
 
         $this->_addLeft(
             $this->getLayout()->createBlock('adminhtml/api_editroles'),

@@ -50,9 +50,7 @@ class Mage_Catalog_Block_Breadcrumbs extends Mage_Core_Block_Template
             }
 
             $head = $this->getLayout()->getBlockHead();
-            if ($head) {
-                $head->setTitle(implode($this->getTitleSeparator(), array_reverse($title)));
-            }
+            $head?->setTitle(implode($this->getTitleSeparator(), array_reverse($title)));
         }
 
         return parent::_prepareLayout();

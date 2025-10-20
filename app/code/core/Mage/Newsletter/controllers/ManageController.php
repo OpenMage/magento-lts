@@ -40,9 +40,7 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
         }
 
         $head = $this->getLayout()->getBlockHead();
-        if ($head) {
-            $head->setTitle($this->__('Newsletter Subscription'));
-        }
+        $head?->setTitle($this->__('Newsletter Subscription'));
 
         $this->renderLayout();
     }

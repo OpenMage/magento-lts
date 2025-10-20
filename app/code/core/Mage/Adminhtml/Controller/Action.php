@@ -101,9 +101,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _setActiveMenu(string $menuPath)
     {
         $block = $this->getLayout()->getBlockAdminhtmlMenu();
-        if ($block) {
-            $block->setActive($menuPath);
-        }
+        $block?->setActive($menuPath);
 
         return $this;
     }
@@ -114,9 +112,7 @@ class Mage_Adminhtml_Controller_Action extends Mage_Core_Controller_Varien_Actio
     protected function _addBreadcrumb($label, $title, $link = null)
     {
         $block = $this->getLayout()->getBlockAdminhtmlBreadcrumbs();
-        if ($block) {
-            $block->addLink($label, $title, $link);
-        }
+        $block?->addLink($label, $title, $link);
 
         return $this;
     }

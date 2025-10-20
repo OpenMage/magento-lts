@@ -83,9 +83,7 @@ class Mage_Cms_Block_Page extends Mage_Core_Block_Abstract
         }
 
         $root = $this->getLayout()->getBlockRoot();
-        if ($root) {
-            $root->addBodyClass('cms-' . $page->getIdentifier());
-        }
+        $root?->addBodyClass('cms-' . $page->getIdentifier());
 
         $head = $this->getLayout()->getBlockHead();
         if ($head) {
