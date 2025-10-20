@@ -142,8 +142,8 @@ class Mage_Core_Model_Resource_Transaction
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 
@@ -179,8 +179,8 @@ class Mage_Core_Model_Resource_Transaction
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 
