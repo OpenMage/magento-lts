@@ -564,7 +564,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     public function getBlockAdminhtmlBreadcrumbs(): ?Mage_Adminhtml_Block_Widget_Breadcrumbs
     {
-        $block = $this->getBlock('breadcrumbs');
+        $block = $this->getBlockByName('breadcrumbs');
         if (!$block instanceof Mage_Adminhtml_Block_Widget_Breadcrumbs) {
             return null;
         }
@@ -574,7 +574,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     public function getBlockAdminhtmlHead(): ?Mage_Adminhtml_Block_Page_Head
     {
-        $block = $this->getBlock('head');
+        $block = $this->getBlockByName('head');
         if (!$block instanceof Mage_Adminhtml_Block_Page_Head) {
             return null;
         }
@@ -584,7 +584,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     public function getBlockAdminhtmlMenu(): ?Mage_Adminhtml_Block_Page_Menu
     {
-        $block = $this->getBlock('menu');
+        $block = $this->getBlockByName('menu');
         if (!$block instanceof Mage_Adminhtml_Block_Page_Menu) {
             return null;
         }
@@ -594,7 +594,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     public function getBlockBreadcrumbs(): ?Mage_Page_Block_Html_Breadcrumbs
     {
-        $block = $this->getBlock('breadcrumbs');
+        $block = $this->getBlockByName('breadcrumbs');
         if (!$block instanceof Mage_Page_Block_Html_Breadcrumbs) {
             return null;
         }
@@ -604,7 +604,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     public function getBlockHead(): ?Mage_Page_Block_Html_Head
     {
-        $block = $this->getBlock('head');
+        $block = $this->getBlockByName('head');
         if (!$block instanceof Mage_Page_Block_Html_Head) {
             return null;
         }
@@ -614,7 +614,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
 
     public function getBlockRoot(): ?Mage_Page_Block_Html
     {
-        $block = $this->getBlock('root');
+        $block = $this->getBlockByName('root');
         if (!$block instanceof Mage_Page_Block_Html) {
             return null;
         }
