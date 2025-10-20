@@ -558,6 +558,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if (!$block instanceof Mage_Core_Block_Abstract) {
             return null;
         }
+
         return $block;
     }
 
@@ -567,6 +568,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if (!$block instanceof Mage_Adminhtml_Block_Widget_Breadcrumbs) {
             return null;
         }
+
         return $block;
     }
 
@@ -576,6 +578,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if (!$block instanceof Mage_Adminhtml_Block_Page_Head) {
             return null;
         }
+
         return $block;
     }
 
@@ -585,6 +588,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if (!$block instanceof Mage_Adminhtml_Block_Page_Menu) {
             return null;
         }
+
         return $block;
     }
 
@@ -594,6 +598,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if (!$block instanceof Mage_Page_Block_Html_Breadcrumbs) {
             return null;
         }
+
         return $block;
     }
 
@@ -603,6 +608,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if (!$block instanceof Mage_Page_Block_Html_Head) {
             return null;
         }
+
         return $block;
     }
 
@@ -612,6 +618,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
         if (!$block instanceof Mage_Page_Block_Html) {
             return null;
         }
+
         return $block;
     }
 
