@@ -56,7 +56,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
             $this->_data['logo_src'] = $this->getLogoSrcExists($src);
         }
 
-        return $this->getSkinUrl($this->_data['logo_src']);
+        return $this->_data['logo_src'];
     }
 
     /**
@@ -69,7 +69,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
             $this->_data['logo_src_small'] = $this->getLogoSrcExists($src);
         }
 
-        return $this->getSkinUrl($this->_data['logo_src_small']);
+        return $this->_data['logo_src_small'];
     }
 
     public function getLogoSrcExists(string $src): string
@@ -79,7 +79,7 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
             return $mediaBaseUrl . self::LOGO_DIR . $src;
         }
 
-        return $src;
+        return $this->getSkinUrl($src);
     }
 
     /**
