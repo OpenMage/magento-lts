@@ -156,12 +156,12 @@ class Mage_Paypal_Model_Method_Agreement extends Mage_Sales_Model_Payment_Method
             ->setBillingAgreementStatus($targetStatus);
         try {
             $api->callUpdateBillingAgreement();
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             // when BA was already canceled, just pretend that the operation succeeded
             if (!(Mage_Sales_Model_Billing_Agreement::STATUS_CANCELED == $targetStatus
                 && $api->getIsBillingAgreementAlreadyCancelled())
             ) {
-                throw $e;
+                throw $mageCoreException;
             }
         }
 

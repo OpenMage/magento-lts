@@ -547,9 +547,9 @@ class Mage_Paypal_Model_Express_Checkout
             $debugData['response'] = $response;
             $logger->log($debugData);
             return $response;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $logger->log($debugData);
-            throw $e;
+            throw $exception;
         }
     }
 

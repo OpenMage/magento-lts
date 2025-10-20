@@ -1155,8 +1155,8 @@ XMLAuth;
 
         try {
             $accessToken = $this->setAPIAccessRequest();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $this->_trackingResult = Mage::getModel('shipping/tracking_result');
             $this->_trackingResult->setError('Authentication error');
             return $this->_trackingResult;
@@ -1611,8 +1611,8 @@ XMLAuth;
 
         try {
             $response = new SimpleXMLElement($xmlResponse);
-        } catch (Exception $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+        } catch (Exception $exception) {
+            $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
         }
 
         $this->_debug($debugData);
@@ -2030,9 +2030,9 @@ XMLAuth;
 
         try {
             $response = new SimpleXMLElement($xmlResponse);
-        } catch (Exception $e) {
-            $debugData['result'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            $result->setErrors($e->getMessage());
+        } catch (Exception $exception) {
+            $debugData['result'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
+            $result->setErrors($exception->getMessage());
         }
 
         if (isset($response->Response->Error)
@@ -2221,8 +2221,8 @@ XMLAuth;
 
         try {
             $accessToken = $this->setAPIAccessRequest();
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $result = Mage::getModel('shipping/rate_result');
             $result->setError('Authentication error');
             return $result;

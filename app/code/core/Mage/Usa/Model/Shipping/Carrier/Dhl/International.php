@@ -813,8 +813,8 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_International extends Mage_Usa_Model_S
             }
 
             $this->_debug($debugData);
-        } catch (Exception $e) {
-            $this->_errors[$e->getCode()] = $e->getMessage();
+        } catch (Exception $exception) {
+            $this->_errors[$exception->getCode()] = $exception->getMessage();
         }
 
         return $this->_parseResponse($responseBody);

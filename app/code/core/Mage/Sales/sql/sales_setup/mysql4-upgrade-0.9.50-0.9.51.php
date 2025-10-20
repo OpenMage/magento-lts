@@ -111,9 +111,9 @@ try {
             $insertQueryItems,
         );
     }
-} catch (Exception $e) {
+} catch (Exception $exception) {
     $connection->rollBack();
-    throw $e;
+    throw $exception;
 }
 
 $connection->commit();

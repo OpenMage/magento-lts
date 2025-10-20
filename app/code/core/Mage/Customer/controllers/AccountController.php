@@ -645,9 +645,9 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             // die happy
             $this->_redirectSuccess($this->_getUrl('*/*/index', ['_secure' => true]));
             return;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             // die unhappy
-            $this->_getSession()->addError($e->getMessage());
+            $this->_getSession()->addError($exception->getMessage());
             $this->_redirectError($this->_getUrl('*/*/index', ['_secure' => true]));
             return;
         }

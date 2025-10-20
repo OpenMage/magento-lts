@@ -103,10 +103,10 @@ class Mage_Paypal_Model_Ipn
 
                 $this->_processOrder();
             }
-        } catch (Exception $e) {
-            $this->_debugData['exception'] = $e->getMessage();
+        } catch (Exception $exception) {
+            $this->_debugData['exception'] = $exception->getMessage();
             $this->_debug();
-            throw $e;
+            throw $exception;
         }
 
         $this->_debug();
@@ -134,9 +134,9 @@ class Mage_Paypal_Model_Ipn
 
         try {
             $postbackResult = $httpAdapter->read();
-        } catch (Exception $e) {
-            $this->_debugData['http_error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
-            throw $e;
+        } catch (Exception $exception) {
+            $this->_debugData['http_error'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
+            throw $exception;
         }
 
         /*
@@ -279,10 +279,10 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::TXN_TYPE_ADJUSTMENT => $this->_registerAdjustment(),
                 default => $this->_registerTransaction(),
             };
-        } catch (Mage_Core_Exception $e) {
-            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $mageCoreException->getMessage()), true);
             $comment->save();
-            throw $e;
+            throw $mageCoreException;
         }
     }
 
@@ -342,10 +342,10 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::PAYMENTSTATUS_EXPIRED, Mage_Paypal_Model_Info::PAYMENTSTATUS_VOIDED => $this->_registerPaymentVoid(),
                 default => throw new Exception("Cannot handle payment status '{$paymentStatus}'."),
             };
-        } catch (Mage_Core_Exception $e) {
-            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $e->getMessage()), true);
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $comment = $this->_createIpnComment(Mage::helper('paypal')->__('Note: %s', $mageCoreException->getMessage()), true);
             $comment->save();
-            throw $e;
+            throw $mageCoreException;
         }
     }
 
@@ -365,8 +365,8 @@ class Mage_Paypal_Model_Ipn
                 Mage_Paypal_Model_Info::PAYMENTSTATUS_COMPLETED => $this->_registerRecurringProfilePaymentCapture(),
                 default => throw new Exception("Cannot handle payment status '{$paymentStatus}'."),
             };
-        } catch (Mage_Core_Exception $e) {
-            throw $e;
+        } catch (Mage_Core_Exception $mageCoreException) {
+            throw $mageCoreException;
         }
     }
 

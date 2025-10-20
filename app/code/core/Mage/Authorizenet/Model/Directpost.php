@@ -220,9 +220,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         $payment->setCcLast4($payment->decrypt($last4));
         try {
             $this->_refund($payment, $amount);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $payment->setCcLast4($last4);
-            throw $e;
+            throw $exception;
         }
 
         $payment->setCcLast4($last4);
@@ -543,11 +543,11 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         try {
             $this->checkResponseCode();
             $this->checkTransId();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //decline the order (in case of wrong response code) but don't return money to customer.
-            $message = $e->getMessage();
+            $message = $exception->getMessage();
             $this->_declineOrder($order, $message, false);
-            throw $e;
+            throw $exception;
         }
 
         $response = $this->getResponse();
@@ -590,8 +590,8 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 ->load($order->getQuoteId())
                 ->setIsActive(false)
                 ->save();
-        } catch (Exception $e) {
-            Mage::logException($e); // do not cancel order if we couldn't send email
+        } catch (Exception $exception) {
+            Mage::logException($exception); // do not cancel order if we couldn't send email
         }
     }
 
@@ -617,9 +617,9 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 
             $order->registerCancellation($message)
                 ->save();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //quiet decline
-            Mage::logException($e);
+            Mage::logException($exception);
         }
     }
 

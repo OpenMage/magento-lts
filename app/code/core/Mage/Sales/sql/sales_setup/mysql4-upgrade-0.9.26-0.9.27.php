@@ -158,7 +158,7 @@ try {
     }
 
     $installer->getConnection()->commit();
-} catch (Exception $e) {
+} catch (Exception $exception) {
     $installer->getConnection()->rollBack();
-    throw $e;
+    throw $exception;
 }
