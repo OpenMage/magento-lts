@@ -123,7 +123,7 @@
                             <sort_order>10</sort_order>
                             <frontend_type>image</frontend_type>
                             <backend_model>adminhtml/system_config_backend_image_logo</backend_model>
-                            <base_url type="media" scope_info="1">header/logo</base_url>
+                            <base_url type="media">header/logo</base_url>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -140,7 +140,7 @@
                             <sort_order>25</sort_order>
                             <frontend_type>image</frontend_type>
                             <backend_model>adminhtml/system_config_backend_image_logosmall</backend_model>
-                            <base_url type="media" scope_info="1">header/logo_small</base_url>
+                            <base_url type="media">header/logo</base_url>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
