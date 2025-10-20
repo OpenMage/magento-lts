@@ -550,7 +550,7 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
     }
 
     /**
-     * Returns null instead of false if block does not exist 
+     * Returns null instead of false if block does not exist
      */
     public function getBlockByName(string $name): ?Mage_Core_Block_Abstract
     {
