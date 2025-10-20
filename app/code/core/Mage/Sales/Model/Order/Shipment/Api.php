@@ -50,6 +50,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         foreach ($shipmentCollection as $shipment) {
             $shipments[] = $this->_getAttributes($shipment, 'shipment');
         }
@@ -132,6 +133,7 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
             if ($email) {
                 $shipment->setEmailSent(true);
             }
+
             $shipment->getOrder()->setIsInProcess(true);
             try {
                 $transactionSave = Mage::getModel('core/resource_transaction')
@@ -142,8 +144,10 @@ class Mage_Sales_Model_Order_Shipment_Api extends Mage_Sales_Model_Api_Resource
             } catch (Mage_Core_Exception $e) {
                 $this->_fault('data_invalid', $e->getMessage());
             }
+
             return $shipment->getIncrementId();
         }
+
         return null;
     }
 

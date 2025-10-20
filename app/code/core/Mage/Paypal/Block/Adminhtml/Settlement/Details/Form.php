@@ -98,6 +98,7 @@ class Mage_Paypal_Block_Adminhtml_Settlement_Details_Form extends Mage_Adminhtml
                 ]);
             }
         }
+
         $this->setForm($form);
         return parent::_prepareForm();
     }

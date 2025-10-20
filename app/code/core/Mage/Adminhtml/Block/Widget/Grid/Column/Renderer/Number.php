@@ -30,8 +30,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Number extends Mage_Admin
             if ($sign) {
                 $value = $sign . $value;
             }
+
             return $value ? $value : '0'; // fixed for showing zero in grid
         }
+
         return $this->getColumn()->getDefault();
     }
 }

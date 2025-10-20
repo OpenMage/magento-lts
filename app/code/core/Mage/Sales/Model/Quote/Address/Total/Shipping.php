@@ -65,6 +65,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                     if ($child->getProduct()->isVirtual()) {
                         continue;
                     }
+
                     $addressQty += $child->getTotalQty();
 
                     if (!$item->getProduct()->getWeightType()) {
@@ -82,10 +83,12 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                                 $rowWeight = 0;
                             }
                         }
+
                         $freeMethodWeight += $rowWeight;
                         $item->setRowWeight($rowWeight);
                     }
                 }
+
                 if ($item->getProduct()->getWeightType()) {
                     $itemWeight = $item->getWeight();
                     $rowWeight  = $itemWeight * $item->getQty();
@@ -100,6 +103,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                             $rowWeight = 0;
                         }
                     }
+
                     $freeMethodWeight += $rowWeight;
                     $item->setRowWeight($rowWeight);
                 }
@@ -107,6 +111,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                 if (!$item->getProduct()->isVirtual()) {
                     $addressQty += $item->getQty();
                 }
+
                 $itemWeight = $item->getWeight();
                 $rowWeight  = $itemWeight * $item->getQty();
                 $addressWeight += $rowWeight;
@@ -120,6 +125,7 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
                         $rowWeight = 0;
                     }
                 }
+
                 $freeMethodWeight += $rowWeight;
                 $item->setRowWeight($rowWeight);
             }
@@ -168,12 +174,14 @@ class Mage_Sales_Model_Quote_Address_Total_Shipping extends Mage_Sales_Model_Quo
             if ($address->getShippingDescription()) {
                 $title .= ' (' . $address->getShippingDescription() . ')';
             }
+
             $address->addTotal([
                 'code' => $this->getCode(),
                 'title' => $title,
                 'value' => $address->getShippingAmount(),
             ]);
         }
+
         return $this;
     }
 

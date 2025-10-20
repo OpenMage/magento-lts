@@ -70,6 +70,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Show_Customer extends 
                 $attributeObject->setWebsite($website);
                 $attributeObject->load($attributeObject->getId());
             }
+
             $attributeObject->setData($dataFieldPrefix . 'is_required', $data['is_required']);
             $attributeObject->setData($dataFieldPrefix . 'is_visible', $data['is_visible']);
             $attributeObject->save();

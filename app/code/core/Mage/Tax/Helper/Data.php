@@ -121,6 +121,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($len <= 0) {
             $len = 10;
         }
+
         return $len;
     }
 
@@ -144,6 +145,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($this->_calculator === null) {
             $this->_calculator = Mage::getSingleton('tax/calculation');
         }
+
         return $this->_calculator;
     }
 
@@ -162,6 +164,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         } catch (Exception $e) {
             $value = $e->getMessage();
         }
+
         return $value;
     }
 
@@ -201,6 +204,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         } else {
             $s = $this->__('Excl. Tax');
         }
+
         return $s;
     }
 
@@ -249,6 +253,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($res === false) {
             $res = $this->displayTaxColumn($store);
         }
+
         return $res;
     }
 
@@ -398,6 +403,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($store) {
             $priceFormat['pattern'] = $this->_app->getStore($store)->getCurrentCurrency()->getOutputFormat();
         }
+
         return Mage::helper('core')->jsonEncode($priceFormat);
     }
 
@@ -482,10 +488,12 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$price) {
             return $price;
         }
+
         $store = $this->_app->getStore($store);
         if (!$this->needPriceConversion($store)) {
             return $store->roundPrice($price);
         }
+
         if (is_null($priceIncludesTax)) {
             $priceIncludesTax = $this->priceIncludesTax($store);
         }
@@ -502,6 +510,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                     ->getRate($request->setProductClassId($taxClassId));
             }
         }
+
         if ($taxClassId && $priceIncludesTax) {
             if ($this->isCrossBorderTradeEnabled($store)) {
                 $includingPercent = $percent;
@@ -564,6 +573,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                         //round tax first unless $roundPrice is set to false explicitly
                         $price = $this->_calculatePrice($price, $includingPercent, false, $roundPrice);
                     }
+
                     break;
 
                 case Mage_Tax_Model_Config::DISPLAY_TYPE_INCLUDING_TAX:
@@ -580,6 +590,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                     } else {
                         $price = $this->_calculatePrice($price, $percent, true);
                     }
+
                     break;
 
                 case Mage_Tax_Model_Config::DISPLAY_TYPE_BOTH:
@@ -587,6 +598,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                     break;
             }
         }
+
         if ($roundPrice) {
             return $store->roundPrice($price);
         } else {
@@ -679,6 +691,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             $taxRate = $appliedRate['percent'];
             $tax += $calculator->round($price * $taxRate / 100);
         }
+
         return $tax + $price;
     }
 
@@ -776,6 +789,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($shippingAddress && $shippingAddress->getQuote() && $shippingAddress->getQuote()->getBillingAddress()) {
             $billingAddress = $shippingAddress->getQuote()->getBillingAddress();
         }
+
         return $this->getPrice(
             $pseudoProduct,
             $price,
@@ -821,6 +835,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                         ${$rateVariable} .= sprintf('WHEN %d THEN %12.4f ', $classId, $rate / 100);
                     }
                 }
+
                 if (${$rateVariable}) {
                     ${$rateVariable} = "CASE {$taxClassField} {${$rateVariable}} ELSE 0 END";
                 }
@@ -833,6 +848,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
             if ($defaultTaxString) {
                 $result = "-({$priceField}/(1+({$defaultTaxString}))*{$defaultTaxString})";
             }
+
             if (!$this->displayPriceExcludingTax() && $currentTaxString) {
                 $result .= "+(({$priceField}{$result})*{$currentTaxString})";
             }
@@ -841,6 +857,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 $result .= "+({$priceField}*{$currentTaxString})";
             }
         }
+
         return $result;
     }
 
@@ -1013,6 +1030,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                             $price = $price - $item->getDiscountAmount() + $item->getHiddenTaxAmount();
                             $basePrice = $basePrice - $item->getBaseDiscountAmount() + $item->getBaseHiddenTaxAmount();
                         }
+
                         $taxAmount = $price * $percent / 100;
                         $baseTaxAmount = $basePrice * $percent / 100;
 
@@ -1098,6 +1116,7 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
                 if ($current->getShippingHiddenTaxAmount() > 0) {
                     $taxClassAmount[0]['hidden_tax_amount'] = $current->getShippingHiddenTaxAmount();
                 }
+
                 $taxClassAmount[0]['title'] = $this->__('Shipping & Handling Tax');
                 $taxClassAmount[0]['percent'] = null;
             }
@@ -1204,11 +1223,13 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         if ($flag->getId()) {
             return (bool) $flag->getFlagData();
         }
+
         $configValue = $this->_app->getStore()->getConfig($key);
         if ($configValue !== null) {
             $flag->setFlagData((bool) $configValue)->save();
             return (bool) $configValue;
         }
+
         return false;
     }
 

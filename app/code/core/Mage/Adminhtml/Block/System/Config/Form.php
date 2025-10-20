@@ -15,7 +15,9 @@
 class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     public const SCOPE_DEFAULT = 'default';
+
     public const SCOPE_WEBSITES = 'websites';
+
     public const SCOPE_STORES   = 'stores';
 
     /**
@@ -107,11 +109,13 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if (empty($sections)) {
             $sections = [];
         }
+
         foreach ($sections as $section) {
             /** @var Varien_Simplexml_Element $section */
             if (!$this->_canShowField($section)) {
                 continue;
             }
+
             foreach ($section->groups as $groups) {
                 $groups = (array) $groups;
                 usort($groups, [$this, '_sortForm']);
@@ -121,6 +125,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     if (!$this->_canShowField($group)) {
                         continue;
                     }
+
                     $this->_initGroup($form, $group, $section);
                 }
             }
@@ -153,6 +158,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             if (!empty($group->comment)) {
                 $fieldsetConfig['comment'] = $this->_prepareGroupComment($group, $helperName);
             }
+
             if (!empty($group->expanded)) {
                 $fieldsetConfig['expanded'] = (bool) $group->expanded;
             }
@@ -180,6 +186,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 } else {
                     Mage::throwException($this->__('Config form fieldset clone model required to be able to clone fields'));
                 }
+
                 foreach ($cloneModel->getPrefixes() as $prefix) {
                     $this->initFields($fieldset, $group, $section, $prefix['field'], $prefix['label']);
                 }
@@ -202,6 +209,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence'),
             );
         }
+
         return $this->getChild('element_dependense');
     }
 
@@ -287,8 +295,9 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 if ($backendClass) {
                     $model = Mage::getModel($backendClass);
                     if (!$model instanceof Mage_Core_Model_Config_Data) {
-                        Mage::throwException('Invalid config field backend model: ' . (string) $element->backend_model);
+                        Mage::throwException('Invalid config field backend model: ' . $element->backend_model);
                     }
+
                     $model->setPath($path)
                         ->setValue($data)
                         ->setWebsite($this->getWebsiteCode())
@@ -328,6 +337,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                         if (isset($dependent['separator'])) {
                             $dependentValue = explode((string) $dependent['separator'], $dependentValue);
                         }
+
                         $dependentFieldName = $fieldPrefix . $dependent->getName();
                         $dependentField     = $dependentFieldGroup->fields->$dependentFieldName;
                         /*
@@ -347,6 +357,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                                 $shouldBeAddedDependence = $dependentValue != $dependentValueInStore;
                             }
                         }
+
                         if ($shouldBeAddedDependence) {
                             $this->_getDependence()
                                 ->addFieldMap($id, $id)
@@ -355,6 +366,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                         }
                     }
                 }
+
                 $sharedClass = '';
                 if ($element->shared && $element->config_path) {
                     $sharedClass = ' shared shared-' . str_replace('/', '-', $element->config_path);
@@ -413,6 +425,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                     if (!$sourceModel) {
                         Mage::throwException("Source model '{$factoryName}' is not found");
                     }
+
                     if ($sourceModel instanceof Varien_Object) {
                         $sourceModel->setPath($path);
                     }
@@ -436,6 +449,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 }
             }
         }
+
         return $this;
     }
 
@@ -449,6 +463,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if (empty($this->_configRoot)) {
             $this->_configRoot = Mage::getSingleton('adminhtml/config_data')->getConfigRoot();
         }
+
         return $this->_configRoot;
     }
 
@@ -466,6 +481,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $originalData[$key] = (string) $value;
             }
         }
+
         $field->setOriginalData($originalData);
     }
 
@@ -492,6 +508,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 $comment = Mage::helper($helper)->__($commentInfo);
             }
         }
+
         return $comment;
     }
 
@@ -521,6 +538,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         } elseif ($element->tooltip_block) {
             return $this->getLayout()->createBlock((string) $element->tooltip_block)->toHtml();
         }
+
         return '';
     }
 
@@ -534,6 +552,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($this->_getDependence()) {
             $html .= $this->_getDependence()->toHtml();
         }
+
         return parent::_afterToHtml($html);
     }
 
@@ -556,9 +575,11 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($this->getScope() == self::SCOPE_STORES && $field) {
             return true;
         }
+
         if ($this->getScope() == self::SCOPE_WEBSITES && $field) {
             return true;
         }
+
         return false;
     }
 
@@ -571,6 +592,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($this->getScope() == self::SCOPE_STORES && $field) {
             return true;
         }
+
         return false;
     }
 
@@ -586,6 +608,12 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         if ($ifModuleEnabled && !$this->isModuleEnabled($ifModuleEnabled)) {
             return false;
         }
+
+        $aclResource = trim((string) $field->acl_resource);
+        if ($aclResource && !Mage::getSingleton('admin/session')->isAllowed($aclResource)) {
+            return false;
+        }
+
         return match ($this->getScope()) {
             self::SCOPE_DEFAULT => (bool) (int) $field->show_in_default,
             self::SCOPE_WEBSITES => (bool) (int) $field->show_in_website,
@@ -610,6 +638,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             } else {
                 $scope = self::SCOPE_DEFAULT;
             }
+
             $this->setScope($scope);
         }
 
@@ -629,6 +658,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
         } elseif ((int) $element->show_in_website === 1) {
             return $this->_scopeLabels[self::SCOPE_WEBSITES];
         }
+
         return $this->_scopeLabels[self::SCOPE_DEFAULT];
     }
 
@@ -648,6 +678,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             } else {
                 $scopeCode = '';
             }
+
             $this->setScopeCode($scopeCode);
         }
 
@@ -670,8 +701,10 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
             } else {
                 $scopeId = '';
             }
+
             $this->setScopeId($scopeId);
         }
+
         return $scopeId;
     }
 

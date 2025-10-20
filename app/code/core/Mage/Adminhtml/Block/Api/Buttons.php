@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Reset'),
                     'onclick'   => 'window.location.reload()',
+                    'class'     => 'reset',
                 ]),
         );
 
@@ -63,26 +64,39 @@ class Mage_Adminhtml_Block_Api_Buttons extends Mage_Adminhtml_Block_Template
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     public function getBackButtonHtml()
     {
         return $this->getChildHtml('backButton');
     }
 
+    /**
+     * @return string
+     */
     public function getResetButtonHtml()
     {
         return $this->getChildHtml('resetButton');
     }
 
+    /**
+     * @return string
+     */
     public function getSaveButtonHtml()
     {
         return $this->getChildHtml('saveButton');
     }
 
+    /**
+     * @return string
+     */
     public function getDeleteButtonHtml()
     {
         if ((int) $this->getRequest()->getParam('rid') == 0) {
-            return;
+            return '';
         }
+
         return $this->getChildHtml('deleteButton');
     }
 

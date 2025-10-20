@@ -29,6 +29,7 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
      * @var string
      */
     protected $_priceBlockDefaultTemplate = 'catalog/rss/product/price.phtml';
+
     protected $_priceBlockDefaultType = 'catalog/product_price';
 
     /**
@@ -59,8 +60,10 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
                     $block = $this->_priceBlockTypes[$productTypeId]['block'];
                 }
             }
+
             $this->_priceBlock[$productTypeId] = $this->getLayout()->createBlock($block);
         }
+
         return $this->_priceBlock[$productTypeId];
     }
 
@@ -77,6 +80,7 @@ class Mage_Rss_Block_Catalog_Abstract extends Mage_Rss_Block_Abstract
                 return $this->_priceBlockTypes[$productTypeId]['template'];
             }
         }
+
         return $this->_priceBlockDefaultTemplate;
     }
 

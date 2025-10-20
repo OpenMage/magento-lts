@@ -50,6 +50,7 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
         if (!$this->getTypeId()) {
             Mage::throwException(Mage::helper('eav')->__('Invalid form type.'));
         }
+
         if (!$this->getAttributeId()) {
             Mage::throwException(Mage::helper('eav')->__('Invalid EAV attribute.'));
         }
@@ -69,6 +70,7 @@ class Mage_Eav_Model_Form_Element extends Mage_Core_Model_Abstract
                 ->getAttribute($this->getEntityTypeId(), $this->getAttributeId());
             $this->setData('attribute', $attribute);
         }
+
         return $this->_getData('attribute');
     }
 }

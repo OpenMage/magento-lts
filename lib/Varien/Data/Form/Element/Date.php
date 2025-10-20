@@ -73,15 +73,18 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
             $this->_value = '';
             return $this;
         }
+
         if ($value instanceof Zend_Date) {
             $this->_value = $value;
             return $this;
         }
+
         if (preg_match('/^\d+$/', $value)) {
             $this->_value = new Zend_Date($this->_toTimestamp($value));
             //$this->_value = new Zend_Date((int)value);
             return $this;
         }
+
         // last check, if input format was set
         if (null === $format) {
             $format = Varien_Date::DATETIME_INTERNAL_FORMAT;
@@ -89,17 +92,20 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
                 $format = $this->getInputFormat();
             }
         }
+
         // last check, if locale was set
         if (null === $locale) {
             if (!$locale = $this->getLocale()) {
                 $locale = null;
             }
         }
+
         try {
             $this->_value = new Zend_Date($value, $format, $locale);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_value = '';
         }
+
         return $this;
     }
 
@@ -115,9 +121,11 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($this->_value)) {
             return '';
         }
+
         if (null === $format) {
             $format = $this->getFormat();
         }
+
         return $this->_value->toString($format);
     }
 
@@ -131,6 +139,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($this->_value)) {
             return null;
         }
+
         return $this->_value;
     }
 
@@ -162,6 +171,7 @@ class Varien_Data_Form_Element_Date extends Varien_Data_Form_Element_Abstract
         if (empty($outputFormat)) {
             throw new Exception('Output format is not specified. Please, specify "format" key in constructor, or set it using setFormat().');
         }
+
         $displayFormat = Varien_Date::convertZendToStrftime($outputFormat, true, (bool) $this->getTime());
 
         $html .= sprintf(

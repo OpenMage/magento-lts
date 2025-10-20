@@ -30,6 +30,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         foreach ($data as $index => $value) {
             $block->assign($index, $value);
         }
+
         $html = $block->toHtml();
         Mage::getSingleton('core/translate_inline')->processResponseBody($html);
         $this->getResponse()->setBody($html);
@@ -47,6 +48,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             // retain the "first page after login" value in session (before redirect)
             $session->setIsFirstPageAfterLogin(true);
         }
+
         $this->_redirect($url);
     }
 
@@ -59,6 +61,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*');
             return;
         }
+
         $loginData = $this->getRequest()->getParam('login');
         $username = (is_array($loginData) && array_key_exists('username', $loginData)) ? $loginData['username'] : null;
 
@@ -118,6 +121,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 if (empty($className)) {
                     continue;
                 }
+
                 $searchInstance = new $className();
                 $results = $searchInstance->setStart($start)
                     ->setLimit($limit)
@@ -126,6 +130,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                     ->getResults();
                 $items = array_merge_recursive($items, $results);
             }
+
             $totalCount = count($items);
         }
 
@@ -161,6 +166,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         if ($locale) {
             Mage::getSingleton('adminhtml/session')->setLocale($locale);
         }
+
         $this->_redirectReferer();
     }
 
@@ -230,9 +236,11 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                                     $user->save();
                                     $user->sendPasswordResetConfirmationEmail();
                                 }
+
                                 break;
                             }
                         }
+
                         $this->_getSession()
                             ->addSuccess(
                                 $this->__(
@@ -252,6 +260,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 $this->_getSession()->addError($this->__('Invalid Form Key. Please refresh the page.'));
             }
         }
+
         $this->loadLayout();
         $this->renderLayout();
     }
@@ -273,7 +282,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
                 'minAdminPasswordLength' => $this->_getModel('admin/user')->getMinAdminPasswordLength(),
             ];
             $this->_outTemplate('resetforgottenpassword', $data);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             $this->_getSession()->addError(Mage::helper('adminhtml')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword', ['_nosecret' => true]);
         }
@@ -309,11 +318,13 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
         if (iconv_strlen($password) <= 0) {
             $errorMessages[] = Mage::helper('adminhtml')->__('New password field cannot be empty.');
         }
+
         /** @var Mage_Admin_Model_User $user */
         $user = $this->_getModel('admin/user')->load($userId);
 
         $user->setNewPassword($password);
         $user->setPasswordConfirmation($passwordConfirmation);
+
         $validationErrorMessages = $user->validate();
         if (is_array($validationErrorMessages)) {
             $errorMessages = array_merge($errorMessages, $validationErrorMessages);
@@ -323,6 +334,7 @@ class Mage_Adminhtml_IndexController extends Mage_Adminhtml_Controller_Action
             foreach ($errorMessages as $errorMessage) {
                 $this->_getSession()->addError($errorMessage);
             }
+
             $data = [
                 'userId' => $userId,
                 'resetPasswordLinkToken' => $resetPasswordLinkToken,

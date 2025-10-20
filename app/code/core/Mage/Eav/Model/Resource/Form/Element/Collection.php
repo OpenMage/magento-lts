@@ -106,6 +106,7 @@ class Mage_Eav_Model_Resource_Form_Element_Collection extends Mage_Core_Model_Re
         if (!$this->isLoaded()) {
             $this->_joinAttributeData();
         }
+
         return parent::load($printQuery, $logQuery);
     }
 }

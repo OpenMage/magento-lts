@@ -25,6 +25,7 @@
 class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
 {
     public const TYPE_TEXT = 'text';
+
     public const TYPE_HTML = 'html';
 
     protected $_storeId = 0;
@@ -83,14 +84,17 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
         if ($type === null) {
             $type = self::TYPE_HTML;
         }
+
         if ($type == self::TYPE_TEXT || !(strlen((string) $this->getData('html_value')))) {
             $value = $this->getData('plain_value');
             //escape html if type is html, but html value is not defined
             if ($type == self::TYPE_HTML) {
                 $value = nl2br(Mage::helper('core')->escapeHtml($value));
             }
+
             return $value;
         }
+
         return $this->getData('html_value');
     }
 
@@ -106,8 +110,10 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
             if (!empty($variable) && $variable['variable_id'] != $this->getId()) {
                 return Mage::helper('core')->__('Variable Code must be unique.');
             }
+
             return true;
         }
+
         return Mage::helper('core')->__('Validation has failed.');
     }
 
@@ -131,12 +137,14 @@ class Mage_Core_Model_Variable extends Mage_Core_Model_Abstract
                 ),
             ];
         }
+
         if ($withGroup && $variables) {
             $variables = [
                 'label' => Mage::helper('core')->__('Custom Variables'),
                 'value' => $variables,
             ];
         }
+
         return $variables;
     }
 }

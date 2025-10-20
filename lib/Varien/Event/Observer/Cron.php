@@ -23,7 +23,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
      *
      * Supports $this->setCronExpr('* 0-5,10-59/5 2-10,15-25 january-june/2 mon-fri')
      *
-     * @return boolean
+     * @return bool
      */
     public function isValidFor(Varien_Event $event)
     {
@@ -49,6 +49,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
         if (!$this->hasNow()) {
             $this->setNow(time());
         }
+
         return $this->getData('now');
     }
 
@@ -71,6 +72,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -80,6 +82,7 @@ class Varien_Event_Observer_Cron extends Varien_Event_Observer
             if (count($e) !== 2) {
                 return false;
             }
+
             $expr = $e[0];
             $mod = $e[1];
             if (!is_numeric($mod)) {

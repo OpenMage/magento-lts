@@ -65,14 +65,15 @@ class Varien_Data_Form_Abstract extends Varien_Object
         if (empty($this->_elements)) {
             $this->_elements = new Varien_Data_Form_Element_Collection($this);
         }
+
         return $this->_elements;
     }
 
     /**
      * Disable elements
      *
-     * @param boolean $readonly
-     * @param boolean $useDisabled
+     * @param bool $readonly
+     * @param bool $useDisabled
      * @return $this
      */
     public function setReadonly($readonly, $useDisabled = false)
@@ -83,6 +84,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
         } else {
             $this->setData('readonly', $readonly);
         }
+
         foreach ($this->getElements() as $element) {
             $element->setReadonly($readonly, $useDisabled);
         }
@@ -130,6 +132,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
             $className = 'Varien_Data_Form_Element_Note';
             $element = new $className($config);
         }
+
         $element->setId($elementId);
         $this->addElement($element, $after);
         return $element;
@@ -185,6 +188,7 @@ class Varien_Data_Form_Abstract extends Varien_Object
         foreach ($this->getElements() as $element) {
             $res['formElements'][] = $element->toArray();
         }
+
         return $res;
     }
 }

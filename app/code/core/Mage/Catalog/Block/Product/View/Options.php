@@ -45,6 +45,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
                 $this->_product = Mage::getSingleton('catalog/product');
             }
         }
+
         return $this->_product;
     }
 
@@ -117,6 +118,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
         if ($this->getOptions()) {
             return true;
         }
+
         return false;
     }
 
@@ -156,10 +158,12 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
                     $id = $value->getId();
                     $_tmpPriceValues[$id] = $this->_getPriceConfiguration($value);
                 }
+
                 $priceValue = $_tmpPriceValues;
             } else {
                 $priceValue = $this->_getPriceConfiguration($option);
             }
+
             $config[$option->getId()] = $priceValue;
         }
 
@@ -180,6 +184,7 @@ class Mage_Catalog_Block_Product_View_Options extends Mage_Core_Block_Template
             $renderer['renderer'] = $this->getLayout()->createBlock($renderer['block'])
                 ->setTemplate($renderer['template']);
         }
+
         return $renderer['renderer']
             ->setProduct($this->getProduct())
             ->setOption($option)

@@ -24,6 +24,7 @@ class Mage_Adminhtml_Block_Report_Grid_Column_Renderer_Blanknumber extends Mage_
              * @todo may be bug in i.e. needs to be fixed
              */
         }
+
         return $this->getColumn()->getDefault();
     }
 }

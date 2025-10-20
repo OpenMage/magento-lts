@@ -109,6 +109,7 @@ class Mage_Newsletter_Model_Problem extends Mage_Core_Model_Abstract
                 ->setIsStatusChanged(true)
                 ->save();
         }
+
         return $this;
     }
 }

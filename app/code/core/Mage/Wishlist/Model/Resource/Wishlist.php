@@ -51,6 +51,7 @@ class Mage_Wishlist_Model_Resource_Wishlist extends Mage_Core_Model_Resource_Db_
             $select->order('wishlist_id ' . Zend_Db_Select::SQL_ASC)
                 ->limit(1);
         }
+
         return $select;
     }
 

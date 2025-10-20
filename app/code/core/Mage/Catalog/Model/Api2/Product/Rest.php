@@ -71,6 +71,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $this->_setProduct($product);
             $this->_prepareProductForResponse($product);
         }
+
         return $products->toArray();
     }
 
@@ -85,6 +86,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if (!$category->getId()) {
                 $this->_critical('Category not found.', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $collection->addCategoryFilter($category);
         }
     }
@@ -115,6 +117,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             $product->unsetData('tier_price');
             unset($productData['tier_price']);
         }
+
         $product->addData($productData);
     }
 
@@ -147,6 +150,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                     $stockItem = Mage::getModel('cataloginventory/stock_item');
                     $stockItem->loadByProduct($product);
                 }
+
                 $productData[$attribute] = $stockItem->getIsInStock();
                 break;
             case 'is_saleable':
@@ -190,12 +194,15 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if ($this->isAllowedAttribute('regular_price_with_tax')) {
                 $productData['regular_price_with_tax'] = $this->_applyTaxToPrice($product->getPrice(), true);
             }
+
             if ($this->isAllowedAttribute('regular_price_without_tax')) {
                 $productData['regular_price_without_tax'] = $this->_applyTaxToPrice($product->getPrice(), false);
             }
+
             if ($this->isAllowedAttribute('final_price_with_tax')) {
                 $productData['final_price_with_tax'] = $this->_applyTaxToPrice($finalPrice, true);
             }
+
             if ($this->isAllowedAttribute('final_price_without_tax')) {
                 $productData['final_price_without_tax'] = $this->_applyTaxToPrice($finalPrice, false);
             }
@@ -218,6 +225,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             );
             $this->allowedAttributes = $attributes;
         }
+
         return $this->allowedAttributes;
     }
 
@@ -265,6 +273,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
             if (!($product->getId())) {
                 $this->_critical(self::RESOURCE_NOT_FOUND);
             }
+
             // check if product belongs to website current
             if ($this->_getStore()->getId()) {
                 $isValidWebsite = in_array($this->_getStore()->getWebsiteId(), $product->getWebsiteIds());
@@ -272,6 +281,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                     $this->_critical(self::RESOURCE_NOT_FOUND);
                 }
             }
+
             // Check display settings for customers & guests
             if ($this->getApiUser()->getType() != Mage_Api2_Model_Auth_User_Admin::USER_TYPE) {
                 // check if product assigned to any website and can be shown
@@ -281,8 +291,10 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                     $this->_critical(self::RESOURCE_NOT_FOUND);
                 }
             }
+
             $this->_product = $product;
         }
+
         return $this->_product;
     }
 
@@ -345,6 +357,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 $percent = Mage::getSingleton('tax/calculation')->getRate($request->setProductClassId($taxClassId));
             }
         }
+
         if ($taxClassId && $priceIncludesTax) {
             $taxHelper = Mage::helper('tax');
             if ($taxHelper->isCrossBorderTradeEnabled($store)) {
@@ -361,6 +374,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 return $price;
             }
         }
+
         $product->setTaxPercent($percent);
 
         if (!is_null($includingTax)) {
@@ -441,6 +455,7 @@ abstract class Mage_Catalog_Model_Api2_Product_Rest extends Mage_Catalog_Model_A
                 'price_without_tax' => $this->_applyTaxToPrice($tierPrice['price'], false),
             ];
         }
+
         return $tierPrices;
     }
 

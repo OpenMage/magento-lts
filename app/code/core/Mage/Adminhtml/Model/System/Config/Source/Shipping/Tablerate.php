@@ -19,6 +19,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Shipping_Tablerate
         foreach ($tableRate->getCode('condition_name') as $k => $v) {
             $arr[] = ['value' => $k, 'label' => $v];
         }
+
         return $arr;
     }
 }

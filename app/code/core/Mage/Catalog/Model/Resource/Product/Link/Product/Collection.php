@@ -60,6 +60,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($linkModel->getLinkTypeId()) {
             $this->_linkTypeId = $linkModel->getLinkTypeId();
         }
+
         return $this;
     }
 
@@ -96,6 +97,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             $this->_hasLinkFilter = true;
             $this->setStore($product->getStore());
         }
+
         return $this;
     }
 
@@ -121,9 +123,11 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             if (!is_array($products)) {
                 $products = [$products];
             }
+
             $this->_hasLinkFilter = true;
             $this->getSelect()->where('links.linked_product_id NOT IN (?)', $products);
         }
+
         return $this;
     }
 
@@ -139,6 +143,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             if (!is_array($products)) {
                 $products = [$products];
             }
+
             $this->getSelect()->where('links.product_id IN (?)', $products);
             $this->_hasLinkFilter = true;
         }
@@ -185,6 +190,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($this->getLinkModel()) {
             $this->_joinLinks();
         }
+
         return parent::_beforeLoad();
     }
 
@@ -211,10 +217,12 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
                 $joinType = 'joinLeft';
                 $joinCondition[] = $adapter->quoteInto('links.product_id = ?', $productId);
             }
+
             $this->addFieldToFilter('entity_id', ['neq' => $productId]);
         } elseif ($this->_isStrongMode) {
             $this->addFieldToFilter('entity_id', ['eq' => -1]);
         }
+
         if ($this->_hasLinkFilter) {
             $select->$joinType(
                 ['links' => $this->getTable('catalog/product_link')],
@@ -223,6 +231,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
             );
             $this->joinAttributes();
         }
+
         return $this;
     }
 
@@ -237,6 +246,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if ($this->_hasLinkFilter) {
             $this->getSelect()->order('position ' . $dir);
         }
+
         return $this;
     }
 
@@ -281,6 +291,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         if (!$this->getLinkModel()) {
             return $this;
         }
+
         $attributes = $this->getLinkModel()->getAttributes();
 
         foreach ($attributes as $attribute) {
@@ -315,6 +326,7 @@ class Mage_Catalog_Model_Resource_Product_Link_Product_Collection extends Mage_C
         } elseif ($attribute == 'attribute_set_id') {
             return $this->setAttributeSetIdOrder($dir);
         }
+
         return parent::setOrder($attribute, $dir);
     }
 

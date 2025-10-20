@@ -17,7 +17,9 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
     /**
      * Validation error constants
      */
-    public const VERR_MANYSLASHES = 1; // Too many slashes in a row of request path, e.g. '///foo//'
+    public const VERR_MANYSLASHES = 1;
+
+    // Too many slashes in a row of request path, e.g. '///foo//'
     public const VERR_ANCHOR = 2;      // Anchor is not supported in request path, e.g. 'foo#bar'
 
     /**
@@ -43,18 +45,21 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
                 $this->__('Request path length exceeds allowed %s symbols.', self::TARGET_PATH_ALLOWED_LENGTH),
             );
         }
+
         if (str_contains($requestPath, '//')) {
             throw new Mage_Core_Exception(
                 $this->__('Two and more slashes together are not permitted in request path'),
                 self::VERR_MANYSLASHES,
             );
         }
+
         if (str_contains($requestPath, '#')) {
             throw new Mage_Core_Exception(
                 $this->__('Anchor symbol (#) is not supported in request path'),
                 self::VERR_ANCHOR,
             );
         }
+
         return true;
     }
 
@@ -91,8 +96,10 @@ class Mage_Core_Helper_Url_Rewrite extends Mage_Core_Helper_Abstract
                 case self::VERR_ANCHOR:
                     throw new Mage_Core_Exception($this->__('Anchor symbol (#) is not supported in url rewrite suffix'), $e->getCode(), $e);
             }
+
             throw $e;
         }
+
         return true;
     }
 }

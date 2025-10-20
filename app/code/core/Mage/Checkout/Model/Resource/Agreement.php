@@ -32,9 +32,11 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
         if (!$height) {
             $height = '';
         }
+
         if ($height && preg_match('/\d$/', $height)) {
             $height .= 'px';
         }
+
         $object->setContentHeight($height);
         return parent::_beforeSave($object);
     }
@@ -98,6 +100,7 @@ class Mage_Checkout_Model_Resource_Agreement extends Mage_Core_Model_Resource_Db
             ->order('store_id DESC')
             ->limit(1);
         }
+
         return $select;
     }
 }

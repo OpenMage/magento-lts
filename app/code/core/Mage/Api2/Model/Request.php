@@ -23,10 +23,15 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
      * Name of query ($_GET) parameters to use in navigation and so on
      */
     public const QUERY_PARAM_REQ_ATTRS   = 'attrs';
+
     public const QUERY_PARAM_PAGE_NUM    = 'page';
+
     public const QUERY_PARAM_PAGE_SIZE   = 'limit';
+
     public const QUERY_PARAM_ORDER_FIELD = 'order';
+
     public const QUERY_PARAM_ORDER_DIR   = 'dir';
+
     public const QUERY_PARAM_FILTER      = 'filter';
 
     /**
@@ -69,6 +74,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             $factory = Mage_Api2_Model_Request_Interpreter::factory($this->getContentType());
             $this->_interpreter = $factory;
         }
+
         return $this->_interpreter;
     }
 
@@ -90,6 +96,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             if (!preg_match('~^([0-9a-z*+\-]+)(?:/([0-9a-z*+\-\.]+))?$~i', $mimeType)) {
                 continue;
             }
+
             $quality = '1.0'; // default value for quality
 
             if ($typeWithQ) {
@@ -99,13 +106,16 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
                     $quality = $qAndValue[1];
                 }
             }
+
             $qualityToTypes[$quality][$mimeType] = true;
         }
+
         krsort($qualityToTypes);
 
         foreach ($qualityToTypes as $typeList) {
             $orderedTypes += $typeList;
         }
+
         return array_keys($orderedTypes);
     }
 
@@ -130,6 +140,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if ($this->_bodyParams == null) {
             $this->_bodyParams = $this->_getInterpreter()->interpret((string) $this->getRawBody());
         }
+
         return $this->_bodyParams;
     }
 
@@ -146,9 +157,11 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (!$headerValue) {
             throw new Mage_Api2_Exception('Content-Type header is empty', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         if (!preg_match('~^([a-z\d/\-+.]+)(?:; *charset=(.+))?$~Ui', $headerValue, $matches)) {
             throw new Mage_Api2_Exception('Invalid Content-Type header', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         // request encoding check if it is specified in header
         if (isset($matches[2]) && self::REQUEST_CHARSET != strtolower($matches[2])) {
             throw new Mage_Api2_Exception(
@@ -156,6 +169,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         return $matches[1];
     }
 
@@ -191,6 +205,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (!$this->isGet() && !$this->isPost() && !$this->isPut() && !$this->isDelete()) {
             throw new Mage_Api2_Exception('Invalid request method', Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
         }
+
         // Map HTTP methods to classic CRUD verbs
         $operationByMethod = [
             'GET'    => Mage_Api2_Model_Resource::OPERATION_RETRIEVE,
@@ -255,6 +270,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
         if (!is_array($include)) {
             $include = explode(',', $include);
         }
+
         return array_map('trim', $include);
     }
 
@@ -303,6 +319,7 @@ class Mage_Api2_Model_Request extends Zend_Controller_Request_Http
             $keys = array_keys($params);
             return !is_numeric($keys[0]);
         }
+
         return false;
     }
 }

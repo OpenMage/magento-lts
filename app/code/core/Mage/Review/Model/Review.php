@@ -58,11 +58,15 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      */
     public const ENTITY_PRODUCT_CODE   = 'product';
+
     public const ENTITY_CUSTOMER_CODE  = 'customer';
+
     public const ENTITY_CATEGORY_CODE  = 'category';
 
     public const STATUS_APPROVED       = 1;
+
     public const STATUS_PENDING        = 2;
+
     public const STATUS_NOT_APPROVED   = 3;
 
     protected function _construct()
@@ -189,7 +193,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
             $entityIds[] = $item->getId();
         }
 
-        if (!count($entityIds)) {
+        if ($entityIds === []) {
             return $this;
         }
 

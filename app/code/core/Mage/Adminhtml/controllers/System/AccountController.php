@@ -53,6 +53,7 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
 
         $backendLocale = $this->getRequest()->getParam('backend_locale', false);
         $backendLocale = $backendLocale == 0 ? null : $backendLocale;
+
         $user->setBackendLocale($backendLocale);
 
         //Validate current admin password
@@ -63,10 +64,12 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
         if (!is_array($result)) {
             $result = $user->validate();
         }
+
         if (is_array($result)) {
             foreach ($result as $error) {
                 Mage::getSingleton('adminhtml/session')->addError($error);
             }
+
             $this->getResponse()->setRedirect($this->getUrl('*/*/'));
             return;
         }
@@ -76,9 +79,10 @@ class Mage_Adminhtml_System_AccountController extends Mage_Adminhtml_Controller_
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('The account has been saved.'));
         } catch (Mage_Core_Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-        } catch (Exception $e) {
+        } catch (Exception) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('An error occurred while saving account.'));
         }
+
         $this->getResponse()->setRedirect($this->getUrl('*/*/'));
     }
 }

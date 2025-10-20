@@ -119,6 +119,7 @@ class Mage_Catalog_Model_Layer extends Varien_Object
             $stateSuffix .= '_' . $filterItem->getFilter()->getRequestVar()
                 . '_' . $filterItem->getValueString();
         }
+
         if (!empty($stateSuffix)) {
             $this->_stateKey = $this->getStateKey() . $stateSuffix;
         }
@@ -158,9 +159,11 @@ class Mage_Catalog_Model_Layer extends Varien_Object
         if (is_numeric($category)) {
             $category = Mage::getModel('catalog/category')->load($category);
         }
+
         if (!$category instanceof Mage_Catalog_Model_Category) {
             Mage::throwException(Mage::helper('catalog')->__('Category must be an instance of Mage_Catalog_Model_Category.'));
         }
+
         if (!$category->getId()) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category.'));
         }
@@ -205,12 +208,14 @@ class Mage_Catalog_Model_Layer extends Varien_Object
                     if (!$this->_filterFilterableAttributes($attribute)) {
                         continue;
                     }
+
                     if ($attribute instanceof Mage_Catalog_Model_Resource_Eav_Attribute && $attribute->getIsFilterable()) {
                         $attributes[$attributeId] = $attribute;
                     }
                 }
             }
         }
+
         uasort($attributes, function ($a, $b) {
             return $a->getPosition() - $b->getPosition();
         });

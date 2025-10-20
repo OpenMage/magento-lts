@@ -47,6 +47,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (is_null($this->_dataModel)) {
             $this->setDataModel(Mage::getSingleton('install/session'));
         }
+
         return $this->_dataModel;
     }
 
@@ -74,9 +75,10 @@ class Mage_Install_Model_Installer extends Varien_Object
 
             Mage::getModel('install/installer_env')->install();
             $result = true;
-        } catch (Exception $e) {
+        } catch (Exception) {
             $result = false;
         }
+
         $this->setData('server_check_status', $result);
         return $result;
     }
@@ -92,6 +94,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (is_null($status)) {
             $status = $this->checkServer();
         }
+
         return $status;
     }
 
@@ -161,9 +164,11 @@ class Mage_Install_Model_Installer extends Varien_Object
         if (!empty($locale['locale'])) {
             $setupModel->setConfigData(Mage_Core_Model_Locale::XML_PATH_DEFAULT_LOCALE, $locale['locale']);
         }
+
         if (!empty($locale['timezone'])) {
             $setupModel->setConfigData(Mage_Core_Model_Locale::XML_PATH_DEFAULT_TIMEZONE, $locale['timezone']);
         }
+
         if (!empty($locale['currency'])) {
             $setupModel->setConfigData(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE, $locale['currency']);
             $setupModel->setConfigData(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_DEFAULT, $locale['currency']);
@@ -191,8 +196,10 @@ class Mage_Install_Model_Installer extends Varien_Object
             foreach ($result as $error) {
                 $this->getDataModel()->addError($error);
             }
+
             return $result;
         }
+
         return $user;
     }
 
@@ -266,6 +273,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         if ($key) {
             Mage::helper('core')->validateKey($key);
         }
+
         Mage::getSingleton('install/installer_config')->replaceTmpEncryptKey($key);
         return $this;
     }
@@ -279,6 +287,7 @@ class Mage_Install_Model_Installer extends Varien_Object
         foreach (Mage::helper('core')->getCacheTypes() as $type => $label) {
             $cacheData[$type] = 1;
         }
+
         Mage::app()->saveUseCache($cacheData);
         return $this;
     }

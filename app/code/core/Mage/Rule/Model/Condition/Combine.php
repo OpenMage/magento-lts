@@ -44,6 +44,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if (empty($wheres)) {
             return '';
         }
+
         $delimiter = $this->getAggregator() == 'all' ? ' AND ' : ' OR ';
         return ' (' . implode($delimiter, $wheres) . ') ';
     }
@@ -94,6 +95,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
             }
         }
     }
+
     /* start aggregator methods */
     /**
      * @return $this
@@ -116,6 +118,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getAggregatorOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -153,6 +156,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
 
         return $element;
     }
+
     /* end aggregator methods */
 
     /**
@@ -238,6 +242,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $xml .= "<$itemKey>" . $condition->asXml() . "</$itemKey>";
         }
+
         return $xml . "</$containerKey>";
     }
 
@@ -264,6 +269,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                 }
             }
         }
+
         return $this;
     }
 
@@ -276,10 +282,12 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if (is_string($xml)) {
             $xml = simplexml_load_string($xml);
         }
+
         $arr = parent::loadXml($xml);
         foreach ($xml->conditions->children() as $condition) {
             $arr['conditions'] = parent::loadXml($condition);
         }
+
         $this->loadArray($arr);
         return $this;
     }
@@ -294,6 +302,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         if ($this->getId() != '1') {
             $html .= $this->getRemoveLinkHtml();
         }
+
         return $html;
     }
 
@@ -325,6 +334,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $html .= '<li>' . $cond->asHtmlRecursive() . '</li>';
         }
+
         return $html . ('<li>' . $this->getNewChildElement()->getHtml() . '</li></ul>');
     }
 
@@ -347,6 +357,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $cond) {
             $str .= "\n" . $cond->asStringRecursive($level + 1);
         }
+
         return $str;
     }
 
@@ -371,6 +382,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
                 return true;
             }
         }
+
         return $all ? true : false;
     }
 
@@ -384,6 +396,7 @@ class Mage_Rule_Model_Condition_Combine extends Mage_Rule_Model_Condition_Abstra
         foreach ($this->getConditions() as $condition) {
             $condition->setJsFormObject($form);
         }
+
         return $this;
     }
 

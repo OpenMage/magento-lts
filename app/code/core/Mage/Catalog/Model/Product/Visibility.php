@@ -15,8 +15,11 @@
 class Mage_Catalog_Model_Product_Visibility extends Varien_Object
 {
     public const VISIBILITY_NOT_VISIBLE    = 1;
+
     public const VISIBILITY_IN_CATALOG     = 2;
+
     public const VISIBILITY_IN_SEARCH      = 3;
+
     public const VISIBILITY_BOTH           = 4;
 
     /**
@@ -47,6 +50,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $collection->setVisibility($this->getVisibleInCatalogIds());
         return $this;
     }
+
     /**
      * Add visibility in searchfilter to collection
      *
@@ -58,6 +62,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
         $collection->setVisibility($this->getVisibleInSearchIds());
         return $this;
     }
+
     /**
      * Add visibility in site filter to collection
      *
@@ -152,6 +157,7 @@ class Mage_Catalog_Model_Product_Visibility extends Varien_Object
                 'label' => $value,
             ];
         }
+
         return $res;
     }
 

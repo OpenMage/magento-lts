@@ -40,6 +40,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         if (!str_contains($name, '[]')) {
             $name .= '[]';
         }
+
         return $name;
     }
 
@@ -55,6 +56,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
             $html .= empty($this->_data['disabled']) ? '' : ' disabled="disabled"';
             $html .= '/>';
         }
+
         $html .= '<select id="' . $this->getHtmlId() . '" name="' . $this->getName() . '" ' .
             $this->serialize($this->getHtmlAttributes()) . ' multiple="multiple">' . "\n";
 
@@ -70,6 +72,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
                     foreach ($option['value'] as $groupItem) {
                         $html .= $this->_optionToHtml($groupItem, $value);
                     }
+
                     $html .= '</optgroup>' . "\n";
                 } else {
                     $html .= $this->_optionToHtml($option, $value);
@@ -150,6 +153,7 @@ class Varien_Data_Form_Element_Multiselect extends Varien_Data_Form_Element_Abst
         if (in_array((string) $option['value'], $selected)) {
             $html .= ' selected="selected"';
         }
+
         return $html . ('>' . $this->_escape($option['label']) . '</option>' . "\n");
     }
 }

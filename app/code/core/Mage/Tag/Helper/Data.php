@@ -72,6 +72,7 @@ class Mage_Tag_Helper_Data extends Mage_Core_Helper_Abstract
                 unset($tagNamesArr[$key]);
             }
         }
+
         return $tagNamesArr;
     }
 }

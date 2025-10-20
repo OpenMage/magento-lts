@@ -28,6 +28,7 @@ class Mage_Adminhtml_Model_System_Config_Source_Email_Identity
                     'label' => Mage::helper('adminhtml')->__($label),
                 ];
             }
+
             ksort($this->_options);
         }
 

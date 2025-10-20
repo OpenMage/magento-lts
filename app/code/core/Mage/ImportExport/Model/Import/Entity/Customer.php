@@ -26,7 +26,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * Data row scopes.
      */
     public const SCOPE_DEFAULT = 1;
+
     public const SCOPE_ADDRESS = -1;
+
     public const SCOPE_OPTIONS = 2;
 
     /**
@@ -36,21 +38,32 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      * to avoid interference with same attribute name.
      */
     public const COL_EMAIL    = 'email';
+
     public const COL_WEBSITE  = '_website';
+
     public const COL_STORE    = '_store';
+
     public const COL_POSTCODE = '_address_postcode';
 
     /**
      * Error codes.
      */
     public const ERROR_INVALID_WEBSITE      = 'invalidWebsite';
+
     public const ERROR_INVALID_EMAIL        = 'invalidEmail';
+
     public const ERROR_DUPLICATE_EMAIL_SITE = 'duplicateEmailSite';
+
     public const ERROR_EMAIL_IS_EMPTY       = 'emailIsEmpty';
+
     public const ERROR_ROW_IS_ORPHAN        = 'rowIsOrphan';
+
     public const ERROR_VALUE_IS_REQUIRED    = 'valueIsRequired';
+
     public const ERROR_INVALID_STORE        = 'invalidStore';
+
     public const ERROR_EMAIL_SITE_NOT_FOUND = 'emailSiteNotFound';
+
     public const ERROR_PASSWORD_LENGTH      = 'passwordLength';
 
     /**
@@ -58,6 +71,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
      *
      */
     public const DEFAULT_GROUP_ID = 1;
+
     public const MAX_PASSWD_LENGTH = 6;
 
     /**
@@ -227,6 +241,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     $idToDelete[] = $this->_oldCustomers[$rowData[self::COL_EMAIL]][$rowData[self::COL_WEBSITE]];
                 }
             }
+
             if ($idToDelete) {
                 $this->_connection->query(
                     $this->_connection->quoteInto(
@@ -236,6 +251,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 );
             }
         }
+
         return $this;
     }
 
@@ -253,6 +269,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             $this->_saveCustomers();
             $this->_addressEntity->importData();
         }
+
         return true;
     }
 
@@ -281,6 +298,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 $this->_multiSelectAttributes[$attribute->getAttributeCode()] = $attributeArray;
             }
         }
+
         return $this;
     }
 
@@ -294,6 +312,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         foreach (Mage::getResourceModel('customer/group_collection') as $customerGroup) {
             $this->_customerGroups[$customerGroup->getId()] = true;
         }
+
         return $this;
     }
 
@@ -310,8 +329,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             if (!isset($this->_oldCustomers[$email])) {
                 $this->_oldCustomers[$email] = [];
             }
+
             $this->_oldCustomers[$email][$this->_websiteIdToCode[$customer->getWebsiteId()]] = $customer->getId();
         }
+
         $this->_customerGlobal = Mage::getModel('customer/customer')->getSharingConfig()->isGlobalScope();
 
         return $this;
@@ -327,6 +348,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         foreach (Mage::app()->getStores(true) as $store) {
             $this->_storeCodeToId[$store->getCode()] = $store->getId();
         }
+
         return $this;
     }
 
@@ -341,6 +363,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
             $this->_websiteCodeToId[$website->getCode()] = $website->getId();
             $this->_websiteIdToCode[$website->getId()]   = $website->getCode();
         }
+
         return $this;
     }
 
@@ -373,6 +396,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 if (!$this->validateRow($rowData, $rowNum)) {
                     continue;
                 }
+
                 if (self::SCOPE_DEFAULT == $this->getRowScope($rowData)) {
                     // entity table data
                     $now = Varien_Date::now();
@@ -402,6 +426,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
 
                         $this->_newCustomers[$rowData[self::COL_EMAIL]][$rowData[self::COL_WEBSITE]] = $entityId;
                     }
+
                     // attribute values
                     foreach (array_intersect_key($rowData, $this->_attributes) as $attrCode => $value) {
                         if (!$this->_attributes[$attrCode]['is_static'] && strlen($value)) {
@@ -423,12 +448,14 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                                 $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                                 $value = $resource->getData($attrCode);
                             }
+
                             $attributes[$attribute->getBackend()->getTable()][$entityId][$attrParams['id']] = $value;
 
                             // restore 'backend_model' to avoid default setting
                             $attribute->setBackendModel($backModel);
                         }
                     }
+
                     // password change/set
                     if (isset($rowData['password']) && strlen($rowData['password'])) {
                         $attributes[$passTable][$entityId][$passId] = $resource->hashPassword($rowData['password']);
@@ -441,11 +468,13 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                             if (!isset($attrParams['options'][strtolower($value)])) {
                                 continue;
                             }
+
                             $value = $attrParams['options'][strtolower($value)];
                             if (isset($multiSelect[$entityId])) {
                                 $multiSelect[$entityId][] = $value;
                                 $value = $multiSelect[$entityId];
                             }
+
                             $attribute->getBackend()->beforeSave($resource->setData($attrCode, $value));
                             $value = $resource->getData($attrCode);
                             $attributes[$attribute->getBackend()->getTable()][$entityId][$attrParams['id']] = $value;
@@ -453,8 +482,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     }
                 }
             }
+
             $this->_saveCustomerEntity($entityRowsIn, $entityRowsUp)->_saveCustomerAttributes($attributes);
         }
+
         return $this;
     }
 
@@ -478,8 +509,10 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     ];
                 }
             }
+
             $this->_connection->insertOnDuplicate($tableName, $tableData, ['value']);
         }
+
         return $this;
     }
 
@@ -495,6 +528,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         if ($entityRowsIn) {
             $this->_connection->insertMultiple($this->_entityTable, $entityRowsIn);
         }
+
         if ($entityRowsUp) {
             $this->_connection->insertOnDuplicate(
                 $this->_entityTable,
@@ -502,6 +536,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 ['group_id', 'store_id', 'updated_at', 'created_at'],
             );
         }
+
         return $this;
     }
 
@@ -556,6 +591,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         } elseif (strlen(trim($rowData[self::COL_POSTCODE]))) {
             $scope = self::SCOPE_ADDRESS;
         }
+
         return $scope;
     }
 
@@ -584,6 +620,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
         if (isset($this->_validatedRows[$rowNum])) { // check that row is already validated
             return !isset($this->_invalidRows[$rowNum]);
         }
+
         $this->_validatedRows[$rowNum] = true;
 
         $rowScope = $this->getRowScope($rowData);
@@ -616,22 +653,26 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 if (isset($newCustomersToLower[$emailToLower][$website])) {
                     $this->addRowError(self::ERROR_DUPLICATE_EMAIL_SITE, $rowNum);
                 }
+
                 $this->_newCustomers[$email][$website] = false;
 
                 if (!empty($rowData[self::COL_STORE]) && !isset($this->_storeCodeToId[$rowData[self::COL_STORE]])) {
                     $this->addRowError(self::ERROR_INVALID_STORE, $rowNum);
                 }
+
                 // check password
                 if (isset($rowData['password']) && strlen($rowData['password'])
                     && Mage::helper('core/string')->strlen($rowData['password']) < self::MAX_PASSWD_LENGTH
                 ) {
                     $this->addRowError(self::ERROR_PASSWORD_LENGTH, $rowNum);
                 }
+
                 // check simple attributes
                 foreach ($this->_attributes as $attrCode => $attrParams) {
                     if (in_array($attrCode, $this->_ignoredAttributes)) {
                         continue;
                     }
+
                     if (isset($rowData[$attrCode]) && strlen($rowData[$attrCode])) {
                         $this->isAttributeValid($attrCode, $attrParams, $rowData, $rowNum);
                     } elseif ($attrParams['is_required'] && !isset($oldCustomersToLower[$emailToLower][$website])) {
@@ -639,6 +680,7 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                     }
                 }
             }
+
             if (isset($this->_invalidRows[$rowNum])) {
                 $email = false; // mark row as invalid for next address rows
             }

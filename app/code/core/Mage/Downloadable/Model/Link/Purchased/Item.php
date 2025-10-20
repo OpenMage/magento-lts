@@ -53,9 +53,13 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
     public const XML_PATH_ORDER_ITEM_STATUS = 'catalog/downloadable/order_item_status';
 
     public const LINK_STATUS_PENDING   = 'pending';
+
     public const LINK_STATUS_AVAILABLE = 'available';
+
     public const LINK_STATUS_EXPIRED   = 'expired';
+
     public const LINK_STATUS_PENDING_PAYMENT = 'pending_payment';
+
     public const LINK_STATUS_PAYMENT_REVIEW = 'payment_review';
 
     protected function _construct()
@@ -76,6 +80,7 @@ class Mage_Downloadable_Model_Link_Purchased_Item extends Mage_Core_Model_Abstra
                 Mage::helper('downloadable')->__('Order item id cannot be null'),
             );
         }
+
         return parent::_beforeSave();
     }
 }

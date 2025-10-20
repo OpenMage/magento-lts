@@ -44,6 +44,7 @@ class Unserialize_Reader_Dbl
                 return (float) $this->_value;
             }
         }
+
         return null;
     }
 }

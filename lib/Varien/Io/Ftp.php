@@ -15,11 +15,17 @@
 class Varien_Io_Ftp extends Varien_Io_Abstract
 {
     public const ERROR_EMPTY_HOST = 1;
+
     public const ERROR_INVALID_CONNECTION = 2;
+
     public const ERROR_INVALID_LOGIN = 3;
+
     public const ERROR_INVALID_PATH = 4;
+
     public const ERROR_INVALID_MODE = 5;
+
     public const ERROR_INVALID_DESTINATION = 6;
+
     public const ERROR_INVALID_SOURCE = 7;
 
     /**
@@ -59,7 +65,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * - path        default empty
      * - file_mode   default FTP_BINARY
      *
-     * @return boolean
+     * @return bool
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     public function open(array $args = [])
@@ -97,6 +103,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         } else {
             $this->_conn = @ftp_ssl_connect($this->_config['host'], $this->_config['port'], $this->_config['timeout']);
         }
+
         if (!$this->_conn) {
             $this->_error = self::ERROR_INVALID_CONNECTION;
             throw new Varien_Io_Exception('Could not establish FTP connection, invalid host or port');
@@ -130,7 +137,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
     /**
      * Close a connection
      *
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -145,8 +152,8 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * @todo implement $mode and $recursive
      * @param string $dir
      * @param int $mode
-     * @param boolean $recursive
-     * @return boolean
+     * @param bool $recursive
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -159,7 +166,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -184,7 +191,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Change current working directory
      *
      * @param string $dir
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -220,9 +227,11 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
                 fseek($stream, 0);
                 $result = '';
                 for ($result = ''; $s = fread($stream, 4096); $result .= $s);
+
                 fclose($stream);
             }
         }
+
         return $result;
     }
 
@@ -231,7 +240,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param string|resource $src filename, string data or source stream
-     * @return int|boolean
+     * @return int|bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -255,6 +264,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
             if (is_string($src)) {
                 fclose($stream);
             }
+
             return $result;
         }
     }
@@ -263,7 +273,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      * Delete a file
      *
      * @param string $filename
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -277,7 +287,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $src
      * @param string $dest
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -291,7 +301,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
      *
      * @param string $filename
      * @param int $mode
-     * @return boolean
+     * @return bool
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -323,6 +333,7 @@ class Varien_Io_Ftp extends Varien_Io_Abstract
         if ($new || !$this->_tmpFilename) {
             $this->_tmpFilename = tempnam(md5(uniqid((string) random_int(0, mt_getrandmax()), true)), '');
         }
+
         return $this->_tmpFilename;
     }
 }

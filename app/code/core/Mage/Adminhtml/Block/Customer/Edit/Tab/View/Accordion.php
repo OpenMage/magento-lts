@@ -63,6 +63,7 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_View_Accordion extends Mage_Adminht
                 'content_url' => $this->getUrl('*/*/viewWishlist', ['_current' => true]),
             ]);
         }
+
         return $this;
     }
 }

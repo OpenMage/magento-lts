@@ -37,6 +37,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 );
             }
         }
+
         return $xmlConfig;
     }
 
@@ -52,6 +53,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         if (is_array($elements) && isset($elements[0]) && $elements[0] instanceof Varien_Simplexml_Element) {
             return $elements[0];
         }
+
         return null;
     }
 
@@ -110,6 +112,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                             }
                         }
                     }
+
                     $data['values'] = $values;
 
                     // prepare helper block object
@@ -118,9 +121,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
                         if (isset($data['helper_block']['data']) && is_array($data['helper_block']['data'])) {
                             $helper->addData($data['helper_block']['data']);
                         }
+
                         if (isset($data['helper_block']['type'])) {
                             $helper->setType($data['helper_block']['type']);
                         }
+
                         $data['helper_block'] = $helper;
                     }
 
@@ -129,6 +134,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 }
             }
         }
+
         uasort($newParams, [$this, '_sortParameters']);
         $object->setData('parameters', $newParams);
 
@@ -147,7 +153,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         $result = clone $widgets;
 
         // filter widgets by params
-        if (is_array($filters) && count($filters) > 0) {
+        if (is_array($filters) && $filters !== []) {
             foreach ($widgets as $code => $widget) {
                 try {
                     $reflection = new ReflectionObject($widget);
@@ -156,7 +162,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                             throw new Exception();
                         }
                     }
-                } catch (Exception $e) {
+                } catch (Exception) {
                     unset($result->{$code});
                     continue;
                 }
@@ -188,9 +194,11 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     'description'   => $helper->__((string) $widget->description),
                 ];
             }
+
             usort($result, [$this, '_sortWidgets']);
             $this->setData('widgets_array', $result);
         }
+
         return $this->_getData('widgets_array');
     }
 
@@ -217,10 +225,12 @@ class Mage_Widget_Model_Widget extends Varien_Object
                     $value = $parameters[$name]->getValue();
                 }
             }
+
             if ($value) {
                 $directive .= sprintf(' %s="%s"', $name, $value);
             }
         }
+
         $directive .= '}}';
 
         if ($asIs) {
@@ -234,6 +244,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
         } else {
             $image = $config->getPlaceholderImagesBaseUrl() . 'default.gif';
         }
+
         return sprintf(
             '<img id="%s" src="%s" title="%s">',
             $this->_idEncode($directive),
@@ -257,6 +268,7 @@ class Mage_Widget_Model_Widget extends Varien_Object
                 }
             }
         }
+
         return $result;
     }
 

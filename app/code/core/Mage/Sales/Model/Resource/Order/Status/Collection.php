@@ -59,6 +59,7 @@ class Mage_Sales_Model_Resource_Order_Status_Collection extends Mage_Core_Model_
             );
             $this->setFlag('states_joined', true);
         }
+
         return $this;
     }
 

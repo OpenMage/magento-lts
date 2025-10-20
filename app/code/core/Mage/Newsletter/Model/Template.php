@@ -286,6 +286,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
         if (is_null($this->_mail)) {
             $this->_mail = new Zend_Mail('utf-8');
         }
+
         return $this->_mail;
     }
 
@@ -325,6 +326,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
 
         $mail = $this->getMail();
         $mail->addTo($email, $name);
+
         $text = $this->getProcessedTemplate($variables, true);
 
         if ($this->isPlain()) {
@@ -371,6 +373,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 if (!is_null($queue)) {
                     $problem->addQueueData($queue);
                 }
+
                 $problem->addErrorData($exception);
                 $problem->save();
 
@@ -381,6 +384,7 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
                 // Otherwise throw error to upper level
                 throw $exception;
             }
+
             return false;
         }
 

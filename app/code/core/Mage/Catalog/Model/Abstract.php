@@ -194,7 +194,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
     /**
      * Load entity by attribute
      *
-     * @param Mage_Eav_Model_Entity_Attribute_Interface|integer|string|array $attribute
+     * @param Mage_Eav_Model_Entity_Attribute_Interface|int|string|array $attribute
      * @param null|string|array $value
      * @param string $additionalAttributes
      * @return false|$this
@@ -209,6 +209,7 @@ abstract class Mage_Catalog_Model_Abstract extends Mage_Core_Model_Abstract
         foreach ($collection as $object) {
             return $object;
         }
+
         return false;
     }
 

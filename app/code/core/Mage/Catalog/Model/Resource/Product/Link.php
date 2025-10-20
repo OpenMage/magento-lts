@@ -61,6 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
                 $deleteIds[] = (int) $linkId;
             }
         }
+
         if (!empty($deleteIds)) {
             $adapter->delete($this->getMainTable(), [
                 'link_id IN (?)' => $deleteIds,
@@ -123,6 +124,7 @@ class Mage_Catalog_Model_Resource_Product_Link extends Mage_Core_Model_Resource_
         } elseif ($type == 'decimal') {
             $value = (float) sprintf('%F', $value);
         }
+
         return $value;
     }
 

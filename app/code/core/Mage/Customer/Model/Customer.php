@@ -109,33 +109,53 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      * Configuration paths for email templates and identities
      */
     public const XML_PATH_REGISTER_EMAIL_TEMPLATE = 'customer/create_account/email_template';
+
     public const XML_PATH_REGISTER_EMAIL_IDENTITY = 'customer/create_account/email_identity';
+
     public const XML_PATH_REMIND_EMAIL_TEMPLATE = 'customer/password/remind_email_template';
+
     public const XML_PATH_FORGOT_EMAIL_TEMPLATE = 'customer/password/forgot_email_template';
+
     public const XML_PATH_FORGOT_EMAIL_IDENTITY = 'customer/password/forgot_email_identity';
+
     public const XML_PATH_DEFAULT_EMAIL_DOMAIN         = 'customer/create_account/email_domain';
+
     public const XML_PATH_IS_CONFIRM                   = 'customer/create_account/confirm';
+
     public const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'customer/create_account/email_confirmation_template';
+
     public const XML_PATH_CONFIRMED_EMAIL_TEMPLATE     = 'customer/create_account/email_confirmed_template';
+
     public const XML_PATH_GENERATE_HUMAN_FRIENDLY_ID   = 'customer/create_account/generate_human_friendly_id';
+
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_TEMPLATE = 'customer/changed_account/password_or_email_template';
+
     public const XML_PATH_CHANGED_PASSWORD_OR_EMAIL_IDENTITY = 'customer/changed_account/password_or_email_identity';
+
     public const XML_PATH_PASSWORD_LINK_ACCOUNT_NEW_EMAIL_TEMPLATE = 'customer/password_link/account_new_email_template';
+
     public const XML_PATH_PASSWORD_LINK_EMAIL_TEMPLATE = 'customer/password_link/email_template';
+
     public const XML_PATH_PASSWORD_LINK_EMAIL_IDENTITY = 'customer/password_link/email_identity';
+
     /**
      * Codes of exceptions related to customer model
      */
     public const EXCEPTION_EMAIL_NOT_CONFIRMED       = 1;
+
     public const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;
+
     public const EXCEPTION_EMAIL_EXISTS              = 3;
+
     public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
+
     public const EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID = 5;
 
     /**
      * Subscriptions
      */
     public const SUBSCRIBED_YES = 'yes';
+
     public const SUBSCRIBED_NO  = 'no';
 
     public const CACHE_TAG = 'customer';
@@ -264,6 +284,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 self::EXCEPTION_EMAIL_NOT_CONFIRMED,
             );
         }
+
         if (!$this->validatePassword($password)) {
             throw Mage::exception(
                 'Mage_Core',
@@ -271,6 +292,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD,
             );
         }
+
         Mage::dispatchEvent('customer_customer_authenticated', [
             'model'    => $this,
             'password' => $password,
@@ -335,6 +357,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (session_status() === PHP_SESSION_ACTIVE) {
             Mage::getSingleton('checkout/session')->setValidatorSessionRenewTimestamp($time);
         }
+
         return $this;
     }
 
@@ -350,14 +373,17 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($config->getAttribute('customer', 'prefix')->getIsVisible() && $this->getPrefix()) {
             $name .= $this->getPrefix() . ' ';
         }
+
         $name .= $this->getFirstname();
         if ($config->getAttribute('customer', 'middlename')->getIsVisible() && $this->getMiddlename()) {
             $name .= ' ' . $this->getMiddlename();
         }
+
         $name .=  ' ' . $this->getLastname();
         if ($config->getAttribute('customer', 'suffix')->getIsVisible() && $this->getSuffix()) {
             $name .= ' ' . $this->getSuffix();
         }
+
         return $name;
     }
 
@@ -387,6 +413,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($this->getId() == $address->getParentId()) {
             return $address;
         }
+
         return Mage::getModel('customer/address');
     }
 
@@ -459,6 +486,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             ->loadAllAttributes($this)
             ->getSortedAttributes();
         }
+
         return $this->_attributes;
     }
 
@@ -531,6 +559,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($minPasswordLength > $length) {
             $length = $minPasswordLength;
         }
+
         $chars = Mage_Core_Helper_Data::CHARS_PASSWORD_LOWERS
             . Mage_Core_Helper_Data::CHARS_PASSWORD_UPPERS
             . Mage_Core_Helper_Data::CHARS_PASSWORD_DIGITS
@@ -551,6 +580,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (!$hash) {
             return false;
         }
+
         return Mage::helper('core')->validateHash($password, $hash);
     }
 
@@ -645,9 +675,11 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($this->getDefaultBilling()) {
             $ids[] = $this->getDefaultBilling();
         }
+
         if ($this->getDefaultShipping()) {
             $ids[] = $this->getDefaultShipping();
         }
+
         return $ids;
     }
 
@@ -675,6 +707,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 $addresses[] = $primaryShipping;
             }
         }
+
         return $addresses;
     }
 
@@ -693,6 +726,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 $addresses[] = $address;
             }
         }
+
         return $addresses;
     }
 
@@ -706,6 +740,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (!$address->getId()) {
             return false;
         }
+
         return ($address->getId() == $this->getDefaultBilling()) || ($address->getId() == $this->getDefaultShipping());
     }
 
@@ -759,6 +794,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($this->canSkipConfirmation()) {
             return false;
         }
+
         if (self::$_isConfirmationRequired === null) {
             $storeId = $this->getStoreId() ?: null;
             self::$_isConfirmationRequired = Mage::getStoreConfigFlag(self::XML_PATH_IS_CONFIRM, $storeId);
@@ -841,6 +877,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo($customerEmail, $this->getName());
+
         $mailer->addEmailInfo($emailInfo);
 
         // Set all required params and send emails
@@ -923,6 +960,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $groupId = Mage::getStoreConfig(Mage_Customer_Model_Group::XML_PATH_DEFAULT_ID, $storeId);
             $this->setData('group_id', $groupId);
         }
+
         return $this->getData('group_id');
     }
 
@@ -937,6 +975,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (!$this->getData('tax_class_id')) {
             $this->setTaxClassId(Mage::getModel('customer/group')->getTaxClassId($this->getGroupId()));
         }
+
         return $this->getData('tax_class_id');
     }
 
@@ -988,6 +1027,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     $ids[] = $store->getId();
                 }
             }
+
             $this->setData('shared_store_ids', $ids);
         }
 
@@ -1011,8 +1051,10 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     $ids[] = $website->getId();
                 }
             }
+
             $this->setData('shared_website_ids', $ids);
         }
+
         return $ids;
     }
 
@@ -1238,6 +1280,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (empty($row['firstname'])) {
             $this->addError(Mage::helper('customer')->__('Missing first name, skipping the record, line: %s', $line));
         }
+
         if (empty($row['lastname'])) {
             $this->addError(Mage::helper('customer')->__('Missing last name, skipping the record, line: %s', $line));
         }
@@ -1284,6 +1327,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             if (isset($regionId)) {
                 $billingAddress->setRegionId($regionId);
             }
+
             $billingAddress->setCountryId($row['billing_country']);
             $billingAddress->setPostcode($row['billing_postcode']);
             if (isset($row['billing_street2'])) {
@@ -1291,6 +1335,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             } else {
                 $billingAddress->setStreet([$row['billing_street1']]);
             }
+
             if (isset($row['billing_telephone'])) {
                 $billingAddress->setTelephone($row['billing_telephone']);
             }
@@ -1300,6 +1345,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 if ($this->getDefaultBilling()) {
                     $this->setData('default_billing', '');
                 }
+
                 $this->addAddress($billingAddress);
             } // End handling billing address
         }
@@ -1328,6 +1374,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             if (isset($regionId)) {
                 $shippingAddress->setRegionId($regionId);
             }
+
             $shippingAddress->setCountryId($row['shipping_country']);
             $shippingAddress->setPostcode($row['shipping_postcode']);
             if (isset($row['shipping_street2'])) {
@@ -1335,6 +1382,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             } else {
                 $shippingAddress->setStreet([$row['shipping_street1']]);
             }
+
             if (!empty($row['shipping_telephone'])) {
                 $shippingAddress->setTelephone($row['shipping_telephone']);
             }
@@ -1343,12 +1391,15 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 $shippingAddress->setIsDefaultShipping(true);
                 $this->addAddress($shippingAddress);
             }
+
             // End handling shipping address
         }
+
         if (!empty($row['is_subscribed'])) {
             $isSubscribed = (bool) strtolower($row['is_subscribed']) == self::SUBSCRIBED_YES;
             $this->setIsSubscribed($isSubscribed);
         }
+
         unset($row);
         return $this;
     }
@@ -1363,6 +1414,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (isset($this->_isSubscribed)) {
             unset($this->_isSubscribed);
         }
+
         return $this;
     }
 
@@ -1430,6 +1482,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($line) {
             echo '<small>, Line: <b>' . $line . '</b></small>';
         }
+
         echo '</li>';
     }
 
@@ -1450,6 +1503,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 if (!isset($data[$prefix . $field])) {
                     return false;
                 }
+
                 if ($field == 'country'
                     && in_array(strtolower($data[$prefix . $field]), ['US', 'CA'])
                 ) {
@@ -1461,12 +1515,15 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                     if (!$region->getId()) {
                         return false;
                     }
+
                     unset($region);
                 }
             }
+
             unset($data);
             return true;
         }
+
         return false;
     }
 
@@ -1490,6 +1547,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if ($date) {
             return Varien_Date::toTimestamp($date);
         }
+
         return null;
     }
 
@@ -1600,6 +1658,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             $entityTypeId = $this->getEntityType()->getId();
             $this->setData('entity_type_id', $entityTypeId);
         }
+
         return $entityTypeId;
     }
 
@@ -1617,6 +1676,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
             reset($storeIds);
             $defaultStoreId = current($storeIds);
         }
+
         return $defaultStoreId;
     }
 
@@ -1638,6 +1698,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 self::EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN,
             );
         }
+
         $this->_getResource()->changeResetPasswordLinkToken($this, $newResetPasswordLinkToken);
         return $this;
     }
@@ -1660,6 +1721,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
                 self::EXCEPTION_INVALID_RESET_PASSWORD_LINK_CUSTOMER_ID,
             );
         }
+
         $this->_getResource()->changeResetPasswordLinkCustomerId($this, $newResetPasswordLinkCustomerId);
         return $this;
     }

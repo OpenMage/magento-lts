@@ -31,6 +31,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         if ($head = $this->getLayout()->getBlock('head')) {
             $head->setCanLoadCalendarJs(true);
         }
+
         return parent::_prepareLayout();
     }
 
@@ -137,6 +138,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
                 ])
                 ->getHtml();
         }
+
         $hoursHtml = $this->_getSelectFromToHtml('hour', $hourStart, $hourEnd);
         $minutesHtml = $this->_getSelectFromToHtml('minute', 0, 59);
 
@@ -160,6 +162,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         for ($i = $from; $i <= $to; $i++) {
             $options[] = ['value' => $i, 'label' => $this->_getValueWithLeadingZeros($i)];
         }
+
         return $this->_getHtmlSelect($name, $value)
             ->setOptions($options)
             ->getHtml();
@@ -187,11 +190,13 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         if (!$this->getSkipJsReloadPrice()) {
             $extraParams .= ' onchange="opConfig.reloadPrice()"';
         }
+
         $select->setExtraParams($extraParams);
 
         if (is_null($value)) {
             $value = $this->getProduct()->getPreconfiguredValues()->getData('options/' . $option->getId() . '/' . $name);
         }
+
         if (!is_null($value)) {
             $select->setValue($value);
         }
@@ -210,6 +215,7 @@ class Mage_Catalog_Block_Product_View_Options_Type_Date extends Mage_Catalog_Blo
         if (!$this->_fillLeadingZeros) {
             return $value;
         }
+
         return $value < 10 ? '0' . $value : $value;
     }
 }

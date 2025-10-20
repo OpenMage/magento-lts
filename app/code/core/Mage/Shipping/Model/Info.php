@@ -50,6 +50,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
                 $this->getTrackingInfoByTrackId();
             }
         }
+
         return $this;
     }
 
@@ -116,9 +117,11 @@ class Mage_Shipping_Model_Info extends Varien_Object
                 foreach ($tracks as $track) {
                     $trackingInfos[] = $track->getNumberDetail();
                 }
+
                 $shipTrack[$incrementId] = $trackingInfos;
             }
         }
+
         $this->_trackingInfo = $shipTrack;
         return $this->_trackingInfo;
     }
@@ -140,8 +143,10 @@ class Mage_Shipping_Model_Info extends Varien_Object
             foreach ($tracks as $track) {
                 $trackingInfos[] = $track->getNumberDetail();
             }
+
             $shipTrack[$incrementId] = $trackingInfos;
         }
+
         $this->_trackingInfo = $shipTrack;
         return $this->_trackingInfo;
     }
@@ -157,6 +162,7 @@ class Mage_Shipping_Model_Info extends Varien_Object
         if ($track->getId() && $this->getProtectCode() === $track->getProtectCode()) {
             $this->_trackingInfo = [[$track->getNumberDetail()]];
         }
+
         return $this->_trackingInfo;
     }
 }

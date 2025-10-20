@@ -70,6 +70,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                             $ioConfig['path'] = rtrim($realPath, DS);
                         }
                     }
+
                     break;
                 default:
                     $ioConfig['path'] = rtrim($this->getVar('path'), '/');
@@ -79,6 +80,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($isError) {
                 return false;
             }
+
             try {
                 $this->_resource->open($ioConfig);
             } catch (Exception $e) {
@@ -86,6 +88,7 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
                 Mage::throwException($message);
             }
         }
+
         return $this->_resource;
     }
 
@@ -144,8 +147,10 @@ class Mage_Dataflow_Model_Convert_Adapter_Io extends Mage_Dataflow_Model_Convert
             if ($this->getVar('link')) {
                 $message .= Mage::helper('dataflow')->__('<a href="%s" target="_blank">Link</a>', $this->getVar('link'));
             }
+
             $this->addException($message);
         }
+
         return $this;
     }
 }

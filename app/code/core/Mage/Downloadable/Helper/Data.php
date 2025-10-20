@@ -35,6 +35,7 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
                     Mage_Downloadable_Model_Link::XML_PATH_CONFIG_IS_SHAREABLE,
                 );
         }
+
         return $shareable;
     }
 
@@ -49,6 +50,7 @@ class Mage_Downloadable_Helper_Data extends Mage_Core_Helper_Abstract
         if ($scope == Mage_Core_Model_Store::PRICE_SCOPE_WEBSITE) {
             return true;
         }
+
         return false;
     }
 }

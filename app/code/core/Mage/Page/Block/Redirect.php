@@ -83,6 +83,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
         foreach ($this->_getFormFields() as $field => $value) {
             $form->addField($field, 'hidden', ['name' => $field, 'value' => $value]);
         }
+
         $html = $form->toHtml();
         return $html . ('<script type="text/javascript">document.getElementById("' . $this->getFormId() . '").submit();</script>');
     }
@@ -94,7 +95,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
      */
     public function isHtmlFormRedirect()
     {
-        return is_array($this->_getFormFields()) && count($this->_getFormFields()) > 0;
+        return is_array($this->_getFormFields()) && $this->_getFormFields() !== [];
     }
 
     /**
@@ -137,6 +138,7 @@ class Mage_Page_Block_Redirect extends Mage_Core_Block_Template
         if (!is_array($this->_formFields) || count($this->_formFields) == 0) {
             $this->_formFields = $this->getFormFields();
         }
+
         return $this->_formFields;
     }
 }

@@ -39,6 +39,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
         if ($store instanceof Mage_Core_Model_Website) {
             $store = $store->getDefaultStore();
         }
+
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }
@@ -58,6 +59,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
         if (is_null($this->_store)) {
             $this->_store = Mage::app()->getStore();
         }
+
         return $this->_store;
     }
 
@@ -125,6 +127,7 @@ abstract class Mage_ProductAlert_Block_Email_Abstract extends Mage_Core_Block_Te
         if ($shortDescription) {
             $shortDescription = Mage::getSingleton('core/input_filter_maliciousCode')->filter($shortDescription);
         }
+
         return $shortDescription;
     }
 }

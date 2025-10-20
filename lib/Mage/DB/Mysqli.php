@@ -37,6 +37,7 @@ class Mage_DB_Mysqli
      * @var mysqli
      */
     protected $conn;
+
     /**
      * Fetch mode
      * @var int
@@ -69,6 +70,7 @@ class Mage_DB_Mysqli
         if (0 !== mysqli_connect_errno($this->conn)) {
             throw new Mage_DB_Exception(mysqli_connect_error($this->conn));
         }
+
         return $res;
     }
 
@@ -131,6 +133,7 @@ class Mage_DB_Mysqli
     {
         $res = $this->query($sql);
         for ($out = []; $row = $res->fetch_array($this->fetch_mode); $out[] = $row);
+
         return $out;
     }
 
@@ -161,11 +164,13 @@ class Mage_DB_Mysqli
                 if (!isset($out[$row[$key]])) {
                     $out[$row[$key]] = [];
                 }
+
                 $out[$row[$key]][] = $row;
             } else {
                 $out[$row[$key]] = $row;
             }
         }
+
         return $out;
     }
 
@@ -179,6 +184,7 @@ class Mage_DB_Mysqli
     {
         $res = $this->query($sql);
         for ($out = []; $row = $res->fetch_array($this->fetch_mode); $out[] = $row[$fld]);
+
         return $out;
     }
 
@@ -265,6 +271,7 @@ class Mage_DB_Mysqli
         for ($i = 0, $c = count($arrNames); $i < $c; $i++) {
             $out[] = $this->escapeFieldName($arrNames[$i]);
         }
+
         return $out;
     }
 
@@ -282,6 +289,7 @@ class Mage_DB_Mysqli
                 $out[] = $arrNames[$i];
             }
         }
+
         return $out;
     }
 
@@ -307,6 +315,7 @@ class Mage_DB_Mysqli
         if (!$res) {
             throw new Mage_DB_Exception($this->conn->error);
         }
+
         return $res;
     }
 
@@ -330,6 +339,7 @@ class Mage_DB_Mysqli
     {
         $keys = $this->escapeFieldNames(array_keys($data));
         $keys = '(' . implode(',', $keys) . ')';
+
         $table = $this->escapeTableName($table);
         $sql = $replace ? "REPLACE INTO {$table} " : "INSERT INTO {$table} ";
         $values = $this->escapeFieldValues(array_values($data));
@@ -366,12 +376,14 @@ class Mage_DB_Mysqli
                 $sql .= ',';
             }
         }
+
         $sql .= ' ) VALUES ';
         for ($i = 0, $c = count($data); $i < $c; $i++) {
             $row = $data[$i];
             for ($j = 0, $jc = count($excluded); $j < $jc; $j++) {
                 unset($data[$excluded[$j]]);
             }
+
             $values = $this->escapeFieldValues(array_values($row));
             $sql .= '( ';
             for ($j = 0, $jc = count($values); $j < $jc; $j++) {
@@ -380,11 +392,13 @@ class Mage_DB_Mysqli
                     $sql .= ',';
                 }
             }
+
             $sql .= ' )';
             if ($i != $c - 1) {
                 $sql .= ',';
             }
         }
+
         return $this->query($sql);
     }
 
@@ -404,6 +418,7 @@ class Mage_DB_Mysqli
             $v = $this->escapeFieldValue($v);
             $set[] = $k . ' = ' . $v;
         }
+
         $set = implode(',', $set);
         $sql = "UPDATE {$table} SET {$set} WHERE {$condition}";
         return $this->query($sql);
@@ -427,6 +442,7 @@ class Mage_DB_Mysqli
             $v = $this->escapeFieldValue($v);
             $set[] = $k . ' = ' . $v;
         }
+
         $set = implode(',', $set);
         $sql = "UPDATE {$table} SET {$set} WHERE {$key} = {$value}";
         return $this->query($sql);
@@ -442,10 +458,12 @@ class Mage_DB_Mysqli
         if (is_scalar($ids)) {
             return $this->escapeFieldValue((string) $ids);
         }
+
         $out = [];
         foreach ($ids as $id) {
             $out .= $this->escapeFieldValue($id);
         }
+
         return implode(',', $out);
     }
 
@@ -489,6 +507,7 @@ class Mage_DB_Mysqli
         if (empty($data['cnt'])) {
             return 0;
         }
+
         return (int) $data['cnt'];
     }
 

@@ -181,8 +181,10 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
                     $block = $this->_priceBlockTypes[$productTypeId]['block'];
                 }
             }
+
             $this->_priceBlock[$productTypeId] = $this->getLayout()->createBlock($block);
         }
+
         return $this->_priceBlock[$productTypeId];
     }
 
@@ -199,6 +201,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
                 return $this->_priceBlockTypes[$productTypeId]['template'];
             }
         }
+
         return $this->_priceBlockDefaultTemplate;
     }
 
@@ -327,6 +330,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (!$this->hasData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
+
         return $this->getData('product');
     }
 
@@ -356,6 +360,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (is_null($product)) {
             $product = $this->getProduct();
         }
+
         return $this->_getPriceBlock($product->getTypeId())
             ->setTemplate($this->getTierPriceTemplate())
             ->setProduct($product)
@@ -389,12 +394,13 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (is_null($product)) {
             $product = $this->getProduct();
         }
+
         $prices = $product->getFormatedTierPrice();
 
         $res = [];
         if (is_array($prices)) {
             foreach ($prices as $price) {
-                $price['price_qty'] = $price['price_qty'] * 1;
+                $price['price_qty'] *= 1;
 
                 $_productPrice = $product->getPrice();
                 if ($_productPrice != $product->getFinalPrice()) {
@@ -492,8 +498,10 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             if (!isset($additional['_escape'])) {
                 $additional['_escape'] = true;
             }
+
             return $product->getUrlModel()->getUrl($product, $additional);
         }
+
         return '#';
     }
 
@@ -509,6 +517,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if ($product->getVisibleInSiteVisibilities()) {
             return true;
         }
+
         return false;
     }
 
@@ -623,6 +632,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (!$addFormKey) {
             return $helper->getAddUrlWithCustomParams($product, [], false);
         }
+
         return $helper->getAddUrl($product);
     }
 
@@ -641,6 +651,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         if (!$addFormKey) {
             return $helper->getAddUrlCustom($product, false);
         }
+
         return $helper->getAddUrl($product);
     }
 
@@ -682,6 +693,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
             if (!$addFormKey) {
                 return $helper->getAddUrlCustom($product, $additional, false);
             }
+
             return $helper->getAddUrl($product, $additional);
         }
 
@@ -691,12 +703,15 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
                 [Mage_Core_Model_Url::FORM_KEY => $this->_getSingletonModel('core/session')->getFormKey()],
             );
         }
+
         if (!isset($additional['_escape'])) {
             $additional['_escape'] = true;
         }
+
         if (!isset($additional['_query'])) {
             $additional['_query'] = [];
         }
+
         $additional['_query']['options'] = 'cart';
         return $this->getProductUrl($product, $additional);
     }
@@ -723,6 +738,7 @@ abstract class Mage_Catalog_Block_Product_Abstract extends Mage_Core_Block_Templ
         } else {
             $submitUrl = $this->getAddToCartUrlCustom($product, $additional, false);
         }
+
         return $submitUrl;
     }
 }

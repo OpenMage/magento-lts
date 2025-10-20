@@ -35,6 +35,7 @@ class Mage_Core_Model_Resource_Transaction
      * @var array
      */
     protected $_beforeCommitCallbacks = [];
+
     /**
      * Begin transaction for all involved object resources
      *
@@ -45,6 +46,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->beginTransaction();
         }
+
         return $this;
     }
 
@@ -58,6 +60,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->commit();
         }
+
         return $this;
     }
 
@@ -71,6 +74,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_objects as $object) {
             $object->getResource()->rollBack();
         }
+
         return $this;
     }
 
@@ -84,6 +88,7 @@ class Mage_Core_Model_Resource_Transaction
         foreach ($this->_beforeCommitCallbacks as $callback) {
             call_user_func($callback);
         }
+
         return $this;
     }
 
@@ -99,6 +104,7 @@ class Mage_Core_Model_Resource_Transaction
         if (!empty($alias)) {
             $this->_objectsByAlias[$alias] = $object;
         }
+
         return $this;
     }
 
@@ -184,6 +190,7 @@ class Mage_Core_Model_Resource_Transaction
         } else {
             $this->_commitTransaction();
         }
+
         return $this;
     }
 }

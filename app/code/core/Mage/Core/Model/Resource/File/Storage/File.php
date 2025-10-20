@@ -87,6 +87,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                         $files[] = $relativePath;
                     }
                 }
+
                 closedir($dh);
             }
         }
@@ -122,6 +123,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                         @unlink($fullPath);
                     }
                 }
+
                 closedir($dh);
                 @rmdir($currentDir);
             }
@@ -141,6 +143,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                 ->getNode(Mage_Core_Model_File_Storage::XML_PATH_MEDIA_RESOURCE_IGNORED);
             $this->_ignoredFiles = $ignored ? explode(',', $ignored) : [];
         }
+
         return $this->_ignoredFiles;
     }
 
@@ -209,6 +212,7 @@ class Mage_Core_Model_Resource_File_Storage_File
                 if (!($fp = @fopen($fullPath, 'x'))) {
                     return false;
                 }
+
                 if (@fwrite($fp, $content) !== false && @fflush($fp) && @fclose($fp)) {
                     return true;
                 }
@@ -244,9 +248,11 @@ class Mage_Core_Model_Resource_File_Storage_File
                 $created[] = $parent;
                 $parent = dirname($parent);
             }
+
             if ($created) {
                 $this->_createdDirectories = $created;
             }
+
             @mkdir($path, 0777, true);
         }
 
@@ -287,6 +293,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             @flock($fp, LOCK_UN);
             @fclose($fp);
         }
+
         @unlink($fullPath);
 
         // Clean up empty directories created by this process when the file was locked
@@ -294,6 +301,7 @@ class Mage_Core_Model_Resource_File_Storage_File
             foreach ($this->_createdDirectories as $directory) {
                 @rmdir($directory); // Allowed to fail when the directory cannot be removed (non-empty)
             }
+
             $this->_createdDirectories = null;
         }
 

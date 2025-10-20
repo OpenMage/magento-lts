@@ -48,6 +48,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         } catch (Exception $e) {
             $this->_fault('invalid_filter', $e->getMessage());
         }
+
         return $creditmemos;
     }
 
@@ -69,6 +70,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 }
             }
         }
+
         return $filter;
     }
 
@@ -89,6 +91,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         foreach ($creditmemo->getAllItems() as $item) {
             $result['items'][] = $this->_getAttributes($item, 'creditmemo_item');
         }
+
         // credit memo comments
         $result['comments'] = [];
         foreach ($creditmemo->getCommentsCollection() as $comment) {
@@ -123,9 +126,11 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$order->getId()) {
             $this->_fault('order_not_exists');
         }
+
         if (!$order->canCreditmemo()) {
             $this->_fault('cannot_create_creditmemo');
         }
+
         $creditmemoData = $this->_prepareCreateData($creditmemoData);
 
         /** @var Mage_Sales_Model_Service_Order $service */
@@ -138,6 +143,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             if ($order->getCustomerIsGuest()) {
                 $this->_fault('cannot_refund_to_storecredit');
             }
+
             $refundToStoreCreditAmount = max(
                 0,
                 min($creditmemo->getBaseCustomerBalanceReturnMax(), $refundToStoreCreditAmount),
@@ -154,11 +160,13 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 $creditmemo->setCustomerBalanceRefundFlag(true);
             }
         }
+
         $creditmemo->setPaymentRefundDisallowed(true)->register();
         // add comment to creditmemo
         if (!empty($comment)) {
             $creditmemo->addComment($comment, $notifyCustomer);
         }
+
         try {
             Mage::getModel('core/resource_transaction')
                 ->addObject($creditmemo)
@@ -169,6 +177,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
+
         return $creditmemo->getIncrementId();
     }
 
@@ -208,9 +217,10 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$creditmemo->canCancel()) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo cannot be canceled.'));
         }
+
         try {
             $creditmemo->cancel()->save();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->_fault('status_not_changed', Mage::helper('sales')->__('Credit memo canceling problem.'));
         }
 
@@ -239,8 +249,10 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                     $qtysArray[$qKey] = $qVal;
                 }
             }
+
             $data['qtys'] = $qtysArray;
         }
+
         return $data;
     }
 
@@ -257,6 +269,7 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
         if (!$creditmemo->getId()) {
             $this->_fault('not_exists');
         }
+
         return $creditmemo;
     }
 }

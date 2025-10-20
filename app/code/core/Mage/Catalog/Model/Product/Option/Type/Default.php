@@ -71,6 +71,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_option instanceof Mage_Catalog_Model_Product_Option) {
             return $this->_option;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong option instance type in options group.'));
     }
 
@@ -97,6 +98,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_product instanceof Mage_Catalog_Model_Product) {
             return $this->_product;
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong product instance type in options group.'));
     }
 
@@ -172,6 +174,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->_getData('request') instanceof Varien_Object) {
             return $this->_getData('request');
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Wrong BuyRequest instance in options group.'));
     }
 
@@ -206,6 +209,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
             $this->setUserValue($values[$option->getId()]);
             $this->setIsValid(true);
         }
+
         return $this;
     }
 
@@ -231,6 +235,7 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
         if ($this->getIsValid()) {
             return $this->getUserValue();
         }
+
         Mage::throwException(Mage::helper('catalog')->__('Option validation failed to add product to cart.'));
     }
 
@@ -357,12 +362,14 @@ class Mage_Catalog_Model_Product_Option_Type_Default extends Varien_Object
                     foreach ($option->getValues() as $value) {
                         $optionValues[$value->getTitle()] = $value->getId();
                     }
+
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = $optionValues;
                 } else {
                     $this->_productOptions[$this->getProduct()->getId()][$option->getTitle()]['values'] = [];
                 }
             }
         }
+
         return $this->_productOptions[$this->getProduct()->getId()] ?? [];
     }
 

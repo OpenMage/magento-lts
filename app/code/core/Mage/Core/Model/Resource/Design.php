@@ -32,6 +32,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
             if (!$validator->isValid($dateFrom) || !$validator->isValid($dateTo)) {
                 Mage::throwException(Mage::helper('core')->__('Invalid date'));
             }
+
             if (Varien_Date::toTimestamp($dateFrom) > Varien_Date::toTimestamp($dateTo)) {
                 Mage::throwException(Mage::helper('core')->__('Start date cannot be greater than end date.'));
             }
@@ -117,6 +118,7 @@ class Mage_Core_Model_Resource_Design extends Mage_Core_Model_Resource_Db_Abstra
         if (!empty($dateTo)) {
             $bind['date_to'] = $dateTo;
         }
+
         if (!empty($dateFrom)) {
             $bind['date_from'] = $dateFrom;
         }

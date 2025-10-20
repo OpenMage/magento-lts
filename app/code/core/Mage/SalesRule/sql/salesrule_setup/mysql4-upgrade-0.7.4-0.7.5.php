@@ -27,12 +27,14 @@ foreach ($rows as $r) {
             $websiteIds[$websites[$storeId]] = true;
         }
     }
+
     $conn->update(
         $this->getTable('salesrule'),
         ['website_ids' => implode(',', array_keys($websiteIds))],
         'rule_id=' . $r['rule_id'],
     );
 }
+
 $conn->dropColumn($this->getTable('salesrule'), 'store_ids');
 
 $installer->endSetup();

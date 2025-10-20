@@ -39,6 +39,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
      * Relation statuses
      */
     public const STATUS_ACTIVE     = 1;
+
     public const STATUS_NOT_ACTIVE = 0;
 
     /**
@@ -85,6 +86,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
         if (!is_null($storeId)) {
             $this->setStoreId($storeId);
         }
+
         $this->_getResource()->loadByTagCustomer($this);
         return $this;
     }
@@ -101,6 +103,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
             $ids = $this->_getResource()->getProductIds($this);
             $this->setProductIds($ids);
         }
+
         return $ids;
     }
 
@@ -114,6 +117,7 @@ class Mage_Tag_Model_Tag_Relation extends Mage_Core_Model_Abstract
         if (is_null($this->getData('related_tag_ids'))) {
             $this->setRelatedTagIds($this->_getResource()->getRelatedTagIds($this));
         }
+
         return $this->getData('related_tag_ids');
     }
 

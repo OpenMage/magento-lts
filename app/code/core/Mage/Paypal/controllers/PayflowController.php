@@ -104,6 +104,7 @@ class Mage_Paypal_PayflowController extends Mage_Core_Controller_Front_Action
         if ($helper->restoreQuote()) {
             $gotoSection = 'payment';
         }
+
         return $gotoSection;
     }
 

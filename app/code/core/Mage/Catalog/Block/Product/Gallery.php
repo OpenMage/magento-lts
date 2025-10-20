@@ -22,6 +22,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         if ($headBlock = $this->getLayout()->getBlock('head')) {
             $headBlock->setTitle($this->getProduct()->getMetaTitle());
         }
+
         return parent::_prepareLayout();
     }
 
@@ -56,6 +57,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         if (!$image) {
             $image = $this->getGalleryCollection()->getFirstItem();
         }
+
         return $image;
     }
 
@@ -107,13 +109,16 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         if (!$current) {
             return false;
         }
+
         $previus = false;
         foreach ($this->getGalleryCollection() as $image) {
             if ($image->getValueId() == $current->getValueId()) {
                 return $previus;
             }
+
             $previus = $image;
         }
+
         return $previus;
     }
 
@@ -134,10 +139,12 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
             if ($currentFind) {
                 return $image;
             }
+
             if ($image->getValueId() == $current->getValueId()) {
                 $currentFind = true;
             }
         }
+
         return $next;
     }
 
@@ -149,6 +156,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         if ($image = $this->getPreviusImage()) {
             return $this->getUrl('*/*/*', ['_current' => true, 'image' => $image->getValueId()]);
         }
+
         return false;
     }
 
@@ -160,6 +168,7 @@ class Mage_Catalog_Block_Product_Gallery extends Mage_Core_Block_Template
         if ($image = $this->getNextImage()) {
             return $this->getUrl('*/*/*', ['_current' => true, 'image' => $image->getValueId()]);
         }
+
         return false;
     }
 }

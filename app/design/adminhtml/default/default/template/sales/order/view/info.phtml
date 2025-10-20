@@ -12,21 +12,16 @@
 <?php
 $orderAdminDate = $this->formatDate($_order->getCreatedAtDate(), 'medium', true);
 $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', true);
+$emailSentInfo  = $_order->getEmailSent() ? Mage::helper('sales')->__('Sent') : Mage::helper('sales')->__('Not sent');
 ?>
 <div class="box-left">
     <!--Order Information-->
     <div class="entry-edit">
-        <?php if ($_order->getEmailSent()):
-            $_email = Mage::helper('sales')->__('the order confirmation email was sent');
-        else:
-            $_email = Mage::helper('sales')->__('the order confirmation email is not sent');
-        endif; ?>
         <div class="entry-edit-head">
         <?php if ($this->getNoUseOrderLink()): ?>
-            <h4 class="icon-head head-account" data-copy-text="<?php echo $_order->getRealOrderId() ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?> (<?php echo $_email ?>)</h4>
+            <h4 class="icon-head head-account" data-copy-text="<?php echo $_order->getRealOrderId() ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></h4>
         <?php else: ?>
             <a href="<?php echo $this->getViewUrl($_order->getId()) ?>"><?php echo Mage::helper('sales')->__('Order # %s', $this->escapeHtml($_order->getRealOrderId())) ?></a>
-            <strong>(<?php echo $_email ?>)</strong>
         <?php endif ?>
         </div>
         <div class="fieldset">
@@ -44,6 +39,10 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Order Status') ?></label></td>
                 <td class="value"><strong><span id="order_status"><?php echo $_order->getStatusLabel() ?></span></strong></td>
+            </tr>
+            <tr>
+                <td class="label"><label><?php echo Mage::helper('sales')->__('Order Confirmation') ?></label></td>
+                <td class="value"><strong><?php echo $emailSentInfo ?></strong></td>
             </tr>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Purchased From') ?></label></td>
@@ -68,7 +67,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
             <?php if($_order->getRemoteIp() && $this->shouldDisplayCustomerIp()): ?>
             <tr>
                 <td class="label"><label><?php echo Mage::helper('sales')->__('Placed from IP') ?></label></td>
-                <td class="value"><strong><?php echo $this->escapeHtml($_order->getRemoteIp()); echo ($_order->getXForwardedFor())?' (' . $this->escapeHtml($_order->getXForwardedFor()) . ')':''; ?></strong></td>
+                <td class="value"><strong><?php echo $this->escapeHtml($_order->getRemoteIp()) . (($_order->getXForwardedFor()) ? ' (' . $this->escapeHtml($_order->getXForwardedFor()) . ')' : ''); ?></strong></td>
             </tr>
             <?php endif ?>
             <?php if($_order->getGlobalCurrencyCode() != $_order->getBaseCurrencyCode()): ?>
@@ -100,7 +99,7 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
                 <tr>
                     <td class="label"><label><?php echo Mage::helper('sales')->__('Customer Name') ?></label></td>
                     <td class="value">
-                    <?php if ($_customerUrl=$this->getCustomerViewUrl()) : ?>
+                    <?php if ($_customerUrl = $this->getCustomerViewUrl()) : ?>
                         <a href="<?php echo $_customerUrl ?>" target="_blank"><strong><?php echo $this->escapeHtml($_order->getCustomerName()) ?></strong></a>
                     <?php else: ?>
                         <strong><?php echo $this->escapeHtml($_order->getCustomerName()) ?></strong>

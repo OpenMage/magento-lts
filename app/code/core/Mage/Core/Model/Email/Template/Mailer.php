@@ -63,6 +63,7 @@ class Mage_Core_Model_Email_Template_Mailer extends Varien_Object
                     $this->getStoreId(),
                 );
         }
+
         return $this;
     }
 

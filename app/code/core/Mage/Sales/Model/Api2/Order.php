@@ -18,9 +18,13 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
      * Parameters' names in config with special ACL meaning
      */
     public const PARAM_GIFT_MESSAGE   = '_gift_message';
+
     public const PARAM_ORDER_COMMENTS = '_order_comments';
+
     public const PARAM_PAYMENT_METHOD = '_payment_method';
+
     public const PARAM_TAX_NAME       = '_tax_name';
+
     public const PARAM_TAX_RATE       = '_tax_rate';
 
     /**
@@ -71,9 +75,11 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         if ($this->_isTaxNameAllowed()) {
             $taxInfoFields['tax_name'] = 'order_tax.title';
         }
+
         if ($this->_isTaxRateAllowed()) {
             $taxInfoFields['tax_rate'] = 'order_tax.percent';
         }
+
         if ($taxInfoFields) {
             $collection->getSelect()->joinLeft(
                 ['order_tax' => $collection->getTable('sales/order_tax')],
@@ -82,6 +88,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
             );
             $collection->getSelect()->group('main_table.entity_id');
         }
+
         return $this;
     }
 
@@ -109,6 +116,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 }
             }
         }
+
         return $addresses;
     }
 
@@ -160,6 +168,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 }
             }
         }
+
         return $comments;
     }
 
@@ -202,6 +211,7 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
                 }
             }
         }
+
         return $items;
     }
 
@@ -267,9 +277,11 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         if ($this->_isPaymentMethodAllowed()) {
             $this->_addPaymentMethodInfo($collection);
         }
+
         if ($this->_isGiftMessageAllowed()) {
             $this->_addGiftMessageInfo($collection);
         }
+
         $this->_addTaxInfo($collection);
 
         $ordersData = [];
@@ -277,17 +289,21 @@ class Mage_Sales_Model_Api2_Order extends Mage_Api2_Model_Resource
         foreach ($collection->getItems() as $order) {
             $ordersData[$order->getId()] = $order->toArray();
         }
+
         if ($ordersData) {
             foreach ($this->_getAddresses(array_keys($ordersData)) as $orderId => $addresses) {
                 $ordersData[$orderId]['addresses'] = $addresses;
             }
+
             foreach ($this->_getItems(array_keys($ordersData)) as $orderId => $items) {
                 $ordersData[$orderId]['order_items'] = $items;
             }
+
             foreach ($this->_getComments(array_keys($ordersData)) as $orderId => $comments) {
                 $ordersData[$orderId]['order_comments'] = $comments;
             }
         }
+
         return $ordersData;
     }
 }

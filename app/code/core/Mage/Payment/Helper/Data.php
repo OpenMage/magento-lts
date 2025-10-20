@@ -15,6 +15,7 @@
 class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public const XML_PATH_PAYMENT_METHODS = 'payment';
+
     public const XML_PATH_PAYMENT_GROUPS = 'global/payment/groups';
 
     protected $_moduleName = 'Mage_Payment';
@@ -44,6 +45,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             Mage::logException(new Exception(sprintf('Unknown payment method with code "%s"', $code)));
             return false;
         }
+
         return Mage::getModel($class);
     }
 
@@ -65,16 +67,19 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             if (!$model = Mage::getStoreConfig($prefix . 'model', $store)) {
                 continue;
             }
+
             /** @var Mage_Payment_Model_Method_Abstract|false $methodInstance */
             $methodInstance = Mage::getModel($model);
             if (!$methodInstance) {
                 continue;
             }
+
             $methodInstance->setStore($store);
             if (!$methodInstance->isAvailable($quote)) {
                 /* if the payment method cannot be used at this time */
                 continue;
             }
+
             $sortOrder = (int) $methodInstance->getConfigData('sort_order', $store);
             $methodInstance->setSortOrder($sortOrder);
             $res[] = $methodInstance;
@@ -94,6 +99,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
         if (is_object($a)) {
             return (int) $a->sort_order <=> (int) $b->sort_order;
         }
+
         return 0;
     }
 
@@ -110,6 +116,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $block = $this->getLayout()->createBlock($blockType);
             $block->setMethod($method);
         }
+
         return $block;
     }
 
@@ -127,6 +134,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             $className = Mage::getConfig()->getBlockClassName($blockType);
             $block = new $className();
         }
+
         $block->setInfo($info);
         return $block;
     }
@@ -146,6 +154,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 $result[] = $method;
             }
         }
+
         return $result;
     }
 
@@ -170,6 +179,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                 $result[] = $method;
             }
         }
+
         return $result;
     }
 
@@ -221,24 +231,29 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                     $methods[$code] = Mage::getModel($paymentMethodModelClassName)->getConfigData('title', $store);
                 }
             }
+
             if ($asLabelValue && $withGroups && isset($data['group'])) {
                 $groupRelations[$code] = $data['group'];
             }
         }
+
         if ($asLabelValue && $withGroups) {
             $groups = Mage::app()->getConfig()->getNode(self::XML_PATH_PAYMENT_GROUPS)->asCanonicalArray();
             foreach ($groups as $code => $title) {
                 $methods[$code] = $title; // for sorting, see below
             }
         }
+
         if ($sorted) {
             asort($methods);
         }
+
         if ($asLabelValue) {
             $labelValues = [];
             foreach (array_keys($methods) as $code) {
                 $labelValues[$code] = [];
             }
+
             foreach ($methods as $code => $title) {
                 if (isset($groups[$code])) {
                     $labelValues[$code]['label'] = $title;
@@ -249,6 +264,7 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
                     $labelValues[$code] = ['value' => $code, 'label' => $title . ' (' . $code . ')'];
                 }
             }
+
             return $labelValues;
         }
 
@@ -268,11 +284,13 @@ class Mage_Payment_Helper_Data extends Mage_Core_Helper_Abstract
             if (!isset($data['model'])) {
                 continue;
             }
+
             $method = Mage::app()->getConfig()->getModelClassName($data['model']);
             if (in_array($interface, class_implements($method))) {
                 $result[$code] = $data['title'];
             }
         }
+
         return $result;
     }
 

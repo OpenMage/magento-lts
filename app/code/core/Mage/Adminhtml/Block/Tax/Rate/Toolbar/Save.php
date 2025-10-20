@@ -47,6 +47,7 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
                 ->setData([
                     'label'     => Mage::helper('tax')->__('Reset'),
                     'onclick'   => 'window.location.reload()',
+                    'class'     => 'reset',
                 ]),
         );
 
@@ -99,14 +100,15 @@ class Mage_Adminhtml_Block_Tax_Rate_Toolbar_Save extends Mage_Adminhtml_Block_Te
     }
 
     /**
-     * @return string|void
+     * @return string
      * @throws Exception
      */
     public function getDeleteButtonHtml()
     {
         if ((int) $this->getRequest()->getParam('rate') == 0) {
-            return;
+            return '';
         }
+
         return $this->getChildHtml('deleteButton');
     }
 }

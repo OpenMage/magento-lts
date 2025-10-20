@@ -69,6 +69,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
         } else {
             $this->_params[$key] = $value;
         }
+
         return $this;
     }
 
@@ -121,6 +122,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
         if (is_null($action)) {
             $action = new $this->_actionDefaultClass();
         }
+
         $this->_actions[] = $action;
         $action->setProfile($this->getProfile());
         return $action;
@@ -155,6 +157,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             $class = $this->getParam('class');
             $this->setContainer(new $class());
         }
+
         return $this->_container;
     }
 
@@ -170,13 +173,16 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
             $this->setParam('class', $this->getClassNameByType((string) $actionNode['type']));
             $container = $action->getContainer();
         }
+
         $this->setContainer($container);
         if ($this->getParam('name')) {
             $this->getProfile()->addContainer($this->getParam('name'), $container);
         }
+
         foreach ($actionNode->var as $varNode) {
             $container->setVar((string) $varNode['name'], (string) $varNode);
         }
+
         foreach ($actionNode->action as $actionSubnode) {
             $action = $this->addAction();
             $action->importXml($actionSubnode);
@@ -214,6 +220,7 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
         } else {
             $this->getContainer()->addException('No method specified', Mage_Dataflow_Model_Convert_Exception::FATAL);
         }
+
         return $this;
     }
 
@@ -222,9 +229,11 @@ abstract class Mage_Dataflow_Model_Convert_Action_Abstract implements Mage_Dataf
         if (empty($this->_actions)) {
             return $this;
         }
+
         foreach ($this->_actions as $action) {
             $action->run($args);
         }
+
         return $this;
     }
 }

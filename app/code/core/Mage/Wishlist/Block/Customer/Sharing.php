@@ -32,6 +32,7 @@ class Mage_Wishlist_Block_Customer_Sharing extends Mage_Core_Block_Template
         if ($headBlock) {
             $headBlock->setTitle($this->__('Wishlist Sharing'));
         }
+
         return $this;
     }
 

@@ -20,6 +20,7 @@ class Mage_Catalog_Model_Convert_Adapter_Catalog extends Mage_Dataflow_Model_Con
         if (!$this->_resource) {
             $this->_resource = Mage::getResourceSingleton('catalog_entity/convert');
         }
+
         return $this->_resource;
     }
 

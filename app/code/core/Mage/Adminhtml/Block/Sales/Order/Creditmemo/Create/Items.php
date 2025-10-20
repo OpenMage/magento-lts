@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Adminhtml_Block_Sales_Items_Abstract
 {
     protected $_canReturnToStock;
+
     /**
      * Prepare child blocks
      *
@@ -43,6 +44,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                     ]),
                 );
             }
+
             $this->setChild(
                 'submit_offline',
                 $this->getLayout()->createBlock('adminhtml/widget_button')->setData([
@@ -128,6 +130,7 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
         if ($this->getCreditmemo()->getOrder()->getPayment()->canRefund()) {
             return $this->getCreditmemo()->getOrder()->getPayment()->canRefundPartialPerInvoice();
         }
+
         return true;
     }
 
@@ -171,9 +174,11 @@ class Mage_Adminhtml_Block_Sales_Order_Creditmemo_Create_Items extends Mage_Admi
                         $item->setCanReturnToStock(false);
                     }
                 }
+
                 $this->getCreditmemo()->getOrder()->setCanReturnToStock($this->_canReturnToStock = $canReturnToStock);
             }
         }
+
         return $this->_canReturnToStock;
     }
 

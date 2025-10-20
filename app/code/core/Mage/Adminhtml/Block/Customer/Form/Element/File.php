@@ -80,6 +80,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             $html .= $this->_drawElementHtml('label', $label, false) . $this->_getDeleteCheckboxLabel() . '</label>';
             $html .= '</span>';
         }
+
         return $html;
     }
 
@@ -124,6 +125,7 @@ class Mage_Adminhtml_Block_Customer_Form_Element_File extends Varien_Data_Form_E
             $html .= '<a href="' . $url . '">' . Mage::helper('adminhtml')->__('Download') . '</a>';
             $html .= '</span>';
         }
+
         return $html;
     }
 

@@ -77,6 +77,7 @@ class Mage_Reports_Model_Resource_Product_Viewed_Collection extends Mage_Reports
         } else {
             $this->_storeIds[] = $storeIds;
         }
+
         return $this;
     }
 

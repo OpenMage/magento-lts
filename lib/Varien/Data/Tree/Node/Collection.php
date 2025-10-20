@@ -117,6 +117,7 @@ class Varien_Data_Tree_Node_Collection implements ArrayAccess, IteratorAggregate
         if (isset($this->_nodes[$id])) {
             unset($this->_nodes[$id]);
         }
+
         return $this;
     }
 

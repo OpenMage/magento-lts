@@ -31,6 +31,7 @@
 class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
 {
     public const ENTITY         = 'store_group';
+
     public const CACHE_TAG      = 'store_group';
 
     protected $_cacheTag = true;
@@ -118,6 +119,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -139,6 +141,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
             if ($this->getDefaultStoreId() == $storeId) {
                 $this->_defaultStore = $store;
             }
+
             $this->_storesCount++;
         }
     }
@@ -165,6 +168,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_stores;
     }
 
@@ -178,6 +182,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeIds;
     }
 
@@ -191,6 +196,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storeCodes;
     }
 
@@ -202,6 +208,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_storesCount;
     }
 
@@ -215,9 +222,11 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (!$this->hasDefaultStoreId()) {
             return false;
         }
+
         if (is_null($this->_stores)) {
             $this->_loadStores();
         }
+
         return $this->_defaultStore;
     }
 
@@ -257,6 +266,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
                 $stores[] = $store;
             }
         }
+
         return $stores;
     }
 
@@ -278,9 +288,11 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if (is_null($this->getWebsiteId())) {
             return false;
         }
+
         if (is_null($this->_website)) {
             $this->_website = Mage::app()->getWebsite($this->getWebsiteId());
         }
+
         return $this->_website;
     }
 
@@ -342,6 +354,7 @@ class Mage_Core_Model_Store_Group extends Mage_Core_Model_Abstract
         if ($value !== null) {
             $this->_isReadOnly = (bool) $value;
         }
+
         return $this->_isReadOnly;
     }
 }

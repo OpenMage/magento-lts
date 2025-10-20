@@ -136,6 +136,7 @@ class Mage_Adminhtml_Block_Promo_Quote_Edit_Tab_Main extends Mage_Adminhtml_Bloc
                 $found = true;
             }
         }
+
         if (!$found) {
             array_unshift($customerGroups, [
                 'value' => 0,

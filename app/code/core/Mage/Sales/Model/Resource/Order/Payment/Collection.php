@@ -42,6 +42,7 @@ class Mage_Sales_Model_Resource_Order_Payment_Collection extends Mage_Sales_Mode
         foreach ($this->_items as $item) {
             $this->getResource()->unserializeFields($item);
         }
+
         return parent::_afterLoad();
     }
 }

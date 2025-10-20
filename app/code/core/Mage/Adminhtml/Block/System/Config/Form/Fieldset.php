@@ -86,6 +86,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         if (is_null($element)) {
             $element = $this->getElement();
         }
+
         if ($element && $element->getGroup() instanceof Mage_Core_Model_Config_Element) {
             return $element->getGroup();
         }
@@ -149,6 +150,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         } else {
             $html .= '</div>';
         }
+
         return $html;
     }
 
@@ -179,6 +181,7 @@ class Mage_Adminhtml_Block_System_Config_Form_Fieldset extends Mage_Adminhtml_Bl
         if ($element->getExpanded() !== null) {
             return 1;
         }
+
         $extra = Mage::getSingleton('admin/session')->getUser()->getExtra();
         return $extra['configState'][$element->getId()] ?? false;
     }

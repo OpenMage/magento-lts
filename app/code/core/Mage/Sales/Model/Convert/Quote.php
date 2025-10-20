@@ -120,6 +120,7 @@ class Mage_Sales_Model_Convert_Quote extends Varien_Object
         if (!$options) {
             $options = $item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct());
         }
+
         $orderItem->setProductOptions($options);
         Mage::helper('core')->copyFieldset('sales_convert_quote_item', 'to_order_item', $item, $orderItem);
 

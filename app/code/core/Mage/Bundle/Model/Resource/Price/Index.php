@@ -52,6 +52,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             $this->_attributes[$attributeCode] = Mage::getSingleton('catalog/config')
                 ->getAttribute(Mage_Catalog_Model_Product::ENTITY, $attributeCode);
         }
+
         return $this->_attributes[$attributeCode];
     }
 
@@ -65,6 +66,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if (is_null($this->_websites)) {
             $this->_websites = Mage::app()->getWebsites(false);
         }
+
         return $this->_websites;
     }
 
@@ -82,6 +84,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 $this->_customerGroups[$group->getId()] = $group;
             }
         }
+
         return $this->_customerGroups;
     }
 
@@ -189,6 +192,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
             if (!$website->getDefaultStore()) {
                 continue;
             }
+
             $salableStatus = $this->getProductsSalableStatus($selectionProducts, $website);
             $priceData = $this->getProductsPriceData($productId, $website);
             $priceData = $priceData[$productId];
@@ -293,6 +297,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     'selections'    => [],
                 ];
             }
+
             $options[$row['option_id']]['selections'][$row['selection_id']] = [
                 'selection_id'      => $row['selection_id'],
                 'product_id'        => $row['product_id'],
@@ -491,6 +496,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 [],
             );
         }
+
         return $this;
     }
 
@@ -597,6 +603,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     'values'        => [],
                 ];
             }
+
             $options[$row['option_id']]['values'][$row['value_id']] = [
                 'price_type'        => $row['price_type'],
                 'price_value'       => $row['price'],
@@ -652,6 +659,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     'values'        => [],
                 ];
             }
+
             $options[$row['option_id']]['values'][$row['value_id']] = [
                 'price_type'        => $row['price_type'],
                 'price_value'       => $row['price'],
@@ -680,11 +688,14 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 } else {
                     $valuePrice = $value['price_value'];
                 }
+
                 $optionPrices[] = $valuePrice;
             }
+
             if ($option['is_require']) {
                 $minPrice += min($optionPrices);
             }
+
             $multiTypes = [
                 Mage_Catalog_Model_Product_Option::OPTION_TYPE_DROP_DOWN,
                 Mage_Catalog_Model_Product_Option::OPTION_TYPE_CHECKBOX,
@@ -771,7 +782,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                     $qty = $selection['qty'];
                 }
 
-                $selectionPrice = $selectionPrice * $qty;
+                $selectionPrice *= $qty;
                 $optionPrices[$selection['selection_id']] = $selectionPrice;
             }
 
@@ -781,6 +792,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
                 } else {
                     $optPrice = $optPrice && $optPrice < min($optionPrices) ? $optPrice : min($optionPrices);
                 }
+
                 if (in_array($option['type'], ['multi', 'checkbox'])) {
                     $maxPrice += array_sum($optionPrices);
                 } else {
@@ -792,6 +804,7 @@ class Mage_Bundle_Model_Resource_Price_Index extends Mage_Core_Model_Resource_Db
         if ($minPrice == 0) {
             $minPrice = $optPrice;
         }
+
         return [$minPrice, $maxPrice];
     }
 

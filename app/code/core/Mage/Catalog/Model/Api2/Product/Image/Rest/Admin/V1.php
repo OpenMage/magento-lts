@@ -29,8 +29,10 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             foreach ($validator->getErrors() as $error) {
                 $this->_error($error, Mage_Api2_Model_Server::HTTP_BAD_REQUEST);
             }
+
             $this->_critical(self::RESOURCE_DATA_PRE_VALIDATION_ERROR);
         }
+
         $imageFileContent = @base64_decode($data['file_content'], true);
         if (!$imageFileContent) {
             $this->_critical(
@@ -38,6 +40,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
                 Mage_Api2_Model_Server::HTTP_BAD_REQUEST,
             );
         }
+
         unset($data['file_content']);
 
         $apiTempDir = Mage::getBaseDir('var') . DS . 'api' . DS . Mage::getSingleton('api/session')->getSessionId();
@@ -59,6 +62,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
                 $ioAdapter->rmdir($apiTempDir, true);
                 $this->_critical($e->getMessage(), Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
             }
+
             $product = $this->_getProduct();
             $imageFileUri = $this->_getMediaGallery()
                 ->addImage($product, $apiTempDir . DS . $imageFileName, null, false, false);
@@ -69,6 +73,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
             if (isset($data['types'])) {
                 $this->_getMediaGallery()->setMediaAttribute($product, $data['types'], $imageFileUri);
             }
+
             $product->save();
             return $this->_getImageLocation($this->_getCreatedImageId($imageFileUri));
         } catch (Mage_Core_Exception $e) {
@@ -98,9 +103,11 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
                 break;
             }
         }
+
         if (!$imageId) {
             $this->_critical('Unknown error during image save', Mage_Api2_Model_Server::HTTP_INTERNAL_ERROR);
         }
+
         return $imageId;
     }
 
@@ -118,15 +125,18 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         if (!isset($galleryData['images']) || !is_array($galleryData['images'])) {
             $this->_critical('Product image not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         foreach ($galleryData['images'] as &$image) {
             if ($image['value_id'] == $imageId) {
                 $result = $this->_formatImageData($image);
                 break;
             }
         }
+
         if (empty($result)) {
             $this->_critical('Product image not found', Mage_Api2_Model_Server::HTTP_NOT_FOUND);
         }
+
         return $result;
     }
 
@@ -144,11 +154,13 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
         if (isset($data['types']) && is_array($data['types'])) {
             $assignedTypes = $this->_getImageTypesAssignedToProduct($imageFileUri);
             $typesToBeCleared = array_diff($assignedTypes, $data['types']);
-            if (count($typesToBeCleared) > 0) {
+            if ($typesToBeCleared !== []) {
                 $this->_getMediaGallery()->clearMediaAttribute($product, $typesToBeCleared);
             }
+
             $this->_getMediaGallery()->setMediaAttribute($product, $data['types'], $imageFileUri);
         }
+
         try {
             $product->save();
         } catch (Mage_Core_Exception $e) {
@@ -194,6 +206,7 @@ class Mage_Catalog_Model_Api2_Product_Image_Rest_Admin_V1 extends Mage_Catalog_M
                 $images[] = $this->_formatImageData($image);
             }
         }
+
         return $images;
     }
 

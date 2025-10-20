@@ -92,6 +92,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
         } else {
             $breadcrumb = $this->__('New Variable');
         }
+
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
 
@@ -121,6 +122,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
             if ($id) {
                 $model->setId($id);
             }
+
             $result = $model->validate();
 
             if (is_array($result)) {
@@ -128,9 +130,11 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 foreach ($result as $message) {
                     Mage::getSingleton('adminhtml/session')->addError($message);
                 }
+
                 $this->_redirect('*/*/edit', ['variable_id' => $id]);
                 return $this;
             }
+
             try {
                 $model->save();
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The variable has been saved.'));
@@ -149,6 +153,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -172,6 +177,7 @@ class Mage_Adminhtml_Permissions_VariableController extends Mage_Adminhtml_Contr
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find a variable to delete.'));
         $this->_redirect('*/*/');
     }

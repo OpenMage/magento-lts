@@ -64,6 +64,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         if (!is_array($productIds)) {
             $productIds = [$productIds];
         }
+
         $parentIds = $this->getRelationsByChild($productIds);
         if ($parentIds) {
             $processIds = array_merge($parentIds, $productIds);
@@ -90,6 +91,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
                     $indexer->reindexEntity($byType[$indexer->getTypeId()]);
                 }
             }
+
             $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollBack();
@@ -123,6 +125,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             foreach ($parentIds as $parentType => $entityIds) {
                 $this->_getIndexer($parentType)->reindexEntity($entityIds);
             }
+
             $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollBack();
@@ -194,6 +197,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
                     $indexer->reindexEntity($byType[$indexer->getTypeId()]);
                 }
             }
+
             $adapter->commit();
         } catch (Exception $e) {
             $adapter->rollBack();
@@ -225,6 +229,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -248,6 +253,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
                 $this->_indexers[$typeId] = $indexer;
             }
         }
+
         return $this->_indexers;
     }
 
@@ -263,6 +269,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         if (!isset($types[$productTypeId])) {
             Mage::throwException(Mage::helper('catalog')->__('Unsupported product type "%s".', $productTypeId));
         }
+
         return $types[$productTypeId];
     }
 
@@ -298,6 +305,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock extends Mage_Catalog_Mo
         if ($this->useIdxTable()) {
             return $this->getTable('cataloginventory/stock_status_indexer_idx');
         }
+
         return $this->getTable('cataloginventory/stock_status_indexer_tmp');
     }
 }

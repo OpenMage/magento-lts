@@ -37,6 +37,6 @@ final class MessageTest extends OpenMageTest
      */
     public function testIsMessagesAvailable(string $type, Varien_Object $entity, bool|int|Mage_Core_Model_Store|null|string $store = null): void
     {
-        static::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));
+        self::assertIsBool(self::$subject->isMessagesAvailable($type, $entity, $store));
     }
 }

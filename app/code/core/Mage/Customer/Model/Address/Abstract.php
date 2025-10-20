@@ -64,6 +64,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      * Possible customer address types
      */
     public const TYPE_BILLING  = 'billing';
+
     public const TYPE_SHIPPING = 'shipping';
 
     /**
@@ -113,14 +114,17 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         if ($config->getAttribute('customer_address', 'prefix')->getIsVisible() && $this->getPrefix()) {
             $name .= $this->getPrefix() . ' ';
         }
+
         $name .= $this->getFirstname();
         if ($config->getAttribute('customer_address', 'middlename')->getIsVisible() && $this->getMiddlename()) {
             $name .= ' ' . $this->getMiddlename();
         }
+
         $name .=  ' ' . $this->getLastname();
         if ($config->getAttribute('customer_address', 'suffix')->getIsVisible() && $this->getSuffix()) {
             $name .= ' ' . $this->getSuffix();
         }
+
         return $name;
     }
 
@@ -207,6 +211,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         if (is_array($street)) {
             $street = trim(implode("\n", $street));
         }
+
         $this->setData('street', $street);
         return $this;
     }
@@ -223,6 +228,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         foreach ($streetLines as $i => $line) {
             $this->setData('street' . ($i + 1), $line);
         }
+
         return $this;
     }
 
@@ -288,6 +294,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         } elseif (is_string($region)) {
             $this->setData('region_code', $region);
         }
+
         return $this->getData('region_code');
     }
 
@@ -308,6 +315,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
                 $this->setData('region_id', $regionModel->getId());
             }
         }
+
         return $this->getData('region_id');
     }
 
@@ -391,6 +399,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         ) {
             return null;
         }
+
         Mage::dispatchEvent('customer_address_format', ['type' => $formatType, 'address' => $this]);
         return $formatType->getRenderer()->render($this);
     }
@@ -437,6 +446,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
         if (empty($errors) || $this->getShouldIgnoreValidation()) {
             return true;
         }
+
         return $errors;
     }
 

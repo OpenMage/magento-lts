@@ -69,6 +69,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 $session->addException($e, $this->__('There was a problem with the subscription.'));
             }
         }
+
         $this->_redirectReferer();
     }
 
@@ -122,6 +123,7 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
                 $session->addException($e, $this->__('There was a problem with the un-subscription.'));
             }
         }
+
         $this->_redirectReferer();
     }
 
