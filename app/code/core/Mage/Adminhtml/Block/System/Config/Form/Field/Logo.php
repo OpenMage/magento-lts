@@ -16,14 +16,15 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Logo extends Varien_Data_Form_Element_Image
 {
-    protected $_url = '';
+    /** @var string|null */
+    protected $_url = null;
 
     /**
      * Get logo image preview url
      */
     protected function _getUrl(): string
     {
-        if ($this->_url === '') {
+        if (is_null($this->_url)) {
             /** @var Varien_Simplexml_Element $config */
             $config = $this->getFieldConfig();
             $path = $config->getName() === 'logo_src_small'

@@ -17,8 +17,6 @@
  */
 class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
 {
-    public const LOGO_DIR       = 'header/logo/';
-
     public function _construct()
     {
         $this->setTemplate('page/html/header.phtml');
