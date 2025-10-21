@@ -46,11 +46,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
                 $this->addValidators($uploader);
                 $result = $uploader->save($uploadDir);
                 Mage::getSingleton('adminhtml/session')->addSuccess(
-                    Mage::helper('adminhtml')->__('The file %s has been uploaded.', $result['file'])
+                    Mage::helper('adminhtml')->__('The file %s has been uploaded.', $result['file']),
                 );
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError(
-                    Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name'])
+                    Mage::helper('adminhtml')->__('The file %s has not been uploaded.', $file['name']),
                 );
                 Mage::throwException($e->getMessage());
             }
@@ -140,7 +140,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             // File is in a different scope directory (e.g., inherited from default)
             // Don't delete it to preserve inheritance
             Mage::getSingleton('adminhtml/session')->addWarning(
-                Mage::helper('adminhtml')->__('The file %s is inherited from a parent scope and cannot be deleted.', basename($filename))
+                Mage::helper('adminhtml')->__('The file %s is inherited from a parent scope and cannot be deleted.', basename($filename)),
             );
             return;
         }
@@ -148,7 +148,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
         if (file_exists($filePath)) {
             @unlink($filePath);
             Mage::getSingleton('adminhtml/session')->addSuccess(
-                Mage::helper('adminhtml')->__('The file %s has been deleted.', basename($filename))
+                Mage::helper('adminhtml')->__('The file %s has been deleted.', basename($filename)),
             );
         }
     }
