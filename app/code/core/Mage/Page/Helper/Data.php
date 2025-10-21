@@ -15,7 +15,9 @@ class Mage_Page_Helper_Data extends Mage_Core_Helper_Abstract
     protected $_moduleName = 'Mage_Page';
 
     public const XML_PATH_LOGO_SRC = 'design/header/logo_src';
+
     public const XML_PATH_LOGO_SRC_SMALL = 'design/header/logo_src_small';
+
     public const LOGO_MEDIA_DIR = 'header/logo/';
 
     public function getLogoSrc(string $src, ?string $storeCode = null): string

@@ -69,6 +69,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             if ($oldValue = $this->getOldValue()) {
                 $this->deleteFile($oldValue);
             }
+
             // Delete record before it is saved
             $this->delete();
             // Prevent record from being saved, since it was just deleted
@@ -125,6 +126,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
             if ($this->getScope() !== 'default') {
                 $scopeSuffix .= DS . $this->getScopeId();
             }
+
             if (str_ends_with($baseUploadDir, $scopeSuffix)) {
                 $baseUploadDir = substr($baseUploadDir, 0, -strlen($scopeSuffix));
             }
