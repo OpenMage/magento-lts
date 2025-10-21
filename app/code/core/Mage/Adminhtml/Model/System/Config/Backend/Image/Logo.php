@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * @copyright  For copyright and license information, read the COPYING.txt file.
  * @link       /COPYING.txt
@@ -16,16 +14,6 @@ declare(strict_types=1);
 class Mage_Adminhtml_Model_System_Config_Backend_Image_Logo extends Mage_Adminhtml_Model_System_Config_Backend_Image
 {
     /**
-     * The tail part of directory path for uploading
-     */
-    public const UPLOAD_DIR = 'header/logo';
-
-    /**
-     * Token for the root part of directory path for uploading
-     */
-    public const UPLOAD_ROOT_TOKEN = 'system/filesystem/media';
-
-    /**
      * Upload max file size in kilobytes
      *
      * @var int
@@ -33,24 +21,18 @@ class Mage_Adminhtml_Model_System_Config_Backend_Image_Logo extends Mage_Adminht
     protected $_maxFileSize = 2048;
 
     /**
-     * Return path to directory for upload file
-     *
-     * @return string
+     * Fix media dir for all uploads of logo files
      */
-    protected function _getUploadDir()
+    protected function _getUploadDir(): string
     {
-        $uploadDir  = $this->_appendScopeInfo(self::UPLOAD_DIR);
-        $uploadRoot = $this->_getUploadRoot(self::UPLOAD_ROOT_TOKEN);
-        $uploadDir  = $uploadRoot . DS . $uploadDir;
-        return $uploadDir;
+        $uploadDir  = $this->_appendScopeInfo(Mage_Page_Helper_Data::LOGO_MEDIA_DIR);
+        return  Mage::getBaseDir('media') . DS . $uploadDir;
     }
 
     /**
-     * Makes a decision about whether to add info about the scope.
-     *
-     * @return bool
+     * Always add scope info
      */
-    protected function _addWhetherScopeInfo()
+    protected function _addWhetherScopeInfo(): bool
     {
         return true;
     }

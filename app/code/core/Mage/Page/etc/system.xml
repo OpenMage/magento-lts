@@ -121,9 +121,8 @@
                         <logo_src translate="label">
                             <label>Logo Image Src</label>
                             <sort_order>10</sort_order>
-                            <frontend_type>image</frontend_type>
+                            <frontend_type>logo</frontend_type>
                             <backend_model>adminhtml/system_config_backend_image_logo</backend_model>
-                            <base_url type="media" scope_info="1">header/logo</base_url>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -138,9 +137,8 @@
                         <logo_src_small translate="label">
                             <label>Small Logo Image Src</label>
                             <sort_order>25</sort_order>
-                            <frontend_type>image</frontend_type>
-                            <backend_model>adminhtml/system_config_backend_image_logosmall</backend_model>
-                            <base_url type="media" scope_info="1">header/logo</base_url>
+                            <frontend_type>logo</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image_logo</backend_model>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
