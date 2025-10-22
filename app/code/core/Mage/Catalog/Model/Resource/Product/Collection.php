@@ -196,7 +196,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     protected $_factory;
 
-    protected array $attributesValueCache = [];
+    protected ?array $attributesValueCache = null;
 
     /**
      * Initialize factory
