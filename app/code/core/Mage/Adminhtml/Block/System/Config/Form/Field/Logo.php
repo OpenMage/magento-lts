@@ -16,15 +16,15 @@ declare(strict_types=1);
  */
 class Mage_Adminhtml_Block_System_Config_Form_Field_Logo extends Varien_Data_Form_Element_Image
 {
-    /** @var string|null */
-    protected $_url = null;
+    protected ?string $url = null;
 
     /**
      * Get logo image preview url
+     * @throws Mage_Core_Exception
      */
     protected function _getUrl(): string
     {
-        if (is_null($this->_url)) {
+        if (is_null($this->url)) {
             /** @var Varien_Simplexml_Element $config */
             $config = $this->getFieldConfig();
             $path = $config->getName() === 'logo_src_small'
@@ -37,7 +37,6 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Logo extends Varien_Data_For
             $websiteCode = $request->getParam('website');
 
             // Use built-in config inheritance to get the logo src
-            $value = '';
             if ($storeCode) {
                 $value = Mage::getStoreConfig($path, $storeCode);
             } elseif ($websiteCode) {
@@ -49,14 +48,15 @@ class Mage_Adminhtml_Block_System_Config_Form_Field_Logo extends Varien_Data_For
                 $storeCode = null;
             }
 
-            $this->_url = $value ? Mage::helper('page')->getLogoSrc($value, $storeCode) : '';
+            $this->url = $value ? Mage::helper('page')->getLogoSrc($value, $storeCode) : '';
         }
 
-        return $this->_url;
+        return $this->url;
     }
 
     /**
      * Allow deletion of logo file in media directory only
+     * @throws Mage_Core_Exception
      */
     protected function _getDeleteCheckbox(): string
     {
