@@ -95,17 +95,6 @@ class Mage_Adminhtml_System_CacheController extends Mage_Adminhtml_Controller_Ac
 
         Mage::app()->saveUseCache($enable);
 
-        // clean javascript/css cache
-        if ($this->getRequest()->getPost('jscss_action')) {
-            if (Mage::getDesign()->cleanMergedJsCss()) {
-                $this->_getSession()->addSuccess(
-                    Mage::helper('adminhtml')->__('The JavaScript/CSS cache has been cleared.'),
-                );
-            } else {
-                $this->_getSession()->addError(Mage::helper('adminhtml')->__('Failed to clear the JavaScript/CSS cache.'));
-            }
-        }
-
         /**
          * Run catalog actions
          */
