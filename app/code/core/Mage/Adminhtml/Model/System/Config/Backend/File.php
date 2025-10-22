@@ -113,6 +113,8 @@ class Mage_Adminhtml_Model_System_Config_Backend_File extends Mage_Core_Model_Co
      * Delete file from the same directory as the uploaded file
      *
      * @param string $filename Filename with scope prefix (e.g., 'default/logo.png')
+     *
+     * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
     protected function deleteFile(string $filename): void
     {
