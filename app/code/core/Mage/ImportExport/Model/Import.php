@@ -425,9 +425,9 @@ class Mage_ImportExport_Model_Import extends Mage_ImportExport_Model_Abstract
         // trying to create source adapter for file and catch possible exception to be convinced in its adequacy
         try {
             $this->_getSourceAdapter($sourceFile);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             unlink($sourceFile);
-            Mage::throwException($e->getMessage());
+            Mage::throwException($exception->getMessage());
         }
 
         return $sourceFile;

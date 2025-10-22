@@ -362,8 +362,8 @@ class Mage_Catalog_Helper_Image extends Mage_Core_Helper_Abstract
 
                 $url = $model->saveFile()->getUrl();
             }
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
             $url = Mage::getDesign()->getSkinUrl($this->getPlaceholder());
         }
 

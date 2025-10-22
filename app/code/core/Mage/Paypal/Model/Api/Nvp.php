@@ -840,12 +840,12 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
         $request = $this->_exportToRequest($this->_updateBillingAgreementRequest);
         try {
             $response = $this->call('BillAgreementUpdate', $request);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             if (in_array(10201, $this->_callErrors)) {
                 $this->setIsBillingAgreementAlreadyCancelled(true);
             }
 
-            throw $e;
+            throw $mageCoreException;
         }
 
         $this->_importFromResponse($this->_updateBillingAgreementResponse, $response);
@@ -874,7 +874,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
 
         try {
             $response = $this->call('ManageRecurringPaymentsProfileStatus', $request);
-        } catch (Mage_Core_Exception $e) {
+        } catch (Mage_Core_Exception $mageCoreException) {
             if ((in_array(11556, $this->_callErrors) && $request['ACTION'] === 'Cancel')
                 || (in_array(11557, $this->_callErrors) && $request['ACTION'] === 'Suspend')
                 || (in_array(11558, $this->_callErrors) && $request['ACTION'] === 'Reactivate')
@@ -882,7 +882,7 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 Mage::throwException(Mage::helper('paypal')->__('Unable to change status. Current status is not correspond to real status.'));
             }
 
-            throw $e;
+            throw $mageCoreException;
         }
     }
 
@@ -984,10 +984,10 @@ class Mage_Paypal_Model_Api_Nvp extends Mage_Paypal_Model_Api_Abstract
                 $this->_buildQuery($request),
             );
             $response = $http->read();
-        } catch (Exception $e) {
-            $debugData['http_error'] = ['error' => $e->getMessage(), 'code' => $e->getCode()];
+        } catch (Exception $exception) {
+            $debugData['http_error'] = ['error' => $exception->getMessage(), 'code' => $exception->getCode()];
             $this->_debug($debugData);
-            throw $e;
+            throw $exception;
         }
 
         $response = preg_split('/^\r?$/m', $response, 2);

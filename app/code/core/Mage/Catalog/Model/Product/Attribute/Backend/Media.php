@@ -340,8 +340,8 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
                 $storageHelper->saveFile($this->_getConfig()->getTmpMediaShortUrl($fileName));
                 $ioAdapter->chmod($this->_getConfig()->getTmpMediaPath($fileName), 0777);
             }
-        } catch (Exception $e) {
-            Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $e->getMessage()));
+        } catch (Exception $exception) {
+            Mage::throwException(Mage::helper('catalog')->__('Failed to move file: %s', $exception->getMessage()));
         }
 
         $fileName = str_replace(DS, '/', $fileName);

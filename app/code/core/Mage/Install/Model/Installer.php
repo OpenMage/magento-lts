@@ -250,9 +250,9 @@ class Mage_Install_Model_Installer extends Varien_Object
             if ($key) {
                 Mage::helper('core')->validateKey($key);
             }
-        } catch (Exception $e) {
-            $errors[] = $e->getMessage();
-            $this->getDataModel()->addError($e->getMessage());
+        } catch (Exception $exception) {
+            $errors[] = $exception->getMessage();
+            $this->getDataModel()->addError($exception->getMessage());
         }
 
         if (!empty($errors)) {

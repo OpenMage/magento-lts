@@ -45,8 +45,8 @@ final class UserTest extends OpenMageTest
 
         try {
             self::assertSame($expectedResult, $mock->authenticate($methods['getUsername'], $methods['getPassword']));
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame($expectedResult, $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame($expectedResult, $mageCoreException->getMessage());
         }
     }
 

@@ -283,17 +283,17 @@ HTML;
                 $thisClass = static::class;
                 Mage::log('Not valid template file:' . $fileName . ' class: ' . $thisClass, Zend_Log::CRIT, null, true);
             }
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             if (!$do) {
                 ob_get_clean();
                 $do = true;
             }
 
             if (Mage::getIsDeveloperMode()) {
-                throw $e;
+                throw $throwable;
             }
 
-            Mage::logException($e);
+            Mage::logException($throwable);
         }
 
         if ($hints) {

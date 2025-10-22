@@ -777,9 +777,9 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
     {
         try {
             $this->_prepareGrid();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->resetSavedParametersInSession();
-            throw $e;
+            throw $exception;
         }
 
         return parent::_beforeToHtml();

@@ -1219,8 +1219,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
                         Mage::helper('paygate')->__('Payment partial authorization error.'),
                     );
             }
-        } catch (Exception $e) {
-            $exceptionMessage = $e->getMessage();
+        } catch (Exception $exception) {
+            $exceptionMessage = $exception->getMessage();
         }
 
         throw new Mage_Payment_Model_Info_Exception($exceptionMessage);
@@ -1388,14 +1388,14 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
 
         try {
             $response = $client->request();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result->setResponseCode(-1)
-                ->setResponseReasonCode($e->getCode())
-                ->setResponseReasonText($e->getMessage());
+                ->setResponseReasonCode($exception->getCode())
+                ->setResponseReasonText($exception->getMessage());
 
             $debugData['result'] = $result->getData();
             $this->_debug($debugData);
-            Mage::throwException($this->_wrapGatewayError($e->getMessage()));
+            Mage::throwException($this->_wrapGatewayError($exception->getMessage()));
         }
 
         $responseBody = $response->getBody();
@@ -1670,8 +1670,8 @@ class Mage_Paygate_Model_Authorizenet extends Mage_Payment_Model_Method_Cc
             libxml_use_internal_errors(true);
             $responseXmlDocument = new Varien_Simplexml_Element($responseBody);
             libxml_use_internal_errors(false);
-        } catch (Exception $e) {
-            $debugData['exception'] = $e->getMessage();
+        } catch (Exception $exception) {
+            $debugData['exception'] = $exception->getMessage();
             $this->_debug($debugData);
             Mage::throwException(Mage::helper('paygate')->__('Payment updating error.'));
         }

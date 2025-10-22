@@ -76,8 +76,8 @@ final class InboxTest extends OpenMageTest
     {
         try {
             self::$subject->add(0, self::TITLE, __METHOD__);
-        } catch (Mage_Core_Exception $e) {
-            self::assertSame('Wrong message type', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame('Wrong message type', $mageCoreException->getMessage());
         }
     }
 

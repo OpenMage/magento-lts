@@ -165,9 +165,9 @@ class Mage_Core_Model_Resource_Email_Queue extends Mage_Core_Model_Resource_Db_A
             }
 
             $writeAdapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $writeAdapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

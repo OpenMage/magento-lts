@@ -161,8 +161,8 @@ class Mage_Tax_Helper_Data extends Mage_Core_Helper_Abstract
         try {
             $value = $product->getPrice();
             $value = $this->_app->getStore()->convertPrice($value, $format);
-        } catch (Exception $e) {
-            $value = $e->getMessage();
+        } catch (Exception $exception) {
+            $value = $exception->getMessage();
         }
 
         return $value;

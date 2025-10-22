@@ -644,8 +644,8 @@ class Mage_Core_Model_Design_Package
 
         try {
             $regexps = Mage::helper('core/unserializeArray')->unserialize($configValueSerialized);
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         if (empty($regexps)) {
@@ -849,8 +849,8 @@ class Mage_Core_Model_Design_Package
             }
 
             return is_writable($dir) ? $dir : false;
-        } catch (Exception $e) {
-            Mage::logException($e);
+        } catch (Exception $exception) {
+            Mage::logException($exception);
         }
 
         return false;

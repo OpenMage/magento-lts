@@ -30,8 +30,8 @@ class Mage_Admin_Model_Acl_Role_Registry extends Zend_Acl_Role_Registry
                 $roleId = $role;
                 $role = $this->get($role);
             }
-        } catch (Zend_Acl_Role_Registry_Exception $e) {
-            throw new Zend_Acl_Role_Registry_Exception("Child Role id '$roleId' does not exist", $e->getCode(), $e);
+        } catch (Zend_Acl_Role_Registry_Exception $zendAclRoleRegistryException) {
+            throw new Zend_Acl_Role_Registry_Exception("Child Role id '$roleId' does not exist", $zendAclRoleRegistryException->getCode(), $zendAclRoleRegistryException);
         }
 
         if (!is_array($parents)) {

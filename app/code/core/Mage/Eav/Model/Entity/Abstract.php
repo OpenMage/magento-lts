@@ -1456,10 +1456,10 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
             // reset data arrays
             $this->_attributeValuesToSave   = [];
             $this->_attributeValuesToDelete = [];
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_attributeValuesToSave   = [];
             $this->_attributeValuesToDelete = [];
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -1568,9 +1568,9 @@ abstract class Mage_Eav_Model_Entity_Abstract extends Mage_Core_Model_Resource_A
 
             $this->_processAttributeValues();
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

@@ -135,15 +135,15 @@ class Mage_Core_Model_Resource_Transaction
             foreach ($this->_objects as $object) {
                 $object->save();
             }
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (Exception $exception) {
+            $error = $exception;
         }
 
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 
@@ -172,15 +172,15 @@ class Mage_Core_Model_Resource_Transaction
             foreach ($this->_objects as $object) {
                 $object->delete();
             }
-        } catch (Exception $e) {
-            $error = $e;
+        } catch (Exception $exception) {
+            $error = $exception;
         }
 
         if ($error === false) {
             try {
                 $this->_runCallbacks();
-            } catch (Exception $e) {
-                $error = $e;
+            } catch (Exception $exception) {
+                $error = $exception;
             }
         }
 

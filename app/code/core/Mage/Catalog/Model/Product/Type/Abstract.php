@@ -307,8 +307,8 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         // try to add custom options
         try {
             $options = $this->_prepareOptions($buyRequest, $product, $processMode);
-        } catch (Mage_Core_Exception $e) {
-            return $e->getMessage();
+        } catch (Mage_Core_Exception $mageCoreException) {
+            return $mageCoreException->getMessage();
         }
 
         if (is_string($options)) {

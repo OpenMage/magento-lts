@@ -196,9 +196,9 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $resource->updateProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $resource->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -228,9 +228,9 @@ class Mage_Catalog_Model_Product_Flat_Indexer extends Mage_Core_Model_Abstract
             $resource->saveProduct($productIds, $store);
             $resource->updateRelationProducts($store, $productIds);
             $resource->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $resource->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

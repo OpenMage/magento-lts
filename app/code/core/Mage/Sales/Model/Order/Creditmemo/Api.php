@@ -45,8 +45,8 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             foreach ($creditMemoCollection as $creditmemo) {
                 $creditmemos[] = $this->_getAttributes($creditmemo, 'creditmemo');
             }
-        } catch (Exception $e) {
-            $this->_fault('invalid_filter', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('invalid_filter', $exception->getMessage());
         }
 
         return $creditmemos;
@@ -174,8 +174,8 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
                 ->save();
             // send email notification
             $creditmemo->sendEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $creditmemo->getIncrementId();
@@ -197,8 +197,8 @@ class Mage_Sales_Model_Order_Creditmemo_Api extends Mage_Sales_Model_Api_Resourc
             $creditmemo->addComment($comment, $notifyCustomer);
             $creditmemo->getCommentsCollection()->save();
             $creditmemo->sendUpdateEmail($notifyCustomer, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return true;

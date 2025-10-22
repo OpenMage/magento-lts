@@ -219,8 +219,8 @@ class Varien_Db_Tree
 
         try {
             $this->_db->insert($this->_table, $data);
-        } catch (Zend_Db_Adapter_Exception $e) {
-            echo $e->getMessage();
+        } catch (Zend_Db_Adapter_Exception $zendDbAdapterException) {
+            echo $zendDbAdapterException->getMessage();
         }
 
         return $this->_db->lastInsertId();
@@ -387,10 +387,10 @@ class Varien_Db_Tree
             $this->_db->commit();
             echo "alert('node moved');";
             return true;
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_db->rollBack();
             echo "alert('node not moved: fatal error');";
-            echo $e->getMessage();
+            echo $exception->getMessage();
             echo "<br>\r\n";
             echo $sql;
             echo "<br>\r\n";
@@ -490,8 +490,8 @@ class Varien_Db_Tree
     {
         try {
             $info = $this->getNodeInfo($ID);
-        } catch (Exception $e) {
-            echo $e->getMessage();
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
             exit;
         }
 

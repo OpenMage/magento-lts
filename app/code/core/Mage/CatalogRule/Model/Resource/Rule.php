@@ -337,9 +337,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
 
             $this->insertRuleData($rule, $websiteIds);
             $write->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $write->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -634,9 +634,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             $adapter->insertOnDuplicate($this->getTable('catalogrule/affected_product'), array_unique($productIds));
             $adapter->insertOnDuplicate($this->getTable('catalogrule/rule_product_price'), $arrData);
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;
@@ -767,9 +767,9 @@ class Mage_CatalogRule_Model_Resource_Rule extends Mage_Rule_Model_Resource_Abst
             }
 
             $write->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $write->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

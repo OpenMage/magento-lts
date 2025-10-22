@@ -1071,10 +1071,10 @@ abstract class Mage_Eav_Model_Entity_Collection_Abstract extends Varien_Data_Col
              */
             $query = $this->_prepareSelect($this->getSelect());
             $rows = $this->_fetchAll($query);
-        } catch (Exception $e) {
-            Mage::printException($e, $query);
+        } catch (Exception $exception) {
+            Mage::printException($exception, $query);
             $this->printLogQuery(true, true, $query);
-            throw $e;
+            throw $exception;
         }
 
         foreach ($rows as $v) {

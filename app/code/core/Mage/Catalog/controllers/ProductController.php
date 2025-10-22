@@ -116,17 +116,17 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
         // Render page
         try {
             $viewHelper->prepareAndRender($productId, $this, $params);
-        } catch (Exception $e) {
-            if ($e->getCode() == $viewHelper->ERR_NO_PRODUCT_LOADED) {
+        } catch (Exception $exception) {
+            if ($exception->getCode() == $viewHelper->ERR_NO_PRODUCT_LOADED) {
                 if (isset($_GET['store'])  && !$this->getResponse()->isRedirect()) {
                     $this->_redirect('');
                 } elseif (!$this->getResponse()->isRedirect()) {
                     $this->_forward('noRoute');
                 }
             } elseif (Mage::getIsDeveloperMode()) {
-                Mage::printException($e);
+                Mage::printException($exception);
             } else {
-                Mage::logException($e);
+                Mage::logException($exception);
                 $this->_forward('noRoute');
             }
         }

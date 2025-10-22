@@ -59,8 +59,8 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             }
 
             $session->addSuccess($this->__('The alert subscription has been deleted.'));
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('Unable to update the alert subscription.'));
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('Unable to update the alert subscription.'));
         }
 
         $this->_redirectUrl($product->getProductUrl());
@@ -77,8 +77,8 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 Mage::app()->getStore()->getWebsiteId(),
             );
             $session->addSuccess($this->__('You will no longer receive price alerts for this product.'));
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('Unable to update the alert subscription.'));
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('Unable to update the alert subscription.'));
         }
 
         $this->_redirect('customer/account/');
@@ -113,8 +113,8 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
             }
 
             $session->addSuccess($this->__('You will no longer receive stock alerts for this product.'));
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('Unable to update the alert subscription.'));
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('Unable to update the alert subscription.'));
         }
 
         $this->_redirectUrl($product->getProductUrl());
@@ -130,8 +130,8 @@ class Mage_ProductAlert_UnsubscribeController extends Mage_Core_Controller_Front
                 Mage::app()->getStore()->getWebsiteId(),
             );
             $session->addSuccess($this->__('You will no longer receive stock alerts.'));
-        } catch (Exception $e) {
-            $session->addException($e, $this->__('Unable to update the alert subscription.'));
+        } catch (Exception $exception) {
+            $session->addException($exception, $this->__('Unable to update the alert subscription.'));
         }
 
         $this->_redirect('customer/account/');

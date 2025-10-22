@@ -175,9 +175,9 @@ class Mage_Admin_Model_Resource_User extends Mage_Core_Model_Resource_Db_Abstrac
             $adapter->delete($this->getMainTable(), $conditions);
             $adapter->delete($this->getTable('admin/role'), $conditions);
             $adapter->commit();
-        } catch (Throwable $e) {
+        } catch (Throwable $throwable) {
             $adapter->rollBack();
-            throw $e;
+            throw $throwable;
         }
 
         $this->_afterDelete($user);

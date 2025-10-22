@@ -326,9 +326,9 @@ class Mage_CatalogIndex_Model_Indexer extends Mage_Core_Model_Abstract
                     $this->updateCatalogProductFlat($store, $products);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $flag->delete();
-            throw $e;
+            throw $exception;
         }
 
         if ($flag->getState() == Mage_CatalogIndex_Model_Catalog_Index_Flag::STATE_RUNNING) {

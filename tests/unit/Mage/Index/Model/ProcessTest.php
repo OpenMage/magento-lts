@@ -38,8 +38,8 @@ final class ProcessTest extends OpenMageTest
 
         try {
             self::assertInstanceOf(Subject::class, self::$subject->reindexEverything());
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $mageCoreException->getMessage());
         }
     }
 
@@ -52,8 +52,8 @@ final class ProcessTest extends OpenMageTest
 
         try {
             self::assertInstanceOf(Subject::class, self::$subject->disableIndexerKeys());
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $mageCoreException->getMessage());
         }
 
     }
@@ -67,8 +67,8 @@ final class ProcessTest extends OpenMageTest
 
         try {
             self::assertInstanceOf(Subject::class, self::$subject->enableIndexerKeys());
-        } catch (Mage_Core_Exception $exception) {
-            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $exception->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            self::assertSame(self::INDEXER_MODEL_IS_NOT_DEFINED, $mageCoreException->getMessage());
         }
     }
 

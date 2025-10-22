@@ -299,12 +299,12 @@ class Mage_Sales_Model_Order_Payment_Transaction extends Mage_Core_Model_Abstrac
     {
         try {
             $this->_verifyThisTransactionExists();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             if ($dryRun) {
                 return false;
             }
 
-            throw $e;
+            throw $exception;
         }
 
         $authTransaction = false;

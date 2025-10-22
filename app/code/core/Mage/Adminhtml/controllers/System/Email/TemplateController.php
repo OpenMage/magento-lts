@@ -145,12 +145,12 @@ class Mage_Adminhtml_System_Email_TemplateController extends Mage_Adminhtml_Cont
                 Mage::helper('adminhtml')->__('The email template has been saved.'),
             );
             $this->_redirect('*/*');
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             Mage::getSingleton('adminhtml/session')->setData(
                 'email_template_form_data',
                 $this->getRequest()->getParams(),
             );
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            Mage::getSingleton('adminhtml/session')->addError($exception->getMessage());
             $this->_forward('new');
         }
     }

@@ -436,8 +436,8 @@ abstract class Mage_Reports_Model_Resource_Report_Abstract extends Mage_Core_Mod
 
                 $nextPeriod = $tr['time'];
             }
-        } catch (Exception $e) {
-            $this->_logException($e);
+        } catch (Exception $exception) {
+            $this->_logException($exception);
         }
 
         return $tzTransitions;

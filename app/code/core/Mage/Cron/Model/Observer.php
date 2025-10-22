@@ -335,9 +335,9 @@ class Mage_Cron_Model_Observer
             $schedule
                 ->setStatus(Mage_Cron_Model_Schedule::STATUS_SUCCESS)
                 ->setFinishedAt(date(Varien_Db_Adapter_Pdo_Mysql::TIMESTAMP_FORMAT));
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $schedule->setStatus($errorStatus)
-                ->setMessages($e->__toString());
+                ->setMessages($exception->__toString());
         }
 
         if ($schedule->getIsError()) {

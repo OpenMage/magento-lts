@@ -54,11 +54,11 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
                 $fullPath = rtrim($tmpPath, DS) . DS . ltrim($result['file'], DS);
                 Mage::helper('core/file_storage_database')->saveFile($fullPath);
             }
-        } catch (Exception $e) {
-            if ($e->getMessage() != '') {
-                $this->_fault('upload_failed', $e->getMessage());
+        } catch (Exception $exception) {
+            if ($exception->getMessage() != '') {
+                $this->_fault('upload_failed', $exception->getMessage());
             } else {
-                $this->_fault($e->getCode());
+                $this->_fault($exception->getCode());
             }
         }
 
@@ -82,8 +82,8 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
         try {
             $this->_getValidator()->validateType($resourceType);
             $this->_getValidator()->validateAttributes($resource, $resourceType);
-        } catch (Exception $e) {
-            $this->_fault('validation_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('validation_error', $exception->getMessage());
         }
 
         $resource['is_delete'] = 0;
@@ -118,8 +118,8 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
             $downloadable = [$resourceType => [$resource]];
             $product->setDownloadableData($downloadable);
             $product->save();
-        } catch (Exception $e) {
-            $this->_fault('save_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('save_error', $exception->getMessage());
         }
 
         return true;
@@ -223,8 +223,8 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
     {
         try {
             $this->_getValidator()->validateType($resourceType);
-        } catch (Exception $e) {
-            $this->_fault('validation_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('validation_error', $exception->getMessage());
         }
 
         switch ($resourceType) {
@@ -247,8 +247,8 @@ class Mage_Downloadable_Model_Link_Api extends Mage_Catalog_Model_Api_Resource
 
         try {
             $downloadableModel->delete();
-        } catch (Exception $e) {
-            $this->_fault('remove_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('remove_error', $exception->getMessage());
         }
 
         return true;

@@ -265,6 +265,6 @@ $model = Mage::getModel('newsletter/template')->setData($data);
 
 try {
     $model->save();
-} catch (Exception $e) {
-    Mage::logException($e->getMessage());
+} catch (Exception $exception) {
+    Mage::logException($exception->getMessage());
 }

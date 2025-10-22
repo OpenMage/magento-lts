@@ -297,9 +297,9 @@ class Mage_Catalog_Model_Category extends Mage_Catalog_Model_Abstract
             $moveComplete = true;
 
             $this->_getResource()->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getResource()->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         if ($moveComplete) {

@@ -158,8 +158,8 @@ class Mage_Catalog_Model_Product_Option_Api extends Mage_Catalog_Model_Api_Resou
 
                 $product->save();
             }
-        } catch (Exception $e) {
-            $this->_fault('save_option_error', $e->getMessage());
+        } catch (Exception $exception) {
+            $this->_fault('save_option_error', $exception->getMessage());
         }
     }
 

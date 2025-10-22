@@ -740,10 +740,10 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
                 $this->__('Your Wishlist has been shared.'),
             );
             $this->_redirect('*/*', ['wishlist_id' => $wishlist->getId()]);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $translate->setTranslateInline(true);
 
-            Mage::getSingleton('wishlist/session')->addError($e->getMessage());
+            Mage::getSingleton('wishlist/session')->addError($exception->getMessage());
             Mage::getSingleton('wishlist/session')->setSharingForm($this->getRequest()->getPost());
             $this->_redirect('*/*/share');
         }

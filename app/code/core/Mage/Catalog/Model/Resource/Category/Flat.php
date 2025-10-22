@@ -1549,13 +1549,13 @@ class Mage_Catalog_Model_Resource_Category_Flat extends Mage_Index_Model_Resourc
             if ($allowTableChanges) {
                 $this->_allowTableChanges = true;
             }
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->rollBack();
             if ($allowTableChanges) {
                 $this->_allowTableChanges = true;
             }
 
-            throw $e;
+            throw $exception;
         }
 
         return $this;

@@ -246,9 +246,9 @@ class Mage_Sales_Model_Resource_Report_Order_Createdat extends Mage_Sales_Model_
             ]);
             $adapter->query($select->insertFromSelect($this->getMainTable(), array_keys($columns)));
             $adapter->commit();
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $adapter->rollBack();
-            throw $e;
+            throw $exception;
         }
 
         return $this;

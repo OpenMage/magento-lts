@@ -551,9 +551,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
     {
         try {
             $value = parent::filter($value);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $value = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         return $value;
@@ -572,9 +572,9 @@ class Mage_Core_Model_Email_Template_Filter extends Varien_Filter_Template
         Mage::register('varProcessing', true);
         try {
             $result = parent::_getVariable($value, $default);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $result = '';
-            Mage::logException($e);
+            Mage::logException($exception);
         }
 
         Mage::unregister('varProcessing');

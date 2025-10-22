@@ -335,9 +335,9 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
             $params->setBuyRequest($quoteItem->getBuyRequest());
 
             Mage::helper('catalog/product_view')->prepareAndRender($quoteItem->getProduct()->getId(), $this, $params);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             $this->_getSession()->addError($this->__('Cannot configure product.'));
-            Mage::logException($e);
+            Mage::logException($exception);
             $this->_goBack();
             return;
         }
@@ -536,8 +536,8 @@ class Mage_Checkout_CartController extends Mage_Core_Controller_Front_Action
 
         try {
             Mage::getModel('directory/country')->loadByCode($country);
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_getSession()->addError($mageCoreException->getMessage());
             $this->_goBack();
             return;
         }

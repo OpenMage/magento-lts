@@ -49,8 +49,8 @@ class Mage_Eav_Model_Convert_Adapter_Grid extends Mage_Dataflow_Model_Convert_Ad
         try {
             $collection = Mage::getResourceModel($this->getEntity() . '_collection');
             $collection->load();
-        } catch (Exception $e) {
-            $this->addException(Mage::helper('eav')->__('An error occurred while loading the collection, aborting. Error: %s', $e->getMessage()), Varien_Convert_Exception::FATAL);
+        } catch (Exception $exception) {
+            $this->addException(Mage::helper('eav')->__('An error occurred while loading the collection, aborting. Error: %s', $exception->getMessage()), Varien_Convert_Exception::FATAL);
         }
 
         $data = [];

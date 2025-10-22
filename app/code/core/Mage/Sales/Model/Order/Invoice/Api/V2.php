@@ -60,8 +60,8 @@ class Mage_Sales_Model_Order_Invoice_Api_V2 extends Mage_Sales_Model_Order_Invoi
         try {
             Mage::getModel('core/resource_transaction')->addObject($invoice)->addObject($invoice->getOrder())->save();
             $invoice->sendEmail($email, ($includeComment ? $comment : ''));
-        } catch (Mage_Core_Exception $e) {
-            $this->_fault('data_invalid', $e->getMessage());
+        } catch (Mage_Core_Exception $mageCoreException) {
+            $this->_fault('data_invalid', $mageCoreException->getMessage());
         }
 
         return $invoice->getIncrementId();

@@ -59,7 +59,7 @@ try {
     }
 
     $db->commit();
-} catch (Exception $e) {
+} catch (Exception $exception) {
     $db->rollBack();
-    throw $e;
+    throw $exception;
 }
