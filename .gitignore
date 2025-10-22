@@ -25,7 +25,7 @@
 
 # MM Ignition
 /app/code/community/MM
-/app/etc/modules/MM_Ignition.xml.xml
+/app/etc/modules/MM_Ignition.xml
 
 # ChartJs library
 /js/lib/chartjs
