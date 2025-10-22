@@ -595,6 +595,7 @@ namespace PHPSTORM_META {
             'adminhtml/system_config_form_field_heading' => \Mage_Adminhtml_Block_System_Config_Form_Field_Heading::class,
             'adminhtml/system_config_form_field_image' => \Mage_Adminhtml_Block_System_Config_Form_Field_Image::class,
             'adminhtml/system_config_form_field_import' => \Mage_Adminhtml_Block_System_Config_Form_Field_Import::class,
+            'adminhtml/system_config_form_field_logo' => \Mage_Adminhtml_Block_System_Config_Form_Field_Logo::class,
             'adminhtml/system_config_form_field_notification' => \Mage_Adminhtml_Block_System_Config_Form_Field_Notification::class,
             'adminhtml/system_config_form_field_regexceptions' => \Mage_Adminhtml_Block_System_Config_Form_Field_Regexceptions::class,
             'adminhtml/system_config_form_field_select_allowspecific' => \Mage_Adminhtml_Block_System_Config_Form_Field_Select_Allowspecific::class,
