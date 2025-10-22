@@ -265,7 +265,7 @@ class Mage_Page_Block_Html_Head extends Mage_Core_Block_Template
         // lookup each file basing on current theme configuration
         foreach ($skinItems as $params => $rows) {
             foreach ($rows as $name) {
-                $items[$params][] = $designPackage->getSkinUrl($name);
+                $items[$params][] = $designPackage->getSkinUrl($name, []);
             }
         }
 
