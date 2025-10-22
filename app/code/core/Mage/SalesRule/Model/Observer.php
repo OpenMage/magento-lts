@@ -57,6 +57,7 @@ class Mage_SalesRule_Model_Observer
      *
      * @param Varien_Event_Observer $observer
      * @return $this
+     * @throws Throwable
      * @SuppressWarnings("PHPMD.CamelCaseMethodName")
      */
     // phpcs:ignore PSR1.Methods.CamelCapsMethodName.NotCamelCaps
@@ -69,20 +70,14 @@ class Mage_SalesRule_Model_Observer
             return $this;
         }
 
-        $appliedRuleIds = $order->getAppliedRuleIds();
-        if (empty($appliedRuleIds)) {
-            return $this;
-        }
-
-        // lookup rule ids
-        $ruleIds = explode(',', $appliedRuleIds);
-        $ruleIds = array_unique($ruleIds);
-
-        $ruleCustomer = null;
         $customerId = $order->getCustomerId();
 
         // use each rule (and apply to customer, if applicable)
         if ($order->getDiscountAmount() != 0) {
+            // lookup rule ids
+            $ruleIds = explode(',', (string) $order->getAppliedRuleIds());
+            $ruleIds = array_unique($ruleIds);
+
             foreach ($ruleIds as $ruleId) {
                 if (!$ruleId) {
                     continue;
