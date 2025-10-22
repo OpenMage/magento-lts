@@ -15,23 +15,36 @@
 class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
 {
     protected $_code  = 'authorizenet_directpost';
+
     protected $_formBlockType = 'directpost/form';
+
     protected $_infoBlockType = 'payment/info';
 
     /**
      * Availability options
      */
     protected $_canAuthorize            = true;
+
     protected $_canCapture              = true;
+
     protected $_canCapturePartial       = false;
+
     protected $_canRefund               = true;
+
     protected $_canRefundInvoicePartial = true;
+
     protected $_canVoid                 = true;
+
     protected $_canUseInternal          = true;
+
     protected $_canUseCheckout          = true;
+
     protected $_canUseForMultishipping  = false;
+
     protected $_canSaveCc               = false;
+
     protected $_isInitializeNeeded      = true;
+
     protected $_canFetchTransactionInfo = false;
 
     /**
@@ -90,11 +103,13 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     ) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+
                     $payment
                         ->setIsTransactionClosed(0)
                         ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
+
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
                 // no break
             case self::RESPONSE_CODE_DECLINED:
@@ -150,12 +165,14 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     if ($result->getTransactionId() != $payment->getParentTransactionId()) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+
                     $payment
                         ->setIsTransactionClosed(1)
                         ->setShouldCloseParentTransaction(1)
                         ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
+
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
                 // no break
             case self::RESPONSE_CODE_DECLINED:
@@ -207,6 +224,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
             $payment->setCcLast4($last4);
             throw $e;
         }
+
         $payment->setCcLast4($last4);
         return $this;
     }
@@ -242,6 +260,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     if ($result->getTransactionId() != $payment->getParentTransactionId()) {
                         $payment->setTransactionId($result->getTransactionId());
                     }
+
                     $shouldCloseCaptureTransaction = $payment->getOrder()->canCreditmemo() ? 0 : 1;
                     $payment
                          ->setIsTransactionClosed(1)
@@ -249,6 +268,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                          ->setTransactionAdditionalInfo($this->_realTransactionIdKey, $result->getTransactionId());
                     return $this;
                 }
+
                 Mage::throwException($this->_wrapGatewayError($result->getResponseReasonText()));
                 // no break
             case self::RESPONSE_CODE_DECLINED:
@@ -282,6 +302,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
         if ($storeId == null && $this->getStore()) {
             $storeId = $this->getStore();
         }
+
         return Mage::app()->getStore($storeId)
             ->getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) .
             'authorizenet/directpost_payment/response';
@@ -387,6 +408,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 Mage::helper('authorizenet')->__('Response hash validation failed. Transaction declined.'),
             );
         }
+
         return true;
     }
 
@@ -424,6 +446,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     Mage::helper('authorizenet')->__('Payment error. Order was not found.'),
                 );
             }
+
             if ($order->getId() &&  $order->getState() == Mage_Sales_Model_Order::STATE_PENDING_PAYMENT) {
                 //operate with order
                 $this->_authOrder($order);
@@ -493,6 +516,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                 Mage::helper('authorizenet')->__('Payment authorization error. Transacion id is empty.'),
             );
         }
+
         return true;
     }
 
@@ -590,6 +614,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                     ->setParentTransactionId($response->getXTransId())
                     ->void();
             }
+
             $order->registerCancellation($message)
                 ->save();
         } catch (Exception $e) {
@@ -617,6 +642,7 @@ class Mage_Authorizenet_Model_Directpost extends Mage_Paygate_Model_Authorizenet
                         $orderStatus = $order->getConfig()
                                 ->getStateDefaultStatus(Mage_Sales_Model_Order::STATE_PROCESSING);
                     }
+
                     if ($orderStatus) {
                         $order->setStatus($orderStatus);
                     }

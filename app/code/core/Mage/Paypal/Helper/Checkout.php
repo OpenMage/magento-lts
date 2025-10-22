@@ -36,6 +36,7 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -52,6 +53,7 @@ class Mage_Paypal_Helper_Checkout extends Mage_Core_Helper_Abstract
             $order->registerCancellation($comment)->save();
             return true;
         }
+
         return false;
     }
 

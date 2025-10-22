@@ -35,13 +35,14 @@ class Mage_Catalog_Model_Product_Option_Observer
                             $group = $option->groupFactory($option->getType())
                                 ->setQuoteItemOption($itemOption)
                                 ->copyQuoteToOrder();
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                             continue;
                         }
                     }
                 }
             }
         }
+
         return $this;
     }
 }

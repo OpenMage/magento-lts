@@ -28,9 +28,11 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
         if ($this->_isPaymentMethodAllowed()) {
             $this->_addPaymentMethodInfo($collection);
         }
+
         if ($this->_isGiftMessageAllowed()) {
             $this->_addGiftMessageInfo($collection);
         }
+
         $this->_addTaxInfo($collection);
 
         $order = $collection->getItemById($orderId);
@@ -38,6 +40,7 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
         if (!$order) {
             $this->_critical(self::RESOURCE_NOT_FOUND);
         }
+
         $orderData = $order->getData();
         $addresses = $this->_getAddresses([$orderId]);
         $items     = $this->_getItems([$orderId]);
@@ -46,12 +49,15 @@ abstract class Mage_Sales_Model_Api2_Order_Rest extends Mage_Sales_Model_Api2_Or
         if ($addresses) {
             $orderData['addresses'] = $addresses[$orderId];
         }
+
         if ($items) {
             $orderData['order_items'] = $items[$orderId];
         }
+
         if ($comments) {
             $orderData['order_comments'] = $comments[$orderId];
         }
+
         return $orderData;
     }
 }

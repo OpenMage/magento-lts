@@ -56,6 +56,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                 'string',
             );
         }
+
         return $this;
     }
 
@@ -83,9 +84,11 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
         if (!is_array($storeId)) {
             $storeId = [$storeId ?? -1];
         }
+
         if (empty($storeId)) {
             return $this;
         }
+
         if (!$this->_isStoreJoined) {
             $this->getSelect()
                 ->distinct(true)
@@ -96,6 +99,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                 );
             $this->_isStoreJoined = true;
         }
+
         $inCond = $adapter->prepareSqlCondition('store.store_id', [
             'in' => $storeId,
         ]);
@@ -189,6 +193,7 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
                 $rating->setSummary($item['sum'] / $item['count']);
             }
         }
+
         return $this;
     }
 
@@ -221,14 +226,17 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
         if (!$this->_isCollectionLoaded) {
             return $this;
         }
+
         $ratingIds = [];
         foreach ($this as $item) {
             $ratingIds[] = $item->getId();
             $item->setStores([]);
         }
+
         if (!$ratingIds) {
             return $this;
         }
+
         $adapter = $this->getConnection();
 
         $inCond = $adapter->prepareSqlCondition('rating_id', [
@@ -241,12 +249,13 @@ class Mage_Rating_Model_Resource_Rating_Collection extends Mage_Core_Model_Resou
             ->where($inCond);
 
         $data = $adapter->fetchAll($this->_select);
-        if (is_array($data) && count($data) > 0) {
+        if (is_array($data) && $data !== []) {
             foreach ($data as $row) {
                 $item = $this->getItemById($row['rating_id']);
                 $item->setStores(array_merge($item->getStores(), [$row['store_id']]));
             }
         }
+
         return $this;
     }
 }

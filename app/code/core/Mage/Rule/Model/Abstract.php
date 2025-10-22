@@ -180,6 +180,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $this->_conditions->loadArray($conditions);
                 }
             }
+
             $this->unsConditionsSerialized();
         }
 
@@ -219,6 +220,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     $this->_actions->loadArray($actions);
                 }
             }
+
             $this->unsActionsSerialized();
         }
 
@@ -237,6 +239,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (is_null($conditions)) {
             $conditions = $this->getConditionsInstance();
         }
+
         $conditions->setRule($this)->setId('1')->setPrefix('conditions');
         $this->setConditions($conditions);
 
@@ -255,6 +258,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (is_null($actions)) {
             $actions = $this->getActionsInstance();
         }
+
         $actions->setRule($this)->setId('1')->setPrefix('actions');
         $this->setActions($actions);
 
@@ -271,6 +275,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (!$this->_form) {
             $this->_form = new Varien_Data_Form();
         }
+
         return $this->_form;
     }
 
@@ -286,6 +291,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
         if (isset($arr['conditions'])) {
             $this->getConditions()->setConditions([])->loadArray($arr['conditions'][1]);
         }
+
         if (isset($arr['actions'])) {
             $this->getActions()->setActions([])->loadArray($arr['actions'][1], 'actions');
         }
@@ -312,6 +318,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                     for ($i = 0, $l = count($path); $i < $l; $i++) {
                         $node = & $node[$key][$path[$i]] ?? [];
                     }
+
                     foreach ($data as $k => $v) {
                         $node[$k] = $v;
                     }
@@ -328,6 +335,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                         false,
                     );
                 }
+
                 $this->setData($key, $value);
             }
         }
@@ -377,6 +385,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
                 $result[] = Mage::helper('rule')->__('Websites must be specified.');
             }
         }
+
         if ($object->hasCustomerGroupIds()) {
             $customerGroupIds = $object->getCustomerGroupIds();
             if (empty($customerGroupIds)) {
@@ -444,6 +453,7 @@ abstract class Mage_Rule_Model_Abstract extends Mage_Core_Model_Abstract
             $websiteIds = $this->_getResource()->getWebsiteIds($this->getId());
             $this->setData('website_ids', (array) $websiteIds);
         }
+
         return $this->_getData('website_ids');
     }
 

@@ -174,6 +174,7 @@ class Mage_Checkout_Model_Cart_Product_Api extends Mage_Checkout_Model_Api_Resou
                     $errors[] = Mage::helper('checkout')->__('One item of products is not belong any of quote item');
                     continue;
                 }
+
                 $quote->removeItem($quoteItem->getId());
             } catch (Mage_Core_Exception $e) {
                 $errors[] = $e->getMessage();

@@ -57,6 +57,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             preg_match_all($regExp, $this->getType()->getDefaultFormat(), $matches, PREG_SET_ORDER);
             $format = count($matches) ? $this->_prepareAddressTemplateData($this->getType()->getDefaultFormat()) : null;
         }
+
         return $format;
     }
 
@@ -85,6 +86,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             if (!$attribute->getIsVisible()) {
                 continue;
             }
+
             if ($attribute->getAttributeCode() == 'country_id') {
                 $data['country'] = $address->getCountryModel()->getName();
             } elseif ($attribute->getAttributeCode() == 'region') {
@@ -100,6 +102,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
                         $data[$key] = $v;
                     }
                 }
+
                 $data[$attribute->getAttributeCode()] = $value;
             }
         }
@@ -130,6 +133,7 @@ class Mage_Customer_Block_Address_Renderer_Default extends Mage_Core_Block_Abstr
             $maliciousCodeFilter = Mage::getSingleton('core/input_filter_maliciousCode');
             $result = preg_replace($urlRegExp, ' ', $maliciousCodeFilter->filter($data));
         }
+
         return $result;
     }
 }

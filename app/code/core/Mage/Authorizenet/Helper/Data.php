@@ -43,6 +43,7 @@ class Mage_Authorizenet_Helper_Data extends Mage_Core_Helper_Abstract
         } elseif (Mage::app()->getStore()->isCurrentlySecure()) {
             $params['_secure'] = true;
         }
+
         return parent::_getUrl($route, $params);
     }
 

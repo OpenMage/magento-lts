@@ -27,6 +27,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Customer_Password_Link_Expirati
         if ($resetPasswordLinkExpirationPeriod < 1) {
             $resetPasswordLinkExpirationPeriod = (int) $this->getOldValue();
         }
+
         $this->setValue((string) $resetPasswordLinkExpirationPeriod);
         return $this;
     }

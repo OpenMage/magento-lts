@@ -30,6 +30,7 @@ class Mage_Customer_Model_Resource_Address_Attribute_Backend_Region extends Mage
                     ->setRegion($regionModel->getName());
             }
         }
+
         return $this;
     }
 }

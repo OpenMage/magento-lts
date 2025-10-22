@@ -29,6 +29,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Select extends Mage_Admin
             $html .= '<option value="' . $this->escapeHtml($val) . '"' . $selected . '>';
             $html .= $this->escapeHtml($label) . '</option>';
         }
+
         return $html . '</select>';
     }
 }

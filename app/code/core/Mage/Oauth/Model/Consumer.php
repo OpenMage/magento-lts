@@ -58,6 +58,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
         if (!$this->getId()) {
             $this->setUpdatedAt(time());
         }
+
         $this->setCallbackUrl(trim($this->getCallbackUrl()));
         $this->setRejectedCallbackUrl(trim($this->getRejectedCallbackUrl()));
         $this->validate();
@@ -88,6 +89,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
             $messages = $validatorLength->getMessages();
             Mage::throwException(array_shift($messages));
         }
+
         return true;
     }
 }

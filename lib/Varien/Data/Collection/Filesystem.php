@@ -87,7 +87,9 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @see Varien_Data_Collection::$_isFiltersRendered
      */
     private $_filterIncrement = 0;
+
     private $_filterBrackets = [];
+
     private $_filterEvalRendered = '';
 
     /**
@@ -96,6 +98,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
      * @var array
      */
     protected $_collectedDirs  = [];
+
     protected $_collectedFiles = [];
 
     /**
@@ -185,6 +188,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         if (!is_dir($value)) {
             throw new Exception('Unable to set target directory.');
         }
+
         $this->_targetDirs[$value] = $value;
         return $this;
     }
@@ -213,15 +217,13 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         if (!is_array($dir)) {
             $dir = [$dir];
         }
+
         foreach ($dir as $folder) {
             if ($nodes = glob($folder . DIRECTORY_SEPARATOR . '*')) {
                 foreach ($nodes as $node) {
                     $collectedResult[] = $node;
                 }
             }
-        }
-        if (empty($collectedResult)) {
-            return;
         }
 
         foreach ($collectedResult as $item) {
@@ -233,6 +235,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
                         $this->_collectedFiles[] = $item;
                     }
                 }
+
                 if ($this->_collectRecursively) {
                     $this->_collectRecursive($item);
                 }
@@ -257,6 +260,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         if ($this->isLoaded()) {
             return $this;
         }
+
         if (empty($this->_targetDirs)) {
             throw new Exception('Please specify at least one target directory.');
         }
@@ -285,6 +289,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             if ($isPaginated && ($cnt < $from || $cnt > $to)) {
                 continue;
             }
+
             $item = new $this->_itemObjectClass();
             $this->addItem($item->addData($row));
             if (!$item->hasId()) {
@@ -419,13 +424,16 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
                         . '$this->_invokeFilter(' . "{$f}['callback'], array({$f}['field'], {$f}['value'], " . '$row))';
                 }
             }
+
             $this->_filterEvalRendered = $eval;
             $this->_isFiltersRendered = true;
         }
+
         $result = false;
         if ($this->_filterEvalRendered) {
             eval('$result = ' . $this->_filterEvalRendered . ';');
         }
+
         return $result;
     }
 
@@ -443,6 +451,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         if (!array_key_exists($field, $row)) {
             return false;
         }
+
         return call_user_func_array($callback, $callbackParams);
     }
 
@@ -470,50 +479,66 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             if (isset($cond['from'])) {
                 $this->addCallbackFilter($field, $cond['from'], 'and', [$this, 'filterCallbackIsLessThan'], $inverted);
             }
+
             if (isset($cond['to'])) {
                 $this->addCallbackFilter($field, $cond['to'], 'and', [$this, 'filterCallbackIsMoreThan'], $inverted);
             }
+
             return $this->_addFilterBracket(')');
         }
+
         if (isset($cond['eq'])) {
             return $this->addCallbackFilter($field, $cond['eq'], $type, [$this, 'filterCallbackEq']);
         }
+
         if (isset($cond['neq'])) {
             return $this->addCallbackFilter($field, $cond['neq'], $type, [$this, 'filterCallbackEq'], $inverted);
         }
+
         if (isset($cond['like'])) {
             return $this->addCallbackFilter($field, $cond['like'], $type, [$this, 'filterCallbackLike']);
         }
+
         if (isset($cond['nlike'])) {
             return $this->addCallbackFilter($field, $cond['nlike'], $type, [$this, 'filterCallbackLike'], $inverted);
         }
+
         if (isset($cond['in'])) {
             return $this->addCallbackFilter($field, $cond['in'], $type, [$this, 'filterCallbackInArray']);
         }
+
         if (isset($cond['nin'])) {
             return $this->addCallbackFilter($field, $cond['nin'], $type, [$this, 'filterCallbackInArray'], $inverted);
         }
+
         if (isset($cond['notnull'])) {
             return $this->addCallbackFilter($field, $cond['notnull'], $type, [$this, 'filterCallbackIsNull'], $inverted);
         }
+
         if (isset($cond['null'])) {
             return $this->addCallbackFilter($field, $cond['null'], $type, [$this, 'filterCallbackIsNull']);
         }
+
         if (isset($cond['moreq'])) {
             return $this->addCallbackFilter($field, $cond['moreq'], $type, [$this, 'filterCallbackIsLessThan'], $inverted);
         }
+
         if (isset($cond['gt'])) {
             return $this->addCallbackFilter($field, $cond['gt'], $type, [$this, 'filterCallbackIsMoreThan']);
         }
+
         if (isset($cond['lt'])) {
             return $this->addCallbackFilter($field, $cond['lt'], $type, [$this, 'filterCallbackIsLessThan']);
         }
+
         if (isset($cond['gteq'])) {
             return $this->addCallbackFilter($field, $cond['gteq'], $type, [$this, 'filterCallbackIsLessThan'], $inverted);
         }
+
         if (isset($cond['lteq'])) {
             return $this->addCallbackFilter($field, $cond['lteq'], $type, [$this, 'filterCallbackIsMoreThan'], $inverted);
         }
+
         if (isset($cond['finset'])) {
             $filterValue = ($cond['finset'] ? explode(',', $cond['finset']) : []);
             return $this->addCallbackFilter($field, $filterValue, $type, [$this, 'filterCallbackInArray']);
@@ -525,6 +550,7 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
             $this->addFieldToFilter($field, $orCond, 'or');
             $this->_addFilterBracket(')');
         }
+
         return $this;
     }
 
@@ -557,14 +583,17 @@ class Varien_Data_Collection_Filesystem extends Varien_Data_Collection
         if (isset($this->_filterBrackets[$increment]) && ')' === $this->_filterBrackets[$increment]['value']) {
             return '';
         }
+
         $prevIncrement = $increment - 1;
         $prevBracket = false;
         if (isset($this->_filterBrackets[$prevIncrement])) {
             $prevBracket = $this->_filterBrackets[$prevIncrement]['value'];
         }
+
         if ($prevIncrement < 0 || $prevBracket === '(') {
             return '';
         }
+
         return ($isAnd ? ' && ' : ' || ');
     }
 

@@ -36,6 +36,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
         if ($object->getSharedStoreIds()) {
             $select->where('store_id IN (?)', $object->getSharedStoreIds());
         }
+
         return $select;
     }
 
@@ -67,6 +68,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
                 return $this;
             }
         }
+
         return $this;
     }
 
@@ -92,6 +94,7 @@ class Mage_Sales_Model_Entity_Quote extends Mage_Eav_Model_Entity_Abstract
                 return $this;
             }
         }
+
         return $this;
     }
 

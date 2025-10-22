@@ -16,9 +16,13 @@
 class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Widget_Container
 {
     protected $_objectId = 'id';
+
     protected $_formScripts = [];
+
     protected $_formInitScripts = [];
+
     protected $_mode = 'edit';
+
     protected $_blockGroup = 'adminhtml';
 
     public function __construct()
@@ -37,6 +41,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         $this->_addButton('reset', [
             'label'     => Mage::helper('adminhtml')->__('Reset'),
             'onclick'   => 'setLocation(window.location.href)',
+            'class'     => 'reset',
         ], -1);
 
         $objId = $this->getRequest()->getParam($this->_objectId);
@@ -69,6 +74,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
                 . $this->_mode
                 . '_form'));
         }
+
         return parent::_prepareLayout();
     }
 
@@ -116,6 +122,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         if ($this->hasFormActionUrl()) {
             return $this->getData('form_action_url');
         }
+
         return $this->getUrl('*/' . $this->_controller . '/save');
     }
 
@@ -136,6 +143,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         if (!empty($this->_formInitScripts) && is_array($this->_formInitScripts)) {
             return '<script type="text/javascript">' . implode("\n", $this->_formInitScripts) . '</script>';
         }
+
         return '';
     }
 
@@ -147,6 +155,7 @@ class Mage_Adminhtml_Block_Widget_Form_Container extends Mage_Adminhtml_Block_Wi
         if (!empty($this->_formScripts) && is_array($this->_formScripts)) {
             return '<script type="text/javascript">' . implode("\n", $this->_formScripts) . '</script>';
         }
+
         return '';
     }
 

@@ -84,6 +84,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         } else {
             parent::addAttribute($entityTypeId, $code, $attr);
         }
+
         return $this;
     }
 
@@ -101,6 +102,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
         if (isset($tableInfo[$attribute])) {
             return $this;
         }
+
         $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
         $this->getConnection()->addColumn($this->getTable($table), $attribute, $columnDefinition);
         return $this;
@@ -121,6 +123,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
             $columnDefinition = $this->_getAttributeColumnDefinition($attribute, $attr);
             $this->getConnection()->addColumn($this->getTable($table . '_grid'), $attribute, $columnDefinition);
         }
+
         return $this;
     }
 
@@ -161,6 +164,7 @@ class Mage_Sales_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 $length = 255;
                 break;
         }
+
         if ($type !== null) {
             $data['type'] = $type;
             $data['length'] = $length;

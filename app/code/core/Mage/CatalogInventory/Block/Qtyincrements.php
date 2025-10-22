@@ -54,6 +54,7 @@ class Mage_CatalogInventory_Block_Qtyincrements extends Mage_Core_Block_Template
                 $this->_qtyIncrements = false;
             }
         }
+
         return $this->_qtyIncrements;
     }
 

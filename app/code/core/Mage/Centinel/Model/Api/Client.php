@@ -56,8 +56,10 @@ class Mage_Centinel_Model_Api_Client extends CentinelClient
         } else {
             $result = $this->setErrorResponse(CENTINEL_ERROR_CODE_8000, CENTINEL_ERROR_CODE_8000_DESC);
         }
+
         $parser = new XMLParser();
         $parser->deserializeXml($result);
+
         $this->response = $parser->deserializedResponse;
     }
 }

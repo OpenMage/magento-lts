@@ -36,19 +36,27 @@ test.config = {
 
 /**
  * Configuration for "Google Sitemap" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.catalog.sitemap.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Google Sitemap',
     url: test.config.url,
     _grid: '#sitemapGrid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add Sitemap"]',
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Google Sitemap" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.catalog.sitemap.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add Sitemap"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Sitemap button clicked');
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Sitemap button clicked');
     },
 }
 
@@ -60,38 +68,19 @@ test.config.edit = {
     title: 'Edit Sitemap',
     url: 'sitemap/edit',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-        },
-        delete: {
-            _: base.__buttons.delete._,
-        },
+        save: base.__buttons.save,
+        delete: base.__buttons.delete,
         generate: {
             _: base._button + '[title="Save & Generate"]',
+            __class: ['scalable', 'add', 'generate'],
+            click: () => {
+                tools.click(test.config.edit.__buttons.generate._, 'Save & Generate button clicked');
+            },
         },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndGenerate: () => {
-        tools.click(test.config.edit.__buttons.generate._, 'Save & Generate button clicked');
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }
 
 /**
@@ -102,30 +91,16 @@ test.config.new = {
     title: 'New Sitemap',
     url: 'sitemap/new',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-        },
+        save: base.__buttons.save,
         generate: {
             _: base._button + '[title="Save & Generate"]',
+            __class: ['scalable', 'add', 'generate'],
+            click: () => {
+                tools.click(test.config.new.__buttons.generate._, 'Save & Generate button clicked');
+            },
         },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndGenerate: () => {
-        tools.click(test.config.new.__buttons.generate._, 'Save & Generate button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }

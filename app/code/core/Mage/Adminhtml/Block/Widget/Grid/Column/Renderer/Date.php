@@ -15,6 +15,7 @@
 class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract
 {
     protected $_defaultWidth = 160;
+
     /**
      * Date format string
      */
@@ -38,8 +39,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminht
                     Mage::logException($e);
                 }
             }
+
             $format = self::$_format;
         }
+
         return $format;
     }
 
@@ -60,7 +63,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminht
                     $data = Mage::getSingleton('core/locale')
                         ->date($data, Zend_Date::ISO_8601, null, false)->toString($format);
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 if ($this->getColumn()->getTimezone()) {
                     $data = Mage::app()->getLocale()
                         ->date($data, Varien_Date::DATETIME_INTERNAL_FORMAT)->toString($format);
@@ -68,8 +71,10 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Date extends Mage_Adminht
                     $data = Mage::getSingleton('core/locale')->date($data, null, null, false)->toString($format);
                 }
             }
+
             return $data;
         }
+
         return $this->getColumn()->getDefault();
     }
 }

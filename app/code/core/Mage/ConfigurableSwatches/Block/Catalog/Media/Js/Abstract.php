@@ -97,6 +97,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
                 break;
             }
         }
+
         return $keepFrame;
     }
 
@@ -121,6 +122,7 @@ abstract class Mage_ConfigurableSwatches_Block_Catalog_Media_Js_Abstract extends
         if (!Mage::helper('configurableswatches')->isEnabled()) { // functionality disabled
             return ''; // do not render block
         }
+
         return parent::_toHtml();
     }
 }

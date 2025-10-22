@@ -90,6 +90,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
             if (!isset($productsWebsites[$productId])) {
                 $productsWebsites[$productId] = [];
             }
+
             $productsWebsites[$productId][] = $productInfo['website_id'];
         }
 
@@ -202,19 +203,18 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                     'website_id' => (int) $websiteId,
                 ];
             }
+
             $adapter->insertMultiple($this->_productWebsiteTable, $data);
         }
 
-        if (!empty($delete)) {
-            foreach ($delete as $websiteId) {
-                $condition = [
-                    'product_id = ?' => (int) $product->getId(),
-                    'website_id = ?' => (int) $websiteId,
-                ];
+        foreach ($delete as $websiteId) {
+            $condition = [
+                'product_id = ?' => (int) $product->getId(),
+                'website_id = ?' => (int) $websiteId,
+            ];
 
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $adapter->delete($this->_productWebsiteTable, $condition);
-            }
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+            $adapter->delete($this->_productWebsiteTable, $condition);
         }
 
         if (!empty($insert) || !empty($delete)) {
@@ -237,6 +237,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!$object->hasCategoryIds()) {
             return $this;
         }
+
         $categoryIds = $object->getCategoryIds();
         $oldCategoryIds = $this->getCategoryIds($object);
 
@@ -252,27 +253,27 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 if (empty($categoryId)) {
                     continue;
                 }
+
                 $data[] = [
                     'category_id' => (int) $categoryId,
                     'product_id'  => (int) $object->getId(),
                     'position'    => 1,
                 ];
             }
+
             if ($data) {
                 $write->insertMultiple($this->_productCategoryTable, $data);
             }
         }
 
-        if (!empty($delete)) {
-            foreach ($delete as $categoryId) {
-                $where = [
-                    'product_id = ?'  => (int) $object->getId(),
-                    'category_id = ?' => (int) $categoryId,
-                ];
+        foreach ($delete as $categoryId) {
+            $where = [
+                'product_id = ?'  => (int) $object->getId(),
+                'category_id = ?' => (int) $categoryId,
+            ];
 
-                // phpcs:ignore Ecg.Performance.Loop.ModelLSD
-                $write->delete($this->_productCategoryTable, $where);
-            }
+            // phpcs:ignore Ecg.Performance.Loop.ModelLSD
+            $write->delete($this->_productCategoryTable, $where);
         }
 
         if (!empty($insert) || !empty($delete)) {
@@ -405,6 +406,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
                 $store = Mage::app()->getStore($storeId);
                 $this->refreshEnabledIndex($store, $product);
             }
+
             return $this;
         } else {
             $productId = is_numeric($product) ? $product : $product->getId();
@@ -635,6 +637,7 @@ class Mage_Catalog_Model_Resource_Product extends Mage_Catalog_Model_Resource_Ab
         if (!empty($columns) && is_string($columns)) {
             $columns = [$columns];
         }
+
         if (empty($columns) || !is_array($columns)) {
             $columns = $this->_getDefaultAttributes();
         }

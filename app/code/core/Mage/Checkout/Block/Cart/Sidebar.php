@@ -15,6 +15,7 @@
 class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
 {
     public const XML_PATH_CHECKOUT_SIDEBAR_COUNT                  = 'checkout/sidebar/count';
+
     public const XML_PATH_CHECKOUT_MINICART_VISIBLE_ITEMS_COUNT   = 'checkout/cart/minicart_visible_items';
 
     /**
@@ -38,6 +39,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             $count = Mage::getStoreConfig(self::XML_PATH_CHECKOUT_SIDEBAR_COUNT);
             $this->setData('item_count', $count);
         }
+
         return $count;
     }
 
@@ -52,9 +54,11 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         if (!$this->getSummaryCount()) {
             return [];
         }
+
         if ($count === null) {
             $count = $this->getItemCount();
         }
+
         return array_slice(array_reverse($this->getItems()), 0, $count);
     }
 
@@ -87,6 +91,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
                 }
             }
         }
+
         return $subtotal;
     }
 
@@ -101,6 +106,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         if (!Mage::getSingleton('tax/config')->displayCartSubtotalBoth()) {
             return 0;
         }
+
         return $this->getSubtotal(false);
     }
 
@@ -187,6 +193,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             $quote = $this->getCustomQuote() ?: $this->getQuote();
             $this->_totals = $quote->getTotals();
         }
+
         return $this->_totals;
     }
 
@@ -213,6 +220,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
         foreach ($this->_itemRenders as $type => $renderer) {
             $result[] = implode('|', [$type, $renderer['block'], $renderer['template']]);
         }
+
         return implode('|', $result);
     }
 
@@ -236,6 +244,7 @@ class Mage_Checkout_Block_Cart_Sidebar extends Mage_Checkout_Block_Cart_Minicart
             if (!$template || !$block || !$type) {
                 continue;
             }
+
             $this->addItemRender($type, $block, $template);
         }
 

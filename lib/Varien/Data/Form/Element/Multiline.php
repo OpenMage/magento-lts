@@ -60,14 +60,17 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
             } else {
                 $this->setClass('input-text');
             }
+
             $html .= '<div class="multi-input"><input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName()
                 . '[' . $i . ']' . '" value="' . $this->getEscapedValue($i) . '" '
                 . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
             if ($i == 0) {
                 $html .= $this->getAfterElementHtml();
             }
+
             $html .= '</div>';
         }
+
         return $html;
     }
 
@@ -91,13 +94,16 @@ class Varien_Data_Form_Element_Multiline extends Varien_Data_Form_Element_Abstra
                 $this->setClass('input-text');
                 $html .= '<label>&nbsp;</label>' . "\n";
             }
+
             $html .= '<input id="' . $this->getHtmlId() . $i . '" name="' . $this->getName() . '[' . $i . ']'
                 . '" value="' . $this->getEscapedValue($i) . '"' . $this->serialize($this->getHtmlAttributes()) . ' />' . "\n";
             if ($i == 0) {
                 $html .= $this->getAfterElementHtml();
             }
+
             $html .= ($this->getNoSpan() === true) ? '' : '</span>' . "\n";
         }
+
         return $html;
     }
 }

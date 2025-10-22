@@ -36,6 +36,7 @@ class Mage_Adminhtml_Block_Api_User_Edit extends Mage_Adminhtml_Block_Widget_For
         if (Mage::registry('api_user')->getId()) {
             return Mage::helper('adminhtml')->__("Edit User '%s'", $this->escapeHtml(Mage::registry('api_user')->getUsername()));
         }
+
         return Mage::helper('adminhtml')->__('New User');
     }
 }

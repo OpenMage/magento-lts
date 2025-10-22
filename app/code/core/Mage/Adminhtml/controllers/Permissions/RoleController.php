@@ -144,6 +144,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $role->getId()]);
             return;
         }
@@ -203,6 +204,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/editrole', ['rid' => $rid]);
             return;
         }
@@ -270,6 +272,7 @@ class Mage_Adminhtml_Permissions_RoleController extends Mage_Adminhtml_Controlle
         } catch (Exception $e) {
             throw $e;
         }
+
         return true;
     }
 

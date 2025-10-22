@@ -13,8 +13,11 @@
 class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
 {
     protected $_code = Mage_Paypal_Model_Config::METHOD_WPP_PE_EXPRESS;
+
     protected $_formBlockType = 'paypaluk/express_form';
+
     protected $_canCreateBillingAgreement = false;
+
     protected $_canManageRecurringProfiles = false;
 
     /**
@@ -42,13 +45,16 @@ class Mage_PaypalUk_Model_Express extends Mage_Paypal_Model_Express
         if (!parent::isAvailable($quote)) {
             return false;
         }
+
         if (!$this->_ecInstance) {
             $this->_ecInstance = Mage::helper('payment')
                 ->getMethodInstance(Mage_Paypal_Model_Config::METHOD_WPP_EXPRESS);
         }
+
         if ($quote && $this->_ecInstance) {
             $this->_ecInstance->setStore($quote->getStoreId());
         }
+
         return $this->_ecInstance ? !$this->_ecInstance->isAvailable() : false;
     }
 

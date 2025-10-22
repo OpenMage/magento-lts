@@ -26,6 +26,7 @@ class Mage_Reports_Model_Resource_Wishlist_Collection extends Mage_Core_Model_Re
         $this->_init('wishlist/wishlist');
         $this->setWishlistTable($this->getTable('wishlist/wishlist'));
     }
+
     /**
      * Set wishlist table name
      *

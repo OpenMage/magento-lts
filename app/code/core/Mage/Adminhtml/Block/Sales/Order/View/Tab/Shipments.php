@@ -113,6 +113,7 @@ class Mage_Adminhtml_Block_Sales_Order_View_Tab_Shipments extends Mage_Adminhtml
         if ($this->getOrder()->getIsVirtual()) {
             return false;
         }
+
         return Mage::getSingleton('admin/session')->isAllowed('sales/shipment');
     }
 

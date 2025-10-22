@@ -18,8 +18,11 @@
 class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 {
     public const ID_FIELD      = 'id';
+
     public const PATH_FIELD    = 'path';
+
     public const ORDER_FIELD   = 'order';
+
     public const LEVEL_FIELD   = 'level';
 
     /**
@@ -51,8 +54,11 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
      * @var string
      */
     protected $_idField;
+
     protected $_pathField;
+
     protected $_orderField;
+
     protected $_levelField;
 
     /**
@@ -157,6 +163,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 $pathField = $this->_conn->quoteIdentifier([$this->_table, $this->_pathField]);
                 $select->where("{$pathField} LIKE ?", "{$parentPath}/%");
             }
+
             if ($recursionLevel != 0) {
                 $levelField = $this->_conn->quoteIdentifier([$this->_table, $this->_levelField]);
                 $select->where("{$levelField} <= ?", $startLevel + $recursionLevel);
@@ -208,6 +215,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 } else {
                     $childrenPath = [];
                 }
+
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 
@@ -247,6 +255,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         if (is_numeric($node)) {
             $node = $this->getNodeById($node);
         }
+
         if (!$node) {
             return $result;
         }
@@ -257,8 +266,10 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                     $result = $this->getChildren($child, $recursive, $result);
                 }
             }
+
             $result[] = $child->getId();
         }
+
         return $result;
     }
 
@@ -278,6 +289,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
         $newPath = $newParent->getData($this->_pathField);
 
         $newPath = $newPath . '/' . $node->getId();
+
         $oldPathLength = strlen($oldPath);
 
         $newLevel = $newParent->getLevel() + 1;
@@ -304,6 +316,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
 
                 $position = (int) $this->_conn->fetchOne($select);
             }
+
             $this->_conn->update($this->_table, $reorderData, $reorderCondition);
             $this->_conn->update($this->_table, $data, $condition);
             $this->_conn->update(
@@ -389,6 +402,7 @@ class Varien_Data_Tree_Dbp extends Varien_Data_Tree
                 } else {
                     $childrenPath = [];
                 }
+
                 $childrenPath[] = $node->getId();
                 $childrenPath = implode('/', $childrenPath);
 

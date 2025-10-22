@@ -35,12 +35,12 @@ test.config.view = {
     __buttons: {
         print: {
             _: base._button + '[title="Print"]',
+            __class: ['scalable', 'save', 'print'],
         },
         tracking: {
             _: base._button + '[title="Send Tracking Information"]',
+            __class: ['scalable', 'send-email'],
         },
-        back: {
-            _: base.__buttons.back._,
-        },
+        back: base.__buttons.back,
     },
 }

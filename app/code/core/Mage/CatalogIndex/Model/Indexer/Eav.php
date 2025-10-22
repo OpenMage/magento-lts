@@ -66,6 +66,7 @@ class Mage_CatalogIndex_Model_Indexer_Eav extends Mage_CatalogIndex_Model_Indexe
         if ($attribute->getIsFilterable() == 0 && $attribute->getIsVisibleInAdvancedSearch() == 0) {
             return false;
         }
+
         if ($attribute->getFrontendInput() != 'select' && $attribute->getFrontendInput() != 'multiselect') {
             return false;
         }

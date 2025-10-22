@@ -328,6 +328,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             if ($this->getQuote()->getId()) {
                 $this->setQuoteId($this->getQuote()->getId());
             }
+
             $this->setCustomerId($this->getQuote()->getCustomerId());
 
             /**
@@ -392,9 +393,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($this->_items !== null) {
             $this->getItemsCollection()->save();
         }
+
         if ($this->_rates !== null) {
             $this->getShippingRatesCollection()->save();
         }
+
         return $this;
     }
 
@@ -409,6 +412,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($this->getQuoteId() != $quote->getId()) {
             $this->setQuoteId($quote->getId());
         }
+
         return $this;
     }
 
@@ -422,6 +426,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if (is_null($this->_quote)) {
             $this->_quote = Mage::getModel('sales/quote')->load($this->getQuoteId());
         }
+
         return $this->_quote;
     }
 
@@ -439,9 +444,11 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         } elseif ($address->getCustomer()) {
             $email = $address->getCustomer()->getEmail();
         }
+
         if ($email) {
             $this->setEmail($email);
         }
+
         return $this;
     }
 
@@ -487,6 +494,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         foreach ($this->getTotals() as $k => $total) {
             $arr['totals'][$k] = $total->toArray();
         }
+
         return $arr;
     }
 
@@ -507,6 +515,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
             }
         }
+
         return $this->_items;
     }
 
@@ -545,6 +554,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                             $aItem->importQuoteItem($qItem);
                         }
                     }
+
                     $items[] = $aItem;
                     if ($this->_filterNominal($aItem)) {
                         $nominalItems[] = $aItem;
@@ -566,6 +576,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                         if ($qItem->isDeleted()) {
                             continue;
                         }
+
                         $items[] = $qItem;
                         if ($this->_filterNominal($qItem)) {
                             $nominalItems[] = $qItem;
@@ -583,6 +594,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
 
             $this->_nominalOnly = $wasNominal; // Restore original value before we changed it
         }
+
         return $this->getData($key);
     }
 
@@ -643,6 +655,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $items[] = $item;
             }
         }
+
         return $items;
     }
 
@@ -669,6 +682,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $qty = $item->getQty();
             }
         }
+
         return $qty;
     }
 
@@ -695,6 +709,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $item;
             }
         }
+
         return false;
     }
 
@@ -711,6 +726,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $item;
             }
         }
+
         return false;
     }
 
@@ -727,6 +743,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $item;
             }
         }
+
         return false;
     }
 
@@ -742,6 +759,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($item) {
             $item->isDeleted(true);
         }
+
         return $this;
     }
 
@@ -757,6 +775,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             if ($item->getParentItemId()) {
                 return $this;
             }
+
             $addressItem = Mage::getModel('sales/quote_address_item')
                 ->setAddress($this)
                 ->importQuoteItem($item);
@@ -782,6 +801,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($qty) {
             $addressItem->setQty($qty);
         }
+
         return $this;
     }
 
@@ -798,12 +818,14 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
             if ($this->getQuote()->hasNominalItems(false)) {
                 $this->_rates->setFixedOnlyFilter(true);
             }
+
             if ($this->getId()) {
                 foreach ($this->_rates as $rate) {
                     $rate->setAddress($this);
                 }
             }
         }
+
         return $this->_rates;
     }
 
@@ -820,6 +842,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $rates[] = $rate;
             }
         }
+
         return $rates;
     }
 
@@ -841,6 +864,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 $rates[$rate->getCarrier()][0]->carrier_sort_order = $rate->getCarrierInstance()->getSortOrder();
             }
         }
+
         uasort($rates, [$this, '_sortRates']);
         return $rates;
     }
@@ -876,6 +900,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $rate;
             }
         }
+
         return false;
     }
 
@@ -892,6 +917,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 return $rate;
             }
         }
+
         return false;
     }
 
@@ -905,6 +931,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         foreach ($this->getShippingRatesCollection() as $rate) {
             $rate->isDeleted(true);
         }
+
         return $this;
     }
 
@@ -972,6 +999,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         $request->setDestCity($this->getCity());
         $request->setDestPostcode($this->getPostcode());
         $request->setPackageValue($item ? $item->getBaseRowTotal() : $this->getBaseSubtotal());
+
         $packageValueWithDiscount = $item
             ? $item->getBaseRowTotal() - $item->getBaseDiscountAmount()
             : $this->getBaseSubtotalWithDiscount();
@@ -1037,6 +1065,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 }
             }
         }
+
         return $found;
     }
 
@@ -1053,6 +1082,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
                 ['store' => $this->getQuote()->getStore()],
             );
         }
+
         return $this->_totalCollector;
     }
 
@@ -1078,6 +1108,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         foreach ($this->getTotalCollector()->getCollectors() as $model) {
             $model->collect($this);
         }
+
         Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_after', [$this->_eventObject => $this]);
         return $this;
     }
@@ -1092,6 +1123,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         foreach ($this->getTotalCollector()->getRetrievers() as $model) {
             $model->fetch($this);
         }
+
         return $this->_totals;
     }
 
@@ -1148,6 +1180,7 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if ($this->getBaseSubtotalWithDiscount() < $amount) {
             return false;
         }
+
         return true;
     }
 
@@ -1162,11 +1195,13 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
         if (empty($tax)) {
             return [];
         }
+
         try {
             $return = Mage::helper('core/unserializeArray')->unserialize($tax);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $return = [];
         }
+
         return $return;
     }
 
@@ -1216,8 +1251,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     {
         $this->_totalAmounts[$code] = $amount;
         if ($code != 'subtotal') {
-            $code = $code . '_amount';
+            $code .= '_amount';
         }
+
         $this->setData($code, $amount);
         return $this;
     }
@@ -1233,8 +1269,9 @@ class Mage_Sales_Model_Quote_Address extends Mage_Customer_Model_Address_Abstrac
     {
         $this->_baseTotalAmounts[$code] = $amount;
         if ($code != 'subtotal') {
-            $code = $code . '_amount';
+            $code .= '_amount';
         }
+
         $this->setData('base_' . $code, $amount);
         return $this;
     }

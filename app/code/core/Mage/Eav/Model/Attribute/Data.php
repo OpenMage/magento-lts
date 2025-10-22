@@ -15,10 +15,15 @@
 class Mage_Eav_Model_Attribute_Data
 {
     public const OUTPUT_FORMAT_JSON    = 'json';
+
     public const OUTPUT_FORMAT_TEXT    = 'text';
+
     public const OUTPUT_FORMAT_HTML    = 'html';
+
     public const OUTPUT_FORMAT_PDF     = 'pdf';
+
     public const OUTPUT_FORMAT_ONELINE = 'oneline';
+
     public const OUTPUT_FORMAT_ARRAY   = 'array'; // available only for multiply attributes
 
     /**

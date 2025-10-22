@@ -45,6 +45,7 @@ class Mage_Wishlist_Model_Resource_Item extends Mage_Core_Model_Resource_Db_Abst
         if ($data) {
             $object->setData($data);
         }
+
         $this->_afterLoad($object);
 
         return $this;

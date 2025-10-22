@@ -91,6 +91,7 @@ class Mage_Usa_Model_Shipping_Carrier_Dhl_Label_Pdf
             $pdf->pages[] = $page;
             $i++;
         }
+
         return $pdf->render();
     }
 }

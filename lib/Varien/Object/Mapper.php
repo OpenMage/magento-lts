@@ -43,6 +43,7 @@ class Varien_Object_Mapper
         if (is_array($from) && isset($from[0]) && is_object($from[0]) && isset($from[1]) && is_string($from[1]) && is_callable($from)) {
             [$from, $get] = $from;
         }
+
         $fromIsArray = is_array($from);
         $fromIsVO    = $from instanceof Varien_Object;
 
@@ -50,6 +51,7 @@ class Varien_Object_Mapper
         if (is_array($to) && isset($to[0]) && is_object($to[0]) && isset($to[1]) && is_string($to[1]) && is_callable($to)) {
             [$to, $set] = $to;
         }
+
         $toIsArray = is_array($to);
         $toIsVO    = $to instanceof Varien_Object;
 
@@ -57,6 +59,7 @@ class Varien_Object_Mapper
             if (!is_string($keyFrom)) {
                 $keyFrom = $keyTo;
             }
+
             if ($fromIsArray) {
                 if (array_key_exists($keyFrom, $from)) {
                     if ($toIsArray) {
@@ -76,6 +79,7 @@ class Varien_Object_Mapper
                         $shouldGet = true;
                     }
                 }
+
                 if ($shouldGet) {
                     if ($toIsArray) {
                         $to[$keyTo] = $value;
@@ -85,6 +89,7 @@ class Varien_Object_Mapper
                 }
             }
         }
+
         foreach ($defaults as $keyTo => $value) {
             if ($toIsArray) {
                 if (!isset($to[$keyTo])) {
@@ -97,6 +102,7 @@ class Varien_Object_Mapper
                 }
             }
         }
+
         return $to;
     }
 }

@@ -45,6 +45,7 @@ class Mage_Core_Model_Session extends Mage_Core_Model_Session_Abstract
         if (!$this->getData('_form_key')) {
             $this->renewFormKey();
         }
+
         return $this->getData('_form_key');
     }
 

@@ -172,6 +172,7 @@
 class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
 {
     protected $_eventPrefix = 'sales_quote';
+
     protected $_eventObject = 'quote';
 
     /**
@@ -254,6 +255,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->hasStoreId()) {
             return Mage::app()->getStore()->getId();
         }
+
         return (int) $this->_getData('store_id');
     }
 
@@ -277,6 +279,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->getStoreId() != $store->getId()) {
             $this->setStoreId($store->getId());
         }
+
         return $this;
     }
 
@@ -292,8 +295,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($website = $this->getWebsite()) {
                 return $website->getStoreIds();
             }
+
             return $this->getStore()->getWebsite()->getStoreIds();
         }
+
         return $ids;
     }
 
@@ -375,6 +380,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->_payments !== null) {
             $this->getPaymentsCollection()->save();
         }
+
         return $this;
     }
 
@@ -391,6 +397,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             $customerId = (int) $customer;
         }
+
         $this->_getResource()->loadByCustomerId($this, $customerId);
         $this->_afterLoad();
         $this->setOrigData();
@@ -472,6 +479,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $shippingAddress = Mage::getModel('sales/quote_address');
                 }
             }
+
             $this->setShippingAddress($shippingAddress);
         }
 
@@ -507,6 +515,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_customer;
     }
 
@@ -560,6 +569,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_addresses;
     }
 
@@ -615,6 +625,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $addresses[] = $address;
             }
         }
+
         return $addresses;
     }
 
@@ -629,6 +640,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $addresses[] = $address;
             }
         }
+
         return $addresses;
     }
 
@@ -644,6 +656,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
@@ -658,6 +671,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
@@ -674,6 +688,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $address;
             }
         }
+
         return false;
     }
 
@@ -689,6 +704,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 break;
             }
         }
+
         return $this;
     }
 
@@ -708,6 +724,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if (!isset($addressByType[$type]) || $addressByType[$type]->getId() > $address->getId()) {
                 $addressByType[$type] = $address;
             }
+
             $address->isDeleted(true);
         }
 
@@ -739,6 +756,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$address->getId()) {
             $this->getAddressesCollection()->addItem($address);
         }
+
         return $this;
     }
 
@@ -754,6 +772,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             $this->addAddress($address->setAddressType(Mage_Sales_Model_Quote_Address::TYPE_BILLING));
         }
+
         return $this;
     }
 
@@ -773,6 +792,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $this->addAddress($address->setAddressType(Mage_Sales_Model_Quote_Address::TYPE_SHIPPING));
             }
         }
+
         return $this;
     }
 
@@ -796,10 +816,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->hasItemsCollection()) {
             return $this->getData('items_collection');
         }
+
         if (is_null($this->_items)) {
             $this->_items = Mage::getModel('sales/quote_item')->getCollection();
             $this->_items->setQuote($this);
         }
+
         return $this->_items;
     }
 
@@ -816,6 +838,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $items[] =  $item;
             }
         }
+
         return $items;
     }
 
@@ -832,6 +855,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $items[] =  $item;
             }
         }
+
         return $items;
     }
 
@@ -859,6 +883,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -897,6 +922,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $quoteItem;
     }
 
@@ -917,6 +943,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $items[] = $child;
                 }
             }
+
             foreach ($quoteItems as $key => $quoteItem) {
                 foreach ($items as $item) {
                     if ($quoteItem->compare($item)) {
@@ -977,6 +1004,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $item->isDeleted(true);
             }
         }
+
         return $this;
     }
 
@@ -1006,6 +1034,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->getItemsCollection()->addItem($item);
             Mage::dispatchEvent('sales_quote_add_item', ['quote_item' => $item]);
         }
+
         return $this;
     }
 
@@ -1022,9 +1051,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($request === null) {
             $request = 1;
         }
+
         if (is_numeric($request)) {
             $request = new Varien_Object(['qty' => $request]);
         }
+
         if (!($request instanceof Varien_Object)) {
             Mage::throwException(Mage::helper('sales')->__('Invalid request for adding product to quote.'));
         }
@@ -1057,6 +1088,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($request->getResetCount() && !$stickWithinParent && $item->getId() === $request->getId()) {
                 $item->setData('qty', 0);
             }
+
             $items[] = $item;
 
             /**
@@ -1065,6 +1097,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if (!$parentItem) {
                 $parentItem = $item;
             }
+
             if ($parentItem && $candidate->getParentProductId()) {
                 $item->setParentItem($parentItem);
             }
@@ -1082,6 +1115,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         if (!empty($errors)) {
             Mage::throwException(implode("\n", $errors));
         }
@@ -1127,6 +1161,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             } else {
                 $item->setStoreId(Mage::app()->getStore()->getId());
             }
+
             $newItem = true;
         }
 
@@ -1175,6 +1210,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$item) {
             Mage::throwException(Mage::helper('sales')->__('Wrong quote item id to update configuration.'));
         }
+
         $productId = $item->getProduct()->getId();
 
         //We need to create new clear product instance with same $productId
@@ -1188,10 +1224,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } elseif (is_array($params)) {
             $params = new Varien_Object($params);
         }
+
         $params->setCurrentConfig($item->getBuyRequest());
         $buyRequest = Mage::helper('catalog/product')->addParamsToBuyRequest($buyRequest, $params);
 
         $buyRequest->setResetCount(true);
+
         $resultItem = $this->addProduct($product, $buyRequest);
 
         if (is_string($resultItem)) {
@@ -1240,6 +1278,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $item;
             }
         }
+
         return false;
     }
 
@@ -1264,8 +1303,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $qty += $item->getQty();
                 }
             }
+
             $this->setData('all_items_qty', $qty);
         }
+
         return $qty;
     }
 
@@ -1292,8 +1333,10 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                     $qty += $item->getQty();
                 }
             }
+
             $this->setData('virtual_items_qty', $qty);
         }
+
         return $qty;
     }
 
@@ -1314,6 +1357,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return $this->_payments;
     }
 
@@ -1327,6 +1371,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $payment;
             }
         }
+
         $payment = Mage::getModel('sales/quote_payment');
         $this->addPayment($payment);
         return $payment;
@@ -1343,6 +1388,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return $payment;
             }
         }
+
         return false;
     }
 
@@ -1356,6 +1402,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$payment->getId()) {
             $this->getPaymentsCollection()->addItem($payment);
         }
+
         return $this;
     }
 
@@ -1367,6 +1414,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if (!$this->getIsMultiPayment() && ($old = $this->getPayment())) {
             $payment->setId($old->getId());
         }
+
         $this->addPayment($payment);
 
         return $payment;
@@ -1394,6 +1442,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->getTotalsCollectedFlag()) {
             return $this;
         }
+
         Mage::dispatchEvent($this->_eventPrefix . '_collect_totals_before', [$this->_eventObject => $this]);
 
         $this->setSubtotal(0);
@@ -1452,6 +1501,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($item->getProduct()->getIsVirtual()) {
                 $this->setVirtualItemsQty($this->getVirtualItemsQty() + $item->getQty());
             }
+
             $this->setItemsCount($this->getItemsCount() + 1);
             $this->setItemsQty((float) $this->getItemsQty() + $item->getQty());
         }
@@ -1488,6 +1538,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($address->isDeleted() || $address === $shippingAddress) {
                 continue;
             }
+
             foreach ($address->getTotals() as $code => $total) {
                 if (isset($totals[$code])) {
                     $totals[$code]->merge($total);
@@ -1504,6 +1555,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $sortedTotals[$total->getCode()] = $totals[$total->getCode()];
             }
         }
+
         return $sortedTotals;
     }
 
@@ -1544,6 +1596,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $messages = [];
             $this->setData('messages', $messages);
         }
+
         return $messages;
     }
 
@@ -1560,6 +1613,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $errors[] = $message;
             }
         }
+
         return $errors;
     }
 
@@ -1591,6 +1645,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } else {
             $this->_clearErrorInfo();
         }
+
         return $this;
     }
 
@@ -1629,6 +1684,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($message !== null) {
             $this->addMessage($message, $type);
         }
+
         $this->_setHasError(true);
 
         return $this;
@@ -1672,6 +1728,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 break;
             }
         }
+
         if (!$errorsExist) {
             $this->_setHasError(false);
         }
@@ -1703,10 +1760,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         } elseif (!is_string($message)) {
             return $this;
         }
+
         if ($message == $text) {
             unset($messages[$type]);
             $this->setData('messages', $messages);
         }
+
         return $this;
     }
 
@@ -1724,6 +1783,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             //if yes reserving new one if not using old one
             $this->setReservedOrderId($this->_getResource()->getReservedOrderId($this));
         }
+
         return $this;
     }
 
@@ -1759,6 +1819,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 foreach ($addresses as $address) {
                     $baseTotal += $address->getBaseSubtotalWithDiscount();
                 }
+
                 if ($baseTotal < $minAmount) {
                     return false;
                 }
@@ -1770,6 +1831,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 }
             }
         }
+
         return true;
     }
 
@@ -1787,12 +1849,14 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($item->isDeleted() || $item->getParentItemId()) {
                 continue;
             }
+
             $countItems++;
             if (!$item->getProduct()->getIsVirtual()) {
                 $isVirtual = false;
                 break;
             }
         }
+
         return $countItems == 0 ? false : $isVirtual;
     }
 
@@ -1818,10 +1882,12 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             if ($quoteItem->getParentItemId()) {
                 continue;
             }
+
             if ($quoteItem->getProduct()->isVirtual()) {
                 $hasVirtual = true;
             }
         }
+
         return $hasVirtual;
     }
 
@@ -1898,6 +1964,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return true;
             }
         }
+
         return false;
     }
 
@@ -1915,9 +1982,11 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 if ((!$countVirtual) && $item->getProduct()->isVirtual()) {
                     continue;
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -1933,6 +2002,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 return false;
             }
         }
+
         return true;
     }
 
@@ -1959,6 +2029,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                 $result[] = $profile;
             }
         }
+
         return $result;
     }
 
@@ -1977,11 +2048,13 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
                         $addressHasCoupon = true;
                     }
                 }
+
                 if (!$addressHasCoupon) {
                     $this->setCouponCode('');
                 }
             }
         }
+
         return $this;
     }
 
@@ -1997,6 +2070,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
             $this->setTriggerRecollect(0)->getResource()->save($this);
             $this->collectTotals()->save();
         }
+
         return parent::_afterLoad();
     }
 
@@ -2004,7 +2078,9 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
      * @deprecated after 1.4 beta1 - one page checkout responsibility
      */
     public const CHECKOUT_METHOD_REGISTER  = 'register';
+
     public const CHECKOUT_METHOD_GUEST     = 'guest';
+
     public const CHECKOUT_METHOD_LOGIN_IN  = 'login_in';
 
     /**
@@ -2019,6 +2095,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->getCustomerId() && !$originalMethod) {
             return self::CHECKOUT_METHOD_LOGIN_IN;
         }
+
         return $this->_getData('checkout_method');
     }
 
@@ -2054,6 +2131,7 @@ class Mage_Sales_Model_Quote extends Mage_Core_Model_Abstract
         if ($this->_preventSaving) {
             return $this;
         }
+
         return parent::save();
     }
 

@@ -153,6 +153,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
             $this->_sets = Mage::getModel('eav/entity_attribute_set')->getResourceCollection()
                 ->setEntityTypeFilter($this->getId());
         }
+
         return $this->_sets;
     }
 
@@ -347,6 +348,7 @@ class Mage_Eav_Model_Entity_Type extends Mage_Core_Model_Abstract
         if ($collection) {
             return $collection;
         }
+
         return 'eav/entity_attribute_collection';
     }
 }

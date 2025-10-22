@@ -124,6 +124,7 @@ final class AbstractTest extends OpenMageTest
         if (PHP_VERSION_ID >= 80300 && version_compare(InstalledVersions::getPrettyVersion('shardj/zf1-future'), '1.24.2', '<=')) {
             self::markTestSkipped('see https://github.com/Shardj/zf1-future/pull/465');
         }
+
         $object = new Varien_Object($data);
         self::assertSame($expectedResul, self::$subject->validateData($object));
     }

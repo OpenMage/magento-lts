@@ -153,6 +153,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
                 $process->changeStatus(Mage_Index_Model_Process::STATUS_REQUIRE_REINDEX);
                 break;
         }
+
         return $this;
     }
 
@@ -181,6 +182,7 @@ class Mage_Catalog_Model_Indexer_Url extends Mage_Index_Model_Indexer_Abstract
             if ($category->dataHasChangedFor('url_key') || $category->getIsChangedProductList()) {
                 $event->addNewData('rewrite_category_ids', [$category->getId()]);
             }
+
             /**
              * Check if category has another affected category ids (category move result)
              */

@@ -33,9 +33,13 @@ class Unserialize_Reader_Arr
     protected $_reader = null;
 
     public const READING_LENGTH = 1;
+
     public const FINISHED_LENGTH = 2;
+
     public const READING_KEY = 3;
+
     public const READING_VALUE = 4;
+
     public const FINISHED_ARR = 5;
 
     /**
@@ -61,6 +65,7 @@ class Unserialize_Reader_Arr
                     $this->_status = self::FINISHED_ARR;
                     return null;
                 }
+
                 $this->_status = self::FINISHED_LENGTH;
             } else {
                 $this->_length .= $char;

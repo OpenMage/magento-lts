@@ -73,6 +73,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
                 unset($ccTypes[$code]);
             }
         }
+
         if (empty($ccTypes)) {
             return null;
         }
@@ -137,6 +138,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
             if (is_null($quote->getBillingAddress()->getId())) {
                 $this->_fault('billing_address_is_not_set');
             }
+
             $quote->getBillingAddress()->setPaymentMethod(
                 $paymentData['method'] ?? null,
             );
@@ -145,6 +147,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
             if (is_null($quote->getShippingAddress()->getId())) {
                 $this->_fault('shipping_address_is_not_set');
             }
+
             $quote->getShippingAddress()->setPaymentMethod(
                 $paymentData['method'] ?? null,
             );
@@ -179,6 +182,7 @@ class Mage_Checkout_Model_Cart_Payment_Api extends Mage_Checkout_Model_Api_Resou
         } catch (Mage_Core_Exception $e) {
             $this->_fault('payment_method_is_not_set', $e->getMessage());
         }
+
         return true;
     }
 }

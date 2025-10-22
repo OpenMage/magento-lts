@@ -19,25 +19,34 @@ test.config = {
 
 /**
  * Configuration for "Catalog Price Rules" page
- * @type {{__buttons: {add: string, apply: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.promo.catalog.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Catalog Price Rules',
     url: test.config.url,
     _grid: '#promo_catalog_grid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Rule"]',
-        },
-        apply: {
-            _: base._button + '[title="Apply Rules"]',
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Catalog Price Rules" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.promo.catalog.config.index.__buttons.add.click, _: string}, apply: {__class: string[], click: cy.openmage.test.backend.promo.catalog.config.index.__buttons.apply.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Rule"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Catalog Price Rule button clicked');
         },
     },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Catalog Price Rule button clicked');
-    },
-    clickApply: () => {
-        tools.click(test.config.index.__buttons.apply._, 'Apply Rules button clicked');
+    apply: {
+        _: base._button + '[title="Apply Rules"]',
+        __class: ['scalable', 'apply'],
+        click: () => {
+            tools.click(test.config.index.__buttons.apply._, 'Apply Rules button clicked');
+        },
     },
 }
 
@@ -49,42 +58,12 @@ test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_catalog/edit',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-        },
-        saveAndApply: {
-            _: base._button + '[title="Save and Apply"]',
-        },
-        delete: {
-            _: base.__buttons.delete._,
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
-    },
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
-    clickSaveAndApply: () => {
-        tools.click(test.config.edit.__buttons.saveAndApply._, 'Save and Apply button clicked');
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
+        save: base.__buttons.save,
+        saveAndContinue: base.__buttons.saveAndContinue,
+        saveAndApply: base.__buttons.saveAndApply,
+        delete: base.__buttons.delete,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
 }
 
@@ -96,35 +75,10 @@ test.config.new = {
     title: 'New Rule',
     url: 'promo_catalog/new',
     __buttons: {
-        save: {
-            _: base.__buttons.save._,
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-        },
-        saveAndApply: {
-            _: base._button + '[title="Save and Apply"]',
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
-    },
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
-    clickSaveAndApply: () => {
-        tools.click(test.config.new.__buttons.saveAndApply._, 'Save and Apply button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
+        save: base.__buttons.save,
+        saveAndContinue: base.__buttons.saveAndContinue,
+        saveAndApply: base.__buttons.saveAndApply,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
     },
 }

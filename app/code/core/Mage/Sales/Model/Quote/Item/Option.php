@@ -32,6 +32,7 @@
 class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implements Mage_Catalog_Model_Product_Configuration_Item_Option_Interface
 {
     protected $_item;
+
     protected $_product;
 
     protected function _construct()
@@ -65,6 +66,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
         if ($this->getItemId() != $item->getId()) {
             $this->setItemId($item->getId());
         }
+
         return $this;
     }
 
@@ -90,6 +92,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
         if ($this->getProductId() != $product->getId()) {
             $this->setProductId($product->getId());
         }
+
         return $this;
     }
 
@@ -123,6 +126,7 @@ class Mage_Sales_Model_Quote_Item_Option extends Mage_Core_Model_Abstract implem
         if ($this->getItem()) {
             $this->setItemId($this->getItem()->getId());
         }
+
         return parent::_beforeSave();
     }
 

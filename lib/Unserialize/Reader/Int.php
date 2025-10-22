@@ -44,6 +44,7 @@ class Unserialize_Reader_Int
                 return (int) $this->_value;
             }
         }
+
         return null;
     }
 }

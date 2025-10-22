@@ -35,13 +35,16 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                         }
                     }
                 }
+
                 if (!empty($assocArr)) {
                     $arr[$key] = $assocArr;
                 }
             }
+
             $arr = $this->_prepareData($arr);
             return parent::_prepareData($arr);
         }
+
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 if (is_object($value) || is_array($value)) {
@@ -50,8 +53,10 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
                     $data[$key] = $value;
                 }
             }
+
             return parent::_prepareData($data);
         }
+
         return $data;
     }
 
@@ -81,6 +86,7 @@ class Mage_GiftMessage_Model_Api_V2 extends Mage_GiftMessage_Model_Api
             $response->result = false;
             $response->error = $e->getMessage();
         }
+
         return $response;
     }
 }

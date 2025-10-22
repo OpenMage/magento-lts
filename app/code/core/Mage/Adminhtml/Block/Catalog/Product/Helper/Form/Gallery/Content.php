@@ -108,9 +108,11 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
                     $image['url'] = Mage::getSingleton('catalog/product_media_config')
                                         ->getMediaUrl($image['file']);
                 }
+
                 return Mage::helper('core')->jsonEncode($value['images']);
             }
         }
+
         return '[]';
     }
 
@@ -125,6 +127,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
             $attributeCode = $attribute->getAttributeCode();
             $values[$attributeCode] = $this->getElement()->getDataObject()->getData($attributeCode);
         }
+
         return Mage::helper('core')->jsonEncode($values);
     }
 
@@ -142,6 +145,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content extends M
                 'field' => $this->getElement()->getAttributeFieldName($attribute),
             ];
         }
+
         return $imageTypes;
     }
 

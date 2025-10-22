@@ -58,6 +58,7 @@ class Mage_Captcha_Block_Captcha_Zend extends Mage_Core_Block_Template
             $this->getCaptchaModel()->generate();
             return parent::_toHtml();
         }
+
         return '';
     }
 

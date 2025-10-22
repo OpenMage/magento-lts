@@ -70,6 +70,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                 }
             }
         }
+
         return $this->_selectedColumns;
     }
 
@@ -142,9 +143,11 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
             $mainTable = $this->getTable('sales/bestsellers_aggregated_daily');
             $select->from($mainTable, $this->_getSelectedColumns());
         }
+
         if (!$this->isTotals()) {
             $select->group(['period', 'product_id']);
         }
+
         $select->where('rating_pos <= ?', $this->_ratingLimit);
 
         return $this;
@@ -293,6 +296,7 @@ class Mage_Sales_Model_Resource_Report_Bestsellers_Collection extends Mage_Sales
                     $query = $helper->getQueryUsingAnalyticFunction($union);
                     $unionParts[] = '(' . $query . ')';
                 }
+
                 $this->getSelect()->reset()->union($unionParts, Zend_Db_Select::SQL_UNION_ALL);
             }
 

@@ -124,6 +124,7 @@ class Mage_Adminhtml_Block_Cms_Wysiwyg_Images_Content_Files extends Mage_Adminht
         if ($this->hasData('media_type')) {
             return $this->_getData('media_type');
         }
+
         return $this->getRequest()->getParam('type');
     }
 }

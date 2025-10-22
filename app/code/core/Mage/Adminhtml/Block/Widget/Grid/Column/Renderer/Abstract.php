@@ -16,6 +16,7 @@
 abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends Mage_Adminhtml_Block_Abstract implements Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Interface
 {
     protected $_defaultWidth;
+
     protected $_column;
 
     /**
@@ -49,6 +50,7 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
                    . ($this->getColumn()->getEditOnly() ? '' : ($value != '' ? '' : '&nbsp;'))
                    . $this->_getInputValueElement($row);
         }
+
         return $this->_getValue($row);
     }
 
@@ -73,11 +75,14 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
             } elseif (is_callable($getter)) {
                 return call_user_func($getter, $row);
             }
+
             return '';
         }
+
         if ($index = $this->getColumn()->getIndex()) {
             return $row->getData($index);
         }
+
         return null;
     }
 
@@ -112,11 +117,13 @@ abstract class Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract extends
             if ($this->getColumn()->getDir()) {
                 $className = 'sort-arrow-' . $dir;
             }
+
             $out = '<a href="#" name="' . $this->getColumn()->getId() . '" title="' . $nDir . '" class="' . $className . '"><span class="sort-title">'
                    . $this->escapeHtml($this->getColumn()->getHeader()) . '</span></a>';
         } else {
             $out = $this->escapeHtml($this->getColumn()->getHeader());
         }
+
         return $out;
     }
 

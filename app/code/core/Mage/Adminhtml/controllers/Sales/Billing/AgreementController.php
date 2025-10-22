@@ -102,8 +102,10 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
                 $this->_getSession()->addError($this->__('Failed to cancel the billing agreement.'));
                 Mage::logException($e);
             }
+
             $this->_redirect('*/*/view', ['_current' => true]);
         }
+
         return $this->_redirect('*/*/');
     }
 
@@ -126,8 +128,10 @@ class Mage_Adminhtml_Sales_Billing_AgreementController extends Mage_Adminhtml_Co
                 $this->_getSession()->addError($this->__('Failed to delete the billing agreement.'));
                 Mage::logException($e);
             }
+
             $this->_redirect('*/*/view', ['_current' => true]);
         }
+
         $this->_redirect('*/*/');
     }
 

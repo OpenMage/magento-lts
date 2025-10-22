@@ -15,10 +15,12 @@ if (!file_exists($bootstrapFilename)) {
     echo 'Bootstrap file not found';
     exit;
 }
+
 if (!file_exists($mageFilename)) {
     echo 'Mage file not found';
     exit;
 }
+
 require $bootstrapFilename;
 require $mageFilename;
 
@@ -51,10 +53,12 @@ if (in_array($apiAlias, Mage_Api2_Model_Server::getApiTypes())) {
     } else {
         $adapterCode = $server->getAdapterCodeByAlias($apiAlias);
     }
+
     // if no adapters found in aliases - find it by default, by code
     if (null === $adapterCode) {
         $adapterCode = $apiAlias;
     }
+
     try {
         $server->initialize($adapterCode);
         // emulate index.php entry point for correct URLs generation in API

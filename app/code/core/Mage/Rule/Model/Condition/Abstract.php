@@ -90,6 +90,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 break;
             }
         }
+
         if ($options = $this->getOperatorOptions()) {
             foreach (array_keys($options) as $operator) {
                 $this->setOperator($operator);
@@ -128,6 +129,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             ];
             $this->_arrayInputTypes = ['multiselect', 'grid'];
         }
+
         return $this->_defaultOperatorInputByType;
     }
 
@@ -155,6 +157,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 '!()' => static::$translate ? Mage::helper('rule')->__('is not one of') : 'is not one of',
             ];
         }
+
         return $this->_defaultOperatorOptions;
     }
 
@@ -215,6 +218,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         if (is_string($xml)) {
             $xml = simplexml_load_string($xml);
         }
+
         $arr = (array) $xml;
         $this->loadArray($arr);
         return $this;
@@ -245,6 +249,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         foreach ($this->getAttributeOption() as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -291,6 +296,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 $opt[] = ['value' => $k, 'label' => $v];
             }
         }
+
         return $opt;
     }
 
@@ -320,9 +326,11 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         if ($this->hasValueOption()) {
             $valueOption = (array) $this->getValueOption();
         }
+
         foreach ($valueOption as $k => $v) {
             $opt[] = ['value' => $k, 'label' => $v];
         }
+
         return $opt;
     }
 
@@ -338,8 +346,10 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             if ($this->isArrayOperatorType() && is_string($value)) {
                 $value = preg_split('#\s*[,;]\s*#', $value, -1, PREG_SPLIT_NO_EMPTY);
             }
+
             $this->setValueParsed($value);
         }
+
         return $this->getData('value_parsed');
     }
 
@@ -386,6 +396,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 $this->setIsValueParsed(true);
             }
         }
+
         return $this->getData('value');
     }
 
@@ -415,15 +426,18 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                             }
                         }
                     }
+
                     if ($o['value'] == $value) {
                         return $o['label'];
                     }
                 }
             }
         }
+
         if (!empty($valueArr)) {
             $value = implode(', ', $valueArr);
         }
+
         return $value;
     }
 
@@ -584,6 +598,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         if (str_contains($this->getValueElementType(), '/')) {
             return Mage::getBlockSingleton($this->getValueElementType());
         }
+
         return Mage::getBlockSingleton('rule/editable');
     }
 
@@ -661,6 +676,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
         if ($url) {
             $html = '<div class="rule-chooser" url="' . $url . '"></div>';
         }
+
         return $html;
     }
 
@@ -726,6 +742,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } else {
                     $result = $this->_compareValues($validatedValue, $value);
                 }
+
                 break;
 
             case '<=':
@@ -735,6 +752,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } else {
                     $result = $validatedValue <= $value;
                 }
+
                 break;
 
             case '>=':
@@ -744,6 +762,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } else {
                     $result = $validatedValue >= $value;
                 }
+
                 break;
 
             case '{}':
@@ -767,6 +786,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                 } else {
                     $result = $this->_compareValues($value, $validatedValue, false);
                 }
+
                 break;
 
             case '()':
@@ -791,6 +811,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
                         }
                     }
                 }
+
                 break;
         }
 
@@ -819,6 +840,7 @@ abstract class Mage_Rule_Model_Condition_Abstract extends Varien_Object implemen
             if ($strict) {
                 $validatePattern = '^' . $validatePattern . '$';
             }
+
             return (bool) preg_match('~' . $validatePattern . '~iu', $value);
         }
     }

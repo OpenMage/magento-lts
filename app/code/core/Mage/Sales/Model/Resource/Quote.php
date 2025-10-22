@@ -218,6 +218,7 @@ class Mage_Sales_Model_Resource_Quote extends Mage_Sales_Model_Resource_Abstract
         if (!$productId) {
             return $this;
         }
+
         $adapter   = $this->_getWriteAdapter();
         $subSelect = $adapter->select();
 

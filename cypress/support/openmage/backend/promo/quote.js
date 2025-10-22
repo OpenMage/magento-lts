@@ -19,47 +19,46 @@ test.config = {
 
 /**
  * Configuration for "Shopping Cart Price Rules" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.promo.quote.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Shopping Cart Price Rules',
     url: test.config.url,
     _grid: '#promo_quote_grid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Rule"]',
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Shopping Cart Price Rules" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.promo.quote.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Rule"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Shopping Cart Price Rules button clicked');
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Shopping Cart Price Rules button clicked');
     },
 }
 
 /**
  * Configuration for "Edit Rule" page
- * @type {{__buttons: *, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.edit}}
  */
 test.config.edit = {
     title: 'Edit Rule',
     url: 'promo_quote/edit',
-    __buttons: base.__buttons,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
+    __buttons: base.__buttonsSets.edit,
 }
 
 /**
  * Configuration for "New Rule" page
- * @type {{__buttons: *, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new}}
  */
 test.config.new = {
     title: 'New Rule',
     url: 'promo_quote/new',
-    __buttons: base.__buttonsNew,
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
+    __buttons: base.__buttonsSets.new,
 }

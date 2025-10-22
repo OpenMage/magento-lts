@@ -79,6 +79,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
     protected $_fileQueue       = [];
 
     public const CALCULATE_CHILD = 0;
+
     public const CALCULATE_PARENT = 1;
 
     /**
@@ -86,6 +87,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
      *
      */
     public const SHIPMENT_SEPARATELY = 1;
+
     public const SHIPMENT_TOGETHER = 0;
 
     /**
@@ -143,6 +145,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (is_object($product)) {
             return $product;
         }
+
         return $this->_product;
     }
 
@@ -235,8 +238,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     $editableAttributes[$attributeCode] = $attribute;
                 }
             }
+
             $this->getProduct($product)->setData($cacheKey, $editableAttributes);
         }
+
         return $this->getProduct($product)->getData($cacheKey);
     }
 
@@ -254,6 +259,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                 return $attribute;
             }
         }
+
         return null;
     }
 
@@ -308,6 +314,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (is_string($options)) {
             return $options;
         }
+
         // try to found super product configuration
         // (if product was buying within grouped product)
         $superProductConfig = $buyRequest->getSuperProductConfig();
@@ -320,6 +327,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                     $superProduct = Mage::getModel('catalog/product')->load($superProductId);
                     Mage::register('used_super_product_' . $superProductId, $superProduct);
                 }
+
                 if ($superProduct->getId()) {
                     $assocProductIds = $superProduct->getTypeInstance(true)->getAssociatedProductIds($superProduct);
                     if (in_array($product->getId(), $assocProductIds)) {
@@ -351,6 +359,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->_isStrictProcessMode($processMode)) {
             $product->setCartQty($buyRequest->getQty());
         }
+
         $product->setQty($buyRequest->getQty());
 
         return [$product];
@@ -388,6 +397,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (!$processMode) {
             $processMode = self::PROCESS_MODE_FULL;
         }
+
         $_products = $this->_prepareProduct($buyRequest, $product, $processMode);
         $this->processFileQueue();
         return $_products;
@@ -438,8 +448,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                             if (isset($queueOptions['option'])) {
                                 $queueOptions['option']->setIsValid(false);
                             }
+
                             Mage::throwException(Mage::helper('catalog')->__('File upload failed'));
                         }
+
                         Mage::helper('core/file_storage_database')->saveFile($dst);
                         break;
                     case 'move_uploaded_file':
@@ -452,6 +464,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                         break;
                 }
             }
+
             $queueOptions = null;
         }
 
@@ -640,7 +653,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         foreach ($eavConfig->getEntityAttributeCodes($entityType, $product) as $attributeCode) {
             $attribute = $eavConfig->getAttribute($entityType, $attributeCode);
             $applyTo   = $attribute->getApplyTo();
-            if (is_array($applyTo) && count($applyTo) > 0 && !in_array($product->getTypeId(), $applyTo)) {
+            if (is_array($applyTo) && $applyTo !== [] && !in_array($product->getTypeId(), $applyTo)) {
                 $product->unsetData($attribute->getAttributeCode());
             }
         }
@@ -703,6 +716,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getCustomOption('option_ids')) {
             $sku = $this->getOptionSku($product, $sku);
         }
+
         return $sku;
     }
 
@@ -719,6 +733,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if (empty($sku)) {
             $sku = $this->getProduct($product)->getData('sku');
         }
+
         if ($optionIds = $this->getProduct($product)->getCustomOption('option_ids')) {
             foreach (explode(',', $optionIds->getValue()) as $optionId) {
                 if ($option = $this->getProduct($product)->getOptionById($optionId)) {
@@ -741,8 +756,10 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
                 }
             }
         }
+
         return $sku;
     }
+
     /**
      * Default action to get weight of product
      *
@@ -765,9 +782,11 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getHasOptions()) {
             return true;
         }
+
         if ($this->getProduct($product)->isRecurring()) {
             return true;
         }
+
         return false;
     }
 
@@ -798,6 +817,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->getProduct($product)->getRequiredOptions()) {
             return true;
         }
+
         return false;
     }
 
@@ -917,6 +937,7 @@ abstract class Mage_Catalog_Model_Product_Type_Abstract
         if ($this->isComposite($product)) {
             return [];
         }
+
         return [[$product]];
     }
 

@@ -28,11 +28,13 @@ class Mage_Sales_Block_Order_Item_Renderer_Grouped extends Mage_Sales_Block_Orde
         } else {
             $item = $this->getItem();
         }
+
         if ($productType = $item->getRealProductType()) {
             $renderer = $this->getRenderedBlock()->getItemRenderer($productType);
             $renderer->setItem($this->getItem());
             return $renderer->toHtml();
         }
+
         return parent::_toHtml();
     }
 }

@@ -16,6 +16,7 @@
 class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboard_Abstract
 {
     public const AXIS_X = 'x';
+
     public const AXIS_Y = 'y';
 
     /**
@@ -68,10 +69,13 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     protected $_htmlId = '';
 
     protected $_max;
+
     protected $_min;
 
     protected string $dataDelimiter = ',';
+
     protected string $dataSetdelimiter = '|';
+
     protected string $dataMissing = '_';
 
     /**
@@ -226,6 +230,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
 
             $indexid++;
         }
+
         $params['chxl'] = implode('|', $valueBuffer);
 
         return $params;
@@ -271,6 +276,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $dateStart->addMonth(1);
                     break;
             }
+
             if (in_array($period, [
                 Mage_Reports_Helper_Data::PERIOD_3_MONTHS,
                 Mage_Reports_Helper_Data::PERIOD_6_MONTHS,
@@ -280,6 +286,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $axisTimestamps[] = (new Zend_Date($axisDate, 'yyyy-MM-dd'))->getTimestamp();
                 }
             }
+
             foreach (array_keys($this->getAllSeries()) as $index) {
                 if (isset($axisTimestamps)) {
                     $dateObj = new Zend_Date($date, 'yyyy-MM-dd');
@@ -304,8 +311,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                         : 0;
                 }
             }
+
             $dates[] = $date;
         }
+
         return [$datas, $dates];
     }
 
@@ -326,6 +335,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                     $chartdata[] = $this->dataMissing . $this->dataDelimiter;
                 }
             }
+
             $chartdata[] = $this->dataSetdelimiter;
         }
 
@@ -354,6 +364,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
         } else {
             $maxvalue = max($localmaxvalue);
         }
+
         if (is_numeric($this->_min)) {
             $minvalue = $this->_min;
         } else {
@@ -397,6 +408,7 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
                 }
             }
         }
+
         return $options;
     }
 
@@ -441,9 +453,10 @@ class Mage_Adminhtml_Block_Dashboard_Graph extends Mage_Adminhtml_Block_Dashboar
     {
         $pow = 0;
         while ($number >= 10) {
-            $number = $number / 10;
+            $number /= 10;
             $pow++;
         }
+
         return $pow;
     }
 

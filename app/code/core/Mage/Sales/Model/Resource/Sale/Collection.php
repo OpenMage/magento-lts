@@ -129,6 +129,7 @@ class Mage_Sales_Model_Resource_Sale_Collection extends Varien_Data_Collection_D
                     $condition = 'nin';
                     break;
             }
+
             $this->addFieldToFilter('state', [$condition => $this->_orderStateValue]);
         }
 

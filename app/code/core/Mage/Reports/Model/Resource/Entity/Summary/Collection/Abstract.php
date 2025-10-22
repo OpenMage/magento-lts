@@ -56,9 +56,11 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
                 if (is_string($customStart)) {
                     $customStart = strtotime($customStart);
                 }
+
                 if (is_string($customEnd)) {
                     $customEnd = strtotime($customEnd);
                 }
+
                 break;
         }
 
@@ -97,6 +99,7 @@ class Mage_Reports_Model_Resource_Entity_Summary_Collection_Abstract extends Var
         if (empty($this->_entityCollection)) {
             $this->_initCollection();
         }
+
         return $this->_entityCollection;
     }
 

@@ -115,6 +115,7 @@ class Mage_Rss_IndexController extends Mage_Rss_Controller_Abstract
                 $this->_wishlist->loadByCustomer($this->_getCustomer());
             }
         }
+
         return $this->_wishlist;
     }
 

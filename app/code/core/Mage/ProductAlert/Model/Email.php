@@ -15,7 +15,9 @@
 class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
 {
     public const XML_PATH_EMAIL_PRICE_TEMPLATE = 'catalog/productalert/email_price_template';
+
     public const XML_PATH_EMAIL_STOCK_TEMPLATE = 'catalog/productalert/email_stock_template';
+
     public const XML_PATH_EMAIL_IDENTITY       = 'catalog/productalert/email_identity';
 
     /**
@@ -180,6 +182,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             $this->_priceBlock = Mage::helper('productalert')
                 ->createBlock('productalert/email_price');
         }
+
         return $this->_priceBlock;
     }
 
@@ -194,6 +197,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
             $this->_stockBlock = Mage::helper('productalert')
                 ->createBlock('productalert/email_stock');
         }
+
         return $this->_stockBlock;
     }
 
@@ -207,11 +211,13 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
         if (is_null($this->_website) || is_null($this->_customer)) {
             return false;
         }
+
         if (($this->_type == 'price' && count($this->_priceProducts) == 0)
             || ($this->_type == 'stock' && count($this->_stockProducts) == 0)
         ) {
             return false;
         }
+
         if (!$this->_website->getDefaultGroup() || !$this->_website->getDefaultGroup()->getDefaultStore()) {
             return false;
         }
@@ -240,6 +246,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getPriceBlock()->addProduct($product);
             }
+
             $block = $this->_getPriceBlock()->toHtml();
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_PRICE_TEMPLATE, $storeId);
         } else {
@@ -250,6 +257,7 @@ class Mage_ProductAlert_Model_Email extends Mage_Core_Model_Abstract
                 $product->setCustomerGroupId($this->_customer->getGroupId());
                 $this->_getStockBlock()->addProduct($product);
             }
+
             $block = $this->_getStockBlock()->toHtml();
             $templateId = Mage::getStoreConfig(self::XML_PATH_EMAIL_STOCK_TEMPLATE, $storeId);
         }

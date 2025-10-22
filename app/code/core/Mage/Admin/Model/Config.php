@@ -46,6 +46,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             if ($aclConfig) {
                 $adminhtmlConfig->getNode()->extendChild($aclConfig, true);
             }
+
             $menuConfig = Mage::getConfig()->getNode('adminhtml/menu');
             if ($menuConfig) {
                 $adminhtmlConfig->getNode()->extendChild($menuConfig, true);
@@ -96,8 +97,10 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
             if ($res->disabled == 1) {
                 continue;
             }
+
             $this->loadAclResources($acl, $res, $resourceName);
         }
+
         return $this;
     }
 
@@ -156,6 +159,7 @@ class Mage_Admin_Model_Config extends Varien_Simplexml_Config
         if ($menuNode->getAttribute('module')) {
             $moduleName = (string) $menuNode->getAttribute('module');
         }
+
         return Mage::helper($moduleName)->__((string) $menuNode->title);
     }
 }
