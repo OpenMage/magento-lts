@@ -12,13 +12,19 @@ require_once 'Varien/Db/Tree/Node/Exception.php';
 class Varien_Db_Tree_Node
 {
     private $left;
+
     private $right;
+
     private $id;
+
     private $pid;
+
     private $level;
+
     private $data;
 
     public $hasChild = false;
+
     public $numChild = 0;
 
     /**
@@ -32,6 +38,7 @@ class Varien_Db_Tree_Node
         if (empty($nodeData)) {
             throw new Varien_Db_Tree_Node_Exception('Empty array of node information');
         }
+
         if (empty($keys)) {
             throw new Varien_Db_Tree_Node_Exception('Empty keys array');
         }

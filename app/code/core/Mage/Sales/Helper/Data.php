@@ -40,6 +40,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
                 $this->__('Items maximum quantity or price do not allow checkout.'),
             );
         }
+
         return $this;
     }
 
@@ -154,6 +155,7 @@ class Mage_Sales_Helper_Data extends Mage_Core_Helper_Data
         if ($node === false) {
             return [];
         }
+
         return (array) $node;
     }
 }

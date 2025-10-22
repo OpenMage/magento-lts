@@ -27,6 +27,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
                 Mage::helper('payment')->getInfoBlock($info),
             );
         }
+
         return parent::_prepareLayout();
     }
 
@@ -40,6 +41,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
         if ($info = $this->getPaymentInfo()) {
             return 'payment.info.' . $info->getMethodInstance()->getCode();
         }
+
         return false;
     }
 
@@ -67,6 +69,7 @@ class Mage_Payment_Block_Info_Container extends Mage_Core_Block_Template
                 $this->getChild($this->_getInfoBlockName())->setTemplate($template);
             }
         }
+
         return $this;
     }
 }

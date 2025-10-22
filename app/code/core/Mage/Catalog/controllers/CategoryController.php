@@ -35,6 +35,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
         if (!Mage::helper('catalog/category')->canShow($category)) {
             return false;
         }
+
         Mage::getSingleton('catalog/session')->setLastVisitedCategoryId($category->getId());
         Mage::register('current_category', $category);
         Mage::register('current_entity_key', $category->getPath());
@@ -97,6 +98,7 @@ class Mage_Catalog_CategoryController extends Mage_Core_Controller_Front_Action
                 $this->getLayout()->helper('page/layout')
                     ->applyHandle($category->getPageLayout());
             }
+
             $update->addUpdate($category->getCustomLayoutUpdate());
         }
 

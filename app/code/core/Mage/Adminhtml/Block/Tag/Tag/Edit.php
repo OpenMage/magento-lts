@@ -101,6 +101,7 @@ class Mage_Adminhtml_Block_Tag_Tag_Edit extends Mage_Adminhtml_Block_Widget_Form
         if (Mage::registry('tag_tag')->getId()) {
             return Mage::helper('tag')->__("Edit Tag '%s'", $this->escapeHtml(Mage::registry('tag_tag')->getName()));
         }
+
         return Mage::helper('tag')->__('New Tag');
     }
 }

@@ -38,11 +38,13 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
             if ($object->hasEntityPk()) {
                 $select->where('entity_pk=?', $object->getEntityPk());
             }
+
             $data = $this->_getWriteAdapter()->fetchRow($select);
             if ($data) {
                 $object->mergePreviousData($data);
             }
         }
+
         $object->cleanNewData();
         return parent::_beforeSave($object);
     }
@@ -69,6 +71,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
                         ]);
                         continue;
                     }
+
                     $data = [
                         'process_id' => $processId,
                         'event_id'   => $object->getId(),
@@ -78,6 +81,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
                 }
             }
         }
+
         return parent::_afterSave($object);
     }
 
@@ -98,6 +102,7 @@ class Mage_Index_Model_Resource_Event extends Mage_Core_Model_Resource_Db_Abstra
         } elseif (!is_array($whereCondition)) {
             $whereCondition = ['process_id = ?' => $process];
         }
+
         $this->_getWriteAdapter()->update(
             $this->getTable('index/process_event'),
             ['status' => $status],

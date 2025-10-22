@@ -13,6 +13,7 @@
 class Mage_Paypal_Model_System_Config_Backend_Cron extends Mage_Core_Model_Config_Data
 {
     public const CRON_STRING_PATH = 'crontab/jobs/paypal_fetch_settlement_reports/schedule/cron_expr';
+
     public const CRON_MODEL_PATH_INTERVAL = 'paypal/fetch_reports/schedule';
 
     /**

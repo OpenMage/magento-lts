@@ -23,6 +23,7 @@ class Mage_Adminhtml_TaxController extends Mage_Adminhtml_Controller_Action
         if ($section) {
             Mage::helper('tax')->setIsIgnored('tax/ignore_notification/' . $section, true);
         }
+
         $this->_redirectReferer();
     }
 

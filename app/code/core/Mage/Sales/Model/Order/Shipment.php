@@ -49,20 +49,31 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     public const STATUS_NEW    = 1;
 
     public const XML_PATH_EMAIL_TEMPLATE               = 'sales_email/shipment/template';
+
     public const XML_PATH_EMAIL_GUEST_TEMPLATE         = 'sales_email/shipment/guest_template';
+
     public const XML_PATH_EMAIL_IDENTITY               = 'sales_email/shipment/identity';
+
     public const XML_PATH_EMAIL_COPY_TO                = 'sales_email/shipment/copy_to';
+
     public const XML_PATH_EMAIL_COPY_METHOD            = 'sales_email/shipment/copy_method';
+
     public const XML_PATH_EMAIL_ENABLED                = 'sales_email/shipment/enabled';
 
     public const XML_PATH_UPDATE_EMAIL_TEMPLATE        = 'sales_email/shipment_comment/template';
+
     public const XML_PATH_UPDATE_EMAIL_GUEST_TEMPLATE  = 'sales_email/shipment_comment/guest_template';
+
     public const XML_PATH_UPDATE_EMAIL_IDENTITY        = 'sales_email/shipment_comment/identity';
+
     public const XML_PATH_UPDATE_EMAIL_COPY_TO         = 'sales_email/shipment_comment/copy_to';
+
     public const XML_PATH_UPDATE_EMAIL_COPY_METHOD     = 'sales_email/shipment_comment/copy_method';
+
     public const XML_PATH_UPDATE_EMAIL_ENABLED         = 'sales_email/shipment_comment/enabled';
 
     public const REPORT_DATE_TYPE_ORDER_CREATED        = 'order_created';
+
     public const REPORT_DATE_TYPE_SHIPMENT_CREATED     = 'shipment_created';
 
     /**
@@ -91,6 +102,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
     protected $_comments;
 
     protected $_eventPrefix = 'sales_order_shipment';
+
     protected $_eventObject = 'shipment';
 
     /**
@@ -127,6 +139,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             reset($ids);
             $this->load(current($ids));
         }
+
         return $this;
     }
 
@@ -163,6 +176,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!$this->_order instanceof Mage_Sales_Model_Order) {
             $this->_order = Mage::getModel('sales/order')->load($this->getOrderId());
         }
+
         return $this->_order->setHistoryEntityName(self::HISTORY_ENTITY_NAME);
     }
 
@@ -213,6 +227,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 $item->isDeleted(true);
             }
         }
+
         $this->setTotalQty($totalQty);
 
         return $this;
@@ -233,6 +248,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
         return $this->_items;
     }
 
@@ -247,6 +263,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 $items[] =  $item;
             }
         }
+
         return $items;
     }
 
@@ -261,6 +278,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 return $item;
             }
         }
+
         return false;
     }
 
@@ -276,6 +294,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!$item->getId()) {
             $this->getItemsCollection()->addItem($item);
         }
+
         return $this;
     }
 
@@ -294,6 +313,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
         return $this->_tracks;
     }
 
@@ -308,6 +328,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 $tracks[] =  $track;
             }
         }
+
         return $tracks;
     }
 
@@ -322,6 +343,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 return $track;
             }
         }
+
         return false;
     }
 
@@ -367,12 +389,14 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 ->setIsCustomerNotified($notify)
                 ->setIsVisibleOnFront($visibleOnFront);
         }
+
         $comment->setShipment($this)
             ->setParentId($this->getId())
             ->setStoreId($this->getStoreId());
         if (!$comment->getId()) {
             $this->getCommentsCollection()->addItem($comment);
         }
+
         $this->_hasDataChanges = true;
         return $this;
     }
@@ -400,6 +424,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                 }
             }
         }
+
         return $this->_comments;
     }
 
@@ -418,6 +443,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!Mage::helper('sales')->canSendNewShipmentEmail($storeId)) {
             return $this;
         }
+
         // Get the destination email addresses to send copies to
         $copyTo = $this->_getEmails(self::XML_PATH_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_EMAIL_COPY_METHOD, $storeId);
@@ -443,6 +469,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
             if (isset($appEmulation, $initialEnvironmentInfo)) {
                 $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
             }
+
             throw $e;
         }
 
@@ -470,6 +497,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                     $emailInfo->addBcc($email);
                 }
             }
+
             $mailer->addEmailInfo($emailInfo);
         }
 
@@ -513,6 +541,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!Mage::helper('sales')->canSendShipmentCommentEmail($storeId)) {
             return $this;
         }
+
         // Get the destination email addresses to send copies to
         $copyTo = $this->_getEmails(self::XML_PATH_UPDATE_EMAIL_COPY_TO);
         $copyMethod = Mage::getStoreConfig(self::XML_PATH_UPDATE_EMAIL_COPY_METHOD, $storeId);
@@ -540,6 +569,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
                     $emailInfo->addBcc($email);
                 }
             }
+
             $mailer->addEmailInfo($emailInfo);
         }
 
@@ -577,6 +607,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if (!empty($data)) {
             return explode(',', $data);
         }
+
         return false;
     }
 
@@ -676,6 +707,7 @@ class Mage_Sales_Model_Order_Shipment extends Mage_Sales_Model_Abstract
         if ($label) {
             return $this->getResource()->getReadConnection()->decodeVarbinary($label);
         }
+
         return $label;
     }
 }

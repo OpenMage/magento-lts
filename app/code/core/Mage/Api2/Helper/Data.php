@@ -28,6 +28,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
      * Config paths
      */
     public const XML_PATH_AUTH_ADAPTERS = 'global/api2/auth_adapters';
+
     public const XML_PATH_USER_TYPES    = 'global/api2/user_types';
 
     protected $_moduleName = 'Mage_Api2';
@@ -57,6 +58,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
         if (!$adapters) {
             return [];
         }
+
         $adapters = $adapters->asArray();
 
         if ($enabledOnly) {
@@ -65,8 +67,10 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
                     unset($adapters);
                 }
             }
+
             $adapters = (array) $adapters;
         }
+
         uasort($adapters, ['Mage_Api2_Helper_Data', '_compareOrder']);
 
         return $adapters;
@@ -89,6 +93,7 @@ class Mage_Api2_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
         }
+
         return $userModels;
     }
 

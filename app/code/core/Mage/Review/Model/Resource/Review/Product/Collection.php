@@ -230,6 +230,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             $model->getReviewSummary($item->getReviewId());
             $item->addData($model->getData());
         }
+
         return $this;
     }
 
@@ -248,6 +249,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 ->load();
             $item->setRatingVotes($votesCollection);
         }
+
         return $this;
     }
 
@@ -336,6 +338,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
             default:
                 parent::setOrder($attribute, $dir);
         }
+
         return $this;
     }
 
@@ -378,6 +381,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                     ];
                     $conditionSql = implode(' AND ', $conditionParts);
                 }
+
                 $this->getSelect()->where($conditionSql);
                 break;
 
@@ -385,6 +389,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 parent::addAttributeToFilter($attribute, $condition, $joinType);
                 break;
         }
+
         return $this;
     }
 
@@ -400,6 +405,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         foreach ($this->getItems() as $item) {
             $col[] = $item->getData($colName);
         }
+
         return $col;
     }
 
@@ -414,6 +420,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
         if ($this->_addStoreDataFlag) {
             $this->_addStoreData();
         }
+
         return $this;
     }
 
@@ -439,6 +446,7 @@ class Mage_Review_Model_Resource_Review_Product_Collection extends Mage_Catalog_
                 if (!isset($storesToReviews[$row['review_id']])) {
                     $storesToReviews[$row['review_id']] = [];
                 }
+
                 $storesToReviews[$row['review_id']][] = $row['store_id'];
             }
         }

@@ -96,9 +96,11 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                     ->save();
                 $this->setQuoteId($this->_quote->getId());
             }
+
             $this->_quote->setIgnoreOldQty(true);
             $this->_quote->setIsSuperMode(true);
         }
+
         return $this->_quote;
     }
 
@@ -126,13 +128,16 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
             if ($useSetStore && $this->getStore()->getId()) {
                 $this->_customer->setStore($this->getStore());
             }
+
             if ($customerId = $this->getCustomerId()) {
                 $this->_customer->load($customerId);
             }
+
             if ($this->getCustomerIsGuest()) {
                 $this->_customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
             }
         }
+
         return $this->_customer;
     }
 
@@ -149,6 +154,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                 $this->_store->setCurrentCurrencyCode($currencyId);
             }
         }
+
         return $this->_store;
     }
 
@@ -165,6 +171,7 @@ class Mage_Adminhtml_Model_Session_Quote extends Mage_Core_Model_Session_Abstrac
                 $this->_order->load($this->getOrderId());
             }
         }
+
         return $this->_order;
     }
 }

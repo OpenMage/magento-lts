@@ -60,10 +60,12 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->isLoaded()) {
             return $this;
         }
+
         parent::load($printQuery, $logQuery);
         if ($this->getFlag('add_stores_after')) {
             $this->_addStoresVisibility();
         }
+
         return $this;
     }
 
@@ -156,6 +158,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
             $this->setFlag('popularity');
         }
+
         return $this;
     }
 
@@ -187,6 +190,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
 
             $this->setFlag('summary', true);
         }
+
         return $this;
     }
 
@@ -258,6 +262,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         } else {
             parent::addFieldToFilter($field, $condition);
         }
+
         return $this;
     }
 
@@ -299,6 +304,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             if ($this->getFlag('relation') && $allFilter) {
                 $this->getSelect()->where('relation.store_id IN (?)', $storeId);
             }
+
             if ($this->getFlag('prelation') && $allFilter) {
                 $this->getSelect()->where('prelation.store_id IN (?)', $storeId);
             }
@@ -327,6 +333,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('prelation')) {
             $this->getSelect()->where('prelation.active = ?', $statusActive);
         }
+
         return $this;
     }
 
@@ -354,6 +361,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
         if ($this->getFlag('prelation')) {
             $this->addFieldToFilter('prelation.product_id', $productId);
         }
+
         return $this;
     }
 
@@ -371,6 +379,7 @@ class Mage_Tag_Model_Resource_Tag_Collection extends Mage_Core_Model_Resource_Db
             $this->getSelect()
                 ->where('prelation.customer_id = ?', $customerId);
         }
+
         return $this;
     }
 

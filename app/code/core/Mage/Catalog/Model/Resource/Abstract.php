@@ -113,6 +113,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         if (count($storeIds) > 1) {
             $select->order('attr_table.store_id ASC');
         }
+
         if ($setId) {
             $select->join(
                 ['set_table' => $this->getTable('eav/entity_attribute')],
@@ -121,6 +122,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 [],
             );
         }
+
         return $select;
     }
 
@@ -187,6 +189,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
             if (!$isDefaultStore) {
                 $object->setExistsStoreValueFlag($attributeCode);
             }
+
             $attribute->getBackend()->setEntityValueId($object, $valueId);
         }
 
@@ -482,9 +485,11 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                     $globalAttributeIds[] = $attr->getId();
                 }
             }
+
             if (!empty($globalAttributeIds)) {
                 $where .= ' or ' . $this->_getReadAdapter()->quoteInto('attribute_id in (?)', $globalAttributeIds);
             }
+
             $select->where($where);
 
             $values = $this->_getReadAdapter()->fetchAll($select);
@@ -497,6 +502,7 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
                 $data[$this->getAttribute($row['attribute_id'])->getName()][$row['store_id']] = $row;
             }
         }
+
         return $data;
     }
 
@@ -582,12 +588,13 @@ abstract class Mage_Catalog_Model_Resource_Abstract extends Mage_Eav_Model_Entit
         $adapter            = $this->_getReadAdapter();
         $getPerStore        = false;
 
+        /** @var Mage_Catalog_Model_Entity_Attribute $_attribute */
         foreach ($attribute as $_attribute) {
-            /** @var Mage_Catalog_Model_Entity_Attribute $attribute */
             $_attribute = $this->getAttribute($_attribute);
             if (!$_attribute) {
                 continue;
             }
+
             $attributeCode = $_attribute->getAttributeCode();
             $attrTable     = $_attribute->getBackend()->getTable();
             $isStatic      = $_attribute->getBackend()->isStatic();

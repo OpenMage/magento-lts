@@ -61,6 +61,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         } else {
             $this->_storeId = (int) Mage::app()->getStore($store)->getId();
         }
+
         return $this;
     }
 
@@ -75,6 +76,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if ($store === null) {
             $store = $this->getStoreId();
         }
+
         return $this->getTable(['catalog/product_flat', $store]);
     }
 
@@ -102,6 +104,7 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (!isset($describe[$attributeCode])) {
             return null;
         }
+
         $columns = [$attributeCode => $attributeCode];
 
         $attributeIndex = sprintf('%s_value', $attributeCode);
@@ -124,10 +127,12 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
         if (!isset($describe[$attributeCode])) {
             return null;
         }
+
         $attributeIndex = sprintf('%s_value', $attributeCode);
         if (isset($describe[$attributeIndex])) {
             return $attributeIndex;
         }
+
         return $attributeCode;
     }
 
@@ -227,10 +232,11 @@ class Mage_Catalog_Model_Resource_Product_Flat extends Mage_Core_Model_Resource_
                 ->limit(1);
             try {
                 $this->_isBuilt[$storeId] = (bool) $this->_getReadAdapter()->fetchOne($select);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $this->_isBuilt[$storeId] = false;
             }
         }
+
         return $this->_isBuilt[$storeId];
     }
 }

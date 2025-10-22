@@ -55,6 +55,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
         if ($this->isValueChanged()) {
             Mage::getModel('core/design_package')->cleanMergedJsCss();
         }
+
         return $this;
     }
 
@@ -67,6 +68,7 @@ class Mage_Adminhtml_Model_System_Config_Backend_Baseurl extends Mage_Core_Model
         if (!preg_match('#^{{((un)?secure_)?base_url}}#', $value)) {
             $value = Mage::helper('core/url')->decodePunycode($value);
         }
+
         $this->setValue($value);
         return parent::_afterLoad();
     }

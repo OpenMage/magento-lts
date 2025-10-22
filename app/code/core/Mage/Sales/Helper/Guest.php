@@ -20,6 +20,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
      * Cookie params
      */
     protected $_cookieName  = 'guest-view';
+
     protected $_lifeTime    = 600;
 
     /**
@@ -165,6 +166,7 @@ class Mage_Sales_Helper_Guest extends Mage_Core_Helper_Data
                 }
             }
         }
+
         return null;
     }
 

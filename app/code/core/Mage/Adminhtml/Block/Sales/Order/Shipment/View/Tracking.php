@@ -107,6 +107,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
                 $carriers[$code] = $carrier->getConfigData('title');
             }
         }
+
         return $carriers;
     }
 
@@ -119,6 +120,7 @@ class Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking extends Mage_Admin
         if ($carrier = Mage::getSingleton('shipping/config')->getCarrierInstance($code)) {
             return $carrier->getConfigData('title');
         }
+
         return Mage::helper('sales')->__('Custom Value');
     }
 }

@@ -30,6 +30,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         if ($this->hasData('secure_is_forced')) {
             return $this->getData('secure');
         }
+
         return Mage::getStoreConfigFlag(Mage_Core_Model_Store::XML_PATH_SECURE_IN_ADMINHTML);
     }
 
@@ -79,11 +80,13 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         } else {
             $secret = [self::SECRET_KEY_PARAM_NAME => $this->getSecretKey($controller, $action)];
         }
+
         if (is_array($routeParams)) {
             $routeParams = array_merge($secret, $routeParams);
         } else {
             $routeParams = $secret;
         }
+
         if (is_array($this->getRouteParams())) {
             $routeParams = array_merge($this->getRouteParams(), $routeParams);
         }
@@ -106,6 +109,7 @@ class Mage_Adminhtml_Model_Url extends Mage_Core_Model_Url
         if (!$controller) {
             $controller = !empty($p[1]) ? $p[1] : $this->getRequest()->getControllerName();
         }
+
         if (!$action) {
             $action = !empty($p[2]) ? $p[2] : $this->getRequest()->getActionName();
         }

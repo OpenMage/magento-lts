@@ -31,6 +31,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
         $helper = Mage::helper('api/data');
 
         $helper->wsiArrayUnpacker($args);
+
         $args = get_object_vars($args);
 
         if (isset($args['sessionId'])) {
@@ -153,6 +154,7 @@ class Mage_Api_Model_Server_Wsi_Handler extends Mage_Api_Model_Server_Handler_Ab
                 $this->_fault('invalid_request_param');
             }
         }
+
         return $callArgs;
     }
 

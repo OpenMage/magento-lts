@@ -17,6 +17,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
     protected $_mapAttributes = [
         'customer_id' => 'entity_id',
     ];
+
     /**
      * Prepare data to insert/update.
      * Creating array for stdClass Object
@@ -32,6 +33,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
                 unset($data[$attributeAlias]);
             }
         }
+
         return $data;
     }
 
@@ -52,6 +54,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('data_invalid', $e->getMessage());
         }
+
         return $customer->getId();
     }
 
@@ -106,6 +109,7 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
         } catch (Mage_Core_Exception $e) {
             $this->_fault('filters_invalid', $e->getMessage());
         }
+
         $result = [];
         /** @var Mage_Customer_Model_Customer $customer */
         foreach ($collection as $customer) {
@@ -114,11 +118,13 @@ class Mage_Customer_Model_Customer_Api extends Mage_Customer_Model_Api_Resource
             foreach ($this->_mapAttributes as $attributeAlias => $attributeCode) {
                 $row[$attributeAlias] = $data[$attributeCode] ?? null;
             }
+
             foreach (array_keys($this->getAllowedAttributes($customer)) as $attributeCode) {
                 if (isset($data[$attributeCode])) {
                     $row[$attributeCode] = $data[$attributeCode];
                 }
             }
+
             $result[] = $row;
         }
 

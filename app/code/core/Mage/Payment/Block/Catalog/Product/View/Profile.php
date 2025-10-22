@@ -37,6 +37,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
         foreach ($this->_profile->exportScheduleInfo() as $info) {
             $scheduleInfo[$info->getTitle()] = $info->getSchedule();
         }
+
         return $scheduleInfo;
     }
 
@@ -60,6 +61,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
                 ->setTime(true);
             return $calendar->getHtml();
         }
+
         return '';
     }
 
@@ -74,6 +76,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
         if ($product) {
             $this->_profile = Mage::getModel('payment/recurring_profile')->importProduct($product);
         }
+
         return parent::_prepareLayout();
     }
 
@@ -87,6 +90,7 @@ class Mage_Payment_Block_Catalog_Product_View_Profile extends Mage_Core_Block_Te
         if (!$this->_profile) {
             $this->_template = '';
         }
+
         return parent::_toHtml();
     }
 }

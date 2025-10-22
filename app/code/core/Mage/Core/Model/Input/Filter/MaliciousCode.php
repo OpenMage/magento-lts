@@ -68,6 +68,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
         if (!in_array($expression, $this->_expressions)) {
             $this->_expressions[] = $expression;
         }
+
         return $this;
     }
 
@@ -110,6 +111,7 @@ class Mage_Core_Model_Input_Filter_MaliciousCode implements Zend_Filter_Interfac
             if (!empty($relAttributeCurrentValue)) {
                 $relAttributeItems = explode(' ', $relAttributeCurrentValue);
             }
+
             $relAttributeItems = array_unique(array_merge($relAttributeItems, $relAttributeDefaultItems));
             $linkItem->setAttribute('rel', implode(' ', $relAttributeItems));
             $linkItem->setAttribute('target', '_blank');

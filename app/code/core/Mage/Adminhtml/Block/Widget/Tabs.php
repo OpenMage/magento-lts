@@ -169,6 +169,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         ) {
             $this->_activeTab = $tabId;
         }
+
         return $this;
     }
 
@@ -187,6 +188,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                 return $this;
             }
         }
+
         return $this;
     }
 
@@ -275,6 +277,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if (empty($this->_tabs)) {
             return [];
         }
+
         return array_keys($this->_tabs);
     }
 
@@ -288,6 +291,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
             return ($withPrefix ? $this->getId() . '_' : '') . $tab->getTabId();
         }
+
         return ($withPrefix ? $this->getId() . '_' : '') . $tab->getId();
     }
 
@@ -300,6 +304,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
             return $tab->canShowTab();
         }
+
         return true;
     }
 
@@ -312,6 +317,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
             return $tab->isHidden();
         }
+
         return $tab->getIsHidden();
     }
 
@@ -325,11 +331,14 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             if (method_exists($tab, 'getTabUrl')) {
                 return $tab->getTabUrl();
             }
+
             return '#';
         }
+
         if (!is_null($tab->getUrl())) {
             return $tab->getUrl();
         }
+
         return '#';
     }
 
@@ -342,6 +351,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
             return $tab->getTabTitle();
         }
+
         return $tab->getTitle();
     }
 
@@ -355,8 +365,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             if (method_exists($tab, 'getTabClass')) {
                 return $tab->getTabClass();
             }
+
             return '';
         }
+
         return (string) $tab->getClass();
     }
 
@@ -369,6 +381,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if ($tab instanceof Mage_Adminhtml_Block_Widget_Tab_Interface) {
             return $this->escapeHtml($tab->getTabLabel());
         }
+
         return $this->escapeHtml($tab->getLabel());
     }
 
@@ -382,8 +395,10 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             if ($tab->getSkipGenerateContent()) {
                 return '';
             }
+
             return $tab->toHtml();
         }
+
         return $tab->getContent();
     }
 
@@ -405,6 +420,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                     $tabs[$tabId] = $tabId;
                 }
             }
+
             $blockId = $this->getId();
             foreach ($tabs as $tabId) {
                 foreach ($tabs as $tabToId) {
@@ -412,6 +428,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                         if (!$this->_tabs[$tabToId]->getData('shadow_tabs')) {
                             $this->_tabs[$tabToId]->setData('shadow_tabs', []);
                         }
+
                         $this->_tabs[$tabToId]->setData('shadow_tabs', array_merge(
                             $this->_tabs[$tabToId]->getData('shadow_tabs'),
                             [$blockId . '_' . $tabId],
@@ -439,9 +456,11 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
                 }
             }
         }
+
         if ($asJson) {
             return Mage::helper('core')->jsonEncode($result);
         }
+
         return $result;
     }
 
@@ -459,6 +478,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
             if ($key == 'url') {
                 $value = $this->getUrl($value, ['_current' => true, '_use_rewrite' => true]);
             }
+
             $this->_tabs[$tab]->setData($key, $value);
         }
 
@@ -476,6 +496,7 @@ class Mage_Adminhtml_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget
         if (isset($this->_tabs[$tabId])) {
             unset($this->_tabs[$tabId]);
         }
+
         return $this;
     }
 }

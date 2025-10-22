@@ -47,6 +47,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
         if ($group->usesAsDefault()) {
             Mage::throwException(Mage::helper('customer')->__('The group "%s" cannot be deleted', $group->getCode()));
         }
+
         return parent::_beforeDelete($group);
     }
 
@@ -66,6 +67,7 @@ class Mage_Customer_Model_Resource_Group extends Mage_Core_Model_Resource_Db_Abs
             $customer->setGroupId($defaultGroupId);
             $customer->save();
         }
+
         return parent::_afterDelete($group);
     }
 }

@@ -48,6 +48,7 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                 if ($reportId) {
                     $adapter->delete($this->_rowsTable, ['report_id = ?' => $reportId]);
                 }
+
                 /** @var Mage_Core_Model_Date $date */
                 $date = Mage::getSingleton('core/date');
 
@@ -68,11 +69,13 @@ class Mage_Paypal_Model_Resource_Report_Settlement extends Mage_Core_Model_Resou
                      */
                     $rows[$key]['report_id'] = $reportId;
                 }
+
                 if (!empty($rows)) {
                     $adapter->insertMultiple($this->_rowsTable, $rows);
                 }
+
                 $adapter->commit();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $adapter->rollBack();
             }
         }

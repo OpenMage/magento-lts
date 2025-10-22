@@ -28,6 +28,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
             $to = [$payment, 'setAdditionalInformation'];
             $payment->getMethodInstance()->getCentinelValidator()->exportCmpiData($to);
         }
+
         return $this;
     }
 
@@ -59,6 +60,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
                 $transport->setData($helper->getCmpiLabel($key), $helper->getCmpiValue($key, $value));
             }
         }
+
         return $this;
     }
 
@@ -79,6 +81,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
                 Mage::helper('centinel')->getMethodFormBlock($method),
             );
         }
+
         return $this;
     }
 
@@ -103,6 +106,7 @@ class Mage_Centinel_Model_Observer extends Varien_Object
         if ($method && $method->getIsCentinelValidationEnabled()) {
             $method->getCentinelValidator()->reset();
         }
+
         return $this;
     }
 

@@ -187,6 +187,7 @@ class Varien_Image
         if (!file_exists($watermarkImage)) {
             throw new Exception("Required file '{$watermarkImage}' does not exists.");
         }
+
         $this->_getAdapter()->watermark($watermarkImage, $positionX, $positionY, $watermarkImageOpacity, $repeat);
     }
 
@@ -288,6 +289,7 @@ class Varien_Image
         if (!isset($this->_adapter)) {
             $this->_adapter = Varien_Image_Adapter::factory($adapter);
         }
+
         return $this->_adapter;
     }
 

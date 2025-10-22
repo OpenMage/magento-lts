@@ -49,6 +49,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
             $this->rollBack();
             throw $e;
         }
+
         return $this;
     }
 
@@ -88,6 +89,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         if (is_null($this->_typeId)) {
             Mage::throwException(Mage::helper('cataloginventory')->__('Undefined product type.'));
         }
+
         return $this->_typeId;
     }
 
@@ -227,6 +229,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
                 $data = [];
             }
         }
+
         $this->_updateIndexTable($data);
 
         return $this;
@@ -261,6 +264,7 @@ class Mage_CatalogInventory_Model_Resource_Indexer_Stock_Default extends Mage_Ca
         if ($this->useIdxTable()) {
             return $this->getTable('cataloginventory/stock_status_indexer_idx');
         }
+
         return $this->getTable('cataloginventory/stock_status_indexer_tmp');
     }
 }

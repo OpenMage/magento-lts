@@ -1,12 +1,19 @@
-const route = cy.testRoutes.backend.sales.order;
+const test = cy.openmage.test.backend.sales.order.config;
+const tools = cy.openmage.tools;
+const validation = cy.openmage.validation;
 
-describe(`Checks admin system "${route.h3}"`, () => {
+describe(`Checks admin system "${test.index.title}"`, () => {
     beforeEach('Log in the user', () => {
-        cy.adminLogIn();
-        cy.adminGoToTestRoute(route);
+        cy.openmage.admin.login();
+        cy.openmage.admin.goToPage(test, test.index);
     });
 
-    it(`tests classes and title`, () => {
-        cy.adminTestRoute(route);
+    it(`tests index route`, () => {
+        validation.pageElements(test, test.index);
+    });
+
+    it(`tests view route`, () => {
+        tools.grid.clickFirstRow(test.index);
+        validation.pageElements(test, test.view);
     });
 });

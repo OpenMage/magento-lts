@@ -89,6 +89,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
         } else {
             $breadcrumb = $this->__('New User');
         }
+
         $this->_initAction()
             ->_addBreadcrumb($breadcrumb, $breadcrumb);
 
@@ -125,6 +126,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             if ($model->hasNewPassword() && $model->getNewPassword() === '') {
                 $model->unsNewPassword();
             }
+
             if ($model->hasPasswordConfirmation() && $model->getPasswordConfirmation() === '') {
                 $model->unsPasswordConfirmation();
             }
@@ -132,11 +134,13 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             if (!is_array($result)) {
                 $result = $model->validate();
             }
+
             if (is_array($result)) {
                 Mage::getSingleton('adminhtml/session')->setUserData($data);
                 foreach ($result as $message) {
                     Mage::getSingleton('adminhtml/session')->addError($message);
                 }
+
                 $this->_redirect('*/*/edit', ['_current' => true]);
                 return $this;
             }
@@ -147,6 +151,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 if (Mage::getStoreConfigFlag('admin/security/crate_admin_user_notification') && $isNew) {
                     Mage::getModel('admin/user')->sendAdminNotification($model);
                 }
+
                 if ($uRoles = $this->getRequest()->getParam('roles', false)) {
                     if (is_array($uRoles) && (count($uRoles) >= 1)) {
                         // with fix for previous multi-roles logic
@@ -155,6 +160,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                             ->saveRelations();
                     }
                 }
+
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('The user has been saved.'));
                 Mage::getSingleton('adminhtml/session')->setUserData(false);
                 $this->_redirect('*/*/');
@@ -166,6 +172,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 return;
             }
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -182,6 +189,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
             foreach ($result as $error) {
                 $this->_getSession()->addError($error);
             }
+
             $this->_redirect('*/*/edit', ['user_id' => $id]);
             return;
         }
@@ -194,6 +202,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 $this->_redirect('*/*/edit', ['user_id' => $id]);
                 return;
             }
+
             try {
                 $model = Mage::getModel('admin/user');
                 $model->setId($id);
@@ -207,6 +216,7 @@ class Mage_Adminhtml_Permissions_UserController extends Mage_Adminhtml_Controlle
                 return;
             }
         }
+
         Mage::getSingleton('adminhtml/session')->addError($this->__('Unable to find a user to delete.'));
         $this->_redirect('*/*/');
     }

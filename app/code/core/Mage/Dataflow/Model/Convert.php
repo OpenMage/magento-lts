@@ -19,6 +19,7 @@ class Mage_Dataflow_Model_Convert
         if (is_string($class)) {
             $class = new $class();
         }
+
         $action = new Mage_Dataflow_Model_Convert_Action();
         $action->setParam('method', $method)->setParam('class', $class);
 

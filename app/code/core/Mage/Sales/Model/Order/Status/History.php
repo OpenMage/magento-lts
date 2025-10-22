@@ -39,6 +39,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
     protected $_order;
 
     protected $_eventPrefix = 'sales_order_status_history';
+
     protected $_eventObject = 'status_history';
 
     protected function _construct()
@@ -112,6 +113,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
         if ($this->getOrder()) {
             return $this->getOrder()->getConfig()->getStatusLabel($this->getStatus());
         }
+
         return '';
     }
 
@@ -126,6 +128,7 @@ class Mage_Sales_Model_Order_Status_History extends Mage_Sales_Model_Abstract
         if ($this->getOrder()) {
             return $this->getOrder()->getStore();
         }
+
         return Mage::app()->getStore();
     }
 

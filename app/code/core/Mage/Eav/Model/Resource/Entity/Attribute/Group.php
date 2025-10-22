@@ -50,6 +50,7 @@ class Mage_Eav_Model_Resource_Entity_Attribute_Group extends Mage_Core_Model_Res
         if (!$object->getSortOrder()) {
             $object->setSortOrder($this->_getMaxSortOrder($object) + 1);
         }
+
         return parent::_beforeSave($object);
     }
 

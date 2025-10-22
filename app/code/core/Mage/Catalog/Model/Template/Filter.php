@@ -96,12 +96,14 @@ class Mage_Catalog_Model_Template_Filter extends Varien_Filter_Template
         if (!isset($params['_query'])) {
             $params['_query'] = [];
         }
+
         foreach ($params as $k => $v) {
             if (str_starts_with($k, '_query_')) {
                 $params['_query'][substr($k, 7)] = $v;
                 unset($params[$k]);
             }
         }
+
         $params['_absolute'] = $this->_useAbsoluteLinks;
 
         if ($this->_useSessionInUrl === false) {

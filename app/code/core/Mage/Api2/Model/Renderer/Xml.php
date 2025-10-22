@@ -85,6 +85,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
                 throw new Exception('Prepare data must be an object or an array.');
             }
         }
+
         $data = $data instanceof Varien_Object ? $data->toArray() : (array) $data;
         $isAssoc = !preg_match('/^\d+$/', implode('', array_keys($data)));
 
@@ -97,6 +98,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
                 $preparedData[self::ARRAY_NON_ASSOC_ITEM_NAME][] = $value;
             }
         }
+
         return $preparedData;
     }
 
@@ -128,6 +130,7 @@ class Mage_Api2_Model_Renderer_Xml implements Mage_Api2_Model_Renderer_Interface
         if (preg_match($this->_protectedTagNamePattern, $key)) {
             $key = self::ARRAY_NON_ASSOC_ITEM_NAME . '_' . $key;
         }
+
         return $key;
     }
 

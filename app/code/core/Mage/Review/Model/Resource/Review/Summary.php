@@ -68,12 +68,14 @@ class Mage_Review_Model_Resource_Review_Summary extends Mage_Core_Model_Resource
             } else {
                 $ratingSummary = 0;
             }
+
             $adapter->update(
                 $this->getMainTable(),
                 ['rating_summary' => $ratingSummary],
                 $adapter->quoteInto('primary_id = ?', $row['primary_id']),
             );
         }
+
         return $this;
     }
 }

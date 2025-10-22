@@ -51,6 +51,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if (!isset($websites[$s['website_id']])) {
                 continue;
             }
+
             $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/id', $s['store_id']);
             $xmlConfig->setNode('stores/' . $s['code'] . '/system/store/name', $s['name']);
             $xmlConfig->setNode('stores/' . $s['code'] . '/system/website/id', $s['website_id']);
@@ -68,6 +69,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         if (!is_null($condition)) {
             $select->where($condition);
         }
+
         $rowset = $read->fetchAll($select);
 
         // set default config values from database
@@ -75,13 +77,14 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'default') {
                 continue;
             }
+
             $value = str_replace($substFrom, $substTo, (string) $r['value']);
             $xmlConfig->setNode('default/' . $r['path'], $value);
         }
 
         // inherit default config values to all websites
         $extendSource = $xmlConfig->getNode('default');
-        foreach ($websites as $id => $w) {
+        foreach ($websites as $w) {
             $websiteNode = $xmlConfig->getNode('websites/' . $w['code']);
             $websiteNode->extend($extendSource);
         }
@@ -92,6 +95,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'websites') {
                 continue;
             }
+
             $value = str_replace($substFrom, $substTo, (string) $r['value']);
             if (isset($websites[$r['scope_id']])) {
                 $nodePath = sprintf('websites/%s/%s', $websites[$r['scope_id']]['code'], $r['path']);
@@ -121,6 +125,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             if ($r['scope'] !== 'stores') {
                 continue;
             }
+
             $value = str_replace($substFrom, $substTo, (string) $r['value']);
             if (isset($stores[$r['scope_id']])) {
                 $nodePath = sprintf('stores/%s/%s', $stores[$r['scope_id']]['code'], $r['path']);
@@ -143,6 +148,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
                 'scope_id IN(?)' => $deleteStores,
             ]);
         }
+
         return $this;
     }
 
@@ -178,6 +184,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
         } else {
             $writeAdapter->insert($this->getMainTable(), $newData);
         }
+
         return $this;
     }
 

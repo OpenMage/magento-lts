@@ -87,6 +87,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
         if (!$this->getData('product')) {
             $this->setData('product', Mage::registry('product'));
         }
+
         return $this->getData('product');
     }
 
@@ -231,6 +232,7 @@ class Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends
                 }
             }
         }
+
         return $this->_options;
     }
 

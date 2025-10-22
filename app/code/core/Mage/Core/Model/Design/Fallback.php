@@ -62,6 +62,7 @@ class Mage_Core_Model_Design_Fallback
         if (!$store instanceof Mage_Core_Model_Store) {
             $store = Mage::app()->getStore($store);
         }
+
         $this->_store = $store;
         $this->_cachedSchemes = [];
         return $this;
@@ -126,6 +127,7 @@ class Mage_Core_Model_Design_Fallback
             if (count($parts) !== 2) {
                 throw new Mage_Core_Exception('Parent node should be defined as "package/theme"');
             }
+
             [$package, $theme] = $parts;
             $scheme[] = ['_package' => $package, '_theme' => $theme];
         }
@@ -149,6 +151,7 @@ class Mage_Core_Model_Design_Fallback
                 'Circular inheritance in theme ' . $package . '/' . $theme,
             );
         }
+
         $this->_visited[] = $path;
     }
 

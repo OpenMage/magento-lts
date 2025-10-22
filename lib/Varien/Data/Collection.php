@@ -15,6 +15,7 @@
 class Varien_Data_Collection implements IteratorAggregate, Countable
 {
     public const SORT_ORDER_ASC    = 'ASC';
+
     public const SORT_ORDER_DESC   = 'DESC';
 
     /**
@@ -136,6 +137,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
             if (empty($field)) {
                 return $this->_filters;
             }
+
             // non-empty array: collect all filters that match specified field names
             $result = [];
             foreach ($this->_filters as $filter) {
@@ -143,6 +145,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
                     $result[] = $filter;
                 }
             }
+
             return $result;
         }
 
@@ -231,6 +234,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         if (is_null($this->_totalRecords)) {
             $this->_totalRecords = count($this->getItems());
         }
+
         return (int) $this->_totalRecords;
     }
 
@@ -292,6 +296,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this->getItems() as $item) {
             $col[] = $item->getData($colName);
         }
+
         return $col;
     }
 
@@ -312,6 +317,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
                 $res[] = $item;
             }
         }
+
         return $res;
     }
 
@@ -331,6 +337,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
                 return $item;
             }
         }
+
         return null;
     }
 
@@ -347,10 +354,12 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
             if (isset($this->_items[$itemId])) {
                 throw new Exception('Item (' . $item::class . ') with the same id "' . $item->getId() . '" already exist');
             }
+
             $this->_items[$itemId] = $item;
         } else {
             $this->_addItem($item);
         }
+
         return $this;
     }
 
@@ -387,6 +396,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this->getItems() as $item) {
             $ids[] = $this->_getItemId($item);
         }
+
         return $ids;
     }
 
@@ -401,6 +411,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         if (isset($this->_items[$key])) {
             unset($this->_items[$key]);
         }
+
         return $this;
     }
 
@@ -436,8 +447,10 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
                 $cb = $callback;
                 array_unshift($args, $item);
             }
+
             $results[$id] = call_user_func_array($cb, $args);
         }
+
         return $results;
     }
 
@@ -465,11 +478,14 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
             foreach ($key as $k => $v) {
                 $this->setDataToAll($k, $v);
             }
+
             return $this;
         }
+
         foreach ($this->getItems() as $item) {
             $item->setData($key, $value);
         }
+
         return $this;
     }
 
@@ -619,6 +635,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this as $item) {
             $xml .= $item->toXml();
         }
+
         return $xml . '</items>
         </collection>';
     }
@@ -638,6 +655,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this as $item) {
             $arrItems['items'][] = $item->toArray($arrRequiredFields);
         }
+
         return $arrItems;
     }
 
@@ -668,8 +686,10 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
             foreach ($additional as $code => $field) {
                 $data[$code] = $item->getData($field);
             }
+
             $res[] = $data;
         }
+
         return $res;
     }
 
@@ -705,6 +725,7 @@ class Varien_Data_Collection implements IteratorAggregate, Countable
         foreach ($this as $item) {
             $res[$item->getData($valueField)] = $item->getData($labelField);
         }
+
         return $res;
     }
 

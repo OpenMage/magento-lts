@@ -69,6 +69,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
             if (empty($productIds)) {
                 $productIds = 0;
             }
+
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
             } else {
@@ -103,6 +104,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         if ($this->getIsReadonly() === true) {
             $collection->addFieldToFilter('entity_id', ['in' => $this->_getSelectedProducts()]);
         }
+
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -207,6 +209,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
         if (!is_array($products)) {
             $products = array_keys($this->getSelectedGroupedProducts());
         }
+
         return $products;
     }
 
@@ -226,6 +229,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
                 'position'  => $product->getPosition(),
             ];
         }
+
         return $products;
     }
 
@@ -233,14 +237,17 @@ class Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Group extends Mage_Adm
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
     public function getTabTitle()
     {
         return Mage::helper('catalog')->__('Associated Products');
     }
+
     public function canShowTab()
     {
         return true;
     }
+
     public function isHidden()
     {
         return false;

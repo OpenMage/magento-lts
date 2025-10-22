@@ -60,9 +60,11 @@ class Mage_CatalogInventory_Model_Observer
             if (!isset($this->_stockItemsArray[$productId])) {
                 $this->_stockItemsArray[$productId] = Mage::getModel('cataloginventory/stock_item');
             }
+
             $productStockItem = $this->_stockItemsArray[$productId];
             $productStockItem->assignProduct($product);
         }
+
         return $this;
     }
 
@@ -81,6 +83,7 @@ class Mage_CatalogInventory_Model_Observer
         ) {
             unset($this->_stockItemsArray[$product->getId()]);
         }
+
         return $this;
     }
 
@@ -98,11 +101,13 @@ class Mage_CatalogInventory_Model_Observer
         if ($productCollection->hasFlag('no_stock_data')) {
             return $this;
         }
+
         if ($productCollection->hasFlag('require_stock_items')) {
             Mage::getModel('cataloginventory/stock')->addItemsToProducts($productCollection);
         } else {
             Mage::getModel('cataloginventory/stock_status')->addStockStatusToProducts($productCollection);
         }
+
         return $this;
     }
 
@@ -135,6 +140,7 @@ class Mage_CatalogInventory_Model_Observer
                 Mage::getSingleton('cataloginventory/stock_status')
                     ->updateStatus($product->getId());
             }
+
             return $this;
         }
 
@@ -142,6 +148,7 @@ class Mage_CatalogInventory_Model_Observer
         if (!$item) {
             $item = Mage::getModel('cataloginventory/stock_item');
         }
+
         $this->_prepareItemForSave($item, $product);
         $item->save();
         return $this;
@@ -161,6 +168,7 @@ class Mage_CatalogInventory_Model_Observer
         $newProduct = $observer->getEvent()->getNewProduct();
 
         $newProduct->unsStockItem();
+
         $stockData = [
             'use_config_min_qty'        => 1,
             'use_config_min_sale_qty'   => 1,
@@ -177,6 +185,7 @@ class Mage_CatalogInventory_Model_Observer
                 'qty_increments'                    => $currentStockItem->getData('qty_increments'),
             ];
         }
+
         $newProduct->setStockData($stockData);
 
         return $this;
@@ -200,40 +209,48 @@ class Mage_CatalogInventory_Model_Observer
         ) {
             $item->setData('use_config_min_qty', false);
         }
+
         if (!is_null($product->getData('stock_data/min_sale_qty'))
             && is_null($product->getData('stock_data/use_config_min_sale_qty'))
         ) {
             $item->setData('use_config_min_sale_qty', false);
         }
+
         if (!is_null($product->getData('stock_data/max_sale_qty'))
             && is_null($product->getData('stock_data/use_config_max_sale_qty'))
         ) {
             $item->setData('use_config_max_sale_qty', false);
         }
+
         if (!is_null($product->getData('stock_data/backorders'))
             && is_null($product->getData('stock_data/use_config_backorders'))
         ) {
             $item->setData('use_config_backorders', false);
         }
+
         if (!is_null($product->getData('stock_data/notify_stock_qty'))
             && is_null($product->getData('stock_data/use_config_notify_stock_qty'))
         ) {
             $item->setData('use_config_notify_stock_qty', false);
         }
+
         $originalQty = $product->getData('stock_data/original_inventory_qty');
         if (is_numeric($originalQty)) {
             $item->setQtyCorrection($item->getQty() - $originalQty);
         }
+
         if (!is_null($product->getData('stock_data/enable_qty_increments'))
             && is_null($product->getData('stock_data/use_config_enable_qty_inc'))
         ) {
             $item->setData('use_config_enable_qty_inc', false);
         }
+
         if (!is_null($product->getData('stock_data/qty_increments'))
             && is_null($product->getData('stock_data/use_config_qty_increments'))
         ) {
             $item->setData('use_config_qty_increments', false);
         }
+
         return $this;
     }
 
@@ -318,6 +335,7 @@ class Mage_CatalogInventory_Model_Observer
         if ($quoteItem->getParentItem()) {
             $parentStockItem = $quoteItem->getParentItem()->getProduct()->getStockItem();
         }
+
         if ($stockItem) {
             if (!$stockItem->getIsInStock() || ($parentStockItem && !$parentStockItem->getIsInStock())) {
                 $quoteItem->addErrorInfo(
@@ -421,10 +439,12 @@ class Mage_CatalogInventory_Model_Observer
                      */
                     $quoteItem->setData('qty', (int) $qty);
                 }
+
                 if (!is_null($result->getMessage())) {
                     $option->setMessage($result->getMessage());
                     $quoteItem->setMessage($result->getMessage());
                 }
+
                 if (!is_null($result->getItemBackorders())) {
                     $option->setBackorders($result->getItemBackorders());
                 }
@@ -521,6 +541,7 @@ class Mage_CatalogInventory_Model_Observer
             if (!is_null($result->getItemUseOldQty())) {
                 $quoteItem->setUseOldQty($result->getItemUseOldQty());
             }
+
             if (!is_null($result->getMessage())) {
                 $quoteItem->setMessage($result->getMessage());
             }
@@ -566,6 +587,7 @@ class Mage_CatalogInventory_Model_Observer
         if (isset($this->_checkedProductsQty[$productId])) {
             $qty += $this->_checkedProductsQty[$productId];
         }
+
         $this->_checkedProductsQty[$productId] = $qty;
         return $qty;
     }
@@ -607,6 +629,7 @@ class Mage_CatalogInventory_Model_Observer
             $this->subtractQuoteInventory($observer);
             $this->reindexQuoteInventory($observer);
         }
+
         return $this;
     }
 
@@ -628,6 +651,7 @@ class Mage_CatalogInventory_Model_Observer
         if ($quote->getInventoryProcessed()) {
             return;
         }
+
         $items = $this->_getProductsQty($quote->getAllItems());
 
         /**
@@ -673,6 +697,7 @@ class Mage_CatalogInventory_Model_Observer
         if (!$productId) {
             return;
         }
+
         if (isset($items[$productId])) {
             $items[$productId]['qty'] += $quoteItem->getTotalQty();
         } else {
@@ -680,6 +705,7 @@ class Mage_CatalogInventory_Model_Observer
             if ($quoteItem->getProduct()) {
                 $stockItem = $quoteItem->getProduct()->getStockItem();
             }
+
             $items[$productId] = [
                 'item' => $stockItem,
                 'qty'  => $quoteItem->getTotalQty(),
@@ -707,6 +733,7 @@ class Mage_CatalogInventory_Model_Observer
             if (!$productId) {
                 continue;
             }
+
             $children = $item->getChildrenItems();
             if ($children) {
                 foreach ($children as $childItem) {
@@ -716,6 +743,7 @@ class Mage_CatalogInventory_Model_Observer
                 $this->_addItemToQtyArray($item, $items);
             }
         }
+
         return $items;
     }
 
@@ -769,6 +797,7 @@ class Mage_CatalogInventory_Model_Observer
             $item->save();
             $productIds[] = $item->getProductId();
         }
+
         Mage::getResourceSingleton('catalog/product_indexer_price')->reindexProductIds($productIds);
 
         $this->_itemsForReindex = []; // Clear list of remembered items - we don't need it anymore
@@ -796,6 +825,7 @@ class Mage_CatalogInventory_Model_Observer
             } elseif (Mage::helper('cataloginventory')->isAutoReturnEnabled()) {
                 $return = true;
             }
+
             if ($return) {
                 $parentOrderId = $item->getOrderItem()->getParentItemId();
                 /** @var Mage_Sales_Model_Order_Creditmemo_Item $parentItem */
@@ -811,6 +841,7 @@ class Mage_CatalogInventory_Model_Observer
                 }
             }
         }
+
         Mage::getSingleton('cataloginventory/stock')->revertProductsSale($items);
     }
 
@@ -934,6 +965,7 @@ class Mage_CatalogInventory_Model_Observer
         if (!($entityField instanceof Zend_Db_Expr)) {
             $entityField = new Zend_Db_Expr($entityField);
         }
+
         if (!($websiteField instanceof Zend_Db_Expr)) {
             $websiteField = new Zend_Db_Expr($websiteField);
         }
@@ -1019,6 +1051,7 @@ class Mage_CatalogInventory_Model_Observer
         ) {
             Mage::getSingleton('cataloginventory/stock')->backItemQty($productId, $qty);
         }
+
         return $this;
     }
 

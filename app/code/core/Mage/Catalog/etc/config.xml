@@ -803,6 +803,9 @@
             <product>
                 <default_tax_group>2</default_tax_group>
             </product>
+            <price>
+                <rounding_precision>2</rounding_precision>
+            </price>
             <product_image>
                 <base_width>1800</base_width>
                 <small_width>210</small_width>

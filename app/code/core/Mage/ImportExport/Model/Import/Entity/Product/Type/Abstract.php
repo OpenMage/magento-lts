@@ -86,6 +86,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
             ) {
                 Mage::throwException(Mage::helper('importexport')->__('Invalid parameters'));
             }
+
             $this->_entityModel = $params[0];
             $this->_type        = $params[1];
 
@@ -113,6 +114,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
         if (!$attrParams['apply_to'] || in_array($this->_type, $attrParams['apply_to'])) {
             $this->_attributes[$attrSetName][$attrParams['code']] = $attrParams;
         }
+
         return $this;
     }
 
@@ -170,10 +172,12 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                                                       ->getAttributeOptions($attribute, $this->_indexValueAttributes),
                         ];
                     }
+
                     $this->_addAttributeParams($attributeSet->getAttributeSetName(), $attributesCache[$attributeId]);
                 }
             }
         }
+
         return $this;
     }
 
@@ -255,6 +259,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 }
             }
         }
+
         $error |= !$this->_isParticularAttributesValid($rowData, $rowNum);
 
         return !$error;
@@ -292,6 +297,7 @@ abstract class Mage_ImportExport_Model_Import_Entity_Product_Type_Abstract
                 }
             }
         }
+
         return $resultAttrs;
     }
 

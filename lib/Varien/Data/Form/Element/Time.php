@@ -33,6 +33,7 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
         if (!str_contains($name, '[]')) {
             $name .= '[]';
         }
+
         return $name;
     }
 
@@ -62,6 +63,7 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
             $hour = str_pad($i, 2, '0', STR_PAD_LEFT);
             $html .= '<option value="' . $hour . '" ' . (($value_hrs == $i) ? 'selected="selected"' : '') . '>' . $hour . '</option>';
         }
+
         $html .= '</select>' . "\n";
 
         $html .= '&nbsp;:&nbsp;<select name="' . $this->getName() . '" ' . $this->serialize($this->getHtmlAttributes()) . ' style="width:40px">' . "\n";
@@ -69,6 +71,7 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
             $hour = str_pad($i, 2, '0', STR_PAD_LEFT);
             $html .= '<option value="' . $hour . '" ' . (($value_min == $i) ? 'selected="selected"' : '') . '>' . $hour . '</option>';
         }
+
         $html .= '</select>' . "\n";
 
         $html .= '&nbsp;:&nbsp;<select name="' . $this->getName() . '" ' . $this->serialize($this->getHtmlAttributes()) . ' style="width:40px">' . "\n";
@@ -76,6 +79,7 @@ class Varien_Data_Form_Element_Time extends Varien_Data_Form_Element_Abstract
             $hour = str_pad($i, 2, '0', STR_PAD_LEFT);
             $html .= '<option value="' . $hour . '" ' . (($value_sec == $i) ? 'selected="selected"' : '') . '>' . $hour . '</option>';
         }
+
         $html .= '</select>' . "\n";
         return $html . $this->getAfterElementHtml();
     }

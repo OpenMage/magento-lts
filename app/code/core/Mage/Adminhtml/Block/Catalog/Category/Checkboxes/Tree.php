@@ -37,6 +37,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         } elseif (!is_array($ids)) {
             $ids = [(int) $ids];
         }
+
         $this->_selectedIds = $ids;
         return $this;
     }
@@ -49,6 +50,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Checkboxes_Tree extends Mage_Adminht
         if ($this->_withProductCount) {
             $item['text'] .= ' (' . $node->getProductCount() . ')';
         }
+
         $item['id']  = $node->getId();
         $item['path'] = $node->getData('path');
         $item['cls'] = 'folder ' . ($node->getIsActive() ? 'active-category' : 'no-active-category');

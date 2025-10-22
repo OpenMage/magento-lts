@@ -254,10 +254,15 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
      * Can be used as part of method name for entity processing
      */
     public const ENTITY          = 'catalog_product';
+
     public const CACHE_TAG       = 'catalog_product';
+
     protected $_cacheTag         = 'catalog_product';
+
     protected $_eventPrefix      = 'catalog_product';
+
     protected $_eventObject      = 'product';
+
     protected $_canAffectOptions = false;
 
     /**
@@ -294,6 +299,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     protected $_urlModel = null;
 
     protected static $_url;
+
     protected static $_urlRewrite;
 
     protected $_errors = [];
@@ -362,6 +368,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($this->hasData('store_id')) {
             return (int) $this->getData('store_id');
         }
+
         return Mage::app()->getStore()->getId();
     }
 
@@ -375,6 +382,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (empty($this->_resourceCollectionName)) {
             Mage::throwException(Mage::helper('catalog')->__('The model collection resource name is not defined.'));
         }
+
         /** @var Mage_Catalog_Model_Resource_Product_Collection $collection */
         $collection = Mage::getResourceModel($this->_resourceCollectionName);
         $collection->setStoreId($this->getStoreId());
@@ -391,6 +399,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($this->_urlModel === null) {
             $this->_urlModel = Mage::getSingleton('catalog/factory')->getProductUrlInstance();
         }
+
         return $this->_urlModel;
     }
 
@@ -465,6 +474,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (is_null($this->_getData('status'))) {
             $this->setData('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED);
         }
+
         return $this->_getData('status');
     }
 
@@ -483,6 +493,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $this->_typeInstanceSingleton = Mage::getSingleton('catalog/product_type')
                     ->factory($this, true);
             }
+
             return $this->_typeInstanceSingleton;
         }
 
@@ -490,6 +501,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->_typeInstance = Mage::getSingleton('catalog/product_type')
                 ->factory($this);
         }
+
         return $this->_typeInstance;
     }
 
@@ -507,6 +519,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         } else {
             $this->_typeInstance = $instance;
         }
+
         return $this;
     }
 
@@ -520,6 +533,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (!$this->_linkInstance) {
             $this->_linkInstance = Mage::getSingleton('catalog/product_link');
         }
+
         return $this->_linkInstance;
     }
 
@@ -544,6 +558,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($category = Mage::registry('current_category')) {
             return $category->getId();
         }
+
         return false;
     }
 
@@ -559,6 +574,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $category = Mage::getModel('catalog/category')->load($this->getCategoryId());
             $this->setCategory($category);
         }
+
         return $category;
     }
 
@@ -577,6 +593,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         } elseif (!is_array($ids)) {
             Mage::throwException(Mage::helper('catalog')->__('Invalid category IDs.'));
         }
+
         $ids = array_filter(array_map('\intval', $ids));
         $this->setData('category_ids', $ids);
         return $this;
@@ -595,6 +612,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $wasLocked = true;
                 $this->unlockAttribute('category_ids');
             }
+
             $ids = $this->_getResource()->getCategoryIds($this);
             $this->setData('category_ids', $ids);
             if ($wasLocked) {
@@ -626,6 +644,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $ids = $this->_getResource()->getWebsiteIds($this);
             $this->setWebsiteIds($ids);
         }
+
         return $this->getData('website_ids');
     }
 
@@ -644,8 +663,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     $storeIds = array_merge($storeIds, $websiteStores);
                 }
             }
+
             $this->setStoreIds($storeIds);
         }
+
         return $this->getData('store_ids');
     }
 
@@ -744,9 +765,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                                 Mage::throwException(Mage::helper('catalog')->__('Invalid custom option(s).'));
                             }
                         }
+
                         $hasOptions = true;
                     }
                 }
+
                 foreach ($this->getOptionInstance()->getOptions() as $option) {
                     if ($option['is_require'] == '1') {
                         $hasRequiredOptions = true;
@@ -771,6 +794,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             $this->setHasOptions(false);
             $this->setRequiredOptions(false);
         }
+
         return parent::_beforeSave();
     }
 
@@ -786,6 +810,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($value !== null) {
             $this->_canAffectOptions = (bool) $value;
         }
+
         return $this->_canAffectOptions;
     }
 
@@ -853,6 +878,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $this->addOption($option);
             }
         }
+
         return $this;
     }
 
@@ -866,6 +892,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($this->getId()) {
             Mage::app()->cleanCache('catalog_product_' . $this->getId());
         }
+
         return $this;
     }
 
@@ -1025,8 +1052,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($collection as $product) {
                 $products[] = $product;
             }
+
             $this->setRelatedProducts($products);
         }
+
         return $this->getData('related_products');
     }
 
@@ -1042,8 +1071,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($this->getRelatedProducts() as $product) {
                 $ids[] = $product->getId();
             }
+
             $this->setRelatedProductIds($ids);
         }
+
         return $this->getData('related_product_ids');
     }
 
@@ -1089,8 +1120,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($this->getUpSellProductCollection() as $product) {
                 $products[] = $product;
             }
+
             $this->setUpSellProducts($products);
         }
+
         return $this->getData('up_sell_products');
     }
 
@@ -1106,8 +1139,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($this->getUpSellProducts() as $product) {
                 $ids[] = $product->getId();
             }
+
             $this->setUpSellProductIds($ids);
         }
+
         return $this->getData('up_sell_product_ids');
     }
 
@@ -1153,8 +1188,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($this->getCrossSellProductCollection() as $product) {
                 $products[] = $product;
             }
+
             $this->setCrossSellProducts($products);
         }
+
         return $this->getData('cross_sell_products');
     }
 
@@ -1170,8 +1207,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
             foreach ($this->getCrossSellProducts() as $product) {
                 $ids[] = $product->getId();
             }
+
             $this->setCrossSellProductIds($ids);
         }
+
         return $this->getData('cross_sell_product_ids');
     }
 
@@ -1238,8 +1277,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     $mediaAttributes[$attribute->getAttributeCode()] = $attribute;
                 }
             }
+
             $this->setMediaAttributes($mediaAttributes);
         }
+
         return $this->getData('media_attributes');
     }
 
@@ -1256,11 +1297,13 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 if ($image['disabled']) {
                     continue;
                 }
+
                 $image['url'] = $this->getMediaConfig()->getMediaUrl($image['file']);
                 $image['id'] = $image['value_id'] ?? null;
                 $image['path'] = $this->getMediaConfig()->getMediaPath($image['file']);
                 $images->addItem(new Varien_Object($image));
             }
+
             $this->setData('media_gallery_images', $images);
         }
 
@@ -1283,6 +1326,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (!isset($attributes['media_gallery'])) {
             return $this;
         }
+
         $mediaGalleryAttribute = $attributes['media_gallery'];
         /** @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
         $mediaGalleryAttribute->getBackend()->addImage($this, $file, $mediaAttribute, $move, $exclude);
@@ -1334,9 +1378,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $attributes[] = $_attribute['code'];
             }
         }
+
         foreach ($this->getRelatedLinkCollection() as $_link) {
             $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
         }
+
         $newProduct->setRelatedLinkData($data);
 
         /* Prepare UpSell*/
@@ -1348,9 +1394,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $attributes[] = $_attribute['code'];
             }
         }
+
         foreach ($this->getUpSellLinkCollection() as $_link) {
             $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
         }
+
         $newProduct->setUpSellLinkData($data);
 
         /* Prepare Cross Sell */
@@ -1362,9 +1410,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $attributes[] = $_attribute['code'];
             }
         }
+
         foreach ($this->getCrossSellLinkCollection() as $_link) {
             $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
         }
+
         $newProduct->setCrossSellLinkData($data);
 
         /* Prepare Grouped */
@@ -1376,9 +1426,11 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 $attributes[] = $_attribute['code'];
             }
         }
+
         foreach ($this->getGroupedLinkCollection() as $_link) {
             $data[$_link->getLinkedProductId()] = $_link->toArray($attributes);
         }
+
         $newProduct->setGroupedLinkData($data);
 
         $newProduct->save();
@@ -1421,6 +1473,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
     {
         return $this->isConfigurable();
     }
+
     /**
      * Check is product grouped
      *
@@ -1569,6 +1622,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (method_exists($productType, 'getIsSalable')) {
             return $productType->getIsSalable($this);
         }
+
         if ($this->hasData('is_salable')) {
             return $this->getData('is_salable');
         }
@@ -1731,6 +1785,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($stock = $this->getStockItem()) {
             $data['stock_item'] = $stock->toArray();
         }
+
         unset($data['stock_item']['product']);
         return $data;
     }
@@ -1750,8 +1805,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     ->setProduct($this);
                 $this->setStockItem($stockItem);
             }
+
             unset($data['stock_item']);
         }
+
         $this->setData($data);
         return $this;
     }
@@ -1787,6 +1844,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (!$this->_getData('request_path')) {
             $this->getProductUrl();
         }
+
         return $this->_getData('request_path');
     }
 
@@ -1861,6 +1919,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (!$this->_optionInstance) {
             $this->_optionInstance = Mage::getSingleton('catalog/product_option');
         }
+
         return $this->_optionInstance;
     }
 
@@ -2079,11 +2138,13 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     $_reserved[] = $tmp;
                 }
             }
+
             $_allowed = [
                 'type_id','calculated_final_price','request_path','rating_summary',
             ];
             $this->_reservedAttributes = array_diff($_reserved, $_allowed);
         }
+
         return $this->_reservedAttributes;
     }
 
@@ -2139,6 +2200,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         foreach ($affectedCategoryIds as $categoryId) {
             $tags[] = Mage_Catalog_Model_Category::CACHE_TAG . '_' . $categoryId;
         }
+
         return $tags;
     }
 
@@ -2153,6 +2215,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if ($tags !== false) {
             Mage::app()->cleanCache($tags);
         }
+
         return $this;
     }
 
@@ -2170,8 +2233,10 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     return false;
                 }
             }
+
             return true;
         }
+
         return null;
     }
 
@@ -2192,6 +2257,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                     unset($customOptions[$key]);
                 }
             }
+
             $options->setOptions($customOptions);
         }
 
@@ -2296,7 +2362,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
          * unload product options
          */
         if (!empty($this->_options)) {
-            foreach ($this->_options as $key => $option) {
+            foreach ($this->_options as $option) {
                 $option->setProduct();
                 $option->clearInstance();
             }
@@ -2369,6 +2435,7 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
                 ->setStoreId($storeId)
                 ->load($this->getId());
         }
+
         return $this->_reviewSummary[$storeId];
     }
 }

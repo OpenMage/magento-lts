@@ -67,6 +67,7 @@ class Mage_Centinel_Model_Config
         if (!$node) {
             return false;
         }
+
         return $node->asArray();
     }
 

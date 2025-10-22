@@ -43,6 +43,7 @@ if (!$autoloaderPath) {
         $autoloaderPath = $bp . $ds . 'vendor';
     }
 }
+
 require_once $autoloaderPath . $ds . 'autoload.php';
 /** AUTOLOADER PATCH **/
 
@@ -114,6 +115,7 @@ if (!$mediaDirectory) {
         ftruncate($fp, 0);
         fwrite($fp, json_encode($config));
     }
+
     flock($fp, LOCK_UN);
     fclose($fp);
 
@@ -123,6 +125,7 @@ if (!$mediaDirectory) {
 if (0 !== stripos($pathInfo, $mediaDirectory . '/')) {
     sendNotFoundPage();
 }
+
 if (substr_count($relativeFilename, '/') > 10) {
     sendNotFoundPage();
 }
@@ -141,12 +144,14 @@ try {
         } catch (Exception $e) {
             Mage::logException($e);
         }
+
         if ($remoteStorage->getId()) {
             $localStorage->saveFile($remoteStorage, false);
         } else {
             $localStorage->removeLockedFile($relativeFilename);
         }
     }
+
     sendFile($filePath);
 } catch (Exception $e) {
     Mage::logException($e);

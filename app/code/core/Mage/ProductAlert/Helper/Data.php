@@ -33,6 +33,7 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
         if (!is_null($this->_product)) {
             return $this->_product;
         }
+
         return Mage::registry('product');
     }
 
@@ -91,15 +92,18 @@ class Mage_ProductAlert_Helper_Data extends Mage_Core_Helper_Url
                     Mage::throwException($error);
                 }
             }
+
             $fileName = mageFindClassFile($block);
             if ($fileName !== false) {
                 include_once($fileName);
                 $block = new $block([]);
             }
         }
+
         if (!$block instanceof Mage_Core_Block_Abstract) {
             Mage::throwException($error);
         }
+
         return $block;
     }
 

@@ -119,6 +119,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         foreach ($this->_getSearchableAttributes('static') as $attribute) {
             $staticFields[] = $attribute->getAttributeCode();
         }
+
         $dynamicFields = [
             'int'       => array_keys($this->_getSearchableAttributes('int')),
             'varchar'   => array_keys($this->_getSearchableAttributes('varchar')),
@@ -172,6 +173,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                 ) {
                     continue;
                 }
+
                 if (!isset($productAttr[$status->getId()]) || !in_array($productAttr[$status->getId()], $statusVals)) {
                     continue;
                 }
@@ -196,6 +198,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                         }
                     }
                 }
+
                 if (!is_null($productChildren) && !$hasChildren) {
                     continue;
                 }
@@ -358,6 +361,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $bind[':query'] = implode(' ', $preparedTerms[0]);
             $where = $searchHelper->chooseFulltext($this->getMainTable(), $mainTableAlias, $select);
         }
+
         if ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_COMBINE) {
             $where .= ($where ? ' OR ' : '') . $likeCond;
         } elseif ($likeCond != '' && $searchType == Mage_CatalogSearch_Model_Fulltext::SEARCH_TYPE_LIKE) {
@@ -412,6 +416,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             } else {
                 $productAttributeCollection->addSearchableAttributeFilter();
             }
+
             $attributes = $productAttributeCollection->getItems();
 
             Mage::dispatchEvent('catalogsearch_searchable_attributes_load_after', [
@@ -487,6 +492,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
         } else {
             $expr = $helper->castField($field);
         }
+
         return $expr;
     }
 
@@ -565,6 +571,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
             $this->_productTypes[$typeId] = Mage::getSingleton('catalog/product_type')
                 ->factory($productEmulator);
         }
+
         return $this->_productTypes[$typeId];
     }
 
@@ -654,6 +661,7 @@ class Mage_CatalogSearch_Model_Resource_Fulltext extends Mage_Core_Model_Resourc
                         if (!is_array($index[$attributeCode])) {
                             $index[$attributeCode] = [$index[$attributeCode]];
                         }
+
                         $index[$attributeCode][] = $value;
                     } else { //For other types of products
                         $index[$attributeCode] = $value;

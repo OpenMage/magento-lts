@@ -49,6 +49,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
             } catch (Exception $e) {
                 Mage::logException($e);
             }
+
             $object->setData($field, $unserializedValue);
         }
     }
@@ -103,6 +104,7 @@ class Mage_Paypal_Model_Resource_Payment_Transaction extends Mage_Core_Model_Res
         if ($isRow) {
             return $this->_getWriteAdapter()->fetchRow($select);
         }
+
         return $this->_getWriteAdapter()->fetchOne($select);
     }
 

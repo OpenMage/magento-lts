@@ -162,6 +162,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
         if (!$this->hasData('product')) {
             $this->setData('product', Mage::registry('current_product'));
         }
+
         return $this->getData('product');
     }
 
@@ -202,6 +203,7 @@ class Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option extends Mage_Bun
                 $price = $helper::currencyByStore($price, $store, false);
             }
         }
+
         return is_numeric($price) ? $price : 0;
     }
 

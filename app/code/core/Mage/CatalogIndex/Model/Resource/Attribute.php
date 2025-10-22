@@ -68,6 +68,7 @@ class Mage_CatalogIndex_Model_Resource_Attribute extends Mage_CatalogIndex_Model
         foreach ($result as $row) {
             $counts[$row['value']] = $row['count'];
         }
+
         return $counts;
     }
 

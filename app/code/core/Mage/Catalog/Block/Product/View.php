@@ -45,6 +45,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             if ($title) {
                 $headBlock->setTitle($title);
             }
+
             $keyword = $product->getMetaKeyword();
             $currentCategory = Mage::registry('current_category');
             if ($keyword) {
@@ -52,6 +53,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             } elseif ($currentCategory) {
                 $headBlock->setKeywords($product->getName());
             }
+
             $description = $product->getMetaDescription();
             if ($description) {
                 $headBlock->setDescription(($description));
@@ -82,6 +84,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
             $product = Mage::getModel('catalog/product')->load($this->getProductId());
             Mage::register('product', $product);
         }
+
         return Mage::registry('product');
     }
 
@@ -154,6 +157,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         if ($this->getProduct()->getTypeInstance(true)->hasOptions($this->getProduct())) {
             return true;
         }
+
         return false;
     }
 
@@ -241,6 +245,7 @@ class Mage_Catalog_Block_Product_View extends Mage_Catalog_Block_Product_Abstrac
         if (!$addFormKey) {
             return $helper->getAddUrlCustom($product, $additional, false);
         }
+
         return $helper->getAddUrl($product, $additional);
     }
 }

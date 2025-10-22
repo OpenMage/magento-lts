@@ -59,6 +59,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             $this->_forward('grid');
             return;
         }
+
         $this->loadLayout();
 
         /**
@@ -153,6 +154,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
+
         $this->_redirect('*/*');
     }
 
@@ -165,6 +167,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             if (!$this->_initProfile('profile_id')) {
                 return;
             }
+
             $profile = Mage::registry('current_convert_profile');
 
             // Prepare profile saving data
@@ -185,6 +188,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                 $this->getResponse()->setRedirect($this->getUrl('*/*/edit', ['id' => $profile->getId()]));
                 return;
             }
+
             if ($this->getRequest()->getParam('continue')) {
                 $this->_redirect('*/*/edit', ['id' => $profile->getId()]);
             } else {
@@ -217,9 +221,11 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
             if (!$batchModel->getId()) {
                 return;
             }
+
             if (!is_array($rowIds) || count($rowIds) < 1) {
                 return;
             }
+
             if (!$batchModel->getAdapter()) {
                 return;
             }
@@ -247,6 +253,7 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $errors[] = $e->getMessage();
                     continue;
                 }
+
                 $saved++;
             }
 
@@ -285,9 +292,10 @@ class Mage_Adminhtml_System_Convert_ProfileController extends Mage_Adminhtml_Con
                     $batchModel->beforeFinish();
                 } catch (Mage_Core_Exception $e) {
                     $result['error'] = $e->getMessage();
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $result['error'] = Mage::helper('adminhtml')->__('An error occurred while finishing process. Please refresh the cache');
                 }
+
                 $batchModel->delete();
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
             }

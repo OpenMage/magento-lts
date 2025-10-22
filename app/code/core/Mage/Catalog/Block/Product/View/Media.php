@@ -34,6 +34,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($this->_isGalleryDisabled) {
             return [];
         }
+
         return $this->getProduct()->getMediaGalleryImages();
     }
 
@@ -49,6 +50,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if ($image) {
             $params['image'] = $image->getValueId();
         }
+
         return $this->getUrl('catalog/product/gallery', $params);
     }
 
@@ -71,8 +73,10 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
             if (is_numeric($size)) {
                 $helper->constrainOnly(true)->resize($size);
             }
+
             return (string) $helper;
         }
+
         return null;
     }
 
@@ -87,6 +91,7 @@ class Mage_Catalog_Block_Product_View_Media extends Mage_Catalog_Block_Product_V
         if (($filterClass = $this->getGalleryFilterHelper()) && ($filterMethod = $this->getGalleryFilterMethod())) {
             return Mage::helper($filterClass)->$filterMethod($this->getProduct(), $image);
         }
+
         return true;
     }
 

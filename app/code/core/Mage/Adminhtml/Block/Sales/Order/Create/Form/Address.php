@@ -53,6 +53,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
                 ->setFormCode('adminhtml_customer_address')
                 ->setStore($this->getStore());
         }
+
         return $this->_addressForm;
     }
 
@@ -78,6 +79,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
                 Mage_Customer_Model_Attribute_Data::OUTPUT_FORMAT_JSON,
             );
         }
+
         return Mage::helper('core')->jsonEncode($data);
     }
 
@@ -103,6 +105,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
             Mage::helper('adminhtml/addresses')
                 ->processStreetAttribute($attributes['street']);
         }
+
         $this->_addAttributesToForm($attributes, $fieldset);
 
         $prefixElement = $this->_form->getElement('prefix');
@@ -161,6 +164,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
                 }
             }
         }
+
         if (is_null($this->_form->getElement('country_id')->getValue())) {
             $this->_form->getElement('country_id')->setValue(
                 Mage::helper('core')->getDefaultCountry($this->getStore()),
@@ -189,6 +193,7 @@ class Mage_Adminhtml_Block_Sales_Order_Create_Form_Address extends Mage_Adminhtm
         if ($element->getId() === 'region_id') {
             $element->setNoDisplay(true);
         }
+
         return $this;
     }
 

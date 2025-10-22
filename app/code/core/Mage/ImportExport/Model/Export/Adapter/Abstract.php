@@ -53,17 +53,21 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
         if (!$destination) {
             $destination = tempnam(sys_get_temp_dir(), 'importexport_');
         }
+
         if (!is_string($destination)) {
             Mage::throwException(Mage::helper('importexport')->__('Destination file path must be a string'));
         }
+
         $pathinfo = pathinfo($destination);
 
         if (empty($pathinfo['dirname']) || !is_writable($pathinfo['dirname'])) {
             Mage::throwException(Mage::helper('importexport')->__('Destination directory is not writable'));
         }
+
         if (is_file($destination) && !is_writable($destination)) {
             Mage::throwException(Mage::helper('importexport')->__('Destination file is not writable'));
         }
+
         $this->_destination = $destination;
 
         $this->_init();
@@ -135,12 +139,15 @@ abstract class Mage_ImportExport_Model_Export_Adapter_Abstract
         if ($this->_headerCols !== null) {
             Mage::throwException(Mage::helper('importexport')->__('Header column names already set'));
         }
+
         if ($headerCols) {
             foreach ($headerCols as $colName) {
                 $this->_headerCols[$colName] = false;
             }
+
             fputcsv($this->_fileHandler, array_keys($this->_headerCols), $this->_delimiter, $this->_enclosure, $this->_escape);
         }
+
         return $this;
     }
 

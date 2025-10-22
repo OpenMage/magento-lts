@@ -26,6 +26,7 @@ class Mage_Payment_Block_Form extends Mage_Core_Block_Template
         if (!($method instanceof Mage_Payment_Model_Method_Abstract)) {
             Mage::throwException($this->__('Cannot retrieve the payment method model object.'));
         }
+
         return $method;
     }
 
