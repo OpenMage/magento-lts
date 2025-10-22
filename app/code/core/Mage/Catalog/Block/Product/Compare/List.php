@@ -68,7 +68,7 @@ class Mage_Catalog_Block_Product_Compare_List extends Mage_Catalog_Block_Product
     protected function _prepareLayout()
     {
         $head = $this->getLayout()->getBlockHead();
-        $head?->setTitle(Mage::helper('catalog')->__('Products Comparison List') . ' - ' . $head?->getDefaultTitle());
+        $head?->setTitle(Mage::helper('catalog')->__('Products Comparison List') . ' - ' . $head->getDefaultTitle());
 
         return parent::_prepareLayout();
     }
