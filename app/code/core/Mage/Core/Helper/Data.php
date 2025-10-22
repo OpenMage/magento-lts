@@ -909,7 +909,7 @@ XML;
                 $value = (string) $value;
 
                 $firstLetter = substr($value, 0, 1);
-                if (in_array($firstLetter, ['=', '+', '-'])) {
+                if ($firstLetter && in_array($firstLetter, ['=', '+', '-'])) {
                     $data[$key] = ' ' . $value;
                 }
             }
