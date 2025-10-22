@@ -720,6 +720,7 @@ class Mage_Adminhtml_Block_System_Config_Form extends Mage_Adminhtml_Block_Widge
                 ->getBlockClassName('adminhtml/system_config_form_field_select_allowspecific'),
             'image'         => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_image'),
             'file'          => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_file'),
+            'logo'          => Mage::getConfig()->getBlockClassName('adminhtml/system_config_form_field_logo'),
         ];
     }
 
