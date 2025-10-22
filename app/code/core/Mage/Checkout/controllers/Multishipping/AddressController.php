@@ -48,7 +48,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setErrorUrl(Mage::getUrl('*/*/*'));
 
             $head = $this->getLayout()->getBlockHead();
-            $head?->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
+            $head?->setTitle($addressForm->getTitle() . ' - ' . $head?->getDefaultTitle());
 
             if ($this->_getCheckout()->getCustomerDefaultShippingAddress()) {
                 $addressForm->setBackUrl(Mage::getUrl('*/multishipping/addresses'));
@@ -83,7 +83,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setErrorUrl(Mage::getUrl('*/*/*'));
 
             $head = $this->getLayout()->getBlockHead();
-            $head?->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
+            $head?->setTitle($addressForm->getTitle() . ' - ' . $head?->getDefaultTitle());
 
             if ($this->_getCheckout()->getCustomerDefaultShippingAddress()) {
                 $addressForm->setBackUrl(Mage::getUrl('*/multishipping/shipping'));
@@ -123,7 +123,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setBackUrl(Mage::getUrl('*/*/selectBilling'));
 
             $head = $this->getLayout()->getBlockHead();
-            $head?->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
+            $head?->setTitle($addressForm->getTitle() . ' - ' . $head?->getDefaultTitle());
         }
 
         $this->renderLayout();
@@ -140,7 +140,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setBackUrl(Mage::getUrl('*/*/selectBilling'));
 
             $head = $this->getLayout()->getBlockHead();
-            $head?->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
+            $head?->setTitle($addressForm->getTitle() . ' - ' . $head?->getDefaultTitle());
         }
 
         $this->renderLayout();
@@ -160,7 +160,7 @@ class Mage_Checkout_Multishipping_AddressController extends Mage_Core_Controller
                 ->setBackUrl(Mage::getUrl('*/multishipping/overview'));
 
             $head = $this->getLayout()->getBlockHead();
-            $head?->setTitle($addressForm->getTitle() . ' - ' . $head->getDefaultTitle());
+            $head?->setTitle($addressForm->getTitle() . ' - ' . $head?->getDefaultTitle());
         }
 
         $this->renderLayout();
