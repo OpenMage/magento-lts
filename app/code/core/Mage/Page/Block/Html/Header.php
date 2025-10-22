@@ -63,8 +63,14 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrcSmall()
     {
         if (empty($this->_data['logo_src_small'])) {
-            $src = (string) Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_LOGO_SRC_SMALL);
-            $this->_data['logo_src_small'] = Mage::helper('page')->getLogoSrc($src);
+            // Check if user wants to use the same image as main logo
+            $useSameAsMain = Mage::getStoreConfigFlag(Mage_Page_Helper_Data::XML_PATH_LOGO_SRC_SMALL_SAME_AS_MAIN);
+            if ($useSameAsMain) {
+                $this->_data['logo_src_small'] = $this->getLogoSrc();
+            } else {
+                $src = (string) Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_LOGO_SRC_SMALL);
+                $this->_data['logo_src_small'] = Mage::helper('page')->getLogoSrc($src);
+            }
         }
 
         return $this->_data['logo_src_small'];
