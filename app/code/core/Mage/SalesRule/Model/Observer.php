@@ -69,8 +69,13 @@ class Mage_SalesRule_Model_Observer
             return $this;
         }
 
+        $appliedRuleIds = $order->getAppliedRuleIds();
+        if (empty($appliedRuleIds)) {
+            return $this;
+        }
+
         // lookup rule ids
-        $ruleIds = explode(',', $order->getAppliedRuleIds());
+        $ruleIds = explode(',', $appliedRuleIds);
         $ruleIds = array_unique($ruleIds);
 
         $ruleCustomer = null;
