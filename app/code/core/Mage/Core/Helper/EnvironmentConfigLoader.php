@@ -206,7 +206,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param array<string, string> $envStorage
+     * @param array<string, int|string> $envStorage
      * @internal method mostly for mocking
      */
     public function setEnvStore(array $envStorage): void
@@ -215,7 +215,7 @@ class Mage_Core_Helper_EnvironmentConfigLoader extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, int|string>
      */
     public function getEnv(): array
     {
