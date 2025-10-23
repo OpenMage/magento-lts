@@ -61,8 +61,8 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         ]);
         // empty because env flag is not set
         $env = $environmentConfigLoaderHelper->getEnv();
-        static::assertIsArray($env);
-        static::assertEmpty($env);
+        self::assertIsArray($env);
+        self::assertEmpty($env);
         /** @phpstan-ignore method.internal */
         $environmentConfigLoaderHelper->setEnvStore([
             'OPENMAGE_CONFIG__DEFAULT__GENERAL__STORE_INFORMATION__NAME' => 'some_value',
@@ -70,8 +70,8 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         ]);
         // flag is set => feature is enabled
         $env = $environmentConfigLoaderHelper->getEnv();
-        static::assertIsArray($env);
-        static::assertNotEmpty($env);
+        self::assertIsArray($env);
+        self::assertNotEmpty($env);
     }
 
     /**
@@ -132,7 +132,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         // assert
         $expected = (string) $defaultValue;
         $actual = (string) $valueAfterOverride;
-        static::assertNotSame($expected, $actual, 'Default value was not overridden.');
+        self::assertNotSame($expected, $actual, 'Default value was not overridden.');
     }
 
     public function envOverridesCorrectConfigKeysDataProvider(): Generator
@@ -224,7 +224,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         $store = $config['store'];
         $actual = $loader->getAsArray($store);
         $expected = $config['expected'];
-        static::assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function envAsArrayDataProvider(): Generator
@@ -274,7 +274,7 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
         ]);
         $actual = $loader->hasPath($config['xml_path']);
         $expected = $config['expected'];
-        static::assertSame($expected, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function envHasPathDataProvider(): Generator
@@ -321,13 +321,13 @@ class EnvironmentConfigLoaderTest extends OpenMageTest
 
         $defaultValue = 'test_default';
         $actual = (string) $xml->getNode(self::XML_PATH_DEFAULT);
-        static::assertSame($defaultValue, $actual);
+        self::assertSame($defaultValue, $actual);
         $defaultWebsiteValue = 'test_website';
         $actual = (string) $xml->getNode(self::XML_PATH_WEBSITE);
-        static::assertSame($defaultWebsiteValue, $actual);
+        self::assertSame($defaultWebsiteValue, $actual);
         $defaultStoreValue = 'test_store';
         $actual = (string) $xml->getNode(self::XML_PATH_STORE);
-        static::assertSame($defaultStoreValue, $actual);
+        self::assertSame($defaultStoreValue, $actual);
 
         $loader = new Mage_Core_Helper_EnvironmentConfigLoader();
         /** @phpstan-ignore method.internal */
