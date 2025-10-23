@@ -634,6 +634,7 @@ class Mage_Core_Model_App
      */
     protected function _initStores()
     {
+        Mage::unregister('current_env_config');
         $this->_stores   = [];
         $this->_groups   = [];
         $this->_website  = null;
