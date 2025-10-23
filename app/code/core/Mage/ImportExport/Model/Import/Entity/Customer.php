@@ -7,9 +7,6 @@
  * @package    Mage_ImportExport
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Import entity customer model
  *
@@ -644,8 +641,9 @@ class Mage_ImportExport_Model_Import_Entity_Customer extends Mage_ImportExport_M
                 $this->addRowError(self::ERROR_EMAIL_SITE_NOT_FOUND, $rowNum);
             }
         } elseif (self::SCOPE_DEFAULT == $rowScope) { // row is SCOPE_DEFAULT = new customer block begins
-            $validator = Validation::createValidator();
-            if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
+            /** @var Mage_Validation_Helper_Data $validator */
+            $validator = Mage::helper('validation');
+            if ($validator->validateEmail($email)->count() > 0) {
                 $this->addRowError(self::ERROR_INVALID_EMAIL, $rowNum);
             } elseif (!isset($this->_websiteCodeToId[$website])) {
                 $this->addRowError(self::ERROR_INVALID_WEBSITE, $rowNum);

@@ -36,6 +36,7 @@ final class AbstractTest extends OpenMageTest
     /**
      * @dataProvider provideValidateFileExension
      * @group Model
+     * @group test
      */
     public function testValidateFileExension(bool $expectedResult, string $filePath, string $extension, bool $fileExists): void
     {
@@ -45,8 +46,6 @@ final class AbstractTest extends OpenMageTest
             self::assertFileDoesNotExist($filePath);
         }
 
-        self::markTestSkipped('wait...');
-        /** @phpstan-ignore deadCode.unreachable */
         self::assertSame($expectedResult, self::$subject->validateFileExension($filePath, $extension));
     }
 }

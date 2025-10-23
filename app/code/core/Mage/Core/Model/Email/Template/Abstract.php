@@ -7,9 +7,6 @@
  * @package    Mage_Core
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Template model
  *
@@ -245,16 +242,18 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
 
     public function validateFileExension(string $filePath, string $extension): bool
     {
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
 
         if ($extension === 'css') {
             $extension = ['css' => ['text/css', 'text/plain']];
         }
 
-        return $validator->validate($filePath, new Assert\File([
-            'maxSize' => '8M',
-            'extensions' => $extension,
-        ]))->count() === 0;
+        return $validator->validateFile(
+            filePath: $filePath,
+            maxSize: '8M',
+            extensions: $extension,
+        )->count() === 0;
     }
 
     /**

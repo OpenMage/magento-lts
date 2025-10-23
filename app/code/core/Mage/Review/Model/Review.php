@@ -7,9 +7,6 @@
  * @package    Mage_Review
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Review model
  *
@@ -49,7 +46,6 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
 
     /**
      * @deprecated after 1.3.2.4
-     *
      */
     public const ENTITY_PRODUCT = 1;
 
@@ -140,21 +136,25 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         $violations = [];
-        $errors = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        $violations[] = $validator->validate($this->getTitle(), [new Assert\NotBlank([
-            'message' => Mage::helper('review')->__('Review summary can\'t be empty'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getTitle(),
+            message: Mage::helper('review')->__('Review summary can\'t be empty'),
+        );
 
-        $violations[] = $validator->validate($this->getNickname(), [new Assert\NotBlank([
-            'message' => Mage::helper('review')->__('Nickname can\'t be empty'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getNickname(),
+            message: Mage::helper('review')->__('Nickname can\'t be empty'),
+        );
 
-        $violations[] = $validator->validate($this->getDetail(), [new Assert\NotBlank([
-            'message' => Mage::helper('review')->__('Review can\'t be empty'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getDetail(),
+            message: Mage::helper('review')->__('Review can\'t be empty'),
+        );
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
@@ -185,6 +185,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      * @param Mage_Catalog_Model_Resource_Product_Collection $collection
      * @return $this
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function appendSummary($collection)
     {
@@ -237,6 +238,7 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      *
      * @param int|Mage_Core_Model_Store $store
      * @return bool
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function isAvailableOnStore($store = null)
     {

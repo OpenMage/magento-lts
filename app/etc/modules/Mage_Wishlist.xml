@@ -15,6 +15,7 @@
             <depends>
                 <Mage_Catalog/>
                 <Mage_Customer/>
+                <Mage_Validation/>
             </depends>
         </Mage_Wishlist>
     </modules>

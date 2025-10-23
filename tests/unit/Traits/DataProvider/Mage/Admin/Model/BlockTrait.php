@@ -58,7 +58,7 @@ trait BlockTrait
         ];
         yield 'errors: null blockname' => [
             [
-                'Block Name is required field.'
+                'Block Name is required field.',
             ],
             [
                 'getBlockName' => null,

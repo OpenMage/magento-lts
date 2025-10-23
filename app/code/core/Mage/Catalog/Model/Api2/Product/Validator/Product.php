@@ -7,9 +7,6 @@
  * @package    Mage_Catalog
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * API2 catalog_product Validator
  *
@@ -131,9 +128,14 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
         }
 
         // Validate weight
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         if (!empty($data['weight']) && $data['weight'] > 0
-            && $validator->validate($data['weight'], new Assert\Range(['min' => 0, 'max' => self::MAX_DECIMAL_VALUE]))->count() > 0
+            && $validator->validateRange(
+                value: $data['weight'],
+                min: 0,
+                max: self::MAX_DECIMAL_VALUE,
+            )->count() > 0
         ) {
             $this->_addError('The "weight" value is not within the specified range.');
         }
@@ -259,6 +261,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
      * @param array $data
      * @param Mage_Eav_Model_Entity_Type $productEntity
      * @return true|void
+     * @throws Mage_Api2_Exception
      */
     protected function _validateAttributeSet($data, $productEntity)
     {
@@ -289,9 +292,11 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
             return true;
         }
 
-        $skuMaxLength = Mage_Eav_Model_Entity_Attribute::ATTRIBUTE_CODE_MAX_LENGTH;
-        $validator  = Validation::createValidator();
-        if ($validator->validate($data['sku'], new Assert\Length(['max' => $skuMaxLength]))->count() > 0) {
+        $skuMaxLength = Mage_Catalog_Model_Product_Attribute_Backend_Sku::SKU_MAX_LENGTH;
+
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
+        if ($validator->validateLength(value: $data['sku'], max: $skuMaxLength)->count() > 0) {
             $this->_addError(sprintf('SKU length should be %d characters maximum.', $skuMaxLength));
         }
     }

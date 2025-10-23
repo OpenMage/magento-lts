@@ -28,6 +28,8 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      */
     public function __construct($options = [])
     {
+        $this->_initMessageTemplates();
+
         $args = func_get_args();
         if (!is_array($options)) {
             $options = $args;
@@ -101,7 +103,7 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     }
 
     /**
-     * Defined by Zend_Validate_Interface
+     * Defined by Mage_Validation_Interface
      *
      * Returns true if and only if the string length of $value is at least the min option and
      * no greater than the max option (when the max option is not null).

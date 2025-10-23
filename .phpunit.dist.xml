@@ -79,6 +79,9 @@
         <testsuite name="Mage_Newsletter">
             <directory>tests/unit/Mage/Newsletter</directory>
         </testsuite>
+        <testsuite name="Mage_Oauth">
+            <directory>tests/unit/Mage/Oauth</directory>
+        </testsuite>
         <testsuite name="Mage_Page">
             <directory>tests/unit/Mage/Page</directory>
         </testsuite>

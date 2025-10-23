@@ -27,7 +27,7 @@
  *
  * @package    Mage_Core
  */
-class Mage_Core_Model_File_Validator_AvailablePath extends Zend_Validate_Abstract
+class Mage_Core_Model_File_Validator_AvailablePath extends Mage_Validation_Helper_Abstract
 {
     public const PROTECTED_PATH     = 'protectedPath';
 

@@ -7,9 +7,6 @@
  * @package    Mage_Admin
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Class Mage_Admin_Model_Variable
  *
@@ -38,24 +35,29 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         $violations = [];
-        $errors = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        $violations[] = $validator->validate($this->getVariableName(), [
-            new Assert\NotBlank([
-                'message' => Mage::helper('adminhtml')->__('Variable Name is required field.'),
-            ]),
-            new Assert\Regex([
-                'message' => Mage::helper('adminhtml')->__('Variable Name is incorrect.'),
-                'pattern' => '/^[-_a-zA-Z0-9\/]*$/',
-            ]),
-        ]);
+        $variableName  = $this->getVariableName();
 
-        $violations[] = $validator->validate($this->getIsAllowed(), [new Assert\Choice([
-            'choices' => ['0', '1'],
-            'message' => Mage::helper('adminhtml')->__('Is Allowed is required field.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $variableName,
+            message: Mage::helper('adminhtml')->__('Variable Name is required field.'),
+        );
+
+        $violations[] = $validator->validateRegex(
+            value: $variableName,
+            pattern: '/^[-_a-zA-Z0-9\/]*$/',
+            message: Mage::helper('adminhtml')->__('Variable Name is incorrect.'),
+        );
+
+        $violations[] = $validator->validateChoice(
+            value: $this->getIsAllowed(),
+            choices: ['0', '1'],
+            message: Mage::helper('adminhtml')->__('Is Allowed is required field.'),
+        );
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {

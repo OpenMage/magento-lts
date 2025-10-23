@@ -7,9 +7,6 @@
  * @package    Mage_Api
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Api model
  *
@@ -364,30 +361,30 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         $violations = [];
-        $errors = new ArrayObject();
+        $errors     = new ArrayObject();
 
-        $violations[] = $validator->validate($this->getUsername(), [new Assert\NotBlank([
-            'message' => Mage::helper('api')->__('User Name is required field.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getUsername(),
+            message: Mage::helper('api')->__('User Name is required field.'),
+        );
 
-        $violations[] = $validator->validate($this->getFirstname(), [new Assert\NotBlank([
-            'message' => Mage::helper('api')->__('First Name is required field.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('api')->__('First Name is required field.'),
+        );
 
-        $violations[] = $validator->validate($this->getLastname(), [new Assert\NotBlank([
-            'message' => Mage::helper('api')->__('Last Name is required field.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('api')->__('Last Name is required field.'),
+        );
 
-        $violations[] = $validator->validate($this->getEmail(), [
-            new Assert\NotBlank([
-                'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
-            ]),
-            new Assert\Email([
-                'message' => Mage::helper('adminhtml')->__('Please enter a valid email.'),
-            ]),
-        ]);
+        $violations[] = $validator->validateEmail(
+            value: $this->getEmail(),
+            message: Mage::helper('adminhtml')->__('Please enter a valid email.'),
+        );
 
         if ($this->hasNewApiKey()) {
             $apiKey = $this->getNewApiKey();
@@ -397,29 +394,33 @@ class Mage_Api_Model_User extends Mage_Core_Model_Abstract
 
         if (isset($apiKey)) {
             $minCustomerPasswordLength = $this->_getMinCustomerPasswordLength();
-            $violations[] = $validator->validate($apiKey, [
-                new Assert\Length([
-                    'min' => $minCustomerPasswordLength,
-                    'minMessage' => $this->_getHelper('api')
-                        ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength),
-                ]),
-                new Assert\Regex([
-                    'pattern' => '/[a-z]/iu',
-                    'message' => $this->_getHelper('api')
-                        ->__('Api Key must include both numeric and alphabetic characters.'),
-                ]),
-                new Assert\Regex([
-                    'pattern' => '/[0-9]/u',
-                    'message' => $this->_getHelper('api')
-                        ->__('Api Key must include both numeric and alphabetic characters.'),
-                ]),
-            ]);
+            $violations[] = $validator->validateLength(
+                value: $apiKey,
+                min: $minCustomerPasswordLength,
+                minMessage: $this->_getHelper('api')
+                    ->__('Api Key must be at least of %d characters.', $minCustomerPasswordLength),
+            );
+
+            $violations[] = $validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[a-z]/iu',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            );
+
+            $violations[] = $validator->validateRegex(
+                value: $apiKey,
+                pattern: '/[0-9]/u',
+                message: $this->_getHelper('api')
+                    ->__('Api Key must include both numeric and alphabetic characters.'),
+            );
 
             if ($this->hasApiKeyConfirmation()) {
-                $violations[] = $validator->validate($apiKey, [new Assert\IdenticalTo([
-                    'value' => $this->getApiKeyConfirmation(),
-                    'message' => $this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'),
-                ])]);
+                $violations[] = $validator->validateIdentical(
+                    value: $apiKey,
+                    compare: $this->getApiKeyConfirmation(),
+                    message: $this->_getHelper('api')->__('Api Key confirmation must be same as Api Key.'),
+                );
             }
         }
 

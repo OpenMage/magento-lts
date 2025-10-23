@@ -224,44 +224,40 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      * Validate data
      *
      * @return bool
-     * @throw Mage_Core_Exception|Exception   Throw exception on fail validation
+     * @throws Mage_Core_Exception   Throw exception on fail validation
      */
     public function validate()
     {
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
+
         if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $this->getCallbackUrl()) {
             $callbackUrl = $this->getConsumer()->getCallbackUrl();
             $isWhitelisted = $callbackUrl && str_starts_with($this->getCallbackUrl(), $callbackUrl);
-            $validatorUrl = Mage::getSingleton('core/url_validator');
-            if (!$isWhitelisted && !$validatorUrl->isValid($this->getCallbackUrl())) {
-                $messages = $validatorUrl->getMessages();
-                Mage::throwException(array_shift($messages));
+            $violations = $validator->validateUrl(
+                value: $this->getCallbackUrl(),
+                message: 'Invalid URL {{ value }}.',
+            );
+            if (!$isWhitelisted && $violations->count() > 0) {
+                Mage::throwException($violations->get(0)->getMessage());
             }
         }
 
-        /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
-        $validatorLength = Mage::getModel(
-            'oauth/consumer_validator_keyLength',
-        );
-        $validatorLength->setLength(self::LENGTH_SECRET);
-        $validatorLength->setName('Token Secret Key');
-        if (!$validatorLength->isValid($this->getSecret())) {
-            $messages = $validatorLength->getMessages();
-            Mage::throwException(array_shift($messages));
+        $violations = $validator->validateLength(value: $this->getSecret(), exactly: self::LENGTH_SECRET);
+        if ($violations->count() > 0) {
+            Mage::throwException($violations->get(0)->getMessage());
         }
 
-        $validatorLength->setLength(self::LENGTH_TOKEN);
-        $validatorLength->setName('Token Key');
-        if (!$validatorLength->isValid($this->getToken())) {
-            $messages = $validatorLength->getMessages();
-            Mage::throwException(array_shift($messages));
+        $violations = $validator->validateLength(value: $this->getToken(), exactly: self::LENGTH_TOKEN);
+        if ($violations->count() > 0) {
+            Mage::throwException($violations->get(0)->getMessage());
         }
 
-        if (($verifier = $this->getVerifier()) !== null) {
-            $validatorLength->setLength(self::LENGTH_VERIFIER);
-            $validatorLength->setName('Verifier Key');
-            if (!$validatorLength->isValid($verifier)) {
-                $messages = $validatorLength->getMessages();
-                Mage::throwException(array_shift($messages));
+        $verifier = $this->getVerifier();
+        if ($verifier !== null) {
+            $violations = $validator->validateLength(value: $verifier, exactly: self::LENGTH_VERIFIER);
+            if ($violations->count() > 0) {
+                Mage::throwException($violations->get(0)->getMessage());
             }
         }
 

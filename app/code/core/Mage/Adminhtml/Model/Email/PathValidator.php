@@ -12,7 +12,7 @@
  *
  * @package    Mage_Adminhtml
  */
-class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
+class Mage_Adminhtml_Model_Email_PathValidator
 {
     /**
      * Returns true if and only if $value meets the validation requirements
@@ -23,8 +23,11 @@ class Mage_Adminhtml_Model_Email_PathValidator extends Zend_Validate_Abstract
      */
     public function isValid($value)
     {
-        $pathNode = is_array($value) ? array_shift($value) : $value;
+        if (in_array($value, [null, ''])) {
+            return false;
+        }
 
+        $pathNode = is_array($value) ? array_shift($value) : $value;
         return $this->isEncryptedNodePath($pathNode);
     }
 

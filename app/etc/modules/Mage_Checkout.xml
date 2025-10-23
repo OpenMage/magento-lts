@@ -15,6 +15,7 @@
             <depends>
                 <Mage_CatalogInventory/>
                 <Mage_Sales/>
+                <Mage_Validation/>
             </depends>
         </Mage_Checkout>
     </modules>

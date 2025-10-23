@@ -7,9 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Catalog product attribute controller
  *
@@ -204,10 +201,12 @@ class Mage_Adminhtml_Catalog_Product_AttributeController extends Mage_Adminhtml_
 
             //validate attribute_code
             if (isset($data['attribute_code'])) {
-                $validator = Validation::createValidator();
-                if ($validator->validate($data['attribute_code'], new Assert\Regex([
-                    'pattern' => '/^(?!event$)[a-z][a-z_0-9]{1,254}$/',
-                ]))->count() > 0) {
+                /** @var Mage_Validation_Helper_Data $validator */
+                $validator = Mage::helper('validation');
+                if ($validator->validateRegex(
+                    value: $data['attribute_code'],
+                    pattern: '/^(?!event$)[a-z][a-z_0-9]{1,254}$/',
+                )->count() > 0) {
                     $session->addError(
                         Mage::helper('catalog')->__('Attribute code is invalid. Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter. Do not use "event" for an attribute code.'),
                     );

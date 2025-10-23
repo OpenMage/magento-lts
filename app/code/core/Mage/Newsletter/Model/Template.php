@@ -7,9 +7,6 @@
  * @package    Mage_Newsletter
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Template model
  *
@@ -74,42 +71,40 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         $violations = [];
         $errors     = new ArrayObject();
 
-        $violations[] = $validator->validate($this->getDataUsingMethod('template_code'), [
-            new Assert\NotBlank([
-                'message' => 'You must give a non-empty value for field \'template_code\'',
-            ]),
-        ]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_code'),
+            message: 'You must give a non-empty value for field \'template_code\'',
+        );
 
         $message = 'You must give a non-empty value for field \'template_type\'';
-        $violations[] = $validator->validate($this->getDataUsingMethod('template_type'), [
-            new Assert\NotBlank([
-                'message' => $message,
-            ]),
-            new Assert\Type([
-                'type' => 'int',
-                'message' => $message,
-            ]),
-        ]);
+        $templateType = $this->getDataUsingMethod('template_type');
+
+        $violations[] = $validator->validateNotEmpty(
+            value: $templateType,
+            message: $message,
+        );
+
+        $violations[] = $validator->validateType(
+            value: $templateType,
+            type: 'int',
+            message: $message,
+        );
 
         $message = '\'invalid-email\' is not a valid email address in the basic format local-part@hostname';
-        $violations[] = $validator->validate($this->getDataUsingMethod('template_sender_email'), [
-            new Assert\NotBlank([
-                'message' => $message,
-            ]),
-            new Assert\Email([
-                'message' => $message,
-            ]),
-        ]);
+        $violations[] = $validator->validateEmail(
+            value: $this->getDataUsingMethod('template_sender_email'),
+            message: $message,
+        );
 
-        $violations[] = $validator->validate($this->getDataUsingMethod('template_sender_name'), [
-            new Assert\NotBlank([
-                'message' => 'You must give a non-empty value for field \'template_sender_name\'',
-            ]),
-        ]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getDataUsingMethod('template_sender_name'),
+            message: 'You must give a non-empty value for field \'template_sender_name\'',
+        );
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {

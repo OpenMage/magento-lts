@@ -7,9 +7,6 @@
  * @package    Mage_Admin
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Class Mage_Admin_Model_Block
  *
@@ -40,31 +37,36 @@ class Mage_Admin_Model_Block extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         $violations = [];
         $errors     = new ArrayObject();
 
-        $violations[] = $validator->validate($this->getBlockName(), [
-            new Assert\NotBlank([
-                'message' => Mage::helper('adminhtml')->__('Block Name is required field.'),
-            ]),
-            new Assert\Regex([
-                'pattern' => self::BLOCK_NAME_REGEX,
-                'message' => Mage::helper('adminhtml')->__('Block Name is incorrect.'),
-            ]),
-            new Assert\Choice([
-                'choices' => Mage::helper('admin/block')->getDisallowedBlockNames(),
-                'match' => false,
-                'message' => Mage::helper('adminhtml')->__('Block Name is disallowed.'),
-            ]),
-        ]);
+        $blockName  = $this->getBlockName();
 
-        $violations[] = $validator->validate($this->getIsAllowed(), [
-            new Assert\Choice([
-                'choices' => ['0', '1'],
-                'message' => Mage::helper('adminhtml')->__('Is Allowed is required field.'),
-            ]),
-        ]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $blockName,
+            message: Mage::helper('adminhtml')->__('Block Name is required field.'),
+        );
+
+        $violations[] = $validator->validateRegex(
+            value: $blockName,
+            pattern: self::BLOCK_NAME_REGEX,
+            message: Mage::helper('adminhtml')->__('Block Name is incorrect.'),
+        );
+
+        $violations[] = $validator->validateChoice(
+            value: $blockName,
+            choices: Mage::helper('admin/block')->getDisallowedBlockNames(),
+            message: Mage::helper('adminhtml')->__('Block Name is disallowed.'),
+            match: false,
+        );
+
+        $violations[] = $validator->validateChoice(
+            value: $this->getIsAllowed(),
+            choices: ['0', '1'],
+            message: Mage::helper('adminhtml')->__('Is Allowed is required field.'),
+        );
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {

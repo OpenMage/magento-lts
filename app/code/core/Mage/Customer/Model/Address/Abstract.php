@@ -7,9 +7,6 @@
  * @package    Mage_Customer
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Address abstract model
  *
@@ -455,28 +452,34 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _basicCheck()
     {
-        $validator  = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         $violations = [];
 
-        $violations[] = $validator->validate($this->getFirstname(), [new Assert\NotBlank([
-            'message' => Mage::helper('customer')->__('Please enter the first name.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getFirstname(),
+            message: Mage::helper('customer')->__('Please enter the first name.'),
+        );
 
-        $violations[] = $validator->validate($this->getLastname(), [new Assert\NotBlank([
-            'message' => Mage::helper('customer')->__('Please enter the last name.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getLastname(),
+            message: Mage::helper('customer')->__('Please enter the last name.'),
+        );
 
-        $violations[] = $validator->validate($this->getStreet(1), [new Assert\NotBlank([
-            'message' => Mage::helper('customer')->__('Please enter the street.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getStreet(1),
+            message: Mage::helper('customer')->__('Please enter the street.'),
+        );
 
-        $violations[] = $validator->validate($this->getCity(), [new Assert\NotBlank([
-            'message' => Mage::helper('customer')->__('Please enter the city.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getCity(),
+            message: Mage::helper('customer')->__('Please enter the city.'),
+        );
 
-        $violations[] = $validator->validate($this->getTelephone(), [new Assert\NotBlank([
-            'message' => Mage::helper('customer')->__('Please enter the telephone number.'),
-        ])]);
+        $violations[] = $validator->validateNotEmpty(
+            value: $this->getTelephone(),
+            message: Mage::helper('customer')->__('Please enter the telephone number.'),
+        );
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
@@ -486,17 +489,17 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
 
         $havingOptionalZip = Mage::helper('directory')->getCountriesWithOptionalZip();
         if (!in_array($this->getCountryId(), $havingOptionalZip)
-            && $validator->validate($this->getPostcode(), [new Assert\NotBlank()])->count() > 0
+            && $validator->validateNotEmpty($this->getPostcode())->count() > 0
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the zip/postal code.'));
         }
 
-        if ($validator->validate($this->getCountryId(), [new Assert\NotBlank()])->count() > 0) {
+        if ($validator->validateNotEmpty($this->getCountryId())->count() > 0) {
             $this->addError(Mage::helper('customer')->__('Please enter the country.'));
         }
 
         if ($this->getCountryModel()->getRegionCollection()->getSize()
-            && $validator->validate($this->getRegionId(), [new Assert\NotBlank()])->count() > 0
+            && $validator->validateNotEmpty($this->getRegionId())->count() > 0
             && Mage::helper('directory')->isRegionRequired($this->getCountryId())
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the state/province.'));

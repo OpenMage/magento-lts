@@ -7,9 +7,6 @@
  * @package    Mage_Adminhtml
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * System config email field backend model
  *
@@ -22,9 +19,11 @@ class Mage_Adminhtml_Model_System_Config_Backend_Email_Address extends Mage_Core
      */
     protected function _beforeSave()
     {
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
+
         $email = $this->getValue();
-        $validator  = Validation::createValidator();
-        if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
+        if ($validator->validateEmail($email)->count() > 0) {
             Mage::throwException(Mage::helper('adminhtml')->__('Invalid email address "%s".', $email));
         }
 

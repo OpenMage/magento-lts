@@ -7,9 +7,6 @@
  * @package    Mage_Contacts
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Contacts index controller
  *
@@ -74,13 +71,14 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
                 $postObject = new Varien_Object();
                 $postObject->setData($post);
 
-                $validator  = Validation::createValidator();
+                /** @var Mage_Validation_Helper_Data $validator */
+                $validator  = Mage::helper('validation');
                 $violations = [];
-                $errors = new ArrayObject();
+                $errors     = new ArrayObject();
 
-                $violations[] = $validator->validate(trim($post['name']), [new Assert\NotBlank()]);
-                $violations[] = $validator->validate(trim($post['comment']), [new Assert\NotBlank()]);
-                $violations[] = $validator->validate(trim($post['email']), [new Assert\NotBlank(), new Assert\Email()]);
+                $violations[] = $validator->validateNotEmpty(value: trim($post['name']));
+                $violations[] = $validator->validateNotEmpty(value: trim($post['comment']));
+                $violations[] = $validator->validateEmail(value: trim($post['email']));
 
                 foreach ($violations as $violation) {
                     foreach ($violation as $error) {

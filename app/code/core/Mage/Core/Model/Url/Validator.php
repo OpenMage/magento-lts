@@ -11,22 +11,15 @@
  * Validate URL
  *
  * @package    Mage_Core
+ * @deprecated Use Mage_Validation_Helper_Data::validateUrl() instead
+ * @see Mage_Validation_Helper_Data::validateUrl()
  */
-class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
+class Mage_Core_Model_Url_Validator extends Mage_Validation_Helper_Abstract
 {
     /**
      * Error keys
      */
     public const INVALID_URL = 'invalidUrl';
-
-    /**
-     * Object constructor
-     */
-    public function __construct()
-    {
-        // set translated message template
-        $this->setMessage(Mage::helper('core')->__("Invalid URL '%value%'."), self::INVALID_URL);
-    }
 
     /**
      * Validation failure message template definitions
@@ -38,6 +31,19 @@ class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
     ];
 
     /**
+     * Object constructor
+     * @throws Exception
+     */
+    public function __construct()
+    {
+        // set translated message template
+        $this->setMessage(
+            Mage::helper('core')->__($this->_messageTemplates[self::INVALID_URL]),
+            self::INVALID_URL,
+        );
+    }
+
+    /**
      * Validate value
      *
      * @param string $value
@@ -47,8 +53,11 @@ class Mage_Core_Model_Url_Validator extends Zend_Validate_Abstract
     {
         $this->_setValue($value);
 
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
+
         //check valid URL
-        if (!Zend_Uri::check($value)) {
+        if ($validator->validateUrl(value: $value)->count() > 0) {
             $this->_error(self::INVALID_URL);
             return false;
         }

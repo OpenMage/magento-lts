@@ -70,24 +70,21 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      * Validate data
      *
      * @return bool
-     * @throw Mage_Core_Exception|Exception   Throw exception on fail validation
+     * @throws Mage_Core_Exception   Throw exception on fail validation
      */
     public function validate()
     {
-        /** @var Mage_Oauth_Model_Consumer_Validator_KeyLength $validatorLength */
-        $validatorLength = Mage::getModel('oauth/consumer_validator_keyLength', ['length' => self::KEY_LENGTH]);
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
 
-        $validatorLength->setName('Consumer Key');
-        if (!$validatorLength->isValid($this->getKey())) {
-            $messages = $validatorLength->getMessages();
-            Mage::throwException(array_shift($messages));
+        $violations = $validator->validateLength(value: $this->getKey(), exactly: self::KEY_LENGTH);
+        if ($violations->count() > 0) {
+            Mage::throwException($violations->get(0)->getMessage());
         }
 
-        $validatorLength->setLength(self::SECRET_LENGTH);
-        $validatorLength->setName('Consumer Secret');
-        if (!$validatorLength->isValid($this->getSecret())) {
-            $messages = $validatorLength->getMessages();
-            Mage::throwException(array_shift($messages));
+        $violations = $validator->validateLength(value: $this->getSecret(), exactly: self::SECRET_LENGTH);
+        if ($violations->count() > 0) {
+            Mage::throwException($violations->get(0)->getMessage());
         }
 
         return true;

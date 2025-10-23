@@ -7,9 +7,6 @@
  * @package    Mage_Newsletter
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Newsletter subscribe controller
  *
@@ -36,10 +33,12 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
             $session            = Mage::getSingleton('core/session');
             $customerSession    = Mage::getSingleton('customer/session');
             $email              = (string) $this->getRequest()->getPost('email');
-            $validator          = Validation::createValidator();
+
+            /** @var Mage_Validation_Helper_Data $validator */
+            $validator          = Mage::helper('validation');
 
             try {
-                if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
+                if ($validator->validateEmail($email)->count() > 0) {
                     Mage::throwException($this->__('Please enter a valid email address.'));
                 }
 

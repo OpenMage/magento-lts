@@ -17,6 +17,7 @@
                 <Mage_Dataflow/>
                 <Mage_Eav/>
                 <Mage_Index/>
+                <Mage_Validation/>
             </depends>
         </Mage_Catalog>
     </modules>

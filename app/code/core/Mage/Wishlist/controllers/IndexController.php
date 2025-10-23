@@ -7,9 +7,6 @@
  * @package    Mage_Wishlist
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Wishlist front controller
  *
@@ -675,10 +672,11 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
         } elseif (count($emails) > 5) {
             $error = $this->__('Please enter no more than 5 email addresses.');
         } else {
-            $validator = Validation::createValidator();
+            /** @var Mage_Validation_Helper_Data $validator */
+            $validator  = Mage::helper('validation');
             foreach ($emails as $index => $email) {
                 $email = trim($email);
-                if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
+                if ($validator->validateEmail($email)->count() > 0) {
                     $error = $this->__('Please input a valid email address.');
                     break;
                 }

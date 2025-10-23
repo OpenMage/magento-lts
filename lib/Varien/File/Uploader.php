@@ -7,6 +7,9 @@
  * @package    Varien_File
  */
 
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints;
+
 /**
  * File upload class
  *
@@ -375,8 +378,10 @@ class Varien_File_Uploader
     {
         try {
             if (count($validTypes) > 0) {
-                $validator = new Zend_Validate_File_MimeType($validTypes);
-                return $validator->isValid($this->_file['tmp_name']);
+                $validator = Validation::createValidator();
+                return $validator->validate($this->_file['tmp_name'], [
+                    new Constraints\File(mimeTypes: $validTypes),
+                ])->count() === 0;
             }
 
             return true;

@@ -7,9 +7,6 @@
  * @package    Mage_Checkout
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * One page checkout processing model
  *
@@ -513,8 +510,9 @@ class Mage_Checkout_Model_Type_Onepage
             }
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
-            $validator  = Validation::createValidator();
-            if ($validator->validate($email, [new Assert\NotBlank(), new Assert\Email()])->count() > 0) {
+            /** @var Mage_Validation_Helper_Data $validator */
+            $validator  = Mage::helper('validation');
+            if ($validator->validateEmail($email)->count() > 0) {
                 return [
                     'error'   => -1,
                     'message' => Mage::helper('checkout')->__('Invalid email address "%s"', $email),

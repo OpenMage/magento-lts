@@ -476,8 +476,11 @@ class Mage_Oauth_Model_Server
             return;
         }
 
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
+
         if (self::CALLBACK_ESTABLISHED !== $this->_protocolParams['oauth_callback']
-            && !Zend_Uri::check($this->_protocolParams['oauth_callback'])
+            && $validator->validateUrl($this->_protocolParams['oauth_callback'])->count() > 0
         ) {
             $this->_throwException('oauth_callback', self::ERR_PARAMETER_REJECTED);
         }

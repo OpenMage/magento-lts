@@ -112,7 +112,6 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
         Mage::getSingleton('checkout/session')->setUseNotice(false);
 
         $this->setIsValid(true);
-        $option = $this->getOption();
 
         /*
          * Check whether we receive uploaded file or restore file by: reorder/edit configuration or
@@ -403,18 +402,26 @@ class Mage_Catalog_Model_Product_Option_Type_File extends Mage_Catalog_Model_Pro
      */
     protected function _getValidatorErrors($errors, $fileInfo)
     {
+        $zendValidateFileMap = [
+            'ExcludeExtension::FALSE_EXTENSION' => 'fileExcludeExtensionFalse',
+            'Extension::FALSE_EXTENSION'        => 'fileExtensionFalse',
+            'ImageSize::WIDTH_TOO_BIG'          => 'fileImageSizeWidthTooBig',
+            'ImageSize::HEIGHT_TOO_BIG'         => 'fileImageSizeHeightTooBig',
+            'FilesSize::TOO_BIG'                => 'fileFilesSizeTooBig',
+        ];
+
         $option = $this->getOption();
         $result = [];
         foreach ($errors as $errorCode) {
-            if ($errorCode == Zend_Validate_File_ExcludeExtension::FALSE_EXTENSION) {
+            if ($errorCode == $zendValidateFileMap['ExcludeExtension::FALSE_EXTENSION']) {
                 $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension", $fileInfo['title'], $option->getTitle());
-            } elseif ($errorCode == Zend_Validate_File_Extension::FALSE_EXTENSION) {
+            } elseif ($errorCode == $zendValidateFileMap['Extension::FALSE_EXTENSION']) {
                 $result[] = Mage::helper('catalog')->__("The file '%s' for '%s' has an invalid extension", $fileInfo['title'], $option->getTitle());
-            } elseif ($errorCode == Zend_Validate_File_ImageSize::WIDTH_TOO_BIG
-                || $errorCode == Zend_Validate_File_ImageSize::HEIGHT_TOO_BIG
+            } elseif ($errorCode == $zendValidateFileMap['ImageSize::WIDTH_TOO_BIG']
+                || $errorCode == $zendValidateFileMap['ImageSize::HEIGHT_TOO_BIG']
             ) {
                 $result[] = Mage::helper('catalog')->__("Maximum allowed image size for '%s' is %sx%s px.", $option->getTitle(), $option->getImageSizeX(), $option->getImageSizeY());
-            } elseif ($errorCode == Zend_Validate_File_FilesSize::TOO_BIG) {
+            } elseif ($errorCode == $zendValidateFileMap['FilesSize::TOO_BIG']) {
                 $result[] = Mage::helper('catalog')->__("The file '%s' you uploaded is larger than %s Megabytes allowed by server", $fileInfo['title'], $this->_bytesToMbytes($this->_getUploadMaxFilesize()));
             }
         }

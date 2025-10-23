@@ -7,6 +7,9 @@
  * @package    Mage_Api2
  */
 
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+
 /**
  * API2 Fields Validator
  *
@@ -96,16 +99,12 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
                         $validatorConfig['type'],
                         !empty($validatorConfig['options']) ? $validatorConfig['options'] : [],
                     );
-                    // set custom message
-                    if (isset($validatorConfig['message'])) {
-                        $validator->setMessage($validatorConfig['message']);
-                    }
 
                     // add to list of validators
                     $chainForOneField->addValidator($validator);
                 }
 
-                $this->_validators[$field] = $chainForOneField;
+                $this->_validators[$field] = $validator;
             }
         }
     }
@@ -116,17 +115,14 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      *
      * @param string $type
      * @param array $options
-     * @return Zend_Validate_Interface
+     * @return ConstraintViolationListInterface
      * @throws Exception If validator is not exist
      */
     protected function _getValidatorInstance($type, $options)
     {
-        $validatorClass = 'Zend_Validate_' . $type;
-        if (!class_exists($validatorClass)) {
-            throw new Exception("Validator {$type} is not exist");
-        }
-
-        return new $validatorClass($options);
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
+        return $validator->validate(value: null, constraints: $validator->getContraintsByType($type, $options));
     }
 
     /**

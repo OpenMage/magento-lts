@@ -7,9 +7,6 @@
  * @package    Mage_Eav
  */
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
-
 /**
  * EAV Entity attribute model
  *
@@ -135,9 +132,13 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         /*
          * Check for maximum attribute_code length
          */
-        $validator = Validation::createValidator();
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator  = Mage::helper('validation');
         if (isset($this->_data['attribute_code'])
-            && $validator->validate($this->_data['attribute_code'], [new Assert\Length(['max' => self::ATTRIBUTE_CODE_MAX_LENGTH])])->count() > 0
+            && $validator->validateLength(
+                value: $this->_data['attribute_code'],
+                max: self::ATTRIBUTE_CODE_MAX_LENGTH,
+            )->count() > 0
         ) {
             throw Mage::exception('Mage_Eav', Mage::helper('eav')->__('Maximum length of attribute code must be less then %s symbols', self::ATTRIBUTE_CODE_MAX_LENGTH));
         }

@@ -16,6 +16,7 @@
                 <Mage_Dataflow/>
                 <Mage_Directory/>
                 <Mage_Eav/>
+                <Mage_Validation/>
             </depends>
         </Mage_Customer>
     </modules>
