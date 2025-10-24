@@ -57,7 +57,7 @@ class Mage_Catalog_Model_Product_Option_Type_Text extends Mage_Catalog_Model_Pro
      */
     public function prepareForCart()
     {
-        if ($this->getIsValid() && strlen($this->getUserValue()) > 0) {
+        if ($this->getIsValid() && $this->getUserValue() !== '') {
             return $this->getUserValue();
         } else {
             return null;

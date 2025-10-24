@@ -304,8 +304,6 @@ class Mage_Widget_Model_Widget extends Varien_Object
      */
     protected function _sortParameters($a, $b)
     {
-        $aOrder = (int) $a->getData('sort_order');
-        $bOrder = (int) $b->getData('sort_order');
-        return $aOrder <=> $bOrder;
+        return (int) $a->getData('sort_order') <=> (int) $b->getData('sort_order');
     }
 }

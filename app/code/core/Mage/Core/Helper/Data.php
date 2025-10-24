@@ -338,8 +338,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     public function getVersionHash(Mage_Core_Model_Encryption $encryptionModel)
     {
         return function_exists('password_hash')
-            ? $encryptionModel::HASH_VERSION_LATEST
-            : $encryptionModel::HASH_VERSION_SHA512;
+            ? Mage_Core_Model_Encryption::HASH_VERSION_LATEST
+            : Mage_Core_Model_Encryption::HASH_VERSION_SHA512;
     }
 
     /**
