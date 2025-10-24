@@ -98,6 +98,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if ($object->getIsDuplicate()) {
             return $this;
         }
+
         $attrCode = $this->getAttribute()->getAttributeCode();
         $value = $object->getData($attrCode);
         if (!is_array($value) || !isset($value['images'])) {
@@ -277,6 +278,7 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         foreach ($unusedImages as $file) {
             $io->rm($this->_getConfig()->getMediaPath($file));
         }
+
         return parent::afterDelete($object);
     }
 
@@ -705,10 +707,11 @@ class Mage_Catalog_Model_Product_Attribute_Backend_Media extends Mage_Eav_Model_
         if (!is_array($value) || !isset($value['images']) || !is_array($value['images'])) {
             return $this;
         }
+
         $attributeIds = array_map(fn($attr) => $attr->getAttributeId(), $object->getMediaAttributes());
 
         $newImagesMap = [];
-        foreach ($value['images'] as $k => &$image) {
+        foreach ($value['images'] as &$image) {
             $newImagesMap[$image['file']] = [
                 'file' => $this->_copyImage($image['file']),
                 'old_value_id' => $image['value_id'],
