@@ -97,7 +97,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   float $value
      * @param   bool $format
      * @param   bool $includeContainer
-     * @return  mixed
+     * @return  float|string
      */
     public static function currency($value, $format = true, $includeContainer = true)
     {
@@ -111,7 +111,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param   int|Mage_Core_Model_Store $store
      * @param   bool $format
      * @param   bool $includeContainer
-     * @return  mixed
+     * @return  float|string
      */
     public static function currencyByStore($value, $store = null, $format = true, $includeContainer = true)
     {
@@ -121,8 +121,8 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $value = $store->convertPrice($value, $format, $includeContainer);
-        } catch (Exception $e) {
-            $value = $e->getMessage();
+        } catch (Exception $exception) {
+            $value = $exception->getMessage();
         }
 
         return $value;
@@ -146,6 +146,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param float $price
      * @param bool $includeContainer
      * @return string
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function formatPrice($price, $includeContainer = true)
     {
@@ -275,6 +276,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      * @param int $len
      * @param string|null $chars
      * @return string
+     * @throws Exception
      */
     public function getRandomString($len, $chars = null)
     {
@@ -282,7 +284,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             $chars = self::CHARS_LOWERS . self::CHARS_UPPERS . self::CHARS_DIGITS;
         }
 
-        for ($i = 0, $str = '', $lc = strlen($chars) - 1; $i < $len; $i++) {
+        for ($index = 0, $str = '', $lc = strlen($chars) - 1; $index < $len; $index++) {
             $str .= $chars[random_int(0, $lc)];
         }
 
@@ -347,6 +349,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param   bool|int|Mage_Core_Model_Store|null|string $store
      * @return  int
+     * @throws Mage_Core_Model_Store_Exception
      */
     public function getStoreId($store = null)
     {
@@ -356,7 +359,7 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @param string $string
      * @param bool $german
-     * @return false|string
+     * @return string
      *
      * @SuppressWarnings("PHPMD.ErrorControlOperator")
      */
@@ -397,21 +400,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             $replacements[$german] = [];
-            foreach ($subst as $k => $v) {
-                $replacements[$german][$k < 256 ? chr($k) : '&#' . $k . ';'] = $v;
+            foreach ($subst as $key => $value) {
+                $replacements[$german][$key < 256 ? chr($key) : '&#' . $key . ';'] = $value;
             }
         }
 
         // convert string from default database format (UTF-8)
         // to encoding which replacement arrays made with (ISO-8859-1)
-        if ($s = @iconv('UTF-8', 'ISO-8859-1', $string)) {
-            $string = $s;
+        if ($encoded = @iconv('UTF-8', 'ISO-8859-1', $string)) {
+            $string = $encoded;
         }
 
         // Replace
-        $string = strtr($string, $replacements[$german]);
-
-        return $string;
+        return strtr($string, $replacements[$german]);
     }
 
     /**
@@ -567,19 +568,19 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
         $keyIsLast  = "{$prefix}is_last";
 
         $count  = count($array); // this will force Iterator to load
-        $i      = 0;
+        $index  = 0;
         $isEven = false;
         foreach ($array as $key => $element) {
             if (is_object($element)) {
-                $this->_decorateArrayObject($element, $keyIsFirst, ($i === 0), $forceSetAll || ($i === 0));
+                $this->_decorateArrayObject($element, $keyIsFirst, ($index === 0), $forceSetAll || ($index === 0));
                 $this->_decorateArrayObject($element, $keyIsOdd, !$isEven, $forceSetAll || !$isEven);
                 $this->_decorateArrayObject($element, $keyIsEven, $isEven, $forceSetAll || $isEven);
                 $isEven = !$isEven;
-                $i++;
-                $this->_decorateArrayObject($element, $keyIsLast, ($i === $count), $forceSetAll || ($i === $count));
+                $index++;
+                $this->_decorateArrayObject($element, $keyIsLast, ($index === $count), $forceSetAll || ($index === $count));
             } elseif (is_array($element)) {
-                if ($forceSetAll || ($i === 0)) {
-                    $array[$key][$keyIsFirst] = ($i === 0);
+                if ($forceSetAll || ($index === 0)) {
+                    $array[$key][$keyIsFirst] = ($index === 0);
                 }
 
                 if ($forceSetAll || !$isEven) {
@@ -591,9 +592,9 @@ class Mage_Core_Helper_Data extends Mage_Core_Helper_Abstract
                 }
 
                 $isEven = !$isEven;
-                $i++;
-                if ($forceSetAll || ($i === $count)) {
-                    $array[$key][$keyIsLast] = ($i === $count);
+                $index++;
+                if ($forceSetAll || ($index === $count)) {
+                    $array[$key][$keyIsLast] = ($index === $count);
                 }
             }
         }
@@ -695,9 +696,9 @@ XML;
         $array = [];
         foreach ($xml as $key => $value) {
             if (isset($value->$key)) {
-                $i = 0;
+                $index = 0;
                 foreach ($value->$key as $v) {
-                    $array[$key][$i++] = (string) $v;
+                    $array[$key][$index++] = (string) $v;
                 }
             } else {
                 // try to transform it into string value, trimming spaces between elements
@@ -776,113 +777,6 @@ XML;
     public function uniqHash($prefix = '')
     {
         return $prefix . md5(uniqid(microtime() . mt_rand(), true));
-    }
-
-    /**
-     * Merge specified files into one
-     *
-     * By default will not merge, if there is already merged file exists and it
-     * was modified after its components
-     * If target file is specified, will attempt to write merged contents into it,
-     * otherwise will return merged content
-     * May apply callback to each file contents. Callback gets parameters:
-     * (<existing system filename>, <file contents>)
-     * May filter files by specified extension(s)
-     * Returns false on error
-     *
-     * @param string|false $targetFile - file path to be written
-     * @param bool $mustMerge
-     * @param callable $beforeMergeCallback
-     * @param array|string $extensionsFilter
-     * @return bool|string
-     * @SuppressWarnings("PHPMD.ErrorControlOperator")
-     */
-    public function mergeFiles(
-        array $srcFiles,
-        $targetFile = false,
-        $mustMerge = false,
-        $beforeMergeCallback = null,
-        $extensionsFilter = []
-    ) {
-        try {
-            // check whether merger is required
-            $shouldMerge = $mustMerge || !$targetFile;
-            if (!$shouldMerge) {
-                if (!file_exists($targetFile)) {
-                    $shouldMerge = true;
-                } else {
-                    $targetMtime = filemtime($targetFile);
-                    foreach ($srcFiles as $file) {
-                        if (!file_exists($file)) {
-                            // no translation intentionally
-                            Mage::logException(new Exception(sprintf('File %s not found.', $file)));
-                        } elseif (@filemtime($file) > $targetMtime) {
-                            $shouldMerge = true;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            // merge contents into the file
-            if ($shouldMerge) {
-                if ($targetFile && !is_writable(dirname($targetFile))) {
-                    // no translation intentionally
-                    throw new Exception(sprintf('Path %s is not writeable.', dirname($targetFile)));
-                }
-
-                // filter by extensions
-                if ($extensionsFilter) {
-                    if (!is_array($extensionsFilter)) {
-                        $extensionsFilter = [$extensionsFilter];
-                    }
-
-                    foreach ($srcFiles as $key => $file) {
-                        $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                        if (!in_array($fileExt, $extensionsFilter)) {
-                            unset($srcFiles[$key]);
-                        }
-                    }
-                }
-
-                if (empty($srcFiles)) {
-                    // no translation intentionally
-                    throw new Exception('No files to compile.');
-                }
-
-                $data = '';
-                foreach ($srcFiles as $file) {
-                    if (!file_exists($file)) {
-                        continue;
-                    }
-
-                    $contents = file_get_contents($file) . "\n";
-                    // phpcs:ignore Ecg.Security.ForbiddenFunction.Found
-                    if ($beforeMergeCallback && is_callable($beforeMergeCallback)) {
-                        $contents = call_user_func($beforeMergeCallback, $file, $contents);
-                    }
-
-                    $data .= $contents;
-                }
-
-                if (!$data) {
-                    // no translation intentionally
-                    throw new Exception(sprintf("No content found in files:\n%s", implode("\n", $srcFiles)));
-                }
-
-                if ($targetFile) {
-                    file_put_contents($targetFile, $data, LOCK_EX);
-                } else {
-                    return $data; // no need to write to file, just return data
-                }
-            }
-
-            return true; // no need in merger or merged into file successfully
-        } catch (Exception $e) {
-            Mage::logException($e);
-        }
-
-        return false;
     }
 
     /**
@@ -1036,7 +930,7 @@ XML;
             foreach ($data as $key => $value) {
                 $value = (string) $value;
 
-                if (preg_match("/^ [=\-+]/", $value)) {
+                if (preg_match('/^ [=\-+]/', $value)) {
                     $data[$key] = ltrim($value);
                 }
             }

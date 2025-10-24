@@ -2587,12 +2587,6 @@ parameters:
 			path: app/code/core/Mage/Core/Model/Design/Fallback.php
 
 		-
-			rawMessage: 'Property Mage_Core_Model_Design_Package::$_store (int|Mage_Core_Model_Store|string) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
-			count: 1
-			path: app/code/core/Mage/Core/Model/Design/Package.php
-
-		-
 			rawMessage: 'Parameter #1 $policyCode of method Mage_Core_Model_Domainpolicy::_getDomainPolicyByCode() expects string, int given.'
 			identifier: argument.type
 			count: 2

@@ -147,29 +147,6 @@ class Mage_Adminhtml_CacheController extends Mage_Adminhtml_Controller_Action
     }
 
     /**
-     * Clean JS/css files cache
-     */
-    public function cleanMediaAction()
-    {
-        try {
-            Mage::getModel('core/design_package')->cleanMergedJsCss();
-            Mage::dispatchEvent('clean_media_cache_after');
-            $this->_getSession()->addSuccess(
-                Mage::helper('adminhtml')->__('The JavaScript/CSS cache has been cleaned.'),
-            );
-        } catch (Mage_Core_Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-        } catch (Exception $e) {
-            $this->_getSession()->addException(
-                $e,
-                Mage::helper('adminhtml')->__('An error occurred while clearing the JavaScript/CSS cache.'),
-            );
-        }
-
-        $this->_redirect('*/*');
-    }
-
-    /**
      * Clean catalog files cache
      */
     public function cleanImagesAction()
