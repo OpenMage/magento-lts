@@ -23,6 +23,10 @@
 /app/etc/modules/Cm_RedisSession.xml
 /lib/Credis
 
+# MM Ignition
+/app/code/community/MM
+/app/etc/modules/MM_Ignition.xml
+
 # ChartJs library
 /js/lib/chartjs
 
