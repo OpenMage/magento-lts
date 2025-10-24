@@ -17,6 +17,12 @@ Options All -Indexes
     AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
     Options -ExecCGI
 
+############################################
+## Serve import maps with correct content type
+<FilesMatch "importmap/.*\.json$">
+    AddType application/importmap+json .json
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
 
 ############################################
