@@ -49,7 +49,16 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
      */
     protected function _renderOption($option, $value)
     {
-        $selected = (($option['value'] == $value && (!is_null($value))) ? ' selected="selected"' : '');
+        if (!array_key_exists('value', $option)) {
+            if (!array_key_exists('label', $option)) {
+                return '';
+            }
+
+            $lbl =  $this->escapeHtml($option['label']); // or just empty as well?
+            return '<option value="' . $lbl . '">' . $lbl . '</option>';
+        }
+
+        $selected = (!is_null($value) && ($option['value'] == $value)) ? ' selected="selected"' : '';
         return '<option value="' . $this->escapeHtml($option['value']) . '"' . $selected . '>' . $this->escapeHtml($option['label']) . '</option>';
     }
 
@@ -61,7 +70,7 @@ class Mage_Adminhtml_Block_Widget_Grid_Column_Filter_Select extends Mage_Adminht
         $html = '<select name="' . $this->_getHtmlName() . '" id="' . $this->_getHtmlId() . '" class="no-changes">';
         $value = $this->getValue();
         foreach ($this->_getOptions() as $option) {
-            if (is_array($option['value'])) {
+            if (array_key_exists('value', $option) && is_array($option['value'])) {
                 $html .= '<optgroup label="' . $this->escapeHtml($option['label']) . '">';
                 foreach ($option['value'] as $subOption) {
                     $html .= $this->_renderOption($subOption, $value);
