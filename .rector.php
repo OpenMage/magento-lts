@@ -22,6 +22,7 @@ use Rector\Php85\Rector as Php85;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\Privatization\Rector as Privatization;
 use Rector\Renaming\Rector as Renaming;
+use Rector\Renaming\ValueObject\MethodCallRename as RenamingMethodCallRename;
 use Rector\Strict\Rector as Strict;
 use Rector\Transform\Rector as Transform;
 use Rector\TypeDeclaration\Rector as TypeDeclaration;
@@ -40,6 +41,10 @@ try {
             __DIR__,
         ])
         ->withSkipPath(__DIR__ . '/vendor')
+        # Rename method calls
+        #->withConfiguredRule(Renaming\MethodCall\RenameMethodRector::class, [
+        #    new RenamingMethodCallRename('Mage_Core_Model_Layout', 'getBlock', 'getBlockByName'),
+        #])
         ->withRules([
             Php85\ArrayDimFetch\ArrayFirstLastRector::class,
         ])

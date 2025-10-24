@@ -12,6 +12,8 @@
  *
  * @package    Mage_Adminhtml
  *
+ * @method $this setActive(string $menuPath)
+ * @method string getActive()
  * @method $this setAdditionalCacheKeyInfo(array $cacheKeyInfo)
  * @method array getAdditionalCacheKeyInfo()
  */

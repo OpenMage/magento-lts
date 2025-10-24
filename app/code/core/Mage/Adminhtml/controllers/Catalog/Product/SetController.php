@@ -64,7 +64,9 @@ class Mage_Adminhtml_Catalog_Product_SetController extends Mage_Adminhtml_Contro
 
         $this->loadLayout();
         $this->_setActiveMenu('catalog/attributes/sets');
-        $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
+
+        $head = $this->getLayout()->getBlockAdminhtmlHead();
+        $head?->setCanLoadExtJs(true);
 
         $this->_addBreadcrumb(Mage::helper('catalog')->__('Catalog'), Mage::helper('catalog')->__('Catalog'));
         $this->_addBreadcrumb(

@@ -19,9 +19,8 @@ class Mage_Checkout_Block_Multishipping_Address_Select extends Mage_Checkout_Blo
      */
     protected function _prepareLayout()
     {
-        if ($headBlock = $this->getLayout()->getBlock('head')) {
-            $headBlock->setTitle(Mage::helper('checkout')->__('Change Billing Address') . ' - ' . $headBlock->getDefaultTitle());
-        }
+        $head = $this->getLayout()->getBlockHead();
+        $head?->setTitle(Mage::helper('checkout')->__('Change Billing Address') . ' - ' . $head->getDefaultTitle());
 
         return parent::_prepareLayout();
     }

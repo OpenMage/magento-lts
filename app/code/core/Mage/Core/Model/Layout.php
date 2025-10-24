@@ -541,10 +541,85 @@ class Mage_Core_Model_Layout extends Varien_Simplexml_Config
      *
      * @param string $name
      * @return Mage_Core_Block_Abstract|false
+     * @deprecated Use getBlockByName() which returns null if block does not exist
+     * @see getBlockByName()
      */
     public function getBlock($name)
     {
         return $this->_blocks[$name] ?? false;
+    }
+
+    /**
+     * Returns null instead of false if block does not exist
+     */
+    public function getBlockByName(string $name): ?Mage_Core_Block_Abstract
+    {
+        $block = $this->_blocks[$name] ?? null;
+        if (!$block instanceof Mage_Core_Block_Abstract) {
+            return null;
+        }
+
+        return $block;
+    }
+
+    public function getBlockAdminhtmlBreadcrumbs(): ?Mage_Adminhtml_Block_Widget_Breadcrumbs
+    {
+        $block = $this->getBlockByName('breadcrumbs');
+        if (!$block instanceof Mage_Adminhtml_Block_Widget_Breadcrumbs) {
+            return null;
+        }
+
+        return $block;
+    }
+
+    public function getBlockAdminhtmlHead(): ?Mage_Adminhtml_Block_Page_Head
+    {
+        $block = $this->getBlockByName('head');
+        if (!$block instanceof Mage_Adminhtml_Block_Page_Head) {
+            return null;
+        }
+
+        return $block;
+    }
+
+    public function getBlockAdminhtmlMenu(): ?Mage_Adminhtml_Block_Page_Menu
+    {
+        $block = $this->getBlockByName('menu');
+        if (!$block instanceof Mage_Adminhtml_Block_Page_Menu) {
+            return null;
+        }
+
+        return $block;
+    }
+
+    public function getBlockBreadcrumbs(): ?Mage_Page_Block_Html_Breadcrumbs
+    {
+        $block = $this->getBlockByName('breadcrumbs');
+        if (!$block instanceof Mage_Page_Block_Html_Breadcrumbs) {
+            return null;
+        }
+
+        return $block;
+    }
+
+    public function getBlockHead(): ?Mage_Page_Block_Html_Head
+    {
+        $block = $this->getBlockByName('head');
+        if (!$block instanceof Mage_Page_Block_Html_Head) {
+            return null;
+        }
+
+        return $block;
+    }
+
+    public function getBlockRoot(): ?Mage_Page_Block_Html
+    {
+        $block = $this->getBlockByName('root');
+        if (!$block instanceof Mage_Page_Block_Html) {
+            return null;
+        }
+
+        return $block;
     }
 
     /**

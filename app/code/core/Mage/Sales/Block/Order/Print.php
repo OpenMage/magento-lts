@@ -19,11 +19,8 @@ class Mage_Sales_Block_Order_Print extends Mage_Sales_Block_Items_Abstract
      */
     protected function _prepareLayout()
     {
-        /** @var Mage_Page_Block_Html_Head $headBlock */
-        $headBlock = $this->getLayout()->getBlock('head');
-        if ($headBlock) {
-            $headBlock->setTitle($this->__('Print Order # %s', $this->getOrder()->getRealOrderId()));
-        }
+        $head = $this->getLayout()->getBlockHead();
+        $head?->setTitle($this->__('Print Order # %s', $this->getOrder()->getRealOrderId()));
 
         /** @var Mage_Payment_Helper_Data $helper */
         $helper = $this->helper('payment');

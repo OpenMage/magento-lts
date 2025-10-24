@@ -39,7 +39,9 @@ class Mage_Newsletter_ManageController extends Mage_Core_Controller_Front_Action
             $block->setRefererUrl($this->_getRefererUrl());
         }
 
-        $this->getLayout()->getBlock('head')->setTitle($this->__('Newsletter Subscription'));
+        $head = $this->getLayout()->getBlockHead();
+        $head?->setTitle($this->__('Newsletter Subscription'));
+
         $this->renderLayout();
     }
 
