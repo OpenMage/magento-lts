@@ -196,6 +196,8 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     protected $_factory;
 
+    protected ?array $attributesValueCache = null;
+
     /**
      * Initialize factory
      *
@@ -852,12 +854,17 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
      */
     public function getAllAttributeValues($attribute)
     {
-        $select    = clone $this->getSelect();
-        $attribute = $this->getEntity()->getAttribute($attribute);
+        $attribute      = $this->getEntity()->getAttribute($attribute);
+        $attributeId    = (int) $attribute->getId();
 
+        if (isset($this->attributesValueCache[$attributeId])) {
+            return $this->attributesValueCache[$attributeId];
+        }
+
+        $select = clone $this->getSelect();
         $select->reset()
             ->from($attribute->getBackend()->getTable(), ['entity_id', 'store_id', 'value'])
-            ->where('attribute_id = ?', (int) $attribute->getId());
+            ->where('attribute_id = ?', $attributeId);
 
         $data = $this->getConnection()->fetchAll($select);
         $res  = [];
@@ -866,7 +873,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $res[$row['entity_id']][$row['store_id']] = $row['value'];
         }
 
-        return $res;
+        return $this->attributesValueCache[$attributeId] = $res;
     }
 
     /**
