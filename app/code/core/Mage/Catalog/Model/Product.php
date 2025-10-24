@@ -1438,6 +1438,14 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         $this->getOptionInstance()->duplicate($this->getId(), $newProduct->getId());
         $this->getResource()->duplicate($this->getId(), $newProduct->getId());
 
+        // duplicate media after $this->getResource()->duplicate()
+        $attributes = $this->getTypeInstance(true)->getSetAttributes($this);
+        if (isset($attributes['media_gallery'])) {
+            /** @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
+            $mediaGalleryAttribute = $attributes['media_gallery'];
+            $mediaGalleryAttribute->getBackend()->duplicate($this, $newProduct->getId());
+        }
+
         // TODO - duplicate product on all stores of the websites it is associated with
         /*if ($storeIds = $this->getWebsiteIds()) {
             foreach ($storeIds as $storeId) {
