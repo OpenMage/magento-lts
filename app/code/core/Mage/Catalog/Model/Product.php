@@ -1443,7 +1443,9 @@ class Mage_Catalog_Model_Product extends Mage_Catalog_Model_Abstract
         if (isset($attributes['media_gallery'])) {
             /** @var Mage_Catalog_Model_Resource_Eav_Attribute $mediaGalleryAttribute */
             $mediaGalleryAttribute = $attributes['media_gallery'];
-            $mediaGalleryAttribute->getBackend()->duplicate($this, $newProduct->getId());
+            /** @var Mage_Catalog_Model_Product_Attribute_Backend_Media $backend */
+            $backend = $mediaGalleryAttribute->getBackend();
+            $backend->duplicate($this, $newProduct->getId());
         }
 
         // TODO - duplicate product on all stores of the websites it is associated with
