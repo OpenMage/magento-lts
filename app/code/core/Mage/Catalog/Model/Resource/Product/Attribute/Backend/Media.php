@@ -159,32 +159,25 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
      * Duplicates gallery db values
      *
      * @param Mage_Catalog_Model_Product_Attribute_Backend_Media $object
-     * @param array $newFiles
-     * @param int $originalProductId
+     * @param array[] $newImagesMap
+     * @param int[] $attributeIds
+     * @param int $oldProductId
      * @param int $newProductId
      * @return $this
      */
-    public function duplicate($object, $newFiles, $originalProductId, $newProductId)
+    public function duplicate($object, $newImagesMap, $attributeIds, $oldProductId, $newProductId)
     {
-        $select = $this->_getReadAdapter()->select()
-            ->from($this->getMainTable(), ['value_id', 'value'])
-            ->where('attribute_id = ?', $object->getAttribute()->getId())
-            ->where('entity_id = ?', $originalProductId);
+        $adapter = $this->_getWriteAdapter();
 
         $valueIdMap = [];
-        // Duplicate main entries of gallery
-        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
-            $data = [
+
+        // Append new entries and track old to new value ids
+        foreach ($newImagesMap as $image) {
+            $valueIdMap[$image['old_value_id']] = $this->insertGallery([
                 'attribute_id' => $object->getAttribute()->getId(),
-                'entity_id'    => $newProductId,
-                'value'        => $newFiles[$row['value_id']] ?? $row['value'],
-            ];
-
-            $valueIdMap[$row['value_id']] = $this->insertGallery($data);
-        }
-
-        if (count($valueIdMap) == 0) {
-            return $this;
+                'entity_id' => $newProductId,
+                'value' => $image['file'],
+            ]);
         }
 
         // Duplicate per store gallery values
@@ -192,12 +185,56 @@ class Mage_Catalog_Model_Resource_Product_Attribute_Backend_Media extends Mage_C
             ->from($this->getTable(self::GALLERY_VALUE_TABLE))
             ->where('value_id IN(?)', array_keys($valueIdMap));
 
-        foreach ($this->_getReadAdapter()->fetchAll($select) as $row) {
+        $storeValues = $this->_getReadAdapter()->fetchAll($select);
+
+        foreach ($storeValues as $row) {
             $row['value_id'] = $valueIdMap[$row['value_id']];
             $this->insertGalleryValueInStore($row);
         }
 
+        // Duplicate product store values
+        $tableName = $this->getTable(['catalog/product', 'varchar']);
+        $select = $this->_getReadAdapter()->select()
+            ->from($tableName, [
+                'entity_type_id',
+                'attribute_id',
+                'store_id',
+                'entity_id' => new Zend_Db_Expr($adapter->quote($newProductId)),
+                'value',
+            ])
+            ->where('entity_id = ?', $oldProductId)
+            ->where('attribute_id IN (?)', $attributeIds);
+        $attrRows = $this->_getReadAdapter()->fetchAll($select);
+
+        // map new image files
+        foreach ($attrRows as $k => $row) {
+            $attrRows[$k]['value'] = $newImagesMap[$row['value']]['file'];
+        }
+
+        $adapter->insertOnDuplicate($tableName, $attrRows, ['value']);
+
         return $this;
+    }
+
+    /**
+     * Filter gallery images that are not used by other products
+     *
+     * @param array $imageFiles
+     * @param int $objectId
+     * @return array
+     */
+    public function filterUnusedImageFiles($imageFiles, $objectId)
+    {
+        // Duplicate product store values
+        $adapter = $this->_getReadAdapter();
+        $select = $adapter->select()
+            ->from($this->getTable(self::GALLERY_TABLE), [
+                new Zend_Db_Expr('DISTINCT value'),
+            ])
+            ->where('entity_id != ?', $objectId)
+            ->where('value IN (?)', $imageFiles);
+
+        return array_diff($imageFiles, $this->_getReadAdapter()->fetchCol($select));
     }
 
     /**
