@@ -873,9 +873,7 @@ class Mage_Catalog_Model_Resource_Product_Collection extends Mage_Catalog_Model_
             $res[$row['entity_id']][$row['store_id']] = $row['value'];
         }
 
-        $this->attributesValueCache[$attributeId] = $res;
-
-        return $this->attributesValueCache[$attributeId];
+        return $this->attributesValueCache[$attributeId] = $res;
     }
 
     /**
