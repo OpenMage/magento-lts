@@ -176,4 +176,67 @@ class Mage_Cms_Helper_Page extends Mage_Core_Helper_Abstract
 
         return $searchPaths;
     }
+
+    /**
+     * @param self::XML_PATH_* $path
+     */
+    public static function getConfigLabelFromConfigPath(string $path): string
+    {
+        return match ($path) {
+            self::XML_PATH_NO_ROUTE_PAGE => Mage::helper('cms')->__('No Route Page'),
+            self::XML_PATH_NO_COOKIES_PAGE => Mage::helper('cms')->__('No Cookies Page'),
+            self::XML_PATH_HOME_PAGE => Mage::helper('cms')->__('Home Page'),
+            default => $path,
+        };
+    }
+
+    /**
+     * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
+     * @throws Mage_Core_Exception
+     */
+    public static function getScopeInfoFromConfigScope(string $scope, string $scopeId): string
+    {
+        return match ($scope) {
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_DEFAULT => Mage::helper('cms')->__('Default Config'),
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_WEBSITES => Mage::app()->getWebsite($scopeId)->getName(),
+            Mage_Adminhtml_Block_System_Config_Form::SCOPE_STORES => sprintf(
+                '%s - %s',
+                Mage::app()->getStore($scopeId)->getGroup()->getName(),
+                Mage::app()->getStore($scopeId)->getName(),
+            ),
+        };
+    }
+
+    /**
+     * @throws Mage_Core_Exception
+     */
+    public static function getValidateConfigErrorMessage(Mage_Core_Model_Resource_Db_Collection_Abstract $isUsedInConfig): string
+    {
+        $messages = [];
+
+        $data = $isUsedInConfig->getData();
+        foreach ($data as $key => $item) {
+            $path = $item['path'];
+            unset($item['config_id'], $item['path'], $item['updated_at'], $item['value']);
+            $data[$path][] = $item;
+            unset($data[$key], $key, $path);
+        }
+
+        foreach ($data as $path => $items) {
+            $scopes = [];
+            foreach ($items as $item) {
+                $scopes[] = self::getScopeInfoFromConfigScope($item['scope'], $item['scope_id']);
+            }
+
+            $messages[] = sprintf(
+                '%s (%s)',
+                self::getConfigLabelFromConfigPath($path),
+                implode(', ', $scopes),
+            );
+        }
+
+        unset($data, $path, $items, $item, $scopes);
+
+        return implode(', ', $messages);
+    }
 }
