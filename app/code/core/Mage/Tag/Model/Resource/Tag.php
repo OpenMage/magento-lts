@@ -67,6 +67,9 @@ class Mage_Tag_Model_Resource_Tag extends Mage_Core_Model_Resource_Db_Abstract
      */
     protected function _beforeSave(Mage_Core_Model_Abstract $object)
     {
+        // Trim whitespace for Tag name
+        $object->setName(trim($object->getName()));
+
         if (!$object->getId() && $object->getStatus() == $object->getApprovedStatus()) {
             $searchTag = new Varien_Object();
             $this->loadByName($searchTag, $object->getName());
