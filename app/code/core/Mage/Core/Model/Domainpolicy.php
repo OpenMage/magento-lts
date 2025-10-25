@@ -75,20 +75,16 @@ class Mage_Core_Model_Domainpolicy
 
     /**
      * Get backend policy
-     *
-     * @return string|null
      */
-    public function getBackendPolicy()
+    public function getBackendPolicy(): ?string
     {
         return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfig(self::XML_DOMAIN_POLICY_BACKEND));
     }
 
     /**
      * Get frontend policy
-     *
-     * @return string|null
      */
-    public function getFrontendPolicy()
+    public function getFrontendPolicy(): ?string
     {
         return $this->_getDomainPolicyByCode((int) (string) $this->_store->getConfig(self::XML_DOMAIN_POLICY_FRONTEND));
     }
@@ -96,10 +92,9 @@ class Mage_Core_Model_Domainpolicy
     /**
      * Return string representation for policy code
      *
-     * @param string $policyCode
-     * @return string|null
+     * @param int|self::FRAME_POLICY_* $policyCode
      */
-    protected function _getDomainPolicyByCode($policyCode)
+    protected function _getDomainPolicyByCode(int $policyCode): ?string
     {
         return match ($policyCode) {
             self::FRAME_POLICY_ALLOW => null,

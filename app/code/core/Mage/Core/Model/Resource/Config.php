@@ -156,8 +156,8 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
      * Save config value
      *
      * @param string $path
-     * @param string $value
-     * @param string $scope
+     * @param string|int|bool $value
+     * @param Mage_Adminhtml_Block_System_Config_Form::SCOPE_* $scope
      * @param int $scopeId
      * @return $this
      */
@@ -175,7 +175,7 @@ class Mage_Core_Model_Resource_Config extends Mage_Core_Model_Resource_Db_Abstra
             'scope'     => $scope,
             'scope_id'  => $scopeId,
             'path'      => $path,
-            'value'     => $value,
+            'value'     => (string) $value,
         ];
 
         if ($row) {

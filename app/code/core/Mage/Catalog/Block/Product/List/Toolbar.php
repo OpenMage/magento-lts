@@ -463,7 +463,7 @@ class Mage_Catalog_Block_Product_List_Toolbar extends Mage_Core_Block_Template
     /**
      * Retrieve Pager URL
      *
-     * @param string $order
+     * @param string|null $order
      * @param string $direction
      * @return string
      */

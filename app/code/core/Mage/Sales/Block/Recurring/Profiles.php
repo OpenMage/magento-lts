@@ -97,6 +97,7 @@ class Mage_Sales_Block_Recurring_Profiles extends Mage_Core_Block_Template
      * Instantiate profiles collection
      *
      * @param string|array $fields
+     * @throws Mage_Core_Exception
      */
     protected function _prepareProfiles($fields = '*')
     {

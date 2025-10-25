@@ -82,7 +82,7 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
 
     /**
      * Curl
-     * @var false|resource
+     * @var CurlHandle
      */
     protected $_ch;
 
@@ -129,8 +129,8 @@ class Mage_HTTP_Client_Curl implements Mage_HTTP_IClient
     /**
      * Add header
      *
-     * @param $name name, ex. "Location"
-     * @param $value value ex. "http://google.com"
+     * @param string $name ex. "Location"
+     * @param string $value ex. "http://google.com"
      */
     public function addHeader($name, $value)
     {

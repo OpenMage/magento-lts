@@ -69,11 +69,11 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
      * Return available CC types for gateway based on merchant country.
      * We do not have to check the availability of card types.
      *
-     * @return bool
+     * @return string
      */
     public function getAllowedCcTypes()
     {
-        return true;
+        return '';
     }
 
     /**
@@ -104,11 +104,11 @@ class Mage_Paypal_Model_Hostedpro extends Mage_Paypal_Model_Direct
     /**
      * Do not validate payment form using server methods
      *
-     * @return  bool
+     * @return $this
      */
     public function validate()
     {
-        return true;
+        return $this;
     }
 
     /**

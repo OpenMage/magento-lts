@@ -12,6 +12,7 @@
  *
  * @method Mage_Sales_Model_Resource_Order_Invoice _getResource()
  * @method Mage_Sales_Model_Resource_Order_Invoice getResource()
+ * @method Mage_Sales_Model_Resource_Order_Invoice_Collection getCollection()
  * @method string getBackUrl()
  * @method int getStoreId()
  * @method $this setStoreId(int $value)
@@ -223,10 +224,10 @@ class Mage_Sales_Model_Order_Invoice extends Mage_Sales_Model_Abstract
     /**
      * Load invoice by increment id
      *
-     * @param string $incrementId
      * @return $this
+     * @throws Mage_Core_Exception
      */
-    public function loadByIncrementId($incrementId)
+    public function loadByIncrementId(string $incrementId)
     {
         $ids = $this->getCollection()
             ->addAttributeToFilter('increment_id', $incrementId)

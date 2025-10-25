@@ -275,7 +275,7 @@ class Mage_Catalog_Block_Product_View_Type_Configurable extends Mage_Catalog_Blo
     /**
      * Validating of super product option value
      *
-     * @param array $attributeId
+     * @param string $attributeId
      * @param array $value
      * @param array $options
      * @return bool

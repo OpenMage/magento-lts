@@ -111,7 +111,7 @@ class Mage_Catalog_Block_Product_Widget_Html_Pager extends Mage_Page_Block_Html_
     public function setCollection($collection)
     {
         $this->_collection = $collection;
-        $this->_collection->setPageSize(null)->setCurPage(null);
+        $this->_collection->setPageSize(0)->setCurPage(null);
 
         $collectionOffset = $this->getFirstNum() - 1;
         $collectionLimit  = $collectionOffset + $this->getLimit() > $this->getTotalNum()
