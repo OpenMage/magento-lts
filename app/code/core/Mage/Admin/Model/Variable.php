@@ -35,37 +35,30 @@ class Mage_Admin_Model_Variable extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
-        $violations = [];
-        $errors     = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $variableName  = $this->getVariableName();
+        $variableName = $this->getVariableName();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $variableName,
             message: Mage::helper('adminhtml')->__('Variable Name is required field.'),
-        );
+        ));
 
-        $violations[] = $validator->validateRegex(
+        $violations->append($validator->validateRegex(
             value: $variableName,
             pattern: '/^[-_a-zA-Z0-9\/]*$/',
             message: Mage::helper('adminhtml')->__('Variable Name is incorrect.'),
-        );
+        ));
 
-        $violations[] = $validator->validateChoice(
+        $violations->append($validator->validateChoice(
             value: $this->getIsAllowed(),
             choices: ['0', '1'],
             message: Mage::helper('adminhtml')->__('Is Allowed is required field.'),
-        );
+        ));
 
-        foreach ($violations as $violation) {
-            foreach ($violation as $error) {
-                $errors->append($error->getMessage());
-            }
-        }
-
-        if (count($errors) === 0) {
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 

@@ -132,8 +132,7 @@ class Mage_Eav_Model_Entity_Attribute extends Mage_Eav_Model_Entity_Attribute_Ab
         /*
          * Check for maximum attribute_code length
          */
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
+        $validator = $this->getValidationHelper();
         if (isset($this->_data['attribute_code'])
             && $validator->validateLength(
                 value: $this->_data['attribute_code'],

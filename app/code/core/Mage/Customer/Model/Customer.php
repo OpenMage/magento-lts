@@ -1077,80 +1077,73 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
-        $violations = [];
-        $errors     = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getFirstname(),
             message: Mage::helper('customer')->__('The first name cannot be empty.'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getLastname(),
             message: Mage::helper('customer')->__('The last name cannot be empty.'),
-        );
+        ));
 
         $email = $this->getEmail();
-        $violations[] = $validator->validateEmail(
+        $violations->append($validator->validateEmail(
             value: $email,
             message: Mage::helper('customer')->__('Invalid email address "%s".', $email),
-        );
+        ));
 
         $password = $this->getPassword();
         $minPasswordLength = $this->getMinPasswordLength();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $password,
             message: Mage::helper('customer')->__('The password cannot be empty.'),
-        );
+        ));
 
-        $violations[] = $validator->validateLength(
+        $violations->append($validator->validateLength(
             value: $password,
             min: $minPasswordLength,
             max: self::MAXIMUM_PASSWORD_LENGTH,
             minMessage: Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength),
             maxMessage: Mage::helper('customer')->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH),
-        );
+        ));
 
         $confirmation = $this->getPasswordConfirmation();
-        $violations[] = $validator->validateIdentical(
+        $violations->append($validator->validateIdentical(
             value: $confirmation,
             compare: $password,
             message: Mage::helper('customer')->__('Please make sure your passwords match.'),
-        );
+        ));
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
 
         if ($this->shouldValidateDob($entityType)) {
-            $violations[] = $validator->validateDate(
+            $violations->append($validator->validateDate(
                 value: trim($this->getDob()),
                 message: Mage::helper('customer')->__('The Date of Birth is required.'),
-            );
+            ));
         }
 
         if ($this->shouldValidateTaxvat($entityType)) {
-            $violations[] = $validator->validateNotEmpty(
+            $violations->append($validator->validateNotEmpty(
                 value: trim($this->getTaxvat()),
                 message: Mage::helper('customer')->__('The TAX/VAT number is required.'),
-            );
+            ));
         }
 
         if ($this->shouldValidateGender($entityType)) {
-            $violations[] = $validator->validateNotEmpty(
+            $violations->append($validator->validateNotEmpty(
                 value: trim($this->getGender()),
                 message: Mage::helper('customer')->__('Gender is required.'),
-            );
+            ));
         }
 
-        foreach ($violations as $violation) {
-            foreach ($violation as $error) {
-                $errors->append($error->getMessage());
-            }
-        }
-
-        if (count($errors) === 0) {
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 
@@ -1163,40 +1156,33 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function validateResetPassword()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
-        $violations = [];
-        $errors     = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
         $password = $this->getPassword();
         $minPasswordLength = $this->getMinPasswordLength();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $password,
             message: Mage::helper('customer')->__('The password cannot be empty.'),
-        );
+        ));
 
-        $violations[] = $validator->validateLength(
+        $violations->append($validator->validateLength(
             value: $password,
             min: $minPasswordLength,
             max: self::MAXIMUM_PASSWORD_LENGTH,
             minMessage: Mage::helper('customer')->__('The minimum password length is %s', $minPasswordLength),
             maxMessage: Mage::helper('customer')->__('Please enter a password with at most %s characters.', self::MAXIMUM_PASSWORD_LENGTH),
-        );
+        ));
 
-        $violations[] = $validator->validateIdentical(
+        $violations->append($validator->validateIdentical(
             value: $this->getPasswordConfirmation(),
             compare: $password,
             message: Mage::helper('customer')->__('Please make sure your passwords match.'),
-        );
+        ));
 
-        foreach ($violations as $violation) {
-            foreach ($violation as $error) {
-                $errors->append($error->getMessage());
-            }
-        }
-
-        if (count($errors) === 0) {
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 

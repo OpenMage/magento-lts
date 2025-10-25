@@ -12,61 +12,16 @@
  *
  * @package    Mage_Oauth
  */
-class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_StringLength
+class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Mage_Validation_Helper_Abstract
 {
     /**
      * Key name
-     *
-     * @var string
      */
-    protected $_name = 'Key';
+    protected string $_name = 'Key';
 
-    /**
-     * Sets validator options
-     *
-     * @param  int|array|Zend_Config $options
-     */
-    public function __construct($options = [])
-    {
-        $this->_initMessageTemplates();
+    protected ?int $_max = null;
 
-        $args = func_get_args();
-        if (!is_array($options)) {
-            $options = $args;
-            if (!isset($options[1])) {
-                $options[1] = 'utf-8';
-            }
-
-            parent::__construct($options[0], $options[0], $options[1]);
-            return;
-        } else {
-            if (isset($options['length'])) {
-                $options['max'] =
-                $options['min'] = $options['length'];
-            }
-
-            if (isset($options['name'])) {
-                $this->_name = $options['name'];
-            }
-        }
-
-        parent::__construct($options);
-    }
-
-    /**
-     * Init validation failure message template definitions
-     *
-     * @return $this
-     */
-    protected function _initMessageTemplates()
-    {
-        $_messageTemplates[self::TOO_LONG] =
-            Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %min% symbols.");
-        $_messageTemplates[self::TOO_SHORT] =
-            Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols.");
-
-        return $this;
-    }
+    protected ?int $_min = null;
 
     /**
      * Additional variables available for validation failure messages
@@ -80,26 +35,19 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
     ];
 
     /**
-     * Set length
+     * Sets validator options
      *
-     * @param int $length
-     * @return $this
+     * @param array $options
      */
-    public function setLength($length)
+    public function __construct($options = [])
     {
-        parent::setMax($length);
-        parent::setMin($length);
-        return $this;
-    }
+        if (isset($options['length'])) {
+            $this->_min = $this->_max = $options['length'];
+        }
 
-    /**
-     * Set length
-     *
-     * @return int
-     */
-    public function getLength()
-    {
-        return parent::getMin();
+        if (isset($options['name'])) {
+            $this->_name = $options['name'];
+        }
     }
 
     /**
@@ -110,15 +58,34 @@ class Mage_Oauth_Model_Consumer_Validator_KeyLength extends Zend_Validate_String
      *
      * @param  string $value
      * @return bool
+     * @throws Exception
      */
     public function isValid($value)
     {
-        $result = parent::isValid($value);
-        if (!$result && isset($this->_messages[self::INVALID])) {
-            throw new Exception($this->_messages[self::INVALID]);
+        $this->_setValue($value);
+
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
+        $violation = $validator->validateLength(
+            value: $value,
+            min: $this->_min,
+            max: $this->_max,
+            exactMessage: $this->createMessageFromTemplate(
+                Mage::helper('oauth')->__("%name% '%value%' should have exactly %min% symbols."),
+            ),
+            minMessage: $this->createMessageFromTemplate(
+                Mage::helper('oauth')->__("%name% '%value%' is too short. It must has length %min% symbols."),
+            ),
+            maxMessage: $this->createMessageFromTemplate(
+                Mage::helper('oauth')->__("%name% '%value%' is too long. It must has length %max% symbols."),
+            ),
+        );
+
+        if ($violation->count() > 0) {
+            throw new Exception($violation->get(0)->getMessage());
         }
 
-        return $result;
+        return true;
     }
 
     /**

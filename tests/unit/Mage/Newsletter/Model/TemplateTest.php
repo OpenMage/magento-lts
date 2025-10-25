@@ -58,12 +58,12 @@ final class TemplateTest extends OpenMageTest
     public function validateTemplateDataProvider(): Generator
     {
         $validData = [
-            'setTemplateCode' => 'Valid Code',
-            'setTemplateSenderEmail' => 'test@example.com',
-            'setTemplateSenderName' => 'Sender Name',
-            'setTemplateSubject' => 'Valid Subject',
-            'setTemplateText' => 'Valid Template Text',
-            'setTemplateType' => 1,
+            'setTemplateCode'           => 'Valid Code',
+            'setTemplateSenderEmail'    => 'test@example.com',
+            'setTemplateSenderName'     => 'Sender Name',
+            'setTemplateSubject'        => 'Valid Subject',
+            'setTemplateText'           => 'Valid Template Text',
+            'setTemplateType'           => '1',
         ];
 
         yield 'valid data' => [

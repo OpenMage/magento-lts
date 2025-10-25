@@ -25,7 +25,6 @@ final class AbstractTest extends OpenMageTest
 {
     use AbstractTrait;
 
-    /** @phpstan-ignore property.onlyWritten */
     private static Subject $subject;
 
     public function setUp(): void

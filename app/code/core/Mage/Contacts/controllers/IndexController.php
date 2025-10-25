@@ -73,20 +73,14 @@ class Mage_Contacts_IndexController extends Mage_Core_Controller_Front_Action
 
                 /** @var Mage_Validation_Helper_Data $validator */
                 $validator  = Mage::helper('validation');
-                $violations = [];
-                $errors     = new ArrayObject();
+                $violations = new ArrayObject();
 
-                $violations[] = $validator->validateNotEmpty(value: trim($post['name']));
-                $violations[] = $validator->validateNotEmpty(value: trim($post['comment']));
-                $violations[] = $validator->validateEmail(value: trim($post['email']));
+                $violations->append($validator->validateNotEmpty(value: trim($post['name'])));
+                $violations->append($validator->validateNotEmpty(value: trim($post['comment'])));
+                $violations->append($validator->validateEmail(value: trim($post['email'])));
 
-                foreach ($violations as $violation) {
-                    foreach ($violation as $error) {
-                        $errors->append($error->getMessage());
-                    }
-                }
-
-                if (count($errors) !== 0) {
+                $errors = $validator->getErrorMessages($violations);
+                if ($errors) {
                     Mage::throwException($this->__('Unable to submit your request. Please, try again later'));
                 }
 

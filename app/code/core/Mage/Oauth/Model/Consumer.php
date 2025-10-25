@@ -74,8 +74,7 @@ class Mage_Oauth_Model_Consumer extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
+        $validator = $this->getValidationHelper();
 
         $violations = $validator->validateLength(value: $this->getKey(), exactly: self::KEY_LENGTH);
         if ($violations->count() > 0) {

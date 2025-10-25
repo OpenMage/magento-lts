@@ -12,29 +12,27 @@
  *
  * @package    Mage_Eav
  */
-class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Zend_Validate_InArray
+class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends Mage_Validation_Helper_Abstract
 {
+    public const NOT_IN_ARRAY = 'notInArray';
+
     /**
      * @inheritdoc
      */
     protected $_messageTemplates;
+
+    protected array $_haystack = [];
 
     public function __construct()
     {
         //set data haystack
         /** @var Mage_Eav_Helper_Data $helper */
         $helper = Mage::helper('eav');
-        $haystack = $helper->getInputTypesValidatorData();
+        $this->_haystack = $helper->getInputTypesValidatorData();
 
         //reset message template and set custom
         $this->_messageTemplates = [];
         $this->_initMessageTemplates();
-
-        //parent construct with options
-        parent::__construct([
-            'haystack' => $haystack,
-            'strict'   => true,
-        ]);
     }
 
     /**
@@ -52,6 +50,18 @@ class Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator extends 
         }
 
         return $this;
+    }
+
+    public function isValid($value)
+    {
+        $this->_setValue($value);
+
+        if (!in_array((string) $value, $this->_haystack, true)) {
+            $this->_error(self::NOT_IN_ARRAY);
+            return false;
+        }
+
+        return true;
     }
 
     /**

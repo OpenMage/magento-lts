@@ -7,8 +7,7 @@
  * @package    Mage_Api2
  */
 
-use Symfony\Component\Validator\Constraints;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Constraint;
 
 /**
  * API2 Fields Validator
@@ -30,10 +29,10 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     protected $_resource;
 
     /**
-     * List of Validators (Zend_Validate_Interface)
+     * List of Validators (Constraint[])
      * The key is a field name, a value is validator for this field
      *
-     * @var array
+     * @var array<string, ArrayObject>
      */
     protected $_validators;
 
@@ -75,14 +74,16 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
     /**
      * Build validator chain with config data
      *
-     * @throws Exception If validator type is not set
-     * @throws Exception If validator is not exist
+     * @throws Mage_Validation_Exception If validator type is not set
      */
     protected function _buildValidatorsChain(array $validationConfig)
     {
+        $validator = $this->getValidationHelper();
+
         foreach ($validationConfig as $field => $validatorsConfig) {
+            $field = (string) $field;
             if (count($validatorsConfig)) {
-                $chainForOneField = new Zend_Validate();
+                $chainForOneField = new ArrayObject();
                 foreach ($validatorsConfig as $validatorName => $validatorConfig) {
                     // it is required field
                     if ($validatorName == 'required' && $validatorConfig == 1) {
@@ -92,37 +93,24 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
 
                     // instantiation of the validator class
                     if (!isset($validatorConfig['type'])) {
-                        throw new Exception("Validator type is not set for {$validatorName}");
+                        throw new Mage_Validation_Exception("Validator type is not set for $validatorName");
                     }
 
-                    $validator = $this->_getValidatorInstance(
-                        $validatorConfig['type'],
-                        !empty($validatorConfig['options']) ? $validatorConfig['options'] : [],
-                    );
+                    $options = $validatorConfig['options'] ?? [];
+
+                    // set custom message
+                    if (isset($validatorConfig['message'])) {
+                        $options['message'] = $validatorConfig['message'];
+                    }
 
                     // add to list of validators
-                    $chainForOneField->addValidator($validator);
+                    $constraints = $validator->getContraintsByType(type: $validatorConfig['type'], options: $options);
+                    $chainForOneField->append($constraints);
                 }
 
-                $this->_validators[$field] = $validator;
+                $this->_validators[$field] = $chainForOneField;
             }
         }
-    }
-
-    /**
-     * Get validator object instance
-     * Override the method if we need to use not only Zend validators!
-     *
-     * @param string $type
-     * @param array $options
-     * @return ConstraintViolationListInterface
-     * @throws Exception If validator is not exist
-     */
-    protected function _getValidatorInstance($type, $options)
-    {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
-        return $validator->validate(value: null, constraints: $validator->getContraintsByType($type, $options));
     }
 
     /**
@@ -136,16 +124,18 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
      */
     public function isValidData(array $data, $isPartial = false)
     {
+        $validator = $this->getValidationHelper();
+
         $isValid = true;
 
         // required fields
         if (!$isPartial && count($this->_requiredFields) > 0) {
-            $notEmptyValidator = new Zend_Validate_NotEmpty();
             foreach ($this->_requiredFields as $requiredField) {
-                if (!$notEmptyValidator->isValid($data[$requiredField] ?? null)) {
+                $violations = $validator->validateNotEmpty(value: $data[$requiredField] ?? null);
+                if ($violations->count() > 0) {
                     $isValid = false;
-                    foreach ($notEmptyValidator->getMessages() as $message) {
-                        $this->_addError(sprintf('%s: %s', $requiredField, $message));
+                    foreach ($violations as $violation) {
+                        $this->_addError(sprintf('%s: %s', $requiredField, $violation->getMessage()));
                     }
                 }
             }
@@ -154,17 +144,29 @@ class Mage_Api2_Model_Resource_Validator_Fields extends Mage_Api2_Model_Resource
         // fields rules
         foreach ($data as $field => $value) {
             if (isset($this->_validators[$field])) {
-                /** @var Zend_Validate_Interface $validator */
-                $validator = $this->_validators[$field];
-                if (!$validator->isValid($value)) {
-                    $isValid = false;
-                    foreach ($validator->getMessages() as $message) {
-                        $this->_addError(sprintf('%s: %s', $field, $message));
+                /** @var ArrayObject $chainForOneField */
+                foreach ($this->_validators[$field] as $chainForOneField) {
+                    /** @var Constraint[] $constraints */
+                    foreach ($chainForOneField as $constraints) {
+                        $violations = $validator->validate(value: $value, constraints: $constraints);
+                        if ($violations->count() > 0) {
+                            $isValid = false;
+                            foreach ($violations as $violation) {
+                                $this->_addError(sprintf('%s: %s', $field, $violation->getMessage()));
+                            }
+                        }
                     }
                 }
             }
         }
 
         return $isValid;
+    }
+
+    protected function getValidationHelper(): Mage_Validation_Helper_Data
+    {
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
+        return $validator;
     }
 }

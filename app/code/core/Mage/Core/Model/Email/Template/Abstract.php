@@ -242,15 +242,13 @@ abstract class Mage_Core_Model_Email_Template_Abstract extends Mage_Core_Model_T
 
     public function validateFileExension(string $filePath, string $extension): bool
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
-
         if ($extension === 'css') {
             $extension = ['css' => ['text/css', 'text/plain']];
         }
 
+        $validator = $this->getValidationHelper();
         return $validator->validateFile(
-            filePath: $filePath,
+            value: $filePath,
             maxSize: '8M',
             extensions: $extension,
         )->count() === 0;

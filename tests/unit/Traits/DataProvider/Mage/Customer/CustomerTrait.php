@@ -100,7 +100,7 @@ trait CustomerTrait
         $data['getDob'] = 'abc';
         $data['shouldValidateDob'] = true;
         yield 'invalid dob' => [
-            ['This value is not a valid date.'],
+            ['The Date of Birth is required.'],
             $data,
         ];
 

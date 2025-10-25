@@ -134,7 +134,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
      *
      * Returns null if and only if $messageKey does not correspond to an existing template.
      */
-    protected function _createMessage(string $messageKey, array|object|string $value): ?string
+    final protected function _createMessage(string $messageKey, array|object|string $value): ?string
     {
         if (!isset($this->_messageTemplates[$messageKey])) {
             return null;
@@ -166,10 +166,24 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
         return $message;
     }
 
+    public function createMessageFromTemplate(string $template): string
+    {
+        $message = str_replace('%value%', $this->_value, $template);
+        foreach ($this->_messageVariables as $ident => $property) {
+            $message = str_replace(
+                "%$ident%",
+                implode(' ', (array) $this->$property),
+                $message,
+            );
+        }
+
+        return $message;
+    }
+
     /**
      * Joins elements of a multidimensional array
      */
-    protected function _implodeRecursive(array $pieces): string
+    final protected function _implodeRecursive(array $pieces): string
     {
         $values = [];
         foreach ($pieces as $item) {
@@ -183,7 +197,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
         return implode(', ', $values);
     }
 
-    protected function _error(?string $messageKey, ?string $value = null): void
+    final protected function _error(?string $messageKey, ?string $value = null): void
     {
         if ($messageKey === null) {
             $keys = array_keys($this->_messageTemplates);
@@ -200,7 +214,7 @@ abstract class Mage_Validation_Helper_Abstract implements Mage_Validation_Interf
     /**
      * Sets the value to be validated and clears the messages and errors arrays
      */
-    protected function _setValue(mixed $value): void
+    final protected function _setValue(mixed $value): void
     {
         $this->_value    = $value;
         $this->_messages = [];

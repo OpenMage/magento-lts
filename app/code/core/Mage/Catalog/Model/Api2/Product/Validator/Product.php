@@ -129,7 +129,7 @@ class Mage_Catalog_Model_Api2_Product_Validator_Product extends Mage_Api2_Model_
 
         // Validate weight
         /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
+        $validator = Mage::helper('validation');
         if (!empty($data['weight']) && $data['weight'] > 0
             && $validator->validateRange(
                 value: $data['weight'],

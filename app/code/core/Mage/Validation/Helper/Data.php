@@ -99,6 +99,42 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Validates the count of elements in a given value.
+     */
+    public function validateCount(
+        mixed $value,
+        array|int|null $exactly = null,
+        ?int $min = null,
+        ?int $max = null,
+        ?int $divisibleBy = null,
+        ?string $exactMessage = null,
+        ?string $minMessage = null,
+        ?string $maxMessage = null,
+        ?string $divisibleByMessage = null,
+        ?array $groups = null,
+        mixed $payload = null,
+        array $options = []
+    ): ConstraintViolationListInterface {
+        $validator = self::getValidator();
+
+        return $validator->validate($value, [
+            new Constraints\Count(
+                exactly: $exactly,
+                min: $min,
+                max: $max,
+                divisibleBy: $divisibleBy,
+                exactMessage: $exactMessage,
+                minMessage: $minMessage,
+                maxMessage: $maxMessage,
+                divisibleByMessage: $divisibleByMessage,
+                groups: $groups,
+                payload: $payload,
+                options: $options,
+            ),
+        ]);
+    }
+
+    /**
      * Validates that a value is a valid date.
      */
     public function validateDate(
@@ -111,7 +147,9 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(),
+            new Constraints\NotBlank(
+                message: $message,
+            ),
             new Constraints\Date(
                 options: $options,
                 message: $message,
@@ -132,7 +170,9 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(),
+            new Constraints\NotBlank(
+                message: $message,
+            ),
             new Constraints\DateTime(
                 format: $format,
                 message: $message,
@@ -158,7 +198,9 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(),
+            new Constraints\NotBlank(
+                message: $message,
+            ),
             new Constraints\Email(
                 options: $options,
                 message: $message,
@@ -174,16 +216,58 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
      * Validates that a file meets given constraints.
      */
     public function validateFile(
-        mixed $filePath,
-        null|int|string $maxSize,
-        null|array|string $extensions
+        mixed $value,
+        ?array $options = null,
+        int|null|string $maxSize = null,
+        ?bool $binaryFormat = null,
+        array|null|string $mimeTypes = null,
+        ?int $filenameMaxLength = null,
+        ?string $notFoundMessage = null,
+        ?string $notReadableMessage = null,
+        ?string $maxSizeMessage = null,
+        ?string $mimeTypesMessage = null,
+        ?string $disallowEmptyMessage = null,
+        ?string $filenameTooLongMessage = null,
+        ?string $uploadIniSizeErrorMessage = null,
+        ?string $uploadFormSizeErrorMessage = null,
+        ?string $uploadPartialErrorMessage = null,
+        ?string $uploadNoFileErrorMessage = null,
+        ?string $uploadNoTmpDirErrorMessage = null,
+        ?string $uploadCantWriteErrorMessage = null,
+        ?string $uploadExtensionErrorMessage = null,
+        ?string $uploadErrorMessage = null,
+        ?array $groups = null,
+        mixed $payload = null,
+        array|null|string $extensions = null,
+        ?string $extensionsMessage = null
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
 
-        return $validator->validate($filePath, [
+        return $validator->validate(value: $value, constraints: [
             new Constraints\File(
+                options: $options,
                 maxSize: $maxSize,
+                binaryFormat: $binaryFormat,
+                mimeTypes: $mimeTypes,
+                filenameMaxLength: $filenameMaxLength,
+                notFoundMessage: $notFoundMessage,
+                notReadableMessage: $notReadableMessage,
+                maxSizeMessage: $maxSizeMessage,
+                mimeTypesMessage: $mimeTypesMessage,
+                disallowEmptyMessage: $disallowEmptyMessage,
+                filenameTooLongMessage: $filenameTooLongMessage,
+                uploadIniSizeErrorMessage: $uploadIniSizeErrorMessage,
+                uploadFormSizeErrorMessage: $uploadFormSizeErrorMessage,
+                uploadPartialErrorMessage: $uploadPartialErrorMessage,
+                uploadNoFileErrorMessage: $uploadNoFileErrorMessage,
+                uploadNoTmpDirErrorMessage: $uploadNoTmpDirErrorMessage,
+                uploadCantWriteErrorMessage: $uploadCantWriteErrorMessage,
+                uploadExtensionErrorMessage: $uploadExtensionErrorMessage,
+                uploadErrorMessage: $uploadErrorMessage,
+                groups: $groups,
+                payload: $payload,
                 extensions: $extensions,
+                extensionsMessage: $extensionsMessage,
             ),
         ]);
     }
@@ -201,6 +285,7 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
         array $options = []
     ): ConstraintViolationListInterface {
         $validator = self::getValidator();
+
         return $validator->validate($value, [
             new Constraints\IdenticalTo(
                 value: $compare,
@@ -209,6 +294,116 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
                 groups: $groups,
                 payload: $payload,
                 options: $options,
+            ),
+        ]);
+    }
+
+    /**
+     * Validates that a value is a valid image.
+     */
+    public function validateImage(
+        mixed $value,
+        ?array $options = null,
+        int|null|string $maxSize = null,
+        ?bool $binaryFormat = null,
+        ?array $mimeTypes = null,
+        ?int $filenameMaxLength = null,
+        ?int $minWidth = null,
+        ?int $maxWidth = null,
+        ?int $maxHeight = null,
+        ?int $minHeight = null,
+        float|int|null $maxRatio = null,
+        float|int|null $minRatio = null,
+        float|int|null $minPixels = null,
+        float|int|null $maxPixels = null,
+        ?bool $allowSquare = null,
+        ?bool $allowLandscape = null,
+        ?bool $allowPortrait = null,
+        ?bool $detectCorrupted = null,
+        ?string $notFoundMessage = null,
+        ?string $notReadableMessage = null,
+        ?string $maxSizeMessage = null,
+        ?string $mimeTypesMessage = null,
+        ?string $disallowEmptyMessage = null,
+        ?string $filenameTooLongMessage = null,
+        ?string $uploadIniSizeErrorMessage = null,
+        ?string $uploadFormSizeErrorMessage = null,
+        ?string $uploadPartialErrorMessage = null,
+        ?string $uploadNoFileErrorMessage = null,
+        ?string $uploadNoTmpDirErrorMessage = null,
+        ?string $uploadCantWriteErrorMessage = null,
+        ?string $uploadExtensionErrorMessage = null,
+        ?string $uploadErrorMessage = null,
+        ?string $sizeNotDetectedMessage = null,
+        ?string $maxWidthMessage = null,
+        ?string $minWidthMessage = null,
+        ?string $maxHeightMessage = null,
+        ?string $minHeightMessage = null,
+        ?string $minPixelsMessage = null,
+        ?string $maxPixelsMessage = null,
+        ?string $maxRatioMessage = null,
+        ?string $minRatioMessage = null,
+        ?string $allowSquareMessage = null,
+        ?string $allowLandscapeMessage = null,
+        ?string $allowPortraitMessage = null,
+        ?string $corruptedMessage = null,
+        ?array $groups = null,
+        mixed $payload = null,
+        array|null|string $extensions = null,
+        ?string $extensionsMessage = null
+    ): ConstraintViolationListInterface {
+        $validator = self::getValidator();
+
+        return $validator->validate($value, [
+            new Constraints\Image(
+                options: $options,
+                maxSize: $maxSize,
+                binaryFormat: $binaryFormat,
+                mimeTypes: $mimeTypes,
+                filenameMaxLength: $filenameMaxLength,
+                minWidth: $minWidth,
+                maxWidth: $maxWidth,
+                maxHeight: $maxHeight,
+                minHeight: $minHeight,
+                maxRatio: $maxRatio,
+                minRatio: $minRatio,
+                minPixels: $minPixels,
+                maxPixels: $maxPixels,
+                allowSquare: $allowSquare,
+                allowLandscape: $allowLandscape,
+                allowPortrait: $allowPortrait,
+                detectCorrupted: $detectCorrupted,
+                notFoundMessage: $notFoundMessage,
+                notReadableMessage: $notReadableMessage,
+                maxSizeMessage: $maxSizeMessage,
+                mimeTypesMessage: $mimeTypesMessage,
+                disallowEmptyMessage: $disallowEmptyMessage,
+                filenameTooLongMessage: $filenameTooLongMessage,
+                uploadIniSizeErrorMessage: $uploadIniSizeErrorMessage,
+                uploadFormSizeErrorMessage: $uploadFormSizeErrorMessage,
+                uploadPartialErrorMessage: $uploadPartialErrorMessage,
+                uploadNoFileErrorMessage: $uploadNoFileErrorMessage,
+                uploadNoTmpDirErrorMessage: $uploadNoTmpDirErrorMessage,
+                uploadCantWriteErrorMessage: $uploadCantWriteErrorMessage,
+                uploadExtensionErrorMessage: $uploadExtensionErrorMessage,
+                uploadErrorMessage: $uploadErrorMessage,
+                sizeNotDetectedMessage: $sizeNotDetectedMessage,
+                maxWidthMessage: $maxWidthMessage,
+                minWidthMessage: $minWidthMessage,
+                maxHeightMessage: $maxHeightMessage,
+                minHeightMessage: $minHeightMessage,
+                minPixelsMessage: $minPixelsMessage,
+                maxPixelsMessage: $maxPixelsMessage,
+                maxRatioMessage: $maxRatioMessage,
+                minRatioMessage: $minRatioMessage,
+                allowSquareMessage: $allowSquareMessage,
+                allowLandscapeMessage: $allowLandscapeMessage,
+                allowPortraitMessage: $allowPortraitMessage,
+                corruptedMessage: $corruptedMessage,
+                groups: $groups,
+                payload: $payload,
+                extensions: $extensions,
+                extensionsMessage: $extensionsMessage,
             ),
         ]);
     }
@@ -401,7 +596,9 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
         $validator = self::getValidator();
 
         return $validator->validate($value, [
-            new Constraints\NotBlank(),
+            new Constraints\NotBlank(
+                message: $message,
+            ),
             new Constraints\Url(
                 options: $options,
                 message: $message,
@@ -415,33 +612,54 @@ class Mage_Validation_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @throws Exception
+     * @return Constraint[]
+     * @throws Mage_Validation_Exception
      */
-    public function getContraintsByType(string $type, array $options = []): array|Constraint
+    public function getContraintsByType(string $type, array $options = []): array
     {
+        $message = $options['message'] ?? null;
+
         return match ($type) {
-            'Alnum'         => new Constraints\Type(type: 'alnum'),
-            'Alpha'         => new Constraints\Type(type: 'alpha'),
-            'Between'       => new Constraints\Range(min: $options['min'] ?? null, max: $options['max'] ?? null),
-            'Callback'      => new Constraints\Callback($options),
-            'Ccnum'         => new Constraints\Luhn(),
-            'CreditCard'    => new Constraints\CardScheme($options),
-            'Date'          => new Constraints\Date(),
-            'Digits'        => new Constraints\Type(type: 'digit'),
-            'Float'         => new Constraints\Type(type: 'float'),
-            'GreaterThan'   => new Constraints\GreaterThan(),
-            'Hostname'      => new Constraints\Hostname(),
-            'Iban'          => new Constraints\Iban(),
-            'Identical'     => new Constraints\IdenticalTo(),
-            'InArray'       => new Constraints\Choice($options),
-            'Int'           => new Constraints\Type(type: 'int'),
-            'Ip'            => new Constraints\Ip(),
-            'Isbn'          => new Constraints\Isbn(),
-            'LessThan'      => new Constraints\LessThan(),
-            'NoEmpty'       => new Constraints\NotBlank(),
-            'Regex'         => new Constraints\Regex(pattern: $options['pattern'] ?? ''),
-            'StringLength'  => new Constraints\Length(),
-            default         => throw new Exception("Validator {$type} is not exist")
+            'Alnum'         => [new Constraints\Type(type: 'alnum', message: $message)],
+            'Alpha'         => [new Constraints\Type(type: 'alpha', message: $message)],
+            'Between'       => [new Constraints\Range(min: $options['min'] ?? null, max: $options['max'] ?? null)],
+            'Callback'      => [new Constraints\Callback($options)],
+            'Ccnum'         => [new Constraints\Luhn($options)],
+            'CreditCard'    => [new Constraints\CardScheme($options)],
+            'Date'          => [new Constraints\Date($options)],
+            'Digits'        => [new Constraints\Type(type: 'digit', message: $message)],
+            'Float'         => [new Constraints\Type(type: 'float', message: $message)],
+            'GreaterThan'   => [new Constraints\GreaterThan($options)],
+            'Hostname'      => [new Constraints\Hostname($options)],
+            'Iban'          => [new Constraints\Iban($options)],
+            'Identical'     => [new Constraints\IdenticalTo($options)],
+            'InArray'       => [new Constraints\Choice($options)],
+            'Int'           => [new Constraints\Type(type: 'int', message: $message)],
+            'Ip'            => [new Constraints\Ip($options)],
+            'Isbn'          => [new Constraints\Isbn($options)],
+            'LessThan'      => [new Constraints\LessThan($options)],
+            'NoEmpty'       => [new Constraints\NotBlank($options)],
+            'Regex'         => [new Constraints\Regex(pattern: $options['pattern'] ?? '')],
+            'StringLength'  => [new Constraints\Length($options)],
+            default         => throw new Mage_Validation_Exception("Validator $type is not exist")
         };
+    }
+
+    public function getErrorMessages(array|ArrayObject $violations): ?ArrayObject
+    {
+        $errors = new ArrayObject();
+        foreach ($violations as $violation) {
+            if ($violation instanceof ConstraintViolationListInterface) {
+                foreach ($violation as $error) {
+                    $errors->append($error->getMessage());
+                }
+            }
+        }
+
+        if (count($errors) === 0) {
+            return null;
+        }
+
+        return $errors;
     }
 }

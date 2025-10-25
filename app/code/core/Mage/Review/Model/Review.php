@@ -136,33 +136,26 @@ class Mage_Review_Model_Review extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
-        $violations = [];
-        $errors     = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getTitle(),
             message: Mage::helper('review')->__('Review summary can\'t be empty'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getNickname(),
             message: Mage::helper('review')->__('Nickname can\'t be empty'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getDetail(),
             message: Mage::helper('review')->__('Review can\'t be empty'),
-        );
+        ));
 
-        foreach ($violations as $violation) {
-            foreach ($violation as $error) {
-                $errors->append($error->getMessage());
-            }
-        }
-
-        if (count($errors) === 0) {
+        $errors = $validator->getErrorMessages($violations);
+        if (!$errors) {
             return true;
         }
 

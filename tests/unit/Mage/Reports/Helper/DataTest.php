@@ -49,6 +49,7 @@ final class DataTest extends OpenMageTest
     }
 
     /**
+     * @param 'day'|'month'|'year' $period Period type
      * @covers Mage_Reports_Helper_Data::getIntervals()
      * @dataProvider provideReportsDateIntervals
      * @group Helper

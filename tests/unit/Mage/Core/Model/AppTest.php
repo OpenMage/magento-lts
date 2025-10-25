@@ -62,7 +62,7 @@ final class AppTest extends OpenMageTest
      * @dataProvider provideGetGroup
      * @group Model
      */
-    public function testGetGroup(Mage_Core_Model_Store_Group|int|string|bool|null $id): void
+    public function testGetGroup(Mage_Core_Model_Store_Group|int|string|null|bool $id): void
     {
         try {
             self::assertInstanceOf(Mage_Core_Model_Store_Group::class, self::$subject->getGroup($id));

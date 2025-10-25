@@ -23,11 +23,8 @@ class Mage_Adminhtml_Model_Email_PathValidator
      */
     public function isValid($value)
     {
-        if (in_array($value, [null, ''])) {
-            return false;
-        }
-
         $pathNode = is_array($value) ? array_shift($value) : $value;
+
         return $this->isEncryptedNodePath($pathNode);
     }
 

@@ -511,7 +511,7 @@ class Mage_Checkout_Model_Type_Onepage
         } elseif (self::METHOD_GUEST == $this->getQuote()->getCheckoutMethod()) {
             $email = $address->getData('email');
             /** @var Mage_Validation_Helper_Data $validator */
-            $validator  = Mage::helper('validation');
+            $validator = Mage::helper('validation');
             if ($validator->validateEmail($email)->count() > 0) {
                 return [
                     'error'   => -1,

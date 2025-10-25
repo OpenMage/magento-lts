@@ -71,48 +71,41 @@ class Mage_Newsletter_Model_Template extends Mage_Core_Model_Email_Template_Abst
      */
     public function validate()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
-        $violations = [];
-        $errors     = new ArrayObject();
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getDataUsingMethod('template_code'),
             message: 'You must give a non-empty value for field \'template_code\'',
-        );
+        ));
 
         $message = 'You must give a non-empty value for field \'template_type\'';
         $templateType = $this->getDataUsingMethod('template_type');
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $templateType,
             message: $message,
-        );
+        ));
 
-        $violations[] = $validator->validateType(
+        $violations->append($validator->validateType(
             value: $templateType,
-            type: 'int',
+            type: 'digit',
             message: $message,
-        );
+        ));
 
         $message = '\'invalid-email\' is not a valid email address in the basic format local-part@hostname';
-        $violations[] = $validator->validateEmail(
+        $violations->append($validator->validateEmail(
             value: $this->getDataUsingMethod('template_sender_email'),
             message: $message,
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getDataUsingMethod('template_sender_name'),
             message: 'You must give a non-empty value for field \'template_sender_name\'',
-        );
+        ));
 
-        foreach ($violations as $violation) {
-            foreach ($violation as $error) {
-                $errors->append($error->getMessage());
-            }
-        }
-
-        if (count($errors) !== 0) {
+        $errors = $validator->getErrorMessages($violations);
+        if ($errors) {
             Mage::throwException(implode("\n", iterator_to_array($errors)));
         }
     }

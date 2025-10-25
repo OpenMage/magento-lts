@@ -228,8 +228,7 @@ class Mage_Oauth_Model_Token extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator = Mage::helper('validation');
+        $validator = $this->getValidationHelper();
 
         if (Mage_Oauth_Model_Server::CALLBACK_ESTABLISHED !== $this->getCallbackUrl()) {
             $callbackUrl = $this->getConsumer()->getCallbackUrl();

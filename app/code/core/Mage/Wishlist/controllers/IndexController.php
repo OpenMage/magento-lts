@@ -666,27 +666,38 @@ class Mage_Wishlist_IndexController extends Mage_Wishlist_Controller_Abstract
 
         $emails  = array_filter(explode(',', $this->getRequest()->getPost('emails', '')));
         $message = nl2br(htmlspecialchars((string) $this->getRequest()->getPost('message')));
-        $error   = false;
-        if (empty($emails)) {
-            $error = $this->__('Email address can\'t be empty.');
-        } elseif (count($emails) > 5) {
-            $error = $this->__('Please enter no more than 5 email addresses.');
-        } else {
-            /** @var Mage_Validation_Helper_Data $validator */
-            $validator  = Mage::helper('validation');
-            foreach ($emails as $index => $email) {
-                $email = trim($email);
-                if ($validator->validateEmail($email)->count() > 0) {
-                    $error = $this->__('Please input a valid email address.');
-                    break;
-                }
 
+        $error   = false;
+        $violations = new ArrayObject();
+
+        /** @var Mage_Validation_Helper_Data $validator */
+        $validator = Mage::helper('validation');
+
+        $violations->append($validator->validateCount(
+            value: $emails,
+            min: 1,
+            max: 5,
+            minMessage: $this->__('Email address can\'t be empty.'),
+            maxMessage: $this->__('Please enter no more than 5 email addresses.'),
+        ));
+
+        foreach ($emails as $index => $email) {
+            $email = trim($email);
+            $violation = $validator->validateEmail(
+                value: $email,
+                message: $this->__('Please input a valid email address.')
+            );
+
+            if ($violation->count() === 0) {
                 $emails[$index] = $email;
             }
+
+            $violations->append($violation);
         }
 
-        if ($error) {
-            Mage::getSingleton('wishlist/session')->addError($error);
+        $errors = $validator->getErrorMessages($violations);
+        if ($errors) {
+            Mage::getSingleton('wishlist/session')->addError(implode('<br>', array_unique(iterator_to_array($errors))));
             Mage::getSingleton('wishlist/session')->setSharingForm($this->getRequest()->getPost());
             $this->_redirect('*/*/share');
             return;

@@ -452,34 +452,33 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
      */
     protected function _basicCheck()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
-        $violations = [];
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getFirstname(),
             message: Mage::helper('customer')->__('Please enter the first name.'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getLastname(),
             message: Mage::helper('customer')->__('Please enter the last name.'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getStreet(1),
             message: Mage::helper('customer')->__('Please enter the street.'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getCity(),
             message: Mage::helper('customer')->__('Please enter the city.'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getTelephone(),
             message: Mage::helper('customer')->__('Please enter the telephone number.'),
-        );
+        ));
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {

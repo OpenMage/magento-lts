@@ -591,30 +591,29 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
      */
     public function validate()
     {
-        /** @var Mage_Validation_Helper_Data $validator */
-        $validator  = Mage::helper('validation');
-        $violations = [];
+        $validator  = $this->getValidationHelper();
+        $violations = new ArrayObject();
         $errors     = new ArrayObject();
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getUsername(),
             message: Mage::helper('adminhtml')->__('User Name is required field.'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getFirstname(),
             message: Mage::helper('adminhtml')->__('First Name is required field.'),
-        );
+        ));
 
-        $violations[] = $validator->validateNotEmpty(
+        $violations->append($validator->validateNotEmpty(
             value: $this->getLastname(),
             message: Mage::helper('adminhtml')->__('Last Name is required field.'),
-        );
+        ));
 
-        $violations[] = $validator->validateEmail(
+        $violations->append($validator->validateEmail(
             value: $this->getEmail(),
             message: Mage::helper('adminhtml')->__('Please enter a valid email.'),
-        );
+        ));
 
         foreach ($violations as $violation) {
             foreach ($violation as $error) {
@@ -630,20 +629,20 @@ class Mage_Admin_Model_User extends Mage_Core_Model_Abstract
 
         if (isset($password)) {
             $minAdminPasswordLength = $this->getMinAdminPasswordLength();
-            $violations = [];
-            $violations[] = $validator->validatePassword(
+            $violations = new ArrayObject();
+            $violations->append($validator->validatePassword(
                 value: $password,
                 minLength: $minAdminPasswordLength,
                 message: Mage::helper('adminhtml')->__('Password must include both numeric and alphabetic characters.'),
                 minMessage: Mage::helper('adminhtml')->__('Password must be at least of %d characters.', $minAdminPasswordLength),
-            );
+            ));
 
             if ($this->hasPasswordConfirmation()) {
-                $violations[] = $validator->validateIdentical(
+                $violations->append($validator->validateIdentical(
                     value: $this->getPasswordConfirmation(),
                     compare: $password,
                     message: Mage::helper('adminhtml')->__('Password confirmation must be same as password.'),
-                );
+                ));
             }
 
             foreach ($violations as $violation) {
