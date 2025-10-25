@@ -8,12 +8,12 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.removeClasses(test.new);
 
         const message = 'Validation has failed.';
         const screenshot = 'message.system.variable.saveEmptyWithoutJs';
-        test.new.clickSaveAndContinue();
+        test.new.__buttons.saveAndContinue.click();
         validation.hasErrorMessage(message, { match: 'have.text', screenshot: true, filename: screenshot });
     });
 
@@ -22,12 +22,24 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
+
+        test.new.__buttons.reset.click();
+        cy.url().should('include', test.new.url);
+
+        test.new.__buttons.back.click();
+        cy.url().should('include', test.index.url);
     });
 
     it(`tests edit route`, () => {
-        // TODO: There is no edit route for system variables
+        // TODO: There is no sample data for custom variables, need to create one first
         validation.pageElements(test, test.index);
+
+        //test.edit.__buttons.reset.click();
+        //cy.url().should('include', test.edit.url);
+
+        //test.edit.__buttons.back.click();
+        //cy.url().should('include', test.index.url);
     });
 });

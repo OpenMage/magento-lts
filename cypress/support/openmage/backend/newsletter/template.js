@@ -19,19 +19,27 @@ test.config = {
 
 /**
  * Configuration for "Newsletter Templates" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.newsletter.template.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Newsletter Templates',
     url: test.config.url,
     _grid: '#newsletterTemplateGrid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Template"]',
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Newsletter Templates" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.newsletter.template.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Template"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Newsletter Templates button clicked');
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Newsletter Templates button clicked');
     },
 }
 
@@ -43,27 +51,19 @@ test.config.edit = {
     title: 'Edit Newsletter Template',
     url: 'newsletter_template/edit',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-        },
+        save: base.__buttons.save,
         saveAs: {
             _: base._button + '[title="Save As"]',
+            __class: ['scalable', 'save', 'save-as'],
+            click: () => {
+                cy.openmage.tools.click(test.config.edit.__buttons.saveAs._, 'Save as button clicked');
+            },
         },
-        delete: {
-            _: base._button + '[title="Delete Template"]',
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
-        convert: {
-            _: base._button + '[title="Convert to Plain Text"]',
-        },
-        preview: {
-            _: base._button + '[title="Preview Template"]',
-        },
+        delete: base.__buttons.delete,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
+        convertToPlain: base.__buttons.convertToPlain,
+        preview: base.__buttons.preview,
     },
 }
 
@@ -75,23 +75,10 @@ test.config.new = {
     title: 'New Newsletter Template',
     url: 'newsletter_template/new',
     __buttons: {
-        save: {
-            _: base._button + '[title="Save Template"]',
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
-        convert: {
-            _: base._button + '[title="Convert to Plain Text"]',
-        },
-        preview: {
-            _: base._button + '[title="Preview Template"]',
-        },
-    },
-    clickSave: () => {
-        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
+        save: base.__buttons.save,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
+        convertToPlain: base.__buttons.convertToPlain,
+        preview: base.__buttons.preview,
     },
 }

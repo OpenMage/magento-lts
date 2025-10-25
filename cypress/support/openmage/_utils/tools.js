@@ -24,10 +24,10 @@ cy.openmage.tools.grid = {
             .should('be.visible')
             .click({ force: false, multiple: false });
     },
-    clickContains: (path, content, selector = 'td') => {
+    clickContains: (path, content, _ = 'td') => {
         cy.log('Clicking on some grid content');
         cy.get(path._grid + ' tbody')
-            .contains(selector, content)
+            .contains(_, content)
             .first()
             .should('be.visible')
             .click({ force: false, multiple: false });

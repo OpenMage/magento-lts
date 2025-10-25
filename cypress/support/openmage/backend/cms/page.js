@@ -96,49 +96,41 @@ test.config = {
 
 /**
  * Configuration for "Pages" page
- * @type {{__buttons: {add: string}, clickGridRow: cy.openmage.test.backend.cms.page.config.index.clickGridRow, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.cms.page.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}, clickGridRow: cy.openmage.test.backend.cms.page.config.index.clickGridRow}}
  */
 test.config.index = {
     title: 'Manage Pages',
     url: test.config.url,
     _grid: '#cmsPageGrid',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add New Page"]',
-        },
-    },
-    clickAdd: (log = 'Add New Page button clicked') => {
-        tools.click(test.config.index.__buttons.add._, log);
-    },
+    __buttons: {},
     clickGridRow: (content = '', _ = 'td') => {
         tools.grid.clickContains(test.config.index, content, _);
     },
 }
 
 /**
+ * Configuration for buttons on "Pages" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.cms.page.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add New Page"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Page button clicked');
+        },
+    },
+}
+
+/**
  * Configuration for "Edit Page" page
- * @type {{resetStores: cy.openmage.test.backend.cms.page.config.edit.resetStores, __tabs: {general: string, metaData: string, design: string, content: string}, clickReset: cy.openmage.test.backend.cms.page.config.edit.clickReset, __buttons: {save: string, back: string, reset: string, saveAndContinue: string, delete: string}, clickBack: cy.openmage.test.backend.cms.page.config.edit.clickBack, clickSave: cy.openmage.test.backend.cms.page.config.edit.clickSave, clickDelete: cy.openmage.test.backend.cms.page.config.edit.clickDelete, title: string, __fields, clickSaveAndContinue: cy.openmage.test.backend.cms.page.config.edit.clickSaveAndContinue, url: string, disablePage: cy.openmage.test.backend.cms.page.config.edit.disablePage}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new, __fields: test.config.new.__fields, __tabs: test.config.new.__tabs,disablePage: (function(): void), resetStores: (function(): void)}}
  */
 test.config.edit = {
     title: 'Edit Page',
     url: 'cms_page/edit',
-    __buttons: {
-        save: {
-            _: base._button + '[title="Save Page"]',
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-        },
-        delete: {
-            _: base._button + '[title="Delete Page"]',
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
-    },
+    __buttons: base.__buttonsSets.edit,
     __fields: test.__fields,
     __tabs: test.__tabs,
     disablePage: () => {
@@ -151,56 +143,16 @@ test.config.edit = {
         cy.get(test.__fields.page_store_id._)
             .select([1, 2, 3]);
     },
-    clickSave: () => {
-        tools.click(test.config.edit.__buttons.save._, 'Save button clicked');
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
-    clickDelete: () => {
-        tools.click(test.config.edit.__buttons.delete._, 'Delete button clicked');
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }
 
 /**
  * Configuration for "New Page" page
- * @type {{__tabs: {general: string, metaData: string, design: string, content: string}, clickReset: cy.openmage.test.backend.cms.page.config.new.clickReset, __buttons: {save: string, back: string, reset: string, saveAndContinue: string}, clickBack: cy.openmage.test.backend.cms.page.config.new.clickBack, clickSave: cy.openmage.test.backend.cms.page.config.new.clickSave, title: string, __fields, clickSaveAndContinue: cy.openmage.test.backend.cms.page.config.new.clickSaveAndContinue, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.new, __fields: test.config.new.__fields, __tabs: test.config.new.__tabs}}
  */
 test.config.new = {
     title: 'New Page',
     url: 'cms_page/new',
-    __buttons: {
-        save: {
-            _: base._button + '[title="Save Page"]'
-        },
-        saveAndContinue: {
-            _: base.__buttons.saveAndContinue._,
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-        reset: {
-            _: base.__buttons.reset._,
-        },
-    },
+    __buttons: base.__buttonsSets.new,
     __fields: test.__fields,
     __tabs: test.__tabs,
-    clickSave: () => {
-        tools.click(test.config.new.__buttons.save._, 'Save button clicked');
-    },
-    clickSaveAndContinue: () => {
-        base.__buttons.saveAndContinue.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
-    clickReset: () => {
-        base.__buttons.reset.click();
-    },
 }

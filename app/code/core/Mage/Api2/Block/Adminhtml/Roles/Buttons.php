@@ -39,6 +39,7 @@ class Mage_Api2_Block_Adminhtml_Roles_Buttons extends Mage_Adminhtml_Block_Templ
             'resetButton'   => [
                 'label'     => Mage::helper('adminhtml')->__('Reset'),
                 'onclick'   => 'window.location.reload()',
+                'class'     => 'reset',
             ],
             'saveButton'    => [
                 'label'     => Mage::helper('adminhtml')->__('Save Role'),

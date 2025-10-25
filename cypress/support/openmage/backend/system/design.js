@@ -39,72 +39,48 @@ test.config = {
 
 /**
  * Configuration for "Design" page
- * @type {{__buttons: {add: string}, title: string, url: string, _grid: string, clickAdd: cy.openmage.test.backend.system.design.config.index.clickAdd}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {}}}
  */
 test.config.index = {
     title: 'Design',
     url: test.config.url,
     _grid: '#designGrid_table',
-    __buttons: {
-        add: {
-            _: base._button + '[title="Add Design Change"]',
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Design" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.system.design.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: base._button + '[title="Add Design Change"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Design button clicked');
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Design button clicked');
     },
 }
 
 /**
  * Configuration for "Edit Design Change" page
- * @type {{__buttons: {save: string, back: string, delete: string}, clickBack: cy.openmage.test.backend.system.design.config.edit.clickBack, clickSave: cy.openmage.test.backend.system.design.config.edit.clickSave, clickDelete: cy.openmage.test.backend.system.design.config.edit.clickDelete, title: string, __fields: (*|{store_id: {_: string}, design: {_: string}, date_to: {_: string}, date_from: {_: string}}), url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.editNoContinue, __fields: test.config.new.__fields}}
  */
 test.config.edit = {
     title: 'Edit Design Change',
     url: 'system_design/edit',
-    __buttons: {
-        save: {
-            _: base.__buttons.save._,
-        },
-        delete: {
-            _: base.__buttons.delete._,
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-    },
+    __buttons: base.__buttonsSets.editNoContinue,
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickDelete: () => {
-        base.__buttons.delete.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
 }
 
 /**
  * Configuration for "New Design Change" page
- * @type {{__buttons: {save: string, back: string}, clickBack: cy.openmage.test.backend.system.design.config.new.clickBack, clickSave: cy.openmage.test.backend.system.design.config.new.clickSave, title: string, __fields: (*|{store_id: {_: string}, design: {_: string}, date_to: {_: string}, date_from: {_: string}}), url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.newNoContinue, __fields: test.config.new.__fields}}
  */
 test.config.new = {
     title: 'New Design Change',
     url: 'system_design/new',
-    __buttons: {
-        save: {
-            _: base.__buttons.save._,
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-    },
+    __buttons: base.__buttonsSets.newNoContinue,
     __fields: test.__fields,
-    clickSave: () => {
-        base.__buttons.save.click();
-    },
-    clickBack: () => {
-        base.__buttons.back.click();
-    },
 }

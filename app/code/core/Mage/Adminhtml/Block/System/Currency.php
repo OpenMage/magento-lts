@@ -19,6 +19,9 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
         $this->setTemplate('system/currency/rates.phtml');
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function _prepareLayout()
     {
         $this->setChild(
@@ -46,7 +49,7 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
             $this->getLayout()->createBlock('adminhtml/widget_button')
                 ->setData([
                     'label'     => Mage::helper('adminhtml')->__('Import'),
-                    'class'     => 'add',
+                    'class'     => 'add import',
                     'type'      => 'submit',
                 ]),
         );
@@ -64,36 +67,57 @@ class Mage_Adminhtml_Block_System_Currency extends Mage_Adminhtml_Block_Template
         return parent::_prepareLayout();
     }
 
+    /**
+     * @return string
+     */
     protected function getHeader()
     {
         return Mage::helper('adminhtml')->__('Manage Currency Rates');
     }
 
+    /**
+     * @return string
+     */
     protected function getSaveButtonHtml()
     {
         return $this->getChildHtml('save_button');
     }
 
+    /**
+     * @return string
+     */
     protected function getResetButtonHtml()
     {
         return $this->getChildHtml('reset_button');
     }
 
+    /**
+     * @return string
+     */
     protected function getImportButtonHtml()
     {
         return $this->getChildHtml('import_button');
     }
 
+    /**
+     * @return string
+     */
     protected function getServicesHtml()
     {
         return $this->getChildHtml('import_services');
     }
 
+    /**
+     * @return string
+     */
     protected function getRatesMatrixHtml()
     {
         return $this->getChildHtml('rates_matrix');
     }
 
+    /**
+     * @return string
+     */
     protected function getImportFormAction()
     {
         return $this->getUrl('*/*/fetchRates');
