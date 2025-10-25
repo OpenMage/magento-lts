@@ -20,9 +20,6 @@ class Mage_Adminhtml_Block_Permissions_Block_Edit extends Mage_Adminhtml_Block_W
         $this->_controller = 'permissions_block';
 
         parent::__construct();
-
-        $this->_updateButton('save', 'label', Mage::helper('adminhtml')->__('Save Block'));
-        $this->_updateButton('delete', 'label', Mage::helper('adminhtml')->__('Delete Block'));
     }
 
     /**

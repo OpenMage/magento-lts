@@ -9,13 +9,13 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests save empty values, no js`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.removeClassesAll();
 
         // TODO: fix it
         const message = 'The rule has been saved.';
         const screenshotFilename = 'message.promo.quote.saveEmptyWithoutJs';
-        test.new.clickSaveAndContinue();
+        test.new.__buttons.saveAndContinue.click();
         validation.hasSuccessMessage(message, { match: 'have.text', screenshot: true, filename: screenshotFilename });
     });
 
@@ -29,7 +29,7 @@ describe(`Checks admin system "${test.index.title}"`, () => {
     });
 
     it(`tests new route`, () => {
-        test.index.clickAdd();
+        test.index.__buttons.add.click();
         validation.pageElements(test, test.new);
     });
 });

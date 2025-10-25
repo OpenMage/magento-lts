@@ -50,10 +50,11 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrc()
     {
         if (empty($this->_data['logo_src'])) {
-            $this->_data['logo_src'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src'));
+            $src = (string) Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_LOGO_SRC);
+            $this->_data['logo_src'] = Mage::helper('page')->getLogoSrc($src);
         }
 
-        return $this->getSkinUrl($this->_data['logo_src']);
+        return $this->_data['logo_src'];
     }
 
     /**
@@ -62,10 +63,17 @@ class Mage_Page_Block_Html_Header extends Mage_Core_Block_Template
     public function getLogoSrcSmall()
     {
         if (empty($this->_data['logo_src_small'])) {
-            $this->_data['logo_src_small'] = $this->escapeHtmlAsObject((string) Mage::getStoreConfig('design/header/logo_src_small'));
+            // Check if user wants to use the same image as main logo
+            $useSameAsMain = Mage::getStoreConfigFlag(Mage_Page_Helper_Data::XML_PATH_LOGO_SRC_SMALL_SAME_AS_MAIN);
+            if ($useSameAsMain) {
+                $this->_data['logo_src_small'] = $this->getLogoSrc();
+            } else {
+                $src = (string) Mage::getStoreConfig(Mage_Page_Helper_Data::XML_PATH_LOGO_SRC_SMALL);
+                $this->_data['logo_src_small'] = Mage::helper('page')->getLogoSrc($src);
+            }
         }
 
-        return $this->getSkinUrl($this->_data['logo_src_small']);
+        return $this->_data['logo_src_small'];
     }
 
     /**

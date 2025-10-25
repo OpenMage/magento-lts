@@ -10,7 +10,7 @@ test.config = {
     _: '#nav-admin-catalog-products',
     _nav: '#nav-admin-catalog',
     _title: base._title,
-    _button: '.content-header button', // Custom base button selector
+    _button: base._button,
     url: 'catalog_product/index',
     index: {},
     edit: {},
@@ -19,19 +19,27 @@ test.config = {
 
 /**
  * Configuration for "Manage Products" page
- * @type {{__buttons: {add: {_: string}}, title: string, url: string, _grid: string, clickAdd: (function(): void)}}
+ * @type {{title: string, url: string, _grid: string, __buttons: {})}}
  */
 test.config.index = {
     title: 'Manage Products',
     url: test.config.url,
     _grid: '#productGrid_table',
-    __buttons: {
-        add: {
-            _: test.config._button + '[title="Add Product"]',
+    __buttons: {},
+}
+
+/**
+ * Configuration for buttons on "Manage Products" page
+ * @type {{add: {__class: string[], click: cy.openmage.test.backend.catalog.product.config.index.__buttons.add.click, _: string}}}
+ * @private
+ */
+test.config.index.__buttons = {
+    add: {
+        _: test.config._button + '[title="Add Product"]',
+        __class: base.__buttons.add.__class,
+        click: () => {
+            tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
         },
-    },
-    clickAdd: () => {
-        tools.click(test.config.index.__buttons.add._, 'Add New Products button clicked');
     },
 }
 
@@ -44,23 +52,14 @@ test.config.edit = {
     title: 'Plaid Cotton',
     url: 'catalog_product/edit',
     __buttons: {
-        save: {
-            _: test.config._button + '[title="Save"]',
-        },
-        saveAndContinue: {
-            _: test.config._button + '[title="Save and Continue Edit"]',
-        },
-        delete: {
-            _: test.config._button + '[title="Delete"]',
-        },
-        back: {
-            _: test.config._button + '[title="Back"]',
-        },
-        reset: {
-            _: test.config._button + '[title="Reset"]',
-        },
+        save: base.__buttons.save,
+        saveAndContinue: base.__buttons.saveAndContinue,
+        delete: base.__buttons.delete,
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
         duplicate: {
             _: test.config._button + '[title="Duplicate"]',
+            __class: ['scalable', 'add', 'duplicate'],
         }
     },
 }
@@ -72,4 +71,8 @@ test.config.edit = {
 test.config.new = {
     title: 'New Product',
     url: 'catalog_product/new',
+    __buttons: {
+        back: base.__buttons.back,
+        reset: base.__buttons.reset,
+    },
 }

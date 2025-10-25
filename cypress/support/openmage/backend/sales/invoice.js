@@ -27,20 +27,10 @@ test.config.index = {
 
 /**
  * Configuration for "View Invoice" page
- * @type {{__buttons: {print: string, back: string, email: string}, title: string, url: string}}
+ * @type {{title: string, url: string, __buttons: cy.openmage.test.backend.__base.__buttonsSets.sales}}
  */
 test.config.view = {
     title: 'Invoice #',
     url: 'sales_invoice/view',
-    __buttons: {
-        print: {
-            _: base._button + '[title="Print"]',
-        },
-        email: {
-            _: base._button + '[title="Send Email"]',
-        },
-        back: {
-            _: base.__buttons.back._,
-        },
-    },
+    __buttons: base.__buttonsSets.sales,
 }

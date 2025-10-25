@@ -3,10 +3,10 @@
  * @type {{removeClasses: cy.openmage.validation.removeClasses, pageElements: cy.openmage.validation.pageElements, _hasMessage: cy.openmage.validation._hasMessage, fillFields: cy.openmage.validation.fillFields, _warningMessage: string, hasWarningMessage: cy.openmage.validation.hasWarningMessage, removeClassesAll: cy.openmage.validation.removeClassesAll, _errorMessage: string, validateFields: cy.openmage.validation.validateFields, hasErrorMessage: cy.openmage.validation.hasErrorMessage, _successMessage: string, _messagesContainer: string, hasSuccessMessage: cy.openmage.validation.hasSuccessMessage}}
  */
 cy.openmage.validation = {
-    _messagesContainer: '#messages',
-    _errorMessage: '.error-msg',
-    _successMessage: '.success-msg',
-    _warningMessage: '.warning-msg',
+    _messagesContainer: 'div#messages',
+    _errorMessage: 'li.error-msg',
+    _successMessage: 'li.success-msg',
+    _warningMessage: 'li.warning-msg',
     emptyFields: (path, value = '') =>{
         cy.log('Empty fields');
         Object.keys(path.__fields).forEach(field => {
